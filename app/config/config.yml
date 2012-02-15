@@ -58,3 +58,18 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.noop
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            tree: true
+            timestampable: true
+
+armd_cms:
+    ignore_route_patterns:
+        - /(.*)admin(.*)/
