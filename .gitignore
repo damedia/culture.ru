@@ -1,3 +1,4 @@
+/vendor/*
 /web/bundles/
 /web/uploads/*
 /app/bootstrap*
