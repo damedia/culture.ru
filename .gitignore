@@ -1,0 +1,8 @@
+/web/bundles/
+/web/uploads/*
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/app/spool/*
+/app/config/parameters.ini
+*.php~
