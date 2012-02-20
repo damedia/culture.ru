@@ -7,6 +7,13 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+ApplicationSonataUserBundle:
+    resource: '@ApplicationSonataUserBundle/Resources/config/routing/application_admin_security.xml'
+    prefix:   /admin
+
+sonata_user:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /admin
 
 # Internal routing configuration to handle ESI
 #_internal:

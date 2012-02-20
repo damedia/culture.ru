@@ -112,3 +112,15 @@
     git=git@git.armd.ru:CmsNewsBundle.git
     target=/bundles/Armd/Bundle/NewsBundle
 
+[SonataEasyExtendsBundle]
+    git=http://github.com/sonata-project/SonataEasyExtendsBundle.git
+    target=/bundles/Sonata/EasyExtendsBundle
+
+[FOSUserBundle]
+    git=http://github.com/FriendsOfSymfony/FOSUserBundle.git
+    target=/bundles/FOS/UserBundle
+
+[SonataUserBundle]
+    git=http://github.com/sonata-project/SonataUserBundle.git
+    target=/bundles/Sonata/UserBundle
+

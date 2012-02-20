@@ -16,6 +16,14 @@ framework:
         default_locale: %locale%
         auto_start:     true
 
+sonata_user:
+    security_acl: true
+
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     Application\Sonata\UserBundle\Entity\User
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
@@ -73,3 +81,4 @@ stof_doctrine_extensions:
 armd_cms:
     ignore_route_patterns:
         - /(.*)admin(.*)/
+        - /(.*)sonata_user_impersonating(.*)/
