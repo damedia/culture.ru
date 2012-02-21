@@ -124,3 +124,6 @@
     git=http://github.com/sonata-project/SonataUserBundle.git
     target=/bundles/Sonata/UserBundle
 
+[ArmdExtJSBundle]
+    git=git@git.armd.ru:extjsbundle.git
+    target=/bundles/Armd/Bundle/ExtJSBundle
