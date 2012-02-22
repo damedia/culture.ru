@@ -127,3 +127,7 @@
 [ArmdExtJSBundle]
     git=git@git.armd.ru:extjsbundle.git
     target=/bundles/Armd/Bundle/ExtJSBundle
+
+[ArmdCmsMenuBundle]
+    git=git@git.armd.ru:cmsmenubundle.git
+    target=/bundles/Armd/Bundle/CmsMenuBundle
