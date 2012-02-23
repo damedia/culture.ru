@@ -88,6 +88,9 @@ armd_cms:
     ignore_route_patterns:
         - /(.*)admin(.*)/
         - /(.*)sonata_user_impersonating(.*)/
+        - /_profiler/
+        - /_wdt/
+
 
 simple_things_entity_audit:
     audited_entities:
