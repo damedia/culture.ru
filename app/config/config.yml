@@ -82,3 +82,7 @@ armd_cms:
     ignore_route_patterns:
         - /(.*)admin(.*)/
         - /(.*)sonata_user_impersonating(.*)/
+
+simple_things_entity_audit:
+    audited_entities:
+        - ArmdCmsBundle\Entity\Page
