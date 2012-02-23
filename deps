@@ -131,3 +131,8 @@
 [ArmdCmsMenuBundle]
     git=git@git.armd.ru:cmsmenubundle.git
     target=/bundles/Armd/Bundle/CmsMenuBundle
+
+[ArmdAdminBundle]
+    git=git@git.armd.ru:adminbundle.git
+    target=/bundles/Armd/Bundle/AdminBundle
+
