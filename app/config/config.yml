@@ -76,6 +76,8 @@ jms_security_extra:
 sonata_admin:
     security:
         handler: sonata.admin.security.handler.noop
+    title: " "
+    title_logo: /bundles/armdadmin/images/mincom-logo.png
 
 stof_doctrine_extensions:
     orm:
