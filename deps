@@ -135,3 +135,7 @@
 [ArmdCmsTextBundle]
     git=git@git.armd.ru:cmstextbundle.git
     target=/bundles/Armd/Bundle/TextBundle
+
+[ArmdAdminBundle]
+    git=git@git.armd.ru:adminbundle.git
+    target=/bundles/Armd/Bundle/AdminBundle

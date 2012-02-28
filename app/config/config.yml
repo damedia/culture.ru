@@ -76,6 +76,8 @@ jms_security_extra:
 sonata_admin:
     security:
         handler: sonata.admin.security.handler.noop
+    title: " "
+    title_logo: /bundles/armdadmin/images/mincom-logo.png
 
 stof_doctrine_extensions:
     orm:
@@ -88,3 +90,10 @@ armd_cms:
     ignore_route_patterns:
         - /(.*)admin(.*)/
         - /(.*)sonata_user_impersonating(.*)/
+        - /_profiler/
+        - /_wdt/
+
+
+simple_things_entity_audit:
+    audited_entities:
+        - ArmdCmsBundle\Entity\Page
