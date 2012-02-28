@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
             new Armd\Bundle\NewsBundle\ArmdNewsBundle(),
+            new Armd\Bundle\TextBundle\ArmdTextBundle(),
             new Armd\Bundle\CmsMenuBundle\ArmdCmsMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
