@@ -77,6 +77,14 @@
     git=http://github.com/sonata-project/SonataAdminBundle.git
     target=/bundles/Sonata/AdminBundle
 
+[SonataBlockBundle]
+    git=http://github.com/sonata-project/SonataBlockBundle.git
+    target=/bundles/Sonata/BlockBundle
+
+[SonataCacheBundle]
+    git=http://github.com/sonata-project/SonataCacheBundle.git
+    target=/bundles/Sonata/CacheBundle
+
 [KnpMenuBundle]
     git=https://github.com/KnpLabs/KnpMenuBundle.git
     target=/bundles/Knp/Bundle/MenuBundle

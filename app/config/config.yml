@@ -78,6 +78,16 @@ sonata_admin:
         handler: sonata.admin.security.handler.noop
     title: " "
     title_logo: /bundles/armdadmin/images/mincom-logo.png
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
 
 stof_doctrine_extensions:
     orm:
