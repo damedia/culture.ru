@@ -34,7 +34,7 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Armd\Bundle\ExtJSBundle\ArmdExtJSBundle(),
-            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
+//            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             #new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
         );
 
