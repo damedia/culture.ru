@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Armd\Bundle\ExtJSBundle\ArmdExtJSBundle(),
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Armd\Bundle\CmsTemplateBundle\ArmdCmsTemplateBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
