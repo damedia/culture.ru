@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             #new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+            new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

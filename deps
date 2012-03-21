@@ -76,6 +76,7 @@
 [SonataAdminBundle]
     git=http://github.com/sonata-project/SonataAdminBundle.git
     target=/bundles/Sonata/AdminBundle
+    version=origin/2.0
 
 [SonataBlockBundle]
     git=http://github.com/sonata-project/SonataBlockBundle.git
@@ -164,3 +165,7 @@
 [buzz]
     git=http://github.com/kriswallsmith/Buzz.git
     target=/buzz
+
+#[ArmdMkResourcesBundle]
+#    git=git@git.armd.ru:mkresourcesbundle.git
+#    target=/bundles/Armd/Bundle/MkResourcesBundle

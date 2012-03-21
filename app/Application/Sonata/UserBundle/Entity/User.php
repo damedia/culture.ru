@@ -37,4 +37,17 @@ class User extends BaseUser
     {
         return $this->id;
     }
+    
+    /**
+     * @return void
+     */
+    public function prePersist()
+    {
+        parent::prePersist();
+        
+        if (null === $this->getTwoStepVerificationCode())
+        {
+            $this->setTwoStepVerificationCode('');
+        }        
+    }    
 }
