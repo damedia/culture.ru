@@ -148,3 +148,19 @@
 [ArmdAdminBundle]
     git=git@git.armd.ru:adminbundle.git
     target=/bundles/Armd/Bundle/AdminBundle
+
+[SonataMediaBundle]
+    git=http://github.com/sonata-project/SonataMediaBundle.git
+    target=/bundles/Sonata/MediaBundle
+
+[Imagine]:
+    git=http://github.com/avalanche123/Imagine.git
+    target=/imagine
+
+[Gaufrette]
+    git=http://github.com/KnpLabs/Gaufrette.git
+    target=/gaufrette
+
+[buzz]
+    git=http://github.com/kriswallsmith/Buzz.git
+    target=/buzz
