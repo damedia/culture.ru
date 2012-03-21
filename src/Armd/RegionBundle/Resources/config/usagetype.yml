@@ -1,0 +1,43 @@
+parameters:
+    armd_region.usagetypes:
+        types:
+            item:
+                controller: Region
+                action: item
+                title: Карточка региона
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+                params:
+                    template:
+                        title: Шаблон карточки
+                        default: item
+                        type: tempalte
+                        bundleName: ArmdRegionBundle
+                        controller: Region
+                        action: item
+            list:
+                controller: Region
+                action: list
+                title: Список регионов
+                params:
+                    template:
+                        title: Шаблон списка
+                        default: list
+                        type: tempalte
+                        bundleName: ArmdRegionBundle
+                        controller: Region
+                        action: list
+        group:
+            list:
+                types: [list]
+            listitem:
+                types: [item, list]
+
+services:
+    armd_region.usagetype:
+        class: %armd_cms.usagetype.class%
+        arguments: ["armd_region", %armd_region.usagetypes%]
+        tags:
+            -  { name: armd_cms.usage }

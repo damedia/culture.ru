@@ -1,0 +1,8 @@
+parameters:
+    armd_region.controller.region.class: Armd\RegionBundle\Controller\RegionController
+
+services:
+    armd_region.controller.region:
+        class: %armd_region.controller.region.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]

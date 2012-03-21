@@ -1,0 +1,17 @@
+Regions: Регионы
+
+Region List: Список регионов
+Region Edit: Редактирование региона
+Region Create: Добавление региона
+
+Code: Код региона
+Okato: Код ОКАТО
+
+armd_news: Новости
+list: Список новостей
+listitem: Список и карточка новостей
+item: Карточка новости
+
+usagetype.title.armd_news.item: Карточка
+usagetype.title.armd_news.listitem: Список
+usagetype.title.armd_news.list: Список без карточки
