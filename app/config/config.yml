@@ -125,6 +125,14 @@ sonata_media:
             formats:
                 small: { width: 100 , quality: 85 }
                 big:   { width: 500 , quality: 85 }
+        news:
+            providers:
+                - sonata.media.provider.vimeo
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+            formats:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90}
 
         news:
             providers:
