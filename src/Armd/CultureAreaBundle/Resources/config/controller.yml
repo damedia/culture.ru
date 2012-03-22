@@ -1,0 +1,8 @@
+parameters:
+    armd_culture_area.controller.culture_area.class: Armd\CultureAreaBundle\Controller\CultureAreaController
+
+services:
+    armd_culture_area.controller.culture_area:
+        class: %armd_culture_area.controller.culture_area.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]

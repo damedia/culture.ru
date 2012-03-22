@@ -1,0 +1,14 @@
+Culture Areas: Направления культуры
+
+Culture Area List: Список направлений культуры
+Culture Area Edit: Редактирование направления культуры
+Culture Area Create: Добавление направления культуры
+
+armd_culture_area: Направления культуры
+list: Список без карточки
+listitem: Список
+item: Карточка
+
+usagetype.title.armd_culture_area.item: Карточка
+usagetype.title.armd_culture_area.listitem: Список
+usagetype.title.armd_culture_area.list: Список без карточки
