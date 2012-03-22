@@ -134,14 +134,6 @@ sonata_media:
                 small: { width: 150 , quality: 95}
                 big:   { width: 500 , quality: 90}
 
-        news:
-            providers:
-                - sonata.media.provider.vimeo
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small: { width: 150 , quality: 95}
-                big:   { width: 500 , quality: 90}
     cdn:
         server:
             path: /uploads/media # http://media.sonata-project.org/
