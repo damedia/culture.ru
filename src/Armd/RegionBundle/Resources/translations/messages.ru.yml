@@ -7,11 +7,11 @@ Region Create: Добавление региона
 Code: Код региона
 Okato: Код ОКАТО
 
-armd_news: Новости
-list: Список новостей
-listitem: Список и карточка новостей
-item: Карточка новости
+armd_region: Регионы
+list: Список без карточки
+listitem: Список
+item: Карточка
 
-usagetype.title.armd_news.item: Карточка
-usagetype.title.armd_news.listitem: Список
-usagetype.title.armd_news.list: Список без карточки
+usagetype.title.armd_region.item: Карточка
+usagetype.title.armd_region.listitem: Список
+usagetype.title.armd_region.list: Список без карточки

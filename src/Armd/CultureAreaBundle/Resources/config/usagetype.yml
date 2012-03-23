@@ -13,7 +13,7 @@ parameters:
                     template:
                         title: Шаблон карточки
                         default: item
-                        type: tempalte
+                        type: template
                         bundleName: ArmdCultureAreaBundle
                         controller: CultureArea
                         action: item
@@ -25,7 +25,7 @@ parameters:
                     template:
                         title: Шаблон списка
                         default: list
-                        type: tempalte
+                        type: template
                         bundleName: ArmdCultureAreaBundle
                         controller: CultureArea
                         action: list

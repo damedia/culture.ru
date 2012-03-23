@@ -5,30 +5,31 @@ namespace Armd\RegionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /** 
- @ORM\Entity 
-*/
+ * @ORM\Entity 
+ * @ORM\Table(name="content_region") 
+ */
 class Region
 {
     /**
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    */    
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */    
     private $id;
 
     /**
-    * @ORM\Column(type="string")
-    */    
+     * @ORM\Column(type="string")
+     */    
     private $title;
     
     /**
-    * @ORM\Column(type="integer", nullable="true")
-    */    
+     * @ORM\Column(type="integer", nullable="true")
+     */    
     private $code;
     
     /**
-    * @ORM\Column(type="integer", nullable="true")
-    */    
+     * @ORM\Column(type="integer", nullable="true")
+     */    
     private $okato;    
 
     /**

@@ -35,7 +35,7 @@ class AppKernel extends Kernel
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Armd\Bundle\ExtJSBundle\ArmdExtJSBundle(),
 //            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-            #new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
