@@ -166,6 +166,6 @@
     git=http://github.com/kriswallsmith/Buzz.git
     target=/buzz
 
-#[ArmdMkResourcesBundle]
-#    git=git@git.armd.ru:mkresourcesbundle.git
-#    target=/bundles/Armd/Bundle/MkResourcesBundle
+[ArmdMkResourcesBundle]
+    git=git@git.armd.ru:mkresourcesbundle.git
+    target=/bundles/Armd/Bundle/MkResourcesBundle

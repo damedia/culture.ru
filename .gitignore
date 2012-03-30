@@ -6,4 +6,5 @@
 /app/logs/*
 /app/spool/*
 /app/config/parameters.ini
+/tmp/*
 *.php~

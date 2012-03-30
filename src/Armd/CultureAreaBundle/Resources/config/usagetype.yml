@@ -9,26 +9,10 @@ parameters:
                     pattern: /{id}
                     requirements:
                         id: \d+
-                params:
-                    template:
-                        title: Шаблон карточки
-                        default: item
-                        type: template
-                        bundleName: ArmdCultureAreaBundle
-                        controller: CultureArea
-                        action: item
             list:
                 controller: CultureArea
                 action: list
                 title: Список
-                params:
-                    template:
-                        title: Шаблон списка
-                        default: list
-                        type: template
-                        bundleName: ArmdCultureAreaBundle
-                        controller: CultureArea
-                        action: list
         group:
             item:
                 types: [item]            
@@ -38,6 +22,6 @@ parameters:
 services:
     armd_culture_area.usagetype:
         class: %armd_cms.usagetype.class%
-        arguments: ["armd_culture_area", %armd_culture_area.usagetypes%]
+        arguments: ["armd_culture_area", %armd_culture_area.usagetypes%, "ArmdCultureAreaBundle"]
         tags:
             -  { name: armd_cms.usage }
