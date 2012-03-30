@@ -105,7 +105,7 @@ armd_cms:
         - /_configurator/
         - /_sys_(.*?)/
     template:
-        theme: ArmdMkResourcesBundle
+#        theme: ArmdMkResourcesBundle
 
 
 #simple_things_entity_audit:

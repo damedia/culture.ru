@@ -43,6 +43,7 @@ class AppKernel extends Kernel
             new Armd\ExtendedNewsBundle\ArmdExtendedNewsBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\CultureMapBundle\ArmdCultureMapBundle(),
+            new Armd\CommonBundle\ArmdCommonBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
