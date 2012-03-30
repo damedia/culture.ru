@@ -1,0 +1,43 @@
+parameters:
+    armd_culture_map.usagetypes:
+        types:
+            list:
+                controller: culture_map
+                action: list
+                title: Карта субъектов РФ
+                params:
+                    template:
+                        title: Шаблон карты субъектов РФ
+                        default: list
+                        type: template
+                        bundleName: ArmdCultureMapBundle
+                        controller: culture_map
+                        action: list
+            subject:
+                controller: culture_map
+                action: subject
+                title: Карточка субъекта РФ
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+                params:
+                    template:
+                        title: Шаблон карточки субъекта РФ
+                        default: subject
+                        type: template
+                        bundleName: ArmdCultureMapBundle
+                        controller: culture_map
+                        action: subject
+        group:
+            list:
+                types: [list]
+            subject:
+                types: [subject]
+
+services:
+    armd_culture_map.usagetype:
+        class: %armd_cms.usagetype.class%
+        arguments: ["armd_culture_map", %armd_culture_map.usagetypes%]
+        tags:
+            -  { name: armd_cms.usage }
