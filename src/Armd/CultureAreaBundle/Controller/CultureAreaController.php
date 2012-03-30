@@ -10,14 +10,14 @@ class CultureAreaController extends Controller
 {           
     public function listAction(UsageType $params)
     {   
-        $entities = $this->getEntityRepository()->findAll();        
+        $entities = $this->getEntityRepository($params)->findAll();        
 
         return $this->renderCms($params, array( 'entities' => $entities ));
     }
 
     public function itemAction(UsageType $params, $id)
     {
-        $entity = $this->getEntityRepository()->find($id);
+        $entity = $this->getEntityRepository($params)->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find entity.');
