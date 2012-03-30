@@ -1,0 +1,14 @@
+parameters:
+
+services:
+    armd_culture_map.admin.subject:
+        class: Armd\CultureMapBundle\Admin\SubjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Субъект РФ }
+        arguments: [null, Armd\CultureMapBundle\Entity\Subject, SonataAdminBundle:CRUD]
+
+    armd_culture_map.admin.culture_object:
+        class: Armd\CultureMapBundle\Admin\CultureObjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Объект культуры }
+        arguments: [null, Armd\CultureMapBundle\Entity\CultureObject, SonataAdminBundle:CRUD]

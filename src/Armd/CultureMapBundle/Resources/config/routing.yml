@@ -1,0 +1,11 @@
+_sys_culturemap_regions:
+    pattern:  /sys/map/regions
+    defaults: { _controller: ArmdCultureMapBundle:CultureMap:regions }
+
+_sys_culturemap_region:
+    pattern:  /sys/map/region
+    defaults: { _controller: ArmdCultureMapBundle:CultureMap:region }
+
+_sys_culturemap_markers:
+    pattern:  /sys/map/markers
+    defaults: { _controller: ArmdCultureMapBundle:CultureMap:markers }

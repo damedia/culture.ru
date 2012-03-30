@@ -1,0 +1,98 @@
+<style>
+    .properties{ text-align:left; }
+    .properties th{ padding-right:20px; color:#a55; font-weight:normal; }
+</style>
+
+<a name="details"></a>
+
+<h1>{{ entity.title }}</h1>
+<table class="properties">
+    <tr>
+        <th>Заголовок</th>
+        <td>{{ entity.title }}</td>
+    </tr>
+    <tr>
+        <th>Герб</th>
+        <td>{% thumbnail entity.logo, 'small' %}</td>
+    </tr>
+    <tr>
+        <th>Текст</th>
+        <td>{{ entity.text }}</td>
+    </tr>
+</table>
+
+<h2>Карточка региона (визуальное оформление в виде мини-карточки)</h2>
+<table class="properties">
+    <tr>
+        <th>Площадь</th>
+        <td>{{ entity.square }}</td>
+    </tr>
+    <tr>
+        <th>Количество городов</th>
+        <td>{{ entity.cityCount }}</td>
+    </tr>
+    <tr>
+        <th>Количество других населенных пунктов</th>
+        <td>{{ entity.villageCount }}</td>
+    </tr>
+    <tr>
+        <th>Население (городское)</th>
+        <td>{{ entity.cityPopulation }}</td>
+    </tr>
+    <tr>
+        <th>Население (сельское)</th>
+        <td>{{ entity.villagePopulation }}</td>
+    </tr>
+    <tr>
+        <th>Административный центр</th>
+        <td>{{ entity.administrativeCenter }}</td>
+    </tr>
+    <tr>
+        <th>Народности</th>
+        <td>{{ entity.nationality }}</td>
+    </tr>
+    <tr>
+        <th>Языки</th>
+        <td>{{ entity.language }}</td>
+    </tr>
+    <tr>
+        <th>Религии</th>
+        <td>{{ entity.religion }}</td>
+    </tr>
+</table>
+
+<h2>Учреждения культуры:</h2>
+<ul>
+    <li>Музеи (список)</li>
+    <li>Выставочные залы (список)</li>
+    <li>Театры (список)</li>
+    <li>Цирки (список)</li>
+    <li>Кинотеатры (список)</li>
+    <li>Концертные организации (список)</li>
+    <li>Концертные площадки (список)</li>
+    <li>Концертные коллективы (список)</li>
+    <li>Творческие союзы (список)</li>
+    <li>Дома народного творчества (список)</li>
+    <li>Киностудии (список)</li>
+    <li>Научно-исследовательские учреждения (список)</li>
+    <li>Образовательные учреждения (список)</li>
+    <li>Библиотеки (список)</li>
+    <li>Другие учреждения культуры (список)</li>
+</ul>
+
+{% if entity.gallery %}
+<h2>Фотогалерея &laquo;{{ entity.gallery.name }}&raquo;</h2>
+<ul class="inline">
+    {% for galleryHasMedia in entity.gallery.GalleryHasMedias %}
+    <li>
+        <a href="{% path galleryHasMedia.media, 'reference' %}">
+            {% thumbnail galleryHasMedia.media, entity.gallery.defaultFormat %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+<style type="text/css">
+    ul.inline{ background:#eee; margin:0; padding:0; list-style-type:none; }
+    ul.inline li{ display:inline-block; }
+</style>
+{% endif %}
