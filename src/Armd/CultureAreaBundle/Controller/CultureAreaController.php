@@ -2,9 +2,9 @@
 
 namespace Armd\CultureAreaBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Armd\Bundle\CmsBundle\Controller\Controller;
 
 class CultureAreaController extends Controller
 {
