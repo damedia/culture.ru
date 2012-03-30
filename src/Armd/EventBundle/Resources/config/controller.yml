@@ -1,0 +1,8 @@
+parameters:
+    armd_event.controller.event.class: Armd\EventBundle\Controller\EventController
+
+services:
+    armd_event.controller.event:
+        class: %armd_event.controller.event.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]

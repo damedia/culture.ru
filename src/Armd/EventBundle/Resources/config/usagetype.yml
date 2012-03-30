@@ -1,0 +1,33 @@
+parameters:
+    armd_event.usagetypes:
+        types:
+            item:
+                controller: event
+                action: item
+                title: Карточка
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+            list:
+                controller: event
+                action: list
+                title: Список
+                params:
+                    per_page:
+                        title: Количество элементов на странце
+                        default: 10
+                        type: int
+                        requirements: 1
+        group:
+            list:
+                types: [list]
+            listitem:
+                types: [item, list]
+
+services:
+    armd_event.usagetype:
+        class: %armd_cms.usagetype.class%
+        arguments: ["armd_event", %armd_event.usagetypes%, "ArmdEventBundle"]
+        tags:
+            -  { name: armd_cms.usage }
