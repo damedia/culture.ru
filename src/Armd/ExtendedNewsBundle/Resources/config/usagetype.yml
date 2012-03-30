@@ -1,0 +1,33 @@
+parameters:
+    armd_news.usagetypes:
+        types:
+            item:
+                controller: news
+                action: item
+                title: Карточка новости
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+            list:
+                controller: news
+                action: list
+                title: Список новостей
+                params:
+                    per_page:
+                        title: Новостей на страницу
+                        default: 10
+                        type: int
+                        requirements: 1
+        group:
+            list:
+                types: [list]
+            listitem:
+                types: [item, list]
+
+services:
+    armd_news.usagetype:
+        class: %armd_cms.usagetype.class%
+        arguments: ["armd_news", %armd_news.usagetypes%, "ArmdExtendedNewsBundle"]
+        tags:
+            -  { name: armd_cms.usage }

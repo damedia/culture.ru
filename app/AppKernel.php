@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
             new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
+            new Armd\ExtendedNewsBundle\ArmdExtendedNewsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
