@@ -41,6 +41,7 @@ class AppKernel extends Kernel
             new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
             new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
             new Armd\ExtendedNewsBundle\ArmdExtendedNewsBundle(),
+            new Armd\CultureMapBundle\ArmdCultureMapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
