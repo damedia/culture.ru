@@ -103,6 +103,7 @@ armd_cms:
         - /_profiler/
         - /_wdt/
         - /_configurator/
+        - /_sys_(.*?)/
     template:
         theme: ArmdMkResourcesBundle
 
@@ -112,16 +113,15 @@ armd_cms:
 #        - ArmdCmsBundle\Entity\Page
 
 sonata_media:
-    db_driver: doctrine_orm # or doctrine_mongodb
+    db_driver: doctrine_orm
     default_context: default
     contexts:
-        default:  # the default context is mandatory
+        default:
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
                 - sonata.media.provider.file
-
             formats:
                 small: { width: 100 , quality: 85 }
                 big:   { width: 500 , quality: 85 }
@@ -131,12 +131,18 @@ sonata_media:
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
             formats:
-                small: { width: 150 , quality: 95}
-                big:   { width: 500 , quality: 90}
+                small: { width: 150 , quality: 95 }
+                big:   { width: 500 , quality: 90 }
+        mincult:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                small: { width: 150 , quality: 95 }
+                big:   { width: 800 , quality: 95 }
 
     cdn:
         server:
-            path: /uploads/media # http://media.sonata-project.org/
+            path: /uploads/media
 
     filesystem:
         local:
