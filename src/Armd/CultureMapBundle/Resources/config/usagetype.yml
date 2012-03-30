@@ -5,14 +5,6 @@ parameters:
                 controller: culture_map
                 action: list
                 title: Карта субъектов РФ
-                params:
-                    template:
-                        title: Шаблон карты субъектов РФ
-                        default: list
-                        type: template
-                        bundleName: ArmdCultureMapBundle
-                        controller: culture_map
-                        action: list
             subject:
                 controller: culture_map
                 action: subject
@@ -21,14 +13,6 @@ parameters:
                     pattern: /{id}
                     requirements:
                         id: \d+
-                params:
-                    template:
-                        title: Шаблон карточки субъекта РФ
-                        default: subject
-                        type: template
-                        bundleName: ArmdCultureMapBundle
-                        controller: culture_map
-                        action: subject
         group:
             list:
                 types: [list]
@@ -38,6 +22,6 @@ parameters:
 services:
     armd_culture_map.usagetype:
         class: %armd_cms.usagetype.class%
-        arguments: ["armd_culture_map", %armd_culture_map.usagetypes%]
+        arguments: ["armd_culture_map", %armd_culture_map.usagetypes%, "ArmdCultureMapBundle"]
         tags:
             -  { name: armd_cms.usage }
