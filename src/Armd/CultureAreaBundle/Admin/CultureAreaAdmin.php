@@ -63,8 +63,6 @@ class CultureAreaAdmin extends Admin
         $listMapper
             ->addIdentifier('title')          
             ->add('parent')
-            ->add('announce')
-            ->add('body')                        
         ;
     }
 }
