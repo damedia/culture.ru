@@ -4,13 +4,14 @@ namespace Armd\CultureAreaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Armd\Bundle\CmsBundle\Entity\BaseContent;
 
 /** 
  * @ORM\Entity 
  * @ORM\Table(name="content_culture_area")
  * @Gedmo\Tree(type="nested")
  */
-class CultureArea
+class CultureArea extends BaseContent
 {
     /**
      * @ORM\Id

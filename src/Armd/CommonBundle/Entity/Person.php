@@ -12,6 +12,13 @@ use Armd\Bundle\CmsBundle\Entity\BaseContent;
 class Person extends BaseContent
 {
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */    
+    private $id;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $lastname;
