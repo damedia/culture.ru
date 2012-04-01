@@ -30,7 +30,9 @@ class CultureAreaAdmin extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('parent')            
+            ->add('parent')         
+            ->add('announce')
+            ->add('body')            
         ;
     }
 
@@ -45,6 +47,8 @@ class CultureAreaAdmin extends Admin
             ->with('General')
                 ->add('title')
                 ->add('parent', null, array('required' => false))                
+                ->add('announce')
+                ->add('body')                            
             ->end()
         ;
     }
@@ -59,6 +63,8 @@ class CultureAreaAdmin extends Admin
         $listMapper
             ->addIdentifier('title')          
             ->add('parent')
+            ->add('announce')
+            ->add('body')                        
         ;
     }
 }

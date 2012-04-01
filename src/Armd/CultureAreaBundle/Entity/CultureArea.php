@@ -26,6 +26,16 @@ class CultureArea extends BaseContent
     private $title;
     
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $announce;    
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $body;    
+    
+    /**
      * @Gedmo\TreeLeft
      * @ORM\Column(name="lft", type="integer")
      */
@@ -225,5 +235,45 @@ class CultureArea extends BaseContent
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Set announce
+     *
+     * @param text $announce
+     */
+    public function setAnnounce($announce)
+    {
+        $this->announce = $announce;
+    }
+
+    /**
+     * Get announce
+     *
+     * @return text 
+     */
+    public function getAnnounce()
+    {
+        return $this->announce;
+    }
+
+    /**
+     * Set body
+     *
+     * @param text $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text 
+     */
+    public function getBody()
+    {
+        return $this->body;
     }
 }
