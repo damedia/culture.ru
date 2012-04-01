@@ -49,6 +49,37 @@ class Person extends BaseContent
     private $birthpalce;
     
     /**
+     * @ORM\OneToMany(targetEntity="Artwork", mappedBy="author")
+     */    
+    private $artworks;
+        
+    public function __construct()
+    {
+        $this->artworks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get title
+     *
+     * @return string 
+     */    
+    
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }    
+    
+    /**
      * Get title
      *
      * @return string 
@@ -178,5 +209,25 @@ class Person extends BaseContent
     public function getBirthpalce()
     {
         return $this->birthpalce;
+    }
+    
+    /**
+     * Add artworks
+     *
+     * @param Armd\CommonBundle\Entity\Artwork $artworks
+     */
+    public function addArtwork(\Armd\CommonBundle\Entity\Artwork $artworks)
+    {
+        $this->artworks[] = $artworks;
+    }
+
+    /**
+     * Get artworks
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getArtworks()
+    {
+        return $this->artworks;
     }
 }

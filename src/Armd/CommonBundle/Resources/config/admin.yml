@@ -1,0 +1,26 @@
+parameters:
+
+services:
+    armd_common.admin.person:
+        class: Armd\CommonBundle\Admin\PersonAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Persons }
+        arguments: [null, Armd\CommonBundle\Entity\Person, SonataAdminBundle:CRUD]
+        
+    armd_common.admin.artwork:
+        class: Armd\CommonBundle\Admin\ArtworkAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Artworks }
+        arguments: [null, Armd\CommonBundle\Entity\Artwork, SonataAdminBundle:CRUD]
+        
+    armd_common.admin.article:
+        class: Armd\CommonBundle\Admin\ArticleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Articles }
+        arguments: [null, Armd\CommonBundle\Entity\Article, SonataAdminBundle:CRUD]
+        
+    armd_common.admin.term:
+        class: Armd\CommonBundle\Admin\TermAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Terms }
+        arguments: [null, Armd\CommonBundle\Entity\Term, SonataAdminBundle:CRUD]
