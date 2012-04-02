@@ -100,7 +100,7 @@ class CultureMapController extends Controller
                     'success' => false,
                     'message' => 'Not found',
                 )),
-                $status = 404,
+                $status = 200,
                 array('Content-Type' => 'application/json')
             );
         }
