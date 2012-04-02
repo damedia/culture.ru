@@ -3,7 +3,7 @@
 namespace Armd\ExtendedNewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\NewsBundle\Entity\News as BaseNews;
+use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
 
 /**
  * @ORM\Entity
