@@ -1,0 +1,26 @@
+parameters:
+    armd_common.controller.article.class:   Armd\CommonBundle\Controller\ArticleController
+    armd_common.controller.artwork.class:   Armd\CommonBundle\Controller\ArtworkController
+    armd_common.controller.person.class:    Armd\CommonBundle\Controller\PersonController
+    armd_common.controller.term.class:      Armd\CommonBundle\Controller\TermController            
+                                            
+services:
+    armd_common.controller.article:
+        class: %armd_common.controller.article.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]
+            
+    armd_common.controller.artwork:
+        class: %armd_common.controller.artwork.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]
+            
+    armd_common.controller.person:
+        class: %armd_common.controller.person.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]
+            
+    armd_common.controller.term:
+        class: %armd_common.controller.term.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]                                    

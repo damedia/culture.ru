@@ -1,0 +1,52 @@
+parameters:
+    armd_common.usagetypes:
+        types:
+            article:
+                controller: article
+                action: item
+                title: Статья
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+            artwork:
+                controller: artwork
+                action: item
+                title: Объект искусства
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+            person:
+                controller: person
+                action: item
+                title: Персона
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
+            term:
+                controller: term
+                action: item
+                title: Термин
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+                        
+                                                
+        group:
+            article:
+                types: [article]         
+            artwork:
+                types: [artwork]
+            person:
+                types: [person]         
+            term:
+                types: [term]                                                                  
+                                   
+services:
+    armd_culture_area.usagetype:
+        class: %armd_cms.usagetype.class%
+        arguments: ["armd_common", %armd_common.usagetypes%, "ArmdCommonBundle"]
+        tags:
+            -  { name: armd_cms.usage }

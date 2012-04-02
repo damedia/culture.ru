@@ -2,6 +2,6 @@
 
 namespace Armd\CommonBundle\Controller;
 
-class PersonController extends BaseController
+class TermController extends BaseController
 {
 }
