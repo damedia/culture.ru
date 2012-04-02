@@ -3,3 +3,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
 </IfModule>
+
+AuthType Basic
+AuthName "Restricted area"
+AuthUserFile /www/mk.dev.armd.ru/app/.htpasswd
+Require valid-user
