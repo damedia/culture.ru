@@ -7,7 +7,7 @@ use Armd\Bundle\NewsBundle\Entity\News as BaseNews;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="content_news")
+ * @ORM\Table(name="content_news_extended")
  */
 class News extends BaseNews
 {
