@@ -2,11 +2,11 @@ parameters:
     armd_culture_map.usagetypes:
         types:
             list:
-                controller: culture_map
+                controller: cultureMap
                 action: list
                 title: Карта субъектов РФ
             subject:
-                controller: culture_map
+                controller: cultureMap
                 action: subject
                 title: Карточка субъекта РФ
                 route:
