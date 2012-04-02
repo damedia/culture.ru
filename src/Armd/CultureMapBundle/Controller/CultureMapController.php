@@ -14,7 +14,7 @@ class CultureMapController extends Controller
      */
     public function listAction(UsageType $params)
     {
-        return $this->renderCms($params, 'ArmdCultureMapBundle', 'CultureMap', 'list', array(
+        return $this->renderCms($params, array(
             'name' => 'Markiros',
         ));
     }
