@@ -12,9 +12,9 @@ class CultureMapController extends Controller
     /**
      * Display map.
      */
-    public function listAction(UsageType $params)
+    public function listAction()
     {
-        return $this->renderCms($params, array(
+        return $this->renderCms(array(
             'name' => 'Markiros',
         ));
     }
@@ -45,6 +45,8 @@ class CultureMapController extends Controller
     {
         $request = $this->container->get('request');
         $id = $request->query->get('id');
+        print $id;
+        exit;
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->findOneBy(array(
             'yname' => $id,
