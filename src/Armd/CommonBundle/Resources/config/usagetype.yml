@@ -45,7 +45,7 @@ parameters:
                 types: [term]                                                                  
                                    
 services:
-    armd_culture_area.usagetype:
+    armd_common.usagetype:
         class: %armd_cms.usagetype.class%
         arguments: ["armd_common", %armd_common.usagetypes%, "ArmdCommonBundle"]
         tags:
