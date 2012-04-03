@@ -8,7 +8,7 @@
                         <h3>{{ entity.title }}</h3>
                         <div>
                             {{ entity.announce }}
-                            <a class="balloon-readmore" href="#details" onclick="loadRegion();">Читать&nbsp;подробнее</a>
+                            <a class="balloon-readmore" href="{{ cmsPath('armd_culture_map', 'subject', { 'id':entity.id }) }}">Читать&nbsp;подробнее</a>
                         </div>
                     </td>
                 </tr>
@@ -37,8 +37,11 @@
             </table>
         </td>
         <td>
-            {{ entity.gallery }}
-            <img width="200" src="http://farm8.staticflickr.com/7168/6441730469_80a5f1d821_z.jpg" alt=""/>
+            {% if galleryRandomImage %}
+                <a href="{% path galleryRandomImage.media, 'reference' %}">
+                    {% thumbnail galleryRandomImage.media, 'small' %}
+                </a>
+            {% endif %}
         </td>
     </tr>
 </table>

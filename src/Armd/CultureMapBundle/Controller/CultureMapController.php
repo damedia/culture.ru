@@ -45,22 +45,33 @@ class CultureMapController extends Controller
     {
         $request = $this->container->get('request');
         $id = $request->query->get('id');
-        print $id;
-        exit;
         $em = $this->getDoctrine()->getEntityManager();
-        $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->findOneBy(array(
-            'yname' => $id,
-        ));
-        if ($entity) {
+        try {
+            $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->findOneBy(array(
+                'yname' => $id,
+            ));
+            $gallery = $entity->getGallery();
+            if (! $gallery)
+                throw new \Exception('No gallery');
+            $images = $gallery->getGalleryHasMedias();
+            $galleryRandomImage = false;
+            $idx = rand(0, sizeof($images)-1);
+            foreach ($images as $i=>$image) {
+                if ($i==$idx) {
+                    $galleryRandomImage = $image;
+                    break;
+                }
+            }
             return $this->render('ArmdCultureMapBundle:CultureMap:region.html.twig', array(
                 'entity' => $entity,
+                'galleryRandomImage' => $galleryRandomImage,
             ));
         }
-        else {
+        catch (\Exception $e) {
             return new Response(
                 json_encode(array(
                     'success' => false,
-                    'message' => 'Not found',
+                    'message' => $e->getMessage(),
                 )),
                 $status = 404,
                 array('Content-Type' => 'application/json')
@@ -73,18 +84,19 @@ class CultureMapController extends Controller
         $request = $this->container->get('request');
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getEntityManager();
-        $entityList = $em->getRepository('ArmdCultureMapBundle:CultureObject')->findAll();
-        if ($entityList) {
+        try {
+            $entityList = $em->getRepository('ArmdCultureMapBundle:CultureObject')->findAll();
+            if (! $entityList)
+                throw new \Exception('Not found');
+
             $markers = array();
             foreach ($entityList as $item) {
-                //var_dump($item);
                 $markers[] = array(
                     'title' => $item->getTitle(),
                     'lat' => $item->getLatitude(),
                     'lng' => $item->getLongitude(),
                 );
             }
-
             return new Response(
                 json_encode(array(
                     'success' => true,
@@ -94,11 +106,11 @@ class CultureMapController extends Controller
                 array('Content-Type' => 'application/json')
             );
         }
-        else {
+        catch (\Exception $e) {
             return new Response(
                 json_encode(array(
                     'success' => false,
-                    'message' => 'Not found',
+                    'message' => $e->getMessage(),
                 )),
                 $status = 200,
                 array('Content-Type' => 'application/json')
@@ -106,14 +118,14 @@ class CultureMapController extends Controller
         }
     }
 
-    public function subjectAction(UsageType $params, $id)
+    public function subjectAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->find($id);
         if (! $entity) {
             throw $this->createNotFoundException('Unable to find Subject entity.');
         }
-        return $this->renderCms($params, 'ArmdCultureMapBundle', 'CultureMap', 'subject', array(
+        return $this->renderCms(array(
             'entity' => $entity,
         ));
     }

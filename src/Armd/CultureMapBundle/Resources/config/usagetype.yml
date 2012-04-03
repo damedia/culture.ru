@@ -15,7 +15,7 @@ parameters:
                         id: \d+
         group:
             list:
-                types: [list]
+                types: [list, subject]
             subject:
                 types: [subject]
 
