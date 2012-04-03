@@ -4,7 +4,9 @@
     RewriteRule ^(.*)$ app.php [QSA,L]
 </IfModule>
 
-AuthType Basic
-AuthName "Restricted area"
-AuthUserFile /www/mk.dev.armd.ru/app/.htpasswd
-Require valid-user
+<IfModule mod_auth.c>
+    AuthType Basic
+    AuthName "Restricted area"
+    AuthUserFile /www/mk.dev.armd.ru/app/.htpasswd
+    Require valid-user
+</IfModule>

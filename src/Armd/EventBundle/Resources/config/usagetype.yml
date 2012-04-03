@@ -3,21 +3,25 @@ parameters:
         types:
             item:
                 controller: event
-                action: item
-                title: Карточка
+                action: item                
                 route:
-                    pattern: /{id}
+                    pattern: /item-{id}
                     requirements:
                         id: \d+
             list:
                 controller: event
                 action: list
-                title: Список
+                route:
+                    pattern: /{page}
+                    defaults:
+                        page: 1
+                    requirements:
+                        page: \d+
                 params:
                     per_page:
-                        title: Количество элементов на странце
+                        title: Количество элементов на странице
+                        type: int                        
                         default: 10
-                        type: int
                         requirements: 1
         group:
             list:
