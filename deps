@@ -148,3 +148,8 @@
 [ArmdAdminBundle]
     git=git@git.armd.ru:adminbundle.git
     target=/bundles/Armd/Bundle/AdminBundle
+
+[ArmdSimtagBundle]
+    git=git@git.armd.ru:simtagbundle.git
+    target=/bundles/Armd/Bundle/SimtagBundle
+
