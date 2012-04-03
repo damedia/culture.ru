@@ -5,4 +5,4 @@ services:
         class: Armd\EventBundle\Admin\EventAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: module, label: Events }
-        arguments: [null, Armd\EventBundle\Entity\Event, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\EventBundle\Entity\Event, SonataAdminBundle:CRUD, @service_container]

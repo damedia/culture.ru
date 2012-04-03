@@ -5,4 +5,4 @@ services:
         class: Armd\RegionBundle\Admin\RegionAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: module, label: Regions }
-        arguments: [null, Armd\RegionBundle\Entity\Region, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\RegionBundle\Entity\Region, SonataAdminBundle:CRUD, @service_container]

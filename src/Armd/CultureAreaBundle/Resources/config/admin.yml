@@ -5,4 +5,4 @@ services:
         class: Armd\CultureAreaBundle\Admin\CultureAreaAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: module, label: Culture Areas }
-        arguments: [null, Armd\CultureAreaBundle\Entity\CultureArea, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\CultureAreaBundle\Entity\CultureArea, SonataAdminBundle:CRUD, @service_container]

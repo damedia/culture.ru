@@ -39,11 +39,11 @@ class AppKernel extends Kernel
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
-            new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
             new Armd\ExtendedNewsBundle\ArmdExtendedNewsBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\CultureMapBundle\ArmdCultureMapBundle(),
             new Armd\CommonBundle\ArmdCommonBundle(),
+            new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

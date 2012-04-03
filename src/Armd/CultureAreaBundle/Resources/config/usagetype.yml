@@ -1,23 +1,13 @@
 parameters:
     armd_culture_area.usagetypes:
         types:
-            item:
-                controller: CultureArea
-                action: item
-                title: Карточка
-                route:
-                    pattern: /{id}
-                    requirements:
-                        id: \d+
-            list:
-                controller: CultureArea
-                action: list
-                title: Список
+            index:
+                controller: culturearea
+                action: index
+                title: index
         group:
-            item:
-                types: [item]            
-            list:
-                types: [list]
+            index:
+                types: [index]
 
 services:
     armd_culture_area.usagetype:
