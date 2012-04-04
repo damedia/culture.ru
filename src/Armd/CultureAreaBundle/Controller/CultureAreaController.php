@@ -16,7 +16,7 @@ class CultureAreaController extends Controller
     {
         $id = 42;
         $request = $this->get('request');
-        if (preg_match("/q\/item-(\d+)$/", $request->getPathInfo(), $m)) {
+        if (preg_match("/q\/(\d+)$/", $request->getPathInfo(), $m)) {
             $id = (int) $m[1];
         }
 
