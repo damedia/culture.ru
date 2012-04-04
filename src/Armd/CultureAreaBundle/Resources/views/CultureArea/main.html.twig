@@ -1,0 +1,15 @@
+<style type="text/css">
+    .blocks{ background:#eee; }
+    .blocks ul{ float:left; margin:0; padding:0; list-style-type:none; }
+    .blocks ul li{ float:left; margin:0 10px 10px 0; }
+    .blocks ul li a{ display:block; width:200px; height:100px; padding:10px; border:solid 1px #ccc; text-align:center; }
+    .blocks ul li a:hover{ background:#fff; }
+</style>
+<div class="blocks">
+    <ul>
+    {% for entity in entities %}
+        <li><a href="{{ cmsPath('armd_culture_area', 'item', {'id':entity.id}) }}">{{ entity.title }}</a></li>
+    {% endfor %}
+    </ul>
+    <br clear="all"/>
+</div>
