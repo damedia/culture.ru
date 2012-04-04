@@ -2,33 +2,29 @@ parameters:
     armd_common.usagetypes:
         types:
             article:
-                controller: article
+                controller: Article
                 action: item
-                title: Статья
                 route:
                     pattern: /{id}
                     requirements:
                         id: \d+
             artwork:
-                controller: artwork
+                controller: Artwork
                 action: item
-                title: Объект искусства
                 route:
                     pattern: /{id}
                     requirements:
                         id: \d+
             person:
-                controller: person
+                controller: Person
                 action: item
-                title: Персона
                 route:
                     pattern: /{id}
                     requirements:
                         id: \d+
             term:
-                controller: term
+                controller: Term
                 action: item
-                title: Термин
                 route:
                     pattern: /{id}
                     requirements:
