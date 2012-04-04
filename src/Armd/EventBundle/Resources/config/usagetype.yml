@@ -2,14 +2,14 @@ parameters:
     armd_event.usagetypes:
         types:
             item:
-                controller: event
+                controller: Event
                 action: item                
                 route:
                     pattern: /item-{id}
                     requirements:
                         id: \d+
             list:
-                controller: event
+                controller: Event
                 action: list
                 route:
                     pattern: /{page}

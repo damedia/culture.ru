@@ -2,14 +2,14 @@ parameters:
     armd_news.usagetypes:
         types:
             item:
-                controller: news
+                controller: News
                 action: item                
                 route:
                     pattern: /item-{id}
                     requirements:
                         id: \d+
             list:
-                controller: news
+                controller: News
                 action: list
                 route:
                     pattern: /{page}
