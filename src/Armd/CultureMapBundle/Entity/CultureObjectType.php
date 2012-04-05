@@ -8,7 +8,7 @@ use Armd\CultureMapBundle\Entity\Subject;
 /**
  * Armd\CultureMapBundle\Entity\CultureObjectType
  *
- * @ORM\Table(name="mk_culture_object_type")
+ * @ORM\Table(name="content_culture_object_type")
  * @ORM\Entity
  */
 class CultureObjectType

@@ -9,7 +9,7 @@ use Application\Sonata\MediaBundle\Entity\Gallery;
 /**
  * Armd\CultureMapBundle\Entity\Subject
  *
- * @ORM\Table(name="mk_subject")
+ * @ORM\Table(name="content_subject")
  * @ORM\Entity
  */
 class Subject
