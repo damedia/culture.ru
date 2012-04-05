@@ -15,7 +15,7 @@ framework:
     session:
         default_locale: %locale%
         auto_start:     true
-
+        
 knp_menu:
     twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
         template: knp_menu.html.twig
@@ -118,27 +118,29 @@ sonata_media:
     contexts:
         default:
             providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
+#                - sonata.media.provider.dailymotion
+#                - sonata.media.provider.youtube
                 - sonata.media.provider.image
-                - sonata.media.provider.file
+#                - sonata.media.provider.file
             formats:
-                small: { width: 100 , quality: 85 }
-                big:   { width: 500 , quality: 85 }
-        news:
-            providers:
-                - sonata.media.provider.vimeo
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small: { width: 150 , quality: 95 }
-                big:   { width: 500 , quality: 90 }
-        mincult:
-            providers:
-                - sonata.media.provider.image
-            formats:
-                small: { width: 150 , quality: 95 }
-                big:   { width: 800 , quality: 95 }
+                small: { width: 95, height: 95, quality: 95 }
+                big:   { width: 266 , quality: 95 } 
+                main:  { width: 488 , quality: 95 }
+#                tiny: { width: 95, , quality: 95}
+#        news:
+#            providers:
+#                - sonata.media.provider.vimeo
+#                - sonata.media.provider.youtube
+#                - sonata.media.provider.image
+#            formats:
+#                small: { width: 150 , quality: 95 }
+#                big:   { width: 500 , quality: 90 }
+#        mincult:
+#            providers:
+#                - sonata.media.provider.image
+#            formats:
+#                small: { width: 150 , quality: 95 }
+#                big:   { width: 800 , quality: 95 }
 
     cdn:
         server:

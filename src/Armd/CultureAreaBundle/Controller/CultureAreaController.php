@@ -23,12 +23,13 @@ class CultureAreaController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
 
         // 1. Получим текущий узел и его left_key, right_key
-        $dql = "SELECT a.lft, a.rgt, a.lvl FROM Armd\CultureAreaBundle\Entity\CultureArea a WHERE a.id=:id";
+        $dql = "SELECT a FROM Armd\CultureAreaBundle\Entity\CultureArea a WHERE a.id=:id";
         $query = $em->createQuery($dql)
                     ->setParameter('id', $id);
-        $node = $query->getSingleResult();
+        $current = $query->getSingleResult();
 
         // 2. Получаем дерево узлов с раскрытой веткой
+        /*
         $dql = "SELECT a.id, a.lft, a.rgt, a.lvl, a.title
                 FROM Armd\CultureAreaBundle\Entity\CultureArea a
                 WHERE a.parent IN (
@@ -42,20 +43,36 @@ class CultureAreaController extends Controller
                         'rgt' => $node['rgt'],
                         'lvl' => 1,
                     ));
+        */
+        $dql = "SELECT a.id, a.title FROM Armd\CultureAreaBundle\Entity\CultureArea a WHERE a.lvl=:lvl ORDER BY a.lft DESC";
+        $query = $em->createQuery($dql)
+                    ->setParameter('lvl', 1);
+        $categories = $query->getResult();
+
+        $dql = "SELECT a.id, a.lft, a.rgt, a.lvl, a.title, a.body
+                FROM Armd\CultureAreaBundle\Entity\CultureArea a
+                WHERE a.parent = :id
+                ORDER BY a.lft DESC";
+        $query = $em->createQuery($dql)
+            ->setParameter('id', $id);
         $nodes = $query->getResult();
-        $content = $this->renderTree($nodes, $id);
+
+        //print $this->displayTree($nodes);
+
+        $content = $this->displayTree($nodes, $id);
 
         return $this->renderCms(array(
+            'categories' => $categories,
             'content' => $content,
             'nodes' => $nodes,
-            'id' => $id,
+            'current' => $current,
         ));
     }
 
     public function mainAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $dql = "SELECT a.id, a.title FROM Armd\CultureAreaBundle\Entity\CultureArea a WHERE a.lvl=:lvl ORDER BY a.lft ASC";
+        $dql = "SELECT a FROM Armd\CultureAreaBundle\Entity\CultureArea a WHERE a.lvl=:lvl ORDER BY a.lft DESC";
         $query = $em->createQuery($dql)
                     ->setParameter('lvl', 1);
         $entities = $query->getResult();
@@ -73,6 +90,49 @@ class CultureAreaController extends Controller
         }
 
         return $this->renderCms(array('entity' => $entity));
+    }
+
+    protected function displayTree($categories, $current_id)
+    {
+        $html = '';
+        $level=0;
+         
+        foreach ($categories as $n=>$category) {
+            if (!$category['body']) {
+                continue;
+            }
+            
+            if ($category['lvl']==$level) {
+                $html .= '</li>';
+            }
+            else if ($category['lvl'] > $level) {
+                $html .= '<ul>';
+            }
+            else {
+                $html .= '</li>';
+         
+                for ($i = $level-$category['lvl']; $i; $i--) {
+                    $html .= '</ul>';
+                    $html .= '</li>';
+                }
+            }
+         
+            $class = '';
+            if ($category['lvl']==1) {
+                $class = 'cat cat-'.$category['id'];
+            }
+
+            $html .= '<li class="'.$class.'">';
+            $html .= '<a href="./' . $category['id'] . '">'.$category['title'].'</a>';
+            $level = $category['lvl'];
+        }
+         
+        for ($i=$level; $i; $i--) {
+            $html .= '</li>';
+            $html .= '</ul>';
+        }
+
+        return $html;
     }
 
     protected function renderTree($data=array(), $selectedId=0)

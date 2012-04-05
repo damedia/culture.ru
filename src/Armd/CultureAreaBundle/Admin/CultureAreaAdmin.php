@@ -49,6 +49,8 @@ class CultureAreaAdmin extends Admin
                 ->add('parent', null, array('required' => false))                
                 ->add('announce')
                 ->add('body')                            
+                ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
+                ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))                
             ->end()
         ;
     }
