@@ -17,12 +17,12 @@
                     <p><label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
                     <input type="password" id="password" name="_password" class="big sonata-medium inp-txt" /></p>
 
+                    <a href='#null'>{{'Restore.password'|trans({}, 'SonataAdminBundle')}}</a>
+
                     <!--label for="remember_me">
                         <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                         {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
                     </label-->
-
-<a href='#null'>Restore password</a>
 
                     <input type="submit" class="btn primary inp-btn" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
 
