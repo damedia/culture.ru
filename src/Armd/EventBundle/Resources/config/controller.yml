@@ -1,6 +1,6 @@
 parameters:
     armd_event.controller.event.class:      Armd\EventBundle\Controller\EventController
-    armd_event.controller.shedule.class:    Armd\EventBundle\Controller\SheduleController    
+    armd_event.controller.schedule.class:    Armd\EventBundle\Controller\ScheduleController    
 
 services:
     armd_event.controller.event:
@@ -8,8 +8,8 @@ services:
         calls:
             - [ setContainer, [ @service_container ] ]
             
-    armd_event.controller.shedule:
-        class: %armd_event.controller.shedule.class%
+    armd_event.controller.schedule:
+        class: %armd_event.controller.schedule.class%
         calls:
             - [ setContainer, [ @service_container ] ]
             
