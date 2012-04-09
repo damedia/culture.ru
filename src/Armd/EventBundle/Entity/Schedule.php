@@ -9,7 +9,7 @@ use Armd\CommonBundle\Entity as Common;
  * @ORM\Entity
  * @ORM\Table(name="content_event_shedule")
  */
-class Shedule
+class Schedule
 {
     /**
      * @ORM\Id

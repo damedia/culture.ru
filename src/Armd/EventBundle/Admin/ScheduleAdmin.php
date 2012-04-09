@@ -20,7 +20,7 @@ use Armd\Bundle\NewsBundle\Admin\NewsAdmin as BaseAdmin;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
 
-class SheduleAdmin extends Admin
+class ScheduleAdmin extends Admin
 {
     protected function configureShowField(ShowMapper $showMapper)
     {
