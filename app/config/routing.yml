@@ -1,3 +1,7 @@
+ArmdCultureMapBundle:
+    resource: "@ArmdCultureMapBundle/Resources/config/routing.yml"
+    prefix:   /
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
@@ -27,7 +31,3 @@ gallery:
 media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
     prefix: /media
-    
-#pages:
-#    resource: CmsBundle:Page
-#    type: db

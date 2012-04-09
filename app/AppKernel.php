@@ -23,7 +23,6 @@ class AppKernel extends Kernel
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),            
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
@@ -45,7 +44,6 @@ class AppKernel extends Kernel
             new Armd\CultureMapBundle\ArmdCultureMapBundle(),
             new Armd\CommonBundle\ArmdCommonBundle(),
             new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
-//            new Bundle\DbRoutingBundle\DbRoutingBundle(),            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
