@@ -15,6 +15,13 @@ parameters:
                     pattern: /{id}
                     requirements:
                         id: \d+
+            institution:
+                controller: Institution
+                action: item
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+
             person:
                 controller: Person
                 action: item
@@ -35,6 +42,8 @@ parameters:
                 types: [article]         
             artwork:
                 types: [artwork]
+            institution:
+                types: [institution]                
             person:
                 types: [person]         
             term:

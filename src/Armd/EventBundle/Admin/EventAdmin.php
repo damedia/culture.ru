@@ -28,7 +28,7 @@ class EventAdmin extends BaseAdmin
         
         $showMapper
             ->add('place')
-            ->add('actual')
+            ->remove('date')
         ;
     }
 
@@ -44,7 +44,7 @@ class EventAdmin extends BaseAdmin
         $formMapper
             ->with('General')
                 ->add('place')
-                ->add('actual', null, array('required' => false))                                
+                ->remove('date')
             ->end();
     }
 
@@ -59,7 +59,7 @@ class EventAdmin extends BaseAdmin
         
         $listMapper
             ->add('place')
-            ->add('actual')            
+            ->remove('date')
         ;
     }
 }

@@ -23,6 +23,26 @@ parameters:
                         type: int                        
                         default: 10
                         requirements: 1
+            archive:
+                controller: Event
+                action: list
+                route:
+                    pattern: /{from}/{to}/{page}
+                    defaults:
+                        from: 0000-00-00
+                        to:   0000-00-00
+                        page: 1
+                    requirements:
+                        from: \d{4}-\d{2}-\d{2}
+                        to:   \d{4}-\d{2}-\d{2}                        
+                        page: \d+
+                params:
+                    per_page:
+                        title: Количество элементов на странице
+                        type: int                        
+                        default: 10
+                        requirements: 1
+                
         group:
             list:
                 types: [list]
