@@ -50,16 +50,16 @@ class CultureMapController extends Controller
             $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->findOneBy(array(
                 'yname' => $id,
             ));
-            $gallery = $entity->getGallery();
-            if (! $gallery)
-                throw new \Exception('No gallery');
-            $images = $gallery->getGalleryHasMedias();
             $galleryRandomImage = false;
-            $idx = rand(0, sizeof($images)-1);
-            foreach ($images as $i=>$image) {
-                if ($i==$idx) {
-                    $galleryRandomImage = $image;
-                    break;
+            $gallery = $entity->getGallery();
+            if ($gallery) {
+                $images = $gallery->getGalleryHasMedias();
+                $idx = rand(0, sizeof($images)-1);
+                foreach ($images as $i=>$image) {
+                    if ($i==$idx) {
+                        $galleryRandomImage = $image;
+                        break;
+                    }
                 }
             }
             return $this->render('ArmdCultureMapBundle:CultureMap:region.html.twig', array(
@@ -92,6 +92,7 @@ class CultureMapController extends Controller
             $markers = array();
             foreach ($entityList as $item) {
                 $markers[] = array(
+                    'id' => $item->getId(),
                     'title' => $item->getTitle(),
                     'lat' => $item->getLatitude(),
                     'lng' => $item->getLongitude(),
@@ -118,14 +119,40 @@ class CultureMapController extends Controller
         }
     }
 
-    public function subjectAction($id)
+    public function subjectAction($id=null)
     {
+        $isAjax = false;
+        if (! $id){
+            $request = $this->container->get('request');
+            $id = (int) $request->query->get('id');
+            $isAjax = true;
+        }
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->find($id);
         if (! $entity) {
             throw $this->createNotFoundException('Unable to find Subject entity.');
         }
-        return $this->renderCms(array(
+        if (! $isAjax) {
+            return $this->renderCms(array(
+                'entity' => $entity,
+            ));
+        } else {
+            return $this->render('ArmdCultureMapBundle:CultureMap:subject.html.twig', array(
+                'entity' => $entity,
+            ));
+        }
+    }
+
+    public function objectAction()
+    {
+        $request = $this->container->get('request');
+        $id = (int) $request->query->get('id');
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('ArmdCultureMapBundle:CultureObject')->find($id);
+        if (! $entity) {
+            throw $this->createNotFoundException('Unable to find CultureObject entity.');
+        }
+        return $this->render('ArmdCultureMapBundle:CultureMap:object.html.twig', array(
             'entity' => $entity,
         ));
     }

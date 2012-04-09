@@ -34,6 +34,8 @@ fos_user:
 twig:
     debug:            true
     strict_variables: %kernel.debug%
+    globals:
+        ymaps_api_keys: %ymaps_api_keys%
 
 # Assetic Configuration
 assetic:
@@ -82,7 +84,12 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
-
+        groups:
+            module: ~
+            structure: ~
+            sonata_user:
+                items:
+                    - sonata.media.admin.media
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -153,3 +160,4 @@ sonata_media:
         local:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     true
+
