@@ -24,7 +24,7 @@ class Schedule
     private $date;
         
     /** 
-     * @ORM\OneToOne(targetEntity="Event") 
+     * @ORM\ManyToOne(targetEntity="Event") 
      */
     private $event;
     

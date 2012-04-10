@@ -12,7 +12,7 @@ use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
 class Event extends BaseNews
 {
     /** 
-     * @ORM\OneToOne(targetEntity="Armd\CommonBundle\Entity\Institution") 
+     * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution") 
      */
     private $place;
     
