@@ -6,3 +6,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: module, label: Events }
         arguments: [null, Armd\EventBundle\Entity\Event, SonataAdminBundle:CRUD, @service_container]
+        
+    armd_event.admin.schedule:
+        class: Armd\EventBundle\Admin\ScheduleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Events Schedule}
+        arguments: [null, Armd\EventBundle\Entity\Schedule, SonataAdminBundle:CRUD, @service_container]        

@@ -11,22 +11,34 @@ use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
  */
 class Event extends BaseNews
 {
-    /**
-     * @ORM\Column(type="text")
+    /** 
+     * @ORM\OneToOne(targetEntity="Armd\CommonBundle\Entity\Institution") 
      */
     private $place;
     
     /**
-     * @ORM\Column(type="boolean", name="is_actual")
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
-    private $actual;    
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
+     */
+    private $gallery;    
+    
+    public function __toString()
+    {
+        return $this->getTitle();
+    }            
 
     /**
      * Set place
      *
-     * @param text $place
+     * @param Armd\CommonBundle\Entity\Institution $place
      */
-    public function setPlace($place)
+    public function setPlace(\Armd\CommonBundle\Entity\Institution $place)
     {
         $this->place = $place;
     }
@@ -34,40 +46,10 @@ class Event extends BaseNews
     /**
      * Get place
      *
-     * @return text 
+     * @return Armd\CommonBundle\Entity\Institution 
      */
     public function getPlace()
     {
         return $this->place;
-    }
-
-    /**
-     * Set actual
-     *
-     * @param boolean $actual
-     */
-    public function setActual($actual)
-    {
-        $this->actual = $actual;
-    }
-
-    /**
-     * Get actual
-     *
-     * @return boolean 
-     */
-    public function getActual()
-    {
-        return $this->actual;
-    }
-    
-    /**
-     * Get actual
-     *
-     * @return boolean 
-     */
-    public function isActual()
-    {
-        return $this->getActual();
     }
 }

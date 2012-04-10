@@ -20,15 +20,15 @@ use Armd\Bundle\NewsBundle\Admin\NewsAdmin as BaseAdmin;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
 
-class EventAdmin extends BaseAdmin
+class ScheduleAdmin extends Admin
 {
     protected function configureShowField(ShowMapper $showMapper)
     {
         parent::configureShowField($showMapper);
         
         $showMapper
-            ->add('place')
-            ->remove('date')
+            ->add('date')
+            ->add('event')
         ;
     }
 
@@ -43,8 +43,8 @@ class EventAdmin extends BaseAdmin
         
         $formMapper
             ->with('General')
-                ->add('place')
-                ->remove('date')
+                ->add('date')
+                ->add('event')
             ->end();
     }
 
@@ -58,8 +58,8 @@ class EventAdmin extends BaseAdmin
         parent::configureListFields($listMapper);
         
         $listMapper
-            ->add('place')
-            ->remove('date')
+            ->add('date')
+            ->add('event')
         ;
     }
 }
