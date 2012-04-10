@@ -37,7 +37,9 @@ function SampleBalloonLayout() {
 
     // Обновляет балун
     this.update = function() {
-        this.element.css("margin-top", "-" + (this.content.height() + 30 ) + "px");
+        //this.element.css("margin-top", "-" + (this.content.height() - 14 ) + "px");
+        //this.element.css("margin-top", "-" + (thi ) + "px");
+
     };
 };
 
