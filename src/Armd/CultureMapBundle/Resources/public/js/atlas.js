@@ -48,6 +48,32 @@ function balloonReadMore(id) {
     return false;
 }
 
+function hideBullshit(map) {
+    var stylebg = new YMaps.Style();
+    stylebg.polygonStyle = new YMaps.PolygonStyle();
+    stylebg.polygonStyle.fill = true;
+    stylebg.polygonStyle.outline = false;
+    stylebg.polygonStyle.strokeWidth = 0;
+    stylebg.polygonStyle.strokeColor = "ffffff";
+    stylebg.polygonStyle.fillColor = "ffffff";
+    var gbgOptions = {
+        hasBalloon: false,
+        hasHint: false
+    };
+    var gbg= new YMaps.Polygon([new YMaps.GeoPoint(180,90),new YMaps.GeoPoint(180,-90),new YMaps.GeoPoint(0,-90),new YMaps.GeoPoint(0,90)]);
+    var gbg2= new YMaps.Polygon([new YMaps.GeoPoint(180,90),new YMaps.GeoPoint(180,-90),new YMaps.GeoPoint(-100,-90),new YMaps.GeoPoint(-100,90)]);
+    var gbg3= new YMaps.Polygon([new YMaps.GeoPoint(0,90),new YMaps.GeoPoint(0,-90),new YMaps.GeoPoint(-100,-90),new YMaps.GeoPoint(-100,90)]);
+    map.addOverlay(gbg);
+    gbg.setOptions(gbgOptions);
+    gbg.setStyle(stylebg);
+    map.addOverlay(gbg2);
+    gbg2.setOptions(gbgOptions);
+    gbg2.setStyle(stylebg);
+    map.addOverlay(gbg3);
+    gbg3.setOptions(gbgOptions);
+    gbg3.setStyle(stylebg);
+}
+
 ///////////////////////////////////////////////////////////////
 YMaps.jQuery(function(){
 
@@ -64,6 +90,8 @@ YMaps.jQuery(function(){
     //map.addControl(new YMaps.MiniMap());
     map.addControl(new YMaps.ScaleLine());
     map.enableScrollZoom();
+
+    //hideBullshit(map);
 
     // Задает стиль для коллекции регионов
     var sampleBalloonTemplate = new YMaps.LayoutTemplate(SampleBalloonLayout);
