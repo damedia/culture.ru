@@ -2,21 +2,19 @@
 .YMaps-layer-container img{ max-width:none; }
 
 .b-simple-balloon-layout {
-/*
-    background: #F8FFE0;
-    border: 1px solid #848877;
     margin-top: 0px;
     margin-left: 0px;
     padding: 0px;
     position: relative;
-    width: 600px;
-*/
+    width: 800px;
+    
 }
+
 .b-simple-balloon-layout .map-point-hide{
     cursor: pointer;
     z-index: 10;
-    left: 380px;
-    top: -221px;
+    left: 333px;
+    top: 20px;
 }
 .b-simple-balloon-layout .close {
     background: url("http://api-maps.yandex.ru/i/0.3/balloon/close.gif") no-repeat transparent;
@@ -37,4 +35,45 @@
     margin-top: 0px;
     position: absolute;
     width: 30px;
+}
+
+.map-point-hide-img {
+    float: left;
+    margin-right: 10px;
+}
+
+.map-point-hide-text {
+    color: #7A7A7A;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+.map-point-wrapper {
+    overflow: hidden;
+    margin-left: 14px;
+    margin-top: -22px;
+}
+
+.map-point-descr {
+    position: relative;
+    float: left;
+    height: auto;
+    width: 315px;
+    bottom: 0;
+    left: 0;
+}
+
+.map-point-pic {
+    position: static;
+    float: left;
+    padding: 10px;
+}
+
+.map-point-descr h2 {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.map-point-hide-text .map-point-hide-title {
+    font-size: 1.6em;
 }

@@ -1,41 +1,37 @@
-<div class="map-point-descr">
-    <dl class="cb">
-        <dt>
-            {% thumbnail entity.logo, 'small' %}
-        </dt>
-        <dd>
-            <h2>{{ entity.title }}</h2>
-            <div>
-                {{ entity.announce }}
-                <a class="balloon-readmore" onclick="balloonReadMore({{ entity.id }}); return false;" href="{{ cmsPath('armd_culture_map', 'subject', { 'id':entity.id }) }}">Читать&nbsp;подробнее</a>
-            </div>
-        </dd>
-    </dl>
-    <table>
-        <tbody>
-            <tr>
-                <th>Столица:</th>
-                <td>{{ entity.administrativeCenter }}</td>
-            </tr>
-            <tr>
-                <th>Государственный язык:</th>
-                <td>{{ entity.language }}</td>
-            </tr>
-            <tr>
-                <th>Народности:</th>
-                <td>{{ entity.nationality }}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="map-point-pic">
-    <div>
-        {% if galleryRandomImage %}
-            <a href="{% path galleryRandomImage.media, 'reference' %}">
-                {% thumbnail galleryRandomImage.media, 'small' %}
-            </a>
-        {% else %}
-            <img width="330" height="190" title="pic21" alt="pic21" src="{{ asset('bundles/armdmkresources/upload/pic21.jpg') }}"/>
-        {% endif %}
+<div class="map-point-wrapper">
+    <div class="map-point-descr">
+        
+                <div class="map-point-hide-img">{% thumbnail entity.logo, 'small' %}</div>
+                <div class="map-point-hide-text">
+                    <h2 class="map-point-hide-title">{{ entity.title }}</h2>
+                
+                    {{ entity.announce }}
+                    <a class="balloon-readmore" onclick="balloonReadMore({{ entity.id }}); return false;" href="{{ cmsPath('armd_culture_map', 'subject', { 'id':entity.id }) }}">Читать&nbsp;подробнее</a>
+                </div>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Столица:</th>
+                    <td>{{ entity.administrativeCenter }}</td>
+                </tr>
+                <tr>
+                    <th>Государственный язык:</th>
+                    <td>{{ entity.language }}</td>
+                </tr>
+                <tr>
+                    <th>Народности:</th>
+                    <td>{{ entity.nationality }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="map-point-pic">
+            {% if galleryRandomImage %}
+                <a href="{% path galleryRandomImage.media, 'reference' %}">
+                    {% thumbnail galleryRandomImage.media, 'small' %}
+                </a>
+            {% else %}
+                <img width="185" height="135" title="pic21" alt="pic21" src="{{ asset('bundles/armdmkresources/upload/pic21.jpg') }}"/>
+            {% endif %}  
     </div>
 </div>
