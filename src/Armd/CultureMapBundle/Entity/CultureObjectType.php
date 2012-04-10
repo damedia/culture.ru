@@ -25,6 +25,11 @@ class CultureObjectType
      */
     private $title;
 
+    /**
+     * @ORM\Column(name="icon", type="string", length=255, nullable="true")
+     */
+    private $icon;
+
 
     /**
      * Get id
@@ -64,4 +69,25 @@ class CultureObjectType
         return $this->getTitle();
     }
 
+
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string 
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
 }

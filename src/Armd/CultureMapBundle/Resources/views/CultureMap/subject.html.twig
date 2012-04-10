@@ -1,84 +1,81 @@
-<style>
-    .properties{ text-align:left; }
-    .properties th{ padding-right:20px; color:#a55; font-weight:normal; }
-</style>
-
 <a name="details"></a>
+<div class="subject-wrapper">
+    <aside class="subject-cart">
+        <div class="clear"></div>
+        <!--<h2>Карточка региона (визуальное оформление в виде мини-карточки)</h2>-->
+        <table class="properties">
+            <tr>
+                <th>Герб</th>
+                <td><div class="properties-td-img">{% thumbnail entity.logo, 'reference' %}</div></td>
+            </tr>
+            <tr>
+                <th>Площадь</th>
+                <td>{{ entity.square }}</td>
+            </tr>
+            <tr>
+                <th>Количество городов</th>
+                <td>{{ entity.cityCount }}</td>
+            </tr>
+            <tr>
+                <th>Количество других населенных пунктов</th>
+                <td>{{ entity.villageCount }}</td>
+            </tr>
+            <tr>
+                <th>Население (городское)</th>
+                <td>{{ entity.cityPopulation }}</td>
+            </tr>
+            <tr>
+                <th>Население (сельское)</th>
+                <td>{{ entity.villagePopulation }}</td>
+            </tr>
+            <tr>
+                <th>Административный центр</th>
+                <td>{{ entity.administrativeCenter }}</td>
+            </tr>
+            <tr>
+                <th>Народности</th>
+                <td>{{ entity.nationality }}</td>
+            </tr>
+            <tr>
+                <th>Языки</th>
+                <td>{{ entity.language }}</td>
+            </tr>
+            <tr>
+                <th>Религии</th>
+                <td>{{ entity.religion }}</td>
+            </tr>
+        </table>
 
-<h1>{{ entity.title }}</h1>
-<table class="properties">
-    <tr>
-        <th>Заголовок</th>
-        <td>{{ entity.title }}</td>
-    </tr>
-    <tr>
-        <th>Герб</th>
-        <td>{% thumbnail entity.logo, 'small' %}</td>
-    </tr>
-    <tr>
-        <th>Текст</th>
-        <td>{{ entity.text }}</td>
-    </tr>
-</table>
-
-<h2>Карточка региона (визуальное оформление в виде мини-карточки)</h2>
-<table class="properties">
-    <tr>
-        <th>Площадь</th>
-        <td>{{ entity.square }}</td>
-    </tr>
-    <tr>
-        <th>Количество городов</th>
-        <td>{{ entity.cityCount }}</td>
-    </tr>
-    <tr>
-        <th>Количество других населенных пунктов</th>
-        <td>{{ entity.villageCount }}</td>
-    </tr>
-    <tr>
-        <th>Население (городское)</th>
-        <td>{{ entity.cityPopulation }}</td>
-    </tr>
-    <tr>
-        <th>Население (сельское)</th>
-        <td>{{ entity.villagePopulation }}</td>
-    </tr>
-    <tr>
-        <th>Административный центр</th>
-        <td>{{ entity.administrativeCenter }}</td>
-    </tr>
-    <tr>
-        <th>Народности</th>
-        <td>{{ entity.nationality }}</td>
-    </tr>
-    <tr>
-        <th>Языки</th>
-        <td>{{ entity.language }}</td>
-    </tr>
-    <tr>
-        <th>Религии</th>
-        <td>{{ entity.religion }}</td>
-    </tr>
-</table>
-
-<h2>Учреждения культуры:</h2>
-<ul>
-    <li>Музеи (список)</li>
-    <li>Выставочные залы (список)</li>
-    <li>Театры (список)</li>
-    <li>Цирки (список)</li>
-    <li>Кинотеатры (список)</li>
-    <li>Концертные организации (список)</li>
-    <li>Концертные площадки (список)</li>
-    <li>Концертные коллективы (список)</li>
-    <li>Творческие союзы (список)</li>
-    <li>Дома народного творчества (список)</li>
-    <li>Киностудии (список)</li>
-    <li>Научно-исследовательские учреждения (список)</li>
-    <li>Образовательные учреждения (список)</li>
-    <li>Библиотеки (список)</li>
-    <li>Другие учреждения культуры (список)</li>
-</ul>
+    </aside>
+    <div class="subject-content">
+        <div class="box-title box-title-subject">{{ entity.title }}</div>
+        <div class="subject-content-img">
+            <img width="185" height="135" title="pic21" alt="pic21" src="{{ asset('bundles/armdmkresources/upload/pic21.jpg') }}"/>
+        </div>
+        <div class="subject-content-text">
+            {{ entity.text|raw }}
+        </div>
+        <div class="subject-culture">
+            <ul class="subject-culture-ul">
+                <li>Музеи</li>
+                <li>Выставочные залы</li>
+                <li>Театры</li>
+                <li>Цирки</li>
+                <li>Кинотеатры</li>
+                <li>Концертные организации</li>
+                <li>Концертные площадки</li>
+                <li>Концертные коллективы</li>
+                <li>Творческие союзы</li>
+                <li>Дома народного творчества</li>
+                <li>Киностудии</li>
+                <li>Научно-исследовательские учреждения</li>
+                <li>Образовательные учреждения</li>
+                <li>Библиотеки</li>
+                <li>Другие учреждения культуры</li>
+            </ul>
+        </div>    
+    </div>
+</div>
 
 {% if entity.gallery %}
 <h2>Фотогалерея &laquo;{{ entity.gallery.name }}&raquo;</h2>

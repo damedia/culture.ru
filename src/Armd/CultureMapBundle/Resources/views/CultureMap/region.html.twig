@@ -1,7 +1,6 @@
 <div class="map-point-wrapper">
     <div class="map-point-descr">
-        
-                <div class="map-point-hide-img">{% thumbnail entity.logo, 'small' %}</div>
+                <div class="map-point-hide-img">{% thumbnail entity.logo, 'reference' %}</div>
                 <div class="map-point-hide-text">
                     <h2 class="map-point-hide-title">{{ entity.title }}</h2>
                 
@@ -11,16 +10,20 @@
         <table>
             <tbody>
                 <tr>
-                    <th>Столица:</th>
+                    <th>Административный центр:</th>
                     <td>{{ entity.administrativeCenter }}</td>
                 </tr>
                 <tr>
-                    <th>Государственный язык:</th>
+                    <th>Языки:</th>
                     <td>{{ entity.language }}</td>
                 </tr>
                 <tr>
                     <th>Народности:</th>
                     <td>{{ entity.nationality }}</td>
+                </tr>
+                <tr>
+                    <th>Религии:</th>
+                    <td>{{ entity.religion }}</td>
                 </tr>
             </tbody>
         </table>

@@ -96,6 +96,7 @@ class CultureMapController extends Controller
                     'title' => $item->getTitle(),
                     'lat' => $item->getLatitude(),
                     'lng' => $item->getLongitude(),
+                    'icon' => $item->getType()->getId(),
                 );
             }
             return new Response(

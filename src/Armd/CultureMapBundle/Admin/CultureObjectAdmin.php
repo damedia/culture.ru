@@ -45,7 +45,7 @@ class CultureObjectAdmin extends Admin
             ->add('title')
             ->add('announce')
             ->add('text')
-            ->add('subject')
+            ->add('subject', null, array('required' => false))
             ->add('type')
             ->add('site')
             ->add('email')

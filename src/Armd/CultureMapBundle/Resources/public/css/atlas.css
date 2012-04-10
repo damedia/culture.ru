@@ -1,4 +1,9 @@
+.clear {
+    clear: both;
+}
+
 #YMapsID{ width:100%; height:600px; }
+
 .YMaps-layer-container img{ max-width:none; }
 
 .b-simple-balloon-layout {
@@ -55,12 +60,11 @@
 }
 
 .map-point-descr {
-    position: relative;
+
     float: left;
     height: auto;
     width: 315px;
-    bottom: 0;
-    left: 0;
+    position: static;
 }
 
 .map-point-pic {
@@ -72,8 +76,68 @@
 .map-point-descr h2 {
     font-size: 11px;
     margin-bottom: 10px;
+    padding-right: 10px;
 }
 
 .map-point-hide-text .map-point-hide-title {
     font-size: 1.6em;
+}
+
+.subject-wrapper {
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.subject-cart {
+    float: right;
+    width: 272px;
+    border: 4px solid #C8C8C8;
+    padding: 10px;
+}
+
+.subject-content {
+    margin-right: 350px;
+}
+
+.subject-content-img {
+    float: left;
+    margin-right: 10px;
+}
+
+.box-title-subject {
+    font-size: 2em;
+    text-transform: none;
+}
+
+.properties{ text-align:left; }
+
+.properties th { 
+    padding-right: 20px;
+    color: #DA5C11;
+    font-weight: normal;
+    }
+    
+#content .properties td, #content .properties th {
+    border: none;
+} 
+ .subject-culture {
+    clear: left;
+    padding-top: 20px;
+} 
+
+.properties-td-img img {
+    display: block;
+}
+
+.subject-culture-ul {
+    list-style-type: none;
+}
+
+.subject-culture-ul li {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ADADAD;
+    font-weight: normal;
+    font-size: 1.2em;
+    color: #DA5C11;
 }

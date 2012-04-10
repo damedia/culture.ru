@@ -20,19 +20,24 @@ function SampleBalloonLayout() {
         return false;
     };
 
-    // Добавляет макет на страницу
+    // Добавляет макет на страницу  <div class="YMaps-balloon" style="position: absolute; z-index:200;">
     this.onAddToParent = function (parentNode) {
         YMaps.jQuery(parentNode).append(this.element);
+        this.update();
     };
 
     // Удаляет макет со страницы
     this.onRemoveFromParent = function () {
         this.element.remove();
+        
     };
 
+   
     // Устанавливает содержимое балуна
     this.setContent = function (content) {
+        YMaps.jQuery(content).find('.map-point-wrapper').remove();
         content.onAddToParent(this.content[0]);
+        
     };
 
     // Обновляет балун
@@ -50,32 +55,6 @@ function balloonReadMore(id) {
     return false;
 }
 
-function hideBullshit(map) {
-    var stylebg = new YMaps.Style();
-    stylebg.polygonStyle = new YMaps.PolygonStyle();
-    stylebg.polygonStyle.fill = true;
-    stylebg.polygonStyle.outline = false;
-    stylebg.polygonStyle.strokeWidth = 0;
-    stylebg.polygonStyle.strokeColor = "ffffff";
-    stylebg.polygonStyle.fillColor = "ffffff";
-    var gbgOptions = {
-        hasBalloon: false,
-        hasHint: false
-    };
-    var gbg= new YMaps.Polygon([new YMaps.GeoPoint(180,90),new YMaps.GeoPoint(180,-90),new YMaps.GeoPoint(0,-90),new YMaps.GeoPoint(0,90)]);
-    var gbg2= new YMaps.Polygon([new YMaps.GeoPoint(180,90),new YMaps.GeoPoint(180,-90),new YMaps.GeoPoint(-100,-90),new YMaps.GeoPoint(-100,90)]);
-    var gbg3= new YMaps.Polygon([new YMaps.GeoPoint(0,90),new YMaps.GeoPoint(0,-90),new YMaps.GeoPoint(-100,-90),new YMaps.GeoPoint(-100,90)]);
-    map.addOverlay(gbg);
-    gbg.setOptions(gbgOptions);
-    gbg.setStyle(stylebg);
-    map.addOverlay(gbg2);
-    gbg2.setOptions(gbgOptions);
-    gbg2.setStyle(stylebg);
-    map.addOverlay(gbg3);
-    gbg3.setOptions(gbgOptions);
-    gbg3.setStyle(stylebg);
-}
-
 ///////////////////////////////////////////////////////////////
 YMaps.jQuery(function(){
 
@@ -91,9 +70,7 @@ YMaps.jQuery(function(){
     map.addControl(new YMaps.Zoom());
     //map.addControl(new YMaps.MiniMap());
     map.addControl(new YMaps.ScaleLine());
-    map.enableScrollZoom();
-
-    //hideBullshit(map);
+    //map.enableScrollZoom();
 
     // Задает стиль для коллекции регионов
     var sampleBalloonTemplate = new YMaps.LayoutTemplate(SampleBalloonLayout);
@@ -123,23 +100,27 @@ YMaps.jQuery(function(){
                         height: 52 // высота
                     }
                 });
-                var markers = [];
 
-                var s = new YMaps.Style();
-                s.iconStyle = new YMaps.IconStyle();
-                s.iconStyle.offset = new YMaps.Point(-12, -12);
-                s.iconStyle.href = defaultMarkerUrl;
-                s.iconStyle.size = new YMaps.Point(24, 24);
-                s.balloonStyle = { template: sampleBalloonTemplate };
+                var markersStyles = [];
+                for (var i=1; i<=markersIcons.length; i++) {
+                    var s = new YMaps.Style();
+                    s.iconStyle = new YMaps.IconStyle();
+                    s.iconStyle.offset = new YMaps.Point(-13, -21);
+                    s.iconStyle.href = markersUrl + markersIcons[i];
+                    s.iconStyle.size = new YMaps.Point(27, 43);
+                    s.balloonStyle = { template: sampleBalloonTemplate };
+                    markersStyles[i] = s;
+                }
 
                 // отрисовка булавок
+                var markers = [];
                 for (var i=0; i<json.result.length; i++) {
                     var row = json.result[i];
                     var placemark = new YMaps.Placemark(new YMaps.GeoPoint(row.lng, row.lat));
-                    placemark.setStyle(s);
+                    placemark.setStyle(markersStyles[row.icon]);
                     placemark.id = row.id;
-                    placemark.name = row.title;
-                    placemark.setBalloonContent(row.title);
+                    //placemark.name = row.title;
+                    //placemark.setBalloonContent(row.title);
 
                     // клик по булавке
                     YMaps.Events.observe(placemark, placemark.Events.Click, function(p, e){
@@ -191,7 +172,13 @@ YMaps.jQuery(function(){
                         }
                     });
                 });
-
+                
+                YMaps.Events.observe(placemark, placemark.Events.DblClick, function(p, e){
+                    var hintContent = p.getHintContent();
+                    map.setBounds(new YMaps.GeoCollectionBounds(p.getPoints())); // fit map to region
+                   return false;
+                });
+                
                 // MouseEnter на регионе
                 YMaps.Events.observe(placemark, placemark.Events.MouseEnter, function(p, e) {
                     p.setStyle(regionHoverStyle);
