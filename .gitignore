@@ -8,3 +8,4 @@
 /app/config/parameters.ini
 /tmp/*
 *.php~
+*~
