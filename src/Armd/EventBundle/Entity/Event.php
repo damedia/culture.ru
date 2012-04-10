@@ -16,6 +16,18 @@ class Event extends BaseNews
      */
     private $place;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
+     */
+    private $gallery;    
+    
     public function __toString()
     {
         return $this->getTitle();
