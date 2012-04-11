@@ -1,7 +1,6 @@
 <div class="map-point-wrapper">
     <div class="map-point-descr">
-        
-                <div class="map-point-hide-img">{% thumbnail entity.logo, 'small' %}</div>
+                <div class="map-point-hide-img">{% thumbnail entity.logo, 'reference' %}</div>
                 <div class="map-point-hide-text">
                     <h2 class="map-point-hide-title">{{ entity.title }}</h2>
                 
@@ -11,21 +10,25 @@
         <table>
             <tbody>
                 <tr>
-                    <th>Столица:</th>
+                    <th>Административный центр:</th>
                     <td>{{ entity.administrativeCenter }}</td>
                 </tr>
                 <tr>
-                    <th>Государственный язык:</th>
+                    <th>Языки:</th>
                     <td>{{ entity.language }}</td>
                 </tr>
                 <tr>
                     <th>Народности:</th>
                     <td>{{ entity.nationality }}</td>
                 </tr>
+                <tr>
+                    <th>Религии:</th>
+                    <td>{{ entity.religion }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
-    <div class="map-point-pic">
+   <!-- <div class="map-point-pic">
             {% if galleryRandomImage %}
                 <a href="{% path galleryRandomImage.media, 'reference' %}">
                     {% thumbnail galleryRandomImage.media, 'small' %}
@@ -33,5 +36,5 @@
             {% else %}
                 <img width="185" height="135" title="pic21" alt="pic21" src="{{ asset('bundles/armdmkresources/upload/pic21.jpg') }}"/>
             {% endif %}  
-    </div>
+    </div>-->
 </div>
