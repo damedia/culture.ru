@@ -38,6 +38,11 @@ class Institution extends BaseContent
      */
     private $body;
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * Get id
      *

@@ -16,10 +16,14 @@
 }
 
 .b-simple-balloon-layout .map-point-hide{
-    cursor: pointer;
+   /* cursor: pointer;
     z-index: 10;
     left: 333px;
-    top: 20px;
+    top: 20px;*/
+    cursor: pointer;
+    left: 312px;
+    top: -16px;
+    z-index: 10;
 }
 .b-simple-balloon-layout .close {
     background: url("http://api-maps.yandex.ru/i/0.3/balloon/close.gif") no-repeat transparent;
@@ -54,9 +58,12 @@
 }
 
 .map-point-wrapper {
-    overflow: hidden;
+    /*overflow: hidden;
     margin-left: 14px;
-    margin-top: -22px;
+    margin-top: -22px;*/
+    margin-left: -7px;
+    margin-top: -58px;
+    overflow: hidden;
 }
 
 .map-point-descr {
@@ -140,4 +147,9 @@
     font-weight: normal;
     font-size: 1.2em;
     color: #DA5C11;
+}
+
+.map-point-marker {
+    top: -49px;
+    left: -15px;
 }

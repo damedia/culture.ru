@@ -105,7 +105,7 @@ YMaps.jQuery(function(){
                 for (var i=1; i<=markersIcons.length; i++) {
                     var s = new YMaps.Style();
                     s.iconStyle = new YMaps.IconStyle();
-                    s.iconStyle.offset = new YMaps.Point(-13, -21);
+                    s.iconStyle.offset = new YMaps.Point(-13, -49);
                     s.iconStyle.href = markersUrl + markersIcons[i];
                     s.iconStyle.size = new YMaps.Point(27, 43);
                     s.balloonStyle = { template: sampleBalloonTemplate };

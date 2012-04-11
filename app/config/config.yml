@@ -124,13 +124,13 @@ sonata_media:
             providers:
 #                - sonata.media.provider.dailymotion
 #                - sonata.media.provider.youtube
-                - sonata.media.provider.image
+                 - sonata.media.provider.image
 #                - sonata.media.provider.file
             formats:
-                small: { width: 95, height: 95, quality: 95 }
-                big:   { width: 266 , quality: 95 } 
-                main:  { width: 488 , quality: 95 }
-#                tiny: { width: 95, , quality: 95}
+                small: { width: 95,  height: 95, quality: 95 }
+                big:   { width: 266, height: 196, quality: 95 } 
+                main:  { width: 488, height: 176, quality: 95 }
+#               tiny:  { width: 95,  height: 95, quality: 95}
 #        news:
 #            providers:
 #                - sonata.media.provider.vimeo
@@ -145,6 +145,10 @@ sonata_media:
 #            formats:
 #                small: { width: 150 , quality: 95 }
 #                big:   { width: 800 , quality: 95 }
+
+#    providers:
+#        image:
+#            resizer:    sonata.media.resizer.square
 
     cdn:
         server:

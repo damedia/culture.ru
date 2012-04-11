@@ -50,28 +50,18 @@
     <div class="subject-content">
         <div class="box-title box-title-subject">{{ entity.title }}</div>
         <div class="subject-content-img">
-            <img width="185" height="135" title="pic21" alt="pic21" src="{{ asset('bundles/armdmkresources/upload/pic21.jpg') }}"/>
+           <!-- <img width="185" height="135" title="pic21" alt="pic21" src="{{ asset('bundles/armdmkresources/upload/pic21.jpg') }}"/>-->
         </div>
         <div class="subject-content-text">
             {{ entity.text|raw }}
         </div>
         <div class="subject-culture">
             <ul class="subject-culture-ul">
-                <li>Музеи</li>
-                <li>Выставочные залы</li>
-                <li>Театры</li>
-                <li>Цирки</li>
-                <li>Кинотеатры</li>
-                <li>Концертные организации</li>
-                <li>Концертные площадки</li>
-                <li>Концертные коллективы</li>
-                <li>Творческие союзы</li>
-                <li>Дома народного творчества</li>
-                <li>Киностудии</li>
-                <li>Научно-исследовательские учреждения</li>
-                <li>Образовательные учреждения</li>
-                <li>Библиотеки</li>
-                <li>Другие учреждения культуры</li>
+                {% for object in objects %}
+                <li>
+                    {{ object.title }}
+                </li>
+                {% endfor %}
             </ul>
         </div>    
     </div>

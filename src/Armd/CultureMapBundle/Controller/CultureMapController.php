@@ -130,6 +130,22 @@ class CultureMapController extends Controller
         }
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->find($id);
+
+        $query = $em->createQuery('
+            SELECT 
+                o 
+            FROM
+                ArmdCultureMapBundle:CultureObject o,
+                ArmdCultureMapBundle:CultureObjectType t
+            WHERE
+                o.type = t.id
+                and o.subject = :subject_id
+            ORDER BY
+                t.title, o.title
+        ')->setParameter('subject_id', $id);
+        
+        $objects = $query->getResult();        
+
         if (! $entity) {
             throw $this->createNotFoundException('Unable to find Subject entity.');
         }
@@ -139,7 +155,8 @@ class CultureMapController extends Controller
             ));
         } else {
             return $this->render('ArmdCultureMapBundle:CultureMap:subject.html.twig', array(
-                'entity' => $entity,
+                'entity'    => $entity,
+                'objects'   => $objects,
             ));
         }
     }

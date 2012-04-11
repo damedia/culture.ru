@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\EventBundle\Repository\EventRepository")
  * @ORM\Table(name="content_event")
  */
 class Event extends BaseNews
