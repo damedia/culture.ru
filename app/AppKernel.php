@@ -37,7 +37,6 @@ class AppKernel extends Kernel
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
             new Armd\Bundle\SimtagBundle\ArmdSimtagBundle(),
-            new Armd\Bundle\DbRoutingBundle\ArmdDbRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

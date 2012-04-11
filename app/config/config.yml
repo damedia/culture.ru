@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
-    - { resource: @ArmdDbRoutingBundle/Resources/config/routing.xml }
+    - { resource: @ArmdCmsBundle/Resources/config/routing.xml }
     - { resource: @ArmdCmsBundle/Resources/config/parameters.yml }
 
 framework:
