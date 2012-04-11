@@ -1,0 +1,12 @@
+parameters:
+    armd_taxonomy.taxonomy_listener.class:  Armd\TaxonomyBundle\EventListener\TaxonomyListener
+    armd_taxonomy.taxonomy_manager.class:   Armd\TaxonomyBundle\Manager\TaxonomyManager
+
+services:
+    armd_taxonomy.taxonomy_listener:
+        class: %armd_taxonomy.taxonomy_listener.class%
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }        
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postRemove }            
+        arguments: [%armd_taxonomy.taxonomy_manager.class%]

@@ -30,7 +30,7 @@ class TagContentReference
     /**
      * @ORM\Column(type="boolean", name="is_personal")
      */    
-    private $personal;
+    private $personal = false;
 
     /**
      * Get id
