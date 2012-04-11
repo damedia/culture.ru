@@ -4,12 +4,13 @@ namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="content_article")
  */
-class Article extends BaseContent
+class Article extends BaseContent implements TaxonomyInterface
 {
     /**
      * @ORM\Id
@@ -36,7 +37,17 @@ class Article extends BaseContent
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $place;    
+    private $place;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;
 
     /**
      * Get id
@@ -126,5 +137,45 @@ class Article extends BaseContent
     public function getPlace()
     {
         return $this->place;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

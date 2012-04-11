@@ -32,6 +32,8 @@ class ArticleAdmin extends BaseAdmin
                 ->add('body')            
                 ->add('place')
                 ->add('date')
+                ->add('personalTag')
+                ->add('tags')                
             ->end()
         ;
     }

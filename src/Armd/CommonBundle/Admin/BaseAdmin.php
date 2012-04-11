@@ -40,7 +40,7 @@ abstract class BaseAdmin extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('title')
+                ->add('title')                
             ->end()
         ;
     }
