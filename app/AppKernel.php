@@ -44,6 +44,7 @@ class AppKernel extends Kernel
             new Armd\CultureMapBundle\ArmdCultureMapBundle(),
             new Armd\CommonBundle\ArmdCommonBundle(),
             new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
+            new Armd\TaxonomyBundle\ArmdTaxonomyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
