@@ -31,6 +31,16 @@ class News extends BaseNews
     private $gallery;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $tag;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $tags;
+
+    /**
      * Set source
      *
      * @param string $source
@@ -88,5 +98,45 @@ class News extends BaseNews
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set tag
+     *
+     * @param string $tag
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return string 
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param string $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return string 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
