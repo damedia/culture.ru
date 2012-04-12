@@ -31,3 +31,7 @@ gallery:
 media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
     prefix: /media
+    
+pages:
+    resource: ArmdCmsBundle:Page
+    type: db    
