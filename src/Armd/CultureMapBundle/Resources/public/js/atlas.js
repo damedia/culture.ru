@@ -23,7 +23,7 @@ function SampleBalloonLayout() {
     // Добавляет макет на страницу  <div class="YMaps-balloon" style="position: absolute; z-index:200;">
     this.onAddToParent = function (parentNode) {
         YMaps.jQuery(parentNode).append(this.element);
-        this.update();
+        this.update(); 
     };
 
     // Удаляет макет со страницы
@@ -31,13 +31,16 @@ function SampleBalloonLayout() {
         this.element.remove();
         
     };
-
-   
-    // Устанавливает содержимое балуна
-    this.setContent = function (content) {
-        YMaps.jQuery(content).find('.map-point-wrapper').remove();
-        content.onAddToParent(this.content[0]);
+    
+    this.CloseButtonClick =  function () {
+        this.element.remove();
         
+    };
+    
+    // Устанавливает содержимое балуна
+    this.setContent = function (content) {  
+      content.onAddToParent(this.content[0]);
+
     };
 
     // Обновляет балун
@@ -46,10 +49,11 @@ function SampleBalloonLayout() {
         //this.element.css("margin-top", "-" + (thi ) + "px");
 
     };
+    
 };
 
 function balloonReadMore(id) {
-    $('#subject-details').load('/ru/sys/map/subject?id='+id, function(){
+    $('#subject-details').load('/_sys/map/subject?id='+id, function(){
         $.scrollTo('#anchor-details', 1000, { easing:'easeOutQuad' });
     });
     return false;
@@ -87,7 +91,7 @@ YMaps.jQuery(function(){
 
     // Загрузка меток объектов
     $.ajax({
-        url: '/ru/sys/map/markers',
+        url: '/_sys/map/markers',
         data: { },
         success: function(json) {
             if (json.success) {
@@ -121,11 +125,10 @@ YMaps.jQuery(function(){
                     placemark.id = row.id;
                     //placemark.name = row.title;
                     //placemark.setBalloonContent(row.title);
-
                     // клик по булавке
                     YMaps.Events.observe(placemark, placemark.Events.Click, function(p, e){
                         $.ajax({
-                            url: '/ru/sys/map/object',
+                            url: '/_sys/map/object',
                             data: { id: p.id },
                             success: function(response) {
                             if(p.getBalloonContent() == null) p.setBalloonContent(response);
@@ -158,13 +161,14 @@ YMaps.jQuery(function(){
                 placemark.setOptions({ hasBalloon: false });
                 placemark.setStyle(regionDefaultStyle);
                 placemark.setHintContent(v.name);
-
+                
+                
                 // клик по региону
                 YMaps.Events.observe(placemark, placemark.Events.Click, function(p, e){
                     var hintContent = p.getHintContent();
                     //map.setBounds(new YMaps.GeoCollectionBounds(p.getPoints())); // fit map to region
                     $.ajax({
-                        url: '/ru/sys/map/region',
+                        url: '/_sys/map/region',
                         data: { id: hintContent },
                         success: function(response) {
                             if(p.getBalloonContent() == null) p.setBalloonContent(response);

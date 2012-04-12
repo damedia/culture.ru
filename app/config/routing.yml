@@ -1,6 +1,6 @@
 ArmdCultureMapBundle:
     resource: "@ArmdCultureMapBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /_sys/map
 
 ArmdEventBundle:
     resource: "@ArmdEventBundle/Resources/config/routing.yml"
@@ -35,3 +35,7 @@ gallery:
 media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
     prefix: /media
+    
+pages:
+    resource: ArmdCmsBundle:Page
+    type: db    
