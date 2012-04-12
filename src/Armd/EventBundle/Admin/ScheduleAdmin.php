@@ -27,7 +27,8 @@ class ScheduleAdmin extends Admin
         parent::configureShowField($showMapper);
         
         $showMapper
-            ->add('date')
+            ->add('beginDate')
+            ->add('endDate')
             ->add('event')
         ;
     }
@@ -43,7 +44,8 @@ class ScheduleAdmin extends Admin
         
         $formMapper
             ->with('General')
-                ->add('date')
+                ->add('beginDate')
+                ->add('endDate')
                 ->add('event')
             ->end();
     }
@@ -58,7 +60,8 @@ class ScheduleAdmin extends Admin
         parent::configureListFields($listMapper);
         
         $listMapper
-            ->add('date')
+            ->add('beginDate')
+            ->add('endDate')
             ->add('event')
         ;
     }

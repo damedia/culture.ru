@@ -128,7 +128,7 @@ YMaps.jQuery(function(){
                             url: '/ru/sys/map/object',
                             data: { id: p.id },
                             success: function(response) {
-                                p.setBalloonContent(response);
+                            if(p.getBalloonContent() == null) p.setBalloonContent(response);
                                 p.openBalloon();
                             }
                         });
@@ -167,7 +167,7 @@ YMaps.jQuery(function(){
                         url: '/ru/sys/map/region',
                         data: { id: hintContent },
                         success: function(response) {
-                            p.setBalloonContent(response);
+                            if(p.getBalloonContent() == null) p.setBalloonContent(response);
                             p.openBalloon();
                         }
                     });

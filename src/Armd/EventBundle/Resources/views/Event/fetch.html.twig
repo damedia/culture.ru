@@ -1,0 +1,32 @@
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Announce</th>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ entity.id }}">{{ entity.id }}</a></td>
+            <td>
+                {{ entity.title }}
+                {{ entity.image.height }}
+            </td>
+            <td>{{ entity.announce }}</td>
+            <td>{{ entity.date|date("d.m.Y") }}</td>         
+            <td>
+                <ul>
+                    <li>
+                        {{ cmsPath('armd_event', 'listitem', {'id' : entity.id}) }}
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -25,7 +25,7 @@ parameters:
                         requirements: 1
             archive:
                 controller: Event
-                action: list
+                action: archive
                 route:
                     pattern: /{from}/{to}/{page}
                     defaults:
@@ -48,6 +48,8 @@ parameters:
                 types: [list]
             listitem:
                 types: [item, list]
+            archive:
+                types: [list, archive, item]
 
 services:
     armd_event.usagetype:
