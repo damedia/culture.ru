@@ -53,7 +53,7 @@ function SampleBalloonLayout() {
 };
 
 function balloonReadMore(id) {
-    $('#subject-details').load('/ru/sys/map/subject?id='+id, function(){
+    $('#subject-details').load('/_sys/map/subject?id='+id, function(){
         $.scrollTo('#anchor-details', 1000, { easing:'easeOutQuad' });
     });
     return false;
@@ -91,7 +91,7 @@ YMaps.jQuery(function(){
 
     // Загрузка меток объектов
     $.ajax({
-        url: '/ru/sys/map/markers',
+        url: '/_sys/map/markers',
         data: { },
         success: function(json) {
             if (json.success) {
@@ -128,7 +128,7 @@ YMaps.jQuery(function(){
                     // клик по булавке
                     YMaps.Events.observe(placemark, placemark.Events.Click, function(p, e){
                         $.ajax({
-                            url: '/ru/sys/map/object',
+                            url: '/_sys/map/object',
                             data: { id: p.id },
                             success: function(response) {
                                 p.setBalloonContent(response);
@@ -172,7 +172,7 @@ YMaps.jQuery(function(){
                          
                     } else {
                         $.ajax({
-                            url: '/ru/sys/map/region',
+                            url: '/_sys/map/region',
                             data: { id: hintContent },
                             success: function(response) {
                                 //p.setBalloonContent(response);

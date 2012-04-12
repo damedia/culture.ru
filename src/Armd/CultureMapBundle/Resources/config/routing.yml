@@ -1,19 +1,19 @@
-_sys_culturemap_regions:
-    pattern:  /ru/sys/map/regions
-    defaults: { _controller: ArmdCultureMapBundle:CultureMap:regions }
+#_sys_culturemap_regions:
+#    pattern:  /regions
+#    defaults: { _controller: ArmdCultureMapBundle:CultureMap:regions }
 
 _sys_culturemap_region:
-    pattern:  /ru/sys/map/region
+    pattern:  /region
     defaults: { _controller: ArmdCultureMapBundle:CultureMap:region }
 
 _sys_culturemap_markers:
-    pattern:  /ru/sys/map/markers
+    pattern:  /markers
     defaults: { _controller: ArmdCultureMapBundle:CultureMap:markers }
 
 _sys_culturemap_object:
-    pattern:  /ru/sys/map/object
+    pattern:  /object
     defaults: { _controller: ArmdCultureMapBundle:CultureMap:object }
 
 _sys_culturemap_subject:
-    pattern:  /ru/sys/map/subject
+    pattern:  /subject
     defaults: { _controller: ArmdCultureMapBundle:CultureMap:subject }

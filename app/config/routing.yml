@@ -1,6 +1,6 @@
 ArmdCultureMapBundle:
     resource: "@ArmdCultureMapBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /_sys/map
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
