@@ -29,7 +29,6 @@ class ArtworkAdmin extends BaseAdmin
         
         $formMapper
             ->with('General')
-                ->add('body')            
                 ->add('author', null, array('required' => false))
                 ->add('place')
                 ->add('date')
