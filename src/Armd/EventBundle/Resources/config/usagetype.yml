@@ -29,8 +29,8 @@ parameters:
                 route:
                     pattern: /{from}/{to}/{page}
                     defaults:
-                        from: 0000-00-00
-                        to:   0000-00-00
+                        from: '2010-04-01'
+                        to:   '2015-04-30'
                         page: 1
                     requirements:
                         from: \d{4}-\d{2}-\d{2}
@@ -49,7 +49,7 @@ parameters:
             listitem:
                 types: [item, list]
             archive:
-                types: [list, archive, item]
+                types: [archive]
 
 services:
     armd_event.usagetype:

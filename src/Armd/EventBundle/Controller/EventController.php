@@ -7,7 +7,7 @@ use Armd\Bundle\NewsBundle\Controller\NewsController as BaseController;
 
 class EventController extends BaseController
 {
-    public function archiveAction($from='', $to='', $page='')
+    public function archiveAction($from='', $to='', $page)
     {
         $entities = $this->getEntityRepository()->findByDatePeriod($from, $to, $page);
         if (isset($_GET['ajax'])) {
@@ -33,11 +33,13 @@ class EventController extends BaseController
         $em = $this->getDoctrine()->getEntityManager();
         $entities = $em->getRepository('ArmdEventBundle:Event')->findByDatePeriod($from, $to, $page);
         if (! $entities) {
-            throw $this->createNotFoundException('Unable to find Event entities.');
+            //throw $this->createNotFoundException('Unable to find Event entities.');
+            exit;
+        } else {
+            return $this->render('ArmdEventBundle:Event:fetch.html.twig', array(
+                'entities' => $entities,
+            ));
         }
-        return $this->render('ArmdEventBundle:Event:fetch.html.twig', array(
-            'entities' => $entities,
-        ));
     }
 
 }

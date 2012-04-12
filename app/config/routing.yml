@@ -4,7 +4,7 @@ ArmdCultureMapBundle:
 
 ArmdEventBundle:
     resource: "@ArmdEventBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /_sys/event
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'

@@ -15,10 +15,7 @@ class CultureAreaController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $request = $this->get('request');
-        if (preg_match("/q\/(\d+)$/", $request->getPathInfo(), $m)) {
-            $id = (int) $m[1];
-        }
+        $id = $this->get('request')->get('id');
 
         // корневые категории
         $dql = "SELECT a.id, a.lvl, a.lft, a.rgt, a.title
@@ -35,6 +32,7 @@ class CultureAreaController extends Controller
                 ORDER BY a.lft ASC";
         $query = $em->createQuery($dql)->setParameter('id', $id);
         $parents = $query->getResult();
+
         $path = array();
         foreach ($parents as $node) {
             $path[] = $node['id'];

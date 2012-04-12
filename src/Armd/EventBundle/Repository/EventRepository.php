@@ -18,7 +18,7 @@ class EventRepository extends EntityRepository
             ->select(array('e', 's', 'i'))
             ->from('ArmdEventBundle:Event', 'e')
             ->innerJoin('e.schedule', 's')
-            ->innerJoin('e.image', 'i')
+            ->leftJoin('e.image', 'i')
             ->where('s.beginDate BETWEEN ?1 AND ?2')
             ->orWhere('s.endDate BETWEEN ?1 AND ?2')
             ->setParameters(array(
