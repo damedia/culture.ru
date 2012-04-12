@@ -23,7 +23,7 @@ function SampleBalloonLayout() {
     // Добавляет макет на страницу  <div class="YMaps-balloon" style="position: absolute; z-index:200;">
     this.onAddToParent = function (parentNode) {
         YMaps.jQuery(parentNode).append(this.element);
-        this.update();
+        this.update(); 
     };
 
     // Удаляет макет со страницы
@@ -31,13 +31,16 @@ function SampleBalloonLayout() {
         this.element.remove();
         
     };
-
-   
-    // Устанавливает содержимое балуна
-    this.setContent = function (content) {
-        YMaps.jQuery(content).find('.map-point-wrapper').remove();
-        content.onAddToParent(this.content[0]);
+    
+    this.CloseButtonClick =  function () {
+        this.element.remove();
         
+    };
+    
+    // Устанавливает содержимое балуна
+    this.setContent = function (content) {  
+      content.onAddToParent(this.content[0]);
+
     };
 
     // Обновляет балун
@@ -46,6 +49,7 @@ function SampleBalloonLayout() {
         //this.element.css("margin-top", "-" + (thi ) + "px");
 
     };
+    
 };
 
 function balloonReadMore(id) {
@@ -121,7 +125,6 @@ YMaps.jQuery(function(){
                     placemark.id = row.id;
                     //placemark.name = row.title;
                     //placemark.setBalloonContent(row.title);
-
                     // клик по булавке
                     YMaps.Events.observe(placemark, placemark.Events.Click, function(p, e){
                         $.ajax({
@@ -158,19 +161,26 @@ YMaps.jQuery(function(){
                 placemark.setOptions({ hasBalloon: false });
                 placemark.setStyle(regionDefaultStyle);
                 placemark.setHintContent(v.name);
-
+                
+                
                 // клик по региону
                 YMaps.Events.observe(placemark, placemark.Events.Click, function(p, e){
                     var hintContent = p.getHintContent();
                     //map.setBounds(new YMaps.GeoCollectionBounds(p.getPoints())); // fit map to region
-                    $.ajax({
-                        url: '/ru/sys/map/region',
-                        data: { id: hintContent },
-                        success: function(response) {
-                            p.setBalloonContent(response);
-                            p.openBalloon();
-                        }
-                    });
+                    console.log(p.getBalloonContent())
+                    if(p.getBalloon()) {
+                         
+                    } else {
+                        $.ajax({
+                            url: '/ru/sys/map/region',
+                            data: { id: hintContent },
+                            success: function(response) {
+                                //p.setBalloonContent(response);
+                                p.openBalloon(response);
+                            }
+                        });
+                    
+                    }
                 });
                 
                 YMaps.Events.observe(placemark, placemark.Events.DblClick, function(p, e){
