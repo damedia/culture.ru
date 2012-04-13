@@ -1,30 +1,36 @@
 parameters:
 
 services:
-    armd_common.admin.person:
-        class: Armd\CommonBundle\Admin\PersonAdmin
+    armd_common.admin.article:
+        class: Armd\CommonBundle\Admin\ArticleAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: module, label: Persons }
-        arguments: [null, Armd\CommonBundle\Entity\Person, SonataAdminBundle:CRUD, @service_container]
-        
-    armd_common.admin.institution:
-        class: Armd\CommonBundle\Admin\InstitutionAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: module, label: Institutions }
-        arguments: [null, Armd\CommonBundle\Entity\Institution, SonataAdminBundle:CRUD, @service_container]
+            - { name: sonata.admin, manager_type: orm, group: module, label: Articles }
+        arguments: [null, Armd\CommonBundle\Entity\Article, SonataAdminBundle:CRUD, @service_container]        
         
     armd_common.admin.artwork:
         class: Armd\CommonBundle\Admin\ArtworkAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: module, label: Artworks }
         arguments: [null, Armd\CommonBundle\Entity\Artwork, SonataAdminBundle:CRUD, @service_container]
-        
-    armd_common.admin.article:
-        class: Armd\CommonBundle\Admin\ArticleAdmin
+
+    armd_common.admin.institution:
+        class: Armd\CommonBundle\Admin\InstitutionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: module, label: Articles }
-        arguments: [null, Armd\CommonBundle\Entity\Article, SonataAdminBundle:CRUD, @service_container]
+            - { name: sonata.admin, manager_type: orm, group: module, label: Institutions }
+        arguments: [null, Armd\CommonBundle\Entity\Institution, SonataAdminBundle:CRUD, @service_container]
         
+    armd_common.admin.monument:
+        class: Armd\CommonBundle\Admin\MonumentAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Monuments }
+        arguments: [null, Armd\CommonBundle\Entity\Monument, SonataAdminBundle:CRUD, @service_container]        
+
+    armd_common.admin.person:
+        class: Armd\CommonBundle\Admin\PersonAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Persons }
+        arguments: [null, Armd\CommonBundle\Entity\Person, SonataAdminBundle:CRUD, @service_container]
+                
     armd_common.admin.term:
         class: Armd\CommonBundle\Admin\TermAdmin
         tags:

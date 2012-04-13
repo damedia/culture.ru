@@ -8,9 +8,9 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="content_artwork")
+ * @ORM\Table(name="content_monument")
  */
-class Artwork extends BaseContent implements TaxonomyInterface
+class Monument extends BaseContent implements TaxonomyInterface
 {
     /**
      * @ORM\Id
@@ -23,17 +23,22 @@ class Artwork extends BaseContent implements TaxonomyInterface
      * @ORM\Column(type="string")
      */
     private $title;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", nullable="true")
+     */
+    private $address;        
         
     /**
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="artworks")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id", nullable=true)
      */    
     private $author;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution")
-     */
-    private $place;
     
     /**
      * @ORM\Column(type="date", name="artwork_date", nullable=true)
@@ -263,22 +268,42 @@ class Artwork extends BaseContent implements TaxonomyInterface
     }
 
     /**
-     * Set place
+     * Set city
      *
-     * @param Armd\CommonBundle\Entity\Institution $place
+     * @param string $city
      */
-    public function setPlace(\Armd\CommonBundle\Entity\Institution $place)
+    public function setCity($city)
     {
-        $this->place = $place;
+        $this->city = $city;
     }
 
     /**
-     * Get place
+     * Get city
      *
-     * @return Armd\CommonBundle\Entity\Institution 
+     * @return string 
      */
-    public function getPlace()
+    public function getCity()
     {
-        return $this->place;
+        return $this->city;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

@@ -6,17 +6,28 @@ use Doctrine\ORM\Mapping as ORM;
 use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Application\Sonata\MediaBundle\Entity\Gallery;
+use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="content_news_extended")
  */
-class News extends BaseNews
+class News extends BaseNews implements TaxonomyInterface
 {
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $source;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;    
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
@@ -88,5 +99,45 @@ class News extends BaseNews
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
