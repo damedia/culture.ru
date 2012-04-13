@@ -24,7 +24,7 @@ class PersonAdmin extends BaseAdmin
      * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
-    {
+    {        
         $formMapper
             ->with('General')
                 ->add('lastname')            
@@ -33,6 +33,14 @@ class PersonAdmin extends BaseAdmin
                 ->add('birthpalce')
                 ->add('birthday')
                 ->add('deathday')                                                                                
+            ->end()
+        ;
+        
+        parent::configureFormFields($formMapper);        
+
+        $formMapper
+            ->with('General')        
+                ->remove('title')
             ->end()
         ;
     }

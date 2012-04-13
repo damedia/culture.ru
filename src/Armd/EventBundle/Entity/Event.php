@@ -38,7 +38,17 @@ class Event extends BaseNews
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="event") 
      */
     private $schedule;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
 
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;
+    
     public function __toString()
     {
         return $this->getTitle();
