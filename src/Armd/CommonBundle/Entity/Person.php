@@ -49,6 +49,38 @@ class Person extends BaseContent
     private $birthpalce;
     
     /**
+     * @ORM\Column(type="text", nullable="true")
+     */
+    private $announce;        
+    
+    /**
+     * @ORM\Column(type="text", nullable="true")
+     */
+    private $body;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;        
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
+     */
+    private $gallery;    
+    
+    /**
      * @ORM\OneToMany(targetEntity="Artwork", mappedBy="author")
      */    
     private $artworks;
@@ -229,5 +261,125 @@ class Person extends BaseContent
     public function getArtworks()
     {
         return $this->artworks;
+    }
+
+    /**
+     * Set announce
+     *
+     * @param text $announce
+     */
+    public function setAnnounce($announce)
+    {
+        $this->announce = $announce;
+    }
+
+    /**
+     * Get announce
+     *
+     * @return text 
+     */
+    public function getAnnounce()
+    {
+        return $this->announce;
+    }
+
+    /**
+     * Set body
+     *
+     * @param text $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     */
+    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    {
+        $this->gallery = $gallery;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

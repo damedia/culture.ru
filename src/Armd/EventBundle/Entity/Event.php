@@ -11,11 +11,11 @@ use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
  */
 class Event extends BaseNews
 {
-    /** 
-     * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution") 
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution")
      */
     private $place;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
@@ -23,15 +23,26 @@ class Event extends BaseNews
     private $image;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="collage_image_id", referencedColumnName="id")
+     */
+    private $collageImage;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
-    private $gallery;    
-    
+    private $gallery;
+
+    /** 
+     * @ORM\OneToMany(targetEntity="Schedule", mappedBy="event") 
+     */
+    private $schedule;
+
     public function __toString()
     {
         return $this->getTitle();
-    }            
+    }
 
     /**
      * Set place
@@ -46,7 +57,7 @@ class Event extends BaseNews
     /**
      * Get place
      *
-     * @return Armd\CommonBundle\Entity\Institution 
+     * @return Armd\CommonBundle\Entity\Institution
      */
     public function getPlace()
     {
@@ -66,7 +77,7 @@ class Event extends BaseNews
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage()
     {
@@ -86,10 +97,55 @@ class Event extends BaseNews
     /**
      * Get gallery
      *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return Application\Sonata\MediaBundle\Entity\Gallery
      */
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    public function __construct()
+    {
+        $this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add schedule
+     *
+     * @param Armd\EventBundle\Entity\Schedule $schedule
+     */
+    public function addSchedule(\Armd\EventBundle\Entity\Schedule $schedule)
+    {
+        $this->schedule[] = $schedule;
+    }
+
+    /**
+     * Get schedule
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
+
+    /**
+     * Set collageImage
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $collageImage
+     */
+    public function setCollageImage(\Application\Sonata\MediaBundle\Entity\Media $collageImage)
+    {
+        $this->collageImage = $collageImage;
+    }
+
+    /**
+     * Get collageImage
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Media 
+     */
+    public function getCollageImage()
+    {
+        return $this->collageImage;
     }
 }

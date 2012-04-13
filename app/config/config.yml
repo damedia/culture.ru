@@ -129,7 +129,7 @@ sonata_media:
                  - sonata.media.provider.image
 #                - sonata.media.provider.file
             formats:
-                small: { width: 95,  height: 95, quality: 95 }
+                small: { width: 95,  quality: 95 }
                 big:   { width: 266, height: 196, quality: 95 } 
                 main:  { width: 488, height: 176, quality: 95 }
 #               tiny:  { width: 95,  height: 95, quality: 95}

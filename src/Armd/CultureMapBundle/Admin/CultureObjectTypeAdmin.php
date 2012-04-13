@@ -9,26 +9,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Armd\EventBundle\Admin;
+namespace Armd\CultureMapBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Armd\Bundle\NewsBundle\Admin\NewsAdmin as BaseAdmin;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
 
-class EventAdmin extends BaseAdmin
+class CultureObjectTypeAdmin extends Admin
 {
+    /**
+     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
+     *
+     * @return void
+     */
     protected function configureShowField(ShowMapper $showMapper)
     {
-        parent::configureShowField($showMapper);
-        
         $showMapper
-            ->add('place')
-            ->remove('date')
+            ->add('title')
         ;
     }
 
@@ -39,16 +40,9 @@ class EventAdmin extends BaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        parent::configureFormFields($formMapper);
-        
         $formMapper
-            ->with('General')
-                ->add('date')
-                ->add('place')
-                ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
-                ->add('collageImage', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
-                ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))                
-            ->end();
+            ->add('title')
+        ;
     }
 
     /**
@@ -58,12 +52,21 @@ class EventAdmin extends BaseAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        parent::configureListFields($listMapper);
-        
         $listMapper
-            ->add('place')
-            ->remove('beginDate')
-            ->remove('endDate')
+            ->addIdentifier('title')          
+       ;
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     *
+     * @return void
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('title')
         ;
     }
+
 }

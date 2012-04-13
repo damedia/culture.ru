@@ -7,7 +7,7 @@ use Armd\CommonBundle\Entity as Common;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="content_event_shedule")
+ * @ORM\Table(name="content_event_schedule")
  */
 class Schedule
 {
@@ -21,10 +21,15 @@ class Schedule
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date;
+    private $beginDate;
+        
+    /**
+     * @ORM\Column(type="datetime", nullable="true")
+     */
+    private $endDate;
         
     /** 
-     * @ORM\ManyToOne(targetEntity="Event") 
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="schedule") 
      */
     private $event;
     
@@ -76,5 +81,45 @@ class Schedule
     public function getEvent()
     {
         return $this->event;
+    }
+
+    /**
+     * Set beginDate
+     *
+     * @param datetime $beginDate
+     */
+    public function setBeginDate($beginDate)
+    {
+        $this->beginDate = $beginDate;
+    }
+
+    /**
+     * Get beginDate
+     *
+     * @return datetime 
+     */
+    public function getBeginDate()
+    {
+        return $this->beginDate;
+    }
+
+    /**
+     * Set endDate
+     *
+     * @param datetime $endDate
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return datetime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

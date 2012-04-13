@@ -12,18 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRepository extends EntityRepository
 {
-    public function findByDatePeriod(\DatePeriod $period)
+    public function findByDatePeriod($beginDate='', $endDate='', $page=1)
     {
-/*
         $query = $this->getEntityManager()->createQueryBuilder()
-            ->select(array('e', 'p'))
-            ->from('ArmdEventBundle:Shedule', 's')
-            ->innerJoin('s.event', 'e')
-            ->innerJoin('s.place', 'p')
-            ->orderBy('s.date', 'DESC')
-        ->getQuery();
-            
-        return $query->getResult();                        
-*/
+            ->select(array('e', 's', 'i'))
+            ->from('ArmdEventBundle:Event', 'e')
+            ->innerJoin('e.schedule', 's')
+            ->leftJoin('e.image', 'i')
+            ->where('s.beginDate BETWEEN ?1 AND ?2')
+            ->orWhere('s.endDate BETWEEN ?1 AND ?2')
+            ->setParameters(array(
+                1 => $beginDate,
+                2 => $endDate.' 23:59:59',
+            ))
+            ->getQuery();
+        $result = $query->getResult();
+        return $result;
     }
 }
