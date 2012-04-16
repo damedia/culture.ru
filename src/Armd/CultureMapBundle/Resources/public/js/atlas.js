@@ -66,7 +66,7 @@ YMaps.jQuery(function(){
     var initLat = 99.933497,
         initLng = 65.948073,
         iniZoom = 3;
-    map.setType(YMaps.MapType.SATELLITE);
+    map.setType(YMaps.MapType.MAP);
     map.setCenter(new YMaps.GeoPoint(initLat, initLng), iniZoom);
 
     map.addControl(new YMaps.TypeControl());

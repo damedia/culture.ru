@@ -175,4 +175,28 @@ class CultureMapController extends Controller
         ));
     }
 
+    public function checkAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $repo = $em->getRepository('ArmdCultureAreaBundle:CultureArea');
+
+        $query = $em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('ArmdCultureAreaBundle:CultureArea', 'node')
+            ->orderBy('node.root, node.lft', 'ASC')
+            ->where('node.root = 36')
+            ->getQuery()
+        ;
+        $options = array('decorate' => true);
+        $tree = $repo->buildTree($query->getArrayResult(), $options);
+        print $tree;
+
+        exit;
+
+        $res = $repo->recover();
+        $em->clear();
+        var_dump($res);
+    }
+
 }

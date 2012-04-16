@@ -12,7 +12,8 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  * @ORM\Entity(repositoryClass="Armd\ExtendedNewsBundle\Repository\NewsRepository")
  * @ORM\Table(name="content_news_extended")
  */
-class News extends BaseNews implements TaxonomyInterface
+class News extends BaseNews
+//implements TaxonomyInterface
 {
     /**
      * @ORM\Column(type="string", nullable=true)

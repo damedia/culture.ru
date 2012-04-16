@@ -10,7 +10,8 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  * @ORM\Entity(repositoryClass="Armd\EventBundle\Repository\EventRepository")
  * @ORM\Table(name="content_event")
  */
-class Event extends BaseNews implements TaxonomyInterface
+class Event extends BaseNews
+//implements TaxonomyInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution")

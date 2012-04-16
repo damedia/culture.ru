@@ -7,22 +7,20 @@ use Armd\Bundle\NewsBundle\Controller\NewsController as BaseController;
 
 class EventController extends BaseController
 {
-    public function archiveAction($from='', $to='', $page)
+    public function archiveAction($from, $to, $page)
     {
+        $from = !empty($from) ? $from : date('Y-m-d');
+        $to   = !empty($to)   ? $to   : date('Y-m-d', strtotime('+3days'));
+        $fromDay = date('j', strtotime($from));
+        $toDay   = date('j', strtotime($to));
         $entities = $this->getEntityRepository()->findByDatePeriod($from, $to, $page);
-        if (isset($_GET['ajax'])) {
-            $res = array();
-            foreach ($entities as $item) {
-                $res[] = array(
-                    'title' => $item->getTitle(),
-                    'title' => $item->getTitle(),
-                );
-            }
-            print json_encode($res);
-            exit;
-        } else {
-            return $this->renderCms(array('entities' => $entities));
-        }
+        return $this->renderCms(array(
+            'entities' => $entities,
+            'selectDays' => array(
+                'from' => $fromDay,
+                'to'   => $toDay,
+            ),
+        ));
     }
 
     public function fetchAction()

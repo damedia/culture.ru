@@ -1,6 +1,7 @@
 parameters:
     armd_common.controller.article.class:   Armd\CommonBundle\Controller\ArticleController
     armd_common.controller.artwork.class:   Armd\CommonBundle\Controller\ArtworkController
+    armd_common.controller.monument.class:  Armd\CommonBundle\Controller\MonumentController
     armd_common.controller.person.class:    Armd\CommonBundle\Controller\PersonController
     armd_common.controller.term.class:      Armd\CommonBundle\Controller\TermController            
                                             
@@ -14,6 +15,11 @@ services:
         class: %armd_common.controller.artwork.class%
         calls:
             - [ setContainer, [ @service_container ] ]
+            
+    armd_common.controller.monument:
+        class: %armd_common.controller.monument.class%
+        calls:
+            - [ setContainer, [ @service_container ] ]            
             
     armd_common.controller.person:
         class: %armd_common.controller.person.class%

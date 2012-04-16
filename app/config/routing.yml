@@ -6,6 +6,10 @@ ArmdEventBundle:
     resource: "@ArmdEventBundle/Resources/config/routing.yml"
     prefix:   /_sys/event
 
+ArmdTvigleBundle:
+    resource: "@ArmdTvigleBundle/Resources/config/routing.yml"
+    prefix:   /_sys/tvigle
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin

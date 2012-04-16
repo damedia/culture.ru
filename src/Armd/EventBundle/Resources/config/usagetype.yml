@@ -22,9 +22,10 @@ parameters:
                         title: Информационный поток
                         type: entity
                         entity: ArmdCmsBundle:ContentStream
-                        addField: Name
+                        addField: id
                         viewField: Name
                         default: 0
+
                     per_page:
                         title: Количество элементов на странице
                         type: int                        
@@ -36,8 +37,8 @@ parameters:
                 route:
                     pattern: /{from}/{to}/{page}
                     defaults:
-                        from: '2010-04-01'
-                        to:   '2015-04-30'
+                        from: 0000-00-00
+                        to:   0000-00-00
                         page: 1
                     requirements:
                         from: \d{4}-\d{2}-\d{2}
