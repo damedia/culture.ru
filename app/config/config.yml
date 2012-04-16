@@ -38,6 +38,9 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         ymaps_api_keys: "AFWDbE8BAAAA6EbIVAIAyR0FSeXkIt6YefBYNpGmv5CD75sAAAAAAAAAAABZ8ahRt4lUv480EGX1JSZGmnFb4A==~AIaDbE8BAAAAXU2KXAQAyQWFMrTgmHE5LRzjKY4LaHMJZh0AAAAAAAAAAAD4IAOY3YptF_w2WRJNfBlDUdk46A==~AJyJeU8BAAAAq8MjEAQAlsDIhR8bp6JW_9jqsw0mjCWFWhUAAAAAAAAAAADHuk5DtFdvoUI2ysCTLtDBLnsPZQ=="
+    form:
+        resources:
+            - "ArmdAdminBundle:Form:fields.html.twig"
 
 # Assetic Configuration
 assetic:
