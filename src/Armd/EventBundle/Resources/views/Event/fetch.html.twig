@@ -41,16 +41,16 @@
     <li style="width: {#{ w }#}px; margin: 0px auto;"><a class="lnk-calendar-0" href="{{ cmsPath('armd_event', 'listitem', {'id' : entity.id}) }}">
             <i>
                 {% for schedule in entity.schedule %}
-                    {{ schedule.beginDate|date("d F") }}
+                    {{ schedule.beginDate|ruDate }}
                 {% endfor %}
             </i>
             {#% thumbnail entity.image, 'small' %#}
             {#<img width="{{ w }}" height="{{ h }}" title="" alt="" src="{{ tempPicUrl }} "/>#}
-			{% if entity.image %}
-				<img {#width="{{ entity.image.width}}"  height="{{ entity.image.height }}"#} title="" class="collage-img" alt="" src="{% path entity.image, 'reference' %}"/>
-			{% else %}
-				<img width="" title="" alt="" src="{{ tempPicUrl }} "/>
-			{% endif %}
+            {% if entity.image %}
+                <img {#width="{{ entity.image.width}}"  height="{{ entity.image.height }}"#} title="" class="collage-img" alt="" src="{% path entity.image, 'reference' %}"/>
+            {% else %}
+                <img width="" title="" alt="" src="{{ tempPicUrl }} "/>
+            {% endif %}
             <strong>{{ entity.title|raw }}</strong>
             <dfn>{{ entity.announce|raw }}</dfn>
     </a></li>
