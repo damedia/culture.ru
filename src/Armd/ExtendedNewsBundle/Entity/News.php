@@ -6,17 +6,28 @@ use Doctrine\ORM\Mapping as ORM;
 use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Application\Sonata\MediaBundle\Entity\Gallery;
+use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="content_news_extended")
  */
-class News extends BaseNews
+class News extends BaseNews implements TaxonomyInterface
 {
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $source;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;    
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
@@ -29,16 +40,6 @@ class News extends BaseNews
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $tag;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $tags;
 
     /**
      * Set source
@@ -101,29 +102,29 @@ class News extends BaseNews
     }
 
     /**
-     * Set tag
+     * Set personalTag
      *
-     * @param string $tag
+     * @param string $personalTag
      */
-    public function setTag($tag)
+    public function setPersonalTag($personalTag)
     {
-        $this->tag = $tag;
+        $this->personalTag = $personalTag;
     }
 
     /**
-     * Get tag
+     * Get personalTag
      *
      * @return string 
      */
-    public function getTag()
+    public function getPersonalTag()
     {
-        return $this->tag;
+        return $this->personalTag;
     }
 
     /**
      * Set tags
      *
-     * @param string $tags
+     * @param text $tags
      */
     public function setTags($tags)
     {
@@ -133,7 +134,7 @@ class News extends BaseNews
     /**
      * Get tags
      *
-     * @return string 
+     * @return text 
      */
     public function getTags()
     {

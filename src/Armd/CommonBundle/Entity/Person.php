@@ -4,12 +4,13 @@ namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="content_person")
  */
-class Person extends BaseContent
+class Person extends BaseContent implements TaxonomyInterface
 {
     /**
      * @ORM\Id

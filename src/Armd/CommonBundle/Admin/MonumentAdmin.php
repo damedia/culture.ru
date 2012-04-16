@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class PersonAdmin extends BaseAdmin
+class MonumentAdmin extends BaseAdmin
 {
     /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -24,23 +24,15 @@ class PersonAdmin extends BaseAdmin
      * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
-    {        
+    {
+        parent::configureFormFields($formMapper);
+        
         $formMapper
             ->with('General')
-                ->add('lastname')            
-                ->add('firstname')
-                ->add('middlename')
-                ->add('birthpalce')
-                ->add('birthday')
-                ->add('deathday')                                                                                
-            ->end()
-        ;
-        
-        parent::configureFormFields($formMapper);        
-
-        $formMapper
-            ->with('General')        
-                ->remove('title')
+                ->add('author', null, array('required' => false))
+                ->add('city')
+                ->add('address')                
+                ->add('date')
             ->end()
         ;
     }

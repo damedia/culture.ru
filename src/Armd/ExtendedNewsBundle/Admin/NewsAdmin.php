@@ -43,12 +43,10 @@ class NewsAdmin extends BaseAdmin
         $formMapper
             ->with('General')
                 ->add('source')
+                ->add('personalTag')
+                ->add('tags')                                
                 ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
-            ->end()
-            ->with('Tags')
-                ->add('tag', 'text', array('required'=>false))
-                ->add('tags', 'tags', array('property_path'=>false, 'required'=>false))
             ->end();
    }
 

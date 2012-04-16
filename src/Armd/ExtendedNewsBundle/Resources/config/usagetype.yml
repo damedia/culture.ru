@@ -18,11 +18,18 @@ parameters:
                     requirements:
                         page: \d+
                 params:
+                    content_stream:
+                        title: Информационный поток
+                        type: entity
+                        entity: ArmdCmsBundle:ContentStream
+                        addField: Name
+                        viewField: Name
+                        default: 0
                     per_page:
                         title: Количество элементов на странице
                         type: int                        
                         default: 10
-                        requirements: 1
+                        requirements: 1                        
         group:
             list:
                 types: [list]

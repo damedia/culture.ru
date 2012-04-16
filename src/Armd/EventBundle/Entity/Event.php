@@ -4,12 +4,13 @@ namespace Armd\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
+use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\EventBundle\Repository\EventRepository")
  * @ORM\Table(name="content_event")
  */
-class Event extends BaseNews
+class Event extends BaseNews implements TaxonomyInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution")
@@ -38,7 +39,17 @@ class Event extends BaseNews
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="event") 
      */
     private $schedule;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
 
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;
+    
     public function __toString()
     {
         return $this->getTitle();
@@ -147,5 +158,45 @@ class Event extends BaseNews
     public function getCollageImage()
     {
         return $this->collageImage;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

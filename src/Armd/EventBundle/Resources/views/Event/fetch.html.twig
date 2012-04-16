@@ -1,3 +1,4 @@
+{#
 <table class="records_list">
     <thead>
         <tr>
@@ -15,7 +16,7 @@
             <td><a href="{{ entity.id }}">{{ entity.id }}</a></td>
             <td>
                 {{ entity.title }}
-                {{ entity.image.height }}
+                {{ entity.image }}
             </td>
             <td>{{ entity.announce }}</td>
             <td>{{ entity.date|date("d.m.Y") }}</td>         
@@ -30,3 +31,27 @@
     {% endfor %}
     </tbody>
 </table>
+#}
+
+{% for entity in entities %}
+    {% set tempPicUrl = asset('bundles/armdmkresources/upload/pic' ~ random(5) ~ '.jpg') %}
+    {% set w = random([150, 300, 450]) %}
+    {% set h = random([150, 200, 250]) %}
+    {% set tempPicUrl = asset('bundles/armdmkresources/upload/pic' ~ random(20) ~ '.jpg') %}
+    <li style="width: {#{ w }#}px; margin: 0px auto;"><a class="lnk-calendar-0" href="{{ cmsPath('armd_event', 'listitem', {'id' : entity.id}) }}">
+            <i>
+                {% for schedule in entity.schedule %}
+                    {{ schedule.beginDate|localDate("d F") }}
+                {% endfor %}
+            </i>
+            {#% thumbnail entity.image, 'small' %#}
+            {#<img width="{{ w }}" height="{{ h }}" title="" alt="" src="{{ tempPicUrl }} "/>#}
+            {% if entity.image %}
+                <img {#width="{{ entity.image.width}}"  height="{{ entity.image.height }}"#} title="" class="collage-img" alt="" src="{% path entity.image, 'reference' %}"/>
+            {% else %}
+                <img width="" title="" alt="" src="{{ tempPicUrl }} "/>
+            {% endif %}
+            <strong>{{ entity.title|raw }}</strong>
+            <dfn>{{ entity.announce|raw }}</dfn>
+    </a></li>
+{% endfor %}

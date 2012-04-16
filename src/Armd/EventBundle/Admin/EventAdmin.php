@@ -45,6 +45,8 @@ class EventAdmin extends BaseAdmin
             ->with('General')
                 ->add('date')
                 ->add('place')
+                ->add('personalTag')
+                ->add('tags')                
                 ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('collageImage', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))                

@@ -27,9 +27,9 @@ class EventController extends BaseController
 
     public function fetchAction()
     {
-        $from = '2012-04-01';
-        $to = '2012-04-30';
-        $page = 1;
+        $from = $this->getRequest()->query->get('from', date('Y-m-d'));
+        $to = $this->getRequest()->query->get('to', date('Y-m-d', strtotime('+4days')));
+        $page = (int) $this->getRequest()->query->get('page', 1);
         $em = $this->getDoctrine()->getEntityManager();
         $entities = $em->getRepository('ArmdEventBundle:Event')->findByDatePeriod($from, $to, $page);
         if (! $entities) {
