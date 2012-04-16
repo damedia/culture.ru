@@ -9,7 +9,7 @@ use Application\Sonata\MediaBundle\Entity\Gallery;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\ExtendedNewsBundle\Repository\NewsRepository")
  * @ORM\Table(name="content_news_extended")
  */
 class News extends BaseNews implements TaxonomyInterface

@@ -14,12 +14,17 @@ class TaxonomyManager
     {
         $this->em = $em;    
         
-        foreach(explode(',', $entity->getTags()) as $tag)
+        foreach(explode(',', $entity->getTags()) as $name)
         {
-            $this->createReference($this->getTagByName($tag), $entity);
+            if ($name) {
+                $this->createReference($this->getTagByName($name), $entity);
+            }            
         }
         
-        $this->createReference($this->getTagByName($entity->getPersonalTag()), $entity, true); 
+        if ($entity->getPersonalTag())
+        {
+            $this->createReference($this->getTagByName($entity->getPersonalTag()), $entity, true);         
+        }        
         
         $this->em->flush();        
     }
