@@ -41,7 +41,7 @@
     <li style="width: {#{ w }#}px; margin: 0px auto;"><a class="lnk-calendar-0" href="{{ cmsPath('armd_event', 'listitem', {'id' : entity.id}) }}">
             <i>
                 {% for schedule in entity.schedule %}
-                    {{ schedule.beginDate|ruDate }}
+                    {{ schedule.beginDate|localDate("d F") }}
                 {% endfor %}
             </i>
             {#% thumbnail entity.image, 'small' %#}
