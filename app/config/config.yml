@@ -163,4 +163,6 @@ sonata_media:
         local:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     true
-
+armd_tvigle:
+    video_directory:  %kernel.root_dir%/../web/uploads/video
+    video_url:  /uploads/video/
