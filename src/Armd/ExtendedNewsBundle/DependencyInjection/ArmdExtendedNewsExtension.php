@@ -26,6 +26,5 @@ class ArmdExtendedNewsExtension extends Extension
         $loader->load('usagetype.yml');
         $loader->load('controller.yml');
         $loader->load('admin.yml');        
-        $loader->load('formTypes.yml');
     }
 }

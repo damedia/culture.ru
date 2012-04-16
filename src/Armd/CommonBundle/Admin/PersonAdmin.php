@@ -24,22 +24,23 @@ class PersonAdmin extends BaseAdmin
      * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
-    {        
+    {
         $formMapper
             ->with('General')
-                ->add('lastname')            
+                ->add('lastname')
                 ->add('firstname')
                 ->add('middlename')
                 ->add('birthpalce')
-                ->add('birthday')
-                ->add('deathday')                                                                                
+                ->add('birthday', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->add('deathday', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->add('occupation')
             ->end()
         ;
-        
-        parent::configureFormFields($formMapper);        
+
+        parent::configureFormFields($formMapper);
 
         $formMapper
-            ->with('General')        
+            ->with('General')
                 ->remove('title')
             ->end()
         ;
