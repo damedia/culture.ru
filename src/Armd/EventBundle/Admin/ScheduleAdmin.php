@@ -45,7 +45,7 @@ class ScheduleAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('beginDate', 'sonata_type_datepicker', array('locale'=>'ru'))
-                ->add('endDate', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->add('endDate', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
                 ->add('event')
             ->end();
     }
