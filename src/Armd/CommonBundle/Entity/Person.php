@@ -52,6 +52,11 @@ class Person extends BaseContent implements TaxonomyInterface
     /**
      * @ORM\Column(type="text", nullable="true")
      */
+    private $occupation;
+    
+    /**
+     * @ORM\Column(type="text", nullable="true")
+     */
     private $announce;        
     
     /**
@@ -382,5 +387,25 @@ class Person extends BaseContent implements TaxonomyInterface
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set occupation
+     *
+     * @param text $occupation
+     */
+    public function setOccupation($occupation)
+    {
+        $this->occupation = $occupation;
+    }
+
+    /**
+     * Get occupation
+     *
+     * @return text 
+     */
+    public function getOccupation()
+    {
+        return $this->occupation;
     }
 }
