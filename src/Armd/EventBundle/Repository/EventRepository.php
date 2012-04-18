@@ -12,22 +12,23 @@ use Armd\Bundle\NewsBundle\Repository\NewsRepository;
  */
 class EventRepository extends NewsRepository
 {
-    public function findByDatePeriod($beginDate='', $endDate='', $page=1)
+    public function findByDatePeriod($beginDate='', $endDate='', $page=1, $stream=0)
     {
-        $query = $this->getEntityManager()->createQueryBuilder()
+        $qb = $this->createQueryBuilder('n')
             ->select(array('e', 's', 'i'))
             ->from('ArmdEventBundle:Event', 'e')
             ->innerJoin('e.schedule', 's')
             ->leftJoin('e.image', 'i')
-            ->where('s.beginDate BETWEEN ?1 AND ?2')
-            ->orWhere('s.endDate BETWEEN ?1 AND ?2')
-            ->andWhere('e.showInCollage=true')
-            ->setParameters(array(
-                1 => $beginDate,
-                2 => $endDate.' 23:59:59',
-            ))
-            ->getQuery();
-        $result = $query->getResult();
-        return $result;
+            ->where('s.beginDate BETWEEN :beginDate AND :endDate')
+            ->orWhere('s.endDate BETWEEN :beginDate AND :endDate')
+            ->setParameter('beginDate', $beginDate)
+            ->setParameter('endDate', $endDate.' 23:59:59')
+            ->andWhere('e.showInCollage=true');
+        if ($stream) {
+            $qb
+                ->andWhere('n.ContentStream = :stream')
+                ->setParameter('stream', $stream);
+        }
+        return $qb->getQuery()->getResult();
     }
 }

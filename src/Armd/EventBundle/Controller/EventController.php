@@ -25,18 +25,26 @@ class EventController extends BaseController
 
     public function fetchAction()
     {
-        $from = $this->getRequest()->query->get('from', date('Y-m-d'));
-        $to = $this->getRequest()->query->get('to', date('Y-m-d', strtotime('+4days')));
-        $page = (int) $this->getRequest()->query->get('page', 1);
+        $requestQuery = $this->getRequest()->query;
+        $from = $requestQuery->get('from', date('Y-m-d'));
+        $to   = $requestQuery->get('to', date('Y-m-d', strtotime('+4days')));
+        $page = (int) $requestQuery->get('page', 1);
+        $stream = (int) $requestQuery->get('stream', 0);
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('ArmdEventBundle:Event')->findByDatePeriod($from, $to, $page);
+        $entities = $em->getRepository('ArmdEventBundle:Event')->findByDatePeriod($from, $to, $page, $stream);
         if (! $entities) {
             //throw $this->createNotFoundException('Unable to find Event entities.');
             exit;
         } else {
-            return $this->render('ArmdEventBundle:Event:fetch.html.twig', array(
-                'entities' => $entities,
-            ));
+            if ($stream) {
+                return $this->render('ArmdEventBundle:Event:fetchstream.html.twig', array(
+                    'entities' => $entities,
+                ));
+            } else {
+                return $this->render('ArmdEventBundle:Event:fetch.html.twig', array(
+                    'entities' => $entities,
+                ));
+            }
         }
     }
 
