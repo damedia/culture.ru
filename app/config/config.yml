@@ -36,6 +36,9 @@ fos_user:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - "ArmdAdminBundle:Form:fields.html.twig"
 
 # Assetic Configuration
 assetic:
