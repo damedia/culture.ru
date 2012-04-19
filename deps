@@ -133,6 +133,7 @@
 [SonataUserBundle]
     git=http://github.com/sonata-project/SonataUserBundle.git
     target=/bundles/Sonata/UserBundle
+    version=origin/2.0
 
 [ArmdExtJSBundle]
     git=git@git.armd.ru:extjsbundle.git
@@ -170,3 +171,7 @@
 [buzz]
     git=http://github.com/kriswallsmith/Buzz.git
     target=/buzz
+
+[ArmdMediaBundle]
+    git=git@git.armd.ru:mediabundle.git
+    target=/bundles/Armd/Bundle/MediaBundle
