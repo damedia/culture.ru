@@ -31,7 +31,7 @@ class ArticleAdmin extends BaseAdmin
             ->with('General')
                 ->add('body')            
                 ->add('place')
-                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
                 ->add('personalTag')
                 ->add('tags')                
             ->end()

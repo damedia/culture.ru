@@ -31,8 +31,8 @@ class PersonAdmin extends BaseAdmin
                 ->add('firstname')
                 ->add('middlename')
                 ->add('birthpalce')
-                ->add('birthday', 'sonata_type_datepicker', array('locale'=>'ru'))
-                ->add('deathday', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->add('birthday', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('deathday', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
                 ->add('occupation')
             ->end()
         ;
