@@ -3,6 +3,11 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": {
+        "armd/user-bundle": { "type": "git", "url": "git@git.armd.ru:userbundle.git" },
+        "armd/cms-bundle": { "type": "git", "url": "git@git.armd.ru:CmsBundle.git" },
+        "armd/admin-bundle": { "type": "git", "url": "git@git.armd.ru:adminbundle.git" }
+    },    
     "require": {
         "php": ">=5.3.2",
         "symfony/symfony": "2.1.*",
@@ -16,7 +21,10 @@
         "sensio/framework-extra-bundle": "dev-master",
         "sensio/generator-bundle": "dev-master",
         "jms/security-extra-bundle": "1.1.0",
-        "jms/di-extra-bundle": "1.0.1"
+        "jms/di-extra-bundle": "1.0.1",
+        
+        "armd/cms-bundle": "master-dev",
+        "armd/admin-bundle": "master-dev"
     },
     "scripts": {
         "post-install-cmd": [
@@ -35,6 +43,7 @@
     },
     "extra": {
         "symfony-app-dir": "app",
-        "symfony-web-dir": "web"
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "symlink"
     }
 }

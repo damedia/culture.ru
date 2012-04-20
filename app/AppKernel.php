@@ -30,16 +30,16 @@ class AppKernel extends Kernel
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
-            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),                        
-            new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
-            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),            
-            new Armd\Bundle\CmsMenuBundle\ArmdCmsMenuBundle(),            
-            new Armd\Bundle\TextBundle\ArmdTextBundle(),            
-            new Armd\Bundle\NewsBundle\ArmdNewsBundle(),            
+            new Armd\UserBundle\ArmdUserBundle(),                        
+#            new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
+#            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),            
+#            new Armd\Bundle\CmsMenuBundle\ArmdCmsMenuBundle(),            
+#            new Armd\Bundle\TextBundle\ArmdTextBundle(),            
+#            new Armd\Bundle\NewsBundle\ArmdNewsBundle(),            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle();        
+#            $bundles[] = new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle();        
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
