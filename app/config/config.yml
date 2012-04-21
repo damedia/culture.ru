@@ -111,6 +111,7 @@ armd_cms:
         - /(.*)sonata_user_impersonating(.*)/
         - /_profiler/
         - /_wdt/
+        - /_sys_(.*?)/
 
 
 simple_things_entity_audit:
