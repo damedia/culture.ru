@@ -34,23 +34,16 @@ security:
                 target:         /admin/login
 
             anonymous:    true
+
+        main:
+            pattern:            .*
+            anonymous: ~
+            http_basic:
+                realm: "Secured Demo Area"
+
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/demo/secured/
-            form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
-            logout:
-                path:   /demo/secured/logout
-                target: /demo/
-            #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
 
@@ -75,4 +68,4 @@ security:
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
         - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
-        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/.*, role: [ROLE_USER] }

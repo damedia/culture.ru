@@ -88,21 +88,6 @@ sonata_admin:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
 
-        groups:
-            sonata_user:
-                items:
-                    - sonata.user.admin.user
-                    - sonata.user.admin.group
-            structure: ~
-            module:
-                items:
-                    - armd_cms.admin.contentstream
-                    - armd_cms.admin.menuElement
-                    - armd_news.admin.news
-                    - armd_text.admin.text
-                    - sonata.media.admin.media
-                    - sonata.media.admin.gallery
-
 sonata_block:
     default_contexts: [cms]
     blocks:
