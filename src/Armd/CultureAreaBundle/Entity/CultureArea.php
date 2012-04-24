@@ -12,8 +12,7 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  * @ORM\Table(name="content_culture_area")
  * @Gedmo\Tree(type="nested")
  */
-class CultureArea extends BaseContent 
-//implements TaxonomyInterface
+class CultureArea extends BaseContent implements TaxonomyInterface
 {
     /**
      * @ORM\Id
