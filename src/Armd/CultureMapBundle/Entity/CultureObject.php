@@ -63,7 +63,7 @@ class CultureObject
 
     /**
      * @ORM\ManyToOne(targetEntity="Subject")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable="true")
      */
     private $subject;
 
@@ -148,7 +148,7 @@ class CultureObject
      *
      * @param Armd\CultureMapBundle\Entity\Subject $subject
      */
-    public function setSubject(\Armd\CultureMapBundle\Entity\Subject $subject)
+    public function setSubject($subject)
     {
         $this->subject = $subject;
     }
