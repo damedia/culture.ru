@@ -21,7 +21,7 @@ security:
         admin:
             switch_user:        true
             context:            user
-            pattern:            /admin/(.*)
+            pattern:            /admin(.*)
             form_login:
                 provider:       fos_userbundle
                 login_path:     /admin/login
