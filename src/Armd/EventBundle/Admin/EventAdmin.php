@@ -43,10 +43,11 @@ class EventAdmin extends BaseAdmin
         
         $formMapper
             ->with('General')
-                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->remove('date')
                 ->add('place')
                 ->add('personalTag')
                 ->add('tags')                
+                ->add('showInCollage')                
                 ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('collageImage', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))                

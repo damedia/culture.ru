@@ -29,7 +29,8 @@ class Schedule
     private $endDate;
         
     /** 
-     * @ORM\ManyToOne(targetEntity="Event", inversedBy="schedule") 
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="schedule")
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id", onDelete="CASCADE")      
      */
     private $event;
     

@@ -177,3 +177,8 @@
 [ArmdMkResourcesBundle]
     git=git@git.armd.ru:mkresourcesbundle.git
     target=/bundles/Armd/Bundle/MkResourcesBundle
+
+[ArmdTvigleBundle]
+    git=git@git.armd.ru:tviglebundle.git
+    target=/bundles/Armd/Bundle/TvigleBundle
+

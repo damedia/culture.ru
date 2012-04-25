@@ -31,7 +31,7 @@ class ArtworkAdmin extends BaseAdmin
             ->with('General')
                 ->add('author', null, array('required' => false))
                 ->add('place')
-                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru'))
+                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
             ->end()
         ;
     }

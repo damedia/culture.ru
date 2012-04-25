@@ -22,6 +22,13 @@ parameters:
                     pattern: /{id}
                     requirements:
                         id: \d+
+            monument:
+                controller: Monument
+                action: item
+                route:
+                    pattern: /{id}
+                    requirements:
+                        id: \d+                        
             person:
                 controller: Person
                 action: item
@@ -44,6 +51,8 @@ parameters:
                 types: [artwork]
             institution:
                 types: [institution]                
+            monument:
+                types: [monument]                         
             person:
                 types: [person]         
             term:

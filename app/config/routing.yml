@@ -1,3 +1,7 @@
+ArmdAdminBundle:
+    resource: "@ArmdAdminBundle/Resources/config/routing/routing.yml"
+    prefix:   /_sys/admin
+
 ArmdCultureMapBundle:
     resource: "@ArmdCultureMapBundle/Resources/config/routing.yml"
     prefix:   /_sys/map
@@ -5,6 +9,10 @@ ArmdCultureMapBundle:
 ArmdEventBundle:
     resource: "@ArmdEventBundle/Resources/config/routing.yml"
     prefix:   /_sys/event
+
+ArmdTvigleBundle:
+    resource: "@ArmdTvigleBundle/Resources/config/routing.yml"
+    prefix:   /_sys/tvigle
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
@@ -35,7 +43,7 @@ gallery:
 media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
     prefix: /media
-    
+
 pages:
     resource: ArmdCmsBundle:Page
-    type: db    
+    type: db

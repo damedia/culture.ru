@@ -5,13 +5,14 @@ namespace Armd\CultureAreaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /** 
- * @ORM\Entity 
+ * @ORM\Entity(repositoryClass="Armd\CultureAreaBundle\Entity\CultureAreaRepository")
  * @ORM\Table(name="content_culture_area")
  * @Gedmo\Tree(type="nested")
  */
-class CultureArea extends BaseContent
+class CultureArea extends BaseContent implements TaxonomyInterface
 {
     /**
      * @ORM\Id
@@ -71,6 +72,16 @@ class CultureArea extends BaseContent
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, name="_tag")
+     */    
+    private $personalTag;
+
+    /**
+     * @ORM\Column(type="text", nullable=true, name="_tags")
+     */    
+    private $tags;    
     
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
@@ -327,5 +338,45 @@ class CultureArea extends BaseContent
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

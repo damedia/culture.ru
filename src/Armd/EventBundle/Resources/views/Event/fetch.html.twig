@@ -41,7 +41,10 @@
     <li style="width: {#{ w }#}px; margin: 0px auto;"><a class="lnk-calendar-0" href="{{ cmsPath('armd_event', 'listitem', {'id' : entity.id}) }}">
             <i>
                 {% for schedule in entity.schedule %}
-                    {{ schedule.beginDate|localDate("d F") }}
+                    {{ schedule.beginDate|localDate("j F") }}
+                    {% if schedule.endDate and (schedule.endDate|localDate("j F") != schedule.beginDate|localDate("j F")) %}
+                        &mdash; {{ schedule.endDate|localDate("j F") }}
+                    {% endif %}
                 {% endfor %}
             </i>
             {#% thumbnail entity.image, 'small' %#}
@@ -52,6 +55,6 @@
                 <img width="" title="" alt="" src="{{ tempPicUrl }} "/>
             {% endif %}
             <strong>{{ entity.title|raw }}</strong>
-            <dfn>{{ entity.announce|raw }}</dfn>
+            {#<dfn>{{ entity.announce|raw }}</dfn>#}
     </a></li>
 {% endfor %}

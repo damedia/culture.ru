@@ -21,11 +21,13 @@ class TaxonomyManager
             }            
         }
         
-        if ($entity->getPersonalTag())
+        foreach(explode(',', $entity->getPersonalTag()) as $name)
         {
-            $this->createReference($this->getTagByName($entity->getPersonalTag()), $entity, true);         
+            if ($name) {
+                $this->createReference($this->getTagByName($entity->getPersonalTag()), $entity, true);
+            }            
         }        
-        
+
         $this->em->flush();        
     }
     

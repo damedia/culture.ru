@@ -10,7 +10,8 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  * @ORM\Entity(repositoryClass="Armd\EventBundle\Repository\EventRepository")
  * @ORM\Table(name="content_event")
  */
-class Event extends BaseNews implements TaxonomyInterface
+class Event extends BaseNews
+//implements TaxonomyInterface
 {
     /**
      * @ORM\ManyToOne(targetEntity="Armd\CommonBundle\Entity\Institution")
@@ -49,6 +50,11 @@ class Event extends BaseNews implements TaxonomyInterface
      * @ORM\Column(type="text", nullable=true, name="_tags")
      */    
     private $tags;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, name="show_in_collage")
+     */    
+    private $showInCollage;
     
     public function __toString()
     {
@@ -198,5 +204,25 @@ class Event extends BaseNews implements TaxonomyInterface
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set showInCollage
+     *
+     * @param boolean $showInCollage
+     */
+    public function setShowInCollage($showInCollage)
+    {
+        $this->showInCollage = $showInCollage;
+    }
+
+    /**
+     * Get showInCollage
+     *
+     * @return boolean 
+     */
+    public function getShowInCollage()
+    {
+        return $this->showInCollage;
     }
 }

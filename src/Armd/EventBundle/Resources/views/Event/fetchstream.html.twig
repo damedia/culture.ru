@@ -1,0 +1,32 @@
+    {% for entity in entities %}
+        {% set eventUrl = cmsPath('armd_event', 'listitem', {'id' : entity.id}) %}
+        
+		{% set date = '&mdash;' %}
+		{% for schedule in entity.schedule %}
+			{% set date = schedule.beginDate %}
+			{#{ schedule.beginDate|localDate("d") }}
+			{% if schedule.endDate and (schedule.endDate|localDate("j F") != schedule.beginDate|localDate("j F")) %}
+				&mdash; {{ schedule.endDate|localDate("j F") }}
+			{% endif %#}
+		{% endfor %}
+        
+        <li class="events-list-item">
+                    <dl class="cb">
+                        <dt>{{ date|date("d") }}</dt>
+                        <dd>
+                            <b>{{ date|localDate("F") }}</b>
+                            {{ date|localDate("l") }}
+                        </dd>
+                    </dl>
+                    <a href="{{ eventUrl }}" class="see-also-list-img">{% thumbnail entity.image, 'big' %}</a>
+                    <div class="see-also-list-brd"></div>
+                    <a href="{{ eventUrl }}" class="see-also-list-bg" title="Подробнее">Подробнее</a>
+                    <a href="{{ eventUrl }}" class="events-list-title">{{ entity.title|raw }}</a>
+                    {#
+                    <nav class="nav-tags"><ul>
+                        <li class="first"><a href="{{ eventUrl }}">Театр Вахтангова</a></li>
+                        <li>Спектакль комедия</li>
+                    </ul></nav>
+                    #}
+                </li>
+    {% endfor %}

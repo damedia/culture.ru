@@ -25,7 +25,7 @@ class NewsAdmin extends BaseAdmin
     protected function configureShowField(ShowMapper $showMapper)
     {
         parent::configureShowField($showMapper);
-        
+
         $showMapper
             ->add('source')
         ;
@@ -39,12 +39,13 @@ class NewsAdmin extends BaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         parent::configureFormFields($formMapper);
-        
+
         $formMapper
             ->with('General')
                 ->add('source')
                 ->add('personalTag')
-                ->add('tags')                                
+                ->add('tags')
+                ->add('date', 'sonata_type_datetimepicker', array('locale'=>'ru', 'required'=>false))
                 ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
             ->end();
@@ -58,7 +59,7 @@ class NewsAdmin extends BaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         parent::configureListFields($listMapper);
-        
+
         $listMapper
             ->add('source')
         ;

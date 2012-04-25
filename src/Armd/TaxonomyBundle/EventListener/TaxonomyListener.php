@@ -33,7 +33,8 @@ class TaxonomyListener
         }
     }    
 
-    public function preRemove(LifecycleEventArgs $args)
+/*
+    public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -41,6 +42,7 @@ class TaxonomyListener
             $this->tm->deleteTags($args->getEntityManager(), $entity);
         }
     }
+*/
     
     function hasTags(TaxonomyInterface $entity)
     {
