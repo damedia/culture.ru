@@ -1,3 +1,7 @@
+body {
+    background: none;
+}
+
 .clear {
     clear: both;
 }
@@ -156,32 +160,85 @@
 
 /*legenda*/
 
+#content .legend-map {
+   padding: 0;
+   margin: 0px 2% 0;
+       box-shadow: 5px 0px 30px rgba(121, 121, 121, 0.54);
+   -webkit-box-shadow: 5px 0px 30px rgba(121, 121, 121, 0.54);
+    -moz-box-shadow:   5px 0px 30px rgba(121, 121, 121, 0.54);
+    position: relative;
+     border: 1px solid #dddddd;
+    /* float: left;*/
+    width: 98%;
+    height: 44px;
+}
+
+.legenda-toggle {
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    right: -12px;
+    top: 11px;
+    background: url('/bundles/armdmkresources/img/map/legenda-toggle.png') no-repeat 0 0;
+    cursor: pointer;
+}
+
+.legenda-toggle-hid {
+    background-position: 0 -28px;
+}
+
 #content .legend-map td {
     margin: 0;
-    padding: 0 8px 0 0;
+    padding: 0 0 0 0px;
     font-size: 75%;
-
+    border: none;
+    
 }   
 
 #content .legend-map table {
     height: 44px;
-}
-
-#content .legend-map {
-   border: 1px solid #c9c9ca;
    padding: 0;
-   background: url('../images/legenda-bg.gif') repeat-x;
+   background: url('/bundles/armdmkresources/img/map/legenda-bg.gif') repeat-x;
    height: 44px;
-   margin: 0px 2% 0;
-
+   margin-left: 133px;
 }
 
-#content .legend-map .legend-map-title {
+#content .legend-map .legend-map-first {
     color: #000;
     font-size: 1.2em;
-    padding-left: 10px;
+    background: url('/bundles/armdmkresources/img/map/legend-map-first-bg.png') no-repeat;
+    width: 133px;
+   /* float: left;*/
+    height: 44px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-#content td.legend-map-text {
-    padding-right: 8px;
+
+#content .legend-map .legend-map-first span {
+    display: block;
+    padding: 11px 0 0 0;
+}
+
+#content .legend-map .legend-map-first .orange-color {
+    color: #dc6215;
+}
+
+#content .legend-map .legend-map-text {
+    padding-left: 5px;
+}
+
+
+#content .legend-map .legend-map-sep {
+    padding: 0 10px;
+}
+
+#content-map-fading {
+    border: none;
+}
+
+#content-map-fading {
+    margin-top: -100px;
 }
