@@ -19,11 +19,13 @@ class TagContentReference
 
     /**
      * @ORM\ManyToOne(targetEntity="Tag", inversedBy="entities")
+     * @ORM\JoinColumn(name="tag_id", referencedColumnName="id", onDelete="CASCADE")     
      */
     private $tag;
     
     /**
      * @ORM\ManyToOne(targetEntity="Armd\Bundle\CmsBundle\Entity\Content")
+     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="CASCADE")          
      */
     private $content;
 

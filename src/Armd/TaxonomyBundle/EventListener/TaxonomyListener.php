@@ -33,7 +33,7 @@ class TaxonomyListener
         }
     }    
 
-    public function postRemove(LifecycleEventArgs $args)
+    public function preRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 

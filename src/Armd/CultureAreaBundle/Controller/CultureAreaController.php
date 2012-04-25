@@ -15,7 +15,8 @@ class CultureAreaController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $id = $this->get('request')->get('id');
+        $params = $this->getRequestParams();
+        $id = $params['id'];
 
         // корневые категории
         $dql = "SELECT a.id, a.lvl, a.lft, a.rgt, a.title

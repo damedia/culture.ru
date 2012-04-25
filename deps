@@ -94,6 +94,13 @@
     git=https://github.com/KnpLabs/KnpMenu.git
     target=/knp/menu
 
+[knp-components]
+    git=http://github.com/KnpLabs/knp-components.git
+
+[KnpPaginatorBundle]
+    git=http://github.com/KnpLabs/KnpPaginatorBundle.git
+    target=bundles/Knp/Bundle/PaginatorBundle
+
 [SonataDoctrineORMAdminBundle]
     git=http://github.com/sonata-project/SonataDoctrineORMAdminBundle.git
     target=/bundles/Sonata/DoctrineORMAdminBundle
@@ -133,6 +140,7 @@
 [SonataUserBundle]
     git=http://github.com/sonata-project/SonataUserBundle.git
     target=/bundles/Sonata/UserBundle
+    version=2.0
 
 [ArmdExtJSBundle]
     git=git@git.armd.ru:extjsbundle.git

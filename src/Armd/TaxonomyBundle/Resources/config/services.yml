@@ -8,5 +8,5 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postPersist }        
             - { name: doctrine.event_listener, event: postUpdate }
-            - { name: doctrine.event_listener, event: postRemove }            
+            - { name: doctrine.event_listener, event: preRemove }            
         arguments: [%armd_taxonomy.taxonomy_manager.class%]
