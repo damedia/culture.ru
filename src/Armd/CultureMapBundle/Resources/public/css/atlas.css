@@ -153,3 +153,35 @@
     top: -49px;
     left: -15px;
 }
+
+/*legenda*/
+
+#content .legend-map td {
+    margin: 0;
+    padding: 0 8px 0 0;
+    font-size: 75%;
+
+}   
+
+#content .legend-map table {
+    height: 44px;
+}
+
+#content .legend-map {
+   border: 1px solid #c9c9ca;
+   padding: 0;
+   background: url('../images/legenda-bg.gif') repeat-x;
+   height: 44px;
+   margin: 0px 2% 0;
+
+}
+
+#content .legend-map .legend-map-title {
+    color: #000;
+    font-size: 1.2em;
+    padding-left: 10px;
+}
+
+#content td.legend-map-text {
+    padding-right: 8px;
+}
