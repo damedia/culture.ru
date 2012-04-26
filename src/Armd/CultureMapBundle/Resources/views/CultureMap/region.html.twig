@@ -3,28 +3,35 @@
                 <div class="map-point-hide-img">{% thumbnail entity.logo, 'reference' %}</div>
                 <div class="map-point-hide-text">
                     <h2 class="map-point-hide-title">{{ entity.title }}</h2>
-                
                     {{ entity.announce }}
                     <a class="balloon-readmore" onclick="balloonReadMore({{ entity.id }}); return false;" href="{{ cmsPath('armd_culture_map', 'subject', { 'id':entity.id }) }}">Читать&nbsp;подробнее</a>
                 </div>
         <table>
             <tbody>
+                {% if entity.administrativeCenter %}
                 <tr>
                     <th>Административный центр:</th>
                     <td>{{ entity.administrativeCenter }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.language %}
                 <tr>
                     <th>Языки:</th>
                     <td>{{ entity.language }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.nationality %}
                 <tr>
                     <th>Народности:</th>
                     <td>{{ entity.nationality }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.religion %} 
                 <tr>
-                    <th>Религии:</th>
+                    <th>Религии: </th>
                     <td>{{ entity.religion }}</td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
