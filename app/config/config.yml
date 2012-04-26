@@ -133,6 +133,7 @@ sonata_media:
                 - sonata.media.provider.file
 
             formats:
+                adminPreview: { width: 314 , height: 187, , quality: 70}
                 small: { width: 100 , quality: 70}
                 big:   { width: 500 , quality: 70}
 
