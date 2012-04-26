@@ -18,6 +18,7 @@ $loader->registerNamespaces(array(
     'Sonata'           => __DIR__.'/../vendor/bundles',
     'Knp\Bundle'       => __DIR__.'/../vendor/bundles',
     'Knp\Menu'         => __DIR__.'/../vendor/knp/menu/src',
+    'Knp\\Component'   => __DIR__.'/../vendor/knp-components/src',
     'SimpleThings'     => __DIR__.'/../vendor/bundles',
     'Stof'             => __DIR__.'/../vendor/bundles',
     'Gedmo'            => __DIR__.'/../vendor/gedmo-doctrine-extensions/lib',

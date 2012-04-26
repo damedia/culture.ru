@@ -107,12 +107,11 @@ stof_doctrine_extensions:
 
 armd_cms:
     ignore_route_patterns:
-        - /(.*)admin(.*)/
-        - /(.*)sonata_user_impersonating(.*)/
-        - /_profiler/
-        - /_wdt/
-        - /_sys_(.*?)/
-
+        - /admin_/
+        - /^sonata_user_impersonating$/
+        - /^_profiler/
+        - /^_wdt/
+        - /^_sys/
 
 simple_things_entity_audit:
     audited_entities:

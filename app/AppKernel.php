@@ -39,6 +39,8 @@ class AppKernel extends Kernel
             new Armd\Bundle\SimtagBundle\ArmdSimtagBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
             new Armd\Bundle\MediaBundle\ArmdMediaBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Armd\Bundle\AuditBundle\ArmdAuditBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
