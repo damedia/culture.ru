@@ -205,15 +205,17 @@ YMaps.jQuery(function(){
 
 $(function(){
     $('.legenda-toggle').toggle(function() {
-            $(this).prev().click().hide(0);
+            $('.legend-map-table table').animate({marginLeft :'-2000px'}, 1000, 'linear'); 
+           // $('.legend-map-wrapper').animate({width :'133px'},'linear');   
+           // $(this).hide().show(1200);
             $('.legend-map-first span').addClass('orange-color')
             $(this).addClass('legenda-toggle-hid ')
-            $('.legend-map').css('width','133px');
-            
+
         }, function() {
-            $(this).prev().click().show(100);
+            $('.legend-map-table table').animate({marginLeft :'0'}, 1000 ,'linear'); 
+            //$('.legend-map-wrapper').animate({width :'97%'}, 1000 ,'linear');
+            $(this).hide().show(1800);
             $('.legend-map-first span').removeClass('orange-color')
             $(this).removeClass('legenda-toggle-hid')
-            $('.legend-map').css('width','98%');
         });
 });
