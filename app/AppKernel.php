@@ -25,24 +25,28 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),                                
             new FOS\UserBundle\FOSUserBundle(),            
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),            
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
-            new Armd\UserBundle\ArmdUserBundle(),                        
-#            new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
-#            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),            
-#            new Armd\Bundle\CmsMenuBundle\ArmdCmsMenuBundle(),            
+            new Sonata\IntlBundle\SonataIntlBundle(),
+            new Sonata\jQueryBundle\SonatajQueryBundle(),            
+            
+            new Armd\UserBundle\ArmdUserBundle(),
+            new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
+            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Armd\MenuBundle\ArmdMenuBundle(),
 #            new Armd\Bundle\TextBundle\ArmdTextBundle(),            
-#            new Armd\Bundle\NewsBundle\ArmdNewsBundle(),            
+            new Armd\NewsBundle\ArmdNewsBundle(),            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-#            $bundles[] = new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle();        
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles = array_merge($bundles, array(
+                new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+                new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
+                new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
+                new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),            
+            ));
         }
 
         return $bundles;

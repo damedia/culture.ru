@@ -1,30 +1,27 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-#    - { resource: @ArmdCmsBundle/Resources/config/routing.xml }
-#    - { resource: @ArmdCmsBundle/Resources/config/parameters.yml }
+    - { resource: @ArmdCmsBundle/Resources/config/routing.xml }
+    - { resource: @ArmdCmsBundle/Resources/config/parameters.yml }
 
 framework:
-    #esi:             ~
-    translator:      { fallback: %locale% }
-    secret:          %secret%
-    charset:         UTF-8
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-    form:            true
-    csrf_protection: true
-    validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    #esi:               ~
+    default_locale:     %locale%    
+    translator:         { fallback: %locale% }
+    secret:             %secret%
+    charset:            UTF-8
+    router:             { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:               true
+    csrf_protection:    true
+    validation:         { enable_annotations: true }
+    templating:         { engines: ['twig'] } #assets_version: SomeVersionScheme
     session:
-#        default_locale: %locale%
         auto_start:     true
         
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - "ArmdAdminBundle:Form:fields.html.twig"
 
 # Assetic Configuration
 assetic:
@@ -69,12 +66,15 @@ knp_menu:
     default_renderer: twig # The renderer to use, list is also available by default
 
 fos_user:
-    db_driver:      orm # can be orm or odm
+    db_driver:      orm
     firewall_name:  main
     user_class:     Armd\UserBundle\Entity\User
 
 sonata_user:
     security_acl: true
+    class:
+        user:   Armd\UserBundle\Entity\User
+        group:  Armd\UserBundle\Entity\Group    
     
 sonata_admin:
     security:
@@ -103,13 +103,13 @@ stof_doctrine_extensions:
             tree: true
             timestampable: true
 
-#armd_cms:
-#    ignore_route_patterns:
-#        - /(.*)admin(.*)/
-#        - /(.*)sonata_user_impersonating(.*)/
-#        - /_sys/        
-#        - /_profiler/
-#        - /_wdt/        
+armd_cms:
+    ignore_route_patterns:
+        - /(.*)admin(.*)/
+        - /(.*)sonata_user_impersonating(.*)/
+        - /_sys/        
+        - /_profiler/
+        - /_wdt/        
         
 #simple_things_entity_audit:
 #    audited_entities:

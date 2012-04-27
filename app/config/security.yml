@@ -19,46 +19,29 @@ security:
             
     firewalls:
         admin:
-            switch_user:        true
+            pattern:            /admin/
+            anonymous:          ~            
             context:            user
-            pattern:            /admin/(.*)
+            switch_user:        true
             form_login:
-                provider:       fos_userbundle
-                login_path:     /admin/login
-                use_forward:    false
-                check_path:     /admin/login_check
-                failure_path:   null
-                use_referer:    true
+                login_path:             /admin/login
+                check_path:             /admin/login_check
+                default_target_path:    /admin/dashboard                
+                provider:               fos_userbundle                
+                use_forward:            false                
+                failure_path:           null
+                use_referer:            true
             logout:
                 path:           /admin/logout
                 target:         /admin/login
-
-            anonymous:    true
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/demo/secured/
-            form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
-            logout:
-                path:   /demo/secured/logout
-                target: /demo/
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         # URL of FOSUserBundle which need to be available to anonymous users
-
         #- { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
@@ -71,8 +54,9 @@ security:
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # -> end
+        
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
         - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
-        #- { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1,15 +1,25 @@
 {
-    "hash": "ca5e7adb21773871d9502fa4492974d1",
+    "hash": "7b22266ee3588f7b10e572fff884ac5e",
     "packages": [
         {
             "package": "armd/admin-bundle",
-            "version": "dev-master",
-            "source-reference": "dc8484133c2b49036ef9c21d90ecd8a7bba83ae1"
+            "version": "2.0.x-dev",
+            "source-reference": "d639e401102f470e083e301679f22644c9b5af8c"
         },
         {
             "package": "armd/cms-bundle",
-            "version": "dev-master",
-            "source-reference": "d5c6d8633a345c28f2cbcc38b496b02cc6bfa96f"
+            "version": "2.1.x-dev",
+            "source-reference": "561d39718bb2057a02c2a6a86f1f1d46b7fb269a"
+        },
+        {
+            "package": "armd/menu-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "3ee519997246624df5718c24b70114bf3ba86268"
+        },
+        {
+            "package": "armd/news-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "93b3e3ac2461f0a5ce6d635c18ad9799bc95e0eb"
         },
         {
             "package": "armd/user-bundle",
@@ -21,13 +31,23 @@
             "version": "2.2.2"
         },
         {
+            "package": "doctrine/data-fixtures",
+            "version": "dev-master",
+            "source-reference": "8fb90c55c0bfbf4e090adb8c0281f9a3c81735e7"
+        },
+        {
             "package": "doctrine/dbal",
             "version": "2.2.2"
         },
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
-            "source-reference": "550bee05123a592d5010415364396c4c7b20c65c"
+            "source-reference": "b6f9a57c60a0acaaf931a77e833ffeb24a3bdbf1"
+        },
+        {
+            "package": "doctrine/doctrine-fixtures-bundle",
+            "version": "dev-master",
+            "source-reference": "33b267d3068d6c2f8daa0b417285cf76e7f82fc4"
         },
         {
             "package": "doctrine/orm",
@@ -36,12 +56,12 @@
         {
             "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
-            "source-reference": "59caf8902291b42e86dc8b4ea1aa19e9f30afff8"
+            "source-reference": "bace028be1f5b6a6996a5aa720d10c8eeb0f5bbb"
         },
         {
             "package": "gedmo/doctrine-extensions",
             "version": "dev-master",
-            "source-reference": "ec5f3a680b127ebb3b5ae7caaea978d20a08af50"
+            "source-reference": "5be3722d26379ee21dd6de414bcc8828081ce71f"
         },
         {
             "package": "jms/aop-bundle",
@@ -66,7 +86,7 @@
         {
             "package": "knplabs/knp-menu",
             "version": "dev-master",
-            "source-reference": "ad10e1ec8f493bb29e28c02284f38c5afd4bfa07"
+            "source-reference": "d7a5eafa6711351b5989bd86bfa74d058e6a55ec"
         },
         {
             "package": "knplabs/knp-menu-bundle",
@@ -80,12 +100,12 @@
         },
         {
             "package": "monolog/monolog",
-            "version": "1.0.2"
+            "version": "1.1.0"
         },
         {
             "package": "sensio/distribution-bundle",
             "version": "dev-master",
-            "source-reference": "a2f09ae4b38533d9f16083b740f6a77fb5efd313"
+            "source-reference": "09316e164c0d8f356a1965ce6172c555948d5503"
         },
         {
             "package": "sensio/framework-extra-bundle",
@@ -95,7 +115,7 @@
         {
             "package": "sensio/generator-bundle",
             "version": "dev-master",
-            "source-reference": "5f2ded5e5679f66c604f128d5650715bb81d7d7c"
+            "source-reference": "5b59f6c5f52cc4fc8719640d7dadf2d6ddcc7ed2"
         },
         {
             "package": "simplethings/entity-audit-bundle",
@@ -105,7 +125,7 @@
         {
             "package": "sonata-project/admin-bundle",
             "version": "dev-master",
-            "source-reference": "dae852668c8211bdd1276229dba72c568e3da16c"
+            "source-reference": "e868edf9bdefbdee46b63da8755e8e51c29cc6e5"
         },
         {
             "package": "sonata-project/block-bundle",
@@ -120,7 +140,12 @@
         {
             "package": "sonata-project/doctrine-orm-admin-bundle",
             "version": "dev-master",
-            "source-reference": "1ee18637cf8de79342489fbc2bb3f9c42998ab40"
+            "source-reference": "9e2ea953d53c0ed9412d30507029dc013851b818"
+        },
+        {
+            "package": "sonata-project/easy-extends-bundle",
+            "version": "dev-master",
+            "source-reference": "483a579028dc30e575f641fcaa68b441ca2229d3"
         },
         {
             "package": "sonata-project/exporter",
@@ -159,7 +184,7 @@
         {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
-            "source-reference": "aea0145e5669ed855db430e0f53536fab16b6dd7"
+            "source-reference": "120ef1707cd5d3c2af43357221771ac2db282655"
         },
         {
             "package": "symfony/swiftmailer-bridge",
@@ -174,7 +199,7 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "6c714095fa3e74c4a5466037f02e1845b9130d35",
+            "source-reference": "5e0a6a44dfdba1e6893622d8ed2f755cfbfda22d",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
@@ -185,8 +210,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "0add6e23771bf44d8ee643c555597b87ae4a598b",
-            "alias": "1.7.9999999.9999999-dev"
+            "source-reference": "75d97b4a275b90956df554fd7d8d7bc6e3d4ae73",
+            "alias": "1.8.9999999.9999999-dev"
         }
     ],
     "packages-dev": null,
