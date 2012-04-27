@@ -6,7 +6,9 @@
     "repositories": {
         "armd/user-bundle": { "type": "git", "url": "git@git.armd.ru:userbundle.git" },
         "armd/cms-bundle": { "type": "git", "url": "git@git.armd.ru:CmsBundle.git" },
-        "armd/admin-bundle": { "type": "git", "url": "git@git.armd.ru:adminbundle.git" }
+        "armd/admin-bundle": { "type": "git", "url": "git@git.armd.ru:adminbundle.git" },
+        "armd/menu-bundle": { "type": "git", "url": "git@git.armd.ru:cmsmenubundle.git" },
+        "armd/news-bundle": { "type": "git", "url": "git@git.armd.ru:CmsNewsBundle.git" }
     },    
     "require": {
         "php": ">=5.3.2",
@@ -23,8 +25,11 @@
         "jms/security-extra-bundle": "1.1.0",
         "jms/di-extra-bundle": "1.0.1",
         
-        "armd/cms-bundle": "master-dev",
-        "armd/admin-bundle": "master-dev"
+        "armd/cms-bundle": "2.*",
+        "armd/admin-bundle": "2.0.x",
+        "armd/menu-bundle": "2.*",
+	"armd/news-bundle": "2.*",
+        "sonata-project/easy-extends-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

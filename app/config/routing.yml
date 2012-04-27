@@ -11,13 +11,17 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
-ArmdUserBundle:
-    resource: '@ArmdUserBundle/Resources/config/routing/admin_security.xml'
-    prefix:   /admin
-
-sonata_user:
+_sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
     prefix: /admin
+        
+ArmdUserBundle: 
+    resource: '@ArmdUserBundle/Resources/config/routing/security.xml'
+    prefix:   /admin    
+
+ArmdAdminBundle:  
+    resource: "@ArmdAdminBundle/Resources/config/routing/routing.yml"  
+    prefix:   /_sys/admin
 
 gallery:
     resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'

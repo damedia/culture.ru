@@ -18,35 +18,36 @@ class AppKernel extends Kernel
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
+
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),        
+            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),                                
+            new FOS\UserBundle\FOSUserBundle(),
+
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),            
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
+            new Sonata\IntlBundle\SonataIntlBundle(),
+            new Sonata\jQueryBundle\SonatajQueryBundle(),            
+            
+            new Armd\UserBundle\ArmdUserBundle(),
             new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
-            new Armd\Bundle\NewsBundle\ArmdNewsBundle(),
-            new Armd\Bundle\TextBundle\ArmdTextBundle(),
-            new Armd\Bundle\CmsMenuBundle\ArmdCmsMenuBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-            new Armd\Bundle\ExtJSBundle\ArmdExtJSBundle(),
-            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
-            new Armd\Bundle\SimtagBundle\ArmdSimtagBundle(),
-            new Sonata\MediaBundle\SonataMediaBundle(),
-            new Armd\Bundle\MediaBundle\ArmdMediaBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Armd\Bundle\AuditBundle\ArmdAuditBundle(),
+            new Armd\MenuBundle\ArmdMenuBundle(),
+            new Armd\Bundle\TextBundle\ArmdTextBundle(),
+            new Armd\NewsBundle\ArmdNewsBundle(),            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles = array_merge($bundles, array(
+                new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+                new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
+                new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
+                new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),            
+            ));
         }
 
         return $bundles;

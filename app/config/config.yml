@@ -5,17 +5,17 @@ imports:
     - { resource: @ArmdCmsBundle/Resources/config/parameters.yml }
 
 framework:
-    #esi:             ~
-    translator:      { fallback: %locale% }
-    secret:          %secret%
-    charset:         UTF-8
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-    form:            true
-    csrf_protection: true
-    validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    #esi:               ~
+    default_locale:     %locale%    
+    translator:         { fallback: %locale% }
+    secret:             %secret%
+    charset:            UTF-8
+    router:             { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:               true
+    csrf_protection:    true
+    validation:         { enable_annotations: true }
+    templating:         { engines: ['twig'] } #assets_version: SomeVersionScheme
     session:
-        default_locale: %locale%
         auto_start:     true
 
 knp_menu:
@@ -24,21 +24,10 @@ knp_menu:
     templating: false # if true, enables the helper for PHP templates
     default_renderer: twig # The renderer to use, list is also available by default
 
-sonata_user:
-    security_acl: true
-
-fos_user:
-    db_driver:      orm # can be orm or odm
-    firewall_name:  main
-    user_class:     Application\Sonata\UserBundle\Entity\User
-
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - "ArmdAdminBundle:Form:fields.html.twig"
 
 # Assetic Configuration
 assetic:
@@ -77,6 +66,17 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+fos_user:
+    db_driver:      orm
+    firewall_name:  main
+    user_class:     Armd\UserBundle\Entity\User
+
+sonata_user:
+    security_acl: true
+    class:
+        user:   Armd\UserBundle\Entity\User
+        group:  Armd\UserBundle\Entity\Group    
 
 sonata_admin:
     security:
@@ -126,7 +126,6 @@ sonata_media:
                 strategy: sonata.media.security.public_strategy
                 mode: http
             providers:
-                - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
                 - sonata.media.provider.file
@@ -164,5 +163,3 @@ sonata_media:
             thumbnail:  sonata.media.thumbnail.format
 
         youtube: ~
-
-        dailymotion: ~

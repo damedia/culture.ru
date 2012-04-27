@@ -44,7 +44,7 @@
     ├── vendor #сторонние библиотки
     │   ├── .composer
     │   ├── armd # стандартные модули CMS
-    │   ├── ... # другие модули Symfony2     
+    │   └── ... # другие модули Symfony2     
     └── web # document-root веб сервера
         └── bundles # symlink на внешние ресурсы модулей (css, images, js)
 
