@@ -11,8 +11,8 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
-ApplicationSonataUserBundle:
-    resource: '@ApplicationSonataUserBundle/Resources/config/routing/application_admin_security.xml'
+ArmdUserBundle:
+    resource: '@ArmdUserBundle/Resources/config/routing/admin_security.xml'
     prefix:   /admin
 
 sonata_user:
@@ -30,6 +30,7 @@ media:
 pages:
     resource: ArmdCmsBundle:Page
     type: db
+
 # Internal routing configuration to handle ESI
 #_internal:
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

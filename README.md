@@ -5,37 +5,53 @@
 
 Для того, что бы создать новый проект на основе CMS необходимо выполнить несколько действий:
 
-1. Зайти на http://git.armd.ru/cmssandbox и убедится, что есть доступ к этому проекту.
-2. В локальной директории проекта (например /www/example.com/) выполнить команду "git clone git@git.armd.ru:cmssandbox.git".
-3. Обновить конфигурационный файл CMS выполнив "cp app/config/parameters.ini.dest app/config/parameters.ini", при необходимости поправить его, указав реальные данные БД (БД должна быть в кодировке utf8), локали и уникального ключа.
-3. Установить/обновить используемые CMS модули (бандлы) CMS выполнив "php bin/vendors install --reinstall" (для работы этой команды пользователь из под которого выполняется команда должен иметь доступ ко всем зависимым репозиториям на git.armd.ru)
-4. Обновить схему баз данных, выполнив команду "php app/console doctrine:schema:update --force"
-5. Добавить администратора CMS выполнив в консоли "php app/console fos:user:create root --super-admin"
-6. Опционально можно загрузить тестовую структуру страниц и данных используюя "php app/console doctrine:fixtures:load" (предварительно очищает бд, подробнее см. app/console help doctrine:fixtures:load)
+1. Зайти на http://git.armd.ru/cmssandbox и убедится, что есть доступ к этому проекту;
+
+2. Клонировать репозитарий в локальную директорию проекта;
+
+    git clone git@git.armd.ru:cmssandbox.git /www/cmssandbox.local
+    cd /www/cmssandbox.local
+
+3. Скопировать конфигурационный файл CMS и поправить его, указав реальные данные БД (БД должна быть в кодировке utf8), локали и уникального ключа;
+
+    cp app/config/parameters.yml-dist app/config/parameters.yml
+    
+4. Установить composer;
+
+    curl -s http://getcomposer.org/installer | php -- 
+    
+5. Установить используемые CMS модули (бандлы) CMS. Для работы этой команды пользователь из под которого выполняется команда должен иметь доступ ко всем зависимым репозиториям на git.armd.ru;
+
+    php composer.phar install
+
+6. Обновить схему баз данных;
+
+    php app/console doctrine:schema:update --force
+       
+7. Опционально можно загрузить тестовую структуру страниц и данных (предварительно очищает бд, подробнее см. app/console help);
+
+    php app/console doctrine:fixtures:load
+    
+8. Добавить администратора CMS;
+
+    php app/console fos:user:create root --super-admin
+    
 
 Структура развернутого инстанса:
 
     ├── app # настройки текущего инстанса
-    ├── bin # исполняемые скрипты
     ├── src # модули (бандлы) для данного инстанса
     ├── vendor #сторонние библиотки
-    │   ├── assetic
-    │   ├── bundles # сторонние модули (бандлы)
-    │   │   ├── Armd # стандартные модули CMS
-    │   │   ├── ... # другие модули Symfony2 
-    │   ├── doctrine
-    │   ├── ...
-    │   ├── symfony
-    │   ├── twig
-    │   └── twig-extensions
-    └── web # document-root веб сервера
-        └── bundles # внешние ресурсы модулей (css, images, js)
+    │   ├── .composer
+    │   ├── armd # стандартные модули CMS
+    │   ├── ... # другие модули Symfony2     
+    └── web # document-root веб сервера
+        └── bundles # symlink на внешние ресурсы модулей (css, images, js)
 
 # После установки sandbox
-Для того, что бы разорвать связь с репозиторием sandbox (т.к. мы работаем с новым проектом) нужно выполнить след. действия.
 
-1. Удаляем диреторию /www/example.com/.git
-2. Заводим новый проект на git.armd.ru (например Example)
-3. Инициализируем репозиторий в рабочей копии.
-4. Добавляем git.armd.ru в рабочую копию "git remote add origin git@git.armd.ru:example.git"
-5. Заливаем проект в общий репозиторий "git push origin master"
+1. Удаляем диреторию .git;
+2. Заводим новый проект на git.armd.ru (например Example);
+3. Инициализируем репозиторий в рабочей копии;
+4. Добавляем git.armd.ru в рабочую копию "git remote add origin git@git.armd.ru:example.git";
+5. Заливаем проект в общий репозиторий "git push origin master";
