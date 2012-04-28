@@ -28,8 +28,9 @@
         "armd/cms-bundle": "2.*",
         "armd/admin-bundle": "2.1.x-dev",
         "armd/menu-bundle": "2.*",
-	"armd/news-bundle": "2.*",
-        "sonata-project/easy-extends-bundle": "*"
+	    "armd/news-bundle": "2.*",
+        "sonata-project/easy-extends-bundle": "*",
+        "knplabs/knp-paginator-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

@@ -22,7 +22,7 @@ class AppKernel extends Kernel
 
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),        
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-#            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),                                
             new FOS\UserBundle\FOSUserBundle(),
 
