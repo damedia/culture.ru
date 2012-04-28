@@ -33,15 +33,15 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
             new Sonata\IntlBundle\SonataIntlBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
-#            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
             
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
             new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Armd\Bundle\MediaBundle\ArmdMediaBundle(),            
             new Armd\MenuBundle\ArmdMenuBundle(),
 #            new Armd\Bundle\TextBundle\ArmdTextBundle(),
             new Armd\NewsBundle\ArmdNewsBundle(),
-#            new Armd\Bundle\MediaBundle\ArmdMediaBundle(),
 #            new Armd\Bundle\AuditBundle\ArmdAuditBundle(),
         );
 
