@@ -26,7 +26,7 @@
         "jms/di-extra-bundle": "1.0.1",
         
         "armd/cms-bundle": "2.*",
-        "armd/admin-bundle": "2.0.x",
+        "armd/admin-bundle": "2.1.x-dev",
         "armd/menu-bundle": "2.*",
 	"armd/news-bundle": "2.*",
         "sonata-project/easy-extends-bundle": "*"

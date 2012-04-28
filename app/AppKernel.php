@@ -13,15 +13,16 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
 
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),        
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+#            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),                                
             new FOS\UserBundle\FOSUserBundle(),
 
@@ -31,14 +32,17 @@ class AppKernel extends Kernel
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
             new Sonata\IntlBundle\SonataIntlBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),            
+            new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
             
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
             new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
             new Armd\MenuBundle\ArmdMenuBundle(),
-            new Armd\Bundle\TextBundle\ArmdTextBundle(),
-            new Armd\NewsBundle\ArmdNewsBundle(),            
+#            new Armd\Bundle\TextBundle\ArmdTextBundle(),
+            new Armd\NewsBundle\ArmdNewsBundle(),
+#            new Armd\Bundle\MediaBundle\ArmdMediaBundle(),
+#            new Armd\Bundle\AuditBundle\ArmdAuditBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

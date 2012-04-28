@@ -23,13 +23,13 @@ ArmdAdminBundle:
     resource: "@ArmdAdminBundle/Resources/config/routing/routing.yml"  
     prefix:   /_sys/admin
 
-gallery:
-    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
-    prefix: /media/gallery
+#gallery:
+#    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+#    prefix: /media/gallery
 
-media:
-    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
-    prefix: /media
+#media:
+#    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+#    prefix: /media
 
 pages:
     resource: ArmdCmsBundle:Page
