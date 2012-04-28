@@ -7,6 +7,7 @@
         "armd/user-bundle": { "type": "git", "url": "git@git.armd.ru:userbundle.git" },
         "armd/cms-bundle": { "type": "git", "url": "git@git.armd.ru:CmsBundle.git" },
         "armd/admin-bundle": { "type": "git", "url": "git@git.armd.ru:adminbundle.git" },
+        "armd/media-bundle": { "type": "git", "url": "git@git.armd.ru:mediabundle.git" },
         "armd/menu-bundle": { "type": "git", "url": "git@git.armd.ru:cmsmenubundle.git" },
         "armd/news-bundle": { "type": "git", "url": "git@git.armd.ru:CmsNewsBundle.git" }
     },    
@@ -27,6 +28,7 @@
         
         "armd/cms-bundle": "2.*",
         "armd/admin-bundle": "2.1.x-dev",
+        "armd/media-bundle": "*",
         "armd/menu-bundle": "2.*",
 	"armd/news-bundle": "2.*",
         "sonata-project/easy-extends-bundle": "*"
