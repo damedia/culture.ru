@@ -6,5 +6,6 @@ app/cache/*
 app/logs/*
 build/
 vendor
+tmp/
 composer.phar
-*.php~
+*~

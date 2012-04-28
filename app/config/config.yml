@@ -111,9 +111,9 @@ armd_cms:
         - /_profiler/
         - /_wdt/        
         
-#simple_things_entity_audit:
-#    audited_entities:
-#        - ArmdCmsBundle\Entity\Page
+simple_things_entity_audit:
+    audited_entities:
+        - ArmdCmsBundle\Entity\Page
 
 sonata_media:
     default_context: default
