@@ -19,8 +19,7 @@ security:
             
     firewalls:
         admin:
-            pattern:            /admin/
-            anonymous:          ~            
+            pattern:            /admin(.*)
             context:            user
             switch_user:        true
             form_login:
@@ -43,16 +42,10 @@ security:
             http_basic:
                 realm: "Secured Demo Area"
 
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         # URL of FOSUserBundle which need to be available to anonymous users
-        #- { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
         #- { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }

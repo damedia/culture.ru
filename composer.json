@@ -30,7 +30,7 @@
         
         "armd/cms-bundle": "2.*",
         "armd/admin-bundle": "2.1.x-dev",
-        "armd/media-bundle": "*",
+        "armd/media-bundle": "2.*",
         "armd/menu-bundle": "2.*",
         "armd/text-bundle": "*",
         "armd/news-bundle": "2.*",
