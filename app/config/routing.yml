@@ -1,7 +1,3 @@
-ArmdAdminBundle:
-    resource: "@ArmdAdminBundle/Resources/config/routing/routing.yml"
-    prefix:   /_sys/admin
-
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
@@ -19,17 +15,17 @@ ArmdUserBundle:
     resource: '@ArmdUserBundle/Resources/config/routing/security.xml'
     prefix:   /admin    
 
-ArmdAdminBundle:  
-    resource: "@ArmdAdminBundle/Resources/config/routing/routing.yml"  
+ArmdAdminBundle:
+    resource: "@ArmdAdminBundle/Resources/config/routing/routing.yml"
     prefix:   /_sys/admin
 
-#gallery:
-#    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
-#    prefix: /media/gallery
+gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
 
-#media:
-#    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
-#    prefix: /media
+media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media
 
 pages:
     resource: ArmdCmsBundle:Page
