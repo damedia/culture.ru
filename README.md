@@ -18,11 +18,11 @@
     
 4. Установить composer;
 
-    curl -s http://getcomposer.org/installer | php -- 
+    curl -s http://getcomposer.org/installer | php
     
 5. Установить используемые CMS модули (бандлы) CMS. Для работы этой команды пользователь из под которого выполняется команда должен иметь доступ ко всем зависимым репозиториям на git.armd.ru;
 
-    php composer.phar install
+    php composer.phar update
 
 6. Обновить схему баз данных;
 
