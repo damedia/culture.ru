@@ -1,5 +1,6 @@
 {
     "name": "symfony/framework-standard-edition",
+    "description" : "Symfony Framework",
     "autoload": {
         "psr-0": { "": "src/" }
     },
@@ -34,7 +35,6 @@
         "armd/menu-bundle": "2.*",
         "armd/text-bundle": "*",
         "armd/news-bundle": "2.*",
-        "sonata-project/easy-extends-bundle": "*",
         "knplabs/knp-paginator-bundle": "*"
     },
     "scripts": {
