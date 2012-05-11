@@ -33,8 +33,11 @@ security:
             logout:
                 path:           /admin/logout
                 target:         /admin/login
-
             anonymous:    true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 3600
+                domain:   ~ # Defaults to the current domain from $_SERVER
 
         main:
             pattern:            .*
