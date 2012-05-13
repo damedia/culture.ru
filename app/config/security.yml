@@ -1,3 +1,6 @@
+parameters:
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+
 jms_security_extra:
     secure_all_services: false
     expressions: true
