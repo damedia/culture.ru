@@ -40,10 +40,11 @@ class AppKernel extends Kernel
             new Armd\Bundle\AuditBundle\ArmdAuditBundle(),            
             new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
             new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Armd\ContentAbstractBundle\ArmdContentAbstractBundle(),
             new Armd\Bundle\MediaBundle\ArmdMediaBundle(),
             new Armd\MenuBundle\ArmdMenuBundle(),
             new Armd\Bundle\TextBundle\ArmdTextBundle(),
-            new Armd\NewsBundle\ArmdNewsBundle(),            
+            new Armd\NewsBundle\ArmdNewsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
