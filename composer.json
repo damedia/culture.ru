@@ -9,6 +9,7 @@
         "armd/audit-bundle": {"type": "git", "url": "git@git.armd.ru:auditbundle.git"},
         "armd/cms-bundle": { "type": "git", "url": "git@git.armd.ru:CmsBundle.git" },
         "armd/admin-bundle": { "type": "git", "url": "git@git.armd.ru:adminbundle.git" },
+        "armd/content-abstract-bundle": { "type": "git", "url": "git@git.armd.ru:contentabstractbundle.git" },
         "armd/media-bundle": { "type": "git", "url": "git@git.armd.ru:mediabundle.git" },
         "armd/menu-bundle": { "type": "git", "url": "git@git.armd.ru:cmsmenubundle.git" },
         "armd/text-bundle": { "type": "git", "url": "git@git.armd.ru:cmstextbundle.git" },
@@ -31,6 +32,7 @@
         
         "armd/cms-bundle": "2.*",
         "armd/admin-bundle": "2.1.x-dev",
+        "armd/content-abstract-bundle": "*",
         "armd/media-bundle": "2.*",
         "armd/menu-bundle": "2.*",
         "armd/text-bundle": "*",
