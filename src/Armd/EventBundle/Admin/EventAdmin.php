@@ -43,7 +43,7 @@ class EventAdmin extends BaseAdmin
         
         $formMapper
             ->with('General')
-                ->remove('date')
+                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru'))
                 ->add('place')
                 ->add('personalTag')
                 ->add('tags')                
