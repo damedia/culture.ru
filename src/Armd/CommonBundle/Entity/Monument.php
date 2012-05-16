@@ -56,6 +56,16 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $body;
     
     /**
+     * @ORM\Column(name="latitude", type="string", length=12, nullable="true")
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(name="longitude", type="string", length=12, nullable="true")
+     */
+    private $longitude;    
+    
+    /**
      * @ORM\Column(type="string", nullable=true, name="_tag")
      */    
     private $personalTag;
@@ -305,5 +315,45 @@ class Monument extends BaseContent implements TaxonomyInterface
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string 
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string 
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 }

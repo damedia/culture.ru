@@ -33,6 +33,8 @@ class MonumentAdmin extends BaseAdmin
                 ->add('city')
                 ->add('address')                
                 ->add('date', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('longitude')                
+                ->add('latitude')                
             ->end()
         ;
     }
