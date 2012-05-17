@@ -30,11 +30,14 @@ class MonumentAdmin extends BaseAdmin
         $formMapper
             ->with('General')
                 ->add('author', null, array('required' => false))
+                ->add('subject', null, array('required' => false))
                 ->add('city')
                 ->add('address')                
-                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('beginDate', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('endDate', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))                
                 ->add('longitude')                
-                ->add('latitude')                
+                ->add('latitude')               
+                ->add('stream')                                 
             ->end()
         ;
     }
