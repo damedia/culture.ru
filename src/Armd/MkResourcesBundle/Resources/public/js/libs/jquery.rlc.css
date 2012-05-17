@@ -1,0 +1,139 @@
+.rlc {
+    -moz-user-select: none;
+    background: url("../../img/bg.jpg") no-repeat scroll 50% -600px #FFFFFF; 
+  
+    overflow: hidden;
+    padding: 20px 30px;
+}
+.rlc-days-wrap {
+    position: relative;
+}
+.rlc-months {
+    color: #999999;
+    font-size: 11px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.rlc-month a {
+    color: #999999;
+}
+.rlc-month.item-prev {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.rlc-month.item-next {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.rlc-month.item-center {
+    text-align: center;
+}
+.rlc-days {
+    border-collapse: collapse;
+    height: 65px;
+    width: 100%;
+}
+.rlc-day {
+    border: medium none !important;
+    font-size: 22px;
+    height: 50px;
+    min-width: 0.5%;
+    padding: 10px 0 !important;
+    position: relative;
+    text-align: center;
+}
+.rlc-day.selected div {
+    background: none repeat scroll 0 0 transparent;
+}
+.rlc-day.weekend {
+    color: #BE1414;
+}
+.rlc-day-wrap {
+    background: none repeat scroll 0 0 rgba(237, 237, 237, 0.75);
+    padding: 5px 0;
+}
+.rlc-day.selected .rlc-day-wrap {
+    padding: 10px 0;
+}
+.rlc-day.selected {
+    font-size: 35px;
+    letter-spacing: -2px;
+    max-width: 2%;
+    padding: 0 !important;
+	background: #fbfbfb;
+	background: -moz-linear-gradient(top,  #fbfbfb 0%, #d2d2d2 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fbfbfb), color-stop(100%,#d2d2d2));
+	background: -webkit-linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+	background: -o-linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+	background: -ms-linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+	background: linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#d2d2d2',GradientType=0 );
+}
+.rlc-day.selected.item-left .rlc-day-wrap {
+    margin-left: 10px;
+}
+.rlc-day.selected.item-right .rlc-day-wrap {
+    margin-right: 10px;
+}
+.rlc-magnifier {
+    bottom: 0;
+    height: 99%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.rlc-magnifier-frame {
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 0 10px #CCCCCC;
+    height: 99%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    background-position: center,center;
+}
+.rlc-magnifier-frame div {
+    background: url("../../img/rlc_sprite.png") no-repeat scroll 0 0 transparent;
+    cursor: w-resize;
+    opacity: 0.9;
+    position: absolute;
+    background-position:  center,center;
+}
+.rlc-magnifier-frame .item-left {
+    background-position: 0 -14px;
+    left: -19px;
+}
+.rlc-magnifier-frame .item-right {
+    background-position: 100% 73%;
+    right: -19px;
+}
+.rlc-magnifier-frame .item-center {
+    background-position: -115px -4px;
+    left: 50%;
+    margin-left: -14px;
+}
+.rlc-magnifier-drag {
+    cursor: w-resize;
+    left: 0;
+    position: absolute !important;
+    z-index: 100;
+}
+.rlc-magnifier-frame .item-left, .rlc-magnifier-drag.item-left {
+    height: 105%;
+    top: -5% !important;
+    width: 32px;
+}
+.rlc-magnifier-frame .item-right, .rlc-magnifier-drag.item-right {
+   /* bottom: -5%; */
+    height: 105%;
+    top: auto !important;
+    width: 32px;
+}
+.rlc-magnifier-frame .item-center, .rlc-magnifier-drag.item-center {
+    height: 23px;
+    top: -15px !important;
+    width: 28px;
+}

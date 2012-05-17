@@ -3,7 +3,7 @@
 namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\ContentAbstractBundle\Entity\BaseContent;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
@@ -13,24 +13,17 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 class Monument extends BaseContent implements TaxonomyInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-
-    /**
      * @ORM\Column(type="string")
      */
     private $title;
     
     /**
-     * @ORM\Column(type="string", nullable="true")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", nullable="true")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $address;        
         
@@ -46,12 +39,12 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $date;
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $announce;        
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
     
@@ -66,35 +59,27 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $tags;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;    
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set title
      *
      * @param string $title
+     * @return Monument
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -108,173 +93,15 @@ class Monument extends BaseContent implements TaxonomyInterface
     }
 
     /**
-     * Set body
-     *
-     * @param text $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * Get body
-     *
-     * @return text 
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * Set date
-     *
-     * @param date $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * Get date
-     *
-     * @return date 
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set author
-     *
-     * @param Armd\CommonBundle\Entity\Person $author
-     */
-    public function setAuthor(\Armd\CommonBundle\Entity\Person $author)
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * Get author
-     *
-     * @return Armd\CommonBundle\Entity\Person 
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set announce
-     *
-     * @param text $announce
-     */
-    public function setAnnounce($announce)
-    {
-        $this->announce = $announce;
-    }
-
-    /**
-     * Get announce
-     *
-     * @return text 
-     */
-    public function getAnnounce()
-    {
-        return $this->announce;
-    }
-
-    /**
-     * Set personalTag
-     *
-     * @param string $personalTag
-     */
-    public function setPersonalTag($personalTag)
-    {
-        $this->personalTag = $personalTag;
-    }
-
-    /**
-     * Get personalTag
-     *
-     * @return string 
-     */
-    public function getPersonalTag()
-    {
-        return $this->personalTag;
-    }
-
-    /**
-     * Set tags
-     *
-     * @param text $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * Get tags
-     *
-     * @return text 
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Set image
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
-     */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Get image
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set gallery
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
-     */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
-    {
-        $this->gallery = $gallery;
-    }
-
-    /**
-     * Get gallery
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
-     */
-    public function getGallery()
-    {
-        return $this->gallery;
-    }
-
-    /**
      * Set city
      *
      * @param string $city
+     * @return Monument
      */
     public function setCity($city)
     {
         $this->city = $city;
+        return $this;
     }
 
     /**
@@ -291,10 +118,12 @@ class Monument extends BaseContent implements TaxonomyInterface
      * Set address
      *
      * @param string $address
+     * @return Monument
      */
     public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
     }
 
     /**
@@ -305,5 +134,181 @@ class Monument extends BaseContent implements TaxonomyInterface
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     * @return Monument
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set announce
+     *
+     * @param text $announce
+     * @return Monument
+     */
+    public function setAnnounce($announce)
+    {
+        $this->announce = $announce;
+        return $this;
+    }
+
+    /**
+     * Get announce
+     *
+     * @return text 
+     */
+    public function getAnnounce()
+    {
+        return $this->announce;
+    }
+
+    /**
+     * Set body
+     *
+     * @param text $body
+     * @return Monument
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     * @return Monument
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+        return $this;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     * @return Monument
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set author
+     *
+     * @param Armd\CommonBundle\Entity\Person $author
+     * @return Monument
+     */
+    public function setAuthor(\Armd\CommonBundle\Entity\Person $author = null)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return Armd\CommonBundle\Entity\Person 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Armd\Bundle\MediaBundle\Entity\Media $image
+     * @return Monument
+     */
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Armd\Bundle\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param Armd\Bundle\MediaBundle\Entity\Gallery $gallery
+     * @return Monument
+     */
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return Armd\Bundle\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

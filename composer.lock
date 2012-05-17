@@ -1,5 +1,5 @@
 {
-    "hash": "28dc6743a09ec4496555a79e7e045e97",
+    "hash": "c775aa86076269f70564f9486b82be79",
     "packages": [
         {
             "package": "armd/admin-bundle",
@@ -14,12 +14,12 @@
         {
             "package": "armd/cms-bundle",
             "version": "2.1.x-dev",
-            "source-reference": "3a6c6140cac44961cb8ef87e12223ce145612c2b"
+            "source-reference": "a96fe8c47888cb64158f6e67783ab0dc64a1ddac"
         },
         {
             "package": "armd/content-abstract-bundle",
             "version": "dev-master",
-            "source-reference": "a3a3033a1a2e8cf6265542e83a4e338dd8d3f935"
+            "source-reference": "ac052bf10ca0bbaca03dc65c4962ec3435b5e4b2"
         },
         {
             "package": "armd/media-bundle",
@@ -29,17 +29,22 @@
         {
             "package": "armd/menu-bundle",
             "version": "2.1.x-dev",
-            "source-reference": "b37e703d59ec4c0193d8aa133bf8eff00ff2c97e"
+            "source-reference": "8c788175c6b902e0d9110dc01f3047e52729de8a"
         },
         {
             "package": "armd/news-bundle",
             "version": "2.1.x-dev",
-            "source-reference": "a1bd68c8f7c6123e807bfa36932eb28e4b3c8fd4"
+            "source-reference": "3b8793fad37b7f258b6be15aa678dc04ec5b54c4"
         },
         {
             "package": "armd/text-bundle",
             "version": "dev-master",
-            "source-reference": "90b00a57a567c559a6ffea7fd8e04591bd46ff0a"
+            "source-reference": "c97e72e8ae60f2eb14afdd9c3785185ed9f6c121"
+        },
+        {
+            "package": "armd/tvigle-bundle",
+            "version": "dev-master",
+            "source-reference": "ce24a836d977430915e13d1798c9313a4d18f7a2"
         },
         {
             "package": "armd/user-bundle",
@@ -53,7 +58,7 @@
         {
             "package": "doctrine/data-fixtures",
             "version": "dev-master",
-            "source-reference": "31040a8501c486e0a550a204a7097690340153ae"
+            "source-reference": "f201391349f3dc6bd9c9c698927ea7c78104c461"
         },
         {
             "package": "doctrine/dbal",
@@ -62,7 +67,7 @@
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
-            "source-reference": "342c7dd0a1bfe9a1156a190a303b8bea49fdd4fb"
+            "source-reference": "b45dae9448c1c66fdf1d952394bb88f234dfee13"
         },
         {
             "package": "doctrine/doctrine-fixtures-bundle",
@@ -127,14 +132,14 @@
         {
             "package": "knplabs/knp-menu",
             "version": "dev-master",
-            "source-reference": "724511a46a0b8978986ff2b2bfa8712fba3f5bbb",
-            "alias-pretty-version": "1.1.x-dev",
-            "alias-version": "1.1.9999999.9999999-dev"
+            "source-reference": "724511a46a0b8978986ff2b2bfa8712fba3f5bbb"
         },
         {
             "package": "knplabs/knp-menu",
             "version": "dev-master",
-            "source-reference": "724511a46a0b8978986ff2b2bfa8712fba3f5bbb"
+            "source-reference": "724511a46a0b8978986ff2b2bfa8712fba3f5bbb",
+            "alias-pretty-version": "1.1.x-dev",
+            "alias-version": "1.1.9999999.9999999-dev"
         },
         {
             "package": "knplabs/knp-menu-bundle",
@@ -161,7 +166,7 @@
         {
             "package": "kriswallsmith/buzz",
             "version": "dev-master",
-            "source-reference": "8ffbb976ee4865a499567764956c6173f568a3b2"
+            "source-reference": "1bab480dfdb3e4687dcb60a76eaed5b1e59a20cb"
         },
         {
             "package": "monolog/monolog",
@@ -194,7 +199,7 @@
         {
             "package": "sonata-project/admin-bundle",
             "version": "dev-master",
-            "source-reference": "0e6008b1bfde7b8fc606131a9b4c6d0ca47635a1"
+            "source-reference": "b89665e25b669164ce9d02b0cf5b3134b2050309"
         },
         {
             "package": "sonata-project/block-bundle",
@@ -293,21 +298,14 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "46ffbd528282f09fd8d23419d549b38dd877127c",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "58b6ef2371bf49612a4be82e91e66c3d0b38a220"
         },
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "459942b4567075105bf416c523dfaa80c3655689",
+            "source-reference": "58b6ef2371bf49612a4be82e91e66c3d0b38a220",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/symfony",
-            "version": "dev-master",
-            "source-reference": "46ffbd528282f09fd8d23419d549b38dd877127c"
         },
         {
             "package": "twig/extensions",

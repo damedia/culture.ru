@@ -1,0 +1,3 @@
+(function($){
+	$.fn.dGalleryCrop=function(){return this.each(function(){var elem=this;$(window).bind('resize',function(){var width=$(elem).parent().width(),widthUl=$('ul',elem).width(),arrow=$(elem).prev('.gallery-arrow');if(width<widthUl){widthCrop=width;$(arrow).click(function(){var currentPos=$('.gallery-i',elem).position(),left=currentPos.left,widthUlLeft=width-widthUl;if(left>widthUlLeft){$('.gallery-i',elem).animate({left:'-=200px'},300);}else{$('.gallery-i',elem).animate({left:0},300);}});}else{widthCrop=widthUl+32;}$(arrow).click(function(){return false;});$(elem).width(widthCrop);}).triggerHandler('resize');});};
+})(this.jQuery);

@@ -2,8 +2,7 @@
 
 namespace Armd\CultureAreaBundle\Controller;
 
-use Armd\Bundle\CmsBundle\Controller\Controller;
-use Armd\Bundle\CmsBundle\UsageType\UsageType;
+use Armd\ContentAbstractBundle\Controller\Controller;
 
 class CultureAreaController extends Controller
 {

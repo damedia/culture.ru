@@ -46,7 +46,7 @@ class AppKernel extends Kernel
             new Armd\Bundle\TextBundle\ArmdTextBundle(),
             new Armd\NewsBundle\ArmdNewsBundle(),
             
-            new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
+            new Armd\MkResourcesBundle\ArmdMkResourcesBundle(),
             new Armd\ExtendedNewsBundle\ArmdExtendedNewsBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\CultureMapBundle\ArmdCultureMapBundle(),

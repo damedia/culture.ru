@@ -13,7 +13,8 @@
         "armd/media-bundle": { "type": "git", "url": "git@git.armd.ru:mediabundle.git" },
         "armd/menu-bundle": { "type": "git", "url": "git@git.armd.ru:cmsmenubundle.git" },
         "armd/text-bundle": { "type": "git", "url": "git@git.armd.ru:cmstextbundle.git" },
-        "armd/news-bundle": { "type": "git", "url": "git@git.armd.ru:CmsNewsBundle.git" }
+        "armd/news-bundle": { "type": "git", "url": "git@git.armd.ru:CmsNewsBundle.git" },
+        "armd/tvigle-bundle": { "type": "git", "url": "git@git.armd.ru:tviglebundle.git" }
     },    
     "require": {
         "php": ">=5.3.2",
@@ -37,6 +38,7 @@
         "armd/menu-bundle": "2.*",
         "armd/text-bundle": "*",
         "armd/news-bundle": "2.*",
+        "armd/tvigle-bundle": "*",
         "knplabs/knp-paginator-bundle": "*"
     },
     "scripts": {

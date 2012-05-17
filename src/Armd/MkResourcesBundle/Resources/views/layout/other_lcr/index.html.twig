@@ -1,0 +1,48 @@
+{% extends 'ArmdMkResourcesBundle::layout.mk.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/armdmkresources/css/css.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('bundles/armdmkresources/js/libs/jq.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/plugins.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/libs/html5.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/js.js') }}"></script>
+	<!--[if lt IE 9 ]><script src="{{ asset('bundles/armdmkresources/js/libs/ie.js') }}"></script><![endif]-->
+{% endblock %}
+
+{% block layout_content %}
+    <div id='content'>
+		<header>
+			{{ getContainerContent('other_logo')|raw }}
+			{{ getContainerContent('other_language_switcher')|raw }}
+			{{ getContainerContent('other_content_top')|raw }}
+			<div class='cb'></div>
+			<div id="menu_search_wrap">
+				{{ getContainerContent('other_menu')|raw }}
+				{{ getContainerContent('other_search')|raw }}
+			</div>
+		</header>
+		
+		{{ getContainerContent('other_header_bottom')|raw }}
+		
+		<aside id='sidebar-l'>
+			{{ getContainerContent('other_left')|raw }}
+		</aside><!-- /sidebar-l -->
+		
+		<aside id='sidebar-r'>
+			{{ getContainerContent('other_right')|raw }}
+		</aside><!-- /sidebar-r -->
+		
+		<div id='content-i'><div id='content-i2'>
+			{{ getContainerContent('other_content')|raw }}
+		</div></div>
+	</div>
+	
+	<footer>
+		<div class='fl'>{{ getContainerContent('other_footer_left')|raw }}</div>
+		<div class='fr'>{{ getContainerContent('other_footer_right')|raw }}</div>
+	</footer>
+
+{% endblock %}

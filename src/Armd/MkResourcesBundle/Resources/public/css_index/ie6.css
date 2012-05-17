@@ -1,0 +1,16 @@
+/* ======= */
+/* Layout */
+
+body {
+	height: 100%;
+}
+
+
+
+/* ========= */
+/* Elements */
+
+/* Common */
+.clearfix {
+	zoom: 1;
+}

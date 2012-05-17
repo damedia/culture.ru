@@ -1,0 +1,12 @@
+<div class="box-title section-title">{{ entity.parent }}</div>
+
+<h1>{{ entity.title }}</h1>
+
+{#<img width="266" height="196" title="pic12" alt="pic12" class="item-pic-left" src="./upload/pic12.jpg">#}
+{% thumbnail entity.image, 'big' with {'class': 'item-pic-left'} %}
+
+<!--<div>{{ entity.announce|raw}}</div>-->
+
+<div>{{ entity.body|raw}}</div>
+
+{% include 'ArmdMkResourcesBundle::related-objects.html.twig' %}

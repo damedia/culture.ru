@@ -2,8 +2,7 @@
 
 namespace Armd\CommonBundle\Controller;
 
-use Armd\Bundle\CmsBundle\Controller\Controller;
-use Armd\TaxonomyBundle\Entity\TagContentReference;
+use Armd\ContentAbstractBundle\Controller\Controller;
 
 class BaseController extends Controller
 {

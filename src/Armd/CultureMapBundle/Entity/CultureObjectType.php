@@ -26,7 +26,7 @@ class CultureObjectType
     private $title;
 
     /**
-     * @ORM\Column(name="icon", type="string", length=255, nullable="true")
+     * @ORM\Column(name="icon", type="string", length=255, nullable=true)
      */
     private $icon;
 
