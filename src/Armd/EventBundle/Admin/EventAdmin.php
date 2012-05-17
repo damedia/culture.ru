@@ -27,7 +27,8 @@ class EventAdmin extends BaseAdmin
         
         $showMapper
             ->add('place')
-            ->remove('date')
+            ->remove('beginDate')
+            ->remove('endDate')
         ;
     }
 

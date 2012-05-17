@@ -2,7 +2,7 @@
 
 namespace Armd\ExtendedNewsBundle\Repository;
 
-use Armd\Bundle\NewsBundle\Repository\NewsRepository as BaseRepository;
+use Armd\NewsBundle\Repository\NewsRepository as BaseRepository;
 
 /**
  * NewsRepository

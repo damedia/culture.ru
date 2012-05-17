@@ -32,7 +32,7 @@ class MonumentAdmin extends BaseAdmin
                 ->add('author', null, array('required' => false))
                 ->add('city')
                 ->add('address')                
-                ->add('date', 'sonata_type_datepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('date', null, array('required'=>false))
             ->end()
         ;
     }

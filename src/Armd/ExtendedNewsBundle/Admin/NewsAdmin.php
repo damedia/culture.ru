@@ -44,7 +44,7 @@ class NewsAdmin extends BaseAdmin
                 ->add('source')
                 ->add('personalTag')
                 ->add('tags')
-                ->add('date', 'sonata_type_datetimepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('date')
                 ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
             ->end();
