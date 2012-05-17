@@ -153,9 +153,9 @@ function PlacemarkClusterer(map, opt_placemarks, opt_opts) {
       }
     }
 
-	var isAdded  = opt_isAdded;
-	var isNodraw = (opt_isNodraw === true);
-	var clusters = opt_clusters;
+    var isAdded  = opt_isAdded;
+    var isNodraw = (opt_isNodraw === true);
+    var clusters = opt_clusters;
     var pos = map_.converter.coordinatesToMapPixels(placemark.getCoordPoint());
     
     if (typeof isAdded !== "boolean") {
@@ -348,7 +348,7 @@ function PlacemarkClusterer(map, opt_placemarks, opt_opts) {
   };
   
   this.addPlacemark = function(placemark) {
-	this.addPlacemark_(placemark, false, false);
+    this.addPlacemark_(placemark, false, false);
   };
 
   // initialize
@@ -530,7 +530,7 @@ function Cluster(placemarkClusterer) {
         clusterPlacemark_ = new ClusterPlacemark_(center_, this.getTotalPlacemarks(), placemarkClusterer_.getStyle_(), placemarkClusterer_.getGridSize_());
         map_.addOverlay(clusterPlacemark_);
       } else {
-		clusterPlacemark_.setCount(this.getTotalPlacemarks());
+        clusterPlacemark_.setCount(this.getTotalPlacemarks());
         if (clusterPlacemark_.isHidden()) {
           clusterPlacemark_.show();
         }
@@ -565,113 +565,118 @@ function Cluster(placemarkClusterer) {
 }
 
 function ClusterPlacemark_(point, count, style, padding) {
-	this.count_ = count;
-	
-	this.url_ = style.url;
-	this.width_ = style.width;
-	this.height_ = style.height;
-	this.textColor_ = style.textColor;
-	
-	this.padding_ = padding;
-	
-	var me_ = this;
-	
-	this.onAddToMap = function (map, parentContainer) {
-		me_.map_ = map;
-		var div = YMaps.jQuery('<div class="YMaps-placemark YMaps-Default YMaps-cursor-pointer">');
-		div.css({
-			'z-index': YMaps.ZIndex.Overlay,
-			width: me_.width_,
-			height: me_.height_,
-			'text-align': 'center',
-			'line-height': me_.height_.toString() + 'px',
-			'font-size': '10px',
-			color: me_.textColor_ ? me_.textColor_ : '#000'
-		});
-		
-		div.text(me_.count_);
-		
-		if (document.all) {
-			div.css({
-				filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="' + this.url_ + '")'
-			});
-		} else {
-			div.css({
-				background: "url(" + me_.url_ + ")"
-			});
-		}
-		
-		div.appendTo(parentContainer);
-		me_.div_ = div;
-		
-		div.click(function (e) {
-		  var pos = map.converter.coordinatesToMapPixels(point);
-		  
-		  var sw = new YMaps.Point(pos.x - padding, pos.y + padding);
+    this.count_ = count;
+    
+    this.url_ = style.url;
+    this.width_ = style.width;
+    this.height_ = style.height;
+    this.textColor_ = style.textColor;
+    
+    this.padding_ = padding;
+    
+    var me_ = this;
+    
+    this.onAddToMap = function (map, parentContainer) {
+        me_.map_ = map;
+        var div = YMaps.jQuery('<div class="YMaps-placemark YMaps-Default YMaps-cursor-pointer">');
+        div.css({
+            'z-index': YMaps.ZIndex.Overlay,
+            width: me_.width_,
+            height: me_.height_,
+            'text-align': 'center',
+            'line-height': me_.height_.toString() + 'px',
+            'font-size': '10px',
+            color: me_.textColor_ ? me_.textColor_ : '#000'
+        });
+        
+        div.text(me_.count_);
+        
+        if (document.all) {
+            div.css({
+                filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="' + this.url_ + '")'
+            });
+        } else {
+            div.css({
+                background: "url(" + me_.url_ + ")"
+            });
+        }
+        
+        div.appendTo(parentContainer);
+        me_.div_ = div;
+        
+        div.click(function (e) {
+          var pos = map.converter.coordinatesToMapPixels(point);
+          
+          var sw = new YMaps.Point(pos.x - padding, pos.y + padding);
           sw = map.converter.mapPixelsToCoordinates(sw);
           
           var ne = new YMaps.Point(pos.x + padding, pos.y - padding);
           ne = map.converter.mapPixelsToCoordinates(ne);
            
-		  map.setBounds(new YMaps.GeoBounds(sw, ne));
+          var bounds = new YMaps.GeoBounds(sw, ne);
+          map.setZoom(bounds.getMapZoom(map), {
+            smooth: true,
+            position: bounds.getCenter(),
+            centering: true
+          });
         });
 
-		me_.onMapUpdate();
-	};
-	
-	this.onRemoveFromMap = function () {
-		if (me_.div_.parent()) {
-			me_.div_.remove();
-		}
-	};
+        me_.onMapUpdate();
+    };
+    
+    this.onRemoveFromMap = function () {
+        if (me_.div_.parent()) {
+            me_.div_.remove();
+        }
+    };
 
-	this.onMapUpdate = function () {
-		var position = me_.map_.converter.coordinatesToMapPixels(point);
-		
-		position.x -= parseInt(me_.width_ / 2, 10);
-		position.y -= parseInt(me_.height_ / 2, 10);
-		
-		me_.div_.css({
-			left: position.x,
-			top:  position.y
-		});
-		
-		me_.div_.text(me_.count_);
-	};
-	
-	this.setCount = function (count) {
-		me_.count_ = count;
-	};
-	
-	this.show = function () {
-		me_.div_.css('display', '');
-	};
-	
-	this.hide = function () {
-		me_.div_.css('display', 'none');
-	};
-	
-	this.isHidden = function () {
-		return me_.div_.css('display') === "none";
-	};
+    this.onMapUpdate = function () {
+        var position = me_.map_.converter.coordinatesToMapPixels(point);
+        
+        position.x -= parseInt(me_.width_ / 2, 10);
+        position.y -= parseInt(me_.height_ / 2, 10);
+        
+        me_.div_.css({
+            left: position.x,
+            top:  position.y
+        });
+        
+        me_.div_.text(me_.count_);
+    };
+    
+    this.setCount = function (count) {
+        me_.count_ = count;
+    };
+    
+    this.show = function () {
+        me_.div_.css('display', '');
+    };
+    
+    this.hide = function () {
+        me_.div_.css('display', 'none');
+    };
+    
+    this.isHidden = function () {
+        return me_.div_.css('display') === "none";
+    };
 };
 
 YMaps.Placemark.prototype.show = function () {
-	if (this._$iconContainer) { // dirty hacking...
-		this._$iconContainer.css('display', '');
-	}
+    if (this._$iconContainer) { // dirty hacking...
+        this._$iconContainer.css('display', '');
+    }
 };
 
 YMaps.Placemark.prototype.hide = function () {
-	if (this._$iconContainer) { // dirty hacking...
-		this._$iconContainer.css('display', 'none');
-	}
+    if (this._$iconContainer) { // dirty hacking...
+        this._$iconContainer.css('display', 'none');
+    }
 };
 
 YMaps.Placemark.prototype.isHidden = function () {
-	if (this._$iconContainer) {
-		return this._$iconContainer.css('display') == 'none';
-	} else {
-		return true;
-	}
+    if (this._$iconContainer) {
+        return this._$iconContainer.css('display') == 'none';
+    } else {
+        return true;
+    }
 };
