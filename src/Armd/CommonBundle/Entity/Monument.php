@@ -25,7 +25,7 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $title;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable="true")
      */
     private $city;
 
@@ -41,14 +41,24 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $author;
     
     /**
-     * @ORM\Column(type="date", name="artwork_date", nullable=true)
+     * @ORM\Column(type="date", name="begin_date", nullable=true)
      */    
     private $beginDate;
-    
+        
     /**
      * @ORM\Column(type="date", name="end_date", nullable=true)
      */    
     private $endDate;    
+    
+    /**
+     * @ORM\Column(type="string", name="begin_date_desc", nullable=true)
+     */    
+    private $beginDateDescription;    
+    
+    /**
+     * @ORM\Column(type="string", name="end_date_desc", nullable=true)
+     */    
+    private $endDateDescription;            
     
     /**
      * @ORM\Column(type="text", nullable="true")
@@ -431,5 +441,45 @@ class Monument extends BaseContent implements TaxonomyInterface
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set beginDateDescription
+     *
+     * @param string $beginDateDescription
+     */
+    public function setBeginDateDescription($beginDateDescription)
+    {
+        $this->beginDateDescription = $beginDateDescription;
+    }
+
+    /**
+     * Get beginDateDescription
+     *
+     * @return string 
+     */
+    public function getBeginDateDescription()
+    {
+        return $this->beginDateDescription;
+    }
+
+    /**
+     * Set endDateDescription
+     *
+     * @param string $endDateDescription
+     */
+    public function setEndDateDescription($endDateDescription)
+    {
+        $this->endDateDescription = $endDateDescription;
+    }
+
+    /**
+     * Get endDateDescription
+     *
+     * @return string 
+     */
+    public function getEndDateDescription()
+    {
+        return $this->endDateDescription;
     }
 }
