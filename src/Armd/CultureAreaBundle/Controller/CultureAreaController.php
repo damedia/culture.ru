@@ -102,8 +102,8 @@ class CultureAreaController extends Controller
         	{$this->getEntityName()} c,
         	ArmdTaxonomyBundle:TagContentReference ttcr,
         	ArmdTaxonomyBundle:TagContentReference ttcr2,
-        	ArmdCmsBundle:Content cc,
-        	ArmdCmsBundle:Entity ce        
+        	ArmdContentAbstractBundle:Content cc,
+        	ArmdContentAbstractBundle:Entity ce        
         where
         	c.id = :id
         	and ttcr.content = c.content

@@ -91,6 +91,11 @@ class Person extends BaseContent implements TaxonomyInterface
     
     public function __toString()
     {
+        return $this->getTitle();
+    }    
+    
+    public function getTitle()
+    {
         $title = "{$this->getLastname()} {$this->getFirstname()} {$this->getMiddlename()}";
         
         return preg_replace('/\s+/', ' ', $title) ;

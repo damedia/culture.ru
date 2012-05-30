@@ -3,7 +3,7 @@
 namespace Armd\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
+use Armd\NewsBundle\Entity\BaseNews;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
