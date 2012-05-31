@@ -44,7 +44,7 @@ parameters:
                             title: Шаблон для главной страницы2   
                         official_news:
                             title: Шаблон для страницы официальное   
-                ArmdCmsMenuBundle:
+                ArmdMenuBundle:
                     template:
                         default:
                             title: Основной шаблон
