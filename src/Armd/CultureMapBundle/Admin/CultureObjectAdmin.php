@@ -67,6 +67,8 @@ class CultureObjectAdmin extends Admin
             ->add('announce')
             ->add('subject')
             ->add('type')
+            ->add('latitude')
+            ->add('longitude')
        ;
     }
 
