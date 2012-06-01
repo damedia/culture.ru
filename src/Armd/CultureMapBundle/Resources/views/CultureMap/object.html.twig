@@ -3,18 +3,24 @@
         <h2>{{ entity.title }}</h2>
         <table>
             <tbody>
+                {% if entity.site %}
                 <tr>
                     <th>Сайт:</th>
                     <td><a href="http://{{ entity.site }}" target="_blank">{{ entity.site }}</a></td>
                 </tr>
+                {% endif %}
+                {% if entity.email %}
                 <tr>
                     <th>Email:</th>
                     <td><a href="mailto:{{ entity.email }}">{{ entity.email }}</a></td>
                 </tr>
+                {% endif %}
+                {% if entity.phone %}
                 <tr>
                     <th>Телефон:</th>
                     <td>{{ entity.phone }}</td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>

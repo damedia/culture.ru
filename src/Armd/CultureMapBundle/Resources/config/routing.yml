@@ -21,3 +21,13 @@ _sys_culturemap_subject:
 _sys_culturemap_check:
     pattern:  /check
     defaults: { _controller: ArmdCultureMapBundle:CultureMap:check }
+
+_sys_culturemap_testmarkers:
+    pattern:  /testmarkers
+    defaults: { _controller: ArmdCultureMapBundle:CultureMap:testmarkers }
+
+_sys_culturemap_testmarkerdetail:
+    pattern:  /testmarkerdetail
+    defaults: { _controller: ArmdCultureMapBundle:CultureMap:testmarkerdetail }
+
+

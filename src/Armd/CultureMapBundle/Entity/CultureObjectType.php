@@ -30,6 +30,10 @@ class CultureObjectType
      */
     private $icon;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CultureObject", mappedBy="type")
+     */
+    protected $objects;
 
     /**
      * Get id

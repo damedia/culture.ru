@@ -4,6 +4,9 @@ parameters:
             list:
                 controller: CultureMap
                 action: list
+            atlas:
+                controller: CultureMap
+                action: atlas
             subject:
                 controller: CultureMap
                 action: subject
@@ -12,6 +15,8 @@ parameters:
                     requirements:
                         id: \d+
         group:
+            atlas:
+                types: [atlas]
             list:
                 types: [list, subject]
             subject:

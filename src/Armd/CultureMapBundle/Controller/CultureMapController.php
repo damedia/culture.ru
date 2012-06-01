@@ -85,6 +85,7 @@ class CultureMapController extends Controller
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getEntityManager();
         try {
+            // Учреждения
             $entityList = $em->getRepository('ArmdCultureMapBundle:CultureObject')->findAll();
             if (! $entityList)
                 throw new \Exception('Not found');
@@ -99,6 +100,24 @@ class CultureMapController extends Controller
                     'icon' => $item->getType()->getId(),
                 );
             }
+
+            /*
+            // Памятники
+            $entityList = $em->getRepository('ArmdCommonBundle:Monument')->findAll();
+            if (! $entityList)
+                throw new \Exception('Not found');
+
+            foreach ($entityList as $item) {
+                $markers[] = array(
+                    'id' => $item->getId(),
+                    'title' => $item->getTitle(),
+                    'lat' => $item->getLatitude(),
+                    'lng' => $item->getLongitude(),
+                    'icon' => 1,
+                );
+            }
+            */
+
             return new Response(
                 json_encode(array(
                     'success' => true,
@@ -197,6 +216,97 @@ class CultureMapController extends Controller
         $res = $repo->recover();
         $em->clear();
         var_dump($res);
+    }
+
+    /**
+     * Новый атлас
+     */
+    public function atlasAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        // Список регионов
+        $dql = "SELECT s FROM ArmdCultureMapBundle:Subject s ORDER BY s.title ASC";
+        $regions = $em->createQuery($dql)->getResult();
+
+        // Список типов объектов
+        $query = $em->createQueryBuilder()
+            ->select(array('t.id, t.title, t.icon', 'COUNT(o.id) AS objectsCount'))
+            ->from('ArmdCultureMapBundle:CultureObjectType', 't')
+            ->leftJoin('t.objects', 'o')
+            ->groupBy('t.id, t.title, t.icon')
+            ->orderBy('objectsCount', 'DESC')
+            ->getQuery();
+        //print $query->getDql();
+        $objectTypes = $query->getResult();
+
+        return $this->renderCms(array(
+            'regions' => $regions,
+            'objectTypes' => $objectTypes,
+        ));
+    }
+
+    public function testmarkersAction()
+    {
+        $searchTerm = trim($this->get('request')->get('search'));
+        $regionId = (int) $this->get('request')->get('region');
+        $typeIds = $this->get('request')->get('type');
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $qb = $em->createQueryBuilder()
+            ->select('o')
+            ->from('ArmdCultureMapBundle:CultureObject', 'o');
+
+        if ($typeIds && is_array($typeIds)) {
+            $qb->andwhere('o.type IN (:typeIds)')
+               ->setParameter('typeIds', $typeIds);
+        }
+        if ($regionId) {
+            $qb->andWhere('o.subject = :regionId')
+               ->setParameter('regionId', $regionId);
+        }
+        if ($searchTerm) {
+            $qb->andWhere('LOWER(o.title) LIKE :searchTerm')
+               ->setParameter('searchTerm', '%'.$searchTerm.'%');
+        }
+
+        $qb->orderBy('o.id', 'ASC');
+
+        $query = $qb->getQuery();
+
+        $objects = $query->getResult();
+        $markers = array();
+        foreach ($objects as $item) {
+            $markers[] = array(
+                'id' => $item->getId(),
+                'title' => $item->getTitle(),
+                'lat' => $item->getLatitude(),
+                'lng' => $item->getLongitude(),
+                'type' => $item->getType()->getId(),
+            );
+        }
+
+        $data = array(
+            'success' => true,
+            'result' => $markers,
+        );
+
+        return new Response(json_encode($data));
+    }
+
+    public function testmarkerdetailAction()
+    {
+        $request = $this->container->get('request');
+        $id = (int) $this->get('request')->get('id');
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('ArmdCultureMapBundle:CultureObject')->find($id);
+        if (! $entity) {
+            throw $this->createNotFoundException('Unable to find CultureObject entity.');
+        }
+        return $this->render('ArmdCultureMapBundle:CultureMap:testmarkerdetail.html.twig', array(
+            'entity' => $entity,
+        ));
     }
 
 }

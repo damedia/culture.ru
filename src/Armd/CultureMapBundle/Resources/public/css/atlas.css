@@ -85,9 +85,14 @@ body {
 }
 
 .map-point-descr h2 {
-    font-size: 11px;
+    font-size: 14px;
     margin-bottom: 10px;
     padding-right: 10px;
+}
+
+.map-point-descr .map-point-descr-text {
+    font-size: 11px;
+    margin-bottom: 10px;
 }
 
 .map-point-hide-text .map-point-hide-title {
