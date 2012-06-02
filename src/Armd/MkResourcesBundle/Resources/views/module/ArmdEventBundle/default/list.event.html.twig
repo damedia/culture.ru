@@ -1,7 +1,10 @@
 <script src="{{ asset('bundles/armdmkresources/js/libs/jquery-ui-1.8.18.custom.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('bundles/armdmkresources/js/libs/jquery.rlc.css') }}">
+<link rel="stylesheet" href="{{ asset('bundles/armdmkresources/css/events.css') }}">
 <script src="{{ asset('bundles/armdmkresources/js/libs/jquery.rlc.js') }}"></script>
-
+	<div class="navigation topnav">
+			{{ entities.render()|raw }}
+		</div><br>
 <script type="text/javascript">
     $(function() {
 		//if(!/test/.test(window.location.href))
@@ -75,8 +78,31 @@
             {{ set date = schedule.beginDate }}
         {% endfor %#}
         {% set date = entity.date %}
-        
+       
         <li class="events-list-item">
+					
+					{% if entity.schedule[0].begindate and entity.schedule[0].enddate %}
+					
+					
+					<dl class="cb">
+                        <dt style="width:180px;">
+							<ul>
+							<li>
+								{{ entity.schedule[0].begindate|localDate("d") }}
+							</li>
+							<li class="small">
+								{{ (entity.schedule[0].begindate|localDate("F"))[0:3] }}</p>
+							</li>
+							<li>
+								→{{ entity.schedule[0].enddate|localDate("d") }}
+							</li>
+							<li class="small">
+								{{ (entity.schedule[0].enddate|localDate("F"))[0:3] }}
+							</li>
+							</ul>
+						</dt>
+                    </dl> 
+					{% else %}
                     <dl class="cb">
                         <dt>{{ date|date("d") }}</dt>
                         <dd>
@@ -84,6 +110,7 @@
                             {{ date|localDate("l") }}
                         </dd>
                     </dl>
+					{% endif %}
                     <a href="{{ eventUrl }}" class="see-also-list-img">{% thumbnail entity.image, 'big' %}</a>
                     <div class="see-also-list-brd"></div>
                     <a href="{{ eventUrl }}" class="see-also-list-bg" title="Подробнее">Подробнее</a>
@@ -97,3 +124,6 @@
                 </li>
     {% endfor %}
 </ul></div><!-- /proh-wrap -->
+<div class="navigation botnav">
+{{ entities.render()|raw }}
+</div>

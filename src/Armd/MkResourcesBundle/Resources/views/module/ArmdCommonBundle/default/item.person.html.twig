@@ -21,20 +21,34 @@
             </tr>
             #}
             {#% set years = (entity.deathday-entity.birthday)/31536000 %#}
-            <tr>
-                <th>Дата рождения:</th>
-                <td>{{ entity.birthday|localDate('d F Y') }} {#(61 год)#}</td>
+            {% if entity.birthdaydescription %}
+                <tr>
+                    <th>Дата рождения:</th>
+                    <td>{{ entity.birthdaydescription }}</td>
+                </tr>
+			{% elseif entity.birththday %}
+                <tr>
+                    <th>Дата рождения:</th>
+                    <td>{{ entity.birthday|localDate('d F Y') }}</td>
             </tr>
-            {% if entity.deathday %}
+			{% endif %}
+            {% if entity.deathdaydescription %}
+                <tr>
+                    <th>Дата смерти:</th>
+                    <td>{{ entity.deathdaydescription}}</td>
+                </tr>
+			{% elseif entity.deathday %}
                 <tr>
                     <th>Дата смерти:</th>
                     <td>{{ entity.deathday|localDate('d F Y') }}</td>
                 </tr>
             {% endif %}
+			{% if entity.birthpalce %}
             <tr>
                 <th>Место рождения:</th>
                 <td>{{ entity.birthpalce }}</td>
             </tr>
+			{% endif %}
             {#
             <tr>
                 <th>Гражданство:</th>

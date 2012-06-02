@@ -14,13 +14,37 @@
 			{% endif %}
 		{% endif %}
 		<table><tbody>
+			{% if entity.city %}
 			<tr>
 				<th>Город:</th>
 				<td>{{ entity.city }}</td>
 			</tr>
+			{% endif %}
 			<tr>
+			{% if entity.begindateDescription %}
+				<th>Начало строительства:</th>
+				<td>
+				{{ entity.begindateDescription }}
+				</td>
+			{% elseif entity.begindate %}
 				<th>Дата возведения:</th>
-				<td>{{ entity.date|localDate('d F Y') }}</td>
+				<td>
+				{{ entity.begindate|localDate('d F Y') }}
+				</td>
+			{% endif %}
+			</tr>
+			<tr>
+			{% if entity.enddateDescription %}
+				<th>Начало строительства:</th>
+				<td>
+				{{ entity.enddateDescription }}
+				</td>
+			{% elseif entity.enddate %}
+				<th>Окончание строительства:</th>
+				<td>
+				{{ entity.enddate|localDate('d F Y') }}
+				</td>
+			{% endif %}
 			</tr>
 		</tbody></table>
 

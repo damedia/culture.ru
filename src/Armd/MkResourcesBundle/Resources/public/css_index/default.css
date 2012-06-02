@@ -368,8 +368,10 @@ body {
 
 .main-video-wrapper {
     height: 100%;
+    margin-bottom: 20px;
     
 }
+
 
 .main-video-item {
     height: 272px;
@@ -390,6 +392,15 @@ body {
     
 
 }   
+
+
+.main-event-ban {
+    height: 192px;
+}
+
+.main-event-ban img {
+    height: auto;
+}
 
 .main-video-spisok {
     background: #ececec;

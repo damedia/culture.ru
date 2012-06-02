@@ -24,6 +24,9 @@
 				</dd>
 			</dl>
 			<p class="lnk-more-wrap"><a class="lnk-more" href="{{ itemlink }}">Подробнее</a></p>
+			<div class="nav-bar midnav">
+				{{ entities.render()|raw }}
+			</div>
 		</div>
 	{% else %}
 		{% if loop.index == 2 %}
@@ -63,6 +66,9 @@
 				<li><a title="Вперед" class="nav-pages-arr nav-pages-next" href="#null">Вперед</a></li>
 			</ul></nav>
 			#}
+			<div class="nav-bar newsbotnav">
+				{{ entities.render()|raw }}
+			</div>
 		{% endif %}
     {% endif %}
 {% endfor %}

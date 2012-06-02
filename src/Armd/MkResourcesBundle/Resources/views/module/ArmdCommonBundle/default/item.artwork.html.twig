@@ -14,17 +14,31 @@
 			<p class="image-author-copyrights-infobox">{{entity.image.description}}</p>
 		{% endif %}
 		<table><tbody>
+			{% if entity.author %}
 			<tr>
 				<th>Автор:</th>
 				<td>{{ entity.author }}</td>
 			</tr>
+			{% endif %}
+			{% if entity.place %}
 			<tr>
 				<th>Место хранения:</th>
 				<td>{{ entity.place }}</td>
 			</tr>
+			{% endif %}
 			<tr>
+			{% if entity.dateDescription %}
 				<th>Время создания:</th>
-				<td>{{ entity.date|localDate('d F Y') }}</td>
+				<td>
+				{{ entity.dateDescription }}
+				</td>
+			{% elseif entity.date %}
+				<th>Время создания:</th>
+				<td>
+				{{ entity.date|localDate('d F Y') }}
+				</td>
+			{% endif %}
+				
 			</tr>
 		</tbody></table>
 
