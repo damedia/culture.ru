@@ -1,0 +1,342 @@
+{% extends 'ArmdMkResourcesBundle::layout.mk.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/armdmkresources/css/css.css') }}" />
+	<link rel="stylesheet" href="{{ asset('bundles/armdmkresources/js_index/libs/ui-lightness/jquery-ui-1.8.18.custom.css') }}" />
+			<style type="text/css">
+            
+            .wrapper-plug-blog {
+                position: absolute;
+                z-index: 1000;
+                color: #fff;
+                width: 985px;
+                left: 50%;
+                margin-left: -492px;
+                top: 471px;
+                text-align: center;
+            }
+            
+            .wrapper-plug-catalog {
+                width: 985px;
+                margin: 0 auto;
+                text-align: center;
+                margin-top: 341px;
+                color: #fff;
+                position: relative;
+                z-index: 1000;
+            }
+            
+            .wrapper-plug-lenta {
+                width: 985px;
+                margin: 0 auto;
+                text-align: center;
+                margin-top: 341px;
+            }
+            
+            .lenta-att-works {
+                display: block;
+                position: absolute;
+                left: 50%;
+                margin-left: -450px;
+                
+                
+            }
+            
+			.panel {
+				background: #fff;
+			}
+            
+            .wrapper-plug2 {
+                position: absolute;
+                top: 120px;
+                left: 0;
+                background:  url('/bundles/armdmkresources/img_index/plug/plug-wrapper.png') repeat;
+                width: 100%;
+                height: 95%;
+                z-index: 1000;
+            }
+            
+            .wrapper-plug{
+                position: absolute;
+                top: 120px;
+                left: 0;
+                background:  url('/bundles/armdmkresources/img_index/plug/plug-wrapper.png') repeat;
+                width: 100%;
+                height: 92%;
+                z-index: 1000;
+            }
+            
+            .plug-item {
+                background: url('/bundles/armdmkresources/img_index/plug/plug-item.png') no-repeat;
+                width: 370px;
+                height: 129px;
+                position: absolute;
+                top: 200px;
+                left: 50%;
+                margin-left: -185px;
+            }
+            
+            .plug-item p {
+                position: absolute;
+                left: -99999px;
+            }
+            
+			.rlc {
+				overflow: hidden;
+				padding: 0 30px 10px;
+				background: url("/bundles/armdmkresources/img/bg.jpg") no-repeat scroll 50% -600px #FFFFFF;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+						
+			.rlc-days-wrap {
+				position: relative;
+			}
+			
+			.rlc-months {
+				color: #999;
+				position: relative;
+				font-size: 11px;
+				margin-bottom: 15px;
+			}
+			
+			.rlc-month a {
+				color: #999;
+			}
+			
+			.rlc-month.item-prev {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.rlc-month.item-next {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			
+			.rlc-month.item-center {
+				text-align: center;
+			}
+			
+			.rlc-days {
+				border-collapse: collapse;
+				width: 100%;
+				height: 85px;
+			}
+			
+			.rlc-day {
+				min-width: 0.5%;
+				padding: 16px 0 !important;
+				height: 50px;
+				position: relative;
+				font-size: 22px;
+				text-align: center;
+				border: none !important;
+			}
+
+			.rlc-day.selected div {
+				background: none;
+			}
+			
+			.rlc-day.weekend {
+				color: #be1414;
+			}
+			
+			.rlc-day-wrap {
+				background: #eee;
+				background: rgba(237, 237, 237, 0.75);
+				padding: 5px 0;
+			
+			}
+			
+			.rlc-day.selected .rlc-day-wrap {
+				padding: 10px 0;
+			}
+			
+			.rlc-day.selected {
+				font-size: 45px;				
+				max-width: 2%;
+				padding: 0 !important;
+				letter-spacing: -2px;
+				background: #fbfbfb;
+				background: -moz-linear-gradient(top,  #fbfbfb 0%, #d2d2d2 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fbfbfb), color-stop(100%,#d2d2d2));
+				background: -webkit-linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+				background: -o-linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+				background: -ms-linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+				background: linear-gradient(top,  #fbfbfb 0%,#d2d2d2 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#d2d2d2',GradientType=0 );
+			}
+			
+			.rlc-day.selected.item-left .rlc-day-wrap {
+				margin-left: 10px;
+			}
+			
+			.rlc-day.selected.item-right .rlc-day-wrap {
+				margin-right: 10px;
+			}
+			
+			.rlc-magnifier {
+				position: absolute;
+				height: 100%;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+			
+			.rlc-magnifier-frame {
+				z-index: 5;
+				position: absolute;
+				height: 99%;
+				top: 0;
+				left: 0;
+				border: 1px solid #ccc;
+				box-shadow: 0 0 10px #ccc;
+			}
+			
+			.rlc-magnifier-frame div {
+				background: url("/bundles/armdmkresources/img_index/plug/rlc_sprite.png") no-repeat;
+				position: absolute;
+				cursor: w-resize;
+				opacity: 0.9;
+			}
+			
+			.rlc-magnifier-frame .item-left {
+				background-position: 0 -14px;
+				left: -19px;
+			}
+			
+			.rlc-magnifier-frame .item-right {
+				background-position: 100% 0;
+				right: -19px;
+			}
+			
+			.rlc-magnifier-frame .item-center {
+				background-position: -115px -4px;
+				left: 50%;
+				margin-left: -14px;
+			}
+			
+			.rlc-magnifier-drag {
+				position: absolute !important;
+				z-index: 100;
+				cursor: w-resize;
+				left: 0;
+			}
+			
+			.rlc-magnifier-frame .item-left,
+			.rlc-magnifier-drag.item-left {
+				top: -5% !important;
+				width: 32px;
+				height: 105%;
+			}
+			
+			.rlc-magnifier-frame .item-right,
+			.rlc-magnifier-drag.item-right {
+				top: auto  !important;
+				bottom: -5%;
+				width: 32px;
+				height: 105%;
+			}
+			
+			.rlc-magnifier-frame .item-center,
+			.rlc-magnifier-drag.item-center {
+				top: -15px !important;				
+				width: 28px;
+				height: 23px;
+			}
+            
+			.wrapper-events { background: #701414 url(/bundles/armdmkresources/img_index/plug/bg-1.jpg) 50% 0 repeat-x; }
+            
+        
+			.footer-events div {
+				color: #FFFFFF;
+			}
+           
+           .footer-events div a {
+            color: #fff;
+           }
+           
+            .footer-events-bg {
+                position: absolute;
+                width: 100%;
+                height: 100px;
+                bottom: 0;
+                background: #701414;
+            }
+            
+            .footer-events-bg p {
+                position: absolute;
+                left: -99999px;
+            }
+            
+            div.footer {
+                    border-top: 1px dotted #A6A6A6;
+                    color: #000000;
+                    font-size: 0.8em;
+                    height: 50px;
+                    line-height: 16px;
+                    margin: -70px 30px 0;
+                    padding-top: 19px;
+                    position: relative;
+                    z-index: 2;
+                }
+            
+			.trans-wrapper {
+				z-index: 1001;
+			}			
+            
+		</style>
+		<script src="{{ asset('bundles/armdmkresources/js_index/jquery.js') }}"></script>
+		<script>
+		$(document).ready(function() {
+			$('.trans-wrapper-header').click(function() {
+			$('.trans-wrapper-body').toggle()
+			});
+		});
+		</script>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('bundles/armdmkresources/js_index/jquery.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/libs/html5.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/libs/jq.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/plugins.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js_index/libs/jquery-ui-1.8.18.custom.min.js') }}"></script>
+	<script src="{{ asset('bundles/armdmkresources/js/js.js') }}"></script>
+    <script src="{{ asset('bundles/armdmkresources/js_index/common.js') }}"></script>
+		
+	<!--[if lt IE 9 ]><script src="{{ asset('bundles/armdmkresources/js/libs/ie.js') }}"></script><![endif]-->
+{% endblock %}
+
+{% block layout_content %}
+    
+<div id='content'>
+      <header>
+   {{ getContainerContent('other_logo')|raw }}
+   {{ getContainerContent('other_language_switcher')|raw }}
+  {{ getContainerContent('plug_content_top')|raw }}
+   <div class='cb'></div>
+   <div id="menu_search_wrap">
+    {{ getContainerContent('other_menu')|raw }}
+    {{ getContainerContent('other_search')|raw }}
+   </div>
+  </header>
+    
+        <!-- /header-news-options -->
+        {{ getContainerContent('plug_top')|raw }}
+		{{ getContainerContent('other_content')|raw }}
+        
+</div>
+        
+	<footer>
+		{{ getContainerContent('other_footer_left')|raw }}
+	</footer>
+{% endblock %}

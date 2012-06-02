@@ -1,0 +1,338 @@
+{
+    "hash": "f2baa656232e3ae505ec71d72d6c99b2",
+    "packages": [
+        {
+            "package": "armd/admin-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "8ac6fea2a277b1d596a8616f3acced05de7d2d26"
+        },
+        {
+            "package": "armd/audit-bundle",
+            "version": "dev-master",
+            "source-reference": "3d4ca61627e1eff959692f7a7b8715aacb661baf"
+        },
+        {
+            "package": "armd/cms-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "c219cae28c117d1ffafbd27462280011ceed3eec"
+        },
+        {
+            "package": "armd/content-abstract-bundle",
+            "version": "dev-master",
+            "source-reference": "65b407ca1fdc14d7c82a884d4b2324ed2917c6a7"
+        },
+        {
+            "package": "armd/media-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "2d948202b785069633038f5132d93fc9d0f09ead"
+        },
+        {
+            "package": "armd/menu-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "8c788175c6b902e0d9110dc01f3047e52729de8a"
+        },
+        {
+            "package": "armd/news-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "6edf8ff9e9ed0b53906e65d57f4e49b86469851c"
+        },
+        {
+            "package": "armd/text-bundle",
+            "version": "dev-master",
+            "source-reference": "ee2a9a95010d4966dca1b73fdfd0c6a7d9050c3e"
+        },
+        {
+            "package": "armd/tvigle-bundle",
+            "version": "dev-master",
+            "source-reference": "ce24a836d977430915e13d1798c9313a4d18f7a2"
+        },
+        {
+            "package": "armd/user-bundle",
+            "version": "dev-master",
+            "source-reference": "ea00f44696d69bb483b9048b824c18fcb47d8ca1"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "2.2.2"
+        },
+        {
+            "package": "doctrine/data-fixtures",
+            "version": "dev-master",
+            "source-reference": "d233d05437c1a10034867f22069b4bb0f7dc96b6"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "2.2.x-dev",
+            "source-reference": "8cc129aa64a8de6447056bce20f0a274fe2a340b"
+        },
+        {
+            "package": "doctrine/doctrine-bundle",
+            "version": "dev-master",
+            "source-reference": "74632539010f1f8887e8afadf41a732efce971c1"
+        },
+        {
+            "package": "doctrine/doctrine-fixtures-bundle",
+            "version": "dev-master",
+            "source-reference": "33b267d3068d6c2f8daa0b417285cf76e7f82fc4"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "2.2.x-dev",
+            "source-reference": "5f66c65c9a8d984899903b54215d0249a45b92d6"
+        },
+        {
+            "package": "friendsofsymfony/user-bundle",
+            "version": "dev-master",
+            "source-reference": "36a41beba7a9d50ae1c76d753270bb97a0132664"
+        },
+        {
+            "package": "gedmo/doctrine-extensions",
+            "version": "dev-master",
+            "source-reference": "96d650bb17f3a3a70bbfe700bfd011177f0705fd"
+        },
+        {
+            "package": "imagine/Imagine",
+            "version": "dev-master",
+            "source-reference": "v0.2.8"
+        },
+        {
+            "package": "jms/aop-bundle",
+            "version": "1.0.0"
+        },
+        {
+            "package": "jms/cg",
+            "version": "1.0.0"
+        },
+        {
+            "package": "jms/di-extra-bundle",
+            "version": "1.0.1"
+        },
+        {
+            "package": "jms/metadata",
+            "version": "1.1.1"
+        },
+        {
+            "package": "jms/security-extra-bundle",
+            "version": "1.1.0"
+        },
+        {
+            "package": "jms/translation-bundle",
+            "version": "dev-master",
+            "source-reference": "a08ff9d59917363d8efc39ba2a21f5bf458b18b3"
+        },
+        {
+            "package": "knplabs/gaufrette",
+            "version": "dev-master",
+            "source-reference": "9896a5d086090f0a424aa06beb2866fceae4bf53"
+        },
+        {
+            "package": "knplabs/knp-components",
+            "version": "dev-master",
+            "source-reference": "4fb9bc439351cfe32af05cd127bfabf725f11966"
+        },
+        {
+            "package": "knplabs/knp-menu",
+            "version": "1.1.x-dev",
+            "source-reference": "v1.1.1"
+        },
+        {
+            "package": "knplabs/knp-menu-bundle",
+            "version": "dev-master",
+            "source-reference": "v1.1.0"
+        },
+        {
+            "package": "knplabs/knp-paginator-bundle",
+            "version": "dev-master",
+            "source-reference": "8bc5696aa67e35eb0764470942a39c265f89066a"
+        },
+        {
+            "package": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "source-reference": "1a1b5f963db158a1065343fab617d25ce351a2dc"
+        },
+        {
+            "package": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "source-reference": "1a1b5f963db158a1065343fab617d25ce351a2dc",
+            "alias-pretty-version": "1.1.x-dev",
+            "alias-version": "1.1.9999999.9999999-dev"
+        },
+        {
+            "package": "kriswallsmith/buzz",
+            "version": "dev-master",
+            "source-reference": "5c7d0523501f02c766166b08ac98613bde0254b5"
+        },
+        {
+            "package": "monolog/monolog",
+            "version": "1.1.0"
+        },
+        {
+            "package": "nikic/php-parser",
+            "version": "v0.9.1"
+        },
+        {
+            "package": "sensio/distribution-bundle",
+            "version": "dev-master",
+            "source-reference": "b35ee4438b4d2351e8115cbf318c461b90fd8c7f"
+        },
+        {
+            "package": "sensio/framework-extra-bundle",
+            "version": "dev-master",
+            "source-reference": "e00b525b14784ea4f21c14945e58b4a76a530a6a"
+        },
+        {
+            "package": "sensio/generator-bundle",
+            "version": "dev-master",
+            "source-reference": "0813379920dcaa4b06361501f654379383d75f16"
+        },
+        {
+            "package": "simplethings/entity-audit-bundle",
+            "version": "dev-master",
+            "source-reference": "7db87a55b1bce847d4ac1edb5b0409bc6ef75594"
+        },
+        {
+            "package": "sonata-project/admin-bundle",
+            "version": "dev-master",
+            "source-reference": "28b5c38bdd2e9c86e7f8f092411b1f17f5942709"
+        },
+        {
+            "package": "sonata-project/block-bundle",
+            "version": "dev-master",
+            "source-reference": "8609f372f02726460309a69b281152c56e9af8b9"
+        },
+        {
+            "package": "sonata-project/cache-bundle",
+            "version": "dev-master",
+            "source-reference": "5b966e7350636750df7e45920acb30946415ba6d"
+        },
+        {
+            "package": "sonata-project/doctrine-orm-admin-bundle",
+            "version": "dev-master",
+            "source-reference": "f5170e07a20ceefebc4a52ef3e2542b8cd7775db"
+        },
+        {
+            "package": "sonata-project/easy-extends-bundle",
+            "version": "dev-master",
+            "source-reference": "a01068d79ac160105c1d757b9e3e65f74064803c"
+        },
+        {
+            "package": "sonata-project/exporter",
+            "version": "dev-master",
+            "source-reference": "bc5b4dadbaae30e5c349141f8d002063630a8084"
+        },
+        {
+            "package": "sonata-project/intl-bundle",
+            "version": "dev-master",
+            "source-reference": "97fc39a85890d10a63f2e16c4817842b4acb80d6"
+        },
+        {
+            "package": "sonata-project/jquery-bundle",
+            "version": "dev-master",
+            "source-reference": "01ffb8d1a7a4bb3971aed003e4f1ef050a0701aa"
+        },
+        {
+            "package": "sonata-project/media-bundle",
+            "version": "dev-master",
+            "source-reference": "7a79ae646ca7545bfc2e5ed5db968750a931b598"
+        },
+        {
+            "package": "sonata-project/notification-bundle",
+            "version": "dev-master",
+            "source-reference": "d50256e3a91865f4be291999679131733014e1dd"
+        },
+        {
+            "package": "sonata-project/user-bundle",
+            "version": "dev-master",
+            "source-reference": "df4590560addba1ef7e4866237b534fcf6abaeb5"
+        },
+        {
+            "package": "stof/doctrine-extensions-bundle",
+            "version": "dev-master",
+            "source-reference": "f141a698d65271a18d86469c1f7b29d7e24170dd"
+        },
+        {
+            "package": "swiftmailer/swiftmailer",
+            "version": "dev-master",
+            "source-reference": "d33d54cc8a081b0b85734744936ede1ba230dd64",
+            "alias-pretty-version": "4.1.x-dev",
+            "alias-version": "4.1.9999999.9999999-dev"
+        },
+        {
+            "package": "swiftmailer/swiftmailer",
+            "version": "dev-master",
+            "source-reference": "d33d54cc8a081b0b85734744936ede1ba230dd64"
+        },
+        {
+            "package": "symfony/assetic-bundle",
+            "version": "dev-master",
+            "source-reference": "61c9f363e73b4ecbb72f81eb62675260a1132048"
+        },
+        {
+            "package": "symfony/monolog-bundle",
+            "version": "dev-master",
+            "source-reference": "51a25acc57f4c027b28f0305976b887e2da6250a"
+        },
+        {
+            "package": "symfony/swiftmailer-bridge",
+            "version": "dev-master",
+            "source-reference": "408eb09f5799d393ddc3d916ec3667857fb3a20d",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/swiftmailer-bridge",
+            "version": "dev-master",
+            "source-reference": "408eb09f5799d393ddc3d916ec3667857fb3a20d"
+        },
+        {
+            "package": "symfony/swiftmailer-bundle",
+            "version": "dev-master",
+            "source-reference": "71e1789868665cf94dc7831f645625fd0f70aac6"
+        },
+        {
+            "package": "symfony/symfony",
+            "version": "dev-master",
+            "source-reference": "adf07f1e539193ae1975348afc34ed37e1382e0a"
+        },
+        {
+            "package": "symfony/symfony",
+            "version": "dev-master",
+            "source-reference": "adf07f1e539193ae1975348afc34ed37e1382e0a",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "twig/extensions",
+            "version": "dev-master",
+            "source-reference": "feb6d3f10c411e2631997c0a905aa581c80305c1"
+        },
+        {
+            "package": "twig/twig",
+            "version": "dev-master",
+            "source-reference": "47e9b95c37d20dd40d94ccbb260bc835b6b1d540"
+        },
+        {
+            "package": "twig/twig",
+            "version": "dev-master",
+            "source-reference": "47e9b95c37d20dd40d94ccbb260bc835b6b1d540",
+            "alias-pretty-version": "1.8.x-dev",
+            "alias-version": "1.8.9999999.9999999-dev"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "doctrine/doctrine-bundle": 20,
+        "twig/extensions": 20,
+        "symfony/assetic-bundle": 20,
+        "symfony/swiftmailer-bundle": 20,
+        "symfony/monolog-bundle": 20,
+        "sensio/distribution-bundle": 20,
+        "sensio/framework-extra-bundle": 20,
+        "sensio/generator-bundle": 20,
+        "armd/admin-bundle": 20
+    }
+}

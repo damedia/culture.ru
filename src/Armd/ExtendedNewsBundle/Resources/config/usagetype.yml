@@ -21,7 +21,7 @@ parameters:
                     content_stream:
                         title: Информационный поток
                         type: entity
-                        entity: ArmdCmsBundle:ContentStream
+                        entity: ArmdContentAbstractBundle:Stream
                         addField: id
                         viewField: Name
                         default: 0

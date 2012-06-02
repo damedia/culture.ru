@@ -1,0 +1,23 @@
+{% include 'ArmdMkResourcesBundle::nav-sections.html.twig' %}
+
+<h1>{{ entity.title }}</h1>
+
+<p class="item-dfn item-dfn-sm">{#{ entity.announce|raw}#}</p>
+{% if entity.image %}	
+<aside id="sidebar-i-l">
+
+	<div class="image-block-description ">
+		{% if entity.image %}
+			<div style="padding-top:20px; padding-bottom:0px;">{% thumbnail entity.image, 'big' %}</div>
+			{% if entity.image.description%}
+				<p class="image-author-copyrights" style="padding-top: 3px;">{{entity.image.description}}</p>
+			{% endif %}
+		{% endif %}	
+	</div><!-- /info-box -->
+
+</aside><!-- /sidebar-i-l -->
+{% endif %}
+{{ entity.body|raw }}
+
+
+{#% include 'ArmdMkResourcesBundle::socials-box.html.twig' %#}

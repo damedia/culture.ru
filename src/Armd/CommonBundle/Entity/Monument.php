@@ -3,7 +3,7 @@
 namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\ContentAbstractBundle\Entity\BaseContent;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
@@ -13,24 +13,17 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 class Monument extends BaseContent implements TaxonomyInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-
-    /**
      * @ORM\Column(type="string")
      */
     private $title;
     
     /**
-     * @ORM\Column(type="string", nullable="true")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", nullable="true")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $address;        
         
@@ -61,28 +54,28 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $endDateDescription;            
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $announce;        
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
     
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\CultureMapBundle\Entity\Subject")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable="true")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=true)
      */
     private $subject;    
     
     /**
-     * @ORM\Column(name="latitude", type="string", length=12, nullable="true")
+     * @ORM\Column(name="latitude", type="string", length=12, nullable=true)
      */
     private $latitude;
 
     /**
-     * @ORM\Column(name="longitude", type="string", length=12, nullable="true")
+     * @ORM\Column(name="longitude", type="string", length=12, nullable=true)
      */
     private $longitude;
     
@@ -102,35 +95,27 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $tags;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;    
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set title
      *
      * @param string $title
+     * @return Monument
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -147,10 +132,12 @@ class Monument extends BaseContent implements TaxonomyInterface
      * Set city
      *
      * @param string $city
+     * @return Monument
      */
     public function setCity($city)
     {
         $this->city = $city;
+        return $this;
     }
 
     /**
@@ -167,10 +154,12 @@ class Monument extends BaseContent implements TaxonomyInterface
      * Set address
      *
      * @param string $address
+     * @return Monument
      */
     public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
     }
 
     /**
@@ -187,10 +176,12 @@ class Monument extends BaseContent implements TaxonomyInterface
      * Set beginDate
      *
      * @param date $beginDate
+     * @return Monument
      */
     public function setBeginDate($beginDate)
     {
         $this->beginDate = $beginDate;
+        return $this;
     }
 
     /**
@@ -207,10 +198,12 @@ class Monument extends BaseContent implements TaxonomyInterface
      * Set endDate
      *
      * @param date $endDate
+     * @return Monument
      */
     public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
+        return $this;
     }
 
     /**
@@ -224,233 +217,15 @@ class Monument extends BaseContent implements TaxonomyInterface
     }
 
     /**
-     * Set announce
-     *
-     * @param text $announce
-     */
-    public function setAnnounce($announce)
-    {
-        $this->announce = $announce;
-    }
-
-    /**
-     * Get announce
-     *
-     * @return text 
-     */
-    public function getAnnounce()
-    {
-        return $this->announce;
-    }
-
-    /**
-     * Set body
-     *
-     * @param text $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * Get body
-     *
-     * @return text 
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * Set latitude
-     *
-     * @param string $latitude
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
-    }
-
-    /**
-     * Get latitude
-     *
-     * @return string 
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * Set longitude
-     *
-     * @param string $longitude
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
-    }
-
-    /**
-     * Get longitude
-     *
-     * @return string 
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-    /**
-     * Set personalTag
-     *
-     * @param string $personalTag
-     */
-    public function setPersonalTag($personalTag)
-    {
-        $this->personalTag = $personalTag;
-    }
-
-    /**
-     * Get personalTag
-     *
-     * @return string 
-     */
-    public function getPersonalTag()
-    {
-        return $this->personalTag;
-    }
-
-    /**
-     * Set tags
-     *
-     * @param text $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * Get tags
-     *
-     * @return text 
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Set author
-     *
-     * @param Armd\CommonBundle\Entity\Person $author
-     */
-    public function setAuthor(\Armd\CommonBundle\Entity\Person $author)
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * Get author
-     *
-     * @return Armd\CommonBundle\Entity\Person 
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param Armd\CultureMapBundle\Entity\Subject $subject
-     */
-    public function setSubject(\Armd\CultureMapBundle\Entity\Subject $subject)
-    {
-        $this->subject = $subject;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return Armd\CultureMapBundle\Entity\Subject 
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
-     * Set stream
-     *
-     * @param Armd\Bundle\CmsBundle\Entity\ContentStream $stream
-     */
-    public function setStream(\Armd\Bundle\CmsBundle\Entity\ContentStream $stream)
-    {
-        $this->stream = $stream;
-    }
-
-    /**
-     * Get stream
-     *
-     * @return Armd\Bundle\CmsBundle\Entity\ContentStream 
-     */
-    public function getStream()
-    {
-        return $this->stream;
-    }
-
-    /**
-     * Set image
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
-     */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Get image
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set gallery
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
-     */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
-    {
-        $this->gallery = $gallery;
-    }
-
-    /**
-     * Get gallery
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
-     */
-    public function getGallery()
-    {
-        return $this->gallery;
-    }
-
-    /**
      * Set beginDateDescription
      *
      * @param string $beginDateDescription
+     * @return Monument
      */
     public function setBeginDateDescription($beginDateDescription)
     {
         $this->beginDateDescription = $beginDateDescription;
+        return $this;
     }
 
     /**
@@ -467,10 +242,12 @@ class Monument extends BaseContent implements TaxonomyInterface
      * Set endDateDescription
      *
      * @param string $endDateDescription
+     * @return Monument
      */
     public function setEndDateDescription($endDateDescription)
     {
         $this->endDateDescription = $endDateDescription;
+        return $this;
     }
 
     /**
@@ -481,5 +258,247 @@ class Monument extends BaseContent implements TaxonomyInterface
     public function getEndDateDescription()
     {
         return $this->endDateDescription;
+    }
+
+    /**
+     * Set announce
+     *
+     * @param text $announce
+     * @return Monument
+     */
+    public function setAnnounce($announce)
+    {
+        $this->announce = $announce;
+        return $this;
+    }
+
+    /**
+     * Get announce
+     *
+     * @return text 
+     */
+    public function getAnnounce()
+    {
+        return $this->announce;
+    }
+
+    /**
+     * Set body
+     *
+     * @param text $body
+     * @return Monument
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     * @return Monument
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string 
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     * @return Monument
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string 
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set personalTag
+     *
+     * @param string $personalTag
+     * @return Monument
+     */
+    public function setPersonalTag($personalTag)
+    {
+        $this->personalTag = $personalTag;
+        return $this;
+    }
+
+    /**
+     * Get personalTag
+     *
+     * @return string 
+     */
+    public function getPersonalTag()
+    {
+        return $this->personalTag;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param text $tags
+     * @return Monument
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return text 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set author
+     *
+     * @param Armd\CommonBundle\Entity\Person $author
+     * @return Monument
+     */
+    public function setAuthor(\Armd\CommonBundle\Entity\Person $author = null)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return Armd\CommonBundle\Entity\Person 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param Armd\CultureMapBundle\Entity\Subject $subject
+     * @return Monument
+     */
+    public function setSubject(\Armd\CultureMapBundle\Entity\Subject $subject = null)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return Armd\CultureMapBundle\Entity\Subject 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set stream
+     *
+     * @param Armd\Bundle\CmsBundle\Entity\ContentStream $stream
+     * @return Monument
+     */
+    public function setStream(\Armd\Bundle\CmsBundle\Entity\ContentStream $stream = null)
+    {
+        $this->stream = $stream;
+        return $this;
+    }
+
+    /**
+     * Get stream
+     *
+     * @return Armd\Bundle\CmsBundle\Entity\ContentStream 
+     */
+    public function getStream()
+    {
+        return $this->stream;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Armd\Bundle\MediaBundle\Entity\Media $image
+     * @return Monument
+     */
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Armd\Bundle\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param Armd\Bundle\MediaBundle\Entity\Gallery $gallery
+     * @return Monument
+     */
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return Armd\Bundle\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

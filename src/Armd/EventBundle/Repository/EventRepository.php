@@ -2,7 +2,7 @@
 
 namespace Armd\EventBundle\Repository;
 
-use Armd\Bundle\NewsBundle\Repository\NewsRepository;
+use Armd\NewsBundle\Repository\NewsRepository;
 
 /**
  * EventRepository

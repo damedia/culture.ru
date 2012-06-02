@@ -1,0 +1,32 @@
+<!doctype html>
+<!--[if IE 7 ]><html lang='ru' class='no-js ie7'><![endif]-->
+<!--[if IE 8 ]><html lang='ru' class='no-js ie8'><![endif]-->
+<!--[if IE 9 ]><html lang='ru' class='no-js ie9'><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang='ru' class='no-js'><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Портал культурного наследия и традиций России</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+    <meta name='keywords' content='' />
+    <meta name='description' content='' />
+    <meta name='author' content='' />
+    <meta name="viewport"content="width=1024" />
+
+    <!--[if IE]><meta http-equiv='imagetoolbar' content='no' /><![endif]-->
+    {% block stylesheets %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+    <script src="/bundles/armdmkresources/js/libs/html5.js"></script>
+    <link rel="icon" href="{{ asset('bundles/armdmkresources/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('bundles/armdmkresources/favicon.ico') }}" type="image/x-icon">
+    <!-- link rel="apple-touch-icon" href="{{ asset('bundles/armdmkresources/apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/armdmkresources/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/armdmkresources/apple-touch-icon-114x114.png') }}" -->
+</head>
+
+<body>
+    {% block layout_content %}{% endblock %}
+</body>
+</html>
+

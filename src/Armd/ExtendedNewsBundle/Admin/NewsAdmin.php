@@ -16,9 +16,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Armd\Bundle\NewsBundle\Admin\NewsAdmin as BaseAdmin;
 
-use Knp\Menu\ItemInterface as MenuItemInterface;
+use Armd\NewsBundle\Admin\NewsAdmin as BaseAdmin;
 
 class NewsAdmin extends BaseAdmin
 {
@@ -45,7 +44,7 @@ class NewsAdmin extends BaseAdmin
                 ->add('source')
                 ->add('personalTag')
                 ->add('tags')
-                ->add('date', 'sonata_type_datetimepicker', array('locale'=>'ru', 'required'=>false))
+                ->add('date')
                 ->add('image', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
                 ->add('gallery', 'sonata_type_model', array(), array('edit'=>'list', 'link_parameters'=>array('context'=>'default')))
             ->end();

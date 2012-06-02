@@ -3,8 +3,6 @@
 namespace Armd\CultureMapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Application\Sonata\MediaBundle\Entity\Media;
-use Application\Sonata\MediaBundle\Entity\Gallery;
 
 /**
  * Armd\CultureMapBundle\Entity\Subject
@@ -27,73 +25,73 @@ class Subject
     private $title;
     
     /**
-     * @ORM\Column(name="yname", type="string", length=255, nullable="true")
+     * @ORM\Column(name="yname", type="string", length=255, nullable=true)
      */
     private $yname;
 
     /**
-     * @ORM\Column(name="announce", type="text", nullable="true")
+     * @ORM\Column(name="announce", type="text", nullable=true)
      */    
     private $announce;
     
     /**
-     * @ORM\Column(name="text", type="text", nullable="true")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */    
     private $text;
 
     /**
-     * @ORM\Column(name="square", type="string", length=255, nullable="true")
+     * @ORM\Column(name="square", type="string", length=255, nullable=true)
      */
     private $square;
 
     /**
-     * @ORM\Column(name="city_count", type="string", length=255, nullable="true")
+     * @ORM\Column(name="city_count", type="string", length=255, nullable=true)
      */
     private $cityCount;
 
     /**
-     * @ORM\Column(name="village_count", type="string", length=255, nullable="true")
+     * @ORM\Column(name="village_count", type="string", length=255, nullable=true)
      */
     private $villageCount;
 
     /**
-     * @ORM\Column(name="city_population", type="string", length=255, nullable="true")
+     * @ORM\Column(name="city_population", type="string", length=255, nullable=true)
      */
     private $cityPopulation;
 
     /**
-     * @ORM\Column(name="village_population", type="string", length=255, nullable="true")
+     * @ORM\Column(name="village_population", type="string", length=255, nullable=true)
      */
     private $villagePopulation;
 
     /**
-     * @ORM\Column(name="administrative_center", type="string", length=255, nullable="true")
+     * @ORM\Column(name="administrative_center", type="string", length=255, nullable=true)
      */
     private $administrativeCenter;
 
     /**
-     * @ORM\Column(name="nationality", type="string", length=255, nullable="true")
+     * @ORM\Column(name="nationality", type="string", length=255, nullable=true)
      */
     private $nationality;
 
     /**
-     * @ORM\Column(name="language", type="string", length=255, nullable="true")
+     * @ORM\Column(name="language", type="string", length=255, nullable=true)
      */
     private $language;
 
     /**
-     * @ORM\Column(name="religion", type="string", length=255, nullable="true")
+     * @ORM\Column(name="religion", type="string", length=255, nullable=true)
      */
     private $religion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="logo_id", referencedColumnName="id")
      */
     private $logo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
@@ -364,7 +362,7 @@ class Subject
      *
      * @param Application\Sonata\MediaBundle\Entity\Media $logo
      */
-    public function setLogo(\Application\Sonata\MediaBundle\Entity\Media $logo)
+    public function setLogo(\Armd\Bundle\MediaBundle\Entity\Media $logo)
     {
         $this->logo = $logo;
     }
@@ -384,7 +382,7 @@ class Subject
      *
      * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery)
     {
         $this->gallery = $gallery;
     }

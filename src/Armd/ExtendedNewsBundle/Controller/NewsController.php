@@ -2,8 +2,17 @@
 
 namespace Armd\ExtendedNewsBundle\Controller;
 
-use Armd\Bundle\NewsBundle\Controller\NewsController as BaseController;
+use Armd\NewsBundle\Controller\NewsController as BaseController;
 
 class NewsController extends BaseController
 {
+    /**
+     * {@inheritdoc}
+     */
+    function getListRepository()
+    {
+        return parent::getListRepository()
+            ->addImage()
+        ;
+    }
 }

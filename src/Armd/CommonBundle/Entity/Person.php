@@ -3,7 +3,7 @@
 namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\ContentAbstractBundle\Entity\BaseContent;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
@@ -12,13 +12,6 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  */
 class Person extends BaseContent implements TaxonomyInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-
     /**
      * @ORM\Column(type="string")
      */
@@ -60,17 +53,17 @@ class Person extends BaseContent implements TaxonomyInterface
     private $birthpalce;
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $occupation;
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $announce;        
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
     
@@ -85,13 +78,13 @@ class Person extends BaseContent implements TaxonomyInterface
     private $tags;        
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;    
@@ -106,32 +99,11 @@ class Person extends BaseContent implements TaxonomyInterface
         $this->artworks = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    /**
-     * Get title
-     *
-     * @return string 
-     */    
-    
     public function __toString()
     {
         return $this->getTitle();
-    }
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }    
     
-    /**
-     * Get title
-     *
-     * @return string 
-     */
     public function getTitle()
     {
         $title = "{$this->getLastname()} {$this->getFirstname()} {$this->getMiddlename()}";
@@ -143,10 +115,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set lastname
      *
      * @param string $lastname
+     * @return Person
      */
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+        return $this;
     }
 
     /**
@@ -163,10 +137,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set firstname
      *
      * @param string $firstname
+     * @return Person
      */
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
+        return $this;
     }
 
     /**
@@ -183,10 +159,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set middlename
      *
      * @param string $middlename
+     * @return Person
      */
     public function setMiddlename($middlename)
     {
         $this->middlename = $middlename;
+        return $this;
     }
 
     /**
@@ -203,10 +181,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set birthday
      *
      * @param date $birthday
+     * @return Person
      */
     public function setBirthday($birthday)
     {
         $this->birthday = $birthday;
+        return $this;
     }
 
     /**
@@ -223,10 +203,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set deathday
      *
      * @param date $deathday
+     * @return Person
      */
     public function setDeathday($deathday)
     {
         $this->deathday = $deathday;
+        return $this;
     }
 
     /**
@@ -243,10 +225,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set birthpalce
      *
      * @param string $birthpalce
+     * @return Person
      */
     public function setBirthpalce($birthpalce)
     {
         $this->birthpalce = $birthpalce;
+        return $this;
     }
 
     /**
@@ -258,35 +242,39 @@ class Person extends BaseContent implements TaxonomyInterface
     {
         return $this->birthpalce;
     }
-    
+
     /**
-     * Add artworks
+     * Set occupation
      *
-     * @param Armd\CommonBundle\Entity\Artwork $artworks
+     * @param text $occupation
+     * @return Person
      */
-    public function addArtwork(\Armd\CommonBundle\Entity\Artwork $artworks)
+    public function setOccupation($occupation)
     {
-        $this->artworks[] = $artworks;
+        $this->occupation = $occupation;
+        return $this;
     }
 
     /**
-     * Get artworks
+     * Get occupation
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return text 
      */
-    public function getArtworks()
+    public function getOccupation()
     {
-        return $this->artworks;
+        return $this->occupation;
     }
 
     /**
      * Set announce
      *
      * @param text $announce
+     * @return Person
      */
     public function setAnnounce($announce)
     {
         $this->announce = $announce;
+        return $this;
     }
 
     /**
@@ -303,10 +291,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set body
      *
      * @param text $body
+     * @return Person
      */
     public function setBody($body)
     {
         $this->body = $body;
+        return $this;
     }
 
     /**
@@ -323,10 +313,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set personalTag
      *
      * @param string $personalTag
+     * @return Person
      */
     public function setPersonalTag($personalTag)
     {
         $this->personalTag = $personalTag;
+        return $this;
     }
 
     /**
@@ -343,10 +335,12 @@ class Person extends BaseContent implements TaxonomyInterface
      * Set tags
      *
      * @param text $tags
+     * @return Person
      */
     public function setTags($tags)
     {
         $this->tags = $tags;
+        return $this;
     }
 
     /**
@@ -362,17 +356,19 @@ class Person extends BaseContent implements TaxonomyInterface
     /**
      * Set image
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @param Armd\Bundle\MediaBundle\Entity\Media $image
+     * @return Person
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
+        return $this;
     }
 
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Armd\Bundle\MediaBundle\Entity\Media 
      */
     public function getImage()
     {
@@ -382,17 +378,19 @@ class Person extends BaseContent implements TaxonomyInterface
     /**
      * Set gallery
      *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @param Armd\Bundle\MediaBundle\Entity\Gallery $gallery
+     * @return Person
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery = null)
     {
         $this->gallery = $gallery;
+        return $this;
     }
 
     /**
      * Get gallery
      *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return Armd\Bundle\MediaBundle\Entity\Gallery 
      */
     public function getGallery()
     {
@@ -400,23 +398,25 @@ class Person extends BaseContent implements TaxonomyInterface
     }
 
     /**
-     * Set occupation
+     * Add artworks
      *
-     * @param text $occupation
+     * @param Armd\CommonBundle\Entity\Artwork $artworks
+     * @return Person
      */
-    public function setOccupation($occupation)
+    public function addArtwork(\Armd\CommonBundle\Entity\Artwork $artworks)
     {
-        $this->occupation = $occupation;
+        $this->artworks[] = $artworks;
+        return $this;
     }
 
     /**
-     * Get occupation
+     * Get artworks
      *
-     * @return text 
+     * @return Doctrine\Common\Collections\Collection 
      */
-    public function getOccupation()
+    public function getArtworks()
     {
-        return $this->occupation;
+        return $this->artworks;
     }
 
     /**
@@ -457,5 +457,20 @@ class Person extends BaseContent implements TaxonomyInterface
     public function getDeathdayDescription()
     {
         return $this->deathdayDescription;
+    }
+    /**
+     * @var integer $id
+     */
+    private $id;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

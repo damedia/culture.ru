@@ -13,33 +13,40 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
+
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),        
+            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),                                
+            new FOS\UserBundle\FOSUserBundle(),
+
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),            
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-//            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),            
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
-            new Armd\Bundle\NewsBundle\ArmdNewsBundle(),
-            new Armd\Bundle\TextBundle\ArmdTextBundle(),
-            new Armd\Bundle\CmsMenuBundle\ArmdCmsMenuBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-            new Armd\Bundle\ExtJSBundle\ArmdExtJSBundle(),
-//            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
+            new Sonata\IntlBundle\SonataIntlBundle(),
+            new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\MediaBundle\SonataMediaBundle(),
-            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
-            new Armd\Bundle\MkResourcesBundle\ArmdMkResourcesBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            
+            new Armd\UserBundle\ArmdUserBundle(),
+            new Armd\Bundle\AuditBundle\ArmdAuditBundle(),            
+            new Armd\Bundle\CmsBundle\ArmdCmsBundle(),
+            new Armd\Bundle\AdminBundle\ArmdAdminBundle(),
+            new Armd\ContentAbstractBundle\ArmdContentAbstractBundle(),
+            new Armd\Bundle\MediaBundle\ArmdMediaBundle(),
+            new Armd\MenuBundle\ArmdMenuBundle(),
+            new Armd\Bundle\TextBundle\ArmdTextBundle(),
+            new Armd\NewsBundle\ArmdNewsBundle(),
+            
+            new Armd\MkResourcesBundle\ArmdMkResourcesBundle(),
             new Armd\ExtendedNewsBundle\ArmdExtendedNewsBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\CultureMapBundle\ArmdCultureMapBundle(),
@@ -47,12 +54,16 @@ class AppKernel extends Kernel
             new Armd\CultureAreaBundle\ArmdCultureAreaBundle(),
             new Armd\TaxonomyBundle\ArmdTaxonomyBundle(),
             new Armd\Bundle\TvigleBundle\ArmdTvigleBundle(),
+            new Armd\ListBundle\ArmdListBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles = array_merge($bundles, array(
+                new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+                new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
+                new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
+                new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),            
+            ));
         }
 
         return $bundles;

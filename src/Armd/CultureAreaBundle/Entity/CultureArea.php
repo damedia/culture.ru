@@ -4,7 +4,7 @@ namespace Armd\CultureAreaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\ContentAbstractBundle\Entity\BaseContent;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /** 
@@ -14,13 +14,6 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  */
 class CultureArea extends BaseContent implements TaxonomyInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-
     /**
      * @ORM\Column(type="string")
      */    
@@ -84,13 +77,13 @@ class CultureArea extends BaseContent implements TaxonomyInterface
     private $tags;    
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;        
@@ -303,9 +296,9 @@ class CultureArea extends BaseContent implements TaxonomyInterface
     /**
      * Set image
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @param Armd\Bundle\MediaBundle\Entity\Media $image
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image)
     {
         $this->image = $image;
     }
@@ -313,7 +306,7 @@ class CultureArea extends BaseContent implements TaxonomyInterface
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Armd\Bundle\MediaBundle\Entity\Media 
      */
     public function getImage()
     {
@@ -323,9 +316,9 @@ class CultureArea extends BaseContent implements TaxonomyInterface
     /**
      * Set gallery
      *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @param Armd\Bundle\MediaBundle\Entity\Gallery $gallery
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery)
     {
         $this->gallery = $gallery;
     }
@@ -333,7 +326,7 @@ class CultureArea extends BaseContent implements TaxonomyInterface
     /**
      * Get gallery
      *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return Armd\Bundle\MediaBundle\Entity\Gallery 
      */
     public function getGallery()
     {

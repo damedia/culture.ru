@@ -1,0 +1,50 @@
+{% include 'ArmdMkResourcesBundle::nav-sections.html.twig' %}
+
+<h1>{{ entity.title }}</h1>
+
+<p class="item-dfn item-dfn-sm">{#{ entity.announce|raw}#}</p>
+
+<aside id="sidebar-i-l">
+	<p class="odd-title">Информационная карточка</p>
+	<div id="info-box">
+		{% if entity.image %}
+			<div id="info-box-img">{% thumbnail entity.image, 'big' %}</div>
+		{% endif %}
+		{% if entity.image.description%}
+			<p class="image-author-copyrights-infobox">{{entity.image.description}}</p>
+		{% endif %}
+		<table><tbody>
+			{% if entity.author %}
+			<tr>
+				<th>Автор:</th>
+				<td>{{ entity.author }}</td>
+			</tr>
+			{% endif %}
+			{% if entity.place %}
+			<tr>
+				<th>Место хранения:</th>
+				<td>{{ entity.place }}</td>
+			</tr>
+			{% endif %}
+			<tr>
+			{% if entity.dateDescription %}
+				<th>Время создания:</th>
+				<td>
+				{{ entity.dateDescription }}
+				</td>
+			{% elseif entity.date %}
+				<th>Время создания:</th>
+				<td>
+				{{ entity.date|localDate('d F Y') }}
+				</td>
+			{% endif %}
+				
+			</tr>
+		</tbody></table>
+
+	</div><!-- /info-box -->
+</aside><!-- /sidebar-i-l -->
+
+{{ entity.body|raw }}
+
+{#% include 'ArmdMkResourcesBundle::socials-box.html.twig' %#}

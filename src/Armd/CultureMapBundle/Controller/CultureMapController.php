@@ -3,9 +3,8 @@
 namespace Armd\CultureMapBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Armd\Bundle\CmsBundle\Controller\Controller;
-use Armd\Bundle\CmsBundle\UsageType\UsageType;
 
+use Armd\ContentAbstractBundle\Controller\Controller;
 
 class CultureMapController extends Controller
 {

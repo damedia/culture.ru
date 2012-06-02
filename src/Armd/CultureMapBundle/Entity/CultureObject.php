@@ -27,43 +27,43 @@ class CultureObject
     private $title;
 
     /**
-     * @ORM\Column(name="announce", type="text", nullable="true")
+     * @ORM\Column(name="announce", type="text", nullable=true)
      */
     private $announce;
 
     /**
-     * @ORM\Column(name="text", type="text", nullable="true")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
     /**
-     * @ORM\Column(name="site", type="string", nullable="true")
+     * @ORM\Column(name="site", type="string", nullable=true)
      */
     private $site;
 
     /**
-     * @ORM\Column(name="email", type="string", nullable="true")
+     * @ORM\Column(name="email", type="string", nullable=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(name="phone", type="string", nullable="true")
+     * @ORM\Column(name="phone", type="string", nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(name="latitude", type="string", length=12, nullable="true")
+     * @ORM\Column(name="latitude", type="string", length=12, nullable=true)
      */
     private $latitude;
 
     /**
-     * @ORM\Column(name="longitude", type="string", length=12, nullable="true")
+     * @ORM\Column(name="longitude", type="string", length=12, nullable=true)
      */
     private $longitude;
 
     /**
      * @ORM\ManyToOne(targetEntity="Subject")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable="true")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=true)
      */
     private $subject;
 

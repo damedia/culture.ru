@@ -1,0 +1,74 @@
+{% set tempPicUrl = asset('bundles/armdmkresources/upload/pic' ~ random(5) ~ '.jpg') %}
+
+<div class="box-title">Последняя новость</div>
+
+{% for entity in entities %}
+	{% set itemlink = cmsPath('armd_news', 'listitem', {'id' : entity.id}) %}
+	{% set date = entity.date|localDate("d F / Y") %}
+	{% set tempPicUrl = asset('bundles/armdmkresources/upload/pic' ~ random(5) ~ '.jpg') %}
+
+	{% if loop.first %}
+		<div class="feat-news-item">
+			<div class="date date-0"><span>{{ date }}</span></div>
+			<h1><a href="{{ itemlink }}">{{ entity.title|raw}}</a></h1>
+			
+			{#<p class="news-item-source"><a class="lnk-0" href="#null">{{ entity.source }}</a></p>#}
+			<dl class="cb">
+				<dt><a href="{{ itemlink }}">{% thumbnail entity.image, 'big' %}</a></dt>
+				<dd>
+					{{ entity.announce|raw}}
+					
+					{#
+					<p class="info">Шипит фейерверк...<br>Так начинается спектакль - стремительно, ярко, громко. На сцене - настоящий театрализованный карнавал под названием Безумный день, или женитьба Фигаро...</p>
+					#}
+				</dd>
+			</dl>
+			<p class="lnk-more-wrap"><a class="lnk-more" href="{{ itemlink }}">Подробнее</a></p>
+			<div class="nav-bar midnav">
+				{{ entities.render()|raw }}
+			</div>
+		</div>
+	{% else %}
+		{% if loop.index == 2 %}
+			{#
+			<nav class="nav-pages"><ul>
+				<li><a title="Назад" class="nav-pages-arr nav-pages-prev" href="#null">Назад</a></li>
+				<li><a href="#null">1</a></li>
+				<li>2</li>
+				<li><a href="#null">3</a></li>
+				<li><a title="Вперед" class="nav-pages-arr nav-pages-next" href="#null">Вперед</a></li>
+			</ul></nav>
+			#}
+			
+			<div class="box-title box-title-2">Лента новостей</div>
+			<dl class="newslist">
+		{% endif %}
+		
+        
+		<dt><a href="{{ itemlink }}">{% thumbnail entity.image, 'small' %}</a></dt>
+		<dd class="feat-newslist-item">
+			<div class="date"><span>{{ date }}</span></div>
+			<h2><a href="{{ itemlink }}">{{ entity.title|raw}}</a></h2>
+			<div class="newslist-descr">
+				<a href="{{ itemlink }}">{{ entity.announce|raw}}</a>
+				<a href="{{ itemlink }}" class="lnk-more">Подробнее</a>
+			</div>
+		</dd>
+		
+		{% if loop.last %}
+			</dl>
+			{#
+			<nav class="nav-pages"><ul>
+				<li><a title="Назад" class="nav-pages-arr nav-pages-prev" href="#null">Назад</a></li>
+				<li><a href="#null">1</a></li>
+				<li>2</li>
+				<li><a href="#null">3</a></li>
+				<li><a title="Вперед" class="nav-pages-arr nav-pages-next" href="#null">Вперед</a></li>
+			</ul></nav>
+			#}
+			<div class="nav-bar newsbotnav">
+				{{ entities.render()|raw }}
+			</div>
+		{% endif %}
+    {% endif %}
+{% endfor %}

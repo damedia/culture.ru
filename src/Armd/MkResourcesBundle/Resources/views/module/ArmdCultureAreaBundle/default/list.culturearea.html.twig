@@ -1,0 +1,33 @@
+<div class="d-select-pseudo d-select-nav-inner" id="nav-inner-section">
+    <div>{{ category.title }}</div>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="{{ cmsPath('armd_culture_area', 'item', {'id':category.id}) }}">{{ category.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<nav id="nav-inner" class="extended link-no-handle">
+    {% set level = 0 %}
+    {% for node in nodes %}
+        {% if node.lvl == level %}
+            </li>
+        {% elseif node.lvl > level %}
+            <ul>
+        {% else %}
+            </li>
+            {% for i in 0..(level-node.lvl-1) %}
+                </ul>
+                </li>
+            {% endfor %}
+        {% endif %}
+        <li class="lvl-{{ node.lvl }} {% if node.id in path %}current{% endif %}">
+            <a href="{{ cmsPath('armd_culture_area', 'item', {'id':node.id}) }}">{{ node.title }}</a>
+        {% set level = node.lvl %}
+    {% endfor %}
+    {% for i in 0..level %}
+        </li>
+        </ul>
+    {% endfor %}
+</nav>

@@ -2,10 +2,9 @@
 
 namespace Armd\EventBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use Armd\Bundle\NewsBundle\Controller\NewsController as BaseController;
+use Armd\NewsBundle\Controller\NewsController;
 
-class EventController extends BaseController
+class EventController extends NewsController
 {
     public function archiveAction($from, $to, $page)
     {

@@ -24,7 +24,7 @@ class TagContentReference
     private $tag;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\Bundle\CmsBundle\Entity\Content")
+     * @ORM\ManyToOne(targetEntity="Armd\ContentAbstractBundle\Entity\Content")
      * @ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="CASCADE")          
      */
     private $content;
@@ -87,9 +87,9 @@ class TagContentReference
     /**
      * Set content
      *
-     * @param Armd\Bundle\CmsBundle\Entity\Content $content
+     * @param Armd\ContentAbstractBundle\Entity\Content $content
      */
-    public function setContent(\Armd\Bundle\CmsBundle\Entity\Content $content)
+    public function setContent(\Armd\ContentAbstractBundle\Entity\Content $content)
     {
         $this->content = $content;
     }

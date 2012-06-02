@@ -3,22 +3,15 @@
 namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\ContentAbstractBundle\Entity\BaseContent;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="content_institution")
  */
-class Institution extends BaseContent  implements TaxonomyInterface
+class Institution extends BaseContent implements TaxonomyInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-
     /**
      * @ORM\Column(type="string")
      */
@@ -35,12 +28,12 @@ class Institution extends BaseContent  implements TaxonomyInterface
     private $address;    
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $announce;        
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
     
@@ -55,13 +48,13 @@ class Institution extends BaseContent  implements TaxonomyInterface
     private $tags;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;            
@@ -70,25 +63,18 @@ class Institution extends BaseContent  implements TaxonomyInterface
     {
         return $this->getTitle();
     }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
 
     /**
      * Set title
      *
      * @param string $title
+     * @return Institution
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -105,10 +91,12 @@ class Institution extends BaseContent  implements TaxonomyInterface
      * Set city
      *
      * @param string $city
+     * @return Institution
      */
     public function setCity($city)
     {
         $this->city = $city;
+        return $this;
     }
 
     /**
@@ -125,10 +113,12 @@ class Institution extends BaseContent  implements TaxonomyInterface
      * Set address
      *
      * @param string $address
+     * @return Institution
      */
     public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
     }
 
     /**
@@ -142,33 +132,15 @@ class Institution extends BaseContent  implements TaxonomyInterface
     }
 
     /**
-     * Set body
-     *
-     * @param text $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * Get body
-     *
-     * @return text 
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
      * Set announce
      *
      * @param text $announce
+     * @return Institution
      */
     public function setAnnounce($announce)
     {
         $this->announce = $announce;
+        return $this;
     }
 
     /**
@@ -182,13 +154,37 @@ class Institution extends BaseContent  implements TaxonomyInterface
     }
 
     /**
+     * Set body
+     *
+     * @param text $body
+     * @return Institution
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
      * Set personalTag
      *
      * @param string $personalTag
+     * @return Institution
      */
     public function setPersonalTag($personalTag)
     {
         $this->personalTag = $personalTag;
+        return $this;
     }
 
     /**
@@ -205,10 +201,12 @@ class Institution extends BaseContent  implements TaxonomyInterface
      * Set tags
      *
      * @param text $tags
+     * @return Institution
      */
     public function setTags($tags)
     {
         $this->tags = $tags;
+        return $this;
     }
 
     /**
@@ -224,17 +222,19 @@ class Institution extends BaseContent  implements TaxonomyInterface
     /**
      * Set image
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @param Armd\Bundle\MediaBundle\Entity\Media $image
+     * @return Institution
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
+        return $this;
     }
 
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Armd\Bundle\MediaBundle\Entity\Media 
      */
     public function getImage()
     {
@@ -244,20 +244,37 @@ class Institution extends BaseContent  implements TaxonomyInterface
     /**
      * Set gallery
      *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @param Armd\Bundle\MediaBundle\Entity\Gallery $gallery
+     * @return Institution
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery = null)
     {
         $this->gallery = $gallery;
+        return $this;
     }
 
     /**
      * Get gallery
      *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return Armd\Bundle\MediaBundle\Entity\Gallery 
      */
     public function getGallery()
     {
         return $this->gallery;
+    }
+    /**
+     * @var integer $id
+     */
+    private $id;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

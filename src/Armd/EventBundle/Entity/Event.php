@@ -3,7 +3,7 @@
 namespace Armd\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\NewsBundle\Entity\NewsMappedSuperclass as BaseNews;
+use Armd\NewsBundle\Entity\BaseNews;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
@@ -19,19 +19,19 @@ class Event extends BaseNews
     private $place;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="collage_image_id", referencedColumnName="id")
      */
     private $collageImage;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
@@ -86,7 +86,7 @@ class Event extends BaseNews
      *
      * @param Application\Sonata\MediaBundle\Entity\Media $image
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image)
     {
         $this->image = $image;
     }
@@ -106,7 +106,7 @@ class Event extends BaseNews
      *
      * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery)
     {
         $this->gallery = $gallery;
     }
@@ -151,7 +151,7 @@ class Event extends BaseNews
      *
      * @param Application\Sonata\MediaBundle\Entity\Media $collageImage
      */
-    public function setCollageImage(\Application\Sonata\MediaBundle\Entity\Media $collageImage)
+    public function setCollageImage(\Armd\Bundle\MediaBundle\Entity\Media $collageImage)
     {
         $this->collageImage = $collageImage;
     }

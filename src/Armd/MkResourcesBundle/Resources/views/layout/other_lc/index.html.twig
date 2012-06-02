@@ -1,0 +1,158 @@
+{% extends 'ArmdMkResourcesBundle::layout.mk.html.twig' %}
+ 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/armdmkresources/css/default.css') }}" type="text/css" media="all" />
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('bundles/armdmkresources/js/common.js') }}"></script>
+{% endblock %}
+{% block layout_content %}
+    <div class="main-wrapper">
+		<div class="main-header">
+			<div class="header-top">
+                {{ getContainerContent('index_logo')|raw }}
+				{{ getContainerContent('index_language_switcher')|raw }}
+			</div>
+			<div class="header-menu">
+            {{ getContainerContent('menu')|raw }}
+				<!--<ul class="header-menu-ul">
+					<li class="header-menu-li"><a class="header-menu-a" href="">События</a></li>
+					<li class="header-menu-li"><a class="header-menu-a" href="">Новости</a></li>
+					<li class="header-menu-li"><a class="header-menu-a" href="">Атлас</a></li>
+					<li class="header-menu-li"><a class="header-menu-a" href="">Лента времени</a></li>
+					<li class="header-menu-li"><a class="header-menu-a" href="">Справочник</a></li>
+					<li class="header-menu-li"><a class="header-menu-a" href="">Официальное</a></li>
+					<li class="header-menu-li"><a class="header-menu-a" href="">Общение</a></li>
+				</ul>-->
+				{{ getContainerContent('index_search')|raw }}
+			</div>
+		</div>
+		<div class="main-menu">
+			<div  class="main-menu-item">
+				<a href="" class="test">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo1.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title">Театральное искусство</span>
+					<span class="item-info-text">Художественная коллективная
+						творческая деятельность народа,
+						отражающая его жизнь, идеалы  >
+					</span>
+						
+				</a>	
+				
+			</div>
+			
+			<div class="main-menu-item">
+				<a href="">	
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo2.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>	
+					
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo3.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo4.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo5.jpg') }}" />
+				<span class="main-menu-item-shadow"></span>
+				<span class="main-menu-item-border"></span>
+				<a class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo6.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo7.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo8.jpg') }}" />
+					<div class="main-menu-item-shadow"></div>
+					<div class="main-menu-item-border"></div>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo9.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+			<div class="main-menu-item">
+				<a href="">
+					<img class="main-menu-item-img" src="{{ asset('bundles/armdmkresources/img/photo10.jpg') }}" />
+					<span class="main-menu-item-shadow"></span>
+					<span class="main-menu-item-border"></span>
+				</a>
+				<a href="" class="main-menu-item-info">
+					<span class="item-info-title"></span>
+					<span class="item-info-text"></span>
+				</a>	
+			</div>
+		</div>
+			{{ getContainerContent('content')|raw }}
+			<!-- -->
+
+		<div class="main-footer">
+			{{ getContainerContent('index_footer_left')|raw }}
+            {{ getContainerContent('index_footer_right')|raw }}
+			
+		</div>
+	</div>
+
+{% endblock %}

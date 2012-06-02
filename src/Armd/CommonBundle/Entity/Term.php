@@ -3,7 +3,7 @@
 namespace Armd\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\Bundle\CmsBundle\Entity\BaseContent;
+use Armd\ContentAbstractBundle\Entity\BaseContent;
 use Armd\TaxonomyBundle\Model\TaxonomyInterface;
 
 /**
@@ -12,13 +12,6 @@ use Armd\TaxonomyBundle\Model\TaxonomyInterface;
  */
 class Term extends BaseContent implements TaxonomyInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-
     /**
      * @ORM\Column(type="string")
      */
@@ -30,12 +23,12 @@ class Term extends BaseContent implements TaxonomyInterface
     private $href;
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $announce;        
     
     /**
-     * @ORM\Column(type="text", nullable="true")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
     
@@ -50,35 +43,27 @@ class Term extends BaseContent implements TaxonomyInterface
     private $tags;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
-    private $gallery;                
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $gallery;
 
     /**
      * Set title
      *
      * @param string $title
+     * @return Term
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -92,33 +77,15 @@ class Term extends BaseContent implements TaxonomyInterface
     }
 
     /**
-     * Set body
-     *
-     * @param text $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * Get body
-     *
-     * @return text 
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
      * Set href
      *
      * @param string $href
+     * @return Term
      */
     public function setHref($href)
     {
         $this->href = $href;
+        return $this;
     }
 
     /**
@@ -135,10 +102,12 @@ class Term extends BaseContent implements TaxonomyInterface
      * Set announce
      *
      * @param text $announce
+     * @return Term
      */
     public function setAnnounce($announce)
     {
         $this->announce = $announce;
+        return $this;
     }
 
     /**
@@ -152,13 +121,37 @@ class Term extends BaseContent implements TaxonomyInterface
     }
 
     /**
+     * Set body
+     *
+     * @param text $body
+     * @return Term
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return text 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
      * Set personalTag
      *
      * @param string $personalTag
+     * @return Term
      */
     public function setPersonalTag($personalTag)
     {
         $this->personalTag = $personalTag;
+        return $this;
     }
 
     /**
@@ -175,10 +168,12 @@ class Term extends BaseContent implements TaxonomyInterface
      * Set tags
      *
      * @param text $tags
+     * @return Term
      */
     public function setTags($tags)
     {
         $this->tags = $tags;
+        return $this;
     }
 
     /**
@@ -194,17 +189,19 @@ class Term extends BaseContent implements TaxonomyInterface
     /**
      * Set image
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @param Armd\Bundle\MediaBundle\Entity\Media $image
+     * @return Term
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image)
+    public function setImage(\Armd\Bundle\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
+        return $this;
     }
 
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Armd\Bundle\MediaBundle\Entity\Media 
      */
     public function getImage()
     {
@@ -214,20 +211,37 @@ class Term extends BaseContent implements TaxonomyInterface
     /**
      * Set gallery
      *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @param Armd\Bundle\MediaBundle\Entity\Gallery $gallery
+     * @return Term
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery)
+    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery = null)
     {
         $this->gallery = $gallery;
+        return $this;
     }
 
     /**
      * Get gallery
      *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return Armd\Bundle\MediaBundle\Entity\Gallery 
      */
     public function getGallery()
     {
         return $this->gallery;
+    }
+    /**
+     * @var integer $id
+     */
+    private $id;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

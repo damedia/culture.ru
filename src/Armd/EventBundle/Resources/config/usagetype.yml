@@ -21,7 +21,7 @@ parameters:
                     content_stream:
                         title: Информационный поток
                         type: entity
-                        entity: ArmdCmsBundle:ContentStream
+                        entity: ArmdContentAbstractBundle:Stream
                         addField: id
                         viewField: Name
                         default: 0
@@ -37,8 +37,8 @@ parameters:
                 route:
                     pattern: /{from}/{to}/{page}
                     defaults:
-                        from: 0000-00-00
-                        to:   0000-00-00
+                        from: null
+                        to:   null
                         page: 1
                     requirements:
                         from: \d{4}-\d{2}-\d{2}
