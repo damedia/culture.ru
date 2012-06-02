@@ -18,7 +18,7 @@ class EventController extends BaseController
             'entities' => $entities,
             'selectDays' => array(
                 'from' => $fromDay,
-                'to'   => $toDay,
+                'to'   => $toDay > $fromDay ? $toDay : date('t'),
             ),
         ));
     }
