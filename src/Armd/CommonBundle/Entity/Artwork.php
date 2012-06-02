@@ -41,6 +41,11 @@ class Artwork extends BaseContent implements TaxonomyInterface
     private $date;
     
     /**
+     * @ORM\Column(type="string", name="artwork_date_desc", nullable=true)
+     */    
+    private $dateDescription;    
+    
+    /**
      * @ORM\Column(type="text", nullable="true")
      */
     private $announce;        
@@ -280,5 +285,25 @@ class Artwork extends BaseContent implements TaxonomyInterface
     public function getPlace()
     {
         return $this->place;
+    }
+
+    /**
+     * Set dateDescription
+     *
+     * @param string $dateDescription
+     */
+    public function setDateDescription($dateDescription)
+    {
+        $this->dateDescription = $dateDescription;
+    }
+
+    /**
+     * Get dateDescription
+     *
+     * @return string 
+     */
+    public function getDateDescription()
+    {
+        return $this->dateDescription;
     }
 }

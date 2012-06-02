@@ -45,6 +45,16 @@ class Person extends BaseContent implements TaxonomyInterface
     private $deathday;
     
     /**
+     * @ORM\Column(type="string", name="birthday_desc", nullable=true)
+     */    
+    private $birthdayDescription;            
+    
+    /**
+     * @ORM\Column(type="string", name="deathday_desc", nullable=true)
+     */    
+    private $deathdayDescription;                
+    
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $birthpalce;
@@ -407,5 +417,45 @@ class Person extends BaseContent implements TaxonomyInterface
     public function getOccupation()
     {
         return $this->occupation;
+    }
+
+    /**
+     * Set birthdayDescription
+     *
+     * @param string $birthdayDescription
+     */
+    public function setBirthdayDescription($birthdayDescription)
+    {
+        $this->birthdayDescription = $birthdayDescription;
+    }
+
+    /**
+     * Get birthdayDescription
+     *
+     * @return string 
+     */
+    public function getBirthdayDescription()
+    {
+        return $this->birthdayDescription;
+    }
+
+    /**
+     * Set deathdayDescription
+     *
+     * @param string $deathdayDescription
+     */
+    public function setDeathdayDescription($deathdayDescription)
+    {
+        $this->deathdayDescription = $deathdayDescription;
+    }
+
+    /**
+     * Get deathdayDescription
+     *
+     * @return string 
+     */
+    public function getDeathdayDescription()
+    {
+        return $this->deathdayDescription;
     }
 }
