@@ -1,0 +1,538 @@
+    <style type="text/css"><!--
+        body, html{ width:100%; height:100%; margin:0; padding:0; }
+        body, input, select{ font:13px "Trebuchet MS",Arial,sans-serif; }
+
+        a{ color:#06c; }
+        a:hover{ color:#000; }
+
+        .br10{ margin-bottom:10px; }
+        .small-gray{ font-size:11px; color:#777; }
+
+        #ajax-loading{ display:none; position:fixed; z-index:2; left:50%; padding:5px 10px; background:#fed; }
+
+        .colLeft{ width:300px; float:left; position:relative; z-index:1; }
+        .colRightContainer{ float:right; width:100%; margin-left:-300px; }
+        .colRight{ margin-left:300px; }
+
+        #map{ width:100%; height:600px; }
+        .ymaps-default-cluster{ color:#FFFFFF; font-size:11px !important; }
+
+        .dashboard{ padding:10px; }
+        .dashboard .padder{ }
+
+        fieldset{ border:solid 1px #ddd; margin-bottom:1em; }
+        legend{ color:#C99B4C; margin-bottom:5px; }
+        .cb-type-all a{ margin-right:10px; text-decoration:none; border-bottom:dashed 1px #06c; }
+
+        #geometry{ clear:both; margin-bottom:40px; height:100px; }
+
+        .markBalloonLayout{ width:315px; border:4px solid #EBCB00; background:#fff; }
+
+    //--></style>
+    <style>
+        .atlas-aside { padding: 10px 10px 0 30px; width: 210px; }
+        .atlas-aside-title { text-transform: uppercase; font: bold 14px/1.25 'trebuchet ms',sans-serif; padding-bottom: 5px; border-bottom: 2px solid #da5c11; color: #262626; }
+        .atlas-region, .atlas-map, .atlas-points { margin-bottom: 20px; }
+        .atlas-region select { padding: 0 0 0 3px; margin: 0; height: 19px; width: 209px; border: 1px solid #d2d3d3; color: #575757; font: bold 10px/100% 'trebuchet ms',sans-serif; }
+        .atlas-region-default { color: #262626; font-size: 9px; font-weight: bold; margin: 2px 0 0 10px; }
+        .atlas-map .atlas-map-item { padding-left: 7px; clear: both; margin-bottom: 10px; overflow: hidden; }
+        .atlas-map-item-toggle { float: left; margin-right: 5px; background: url('images/narrow-right.gif') no-repeat; width: 5px; height:9px; margin: 5px 5px 0 0; }
+        .atlas-map input { margin-right: 7px; float: left; }
+        .atlas-map label { padding-left: 16px; display: block; float: left; width: 148px; }
+        .check-musem { background: url('images/small_musem.png') no-repeat; }
+        .check-theatre { background: url('images/small_theatre.png') no-repeat; }
+        .check-other{ background: url('images/small_other.png') no-repeat; }
+        .atlas-points ul { margin: 0; padding: 0; }
+        .atlas-points ul li { list-style: none; margin: 0 0 14px 0; padding-left: 16px; background-position: left 5px; line-height: 100%; text-indent: 0em; }
+        .atlas-points ul li a { color: #262626; font: bold 10px 'trebuchet ms',sans-serif; display: block; padding: 0; margin: 0; }
+        .scroll-pane { height: 127px; }
+    </style>
+    <!--[if IE 7]>
+        <style>
+            .atlas-points ul li a { zoom: 1; }
+            .atlas-points ul li { padding-left: 0px; }
+        </style>
+    <![endif]-->
+    <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+    <script src="{{ asset('bundles/armdculturemap/js/jquery.form.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('bundles/armdculturemap/css/chosen.css') }}" />
+    <script src="{{ asset('bundles/armdculturemap/js/chosen.jquery.js') }}"></script>
+
+    <script type="text/javascript">
+        // Урлы к модулям
+        var regionsGeometryUri   = '{{ asset('bundles/armdculturemap/js/regions.json') }}';
+        var bundleImagesUri      = '{{ asset('bundles/armdculturemap/images') }}';
+        var fetchMarkersUri      = '/_sys/map/testmarkers';
+        var fetchMarkerDetailUri = '/_sys/map/testmarkerdetail';
+    </script>
+
+    <script type="text/javascript">
+        //////////////////////////
+        var myMap, clusterer, regionsCollection, collection, markersGroups=[];
+        ymaps.ready(init);
+        function init() {
+
+            myMap = new ymaps.Map("map", {
+                type: 'yandex#map',
+                center: [55.76, 37.90],
+                zoom: 3,
+                behaviors: ["default", "drag", "scrollZoom", "zoomControl", "mapTools"]
+            });
+
+            clusterer = new ymaps.Clusterer({
+                clusterDisableClickZoom: false, // запретим приближать карту при клике на кластеры
+                gridSize: 100,
+                clusterIcons: [
+                    {
+                        href: bundleImagesUri + '/Atlas-cluster1.png',
+                        size: [26, 26],
+                        offset: [-13, -13]
+                    }, {
+                        href: bundleImagesUri + '/Atlas-cluster2.png',
+                        size: [32, 32],
+                        offset: [-16, -16]
+                    }
+                ],
+                clusterNumbers: [99]
+            });
+
+            myMap.geoObjects.add(clusterer);
+
+            regionsCollection = new ymaps.GeoObjectCollection();
+
+            myMap.controls
+                .add('zoomControl') // Кнопка изменения масштаба
+                .add('typeSelector') // Список типов карты
+                .add('mapTools') // Стандартный набор кнопок
+                .add(new ymaps.control.ScaleLine());
+
+            // У карты изменены границы (bounds).
+            myMap.events.add('boundschange', function(e){
+                //console.log('boundschange');
+                //e.originalEvent.oldZoom - старый зум уровень
+                //e.originalEvent.newZoom - новый зум уровень 
+            });
+
+
+
+
+
+            // Открылся балун
+            clusterer.events.add('balloonopen', function(e){
+                console.log('e', e);
+                var target = e.get('target');
+                console.log('target', target);
+                var balloon = e.originalEvent.balloon;
+                console.log('e.originalEvent', e.originalEvent.target);
+                //console.log('balloonopen', balloon);
+                //console.log(target.geoObjects);
+                //balloon.properties.set({ contentLayout:'xxxxxxxxxxxxxxxxxxxxxxxxx' });
+            });
+
+
+
+
+
+            // Рисуем регионы
+            addRegions();
+
+            // Рисуем метки учреждений
+            //addMarkers();
+
+        } // end of init()
+
+        function isset(variable) {
+            return ! (typeof(variable)=='undefined' || variable===null);
+        }
+
+        // Рисуем регионы
+        function addRegions() {
+            $.getJSON(regionsGeometryUri, function(regions){
+                regions.forEach(function(region){
+                    var geometry = region.geometry,
+                        properties = {
+                            oid: region.id,
+                            hintContent: region.name
+                        },
+                        optionsStatic = {
+                            interactivityModel: 'default#transparent',
+                            fill: true,
+                            draggable: false,
+                            strokeWidth: 1.5,
+                            strokeColor: '#4F95FF',
+                            fillColor:   '#ff880077'
+                        },
+                        optionsHover = {
+                            interactivityModel: 'default#transparent',
+                            fill: true,
+                            draggable: false,
+                            strokeWidth: 2,
+                            strokeColor: '#ffffff',
+                            fillColor:   '#0065FF77'
+                        },
+                        polygon = new ymaps.Polygon(geometry, properties, optionsStatic);
+
+                    regionsCollection.add(polygon);
+
+                    polygon.events.add('mouseenter', function(e){
+                        var target = e.get('target');
+                        target.options.set(optionsHover);
+                    });
+                    polygon.events.add('mouseleave', function(e){
+                        var target = e.get('target');
+                        target.options.set(optionsStatic);
+                    });
+
+                    // Пользователь кликнул на региону. Карта подстраивается под регион.
+                    polygon.events.add('click', function(e){
+                        var myGeoobject = e.get('target');
+                        var regionId = myGeoobject.properties.get('oid');
+                        $('#regions-selector').val(regionId);
+                        zoomToRegion(regionId);
+                    });
+
+                });
+
+                // Наносим коллекцию регионов на карту
+                myMap.geoObjects.add(regionsCollection);
+
+                // Заполняем список регионов
+                buildRegionsComboBox(regions);
+            });
+        }
+
+        function zoomToRegion(id) {
+            var myGeoobject = findRegionById(id);
+            var bounds = getGeoBounds(myGeoobject);
+            myMap.setBounds(bounds, {
+                checkZoomRange: true,
+                duration: 1000,
+                callback: function(err) {
+                    if (err) {
+                        // Не удалось показать заданный регион
+                        // ...
+                    }
+                }
+            });
+        }
+
+        // Находит минимальные и максимальные координаты вершин списка полигонов
+        function getGeoBounds(myGeoobject) {
+            var polys = myGeoobject.geometry.getCoordinates(),
+                first_run, max_lat, max_long, min_lat, min_long;
+                min_lat = min_long = max_lat = max_long = 0,
+                first_run = true;
+            polys.forEach(function(collection){
+                collection.forEach(function(i){
+                    var lat, long, _ref;
+                    _ref = i, lat = _ref[0], long = _ref[1];
+                    if (first_run) {
+                        first_run = false;
+                        min_lat = max_lat = lat;
+                        min_long = max_long = long;
+                    } else {
+                        min_lat = Math.min(min_lat, lat);
+                        max_lat = Math.max(max_lat, lat);
+                        min_long = Math.min(min_long, long);
+                        max_long = Math.max(max_long, long);
+                    }
+                });
+            });
+            return [[min_lat, min_long],[max_lat, max_long]];
+        }
+
+        // Выводит массив координат геообъекта в <div id="geometry">
+        function printGeometry (coords) {
+            $('#geometry').html('Координаты: ' + stringify(coords));
+
+            function stringify (coords) {
+                var res = '';
+                if ($.isArray(coords)) {
+                    res = '[ ';
+                    for (var i = 0, l = coords.length; i < l; i++) {
+                        if (i > 0) {
+                            res += ', ';
+                        }
+                        res += stringify(coords[i]);
+                    }
+                    res += ' ]';
+                } else if (typeof coords == 'number') {
+                    res = coords.toPrecision(6);
+                } else if (coords.toString) {
+                    res = coords.toString();
+                }
+
+                return res;
+            }
+        }
+
+        // Поиск региона в коллекции
+        function findRegionById(id) {
+            var region;
+            regionsCollection.each(function(i){
+                if (i.properties.get('oid') == id) {
+                    region = i;
+                    return;
+                }
+            });
+            return region;
+        }
+
+        // Заполняем список регионов
+        function buildRegionsComboBox(regions) {
+            // Пользователь выбрал регион в списке. Карта зумится на регион.
+            $('#regions-selector').change(function(){
+                var regionId = $(this).val();
+                zoomToRegion(regionId);
+            });
+        }
+
+        // ajax-loading
+        function showAjaxLoading() {
+            $('#ajax-loading').show();
+        }
+        function hideAjaxLoading() {
+            $('#ajax-loading').hide();
+        }
+
+        // Добавление меток на карту
+        function drawPlacemarks(placemarksData, callback) {
+            if (! callback) {
+                var callback = function(){};
+            }
+            var placemarks = [];
+            for (var i=0; i<placemarksData.length; i++) {
+                var row = placemarksData[i],
+                    placemark = new ymaps.Placemark([row.lat, row.lng], {
+                        // Свойства метки
+                        oid: row.id,
+                        name: row.title,
+                        //iconContent: '#'+row.id,
+                        hintContent: row.title,
+                        balloonContent: row.title + 'balloonContent',
+                        clusterCaption: row.title
+                        //balloonContentHeader: row.title + ' (balloonContentHeader)',
+                        //balloonContentBody: 'balloonContentBody',
+                        //balloonContentFooter: 'balloonContentFooter'
+                    }, {
+                        // Опции балуна метки
+                        //balloonContentBodyLayout: myBalloonLayout,
+                        balloonLayout: ymaps.templateLayoutFactory.createClass('<div class="markBalloonLayout">$[[options.contentLayout]]</div>'),
+                        balloonShadow: false,
+                        balloonContentSize: [315, 300],
+                        //balloonContentLayout: myBalloonContentLayout,
+                        //balloonContentBodyLayout: myBalloonContentBodyLayout,
+
+                        // Иконка метки
+                        iconImageHref: bundleImagesUri + '/pin'+row.type+'.png',
+                        iconImageSize: [14, 23],
+                        iconImageOffset: [-7, -12],
+
+                        openBalloonOnClick: false
+                    });
+
+                // Открытие балуна через событие клика по маркеру
+                // Пользователь кликнул на метке кластера. Карта подстраивается под метки кластера
+                placemark.events.add('click', function(e){
+                    var pl = e.get('target');
+                    var oid = pl.properties.get('oid');
+                    
+                    showAjaxLoading();
+
+                    $.ajax({
+                        url: fetchMarkerDetailUri,
+                        data: { id: oid },
+                        success: function(res){
+                            hideAjaxLoading();
+                            //console.log(res);
+                            pl.properties.set({ balloonContentBody: res });
+                            pl.balloon.open();
+                        }
+                    });
+                });
+
+                // Добавляем маркер в группу
+                placemarks.push(placemark);
+            }
+
+            clusterer.removeAll();
+            clusterer.add(placemarks);
+
+            callback();
+        }
+
+        //////////////////////////////////////////////
+        $(function(){
+
+            $('#toggle-regions').change(function(){
+                if ($(this).is(':checked')) {
+                    myMap.geoObjects.add(regionsCollection);
+                } else {
+                    myMap.geoObjects.remove(regionsCollection);
+                }
+            });
+
+            // Фильтр по типам объектов
+            //$('#filter-types')[0].reset();
+            var cbTypes = $('#filter-types').find('.cb-type');
+            /*
+            cbTypes.on('change', function(){
+                var typeId = $(this).val();
+                if ($(this).is(':checked')) {
+                    console.log('Try to load type:', typeId);
+                    if (! isset(markersGroups[typeId])) {
+                        console.log('Not loaded. Do load.');
+                        showAjaxLoading();
+                        loadMarkers(typeId, function(){
+                            hideAjaxLoading();
+                        });
+                    }
+                } else {
+                    // Галка снята. Удаляем метки с карты
+                    console.log(typeId + ' will remove.');
+                    clusterer.removeAll();
+                }
+            });
+            */
+            // Отметить/снять отметку со всех галок
+            $('.cb-type-all a').click(function(){
+                if ($(this).hasClass('select')) {
+                    cbTypes.each(function(i,el){
+                        $(el).attr('checked', 'checked');
+                    });
+                } else {
+                    cbTypes.each(function(i,el){
+                        $(el).removeAttr('checked');
+                    });
+                }
+                return false;
+            });
+
+            // Filter form
+            $('#filter-types').ajaxForm({
+                url: fetchMarkersUri,
+                beforeSubmit: function() {
+                    clusterer.removeAll();
+                    showAjaxLoading();
+                },
+                dataType: 'json',
+                success: function(res) {
+                    hideAjaxLoading();
+                    if (res.result.length) {
+                        drawPlacemarks(res.result);
+                    } else {
+                        alert('Ничего не найдено.');
+                    }
+                }
+            });
+
+            // Суперселекты для регионов
+            $('.chzn-select').chosen();
+            $('.chzn-select-deselect').chosen({ allow_single_deselect: true });
+
+        });
+
+    </script>
+
+    <div id="ajax-loading">Загрузка данных&hellip;</div>
+
+    <div class="colLeft">
+        <div class="dashboard">
+
+            <form id="filter-types" method="get" action="">
+
+                <div class="atlas-aside">
+                    <div class="atlas-region">
+                        <h1 class="atlas-aside-title">Регион</h1>
+                        <select id="regions-selector" name="region" data-placeholder="Введите название региона..." class="chzn-select">
+                            <option value="">Все регионы</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.title }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="atlas-region-default">По умолчанию выбраны все регионы</p>                
+
+                    </div>
+                    <div class="atlas-map">
+                        <h1 class="atlas-aside-title">Показать на карте</h1>
+                        <div class="atlas-map-item">
+                            <p class="atlas-map-item-toggle"></p>
+                            <input id="check1" type="checkbox" name="musem" />
+                            <label class="check-musem" for="check1">Музеи (113)</label>
+                        </div>
+                        <div class="atlas-map-item">
+                            <p class="atlas-map-item-toggle"></p>
+                            <input id="check2" type="checkbox" name="theatre" />
+                            <label class="check-theatre" for="check2">Музеи (56)</label>
+                        </div>
+                        <div class="atlas-map-item">
+                            <p class="atlas-map-item-toggle"></p>
+                            <input id="check3" type="checkbox" name="other" />
+                            <label class="check-other" for="check3">Музеи (26)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset>
+                    <legend>Search object</legend>
+                    <div class="br10">
+                        <input type="text" name="search" size="20"/>
+                        <input type="submit" value="Search"/>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Filter by region</legend>
+                    <div class="br10">
+                        <select id="regions-selector" class="chzn-select" name="region" data-placeholder="Выберите субъект РФ...">
+                            <option value="">Все регионы</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="br10">
+                        <label><input id="toggle-regions" type="checkbox" checked="checked"> Отобразить субъекты РФ</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Тип объектов</legend>
+                    <div class="cb-type-all br10">
+                        <a class="select" href="#">Отметить все</a>
+                        <a class="unselect" href="#">Снять отметки</a>
+                    </div>
+                    <div class="br10">
+                        {% for type in objectTypes %}
+                            <div>
+                                <label>
+                                    <input class="cb-type" type="checkbox" name="type[]" value="{{ type.id }}"/>
+                                    <img src="{{ asset('bundles/armdculturemap/images/pin'~type.id~'.png') }}" alt=""/>
+                                    {{ type.title }}&nbsp;<span class="small-gray">({{ type.objectsCount }})</span>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+
+                <div class="br10">
+                    <input type="submit" value="Search"/>
+                    <input type="reset" value="Reset"/>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <div class="colRightContainer">
+        <div class="colRight">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div id="geometry"></div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
