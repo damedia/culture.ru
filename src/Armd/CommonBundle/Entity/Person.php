@@ -458,19 +458,4 @@ class Person extends BaseContent implements TaxonomyInterface
     {
         return $this->deathdayDescription;
     }
-    /**
-     * @var integer $id
-     */
-    private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }

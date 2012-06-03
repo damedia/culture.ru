@@ -21,15 +21,17 @@
 
 {% block layout_content %}
    <div class="gadget">
-        <div>Портал работает в тестовом режиме и не поддерживает работу с планшетными устройствами . В случае обнаружения технических проблем или некорректных данных – сообщите нам.</div>
+        <div>
+        Портал работает в тестовом режиме и не поддерживает работу с планшетными устройствами. В случае обнаружения технических проблем или некорректных данных – сообщите нам по электронному адресу info@roskult.ru.
+        </div>
         <div class="gadget-clouse"></div>
     </div>
     <div class="main-wrapper">
        {{ getContainerContent('index_online')|raw }}
 		<div class="main-header">
-			<div class="header-top">
+			<div class="header-top group">
                 {{ getContainerContent('index_logo')|raw }}
-				{{ getContainerContent('index_language_switcher')|raw }}
+				{% include 'ArmdMkResourcesBundle::language_switcher.html.twig' %}
 			</div>
 			<div class="header-menu">
 				{{ getContainerContent('index_menu')|raw }}
@@ -39,7 +41,7 @@
 		
 		{{ getContainerContent('index_content_top')|raw }}
         
-        <div class="main-conteiner group">
+      <div class="main-conteiner group">
             <div class="main-conteiner-left">
                 <h1 class="main-video-title">События</h1>
                 <div class="main-video-wrapper">

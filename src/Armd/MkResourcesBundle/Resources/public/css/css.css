@@ -752,12 +752,6 @@ footer a { color: #000; }
     padding-right: 10px;
 }
 
-/*esoldatov*/
-.d-select-nav-inner li a {
-    color: #fff;
-}
-/**/
-
 #page-official .select-menu{ float: right; position: relative; }
 #page-official .select-menu .arrow { height: 20px; width: 20px; position: absolute; right: 0; top: 0; background: url("../img/bg-arrows.png") no-repeat scroll 100% -68px transparent;}
 #page-official .select-menu ul {display: none;}
@@ -1101,5 +1095,84 @@ span.first , span.last{
 	border: none;
 	margin-right: 0px;
 }
+
+.d-select-nav-inner li a {
+    color: #fff;
+}
+/*autorisation*/
+#nav-header {
+	position: relative;
+}
+
+.header-top-login {
+	width: 220px;
+	background: url("../img_index/online-body-bg.png") repeat scroll 0 0 transparent;
+	margin-top: 20px;
+	padding: 10px 10px 6px 10px; 
+	position: absolute;
+	display: none;
+	z-index: 102;
+	left: -1px;
+}
+
+.login-title {
+	color: #f4c400;
+	padding: 0 0 6px 0;
+	border-bottom: 1px solid #6b665e;
+	margin-bottom: 7px;
+	font-size: 12px;
+}
+
+.login-form {
+	overflow: hidden;
+	position: relative;
+}
+
+.login-form-item {
+	overflow: hidden;	
+	margin-bottom: 5px;
+}
+
+.login-form-item label {
+	float: left;
+	color: #fff;
+	padding-top: 3px;
+	font-size: 12px;
+}
+
+.login-form-item input {
+	width: 163px;
+	height: 19px;
+	line-height: 19px;
+	float: right;
+}
+
+#login-form-item-but {
+	border: 0;
+	background: #da5c11;
+	color: #fff;
+	float: right;
+	padding: 2px 8px;
+	cursor: pointer;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.login-regpass {
+	position: absolute;
+	bottom: 7px;
+}
+
+#nav-header a.login-regpass-a {
+	color: #fff;
+	font-size: 10px;
+}
+
+.login-regpass span {
+	color: #fff;
+	float: left;
+}
+
+/*end autorisation*/
 
 /**/

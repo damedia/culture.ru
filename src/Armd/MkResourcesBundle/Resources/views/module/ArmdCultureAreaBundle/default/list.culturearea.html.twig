@@ -9,6 +9,7 @@
     </ul>
 </div>
 <nav id="nav-inner" class="extended link-no-handle">
+	<a style="padding: 0pt; height: 3px;"></a>
     {% set level = 0 %}
     {% for node in nodes %}
         {% if node.lvl == level %}
@@ -26,8 +27,10 @@
             <a href="{{ cmsPath('armd_culture_area', 'item', {'id':node.id}) }}">{{ node.title }}</a>
         {% set level = node.lvl %}
     {% endfor %}
+	
     {% for i in 0..level %}
         </li>
         </ul>
     {% endfor %}
+	<a style="padding: 0pt; height: 3px;"></a>
 </nav>

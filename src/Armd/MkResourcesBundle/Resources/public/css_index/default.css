@@ -113,14 +113,13 @@ body {
 }
 
 
-.main-header {
+/*.main-header {
 	overflow:hidden;
 }
 
 .header-top {
 	overflow: hidden;
-}
-
+}*/
 .header-top-logo {
 	background: url('../img_index/logo.png') no-repeat left top;
 	height: 100px;
@@ -168,6 +167,7 @@ body {
     padding-left: 16px; 
     background: url('../img_index/look.png') no-repeat 0 center;
     font-size: .8em; 
+	position: relative;
  }
     
 #nav-header ul, #nav-header li { float: left; }
@@ -209,6 +209,7 @@ body {
 	overflow: hidden;
 	height: 31px;
 	padding-bottom: 10px;
+	clear: both;
 }
 
 .header-menu-ul {
@@ -1004,16 +1005,20 @@ div.main-bottom-links-left {
     padding-left: 12px;
 }
 
+.trans-item-anons h1 {
+    margin-bottom: 4px;
+}
+
 .trans-item-anons-title {
     color: #fff;
-    font-size: 10px;
+    font-size: 116.7%;
     padding-bottom: 4px;
 }
 
 .trans-item-anons-table td {
     color: #888888;
     font-size: 83.3%;
-    padding-right: 10px;
+    padding: 0;
 }
 
 
@@ -1066,8 +1071,76 @@ div.main-bottom-links-left {
 .main-news-list-item-img img {
     display: block;
 }
+/*autorisation*/
+.header-top-login {
+	width: 220px;
+	background: url("../img_index/online-body-bg.png") repeat scroll 0 0 transparent;
+	margin-top: 20px;
+	padding: 10px 10px 6px 10px; 
+	position: absolute;
+	display: none;
+	z-index: 102;
+	left: -1px;
+}
 
+.login-title {
+	color: #f4c400;
+	padding: 0 0 6px 0;
+	border-bottom: 1px solid #6b665e;
+	margin-bottom: 7px;
+	font-size: 12px;
+}
 
+.login-form {
+	overflow: hidden;
+	position: relative;
+}
+
+.login-form-item {
+	overflow: hidden;	
+	margin-bottom: 5px;
+}
+
+.login-form-item label {
+	float: left;
+	color: #fff;
+	padding-top: 3px;
+	font-size: 12px;
+}
+
+.login-form-item input {
+	width: 163px;
+	height: 19px;
+	line-height: 19px;
+	float: right;
+}
+
+#login-form-item-but {
+	border: 0;
+	background: #da5c11;
+	color: #fff;
+	float: right;
+	padding: 2px 8px;
+	cursor: pointer;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.login-regpass {
+	position: absolute;
+	bottom: 7px;
+}
+
+#nav-header a.login-regpass-a {
+	color: #fff;
+	font-size: 10px;
+}
+
+.login-regpass span {
+	color: #fff;
+	float: left;
+}
+/*end autorisation*/
 /*--------*/
 /*
 font-size:

@@ -64,6 +64,7 @@
 					}
 					
 					_rlc.setDate(new Date(year, month));
+					_rlc.selectDays(1, 3);
 					
 					_rlc.build();
 					
@@ -81,6 +82,7 @@
 					}					
 					
 					_rlc.setDate(new Date(year, month));
+					_rlc.selectDays(1, 3);
 					
 					_rlc.build();
 					

@@ -21,7 +21,9 @@
 	{% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
 		<nav id="nav-inner"> {{ _self.attributes(listAttributes) }}
 			<ul class="menu_news">
+			<a style="padding: 0pt; height: 3px;"></a>
 			{{ block('children') }}
+			<a style="padding: 0pt; height: 3px;"></a>
 			</ul>
 		</nav>
 	{% endif %}

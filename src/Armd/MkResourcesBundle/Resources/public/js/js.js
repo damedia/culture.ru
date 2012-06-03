@@ -1,10 +1,10 @@
 $(function(){
-	$('input[type="text"],input[type="password"],textarea').each(function(){
+	$('input[type="text"],input[type="password"],textarea').not('#login-form-item-log, #login-form-item-pass').each(function(){
 		if(!$(this).closest('#site-search').length)
 			$(this).wrap('<span class="inp-txt" />');
 	});
 	
-	$('input[type="button"],input[type="reset"],input[type="submit"],button').each(function(){
+	$('input[type="button"],input[type="reset"],input[type="submit"],button').not('#login-form-item-but').each(function(){
 		if(!$(this).closest('#site-search').length)
 			$(this).wrap('<span class="inp-btn" />');
 	});
@@ -224,7 +224,11 @@ if ($('.video-descr-data-fancy').length){
         $(this).find('.img2').css('visibility','hidden');
     });
     
-    
+    $('.nav-header-enter').click(function() {
+		$('.header-top-login').toggle();
+		return false;
+	});
+   
 });    
 /*$(document).ready(function() {
 

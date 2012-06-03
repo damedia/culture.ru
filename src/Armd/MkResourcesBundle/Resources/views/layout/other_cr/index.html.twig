@@ -16,7 +16,7 @@
     <div id='content'>
 		<header>
 			{{ getContainerContent('other_cr_logo')|raw }}
-			{{ getContainerContent('other_cr_language_switcher')|raw }}
+			{% include 'ArmdMkResourcesBundle::language_switcher.html.twig' %}
 			{{ getContainerContent('other_cr_content_top')|raw }}
 			<div class='cb'></div>
 			<div id="menu_search_wrap">

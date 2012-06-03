@@ -293,6 +293,10 @@
 				z-index: 1001;
 			}			
             
+			.header-top-login {
+				z-index: 1002;
+			}
+			
 		</style>
 		<script src="{{ asset('bundles/armdmkresources/js_index/jquery.js') }}"></script>
 		<script>
@@ -300,19 +304,20 @@
 			$('.trans-wrapper-header').click(function() {
 			$('.trans-wrapper-body').toggle()
 			});
+			$('.nav-header-enter').click(function() {
+				$('.header-top-login').toggle();
+				return false;
+			});
 		});
 		</script>
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('bundles/armdmkresources/js_index/jquery.js') }}"></script>
 	<script src="{{ asset('bundles/armdmkresources/js/libs/html5.js') }}"></script>
-	<script src="{{ asset('bundles/armdmkresources/js/libs/jq.js') }}"></script>
 	<script src="{{ asset('bundles/armdmkresources/js/plugins.js') }}"></script>
 	<script src="{{ asset('bundles/armdmkresources/js_index/libs/jquery-ui-1.8.18.custom.min.js') }}"></script>
 	<script src="{{ asset('bundles/armdmkresources/js/js.js') }}"></script>
     <script src="{{ asset('bundles/armdmkresources/js_index/common.js') }}"></script>
-		
 	<!--[if lt IE 9 ]><script src="{{ asset('bundles/armdmkresources/js/libs/ie.js') }}"></script><![endif]-->
 {% endblock %}
 
@@ -321,7 +326,7 @@
 <div id='content'>
       <header>
    {{ getContainerContent('other_logo')|raw }}
-   {{ getContainerContent('other_language_switcher')|raw }}
+ {% include 'ArmdMkResourcesBundle::language_switcher.html.twig' %}
   {{ getContainerContent('plug_content_top')|raw }}
    <div class='cb'></div>
    <div id="menu_search_wrap">

@@ -289,11 +289,6 @@ class Artwork extends BaseContent implements TaxonomyInterface
     {
         return $this->gallery;
     }
-    /**
-     * @var integer $id
-     */
-    private $id;
-
 
     /**
      * Set dateDescription
@@ -317,13 +312,4 @@ class Artwork extends BaseContent implements TaxonomyInterface
         return $this->dateDescription;
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }

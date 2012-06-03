@@ -80,7 +80,7 @@ class Monument extends BaseContent implements TaxonomyInterface
     private $longitude;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\Bundle\CmsBundle\Entity\ContentStream")
+     * @ORM\ManyToOne(targetEntity="\Armd\ContentAbstractBundle\Entity\Stream")
      */
     private $stream;        
     
@@ -439,10 +439,10 @@ class Monument extends BaseContent implements TaxonomyInterface
     /**
      * Set stream
      *
-     * @param Armd\Bundle\CmsBundle\Entity\ContentStream $stream
+     * @param \Armd\Bundle\ContentAbstractBundle\Entity\Stream $stream
      * @return Monument
      */
-    public function setStream(\Armd\Bundle\CmsBundle\Entity\ContentStream $stream = null)
+    public function setStream(\Armd\ContentAbstractBundle\Entity\Stream $stream = null)
     {
         $this->stream = $stream;
         return $this;
@@ -451,7 +451,7 @@ class Monument extends BaseContent implements TaxonomyInterface
     /**
      * Get stream
      *
-     * @return Armd\Bundle\CmsBundle\Entity\ContentStream 
+     * @return Armd\ContentAbstractBundle\Entity\Stream 
      */
     public function getStream()
     {

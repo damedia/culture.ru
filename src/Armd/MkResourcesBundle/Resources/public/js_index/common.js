@@ -77,6 +77,11 @@ $(document).ready(function() {
         $('.trans-item').hide()
     }
 	
+   $('.nav-header-enter').click(function() {
+	$('.header-top-login').toggle();
+	return false;
+	});
+   
    
 });
 

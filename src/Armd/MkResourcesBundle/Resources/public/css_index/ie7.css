@@ -7,6 +7,10 @@
 	z-index: 1100;
 }
 
+#nav-header {
+	z-index: 101;
+}
+
 .pagination  {
 	display : inline;
 	zoom : 1;
