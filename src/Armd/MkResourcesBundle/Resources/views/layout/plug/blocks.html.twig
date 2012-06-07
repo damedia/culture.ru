@@ -12,12 +12,7 @@
     {% set other_logo %}
         {{ table.create({'title': 'other_logo', 'colspan': 3}, containers) }}
     {% endset %}
-    
-    {# other_language_switcher #}
-    {% set other_language_switcher %}
-        {{ table.create({'title': 'other_language_switcher', 'colspan': 3}, containers) }}
-    {% endset %}
-    
+      
     {# other_search #}
     {% set other_search %}
         {{ table.create({'title': 'other_search', 'colspan': 3}, containers) }}
@@ -43,20 +38,14 @@
         {{ table.create({'title': 'other_footer_left', 'colspan': 3}, containers) }}
     {% endset %}
     
-    {# other_footer_right #}
-    {% set other_footer_right %}
-        {{ table.create({'title': 'other_footer_right', 'colspan': 3}, containers) }}
-    {% endset %}
 
     <div class="tab-content-blocks">
         {{ common.block(plug_top, {'class': 'block-full'}) }}
-        {{ common.block(other_logo, {'class': 'block-third'}) }}
-        {{ common.block(other_language_switcher, {'class': 'block-third'}) }}
-        {{ common.block(other_search, {'class': 'block-third'}) }}
+        {{ common.block(other_logo, {'class': 'block-half'}) }}
+        {{ common.block(other_search, {'class': 'block-half'}) }}
         {{ common.block(plug_content_top, {'class': 'block-full'}) }}
         {{ common.block(other_menu, {'class': 'block-full'}) }}
         {{ common.block(other_content, {'class': 'block-full'}) }}
 		{{ common.block(other_footer_left, {'class': 'block-half'}) }}
-        {{ common.block(other_footer_right, {'class': 'block-half'}) }}
     </div>
 {% endmacro %}

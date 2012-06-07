@@ -30,4 +30,8 @@ _sys_culturemap_testmarkerdetail:
     pattern:  /testmarkerdetail
     defaults: { _controller: ArmdCultureMapBundle:CultureMap:testmarkerdetail }
 
+_sys_culturemap_testregiondetail:
+    pattern:  /testregiondetail
+    defaults: { _controller: ArmdCultureMapBundle:CultureMap:testregiondetail }
+
 

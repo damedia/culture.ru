@@ -73,7 +73,7 @@ ol { padding: .5em 0 1 1.5em; }
 ol li { padding-left: .5em; }
 ul { padding: .5em 0 1em 1.5em; list-style: disc; }
 nav ul, nav li, fieldset ul, fieldset li, .plain-list, .plain-list li { margin: 0; padding: 0; background: none; list-style: none; } 
-#content td, #content th { padding: 5px 10px; border: 1px solid #ccc; }
+/*#content td, #content th { padding: 5px 10px; border: 1px solid #ccc; }*/
 
 cite { display: block; margin-bottom: 1em; font-style: normal; font-size: 1.35em; color: #da5c11; }
 
@@ -144,7 +144,16 @@ header { padding: 0 30px; height: 120px; background: #ffa200 url(../img/bg.jpg) 
 #logo { float: left; width: 284px; height: 88px; }
 #nav-header { float: right; margin: 10px 36px 0 0; padding-left: 16px; font-size: .8em; background: url('../img/look.png') no-repeat 0 center;}
 #nav-header ul, #nav-header li { float: left; }
-#nav-header a, #nav-header b { float: left; padding: 1px 3px; }
+#nav-header a, #nav-header b { float: left; padding: 1px 3px; border-bottom: 1px solid transparent;}
+#nav-header a.nav-header-enter {
+    text-decoration: none;
+    border-bottom: 1px dashed #000;
+    padding: 0;
+    
+}
+#nav-header a.nav-header-enter:hover {
+    border-bottom: none;
+}
 #nav-header a { color: #000; }
 #nav-header b { background: #b9171c; color: #fff; }
 
@@ -306,7 +315,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7f7f7f', end
 
 .sb-tiser-wrap { text-align: center; }
 .sb-tiser-i { position: relative; display: inline-block; }
-.sb-tiser-bg { position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; background: #515151; opacity:.3; filter:alpha(opacity=30); }
+.sb-tiser-bg { position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; /*background: #515151;*/ opacity:.3; filter:alpha(opacity=30); }
 .sb-tiser { position: relative; z-index: 1; display: block; margin: 4px; }
 
 #sidebar-r { float: right; padding: 30px 30px 0 0; width: 240px; }
@@ -746,10 +755,10 @@ footer a { color: #000; }
     padding-bottom: 4px;
 }
 
-.trans-item-anons-table td {
+#content .trans-item-anons-table td {
     color: #888888;
     font-size: 83.3%;
-    padding-right: 10px;
+    padding-right: 0px;
 }
 
 #page-official .select-menu{ float: right; position: relative; }
@@ -962,29 +971,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cd0200', end
 
 
 .news-image-copyrights{
-	float: right; 
-	width:266px; 
-	padding-left:10px;
+    float: right; 
+    width:266px; 
+    padding-left:10px;
 }
 
 .image-author-copyrights{
-	text-align: left;
-	font-size: 75%;
-	color: #666;
-	padding-top: 6px;
+    text-align: left;
+    font-size: 75%;
+    color: #666;
+    padding-top: 6px;
 }
 
 .image-author-copyrights-infobox{
-	border-bottom: 1px dotted;
+    border-bottom: 1px dotted;
     color: #666666;
     font-size: 80%;
     padding-bottom: 8px;
     text-align: left;
-	font-style: Italic;
+    font-style: Italic;
 }
 
 .image-block-description {
-	margin-bottom: -25px;
+    margin-bottom: -25px;
 }
 
 .partner-item {
@@ -1038,62 +1047,62 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cd0200', end
 
 
 .legend-map {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 #content .legend-map td {
-	border: none;
+    border: none;
 }
 
 
 span.first , span.last{
-	display:none;
+    display:none;
 }
 
 .pagination a{
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .pagination span.current{
-	color: #DE6414;
+    color: #DE6414;
 }
 
 .pagination span.page a{
-	color: #111;
+    color: #111;
 }
 
 .pagination{
-	float:right;
-	border-top: 1px solid #BBB;
-	margin-left:5px;
-	padding-left: 75px;
-	margin-right:5px;
-	padding-top:10px;
-	margin-top:10px;
+    float:right;
+    border-top: 1px solid #BBB;
+    margin-left:5px;
+    padding-left: 75px;
+    margin-right:5px;
+    padding-top:10px;
+    margin-top:10px;
 }
 
 .topnav .pagination{
-	margin-top:-20px;
-	border: none;
-	margin-right: 90px;
+    margin-top:-20px;
+    border: none;
+    margin-right: 90px;
 }
 
 .midnav .pagination{
-	margin-top:16px;
-	border: none;
-	margin-right: 0px;
+    margin-top:16px;
+    border: none;
+    margin-right: 0px;
 }
 
 
 .botnav .pagination{
-	margin-right: 90px;
-	
+    margin-right: 90px;
+    
 }
 
 .newsbotnav .pagination{
-	margin-top:0px;
-	border: none;
-	margin-right: 0px;
+    margin-top:0px;
+    border: none;
+    margin-right: 0px;
 }
 
 .d-select-nav-inner li a {
@@ -1101,76 +1110,81 @@ span.first , span.last{
 }
 /*autorisation*/
 #nav-header {
-	position: relative;
+    position: relative;
 }
 
 .header-top-login {
-	width: 220px;
-	background: url("../img_index/online-body-bg.png") repeat scroll 0 0 transparent;
-	margin-top: 20px;
-	padding: 10px 10px 6px 10px; 
-	position: absolute;
-	display: none;
-	z-index: 102;
-	left: -1px;
+    width: 220px;
+    background: url("../img_index/online-body-bg.png") repeat scroll 0 0 transparent;
+    margin-top: 20px;
+    padding: 10px 10px 6px 10px; 
+    position: absolute;
+    display: none;
+    z-index: 102;
+    left: -1px;
 }
 
 .login-title {
-	color: #f4c400;
-	padding: 0 0 6px 0;
-	border-bottom: 1px solid #6b665e;
-	margin-bottom: 7px;
-	font-size: 12px;
+    color: #f4c400;
+    padding: 0 0 6px 0;
+    border-bottom: 1px solid #6b665e;
+    margin-bottom: 7px;
+    font-size: 12px;
 }
 
 .login-form {
-	overflow: hidden;
-	position: relative;
+    overflow: hidden;
+    position: relative;
 }
 
 .login-form-item {
-	overflow: hidden;	
-	margin-bottom: 5px;
+    overflow: hidden;   
+    margin-bottom: 5px;
 }
 
 .login-form-item label {
-	float: left;
-	color: #fff;
-	padding-top: 3px;
-	font-size: 12px;
+    float: left;
+    color: #fff;
+    padding-top: 3px;
+    font-size: 12px;
 }
 
 .login-form-item input {
-	width: 163px;
-	height: 19px;
-	line-height: 19px;
-	float: right;
+    width: 163px;
+    height: 19px;
+    line-height: 19px;
+    float: right;
 }
 
 #login-form-item-but {
-	border: 0;
-	background: #da5c11;
-	color: #fff;
-	float: right;
-	padding: 2px 8px;
-	cursor: pointer;
-	font-size: 12px;
-	margin-top: 5px;
+    border: 0;
+    background: #da5c11;
+    color: #fff;
+    float: right;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .login-regpass {
-	position: absolute;
-	bottom: 7px;
+    position: absolute;
+    bottom: 7px;
 }
 
 #nav-header a.login-regpass-a {
-	color: #fff;
-	font-size: 10px;
+    color: #fff;
+    font-size: 10px;
 }
 
 .login-regpass span {
-	color: #fff;
-	float: left;
+    color: #fff;
+    float: left;
+}
+
+#content .trans-item-anons-table  td {
+    border: none;
+    padding: 0 3px 0 0; 
 }
 
 /*end autorisation*/

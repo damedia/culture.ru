@@ -3,7 +3,6 @@
 namespace Armd\CultureMapBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-
 use Armd\ContentAbstractBundle\Controller\Controller;
 
 class CultureMapController extends Controller
@@ -233,6 +232,7 @@ class CultureMapController extends Controller
             ->select(array('t.id, t.title, t.icon', 'COUNT(o.id) AS objectsCount'))
             ->from('ArmdCultureMapBundle:CultureObjectType', 't')
             ->leftJoin('t.objects', 'o')
+            ->where("t.icon != ''")
             ->groupBy('t.id, t.title, t.icon')
             ->orderBy('objectsCount', 'DESC')
             ->getQuery();
@@ -253,37 +253,41 @@ class CultureMapController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
 
-        $qb = $em->createQueryBuilder()
-            ->select('o')
-            ->from('ArmdCultureMapBundle:CultureObject', 'o');
+        if (! $typeIds) {
+            $markers = array();
+        } else {
+            $qb = $em->createQueryBuilder()
+                ->select('o')
+                ->from('ArmdCultureMapBundle:CultureObject', 'o');
 
-        if ($typeIds && is_array($typeIds)) {
-            $qb->andwhere('o.type IN (:typeIds)')
-               ->setParameter('typeIds', $typeIds);
-        }
-        if ($regionId) {
-            $qb->andWhere('o.subject = :regionId')
-               ->setParameter('regionId', $regionId);
-        }
-        if ($searchTerm) {
-            $qb->andWhere('LOWER(o.title) LIKE :searchTerm')
-               ->setParameter('searchTerm', '%'.$searchTerm.'%');
-        }
+            if (is_array($typeIds)) {
+                $qb->andwhere('o.type IN (:typeIds)')
+                   ->setParameter('typeIds', $typeIds);
+            }
+            if ($regionId) {
+                $qb->andWhere('o.subject = :regionId')
+                   ->setParameter('regionId', $regionId);
+            }
+            if ($searchTerm) {
+                $qb->andWhere('LOWER(o.title) LIKE :searchTerm')
+                   ->setParameter('searchTerm', '%'.$searchTerm.'%');
+            }
 
-        $qb->orderBy('o.id', 'ASC');
+            $qb->orderBy('o.id', 'ASC');
 
-        $query = $qb->getQuery();
+            $query = $qb->getQuery();
 
-        $objects = $query->getResult();
-        $markers = array();
-        foreach ($objects as $item) {
-            $markers[] = array(
-                'id' => $item->getId(),
-                'title' => $item->getTitle(),
-                'lat' => $item->getLatitude(),
-                'lng' => $item->getLongitude(),
-                'type' => $item->getType()->getId(),
-            );
+            $objects = $query->getResult();
+            $markers = array();
+            foreach ($objects as $item) {
+                $markers[] = array(
+                    'id' => $item->getId(),
+                    'title' => $item->getTitle(),
+                    'lat' => $item->getLatitude(),
+                    'lng' => $item->getLongitude(),
+                    'type' => $item->getType()->getId(),
+                );
+            }
         }
 
         $data = array(
@@ -308,4 +312,42 @@ class CultureMapController extends Controller
         ));
     }
 
+    public function testregiondetailAction()
+    {
+        $request = $this->container->get('request');
+        $id = (int) $request->query->get('id');
+        $em = $this->getDoctrine()->getEntityManager();
+        try {
+            $entity = $em->getRepository('ArmdCultureMapBundle:Subject')->findOneBy(array(
+                'id' => $id,
+            ));
+            $galleryRandomImage = false;
+            $gallery = $entity->getGallery();
+            if ($gallery) {
+                $images = $gallery->getGalleryHasMedias();
+                $idx = rand(0, sizeof($images)-1);
+                foreach ($images as $i=>$image) {
+                    if ($i==$idx) {
+                        $galleryRandomImage = $image;
+                        break;
+                    }
+                }
+            }
+            return $this->render('ArmdCultureMapBundle:CultureMap:testregiondetail.html.twig', array(
+                'entity' => $entity,
+                'galleryRandomImage' => $galleryRandomImage,
+            ));
+        }
+        catch (\Exception $e) {
+            return new Response(
+                json_encode(array(
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                )),
+                $status = 404,
+                array('Content-Type' => 'application/json')
+            );
+        }
+    }
+    
 }

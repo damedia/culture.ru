@@ -145,9 +145,9 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314 , height: 187, , quality: 70}
-                small: { width: 100 , quality: 70}
-                big:   { width: 500 , quality: 70}
-
+                small: { width: 95,  quality: 95 }
+                big:   { width: 266, height: 196, quality: 95 } 
+                main:  { width: 488, height: 176, quality: 95 }
     cdn:
         server:
             path: /uploads/media # http://media.sonata-project.org/

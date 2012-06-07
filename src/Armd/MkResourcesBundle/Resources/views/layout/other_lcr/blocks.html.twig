@@ -8,11 +8,6 @@
         {{ table.create({'title': 'other_logo', 'colspan': 3}, containers) }}
     {% endset %}
     
-    {# other_language_switcher #}
-    {% set other_language_switcher %}
-        {{ table.create({'title': 'other_language_switcher', 'colspan': 3}, containers) }}
-    {% endset %}
-    
     {# other_search #}
     {% set other_search %}
         {{ table.create({'title': 'other_search', 'colspan': 3}, containers) }}
@@ -59,9 +54,8 @@
     {% endset %}
 
     <div class="tab-content-blocks">
-        {{ common.block(other_logo, {'class': 'block-third'}) }}
-        {{ common.block(other_language_switcher, {'class': 'block-third'}) }}
-        {{ common.block(other_search, {'class': 'block-third'}) }}
+        {{ common.block(other_logo, {'class': 'block-half'}) }}
+        {{ common.block(other_search, {'class': 'block-half'}) }}
         {{ common.block(other_menu, {'class': 'block-full'}) }}
         {{ common.block(other_content_top, {'class': 'block-full'}) }}
 		{{ common.block(other_header_bottom, {'class': 'block-full'}) }}

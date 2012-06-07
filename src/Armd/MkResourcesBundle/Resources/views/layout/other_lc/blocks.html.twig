@@ -8,11 +8,6 @@
         {{ table.create({'title': 'index_logo', 'colspan': 3}, containers) }}
     {% endset %}
     
-    {# index_language_switcher #}
-    {% set index_language_switcher %}
-        {{ table.create({'title': 'index_language_switcher', 'colspan': 3}, containers) }}
-    {% endset %}
-    
     {# index_search #}
     {% set index_search %}
         {{ table.create({'title': 'index_search', 'colspan': 3}, containers) }}
@@ -39,9 +34,8 @@
     {% endset %}
     
     <div class="tab-content-blocks">
-        {{ common.block(index_logo, {'class': 'block-third'}) }}
-        {{ common.block(index_language_switcher, {'class': 'block-third'}) }}
-        {{ common.block(index_search, {'class': 'block-third'}) }}
+        {{ common.block(index_logo, {'class': 'block-half'}) }}
+        {{ common.block(index_search, {'class': 'block-half'}) }}
         {{ common.block(menu, {'class': 'block-full'}) }}
         
         {{ common.block(content, {'class': 'block-full'}) }}

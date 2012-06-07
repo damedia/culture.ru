@@ -18,7 +18,7 @@
 		<div class="main-header">
 			<div class="header-top">
                 {{ getContainerContent('index_logo')|raw }}
-				{{ getContainerContent('index_language_switcher')|raw }}
+				{% include 'ArmdMkResourcesBundle::language_switcher.html.twig' %}
 			</div>
 			<div class="header-menu">
 				{{ getContainerContent('index_menu')|raw }}

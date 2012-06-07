@@ -8,11 +8,6 @@
         {{ table.create({'title': 'other_c_logo', 'colspan': 3}, containers) }}
     {% endset %}
     
-    {# other_c_language_switcher #}
-    {% set other_c_language_switcher %}
-        {{ table.create({'title': 'other_c_language_switcher', 'colspan': 3}, containers) }}
-    {% endset %}
-    
     {# other_c_search #}
     {% set other_c_search %}
         {{ table.create({'title': 'other_c_search', 'colspan': 3}, containers) }}
@@ -49,9 +44,8 @@
     {% endset %}
 
     <div class="tab-content-blocks">
-        {{ common.block(other_c_logo, {'class': 'block-third'}) }}
-        {{ common.block(other_c_language_switcher, {'class': 'block-third'}) }}
-        {{ common.block(other_c_search, {'class': 'block-third'}) }}
+        {{ common.block(other_c_logo, {'class': 'block-half'}) }}
+        {{ common.block(other_c_search, {'class': 'block-half'}) }}
         {{ common.block(other_c_menu, {'class': 'block-full'}) }}
         {{ common.block(other_c_content_top, {'class': 'block-full'}) }}
 		{{ common.block(other_c_header_bottom, {'class': 'block-full'}) }}

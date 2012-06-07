@@ -3,8 +3,7 @@
 <h1>{{ entity.title }}</h1>
 
 {#<img width="266" height="196" title="pic12" alt="pic12" class="item-pic-left" src="./upload/pic12.jpg">#}
-{% thumbnail entity.image, 'big' with {'class': 'item-pic-left'} %}
-
+<div class="item-pic-left">{% thumbnail entity.image, 'reference' with {'class': ''} %}</div>
 <!--<div>{{ entity.announce|raw}}</div>-->
 
 <div>{{ entity.body|raw}}</div>

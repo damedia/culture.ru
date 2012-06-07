@@ -81,7 +81,7 @@
        
         <li class="events-list-item">
 					
-					{% if entity.schedule[0].begindate and entity.schedule[0].enddate %}
+					{#% if entity.schedule[0].begindate and entity.schedule[0].enddate %}
 					
 					
 					<dl class="cb">
@@ -102,7 +102,7 @@
 							</ul>
 						</dt>
                     </dl> 
-					{% else %}
+					{% else %#}
                     <dl class="cb">
                         <dt>{{ date|date("d") }}</dt>
                         <dd>
@@ -110,7 +110,7 @@
                             {{ date|localDate("l") }}
                         </dd>
                     </dl>
-					{% endif %}
+					{#% endif %#}
                     <a href="{{ eventUrl }}" class="see-also-list-img">{% thumbnail entity.image, 'big' %}</a>
                     <div class="see-also-list-brd"></div>
                     <a href="{{ eventUrl }}" class="see-also-list-bg" title="Подробнее">Подробнее</a>
