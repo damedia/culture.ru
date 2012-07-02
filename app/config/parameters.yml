@@ -1,15 +1,15 @@
 parameters:
-    database_driver:   pdo_mysql
+    database_driver:   pdo_pgsql
     database_host:     localhost
     database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_name:     mk
+    database_user:     mk
+    database_password: Fa3Sheer
 
     mailer_transport:  smtp
     mailer_host:       localhost
     mailer_user:       ~
     mailer_password:   ~
 
-    locale:            en
+    locale:            ru
     secret:            ThisTokenIsNotSoSecretChangeIt
