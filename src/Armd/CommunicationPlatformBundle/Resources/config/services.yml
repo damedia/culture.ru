@@ -1,0 +1,7 @@
+parameters:
+#    armd_communication_platform.example.class: Armd\CommunicationPlatformBundle\Example
+
+services:
+#    armd_communication_platform.example:
+#        class: %armd_communication_platform.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
