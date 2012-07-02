@@ -1,8 +1,0 @@
-parameters:
-    armd_news.controller.news.class: Armd\ExtendedNewsBundle\Controller\NewsController
-
-services:
-    armd_news.controller.news:
-        class: %armd_news.controller.news.class%
-        calls:
-            - [ setContainer, [ @service_container ] ]

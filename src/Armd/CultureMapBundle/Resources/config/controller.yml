@@ -1,9 +1,0 @@
-parameters:
-    armd_culture_map.controller.culturemap.class: Armd\CultureMapBundle\Controller\CultureMapController
-
-services:
-    armd_culture_map.controller.culturemap:
-        class: %armd_culture_map.controller.culturemap.class%
-        calls:
-            - [ setContainer, [ @service_container ] ]
-

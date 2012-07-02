@@ -1,3 +1,0 @@
-_sys_event_fetch:
-    pattern:  /fetch
-    defaults: { _controller: ArmdEventBundle:Event:fetch }
