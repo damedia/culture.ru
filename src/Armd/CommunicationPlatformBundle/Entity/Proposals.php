@@ -4,11 +4,16 @@ namespace Armd\CommunicationPlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Armd\CommunicationPlatformBundle\Entity\Thread;
+
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Armd\CommunicationPlatformBundle\Entity\Proposals
  *
  * @ORM\Table(name="cp_proposals")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Proposals
 {
@@ -19,7 +24,7 @@ class Proposals
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="text")
@@ -46,6 +51,14 @@ class Proposals
      * @ORM\JoinColumn(name="topic_id", referencedColumnName="id")
      */
     protected $topic;
+
+    /**
+     * Thread of this comment
+     *
+     * @var Thread
+     * @ORM\ManyToOne(targetEntity="Thread")
+     */
+    protected $thread;
 
     /**
      * Get id
@@ -173,5 +186,27 @@ class Proposals
     public function __toString()
     {
         return (string)$this->getId() ?: '-';
+    }
+
+    /**
+     * Set thread
+     *
+     * @param \Armd\CommunicationPlatformBundle\Entity\Thread $thread
+     * @return Proposals
+     */
+    public function setThread(\Armd\CommunicationPlatformBundle\Entity\Thread $thread = null)
+    {
+        $this->thread = $thread;
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Armd\CommunicationPlatformBundle\Entity\Thread
+     */
+    public function getThread()
+    {
+        return $this->thread;
     }
 }

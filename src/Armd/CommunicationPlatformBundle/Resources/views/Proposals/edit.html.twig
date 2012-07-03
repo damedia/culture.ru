@@ -23,4 +23,17 @@
             </form>
         </li>
     </ul>
+
+    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 10} %}
+
+{% endblock %}
+
+{% block javascripts %}
+     <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 {% endblock %}

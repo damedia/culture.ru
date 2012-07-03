@@ -4,8 +4,11 @@ namespace Armd\CommunicationPlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use FOS\CommentBundle\Entity\Thread;
+
 use Armd\CommunicationPlatformBundle\Entity\Proposals;
 use Armd\CommunicationPlatformBundle\Form\ProposalsType;
+use Armd\CommunicationPlatformBundle\Entity\Comment;
 
 /**
  * Proposals controller.
@@ -76,6 +79,7 @@ class ProposalsController extends Controller
         $form->bindRequest($request);
 
         if ($form->isValid()) {
+            $entity->setThread($this->createThread());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -95,8 +99,14 @@ class ProposalsController extends Controller
      */
     public function editAction($id)
     {
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById(10);
+        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+
         $em = $this->getDoctrine()->getManager();
 
+        /**
+         * @var $entity Proposals
+         */
         $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
 
         if (!$entity) {
@@ -107,6 +117,8 @@ class ProposalsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:edit.html.twig', array(
+            'comments' => $comments,
+            'thread' => $thread,
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -180,5 +192,30 @@ class ProposalsController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    /**
+     * @param int|null $threadId
+     * @return Thread
+     */
+    public function createThread()
+    {
+        $thread = $this->container->get('fos_comment.manager.thread')->createThread();
+        $thread->setId(10);
+        $thread->setPermalink($this->getRequest()->getUri());
+
+        // Add the thread
+        $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+
+        return $thread;
+    }
+
+    /**
+     * @param Thread $thread
+     * @return Comment
+     */
+    public function getComments(Thread $thread)
+    {
+        return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
     }
 }
