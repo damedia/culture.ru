@@ -4,9 +4,8 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
-    charset:         UTF-8
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_parameters: %kernel.debug%
@@ -46,6 +45,8 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
@@ -58,3 +59,37 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.noop
+    title:      Sonata Project
+    title_logo: /bundles/sonataadmin/logo_title.png
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+sonata_user:
+    security_acl: true
+
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     Application\Sonata\UserBundle\Entity\User
+
+    group:
+        group_class: Application\Sonata\UserBundle\Entity\Group
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            tree: true
+            timestampable: true
