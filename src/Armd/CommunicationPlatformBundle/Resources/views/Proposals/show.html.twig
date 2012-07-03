@@ -1,45 +1,49 @@
-<h1>Proposals</h1>
+{% extends '::base.html.twig' %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Content</th>
-            <td>{{ entity.content }}</td>
-        </tr>
-        <tr>
-            <th>Countlikes</th>
-            <td>{{ entity.countLikes }}</td>
-        </tr>
-        <tr>
-            <th>Countcomments</th>
-            <td>{{ entity.countComments }}</td>
-        </tr>
-        <tr>
-            <th>Enabled</th>
-            <td>{{ entity.enabled }}</td>
-        </tr>
-    </tbody>
-</table>
+{% block body %}
+    <h1>Proposals</h1>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('cp') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('cp_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('cp_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ entity.content }}</td>
+            </tr>
+            <tr>
+                <th>Countlikes</th>
+                <td>{{ entity.countLikes }}</td>
+            </tr>
+            <tr>
+                <th>Countcomments</th>
+                <td>{{ entity.countComments }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('cp') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('cp_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('cp_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+{% endblock %}

@@ -2,6 +2,16 @@ parameters:
 #    armd_communication_platform.example.class: Armd\CommunicationPlatformBundle\Example
 
 services:
-#    armd_communication_platform.example:
-#        class: %armd_communication_platform.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    armd.cp.topic.admin:
+        class: Armd\CommunicationPlatformBundle\Admin\TopicAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Topic }
+            - { name: armd.content.admin }
+        arguments: [null, Armd\CommunicationPlatformBundle\Entity\Topic, SonataAdminBundle:CRUD]
+
+    armd.cp.proposals.admin:
+        class: Armd\CommunicationPlatformBundle\Admin\ProposalsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Proposals }
+            - { name: armd.content.admin }
+        arguments: [null, Armd\CommunicationPlatformBundle\Entity\Proposals, SonataAdminBundle:CRUD]

@@ -117,4 +117,12 @@ class Topic
     {
         return $this->proposals;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle() ?: '-';
+    }
 }

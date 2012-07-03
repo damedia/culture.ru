@@ -37,7 +37,7 @@ class Proposals
     protected $countComments = 0;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $enabled;
 
@@ -129,7 +129,7 @@ class Proposals
      * @param boolean $enabled
      * @return Proposals
      */
-    public function setEnabled(\boolean $enabled)
+    public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
         return $this;
@@ -165,5 +165,13 @@ class Proposals
     public function getTopic()
     {
         return $this->topic;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getId() ?: '-';
     }
 }
