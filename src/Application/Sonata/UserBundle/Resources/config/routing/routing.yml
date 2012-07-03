@@ -1,0 +1,3 @@
+sonata_user_impersonating:
+    pattern:   /
+    defaults:  { _controller: SonataUserBundle:AdminSecurity:login }
