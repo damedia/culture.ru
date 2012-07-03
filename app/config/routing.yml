@@ -12,12 +12,17 @@ _sonata_user:
     prefix: /admin
 
 ApplicationSonataUserBundle:
-    resource: '@ApplicationSonataUserBundle/Resources/config/routing/security.xml'
+    resource: '@ApplicationSonataUserBundle/Resources/config/routing/routing.yml'
     prefix:   /admin
+
+fos_user_routing:
+    resource: '@ApplicationSonataUserBundle/Resources/config/routing/fos_user_routing.yml'
+    prefix:   /
 
 ArmdCommunicationPlatformBundle_proposals:
     resource: "@ArmdCommunicationPlatformBundle/Resources/config/routing/proposals.yml"
     prefix:   /cp
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
