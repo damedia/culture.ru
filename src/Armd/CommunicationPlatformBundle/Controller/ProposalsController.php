@@ -99,14 +99,13 @@ class ProposalsController extends Controller
      */
     public function editAction($id)
     {
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById(10);
         $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
         $em = $this->getDoctrine()->getManager();
-
-        /**
-         * @var $entity Proposals
-         */
         $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
 
         if (!$entity) {
@@ -117,8 +116,9 @@ class ProposalsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:edit.html.twig', array(
-            'comments' => $comments,
-            'thread' => $thread,
+            'user'        => $user,
+            'comments'    => $comments,
+            'thread'      => $thread,
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
