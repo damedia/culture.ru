@@ -20,3 +20,8 @@ services:
         class: Armd\CommunicationPlatformBundle\Acl\SecurityCommentAcl
         public: false
         arguments: [@security.context, @security.acl.object_identity_retrieval_strategy, @security.acl.provider, %fos_comment.model.comment.class%]
+
+    fos_comment.acl.vote.security:
+        class: Armd\CommunicationPlatformBundle\Acl\SecurityVoteAcl
+        public: false
+        arguments: [@security.context, @security.acl.object_identity_retrieval_strategy, @security.acl.provider, %fos_comment.model.vote.class%]

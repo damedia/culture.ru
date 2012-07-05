@@ -5,13 +5,16 @@ namespace Armd\CommunicationPlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use FOS\CommentBundle\Entity\Vote as BaseVote;
+use FOS\CommentBundle\Model\SignedVoteInterface;
+
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="cp_vote")
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class Vote extends BaseVote
+class Vote extends BaseVote implements SignedVoteInterface
 {
     /**
      * @ORM\Id
@@ -19,4 +22,26 @@ class Vote extends BaseVote
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * Author of the comment
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
+     * @var UserInterface
+     */
+    protected $voter;
+
+    /**
+     * @param \Symfony\Component\Security\Core\User\UserInterface $author
+     */
+    public function setVoter(UserInterface $voter)
+    {
+        $this->voter = $voter;
+    }
+
+    public function getVoter()
+    {
+        return $this->voter;
+    }
+
 }
