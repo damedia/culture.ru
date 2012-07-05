@@ -24,29 +24,4 @@
         </li>
     </ul>
 
-    <div id="fos_comment_thread" data-thread="{{ thread.id }}">
-
-    {% include 'ArmdCommunicationPlatformBundle:Thread:comments.html.twig' with {
-        'comments': comments,
-        'thread': thread
-    } %}
-
-    </div>
-
-{% endblock %}
-
-{% block javascripts %}
-     <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
-
-    {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
-    <script type="text/javascript" src="{{ asset_url }}">
-        var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';
-    </script>
-    {% endjavascripts %}
-{% endblock %}
-
-{% block stylesheets %}
-    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-    {% endstylesheets %}
 {% endblock %}

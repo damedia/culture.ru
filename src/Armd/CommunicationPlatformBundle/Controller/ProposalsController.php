@@ -3,6 +3,11 @@
 namespace Armd\CommunicationPlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Core\SecurityContext;
 
 use FOS\CommentBundle\Entity\Thread;
 
@@ -16,6 +21,11 @@ use Armd\CommunicationPlatformBundle\Entity\Comment;
  */
 class ProposalsController extends Controller
 {
+    /**
+     * @var Symfony\Component\Security\Core\SecurityContext
+     */
+    protected $securityContext;
+
     /**
      * Lists all Proposals entities.
      *
@@ -45,11 +55,17 @@ class ProposalsController extends Controller
             throw $this->createNotFoundException('Unable to find Proposals entity.');
         }
 
+        $thread = $this->getThread($entity);
+        $comments = $this->getComments($thread);
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:show.html.twig', array(
+            'comments'    => $comments,
+            'thread'      => $thread,
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 
     /**
@@ -84,6 +100,8 @@ class ProposalsController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $this->setAcl($entity);
+
             return $this->redirect($this->generateUrl('cp_show', array('id' => $entity->getId())));
         }
 
@@ -99,14 +117,9 @@ class ProposalsController extends Controller
      */
     public function editAction($id)
     {
-        $securityContext = $this->get('security.context');
-        $user = $securityContext->getToken()->getUser();
-
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById(10);
-        $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
+        $this->securityCheck('EDIT', $entity);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Proposals entity.');
@@ -116,9 +129,6 @@ class ProposalsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:edit.html.twig', array(
-            'user'        => $user,
-            'comments'    => $comments,
-            'thread'      => $thread,
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -179,6 +189,7 @@ class ProposalsController extends Controller
                 throw $this->createNotFoundException('Unable to find Proposals entity.');
             }
 
+            $this->securityCheck('DELETE', $entity);
             $em->remove($entity);
             $em->flush();
         }
@@ -186,6 +197,10 @@ class ProposalsController extends Controller
         return $this->redirect($this->generateUrl('cp'));
     }
 
+    /**
+     * @param $id
+     * @return \Symfony\Component\Form\Form
+     */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
@@ -201,7 +216,6 @@ class ProposalsController extends Controller
     public function createThread()
     {
         $thread = $this->container->get('fos_comment.manager.thread')->createThread();
-        $thread->setId(10);
         $thread->setPermalink($this->getRequest()->getUri());
 
         // Add the thread
@@ -217,5 +231,56 @@ class ProposalsController extends Controller
     public function getComments(Thread $thread)
     {
         return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+    }
+
+    /**
+     * @param \Armd\CommunicationPlatformBundle\Entity\Proposals $entity
+     * @return mixed
+     */
+    public function getThread(Proposals $entity)
+    {
+        return $this->container->get('fos_comment.manager.thread')->findThreadById($entity->getThread()->getId());
+    }
+
+    /**
+     * @param Proposals $entity
+     */
+    public function setAcl(Proposals $entity)
+    {
+        // creating the ACL
+        $aclProvider = $this->get('security.acl.provider');
+        $objectIdentity = ObjectIdentity::fromDomainObject($entity);
+        $acl = $aclProvider->createAcl($objectIdentity);
+
+        $user = $this->getSecurityContext()->getToken()->getUser();
+        $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+        // grant owner access
+        $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+        $aclProvider->updateAcl($acl);
+    }
+
+    /**
+     * @param string $action
+     * @param \Armd\CommunicationPlatformBundle\Entity\Proposals $entity
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    public function securityCheck($action, Proposals $entity)
+    {
+        if ( false === $this->getSecurityContext()->isGranted(strtoupper($action), $entity) ) {
+            throw new AccessDeniedException();
+        }
+    }
+
+    /**
+     * @return Symfony\Component\Security\Core\SecurityContext
+     */
+    public function getSecurityContext()
+    {
+        if ( null === $this->securityContext ) {
+            $this->securityContext = $this->get('security.context');
+        }
+
+        return $this->securityContext;
     }
 }

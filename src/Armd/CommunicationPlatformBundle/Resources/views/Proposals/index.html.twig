@@ -2,7 +2,6 @@
 
 {% block body %}
     <h1>Proposals list</h1>
-
     <table class="records_list">
         <thead>
             <tr>
@@ -27,9 +26,11 @@
                         <li>
                             <a href="{{ path('cp_show', { 'id': entity.id }) }}">show</a>
                         </li>
-                        <li>
-                            <a href="{{ path('cp_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
+                        {% if is_granted('EDIT', entity) %}
+                            <li>
+                                <a href="{{ path('cp_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </td>
             </tr>

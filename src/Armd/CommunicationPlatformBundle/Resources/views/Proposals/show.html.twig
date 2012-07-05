@@ -34,16 +34,46 @@
                 Back to the list
             </a>
         </li>
-        <li>
-            <a href="{{ path('cp_edit', { 'id': entity.id }) }}">
-                Edit
-            </a>
-        </li>
-        <li>
-            <form action="{{ path('cp_delete', { 'id': entity.id }) }}" method="post">
-                {{ form_widget(delete_form) }}
-                <button type="submit">Delete</button>
-            </form>
-        </li>
+        {% if is_granted('EDIT', entity) %}
+            <li>
+                <a href="{{ path('cp_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+        {% endif %}
+        {% if is_granted('DELETE', entity) %}
+            <li>
+                <form action="{{ path('cp_delete', { 'id': entity.id }) }}" method="post">
+                    {{ form_widget(delete_form) }}
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endif %}
     </ul>
+
+    <div id="fos_comment_thread" data-thread="{{ thread.id }}">
+
+    {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+        'comments': comments,
+        'thread': thread
+    } %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+     <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
+
+    {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+    <script type="text/javascript" src="{{ asset_url }}">
+        var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';
+    </script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 {% endblock %}

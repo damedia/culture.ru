@@ -1,21 +1,21 @@
 <?php
+
 namespace Armd\CommunicationPlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\CommentBundle\Entity\Thread as BaseThread;
+
+use FOS\CommentBundle\Entity\Vote as BaseVote;
 
 /**
- * @ORM\Table(name="cp_thread")
+ * @ORM\Table(name="cp_vote")
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class Thread extends BaseThread
+class Vote extends BaseVote
 {
     /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
