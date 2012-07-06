@@ -19,7 +19,7 @@
                 <td><a href="{{ path('cp_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.content }}</td>
                 <td>{{ entity.countLikes }}</td>
-                <td>{{ entity.countComments }}</td>
+                <td>{{ entity.getThread().getNumComments() }}</td>
                 <td>{{ entity.enabled }}</td>
                 <td>
                     <ul>

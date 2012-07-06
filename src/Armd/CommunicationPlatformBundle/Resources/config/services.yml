@@ -1,6 +1,3 @@
-parameters:
-#    armd_communication_platform.example.class: Armd\CommunicationPlatformBundle\Example
-
 services:
     armd.cp.topic.admin:
         class: Armd\CommunicationPlatformBundle\Admin\TopicAdmin
@@ -15,13 +12,3 @@ services:
             - { name: sonata.admin, manager_type: orm, group: module, label: Proposals }
             - { name: armd.content.admin }
         arguments: [null, Armd\CommunicationPlatformBundle\Entity\Proposals, SonataAdminBundle:CRUD]
-
-    fos_comment.acl.comment.security:
-        class: Armd\CommunicationPlatformBundle\Acl\SecurityCommentAcl
-        public: false
-        arguments: [@security.context, @security.acl.object_identity_retrieval_strategy, @security.acl.provider, %fos_comment.model.comment.class%]
-
-    fos_comment.acl.vote.security:
-        class: Armd\CommunicationPlatformBundle\Acl\SecurityVoteAcl
-        public: false
-        arguments: [@security.context, @security.acl.object_identity_retrieval_strategy, @security.acl.provider, %fos_comment.model.vote.class%]

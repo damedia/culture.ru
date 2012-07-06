@@ -9,11 +9,9 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\SecurityContext;
 
-use FOS\CommentBundle\Entity\Thread;
-
 use Armd\CommunicationPlatformBundle\Entity\Proposals;
 use Armd\CommunicationPlatformBundle\Form\ProposalsType;
-use Armd\CommunicationPlatformBundle\Entity\Comment;
+use Armd\CommentBundle\Entity\Thread;
 
 /**
  * Proposals controller.
@@ -211,7 +209,7 @@ class ProposalsController extends Controller
 
     /**
      * @param int|null $threadId
-     * @return Thread
+     * @return Armd\CommentBundle\Entity\Thread
      */
     public function createThread()
     {
@@ -225,8 +223,8 @@ class ProposalsController extends Controller
     }
 
     /**
-     * @param Thread $thread
-     * @return Comment
+     * @param Armd\CommentBundle\Entity\Thread $thread
+     * @return Armd\CommentBundle\Entity\Comment
      */
     public function getComments(Thread $thread)
     {
@@ -235,7 +233,7 @@ class ProposalsController extends Controller
 
     /**
      * @param \Armd\CommunicationPlatformBundle\Entity\Proposals $entity
-     * @return mixed
+     * @return Armd\CommentBundle\Entity\Thread
      */
     public function getThread(Proposals $entity)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Armd\CommunicationPlatformBundle\Entity;
+namespace Armd\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,7 @@ use FOS\CommentBundle\Model\VotableCommentInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="cp_comment")
+ * @ORM\Table(name="armd_comment_comment")
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */

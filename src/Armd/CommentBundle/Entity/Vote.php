@@ -1,16 +1,17 @@
 <?php
 
-namespace Armd\CommunicationPlatformBundle\Entity;
+namespace Armd\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 use FOS\CommentBundle\Entity\Vote as BaseVote;
 use FOS\CommentBundle\Model\SignedVoteInterface;
+use FOS\CommentBundle\Model\VoteInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="cp_vote")
+ * @ORM\Table(name="armd_comment_vote")
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
@@ -32,6 +33,14 @@ class Vote extends BaseVote implements SignedVoteInterface
     protected $voter;
 
     /**
+     * Thread of this comment
+     *
+     * @var Comment
+     * @ORM\ManyToOne(targetEntity="Comment")
+     */
+    protected $comment;
+
+    /**
      * @param \Symfony\Component\Security\Core\User\UserInterface $author
      */
     public function setVoter(UserInterface $voter)
@@ -43,5 +52,4 @@ class Vote extends BaseVote implements SignedVoteInterface
     {
         return $this->voter;
     }
-
 }

@@ -1,11 +1,11 @@
 <?php
-namespace Armd\CommunicationPlatformBundle\Entity;
+namespace Armd\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Thread as BaseThread;
 
 /**
- * @ORM\Table(name="cp_thread")
+ * @ORM\Table(name="armd_comment_thread")
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */

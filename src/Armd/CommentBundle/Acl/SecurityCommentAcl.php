@@ -1,19 +1,14 @@
 <?php
 
-namespace Armd\CommunicationPlatformBundle\Acl;
+namespace Armd\CommentBundle\Acl;
 
-use FOS\CommentBundle\Acl\SecurityVoteAcl as BaseSecurityVoteAcl;
+use FOS\CommentBundle\Acl\SecurityCommentAcl as BaseSecurityCommentAcl;
 
 use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 
-/**
- * Implements ACL checking using the Symfony2 Security component
- *
- * @author Tim Nagel <tim@nagel.com.au>
- */
-class SecurityVoteAcl extends BaseSecurityVoteAcl
+class SecurityCommentAcl extends BaseSecurityCommentAcl
 {
     protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
     {

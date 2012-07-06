@@ -4,14 +4,14 @@ namespace Armd\CommunicationPlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Armd\CommunicationPlatformBundle\Entity\Thread;
+use Armd\CommentBundle\Entity\Thread;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Armd\CommunicationPlatformBundle\Entity\Proposals
  *
- * @ORM\Table(name="cp_proposals")
+ * @ORM\Table(name="armd_cp_proposals")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
@@ -37,11 +37,6 @@ class Proposals
     protected $countLikes = 0;
 
     /**
-     * @ORM\Column(type="integer", name="count_comments")
-     */
-    protected $countComments = 0;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $enabled;
@@ -55,8 +50,8 @@ class Proposals
     /**
      * Thread of this comment
      *
-     * @var Thread
-     * @ORM\ManyToOne(targetEntity="Thread")
+     * @var Armd\CommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", fetch="EAGER")
      */
     protected $thread;
 
@@ -115,28 +110,6 @@ class Proposals
     }
 
     /**
-     * Set countComments
-     *
-     * @param int $countComments
-     * @return Proposals
-     */
-    public function setCountComments(\int $countComments)
-    {
-        $this->countComments = $countComments;
-        return $this;
-    }
-
-    /**
-     * Get countComments
-     *
-     * @return integer
-     */
-    public function getCountComments()
-    {
-        return $this->countComments;
-    }
-
-    /**
      * Set enabled
      *
      * @param boolean $enabled
@@ -191,10 +164,10 @@ class Proposals
     /**
      * Set thread
      *
-     * @param \Armd\CommunicationPlatformBundle\Entity\Thread $thread
+     * @param Armd\CommentBundle\Entity\Thread $thread
      * @return Proposals
      */
-    public function setThread(\Armd\CommunicationPlatformBundle\Entity\Thread $thread = null)
+    public function setThread(Thread $thread = null)
     {
         $this->thread = $thread;
         return $this;
@@ -203,7 +176,7 @@ class Proposals
     /**
      * Get thread
      *
-     * @return \Armd\CommunicationPlatformBundle\Entity\Thread
+     * @return Armd\CommentBundle\Entity\Thread
      */
     public function getThread()
     {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Armd\CommunicationPlatformBundle\Entity\Topic
  *
- * @ORM\Table(name="cp_topic")
+ * @ORM\Table(name="armd_cp_topic")
  * @ORM\Entity
  */
 class Topic

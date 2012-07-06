@@ -13,7 +13,6 @@ class ProposalsType extends AbstractType
         $builder
             ->add('content')
             ->add('countLikes')
-            ->add('countComments')
             ->add('enabled')
             ->add('topic')
         ;
