@@ -9,9 +9,10 @@ use FOS\CommentBundle\Model\SignedVoteInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
- * @ORM\Table(name="armd_comment_vote")
+ * @ORM\Table(name="armd_comment_vote", uniqueConstraints={@UniqueConstraint(name="voter_comment", columns={"voter_id", "comment_id"})})
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
@@ -36,7 +37,7 @@ class Vote extends BaseVote implements SignedVoteInterface
      * Thread of this comment
      *
      * @var Comment
-     * @ORM\ManyToOne(targetEntity="Comment")
+     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="votes", cascade={"all"}, fetch="EAGER")
      */
     protected $comment;
 

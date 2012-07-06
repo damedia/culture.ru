@@ -48,6 +48,11 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     protected $score = 0;
 
     /**
+     * @ORM\OneToMany(targetEntity="Vote", mappedBy="comment")
+     */
+    protected $votes;
+
+    /**
      * @param \Symfony\Component\Security\Core\User\UserInterface $author
      */
     public function setAuthor(UserInterface $author)
@@ -101,5 +106,15 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      */
     public function getScore() {
         return $this->score;
+    }
+
+    /**
+     * Get votes
+     *
+     * @return Vote[]
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }
