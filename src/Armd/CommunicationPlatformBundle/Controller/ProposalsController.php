@@ -53,14 +53,11 @@ class ProposalsController extends Controller
             throw $this->createNotFoundException('Unable to find Proposals entity.');
         }
 
-        $thread = $this->getThread($entity);
-        $comments = $this->getComments($thread);
-
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:show.html.twig', array(
-            'comments'    => $comments,
-            'thread'      => $thread,
+            'comments'    => $this->getComments($entity->getThread()),
+            'thread'      => $entity->getThread(),
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView()
         ));
@@ -229,15 +226,6 @@ class ProposalsController extends Controller
     public function getComments(Thread $thread)
     {
         return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
-    }
-
-    /**
-     * @param \Armd\CommunicationPlatformBundle\Entity\Proposals $entity
-     * @return Armd\CommentBundle\Entity\Thread
-     */
-    public function getThread(Proposals $entity)
-    {
-        return $this->container->get('fos_comment.manager.thread')->findThreadById($entity->getThread()->getId());
     }
 
     /**

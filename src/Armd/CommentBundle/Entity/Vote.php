@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
- * @ORM\Table(name="armd_comment_vote", uniqueConstraints={@UniqueConstraint(name="voter_comment", columns={"voter_id", "comment_id"})})
+ * @ORM\Table(name="armd_comment_vote", uniqueConstraints={@UniqueConstraint(name="voter_comment", columns={"voter_id", "comment_id", "value"})})
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
@@ -37,7 +37,7 @@ class Vote extends BaseVote implements SignedVoteInterface
      * Thread of this comment
      *
      * @var Comment
-     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="votes", cascade={"all"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Comment")
      */
     protected $comment;
 

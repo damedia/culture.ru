@@ -40,10 +40,8 @@ class CommentExtension extends BaseCommentExtension
             return false;
         }
 
-        foreach ($comment->getVotes() as $vote) {
-            if ($vote->getVoter() == $this->securityContext->getToken()->getUser()) {
-                return false;
-            }
+        if ($comment->getAuthor() == $this->securityContext->getToken()->getUser()) {
+            return false;
         }
 
         if (null === $this->voteAcl) {

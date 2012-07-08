@@ -51,7 +51,7 @@ class Proposals
      * Thread of this comment
      *
      * @var Armd\CommentBundle\Entity\Thread
-     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
      */
     protected $thread;
 
