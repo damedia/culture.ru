@@ -22,3 +22,7 @@ services:
     fos_comment.manager.vote.default:
         class: Armd\CommentBundle\Entity\VoteManager
         arguments: [@event_dispatcher, @fos_comment.entity_manager, %fos_comment.model.vote.class%]
+
+    armd_comment.manager.vote_object:
+        class: Armd\CommentBundle\Entity\VoteObjectThreadManager
+        arguments: [@event_dispatcher, @fos_comment.entity_manager, Armd\CommentBundle\Entity\VoteObjectThread]

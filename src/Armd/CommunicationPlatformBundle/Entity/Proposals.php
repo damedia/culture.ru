@@ -5,9 +5,10 @@ namespace Armd\CommunicationPlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Armd\CommentBundle\Entity\Thread;
+use Armd\CommentBundle\Model\VotableObjectInterface;
+use Armd\CommentBundle\Entity\VoteObjectThread;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Armd\CommunicationPlatformBundle\Entity\Proposals
  *
@@ -15,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Proposals
+class Proposals implements VotableObjectInterface
 {
     /**
      * @var integer $id
@@ -54,6 +55,30 @@ class Proposals
      * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
      */
     protected $thread;
+
+    /**
+     * Thread of this comment
+     *
+     * @var Armd\CommentBundle\Entity\VoteObjectThread
+     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\VoteObjectThread", cascade={"all"}, fetch="EAGER")
+     */
+    protected $voteObjectThread;
+
+    /**
+     * Comment voting score.
+     *
+     * @ORM\Column(type="integer")
+     * @var integer
+     */
+    protected $score = 0;
+
+    /**
+     * Author of the comment
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
+     * @var UserInterface
+     */
+    protected $author;
 
     /**
      * Get id
@@ -181,5 +206,86 @@ class Proposals
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Sets the current comment score.
+     *
+     * @param integer $score
+     */
+    public function setScore($score) {
+        $this->score = intval($score);
+    }
+
+    /**
+     * Increments the comment score by the provided
+     * value.
+     *
+     * @param integer by
+     * @return integer The new comment score
+     */
+    public function incrementScore($by = 1) {
+        $score = $this->getScore() + intval($by);
+        $this->setScore($score);
+        return $score;
+    }
+
+    /**
+     * Gets the current comment score.
+     *
+     * @return integer
+     */
+    public function getScore() {
+        return $this->score;
+    }
+
+    /**
+     * Set thread
+     *
+     * @param Armd\CommentBundle\Entity\VoteObjectThread $thread
+     * @return Proposals
+     */
+    public function setVoteObjectThread(VoteObjectThread $voteObjectThread = null)
+    {
+        $this->voteObjectThread = $voteObjectThread;
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return Armd\CommentBundle\Entity\VoteObjectThread
+     */
+    public function getVoteObjectThread()
+    {
+        return $this->voteObjectThread;
+    }
+
+    /**
+     * @param \Symfony\Component\Security\Core\User\UserInterface $author
+     */
+    public function setAuthor(UserInterface $author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return \Symfony\Component\Security\Core\User\UserInterface
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return string|UserInterface
+     */
+    public function getAuthorName()
+    {
+        if (null === $this->getAuthor()) {
+            return 'Anonymous';
+        }
+
+        return $this->getAuthor()->getUsername();
     }
 }

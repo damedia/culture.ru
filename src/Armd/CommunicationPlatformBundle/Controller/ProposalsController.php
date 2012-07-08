@@ -91,6 +91,9 @@ class ProposalsController extends Controller
 
         if ($form->isValid()) {
             $entity->setThread($this->createThread());
+            $entity->setVoteObjectThread($this->createVoteObjectThread());
+            $entity->setAuthor($this->getSecurityContext()->getToken()->getUser());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -213,8 +216,15 @@ class ProposalsController extends Controller
         $thread = $this->container->get('fos_comment.manager.thread')->createThread();
         $thread->setPermalink($this->getRequest()->getUri());
 
-        // Add the thread
         $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+
+        return $thread;
+    }
+
+    public function createVoteObjectThread()
+    {
+        $thread = $this->container->get('armd_comment.manager.vote_object')->createThread();
+        $this->container->get('armd_comment.manager.vote_object')->saveThread($thread);
 
         return $thread;
     }
