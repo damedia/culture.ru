@@ -26,7 +26,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ "FOSCommentBundle", "ArmdCommunicationPlatformBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -93,3 +93,25 @@ stof_doctrine_extensions:
             sluggable: true
             tree: true
             timestampable: true
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Armd\CommentBundle\Entity\Comment
+            thread: Armd\CommentBundle\Entity\Thread
+            vote: Armd\CommentBundle\Entity\Vote
+    acl: true
+    service:
+        manager:
+            thread: fos_comment.manager.thread.acl
+            comment: fos_comment.manager.comment.acl
+            vote: fos_comment.manager.vote.acl
+
+fos_rest:
+    view:
+        view_response_listener: force
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }

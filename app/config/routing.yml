@@ -19,6 +19,14 @@ fos_user_routing:
     resource: '@ApplicationSonataUserBundle/Resources/config/routing/fos_user_routing.yml'
     prefix:   /
 
+ArmdCommunicationPlatformBundle_proposals:
+    resource: "@ArmdCommunicationPlatformBundle/Resources/config/routing/proposals.yml"
+    prefix:   /cp
+
+fos_comment_api:
+   type: rest
+   resource: "@FOSCommentBundle/Resources/config/routing.yml"
+   prefix: /comment/api
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

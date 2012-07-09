@@ -1,0 +1,33 @@
+cp:
+    pattern:  /{topic}/{sort}
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:index", topic: general, sort: rating}
+    requirements:
+        topic:  general|\d+
+        sort: rating|created|comments
+
+cp_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:show" }
+
+cp_new:
+    pattern:  /new
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:new" }
+
+cp_create:
+    pattern:  /create
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:create" }
+    requirements: { _method: post }
+
+cp_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:edit" }
+
+cp_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:update" }
+    requirements: { _method: post }
+
+cp_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:delete" }
+    requirements: { _method: post }

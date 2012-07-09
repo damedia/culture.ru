@@ -1,0 +1,6 @@
+services:
+    armd_comment.listener.obejct_vote_score:
+        class: Armd\CommentBundle\EventListener\ObjectVoteScoreListener
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments: [@security.context]

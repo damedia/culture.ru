@@ -1,0 +1,109 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Proposals list</h1>
+
+    <h3>Рубрики</h3>
+    <ul>
+        {% for topic in topics %}
+            <li>
+                <a href="{{ path('cp', { 'topic': topic.id, 'sort': current_sort }) }}">{{ topic.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Сортировки</h3>
+    <ul>
+        <li>
+            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'rating' }) }}">rating</a>
+        </li>
+        <li>
+            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'created' }) }}">created</a>
+        </li>
+        <li>
+            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'comments' }) }}">comments</a>
+        </li>
+    </ul>
+
+    <div id="fos_comment_thread">
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Content</th>
+                    <th>Countcomments</th>
+                    <th>Enabled</th>
+                    <th>Actions</th>
+                    <th>Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('cp_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.content }}</td>
+                    <td>{{ entity.getThread().getNumComments() }}</td>
+                    <td>{{ entity.enabled }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('cp_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            {% if is_granted('EDIT', entity) %}
+                                <li>
+                                    <a href="{{ path('cp_edit', { 'id': entity.id }) }}">edit</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </td>
+                    <td>
+                        <!-- AddThis Button BEGIN -->
+                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
+                        <a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>
+                        <script type="text/javascript">
+                            addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});
+                        </script>
+                        <!-- AddThis Button END -->
+
+                        {% block armd_comment_object_metas_voting %}
+                            <div class="fos_comment_comment_voting">
+                                {% if fos_comment_can_object_vote(entity) %}
+                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
+                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
+                                {% endif %}
+                                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
+                            </div>
+                        {% endblock armd_comment_object_metas_voting %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_granted('ROLE_USER') %}
+        <ul>
+            <li>
+                <a href="{{ path('cp_new') }}">
+                    Create a new entry
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
+
+    {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+{% block stylesheets %}
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
