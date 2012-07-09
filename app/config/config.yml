@@ -87,13 +87,6 @@ fos_user:
     group:
         group_class: Application\Sonata\UserBundle\Entity\Group
 
-stof_doctrine_extensions:
-    orm:
-        default:
-            sluggable: true
-            tree: true
-            timestampable: true
-
 fos_comment:
     db_driver: orm
     class:
