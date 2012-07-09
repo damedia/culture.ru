@@ -42,7 +42,6 @@ class AclCommentManager extends BaseAclCommentManager
      */
     public function updateComment(CommentInterface $comment)
     {
-        var_dump($comment->getScore());
         $this->commentManager->saveComment($comment);
     }
 }

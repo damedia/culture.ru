@@ -5,8 +5,8 @@ namespace Armd\CommunicationPlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Armd\CommentBundle\Entity\Thread;
-use Armd\CommentBundle\Model\VotableObjectInterface;
 use Armd\CommentBundle\Entity\VoteObjectThread;
+use Armd\CommentBundle\Model\VotableObjectInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 /**
@@ -31,11 +31,6 @@ class Proposals implements VotableObjectInterface
      * @ORM\Column(type="text")
      */
     protected $content;
-
-    /**
-     * @ORM\Column(type="integer", name="count_likes")
-     */
-    protected $countLikes = 0;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -63,14 +58,6 @@ class Proposals implements VotableObjectInterface
      * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\VoteObjectThread", cascade={"all"}, fetch="EAGER")
      */
     protected $voteObjectThread;
-
-    /**
-     * Comment voting score.
-     *
-     * @ORM\Column(type="integer")
-     * @var integer
-     */
-    protected $score = 0;
 
     /**
      * Author of the comment
@@ -110,28 +97,6 @@ class Proposals implements VotableObjectInterface
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * Set countLikes
-     *
-     * @param int $countLikes
-     * @return Proposals
-     */
-    public function setCountLikes(\int $countLikes)
-    {
-        $this->countLikes = $countLikes;
-        return $this;
-    }
-
-    /**
-     * Get countLikes
-     *
-     * @return integer
-     */
-    public function getCountLikes()
-    {
-        return $this->countLikes;
     }
 
     /**
@@ -206,37 +171,6 @@ class Proposals implements VotableObjectInterface
     public function getThread()
     {
         return $this->thread;
-    }
-
-    /**
-     * Sets the current comment score.
-     *
-     * @param integer $score
-     */
-    public function setScore($score) {
-        $this->score = intval($score);
-    }
-
-    /**
-     * Increments the comment score by the provided
-     * value.
-     *
-     * @param integer by
-     * @return integer The new comment score
-     */
-    public function incrementScore($by = 1) {
-        $score = $this->getScore() + intval($by);
-        $this->setScore($score);
-        return $score;
-    }
-
-    /**
-     * Gets the current comment score.
-     *
-     * @return integer
-     */
-    public function getScore() {
-        return $this->score;
     }
 
     /**

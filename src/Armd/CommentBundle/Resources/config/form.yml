@@ -1,0 +1,10 @@
+services:
+    armd_comment.form_type.vote_object:
+        class: FOS\CommentBundle\Form\VoteType
+        tags:
+            - { name: form.type, alias: armd_comment.vote_object}
+        arguments: [Armd\CommentBundle\Entity\VoteObject]
+
+    armd_comment.form_factory.vote_object:
+        class: FOS\CommentBundle\FormFactory\VoteFormFactory
+        arguments: [@form.factory, @armd_comment.form_type.vote_object, %fos_comment.form.vote.name%]

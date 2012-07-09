@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use FOS\CommentBundle\Model\SignedVoteInterface;
 use FOS\CommentBundle\Model\VoteInterface;
+use FOS\CommentBundle\Model\VotableCommentInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\ExecutionContext;
@@ -136,6 +137,9 @@ class VoteObject
         $this->voter = $voter;
     }
 
+    /**
+     * @return \Symfony\Component\Security\Core\User\UserInterface
+     */
     public function getVoter()
     {
         return $this->voter;

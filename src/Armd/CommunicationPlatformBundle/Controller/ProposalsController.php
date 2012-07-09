@@ -223,8 +223,8 @@ class ProposalsController extends Controller
 
     public function createVoteObjectThread()
     {
-        $thread = $this->container->get('armd_comment.manager.vote_object')->createThread();
-        $this->container->get('armd_comment.manager.vote_object')->saveThread($thread);
+        $thread = $this->container->get('armd_comment.manager.vote_thread_object')->createThread();
+        $this->container->get('armd_comment.manager.vote_thread_object')->saveThread($thread);
 
         return $thread;
     }

@@ -34,6 +34,15 @@ class VoteObjectThread
      */
     protected $isVoteable = true;
 
+
+    /**
+     * Comment voting score.
+     *
+     * @ORM\Column(type="integer")
+     * @var integer
+     */
+    protected $score = 0;
+
     /**
      * Get id
      *
@@ -64,5 +73,37 @@ class VoteObjectThread
     public function getIsVoteable()
     {
         return $this->isVoteable;
+    }
+
+
+    /**
+     * Sets the current comment score.
+     *
+     * @param integer $score
+     */
+    public function setScore($score) {
+        $this->score = intval($score);
+    }
+
+    /**
+     * Increments the comment score by the provided
+     * value.
+     *
+     * @param integer by
+     * @return integer The new comment score
+     */
+    public function incrementScore($by = 1) {
+        $score = $this->getScore() + intval($by);
+        $this->setScore($score);
+        return $score;
+    }
+
+    /**
+     * Gets the current comment score.
+     *
+     * @return integer
+     */
+    public function getScore() {
+        return $this->score;
     }
 }

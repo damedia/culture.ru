@@ -79,6 +79,7 @@ class CommentExtension extends BaseCommentExtension
             return false;
         }
 
-        return $this->securityContext->isGranted('CREATE');
+        //return $this->securityContext->isGranted('CREATE');
+        return $this->securityContext->isGranted('ROLE_USER');
     }
 }

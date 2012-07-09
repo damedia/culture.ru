@@ -9,29 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 interface VotableObjectInterface
 {
     /**
-     * Sets the score of the comment.
-     *
-     * @param integer $score
-     */
-    function setScore($score);
-
-    /**
-     * Returns the current score of the comment.
-     *
-     * @return integer
-     */
-    function getScore();
-
-    /**
-     * Increments the comment score by the provided
-     * value.
-     *
-     * @param integer by
-     * @return integer The new comment score
-     */
-    function incrementScore($by = 1);
-
-    /**
      * @abstract
      * @param \Armd\CommentBundle\Entity\VoteObjectThread|null $thread
      */
