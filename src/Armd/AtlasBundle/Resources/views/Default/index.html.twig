@@ -1,0 +1,11 @@
+{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+
+{% block body %}
+    <div id="atlas-map" class="atlas-map"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.6"></script>
+    <script src="{{ asset('bundles/armdatlas/js/atlas.js') }}"></script>
+{% endblock %}
