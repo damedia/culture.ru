@@ -75,11 +75,14 @@ class CommentExtension extends BaseCommentExtension
      */
     public function canObjectVote(VotableObjectInterface $votableObject)
     {
+        if (!$votableObject instanceof VotableObjectInterface) {
+            return false;
+        }
+
         if ($votableObject->getAuthor() == $this->securityContext->getToken()->getUser()) {
             return false;
         }
 
-        //return $this->securityContext->isGranted('CREATE');
         return $this->securityContext->isGranted('ROLE_USER');
     }
 }
