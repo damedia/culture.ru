@@ -28,14 +28,18 @@ class ProposalsController extends Controller
      * Lists all Proposals entities.
      *
      */
-    public function indexAction()
+    public function indexAction($topic, $sort)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->findAll();
+        $topis = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:index.html.twig', array(
-            'entities' => $entities,
+            'current_topic'=> $topic,
+            'current_sort' => $sort,
+            'topics'       => $topis,
+            'entities'     => $entities
         ));
     }
 

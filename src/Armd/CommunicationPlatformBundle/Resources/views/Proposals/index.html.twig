@@ -2,6 +2,29 @@
 
 {% block body %}
     <h1>Proposals list</h1>
+
+    <h3>Рубрики</h3>
+    <ul>
+        {% for topic in topics %}
+            <li>
+                <a href="{{ path('cp', { 'topic': topic.id, 'sort': current_sort }) }}">{{ topic.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Сортировки</h3>
+    <ul>
+        <li>
+            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'rating' }) }}">rating</a>
+        </li>
+        <li>
+            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'created' }) }}">created</a>
+        </li>
+        <li>
+            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'comments' }) }}">comments</a>
+        </li>
+    </ul>
+
     <div id="fos_comment_thread">
         <table class="records_list">
             <thead>
