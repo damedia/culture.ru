@@ -28,6 +28,16 @@ class Proposals implements VotableObjectInterface
     protected $id;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="text")
      */
     protected $content;
@@ -221,5 +231,45 @@ class Proposals implements VotableObjectInterface
         }
 
         return $this->getAuthor()->getUsername();
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set announce
+     *
+     * @param text $announce
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Get announce
+     *
+     * @return text
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

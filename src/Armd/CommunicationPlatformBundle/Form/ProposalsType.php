@@ -13,6 +13,8 @@ class ProposalsType extends AbstractType
         $builder
             ->add('content')
             ->add('enabled')
+            ->add('title')
+            ->add('description')
             ->add('topic')
         ;
     }
