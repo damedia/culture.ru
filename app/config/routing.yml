@@ -19,6 +19,10 @@ fos_user_routing:
     resource: '@ApplicationSonataUserBundle/Resources/config/routing/fos_user_routing.yml'
     prefix:   /
 
+zim32_loginza:
+    resource: '@Zim32LoginzaBundle/Resources/config/routing.yml'
+    prefix:   /
+
 ArmdCommunicationPlatformBundle_proposals:
     resource: "@ArmdCommunicationPlatformBundle/Resources/config/routing/proposals.yml"
     prefix:   /cp
