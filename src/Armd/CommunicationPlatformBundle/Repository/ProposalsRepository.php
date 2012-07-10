@@ -11,7 +11,7 @@ class ProposalsRepository extends EntityRepository
      * @param $sort
      * @return \Doctrine\ORM\Query
      */
-    public function getQueryListProposals($topic, $sort)
+    public function getQueryListProposals($topic, $sort, $order)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder('p, ct')
             ->select('p, ct, vt')
@@ -22,7 +22,7 @@ class ProposalsRepository extends EntityRepository
             ->setParameter('enabled', 1);
 
         $queryBuilder = $this->setTopicFilter($queryBuilder, $topic);
-        $queryBuilder = $this->setOrder($queryBuilder, $sort);
+        $queryBuilder = $this->setOrder($queryBuilder, $sort, strtoupper($order));
 
         return $queryBuilder->getQuery();
     }
@@ -46,20 +46,20 @@ class ProposalsRepository extends EntityRepository
      * @param $sort
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setOrder(QueryBuilder $queryBuilder, $sort)
+    public function setOrder(QueryBuilder $queryBuilder, $sort, $order)
     {
         switch ($sort) {
             case 'rating':
-                $queryBuilder->orderBy('vt.score', 'DESC');
+                $queryBuilder->orderBy('vt.score', $order);
                 break;
             case 'created':
-                $queryBuilder->orderBy('p.createdAt', 'DESC');
+                $queryBuilder->orderBy('p.createdAt', $order);
                 break;
             case 'comments':
-                $queryBuilder->orderBy('ct.numComments', 'DESC');
+                $queryBuilder->orderBy('ct.numComments', $order);
                 break;
             default:
-                $queryBuilder->orderBy('vt.score', 'DESC');
+                $queryBuilder->orderBy('vt.score', $order);
         }
 
         return $queryBuilder;

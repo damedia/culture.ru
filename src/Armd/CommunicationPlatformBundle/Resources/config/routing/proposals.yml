@@ -1,10 +1,11 @@
 cp:
-    pattern:  /{topic}/{sort}/{page}
-    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:index", topic: 0, sort: rating, page: 1}
+    pattern:  /{topic}/{sort}/{order}/{page}
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:index", topic: 0, sort: rating, order: desc, page: 1}
     requirements:
-        topic:  \d+
+        topic: \d+
         page:  \d+
-        sort: rating|created|comments
+        order: desc|asc
+        sort:  rating|created|comments
 
 cp_show:
     pattern:  /{id}/show
