@@ -46,6 +46,10 @@ $(function(){
     }
 
     function drawPlacemarks(data) {
+
+        var minLng=1000, maxLng=0,
+            minLat=1000, maxLat=0;
+
         $.each(data, function(i, el){
             // place marker
             var customPoint = new PGmap.Point({
@@ -79,6 +83,19 @@ $(function(){
             });
 
             map.geometry.add(customPoint);
+
+            if (parseFloat(el.lat) > maxLat) maxLat = el.lat;
+            if (parseFloat(el.lat) < minLat) minLat = el.lat;
+            if (parseFloat(el.lng) > maxLng) maxLng = el.lng;
+            if (parseFloat(el.lng) < minLng) minLng = el.lng;
+        });
+
+        console.log(minLat, maxLat, minLng, maxLng);
+        map.setCenterByBbox({
+            lon1: maxLng,
+            lon2: minLng,
+            lat1: maxLat,
+            lat2: minLat
         });
     }
 
