@@ -1,5 +1,5 @@
 {
-    "hash": "019470c23b1f2e7804fa8ea26cc03969",
+    "hash": "eb679d87f8600a0ab77abd67f5c46a64",
     "packages": [
         {
             "package": "doctrine/common",
@@ -24,6 +24,36 @@
             "commit-date": "1341676080"
         },
         {
+            "package": "friendsofsymfony/comment-bundle",
+            "version": "dev-master",
+            "source-reference": "426ad3f267d53c7f9f2ff6fe4c79f6e8afc5269c",
+            "commit-date": "1341650988"
+        },
+        {
+            "package": "friendsofsymfony/rest",
+            "version": "dev-master",
+            "alias-pretty-version": "0.7.x-dev",
+            "alias-version": "0.7.9999999.9999999-dev"
+        },
+        {
+            "package": "friendsofsymfony/rest",
+            "version": "dev-master",
+            "source-reference": "5ea703f5a3f5c7110cadeccb91b212c0eb7ea2d0",
+            "commit-date": "1339701893"
+        },
+        {
+            "package": "friendsofsymfony/rest-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "0.8.x-dev",
+            "alias-version": "0.8.9999999.9999999-dev"
+        },
+        {
+            "package": "friendsofsymfony/rest-bundle",
+            "version": "dev-master",
+            "source-reference": "db40cf0203e74ad15d018c5650ff77931b915029",
+            "commit-date": "1341581983"
+        },
+        {
             "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
             "source-reference": "59220fc32c32b29e766b6f55ab788ddb036aa9b0",
@@ -32,7 +62,8 @@
         {
             "package": "gedmo/doctrine-extensions",
             "version": "dev-master",
-            "source-reference": "31e5e51f242c7cd03433d7c0c8d58c55b26cc095"
+            "alias-pretty-version": "2.3.x-dev",
+            "alias-version": "2.3.9999999.9999999-dev"
         },
         {
             "package": "gedmo/doctrine-extensions",
@@ -59,6 +90,18 @@
         {
             "package": "jms/security-extra-bundle",
             "version": "1.1.0"
+        },
+        {
+            "package": "jms/serializer-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "0.9.x-dev",
+            "alias-version": "0.9.9999999.9999999-dev"
+        },
+        {
+            "package": "jms/serializer-bundle",
+            "version": "dev-master",
+            "source-reference": "6df19222b597ab6f44c67dde4499766a5ca1fb99",
+            "commit-date": "1341570103"
         },
         {
             "package": "knplabs/knp-menu",
@@ -91,6 +134,12 @@
             "version": "dev-master",
             "source-reference": "9a7dbd867fd5061e4bfd660a175aa66122f53d25",
             "commit-date": "1341741741"
+        },
+        {
+            "package": "sensio/framework-extra-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "sensio/framework-extra-bundle",
@@ -185,13 +234,25 @@
         {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
-            "source-reference": "7fe7f711bb04b86ad7f45a9e11a7f8cbaf9bc1a5",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/monolog-bundle",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-BETA2",
             "commit-date": "1341078487"
         },
         {
             "package": "symfony/swiftmailer-bundle",
             "version": "dev-master",
-            "source-reference": "e1d413ce27fd1696bdc82ad9525f1b874664530e",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/swiftmailer-bundle",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-BETA2",
             "commit-date": "1341509614"
         },
         {
@@ -203,8 +264,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA2",
-            "commit-date": "1341820358"
+            "source-reference": "b4c55bdcf40f230b622ab070dcb47ea35e3e17d7",
+            "commit-date": "1341853078"
         },
         {
             "package": "twig/extensions",
