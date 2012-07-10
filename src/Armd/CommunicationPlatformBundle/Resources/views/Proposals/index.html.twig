@@ -39,6 +39,7 @@
                     <th>Id</th>
                     <th>Content</th>
                     <th>Countcomments</th>
+                    <th>CountVoters</th>
                     <th>Enabled</th>
                     <th>Actions</th>
                     <th>Vote</th>
@@ -50,6 +51,7 @@
                     <td><a href="{{ path('cp_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.content }}</td>
                     <td>{{ entity.getThread().getNumComments() }}</td>
+                    <td>{{ entity.getVoteObjectThread().getCountVotes() }}</td>
                     <td>{{ entity.enabled }}</td>
                     <td>
                         <ul>

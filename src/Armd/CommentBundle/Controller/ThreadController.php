@@ -295,6 +295,7 @@ class ThreadController extends BaseController
     {
         $this->getVoteObjectManager()->removeVote($objectVote);
         $thread->incrementScore($value);
+        $thread->decrementCountVotes();
         $this->container->get('armd_comment.manager.vote_thread_object')->saveThread($thread);
     }
 }

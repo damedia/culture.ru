@@ -25,11 +25,15 @@ class ObjectVoteScoreListener implements EventSubscriberInterface
         $this->securityContext = $securityContext;
     }
 
+    /**
+     * @param \Armd\CommentBundle\Event\VoteObjectEvent $event
+     */
     public function onVoteObjectPersist(VoteObjectEvent $event)
     {
         $vote = $event->getVote();
         $thread = $vote->getThread();
         $thread->incrementScore($vote->getValue());
+        $thread->incrementCountVotes();
 
         if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $vote->setVoter($this->securityContext->getToken()->getUser());

@@ -124,7 +124,7 @@ class VoteObjectThread
     }
 
     /**
-     * Increments the comment score by the provided
+     * Increments the count votes
      * value.
      *
      * @return integer The new comment score
@@ -132,6 +132,18 @@ class VoteObjectThread
     public function incrementCountVotes() {
         $countVotes = $this->getCountVotes();
         $this->setScore($countVotes++);
+        return $countVotes;
+    }
+
+    /**
+     * Derements the count votes
+     * value.
+     *
+     * @return integer The new comment score
+     */
+    public function decrementCountVotes() {
+        $countVotes = $this->getCountVotes();
+        $this->setScore($countVotes--);
         return $countVotes;
     }
 
