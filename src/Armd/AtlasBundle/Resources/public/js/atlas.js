@@ -23,40 +23,29 @@ $(function(){
     map.controls.addControl('route');
     */
 
-    var customPoint = new PGmap.Point({
-            coord: new PGmap.Coord(4187521.87177, 7473956.8430),
-            url: 'http://mkprom.dev.armd.ru/bundles/armdculturemap/images/pin_science.png'
-        }),
-        customBalloon = new PGmap.Balloon({
-            content: '<h1>Head1</h1><p>bla-bla-bla</p>',
-            isClosing: true,
-            isHidden: false
-        });
-    /*
-        customPolyline = new PGmap.Polyline({
-            points:	[
-                new PGmap.Coord(37.418824, 55.712948, true),
-                new PGmap.Coord(37.438824, 55.702948, true),
-                new PGmap.Coord(37.438824, 55.752948, true)
-            ],
-            style: { color:"#f3f", lineHeight:5 }
-        });
-        */
-
-    map.geometry.add(customPoint);
-    customPoint.addBalloon(customBalloon);
-
-    //map.geometry.add(customPolyline);
-
-    var customPolygon = new PGmap.Polygon({
-        points: [
-            new PGmap.Coord(4187445, 7461492)
-            , new PGmap.Coord(4208877, 7468028)
-        ]
-        , draggable: 1
-        , style: {color:"#f00", lineHeight: 5, backgroundColor: "#fde", lineOpacity:0.5, backgroundOpacity: 0.5 }
+    $.ajax({
+        url: 'http://local.armd.ru/app_dev.php/atlas/proxy?region=&search=&type%5B%5D=15&type%5B%5D=1&type%5B%5D=13&type%5B%5D=3&type%5B%5D=14&type%5B%5D=41&type%5B%5D=8&type%5B%5D=9&type%5B%5D=10&type%5B%5D=6&type%5B%5D=5&type%5B%5D=11&type%5B%5D=4&type%5B%5D=12&type%5B%5D=2&type%5B%5D=7',
+        success: function(json){
+            if (json.success) {
+                $.each(json.result, function(i, el){
+                    // place marker
+                    var customPoint = new PGmap.Point({
+                            coord: new PGmap.Coord(el.lng, el.lat, true),
+                            url: 'http://mkprom.dev.armd.ru/bundles/armdculturemap/images/pin_science.png'
+                        }),
+                        customBalloon = new PGmap.Balloon({
+                            content: el.text,
+                            isClosing: true,
+                            isHidden: true
+                        });
+                    customPoint.addBalloon(customBalloon);
+                    map.geometry.add(customPoint);
+                });
+            }
+        }
     });
-    map.geometry.add(customPolygon);
-    customPolygon.graphic.attr({"stroke":'#f00'});
+
+    //------------------------
+    $('#regions-selector').chosen();
 
 });

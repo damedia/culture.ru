@@ -346,46 +346,6 @@ class Subject
     }
 
     /**
-     * Set logo
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Media $logo
-     */
-    public function setLogo(\Armd\Bundle\MediaBundle\Entity\Media $logo)
-    {
-        $this->logo = $logo;
-    }
-
-    /**
-     * Get logo
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Media
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
-     * Set gallery
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
-     */
-    public function setGallery(\Armd\Bundle\MediaBundle\Entity\Gallery $gallery)
-    {
-        $this->gallery = $gallery;
-    }
-
-    /**
-     * Get gallery
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery
-     */
-    public function getGallery()
-    {
-        return $this->gallery;
-    }
-
-    /**
      * Set yname
      *
      * @param string $yname
