@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Armd\CommunicationPlatformBundle\Entity\Proposals
  *
  * @ORM\Table(name="armd_cp_proposals")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\CommunicationPlatformBundle\Repository\ProposalsRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Proposals implements VotableObjectInterface
@@ -76,6 +76,11 @@ class Proposals implements VotableObjectInterface
      * @var UserInterface
      */
     protected $author;
+
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     */
+    protected $createdAt;
 
     /**
      * Get id
@@ -272,4 +277,12 @@ class Proposals implements VotableObjectInterface
     {
         return $this->description;
     }
+
+   /**
+    * @ORM\PrePersist
+    */
+   public function setCreatedValue()
+   {
+       $this->createdAt = new \DateTime();
+   }
 }

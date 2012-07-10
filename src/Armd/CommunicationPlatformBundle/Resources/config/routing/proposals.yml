@@ -1,8 +1,9 @@
 cp:
-    pattern:  /{topic}/{sort}
-    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:index", topic: general, sort: rating}
+    pattern:  /{topic}/{sort}/{page}
+    defaults: { _controller: "ArmdCommunicationPlatformBundle:Proposals:index", topic: 0, sort: rating, page: 1}
     requirements:
-        topic:  general|\d+
+        topic:  \d+
+        page:  \d+
         sort: rating|created|comments
 
 cp_show:

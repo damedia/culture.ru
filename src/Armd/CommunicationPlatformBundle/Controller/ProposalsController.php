@@ -2,6 +2,7 @@
 
 namespace Armd\CommunicationPlatformBundle\Controller;
 
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
@@ -28,19 +29,43 @@ class ProposalsController extends Controller
      * Lists all Proposals entities.
      *
      */
-    public function indexAction($topic, $sort)
+    public function indexAction($topic, $sort, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->findAll();
+        $entities =$this->getPagination($em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->getQueryListProposals($topic, $sort), $page, 10);
+
         $topis = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:index.html.twig', array(
+            'statistic'    => $this->getStatisticInfomation($entities),
             'current_topic'=> $topic,
             'current_sort' => $sort,
             'topics'       => $topis,
             'entities'     => $entities
         ));
+    }
+
+    /**
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $entities
+     * @return array
+     */
+    public function getStatisticInfomation(SlidingPagination $entities)
+    {
+        $simpeUsers = 0;
+        $expertUsers = 0;
+        foreach ($this->get('fos_user.user_manager')->findUsers() as $user) {
+            if (in_array('ROLE_EXPERT', $user->getRoles())) {
+                $expertUsers++;
+            }
+            if (in_array('ROLE_USER', $user->getRoles()) && !in_array('ROLE_EXPERT', $user->getRoles())) {
+                $simpeUsers++;
+            }
+        }
+
+        return array('simpleUser'  => $simpeUsers,
+                     'expertUsers' => $expertUsers,
+                     'totalCount'  => $entities->getTotalItemCount());
     }
 
     /**
@@ -282,5 +307,17 @@ class ProposalsController extends Controller
         }
 
         return $this->securityContext;
+    }
+
+    /**
+     * @param \Doctrine\ORM\Query $query
+     * @param int $page
+     * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
+     */
+    public function getPagination(\Doctrine\ORM\Query $query, $page, $limit)
+    {
+        $paginator = $this->get('knp_paginator');
+
+        return $paginator->paginate($query, $page, $limit);
     }
 }
