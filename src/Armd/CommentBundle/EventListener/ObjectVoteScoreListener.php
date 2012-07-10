@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 use Armd\CommentBundle\Entity\VoteObject;
 use Armd\CommentBundle\Event\VoteObjectEvent;
+use Armd\CommentBundle\Model\CountVotesInterface;
 
 class ObjectVoteScoreListener implements EventSubscriberInterface
 {
@@ -33,7 +34,10 @@ class ObjectVoteScoreListener implements EventSubscriberInterface
         $vote = $event->getVote();
         $thread = $vote->getThread();
         $thread->incrementScore($vote->getValue());
-        $thread->incrementCountVotes();
+
+        if ($thread instanceof CountVotesInterface) {
+            $thread->incrementCountVotes();
+        }
 
         if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $vote->setVoter($this->securityContext->getToken()->getUser());

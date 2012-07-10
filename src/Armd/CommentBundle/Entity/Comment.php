@@ -7,6 +7,8 @@ use FOS\CommentBundle\Entity\Comment as BaseComment;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 
+use Armd\CommentBundle\Model\CountVotesInterface;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -14,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
+class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface, CountVotesInterface
 {
     /**
      * @ORM\Id
@@ -51,6 +53,14 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * @ORM\OneToMany(targetEntity="Vote", mappedBy="comment")
      */
     protected $votes;
+
+    /**
+     * Count votes.
+     *
+     * @ORM\Column(type="integer")
+     * @var integer
+     */
+    protected $countVotes = 0;
 
     /**
      * @param \Symfony\Component\Security\Core\User\UserInterface $author
@@ -116,5 +126,45 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     public function getVotes()
     {
         return $this->votes;
+    }
+
+    /**
+     * @param integer $countVotes
+     */
+    public function setCountVotes($countVotes) {
+        $this->countVotes = intval($countVotes);
+    }
+
+    /**
+     * Increments the count votes
+     * value.
+     *
+     * @return integer The count votes
+     */
+    public function incrementCountVotes() {
+        $countVotes = $this->getCountVotes();
+        $this->setCountVotes(++$countVotes);
+        return $countVotes;
+    }
+
+    /**
+     * Derements the count votes
+     * value.
+     *
+     * @return integer The count votes
+     */
+    public function decrementCountVotes() {
+        $countVotes = $this->getCountVotes();
+        $this->setCountVotes(--$countVotes);
+        return $countVotes;
+    }
+
+    /**
+     * Gets the current comment score.
+     *
+     * @return integer
+     */
+    public function getCountVotes() {
+        return $this->countVotes;
     }
 }

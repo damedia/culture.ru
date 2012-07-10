@@ -4,20 +4,16 @@ namespace Armd\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use FOS\CommentBundle\Entity\Vote as BaseVote;
-use FOS\CommentBundle\Model\SignedVoteInterface;
-use FOS\CommentBundle\Model\VoteInterface;
-use FOS\CommentBundle\Model\ThreadInterface;
+use Armd\CommentBundle\Model\CountVotesInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Table(name="armd_comment_vote_object_thread")
  * @ORM\Entity
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class VoteObjectThread
+class VoteObjectThread implements CountVotesInterface
 {
     /**
      * @ORM\Id
@@ -115,8 +111,6 @@ class VoteObjectThread
     }
 
     /**
-     * Sets the current comment score.
-     *
      * @param integer $countVotes
      */
     public function setCountVotes($countVotes) {
@@ -127,11 +121,11 @@ class VoteObjectThread
      * Increments the count votes
      * value.
      *
-     * @return integer The new comment score
+     * @return integer The count votes
      */
     public function incrementCountVotes() {
         $countVotes = $this->getCountVotes();
-        $this->setScore($countVotes++);
+        $this->setCountVotes(++$countVotes);
         return $countVotes;
     }
 
@@ -139,11 +133,11 @@ class VoteObjectThread
      * Derements the count votes
      * value.
      *
-     * @return integer The new comment score
+     * @return integer The count votes
      */
     public function decrementCountVotes() {
         $countVotes = $this->getCountVotes();
-        $this->setScore($countVotes--);
+        $this->setCountVotes(--$countVotes);
         return $countVotes;
     }
 
