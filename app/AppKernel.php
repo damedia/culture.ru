@@ -38,6 +38,8 @@ class AppKernel extends Kernel
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Armd\CommentBundle\ArmdCommentBundle(),
+
+            new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
