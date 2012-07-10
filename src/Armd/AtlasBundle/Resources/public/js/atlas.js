@@ -23,29 +23,141 @@ $(function(){
     map.controls.addControl('route');
     */
 
-    $.ajax({
-        url: 'http://local.armd.ru/app_dev.php/atlas/proxy?region=&search=&type%5B%5D=15&type%5B%5D=1&type%5B%5D=13&type%5B%5D=3&type%5B%5D=14&type%5B%5D=41&type%5B%5D=8&type%5B%5D=9&type%5B%5D=10&type%5B%5D=6&type%5B%5D=5&type%5B%5D=11&type%5B%5D=4&type%5B%5D=12&type%5B%5D=2&type%5B%5D=7',
-        success: function(json){
-            if (json.success) {
-                $.each(json.result, function(i, el){
-                    // place marker
-                    var customPoint = new PGmap.Point({
-                            coord: new PGmap.Coord(el.lng, el.lat, true),
-                            url: 'http://mkprom.dev.armd.ru/bundles/armdculturemap/images/pin_science.png'
-                        }),
-                        customBalloon = new PGmap.Balloon({
-                            content: el.text,
-                            isClosing: true,
-                            isHidden: true
-                        });
-                    customPoint.addBalloon(customBalloon);
-                    map.geometry.add(customPoint);
+    $('#clear-all').click(function(){
+        clearAllPoints();
+        return false;
+    });
+
+    //------------------------
+    // ajax-loading
+    function showAjaxLoading() {
+        $('#ajax-loading').show();
+    }
+
+    function hideAjaxLoading() {
+        $('#ajax-loading').hide();
+    }
+
+    function clearAllPoints() {
+        var objectsAll = map.geometry.get('all');
+        $.each(objectsAll.points, function(i,el){
+            map.geometry.remove(el);
+        });
+    }
+
+    function drawPlacemarks(data) {
+        $.each(data, function(i, el){
+            // place marker
+            var customPoint = new PGmap.Point({
+                    uid: el.id,
+                    coord: new PGmap.Coord(el.lng, el.lat, true),
+                    url: bundleImagesUri + '/pin' + el.type + '.png'
+                }),
+                customBalloon = new PGmap.Balloon({
+                    content: el.text,
+                    isClosing: true,
+                    isHidden: true
                 });
+            customBalloon.setSize(350, 100);
+
+            customPoint.addBalloon(customBalloon);
+
+            $(customPoint.element).data('uid', el.id);
+
+            PGmap.Events.addHandler(customPoint.element, 'click', function(e){
+                var uid = $(customPoint.element).data('uid');
+
+                $.ajax({
+                    url: fetchMarkerDetailUri,
+                    data: { id: uid },
+                    success: function(res) {
+                        $(customPoint.balloon.element).find('span').html($('<div class="w"></div>').append(res));
+                        customPoint.balloon.show();
+                    }
+                });
+
+            });
+
+            map.geometry.add(customPoint);
+        });
+    }
+
+    //-------------------------
+    $('#regions-selector').chosen();
+
+    // Скроллбокс для фильтра объектов
+    $(window).load(function(){
+        $('#map-types-pane').jScrollPane({
+            showArrows: true,
+            arrowScrollOnHover: true
+        });
+    });
+
+    // Фильтр по типам объектов
+    var cbTypes = $('#filter-types').find('.cb-type');
+    cbTypes.on('change', function(){
+        $('#filter-types').submit();
+    });
+
+    // Отметить/снять отметку со всех галок
+    $('.atlas-aside-group-menu a').click(function(){
+        if ($(this).hasClass('select')) {
+            cbTypes.each(function(i,el){
+                $(el).attr('checked', 'checked');
+            });
+        } else {
+            cbTypes.each(function(i,el){
+                $(el).removeAttr('checked');
+            });
+        }
+        $('#filter-types').submit();
+        return false;
+    });
+
+    // Filter form
+    $('#filter-types').ajaxForm({
+        url: fetchMarkersUri,
+        beforeSubmit: function() {
+            clearAllPoints();
+            showAjaxLoading();
+        },
+        dataType: 'json',
+        success: function(res) {
+            hideAjaxLoading();
+            if (res.result.length) {
+                drawPlacemarks(res.result);
+            } else {
+                alert('Ничего не найдено.');
             }
         }
     });
 
-    //------------------------
-    $('#regions-selector').chosen();
+    // load and place markers
+    $('#filter-types').submit();
+
+    // geocoder
+    var geocoder = $('#geocoder'),
+        geocoderSearch = geocoder.find('.search'),
+        geocoderSubmit = geocoder.find('.submit'),
+        geocoderResults = geocoder.find('.results');
+
+    geocoderSubmit.click(function(){
+        map.search({
+            q: 'Новосибирск',
+            type: 'search'
+        }, function (res) {
+            var r = $.parseJSON(res);
+            if (r.success) {
+                geocoderResults.empty();
+
+                $.each(r.res, function(i,el){
+                    console.log(el);
+                    geocoderResults.append(el.subject_name);
+                });
+            }
+        });
+    });
+
+
 
 });

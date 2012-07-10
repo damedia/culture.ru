@@ -5,6 +5,15 @@
     <div class="colLeft">
         <div class="dashboard">
 
+            <div id="geocoder" class="geocoder" style="display:none;">
+                <div class="br5">
+                    <input class="search" type="text">
+                    <input class="submit" type="submit" value="Найти">
+                </div>
+                <div class="results">
+                </div>
+            </div>
+
             <form id="filter-types" method="get" action="">
                 <div class="atlas-aside">
                     <div class="atlas-region">
@@ -139,6 +148,11 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        var fetchMarkersUri      = '{{ path('armd_atlas_default_proxy') }}',
+            fetchMarkerDetailUri = '{{ path('armd_atlas_default_proxydetail') }}',
+            bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
+    </script>
     <script src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script src="{{ asset('bundles/armdatlas/js/jquery.mousewheel.js') }}"></script>
     <script src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>

@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
+    protected $testmarkersUrl = 'http://mkprom.dev.armd.ru/_sys/map/testmarkers';
+    protected $detailsUrl     = 'http://mkprom.dev.armd.ru/_sys/map/testmarkerdetail';
+    protected $username = 'admin';
+    protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
+
     /**
      * @Route("/")
      * @Template()
@@ -73,14 +78,10 @@ class DefaultController extends Controller
     {
         $requestQuery = $this->getRequest()->getQueryString();
 
-        $url = 'http://mkprom.dev.armd.ru/_sys/map/testmarkers';
-        $username = 'admin';
-        $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url.'?'.$requestQuery);
-        curl_setopt($ch, CURLOPT_USERPWD, $username.':'.$password);
+        curl_setopt($ch, CURLOPT_URL, $this->testmarkersUrl.'?'.$requestQuery);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->username.':'.$this->password);
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -88,4 +89,24 @@ class DefaultController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
+    /**
+     * @Route("/proxydetail")
+     */
+    public function proxydetailAction()
+    {
+        $requestQuery = $this->getRequest()->getQueryString();
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $this->detailsUrl.'?'.$requestQuery);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->username.':'.$this->password);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = new Response($result);
+        $response->headers->set('Content-Type', 'text/html');
+        return $response;
+    }
+
 }
