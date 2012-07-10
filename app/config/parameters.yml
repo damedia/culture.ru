@@ -3,8 +3,8 @@ parameters:
     database_host:     localhost
     database_port:     ~
     database_name:     mk
-    database_user:     mk
-    database_password: Fa3Sheer
+    database_user:     cmf-sandbox
+    database_password: cmf-sandbox
 
     mailer_transport:  smtp
     mailer_host:       localhost
