@@ -1,6 +1,159 @@
-{% extends '::base.html.twig' %}
+{% extends '::cp.html.twig' %}
 
+{# --------------------------------------------------------------------------- #}
 {% block body %}
+
+    <div class="communication-platform">
+        <div class="nav-panel">
+            <nav class="main-btns">
+                <ul>
+                    {% for topic in topics %}
+                        <li class="active">
+                            <a href="{{ path('cp', { 'topic': entity.getTopic().getId() }) }}">{{ topic.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            <nav class="action-btns tabs">
+                <ul>
+                    <li class="add"><a href="#add" class="current"><b><span></span>Добавить свою запись</b></a></li>
+                    <li class="read"><a href="#read"><b><span></span>Почитать других</b></a></li>
+                    <li class="my "><a href="#my"><b><span></span>Мои записи</b></a></li>
+                </ul>
+            </nav>
+        </div><!-- /nav-panel-->
+
+        <div class="cols clearfix">
+    	    <div class="col-1">
+                <div class="read-and-comment">
+                    <div class="read-items">
+                        <dl class="item">
+                    	    <dt class="score">
+                                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
+                            </dt>
+                    	    <dd>
+                                <h5><a href="#" class="tw author"><span></span>{{ entity.getAuthorName() }}</a> / Тема недели</h5>
+                                <p>{{ entity.content }}</p>
+                            </dd>
+                        </dl>
+                        <nav class="links">
+                	        <ul>
+                                <li><a href="#" class="readers"><span></span>3</a></li>
+                                <li><a href="#" class="favorites"><span></span>3</a></li>
+                                <li><a href="#" class="comments"><span class="comment-count">{{ entity.getThread().getNumComments() }}</span>Оставить комментарий</a></li>
+                            </ul>
+                         </nav>
+                    </div><!-- /read-items-->
+
+
+                    <div id="fos_comment_thread" data-thread="{{ thread.id }}">
+
+                        {% block armd_comment_object_metas_voting %}
+                            <div class="fos_comment_comment_voting">
+                                {% if fos_comment_can_object_vote(entity) %}
+                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
+                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
+                                {% endif %}
+                                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
+                            </div>
+                        {% endblock armd_comment_object_metas_voting %}
+
+                        {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+                            'comments': comments,
+                            'thread': thread
+                        } %}
+
+                    </div>
+
+
+                    <div class="commetns-list">
+                    	<div class="decor"><span></span></div>
+                    	<ul>
+                        	<li>
+                                <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
+                                <p>Это - технические детали.</p>
+                                <div class="rating">
+       	                            <ul>
+        	                            <li><a href="#" class="minus">Минус</a></li>
+                                        <li><a href="#"  class="plus">Плюс</a></li>
+                                        <li><span class="total">/ <strong>755</strong></span></li>
+                                    </ul>
+                                </div><!-- /rating-->
+                            </li>
+                       	    <li>
+                                <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
+                                <p>Это - технические детали.</p>
+                                <div class="rating">
+       	                            <ul>
+        	                            <li><a href="#" class="minus">Минус</a></li>
+                                        <li><a href="#"  class="plus">Плюс</a></li>
+                                        <li><span class="total">/ <strong>755</strong></span></li>
+                                    </ul>
+                                </div><!-- /rating-->
+                            </li>
+                        </ul>
+                    </div><!-- /commetns-list-->
+
+                    <div class="add-comment">
+                        <h3>Добавить коментарий</h3>
+                	    <form action="">
+                    	    <textarea placeholder="Текст сообщения"></textarea>
+                            <p class="notes">Ограничение 180 символов</p>
+                            <div class="send">
+                                <input type="submit" class="btn" value="Отправить">
+                            </div>
+                        </form>
+                    </div>
+
+              </div><!-- /read-and-comment-->
+
+        </div><!-- /col-1-->
+
+    	<div class="col-2 sidebar">
+
+        	<div class="statistic">
+            	<h4><span></span>Статистика</h4>
+                <div class="list">
+                <ul>
+                    <li><strong>Сейчас на портале</strong> <em><a href="#">10</a></em></li>
+                    <li><strong>Обсуждений всего </strong> <em><a href="#">100</a></em></li>
+                    <li><strong>Пользователей на портале</strong> <em><a href="#">50</a></em></li>
+                    <li><strong>Экспертов всего</strong> <em><a href="#">10</a></em></li>
+                </ul>
+
+                </div><!-- /list-->
+            </div><!-- /statistic-->
+
+                <div class="tags">
+                <h4><span></span>Теги</h4>
+                <nav>
+                	<ul>
+                    <li class="t1"><a href="#">усадьбы<sup>3</sup></a></li>
+                    <li class="t2"><a href="#">библиотеки<sup>32</sup></a></li>
+                    <li class="t1"><a href="#">снос зданий<sup>1</sup></a></li>
+                    <li class="t2"><a href="#">законопроект<sup>50</sup></a></li>
+                    <li class="t4"><a href="#">театр<sup>102</sup></a></li>
+                    <li class="t1"><a href="#">культурный<sup>3</sup></a></li>
+
+                    </ul>
+                </nav>
+
+                </div><!-- /tags-->
+
+        </div><!-- /col-2-->
+
+
+    </div><!-- /cols-->
+
+
+
+
+
+
+    </div><!-- /communication-platform-->
+
+
+
     <h1>Proposals</h1>
 
     <table class="record_properties">
@@ -67,6 +220,7 @@
 
     <div id="fos_comment_thread" data-thread="{{ thread.id }}">
 
+        {#
         {% block armd_comment_object_metas_voting %}
             <div class="fos_comment_comment_voting">
                 {% if fos_comment_can_object_vote(entity) %}
@@ -76,6 +230,7 @@
                 <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
             </div>
         {% endblock armd_comment_object_metas_voting %}
+        #}
 
         {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
             'comments': comments,
@@ -86,18 +241,23 @@
 
 {% endblock %}
 
+{# --------------------------------------------------------------------------- #}
 {% block javascripts %}
-     <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
-
+    {{ parent() }}
+    <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
     {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
-    <script type="text/javascript" src="{{ asset_url }}">
-        var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';
-    </script>
+        <script type="text/javascript" src="{{ asset_url }}">
+            var fos_comment_thread_id = '{{ path('fos_comment_get_thread_comments', {'id': thread.id}) }}';
+        </script>
     {% endjavascripts %}
 {% endblock %}
 
+{# --------------------------------------------------------------------------- #}
 {% block stylesheets %}
+    {{ parent() }}
     {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
 {% endblock %}
+
+
