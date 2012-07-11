@@ -10,7 +10,7 @@ $(function(){
                     'http://h05.tiles.tmcrussia.com/map/', 'http://h06.tiles.tmcrussia.com/map/', 'http://h07.tiles.tmcrussia.com/map/'
                 ]
             },
-            coord: new PGmap.Coord(4212745.219334374, 7489549.153770343),
+            coord: new PGmap.Coord(37.648527, 55.723211, true),
             zoom: 10
         };
     map = new PGmap(map_el, parameters);
@@ -22,11 +22,6 @@ $(function(){
     map.controls.addControl('ruler');
     map.controls.addControl('route');
     */
-
-    $('#clear-all').click(function(){
-        clearAllPoints();
-        return false;
-    });
 
     //------------------------
     // ajax-loading
@@ -62,7 +57,7 @@ $(function(){
                     isClosing: true,
                     isHidden: true
                 });
-            customBalloon.setSize(350, 100);
+            customBalloon.setSize(350, 140);
 
             customPoint.addBalloon(customBalloon);
 
@@ -90,13 +85,14 @@ $(function(){
             if (parseFloat(el.lng) < minLng) minLng = el.lng;
         });
 
-        console.log(minLat, maxLat, minLng, maxLng);
-        map.setCenterByBbox({
-            lon1: maxLng,
-            lon2: minLng,
-            lat1: maxLat,
-            lat2: minLat
-        });
+        var bbox = {
+            lon1: PGmap.Utils.mercX(minLng),
+            lon2: PGmap.Utils.mercX(maxLng),
+            lat1: PGmap.Utils.mercY(minLat),
+            lat2: PGmap.Utils.mercY(maxLat)
+        };
+
+        map.setCenterByBbox(bbox);
     }
 
     //-------------------------
