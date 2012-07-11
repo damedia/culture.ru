@@ -43,7 +43,13 @@ class LoginzaListener implements ListenerInterface  {
             }
 
             if(!$user){
-                $user = new User($decoded['name']['first_name'], $decoded['uid'], $roles = array('ROLE_USER'));
+                $userName = isset($decoded['name']['first_name'])?
+                    $decoded['name']['first_name']:
+                    (isset($decoded['name']['full_name'])?
+                        $decoded['name']['full_name']:
+                        'anon');
+
+                $user = new User($userName, $decoded['uid'], $roles = array('ROLE_USER'));
             }
 
             $token = new LoginzaToken($user->getRoles());
