@@ -7,5 +7,6 @@ app/logs/*
 build/
 vendor
 tmp/
+.idea/
 composer.phar
 *~
