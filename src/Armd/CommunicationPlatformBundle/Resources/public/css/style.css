@@ -954,3 +954,10 @@ footer { margin-top:50px; }
 .private-enter .username{ color:#FFFFFF; font-size:11px; }
 header .main-menu .private-enter .loginza{ color:#f00; }
 .auth-block .row{ margin-bottom:5px; }
+.comment-voting{ border-top:1px solid #DFDFDF; display:inline-block; padding: 5px 0 5px 180px; }
+.comment-voting .vote{ float:left; margin:2px 5px 0 0; }
+.comment-voting .vote button{ background:url(../img/sprite-ico.png) -8px -547px no-repeat; width:15px; height:15px; border:none; }
+.comment-voting .vote button span{ display:none; }
+.comment-voting .vote.up button{ background-position:-8px -488px; }
+.comment-voting .vote.down button { background-position:-8px -547px; }
+.comment-voting .separator, .comment-voting .total{ font-size:18px; font-weight:bold; }
