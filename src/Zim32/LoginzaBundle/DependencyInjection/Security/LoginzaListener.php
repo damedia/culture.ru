@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\DependencyInjection\Container;
+#use Application\Sonata\UserBundle\Entity\User;
 
 class LoginzaListener implements ListenerInterface  {
 
@@ -69,8 +70,10 @@ class LoginzaListener implements ListenerInterface  {
                 $user = new $repository();
                 $user->setUid($data['uid']);
                 $user->setPassword('');
-                $user->setRoles(serialize(array()));
-                $user->setSalt('');
+                $user->setRoles(array());
+                #$user->setSalt('');
+                $user->setEmail('');
+                $user->setEnabled( true );
                 $user->setUsername($data['name']['first_name']);
                 $em->persist($user);
                 $em->flush();

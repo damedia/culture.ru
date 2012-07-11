@@ -28,6 +28,11 @@ class User extends BaseUser
      */
     protected $id;
 
+     /**
+     * @var integer $id
+     */
+    protected $uid;
+
     /**
      * Get id
      *
@@ -37,4 +42,30 @@ class User extends BaseUser
     {
         return $this->id;
     }
+
+
+    /**
+     * Get uid
+     *
+     * @return integer $uid
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * Set uid
+     *
+     * @param integer $uid
+     *
+     * @return User
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
 }
