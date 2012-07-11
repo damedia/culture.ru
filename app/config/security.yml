@@ -35,7 +35,7 @@ security:
                 use_referer:            true
             logout:
                 path:           /admin/logout
-                target:         /cp
+                target:         /admin/login
 
             anonymous:    true
             remember_me:
@@ -56,7 +56,9 @@ security:
                 check_path:     /login_check
                 default_target_path: /cp
                 failure_path:   null
-            logout:             true
+            logout:
+                path:           /logout
+                target:         /cp
             anonymous:          true
 
         secured_area:
