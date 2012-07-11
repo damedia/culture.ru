@@ -51,6 +51,7 @@
     </div>
 
     {% block fos_comment_comment_body %}
+        <p>
         {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
             {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
         {% else %}
@@ -60,6 +61,7 @@
                 {{ comment.body | nl2br }}
             {% endif %}
         {% endif %}
+        </p>
     {% endblock fos_comment_comment_body %}
 
     <div class="rating">
