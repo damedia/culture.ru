@@ -961,3 +961,8 @@ header .main-menu .private-enter .loginza{ color:#f00; }
 .comment-voting .vote.up button{ background-position:-8px -488px; }
 .comment-voting .vote.down button { background-position:-8px -547px; }
 .comment-voting .separator, .comment-voting .total{ font-size:18px; font-weight:bold; }
+
+.add-post{ font-size:15px; }
+.add-post .row{ margin-bottom:20px; }
+.add-post .row .label{ margin-bottom:5px; }
+.add-post .row .full-width input{ width:100%; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; }
