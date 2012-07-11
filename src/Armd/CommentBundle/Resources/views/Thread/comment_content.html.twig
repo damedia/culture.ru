@@ -51,28 +51,7 @@
     </div>
 
     {% block fos_comment_comment_body %}
-        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
-            {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
-        {% else %}
-            {% if comment is fos_comment_raw %}
-                {{ comment.rawBody | raw }}
-            {% else %}
-                {{ comment.body | nl2br }}
-            {% endif %}
-        {% endif %}
-    {% endblock fos_comment_comment_body %}
-
-    <div class="rating">
-        <ul>
-            <li><a href="#" class="minus">Минус</a></li>
-            <li><a href="#"  class="plus">Плюс</a></li>
-            <li><span class="total">/ <strong>755</strong></span></li>
-        </ul>
-    </div><!-- /rating-->
-
-    {#
-    <div class="fos_comment_comment_body">
-        {% block fos_comment_comment_body %}
+        <p>
             {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
                 {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
             {% else %}
@@ -82,9 +61,16 @@
                     {{ comment.body | nl2br }}
                 {% endif %}
             {% endif %}
-        {% endblock fos_comment_comment_body %}
-    </div>
-    #}
+        </p>
+    {% endblock fos_comment_comment_body %}
+
+    <div class="rating">
+        <ul>
+            <li><a href="#" class="minus">Минус</a></li>
+            <li><a href="#"  class="plus">Плюс</a></li>
+            <li><span class="total">/ <strong>755</strong></span></li>
+        </ul>
+    </div><!-- /rating-->
 
     {% block fos_comment_comment_children %}
         {% if view is not sameas('flat') %}

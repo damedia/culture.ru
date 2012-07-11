@@ -9,35 +9,6 @@
 
 #}
 
-{#
-    <ul>
-        <li>
-            <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
-            <p>Это - технические детали.</p>
-            <div class="rating">
-                <ul>
-                    <li><a href="#" class="minus">Минус</a></li>
-                    <li><a href="#"  class="plus">Плюс</a></li>
-                    <li><span class="total">/ <strong>755</strong></span></li>
-                </ul>
-            </div><!-- /rating-->
-        </li>
-        <li>
-            <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
-            <p>Это - технические детали.</p>
-            <div class="rating">
-                <ul>
-                    <li><a href="#" class="minus">Минус</a></li>
-                    <li><a href="#"  class="plus">Плюс</a></li>
-                    <li><span class="total">/ <strong>755</strong></span></li>
-                </ul>
-            </div><!-- /rating-->
-        </li>
-    </ul>
-#}
-
-
-
 {% set depth = depth|default(0) %}
 {% set view = view|default('tree') %}
 
@@ -47,14 +18,16 @@
     {% endif %}
 
     {% if fos_comment_can_edit_thread(thread) %}
+        {#
         <div class="fos_comment_thread_commentable">
             <button data-url="{{ url('fos_comment_edit_thread_commentable', {'id': thread.id, 'value': not thread.commentable}) }}" class="fos_comment_thread_commentable_action">
                 {{ (thread.commentable ? 'fos_comment_thread_close' : 'fos_comment_thread_open') | trans({}, 'FOSCommentBundle') }}
             </button>
         </div>
+        #}
     {% endif %}
 
-    {% set count = thread.numComments %}
+{% set count = thread.numComments %}
     <h3>{% transchoice count with {'%count%': count} from "FOSCommentBundle" %}fos_comment_thread_comment_count{% endtranschoice %}</h3>
 {% endif %}
 
