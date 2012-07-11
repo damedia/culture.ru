@@ -60,12 +60,10 @@
 
                         <div class="commetns-list">
                             <div class="decor"><span></span></div>
-                            <ul>
-                                {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
-                                    'comments': comments,
-                                    'thread': thread
-                                } %}
-                            </ul>
+                            {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+                                'comments': comments,
+                                'thread': thread
+                            } %}
                         </div><!-- /commetns-list-->
 
                     </div>
