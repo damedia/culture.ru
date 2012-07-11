@@ -1,20 +1,71 @@
-{% extends '::base.html.twig' %}
+{% extends '::cp.html.twig' %}
 
 {% block body %}
-    <h1>Proposals creation</h1>
+    <div class="communication-platform">
+        <div class="nav-panel">
+    	    <nav class="main-btns">
+        	    <ul>
+                    <li class="active"><a href="#">Открытое правительство</a></li>
+                    <li><a href="#">Народный контроль</a></li>
+                    <li><a href="#">Культура России</a></li>
+                </ul>
+            </nav>
+            <nav class="action-btns tabs">
+       	        <ul>
+                    <li class="add"><a class="current" href="{{ path('cp_new') }}"><b><span></span>Добавить свою запись</b></a></li>
+                    <li class="read"><a href="{{ path('cp') }}"><b><span></span>Почитать других</b></a></li>
+                </ul>
+            </nav>
+        </div><!-- /nav-panel-->
 
-    <form action="{{ path('cp_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-        <p>
-            <button type="submit">Create</button>
-        </p>
-    </form>
+        <div class="cols clearfix">
+    	    <div class="col-1">
+                <div class="panes">
+                	<div class="pane" id="add">
+                        <div class="add-post">
+                            <form action="{{ path('cp_create') }}" method="post" {{ form_enctype(form) }}>
+                                <div class="row">
+                                    <div class="label">Заголовок</div>
+                                    <div class="full-width">{{ form_widget(form.title) }}</div>
+                                    <div>{{ form_errors(form.title) }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">Контент</div>
+                                    <div>{{ form_widget(form.content) }}</div>
+                                    <div>{{ form_errors(form.content) }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">Описание</div>
+                                    <div>{{ form_widget(form.description) }}</div>
+                                    <div>{{ form_errors(form.description) }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="label">Топик</div>
+                                    <div>{{ form_widget(form.topic) }}</div>
+                                    <div>{{ form_errors(form.topic) }}</div>
+                                </div>
+                                <div class="row">
+                                    <label>
+                                        {{ form_widget(form.enabled) }}
+                                        Опубликовать
+                                    </label>
+                                    <div>{{ form_errors(form.enabled) }}</div>
+                                </div>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('cp') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+                                {{ form_rest(form) }}
+
+                                <div class="row">
+                                    <label class="tags">Теги: <input type="text" class="tags"></label>
+                                </div>
+
+                                <div class="send">
+                                    <input type="submit" class="btn" value="Отправить">
+                                </div>
+                            </form>
+                        </div><!-- /add-post-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
