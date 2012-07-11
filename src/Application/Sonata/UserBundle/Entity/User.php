@@ -34,6 +34,11 @@ class User extends BaseUser
     private $lastActivity;
 
     /**
+     * @var integer $id
+     */
+    protected $uid;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -42,7 +47,7 @@ class User extends BaseUser
     {
         return $this->id;
     }
-    
+
     /**
      * Set lastActivity
      *
@@ -63,5 +68,29 @@ class User extends BaseUser
     public function getLastActivity()
     {
         return $this->lastActivity;
+    }
+
+    /**
+     * Get uid
+     *
+     * @return integer $uid
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * Set uid
+     *
+     * @param integer $uid
+     *
+     * @return User
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+
+        return $this;
     }
 }
