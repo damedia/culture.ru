@@ -1,25 +1,31 @@
 {% block fos_comment_comment %}
-<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
-    <div class="fos_comment_comment_metas">
+<li id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parentId is defined %}data-parent="{{ parentId }}"{% endif %}>
+    <div class="fos_comment_comment_metas_">
         {% block fos_comment_comment_metas %}
+
             {% block fos_comment_comment_metas_authorline %}
-                {% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %}
+                <h5><a href="#" class="author fb"><span></span>{{ comment.authorName }}</a> / {{ comment.createdAt|date('d.m.Y') }}</h5>
+                {#
                 <span class="fos_comment_comment_authorname">
                     {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
-                {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                        {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
                     {% else %}
                         {{ comment.authorName }}
                     {% endif %}
                 </span> - {{ comment.createdAt|date }}
+                #}
             {% endblock fos_comment_comment_metas_authorline %}
 
             {% block fos_comment_comment_metas_edit %}
+                {#
                 {% if fos_comment_can_edit_comment(comment) %}
-                <button data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit{% endtrans %}</button>
+                    <button data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form">{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit{% endtrans %}</button>
                 {% endif %}
+                #}
             {% endblock fos_comment_comment_metas_edit %}
 
             {% block fos_comment_comment_metas_delete %}
+                <!--
                 {% if fos_comment_can_delete_comment(comment) %}
                     {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
                         {# undelete #}
@@ -29,6 +35,7 @@
                         <button data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value":  constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')}) }}" class="fos_comment_comment_remove">{% trans from 'FOSCommentBundle' %}fos_comment_comment_delete{% endtrans %}</button>
                     {% endif %}
                 {% endif %}
+                -->
             {% endblock fos_comment_comment_metas_delete %}
 
             {% block fos_comment_comment_metas_voting %}
@@ -43,6 +50,27 @@
         {% endblock fos_comment_comment_metas %}
     </div>
 
+    {% block fos_comment_comment_body %}
+        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+            {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+        {% else %}
+            {% if comment is fos_comment_raw %}
+                {{ comment.rawBody | raw }}
+            {% else %}
+                {{ comment.body | nl2br }}
+            {% endif %}
+        {% endif %}
+    {% endblock fos_comment_comment_body %}
+
+    <div class="rating">
+        <ul>
+            <li><a href="#" class="minus">Минус</a></li>
+            <li><a href="#"  class="plus">Плюс</a></li>
+            <li><span class="total">/ <strong>755</strong></span></li>
+        </ul>
+    </div><!-- /rating-->
+
+    {#
     <div class="fos_comment_comment_body">
         {% block fos_comment_comment_body %}
             {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
@@ -56,6 +84,7 @@
             {% endif %}
         {% endblock fos_comment_comment_body %}
     </div>
+    #}
 
     {% block fos_comment_comment_children %}
         {% if view is not sameas('flat') %}
@@ -79,5 +108,5 @@
         {% endif %}
     {% endblock fos_comment_comment_children %}
 
-</div>
+</li>
 {% endblock fos_comment_comment %}

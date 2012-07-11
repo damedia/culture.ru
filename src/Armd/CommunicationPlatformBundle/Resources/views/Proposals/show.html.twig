@@ -58,52 +58,18 @@
                             </div>
                         {% endblock armd_comment_object_metas_voting %}
 
-                        {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
-                            'comments': comments,
-                            'thread': thread
-                        } %}
+                        <div class="commetns-list">
+                            <div class="decor"><span></span></div>
+                            <ul>
+                                {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+                                    'comments': comments,
+                                    'thread': thread
+                                } %}
+                            </ul>
+                        </div><!-- /commetns-list-->
 
                     </div>
 
-
-                    <div class="commetns-list">
-                    	<div class="decor"><span></span></div>
-                    	<ul>
-                        	<li>
-                                <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
-                                <p>Это - технические детали.</p>
-                                <div class="rating">
-       	                            <ul>
-        	                            <li><a href="#" class="minus">Минус</a></li>
-                                        <li><a href="#"  class="plus">Плюс</a></li>
-                                        <li><span class="total">/ <strong>755</strong></span></li>
-                                    </ul>
-                                </div><!-- /rating-->
-                            </li>
-                       	    <li>
-                                <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
-                                <p>Это - технические детали.</p>
-                                <div class="rating">
-       	                            <ul>
-        	                            <li><a href="#" class="minus">Минус</a></li>
-                                        <li><a href="#"  class="plus">Плюс</a></li>
-                                        <li><span class="total">/ <strong>755</strong></span></li>
-                                    </ul>
-                                </div><!-- /rating-->
-                            </li>
-                        </ul>
-                    </div><!-- /commetns-list-->
-
-                    <div class="add-comment">
-                        <h3>Добавить коментарий</h3>
-                	    <form action="">
-                    	    <textarea placeholder="Текст сообщения"></textarea>
-                            <p class="notes">Ограничение 180 символов</p>
-                            <div class="send">
-                                <input type="submit" class="btn" value="Отправить">
-                            </div>
-                        </form>
-                    </div>
 
               </div><!-- /read-and-comment-->
 
