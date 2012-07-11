@@ -8,4 +8,4 @@
  with this source code in the file LICENSE.
 
 #}
-<span>{% if commentScore > 0 %}+{% else %}&minus;{% endif %}</span>{{ commentScore|abs }}
+<span>{% if commentScore > 0 %}+{% elseif commentScore < 0 %}&minus;{% endif %}</span>{{ commentScore|abs }}
