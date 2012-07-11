@@ -953,3 +953,4 @@ footer { margin-top:50px; }
 .auth-block{ position:absolute; z-index:100; left:-140px; display:none; padding:10px; font-size:13px; border:solid 1px #ccc; box-shadow:2px 2px 5px #555; background:#fff; }
 .private-enter .username{ color:#FFFFFF; font-size:11px; }
 header .main-menu .private-enter .loginza{ color:#f00; }
+.auth-block .row{ margin-bottom:5px; }
