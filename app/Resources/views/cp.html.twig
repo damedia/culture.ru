@@ -20,105 +20,107 @@
     {% endblock %}
 </head>
 <body>
-<header>
-	<div class="top clearfix">
-    	<nav>
-        <ul class="lang-switch clearfix">
-        	<li class="current"><a href="#">Рус</a></li>
-        	<li><a href="#">Eng</a></li>
-        </ul>
-        </nav>
 
-       	<a href="#" class="special-version"><span><em class="big">А</em><em class="small">А</em></span>Версия для слабовидящих</a>
-
-    </div> <!-- /top-->
-
-    <div class="logo-teasers clearfix">
-        <div class="logo">
-            <img src="{{ asset('bundles/armdcommunicationplatform/img/logo.png') }}" width="128" height="48">
-        </div><!-- /logo-->
-
-        <div class="teasers clearfix">
-        	<dl>
-            	<dt>img</dt>
-                <dd>
-                <h4>Экскурсия</h4>
-                <p>Новая экскурсия по Золотому кольцу России и многим другим достопримечательностям того края.</p>
-                </dd>
-            </dl>
-
-        	<dl>
-            	<dt>img</dt>
-                <dd>
-                <h4>Экскурсия</h4>
-                <p>Новая экскурсия по Золотому кольцу России и многим другим достопримечательностям того края.</p>
-                </dd>
-            </dl>
-
-        </div><!-- /teasers-->
-
-
-    </div><!-- /logo-teasers-->
-
-    <div class="main-menu clearfix">
-    	<nav>
-        	<ul>
-            <li><a href="#">Наследие</a></li>
-            <li><a href="#">Атлас</a></li>
-            <li><a href="#">Лента времени</a></li>
-            <li><a href="#">Каталог</a></li>
-            <li><a href="#">Мероприятия</a></li>
-            <li><a href="#">Сервисы</a></li>
+    <header>
+        <div class="top clearfix">
+            <nav>
+            <ul class="lang-switch clearfix">
+                <li class="current"><a href="#">Рус</a></li>
+                <li><a href="#">Eng</a></li>
             </ul>
-        </nav>
+            </nav>
 
-        <div class="private-enter">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <span class="username">
-                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                </span>
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% else %}
-                <a id="auth-toggle" href="#"><span></span>Личный кабинет</a>
-                {% render "FOSUserBundle:Security:login" %}
-            {% endif %}
+            <a href="#" class="special-version"><span><em class="big">А</em><em class="small">А</em></span>Версия для слабовидящих</a>
 
-        </div><!-- /private-enter-->
+        </div> <!-- /top-->
 
-    </div><!-- /main-menu -->
+        <div class="logo-teasers clearfix">
+            <div class="logo">
+                <img src="{{ asset('bundles/armdcommunicationplatform/img/logo.png') }}" width="128" height="48">
+            </div><!-- /logo-->
 
-    <div class="qsearch">
-    	<form action="">
-        	<input type="text" class="string">
-            <input type="button" class="btn">
-        </form>
-    </div><!-- /qsearch -->
+            <div class="teasers clearfix">
+                <dl>
+                    <dt>img</dt>
+                    <dd>
+                    <h4>Экскурсия</h4>
+                    <p>Новая экскурсия по Золотому кольцу России и многим другим достопримечательностям того края.</p>
+                    </dd>
+                </dl>
 
-</header>
+                <dl>
+                    <dt>img</dt>
+                    <dd>
+                    <h4>Экскурсия</h4>
+                    <p>Новая экскурсия по Золотому кольцу России и многим другим достопримечательностям того края.</p>
+                    </dd>
+                </dl>
 
-<div id="main" role="main">
+            </div><!-- /teasers-->
 
-    <div class="text">
-        <h1>О Проекте</h1>
-        <p>
-            Дорогие друзья!<br>
-            На этом сайте мы собираем и обсуждаем ваши идеи о том, как должна измениться работа законодательной власти в эпоху Интернета.
-            Давайте вместе определим основные контуры «электронного парламента», подумаем о наиболее эффективных формах участия
-            граждан в правотворчестве. Ваши предложения помогут нам усовершенствовать парламентскую деятельность, сделать ее современной,
-            динамичной и интересной.
-        </p>
-    </div>
 
-    {% block body %}
-    {% endblock %}
+        </div><!-- /logo-teasers-->
 
-</div><!-- /main -->
+        <div class="main-menu clearfix">
+            <nav>
+                <ul>
+                <li><a href="#">Наследие</a></li>
+                <li><a href="#">Атлас</a></li>
+                <li><a href="#">Лента времени</a></li>
+                <li><a href="#">Каталог</a></li>
+                <li><a href="#">Мероприятия</a></li>
+                <li><a href="#">Сервисы</a></li>
+                </ul>
+            </nav>
 
+            <div class="private-enter">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <span class="username">
+                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                    </span>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                {% else %}
+                    <a id="auth-toggle" href="#"><span></span>Личный кабинет</a>
+                    {% render "FOSUserBundle:Security:login" %}
+                {% endif %}
+
+            </div><!-- /private-enter-->
+
+        </div><!-- /main-menu -->
+
+        <div class="qsearch">
+            <form action="">
+                <input type="text" class="string">
+                <input type="button" class="btn">
+            </form>
+        </div><!-- /qsearch -->
+
+    </header>
+
+    <div id="main" role="main">
+
+        <div class="text">
+            <h1>О Проекте</h1>
+            <p>
+                Дорогие друзья!<br>
+                На этом сайте мы собираем и обсуждаем ваши идеи о том, как должна измениться работа законодательной власти в эпоху Интернета.
+                Давайте вместе определим основные контуры «электронного парламента», подумаем о наиболее эффективных формах участия
+                граждан в правотворчестве. Ваши предложения помогут нам усовершенствовать парламентскую деятельность, сделать ее современной,
+                динамичной и интересной.
+            </p>
+        </div>
+
+        {% block body %}
+        {% endblock %}
+
+    </div><!-- /main -->
 
     <footer>
     </footer>
+
+    <div id="overlay"></div>
 
     {% block javascripts %}
         <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>

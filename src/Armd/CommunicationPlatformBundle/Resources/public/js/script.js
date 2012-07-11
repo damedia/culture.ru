@@ -6,9 +6,13 @@ $(function() {
     //$(".tabs").tabs(".panes > .pane", { history: true });
 
     $('#auth-toggle').click(function(){
-        console.log('xxxx');
-        $('#auth-block').toggle();
+        $('#overlay').fadeIn();
+        $('#auth-block').fadeToggle();
         return false;
+    });
+    $('#overlay').click(function(){
+        $('#overlay').fadeOut();
+        $('#auth-block').fadeOut();
     });
 
 });
