@@ -58,52 +58,16 @@
                             </div>
                         {% endblock armd_comment_object_metas_voting %}
 
-                        {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
-                            'comments': comments,
-                            'thread': thread
-                        } %}
+                        <div class="commetns-list">
+                            <div class="decor"><span></span></div>
+                            {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+                                'comments': comments,
+                                'thread': thread
+                            } %}
+                        </div><!-- /commetns-list-->
 
                     </div>
 
-
-                    <div class="commetns-list">
-                    	<div class="decor"><span></span></div>
-                    	<ul>
-                        	<li>
-                                <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
-                                <p>Это - технические детали.</p>
-                                <div class="rating">
-       	                            <ul>
-        	                            <li><a href="#" class="minus">Минус</a></li>
-                                        <li><a href="#"  class="plus">Плюс</a></li>
-                                        <li><span class="total">/ <strong>755</strong></span></li>
-                                    </ul>
-                                </div><!-- /rating-->
-                            </li>
-                       	    <li>
-                                <h5><a href="#" class="author fb"><span></span>Ivan Urgant</a> / 21.05.2012</h5>
-                                <p>Это - технические детали.</p>
-                                <div class="rating">
-       	                            <ul>
-        	                            <li><a href="#" class="minus">Минус</a></li>
-                                        <li><a href="#"  class="plus">Плюс</a></li>
-                                        <li><span class="total">/ <strong>755</strong></span></li>
-                                    </ul>
-                                </div><!-- /rating-->
-                            </li>
-                        </ul>
-                    </div><!-- /commetns-list-->
-
-                    <div class="add-comment">
-                        <h3>Добавить коментарий</h3>
-                	    <form action="">
-                    	    <textarea placeholder="Текст сообщения"></textarea>
-                            <p class="notes">Ограничение 180 символов</p>
-                            <div class="send">
-                                <input type="submit" class="btn" value="Отправить">
-                            </div>
-                        </form>
-                    </div>
 
               </div><!-- /read-and-comment-->
 
@@ -152,92 +116,7 @@
 
     </div><!-- /communication-platform-->
 
-
-
-    <h1>Proposals</h1>
-
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ entity.content }}</td>
-            </tr>
-            <tr>
-                <th>Countcomments</th>
-                <td>{{ entity.getThread().getNumComments() }}</td>
-            </tr>
-            <tr>
-                <th>Enabled</th>
-                <td>{{ entity.enabled }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- AddThis Button BEGIN -->
-    <script type="text/javascript">
-        var addthis_share =
-        {
-            title: '{{ entity.title }}'
-        }
-    </script>
-    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-        <a class="addthis_button_preferred_1"></a>
-        <a class="addthis_button_preferred_2"></a>
-        <a class="addthis_button_preferred_3"></a>
-        <a class="addthis_button_preferred_4"></a>
-        <a class="addthis_button_compact"></a>
-        <a class="addthis_counter addthis_bubble_style"></a>
-    </div>
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
-    <!-- AddThis Button END -->
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('cp') }}">
-                Back to the list
-            </a>
-        </li>
-        {% if is_granted('EDIT', entity) %}
-            <li>
-                <a href="{{ path('cp_edit', { 'id': entity.id }) }}">
-                    Edit
-                </a>
-            </li>
-        {% endif %}
-        {% if is_granted('DELETE', entity) %}
-            <li>
-                <form action="{{ path('cp_delete', { 'id': entity.id }) }}" method="post">
-                    {{ form_widget(delete_form) }}
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        {% endif %}
-    </ul>
-
-    <div id="fos_comment_thread" data-thread="{{ thread.id }}">
-
-        {#
-        {% block armd_comment_object_metas_voting %}
-            <div class="fos_comment_comment_voting">
-                {% if fos_comment_can_object_vote(entity) %}
-                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
-                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
-                {% endif %}
-                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
-            </div>
-        {% endblock armd_comment_object_metas_voting %}
-        #}
-
-        {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
-            'comments': comments,
-            'thread': thread
-        } %}
-
-    </div>
+</div>
 
 {% endblock %}
 

@@ -1,1 +1,1 @@
-<span>{% if objectScore > 0 %}+{% else %}&minus;{% endif %}</span>{{ objectScore|abs }}
+<span>{% if objectScore > 0 %}+{% elseif objectScore < 0 %}&minus;{% endif %}</span>{{ objectScore|abs }}
