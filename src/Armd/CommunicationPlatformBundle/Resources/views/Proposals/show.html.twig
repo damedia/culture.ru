@@ -27,37 +27,36 @@
         <div class="cols clearfix">
     	    <div class="col-1">
                 <div class="read-and-comment">
-                    <div class="read-items">
-                        <dl class="item">
-                    	    <dt class="score">
-                                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
-                            </dt>
-                    	    <dd>
-                                <h5><a href="#" class="tw author"><span></span>{{ entity.getAuthorName() }}</a> / Тема недели</h5>
-                                <p>{{ entity.content }}</p>
-                            </dd>
-                        </dl>
-                        <nav class="links">
-                	        <ul>
-                                <li><a href="#" class="readers"><span></span>3</a></li>
-                                <li><a href="#" class="favorites"><span></span>3</a></li>
-                                <li><a href="#" class="comments"><span class="comment-count">{{ entity.getThread().getNumComments() }}</span>Оставить комментарий</a></li>
-                            </ul>
-                         </nav>
-                    </div><!-- /read-items-->
-
-
                     <div id="fos_comment_thread" data-thread="{{ thread.id }}">
 
-                        {% block armd_comment_object_metas_voting %}
-                            <div class="fos_comment_comment_voting">
-                                {% if fos_comment_can_object_vote(entity) %}
-                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
-                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
-                                {% endif %}
-                                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
-                            </div>
-                        {% endblock armd_comment_object_metas_voting %}
+                        <div class="read-items">
+                            <dl class="item">
+                                <dt class="score">
+                                    {% block armd_comment_object_metas_voting %}
+                                        <div class="fos_comment_comment_voting">
+                                            <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
+                                            {% if fos_comment_can_object_vote(entity) %}
+                                                <div>
+                                                    <div class="vote down"><button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote"><span>{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</span></button></div>
+                                                    <div class="vote up"><button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote"><span>{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</span></button></div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endblock armd_comment_object_metas_voting %}
+                                </dt>
+                                <dd>
+                                    <h5><a href="#" class="tw author"><span></span>{{ entity.getAuthorName() }}</a> / Тема недели</h5>
+                                    <p>{{ entity.content }}</p>
+                                </dd>
+                            </dl>
+                            <nav class="links">
+                                <ul>
+                                    <li><a href="#" class="readers"><span></span>3</a></li>
+                                    <li><a href="#" class="favorites"><span></span>3</a></li>
+                                    <li><a href="#" class="comments"><span class="comment-count">{{ entity.getThread().getNumComments() }}</span>Оставить комментарий</a></li>
+                                </ul>
+                             </nav>
+                        </div><!-- /read-items-->
 
                         <div class="commetns-list">
                             <div class="decor"><span></span></div>
