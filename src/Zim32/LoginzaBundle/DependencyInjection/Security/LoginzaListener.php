@@ -43,13 +43,7 @@ class LoginzaListener implements ListenerInterface  {
             }
 
             if(!$user){
-                $userName = isset($decoded['name']['first_name'])?
-                    $decoded['name']['first_name']:
-                    (isset($decoded['name']['full_name'])?
-                        $decoded['name']['full_name']:
-                        'anon');
-
-                $user = new User($userName, $decoded['uid'], $roles = array('ROLE_USER'));
+                $user = new User($this->getUserName($decoded), $decoded['uid'], $roles = array('ROLE_USER'));
             }
 
             $token = new LoginzaToken($user->getRoles());
@@ -75,8 +69,7 @@ class LoginzaListener implements ListenerInterface  {
                 $user = new $repository();
                 $user->setPassword('');
                 $user->setRoles(array());
-                $user->setSalt('');
-                $user->setUsername($data['name']['first_name']);
+                $user->setUsername($this->getUserName($data));
                 $em->persist($user);
                 $em->flush();
                 return $user;
@@ -85,8 +78,15 @@ class LoginzaListener implements ListenerInterface  {
             throw $e;
             return null;
         }
-
         return $user;
-        
+    }
+
+    public function getUserName(array $decoded)
+    {
+        return isset($decoded['name']['first_name'])?
+            $decoded['name']['first_name']:
+            (isset($decoded['name']['full_name'])?
+                $decoded['name']['full_name']:
+                'anon');
     }
 }
