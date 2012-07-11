@@ -65,6 +65,7 @@ security:
               token_route: _loginza_redirect_user
               secret_key: 45b8ea22394da597195cc4bbd50cfe80
               widget_id: 27243
+              entity: Application\Sonata\UserBundle\Entity\User
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users

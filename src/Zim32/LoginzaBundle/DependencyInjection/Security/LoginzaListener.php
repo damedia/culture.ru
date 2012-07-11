@@ -70,12 +70,11 @@ class LoginzaListener implements ListenerInterface  {
         }
 
         try{
-            $user = $repo->findOneBy(array('uid'=>$data['uid']));
+            $user = $repo->findOneBy(array('id'=>$data['uid']));
             if($user === null){
                 $user = new $repository();
-                $user->setUid($data['uid']);
                 $user->setPassword('');
-                $user->setRoles(serialize(array()));
+                $user->setRoles(array());
                 $user->setSalt('');
                 $user->setUsername($data['name']['first_name']);
                 $em->persist($user);
