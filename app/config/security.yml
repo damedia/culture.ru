@@ -35,7 +35,7 @@ security:
                 use_referer:            true
             logout:
                 path:           /admin/logout
-                target:         /admin/login
+                target:         /cp
 
             anonymous:    true
             remember_me:
