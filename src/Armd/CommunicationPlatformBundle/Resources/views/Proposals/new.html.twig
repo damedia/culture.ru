@@ -30,17 +30,12 @@
                                     <div>{{ form_errors(form.title) }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="label">Контент</div>
+                                    <div class="label">Текст</div>
                                     <div>{{ form_widget(form.content) }}</div>
                                     <div>{{ form_errors(form.content) }}</div>
                                 </div>
                                 <div class="row">
-                                    <div class="label">Описание</div>
-                                    <div>{{ form_widget(form.description) }}</div>
-                                    <div>{{ form_errors(form.description) }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="label">Топик</div>
+                                    <div class="label">Тема</div>
                                     <div>{{ form_widget(form.topic) }}</div>
                                     <div>{{ form_errors(form.topic) }}</div>
                                 </div>
@@ -51,8 +46,6 @@
                                     </label>
                                     <div>{{ form_errors(form.enabled) }}</div>
                                 </div>
-
-                                {{ form_rest(form) }}
 
                                 <div class="row">
                                     <label class="tags">Теги: <input type="text" class="tags"></label>
