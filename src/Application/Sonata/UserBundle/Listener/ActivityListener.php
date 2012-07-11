@@ -29,13 +29,15 @@ class ActivityListener
      */
     public function onCoreController(FilterControllerEvent $event)
     {
-        $user = $this->context->getToken()->getUser();
-        if($user instanceof User)
-        {
-            //here we can update the user as necessary
-            $user->setLastActivity(new DateTime());
-            $this->em->persist($user);
-            $this->em->flush($user);
+        if ($this->context->getToken()) {
+            $user = $this->context->getToken()->getUser();
+
+            if($user instanceof User)
+            {
+                $user->setLastActivity(new DateTime());
+                $this->em->persist($user);
+                $this->em->flush($user);
+            }
         }
     }
 }

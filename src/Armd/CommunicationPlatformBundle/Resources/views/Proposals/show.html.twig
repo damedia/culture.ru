@@ -16,9 +16,10 @@
             </nav>
             <nav class="action-btns tabs">
                 <ul>
-                    <li class="add"><a href="#add" class="current"><b><span></span>Добавить свою запись</b></a></li>
-                    <li class="read"><a href="#read"><b><span></span>Почитать других</b></a></li>
-                    <li class="my "><a href="#my"><b><span></span>Мои записи</b></a></li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="add"><a href="{{ path("cp_new") }}" class="current"><b><span></span>Добавить свою запись</b></a></li>
+                    {% endif %}
+                    <li class="read"><a href="{{ path("cp") }}"><b><span></span>Почитать других</b></a></li>
                 </ul>
             </nav>
         </div><!-- /nav-panel-->
