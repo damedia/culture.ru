@@ -87,7 +87,10 @@ class ProposalsController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $topics = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
+
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:show.html.twig', array(
+            'topics'      => $topics,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
             'entity'      => $entity,

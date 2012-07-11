@@ -1,101 +1,115 @@
-{% extends '::base.html.twig' %}
+{% extends '::cp.html.twig' %}
 
+{# --------------------------------------------------------------------------- #}
 {% block body %}
-    <h1>Proposals list</h1>
 
-    <h3>Рубрики</h3>
-    <ul>
-        {% for topic in topics %}
-            <li>
-                <a href="{{ path('cp', { 'topic': topic.id, 'sort': current_sort }) }}">{{ topic.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="communication-platform">
+        <div class="nav-panel">
+            <nav class="main-btns">
+                <ul>
+                    {% for topic in topics %}
+                        <li class="active">
+                            <a href="{{ path('cp', { 'topic': topic.id, 'sort': current_sort }) }}">{{ topic.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div><!-- /nav-panel-->
 
-    <h3>Сортировки</h3>
-    <ul>
-        <li>
-            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'rating' }) }}">rating</a>
-        </li>
-        <li>
-            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'created' }) }}">created</a>
-        </li>
-        <li>
-            <a href="{{ path('cp', { 'topic': current_topic, 'sort': 'comments' }) }}">comments</a>
-        </li>
-    </ul>
+        <div class="cols clearfix">
+            <div class="col-1">
 
-    <h3>Сортировки</h3>
-    <ul>
-        <li>Колличество постов: {{ statistic['totalCount'] }}</li>
-        <li>Колличество пользоватлей: {{ statistic['simpleUser'] }}</li>
-        <li>Колличество экспертов: {{ statistic['expertUsers'] }}</li>
-    </ul>
+                <div class="hit-list">
+                    <h2><span></span>Топ законодательных инициатив</h2>
 
-    <div id="fos_comment_thread">
-        <table class="records_list">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Content</th>
-                    <th>Countcomments</th>
-                    <th>CountVoters</th>
-                    <th>Enabled</th>
-                    <th>Actions</th>
-                    <th>Vote</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('cp_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.content }}</td>
-                    <td>{{ entity.getThread().getNumComments() }}</td>
-                    <td>{{ entity.getVoteObjectThread().getCountVotes() }}</td>
-                    <td>{{ entity.enabled }}</td>
-                    <td>
+                    <div id="fos_comment_thread" class="items">
+
+                        {% for entity in entities %}
+                            <dl class="item">
+                                <dt class="score">
+                                    {% block armd_comment_object_metas_voting %}
+                                        <div class="fos_comment_comment_voting">
+                                            <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
+                                            {% if fos_comment_can_object_vote(entity) %}
+                                                <div>
+                                                    <div class="vote down"><button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote"><span>{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</span></button></div>
+                                                    <div class="vote up"><button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote"><span>{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</span></button></div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endblock armd_comment_object_metas_voting %}
+                                </dt>
+                                <dd>
+                                    <!-- AddThis Button BEGIN -->
+                                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">
+                                        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
+                                        <a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>
+                                        <script type="text/javascript">
+                                            addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});
+                                        </script>
+                                    </div>
+                                    <!-- AddThis Button END -->
+
+                                    <h5><a href="#" class="tw author"><span></span>{{ entity.getAuthorName() }} </a>/Тема недели</h5>
+                                    <p>
+                                        {{ entity.content }}
+                                        <a href="{{ path('cp_show', { 'id': entity.id }) }}"><span class="comment-count">{{ entity.getThread().getNumComments() }}</span></a>
+                                    </p>
+                                </dd>
+                            </dl>
+
+                        {% endfor %}
+
+                    </div><!-- /items-->
+
+                    {#
+                    <div class="more-link">
+                        <a href="#">Полный список</a>
+                    </div><!-- /more-link-->
+                    #}
+
+                </div><!-- /hit-list-->
+
+            </div><!-- /col-1-->
+
+            <div class="col-2 sidebar">
+
+                <div class="statistic">
+                    <h4><span></span>Статистика</h4>
+                    <div class="list">
                         <ul>
-                            <li>
-                                <a href="{{ path('cp_show', { 'id': entity.id }) }}">show</a>
-                            </li>
-                            {% if is_granted('EDIT', entity) %}
-                                <li>
-                                    <a href="{{ path('cp_edit', { 'id': entity.id }) }}">edit</a>
-                                </li>
-                            {% endif %}
+                            <li><strong>Сейчас на портале</strong> <em><a href="#">10</a></em></li>
+                            <li><strong>Обсуждений всего </strong> <em><a href="#">{{ statistic['totalCount'] }}</a></em></li>
+                            <li><strong>Пользователей на портале</strong> <em><a href="#">{{ statistic['simpleUser'] }}</a></em></li>
+                            <li><strong>Экспертов всего</strong> <em><a href="#">{{ statistic['expertUsers'] }}</a></em></li>
                         </ul>
-                    </td>
-                    <td>
-                        <!-- AddThis Button BEGIN -->
-                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
-                        <a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>
-                        <script type="text/javascript">
-                            addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});
-                        </script>
-                        <!-- AddThis Button END -->
+                    </div><!-- /list-->
+                </div><!-- /statistic-->
 
-                        {% block armd_comment_object_metas_voting %}
-                            <div class="fos_comment_comment_voting">
-                                {% if fos_comment_can_object_vote(entity) %}
-                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
-                                    <button data-url="{{ url("fos_comment_new_vote_object_thread_votes", {"id": entity.getVoteObjectThread().getId(), "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
-                                {% endif %}
-                                <div class="fos_comment_comment_score" id="armd_comment_score_{{ entity.getVoteObjectThread().getId() }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': entity.getVoteObjectThread().score } %}</div>
-                            </div>
-                        {% endblock armd_comment_object_metas_voting %}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    <div class="tags">
+                    <h4><span></span>Теги</h4>
+                    <nav>
+                        <ul>
+                            <li class="t1"><a href="#">усадьбы<sup>3</sup></a></li>
+                            <li class="t2"><a href="#">библиотеки<sup>32</sup></a></li>
+                            <li class="t1"><a href="#">снос зданий<sup>1</sup></a></li>
+                            <li class="t2"><a href="#">законопроект<sup>50</sup></a></li>
+                            <li class="t4"><a href="#">театр<sup>102</sup></a></li>
+                            <li class="t1"><a href="#">культурный<sup>3</sup></a></li>
+                        </ul>
+                    </nav>
 
-    {# display navigation #}
-    <div class="navigation">
-        {{ entities.render()|raw }}
-    </div>
+                    </div><!-- /tags-->
 
+            </div><!-- /col-2-->
+        </div><!-- /cols-->
+    </div><!-- /communication-platform-->
+
+
+
+    {# ############################################################# #}
+
+    {#
     {% if is_granted('ROLE_USER') %}
         <ul>
             <li>
@@ -105,20 +119,23 @@
             </li>
         </ul>
     {% endif %}
+    #}
 
 {% endblock %}
 
+{# --------------------------------------------------------------------------- #}
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('bundles/sonatajquery/jquery-1.7.1.js') }}"></script>
-
     {% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 
-
+{# --------------------------------------------------------------------------- #}
 {% block stylesheets %}
+    {{ parent() }}
     {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
 {% endblock %}
