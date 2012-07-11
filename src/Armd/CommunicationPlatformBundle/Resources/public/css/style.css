@@ -201,7 +201,7 @@ footer { margin-top:50px; }
 	
 		header .main-menu nav { float:left; }
 		
-		header .main-menu .private-enter { float:right; }
+		header .main-menu .private-enter { float:right; position:relative; }
 		
 			
 			header .main-menu nav ul { position:relative; }
@@ -950,3 +950,6 @@ footer { margin-top:50px; }
 .fos_comment_comment_voting .vote button span{ display:none; }
 .fos_comment_comment_voting .vote.up button{ background-position:-8px -488px; }
 .fos_comment_comment_voting .vote.down button { background-position:-8px -547px; }
+.auth-block{ position:absolute; z-index:100; left:-140px; display:none; padding:10px; font-size:13px; border:solid 1px #ccc; box-shadow:2px 2px 5px #555; background:#fff; }
+.private-enter .username{ color:#FFFFFF; font-size:11px; }
+header .main-menu .private-enter .loginza{ color:#f00; }
