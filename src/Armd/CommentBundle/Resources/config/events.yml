@@ -4,3 +4,8 @@ services:
         tags:
             - { name: kernel.event_subscriber }
         arguments: [@security.context]
+
+    fos_comment.listener.comment_vote_score:
+        class: Armd\CommentBundle\EventListener\CommentVoteScoreListener
+        tags:
+            - { name: kernel.event_subscriber }
