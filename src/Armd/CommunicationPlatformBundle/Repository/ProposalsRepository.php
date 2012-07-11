@@ -11,9 +11,9 @@ class ProposalsRepository extends EntityRepository
      * @param $sort
      * @return \Doctrine\ORM\Query
      */
-    public function getQueryListProposals($topic, $sort, $order)
+    public function getQueryListProposals($topic, $sort = 'rating', $order = 'desc')
     {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder('p, ct')
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder('p')
             ->select('p, ct, vt')
             ->from('ArmdCommunicationPlatformBundle:Proposals', 'p')
             ->join('p.thread', 'ct')
@@ -25,6 +25,24 @@ class ProposalsRepository extends EntityRepository
         $queryBuilder = $this->setOrder($queryBuilder, $sort, strtoupper($order));
 
         return $queryBuilder->getQuery();
+    }
+
+    /**
+     * @param $topic
+     * @param $sort
+     * @return \Doctrine\ORM\Query
+     */
+    public function getCountProposals($topic)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->from('ArmdCommunicationPlatformBundle:Proposals', 'p')
+            ->where('p.enabled = :enabled')
+            ->setParameter('enabled', 1);
+
+        $queryBuilder = $this->setTopicFilter($queryBuilder, $topic);
+
+        return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**

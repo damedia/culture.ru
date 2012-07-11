@@ -41,7 +41,7 @@ class ProposalsController extends Controller
         $topis = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:index.html.twig', array(
-            'statistic'    => $this->getStatisticInfomation($entities),
+            'statistic'    => $this->getStatisticInfomation($entities->getTotalItemCount()),
             'current_topic'=> $topic,
             'current_sort' => $sort,
             'topics'       => $topis,
@@ -53,11 +53,12 @@ class ProposalsController extends Controller
      * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $entities
      * @return array
      */
-    public function getStatisticInfomation(SlidingPagination $entities)
+    public function getStatisticInfomation($count_entities)
     {
         $simpeUsers = 0;
         $expertUsers = 0;
-        foreach ($this->get('fos_user.user_manager')->findUsers() as $user) {
+        $userManager = $this->get('fos_user.user_manager');
+        foreach ($userManager->findUsers() as $user) {
             if (in_array('ROLE_EXPERT', $user->getRoles())) {
                 $expertUsers++;
             }
@@ -66,9 +67,10 @@ class ProposalsController extends Controller
             }
         }
 
-        return array('simpleUser'  => $simpeUsers,
-                     'expertUsers' => $expertUsers,
-                     'totalCount'  => $entities->getTotalItemCount());
+        return array('online_users' => $userManager->getCountOnlineUsers(),
+                     'simpleUser'   => $simpeUsers,
+                     'expertUsers'  => $expertUsers,
+                     'totalCount'   => $count_entities);
     }
 
     /**
@@ -88,10 +90,12 @@ class ProposalsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:show.html.twig', array(
-            'comments'    => $this->getComments($entity->getThread()),
-            'thread'      => $entity->getThread(),
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView()
+            'statistic'    => $this->getStatisticInfomation(
+                $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->getCountProposals($entity->getTopic()->getId())),
+            'comments'       => $this->getComments($entity->getThread()),
+            'thread'         => $entity->getThread(),
+            'entity'         => $entity,
+            'delete_form'    => $deleteForm->createView()
         ));
     }
 
