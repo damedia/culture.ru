@@ -60,10 +60,6 @@ security:
                 path:           /logout
                 target:         /cp
             anonymous:          true
-
-        secured_area:
-            pattern: ^/profile
-            anonymous: false
             loginza:
               login_route: _loginza_login_user
               token_route: _loginza_redirect_user
