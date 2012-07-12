@@ -1,0 +1,37 @@
+{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+    <table class="map-ui">
+        <tr>
+            <td class="left-col">
+                <div>
+
+                </div>
+            </td>
+            <td class="right-col">
+                <div id="atlas-map"></div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        body{ margin:0; padding:0; }
+        .map-ui{ width:100%; border-collapse:collapse; }
+        .map-ui td{ padding:0; vertical-align:top; }
+        .map-ui .left-col{ width:38%; }
+        .map-ui .right-col{ width:62%; }
+        #atlas-map{ width:100%; height:500px; }
+    </style>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.6"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas.js') }}"></script>
+{% endblock %}

@@ -109,4 +109,47 @@ class DefaultController extends Controller
         return $response;
     }
 
+    /**
+     * @Route("/calcroute")
+     */
+    public function calcRouteAction()
+    {
+        $progorodApiKey = $this->container->getParameter('progorod_api_key');
+        $params = array(
+            'n' => 3,
+            'type' => 'route,plan,indexes',
+            'method' => 'optimal',
+            'p0x' => 37.42362404792954,
+            'p0y' => 54.94441026601353,
+            'p1x' => 39.741739282328965,
+            'p1y' => 54.61419589978249,
+            'p2x' => 39.511026391701535,
+            'p2y' => 55.55940194740992,
+        );
+        $url = 'http://route.tmcrussia.com/cgi/getroute?'.http_build_query($params).'&'.$progorodApiKey;
+
+        $res = $this->getUrl($url);
+
+        return new Response($res);
+    }
+
+    /**
+     * @Route("/routes")
+     * @Template()
+     */
+    public function routesAction()
+    {
+        return array();
+    }
+
+    protected function getUrl($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        return $res;
+    }
+
 }

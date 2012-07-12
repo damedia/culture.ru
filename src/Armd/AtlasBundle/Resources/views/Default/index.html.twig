@@ -26,7 +26,7 @@
                         </select>
                         <p class="atlas-region-default">По умолчанию выбраны все регионы</p>
                     </div>
-                    <div class="atlas-map">
+                    <div class="">
                         <h1 class="atlas-aside-title">Показать на карте</h1>
                         <div class="atlas-aside-searchbox">
                             <span class="inp-txt"><input type="text" name="search" size="30"/></span>
@@ -59,9 +59,15 @@
             <div class="topshadow">
                 <div class="inner"></div>
             </div>
+
             <div id="atlas-map" class="atlas-map"></div>
+
+            <div style="margin-top:30px; clear:both;">
+                <button id="route">Route</button>
+            </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block stylesheets %}
