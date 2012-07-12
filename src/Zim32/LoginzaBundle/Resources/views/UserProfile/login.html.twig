@@ -1,8 +1,6 @@
-{% extends "::blank.html.twig" %}
-
 {% block body %}
-    <script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
-    <a href="https://loginza.ru/api/widget?token_url={{token_url|url_encode}}" class="loginza">Авторизуйтесь через соцсеть</a>
+<script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
+<a href="https://loginza.ru/api/widget?token_url={{token_url|url_encode}}" class="loginza">Please login</a>
 
     {% if app.session.hasFlash('error') %}
     <div class="flash-notice" style="color:red">

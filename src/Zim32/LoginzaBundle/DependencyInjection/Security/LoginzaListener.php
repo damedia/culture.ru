@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\DependencyInjection\Container;
+#use Application\Sonata\UserBundle\Entity\User;
 
 class LoginzaListener implements ListenerInterface  {
 
@@ -43,7 +44,7 @@ class LoginzaListener implements ListenerInterface  {
             }
 
             if(!$user){
-                $user = new User($this->getUserName($decoded), $decoded['uid'], $roles = array('ROLE_USER'));
+                $user = new User($decoded['name']['first_name'], $decoded['uid'], $roles = array('ROLE_USER'));
             }
 
             $token = new LoginzaToken($user->getRoles());
@@ -64,15 +65,16 @@ class LoginzaListener implements ListenerInterface  {
         }
 
         try{
-            $user = $repo->findOneBy(array('id'=>$data['uid']));
+            $user = $repo->findOneBy(array('uid'=>$data['uid']));
             if($user === null){
                 $user = new $repository();
                 $user->setUid($data['uid']);
                 $user->setPassword('');
                 $user->setRoles(array());
+                #$user->setSalt('');
                 $user->setEmail('');
                 $user->setEnabled( true );
-                $user->setUsername($this->getUserName($data));
+                $user->setUsername($data['name']['first_name']);
                 $em->persist($user);
                 $em->flush();
                 return $user;
@@ -81,15 +83,8 @@ class LoginzaListener implements ListenerInterface  {
             throw $e;
             return null;
         }
-        return $user;
-    }
 
-    public function getUserName(array $decoded)
-    {
-        return isset($decoded['name']['first_name'])?
-            $decoded['name']['first_name']:
-            (isset($decoded['name']['full_name'])?
-                $decoded['name']['full_name']:
-                'anon');
+        return $user;
+        
     }
 }

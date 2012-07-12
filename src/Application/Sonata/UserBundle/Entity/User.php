@@ -28,12 +28,7 @@ class User extends BaseUser
      */
     protected $id;
 
-    /**
-     * @var \Datetime $last_activitylastActivity
-     */
-    private $lastActivity;
-
-    /**
+     /**
      * @var integer $id
      */
     protected $uid;
@@ -48,27 +43,6 @@ class User extends BaseUser
         return $this->id;
     }
 
-    /**
-     * Set lastActivity
-     *
-     * @param \Datetime $lastActivity
-     * @return User
-     */
-    public function setLastActivity($lastActivity)
-    {
-        $this->lastActivity = $lastActivity;
-        return $this;
-    }
-
-    /**
-     * Get lastActivity
-     *
-     * @return \Datetime
-     */
-    public function getLastActivity()
-    {
-        return $this->lastActivity;
-    }
 
     /**
      * Get uid
@@ -93,4 +67,5 @@ class User extends BaseUser
 
         return $this;
     }
+
 }
