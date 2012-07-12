@@ -1,1 +1,1 @@
-{% trans from 'FOSCommentBundle' %}fos_comment_comment_vote_score{% endtrans %} {{ objectScore }}
+<span>{% if objectScore > 0 %}+{% elseif objectScore < 0 %}&minus;{% endif %}</span>{{ objectScore|abs }}

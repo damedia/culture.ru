@@ -2,6 +2,7 @@
 
 namespace Armd\CommunicationPlatformBundle\Controller;
 
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
@@ -28,19 +29,48 @@ class ProposalsController extends Controller
      * Lists all Proposals entities.
      *
      */
-    public function indexAction($topic, $sort)
+    public function indexAction($topic, $sort, $order, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->findAll();
+        $entities =$this->getPagination(
+            $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')
+                ->getQueryListProposals($topic, $sort, $order),
+            $page, 10);
+
         $topis = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:index.html.twig', array(
+            'statistic'    => $this->getStatisticInfomation($entities->getTotalItemCount()),
             'current_topic'=> $topic,
             'current_sort' => $sort,
             'topics'       => $topis,
             'entities'     => $entities
         ));
+    }
+
+    /**
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $entities
+     * @return array
+     */
+    public function getStatisticInfomation($count_entities)
+    {
+        $simpeUsers = 0;
+        $expertUsers = 0;
+        $userManager = $this->get('fos_user.user_manager');
+        foreach ($userManager->findUsers() as $user) {
+            if (in_array('ROLE_EXPERT', $user->getRoles())) {
+                $expertUsers++;
+            }
+            if (in_array('ROLE_USER', $user->getRoles()) && !in_array('ROLE_EXPERT', $user->getRoles())) {
+                $simpeUsers++;
+            }
+        }
+
+        return array('online_users' => $userManager->getCountOnlineUsers(),
+                     'simpleUser'   => $simpeUsers,
+                     'expertUsers'  => $expertUsers,
+                     'totalCount'   => $count_entities);
     }
 
     /**
@@ -59,7 +89,12 @@ class ProposalsController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $topics = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
+
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:show.html.twig', array(
+            'statistic'    => $this->getStatisticInfomation(
+                $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->getCountProposals($entity->getTopic()->getId())),
+            'topics'      => $topics,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
             'entity'      => $entity,
@@ -282,5 +317,17 @@ class ProposalsController extends Controller
         }
 
         return $this->securityContext;
+    }
+
+    /**
+     * @param \Doctrine\ORM\Query $query
+     * @param int $page
+     * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
+     */
+    public function getPagination(\Doctrine\ORM\Query $query, $page, $limit)
+    {
+        $paginator = $this->get('knp_paginator');
+
+        return $paginator->paginate($query, $page, $limit);
     }
 }

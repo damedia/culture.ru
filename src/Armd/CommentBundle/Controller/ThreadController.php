@@ -16,15 +16,11 @@ use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\HttpFoundation\Response;
 
 use Armd\CommentBundle\Entity\VoteObjectThread;
+use Armd\CommentBundle\Model\CountVotesInterface;
 use Armd\CommentBundle\Entity\Comment;
 use Armd\CommentBundle\Entity\VoteObject;
 use Armd\CommentBundle\Entity\Vote;
 
-/**
- * Restful controller for the Threads.
- *
- * @author Alexander <iam.asm89@gmail.com>
- */
 class ThreadController extends BaseController
 {
     /**
@@ -283,6 +279,11 @@ class ThreadController extends BaseController
     {
         $this->getVoteManager()->removeVote($commentVote);
         $comment->incrementScore($value);
+
+        if ($comment instanceof CountVotesInterface) {
+            $comment->decrementCountVotes();
+        }
+
         $this->getCommentManager()->updateComment($comment);
     }
 
@@ -295,6 +296,11 @@ class ThreadController extends BaseController
     {
         $this->getVoteObjectManager()->removeVote($objectVote);
         $thread->incrementScore($value);
+
+        if ($thread instanceof CountVotesInterface) {
+            $thread->decrementCountVotes();
+        }
+
         $this->container->get('armd_comment.manager.vote_thread_object')->saveThread($thread);
     }
 }
