@@ -38,22 +38,22 @@ The default `autoload.php` reads as follows (it has been simplified a lot as
 autoloading for libraries and bundles declared in your `composer.json` file is
 automatically managed by the Composer autoloader):
 
-  <?php
+    <?php
 
-  use Doctrine\Common\Annotations\AnnotationRegistry;
+    use Doctrine\Common\Annotations\AnnotationRegistry;
 
-  $loader = include __DIR__.'/../vendor/autoload.php';
+    $loader = include __DIR__.'/../vendor/autoload.php';
 
-  // intl
-  if (!function_exists('intl_get_error_code')) {
-      require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
+    // intl
+    if (!function_exists('intl_get_error_code')) {
+        require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
 
-      $loader->add('', __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
-  }
+        $loader->add('', __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
+    }
 
-  AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+    AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
-  return $loader;
+    return $loader;
 
 ### `app/config/config.yml`
 
@@ -86,7 +86,13 @@ configuration (it was under the `framework.session` in 2.0):
         default_locale: %locale%
 
 The `auto_start` setting under `framework.session` must be removed as it is
-not used anymore (the session is now always started on-demand).
+not used anymore (the session is now always started on-demand). If
+`auto_start` was the only setting under the `framework.session` entry, don't
+remove it entirely, but set its value to `~` (`~` means `null` in YAML)
+instead:
+
+    framework:
+        session: ~
 
 The `trust_proxy_headers` setting was added in the default configuration file
 (as it should be set to `true` when you install your application behind a
@@ -127,7 +133,7 @@ The `storage_id` setting must be changed to `session.storage.mock_file`:
 
 ### `app/config/parameters.ini`
 
-The file has been converted to a YAML file which read as follows:
+The file has been converted to a YAML file which reads as follows:
 
     parameters:
         database_driver:   pdo_mysql
@@ -176,7 +182,7 @@ Under `security.providers`, the `in_memory` example was updated to the following
 
 ### `app/AppKernel.php`
 
-The following bundles was added to the list of default registered bundles:
+The following bundles have been added to the list of default registered bundles:
 
     `new JMS\AopBundle\JMSAopBundle(),
     `new JMS\DiExtraBundle\JMSDiExtraBundle($this),
