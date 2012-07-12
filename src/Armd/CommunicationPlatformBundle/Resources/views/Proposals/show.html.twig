@@ -16,7 +16,7 @@
             </nav>
             <nav class="action-btns tabs">
                 <ul>
-                    {% if is_granted('ROLE_USER') %}
+                    {% if can_create_proposal() %}
                         <li class="add"><a href="{{ path("cp_new") }}" class="current"><b><span></span>Добавить свою запись</b></a></li>
                     {% endif %}
                     <li class="read"><a href="{{ path("cp") }}"><b><span></span>Почитать других</b></a></li>
@@ -45,7 +45,7 @@
                                     {% endblock armd_comment_object_metas_voting %}
                                 </dt>
                                 <dd>
-                                    <h5><a href="#" class="tw author"><span></span>{{ entity.getAuthorName() }}</a> / Тема недели</h5>
+                                    <h5><a href="#" class="tw author"><span></span>{{ entity.getAuthorName() }}</a> / <a href="{{ path('cp', { 'topic': entity.getTopic().getId() }) }}">{{ entity.getTopic().getTitle() }}</a></h5>
                                     <p>{{ entity.content }}</p>
                                 </dd>
                             </dl>

@@ -14,7 +14,6 @@ class ProposalsType extends AbstractType
             ->add('content')
             ->add('enabled')
             ->add('title')
-            ->add('description')
             ->add('topic')
         ;
     }

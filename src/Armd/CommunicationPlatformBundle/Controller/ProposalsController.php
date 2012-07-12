@@ -26,19 +26,27 @@ class ProposalsController extends Controller
     protected $securityContext;
 
     /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $em;
+
+    /**
+     * @var \Armd\CommunicationPlatformBundle\Acl\SecurityProposalsAcl
+     */
+    protected $proposalsAcl;
+
+    /**
      * Lists all Proposals entities.
      *
      */
     public function indexAction($topic, $sort, $order, $page)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $entities =$this->getPagination(
-            $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')
+            $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Proposals')
                 ->getQueryListProposals($topic, $sort, $order),
             $page, 10);
 
-        $topis = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
+        $topis = $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:index.html.twig', array(
             'statistic'    => $this->getStatisticInfomation($entities->getTotalItemCount()),
@@ -50,38 +58,12 @@ class ProposalsController extends Controller
     }
 
     /**
-     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $entities
-     * @return array
-     */
-    public function getStatisticInfomation($count_entities)
-    {
-        $simpeUsers = 0;
-        $expertUsers = 0;
-        $userManager = $this->get('fos_user.user_manager');
-        foreach ($userManager->findUsers() as $user) {
-            if (in_array('ROLE_EXPERT', $user->getRoles())) {
-                $expertUsers++;
-            }
-            if (in_array('ROLE_USER', $user->getRoles()) && !in_array('ROLE_EXPERT', $user->getRoles())) {
-                $simpeUsers++;
-            }
-        }
-
-        return array('online_users' => $userManager->getCountOnlineUsers(),
-                     'simpleUser'   => $simpeUsers,
-                     'expertUsers'  => $expertUsers,
-                     'totalCount'   => $count_entities);
-    }
-
-    /**
      * Finds and displays a Proposals entity.
      *
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
+        $entity = $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Proposals entity.');
@@ -89,11 +71,11 @@ class ProposalsController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        $topics = $em->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
+        $topics = $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Topic')->findAll();
 
         return $this->render('ArmdCommunicationPlatformBundle:Proposals:show.html.twig', array(
             'statistic'    => $this->getStatisticInfomation(
-                $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->getCountProposals($entity->getTopic()->getId())),
+                $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Proposals')->getCountProposals($entity->getTopic()->getId())),
             'topics'      => $topics,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
@@ -133,11 +115,10 @@ class ProposalsController extends Controller
             $entity->setVoteObjectThread($this->createVoteObjectThread());
             $entity->setAuthor($this->getSecurityContext()->getToken()->getUser());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+            $this->getEntityManager()->persist($entity);
+            $this->getEntityManager()->flush();
 
-            $this->setAcl($entity);
+            $this->getProposalsAcl()->setDefaultAcl($entity);
 
             return $this->redirect($this->generateUrl('cp_show', array('id' => $entity->getId())));
         }
@@ -154,9 +135,8 @@ class ProposalsController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
-        $this->securityCheck('EDIT', $entity);
+        $entity = $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
+        $this->getProposalsAcl()->canEdit($entity);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Proposals entity.');
@@ -172,40 +152,6 @@ class ProposalsController extends Controller
         ));
     }
 
-    /**
-     * Edits an existing Proposals entity.
-     *
-     */
-    public function updateAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Proposals entity.');
-        }
-
-        $editForm   = $this->createForm(new ProposalsType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        $request = $this->getRequest();
-
-        $editForm->bindRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('cp_edit', array('id' => $id)));
-        }
-
-        return $this->render('ArmdCommunicationPlatformBundle:Proposals:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Deletes a Proposals entity.
@@ -214,24 +160,45 @@ class ProposalsController extends Controller
     public function deleteAction($id)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bindRequest($request);
+        $form->bindRequest($this->getRequest());
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
+            $entity = $this->getEntityManager()->getRepository('ArmdCommunicationPlatformBundle:Proposals')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Proposals entity.');
             }
 
-            $this->securityCheck('DELETE', $entity);
-            $em->remove($entity);
-            $em->flush();
+            $this->getProposalsAcl()->canDelete($entity);
+            $this->getEntityManager()->remove($entity);
+            $this->getEntityManager()->flush();
         }
 
         return $this->redirect($this->generateUrl('cp'));
+    }
+
+    /**
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $entities
+     * @return array
+     */
+    public function getStatisticInfomation($count_entities)
+    {
+        $simpeUsers = 0;
+        $expertUsers = 0;
+        $userManager = $this->get('fos_user.user_manager');
+        foreach ($userManager->findUsers() as $user) {
+            if (in_array('ROLE_EXPERT', $user->getRoles())) {
+                $expertUsers++;
+            }
+            if (in_array('ROLE_USER', $user->getRoles()) && !in_array('ROLE_EXPERT', $user->getRoles())) {
+                $simpeUsers++;
+            }
+        }
+
+        return array('online_users' => $userManager->getCountOnlineUsers(),
+                     'simpleUser'   => $simpeUsers,
+                     'expertUsers'  => $expertUsers,
+                     'totalCount'   => $count_entities);
     }
 
     /**
@@ -242,8 +209,7 @@ class ProposalsController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**
@@ -260,6 +226,9 @@ class ProposalsController extends Controller
         return $thread;
     }
 
+    /**
+     * @return \Armd\CommentBundle\Entity\VoteObjectThread
+     */
     public function createVoteObjectThread()
     {
         $thread = $this->container->get('armd_comment.manager.vote_thread_object')->createThread();
@@ -270,53 +239,11 @@ class ProposalsController extends Controller
 
     /**
      * @param Armd\CommentBundle\Entity\Thread $thread
-     * @return Armd\CommentBundle\Entity\Comment
+     * @return \Armd\CommentBundle\Entity\Comment
      */
     public function getComments(Thread $thread)
     {
         return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
-    }
-
-    /**
-     * @param Proposals $entity
-     */
-    public function setAcl(Proposals $entity)
-    {
-        // creating the ACL
-        $aclProvider = $this->get('security.acl.provider');
-        $objectIdentity = ObjectIdentity::fromDomainObject($entity);
-        $acl = $aclProvider->createAcl($objectIdentity);
-
-        $user = $this->getSecurityContext()->getToken()->getUser();
-        $securityIdentity = UserSecurityIdentity::fromAccount($user);
-
-        // grant owner access
-        $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-        $aclProvider->updateAcl($acl);
-    }
-
-    /**
-     * @param string $action
-     * @param \Armd\CommunicationPlatformBundle\Entity\Proposals $entity
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
-    public function securityCheck($action, Proposals $entity)
-    {
-        if ( false === $this->getSecurityContext()->isGranted(strtoupper($action), $entity) ) {
-            throw new AccessDeniedException();
-        }
-    }
-
-    /**
-     * @return Symfony\Component\Security\Core\SecurityContext
-     */
-    public function getSecurityContext()
-    {
-        if ( null === $this->securityContext ) {
-            $this->securityContext = $this->get('security.context');
-        }
-
-        return $this->securityContext;
     }
 
     /**
@@ -329,5 +256,41 @@ class ProposalsController extends Controller
         $paginator = $this->get('knp_paginator');
 
         return $paginator->paginate($query, $page, $limit);
+    }
+
+    /**
+     * @return Symfony\Component\Security\Core\SecurityContext
+     */
+    public function getSecurityContext()
+    {
+        if (null === $this->securityContext) {
+            $this->securityContext = $this->get('security.context');
+        }
+
+        return $this->securityContext;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        if (null === $this->em) {
+            $this->em = $this->getDoctrine()->getManager();
+        }
+
+        return $this->em;
+    }
+
+    /**
+     * @return \Armd\CommunicationPlatformBundle\Acl\SecurityProposalsAcl
+     */
+    public function getProposalsAcl()
+    {
+        if (null === $this->proposalsAcl) {
+            $this->proposalsAcl = $this->get('armd_cp.acl.proposals.security');
+        }
+
+        return $this->proposalsAcl;
     }
 }

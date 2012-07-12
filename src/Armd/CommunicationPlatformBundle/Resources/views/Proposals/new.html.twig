@@ -24,6 +24,7 @@
                 	<div class="pane" id="add">
                         <div class="add-post">
                             <form action="{{ path('cp_create') }}" method="post" {{ form_enctype(form) }}>
+                                {{ form_errors(form) }}
                                 <div class="row">
                                     <div class="label">Заголовок</div>
                                     <div class="full-width">{{ form_widget(form.title) }}</div>
@@ -51,6 +52,7 @@
                                     <label class="tags">Теги: <input type="text" class="tags"></label>
                                 </div>
 
+                                {{ form_rest(form) }}
                                 <div class="send">
                                     <input type="submit" class="btn" value="Отправить">
                                 </div>
