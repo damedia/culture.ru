@@ -26,6 +26,9 @@
         "sonata-project/doctrine-orm-admin-bundle": "*",
         "sonata-project/easy-extends-bundle": "*"
     },
+    "repositories": {
+        "kriswallsmith/buzz": { "composer": { "url": "https://github.com/kriswallsmith/Buzz.git" } }
+    },
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
