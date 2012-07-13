@@ -44,14 +44,20 @@
         {
             "package": "friendsofsymfony/rest-bundle",
             "version": "dev-master",
-            "source-reference": "db40cf0203e74ad15d018c5650ff77931b915029",
-            "commit-date": "1341581983"
+            "alias-pretty-version": "0.8.x-dev",
+            "alias-version": "0.8.9999999.9999999-dev"
+        },
+        {
+            "package": "friendsofsymfony/rest-bundle",
+            "version": "dev-master",
+            "source-reference": "1dc00e3fa4e866ef7a95cdc508ac4e412786ed6b",
+            "commit-date": "1342010127"
         },
         {
             "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
-            "source-reference": "46735a4b0d7d490dded7ca24c83ccad41910b1fa",
-            "commit-date": "1341863191"
+            "source-reference": "9f0294ebe2f13dbb41c3ac5d19eb0655680a29c6",
+            "commit-date": "1341994043"
         },
         {
             "package": "gedmo/doctrine-extensions",
@@ -132,8 +138,8 @@
         {
             "package": "sensio/distribution-bundle",
             "version": "dev-master",
-            "source-reference": "9a7dbd867fd5061e4bfd660a175aa66122f53d25",
-            "commit-date": "1341741741"
+            "source-reference": "b2b18d749d0ed24b48d1932b21f3e8b1e8d9c1f2",
+            "commit-date": "1341919005"
         },
         {
             "package": "sensio/framework-extra-bundle",
@@ -156,8 +162,8 @@
         {
             "package": "sonata-project/admin-bundle",
             "version": "dev-master",
-            "source-reference": "92a84cf74095686d6f3c8cba058172e9b0515eff",
-            "commit-date": "1341822640"
+            "source-reference": "8ebc06ce4bfd632acd11022093a90225e10534a1",
+            "commit-date": "1342045725"
         },
         {
             "package": "sonata-project/block-bundle",
@@ -210,8 +216,8 @@
         {
             "package": "stof/doctrine-extensions-bundle",
             "version": "dev-master",
-            "source-reference": "f141a698d65271a18d86469c1f7b29d7e24170dd",
-            "commit-date": "1334871333"
+            "source-reference": "36356b158b74cb68f96dc0b657e8732422b9d5dd",
+            "commit-date": "1341954345"
         },
         {
             "package": "swiftmailer/swiftmailer",
@@ -222,8 +228,8 @@
         {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
-            "source-reference": "f51b5f33c83b48faea75f1285f99a2e8f1c66f75",
-            "commit-date": "1341746460"
+            "source-reference": "420e227f2238d2c21e464c15f103540d83b0d23b",
+            "commit-date": "1341949155"
         },
         {
             "package": "symfony/assetic-bundle",
@@ -234,20 +240,8 @@
         {
             "package": "symfony/monolog-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/monolog-bundle",
-            "version": "dev-master",
             "source-reference": "v2.1.0-BETA2",
             "commit-date": "1341078487"
-        },
-        {
-            "package": "symfony/swiftmailer-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/swiftmailer-bundle",
@@ -264,8 +258,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "9e32d9029f74dc0b7eeeae5817a20c0969cf1baf",
-            "commit-date": "1341903392"
+            "source-reference": "3b400aef78cef25148cda0fea84013e46cb8bd87",
+            "commit-date": "1342069723"
         },
         {
             "package": "twig/extensions",
@@ -282,8 +276,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "26eb0a2653eade50dffdd31b11ca454232dea8cf",
-            "commit-date": "1341423205"
+            "source-reference": "611f4451e3e44b582fc49e901fdf0f149ee50498",
+            "commit-date": "1341937853"
         }
     ],
     "packages-dev": null,

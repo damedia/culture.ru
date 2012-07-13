@@ -10,4 +10,9 @@ class UserManager extends BaseUserManager
     {
         return $this->repository->findAllActiveUsers();
     }
+
+    public function getUsersRoles()
+    {
+        return $this->repository->findUserRoles();
+    }
 }

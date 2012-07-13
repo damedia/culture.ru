@@ -186,11 +186,12 @@ class ProposalsController extends Controller
         $simpeUsers = 0;
         $expertUsers = 0;
         $userManager = $this->get('fos_user.user_manager');
-        foreach ($userManager->findUsers() as $user) {
-            if (in_array('ROLE_EXPERT', $user->getRoles())) {
+
+        foreach ($userManager->getUsersRoles() as $user) {
+            if ($user->hasRole('ROLE_EXPERT')) {
                 $expertUsers++;
             }
-            if (in_array('ROLE_USER', $user->getRoles()) && !in_array('ROLE_EXPERT', $user->getRoles())) {
+            if ($user->hasRole('ROLE_USER') && !$user->hasRole('ROLE_EXPERT')) {
                 $simpeUsers++;
             }
         }
