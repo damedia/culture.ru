@@ -10,7 +10,7 @@
                 </div>
             </td>
             <td class="right-col">
-                <div id="atlas-map"></div>
+                <div id="map_canvas" style="width:100%; height:500px"></div>
             </td>
         </tr>
     </table>
@@ -22,7 +22,7 @@
     <style type="text/css">
         html{ height:100%; }
         body{ height:100%; margin:0; padding:0; }
-        .map-ui{ width:100%; border-collapse:collapse; }
+        .map-ui{ width:100%; height:100%; border-collapse:collapse; }
         .map-ui td{ padding:0; vertical-align:top; }
         .map-ui .left-col{ width:38%; }
         .map-ui .right-col{ width:62%; }
@@ -33,6 +33,18 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.6"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas.js') }}"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript">
+        function initialize() {
+            var myOptions = {
+                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        }
+        $(function(){
+            initialize();
+        });
+    </script>
 {% endblock %}

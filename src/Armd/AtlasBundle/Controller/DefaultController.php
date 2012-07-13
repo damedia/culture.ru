@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Buzz\Browser;
 
 class DefaultController extends Controller
 {
@@ -128,9 +129,10 @@ class DefaultController extends Controller
         );
         $url = 'http://route.tmcrussia.com/cgi/getroute?'.http_build_query($params).'&'.$progorodApiKey;
 
-        $res = $this->getUrl($url);
+        $browser = new Browser();
+        $response = $browser->get($url);
 
-        return new Response($res);
+        return new Response($response->getContent());
     }
 
     /**
@@ -138,6 +140,15 @@ class DefaultController extends Controller
      * @Template()
      */
     public function routesAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Route("/gmaps")
+     * @Template()
+     */
+    public function gmapsAction()
     {
         return array();
     }
