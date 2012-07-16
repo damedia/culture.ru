@@ -1,0 +1,46 @@
+{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+    <table class="map-ui">
+        <tr>
+            <td class="left-col">
+                <div id="geocoder" class="geocoder">
+                    <div class="search-box">
+                        <input class="search" type="text">
+                        <button class="submit" type="submit">Find</button>
+                    </div>
+                    <div class="result-box">
+                    </div>
+                </div>
+            </td>
+            <td class="right-col">
+                <div id="map" style="width:100%; height:500px"></div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            AT.init({
+                map: 'map',
+                center: [37.648527, 55.723211],
+                zoom: 10
+            });
+        });
+    </script>
+{% endblock %}

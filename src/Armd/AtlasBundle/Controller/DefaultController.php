@@ -153,6 +153,15 @@ class DefaultController extends Controller
         return array();
     }
 
+    /**
+     * @Route("/new")
+     * @Template()
+     */
+    public function newAction()
+    {
+        return array();
+    }
+
     protected function getUrl($url)
     {
         $ch = curl_init();
