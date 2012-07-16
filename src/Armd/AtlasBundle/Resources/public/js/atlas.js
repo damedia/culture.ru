@@ -34,10 +34,20 @@ $(function(){
     }
 
     function clearAllPoints() {
+
+        console.log('clearAllPoints before');
         var objectsAll = map.geometry.get('all');
-        $.each(objectsAll.points, function(i,el){
-            map.geometry.remove(el);
-        });
+
+        console.log('>>>', objectsAll.points);
+
+        if (objectsAll.points.length > 0) {
+            for (var i=0; i<objectsAll.points.length; i++) {
+                var el = objectsAll.points[i];
+                console.log('clearAllPoints each', i);
+                map.geometry.remove(el);
+            }
+        }
+        console.log('clearAllPoints after');
     }
 
     function drawPlacemarks(data) {
@@ -91,6 +101,7 @@ $(function(){
             lat1: PGmap.Utils.mercY(minLat),
             lat2: PGmap.Utils.mercY(maxLat)
         };
+        console.log(bbox);
 
         map.setCenterByBbox(bbox);
     }
@@ -131,7 +142,9 @@ $(function(){
     $('#filter-types').ajaxForm({
         url: fetchMarkersUri,
         beforeSubmit: function() {
+console.log('beforeSubmit 1');
             clearAllPoints();
+console.log('beforeSubmit 2');
             showAjaxLoading();
         },
         dataType: 'json',
@@ -140,7 +153,7 @@ $(function(){
             if (res.result.length) {
                 drawPlacemarks(res.result);
             } else {
-                alert('Ничего не найдено.');
+                //alert('Ничего не найдено.');
             }
         }
     });
@@ -204,6 +217,11 @@ $(function(){
         });
         map.geometry.add(routeLine);
 
+    });
+
+    $('#clear-all-markers').click(function(){
+        clearAllPoints();
+        return false;
     });
 
 });

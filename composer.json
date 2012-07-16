@@ -31,9 +31,6 @@
     "repositories": {
         "kriswallsmith/buzz": { "type": "git", "url": "https://github.com/kriswallsmith/Buzz.git" }
     },
-    "repositories": {
-        "kriswallsmith/buzz": { "composer": { "url": "https://github.com/kriswallsmith/Buzz.git" } }
-    },
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
