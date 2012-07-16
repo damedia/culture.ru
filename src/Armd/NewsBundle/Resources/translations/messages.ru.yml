@@ -1,0 +1,20 @@
+News: Новости
+
+News List: Список новостей
+News Edit: Редактирование новости
+News Create: Создание новости
+
+Announce: Анонс
+Body: Текст новости
+Author: Автор
+Enabled: Показывать
+Date: Дата
+
+armd_news: Новости
+list: Список новостей
+listitem: Список и карточка новостей
+item: Карточка новости
+
+usagetype.title.armd_news.item: Карточка новости
+usagetype.title.armd_news.list: Список новостей
+usagetype.title.armd_news.listitem: Список с карточкой новости

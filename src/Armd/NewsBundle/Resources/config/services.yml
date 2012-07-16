@@ -1,0 +1,7 @@
+services:
+    armd.content.news.admin.news:
+        class: Armd\NewsBundle\Admin\NewsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: News }
+            - { name: armd.content.admin }
+        arguments: [null, Armd\NewsBundle\Entity\News, SonataAdminBundle:CRUD, @service_container]   
