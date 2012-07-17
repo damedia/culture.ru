@@ -16,7 +16,7 @@ class CalendarController extends BaseController
     function widgetAction($year, $month, $day)
     {
         $calendar = Calendar::get(\DateTime::createFromFormat('Y.m.d', "{$year}.{$month}.{$day}"));
-        var_dump($calendar);
+//        var_dump($calendar);
         return $this->render($this->getTemplateName('widget'), array('calendar' => $calendar));
     }
     

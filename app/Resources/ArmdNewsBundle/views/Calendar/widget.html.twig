@@ -1,0 +1,41 @@
+<div class="calendar">
+	<div class="calendar-title">
+		Календарь
+		<span class="c-arrow"></span>
+	</div>
+	<div id="calendar" class="hasDatepicker">
+		<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block; ">
+			<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+				<a class="ui-datepicker-prev ui-corner-all"  title="&lt;Пред" href="#">
+					<span class="ui-icon ui-icon-circle-triangle-w">&lt;Пред</span>
+				</a>
+				<a class="ui-datepicker-next ui-corner-all"  title="След&gt;"  href="#">
+					<span class="ui-icon ui-icon-circle-triangle-e">След&gt;</span>
+				</a>
+				<div class="ui-datepicker-title">
+					<span class="ui-datepicker-month">Июль</span>&nbsp;<span class="ui-datepicker-year">2012</span>
+				</div>
+			</div>
+				
+			<table class="ui-datepicker-calendar">
+				<tbody>
+					{% for week in calendar %}
+						<tr>
+						{% for day in week %}
+							<td {# {% if day.isWeekend %} class="weekend" {% endif %} #} >
+								<span class="ui-state-default">
+									{% if day.day %}{{ day.day }}{% else %} &nbsp;{% endif %}
+								</span>
+							</td>
+						{% endfor %}
+						</tr>
+					{% endfor %} 
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>	
+{#		
+
+#}   
+</table>

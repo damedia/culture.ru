@@ -3,12 +3,12 @@
 namespace Armd\ListBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Armd\ListBundle\Model\OrderedList as BaseList;
+use Armd\ListBundle\Model\OrderedList as AbstractList;
 
 /**
  * @ORM\MappedSuperclass
  */
-class OrderedList extends BaseList
+class OrderedList extends AbstractList
 {
     /**
      * @ORM\Id
