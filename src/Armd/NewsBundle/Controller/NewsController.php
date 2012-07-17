@@ -16,8 +16,9 @@ class NewsController extends ListController
         $date = $this->getDate($year, $month, $day);
         
         return $this->render($this->getTemplateName('archive'), array(
-            'entities'  => $this->getListRepository($date)->getQuery()->getResult(),
-            'date'      => $date,
+            'billboard'     => $this->getPagination($this->getArchiveRepository($date, true)->getQuery(), 1, 100),
+            'entities'      => $this->getPagination($this->getArchiveRepository($date)->getQuery(), 1, 100),            
+            'date'          => $date,
         ));
     }
     
@@ -41,12 +42,14 @@ class NewsController extends ListController
      * @param string $to
      * @return \Armd\NewsBundle\Repository\NewsRepository
      */    
-    function getArchiveRepository($from, $to)
+    function getArchiveRepository($date)
     {   
         $format = 'd.m.Y';
         $date = $to ? \DateTime::createFromFormat($format, $to) : new \DateTime();
      
-        $repository = parent::getListRepository()->setEndDate($date);           
+        $repository = parent::getListRepository()
+            ->setEndDate($date)
+            ->orderByDate();           
         
         return $from ? $repository->setBeginDate(\DateTime::createFromFormat($format, $from)) : $repository;        
     }
@@ -54,11 +57,10 @@ class NewsController extends ListController
     /**
      * {@inheritdoc}
      */
-    function getListRepository()
+    function getListRepository($date)
     {
         return parent::getListRepository()
-            ->setEndDate(new \DateTime())
-            ->orderByDate()
+
         ;
     }
     

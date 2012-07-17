@@ -2,12 +2,12 @@
 
 namespace Armd\NewsBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Armd\ListBundle\Controller\BaseController;
 
 use Armd\NewsBundle\Calendar\Calendar;
 
-class CalendarController extends Controller
+class CalendarController extends BaseController
 {
     /**
      * @Route("/calendar", defaults={"year" = null, "month" = null, "day" = null})         
@@ -20,11 +20,6 @@ class CalendarController extends Controller
         return $this->render($this->getTemplateName('widget'), array('calendar' => $calendar));
     }
     
-    function getTemplateName($action)
-    {
-        return "{$this->getControllerName()}:{$action}.html.twig";
-    }
-
     function getControllerName()
     {
         return 'ArmdNewsBundle:Calendar';
