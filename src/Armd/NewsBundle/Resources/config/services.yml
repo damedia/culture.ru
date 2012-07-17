@@ -1,7 +1,13 @@
 services:
-    armd.content.news.admin.news:
-        class: Armd\NewsBundle\Admin\NewsAdmin
+    armd.content.news.admin.category:
+        class: Armd\NewsBundle\Admin\Category
         tags:
-            - { name: sonata.admin, manager_type: orm, group: module, label: News }
+            - { name: sonata.admin, manager_type: orm, group: News, label: Categories }
+        arguments: [null, Armd\NewsBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
+        
+    armd.content.news.admin.news:
+        class: Armd\NewsBundle\Admin\News
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: News, label: News }
             - { name: armd.content.admin }
         arguments: [null, Armd\NewsBundle\Entity\News, SonataAdminBundle:CRUD, @service_container]   

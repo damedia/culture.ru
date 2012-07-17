@@ -36,12 +36,18 @@ class News extends BaseNews
     /**
      * @ORM\Column(type="text")
      */    
-    protected $body;            
+    protected $body;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\OrderBy({"title" = "ASC"})     
+     **/
+    protected $category;
 
     /**
      * Set announce
      *
-     * @param string $announce
+     * @param text $announce
      * @return News
      */
     public function setAnnounce($announce)
@@ -53,7 +59,7 @@ class News extends BaseNews
     /**
      * Get announce
      *
-     * @return string 
+     * @return text 
      */
     public function getAnnounce()
     {
@@ -63,7 +69,7 @@ class News extends BaseNews
     /**
      * Set body
      *
-     * @param string $body
+     * @param text $body
      * @return News
      */
     public function setBody($body)
@@ -75,10 +81,32 @@ class News extends BaseNews
     /**
      * Get body
      *
-     * @return string 
+     * @return text 
      */
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Set category
+     *
+     * @param Armd\NewsBundle\Entity\Category $category
+     * @return News
+     */
+    public function setCategory(\Armd\NewsBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return Armd\NewsBundle\Entity\Categoty 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

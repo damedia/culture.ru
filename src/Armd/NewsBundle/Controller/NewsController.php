@@ -2,20 +2,40 @@
 
 namespace Armd\NewsBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
 
 class NewsController extends ListController
 {
     /**
-     * @param string $from
-     * @param string $to
-     * @param int    $page
+     * @Route("/calendar/", defaults={"year" = null, "month" = null, "day" = null})     
+     * @Route("/calendar/{year}/{month}/{day}", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"})
      */
-    function archiveAction($from, $to, $page)
+    function archiveAction($year, $month, $day)
     {
-        return $this->render($this->getTemplateName('archive'), array('entities' => $this->getPagination($this->getArchiveRepository($from, $to)->getQuery(), $page)));
+        $date = $this->getDate($year, $month, $day);
+        
+        return $this->render($this->getTemplateName('archive'), array(
+            'entities'  => $this->getListRepository($date)->getQuery()->getResult(),
+            'date'      => $date,
+        ));
     }
-
+    
+    /**
+     * @Route("/this-day", defaults={"month" = null, "day" = null})
+     * @Route("/this-day/{month}/{day}", requirements={"month" = "\d{2}", "day" = "\d{2}"})          
+     */        
+    function thisDayListAction($month, $day)
+    {
+        return $this->render($this->getTemplateName('today-list'), array('entities' => $this->getThisDayListRepository($month, $day)));
+    }
+    
+    
+    function getThisDayListRepository($month, $day)
+    {
+        return parent::getListRepository();
+    }
+    
     /**
      * @param string $from
      * @param string $to
@@ -40,6 +60,12 @@ class NewsController extends ListController
             ->setEndDate(new \DateTime())
             ->orderByDate()
         ;
+    }
+    
+    function getDate($date)
+    {
+        $format = 'd.m.Y';
+        return $date ? \DateTime::createFromFormat($format, $date) : new \DateTime();
     }
     
     function getControllerName()

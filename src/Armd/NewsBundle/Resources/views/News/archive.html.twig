@@ -1,0 +1,5 @@
+{% render "ArmdNewsBundle:Calendar:widget" with {"year": date|date('Y'), "month": date|date('m'), "day": date|date('d')} %}
+
+{% render "ArmdNewsBundle:News:thisdaylist" with {"month": date|date('m'), "day": date|date('d')} %}
+
+{% include "ArmdNewsBundle:News:list.html.twig" with {"entities": entities} %}
