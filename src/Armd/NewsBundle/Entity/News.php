@@ -24,7 +24,7 @@ class News extends BaseNews
     protected $title;
     
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="news_date")
      */
     protected $date;
 
