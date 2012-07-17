@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Buzz\Browser;
+use Armd\AtlasBundle\Entity\Category;
 
 class DefaultController extends Controller
 {
@@ -171,5 +172,32 @@ class DefaultController extends Controller
         curl_close($ch);
         return $res;
     }
+
+    /**
+     * @Route("/addnode/{parentId}")
+     * Usage: http://local.armd.ru/app_dev.php/atlas/addnode/1?title=%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B%20%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%B8%D1%8F
+     */
+    public function addNodeAction($parentId)
+    {
+        $title = $this->getRequest()->query->get('title');
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Category');
+
+        $entity = new Category();
+        $entity->setTitle($title);
+
+        $parent = $repo->find($parentId);
+        if ($parent) {
+            $entity->setParent($parent);
+        }
+
+        $em->persist($entity);
+        $em->flush();
+
+        $response = '';
+        return new Response($response);
+    }
+
 
 }

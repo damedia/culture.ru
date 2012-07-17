@@ -2,23 +2,58 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
-    <table class="map-ui">
-        <tr>
-            <td class="left-col">
-                <div id="geocoder" class="geocoder">
-                    <div class="search-box">
-                        <input class="search" type="text">
-                        <button class="submit" type="submit">Find</button>
+    <form id="atlas-form" action="{{ path('armd_atlas_default_objects') }}" method="post">
+        <table class="map-ui">
+            <tr>
+                <td class="left-col">
+
+                    <!-- #geocoder -->
+                    <div id="geocoder" class="geocoder">
+                        <div class="search-box">
+                            <input class="search" type="text">
+                            <button class="submit" type="submit">Find</button>
+                        </div>
+                        <div class="result-box">
+                        </div>
                     </div>
-                    <div class="result-box">
+                    <!-- /#geocoder -->
+
+                    <!-- #filter -->
+                    <div id="filter">
+                        <div>
+                            <h3><a href="#">Объекты культурного наследия</a></h3>
+                            <div>
+                                <ul>
+                                    <li><input type="checkbox">Памятники</li>
+                                    <li><input type="checkbox"name="ch1"><label for="ch1">Архитектура</label>
+                                        <ul>
+                                            <li><input type="checkbox">Светская</li>
+                                            <li><input type="checkbox">Религиозная</li>
+                                        </ul>
+                                    </li>
+                                    <li><input type="checkbox">Природа</li>
+                                    <li><input type="checkbox">Другое</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <h3><a href="#">Музеи</a></h3>
+                            <div>Phasellus mattis tincidunt nibh.</div>
+                        </div>
+                        <div>
+                            <h3><a href="#">Учреждения</a></h3>
+                            <div>Nam dui erat, auctor a, dignissim quis.</div>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td class="right-col">
-                <div id="map" style="width:100%; height:500px"></div>
-            </td>
-        </tr>
-    </table>
+                    <!-- /#filter -->
+
+                </td>
+                <td class="right-col">
+                    <div id="map"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
