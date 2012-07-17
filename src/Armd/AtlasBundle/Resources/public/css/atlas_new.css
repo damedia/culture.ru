@@ -9,10 +9,11 @@ body,table,p,input,select,button{ font:13px Arial,"Trebuchet MS",sans-serif; }
 .map-ui .right-col{ width:62%; }
 #map{ width:100%; height:500px; }
 
-
-
 .PGmap-button.ruler,
 .PGmap-button.route,
 .PGmap-button.polyline,
 .PGmap-button.polygon,
-.PGmap-button.point{ display:none; }
+.PGmap-button.point,
+.PGmap-copyright{ display:none; }
+
+.geocoder .search-box .search{ font-size:15px; width:90%; }

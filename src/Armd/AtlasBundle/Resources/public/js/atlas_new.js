@@ -7,7 +7,7 @@ AT.version = '0.2';
 AT.map = null;
 
 AT.init = function(params) {
-    console.info('init');
+    console.info('Init Atlas');
 
     AT.initMap(params);
     AT.initGeocoder();
@@ -133,5 +133,14 @@ AT.initUI = function() {
         else
             $(this).closest('li').find('ul li input:checkbox').attr('checked', false);
     });
+
+
+
+    $('#atlas-form').ajaxForm({
+        success: function(){
+            console.log('ok');
+        }
+    });
+
 
 }

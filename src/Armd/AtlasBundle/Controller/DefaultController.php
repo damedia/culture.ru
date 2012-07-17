@@ -51,10 +51,17 @@ class DefaultController extends Controller
      */
     public function objectsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:CultureObject');
+        $request = $this->getRequest();
+        $categoryIds = array_keys($request->get('category'));
+        $searchTerm = $request->get('q');
 
-        $res = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+        $res = $repo->search(array(
+            'term' => $searchTerm,
+            'category' => $categoryIds,
+        ));
 
         $entities = array();
         foreach ($res as $entity) {
@@ -71,6 +78,20 @@ class DefaultController extends Controller
         $response = new Response(json_encode($entities));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    /**
+     * @Route("/object/{id}")
+     * @Template()
+     */
+    public function objectViewAction($id)
+    {
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $entity = $repo->find($id);
+
+        return array(
+            'entity' => $entity,
+        );
     }
 
     /**

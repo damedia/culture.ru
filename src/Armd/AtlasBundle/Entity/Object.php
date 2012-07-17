@@ -3,12 +3,13 @@
 namespace Armd\AtlasBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Armd\AtlasBundle\Entity\Object
  *
  * @ORM\Table(name="atlas_object")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Entity\ObjectRepository")
  */
 class Object
 {
@@ -34,6 +35,16 @@ class Object
      */
     private $lon;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="objects")
+     * @ORM\JoinTable(name="atlas_category_object")
+     */
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -112,5 +123,71 @@ class Object
     public function getLon()
     {
         return $this->lon;
+    }
+
+    /**
+     * Add category
+     *
+     * @param Armd\AtlasBundle\Entity\Category $category
+     * @return Object
+     */
+    public function addCategory(\Armd\AtlasBundle\Entity\Category $category)
+    {
+        $this->category[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param Armd\AtlasBundle\Entity\Category $category
+     */
+    public function removeCategory(\Armd\AtlasBundle\Entity\Category $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Get category
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param Armd\AtlasBundle\Entity\Category $categories
+     * @return Object
+     */
+    public function addCategorie(\Armd\AtlasBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param Armd\AtlasBundle\Entity\Category $categories
+     */
+    public function removeCategorie(\Armd\AtlasBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

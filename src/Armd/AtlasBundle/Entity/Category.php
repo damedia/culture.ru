@@ -76,9 +76,16 @@ class Category implements Node
      */
     private $children;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Object", inversedBy="categories")
+     * @ORM\JoinTable(name="atlas_category_object")
+     */
+    private $objects;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->objects = new ArrayCollection();
     }
 
     public function __toString()
@@ -289,5 +296,38 @@ class Category implements Node
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Add objects
+     *
+     * @param Armd\AtlasBundle\Entity\Object $objects
+     * @return Category
+     */
+    public function addObject(\Armd\AtlasBundle\Entity\Object $objects)
+    {
+        $this->objects[] = $objects;
+    
+        return $this;
+    }
+
+    /**
+     * Remove objects
+     *
+     * @param Armd\AtlasBundle\Entity\Object $objects
+     */
+    public function removeObject(\Armd\AtlasBundle\Entity\Object $objects)
+    {
+        $this->objects->removeElement($objects);
+    }
+
+    /**
+     * Get objects
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getObjects()
+    {
+        return $this->objects;
     }
 }

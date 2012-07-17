@@ -10,7 +10,7 @@ use Armd\AtlasBundle\Entity\CultureObjectType;
  * Armd\AtlasBundle\Entity\CultureObject
  *
  * @ORM\Table(name="content_culture_object")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Entity\CultureObjectRepository")
  */
 class CultureObject
 {

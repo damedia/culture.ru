@@ -10,7 +10,7 @@
                     <!-- #geocoder -->
                     <div id="geocoder" class="geocoder">
                         <div class="search-box">
-                            <input class="search" type="text">
+                            <input class="search" name="q" type="text">
                             <button class="submit" type="submit">Find</button>
                         </div>
                         <div class="result-box">
@@ -24,15 +24,15 @@
                             <h3><a href="#">Объекты культурного наследия</a></h3>
                             <div>
                                 <ul>
-                                    <li><input type="checkbox">Памятники</li>
-                                    <li><input type="checkbox"name="ch1"><label for="ch1">Архитектура</label>
+                                    <li><input name="category[1]" type="checkbox">Памятники</li>
+                                    <li><input name="category[2]" type="checkbox"name="ch1"><label for="ch1">Архитектура</label>
                                         <ul>
-                                            <li><input type="checkbox">Светская</li>
-                                            <li><input type="checkbox">Религиозная</li>
+                                            <li><input name="category[3]" type="checkbox">Светская</li>
+                                            <li><input name="category[4]" type="checkbox">Религиозная</li>
                                         </ul>
                                     </li>
-                                    <li><input type="checkbox">Природа</li>
-                                    <li><input type="checkbox">Другое</li>
+                                    <li><input name="category[5]" type="checkbox">Природа</li>
+                                    <li><input name="category[6]" type="checkbox">Другое</li>
                                 </ul>
                             </div>
                         </div>
@@ -68,6 +68,7 @@
     {{ parent() }}
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
         $(function(){
