@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 use Sonata\AdminBundle\Admin\Admin;
 
-class NewsAdmin extends Admin
+class Category extends Admin
 {
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -29,10 +29,10 @@ class NewsAdmin extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('announce')
-            ->add('body')
-            ->add('date')                            
+            ->add('priority')
         ;
+        
+        parent::configureShowField($showMapper);        
     }
 
     /**
@@ -45,9 +45,7 @@ class NewsAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('title')
-                ->add('announce')
-                ->add('body')
-                ->add('date')
+                ->add('priority')
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -62,18 +60,8 @@ class NewsAdmin extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('date')            
-            ->add('announce')
-        ;
+            ->add('priority')        ;
         
         parent::configureListFields($listMapper);        
     }
-/*
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('stream')
-        ;
-    }
-*/
 }
