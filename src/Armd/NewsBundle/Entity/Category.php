@@ -27,6 +27,11 @@ class Category
      */
     protected $priority;
     
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $filtrable;    
+    
     public function __toString()
     {
         return $this->getTitle();
@@ -84,5 +89,27 @@ class Category
     public function getPriority()
     {
         return $this->priority;
+    }
+
+    /**
+     * Set filtrable
+     *
+     * @param boolean $filtrable
+     * @return Category
+     */
+    public function setFiltrable($filtrable)
+    {
+        $this->filtrable = $filtrable;
+        return $this;
+    }
+
+    /**
+     * Get filtrable
+     *
+     * @return boolean 
+     */
+    public function getFiltrable()
+    {
+        return $this->filtrable;
     }
 }

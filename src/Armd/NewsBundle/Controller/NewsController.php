@@ -16,39 +16,42 @@ class NewsController extends ListController
         $date = $this->getDate($year, $month, $day);
         
         return $this->render($this->getTemplateName('archive'), array(
-            'entities'  => $this->getListRepository($date)->getQuery()->getResult(),
-            'date'      => $date,
+            'billboard'     => $this->getPagination($this->getArchiveRepository($date, $date, 'important')->getQuery(), 1, 100),
+            'entities'      => $this->getPagination($this->getArchiveRepository($date, $date, 'unimportant')->getQuery(), 1, 100),
+//            'today'         => $this->getPagination($this->getThisDayListRepository($date)->getQuery(), 1, 100),            
+            'date'          => $date,
         ));
     }
     
-    /**
-     * @Route("/this-day", defaults={"month" = null, "day" = null})
-     * @Route("/this-day/{month}/{day}", requirements={"month" = "\d{2}", "day" = "\d{2}"})          
-     */        
     function thisDayListAction($month, $day)
     {
         return $this->render($this->getTemplateName('today-list'), array('entities' => $this->getThisDayListRepository($month, $day)));
     }
     
-    
     function getThisDayListRepository($month, $day)
     {
-        return parent::getListRepository();
+        return $this->getListRepository()
+/*
+            ->setMonth($month)
+            ->setDay($day)
+*/
+        ;
     }
     
     /**
-     * @param string $from
-     * @param string $to
+     * @param string \DateTime
+     * @param string \DateTime
      * @return \Armd\NewsBundle\Repository\NewsRepository
      */    
-    function getArchiveRepository($from, $to)
-    {   
-        $format = 'd.m.Y';
-        $date = $to ? \DateTime::createFromFormat($format, $to) : new \DateTime();
-     
-        $repository = parent::getListRepository()->setEndDate($date);           
+    function getArchiveRepository($from, $to, $context = null)
+    {
+        $repository = $this->getListRepository()
+            ->setBeginDate($from->setTime(0, 0, 0))
+            ->setEndDate($to->setTime(23, 59, 59))
+            ->setContext($context)
+        ;
         
-        return $from ? $repository->setBeginDate(\DateTime::createFromFormat($format, $from)) : $repository;        
+        return $repository;        
     }
 
     /**
@@ -57,14 +60,15 @@ class NewsController extends ListController
     function getListRepository()
     {
         return parent::getListRepository()
-            ->setEndDate(new \DateTime())
-            ->orderByDate()
+            ->orderByDate();
         ;
     }
     
-    function getDate($date)
+    function getDate($year, $month, $day)
     {
-        $format = 'd.m.Y';
+        $format = 'Ymd';
+        $date = "{$year}{$month}{$day}";
+
         return $date ? \DateTime::createFromFormat($format, $date) : new \DateTime();
     }
     

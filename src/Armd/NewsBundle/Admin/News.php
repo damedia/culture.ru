@@ -51,6 +51,8 @@ class News extends Admin
                 ->add('body')
                 ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('category')                
+                ->add('important')                
+                ->add('published')                
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -67,6 +69,8 @@ class News extends Admin
             ->addIdentifier('title')
             ->add('date')            
             ->add('category')
+            ->add('important')                
+            ->add('published')                            
         ;
         
         parent::configureListFields($listMapper);        
