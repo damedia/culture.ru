@@ -49,7 +49,7 @@ class News extends Admin
                 ->add('title')
                 ->add('announce')
                 ->add('body')
-                ->add('date')
+                ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('category')                
             ->end();
 
