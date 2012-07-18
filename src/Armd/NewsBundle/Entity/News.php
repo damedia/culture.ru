@@ -45,6 +45,16 @@ class News extends BaseNews
     protected $category;
 
     /**
+     * @ORM\Column(type="boolean")
+     */        
+    protected $important;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */        
+    protected $published;
+
+    /**
      * Set announce
      *
      * @param text $announce
@@ -108,5 +118,81 @@ class News extends BaseNews
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return News
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set important
+     *
+     * @param boolean $important
+     * @return News
+     */
+    public function setImportant($important)
+    {
+        $this->important = $important;
+        return $this;
+    }
+
+    /**
+     * Get important
+     *
+     * @return boolean 
+     */
+    public function getImportant()
+    {
+        return $this->important;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return News
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }

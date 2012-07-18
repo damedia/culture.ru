@@ -10,15 +10,26 @@ use Armd\NewsBundle\Calendar\Calendar;
 class CalendarController extends BaseController
 {
     /**
-     * @Route("/calendar", defaults={"year" = null, "month" = null, "day" = null})         
-     * @Route("/calendar/{year}/{month}/{day}", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"})     
+     * @Route("/calendar-widget/{year}/{month}/{day}", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"})     
      */    
     function widgetAction($year, $month, $day)
     {
-        $calendar = Calendar::get(\DateTime::createFromFormat('Y.m.d', "{$year}.{$month}.{$day}"));
-//        var_dump($calendar);
-        return $this->render($this->getTemplateName('widget'), array('calendar' => $calendar));
+        $calendar = new Calendar(\DateTime::createFromFormat('Ymd', "{$year}{$month}{$day}"));
+
+        return $this->render($this->getTemplateName('widget'), array('calendar' => $calendar->get()));
     }
+
+    /**
+     * @Route("/calendar-request/{year}/{month}", requirements={"year" = "\d{4}", "month" = "\d{2}"})     
+     */        
+    function requestAction($year, $month)
+    {
+        $calendar = new Calendar(\DateTime::createFromFormat('Ymd', "{$year}{$month}01"));
+        
+        $response = new Response(json_encode($calendar));
+        $response->headers->set('Content-Type', 'application/json');        
+    }    
+    
     
     function getControllerName()
     {

@@ -16,57 +16,59 @@ class NewsController extends ListController
         $date = $this->getDate($year, $month, $day);
         
         return $this->render($this->getTemplateName('archive'), array(
-            'billboard'     => $this->getPagination($this->getArchiveRepository($date, true)->getQuery(), 1, 100),
-            'entities'      => $this->getPagination($this->getArchiveRepository($date)->getQuery(), 1, 100),            
+            'billboard'     => $this->getPagination($this->getArchiveRepository($date, $date, 'important')->getQuery(), 1, 100),
+            'entities'      => $this->getPagination($this->getArchiveRepository($date, $date, 'unimportant')->getQuery(), 1, 100),
+//            'today'         => $this->getPagination($this->getThisDayListRepository($date)->getQuery(), 1, 100),            
             'date'          => $date,
         ));
     }
     
-    /**
-     * @Route("/this-day", defaults={"month" = null, "day" = null})
-     * @Route("/this-day/{month}/{day}", requirements={"month" = "\d{2}", "day" = "\d{2}"})          
-     */        
     function thisDayListAction($month, $day)
     {
         return $this->render($this->getTemplateName('today-list'), array('entities' => $this->getThisDayListRepository($month, $day)));
     }
     
-    
     function getThisDayListRepository($month, $day)
     {
-        return parent::getListRepository();
+        return $this->getListRepository()
+/*
+            ->setMonth($month)
+            ->setDay($day)
+*/
+        ;
     }
     
     /**
-     * @param string $from
-     * @param string $to
+     * @param string \DateTime
+     * @param string \DateTime
      * @return \Armd\NewsBundle\Repository\NewsRepository
      */    
-    function getArchiveRepository($date)
-    {   
-        $format = 'd.m.Y';
-        $date = $to ? \DateTime::createFromFormat($format, $to) : new \DateTime();
-     
-        $repository = parent::getListRepository()
-            ->setEndDate($date)
-            ->orderByDate();           
+    function getArchiveRepository($from, $to, $context = null)
+    {
+        $repository = $this->getListRepository()
+            ->setBeginDate($from->setTime(0, 0, 0))
+            ->setEndDate($to->setTime(23, 59, 59))
+            ->setContext($context)
+        ;
         
-        return $from ? $repository->setBeginDate(\DateTime::createFromFormat($format, $from)) : $repository;        
+        return $repository;        
     }
 
     /**
      * {@inheritdoc}
      */
-    function getListRepository($date)
+    function getListRepository()
     {
         return parent::getListRepository()
-
+            ->orderByDate();
         ;
     }
     
-    function getDate($date)
+    function getDate($year, $month, $day)
     {
-        $format = 'd.m.Y';
+        $format = 'Ymd';
+        $date = "{$year}{$month}{$day}";
+
         return $date ? \DateTime::createFromFormat($format, $date) : new \DateTime();
     }
     

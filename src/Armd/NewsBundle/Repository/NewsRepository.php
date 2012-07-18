@@ -33,6 +33,21 @@ class NewsRepository extends ListRepository
         
         return $this;        
     }
+    
+    /**
+     * @param \DateTime $date
+     * @return NewsRepository     
+     */    
+    function setContext($context)
+    {
+        if (!$context)
+        {
+            return $this;
+        }
+        
+        return $this;        
+    }
+    
 
     /**
      * @param string $order
