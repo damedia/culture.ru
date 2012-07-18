@@ -1,5 +1,5 @@
 {
-    "hash": "61aff104eba4f8d7781d33a3ebe2206f",
+    "hash": "adf45486fb2155b74e8cdffa58396e65",
     "packages": [
         {
             "package": "doctrine/common",
@@ -66,6 +66,12 @@
             "commit-date": "1341766314"
         },
         {
+            "package": "imagine/Imagine",
+            "version": "dev-master",
+            "source-reference": "v0.2.8",
+            "commit-date": "1322638721"
+        },
+        {
             "package": "jms/aop-bundle",
             "version": "1.0.0"
         },
@@ -96,6 +102,12 @@
             "version": "dev-master",
             "source-reference": "6df19222b597ab6f44c67dde4499766a5ca1fb99",
             "commit-date": "1341570103"
+        },
+        {
+            "package": "knplabs/gaufrette",
+            "version": "dev-master",
+            "source-reference": "67df02e98ac63e28670c2032f15331276869c89e",
+            "commit-date": "1340261986"
         },
         {
             "package": "knplabs/knp-components",
@@ -132,6 +144,12 @@
             "commit-date": "1339515714"
         },
         {
+            "package": "kriswallsmith/buzz",
+            "version": "dev-master",
+            "source-reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
+            "commit-date": "1341070218"
+        },
+        {
             "package": "monolog/monolog",
             "version": "1.1.0"
         },
@@ -140,6 +158,12 @@
             "version": "dev-master",
             "source-reference": "5886adae1613c0a72fbb95259a83ae798e86c0d3",
             "commit-date": "1342347850"
+        },
+        {
+            "package": "sensio/framework-extra-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "sensio/framework-extra-bundle",
@@ -200,6 +224,18 @@
             "version": "dev-master",
             "source-reference": "785870afce016cc387fadb361ad52c3d4a2e7fe6",
             "commit-date": "1339857469"
+        },
+        {
+            "package": "sonata-project/media-bundle",
+            "version": "dev-master",
+            "source-reference": "4c2290eb3e56da80273e6f0be4c4c4ee0cc3ef55",
+            "commit-date": "1341787232"
+        },
+        {
+            "package": "sonata-project/notification-bundle",
+            "version": "dev-master",
+            "source-reference": "c52d09d10dc99e7a2b3c976dd65be2b071bebbf6",
+            "commit-date": "1339063222"
         },
         {
             "package": "sonata-project/user-bundle",
@@ -274,9 +310,7 @@
             "commit-date": "1342275003"
         }
     ],
-    "packages-dev": [
-
-    ],
+    "packages-dev": null,
     "aliases": [
 
     ],

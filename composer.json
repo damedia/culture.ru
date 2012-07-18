@@ -26,7 +26,8 @@
         "sonata-project/admin-bundle": "*",
         "sonata-project/user-bundle": "*",
         "sonata-project/doctrine-orm-admin-bundle": "*",
-        "sonata-project/easy-extends-bundle": "*"
+        "sonata-project/easy-extends-bundle": "*",
+        "sonata-project/media-bundle": "master"
     },
     "scripts": {
         "post-install-cmd": [

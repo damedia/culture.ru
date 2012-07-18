@@ -97,6 +97,7 @@ sonata_media:
                 adminPreview: { width: 314 , height: 187, , quality: 90}
                 small: { width: 100 , quality: 90}
                 big:   { width: 500, quality: 90}
+                billboard: { width: 231, height: 194}
 
     cdn:
         server:
