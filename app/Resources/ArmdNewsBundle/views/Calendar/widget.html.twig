@@ -13,18 +13,23 @@
 					<span class="ui-icon ui-icon-circle-triangle-e">След&gt;</span>
 				</a>
 				<div class="ui-datepicker-title">
-					<span class="ui-datepicker-month">Июль</span>&nbsp;<span class="ui-datepicker-year">2012</span>
+					<span class="ui-datepicker-month">Июль</span>&nbsp;<span class="ui-datepicker-year">{{ calendar.years.current }}</span>
 				</div>
 			</div>
 				
 			<table class="ui-datepicker-calendar">
 				<tbody>
-					{% for week in calendar %}
+					{% for week in calendar.weeks %}
 						<tr>
 						{% for day in week %}
-							<td {# {% if day.isWeekend %} class="weekend" {% endif %} #} >
+						    {% set url = path('armd_news_news_archive_1', {'year': calendar.years.current, 'month': '%02d'|format(calendar.months.current), 'day': '%02d'|format(day.day)}) %}
+							<td>
 								<span class="ui-state-default">
-									{% if day.day %}{{ day.day }}{% else %} &nbsp;{% endif %}
+								    {% if day.day %}
+								        <a href="{{ url }}">{{ day.day }}</a>
+								    {% else %}
+								        <a href="{{ url }}">&nbsp;</a>
+								    {% endif %}
 								</span>
 							</td>
 						{% endfor %}

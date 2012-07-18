@@ -1,25 +1,20 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-
-
-
- <div class="news-one">
+<div class="news-one">
 	<div class="title-block gray-press">
 		<h2>Пресс-центр</h2>
 	</div>
 	<span class="news-one-date">
-		{{ entity.date|date("d M / Y") }}
+		{{ entity.date|date('d') }} {{ entity.date|date('M')|trans }} / {{ entity.date|date('Y') }} 
 	</span>
-	<h1>{{ entity.title }}</h1>
-	{{ entity.announce }}
-	{{ entity.body }}
-	
-
-	
-		
+	<h1>{{ entity.title|raw }}</h1>
+	<div class="img-left">
+	{% thumbnail entity.image, 'billboard' %}
+	</div>
+    {{ entity.body|raw }}
 </div>
-
+{#
 <div class="comments">
 	<div class="title-block">
 		<h2>комментарии пользователей</h2>
@@ -30,7 +25,7 @@
 		<span class="votes-total">голосов: <b>114</b></span>
 	</p>
 </div>
-
+#}
 {#
 <ul class="record_actions">
     <li>

@@ -20,6 +20,11 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class News extends Admin
 {
+    protected $datagridValues = array(
+        '_sort_by'      => 'date',    
+        '_sort_order'   => 'DESC',
+    );
+
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
@@ -52,7 +57,11 @@ class News extends Admin
                 ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('category')                
                 ->add('important')                
-                ->add('published')                
+                ->add('published')
+            ->end()    
+            ->with('Media')                
+                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'default')))
+                ->add('gallery', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'default')))                                
             ->end();
 
         parent::configureFormFields($formMapper);

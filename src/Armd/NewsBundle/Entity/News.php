@@ -50,6 +50,16 @@ class News extends BaseNews
     protected $category;
     
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */        
+    protected $important;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */        
+    protected $published;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
@@ -59,17 +69,7 @@ class News extends BaseNews
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
-    private $gallery;    
-
-    /**
-     * @ORM\Column(type="boolean")
-     */        
-    protected $important;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */        
-    protected $published;
+    private $gallery;        
 
     /**
      * Set announce
@@ -211,5 +211,71 @@ class News extends BaseNews
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set source
+     *
+     * @param string $source
+     * @return News
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string 
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @return News
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @return News
+     */
+    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

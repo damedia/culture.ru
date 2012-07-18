@@ -14,14 +14,17 @@ class NewsController extends ListController
     function archiveAction($year, $month, $day)
     {
         $date = $this->getDate($year, $month, $day);
+        $begin = clone($date);
+        $begin->sub(new \DateInterval('P14D'));
         
         return $this->render($this->getTemplateName('archive'), array(
-            'billboard'     => $this->getPagination($this->getArchiveRepository($date, $date, 'important')->getQuery(), 1, 100),
-            'entities'      => $this->getPagination($this->getArchiveRepository($date, $date, 'unimportant')->getQuery(), 1, 100),
-//            'today'         => $this->getPagination($this->getThisDayListRepository($date)->getQuery(), 1, 100),            
+            'billboard'     => $this->getPagination($this->getArchiveRepository($begin, $date, true)->getQuery(), 1, 100),
+            'entities'      => $this->getPagination($this->getArchiveRepository($begin, $date)->getQuery(), 1, 100),
+            'today'         => $this->getPagination($this->getThisDayListRepository($date->format('m'), $date->format('d'))->getQuery(), 1, 100),            
             'date'          => $date,
         ));
     }
+    
     
     function thisDayListAction($month, $day)
     {
@@ -33,8 +36,10 @@ class NewsController extends ListController
         return $this->getListRepository()
 /*
             ->setMonth($month)
-            ->setDay($day)
+            ->setDay($day)        
 */
+            ->setCategories(array(1))
+            ->setPublication()                    
         ;
     }
     
@@ -43,12 +48,14 @@ class NewsController extends ListController
      * @param string \DateTime
      * @return \Armd\NewsBundle\Repository\NewsRepository
      */    
-    function getArchiveRepository($from, $to, $context = null)
+    function getArchiveRepository($from, $to, $isImportant = false)
     {
         $repository = $this->getListRepository()
             ->setBeginDate($from->setTime(0, 0, 0))
             ->setEndDate($to->setTime(23, 59, 59))
-            ->setContext($context)
+            ->setFiltrableCategory()
+            ->setPublication()            
+            ->setImportant($isImportant)
         ;
         
         return $repository;        

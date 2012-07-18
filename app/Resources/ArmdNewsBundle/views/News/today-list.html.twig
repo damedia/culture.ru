@@ -1,5 +1,5 @@
 <div class="today-block">
-	Сегодня: <a href="#">12 июля</a>
+	Сегодня: <a href="{{ path('armd_news_news_archive') }}">{{ "now"|date('d') }} {{ "now"|date('M')|trans }}</a>
 </div>
 <ul class="press-anons">
 {% for entity in entities %}

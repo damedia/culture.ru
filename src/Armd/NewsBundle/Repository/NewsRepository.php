@@ -13,10 +13,10 @@ class NewsRepository extends ListRepository
     function setBeginDate(\DateTime $date)
     {
         $this->qb
-            ->andWhere("{$this->alias}.date >= :date")
-            ->setParameter('date', $date)
+            ->andWhere("{$this->alias}.date >= :from")
+            ->setParameter('from', $date)
         ;
-        
+
         return $this;
     }
     
@@ -27,12 +27,50 @@ class NewsRepository extends ListRepository
     function setEndDate(\DateTime $date)
     {
         $this->qb
-            ->andWhere("{$this->alias}.date <= :date")
-            ->setParameter('date', $date)
+            ->andWhere("{$this->alias}.date <= :to")
+            ->setParameter('to', $date)
         ;
         
         return $this;        
     }
+    
+    function setImportant($isImportant)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.important = :important")
+            ->setParameter('important', $isImportant ? 1 : 0)
+        ;        
+        
+        return $this;
+    }
+
+    function setCategories(array $categories)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.category in (:categories)")
+            ->setParameter('categories', $categories)
+        ;            
+        return $this;
+    }
+    
+    function setFiltrableCategory()
+    {
+        $this->qb
+            ->innerJoin("{$this->alias}.category", 'c', 'WITH', "c.filtrable = :filtrable")
+            ->setParameter('filtrable', 1)
+        ;            
+        return $this;
+    }
+    
+    function setPublication()
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.published = :published")
+            ->setParameter('published', 1)
+        ;            
+        return $this;
+    }
+    
     
     /**
      * @param \DateTime $date

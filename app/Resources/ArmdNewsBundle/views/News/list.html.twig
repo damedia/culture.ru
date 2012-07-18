@@ -1,29 +1,24 @@
-	<div class="pictures-press-anons">
-		<ul>
-			{% for entity in entities %}
-			<li class="ppa-block">
-				<a href="{{ path('armd_news_news_item', {id: entity.id}) }}"><img src="/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-				<div class="ppa-anons">
-					<span class="ppa-date">{{ entity.date|date("d.m.Y") }}</span>
-					<p>
-						<a href="{{ path('armd_news_news_item', {id: entity.id}) }}">{{ entity.title }}</a>
-					</p>
-				</div>
-				<div class="ppa-over" style="display:none;">
-					<p><a href="{{ path('armd_news_news_item', {id: entity.id}) }}">
-						{{ entity.announce }}
-					<span class="ppa-arrow">&rarr;</span>
-					</a></p>
-					
-				</div>
-			</li>
-			{% endfor %}
-			
-		</ul>
-	</div>
-	
-	<div class="navigation">
-		{#{ entities.render()|raw }#}
-	</div>
-
-
+{% if entities  is empty %}
+{% else %}
+	<ul class="pictures-press-anons">
+		{% for entity in entities %}
+		{% set url = path('armd_news_news_item', {id: entity.id}) %}
+		<li class="ppa-block">
+			<a href="{{ url }}">{% thumbnail entity.image, 'billboard' with {'class': 'ppa-image'} %}</a>
+			<div class="ppa-anons">
+				<span class="ppa-date">{{ entity.date|date("d.m.Y") }}</span>
+				<p>
+					<a href="{{ url }}">{{ entity.title|raw }}</a>
+				</p>
+			</div>
+			<div class="ppa-over" style="display:none;">
+				<p><a href="{{ url }}">
+					{{ entity.announce|raw }}
+				<span class="ppa-arrow">&rarr;</span>
+				</a></p>				
+			</div>
+		</li>
+		{% endfor %}
+		
+	</ul>
+{% endif %}
