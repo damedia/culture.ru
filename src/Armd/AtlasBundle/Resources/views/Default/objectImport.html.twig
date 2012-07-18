@@ -1,0 +1,22 @@
+{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+    <form action="{{ path('armd_atlas_default_import') }}" method="post" enctype="multipart/form-data">
+        <input name="userfile" type="file">
+        <input type="submit" value="Upload">
+    </form>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+{% endblock %}

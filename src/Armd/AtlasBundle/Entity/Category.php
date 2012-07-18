@@ -77,7 +77,7 @@ class Category implements Node
     private $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Object", inversedBy="categories")
+     * @ORM\ManyToMany(targetEntity="Object", mappedBy="categories")
      * @ORM\JoinTable(name="atlas_category_object")
      */
     private $objects;
@@ -90,7 +90,7 @@ class Category implements Node
 
     public function __toString()
     {
-        return str_repeat('. ', $this->getLvl()) .$this->getTitle();
+        return $this->getTitle();
     }
 
 

@@ -1,0 +1,50 @@
+{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+    {% if entities %}
+        <table class="table-bordered">
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.id }}</td>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.lon }}</td>
+                    <td>{{ entity.lat }}</td>
+                    <td>
+                        {% for category in entity.categories %}
+                            {{ category.title }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('armd_atlas_default_edit', { id:entity.id }) }}">Edit</a>
+                        <a href="{{ path('armd_atlas_default_delete', { id:entity.id }) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <div>
+        <a href="{{ path('armd_atlas_default_create') }}">Create new entity</a>
+    </div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.chosen').chosen();
+        });
+    </script>
+{% endblock %}

@@ -26,6 +26,31 @@ class Object
     private $title;
 
     /**
+     * @ORM\Column(name="announce", type="text", nullable=true)
+     */
+    private $announce;
+
+    /**
+     * @ORM\Column(name="content", type="text", nullable=true)
+     */
+    private $content;
+
+    /**
+     * @ORM\Column(name="site_url", type="string", length=255, nullable=true)
+     */
+    private $siteUrl;
+
+    /**
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(name="lat", type="decimal", precision=9, scale=6, nullable=true)
      */
     private $lat;
@@ -36,7 +61,7 @@ class Object
     private $lon;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="objects")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="objects")
      * @ORM\JoinTable(name="atlas_category_object")
      */
     private $categories;
@@ -189,5 +214,120 @@ class Object
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set announce
+     *
+     * @param string $announce
+     * @return Object
+     */
+    public function setAnnounce($announce)
+    {
+        $this->announce = $announce;
+    
+        return $this;
+    }
+
+    /**
+     * Get announce
+     *
+     * @return string 
+     */
+    public function getAnnounce()
+    {
+        return $this->announce;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Object
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set siteUrl
+     *
+     * @param string $siteUrl
+     * @return Object
+     */
+    public function setSiteUrl($siteUrl)
+    {
+        $this->siteUrl = $siteUrl;
+    
+        return $this;
+    }
+
+    /**
+     * Get siteUrl
+     *
+     * @return string 
+     */
+    public function getSiteUrl()
+    {
+        return $this->siteUrl;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Object
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Object
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

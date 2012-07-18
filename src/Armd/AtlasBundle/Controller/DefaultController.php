@@ -4,10 +4,13 @@ namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Buzz\Browser;
 use Armd\AtlasBundle\Entity\Category;
+use Armd\AtlasBundle\Entity\Object;
+use Armd\AtlasBundle\Form\ObjectType;
 
 class DefaultController extends Controller
 {
@@ -220,5 +223,128 @@ class DefaultController extends Controller
         return new Response($response);
     }
 
+    /**
+     * @Route("/object/{id}/edit")
+     * @Template("ArmdAtlasBundle:Default:objectEdit.html.twig")
+     */
+    public function editAction($id)
+    {
+        $entity = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->find($id);
+        $form = $this->createForm(new ObjectType(), $entity);
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('armd_atlas_default_list'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'entity' => $entity,
+        );
+    }
+
+    /**
+     * @Route("/objects/create")
+     * @Template("ArmdAtlasBundle:Default:objectCreate.html.twig")
+     */
+    public function createAction()
+    {
+        $entity = new Object();
+        $form = $this->createForm(new ObjectType(), $entity);
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('armd_atlas_default_edit', array('id' => $entity->getId())));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'entity' => $entity,
+        );
+    }
+
+    /**
+     * @Route("/objects/list")
+     * @Template("ArmdAtlasBundle:Default:objectList.html.twig")
+     */
+    public function listAction()
+    {
+        $entities = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findAll();
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
+     * @Route("/objects/{id}/delete")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+        $entity = $repo->find($id);
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('armd_atlas_default_list'));
+    }
+
+    /**
+     * @Route("/objects/import")
+     * @Template("ArmdAtlasBundle:Default:objectImport.html.twig")
+     */
+    public function importAction()
+    {
+        $userfile = $_FILES['userfile'];
+
+        $rows = file($userfile['tmp_name']);
+        $data = array();
+        foreach ($rows as $row) {
+            $row = trim($row);
+            $rowData = str_getcsv($row, ';', '"');
+            $data[] = $rowData;
+        }
+        var_dump($data);
+
+        //------------
+        $em = $this->getDoctrine()->getManager();
+        //$repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+        foreach ($data as $row) {
+            $entity = new Object();
+            $entity->setTitle(trim($row[5]));
+            $entity->setLat(trim($row[11]));
+            $entity->setLon(trim($row[12]));
+            $entity->setAnnounce(trim($row[6]));
+            $entity->setContent(trim($row[7]));
+            $entity->setSiteUrl(trim($row[8]));
+            $entity->setEmail(trim($row[9]));
+            $entity->setPhone(trim($row[10]));
+
+            $em->persist($entity);
+            $em->flush();
+        }
+
+        return array();
+    }
 
 }
