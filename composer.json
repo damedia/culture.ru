@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.1.*",
-        "doctrine/orm": "2.3.*",
+        "doctrine/orm": "2.2.*",
         "doctrine/doctrine-bundle": "dev-master",
         "twig/extensions": "dev-master",
         "symfony/assetic-bundle": "dev-master",
@@ -27,13 +27,9 @@
         "sonata-project/user-bundle": "*",
         "sonata-project/doctrine-orm-admin-bundle": "*",
         "sonata-project/easy-extends-bundle": "*",
-
-        "kriswallsmith/buzz": "*"
-    },
-    "repositories": {
-        "kriswallsmith/buzz": { "type": "git", "url": "https://github.com/kriswallsmith/Buzz.git" }
         "sonata-project/media-bundle": "master",
-        "friendsofsymfony/jsrouting-bundle": "master"
+        "friendsofsymfony/jsrouting-bundle": "master",
+        "kriswallsmith/buzz": "master"
     },
     "scripts": {
         "post-install-cmd": [
