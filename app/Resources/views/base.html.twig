@@ -9,6 +9,8 @@
         <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
 	    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&version=0.1.7"></script>
         <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
     </head>
     <body>
         <div id="wrap">
@@ -20,14 +22,14 @@
                             <a href="#">Культура от А до Я</a>
                         </li>
                         <li>
-                            <a href="gos.html">Государственные услуги</a>
+                            <a href="/static/goverment_service.html">Государственные услуги</a>
                         </li>
                         <li>
-                            <a href="press.html">Пресс-центр</a>
+                            <a href="{{ path('armd_news_list_index') }}">Пресс-центр</a>
                         </li>
                     </ul>
                     <div id="topbar">
-                        <span class="special-vers"><a href="special.html">Версия для слабовидящих</a></span>
+                        <span class="special-vers"><a href="#">Версия для слабовидящих</a></span>
                         <a href="#" class="lang-swith cur">рус</a>
                         <a href="#" class="lang-swith">eng</a>
                     </div>
@@ -41,20 +43,20 @@
                         <a href="atlas.html">Атлас</a>
                     </li>
                     <li>
-                        <a href="timeline.html">Лента времени</a>
+                        <a href="#">Лента времени</a>
                     </li>
                     <li>
-                        <a href="trans.html">Трансляции</a>
+                        <a href="#">Трансляции</a>
                     </li>
                     <li>
-                        <a href="lk.html">Лекции</a>
+                        <a href="#">Лекции</a>
                     </li>
                     <li>
                         <a href="http://mk2.dev.armd.ru/best/">Обсуждения</a>
                     </li>
                 </ul>
                 <div id="auth">
-                    <a id="auth-link" href="lk.html"><span>Личный кабинет</span></a>
+                    <a id="auth-link" href="#"><span>Личный кабинет</span></a>
                 </div>
             </div>
             <div id="search" class="w">

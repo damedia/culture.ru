@@ -1,0 +1,25 @@
+{% extends '::one-column-layout.html.twig' %}
+
+{% block header %}Пресс-центр{% endblock %}
+
+{% block top %}
+    {% include "ArmdNewsBundle:News:memorials.html.twig" with {"entities": memorials} %}
+{% endblock %}
+
+{% block center %}
+	{% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
+{% endblock %}
+
+{% block content%}
+<div class="clear"></div>
+<div class="news-afisha">
+	<div class="title-block">
+		<h2>Афиша</h2>
+	</div>
+	{% include "ArmdNewsBundle:News:list.html.twig" with {"entities": news} %}
+    <nav class="navigation">
+        {{ news.setUsedRoute('armd_news_list_index_by_page') }}
+        {{ news.render()|raw}}
+    </nav>	
+</div>		
+{% endblock %}

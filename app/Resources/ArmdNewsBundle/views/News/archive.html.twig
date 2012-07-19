@@ -1,49 +1,24 @@
-{% extends '::two_column_news.html.twig' %}
+{% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
-{% block press_header %}
-    <div class="title-block gray-press">
-    	<h2>Пресс-центр</h2>
-    </div>
-{% endblock %}
+{% block header %}{{ parent() }} :: Архив{% endblock %}
 
-{% block this_day_list %}
-    {% include "ArmdNewsBundle:News:today-list.html.twig" with {"entities": today} %}
-{% endblock %}
+{% block top %}{% endblock %}
 
-{% block top_list %}
-	{% include "ArmdNewsBundle:News:list.html.twig" with {"entities": billboard} %}
-{% endblock %}
+{% block center %}{% endblock %}
 
-{% block afisha %}
+{% block content %}
 <div class="clear"></div>
+    {% render "ArmdNewsBundle:Calendar:widget" with {"year": date|date('Y'), "month": date|date('m'), "day": date|date('d')} %}
+    {% render "ArmdNewsBundle:Category:list" %}    
 <div class="news-afisha">
-	<div class="title-block">
-		<h2>Афиша</h2>
-	</div>
-	<ul class="news-afisha-list">
-	    {% for news in entities%}
-		<li class="nal-one">
-			<div class="nal-one-block">
-				<span class="nal-date">{{ news.date|date('d ')}}{{ (news.date|date('M')~'.short')|trans }}{{ news.date|date('./Y') }}</span>
-				<p class="nal-header"><a href="{{ path('armd_news_news_item', {'id': news.id}) }}">{{ news.title|raw }}</a></p>
-				<p>{{ news.announce|raw }}</p>
-			</div>
-		</li>
-		{% endfor %}
-	</ul>
-</div>	
-{% endblock %}
-
-{% block filter_header%}
-	<div class="title-block gray-filter">
-		<h2>Фильтрация</h2>
-	</div>
+	{% include "ArmdNewsBundle:News:list.html.twig" with {"entities": news} %}
+</div>
 {% endblock %}
 
 {% block calendar%}    
-    {% render "ArmdNewsBundle:Calendar:widget" with {"year": date|date('Y'), "month": date|date('m'), "day": date|date('d')} %}
+    
 {% endblock %}
 
 {% block filter%}
-   {% render "ArmdNewsBundle:Category:list" %}
+   
 {% endblock %}

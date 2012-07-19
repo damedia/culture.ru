@@ -1,3 +1,14 @@
+#ArmdMainBundle:
+#    resource: "@ArmdMainBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+index:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: armd_news_list_index
+        permanent: true    
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
@@ -27,6 +38,9 @@ fos_user_routing:
     resource: '@ApplicationSonataUserBundle/Resources/config/routing/fos_user_routing.yml'
     prefix:   /
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 zim32_loginza:
     resource: '@Zim32LoginzaBundle/Resources/config/routing.yml'
     prefix:   /
@@ -43,7 +57,7 @@ fos_comment_api:
 armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
-    prefix: news
+    prefix: press-centre
     
 # Internal routing configuration to handle ESI
 #_internal:

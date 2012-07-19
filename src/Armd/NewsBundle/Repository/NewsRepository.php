@@ -34,6 +34,18 @@ class NewsRepository extends ListRepository
         return $this;        
     }
     
+    function setMonthAndDay(\DateTime $date)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.month = :month")
+            ->andWhere("{$this->alias}.day = :day")            
+            ->setParameter('month', $date->format('m'))
+            ->setParameter('day', $date->format('d'))                 
+        ;
+        
+        return $this;                
+    }
+    
     function setImportant($isImportant)
     {
         $this->qb
@@ -88,10 +100,20 @@ class NewsRepository extends ListRepository
      * @param string $order
      * @return NewsRepository     
      */        
-    function orderByPriority($order = 'desc')
+    function orderByPriority($order = 'asc')
     {
         $this->qb->orderBy("{$this->alias}.priority", $order);
         
         return $this;
     }    
+    
+    /**
+     * @return NewsRepository     
+     */        
+    function orderByRand()
+    {
+        $this->qb->orderBy("rand()");
+        
+        return $this;
+    }        
 }

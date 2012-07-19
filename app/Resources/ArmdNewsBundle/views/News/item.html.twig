@@ -6,7 +6,10 @@
 		<h2>Пресс-центр</h2>
 	</div>
 	<span class="news-one-date">
-		{{ entity.date|date('d') }} {{ entity.date|date('M')|trans }} / {{ entity.date|date('Y') }} 
+	    {% set f = entity.date %}
+	    {% set t = entity.endDate %}
+		{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
+		{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}		 
 	</span>
 	<h1>{{ entity.title|raw }}</h1>
 	<div class="img-left">

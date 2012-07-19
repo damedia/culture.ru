@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
 
@@ -44,6 +45,7 @@ class AppKernel extends Kernel
             new Armd\NewsBundle\ArmdNewsBundle(),
 
             new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
+#            new Armd\MainBundle\ArmdMainBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
