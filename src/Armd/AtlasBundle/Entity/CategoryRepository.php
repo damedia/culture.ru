@@ -12,4 +12,54 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class CategoryRepository extends NestedTreeRepository
 {
+    public function getNodesAsArray()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.root = (:root)')
+            ->andWhere('c.lvl > 0')
+            ->setParameter('root', 1)
+            ->orderBy('c.lft', 'ASC');
+        $rows = $qb->getQuery()->getResult();
+
+        return $rows;
+    }
+
+    // рекурсивно перебрать узлы $arrayTree и собрать другой массив
+    public function getArrayTree($nodeId=false)
+    {
+        $arrayTree = $this->childrenHierarchy();
+        $resultTree = $this->getArrayNodeChildren($arrayTree[0]['__children'], $nodeId);
+        return $resultTree;
+    }
+
+    protected function getArrayNodeChildren($nodes, $nodeId=false)
+    {
+        //$router = $this->container->get('router');
+
+        $resultNodes = array();
+
+        foreach ($nodes as $node) {
+            $isFolder = isset($node['__children']) && sizeof($node['__children']);
+            $resultNode = array(
+                'id' => $node['id'],
+                'lvl' => $node['lvl'],
+                'lft' => $node['lft'],
+                'title' => $node['title'],
+                //'isFolder' => $isFolder,
+                //'nodeId' => $nodeId,
+                //'addClass' => 'ws-wrap',
+                //'showUrl' => $router->generate('armd_mediabase_structure_show', array('id'=>$node['id'])),
+                //'addUrl' => $router->generate('armd_mediabase_structure_add', array('id'=>$node['id'])),
+                //'editUrl' => $router->generate('armd_mediabase_structure_edit', array('id'=>$node['id'])),
+                //'deleteUrl' => $router->generate('armd_mediabase_structure_edit', array('id'=>$node['id'])),
+            );
+            if ($isFolder) {
+                $resultNode['children'] = $this->getArrayNodeChildren($node['__children'], $nodeId);
+            }
+            $resultNodes[] = $resultNode;
+        }
+
+        return $resultNodes;
+    }
+
 }

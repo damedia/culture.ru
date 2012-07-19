@@ -1,0 +1,22 @@
+<b class="g-closer m-closer-balloon" style=""><i class="g-closer__icon"></i></b>
+<div class="bubble">
+    {#<div class="bubble_image"></div>#}
+    <div class="bubble_content">
+        <div class="caption">
+            <a href="{{ path('armd_atlas_default_objectview', { id:entity.id }) }}">
+                {{ entity.title }}
+            </a>
+        </div>
+        <div class="text">
+            {{ entity.announce }}
+        </div>
+        <div class="rating">
+            <ul>
+                <li class="icon1"></li>
+                <li class="icon2"></li>
+                <li class="icon3"></li>
+            </ul>
+        </div>
+        <div class="number"></div>
+    </div>
+</div>

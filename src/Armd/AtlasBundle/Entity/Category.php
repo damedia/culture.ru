@@ -40,6 +40,13 @@ class Category implements Node
     private $description;
 
     /**
+     * @var string $icon
+     *
+     * @ORM\Column(name="icon", type="string", length=255, nullable=true)
+     */
+    private $icon;
+
+    /**
      * @Gedmo\TreeRoot
      * @ORM\Column(name="root", type="integer", nullable=true)
      */
@@ -329,5 +336,28 @@ class Category implements Node
     public function getObjects()
     {
         return $this->objects;
+    }
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     * @return Category
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string 
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 }

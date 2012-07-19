@@ -1,4 +1,4 @@
-{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
@@ -50,6 +50,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.js') }}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
     <script type="text/javascript">

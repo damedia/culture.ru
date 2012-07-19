@@ -67,9 +67,9 @@ $(function(){
                     isClosing: true,
                     isHidden: true
                 });
-            customBalloon.setSize(350, 140);
+            balloon.setSize(350, 140);
 
-            customPoint.addBalloon(customBalloon);
+            customPoint.addBalloon(balloon);
 
             $(customPoint.element).data('uid', el.id);
 

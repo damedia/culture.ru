@@ -51,6 +51,11 @@ class Object
     private $phone;
 
     /**
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
      * @ORM\Column(name="lat", type="decimal", precision=9, scale=6, nullable=true)
      */
     private $lat;
@@ -329,5 +334,28 @@ class Object
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Object
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

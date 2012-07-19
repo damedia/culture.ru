@@ -84,11 +84,26 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/object/{id}")
+     * @Route("/object/{id}", requirements={"id"="\d+"})
      * @Template()
      */
     public function objectViewAction($id)
     {
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $entity = $repo->find($id);
+
+        return array(
+            'entity' => $entity,
+        );
+    }
+
+    /**
+     * @Route("/object/balloon")
+     * @Template()
+     */
+    public function objectBalloonAction()
+    {
+        $id = (int) $this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         $entity = $repo->find($id);
 
@@ -184,7 +199,14 @@ class DefaultController extends Controller
      */
     public function newAction()
     {
-        return array();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Category');
+
+        $categories = $repo->getNodesAsArray();
+
+        return array(
+            'categories' => $categories,
+        );
     }
 
     protected function getUrl($url)
@@ -314,37 +336,157 @@ class DefaultController extends Controller
      */
     public function importAction()
     {
-        $userfile = $_FILES['userfile'];
+        if ($this->getRequest()->getMethod() == 'POST') {
 
-        $rows = file($userfile['tmp_name']);
-        $data = array();
-        foreach ($rows as $row) {
-            $row = trim($row);
-            $rowData = str_getcsv($row, ';', '"');
-            $data[] = $rowData;
-        }
-        var_dump($data);
+            $userfile = $_FILES['userfile'];
 
-        //------------
-        $em = $this->getDoctrine()->getManager();
-        //$repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $rows = file($userfile['tmp_name']);
+            $data = array();
+            foreach ($rows as $row) {
+                $row = trim($row);
+                $rowData = str_getcsv($row, ';', '"');
+                $data[] = $rowData;
+            }
+            //var_dump($data);
 
-        foreach ($data as $row) {
-            $entity = new Object();
-            $entity->setTitle(trim($row[5]));
-            $entity->setLat(trim($row[11]));
-            $entity->setLon(trim($row[12]));
-            $entity->setAnnounce(trim($row[6]));
-            $entity->setContent(trim($row[7]));
-            $entity->setSiteUrl(trim($row[8]));
-            $entity->setEmail(trim($row[9]));
-            $entity->setPhone(trim($row[10]));
 
-            $em->persist($entity);
-            $em->flush();
+            //------------
+            $em = $this->getDoctrine()->getManager();
+            //$repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+            foreach ($data as $row) {
+
+                $entity = new Object();
+                $entity->setTitle(trim($row[5]));
+                if ($row[11] != '') $entity->setLat($row[11]);
+                if ($row[12] != '') $entity->setLon($row[12]);
+                $entity->setAnnounce(trim($row[6]));
+                $entity->setContent(trim($row[7]));
+                $entity->setSiteUrl(trim($row[8]));
+                $entity->setEmail(trim($row[9]));
+                $entity->setPhone(trim($row[10]));
+                if ($row[13]) $entity->setAddress(trim($row[13]));
+
+                $em->persist($entity);
+                $em->flush();
+            }
         }
 
         return array();
     }
 
+    /**
+     * @Route("/objects/filter")
+     */
+    public function filterAction()
+    {
+        $request = $this->getRequest();
+        $filterParams = array(
+            'term' => $request->get('term'),
+            'category' => array_keys($request->get('category')),
+        );
+
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $res = $repo->filter($filterParams);
+
+        $rows = array();
+        foreach ($res as $obj) {
+            $categories = $obj->getCategories();
+            $icon = $categories[0]->getIcon();
+            $rows[] = array(
+                'id' => $obj->getId(),
+                'title' => $obj->getTitle(),
+                'announce' => $obj->getAnnounce(),
+                'lon' => $obj->getLon(),
+                'lat' => $obj->getLat(),
+                'icon' => $icon,
+            );
+        }
+
+        $response = json_encode($rows);
+        return new Response($response);
+    }
+
+    /**
+     * Метод перемещает узлы категорий. source в target
+     *
+     * @Route("/category/move")
+     */
+    public function moveCategoryAction()
+    {
+        $source = (int) $this->getRequest()->query->get('source');
+        $target = (int) $this->getRequest()->query->get('target');
+
+        var_dump($source, $target);
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Category');
+
+        $sourceNode = $repo->find($source);
+        $targetNode = $repo->find($target);
+
+        $sourceNode->setParent($targetNode);
+        $em->persist($sourceNode);
+        $em->flush();
+
+        $response = 'OK';
+        return new Response($response);
+    }
+
+    /**
+     * @Route("/objects/geocoder")
+     */
+    public function geocoderAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+        $objects = $repo->findAll();
+        foreach ($objects as $object) {
+            if ($object->getAddress() && !$object->getLat()) {
+                $point = $this->resolveAddress($object->getAddress());
+
+                if ($point) {
+                    $object->setLat($point['lat']);
+                    $object->setLon($point['lon']);
+
+                    $em->persist($object);
+                    $em->flush();
+                }
+            }
+        }
+
+        $response = 'OK';
+        return new Response($response);
+    }
+
+    protected function resolveAddress($geocode)
+    {
+        $url = "http://geocode-maps.yandex.ru/1.x/?geocode=".$geocode;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
+        $result = curl_exec($ch); // run the whole process
+        curl_close($ch);
+
+        $xml = simplexml_load_string($result);
+
+        $res = array();
+        foreach ($xml->GeoObjectCollection->featureMember as $featureMember) {
+            $latLng = (string) $featureMember->GeoObject->Point->pos;
+            list($lat, $lon) = explode(' ', $latLng);
+            $point = array(
+                'name' => (string) $featureMember->GeoObject->name,
+                'description' => (string) $featureMember->GeoObject->description,
+                'lat' => $lat,
+                'lon' => $lon,
+            );
+            $res[] = $point;
+        }
+
+        return ! empty($res) ? $res[0] : false;
+    }
 }

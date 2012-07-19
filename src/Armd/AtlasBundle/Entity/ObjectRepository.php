@@ -12,14 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class ObjectRepository extends EntityRepository
 {
-    public function search($params=array())
+    public function filter($params=array())
     {
-        $searchTerm = $params['term'];
+        $term = $params['term'];
         $categoryIds = $params['category'];
-        $criteria = array(
-            'title' => ''
-        );
-        return $this->findBy($criteria);
+
+        $qb = $this->createQueryBuilder('o')
+                   ->innerJoin('o.categories', 'c')
+                   ->where('c IN (:categoryIds)')
+                   ->setParameter('categoryIds', $categoryIds);
+
+        $rows = $qb->getQuery()->getResult();
+        return $rows;
     }
 
 }

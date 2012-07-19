@@ -1,4 +1,4 @@
-{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
@@ -15,7 +15,7 @@
                             {{ category.title }}{% if not loop.last %},{% endif %}
                         {% endfor %}
                     </td>
-                    <td>
+                    <td nowrap="nowrap">
                         <a href="{{ path('armd_atlas_default_edit', { id:entity.id }) }}">Edit</a>
                         <a href="{{ path('armd_atlas_default_delete', { id:entity.id }) }}">Delete</a>
                     </td>

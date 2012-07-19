@@ -2,58 +2,76 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
-    <form id="atlas-form" action="{{ path('armd_atlas_default_objects') }}" method="post">
-        <table class="map-ui">
-            <tr>
-                <td class="left-col">
+    <div class="blocksection w" id="f-section">
+
+        <form id="atlas-form" action="{{ path('armd_atlas_default_filter') }}" method="post">
+
+            <div class="filter">
+                <div class="title-block green-filter">
+                    <h2>Фильтрация</h2>
+                </div>
+                <div class="filter-search-block">
+                    <p class="filter-search-header">Поиск адреса</p>
 
                     <!-- #geocoder -->
-                    <div id="geocoder" class="geocoder">
+                    <div id="geocoder" class="filter-search-form">
                         <div class="search-box">
                             <input class="search" name="q" type="text">
-                            <button class="submit" type="submit">Find</button>
+                            <button class="submit" type="submit" style="display:none;">Find</button>
                         </div>
                         <div class="result-box">
                         </div>
                     </div>
                     <!-- /#geocoder -->
 
-                    <!-- #filter -->
-                    <div id="filter">
-                        <div>
-                            <h3><a href="#">Объекты культурного наследия</a></h3>
-                            <div>
-                                <ul>
-                                    <li><input name="category[1]" type="checkbox">Памятники</li>
-                                    <li><input name="category[2]" type="checkbox"name="ch1"><label for="ch1">Архитектура</label>
-                                        <ul>
-                                            <li><input name="category[3]" type="checkbox">Светская</li>
-                                            <li><input name="category[4]" type="checkbox">Религиозная</li>
-                                        </ul>
-                                    </li>
-                                    <li><input name="category[5]" type="checkbox">Природа</li>
-                                    <li><input name="category[6]" type="checkbox">Другое</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <h3><a href="#">Музеи</a></h3>
-                            <div>Phasellus mattis tincidunt nibh.</div>
-                        </div>
-                        <div>
-                            <h3><a href="#">Учреждения</a></h3>
-                            <div>Nam dui erat, auctor a, dignissim quis.</div>
-                        </div>
-                    </div>
-                    <!-- /#filter -->
+                </div>
+                <div class="filter-accordion">
+                    <p class="filter-search-header">Фильтрация</p>
+                    <div class="filter-accordion-block" id="filter">
 
-                </td>
-                <td class="right-col">
+{% set level = 0 %}
+{% for node in categories %}
+    {% if node.lvl == level %}
+        </li>
+    {% elseif node.lvl > level %}
+        <ul class="lvl-{{ node.lvl }}">
+    {% else %}
+        </li>
+        {% for i in 0..(level-node.lvl-1) %}
+            </ul>
+            </li>
+        {% endfor %}
+    {% endif %}
+
+    <li>
+        <label>
+            <input type="checkbox" name="category[{{ node.id }}]">
+            {{ node.title }}
+        </label>
+
+    {% set level = node.lvl %}
+{% endfor %}
+{% for i in 0..level %}
+    </li>
+    </ul>
+{% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="atlas-center">
+                <div class="title-block green">
+                    <h2>Атлас</h2>
+                </div>
+                <div class="atlas-map">
                     <div id="map"></div>
-                </td>
-            </tr>
-        </table>
-    </form>
+                    <div class="atlas-menu"></div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -71,6 +89,10 @@
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
+        var fetchMarkersUri      = '{{ path('armd_atlas_default_filter') }}',
+            fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
+            bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
+
         $(function(){
             AT.init({
                 map: 'map',

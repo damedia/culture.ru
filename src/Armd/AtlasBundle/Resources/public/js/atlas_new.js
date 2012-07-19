@@ -12,6 +12,7 @@ AT.init = function(params) {
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
+    AT.initHacks();
 
 };
 
@@ -38,10 +39,12 @@ AT.initGeocoder = function() {
         searchSubmit = geocoder.find('.submit'),
         searchTerm = searchInput.val();
 
+    searchInput.val('');
+
     searchInput.autocomplete({
         source: function(request, response) {
-            console.log(request, response);
-            console.log('Try to search:', searchTerm);
+            //console.log(request, response);
+            //console.log('Try to search:', searchTerm);
 
             AT.map.search({
                 q: request.term,
@@ -95,52 +98,101 @@ AT.initGeocoder = function() {
 
 AT.initUI = function() {
 
-    $("#filter").accordion({ header: "h3", autoHeight: false});
-
-    /*Цикл по всем чекбоксам*/
-    $("#filter ul:first li input:checkbox").each(function(){
-        /*Если у чекбокса есть дочерние чекбоксы*/
-        if ($(this).closest('li').find('ul li input:checkbox').length > 0){
-            /*Вставляем перед родительским чекбоксом треугольник для раскрытия дочерних чекбоксов*/
-            $(this).before('<span style="float: left;" class="ui-icon ui-icon-triangle-1-e">');
-            /*Скрываем дочерние чекбоксы*/
-            $(this).closest('li').children('ul:first').hide();
-        }else
-        /*Иначе сдвигаем чекбокс на ширину треугольника (чтоб было ровно)*/
-            $(this).css('margin-left', '20px');
-    });
-
-    /*ПРи клике по треугольнику*/
-    $("#filter ul:first li span").click(function(){
-        /*В зависимости от того, видны ли дочерние чекбоксы
-         меняем класс треугольника (смотрит в бок - смотрит вниз (треугольник заимствуем у jquery-ui))
-         */
-        if ($(this).closest('li').children('ul:first').is(':visible')){
-            $(this).removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
-        }else{
-            $(this).removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
-        }
-
-        /*Меняем видимость списка дочерних чекбоксов на противоположную*/
-        $(this).closest('li').children('ul:first').toggle('slow');
-    });
-
-    /*При клике по чекбоксу*/
-    $("#filter ul li input:checkbox").click(function(){
-        /*Если чекбокс выделен - выделяем дочерние, если нет - снимаем выделение у дочених*/
-        if ($(this).attr('checked') == 'checked')
-            $(this).closest('li').find('ul li input:checkbox').attr('checked', 'checked');
-        else
-            $(this).closest('li').find('ul li input:checkbox').attr('checked', false);
-    });
-
-
-
     $('#atlas-form').ajaxForm({
-        success: function(){
-            console.log('ok');
+        success: function(responseText, statusText, xhr, $form){
+            var objects = $.parseJSON(responseText);
+            //console.log('ok', objects);
+
+            if (objects.length) {
+
+                AT.clearMap();
+
+                var minLon=1000, maxLon=0,
+                    minLat=1000, maxLat=0;
+
+                for (i in objects) {
+                    var el = objects[i];
+                    AT.placeObject(el);
+
+                    if (parseFloat(el.lat) > maxLat) maxLat = el.lat;
+                    if (parseFloat(el.lat) < minLat) minLat = el.lat;
+                    if (parseFloat(el.lon) > maxLon) maxLon = el.lon;
+                    if (parseFloat(el.lon) < minLon) minLon = el.lon;
+                }
+
+                var bbox = {
+                    lon1: PGmap.Utils.mercX(minLon),
+                    lon2: PGmap.Utils.mercX(maxLon),
+                    lat1: PGmap.Utils.mercY(minLat),
+                    lat2: PGmap.Utils.mercY(maxLat)
+                };
+
+                AT.map.setCenterByBbox(bbox);
+            }
         }
     });
 
+    var filterCheckboxes = $('#filter').find(':checkbox');
+    filterCheckboxes.removeAttr('checked');
+    filterCheckboxes.bind('change', function(){
+        $('#atlas-form').submit();
+    });
+};
 
-}
+AT.clearMap = function() {
+    var points = AT.map.geometry.get({ type:'points' });
+    if (points.length > 0) {
+        for (var i=points.length; i--; ) {
+            AT.map.geometry.remove(points[i]);
+        }
+    }
+};
+
+AT.placeObject = function(object) {
+    //console.log(object);
+
+    var point = new PGmap.Point({
+            coord: new PGmap.Coord(object.lon, object.lat, true),
+            url: bundleImagesUri + '/' + object.icon
+        });
+    var balloon = new PGmap.Balloon({
+            content: '',
+            isClosing: true,
+            isHidden: true
+        });
+    //balloon.setSize(350, 140);
+    point.addBalloon(balloon);
+    $(point.element).data('uid', object.id);
+
+    AT.map.geometry.add(point);
+
+    PGmap.Events.addHandler(point.element, 'click', function(e) {
+        var uid = $(point.element).data('uid');
+        $.ajax({
+            url: fetchMarkerDetailUri,
+            data: { id: uid },
+            success: function(res) {
+                console.log($(point.balloon.element));
+                //$(point.balloon.element).find('span').html($('<div class="w"></div>').append(res));
+                $(point.balloon.element)
+                    .data('point', point)
+                    .html(res);
+
+                point.balloon.show();
+
+            }
+        });
+
+    });
+
+};
+
+AT.initHacks = function() {
+    $('.g-closer').live('click', function(){
+        console.log('try to close bubble');
+
+        $(this).closest('.b-balloon').data('point').hideBalloon();
+
+        return false;
+    });
+};
