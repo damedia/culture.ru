@@ -9,9 +9,6 @@ use Armd\NewsBundle\Calendar\Calendar;
 
 class CalendarController extends BaseController
 {
-    /**
-     * @Route("/calendar-widget/{year}/{month}/{day}", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"})     
-     */    
     function widgetAction($year, $month, $day)
     {
         $calendar = new Calendar(\DateTime::createFromFormat('Ymd', "{$year}{$month}{$day}"));
@@ -20,7 +17,7 @@ class CalendarController extends BaseController
     }
 
     /**
-     * @Route("/calendar-request/{year}/{month}", requirements={"year" = "\d{4}", "month" = "\d{2}"})     
+     * @Route("/request/{year}/{month}", requirements={"year" = "\d{4}", "month" = "\d{2}"})     
      */        
     function requestAction($year, $month)
     {

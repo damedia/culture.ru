@@ -21,14 +21,14 @@ interface NewsInterface
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param datetime $date
      */
-    public function setDate(\DateTime $date);
+    public function setDate($date);
 
     /**
      * Get date
      *
-     * @return \DateTime
+     * @return datetime
      */
     public function getDate();
 }

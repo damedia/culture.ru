@@ -45,6 +45,7 @@ class Category extends Admin
         $formMapper
             ->with('General')
                 ->add('title')
+                ->add('slug')
                 ->add('priority')
                 ->add('filtrable')                
             ->end();
@@ -61,6 +62,7 @@ class Category extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
+            ->add('slug')            
             ->add('priority')
             ->add('filtrable')                    
         ;

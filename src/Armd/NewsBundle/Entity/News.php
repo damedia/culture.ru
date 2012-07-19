@@ -24,9 +24,14 @@ class News extends BaseNews
     protected $title;
     
     /**
-     * @ORM\Column(type="datetime", name="news_date")
+     * @ORM\Column(type="datetime", name="from")
      */
     protected $date;
+    
+    /**
+     * @ORM\Column(type="datetime", name="to", nullable=true)
+     */
+    protected $endDate;    
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -53,6 +58,11 @@ class News extends BaseNews
      * @ORM\Column(type="boolean", nullable=true)
      */        
     protected $important;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */        
+    protected $priority;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -277,5 +287,71 @@ class News extends BaseNews
     public function getGallery()
     {
         return $this->gallery;
+    }
+
+    /**
+     * Set endDate
+     *
+     * @param datetime $endDate
+     * @return News
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return datetime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * Set priority
+     *
+     * @param integer $priority
+     * @return News
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * Get priority
+     *
+     * @return integer 
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Set date
+     *
+     * @param datetime $date
+     * @return News
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return datetime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

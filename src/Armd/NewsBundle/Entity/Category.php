@@ -23,6 +23,11 @@ class Category
     protected $title;
     
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $slug;    
+    
+    /**
      * @ORM\Column(type="integer")
      */
     protected $priority;
@@ -111,5 +116,27 @@ class Category
     public function getFiltrable()
     {
         return $this->filtrable;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

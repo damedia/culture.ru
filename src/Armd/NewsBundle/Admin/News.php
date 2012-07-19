@@ -55,8 +55,10 @@ class News extends Admin
                 ->add('announce')
                 ->add('body')
                 ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
+                ->add('endDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))                
                 ->add('category')                
-                ->add('important')                
+                ->add('important')
+                ->add('priority')                                
                 ->add('published')
             ->end()    
             ->with('Media')                
@@ -85,12 +87,12 @@ class News extends Admin
         parent::configureListFields($listMapper);        
     }
 
-/*
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add('category')
+            ->add('published')
+            ->add('important')            
         ;
     }
-*/
 }

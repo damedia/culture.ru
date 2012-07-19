@@ -31,6 +31,22 @@ class NewsController extends ListController
         return $this->render($this->getTemplateName('today-list'), array('entities' => $this->getThisDayListRepository($month, $day)));
     }
     
+    function getImportantNewsList(array $categories = array(), $limit = 0)
+    {        
+        $repository = $this->getListRepository()
+            ->setImportant(true)
+            ->orderByPriority()
+        ;
+        
+        if ($categories) {
+            $repository->setCategories($categories);
+        } else {
+            $repository->setFiltrableCategories();
+        }
+        
+        return $repository->getQuery()->getResult();
+    }
+    
     function getThisDayListRepository($month, $day)
     {
         return $this->getListRepository()
@@ -38,8 +54,7 @@ class NewsController extends ListController
             ->setMonth($month)
             ->setDay($day)        
 */
-            ->setCategories(array(1))
-            ->setPublication()                    
+            ->setCategories(array(1))                    
         ;
     }
     
@@ -53,8 +68,7 @@ class NewsController extends ListController
         $repository = $this->getListRepository()
             ->setBeginDate($from->setTime(0, 0, 0))
             ->setEndDate($to->setTime(23, 59, 59))
-            ->setFiltrableCategory()
-            ->setPublication()            
+            ->setFiltrableCategories()       
             ->setImportant($isImportant)
         ;
         
@@ -67,6 +81,7 @@ class NewsController extends ListController
     function getListRepository()
     {
         return parent::getListRepository()
+            ->setPublication()
             ->orderByDate();
         ;
     }

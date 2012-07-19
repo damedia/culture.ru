@@ -33,10 +33,10 @@ class News extends BaseList implements NewsInterface
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param datetime $date
      * @return News
      */
-    public function setDate(\DateTime $date)
+    public function setDate($date)
     {
         $this->date = $date;
         return $this;

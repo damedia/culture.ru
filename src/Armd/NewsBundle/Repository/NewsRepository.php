@@ -47,18 +47,20 @@ class NewsRepository extends ListRepository
     function setCategories(array $categories)
     {
         $this->qb
-            ->andWhere("{$this->alias}.category in (:categories)")
+            ->innerJoin("{$this->alias}.category", 'c', 'WITH', "c.slug in (:categories)")
             ->setParameter('categories', $categories)
         ;            
+        
         return $this;
     }
     
-    function setFiltrableCategory()
+    function setFiltrableCategories()
     {
         $this->qb
             ->innerJoin("{$this->alias}.category", 'c', 'WITH', "c.filtrable = :filtrable")
             ->setParameter('filtrable', 1)
         ;            
+        
         return $this;
     }
     
@@ -70,22 +72,6 @@ class NewsRepository extends ListRepository
         ;            
         return $this;
     }
-    
-    
-    /**
-     * @param \DateTime $date
-     * @return NewsRepository     
-     */    
-    function setContext($context)
-    {
-        if (!$context)
-        {
-            return $this;
-        }
-        
-        return $this;        
-    }
-    
 
     /**
      * @param string $order
@@ -97,4 +83,15 @@ class NewsRepository extends ListRepository
         
         return $this;
     }
+    
+    /**
+     * @param string $order
+     * @return NewsRepository     
+     */        
+    function orderByPriority($order = 'desc')
+    {
+        $this->qb->orderBy("{$this->alias}.priority", $order);
+        
+        return $this;
+    }    
 }
