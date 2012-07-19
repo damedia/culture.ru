@@ -17,9 +17,11 @@
         "sensio/framework-extra-bundle": "dev-master",
         "sensio/generator-bundle": "dev-master",
         "jms/security-extra-bundle": "1.1.*",
+        "jms/serializer-bundle": "*",
         "jms/di-extra-bundle": "1.0.*",
-
+        "friendsofsymfony/comment-bundle": "*",
         "stof/doctrine-extensions-bundle": "*",
+        "knplabs/knp-paginator-bundle": "*",
 
         "sonata-project/admin-bundle": "*",
         "sonata-project/user-bundle": "*",
@@ -30,6 +32,8 @@
     },
     "repositories": {
         "kriswallsmith/buzz": { "type": "git", "url": "https://github.com/kriswallsmith/Buzz.git" }
+        "sonata-project/media-bundle": "master",
+        "friendsofsymfony/jsrouting-bundle": "master"
     },
     "scripts": {
         "post-install-cmd": [

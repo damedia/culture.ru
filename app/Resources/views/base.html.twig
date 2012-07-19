@@ -1,13 +1,101 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+        <link href="{{ asset('/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" type="text/css" media="screen" />
+        <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+	    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&version=0.1.7"></script>
+        <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div id="wrap">
+            <div id="header" class="w">
+                <a href="#" id="logo"></a>
+                <div id="top">
+                    <ul class="topmenu">
+                        <li class="first">
+                            <a href="#">Культура от А до Я</a>
+                        </li>
+                        <li>
+                            <a href="/static/goverment_service.html">Государственные услуги</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('armd_news_list_index') }}">Пресс-центр</a>
+                        </li>
+                    </ul>
+                    <div id="topbar">
+                        <span class="special-vers"><a href="#">Версия для слабовидящих</a></span>
+                        <a href="#" class="lang-swith cur">рус</a>
+                        <a href="#" class="lang-swith">eng</a>
+                    </div>
+                    <div id="headerfader">
+                    </div>
+                </div>
+            </div>
+            <div id="nav" class="w">
+                <ul class="navmenu">
+                    <li class="first">
+                        <a href="atlas.html">Атлас</a>
+                    </li>
+                    <li>
+                        <a href="#">Лента времени</a>
+                    </li>
+                    <li>
+                        <a href="#">Трансляции</a>
+                    </li>
+                    <li>
+                        <a href="#">Лекции</a>
+                    </li>
+                    <li>
+                        <a href="http://mk2.dev.armd.ru/best/">Обсуждения</a>
+                    </li>
+                </ul>
+                <div id="auth">
+                    <a id="auth-link" href="#"><span>Личный кабинет</span></a>
+                </div>
+            </div>
+            <div id="search" class="w">
+                <form id="formsearch" name="search" method="get">
+                    <table class="formsearch-width-type">
+						<tr>
+							<td width="1">
+								<div class="search-type">
+									Поиск по новостям и событиям
+									<a href="#" class="close-search-type">x</a>
+								</div>
+							</td>
+							<td>
+								 <div id="searcher">
+									<input type="text" id="i-searcher" />
+								</div>
+								<input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+							</td>
+						</tr>
+					</table>
+                </form>
+            </div>
+			
+			<div class="blocksection w" id="f-section">
+				{% block body%}&nbsp;{% endblock %}
+			</div>
+			<div id="footer" class="w">
+                <div id="contacts">
+                    © Портал культурного наследия России 
+                    <br/>
+                    <a href="#">О проекте</a>&nbsp;/&nbsp;<a href="#">Контактная информация</a>
+                </div>
+                <div id="socialnetwork">
+                    Рассказать о портале
+                    <div id="i-socialnetwork">
+                        <img src="{{ asset('/img/socialnetwork.png') }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

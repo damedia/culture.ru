@@ -28,7 +28,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ "FOSCommentBundle", "ArmdCommunicationPlatformBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -80,6 +80,57 @@ sonata_block:
 
 sonata_user:
     security_acl: true
+    
+sonata_media:
+    default_context: default
+    db_driver: doctrine_orm # or doctrine_mongodb
+    contexts:
+        default:  # the default context is mandatory
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+
+            formats:
+                adminPreview: { width: 314 , height: 187, , quality: 90}
+                small: { width: 100 , quality: 90}
+                big:   { width: 500, quality: 90}
+                billboard: { width: 231, height: 194}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     true
+
+#    class:
+#        media: "Armd\\Bundle\\MediaBundle\\Entity\\Media"
+#        gallery: "Armd\\Bundle\\MediaBundle\\Entity\\Gallery"
+#        gallery_has_media: "Armd\\Bundle\\MediaBundle\\Entity\\GalleryHasMedia"
+
+    providers:
+        file:
+            resizer:    false
+            filesystem: sonata.media.filesystem.local
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        image:
+            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            filesystem: sonata.media.filesystem.local
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        youtube: ~
+
+        dailymotion: ~    
 
 fos_user:
     db_driver:      orm # can be orm or odm
@@ -89,9 +140,24 @@ fos_user:
     group:
         group_class: Application\Sonata\UserBundle\Entity\Group
 
-stof_doctrine_extensions:
-    orm:
-        default:
-            sluggable: true
-            tree: true
-            timestampable: true
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Armd\CommentBundle\Entity\Comment
+            thread: Armd\CommentBundle\Entity\Thread
+            vote: Armd\CommentBundle\Entity\Vote
+    acl: true
+    service:
+        manager:
+            thread: fos_comment.manager.thread.acl
+            comment: fos_comment.manager.comment.acl
+            vote: fos_comment.manager.vote.acl
+
+fos_rest:
+    view:
+        view_response_listener: force
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }

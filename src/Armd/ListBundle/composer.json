@@ -1,0 +1,11 @@
+{
+    "name": "armd/list-bundle",
+    "type": "armd-cms-bundle",    
+    "description": "List Bundle",
+    "require": {
+    },
+    "autoload": {
+        "psr-0": { "Armd\\ListBundle": "" }
+    },
+    "target-dir": "Armd/ListBundle"            
+}

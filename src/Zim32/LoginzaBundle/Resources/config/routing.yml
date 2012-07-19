@@ -1,0 +1,8 @@
+_loginza_redirect_user:
+    pattern:  /hello
+    defaults: { _controller: Zim32LoginzaBundle:Default:index }
+
+_loginza_login_user:
+    pattern:  /loginza
+    defaults: { _controller: Zim32LoginzaBundle:Default:login }
+

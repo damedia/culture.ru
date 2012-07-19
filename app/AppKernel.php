@@ -19,19 +19,34 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
+            new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
 
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+            new Sonata\MediaBundle\SonataMediaBundle(),            
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Armd\AtlasBundle\ArmdAtlasBundle(),
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),            
+            new Armd\CommentBundle\ArmdCommentBundle(),
+            new Armd\ListBundle\ArmdListBundle(),
+            new Armd\NewsBundle\ArmdNewsBundle(),
+
+            new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
+#            new Armd\MainBundle\ArmdMainBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
