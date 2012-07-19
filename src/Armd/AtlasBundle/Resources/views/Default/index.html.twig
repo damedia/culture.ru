@@ -1,168 +1,104 @@
 {% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
 
+{# ------------------------------------------------------------------------ #}
 {% block body %}
-    <div id="ajax-loading">Загрузка данных&hellip;</div>
-    <div class="colLeft">
-        <div class="dashboard">
+    <div class="blocksection w" id="f-section">
 
-            <div id="geocoder" class="geocoder" style="display:none;">
-                <div class="br5">
-                    <input class="search" type="text">
-                    <input class="submit" type="submit" value="Найти">
-                </div>
-                <div class="results">
-                </div>
-            </div>
+        <form id="atlas-form" action="{{ path('armd_atlas_default_filter') }}" method="post">
 
-            <form id="filter-types" method="get" action="">
-                <div class="atlas-aside">
-                    <div class="atlas-region">
-                        <h1 class="atlas-aside-title">Регион</h1>
-                        <select id="regions-selector" name="region" data-placeholder="Введите название региона..." class="chzn-select">
-                            <option value="" selected="selected">Все регионы</option>
-                            {% for region in regions %}
-                                <option value="{{ region.id }}">{{ region.title }}</option>
-                            {% endfor %}
-                        </select>
-                        <p class="atlas-region-default">По умолчанию выбраны все регионы</p>
-                    </div>
-                    <div class="">
-                        <h1 class="atlas-aside-title">Показать на карте</h1>
-                        <div class="atlas-aside-searchbox">
-                            <span class="inp-txt"><input type="text" name="search" size="30"/></span>
-                            <span class="inp-btn"><input type="submit" value="Найти"/></span>
+            <div class="filter">
+                <div class="title-block green-filter">
+                    <h2>Фильтрация</h2>
+                </div>
+                <div class="filter-search-block">
+                    <p class="filter-search-header">Поиск адреса</p>
+
+                    <!-- #geocoder -->
+                    <div id="geocoder" class="filter-search-form">
+                        <div class="search-box">
+                            <input class="search" name="q" type="text">
+                            <button class="submit" type="submit" style="display:none;">Find</button>
                         </div>
-                        <div class="atlas-aside-group-menu">
-                            <a class="select" href="#">Отметить все</a>
-                            <a class="unselect" href="#">Снять отметки</a>
+                        <div class="result-box">
                         </div>
-                        <ul id="map-types-pane" class="scroll-pane atlas-map-types">
-                            {% for type in objectTypes %}
-                                <li class="atlas-map-item">
-                                    <span class="atlas-map-item-toggle"></span>
-                                    <span class="atlas-map-item-checkbox"><input id="check{{ type.id }}" class="cb-type" type="checkbox" name="type[]" value="{{ type.id }}" checked/></span>
-                                    <span class="atlas-map-item-icon"><img src="{{ asset('bundles/armdatlas/images/pin'~type.id~'.png') }}" alt=""/></span>
-                                    <label class="check-musem" for="check{{ type.id }}">
-                                        {{ type.title }}&nbsp;<span class="small-gray">({{ type.objectsCount }})</span>
-                                    </label>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                    </div>
+                    <!-- /#geocoder -->
+
+                </div>
+                <div class="filter-accordion">
+                    <p class="filter-search-header">Фильтрация</p>
+                    <div class="filter-accordion-block" id="filter">
+
+{% set level = 0 %}
+{% for node in categories %}
+    {% if node.lvl == level %}
+        </li>
+    {% elseif node.lvl > level %}
+        <ul class="lvl-{{ node.lvl }}">
+    {% else %}
+        </li>
+        {% for i in 0..(level-node.lvl-1) %}
+            </ul>
+            </li>
+        {% endfor %}
+    {% endif %}
+
+    <li>
+        <label>
+            <input type="checkbox" name="category[{{ node.id }}]">
+            {{ node.title }}
+        </label>
+
+    {% set level = node.lvl %}
+{% endfor %}
+{% for i in 0..level %}
+    </li>
+    </ul>
+{% endfor %}
+
                     </div>
                 </div>
-            </form>
-
-        </div>
-    </div>
-    <div class="colRightContainer">
-        <div class="colRight">
-            <div>
-                <button id="clear-all-markers">Clear all markers</button>
+            </div>
+            <div class="atlas-center">
+                <div class="title-block green">
+                    <h2>Атлас</h2>
+                </div>
+                <div class="atlas-map">
+                    <div id="map"></div>
+                    <div class="atlas-menu"></div>
+                </div>
             </div>
 
-            <div id="atlas-map" class="atlas-map"></div>
+        </form>
 
-            <div style="margin-top:30px; clear:both;">
-                <button id="route">Route</button>
-            </div>
-        </div>
     </div>
-
 {% endblock %}
 
+{# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/jquery.jscrollpane.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/css.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas.css') }}">
-    <style type="text/css">
-        .br10{ margin-bottom:10px; }
-        .small-gray{ font-size:11px; color:#777; }
-
-        #ajax-loading{ display:none; position:fixed; z-index:2; left:50%; padding:5px 10px; background:#fed; }
-
-        .colLeft{ width:300px; height:600px; float:left; position:relative; z-index:1; background:#fff; }
-        .colRightContainer{ float:right; width:100%; margin-left:-300px; }
-        .colRight{ margin-left:300px; }
-
-        #map{ width:100%; height:600px; }
-        .ymaps-default-cluster{ color:#FFFFFF; font-size:11px !important; }
-
-        .dashboard{ }
-        .dashboard .padder{ }
-
-        legend{ color:#C99B4C; margin-bottom:5px; }
-
-        #geometry{ clear:both; }
-
-        .topshadow{ position:absolute; z-index:200; height:21px; }
-        .topshadow .inner{ height:21px; background:url(/bundles/armdatlas/images/topshadow.png) 0 0 repeat-x; }
-
-        .markBalloonLayout{ position:relative; width:315px; padding:0px 2px 10px 5px; border:4px solid #EBCB00; background:#fff; }
-        .markBalloonLayout.region{ top:-50px; left:0px; }
-
-        .markBalloonLayout .close{ float:right; display:block; width:16px; height:16px; background:#f00; background:url(/bundles/armdatlas/images/ico.png) no-repeat scroll -7px -231px transparent; }
-        .markBalloonLayout h2{ margin:10px 0 10px 0; font-size:14px; }
-        .markBalloonLayout table{ font-size:11px; width:100%; color:#333; }
-        .markBalloonLayout table th, .markBalloonLayout table td{ padding:0 5px 5px 0; font-weight:normal; text-align:left; }
-        .markBalloonLayout table th{ color:#DA5C11; width:50%; }
-
-
-        .balloon-region-logo{ float:left; margin: 0 10px 0 0; }
-        .balloon-region-content{ margin-bottom:10px; font-size:11px; color:#7A7A7A; }
-        .balloon-region-content h2{ font-size:20px; }
-
-
-        #content-i-wide{ padding:0; }
-
-        .atlas-aside { padding:10px; background:#fff; font-size:13px; }
-        .atlas-aside-title { text-transform: uppercase; font: bold 14px/1.25 'trebuchet ms',sans-serif; padding-bottom: 5px; border-bottom: 2px solid #da5c11; color: #262626; }
-        .atlas-region{ margin-bottom:20px; }
-        .atlas-map, .atlas-points {}
-        .atlas-region select { padding: 0 0 0 3px; margin: 0; height: 19px; border: 1px solid #d2d3d3; color: #575757; font: bold 10px/100% 'trebuchet ms',sans-serif; }
-        .atlas-region-default { color: #262626; font-size:11px; margin: 2px 0 10px 10px; }
-        .atlas-map { }
-        .atlas-aside-searchbox{ margin:0 0 5px 0; }
-        .atlas-aside-searchbox .inp-txt input{ background:url("/bundles/armdatlas/images/chosen-sprite.png") no-repeat scroll 100% -22px, -moz-linear-gradient(center top , #EEEEEE 1%, #FFFFFF 15%) repeat scroll 0 0 transparent; border:solid 1px #aaa; height:23px; line-height:24px; padding-left:8px; color:#444; }
-        .atlas-aside-searchbox .inp-btn input{ border:none; overflow:hidden; background:#ee7; width:25px; height:23px; line-height:24px; padding-left:8px; position:relative; left:-30px; opacity:0; color:#444; }
-
-        .atlas-aside-group-menu { margin-bottom:15px; }
-        .atlas-aside-group-menu a { margin-right:10px; text-decoration:none; border-bottom:dashed 1px #E39D6F; font-size:11px; }
-        .atlas-aside-group-menu a:hover { color:#000; border-bottom:none; }
-        .atlas-map-types{ margin:0; padding:0; list-style-type:none; }
-        .atlas-map-types.scroll-pane{ height:350px; }
-        .atlas-map-item { padding:0px 0 0 5px; clear: both; margin-bottom: 0px; overflow: hidden; }
-        .atlas-map-item-toggle { float: left; background: url('/bundles/armdatlas/images/narrow-right.gif') no-repeat; width: 5px; height:9px; margin: 5px 8px 0 0; }
-        .atlas-map-item-icon { float:left; }
-        .atlas-map-item-icon img {width: 100%; height: auto;}
-        .atlas-map-item-checkbox{ float:left; margin-right: 7px; float: left; }
-        .atlas-map input { }
-        .atlas-map label { padding-left: 5px; display: block; float: left; width: 215px; }
-        .atlas-points ul { margin: 0; padding: 0; }
-        .atlas-points ul li { list-style: none; margin: 0 0 14px 0; padding-left: 16px; background-position: left 5px; line-height: 100%; text-indent: 0em; }
-        .atlas-points ul li a { color: #262626; font: bold 10px 'trebuchet ms',sans-serif; display: block; padding: 0; margin: 0; }
-        .scroll-pane { height: 127px; }
-    </style>
-    <!--[if IE 7]>
-        <style>
-            .atlas-points ul li a { zoom: 1; }
-            .atlas-points ul li { padding-left: 0px; }
-        </style>
-    <![endif]-->
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
 
+{# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        var fetchMarkersUri      = '{{ path('armd_atlas_default_proxy') }}',
-            fetchMarkerDetailUri = '{{ path('armd_atlas_default_proxydetail') }}',
-            bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
-    </script>
-    <script src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
-    <script src="{{ asset('bundles/armdatlas/js/jquery.mousewheel.js') }}"></script>
-    <script src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
-    <script src="{{ asset('bundles/armdatlas/js/jquery.jscrollpane.min.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
-    <script src="{{ asset('bundles/armdatlas/js/atlas.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
+    <script type="text/javascript">
+        var fetchMarkersUri      = '{{ path('armd_atlas_default_filter') }}',
+            fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
+            bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
+
+        $(function(){
+            AT.init({
+                map: 'map',
+                center: [37.648527, 55.723211],
+                zoom: 10
+            });
+        });
+    </script>
 {% endblock %}

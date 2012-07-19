@@ -7,6 +7,7 @@
     <title>{% block title %}Добро пожаловать!{% endblock %}</title>
 
     {% block stylesheets %}
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
         <link href="{{ asset('bundles/armdatlas/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
         {#<link href="{{ asset('bundles/armdatlas/common/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
     {% endblock %}
@@ -81,8 +82,10 @@
 
     {% block javascripts %}
         <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.js') }}"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
         {#<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery-ui-1.8.21.custom.min.js') }}"></script>#}
         <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.ui.datepicker-ru.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
     {% endblock %}
 
