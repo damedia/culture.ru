@@ -2,24 +2,44 @@
 
 {% block header %}Пресс-центр{% endblock %}
 
+{#
 {% block top %}
     {% include "ArmdNewsBundle:News:memorials.html.twig" with {"entities": memorials} %}
 {% endblock %}
-
+#}
 {% block center %}
-	{% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
+    {% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
 {% endblock %}
 
 {% block content%}
 <div class="clear"></div>
 <div class="news-afisha">
-	<div class="title-block">
-		<h2>Афиша</h2>
-	</div>
-	{% include "ArmdNewsBundle:News:list.html.twig" with {"entities": news} %}
-    <nav class="navigation">
-        {{ news.setUsedRoute('armd_news_list_index_by_page') }}
-        {{ news.render()|raw}}
-    </nav>	
-</div>		
+    <div class="title-block">
+        <h2>Афиша</h2>
+    </div>
+    {% include "ArmdNewsBundle:News:list.html.twig" with {"entities": news} %}
+
+    <div class="news-nav-block">
+        <nav class="navigation">
+            {{ news.setUsedRoute('armd_news_list_index_by_page') }}
+            {{ news.render()|raw}}
+            <br />        
+        </nav>    
+        <div style="float:right; color:#f80;">Архив новостей &rarr;</div>
+    </div>
+
+</div>      
+{% endblock %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .news-nav-block{ overflow:hidden; padding:0 30px 0 10px; }
+    .news-nav-block .navigation{ float:left; }
+    .news-nav-block .navigation .pagination{ }
+    .news-nav-block .navigation .pagination span{ margin-right:5px; }
+    .news-nav-block .navigation .pagination span a{ display:inline-block; padding:3px 5px; background:#fff; border:solid 1px #ccc; text-decoration:none; color:#999; }
+    .news-nav-block .navigation .pagination span a:hover{ background:#f90; }
+</style>
 {% endblock %}

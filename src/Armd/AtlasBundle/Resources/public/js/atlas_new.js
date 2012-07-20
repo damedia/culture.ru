@@ -103,15 +103,16 @@ AT.initUI = function() {
             var objects = $.parseJSON(responseText);
             //console.log('ok', objects);
 
-            if (objects.length) {
+            AT.clearMap();
 
-                AT.clearMap();
+            if (objects && objects.length) {
 
                 var minLon=1000, maxLon=0,
                     minLat=1000, maxLat=0;
 
                 for (i in objects) {
                     var el = objects[i];
+
                     AT.placeObject(el);
 
                     if (parseFloat(el.lat) > maxLat) maxLat = el.lat;

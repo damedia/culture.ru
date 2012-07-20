@@ -313,9 +313,17 @@ class DefaultController extends Controller
     public function filterAction()
     {
         $request = $this->getRequest();
+
+        $category = $request->get('category');
+        if (is_array($category)) {
+            $categoryIds = array_keys($category);
+        } else {
+            exit;
+        }
+
         $filterParams = array(
             'term' => $request->get('term'),
-            'category' => array_keys($request->get('category')),
+            'category' => $categoryIds,
         );
 
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
@@ -387,6 +395,22 @@ class DefaultController extends Controller
                 }
             }
         }
+
+        $response = 'OK';
+        return new Response($response);
+    }
+
+    /**
+     * @Route("/category/{id}/delete")
+     */
+    public function categoryDeleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Category');
+
+        $entity = $repo->find($id);
+        $em->remove($entity);
+        $em->flush();
 
         $response = 'OK';
         return new Response($response);

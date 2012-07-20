@@ -1,4 +1,4 @@
-{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
@@ -261,7 +261,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm2.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
 
@@ -269,6 +269,8 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
         $(function(){

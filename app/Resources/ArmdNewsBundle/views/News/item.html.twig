@@ -2,39 +2,35 @@
 
 {% block body %}
 <div class="news-one">
-	<div class="title-block gray-press">
-		<h2>Пресс-центр</h2>
-	</div>
-	<span class="news-one-date">
-	    {% set f = entity.date %}
-	    {% set t = entity.endDate %}
-		{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
-		{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}		 
-	</span>
-	<h1>{{ entity.title|raw }}</h1>
-	<div class="img-left">
-	{% thumbnail entity.image, 'billboard' %}
-	</div>
+    <div class="title-block gray-press">
+        <h2>Пресс-центр</h2>
+    </div>
+    <span class="news-one-date">
+        {% set f = entity.date %}
+        {% set t = entity.endDate %}
+        {{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
+        {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}        
+    </span>
+    <h1>{{ entity.title|raw }}</h1>
+    {% if entity.image %}
+        <div class="img-left">
+        {% thumbnail entity.image, 'billboard' %}
+        </div>
+    {% endif %}
     {{ entity.body|raw }}
+    <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index') }}">Назад</a><p>
 </div>
 {#
 <div class="comments">
-	<div class="title-block">
-		<h2>комментарии пользователей</h2>
-		<a href="#" class="add-comment"></a>
-	</div>
-	<p class="comments-anons">
-		<span class="comments-total">комментариев: <a href="#">22</a></span>
-		<span class="votes-total">голосов: <b>114</b></span>
-	</p>
+    <div class="title-block">
+        <h2>комментарии пользователей</h2>
+        <a href="#" class="add-comment"></a>
+    </div>
+    <p class="comments-anons">
+        <span class="comments-total">комментариев: <a href="#">22</a></span>
+        <span class="votes-total">голосов: <b>114</b></span>
+    </p>
 </div>
 #}
-{#
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('armd_news_news_list') }}">
-            Back to the list
-        </a>
-    </li>
-</ul> #}
+
 {% endblock %}
