@@ -158,7 +158,7 @@
                 <div class="block obj-o-description">
                     <h1>{{ entity.title }}</h1>
                     <p>
-                        {{ entity.announce }}
+                        {{ entity.content }}
                     </p>
                     <p class="virtual-tour"><a  href="#">Виртуальный тур</a></p>
                     <p class="all-list"><a href="#">Все виртуальные туры</a></p>
@@ -175,6 +175,7 @@
                         </p>
                         <p class="obj-o-contacts-main">
                             {% if entity.address %}{{ entity.address }}<br />{% endif %}
+                            {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
                             {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
                             {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
                         </p>
