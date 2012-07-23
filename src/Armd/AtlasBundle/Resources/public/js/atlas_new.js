@@ -115,12 +115,15 @@ AT.initUI = function() {
 
                     AT.placeObject(el);
 
+                    /*
                     if (parseFloat(el.lat) > maxLat) maxLat = el.lat;
                     if (parseFloat(el.lat) < minLat) minLat = el.lat;
                     if (parseFloat(el.lon) > maxLon) maxLon = el.lon;
                     if (parseFloat(el.lon) < minLon) minLon = el.lon;
+                    */
                 }
 
+                /*
                 var bbox = {
                     lon1: PGmap.Utils.mercX(minLon),
                     lon2: PGmap.Utils.mercX(maxLon),
@@ -129,15 +132,60 @@ AT.initUI = function() {
                 };
 
                 AT.map.setCenterByBbox(bbox);
+                */
             }
         }
     });
 
     var filterCheckboxes = $('#filter').find(':checkbox');
+
+    // Принудительно грузим предварительно установленные в куке метки
     filterCheckboxes.removeAttr('checked');
+
+    var filterCategories = $.cookie('filter_categories');
+
+    if (! filterCategories) {
+        // По-умолчанию, взводим чекбоксы с музеями
+        $(filterCheckboxes[0]).attr('checked', 'checked');
+        $("#filter .lvl-1:first .lvl-2:first :checkbox").each(function(i,el){
+            $(el).attr('checked', 'checked');
+        });
+    } else {
+        // Взводим чекбоксы из куков
+        filterCategories = filterCategories.split(',');
+        for (var i=0; i<filterCheckboxes.length; i++) {
+            var categoryId = $(filterCheckboxes[i]).data('category');
+
+            if ($.inArray(categoryId.toString(), filterCategories) >= 0) {
+                $(filterCheckboxes[i]).attr('checked', 'checked');
+            } else {
+                $(filterCheckboxes[i]).removeAttr('checked');
+            }
+           
+        }
+    }
+
+    // Сабмитим форму
+    $('#atlas-form').submit();
+
+    // При клике по чекбоксу сабмитим форму
     filterCheckboxes.bind('change', function(){
+
+        // Собираем id всех отмеченных категорий и сохраняем в comma-separated строке в куке
+        var categories = [];
+        for (var i=0; i<filterCheckboxes.length; i++) {
+            if ($(filterCheckboxes[i]).is(':checked')) {
+                var categoryId = $(filterCheckboxes[i]).data('category');
+                categories.push(categoryId);
+            }
+        }
+        var cookieValue = categories.join(',');
+        $.cookie('filter_categories', cookieValue);
+
+        // Сабмитим форму
         $('#atlas-form').submit();
     });
+
 };
 
 AT.clearMap = function() {
@@ -162,7 +210,7 @@ AT.placeObject = function(object) {
             isHidden: true
         });
     //balloon.setSize(350, 140);
-    point.addBalloon(balloon);
+    //point.addBalloon(balloon);
     $(point.element).data('uid', object.id);
 
     AT.map.geometry.add(point);
