@@ -11,15 +11,15 @@ class NewsController extends ListController
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}", defaults={"page" = 1}, name="armd_news_list_index_by_page")     
      */
-    function pressCentreAction($page = 1)
+    function pressCentreAction($page = 1, $limit = 10)
     {
         $date = new \DateTime();
         
         return $this->render($this->getTemplateName('press-centre'), array(
             'date'      => $date,
+            'news'      => $this->getLatestNewsList($date, $limit, $page),            
             'memorials' => $this->getMemorialEventsList($date),
             'billboard' => $this->getImportantNewsList(),
-            'news'      => $this->getLatestNewsList($date, 10, $page),
         ));
     }
     
@@ -32,15 +32,14 @@ class NewsController extends ListController
     function archiveAction($year, $month, $day)
     {
         $date = $this->getDate($year, $month, $day);
-        $begin = clone($date);
-        $begin->sub(new \DateInterval('P14D'));
+        $categories = (array) $this->getRequest()->get('category');
 
         return $this->render($this->getTemplateName('archive'), array(
-            'news'  => $this->getArchiveRepository($date)->getQuery()->getResult(),
-            'date'  => $date,
+            'date'          => $date,
+            'news'          => $this->getArchiveRepository($date, $categories)->getQuery()->getResult(),
+            'categories'    => $this->getCategoriesList($categories),            
         ));
-    }
-    
+    }    
     
     function thisDayListAction($month, $day)
     {
@@ -64,12 +63,8 @@ class NewsController extends ListController
             ->orderByPriority()
         ;
         
-        if ($categories) {
-            $repository->setCategories($categories);
-        } else {
-            $repository->setFiltrableCategories();
-        }
-        
+        $categories ? $repository->setCategories($categories) : $repository->setFiltrableCategories();
+
         $query = $repository->getQuery();
         
         if ($limit)
@@ -78,6 +73,19 @@ class NewsController extends ListController
         }
         
         return $query->getResult();
+    }
+    
+    function getCategoriesList(array $categories)
+    {
+        return $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
+        
+/*
+        foreach ($result as $category) {
+            if (in_array($category.getSlug(), $categories) {
+                $category['is_selected'] = true;
+            }
+        }
+*/
     }
     
     function getNewsListRepository($date)
@@ -99,8 +107,8 @@ class NewsController extends ListController
     }
     
     /**
-     * @param string \DateTime
-     * @param string \DateTime
+     * @param \DateTime $date
+     * @param array     $categories
      * @return \Armd\NewsBundle\Repository\NewsRepository
      */    
     function getArchiveRepository($date, $categories = array())
@@ -111,8 +119,9 @@ class NewsController extends ListController
         $repository = $this->getListRepository()
             ->setBeginDate($from->setTime(0, 0, 0))
             ->setEndDate($to->setTime(23, 59, 59))
-            ->setFiltrableCategories()
         ;
+        
+        $categories ? $repository->setCategories($categories) : $repository->setFiltrableCategories();
         
         return $repository;        
     }
