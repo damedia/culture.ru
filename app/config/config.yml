@@ -21,6 +21,8 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        progorod_api_key: %progorod_api_key%
 
 # Assetic Configuration
 assetic:
@@ -59,6 +61,13 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+    
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            tree: true
+            timestampable: true
 
 sonata_admin:
     security:

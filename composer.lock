@@ -1,5 +1,5 @@
 {
-    "hash": "adf45486fb2155b74e8cdffa58396e65",
+    "hash": "58e42096c9fb830f53dc4dca9e52593d",
     "packages": [
         {
             "package": "doctrine/common",
@@ -28,6 +28,12 @@
             "version": "dev-master",
             "source-reference": "eaeda03999b69af1f03bb0d07053b64c2ae3c70c",
             "commit-date": "1341871793"
+        },
+        {
+            "package": "friendsofsymfony/jsrouting-bundle",
+            "version": "dev-master",
+            "source-reference": "14b33187bb39819097f6c8504e9eec505b7cd4e5",
+            "commit-date": "1342624181"
         },
         {
             "package": "friendsofsymfony/rest",

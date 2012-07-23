@@ -1,0 +1,290 @@
+{% extends '::base.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+    <div class="blocksection w" id="f-section">
+        <div class="title-block gray-filter with-social"  >
+            <h2>{{ entity.title }}</h2>
+        </div>
+        <div class="title-social-icons">
+            <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
+        </div>
+        <div class="object-one clearfix">
+            <div class="object-one-col12">
+
+
+                <div class="block obj-o-foto">
+                    <div class="right-icons-block">
+                        <a href="#" class="one-person"></a>
+                        <a href="#" class="three-persons"></a>
+                    </div>
+                    <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
+
+                    <div class="slideshow-container">
+                        <div id="slideshow" class="slideshow"></div>
+                    </div>
+
+                    <div class="navigation-container">
+                        <div id="thumbs" class="navigation">
+                            <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
+
+                            <ul class="thumbs noscript">
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">
+                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />
+                                    </a>
+                                </li>
+                            </ul>
+                            <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
+                        </div>
+                    </div>
+                    <p class="all-list"><a href="#">Все фото</a></p>
+                </div>
+
+                <div class="object-one-col1">
+                    <div class="block object-videos">
+                        <div class="right-icons-block">
+                            <a href="#" class="one-person"></a>
+                            <a href="#" class="three-persons"></a>
+                        </div>
+                        <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
+                        <ul class="object-video-list">
+                            <li class="object-video-list-one">
+                                <a href="#"><img src="{{ asset('bundles/armdatlas/common/img/video-holder.jpg') }}" alt="" class="object-video-list-image" /></a>
+                                <div class="object-video-list-descr">
+                                    <span class="ovl-date">14:20</span>
+                                    <p class="object-video-header"><a href="#">Экскурсия по сооружениям Ростовского Кремля</a></p>
+                                    <p>
+                                        Церковь Одигитрии (1692—1693) построена при преемнике Ионы Сысоевича митрополите Иоасафе. Является представителем стиля московского барокко. Последнее по времени самостоятельное сооружение Архиерейского двора.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="all-list"><a href="#">Все видео</a></p>
+                    </div>
+
+
+
+                </div>
+
+                <div class="object-one-col2">
+                    <div class="block object-infograph">
+                        <a href="#" class="open-big-orange"></a>
+                        <img src="{{ asset('bundles/armdatlas/common/img/photo/infograph.jpg') }}" alt="" />
+                    </div>
+
+                    <div class="block obj-o-foto">
+                        <p class="link_header"><a href="#">Экспонаты</a><!--<sup>234</sup></p>-->
+                        <ul class="obj-o-foto-list">
+                            <li class="obj-o-foto-one">
+                                <a href="{{ asset('bundles/armdatlas/common/img/photo/exponaty-big.jpg') }}">
+                                    <img src="{{ asset('bundles/armdatlas/common/img/photo/exponaty.jpg') }}" alt="" />
+                                </a>
+                            </li>
+                            <li class="obj-o-foto-one">
+                                <a href="{{ asset('bundles/armdatlas/common/img/photo/exponaty-big.jpg') }}">
+                                    <img src="{{ asset('bundles/armdatlas/common/img/photo/exponaty.jpg') }}" alt="" />
+                                </a>
+                            </li>
+                            <li class="obj-o-foto-one">
+                                <a href="{{ asset('bundles/armdatlas/common/img/photo/exponaty-big.jpg') }}">
+                                    <img src="{{ asset('bundles/armdatlas/common/img/photo/exponaty.jpg') }}" alt="" />
+                                </a>
+                            </li>
+                            <li class="obj-o-foto-one">
+                                <a href="{{ asset('bundles/armdatlas/common/img/photo/exponaty-big.jpg') }}">
+                                    <img src="{{ asset('bundles/armdatlas/common/img/photo/exponaty.jpg') }}" alt="" />
+                                </a>
+                            </li>
+                            <li class="obj-o-foto-one">
+                                <a href="{{ asset('bundles/armdatlas/common/img/photo/exponaty-big.jpg') }}">
+                                    <img src="{{ asset('bundles/armdatlas/common/img/photo/exponaty.jpg') }}" alt="" />
+                                </a>
+                            </li>
+                            <li class="obj-o-foto-one">
+                                <a href="{{ asset('bundles/armdatlas/common/img/photo/exponaty-big.jpg') }}">
+                                    <img src="{{ asset('bundles/armdatlas/common/img/photo/exponaty.jpg') }}" alt="" />
+                                </a>
+                            </li>
+                        </ul>
+                        <p class="all-list"><a href="#">Все экспонаты</a></p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="object-one-col3">
+                <div class="block obj-o-description">
+                    <h1>{{ entity.title }}</h1>
+                    <p>
+                        {{ entity.content }}
+                    </p>
+                    <p class="virtual-tour"><a  href="#">Виртуальный тур</a></p>
+                    <p class="all-list"><a href="#">Все виртуальные туры</a></p>
+                </div>
+
+                <div class="block obj-o-contacts">
+                    <div class="obj-o-map">
+                        <a href="#" class="open-big-green"></a>
+                        <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
+                    </div>
+                    <div class="obj-o-contacts-text">
+                        <p class="obj-o-contacts-header">
+                            Контакты
+                        </p>
+                        <p class="obj-o-contacts-main">
+                            {% if entity.address %}{{ entity.address }}<br />{% endif %}
+                            {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
+                            {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
+                            {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
+                        </p>
+                        <p>
+                            <b>Музей открыт:</b>
+                            Ежедневно – с 10.00 до 17.00<br />
+                            без выходных дней, кроме 1 января
+                        </p>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="block object-news">
+                    <p class="link_header"><a href="#">Новости</a></p>
+                    <ul class="block-news-list">
+                        <li>
+                            <span class="bnl-date">19 Июля / 2012</span>
+                            <p class="bnl-header"><a href="#">Ростовское действо</a></p>
+                            <p>
+                                II Международный фестиваль монастырской культуры «РОСТОВСКОЕ ДЕЙСТВО» пройдёт в Государственном музее-заповеднике «Ростовский кремль» в год празднования 1150-летия российской государственности и 1150-летнего юбилея Ростова Великого.
+                            </p>
+                        </li>
+                        <li>
+                            <span class="bnl-date">18 Июля / 2012</span>
+                            <p class="bnl-header"><a href="#">«Прикосновение к вечности...»</a></p>
+                            <p>
+                            Выставка копий фресок XVII века Ростовского кремля по итогам практики студентов Московского государственного академического художественного института им. В.И. Сурикова.
+
+                            </p>
+                        </li>
+                        <li>
+                            <span class="bnl-date">17 Июля / 2012</span>
+                            <p class="bnl-header"><a href="#">«Три сословия Ростова Великого»</a></p>
+                            <p>
+                                Говоря о Ростове 19 века, мы в первую очередь называем его городом купеческим. Однако, судя по документам, купечество составляло в это время 8% его населения. А кто же были остальные 92% жителей Ростова?
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="all-list"><a href="#">Все новости</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body2 %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Longitude</th>
+            <td>{{ entity.lon }}</td>
+        </tr>
+        <tr>
+            <th>Latitude</th>
+            <td>{{ entity.lat }}</td>
+        </tr>
+        <tr>
+            <th>Categories</th>
+            <td>
+                {% for category in entity.categories %}
+                    {{ category.title }}{% if not loop.last%},{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+
+    <div id="map"></div>
+
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            AT.init({
+                map: 'map',
+                center: [{{ entity.lon }}, {{ entity.lat }}],
+                zoom: 10
+            });
+
+            var point = new PGmap.Point({
+                coord: new PGmap.Coord({{ entity.lon }}, {{ entity.lat }}, true)
+            });
+            AT.map.geometry.add(point);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'ArmdAtlasBundle:Default:layout.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+
+    <p><a href="{{ path('armd_atlas_default_list') }}">Back to list</a></p>
+
+    <form action="{{ path('armd_atlas_default_create') }}" method="post" {{ form_enctype(form) }}>
+
+        {{ form_errors(form) }}
+
+        <table>
+            <tr>
+                <th>{{ form_label(form.title, 'Object title') }}</th>
+                <td>{{ form_widget(form.title) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.lon, 'Longitude') }}</th>
+                <td>{{ form_widget(form.lon) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.lat, 'Latitude') }}</th>
+                <td>{{ form_widget(form.lat) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.categories, 'Categories') }}</th>
+                <td>{{ form_widget(form.categories, { 'attr':{ 'class':'chosen' } }) }}</td>
+            </tr>
+        </table>
+
+        {{ form_rest(form) }}
+
+        <p>
+            <button type="submit">Create entity</button>
+        </p>
+
+    </form>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.chosen').chosen();
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+<div class="today-block">
+	Сегодня: <a href="{{ path('armd_news_archive_index') }}">{{ "now"|date('d') }} {{ ('calendar.full.'~"now"|date('M'))|trans }}</a>
+</div>
+<ul class="press-anons">
+{% for entity in entities %}
+	<li class="press-anons-block">
+		<a href="{{ path('armd_news_news_item', {id: entity.id}) }}">
+			<img src="/img/photo/blank.jpg" class="pa-image" alt="" width="96" height="96" />
+		</a>
+		<div class="pa-text">
+			<span class="pa-date">В этот день в {{ entity.date|date("Y") }} г.</span>
+			<p class="pa-header">{{ entity.title }}</p>
+			<p>{{ entity.announce|raw }}</p>
+		</div>
+	</li>
+{% endfor %}	
+</ul>

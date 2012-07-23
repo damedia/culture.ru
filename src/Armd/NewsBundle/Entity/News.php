@@ -8,6 +8,7 @@ use Armd\NewsBundle\Model\News as BaseNews;
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
  * @ORM\Table(name="content_news") 
+ * @ORM\HasLifecycleCallbacks
  */
 class News extends BaseNews
 {
@@ -24,12 +25,12 @@ class News extends BaseNews
     protected $title;
     
     /**
-     * @ORM\Column(type="datetime", name="from")
+     * @ORM\Column(type="datetime", name="date_from")
      */
     protected $date;
     
     /**
-     * @ORM\Column(type="datetime", name="to", nullable=true)
+     * @ORM\Column(type="datetime", name="date_to", nullable=true)
      */
     protected $endDate;    
 
@@ -70,6 +71,16 @@ class News extends BaseNews
     protected $published;
     
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $month;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $day;    
+    
+    /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
@@ -79,7 +90,17 @@ class News extends BaseNews
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
-    private $gallery;        
+    private $gallery;
+    
+    /** 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+    */
+    public function setDateParts()
+    {
+        $this->day = $this->getDate()->format('d');
+        $this->month = $this->getDate()->format('m');
+    }        
 
     /**
      * Set announce
@@ -353,5 +374,49 @@ class News extends BaseNews
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set month
+     *
+     * @param integer $month
+     * @return News
+     */
+    public function setMonth($month)
+    {
+        $this->month = $month;
+        return $this;
+    }
+
+    /**
+     * Get month
+     *
+     * @return integer 
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * Set day
+     *
+     * @param integer $day
+     * @return News
+     */
+    public function setDay($day)
+    {
+        $this->day = $day;
+        return $this;
+    }
+
+    /**
+     * Get day
+     *
+     * @return integer 
+     */
+    public function getDay()
+    {
+        return $this->day;
     }
 }

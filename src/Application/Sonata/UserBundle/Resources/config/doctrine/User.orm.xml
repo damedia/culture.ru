@@ -10,7 +10,7 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <field name="uid" column="uid" type="integer" nullable="true" />
+        <field name="uid" column="uid" type="string" nullable="true" />
 
         <field name="lastActivity" column="last_activity" type="datetime" nullable="true"/>
     </entity>
