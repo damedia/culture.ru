@@ -9,7 +9,7 @@ class NewsController extends ListController
 {
     /**
      * @Route("/", name="armd_news_list_index")     
-     * @Route("/page/{page}", defaults={"page" = 1}, name="armd_news_list_index_by_page")     
+     * @Route("/page/{page}/", defaults={"page" = 1}, name="armd_news_list_index_by_page")     
      */
     function pressCentreAction($page = 1, $limit = 10)
     {
@@ -23,11 +23,9 @@ class NewsController extends ListController
         ));
     }
     
-    
-    
     /**
-     * @Route("/archive", defaults={"year" = null, "month" = null, "day" = null}, name="armd_news_archive_index")     
-     * @Route("/archive/{year}/{month}/{day}", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"}, name="armd_news_archive_by_date", options={"expose"=true})
+     * @Route("/archive/", defaults={"year" = null, "month" = null, "day" = null}, name="armd_news_archive_index")     
+     * @Route("/archive/{year}/{month}/{day}/", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"}, name="armd_news_archive_by_date", options={"expose"=true})
      */
     function archiveAction($year, $month, $day)
     {
@@ -37,7 +35,8 @@ class NewsController extends ListController
         return $this->render($this->getTemplateName('archive'), array(
             'date'          => $date,
             'news'          => $this->getArchiveRepository($date, $categories)->getQuery()->getResult(),
-            'categories'    => $this->getCategoriesList($categories),            
+            'categories'    => $this->getCategoriesList($categories),
+            'category'      => $categories,
         ));
     }    
     
@@ -77,15 +76,13 @@ class NewsController extends ListController
     
     function getCategoriesList(array $categories)
     {
-        return $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
+        $result = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
         
-/*
         foreach ($result as $category) {
-            if (in_array($category.getSlug(), $categories) {
-                $category['is_selected'] = true;
-            }
+            $category->setSelected($categories ? in_array($category->getSlug(), $categories) : true);
         }
-*/
+        
+        return $result;
     }
     
     function getNewsListRepository($date)

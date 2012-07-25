@@ -1,5 +1,9 @@
 {% extends '::one-column-layout.html.twig' %}
 
+{#% stylesheets '@ArmdNewsBundle/Resources/public/css/*' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %#}
+
 {% block header %}Пресс-центр{% endblock %}
 
 {#
@@ -25,9 +29,9 @@
             {{ news.render()|raw}}
             <br />        
         </nav>    
-        <div style="float:right; color:#f80;">Архив новостей &rarr;</div>
+        <div style="float:right;"><a href="{{ path('armd_news_archive_index') }}" style="color:#f80;">Архив новостей</a> &rarr;</div>
     </div>
-
+	<!-- a class="afisha-list-more" href="#">Показать еще</a -->
 </div>      
 {% endblock %}
 
