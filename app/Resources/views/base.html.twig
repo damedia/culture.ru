@@ -12,7 +12,6 @@
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
-            <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&version=0.1.7"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
@@ -20,10 +19,10 @@
     </head>
     <body>
         <div id="wrap">
-            <div id="header" class="w">
+            <div id="header" class="w clearfix">
                 <a href="{{ path('index') }}" id="logo"></a>
                 <div id="top">
-                    <ul class="topmenu">
+                    <ul class="topmenu clearfix">
                         <li class="first">
                             <a href="#">Культура от А до Я</a>
                         </li>
@@ -35,9 +34,20 @@
                         </li>
                     </ul>
                     <div id="topbar">
-                        <span class="special-vers"><a href="#">Версия для слабовидящих</a></span>
-                        <a href="#" class="lang-swith cur">рус</a>
-                        <a href="#" class="lang-swith">eng</a>
+                        <div class="site-versions"> 
+                            <span class="mobile-vers"><a href="#">Мобильная версия</a></span>
+                            <span class="spec-vers"><a href="#">Версия для слабовидящих</a></span>
+                        </div>
+                        <div class="search_bar">
+                            <form action="">
+                                <input type="text" value="" />
+                                <input type="image" src="{{ asset('/img/search-btn.png') }}"  />
+                            </form>
+                        </div>
+                        <ul class="lang-switch">
+                            <li class="active"><span>рус</span></li>
+                            <li><a href="#">eng</a></li>
+                        </ul>
                     </div>
                     <div id="headerfader">
                     </div>
@@ -55,7 +65,7 @@
                         <a href="#">Трансляции</a>
                     </li>
                     <li>
-                        <a href="#">Лекции</a>
+                        <a href="/static/video_list.html">Лекции</a>
                     </li>
                     <li>
                         <a href="http://mk2.dev.armd.ru/best/">Обсуждения</a>

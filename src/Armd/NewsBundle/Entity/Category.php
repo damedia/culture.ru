@@ -35,11 +35,25 @@ class Category
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    protected $filtrable;    
+    protected $filtrable;
+    
+    protected $selected;    
     
     public function __toString()
     {
         return $this->getTitle();
+    }
+    
+    public function isSelected()
+    {
+        return $this->selected;
+    }
+    
+    public function setSelected($selected)
+    {
+        $this->selected = $selected;
+        
+        return $this;
     }
 
     /**
