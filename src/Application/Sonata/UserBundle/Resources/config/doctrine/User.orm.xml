@@ -10,9 +10,18 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <field name="uid" column="uid" type="integer" nullable="true" />
+
+        <field name="okUid" column="ok_uid" type="integer" nullable="true" />
+
+        <field name="vkUid" column="vk_uid" type="integer" nullable="true" />
+
+        <field name="fbUid" column="fb_uid" type="integer" nullable="true" />
+
+        <field name="twUid" column="tw_uid" type="integer" nullable="true" />
 
         <field name="lastActivity" column="last_activity" type="datetime" nullable="true"/>
+
+        <field name="socialName" column="social_name" type="string" nullable="true" />
     </entity>
 
 </doctrine-mapping>

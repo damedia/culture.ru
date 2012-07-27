@@ -1,6 +1,6 @@
 {% block body %}
 <script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
-<a href="https://loginza.ru/api/widget?token_url={{token_url|url_encode}}" class="loginza">Please login</a>
+<a href="https://loginza.ru/api/widget?token_url={{token_url|url_encode}}&providers_set=vkontakte,facebook,odnoklassniki,twitter" class="loginza">Please login</a>
 
     {% if app.session.hasFlash('error') %}
     <div class="flash-notice" style="color:red">

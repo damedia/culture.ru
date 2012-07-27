@@ -33,10 +33,30 @@ class User extends BaseUser
      */
     private $lastActivity;
 
-     /**
-     * @var integer $id
+    /**
+     * @var integer $okUid
      */
-    protected $uid;
+    protected $okUid;
+
+    /**
+     * @var integer $vkUid
+     */
+    protected $vkUid;
+
+    /**
+     * @var integer $fbUid
+     */
+    protected $fbUid;
+
+    /**
+     * @var integer $twUid
+     */
+    protected $twUid;
+
+    /**
+     * @var string $socialName
+     */
+    protected $socialName;
 
     /**
      * Get id
@@ -50,25 +70,97 @@ class User extends BaseUser
 
 
     /**
-     * Get uid
+     * Get okUid
      *
-     * @return integer $uid
+     * @return integer $okUid
      */
-    public function getUid()
+    public function getOkUid()
     {
-        return $this->uid;
+        return $this->okUid;
     }
 
     /**
-     * Set uid
+     * Set okUid
      *
-     * @param integer $uid
+     * @param integer $okUid
      *
      * @return User
      */
-    public function setUid($uid)
+    public function setOkUid($okUid)
     {
-        $this->uid = $uid;
+        $this->okUid = $okUid;
+
+        return $this;
+    }
+
+    /**
+     * Get vkUid
+     *
+     * @return integer $vkUid
+     */
+    public function getVkUid()
+    {
+        return $this->vkUid;
+    }
+
+    /**
+     * Set vkUid
+     *
+     * @param integer $vkUid
+     *
+     * @return User
+     */
+    public function setVkUid($vkUid)
+    {
+        $this->vkUid = $vkUid;
+
+        return $this;
+    }
+
+    /**
+     * Get fbUid
+     *
+     * @return integer $fbUid
+     */
+    public function getFbUid()
+    {
+        return $this->fbUid;
+    }
+
+    /**
+     * Set fbUid
+     *
+     * @param integer $fbUid
+     *
+     * @return User
+     */
+    public function setFbUid($fbUid)
+    {
+        $this->fbUid = $fbUid;
+
+        return $this;
+    }
+
+    /**
+     * Get twUid
+     *
+     * @return integer $twUid
+     */
+    public function getTwUid()
+    {
+        return $this->twUid;
+    }
+
+    /**
+     * Set twUid
+     *
+     * @param integer $twUid
+     *
+     * @return User
+     */
+    public function setTwUid($twUid)
+    {
+        $this->twUid = $twUid;
 
         return $this;
     }
@@ -93,5 +185,27 @@ class User extends BaseUser
     public function getLastActivity()
     {
         return $this->lastActivity;
+    }
+
+    /**
+     * Set socialName
+     *
+     * @param string $socialName
+     * @return User
+     */
+    public function setSocialName($socialName)
+    {
+        $this->socialName = $socialName;
+        return $this;
+    }
+
+    /**
+     * Get socialName
+     *
+     * @return \Datetime
+     */
+    public function getSocialName()
+    {
+        return $this->socialName;
     }
 }

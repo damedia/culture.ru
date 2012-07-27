@@ -3,8 +3,11 @@
 namespace Zim32\LoginzaBundle\DependencyInjection\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class LoginzaToken extends AbstractToken {
+    private $providerKey = 'main';
+    private $credentials = NULL;
 
     public function __construct(array $roles){
         if(!isset($roles['ROLE_LOGINZA_USER'])) $roles[] = 'ROLE_LOGINZA_USER';
@@ -19,5 +22,10 @@ class LoginzaToken extends AbstractToken {
         $info = $this->getAttribute('loginza_info');
         if(!isset($info['uid'])) throw new \Exception("User id is empty");
         return $info['uid'];
+    }
+
+    private function hasUserChanged(UserInterface $user)
+    {
+        return false;
     }
 }
