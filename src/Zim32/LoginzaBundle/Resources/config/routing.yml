@@ -6,3 +6,10 @@ _loginza_login_user:
     pattern:  /loginza
     defaults: { _controller: Zim32LoginzaBundle:Default:login }
 
+_loginza_social_reg:
+    pattern:  /social
+    defaults: { _controller: Zim32LoginzaBundle:Default:socialRegister }
+
+_loginza_social_save:
+    pattern:  /socialsave
+    defaults: { _controller: Zim32LoginzaBundle:Default:socialSave }
