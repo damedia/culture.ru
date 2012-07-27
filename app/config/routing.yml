@@ -62,6 +62,10 @@ armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
     prefix: press-centre
+
+ArmdTvigleBundle_video:
+    resource: "@ArmdTvigleBundle/Resources/config/routing.yml"
+    prefix:   /video
     
 # Internal routing configuration to handle ESI
 #_internal:
