@@ -1,0 +1,14 @@
+{% extends '::cp.html.twig' %}
+
+{% block body %}
+
+
+<form action="{{ path('_loginza_social_save') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>
+
+
+{% endblock %}
