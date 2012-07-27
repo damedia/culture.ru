@@ -1,1 +1,119 @@
-{% extends '::tech.html.twig' %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+     
+        {% block stylesheets %}
+            <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+            <link href="{{ asset('/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" type="text/css" media="screen" />
+        {% endblock %}
+
+        {% block javascripts %}
+            <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
+        {% endblock %}
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="header" class="w clearfix">
+                <a href="{{ path('index') }}" id="logo"></a>
+                <div id="top">
+                    <ul class="topmenu clearfix">
+                        <li class="first">
+                            <a href="#">Культура от А до Я</a>
+                        </li>
+                        <li>
+                            <a href="/static/goverment_service.html">Государственные услуги</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('armd_news_list_index') }}">Пресс-центр</a>
+                        </li>
+                    </ul>
+                    <div id="topbar">
+                        <div class="site-versions"> 
+                            <span class="mobile-vers"><a href="#">Мобильная версия</a></span>
+                            <span class="spec-vers"><a href="#">Версия для слабовидящих</a></span>
+                        </div>
+                        <div class="search_bar">
+                            <form action="">
+                                <input type="text" value="" />
+                                <input type="image" src="{{ asset('/img/search-btn.png') }}"  />
+                            </form>
+                        </div>
+                        <ul class="lang-switch">
+                            <li class="active"><span>рус</span></li>
+                            <li><a href="#">eng</a></li>
+                        </ul>
+                    </div>
+                    <div id="headerfader">
+                    </div>
+                </div>
+            </div>
+            <div id="nav" class="w">
+                <ul class="navmenu">
+                    <li class="first">
+                        <a href="{{ path('armd_atlas_default_index') }}">Атлас</a>
+                    </li>
+                    <li>
+                        <a href="#">Лента времени</a>
+                    </li>
+                    <li>
+                        <a href="#">Трансляции</a>
+                    </li>
+                    <li>
+                        <a href="/static/video_list.html">Лекции</a>
+                    </li>
+                    <li>
+                        <a href="http://mk2.dev.armd.ru/best/">Обсуждения</a>
+                    </li>
+                </ul>
+                <div id="auth">
+                    <a id="auth-link" href="#"><span>Личный кабинет</span></a>
+                </div>
+            </div>
+            <div id="search" class="w">
+                <form id="formsearch" name="search" method="get">
+                    <table class="formsearch-width-type">
+                        <tr>
+{#
+                            <td width="1">
+                                <div class="search-type">
+                                    Поиск по новостям и событиям
+                                    <a href="#" class="close-search-type">x</a>
+                                </div>
+                            </td>
+#}                          
+                            <td>
+                                 <div id="searcher">
+                                    <input type="text" id="i-searcher" />
+                                </div>
+                                <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            
+            <div class="blocksection w" id="f-section">
+                {% block body%}&nbsp;{% endblock %}
+            </div>
+            <div id="footer" class="w">
+                <div id="contacts">
+                    © Культура.рф
+                    <br/>
+                    <a href="#">О проекте</a>&nbsp;/&nbsp;<a href="#">Контактная информация</a>
+                </div>
+                <div id="socialnetwork">
+                    Рассказать о портале
+                    <div id="i-socialnetwork">
+                        <img src="{{ asset('/img/socialnetwork.png') }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

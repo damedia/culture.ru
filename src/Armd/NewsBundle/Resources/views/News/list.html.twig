@@ -1,0 +1,35 @@
+<h1>News list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>{#{ entities.sortable('Id', 'n.id')|raw }#}</th>
+            <th>{#{ entities.sortable('Name', 'n.title')|raw }#}</th>
+            <th>Announce</th>
+            <th>Author</th>
+            <th>Enabled</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('armd_news_news_item', {id: entity.id}) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.title }}</td>
+            <td>{{ entity.announce }}</td>
+            <td>{{ entity.date|date("d.m.Y") }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('armd_news_news_item', {id: entity.id}) }}">show</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="navigation">
+    {#{ entities.render()|raw }#}
+</div>

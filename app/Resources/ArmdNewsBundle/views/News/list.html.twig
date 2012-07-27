@@ -1,0 +1,16 @@
+<ul class="news-afisha-list">
+    {% for news in entities%}
+    {% set f = news.date %}
+    {% set t = news.endDate %}
+	<li class="nal-one">
+		<div class="nal-one-block">
+			<span class="nal-date">
+			    {{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' /Y') }}
+			    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
+			</span>
+			<p class="nal-header"><a href="{{ path('armd_news_news_item', {'id': news.id}) }}">{{ news.title|raw }}</a></p>
+			<p>{{ news.announce|raw }}</p>
+		</div>
+	</li>
+	{% endfor %}
+</ul>

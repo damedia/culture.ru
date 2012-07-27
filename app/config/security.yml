@@ -57,7 +57,9 @@ security:
                 default_target_path: /cp
                 failure_path:   null
                 use_referer:    true
-            logout:             true
+            logout:
+                path:           /logout
+                target:         cp
             anonymous:          true
             loginza:
                 login_route: _loginza_login_user

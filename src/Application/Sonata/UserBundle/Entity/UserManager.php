@@ -34,5 +34,9 @@ class UserManager extends BaseUserManager
         }
 
         return $this->loadUserByUsername($user->getUsername());
+
+    public function getUsersRoles()
+    {
+        return $this->repository->findUserRoles();
     }
 }
