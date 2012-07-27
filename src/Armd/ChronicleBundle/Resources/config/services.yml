@@ -1,0 +1,7 @@
+services:
+    armd.content.chronucle.admin.event:
+        class: Armd\ChronicleBundle\Admin\Event
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Chronicle, label: Events }
+            - { name: armd.content.admin }            
+        arguments: [null, Armd\ChronicleBundle\Entity\Event, SonataAdminBundle:CRUD, @service_container]

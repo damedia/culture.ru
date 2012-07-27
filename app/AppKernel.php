@@ -46,7 +46,8 @@ class AppKernel extends Kernel
             new Armd\NewsBundle\ArmdNewsBundle(),
 
             new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
-#            new Armd\MainBundle\ArmdMainBundle(),
+            new Armd\MainBundle\ArmdMainBundle(),
+            new Armd\ChronicleBundle\ArmdChronicleBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
