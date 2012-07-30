@@ -1,0 +1,266 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="common/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/jquery-ui-1.8.21.custom.min.js"></script>
+        <script type="text/javascript" src="common/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="common/js/function.js"></script>
+
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="/static/video_list.html">Лекции</a></li>
+                <li><a href="http://mk2.dev.armd.ru/best/">Обсуждения</a></li>
+                <li><a href="/static/virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+        <div id="search" class="w">
+
+         <!--   <form id="formsearch" name="search" method="get">
+				<table class="formsearch-width-type">
+					<tr>
+						<td>
+							 <div id="searcher">
+								<input type="text" id="i-searcher" />
+							</div>
+							<input type="image" src="common/img/search-btn.png" id="i-searchbtn" />
+						</td>
+					</tr>
+				</table>
+
+               
+            </form>
+			-->	
+        </div>
+
+        <div class="blocksection w" id="f-section">
+
+			<div class="filter">
+				<div class="title-block blue-calendar-closed" style="display: none">
+                    <h2>Календарь</h2>
+                </div>
+				
+				<div class="filter-accordion" style="margin-top: 3px;">
+					<p class="filter-search-header green-line-header">Фильтрация</p>
+					<div id="filter" class="filter-accordion-block">
+						<ul class="lvl-1">
+							<li>
+								<label><input type="checkbox" name="category[2]">Изобразительное искусство</label>
+
+							</li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[3]"> Театральное искусство</label></li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[4]"> Киноискусство</label>
+
+							</li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[11]"> Русский язык</label></li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[12]"> История моды</label></li>
+
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+
+            <div class="media-center">
+				<div class="title-block green-no-icon">
+                    <h2>Лекции</h2>
+                </div>
+				<div class="right-icons" style="display: none">
+					<a  href="index.html" class="three-persons-gray"></a>
+				</div>
+				<div class="media-list">
+					<ul>
+						<!-- li class="media-list-one">
+							<a href="media_one1.html" class="media-list-image">
+								<img src="common/img/photo/m_m_scrin.png" alt="" />
+								<span class="type_video"></span>
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header"><a href="#">Мастер и Маргарита</a></p>
+								<p class="mld-date">
+
+								</p>
+								<p>Лектор: Мариэтта Чудакова</p>
+							</div>
+						</li>
+						<li class="media-list-one">
+							<a href="media_one2.html" class="media-list-image">
+								<img src="common/img/photo/k_s_s_scrin.png" alt="" />
+								<span class="type_video"></span>
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header"><a href="#">Как смотреть скульптуру</a></p>
+								<p class="mld-date">
+
+								</p>
+								<p>Лектор: Елизавета Лихачева</p>
+							</div>
+						</li -->
+						<li class="media-list-one">
+							<a href="media_one3_short.html" class="media-list-image">
+								<img src="common/img/photo/1812_screen.jpg" alt="" />
+								<span class="type_video"></span>
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header"><a href="media_one3.html">1812 год в истории России</a></p>
+								<p class="mld-date">
+
+								</p>
+								<p>Лектор: Андрей Яновский</p>
+							</div>
+						</li>
+						<li class="media-list-one">
+							<a href="media_one3.html" class="media-list-image">
+								<img src="common/img/photo/1812_screen.jpg" alt="" />
+								<span class="type_video"></span>
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header"><a href="media_one3.html">1812 год в истории России (полная версия)</a></p>
+								<p class="mld-date">
+
+								</p>
+								<p>Лектор: Андрей Яновский</p>
+							</div>
+						</li>
+						<li class="media-list-one">
+							<a href="media_one4_short.html" class="media-list-image">
+								<img src="common/img/photo/karavad_screen.jpg" alt="" />
+								<span class="type_video"></span>
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header"><a href="media_one4.html">Караваджо. Выставка произведений художника в Москве</a></p>
+								<p class="mld-date">
+
+								</p>
+								<p>Лектор: Виктория Эммануиловна Маркова</p>
+							</div>
+						</li>
+						<li class="media-list-one">
+							<a href="media_one4.html" class="media-list-image">
+								<img src="common/img/photo/karavad_screen.jpg" alt="" />
+								<span class="type_video"></span>
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header"><a href="media_one4.html">Караваджо. Выставка произведений художника в Москве (полная версия)</a></p>
+								<p class="mld-date">
+
+								</p>
+								<p>Лектор: Виктория Эммануиловна Маркова</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+           
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+            
+
+         
+            
+
+            
+
+        
+
+        
+
+        
+
+        
+
+         <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br>Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
