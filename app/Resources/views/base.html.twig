@@ -20,38 +20,34 @@
     <body>
         <div id="wrap">
             <div id="header" class="w clearfix">
-                <a href="{{ path('index') }}" id="logo"></a>
+                <a href="{# {{ path('index') }} #}/static/index.html" id="logo"></a>
                 <div id="top">
-                    <ul class="topmenu clearfix">
-                        <li class="first">
-                            <a href="#">Культура от А до Я</a>
-                        </li>
-                        <li>
-                            <a href="/static/goverment_service.html">Государственные услуги</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('armd_news_list_index') }}">Пресс-центр</a>
-                        </li>
-                    </ul>
+                    <div id="auth">
+						<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+					</div>
+					
                     <div id="topbar">
-                        <div class="site-versions"> 
-                            <span class="mobile-vers"><a href="#">Мобильная версия</a></span>
-                            <span class="spec-vers"><a href="#">Версия для слабовидящих</a></span>
-                        </div>
+                       <div class="site-versions">	
+							<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+							<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+						</div>
                         <div class="search_bar">
                             <form action="">
+                                <input type="image" src="{{ asset('/img/top_search.png') }}"  />
                                 <input type="text" value="" />
-                                <input type="image" src="{{ asset('/img/search-btn.png') }}"  />
                             </form>
                         </div>
-                        <ul class="lang-switch">
-                            <li class="active"><span>рус</span></li>
-                            <li><a href="#">eng</a></li>
-                        </ul>
                     </div>
-                    <div id="headerfader">
-                    </div>
+					
+					<ul class="lang-switch">
+						<li class="active"><span title="русский"><img src="{{ asset('/img/rus.png') }}" alt="" /></span></li>
+						<li><a href="#" title="english"><img src="{{ asset('/img/en.jpg') }}" alt="" /></a></li>
+					</ul>
+					
                 </div>
+				<div class="top-banner">
+				<img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+			</div>
             </div>
             <div id="nav" class="w">
                 <ul class="navmenu">
@@ -59,10 +55,10 @@
                         <a href="{{ path('armd_atlas_default_index') }}">Атлас</a>
                     </li>
                     <li>
-                        <a href="#">Лента времени</a>
+                        <a href="/static/timeline.html">Лента времени</a>
                     </li>
                     <li>
-                        <a href="#">Трансляции</a>
+                        <a href="/static/online.html">Трансляции</a>
                     </li>
                     <li>
                         <a href="/static/video_list.html">Лекции</a>
@@ -70,43 +66,61 @@
                     <li>
                         <a href="http://mk2.dev.armd.ru/best/">Обсуждения</a>
                     </li>
+					<li><a href="/static/virtual_museums.html">Виртуальные музеи</a></li>
+					<li><a href="/press-centre/">Новости</a></li>
+					<li class="navmenu_more">
+						<a href="#" class="navmenu_more_link">Еще</a>
+						<ul>
+							<li><a href="/static/goverment_service.html">Государственные услуги</a></li>
+							<li><a href="#">Образы России</a></li>
+							<li><a href="#">О проекте</a></li>
+						</ul>
+					</li>
                 </ul>
-                <div id="auth">
-                    <a id="auth-link" href="#"><span>Личный кабинет</span></a>
-                </div>
+                
             </div>
+
+            <div style="height: 10px"></div>
+{#
             <div id="search" class="w">
                 <form id="formsearch" name="search" method="get">
                     <table class="formsearch-width-type">
                         <tr>
-{#
+
                             <td width="1">
                                 <div class="search-type">
                                     Поиск по новостям и событиям
                                     <a href="#" class="close-search-type">x</a>
                                 </div>
                             </td>
-#}                          
+                        
                             <td>
                                  <div id="searcher">
                                     <input type="text" id="i-searcher" />
                                 </div>
                                 <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+
                             </td>
                         </tr>
                     </table>
                 </form>
             </div>
-            
+#}            
             <div class="blocksection w" id="f-section">
                 {% block body%}&nbsp;{% endblock %}
             </div>
             <div id="footer" class="w">
-                <div id="contacts">
-                    © Культура.рф
-                    <br/>
-                    <a href="#">О проекте</a>&nbsp;/&nbsp;<a href="#">Контактная информация</a>
+                 <div id="contacts">
+                    <div class="contacts-copyright">Министерство культуры<br />Российской Федерации</div>
+                    <div class="contacts-inner">
+    					<div class="copyright">© Портал культурного наследия России</div>
+    					<a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                    </div>
                 </div>
+
+				{#<div class="counters">
+					<img src="/img/footer-counters.png" />
+				</div>#}
                 <div id="socialnetwork">
                     Рассказать о портале
                     <div id="i-socialnetwork">
