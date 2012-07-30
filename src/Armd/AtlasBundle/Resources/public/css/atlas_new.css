@@ -131,6 +131,85 @@
 					padding-left:17px;
 				}
 
+.bubble{
+	width: 300px;
+	background: #F9F6EC;
+	margin: 0px 0 0 40px;
+	-moz-box-shadow: 5px 9px 30px 3px #C6C4BC; /* Для Firefox */
+    -webkit-box-shadow: 5px 9px 30px 3px #C6C4BC; /* Для Safari и Chrome */
+    box-shadow: 5px 9px 30px 3px #C6C4BC; /* Параметры тени */
+	padding-bottom: 10px;
+    text-align: left;
+}
+.bubble_content{
+	margin: 0 10px 0 10px;
+	overflow:hidden;
+}
+*html .bubble_content{ float:left;}
+.caption{
+	font-size: 13px;
+	font-weight: bold;
+	padding-top: 10px;
+
+}
+.bubble a{
+    color:#000;
+}
+.text{
+	font-size: 12px;
+	font-weight: normal;
+	color: #212121;
+	padding: 5px 0 10px 0;
+}
+.rating{
+	width: 70px;
+	height: 16px;
+	margin: 0 0 10px 0;
+	float: left;
+}
+ul{ list-style: none;
+	padding:0;
+	margin: 0;
+}
+.icon1{
+	width: 17px;
+    height: 16px;
+	background: url('../common/img/sprite.png') top left  no-repeat;
+	float: left;
+	margin-right: 5px;
+}
+.icon2{
+	width: 17px;
+    height: 16px;
+	background: url('../common/img/sprite.png') top center  no-repeat;
+	float: left;
+	margin-right: 5px;
+}
+.icon3{
+	width: 17px;
+	height: 16px;
+	background: url("../common/img/sprite.png") top right;
+	margin-right: 5px;
+	float: left;
+}
+.number{
+	width: 18px;
+	height: 18px;
+	background: url("../common/img/23.png") top right;
+	float: right;
+}
+.bubble_image{
+	width: 84px;
+	height:83px;
+	background: url("../common/img/1.png") no-repeat;
+	float: left;
+	margin: 10px;
+	display:inline;
+	-moz-box-shadow: -4px -4px  #D2CDC5; /* Для Firefox */
+    -webkit-box-shadow: -4px -4px  #D2CDC5; /* Для Safari и Chrome */
+    box-shadow: -4px -4px  #D2CDC5; /* Параметры тени */
+
+}
 
 .table-bordered{ border-collapse:collapse; font:13px Arial,"Trebuchet MS",sans-serif; }
 .table-bordered td{ padding:5px 5px; border:solid 1px #ccc; }

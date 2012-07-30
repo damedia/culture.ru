@@ -210,7 +210,7 @@ AT.placeObject = function(object) {
             isHidden: true
         });
     //balloon.setSize(350, 140);
-    //point.addBalloon(balloon);
+    point.addBalloon(balloon);
     $(point.element).data('uid', object.id);
 
     AT.map.geometry.add(point);
@@ -221,7 +221,7 @@ AT.placeObject = function(object) {
             url: fetchMarkerDetailUri,
             data: { id: uid },
             success: function(res) {
-                console.log($(point.balloon.element));
+                //console.log( $(point.balloon.element) );
                 //$(point.balloon.element).find('span').html($('<div class="w"></div>').append(res));
                 $(point.balloon.element)
                     .data('point', point)
