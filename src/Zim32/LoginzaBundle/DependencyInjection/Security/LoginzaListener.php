@@ -7,11 +7,9 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-//use Symfony\Component\Security\Core\User\User;
 use Zim32\LoginzaBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\DependencyInjection\Container;
-#use Application\Sonata\UserBundle\Entity\User;
 
 class LoginzaListener implements ListenerInterface  {
 
@@ -54,85 +52,7 @@ class LoginzaListener implements ListenerInterface  {
                 $token->setAuthenticated(true);
                 $token->setAttribute('loginza_info', $decoded);
                 $this->container->get('security.context')->setToken($token);
-/*
-                var_dump($user); die();
-
-                return $this->redirect(
-                    $this->generateUrl("cp")
-                );*/
             }
-
-/*
-            if(!$user){
-                $userClass = $this->container->getParameter('security.loginza.entity');
-                //var_dump($userClass); die();
-                $name = isset($decoded['name']['first_name']) ? $decoded['name']['first_name'] : (isset($decoded['name']['full_name']) ? $decoded['name']['full_name'] : 'Anonymous');
-                //$user = new User($name, $decoded['uid'], $roles = array('ROLE_LOGINZA'));
-                //$user = new $userClass;
-                //$user->setUsername($name);
-
-                ////$user->setUid;
-                $user = new \Application\Sonata\UserBundle\Entity\User();
-                ////$user->setUsername()
-                //$user->setEmail('');
-                //$user->setPassword('');
-                //$user->setRoles(array('ROLE_LOGINZA'));
-
-                $userParam = $this->getUserParams($decoded);
-
-                //$user = new User();
-                $user->setUserName('');
-                $user->setSocialName($name);
-                $user->setEmail($userParam['email']);
-                $user->setPassword($decoded['uid']);
-                $user->setRoles(array('ROLE_LOGINZA'));
-                $provideUidSetMethod = 'set'.ucfirst($userParam['provider']).'Uid';
-                $user->$provideUidSetMethod($decoded['uid']);
-            }
-
-            $token = new LoginzaToken($user->getRoles());
-            $token->setUser($user);
-            $token->setAuthenticated(true);
-            $token->setAttribute('loginza_info', $decoded);
-            $this->securityContext->setToken($token);
-*/
-/*
-
-            if(!$user){
-                $userClass = $this->container->getParameter('security.loginza.entity');
-                //var_dump($userClass); die();
-                $name = isset($decoded['name']['first_name']) ? $decoded['name']['first_name'] : (isset($decoded['name']['full_name']) ? $decoded['name']['full_name'] : 'Anonymous');
-                //$user = new User($name, $decoded['uid'], $roles = array('ROLE_LOGINZA'));
-                //$user = new $userClass;
-                //$user->setUsername($name);
-
-                ////$user->setUid;
-                $user = new \Application\Sonata\UserBundle\Entity\User();
-                ////$user->setUsername()
-                //$user->setEmail('');
-                //$user->setPassword('');
-                //$user->setRoles(array('ROLE_LOGINZA'));
-
-                $userParam = $this->getUserParams($decoded);
-
-                //$user = new User();
-                $user->setUserName('');
-                $user->setSocialName($name);
-                $user->setEmail($userParam['email']);
-                $user->setPassword($decoded['uid']);
-                $user->setRoles(array('ROLE_LOGINZA'));
-                $provideUidSetMethod = 'set'.ucfirst($userParam['provider']).'Uid';
-                $user->$provideUidSetMethod($decoded['uid']);
-            }
-
-            $token = new LoginzaToken($user->getRoles());
-            $token->setUser($user);
-            $token->setAuthenticated(true);
-            $token->setAttribute('loginza_info', $decoded);
-            $this->securityContext->setToken($token);
-            var_dump($token->authenticated);
-            die('!!!');
-            */
         }
     }
 
