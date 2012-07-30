@@ -1,0 +1,13 @@
+{
+    "name": "armd/news-bundle",
+    "type": "armd-cms-bundle",
+    "description": "News Bundle",    
+    "require": {
+        "armd/list-bundle": "*"
+    },
+    "autoload": {
+        "psr-0": { "Armd\\NewsBundle": "" }
+    },
+    "target-dir": "Armd/NewsBundle"        
+}
+

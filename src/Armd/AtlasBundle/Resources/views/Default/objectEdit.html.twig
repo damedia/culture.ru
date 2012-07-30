@@ -1,0 +1,86 @@
+{% extends '::base.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+
+    <p><a href="{{ path('armd_atlas_default_list') }}">Back to list</a></p>
+
+    <form action="{{ path('armd_atlas_default_edit', { id: entity.id }) }}" method="post" {{ form_enctype(form) }}>
+
+        {{ form_errors(form) }}
+
+        <table>
+            <tr>
+                <th>{{ form_label(form.title, 'Название объекта') }}</th>
+                <td>{{ form_widget(form.title) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.announce, 'Анонс') }}</th>
+                <td>{{ form_widget(form.announce) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.content, 'Текст') }}</th>
+                <td>{{ form_widget(form.content) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.siteUrl, 'Site URL') }}</th>
+                <td>{{ form_widget(form.siteUrl) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.email, 'Email') }}</th>
+                <td>{{ form_widget(form.email) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.phone, 'Телефон') }}</th>
+                <td>{{ form_widget(form.phone) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.address, 'Адрес') }}</th>
+                <td>{{ form_widget(form.address) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.lon, 'Долгота (Longitude)') }}</th>
+                <td>{{ form_widget(form.lon) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.lat, 'Широта (Latitude)') }}</th>
+                <td>{{ form_widget(form.lat) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.categories, 'Категории') }}</th>
+                <td>{{ form_widget(form.categories, { 'attr':{ 'class':'chosen' } }) }}</td>
+            </tr>
+        </table>
+
+        {{ form_rest(form) }}
+
+        <p>
+            <button type="submit">Update entity</button>
+            or
+            <a href="{{ path('armd_atlas_default_create') }}">Create new entity</a>
+        </p>
+
+    </form>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.chosen').chosen();
+        });
+    </script>
+
+{% endblock %}

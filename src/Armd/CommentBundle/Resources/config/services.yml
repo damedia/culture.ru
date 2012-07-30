@@ -1,0 +1,32 @@
+services:
+    fos_comment.acl.comment.security:
+        class: Armd\CommentBundle\Acl\SecurityCommentAcl
+        public: false
+        arguments: [@security.context, @security.acl.object_identity_retrieval_strategy, @security.acl.provider, %fos_comment.model.comment.class%]
+
+    fos_comment.acl.vote.security:
+        class: Armd\CommentBundle\Acl\SecurityVoteAcl
+        public: false
+        arguments: [@security.context, @security.acl.object_identity_retrieval_strategy, @security.acl.provider, %fos_comment.model.vote.class%]
+
+    fos_comment.manager.vote.acl:
+        class: Armd\CommentBundle\Acl\AclVoteManager
+        public: false
+        arguments: [@fos_comment.manager.vote.default, @fos_comment.acl.vote, @fos_comment.acl.comment]
+
+    fos_comment.manager.comment.acl:
+        class: Armd\CommentBundle\Acl\AclCommentManager
+        public: false
+        arguments: [@fos_comment.manager.comment.default, @fos_comment.acl.comment, @fos_comment.acl.thread]
+
+    fos_comment.manager.vote.default:
+        class: Armd\CommentBundle\Entity\VoteManager
+        arguments: [@event_dispatcher, @fos_comment.entity_manager, %fos_comment.model.vote.class%]
+
+    armd_comment.manager.vote_thread_object:
+        class: Armd\CommentBundle\Entity\VoteObjectThreadManager
+        arguments: [@event_dispatcher, @fos_comment.entity_manager, Armd\CommentBundle\Entity\VoteObjectThread]
+
+    armd_comment.manager.vote_object:
+        class: Armd\CommentBundle\Entity\VoteObjectManager
+        arguments: [@event_dispatcher, @fos_comment.entity_manager, Armd\CommentBundle\Entity\VoteObject]

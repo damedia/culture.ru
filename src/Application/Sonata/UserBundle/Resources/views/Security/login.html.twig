@@ -1,0 +1,33 @@
+<div id="auth-block" class="auth-block">
+
+    {% if error %}
+        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="row">
+            <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+        </div>
+        <div class="row">
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        </div>
+        <div class="row">
+            <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+        </div>
+        <div class="row">
+            <input type="password" id="password" name="_password" />
+        </div>
+        <div class="row">
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+        </div>
+        <div class="row">
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+    </form>
+
+    {% render "Zim32LoginzaBundle:Default:login" %}
+
+</div>
