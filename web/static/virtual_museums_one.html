@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/function.js"></script>
+
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="/static/video_list.html">Лекции</a></li>
+                <li><a href="http://mk2.dev.armd.ru/best/">Обсуждения</a></li>
+                <li><a href="/static/virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+        <div id="search" class="w">
+<!--
+            <form id="formsearch" name="search" method="get">
+				<table class="formsearch-width-type">
+					<tr>
+						<td>
+							 <div id="searcher">
+								<input type="text" id="i-searcher" />
+							</div>
+							<input type="image" src="common/img/search-btn.png" id="i-searchbtn" />
+						</td>
+					</tr>
+				</table>
+            </form>
+
+-->
+        </div>
+
+        <div class="blocksection w" id="f-section">
+			<div class="title-block timeline-title">
+				<h2>Музей техники</h2>
+			</div>
+			<div class="virtual-museums clearfix">
+				<div id="panoDIV" style="height:100%;">
+					<script src="swfobject/swfkrpano.js"></script>
+					<script>
+						embedpano({target:"panoDIV",swf:"museumTech.swf",width:"100%",height:"100%",allowFullScreen:"true"});
+					</script>
+					<noscript>
+							<div id="tour">
+									<object width="100%" height="100%">
+											<embed src="museumTech.swf" width="100%" height="100%" allowFullScreen="true">
+											</embed>
+									</object>
+							</div>
+					</noscript>
+				</div>
+			</div>		
+        </div>
+
+       <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br>Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png">
+
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+
+</html>
