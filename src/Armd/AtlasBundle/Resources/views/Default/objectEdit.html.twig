@@ -11,19 +11,43 @@
 
         <table>
             <tr>
-                <th>{{ form_label(form.title, 'Object title') }}</th>
+                <th>{{ form_label(form.title, 'Название объекта') }}</th>
                 <td>{{ form_widget(form.title) }}</td>
             </tr>
             <tr>
-                <th>{{ form_label(form.lon, 'Longitude') }}</th>
+                <th>{{ form_label(form.announce, 'Анонс') }}</th>
+                <td>{{ form_widget(form.announce) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.content, 'Текст') }}</th>
+                <td>{{ form_widget(form.content) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.siteUrl, 'Site URL') }}</th>
+                <td>{{ form_widget(form.siteUrl) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.email, 'Email') }}</th>
+                <td>{{ form_widget(form.email) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.phone, 'Телефон') }}</th>
+                <td>{{ form_widget(form.phone) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.address, 'Адрес') }}</th>
+                <td>{{ form_widget(form.address) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.lon, 'Долгота (Longitude)') }}</th>
                 <td>{{ form_widget(form.lon) }}</td>
             </tr>
             <tr>
-                <th>{{ form_label(form.lat, 'Latitude') }}</th>
+                <th>{{ form_label(form.lat, 'Широта (Latitude)') }}</th>
                 <td>{{ form_widget(form.lat) }}</td>
             </tr>
             <tr>
-                <th>{{ form_label(form.categories, 'Categories') }}</th>
+                <th>{{ form_label(form.categories, 'Категории') }}</th>
                 <td>{{ form_widget(form.categories, { 'attr':{ 'class':'chosen' } }) }}</td>
             </tr>
         </table>

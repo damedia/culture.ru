@@ -239,7 +239,9 @@ class DefaultController extends Controller
      */
     public function listAction()
     {
-        $entities = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT o FROM ArmdAtlasBundle:Object o ORDER BY o.id ASC");
+        $entities = $query->getResult();
 
         return array(
             'entities' => $entities,
@@ -418,14 +420,20 @@ class DefaultController extends Controller
 
     protected function resolveAddress($geocode)
     {
-        $url = "http://geocode-maps.yandex.ru/1.x/?geocode=".$geocode;
+        $url = "http://geocode-maps.yandex.ru/1.x/?geocode=" . urlencode($geocode);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
         curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
+
         $result = curl_exec($ch); // run the whole process
+        if ($result === false) {
+            var_dump($url);
+            var_dump(curl_error($ch));
+        }
+
         curl_close($ch);
 
         $xml = simplexml_load_string($result);

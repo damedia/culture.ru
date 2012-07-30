@@ -13,6 +13,12 @@ class ObjectType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('announce')
+            ->add('content')
+            ->add('siteUrl')
+            ->add('email')
+            ->add('phone')
+            ->add('address')
             ->add('lon', 'number', array('precision'=>6))
             ->add('lat', 'number', array('precision'=>6))
             ->add('categories')

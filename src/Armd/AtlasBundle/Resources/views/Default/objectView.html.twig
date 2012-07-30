@@ -227,42 +227,15 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
-{% block body2 %}
-    <table>
-        <tr>
-            <th>ID</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Longitude</th>
-            <td>{{ entity.lon }}</td>
-        </tr>
-        <tr>
-            <th>Latitude</th>
-            <td>{{ entity.lat }}</td>
-        </tr>
-        <tr>
-            <th>Categories</th>
-            <td>
-                {% for category in entity.categories %}
-                    {{ category.title }}{% if not loop.last%},{% endif %}
-                {% endfor %}
-            </td>
-        </tr>
-    </table>
-
-    <div id="map"></div>
-
-{% endblock %}
-
-{# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
+    <style>
+        #nav{
+            margin: 0 auto 20px;
+        }
+    </style>
+    <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
 
