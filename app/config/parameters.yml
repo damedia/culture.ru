@@ -16,3 +16,7 @@ parameters:
 
     progorod_api_key:  e316fab34585f12b5506493c1c17d41c
 
+    tvigle:
+        api_service_url:        http://pub.tvigle.ru/soap/index.php?wsdl
+        api_login:       Stella_l
+        api_password:    armada

@@ -17,10 +17,12 @@
         "sensio/distribution-bundle": "dev-master",
         "sensio/framework-extra-bundle": "dev-master",
         "sensio/generator-bundle": "dev-master",
-        "jms/security-extra-bundle": "1.1.*",
+        "jms/security-extra-bundle": "1.2.*",
         "jms/serializer-bundle": "*",
-        "jms/di-extra-bundle": "1.0.*",
+        "jms/di-extra-bundle": "1.1.*",
+
         "friendsofsymfony/comment-bundle": "*",
+        "friendsofsymfony/jsrouting-bundle": "master",
         "stof/doctrine-extensions-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
 
@@ -29,7 +31,6 @@
         "sonata-project/doctrine-orm-admin-bundle": "*",
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/media-bundle": "master",
-        "friendsofsymfony/jsrouting-bundle": "master",
         "kriswallsmith/buzz": "master"
     },
     "scripts": {

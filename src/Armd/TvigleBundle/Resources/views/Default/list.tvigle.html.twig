@@ -1,0 +1,22 @@
+<h1>Видеоархив</h1>
+{% for entity in entities %}
+{% set date = entity.created|date("d M / Y") %}
+<b>ID:</b> {{ entity.id|raw}}
+<br />
+<b>Title:</b> {{ entity.title|raw}}
+<br />
+<b>Image:</b> {{ entity.image|raw}}
+<br />
+<b>Description:</b> {{ entity.description|raw}}
+<br />
+<b>City:</b> {{ entity.city|raw}}
+<br />
+<b>Location:</b> {{ entity.location|raw}}
+<br />
+<b>Pub date:</b> {{ entity.created|localDate("d F / Y")}}
+<br />
+<b>Duration:</b> {{ entity.getDurationAsString|raw}}
+<br />
+<b>Code:</b><br />{{ entity.code|raw}}
+<br /><br /><hr />
+{% endfor %}

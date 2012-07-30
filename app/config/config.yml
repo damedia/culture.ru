@@ -178,3 +178,8 @@ fos_rest:
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+
+armd_tvigle:
+    video_directory:  %kernel.root_dir%/../web/uploads/video
+    video_url:  /uploads/video/
+    video_url_callback:  http://mk.dev.armd.ru/video/callback/

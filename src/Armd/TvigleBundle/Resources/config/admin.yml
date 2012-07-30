@@ -1,0 +1,7 @@
+services:
+    armd_tvigle.admin.tvigle:
+        class: Armd\TvigleBundle\Admin\TvigleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: module, label: Video }
+        arguments: [null, Armd\TvigleBundle\Entity\Tvigle, SonataAdminBundle:CRUD, @service_container]
+

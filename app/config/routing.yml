@@ -64,6 +64,10 @@ armd_atlas_bundle:
     resource: "@ArmdAtlasBundle/Controller/"
     type:     annotation
     prefix:   /atlas
+
+ArmdTvigleBundle_video:
+    resource: "@ArmdTvigleBundle/Resources/config/routing.yml"
+    prefix:   /video
     
 # Internal routing configuration to handle ESI
 #_internal:
