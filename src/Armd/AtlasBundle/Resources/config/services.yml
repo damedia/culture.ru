@@ -1,0 +1,14 @@
+services:
+    sonata.admin.armd.atlas.category:
+        class: Armd\AtlasBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Categories, show_in_dashboard: true }
+        arguments: [null, Armd\AtlasBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
+
+
+    sonata.admin.armd.atlas.object:
+        class: Armd\AtlasBundle\Admin\ObjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Objects, show_in_dashboard: true }
+        arguments: [null, Armd\AtlasBundle\Entity\Object, SonataAdminBundle:CRUD, @service_container]
+

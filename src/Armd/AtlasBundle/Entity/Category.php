@@ -84,10 +84,10 @@ class Category implements Node
     private $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Object", mappedBy="categories")
-     * @ORM\JoinTable(name="atlas_category_object")
+     * @ORM\ManyToMany(targetEntity="Object", mappedBy="categories", cascade={"persist"})
      */
     private $objects;
+
 
     public function __construct()
     {
@@ -97,14 +97,13 @@ class Category implements Node
 
     public function __toString()
     {
-        return $this->getTitle();
+        return $this->getDotLeveledTitle();
     }
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -120,18 +119,37 @@ class Category implements Node
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getSpaceLeveledTitle()
+    {
+        return $this->getLeveledTitle("&nbsp;&nbsp;&nbsp;&nbsp;");
+    }
+
+    public function getDotLeveledTitle()
+    {
+        return $this->getLeveledTitle('....');
+    }
+
+    public function getLeveledTitle($padWith)
+    {
+        $prefix = "";
+        for ($i = 2; $i <= $this->lvl; $i++) {
+            $prefix .= $padWith;
+        }
+        return $prefix . $this->title;
     }
 
     /**
@@ -143,14 +161,14 @@ class Category implements Node
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -166,14 +184,14 @@ class Category implements Node
     public function setRoot($root)
     {
         $this->root = $root;
-    
+
         return $this;
     }
 
     /**
      * Get root
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoot()
     {
@@ -189,14 +207,14 @@ class Category implements Node
     public function setLvl($lvl)
     {
         $this->lvl = $lvl;
-    
+
         return $this;
     }
 
     /**
      * Get lvl
      *
-     * @return integer 
+     * @return integer
      */
     public function getLvl()
     {
@@ -212,14 +230,14 @@ class Category implements Node
     public function setLft($lft)
     {
         $this->lft = $lft;
-    
+
         return $this;
     }
 
     /**
      * Get lft
      *
-     * @return integer 
+     * @return integer
      */
     public function getLft()
     {
@@ -235,14 +253,14 @@ class Category implements Node
     public function setRgt($rgt)
     {
         $this->rgt = $rgt;
-    
+
         return $this;
     }
 
     /**
      * Get rgt
      *
-     * @return integer 
+     * @return integer
      */
     public function getRgt()
     {
@@ -258,14 +276,14 @@ class Category implements Node
     public function setParent(\Armd\AtlasBundle\Entity\Category $parent = null)
     {
         $this->parent = $parent;
-    
+
         return $this;
     }
 
     /**
      * Get parent
      *
-     * @return Armd\AtlasBundle\Entity\Category 
+     * @return Armd\AtlasBundle\Entity\Category
      */
     public function getParent()
     {
@@ -281,7 +299,7 @@ class Category implements Node
     public function addChildren(\Armd\AtlasBundle\Entity\Category $children)
     {
         $this->children[] = $children;
-    
+
         return $this;
     }
 
@@ -298,7 +316,7 @@ class Category implements Node
     /**
      * Get children
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -314,7 +332,7 @@ class Category implements Node
     public function addObject(\Armd\AtlasBundle\Entity\Object $objects)
     {
         $this->objects[] = $objects;
-    
+
         return $this;
     }
 
@@ -331,7 +349,7 @@ class Category implements Node
     /**
      * Get objects
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getObjects()
     {
@@ -347,17 +365,18 @@ class Category implements Node
     public function setIcon($icon)
     {
         $this->icon = $icon;
-    
+
         return $this;
     }
 
     /**
      * Get icon
      *
-     * @return string 
+     * @return string
      */
     public function getIcon()
     {
         return $this->icon;
     }
+
 }

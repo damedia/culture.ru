@@ -20,6 +20,16 @@ class DefaultController extends Controller
     protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
 
     /**
+     * @Route("/test")
+     */
+    public function testAction()
+    {
+        $service = $this->get('sonata.admin.armd.atlas.category');
+        echo get_class($service);
+        return new Response();
+    }
+
+    /**
      * @Route("/objects")
      */
     public function objectsAction()

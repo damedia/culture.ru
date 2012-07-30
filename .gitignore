@@ -1,5 +1,8 @@
 web/bundles/
 web/uploads/
+/web/css
+/web/js
+/web/images
 app/bootstrap.php.cache
 app/config/parameters.yml
 app/cache/*
@@ -9,4 +12,5 @@ vendor
 tmp/
 .idea/
 composer.phar
+/app/_debug.php
 *~

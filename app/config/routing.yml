@@ -1,7 +1,4 @@
-ArmdAtlasBundle:
-    resource: "@ArmdAtlasBundle/Controller/"
-    type:     annotation
-    prefix:   /atlas
+
 #ArmdMainBundle:
 #    resource: "@ArmdMainBundle/Resources/config/routing.yml"
 #    prefix:   /
@@ -62,6 +59,11 @@ armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
     prefix: press-centre
+
+armd_atlas_bundle:
+    resource: "@ArmdAtlasBundle/Controller/"
+    type:     annotation
+    prefix:   /atlas
     
 # Internal routing configuration to handle ESI
 #_internal:
