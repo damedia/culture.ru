@@ -62,6 +62,12 @@ armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
     prefix: press-centre
+
+armd_banner:
+    resource: "@ArmdBannerBundle/Controller/BannerController.php"
+    type: annotation
+    prefix: /banner
+
     
 # Internal routing configuration to handle ESI
 #_internal:
