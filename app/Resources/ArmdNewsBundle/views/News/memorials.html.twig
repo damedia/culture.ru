@@ -1,8 +1,10 @@
 <div class="today-block">
-	<div class="today-block-header">
+    <div class="today-block-header">
 		 {{ "now"|date('d') }} {{ ('calendar.full.'~"now"|date('M'))|trans }} / {{ "now"|date('Y') }} 
 	</div>
-	 <span class="today-block-sub">Этот день в истории</span>
+	
+	{% if entities %}
+    <span class="today-block-sub">Этот день в истории</span>
 	<ul class="today-list">
 		{% for entity in entities %}
 		<li class="today-list-one">
@@ -14,4 +16,5 @@
 		</li>
 		{% endfor %}
 	</ul>
+	{% endif %}
 </div>
