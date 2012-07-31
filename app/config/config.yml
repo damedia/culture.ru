@@ -104,12 +104,7 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314 , height: 187, , quality: 90}
-                small: { width: 100 , quality: 90}
-                big:   { width: 500, quality: 90}
-                billboard: { width: 231, height: 194}
-                latest: { width: 85, height: 65 }
-                latest: { width: 160, height: 124}
-        news:  # the default context is mandatory
+        news:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http

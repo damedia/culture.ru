@@ -34,7 +34,8 @@
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/media-bundle": "master",
         "kriswallsmith/buzz": "master",
-        "armd/banner-bundle": "*"
+        "armd/banner-bundle": "*",
+        "doctrine/doctrine-migrations-bundle": "master"
 
     },
     "scripts": {
