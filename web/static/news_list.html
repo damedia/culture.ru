@@ -20,324 +20,322 @@
     <body>
 
         <div id="header" class="w">
-
-            <a href="#" id="logo"></a>
+			<a href="index.html" id="logo"></a>
 
             <div id="top">
-
-                <ul class="topmenu">
-
-                    <li class="first"><a href="#">Культура от А до Я</a></li>
-
-                    <li><a href="common/img/screen/government_service.png">Государственные услуги</a></li>
-
-                    <li><a href="common/img/screen/news.png">Пресс-центр</a></li>
-
-                </ul>
-
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
                 <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
 
-                    <span class="special-vers"><a href="common/img/screen/special-vers.jpg">Версия для слабовидящих</a></span>
-
-                    <a href="#" class="lang-swith cur">рус</a>
-
-                    <a href="#" class="lang-swith">eng</a>
-
-            </div>
-
-        </div>
-
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
         </div>
 
         <div id="nav" class="w">
-
             <ul class="navmenu">
-
-                <li class="first"><a href="#">Атлас</a></li>
-
-                <li><a href="common/img/screen/timeline.png">Лента времени</a></li>
-
-                <li><a href="common/img/screen/culture_trans.jpg">Трансляции</a></li>
-
-                <li><a href="common/img/screen/culture-lec.jpg">Лекции</a></li>
-
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="video_list.html">Лекции</a></li>
                 <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
-
+                <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
             </ul>
-
-            <div id="auth">
-
-                <a id="auth-link" href="common/img/screen/culture_profile.png"><span>Личный кабинет</span></a>
-
-            </div>
-
         </div>
 
         <div id="search" class="w">
 
-            <form id="formsearch" name="search" method="get">
-
-							 <div id="searcher">
-								<input type="text" id="i-searcher" />
-							</div>
-							<input type="image" src="common/img/search-btn.png" id="i-searchbtn" />
-				              
-            </form>
+         
 
         </div>
 
         <div class="blocksection w" id="f-section">
 
-            <div class="news-press-center">
+            
 				<div class="title-block gray-press">
-                    <img src="img/press-centr.png" alt="Пресс-центр">
+                    <h2>Пресс-центр</h2>
                 </div>
-				<div class="today-block">
-					Сегодня: <a href="#">12 июля</a>
-					<div class="calendar">
-						<div class="calendar-title">
-							Календарь
-							<span class="c-arrow"></span>
-						</div>
-						<div id="calendar"></div>
+				
+				<div class="news-press clearfix">
+					<div class="news-press-left">
+						<ul class="news-press-filter">
+							<li><a href="#">События</a></li>
+							<li><a href="#" class="active">Новости</a></li>
+							<li><a href="#">Интервью</a></li>
+							<li><a href="#">Репортажи</a></li>
+						</ul>
 					</div>
-				</div>
-				<ul class="press-anons">
-					<li class="press-anons-block odd-li">
-						<div class="pa-text">
-							<span class="pa-date">В этот день <span class="pa-date-color">1837<span>г.</span></span></span>
-							<p class="pa-header">Бородинское сражение
-							во время Отечественной
-							войны 1812 года</p>
-							<p>24 июня 1812 года армия Наполеона без
-							объявления войны вторглась в пределы
-							Российской империи.</p>
-						</div>
-					</li>
-					<li class="press-anons-block even-li">
-						<div class="pa-text">
-							<span class="pa-date">В этот день <span class="pa-date-color">1837<span>г.</span></span></span>
-							<p class="pa-header">Бородинское сражение
-							во время Отечественной
-							войны 1812 года</p>
-							<p>24 июня 1812 года армия Наполеона без
-							объявления войны вторглась в пределы
-							Российской империи.</p>
-						</div>
-					</li>
-				</ul>
-				<div class="clear"></div>
-				<div class="pictures-press-anons">
-					<ul>
-						<li class="ppa-block">
-							<a href="#"><img src="common/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-							<div class="ppa-anons">
-								<span class="ppa-date">12.07.2012</span>
-								<p>
-									<a href="#">Приняли бы вы предложение стать министром культуры?</a>
-								</p>
-							</div>
-						</li>
-						<li class="ppa-block">
-							<a href="#"><img src="common/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-							<div class="ppa-anons">
-								<span class="ppa-date">12.07.2012</span>
-								<p>
-									<a href="#">Приняли бы вы предложение стать министром культуры?</a>
-								</p>
-							</div>
-						</li>
-						<li class="ppa-block">
-							<a href="#"><img src="common/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-							<div class="ppa-anons">
-								<span class="ppa-date">12.07.2012</span>
-								<p>
-									<a href="#">Приняли бы вы предложение стать министром культуры?</a>
-								</p>
-							</div>
-						</li>
-						<li class="ppa-block">
-							<a href="#"><img src="common/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-							<div class="ppa-anons">
-								<span class="ppa-date">12.07.2012</span>
-								<p>
-									<a href="#">Приняли бы вы предложение стать министром культуры?</a>
-								</p>
-							</div>
-						</li>
-						<li class="ppa-block">
-							<a href="#"><img src="common/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-							<div class="ppa-anons">
-								<span class="ppa-date">12.07.2012</span>
-								<p>
-									<a href="#">Приняли бы вы предложение стать министром культуры?</a>
-								</p>
-							</div>
-							<div class="ppa-over">
-								<p><a href="#">Московские
-								новости
-								продолжают
-								разговор
-								о том, каким
-								должен быть
-								новый министр
-								культуры.
-								<span class="ppa-arrow">&rarr;</span>
-								</a></p>
-								
-							</div>
-						</li>
-						<li class="ppa-block">
-							<a href="#"><img src="common/img/photo/news.jpg" alt="" class="ppa-image" /></a>
-							<div class="ppa-anons">
-								<span class="ppa-date">12.07.2012</span>
-								<p>
-									<a href="#">Приняли бы вы предложение стать министром культуры?</a>
-								</p>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="clear"></div>
-				 <div class="news-afisha">
-					<div class="title-block">
-						<img src="img/afisha.png" alt="Афиша">
-					</div>
-					<div class="filter-box">
-						<div class="filter-title">
-							Фильтр
-							<span class="c-arrow"></span>
-						</div>
-						<div class="filter-block">
+					<div class="news-press-center">
+						<div class="pictures-press-anons clearfix">
 							<ul>
 								<li>
-									<label class="checked">
-										<input type="checkbox" checked />
-										События
-									</label>
+									<div class="ppa-block">
+										<a href="#"><img src="common/img/photo/press_new.jpg" alt="" class="ppa-image" /></a>
+										<div class="ppa-anons">
+											<span class="ppa-date">12.07.2012</span>
+											<p>
+												<a href="#">Приняли бы вы предложение стать министром культуры?</a>
+											</p>
+										</div>
+									</div>
 								</li>
 								<li>
-									<label class="checked">
-										<input type="checkbox" checked />
-										Новости
-									</label>
+									<div class="ppa-block">
+										<a href="#"><img src="common/img/photo/press_new.jpg" alt="" class="ppa-image" /></a>
+										<div class="ppa-anons">
+											<span class="ppa-date">12.07.2012</span>
+											<p>
+												<a href="#">Приняли бы вы предложение стать министром культуры?</a>
+											</p>
+										</div>
+									</div>
 								</li>
 								<li>
-									<label class="checked">
-										<input type="checkbox" checked />
-										Интервью
-									</label>
+									<div class="ppa-block">
+										<a href="#"><img src="common/img/photo/press_new.jpg" alt="" class="ppa-image" /></a>
+										<div class="ppa-anons">
+											<span class="ppa-date">12.07.2012</span>
+											<p>
+												<a href="#">Приняли бы вы предложение стать министром культуры?</a>
+											</p>
+										</div>
+									</div>
 								</li>
 								<li>
-									<label class="checked">
-										<input type="checkbox" checked />
-										Репортажи
-									</label>
+									<div class="ppa-block">
+										<a href="#"><img src="common/img/photo/press_new.jpg" alt="" class="ppa-image" /></a>
+										<div class="ppa-anons">
+											<span class="ppa-date">12.07.2012</span>
+											<p>
+												<a href="#">Приняли бы вы предложение стать министром культуры?</a>
+											</p>
+										</div>
+									</div>
+								</li>
+								
+							</ul>
+						</div>	
+						<div class="news-list-main">
+							<ul class="news-list">
+								<li>
+									<a href="#" class="news-list-image">
+										<span class="news-list-type">События</span>
+										<img src="common/img/press-blank.jpg" alt="" />
+									</a>
+									<div class="news-list-text">
+										<span class="news-list-date">
+											20 июля - 4 августа
+										</span>
+										<a href="#" class="news-list-header">Планета — Сибирь: Вена — Берлин — Красноярск</a>
+										<p>Живопись, графика, фотография, </p>
+									</div>
+								</li>
+								<li>
+									<a href="#" class="news-list-image">
+										<span class="news-list-type">Новости</span>
+										<img src="common/img/photo/news-list.jpg" alt="" />
+									</a>
+									<div class="news-list-text">
+										<span class="news-list-date">
+											20 июля - 4 августа
+										</span>
+										<a href="#" class="news-list-header">Планета — Сибирь: Вена — Берлин — Красноярск</a>
+										<p>Живопись, графика, фотография, </p>
+									</div>
+								</li>
+								<li>
+									<a href="#" class="news-list-image">
+										<span class="news-list-type">События</span>
+										<img src="common/img/press-blank.jpg" alt="" />
+									</a>
+									<div class="news-list-text">
+										<span class="news-list-date">
+											20 июля - 4 августа
+										</span>
+										<a href="#" class="news-list-header">Планета — Сибирь: Вена — Берлин — Красноярск</a>
+										<p>Живопись, графика, фотография, </p>
+									</div>
+								</li>
+								<li>
+									<a href="#" class="news-list-image">
+										<span class="news-list-type">Новости</span>
+										<img src="common/img/photo/news-list.jpg" alt="" />
+									</a>
+									<div class="news-list-text">
+										<span class="news-list-date">
+											20 июля - 4 августа
+										</span>
+										<a href="#" class="news-list-header">Планета — Сибирь: Вена — Берлин — Красноярск</a>
+										<p>Живопись, графика, фотография, </p>
+									</div>
+								</li>
+								<li>
+									<a href="#" class="news-list-image">
+										<span class="news-list-type">События</span>
+										<img src="common/img/press-blank.jpg" alt="" />
+									</a>
+									<div class="news-list-text">
+										<span class="news-list-date">
+											20 июля - 4 августа
+										</span>
+										<a href="#" class="news-list-header">Планета — Сибирь: Вена — Берлин — Красноярск</a>
+										<p>Живопись, графика, фотография, </p>
+									</div>
+								</li>
+								<li>
+									<a href="#" class="news-list-image">
+										<span class="news-list-type">Новости</span>
+										<img src="common/img/photo/news-list.jpg" alt="" />
+									</a>
+									<div class="news-list-text">
+										<span class="news-list-date">
+											20 июля - 4 августа
+										</span>
+										<a href="#" class="news-list-header">Планета — Сибирь: Вена — Берлин — Красноярск</a>
+										<p>Живопись, графика, фотография, </p>
+									</div>
 								</li>
 							</ul>
 						</div>
+						<div class="virtual-paginates clearfix">
+							<span class="firstPage">первая</span>
+							<ul class="virtual-paginates-list">
+								<li>
+									<span class="prevPage">назад</span>
+								</li>
+								<li>
+									<span class="current">1</span>
+								</li>
+								<li>
+									<a href="#">2</a>
+								</li>
+								<li>
+									<a href="#">3</a>
+								</li>
+								<li>
+									<a href="#">4</a>
+								</li>
+								<li>
+									<a href="#">5</a>
+								</li>
+								<li>
+									<a href="#">6</a>
+								</li>
+								<li>
+									<a href="#" class="nextPage">вперед</a>
+								</li>
+							</ul>
+							<a href="#" class="lastPage">последняя</a>
+						</div>
 					</div>
-					<ul class="news-afisha-list">
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
+					<div class="news-press-right">
+						<div class="today-block">
+							<div class="today-block-header">
+								 26 июля /2012
 							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
+							 <span class="today-block-sub">Этот день в истории</span>
+							<ul class="today-list">
+								<li class="today-list-one">
+									<p class="tlo-year">1837</p>
+									<p class="tlo-header">Был подписан указ об отливке Царь-колокола</p>
+									<p>
+										Российская императрица Анна Иоанновна подписала указ об отливке Большого Успенского колокола, впоследствии получившего название Царь-колокол.
+									</p>
+								</li>
+								<li class="today-list-one">
+									<p class="tlo-year">1856</p>
+									<p class="tlo-header">Родился Бернард Шоу</p>
+									<p>
+										Джордж Бернард Шоу родился 26 июля 1856 года в Дублине. Шоу уже в молодости решил стать писателем, однако его рукописи поначалу не находили издателя. 
+									</p>
+								</li>
+							</ul>
+						</div>
+					
+						<div class="press-more">
+							<div class="title-block">
+								<h2>Читайте также</h2>
 							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
-							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
-							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
-							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
-							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
-							</div>
-						</li>
-						<li class="nal-one">
-							<div class="nal-one-block">
-								<span class="nal-date">17 Дек./2011</span>
-								<p class="nal-header">	
-									Театр «Современник» погрузился в «Анархию»</p>
-								<p>
-								«За смелость называться «Современником» нужно отвечать всю
-								жизнь». Так говорит Галина Волчек, а потому и готова нести
-								ответственность за «Анархию»
-								</p>
-							</div>
-						</li>
-						<a class="afisha-list-more" href="#">Показать еще</a>
-					</ul>					
+							<ul class="press-more-list">
+								<li class="press-more-list-one">
+									<a href="#">
+										<img src="common/img/photo/more_img.jpg" alt="" width="85" height="65" />
+									</a>
+									<div class="pml-text">
+										<span class="pml-type">Новости</span>
+										<p>
+											<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
+										</p>
+									</div>	
+								</li>
+								<li class="press-more-list-one">
+									<a href="#">
+										<img src="common/img/photo/more_img.jpg" alt="" width="85" height="65" />
+									</a>
+									<div class="pml-text">
+										<span class="pml-type">Новости</span>
+										<p>
+											<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
+										</p>
+									</div>	
+								</li>
+								<li class="press-more-list-one">
+									<a href="#">
+										<img src="common/img/photo/more_img.jpg" alt="" width="85" height="65" />
+									</a>
+									<div class="pml-text">
+										<span class="pml-type">Новости</span>
+										<p>
+											<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
+										</p>
+									</div>	
+								</li>
+							</ul>
+						</div>
+						<div class="virtual-anons-block">
+							<a href="#" class="virtual-anons">
+								<span class="virtual-anons-header">Виртуальный тур</span>
+								<img src="common/img/photo/virt_anons.jpg" alt="" />
+								<span class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+						
+				
 				</div>	
-			</div>
+			
 
            
 

@@ -1,26 +1,84 @@
-{% extends '::one-column-layout.html.twig' %}
+{% extends '::three-column-layout.html.twig' %}
 
 {#% stylesheets '@ArmdNewsBundle/Resources/public/css/*' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %#}
 
+
+{% block left %}
+	<ul class="news-press-filter">
+		<li><a href="#">События</a></li>
+		<li><a href="#" class="active">Новости</a></li>
+		<li><a href="#">Интервью</a></li>
+		<li><a href="#">Репортажи</a></li>
+	</ul>
+{% endblock %}
+
 {% block header %}Пресс-центр{% endblock %}
 
-{#
-{% block top %}
-    {% include "ArmdNewsBundle:News:memorials.html.twig" with {"entities": memorials} %}
+
+{% block top_right %}{% include "ArmdNewsBundle:News:memorials.html.twig" with {"entities": memorials} %}{% endblock %}
+
+{% block center_right %}
+   <div class="press-more">
+		<div class="title-block">
+			<h2>Читайте также</h2>
+		</div>
+		<ul class="press-more-list">
+			<li class="press-more-list-one">
+				<a href="#">
+					<img src="/static/common/img/photo/more_img.jpg" alt="" width="85" height="65" />
+				</a>
+				<div class="pml-text">
+					<span class="pml-type">Новости</span>
+					<p>
+						<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
+					</p>
+				</div>	
+			</li>
+			<li class="press-more-list-one">
+				<a href="#">
+					<img src="/static/common/img/photo/more_img.jpg" alt="" width="85" height="65" />
+				</a>
+				<div class="pml-text">
+					<span class="pml-type">Новости</span>
+					<p>
+						<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
+					</p>
+				</div>	
+			</li>
+			<li class="press-more-list-one">
+				<a href="#">
+					<img src="/static/common/img/photo/more_img.jpg" alt="" width="85" height="65" />
+				</a>
+				<div class="pml-text">
+					<span class="pml-type">Новости</span>
+					<p>
+						<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
+					</p>
+				</div>	
+			</li>
+		</ul>
+	</div>
 {% endblock %}
-#}
-{% block center %}
+
+{% block bottom_right %}
+    <div class="virtual-anons-block">
+		<a href="#" class="virtual-anons">
+			<span class="virtual-anons-header">Виртуальный тур</span>
+			<img src="/static/common/img/photo/virt_anons.jpg" alt="" />
+			<span class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
+		</a>
+	</div>
+{% endblock %}
+
+{% block top %}
     {% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
 {% endblock %}
 
-{% block content%}
+{% block center%}
 <div class="clear"></div>
-<div class="news-afisha">
-    <div class="title-block">
-        <h2>Афиша</h2>
-    </div>
+
     {% include "ArmdNewsBundle:News:list.html.twig" with {"entities": news} %}
 
     <div class="news-nav-block">
@@ -32,18 +90,8 @@
         <div style="float:right;"><a href="{{ path('armd_news_archive_index') }}" style="color:#f80;">Архив новостей</a> &rarr;</div>
     </div>
 	<!-- a class="afisha-list-more" href="#">Показать еще</a -->
-</div>      
+      
 {% endblock %}
 
 
-{% block stylesheets %}
-{{ parent() }}
-<style>
-    .news-nav-block{ overflow:hidden; padding:0 30px 0 10px; }
-    .news-nav-block .navigation{ float:left; }
-    .news-nav-block .navigation .pagination{ }
-    .news-nav-block .navigation .pagination span{ margin-right:5px; }
-    .news-nav-block .navigation .pagination span a{ display:inline-block; padding:3px 5px; background:#fff; border:solid 1px #ccc; text-decoration:none; color:#999; }
-    .news-nav-block .navigation .pagination span a:hover{ background:#f90; }
-</style>
-{% endblock %}
+

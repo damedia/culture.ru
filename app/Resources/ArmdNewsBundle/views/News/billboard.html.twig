@@ -1,24 +1,30 @@
 {% if entities  is empty %}
 {% else %}
-	<ul class="pictures-press-anons">
-		{% for entity in entities %}
-		{% set url = path('armd_news_news_item', {id: entity.id}) %}
-		<li class="ppa-block">
-			<a href="{{ url }}">{% thumbnail entity.image, 'billboard' with {'class': 'ppa-image'} %}</a>
-			<div class="ppa-anons">
-				<span class="ppa-date">{{ entity.date|date("j.m.Y") }}{% if entity.endDate %} - {{ entity.endDate|date("j.m.Y") }}{% endif%}</span>
-				<p>
-					<a href="{{ url }}">{{ entity.title|raw }}</a>
-				</p>
-			</div>
-			<div class="ppa-over" style="display:none;">
-				<p><a href="{{ url }}">
-					{{ entity.announce|raw }}
-				<span class="ppa-arrow">&rarr;</span>
-				</a></p>				
-			</div>
-		</li>
-		{% endfor %}
-		
-	</ul>
+	
+	<div class="pictures-press-anons clearfix">
+		<ul>
+			{% for entity in entities %}
+			{% set url = path('armd_news_news_item', {id: entity.id}) %}
+			<li>
+				<div class="ppa-block">
+					<a href="{{ url }}">{% thumbnail entity.image, 'billboard' with {'class': 'ppa-image'} %}</a>
+					<div class="ppa-anons">
+						<span class="ppa-date">{{ entity.date|date("j.m.Y") }}{% if entity.endDate %} - {{ entity.endDate|date("j.m.Y") }}{% endif%}</span>
+						<p>
+							<a href="{{ url }}">{{ entity.title|raw }}</a>
+						</p>
+					</div>
+					<div class="ppa-over" style="display:none;">
+						<p><a href="{{ url }}">
+							{{ entity.announce|raw }}
+						<span class="ppa-arrow">&rarr;</span>
+						</a></p>				
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+	
+		</ul>
+	</div>	
+
 {% endif %}

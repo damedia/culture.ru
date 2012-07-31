@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+{% block body%}
+	<div class="clear" style="height:20px;"></div>
+	<div class="title-block gray-press">
+		<h2>{% block header %}{% endblock %}</h2>
+	</div>
+	<div class="news-press clearfix">	
+		<div class="news-press-left">
+			{% block left %}
+				&nbsp;
+			{% endblock %}
+		</div>
+		<div class="news-press-center">
+			{% block content %}
+				&nbsp;
+			{% endblock %}
+		</div>
+		<div class="news-press-right">
+		{% block top_right %}
+			&nbsp;
+		{% endblock %}
+		{% block center_right %}
+			&nbsp; 
+		{% endblock %}
+		{% block bottom_right %}
+			&nbsp;
+		{% endblock %}
+		</div>
+	</div>
+{% endblock %}

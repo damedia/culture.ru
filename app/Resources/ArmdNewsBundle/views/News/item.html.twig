@@ -1,11 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
-{% block body %}
-<div class="news-one">
-    <div class="title-block gray-press">
-        <h2>Пресс-центр</h2>
-    </div>
-    <span class="news-one-date">
+{% block top_right %} <div style="margin-top:-83px"></div>{% endblock %}
+{% block top %}
+<div class="news-one text">
+    <span class="news-one-type">Новости</span>
+	<span class="news-one-date">
         {% set f = entity.date %}
         {% set t = entity.endDate %}
         {{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
@@ -13,25 +12,23 @@
     </span>
     <h1>{{ entity.title|raw }}</h1>
     {% if entity.image %}
-        <div class="img-left">
-        {% thumbnail entity.image, 'billboard' %}
-        </div>
+		{% thumbnail entity.image, 'billboard'  with {'class': 'news-one-right'} %}
     {% endif %}
+	<p class="highlight-text">
+		{{ entity.announce|raw }}
+	</p>
     {{ entity.body|raw }}
+	<div class="share">
+		<span>Поделиться ссылкой: </span>
+		<img src="/static/common/img/share.jpg" alt="" />
+	</div>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
     <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index') }}">Назад</a><p>
     <p style="font-size:12px; text-align: right; margin: -25px 0 0 0;"> <a style="color:#000;" href="#">Версия для печати</a></p>
 </div>
-{#
-<div class="comments">
-    <div class="title-block">
-        <h2>комментарии пользователей</h2>
-        <a href="#" class="add-comment"></a>
-    </div>
-    <p class="comments-anons">
-        <span class="comments-total">комментариев: <a href="#">22</a></span>
-        <span class="votes-total">голосов: <b>114</b></span>
-    </p>
-</div>
-#}
+
 
 {% endblock %}
+{% block center%}{% endblock %}
+{% block content%}{% endblock %}
