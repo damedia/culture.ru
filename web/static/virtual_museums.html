@@ -1,0 +1,353 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/function.js"></script>
+		<link rel="stylesheet" type="text/css" href="common/css/jquery.fancybox-1.3.4.css" media="all">
+		<script src="common/js/jquery.fancybox-1.3.4.js"></script>
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="video_list.html">Лекции</a></li>
+                <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
+                <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+        <div id="search" class="w">
+<!--
+            <form id="formsearch" name="search" method="get">
+				<table class="formsearch-width-type">
+					<tr>
+						<td>
+							 <div id="searcher">
+								<input type="text" id="i-searcher" />
+							</div>
+							<input type="image" src="common/img/search-btn.png" id="i-searchbtn" />
+						</td>
+					</tr>
+				</table>
+            </form>
+
+-->
+        </div>
+
+        <div class="blocksection w" id="f-section">
+			<div class="title-block timeline-title">
+				<h2>Виртуальные музеи</h2>
+			</div>
+			
+			<script src="swfobject/swfkrpano.js"></script>
+			<script type="text/javascript">
+				$(function(){
+					if ($('.virtual-overflow-block').length){    
+						$('.virtual-overflow-block').fancybox();
+					}
+					$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
+					
+					$(window).resize(function(){
+						$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
+				
+					})
+				 })  
+			</script>
+			  
+			<div class="virtual-museums clearfix">
+				<ul class="virtual-museums-list">
+					<li>
+						<a href="#panoDIV" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/03.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Музей музыкальной культуры им. М.И. Глинки</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+						<div  style="display:none;">
+							<div id="panoDIV" class="panoDIV">
+								<script>
+									embedpano({target:"panoDIV",swf:"/static/museum/glinka/virtualtour.swf",width:"100%",height:"100%",allowFullScreen:"true"});
+								</script>
+								<noscript>
+										<div id="tour">
+												<object width="100%" height="100%">
+														<embed src="museumTech.swf" width="100%" height="100%" allowFullScreen="true">
+														</embed>
+												</object>
+										</div>
+								</noscript>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/02.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/01.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный центральный театральный музей имени А. А. Бахрушина</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/04.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/05.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/06.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/07.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/08.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/09.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/10.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/11.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/12.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/01.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/02.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/03.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="virtual-overflow-block">
+							<img src="common/img/photo/virtual_museums/04.jpg" alt="" />
+							<span class="virtual-label-block">
+								<span class="virtual-label">Государственный музей искусства народов Востока</span>
+								<span class="virtual-author">Наследие Рерихов</span>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="virtual-paginates clearfix">
+				<span class="firstPage">первая</span>
+				<ul class="virtual-paginates-list">
+					<li>
+						<span class="prevPage">назад</span>
+					</li>
+					<li>
+						<span class="current">1</span>
+					</li>
+					<li>
+						<a href="#">2</a>
+					</li>
+					<li>
+						<a href="#">3</a>
+					</li>
+					<li>
+						<a href="#">4</a>
+					</li>
+					<li>
+						<a href="#">5</a>
+					</li>
+					<li>
+						<a href="#">6</a>
+					</li>
+					<li>
+						<a href="#" class="nextPage">вперед</a>
+					</li>
+				</ul>
+				<a href="#" class="lastPage">последняя</a>
+			</div>	
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+            
+
+         
+            
+
+            
+
+        
+
+        
+
+        
+
+        
+       <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br>Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png">
+
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+
+</html>

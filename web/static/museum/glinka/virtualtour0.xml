@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for xml compliance -->
+<krpano version="1.0.8.14">
+    <action name="playpanosounds">
+		playbackgroundsound(none);
+	</action>
+    <action name="stoppanosounds">
+		stopbackgroundsound();
+	</action>
+    <action name="closepanoobjects">
+	</action>
+    <!--************** Панорама *******************************************************************-->
+    <!-- @File="virtualtour0.xml" @PanoName="Синий зал 3" @FilePath="Z:/backup/_pano/2012_07_25_Glinka_museum/point23/_project/viewpoint23.jpg" -->
+    <panoview h="-3.16" v="0.86" fov="72"/>
+    <!-- view parameters -->
+    <view fisheye="0" limitview="range" hlookatmin="-180" hlookatmax="180" vlookatmin="-90" vlookatmax="68" fovmin="45" fovmax="128.571" fov="72" hlookat="-3.16" vlookat="0.86"/>
+    <autorotate horizon="0.86" tofov="72" waittime="1" speed="1"/>
+    <!-- preview image -->
+    <preview url="virtualtourdata/virtualtour0/preview.jpg" type="CUBESTRIP" striporder="FRBLUD" details="16"/>
+    <!-- the pano itself -->
+    <image type="CUBE" multires="true" tilesize="604" baseindex="0">
+        <level tiledimagewidth="4832" tiledimageheight="4832">
+            <left url="virtualtourdata/virtualtour0/3/3/%v_%u.jpg"/>
+            <front url="virtualtourdata/virtualtour0/0/3/%v_%u.jpg"/>
+            <right url="virtualtourdata/virtualtour0/1/3/%v_%u.jpg"/>
+            <back url="virtualtourdata/virtualtour0/2/3/%v_%u.jpg"/>
+            <up url="virtualtourdata/virtualtour0/4/3/%v_%u.jpg"/>
+            <down url="virtualtourdata/virtualtour0/5/3/%v_%u.jpg"/>
+        </level>
+        <level tiledimagewidth="2416" tiledimageheight="2416">
+            <left url="virtualtourdata/virtualtour0/3/2/%v_%u.jpg"/>
+            <front url="virtualtourdata/virtualtour0/0/2/%v_%u.jpg"/>
+            <right url="virtualtourdata/virtualtour0/1/2/%v_%u.jpg"/>
+            <back url="virtualtourdata/virtualtour0/2/2/%v_%u.jpg"/>
+            <up url="virtualtourdata/virtualtour0/4/2/%v_%u.jpg"/>
+            <down url="virtualtourdata/virtualtour0/5/2/%v_%u.jpg"/>
+        </level>
+        <level tiledimagewidth="1208" tiledimageheight="1208">
+            <left url="virtualtourdata/virtualtour0/3/1/%v_%u.jpg"/>
+            <front url="virtualtourdata/virtualtour0/0/1/%v_%u.jpg"/>
+            <right url="virtualtourdata/virtualtour0/1/1/%v_%u.jpg"/>
+            <back url="virtualtourdata/virtualtour0/2/1/%v_%u.jpg"/>
+            <up url="virtualtourdata/virtualtour0/4/1/%v_%u.jpg"/>
+            <down url="virtualtourdata/virtualtour0/5/1/%v_%u.jpg"/>
+        </level>
+        <level tiledimagewidth="604" tiledimageheight="604">
+            <left url="virtualtourdata/virtualtour0/3/0/%v_%u.jpg"/>
+            <front url="virtualtourdata/virtualtour0/0/0/%v_%u.jpg"/>
+            <right url="virtualtourdata/virtualtour0/1/0/%v_%u.jpg"/>
+            <back url="virtualtourdata/virtualtour0/2/0/%v_%u.jpg"/>
+            <up url="virtualtourdata/virtualtour0/4/0/%v_%u.jpg"/>
+            <down url="virtualtourdata/virtualtour0/5/0/%v_%u.jpg"/>
+        </level>
+        <!-- mobile phone / iphone images -->
+        <mobile>
+            <left url="virtualtourdata/virtualtour0/3/mobile_face.jpg"/>
+            <front url="virtualtourdata/virtualtour0/0/mobile_face.jpg"/>
+            <right url="virtualtourdata/virtualtour0/1/mobile_face.jpg"/>
+            <back url="virtualtourdata/virtualtour0/2/mobile_face.jpg"/>
+            <up url="virtualtourdata/virtualtour0/4/mobile_face.jpg"/>
+            <down url="virtualtourdata/virtualtour0/5/mobile_face.jpg"/>
+        </mobile>
+        <!-- tablet pc / ipad images -->
+        <tablet>
+            <left url="virtualtourdata/virtualtour0/3/tablet_face.jpg"/>
+            <front url="virtualtourdata/virtualtour0/0/tablet_face.jpg"/>
+            <right url="virtualtourdata/virtualtour0/1/tablet_face.jpg"/>
+            <back url="virtualtourdata/virtualtour0/2/tablet_face.jpg"/>
+            <up url="virtualtourdata/virtualtour0/4/tablet_face.jpg"/>
+            <down url="virtualtourdata/virtualtour0/5/tablet_face.jpg"/>
+        </tablet>
+    </image>
+    <!--************** Hotspots and lensflares ****************************************************-->
+    <hotspot name="spot0" hview="63.09" vview="-1" fovview="72" hcenter="33.0524" vcenter="11.9277" onclick="looktohotspot(get(name),get(view.fovmin),smooth(400,20,100));mainloadpano(virtualtour31.xml);lookat(get(hview),get(vview),get(fovview));" url="virtualtourdata/graphics/spots/spot0.png" crop="0|0|65|65" frame="0" lastframe="7" frameheight="65" framewidth="65" onloaded="set(stopSequence,false);animate(spot0,0.125);" ath="33.0524" atv="11.9277"/>
+    <hotspot name="spot1" hview="-110.47" vview="3.14" fovview="72" hcenter="-143.155" vcenter="18.8675" onclick="looktohotspot(get(name),get(view.fovmin),smooth(400,20,100));mainloadpano(virtualtour30.xml);lookat(get(hview),get(vview),get(fovview));" url="virtualtourdata/graphics/spots/spot0.png" crop="0|0|65|65" frame="0" lastframe="7" frameheight="65" framewidth="65" onloaded="set(stopSequence,false);animate(spot1,0.125);" ath="-143.155" atv="18.8675"/>
+    <hotspot name="spot2" hview="-158.38" vview="0.93" fovview="72" hcenter="-144.022" vcenter="9.9759" onclick="looktohotspot(get(name),get(view.fovmin),smooth(400,20,100));mainloadpano(virtualtour29.xml);lookat(get(hview),get(vview),get(fovview));" url="virtualtourdata/graphics/spots/spot0.png" crop="0|0|65|65" frame="0" lastframe="7" frameheight="65" framewidth="65" onloaded="set(stopSequence,false);animate(spot2,0.125);" ath="-144.022" atv="9.9759"/>
+    <action name="hidepanospotsaction">
+		set(hotspot[spot0].visible, false);
+		set(hotspot[spot1].visible, false);
+		set(hotspot[spot2].visible, false);
+	</action>
+    <action name="showpanospotsaction">
+		set(hotspot[spot0].visible, true);
+		set(hotspot[spot1].visible, true);
+		set(hotspot[spot2].visible, true);
+	</action>
+    <!-- close all hotspots -->
+</krpano>

@@ -1,0 +1,512 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="common/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/jquery-ui-1.8.21.custom.min.js"></script>
+        <script type="text/javascript" src="common/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="common/js/function.js"></script>
+		<link rel="stylesheet" type="text/css" href="common/css/jquery.fancybox-1.3.4.css" media="all">
+		<script src="common/js/jquery.fancybox-1.3.4.js"></script>
+
+		<script type="text/javascript">
+		$(function(){
+			if ($('.video-descr-data-fancy').length){    
+				$('.video-descr-data-fancy').fancybox();
+			   } 
+			
+			
+			$('#online-archive-show').click(function(){
+				var handler = $(this),
+					blockToExpand  = $('.online-archive-hide');
+				
+				
+				
+				if (blockToExpand.is(':visible')) {
+					handler.html(handler.data('text'));
+					blockToExpand.hide();
+				} else {
+					handler.data('text', $(this).html());
+					handler.html('Свернуть');
+					blockToExpand.show();
+				}
+				
+				
+				
+				
+				return false;
+			})
+			
+			})
+		</script>
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="video_list.html">Лекции</a></li>
+                <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
+               <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+        <div id="search" class="w">
+<!--
+            <form id="formsearch" name="search" method="get">
+				<table class="formsearch-width-type">
+					<tr>
+						<td>
+							 <div id="searcher">
+								<input type="text" id="i-searcher" />
+							</div>
+							<input type="image" src="common/img/search-btn.png" id="i-searchbtn" />
+						</td>
+					</tr>
+				</table>
+				
+               
+            </form>
+-->
+        </div>
+
+        <div class="blocksection w" id="f-section">
+
+			
+
+           
+				
+				<div class="media-one text">
+					<div class="title-block gray-no-icon">
+						<h2>Трансляции</h2>
+					</div>
+					<div class="media-one-block">
+						<h1>Звёзды мировой оперы в Москве. Звёзды Нового Света </h1>
+						<div id="videoplayer">
+							<object>
+							<param value="opaque" name="wmode"> 
+							<embed
+										src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr.isml/flr.f4m&autoplay=0"
+										quality="high"
+										allowfullscreen="true"
+										pluginspage="http://www.macromedia.com/go/getflashplayer"
+										width="100%"
+										height="390"
+										wmode="opaque"
+										allowScriptAccess="always">
+							</object>
+						</div>
+						<div class="video-stats online-video-stats">
+							<p class="vs-stats-one">Начало трансляции: <span>19-00</span></p>
+							<p class="vs-stats-one">Город: <span>Москва</span></p>
+							<p class="vs-stats-one"><span>Московская государственная академическая филармония</span></p>
+						</div>
+						<div class="video-description" style="display:none;">
+							<p>
+							Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты. 4 (16) мая 1896 года состоялась первая в России демонстрация «синематографа Люмьера» в театре петербургского сада «Аквариум» — публике были показаны несколько о фильмов в антракте между вторым и третьим 
+							</p>
+						</div>
+						<div class="share" style="display:none;">
+							<span>Поделиться ссылкой: </span>
+							<img src="common/img/share.jpg" alt="" />
+						</div>
+						
+						
+					</div>
+				</div>
+				
+				
+				
+				<div class="media-side-list online-side-list">
+					<p class="media-side-header">Архив трансляций</p>
+					<ul>
+						<li class="media-list-one">
+							<a class="video-descr-data-fancy media-list-image" href="#video-22">
+								<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v22.jpg" alt="" width='100%' />
+							</a>
+							
+							<div class="media-list-description">
+								<p class="mld-date">
+									Звёзды мировой оперы в Москве. Звёзды Нового Света<br/>
+									Вероник Жанс (сопрано)<br/>     
+									Национальный филармонический оркестр России<br/> 
+									Дирижёр – Мариус Штигхорст<br/>
+									
+								</p>
+							</div>
+							<div style="display: none;">
+								<div id="video-22" class="video-fancy-div">
+									<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120529-1900.ism/flr-20120529-1900.f4m" width="450" height="500" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+								</div>
+							</div>
+						</li>
+						<li class="media-list-one">
+							<a class="video-descr-data-fancy media-list-image" href="#video-19">
+								<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v19.jpg" alt="" width='100%' />
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header">Анатолий Левин, Элисо Вирсаладзе, Александр Шайкин, Ёшито Нумасава
+								Абонемент: No. 15 «Учитель и ученик» 
+								Симфонический оркестр Московской государственной консерватории имени П.И.Чайковского 
+								Художественный руководитель и главный дирижёр – Анатолий Левин</p>
+								
+							</div>
+							<div style="display: none;">
+								<div id="video-19" class="video-fancy-div">
+									<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120519-1500.ism/flr-20120519-1500.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+								</div>
+							</div>
+						</li>
+						
+						<li class="media-list-one">
+							<a class="video-descr-data-fancy media-list-image" href="#video-20">
+								<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v20.jpg" alt="" width='100%' />
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header">«По всей России водят хороводы…»
+Посвящается Татьяне Алексеевне Устиновой</p>
+					
+							</div>
+							<div style="display: none;">
+								<div id="video-20" class="video-fancy-div">
+									<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120521-1900.ism/flr-20120521-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+								</div>
+							</div>
+						</li>
+						
+						<li class="media-list-one">
+							<a class="video-descr-data-fancy media-list-image" href="#video-21">
+								<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v07.jpg" alt="" width='100%' />
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header">О Серенаде, Скерцо, Сен-Сансе, Сметане, Сибелиусе И Стравинском
+Абонемент: No. 54 «Популярная музыкальная энциклопедия» 
+Государственный симфонический оркестр «Новая Россия» 
+Художественный руководитель – главный дирижер Юрий Башмет</p>
+								
+							</div>
+							<div style="display: none;">
+								<div id="video-21" class="video-fancy-div">
+									<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120526-1500.ism/flr-20120526-1500.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+								</div>
+							</div>
+						</li>
+						
+						<li class="media-list-one">
+							<a class="video-descr-data-fancy media-list-image" href="#video-11">
+								<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v11.png" alt="" width='100%' />
+							</a>
+							<div class="media-list-description">
+								<p class="mld-header">«Тенора ХХI века». Государственная академическая симфоническая капелла России.</p>
+								
+							</div>
+							<div style="display: none;">
+								<div id="video-11" class="video-fancy-div">
+									<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120425-1900.ism/flr-20120425-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			
+
+			<div class="clear"></div>
+				<div class='afisha-list-more' id="online-archive-show">Показать еще</div>
+
+				<div class="online-archive-hide" style="display:none;">  
+					 <div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-12">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v12.png" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-12" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120426-1900.ism/flr-20120426-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">ХI Московский Пасхальный фестиваль. Художественный руководитель Валерий Гергиев</p>
+					</div>
+
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-13">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v13.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-13" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120509-1800.ism/flr-20120509-1800.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">Дважды Краснознаменный Академический ансамбль песни и пляски Российской Армии имени А.В. Александрова</p>
+					</div>
+					
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-14">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v14.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-14" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120511-1900.ism/flr-20120511-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center"> Звёзды мирового балета. Гала-концерт</p>
+					</div>
+					
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-15">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v15.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-15" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120512-1900.ism/flr-20120512-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center"> Звёзды мюзиклов, театра и кино</p>
+					</div>
+
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-16">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v16.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-16" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120515-1900.ism/flr-20120515-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">Концерт Гарри Гродберга (орган)</p>
+					</div>
+					
+					
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-17">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v17.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-17" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120427-1900.ism/flr-20120427-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">«Музыка в фильмах Ролана Быкова». Российский государственный симфонический оркестр кинематографии. Государственная академическая хоровая капелла России имени А.А.Юрлова</p>
+					</div>
+					
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-18">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v18.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-18" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120430-1900.ism/flr-20120430-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">«Во славу народного танца». Гала-концерт</p>
+					</div>
+					
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-1">
+							<img src="http://mkprom.dev.armd.ru/uploads/media/pics/v01.png" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-1" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120412-1900.ism/flr-20120412-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">III Международный фестиваль Мстислава Ростроповича в Москве. Приношение Мстиславу Растроповичу</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-2">
+						<img src="http://mkprom.dev.armd.ru/uploads/media/pics/v1.png" border="0">
+					 </a>  
+						<div style="display: none;">
+							<div id="video-2" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120413-1900.ism/flr-20120413-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div> 
+						<p class='video-descr-data' align="center">Хореографический ансамбль «Ритмы детства» Творческого центра «Москворечье»</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-3"> <img src="http://mkprom.dev.armd.ru/uploads/media/pics/v2.png" border="0"></a>
+					   <div style="display: none;">
+							<div id="video-3" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120414-1500.ism/flr-20120414-1500.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>    
+						<p class='video-descr-data' align="center">«БЫЛИ И НЕБЫЛИЦЫ».  Национальный академический оркестр народных инструментов России имени Н.П.Осипова</p>
+					</div>
+					<div class="online-archive-item">
+						 <a class="video-descr-data-fancy" href="#video-4"><img src="http://mkprom.dev.armd.ru/uploads/media/pics/v3.png" border="0"></a>
+						<div style="display: none;">
+							<div id="video-4" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120412-1900.ism/flr-20120416-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">«РОМАНТИЗМ ОТ ВОСХОДА ДО ЗАКАТА». Московский камерный оркестр Musica Viva</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-5"><img src="http://mkprom.dev.armd.ru/uploads/media/pics/v7.png" border="0"></a>
+						<div style="display: none;">
+							<div id="video-5" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120414-1900.ism/flr-20120414-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">Государственный симфонический оркестр «Новая Россия». Юрий Башмет, Денис Власенко, Игорь Разумовский</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-6">
+							<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v06.jpg" border="0">
+						</a>
+						<div style="display: none;">
+							<div id="video-6" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120417-1900.ism/flr-20120417-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>
+						<p class='video-descr-data' align="center">ХI Московский Пасхальный фестиваль. Художественный руководитель Валерий Гергиев</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-7">
+						<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v07.jpg" border="0">
+					 </a>  
+						<div style="display: none;">
+							<div id="video-7" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120418-1900.ism/flr-20120418-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>    
+						<p class='video-descr-data' align="center">Государственный академический симфонический оркестр России имени Е.Ф. Светланова</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-8">
+						<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v08.jpg" border="0">
+					 </a>  
+						<div style="display: none;">
+							<div id="video-8" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120420-1900.ism/flr-20120418-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>    
+						 <p class='video-descr-data' align="center">Рахманинов – Литургия Святого Иоанна Златоуста. И.С. Бах – Месса си минор. Государственный академический русский хор имени А.В. Свешникова.</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-9">
+						<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v09.jpg" border="0">
+					 </a>  
+						<div style="display: none;">
+							<div id="video-9" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120421-1900.ism/flr-20120418-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>    
+						 <p class='video-descr-data' align="center">РНО под управлением Михаила Плетнева, Жолт Хамар (Венгрия), Денеш Варьон (фортепиано, Венгрия)</p>
+					</div>
+					<div class="online-archive-item">
+						<a class="video-descr-data-fancy" href="#video-10">
+						<img src="http://mkprom.dev.armd.ru/bundles/armdmkresources/upload/v10.jpg" border="0">
+					 </a>  
+						<div style="display: none;">
+							<div id="video-10" class="video-fancy-div">
+								<embed src="http://83.229.174.228/swf/tvzavrplayer2.swf?src=http://83.229.174.228/flr-20120422-1600.ism/flr-20120418-1900.f4m" width="450" height="253" quality="high" allowfullscreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+							</div>
+						</div>    
+						 <p class='video-descr-data' align="center">Женская красота в искусстве. От «Венеры Милосской» до Пьера Огюста Ренуара. Государственный симфонический оркестр «Новая Россия». Автор и ведущая Жанна Дозорцева</p>
+					</div>
+				 </div>
+				<div style="height:20px;"></div>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+            
+
+         
+            
+
+            
+
+        
+
+        
+
+        
+
+        
+       <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br />Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
