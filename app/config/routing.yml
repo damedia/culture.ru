@@ -61,7 +61,7 @@ fos_comment_api:
 armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
-    prefix: press-centre
+    prefix: /press-centre
 
 armd_banner:
     resource: "@ArmdBannerBundle/Controller/BannerController.php"
