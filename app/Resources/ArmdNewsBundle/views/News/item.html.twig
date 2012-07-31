@@ -1,7 +1,7 @@
 {% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
 {% block top_right %} <div style="margin-top:-83px"></div>{% endblock %}
-{% block top %}
+{% block content %}
 <div class="news-one text">
     <span class="news-one-type">Новости</span>
 	<span class="news-one-date">
@@ -27,8 +27,4 @@
     <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index') }}">Назад</a><p>
     <p style="font-size:12px; text-align: right; margin: -25px 0 0 0;"> <a style="color:#000;" href="#">Версия для печати</a></p>
 </div>
-
-
 {% endblock %}
-{% block center%}{% endblock %}
-{% block content%}{% endblock %}

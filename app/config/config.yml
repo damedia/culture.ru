@@ -89,7 +89,7 @@ sonata_user:
     security_acl: true
     
 sonata_media:
-    default_context: default
+    default_context: news
     db_driver: doctrine_orm # or doctrine_mongodb
     contexts:
         default:  # the default context is mandatory
@@ -107,7 +107,20 @@ sonata_media:
                 small: { width: 100 , quality: 90}
                 big:   { width: 500, quality: 90}
                 billboard: { width: 231, height: 194}
-
+                latest: { width: 85, height: 65 }
+                latest: { width: 160, height: 124}
+        news:  # the default context is mandatory
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                adminPreview: { width: 314 , height: 187, , quality: 90}            
+                billboard: { width: 231, height: 194}
+                latest: { width: 85, height: 65 }
+                list: { width: 160, height: 124}
+                
     cdn:
         server:
             path: /uploads/media # http://media.sonata-project.org/
@@ -168,3 +181,7 @@ fos_rest:
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+
+knp_paginator:
+    template: 
+        pagination: "::pagination.html.twig"

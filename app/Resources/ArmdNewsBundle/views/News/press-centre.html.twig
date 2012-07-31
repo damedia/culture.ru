@@ -4,62 +4,14 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %#}
 
-
 {% block left %}
-	<ul class="news-press-filter">
-		<li><a href="#">События</a></li>
-		<li><a href="#" class="active">Новости</a></li>
-		<li><a href="#">Интервью</a></li>
-		<li><a href="#">Репортажи</a></li>
-	</ul>
+    {% render "ArmdNewsBundle:News:categories" with {"category": category } %}
 {% endblock %}
 
 {% block header %}Пресс-центр{% endblock %}
 
-
-{% block top_right %}{% include "ArmdNewsBundle:News:memorials.html.twig" with {"entities": memorials} %}{% endblock %}
-
 {% block center_right %}
-   <div class="press-more">
-		<div class="title-block">
-			<h2>Читайте также</h2>
-		</div>
-		<ul class="press-more-list">
-			<li class="press-more-list-one">
-				<a href="#">
-					<img src="/static/common/img/photo/more_img.jpg" alt="" width="85" height="65" />
-				</a>
-				<div class="pml-text">
-					<span class="pml-type">Новости</span>
-					<p>
-						<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
-					</p>
-				</div>	
-			</li>
-			<li class="press-more-list-one">
-				<a href="#">
-					<img src="/static/common/img/photo/more_img.jpg" alt="" width="85" height="65" />
-				</a>
-				<div class="pml-text">
-					<span class="pml-type">Новости</span>
-					<p>
-						<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
-					</p>
-				</div>	
-			</li>
-			<li class="press-more-list-one">
-				<a href="#">
-					<img src="/static/common/img/photo/more_img.jpg" alt="" width="85" height="65" />
-				</a>
-				<div class="pml-text">
-					<span class="pml-type">Новости</span>
-					<p>
-						<a href="#">Проект «Пермский сувенир» готовится к Новому году летом</a>
-					</p>
-				</div>	
-			</li>
-		</ul>
-	</div>
+    {% render "ArmdNewsBundle:News:latestNews" with {"limit": 3} %}
 {% endblock %}
 
 {% block bottom_right %}
@@ -75,23 +27,4 @@
 {% block top %}
     {% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
 {% endblock %}
-
-{% block center%}
-<div class="clear"></div>
-
-    {% include "ArmdNewsBundle:News:list.html.twig" with {"entities": news} %}
-
-    <div class="news-nav-block">
-        <nav class="navigation">
-            {{ news.setUsedRoute('armd_news_list_index_by_page') }}
-            {{ news.render()|raw}}
-            <br />        
-        </nav>    
-        <div style="float:right;"><a href="{{ path('armd_news_archive_index') }}" style="color:#f80;">Архив новостей</a> &rarr;</div>
-    </div>
-	<!-- a class="afisha-list-more" href="#">Показать еще</a -->
-      
-{% endblock %}
-
-
 
