@@ -46,7 +46,12 @@
 					
                 </div>
 				<div class="top-banner">
-				<img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+                    {% if armd_has_banner('HEAD_BANNER') %}
+                        {{ armd_banner('HEAD_BANNER')|raw }}
+                    {% else %}
+                        <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+                    {% endif %}
+
 			</div>
             </div>
             <div id="nav" class="w">

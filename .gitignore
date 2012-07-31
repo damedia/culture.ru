@@ -10,3 +10,4 @@ tmp/
 .idea/
 composer.phar
 *~
+/app/_debug.php
