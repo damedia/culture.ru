@@ -92,6 +92,20 @@ $(document).ready(function(){
 			return false;
 		})
 		
+		var resizePpa = function(){
+			var ppaImg = $('.ppa-block img.news-image-frame'),
+				ppaImgheight = ppaImg.height();
+			$('.ppa-over').css({'height':ppaImgheight});
+			$('.ppa-over a').css({'height':ppaImgheight-40});
+			
+		};
+		
+		$(window).resize(function(){
+			resizePpa();
+		});
+		$(window).load(function(){
+			resizePpa();
+		});	
 	});
 	
 	

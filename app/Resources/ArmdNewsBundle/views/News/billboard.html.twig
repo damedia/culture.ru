@@ -8,6 +8,7 @@
 			<li>
 				<div class="ppa-block">
 					<a href="{{ href }}">{% thumbnail n.image, 'billboard' with {'class': 'ppa-image'} %}</a>
+					<img src="/img/image_frame.gif" alt="" class="news-image-frame" />
 					<div class="ppa-anons">
 						<span class="ppa-date">{{ n.date|date("j.m.Y") }}{% if n.endDate %} - {{ n.endDate|date("j.m.Y") }}{% endif%}</span>
 						<p>

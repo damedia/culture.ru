@@ -112,7 +112,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 adminPreview: { width: 314 , height: 187, , quality: 90}            
-                billboard: { width: 231, height: 194}
+                billboard: { width: 366, height: 261}
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 124}
                 
