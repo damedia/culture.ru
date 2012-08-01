@@ -62,8 +62,8 @@ class News extends Admin
                 ->add('published')
             ->end()    
             ->with('Media')                
-                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'news')))
-                ->add('gallery', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'news')))                                
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))                                
             ->end();
 
         parent::configureFormFields($formMapper);
