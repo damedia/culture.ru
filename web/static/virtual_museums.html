@@ -12,8 +12,9 @@
         <script type="text/javascript" src="common/js/jquery.js"></script>
 
         <script type="text/javascript" src="common/js/function.js"></script>
-		<link rel="stylesheet" type="text/css" href="common/css/jquery.fancybox-1.3.4.css" media="all">
-		<script src="common/js/jquery.fancybox-1.3.4.js"></script>
+		<script type="text/javascript" src="common/js/fancybox/jquery.fancybox.js?v=2.0.6"></script>
+		<link rel="stylesheet" type="text/css" href="common/js/fancybox/jquery.fancybox.css?v=2.0.6" media="screen" />
+
     </head>
 
     <body>
@@ -91,15 +92,14 @@
 			<div class="title-block timeline-title">
 				<h2>Виртуальные музеи</h2>
 			</div>
-			
-			<script src="common/js/swfkrpano.js"></script>
-			<script src="common/js/krpanoiphone.js"></script>
-			<script src="common/js/krpanoiphone.license.js"></script>
+			<script src="/static/museum/glinka/swfobject/swfkrpano.js"></script>
 			<script type="text/javascript">
 				$(function(){
+					
 					if ($('.virtual-overflow-block').length){    
 						$('.virtual-overflow-block').fancybox();
 					}
+					
 					$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 					
 					$(window).resize(function(){
@@ -119,10 +119,10 @@
 								<span class="virtual-author">Наследие Рерихов</span>
 							</span>
 						</a>
-						<div  style="display:none;">
+						<div class="panowrap" style="display:none;">
 							<div id="panoDIV" class="panoDIV">
 								<script>
-									embedpano({target:"panoDIV",swf:"/static/museum/glinka/virtualtour.swf",width:"100%",height:"100%",allowFullScreen:"true"});
+									embedpano({target:"panoDIV",swf:"/static/museum/glinka/virtualtour.swf", xml:"/static/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
 								</script>
 								<noscript>
 										<div id="tour">
@@ -350,6 +350,10 @@
             </div>
 
         </div>
+		
+		
+		
+		
     </body>
 
 </html>
