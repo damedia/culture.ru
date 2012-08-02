@@ -35,6 +35,13 @@
 		</div>
 		<!-- AddThis Button END -->
 	</div>
+    <div class="commetns-list">
+        <div class="decor"><span></span></div>
+        {% include 'FOSCommentBundle:Thread:comments.html.twig' with {
+                                'comments': comments,
+                                'thread': thread
+                            } %}
+    </div><!-- /commetns-list-->
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
     <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index') }}">Назад</a><p>

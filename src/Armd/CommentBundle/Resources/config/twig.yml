@@ -1,6 +1,0 @@
-services:
-    fos_comment.twig.comment_extension:
-        class: Armd\CommentBundle\Twig\CommentExtension
-        tags:
-            - { name: twig.extension }
-        arguments: [@fos_comment.acl.comment, @fos_comment.acl.vote, @fos_comment.acl.thread, @security.context]

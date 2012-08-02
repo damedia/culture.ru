@@ -4,13 +4,15 @@ namespace Armd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Armd\NewsBundle\Model\News as BaseNews;
+use Armd\CommentBundle\Model\CommentableInterface;
+use Armd\CommentBundle\Entity\Thread;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
  * @ORM\Table(name="content_news") 
  * @ORM\HasLifecycleCallbacks
  */
-class News extends BaseNews
+class News extends BaseNews implements CommentableInterface
 {
     /**
      * @ORM\Id
@@ -91,6 +93,14 @@ class News extends BaseNews
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
+
+    /**
+     * Thread of this comment
+     *
+     * @var \Armd\CommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     */
+    protected $thread;
     
     /** 
      * @ORM\PrePersist
@@ -418,5 +428,27 @@ class News extends BaseNews
     public function getDay()
     {
         return $this->day;
+    }
+
+    /**
+     * Set thread
+     *
+     * @param \Armd\CommentBundle\Entity\Thread $thread
+     * @return News
+     */
+    public function setThread(Thread $thread = null)
+    {
+        $this->thread = $thread;
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Armd\CommentBundle\Entity\Thread
+     */
+    public function getThread()
+    {
+        return $this->thread;
     }
 }

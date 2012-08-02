@@ -4,6 +4,7 @@ namespace Armd\NewsBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
+use Armd\CommentBundle\Entity\Thread;
 
 class NewsController extends ListController
 {
@@ -36,6 +37,8 @@ class NewsController extends ListController
         return $this->render($this->getTemplateName('item'), array(
             'entity'        => $entity,
             'category'      => $category,
+            'comments'    => $this->getComments($entity->getThread()),
+            'thread'      => $entity->getThread(),
         ));
     }    
     
@@ -137,6 +140,40 @@ class NewsController extends ListController
             ->setPublication()
             ->orderByDate();
         ;
+    }
+
+    /**
+     * @param Armd\CommentBundle\Entity\Thread $thread
+     * @return \Armd\CommentBundle\Entity\Comment
+     */
+    public function getComments(Thread $thread)
+    {
+        return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+    }
+
+
+    /**
+     * @Route("/updateThread")
+     */
+    public function updateThreadAction()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $newsList = $em->getRepository('Armd\NewsBundle\Entity\News')->findBy( array('thread' => null) );
+
+        echo ('Found '.count($newsList).' news');
+
+        foreach($newsList as $news) {
+            $thread = $this->container->get('fos_comment.manager.thread')->createThread();
+            $thread->setPermalink('/');
+            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
+
+            $news->setThread($thread);
+
+            $em->persist($news);
+            $em->flush();
+        }
+
+        echo '<br /><br />all done';
     }
     
     function getControllerName()
