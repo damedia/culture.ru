@@ -6,7 +6,7 @@
     },
     "repositories":{
         "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
-        "armd/comments":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" }
+        "armd/comment":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" }
     },
     "require": {
         "php": ">=5.3.3",
@@ -36,7 +36,7 @@
         "sonata-project/media-bundle": "master",
         "kriswallsmith/buzz": "master",
         "armd/banner-bundle": "*",
-        "armd/comments": "*",
+        "armd/comment": "*",
         "doctrine/doctrine-migrations-bundle": "master"
 
     },
