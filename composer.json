@@ -4,6 +4,9 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories":{
+        "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" }
+    },
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.1.*",
@@ -30,7 +33,10 @@
         "sonata-project/doctrine-orm-admin-bundle": "*",
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/media-bundle": "master",
-        "kriswallsmith/buzz": "master"
+        "kriswallsmith/buzz": "master",
+        "armd/banner-bundle": "*",
+        "doctrine/doctrine-migrations-bundle": "master"
+
     },
     "scripts": {
         "post-install-cmd": [

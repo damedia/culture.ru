@@ -1,24 +1,27 @@
-{% if entities  is empty %}
-{% else %}
-	<ul class="pictures-press-anons">
-		{% for entity in entities %}
-		{% set url = path('armd_news_news_item', {id: entity.id}) %}
-		<li class="ppa-block">
-			<a href="{{ url }}">{% thumbnail entity.image, 'billboard' with {'class': 'ppa-image'} %}</a>
-			<div class="ppa-anons">
-				<span class="ppa-date">{{ entity.date|date("j.m.Y") }}{% if entity.endDate %} - {{ entity.endDate|date("j.m.Y") }}{% endif%}</span>
-				<p>
-					<a href="{{ url }}">{{ entity.title|raw }}</a>
-				</p>
-			</div>
-			<div class="ppa-over" style="display:none;">
-				<p><a href="{{ url }}">
-					{{ entity.announce|raw }}
-				<span class="ppa-arrow">&rarr;</span>
-				</a></p>				
-			</div>
-		</li>
-		{% endfor %}
-		
+{% if entities %}	
+<div class="pictures-press-anons clearfix">
+	<ul>
+	{% for n in entities|slice(0, 4) %}
+    	{% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
+    	<li>
+    		<div class="ppa-block">
+    			<a href="{{ href }}">{% thumbnail n.image, 'billboard' with {'class': 'ppa-image'} %}</a>
+    			<img src="/img/image_frame.gif" alt="" class="news-image-frame" />
+    			<div class="ppa-anons">
+    				<span class="ppa-date">{{ n.date|date("j.m.Y") }}{% if n.endDate %} - {{ n.endDate|date("j.m.Y") }}{% endif%}</span>
+    				<p>
+    					<a href="{{ href }}">{{ n.title|raw }}</a>
+    				</p>
+    			</div>
+    			<div class="ppa-over" style="display:none;">
+    				<p><a href="{{ href }}">
+    					{{ n.announce|raw }}
+    				<span class="ppa-arrow">&rarr;</span>
+    				</a></p>				
+    			</div>
+    		</div>
+    	</li>
+	{% endfor %}	
 	</ul>
+</div>	
 {% endif %}

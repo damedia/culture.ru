@@ -1,0 +1,8 @@
+<ul class="news-press-filter">
+{% for c in categories %}
+	<li>
+	   <a href="{{ path('armd_news_list_index_by_category', {'category': c.slug }) }}"
+	       {% if c.selected %} class="active"{% endif %}>{{ c.title }}</a>
+    </li>
+{% endfor %}
+</ul>

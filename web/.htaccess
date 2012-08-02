@@ -5,6 +5,10 @@
     #    RewriteBase /
     #</IfModule>
 
+    RewriteRule ^main$ http://%{HTTP_HOST}/main/ [R,L]
+    RewriteRule ^main/$ static/index.html [L]
+    RewriteRule ^main/(.*)$ static/$1 [L]
+
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
 </IfModule>

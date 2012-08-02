@@ -77,8 +77,16 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
+    {#
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
     <link href="{{ asset('bundles/armdatlas/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+    #}
+    {#вставил специально CSS - ниже строка
+    <style>
+        #nav{ margin: 0 auto 20px; }
+    </style>
+    <link href="/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+    #}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
 

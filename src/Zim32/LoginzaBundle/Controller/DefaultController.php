@@ -13,7 +13,6 @@ class DefaultController extends Controller
     
     public function indexAction()
     {
-        //new \Symfony\Component\HttpFoundation\Session\Session();
         $name = $this->get('security.context')->getToken()->getUsername();
         return $this->render('Zim32LoginzaBundle:Default:index.html.twig', array('name' => $name));
     }
@@ -32,12 +31,10 @@ class DefaultController extends Controller
         }
 
         $session = $this->container->get('session');
-        //$session = new \Symfony\Component\HttpFoundation\Session\Session();
         $loginzaData = $session->get('loginza_data');
 
-        //$user = new \Application\Sonata\UserBundle\Entity\User();
-        //$user = new \Application\Sonata\UserBundle\Entity\User();
-        $user = new \Zim32\LoginzaBundle\Entity\User();
+        $user = new \Application\Sonata\UserBundle\Entity\User();
+        //$user = new \Zim32\LoginzaBundle\Entity\User();
         $user->setSocialName($loginzaData['name']);
         $user->setEmail($loginzaData['email']);
 
@@ -46,30 +43,9 @@ class DefaultController extends Controller
             ->add('userName', 'text')
             ->getForm();
 
-        if ($request->getMethod() == 'POST' && false) {
-            $form->bindRequest($request);
-            if ($form->isValid()) {
-                $user->setRoles(array('ROLE_LOGINZA'));
-                $provideUidSetMethod = 'set'.ucfirst($loginzaData['provider']).'Uid';
-                $user->$provideUidSetMethod($loginzaData['uid']);
-                $user->setPassword($loginzaData['uid']);
-                $user->setSocialName($loginzaData['name']);
-
-                $em = $this->container->get('doctrine')->getEntityManager();
-                $em->persist($user);
-                $em->flush();
-
-                $token = new LoginzaToken($user->getRoles());
-                $token->setUser($user);
-                $token->setAuthenticated(true);
-                //$token->setAttribute('loginza_info', $decoded);
-                $this->container->get('security.context')->setToken($token);
-                return $this->redirect(
-                    $this->generateUrl("_loginza_redirect_user")
-                );
-            }
+        if($request->get('error')) {
+            $form->addError(new \Symfony\Component\Form\FormError('Email or login exists'));
         }
-
 
         return $this->render('Zim32LoginzaBundle:UserProfile:email.html.twig', array('form' => $form->createView()));
     }
@@ -78,8 +54,8 @@ class DefaultController extends Controller
         $session = $this->container->get('session');
         $loginzaData = $session->get('loginza_data');
 
-        //$user = new \Application\Sonata\UserBundle\Entity\User();
-        $user = new \Zim32\LoginzaBundle\Entity\User();
+        $user = new \Application\Sonata\UserBundle\Entity\User();
+        #$user = new \Zim32\LoginzaBundle\Entity\User();
 
         $form = $this->createFormBuilder( $user )
             ->add('email', 'text')
@@ -97,24 +73,21 @@ class DefaultController extends Controller
                 $user->setEnabled( true );
 
                 $em = $this->container->get('doctrine')->getEntityManager();
-                $em->persist($user);
-                $em->flush();
+                try {
+                    $em->persist($user);
+                    $em->flush();
+                } catch (\PDOException $e) {
+                    return $this->redirect(
+                        $this->generateUrl("_loginza_social_reg", array('error' => 1))
+                    );
+                }
 
                 $token = new LoginzaToken($user->getRoles());
                 $token->setUser($user);
                 $token->setAuthenticated(true);
                 $token->setAttribute('loginza_info', $loginzaData);
-                //$token->setAttribute('loginza_info', $decoded);
-                //$this->container->get('session')->set('_security_main', serialize($token));
 
-                //echo '<pre>'; //var_dump($token);
-                //var_dump($token->getUser()); die();
                 $this->container->get('security.context')->setToken($token);
-                //echo '<pre>'; var_dump($this->container->get('security.context')); //die();
-
-                //new \Symfony\Component\Security\Core\SecurityContext
-
-                //return new \Symfony\Component\HttpFoundation\Response('Ok', 200);
                 return $this->redirect(
                     $this->generateUrl("cp")
                 );

@@ -56,14 +56,15 @@ class News extends Admin
                 ->add('body')
                 ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('endDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))                
-                ->add('category')                
+                ->add('category')
+                ->add('source')                
                 ->add('important')
                 ->add('priority')                                
                 ->add('published')
             ->end()    
             ->with('Media')                
-                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'default')))
-                ->add('gallery', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'default')))                                
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))                                
             ->end();
 
         parent::configureFormFields($formMapper);

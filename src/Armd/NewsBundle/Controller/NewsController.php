@@ -9,52 +9,67 @@ class NewsController extends ListController
 {
     /**
      * @Route("/", name="armd_news_list_index")     
-     * @Route("/page/{page}/", defaults={"page" = 1}, name="armd_news_list_index_by_page")     
+     * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
+     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category")
+     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, name="armd_news_list_index_by_category_and_page")                    
      */
-    function pressCentreAction($page = 1, $limit = 10)
-    {
-        $date = new \DateTime();
-        
-        return $this->render($this->getTemplateName('press-centre'), array(
-            'date'      => $date,
-            'news'      => $this->getLatestNewsList($date, $limit, $page),            
-            'memorials' => $this->getMemorialEventsList($date),
-            'billboard' => $this->getImportantNewsList(),
+    function newsListAction($category = null, $page = 1, $limit = 10)
+    {   
+        return $this->render($this->getTemplateName('list'), array(
+            'category'      => $category,
+            'news'          => $this->getLatestNewsList($limit, $page, $category),            
+            'billboard'     => $this->getImportantNewsList(),            
         ));
     }
     
     /**
-     * @Route("/archive/", defaults={"year" = null, "month" = null, "day" = null}, name="armd_news_archive_index")     
-     * @Route("/archive/{year}/{month}/{day}/", requirements={"year" = "\d{4}", "month" = "\d{2}", "day" = "\d{2}"}, name="armd_news_archive_by_date", options={"expose"=true})
-     */
-    function archiveAction($year, $month, $day)
+     * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
+     */    
+    function newsItemAction($id, $category)
     {
-        $date = $this->getDate($year, $month, $day);
-        $categories = (array) $this->getRequest()->get('category');
+        $entity = $this->getEntityRepository()->find($id);
 
-        return $this->render($this->getTemplateName('archive'), array(
-            'date'          => $date,
-            'news'          => $this->getArchiveRepository($date, $categories)->getQuery()->getResult(),
-            'categories'    => $this->getCategoriesList($categories),
-            'category'      => $categories,
+        if (null === $entity) {
+            throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
+        }
+
+        return $this->render($this->getTemplateName('item'), array(
+            'entity'        => $entity,
+            'category'      => $category,
         ));
     }    
     
-    function thisDayListAction($month, $day)
+    function categoriesAction($category)
     {
-        return $this->render($this->getTemplateName('today-list'), array('entities' => $this->getThisDayListRepository($month, $day)));
+        return $this->render($this->getTemplateName('categories'), array(
+            'categories'    => $this->getCategoriesList(array($category)),
+        ));
     }
     
-    function getMemorialEventsList($date)
+    function latestNewsAction($limit)
     {
-        return $this->getMemorialsListRepository($date)->getQuery()->getResult();
+        return $this->render($this->getTemplateName('latest-news'), array(
+            'news'          => $this->getLatestNewsList($limit),
+        ));
     }
     
-    function getLatestNewsList($date, $limit = 10, $page = 1)
+    function memorialEventsAction()
     {
-        return $this->getPagination($this->getNewsListRepository($date)->getQuery(), $page, $limit, 'armd_news_list_index_by_page');
+        return $this->render($this->getTemplateName('memorials'), array(
+            'entities'      => $this->getMemorialEventsList(),
+        ));
     }
+            
+    function getLatestNewsList($limit = 10, $page = 1, $category = null)
+    {
+        return $this->getPagination($this->getNewsListRepository($category)->getQuery(), $page, $limit);
+    }    
     
+    function getMemorialEventsList()
+    {
+        return $this->getMemorialsListRepository()->getQuery()->getResult();
+    }
+        
     function getImportantNewsList(array $categories = array(), $limit = 0)
     {        
         $repository = $this->getListRepository()
@@ -85,44 +100,34 @@ class NewsController extends ListController
         return $result;
     }
     
-    function getNewsListRepository($date)
+    function getNewsListRepository($category = null, $date = null)
     {
-        return $this->getListRepository()
-            ->setFiltrableCategories()
+        if (null == $date)
+        {
+            $date = new \DateTime();
+        }
+        
+        $repository = $this->getListRepository()
             ->setImportant(false)
             ->setEndDate($date);
-        ;
-            
+        ;            
+        
+        return $category ? $repository->setCategories(array($category)) : $repository->setFiltrableCategories();
     }
     
-    function getMemorialsListRepository($date)
+    function getMemorialsListRepository($date = null)
     {
+        if (null == $date)
+        {
+            $date = new \DateTime();
+        }    
+    
         return $this->getListRepository()
             ->setCategories(array('memorials'))
             ->setMonthAndDay($date)
         ;
     }
     
-    /**
-     * @param \DateTime $date
-     * @param array     $categories
-     * @return \Armd\NewsBundle\Repository\NewsRepository
-     */    
-    function getArchiveRepository($date, $categories = array())
-    {
-        $from = clone($date);
-        $to = clone($date);
-        
-        $repository = $this->getListRepository()
-            ->setBeginDate($from->setTime(0, 0, 0))
-            ->setEndDate($to->setTime(23, 59, 59))
-        ;
-        
-        $categories ? $repository->setCategories($categories) : $repository->setFiltrableCategories();
-        
-        return $repository;        
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -132,14 +137,6 @@ class NewsController extends ListController
             ->setPublication()
             ->orderByDate();
         ;
-    }
-    
-    function getDate($year, $month, $day)
-    {
-        $format = 'Ymd';
-        $date = "{$year}{$month}{$day}";
-
-        return $date ? \DateTime::createFromFormat($format, $date) : new \DateTime();
     }
     
     function getControllerName()
