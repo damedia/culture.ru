@@ -34,12 +34,12 @@ media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
     prefix: /media    
 
-ApplicationSonataUserBundle:
-    resource: '@ApplicationSonataUserBundle/Resources/config/routing/routing.yml'
+ArmdUserBundle:
+    resource: '@ArmdUserBundle/Resources/config/routing/routing.yml'
     prefix:   /admin
 
 fos_user_routing:
-    resource: '@ApplicationSonataUserBundle/Resources/config/routing/fos_user_routing.yml'
+    resource: '@ArmdUserBundle/Resources/config/routing/fos_user_routing.yml'
     prefix:   /
 
 fos_js_routing:

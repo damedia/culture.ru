@@ -72,7 +72,7 @@ class Proposals implements VotableObjectInterface
     /**
      * Author of the comment
      *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Armd\UserBundle\Entity\User")
      * @var UserInterface
      */
     protected $author;
