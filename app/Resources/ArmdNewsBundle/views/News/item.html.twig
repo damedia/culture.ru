@@ -15,14 +15,14 @@
 	{% if entity.image %}
 		<div class="news-one-image">
 			{% thumbnail entity.image, 'billboard' %}
-			<!--<p class="image-source">© РИА Новости, Александр Астафьев</p>-->
+			<p class="image-source">© РИА Новости, Александр Астафьев</p>
 		</div>
     {% endif %}
 	<p class="highlight-text">
 		{{ entity.announce|raw }}
 	</p>
     {{ entity.body|raw }}
-	<!--<div class="source">С использованием материалов РИА «Новости»</div>-->
+	<div class="source">С использованием материалов РИА «Новости»</div>
 	<div class="share">
 		<span>Поделиться ссылкой: </span>
 		<!-- AddThis Button BEGIN -->
