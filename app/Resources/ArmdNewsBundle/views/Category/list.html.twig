@@ -1,8 +1,0 @@
-<div class="filter-checkboxes">
-{% for category in entities %}
-	<label class="checked">
-		<input type="checkbox" name="category[{{ category.id }}]" checked />
-		{{ category.title }}
-	</label>
-{% endfor %}
-</div>

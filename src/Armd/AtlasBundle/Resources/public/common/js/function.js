@@ -39,7 +39,7 @@ $(document).ready(function(){
         
         /*$.datepicker.setDefaults( $.datepicker.regional[ "ru" ] );
         $( "#calendar" ).datepicker({showOtherMonths: true});*/
-        
+        /*
         setTimeout(function(){
             $('.obj-o-foto-one img').each(function(){
                 var imgThis = $(this),
@@ -85,6 +85,8 @@ $(document).ready(function(){
             return false;
         })
         
+		*/
+		
         $('.collapsable-list li').click(function(){
             $(this).toggleClass('opened');
         })

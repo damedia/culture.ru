@@ -30,6 +30,29 @@ select nextval('armd_comment_thread_id_seq'),
 null,
 id from content_news where thread_id is null;
 ";
+
+        $sql[] = "alter table  acl_object_identities add isnew integer default null";
+
+        $sql[] = "
+insert into acl_object_identities
+select nextval('acl_object_identities_id_seq'),
+null,
+3,
+id,
+'t',
+1 from armd_comment_thread where news_id is not null
+";
+
+        $sql[] = "
+insert into acl_object_identity_ancestors
+select id, id
+from acl_object_identities where isnew is not null
+";
+        $sql[] = "alter table  acl_object_identities drop isnew";
+
+
+
+
         $sql[] = "
 update content_news
 set thread_id = armd_comment_thread.id

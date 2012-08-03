@@ -1,7 +1,8 @@
 {% if entities %}	
 <div class="pictures-press-anons clearfix">
 	<ul>
-	{% for n in entities|slice(0, 4) %}
+	{% set length = entities|length is even ? entities|length : entities|length - 1 %}
+	{% for n in entities|slice(0, length) %}
     	{% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
     	<li>
     		<div class="ppa-block">
