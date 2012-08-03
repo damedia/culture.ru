@@ -1,3 +1,5 @@
+php_value date.timezone UTC
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -12,3 +14,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
 </IfModule>
+
+AuthUserFile /www/mk.dev.armd.ru/app/config/.htpasswd
+AuthType Basic
+AuthName "My Files"
+Require valid-user
