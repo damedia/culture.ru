@@ -19,3 +19,6 @@ AuthUserFile /www/mk.dev.armd.ru/app/config/.htpasswd
 AuthType Basic
 AuthName "My Files"
 Require valid-user
+<IfModule mod_php5.c>
+    php_value date.timezone UTC
+</IfModule>

@@ -151,31 +151,6 @@ class NewsController extends ListController
         return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
     }
 
-
-    /**
-     * @Route("/updateThread")
-     */
-    public function updateThreadAction()
-    {
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $newsList = $em->getRepository('Armd\NewsBundle\Entity\News')->findBy( array('thread' => null) );
-
-        echo ('Found '.count($newsList).' news');
-
-        foreach($newsList as $news) {
-            $thread = $this->container->get('fos_comment.manager.thread')->createThread();
-            $thread->setPermalink('/');
-            $this->container->get('fos_comment.manager.thread')->saveThread($thread);
-
-            $news->setThread($thread);
-
-            $em->persist($news);
-            $em->flush();
-        }
-
-        echo '<br /><br />all done';
-    }
-    
     function getControllerName()
     {
         return 'ArmdNewsBundle:News';
