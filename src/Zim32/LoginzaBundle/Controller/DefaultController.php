@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $session = $this->container->get('session');
         $loginzaData = $session->get('loginza_data');
 
-        $user = new \Application\Sonata\UserBundle\Entity\User();
+        $user = new \Armd\UserBundle\Entity\User();
         //$user = new \Zim32\LoginzaBundle\Entity\User();
         $user->setSocialName($loginzaData['name']);
         $user->setEmail($loginzaData['email']);
@@ -54,7 +54,7 @@ class DefaultController extends Controller
         $session = $this->container->get('session');
         $loginzaData = $session->get('loginza_data');
 
-        $user = new \Application\Sonata\UserBundle\Entity\User();
+        $user = new \Armd\UserBundle\Entity\User();
         #$user = new \Zim32\LoginzaBundle\Entity\User();
 
         $form = $this->createFormBuilder( $user )

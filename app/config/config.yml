@@ -29,6 +29,7 @@ assetic:
     debug:          %kernel.debug%
     use_controller: false
     #bundles:        [ "FOSCommentBundle", "ArmdCommunicationPlatformBundle" ]
+    bundles: [ "FOSCommentBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -150,10 +151,10 @@ sonata_media:
 fos_user:
     db_driver:      orm # can be orm or odm
     firewall_name:  main
-    user_class:     Application\Sonata\UserBundle\Entity\User
+    user_class:     Armd\UserBundle\Entity\User
 
     group:
-        group_class: Application\Sonata\UserBundle\Entity\Group
+        group_class: Armd\UserBundle\Entity\Group
 
 fos_comment:
     db_driver: orm

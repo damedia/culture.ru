@@ -1,11 +1,17 @@
 {
-    "hash": "75c23369453bcd6ce0e38c9dff876ffa",
+    "hash": "cbc4abcef41b7c44f452edd3f8d53b98",
     "packages": [
         {
             "package": "armd/banner-bundle",
             "version": "dev-master",
             "source-reference": "4072990d218b151a48ae681559211affca211f97",
             "commit-date": "1343743397"
+        },
+        {
+            "package": "armd/comment",
+            "version": "dev-master",
+            "source-reference": "adf3b1687402ef712f1c8e34185afb61c41bd2a0",
+            "commit-date": "1343913312"
         },
         {
             "package": "doctrine/common",
