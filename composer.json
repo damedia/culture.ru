@@ -23,6 +23,7 @@
         "jms/serializer-bundle": "*",
         "jms/di-extra-bundle": "1.1.*",
 
+        "doctrine/doctrine-migrations-bundle": "master",
         "friendsofsymfony/comment-bundle": "*",
         "friendsofsymfony/jsrouting-bundle": "master",
         "stof/doctrine-extensions-bundle": "*",
@@ -34,9 +35,7 @@
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/media-bundle": "master",
         "kriswallsmith/buzz": "master",
-        "armd/banner-bundle": "*",
-        "doctrine/doctrine-migrations-bundle": "master"
-
+        "armd/banner-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [
