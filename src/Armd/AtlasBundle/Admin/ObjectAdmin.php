@@ -12,6 +12,14 @@ use Sonata\AdminBundle\Admin\Admin;
 class ObjectAdmin extends Admin
 {
     protected $translationDomain = 'ArmdAtlasBundle';
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }
+
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -51,54 +59,82 @@ class ObjectAdmin extends Admin
     {
         $formMapper
             ->with('General')
-            ->add('categories', 'sonata_type_model', array(
-            'multiple' => true,
-            'expanded' => true,))
-            ->add('showAtHomepage', null, array('required' => false))
-            ->add('title')
-            ->add('announce')
-            ->add('content')
-            ->add('siteUrl')
-            ->add('email')
-            ->add('phone')
-            ->add('address')
-            ->add('lat')
-            ->add('lon')
-            ->add('workTime')
-            ->add('weekends', null,
-            array(
-                'multiple' => true,
-                'expanded' => true,
-                'required' => false,
-            ))
-            ->add('virtualTour')
+                ->add('title')
+                ->add('announce')
+                ->add('content')
+                ->add('categories', 'sonata_type_model',
+                    array('multiple' => true, 'expanded' => true)
+                )
+                ->add('showAtHomepage', null,
+                    array('required' => false)
+                )
+                ->add('siteUrl')
+                ->add('email')
+                ->add('phone')
+                ->add('address')
+                ->add('lat')
+                ->add('lon')
+                ->add('workTime')
+                ->add('weekends', null,
+                    array(
+                        'multiple' => true,
+                        'expanded' => true,
+                        'required' => false,
+                        'attr' => array('class' => 'armd-sonata-weekdays')
+                    )
+                )
+                ->add('virtualTour')
             ->end()
             ->with('Media')
-            ->add('imageGallery', 'sonata_type_model_list', array('required' => false),
-            array(
-                'link_parameters' => array('context' => 'atlas'),
-            ))
-            ->add('archiveImageGallery', 'sonata_type_model_list', array('required' => false),
-            array(
-                'link_parameters' => array('context' => 'atlas'),
-            ))
-//            ->add('images', 'sonata_type_model_list',
-//            array('required' => false),
-//            array(
-//                'link_parameters' => array(
-//                    'context' => 'atlas',
-//                    'provider' => 'sonata.media.provider.image'
-//                )
-//            ))
-//            ->add('videos')
-//            ->add('archiveImages', 'sonata_type_model', array(), array('link_parameters'=>array('context'=>'atlas')))
-//            ->add('image3d', 'sonata_type_model', array(), array('link_parameters'=>array('context'=>'atlas')))
+                  ->add('images', 'collection', array(
+                        'type' => 'armd_media_image',
+                        'by_reference' => false,
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'required' => false,
+                        'attr' => array('class' => 'armd-sonata-images-collection')
+                  ))
+                  ->add('archiveImages', 'collection', array(
+                        'type' => 'armd_media_image',
+                        'by_reference' => false,
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'required' => false,
+                        'attr' => array('class' => 'armd-sonata-images-collection')
+                  ))
+                ->add('image3d', 'armd_media_image', array(
+                    'required' => false,
+                    'with_remove' => true
+                ))
+                ->add('videos', 'collection', array(
+                    'type' => $this->container->get('armd_tvigle.type.tvigle'),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'attr' => array('class' => 'armd-sonata-tvigle-collection'),
+                    'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form'),
+                    )
+                ))
+//                ->add('videos', 'sonata_type_model',
+//                    array(
+//                        'required' => false,
+//                        'multiple' => true,
+//                        'expanded' => true,
+//                        'attr' => array('style' => 'height: 250px')
+//                    ))
+//                ->add('videos', 'sonata_type_admin')
+//                ->add('videos', 'collection', array(
+//                    'type' => 'sonata_type_admin',
+//                    'by_reference' => false,
+//                    'allow_add' => true,
+//                    'allow_delete' => true,
+//                    'required' => false,
+//                    'options' => array('sonata_field_description' => array(
+//                        'admin' => 'armd_tvigle.admin.tvigle',
+//                    ))
 
-//        array(
-//            'link_parameters'=>array('context'=>'atlas'),
-//        ))
-
+//                ))
             ->end();
+//        echo get_class($this->container->get('armd_tvigle.admin.tvigle'));
         parent::configureFormFields($formMapper);
     }
 

@@ -8,7 +8,7 @@ framework:
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
-        strict_parameters: %kernel.debug%
+#        strict_parameters: %kernel.debug%
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
@@ -23,6 +23,9 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         progorod_api_key: %progorod_api_key%
+    form:
+        resources:
+            - 'ArmdAtlasBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -78,6 +81,8 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
+    templates:
+        layout:  ::admin_base.html.twig
 
 sonata_block:
     default_contexts: [cms]
@@ -107,16 +112,6 @@ sonata_media:
                 small: { width: 100 , quality: 90}
                 big:   { width: 500, quality: 90}
                 billboard: { width: 231, height: 194}
-
-        atlas:
-            providers:
-                - sonata.media.provider.image
-            formats:
-                adminPreview: { width: 314 , height: 187, quality: 90}
-                small: { width: 100, quality: 90}
-                big:   { width: 500, quality: 90}
-                billboard: { width: 231, height: 194}
-
 
     cdn:
         server:
@@ -183,3 +178,4 @@ armd_tvigle:
     video_directory:  %kernel.root_dir%/../web/uploads/video
     video_url:  /uploads/video/
     video_url_callback:  http://mk.dev.armd.ru/video/callback/
+    video_host: http://mk.dev.armd.ru

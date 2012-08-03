@@ -2,7 +2,7 @@ parameters:
     database_driver:   pdo_pgsql
     database_host:     localhost
     database_port:     ~
-    database_name:     mk
+    database_name:     mk_my
     database_user:     postgres
     database_password: qazwsx12
 

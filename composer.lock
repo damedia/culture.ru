@@ -1,5 +1,5 @@
 {
-    "hash": "c8bc743821a319dbe06f03d345cd2808",
+    "hash": "52978fe9d3e615d19ba924289a845e66",
     "packages": [
         {
             "package": "doctrine/common",
@@ -26,8 +26,8 @@
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
-            "source-reference": "62134e6a8dd3f330131ee6a970f0cee1d7760c1d",
-            "commit-date": "1343203511"
+            "source-reference": "ed8d02b491512f947fdb2f8b665dc8fd72b5879c",
+            "commit-date": "1343657020"
         },
         {
             "package": "doctrine/doctrine-fixtures-bundle",
@@ -68,32 +68,20 @@
         {
             "package": "friendsofsymfony/rest-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "0.8.x-dev",
-            "alias-version": "0.8.9999999.9999999-dev"
-        },
-        {
-            "package": "friendsofsymfony/rest-bundle",
-            "version": "dev-master",
             "source-reference": "2e265e6cfa61377d3fa168938e806af365df4400",
             "commit-date": "1343492830"
         },
         {
             "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
-            "source-reference": "93b174df2ca884a70ecd99cd12adc29c378ca053",
-            "commit-date": "1342876759"
+            "source-reference": "7a9d20e69ac0363432fae86523776b14592993d7",
+            "commit-date": "1343834547"
         },
         {
             "package": "gedmo/doctrine-extensions",
             "version": "dev-master",
-            "alias-pretty-version": "2.3.x-dev",
-            "alias-version": "2.3.9999999.9999999-dev"
-        },
-        {
-            "package": "gedmo/doctrine-extensions",
-            "version": "dev-master",
-            "source-reference": "ad263cf7112bd1f725db407266874f390a73917e",
-            "commit-date": "1343504231"
+            "source-reference": "c801d6f5d9f768680a7f71dc4f27c8cb11acd0af",
+            "commit-date": "1343804719"
         },
         {
             "package": "imagine/Imagine",
@@ -111,7 +99,15 @@
         },
         {
             "package": "jms/di-extra-bundle",
-            "version": "1.0.1"
+            "version": "dev-master",
+            "alias-pretty-version": "1.1.x-dev",
+            "alias-version": "1.1.9999999.9999999-dev"
+        },
+        {
+            "package": "jms/di-extra-bundle",
+            "version": "dev-master",
+            "source-reference": "912519a3dafc6318c781bd00a9ef7ff790b2c321",
+            "commit-date": "1343737883"
         },
         {
             "package": "jms/metadata",
@@ -119,7 +115,15 @@
         },
         {
             "package": "jms/security-extra-bundle",
-            "version": "1.1.0"
+            "version": "dev-master",
+            "alias-pretty-version": "1.2.x-dev",
+            "alias-version": "1.2.9999999.9999999-dev"
+        },
+        {
+            "package": "jms/security-extra-bundle",
+            "version": "dev-master",
+            "source-reference": "75b21cce40f7714f462deb4292f093a566958b02",
+            "commit-date": "1343654921"
         },
         {
             "package": "jms/serializer-bundle",
@@ -130,14 +134,14 @@
         {
             "package": "jms/serializer-bundle",
             "version": "dev-master",
-            "source-reference": "6bd1105030c7cc12fbd8ac64cb3a926777806045",
-            "commit-date": "1342557364"
+            "source-reference": "1f308a587742246e87e580290f3bae23073d1d70",
+            "commit-date": "1343641450"
         },
         {
             "package": "knplabs/gaufrette",
             "version": "dev-master",
-            "source-reference": "67df02e98ac63e28670c2032f15331276869c89e",
-            "commit-date": "1340261986"
+            "source-reference": "e2382038d69dca517a3b8976a2de855da956ce12",
+            "commit-date": "1343735447"
         },
         {
             "package": "knplabs/knp-components",
@@ -158,8 +162,8 @@
         {
             "package": "knplabs/knp-paginator-bundle",
             "version": "dev-master",
-            "source-reference": "427db8350ae57659645ba35480bbe1194c1c695f",
-            "commit-date": "1339165136"
+            "source-reference": "de439d2816fe984dbe0c438fd4d0d7c67748c5ff",
+            "commit-date": "1343676956"
         },
         {
             "package": "kriswallsmith/assetic",
@@ -170,8 +174,8 @@
         {
             "package": "kriswallsmith/assetic",
             "version": "dev-master",
-            "source-reference": "c518a48ddc26af898191410cc35f7f30aaed448e",
-            "commit-date": "1343084248"
+            "source-reference": "11324294acf2dcf6b7f7cb0c4f35fd77e6f01cb7",
+            "commit-date": "1343684910"
         },
         {
             "package": "kriswallsmith/buzz",
@@ -198,8 +202,8 @@
         {
             "package": "sensio/framework-extra-bundle",
             "version": "dev-master",
-            "source-reference": "a0d76a65aeb70be6f25754a4482e84a9a28fb614",
-            "commit-date": "1343456386"
+            "source-reference": "dbe4432742e16ee9ca550a2f953b059f0a80c53d",
+            "commit-date": "1343637454"
         },
         {
             "package": "sensio/generator-bundle",
@@ -210,20 +214,20 @@
         {
             "package": "sonata-project/admin-bundle",
             "version": "dev-master",
-            "source-reference": "47fdb8677041d896b3443705e5906af3850430e2",
-            "commit-date": "1343598892"
+            "source-reference": "1f45890cc86ff6b8dc69612b5c0832f89fd8997c",
+            "commit-date": "1343838152"
         },
         {
             "package": "sonata-project/block-bundle",
             "version": "dev-master",
-            "source-reference": "9bf4ff5bd675660d46c4cd8c5238d5ce434d03c6",
-            "commit-date": "1343343183"
+            "source-reference": "4eaa80db98229598e18b16663172d9063e18e732",
+            "commit-date": "1343732144"
         },
         {
             "package": "sonata-project/cache-bundle",
             "version": "dev-master",
-            "source-reference": "921309636b5f062c78bfde2c7dcdda2d820f0a4e",
-            "commit-date": "1342907451"
+            "source-reference": "a555a92e369d85279a2f1dcdcfd3a97fd513abd3",
+            "commit-date": "1343731563"
         },
         {
             "package": "sonata-project/doctrine-extensions",
@@ -234,14 +238,14 @@
         {
             "package": "sonata-project/doctrine-orm-admin-bundle",
             "version": "dev-master",
-            "source-reference": "aff26e9b857e6e8e4c80629debce90ad560e1708",
-            "commit-date": "1343578015"
+            "source-reference": "4cc933465559a650a3455210046bb33945b75e64",
+            "commit-date": "1343836769"
         },
         {
             "package": "sonata-project/easy-extends-bundle",
             "version": "dev-master",
-            "source-reference": "643baef65930a9d05844b3ebb095304ad3127978",
-            "commit-date": "1341350670"
+            "source-reference": "4590e4ee970c031deae56c7cd18f71f77aeceb3c",
+            "commit-date": "1343805856"
         },
         {
             "package": "sonata-project/exporter",
@@ -258,8 +262,8 @@
         {
             "package": "sonata-project/media-bundle",
             "version": "dev-master",
-            "source-reference": "a9ea8400ea78c336d2b44ca55b0087812ee4b124",
-            "commit-date": "1343134478"
+            "source-reference": "8fbf7373d121df9284565d33315f38a2de75829f",
+            "commit-date": "1343730514"
         },
         {
             "package": "sonata-project/notification-bundle",
@@ -270,8 +274,8 @@
         {
             "package": "sonata-project/user-bundle",
             "version": "dev-master",
-            "source-reference": "9c79c5f3d87acd3694f0d21d0b2de31b0e23da41",
-            "commit-date": "1343162018"
+            "source-reference": "481f57bae54b69b01e79bff568d389c5935c622e",
+            "commit-date": "1343688637"
         },
         {
             "package": "stof/doctrine-extensions-bundle",
@@ -294,8 +298,8 @@
         {
             "package": "symfony/assetic-bundle",
             "version": "dev-master",
-            "source-reference": "a5daf7ca4588f88105c808de9a28ba1e66bfa082",
-            "commit-date": "1343161458"
+            "source-reference": "0c09207be07b044e06d28a4111f554f071e5b658",
+            "commit-date": "1343812720"
         },
         {
             "package": "symfony/monolog-bundle",
@@ -318,8 +322,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "6b39ebc4f8b4d5e3bb7ba4350cd5175f12fc8510",
-            "commit-date": "1343572385"
+            "source-reference": "b1618d210cb7e27036edcea9c163a94167e7df59",
+            "commit-date": "1343747192"
         },
         {
             "package": "twig/extensions",

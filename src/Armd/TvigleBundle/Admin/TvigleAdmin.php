@@ -49,7 +49,8 @@ class TvigleAdmin extends Admin
                 ->add('description')
                 ->add('city')
                 ->add('location')
-                ->add('filename', 'choice', array('choices' => $video_files, 'property_path' => false))
+//                ->add('filename', 'choice', array('choices' => $video_files, 'property_path' => false))
+                ->add('filename', 'choice', array('choices' => $video_files))
             ->end();
     }
 
@@ -72,7 +73,7 @@ class TvigleAdmin extends Admin
      *
      * @return void
      */
-    protected function getVideoFileField()
+    public function getVideoFileField()
     {
         $videoPath = $this->container->get('armd_tvigle.configuration_pool')->getOption('video_directory');
         if(!$videoPath || !file_exists($videoPath) || !$handle = opendir($videoPath)) {

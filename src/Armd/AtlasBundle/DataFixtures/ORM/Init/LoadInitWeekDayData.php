@@ -1,12 +1,12 @@
 <?php
-namespace Armd\AtlasBundle\DataFixtures\ORM;
+namespace Armd\AtlasBundle\DataFixtures\ORM\Init;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Armd\AtlasBundle\Entity\WeekDay;
 
-class LoadWeekDayData extends AbstractFixture implements OrderedFixtureInterface
+class LoadInitWeekDayData extends AbstractFixture implements OrderedFixtureInterface
 {
 
     /**

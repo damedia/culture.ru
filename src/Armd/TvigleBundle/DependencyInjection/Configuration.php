@@ -25,6 +25,11 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('video_directory')->defaultValue('%kernel.root_dir%/../web/uploads/video')->end()
                 ->scalarNode('video_url')->defaultValue('/uploads/video/')->end()
                 ->scalarNode('video_url_callback')->defaultValue('')->end()
+                ->scalarNode('video_host')
+                    ->cannotBeEmpty()
+                    ->example('http://mk.dev.armd.ru')
+                    ->info('Base site url')
+                 ->end()
             ->end();
 
         return $treeBuilder;

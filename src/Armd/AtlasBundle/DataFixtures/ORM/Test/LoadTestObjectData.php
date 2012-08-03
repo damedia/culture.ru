@@ -1,5 +1,5 @@
 <?php
-namespace Armd\AtlasBundle\DataFixtures\ORM;
+namespace Armd\AtlasBundle\DataFixtures\ORM\Test;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
@@ -28,7 +28,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         $this->om = $manager;
 
         $parser = new Parser();
-        $data = $parser->parse(file_get_contents(__DIR__ . '/../../Resources/fixtures/test_objects.yml'));
+        $data = $parser->parse(file_get_contents(__DIR__ . '/../../../Resources/fixtures/test_objects.yml'));
 
         foreach ($data['objects'] as $objectData) {
             $object = $this->createObject($objectData);
@@ -64,21 +64,29 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         }
 
         if(!empty($data['images'])) {
-            $object->setImageGallery($this->createGallery($data['images']));
-//            foreach($data['images'] as $fileName) {
-//                $object->addImage($this->createMediaImage($fileName));
-//            }
+            foreach($data['images'] as $fileName) {
+                $object->addImage($this->createMediaImage($fileName));
+            }
         }
 
         if(!empty($data['archiveImages'])) {
-            $object->setArchiveImageGallery($this->createGallery($data['archiveImages']));
-//            foreach($data['archiveImages'] as $fileName) {
-//                $object->addArchiveImage($this->createMediaImage($fileName));
-//            }
+            foreach($data['archiveImages'] as $fileName) {
+                $object->addArchiveImage($this->createMediaImage($fileName));
+            }
         }
 
         if(!empty($data['image3d'])) {
             $object->setImage3d($this->createMediaImage($data['image3d']));
+        }
+
+        if(!empty($data['videos'])) {
+            foreach($data['videos'] as $videoRef) {
+                $video = $this->getReference('armd.atlas.tvigle.' . $videoRef);
+                if(empty($video)) {
+                    throw new \InvalidArgumentException('Category reference ' . $videoRef . ' not found');
+                }
+                $object->addVideo($video);
+            }
         }
 
         if(!empty($data['categories'])) {
@@ -96,7 +104,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
     }
 
     function createMediaImage($fileName) {
-        $filePath = __DIR__ . '/../../Resources/fixtures/images/' . $fileName;
+        $filePath = __DIR__ . '/../../../Resources/fixtures/images/' . $fileName;
         if(!file_exists($filePath)) {
             throw new \InvalidArgumentException('Media file not found ' . $fileName);
         }
@@ -107,33 +115,33 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         return $media;
     }
 
-    function createGallery(array $fileNames)
-    {
-        $gallery = new Gallery();
-        $gallery->setContext($this->getContext());
-        $gallery->setEnabled(true);
-        $gallery->setName('gallery' . $this->galleryNum++);
-
-        $galleryHasMedias = array();
-        foreach($fileNames as $fileName) {
-            $media = $this->createMediaImage($fileName);
-            $this->om->persist($media);
-
-            $galleryHasMedia = new GalleryHasMedia();
-            $galleryHasMedia->setEnabled(true);
-            $galleryHasMedia->setMedia($media);
-            $this->om->persist($galleryHasMedia);
-
-            $galleryHasMedias[] = $galleryHasMedia;
-        }
-        $gallery->setGalleryHasMedias($galleryHasMedias);
-        $gallery->setDefaultFormat('small');
-        $this->om->persist($gallery);
-        return $gallery;
-    }
+//    function createGallery(array $fileNames)
+//    {
+//        $gallery = new Gallery();
+//        $gallery->setContext($this->getContext());
+//        $gallery->setEnabled(true);
+//        $gallery->setName('gallery' . $this->galleryNum++);
+//
+//        $galleryHasMedias = array();
+//        foreach($fileNames as $fileName) {
+//            $media = $this->createMediaImage($fileName);
+//            $this->om->persist($media);
+//
+//            $galleryHasMedia = new GalleryHasMedia();
+//            $galleryHasMedia->setEnabled(true);
+//            $galleryHasMedia->setMedia($media);
+//            $this->om->persist($galleryHasMedia);
+//
+//            $galleryHasMedias[] = $galleryHasMedia;
+//        }
+//        $gallery->setGalleryHasMedias($galleryHasMedias);
+//        $gallery->setDefaultFormat('small');
+//        $this->om->persist($gallery);
+//        return $gallery;
+//    }
 
     function getContext() {
-        return 'atlas';
+        return 'default';
     }
 
     /**

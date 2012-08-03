@@ -68,6 +68,13 @@ class Tvigle
      */
     private $status;
 
+    private $filename;
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * Get id
      *
@@ -298,5 +305,15 @@ class Tvigle
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
     }
 }

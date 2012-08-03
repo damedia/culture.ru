@@ -1,5 +1,5 @@
 <?php
-namespace Armd\AtlasBundle\DataFixtures\ORM;
+namespace Armd\AtlasBundle\DataFixtures\ORM\Test;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -10,7 +10,7 @@ use Application\Sonata\UserBundle\Entity\User;
 use Application\Sonata\UserBundle\Entity\Group;
 use Application\Sonata\UserBundle\Entity\UserManager;
 
-class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
+class LoadTestUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
 {
     private $container;
 

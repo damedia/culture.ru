@@ -1,5 +1,5 @@
 <?php
-namespace Armd\AtlasBundle\DataFixtures\ORM;
+namespace Armd\AtlasBundle\DataFixtures\ORM\Test;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -23,7 +23,7 @@ class LoadTestCategoryData extends AbstractFixture implements OrderedFixtureInte
         $manager->persist($rootCategory);
 
         $parser = new Parser();
-        $data = $parser->parse(file_get_contents(__DIR__ . '/../../Resources/fixtures/test_categories.yml'));
+        $data = $parser->parse(file_get_contents(__DIR__ . '/../../../Resources/fixtures/test_categories.yml'));
 
         foreach ($data['categories'] as $categoryData) {
             $this->saveCategory($manager, $categoryData, $rootCategory);

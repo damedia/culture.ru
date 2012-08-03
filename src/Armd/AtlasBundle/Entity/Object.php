@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Object
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -82,35 +83,24 @@ class Object
      */
     private $weekends;
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
-//     * @ORM\JoinTable(name="atlas_object_image")
-//     */
-//    private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
-     * @ORM\JoinColumn(name="image_gallery_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="atlas_object_image")
      */
-    private $imageGallery;
-
-//    /**
-//     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
-//     * @ORM\JoinTable(name="atlas_object_video")
-//     */
-//    private $videos;
-
-//    /**
-//     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
-//     * @ORM\JoinTable(name="atlas_object_archive_image")
-//     */
-//    private $archiveImages;
+    private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
-     * @ORM\JoinColumn(name="archive_image_gallery_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="atlas_object_archive_image")
      */
-    private $archiveImageGallery;
+    private $archiveImages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Armd\TvigleBundle\Entity\Tvigle", cascade={"persist"})
+     * @ORM\JoinTable(name="atlas_object_video")
+     */
+    private $videos;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
@@ -132,8 +122,8 @@ class Object
     {
         $this->categories = new ArrayCollection();
         $this->weekends = new ArrayCollection();
-        $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->archiveImages = new ArrayCollection();
     }
 
@@ -219,7 +209,7 @@ class Object
     /**
      * Add category
      *
-     * @param Armd\AtlasBundle\Entity\Category $category
+     * @param \Armd\AtlasBundle\Entity\Category $category
      * @return Object
      */
     public function addCategory(\Armd\AtlasBundle\Entity\Category $category)
@@ -233,7 +223,7 @@ class Object
     /**
      * Remove category
      *
-     * @param Armd\AtlasBundle\Entity\Category $category
+     * @param \Armd\AtlasBundle\Entity\Category $category
      */
     public function removeCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
@@ -244,7 +234,7 @@ class Object
     /**
      * Get categories
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
@@ -458,7 +448,7 @@ class Object
     /**
      * Add weekends
      *
-     * @param Armd\AtlasBundle\Entity\WeekDay $weekends
+     * @param \Armd\AtlasBundle\Entity\WeekDay $weekends
      * @return Object
      */
     public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekend)
@@ -480,52 +470,21 @@ class Object
     /**
      * Get weekends
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getWeekends()
     {
         return $this->weekends;
     }
 
-    /**
-     * Add images
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Media $images
-     * @return Object
-     */
-    public function addImage(\Application\Sonata\MediaBundle\Entity\Media $images)
-    {
-        $this->images[] = $images;
-        return $this;
-    }
-
-    /**
-     * Remove images
-     *
-     * @param <variableType$images
-     */
-    public function removeImage(\Application\Sonata\MediaBundle\Entity\Media $images)
-    {
-        $this->images->removeElement($images);
-    }
-
-    /**
-     * Get images
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
 
     /**
      * Add videos
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $videos
+     * @param \Armd\TvigleBundle\Entity\Tvigle $videos
      * @return Object
      */
-    public function addVideo(\Application\Sonata\MediaBundle\Entity\Media $videos)
+    public function addVideo(\Armd\TvigleBundle\Entity\Tvigle $videos)
     {
         $this->videos[] = $videos;
         return $this;
@@ -534,9 +493,9 @@ class Object
     /**
      * Remove videos
      *
-     * @param <variableType$videos
+     * @param \Armd\TvigleBundle\Entity\Tvigle $videos
      */
-    public function removeVideo(\Application\Sonata\MediaBundle\Entity\Media $videos)
+    public function removeVideo(\Armd\TvigleBundle\Entity\Tvigle $videos)
     {
         $this->videos->removeElement($videos);
     }
@@ -544,61 +503,38 @@ class Object
     /**
      * Get videos
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVideos()
     {
         return $this->videos;
     }
 
-    /**
-     * Add archiveImages
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Media $archiveImages
-     * @return Object
-     */
-    public function addArchiveImage(\Application\Sonata\MediaBundle\Entity\Media $archiveImages)
+    public function setVideos($videos)
     {
-        $this->archiveImages[] = $archiveImages;
-        return $this;
+        $this->videos = $videos;
     }
 
-    /**
-     * Remove archiveImages
-     *
-     * @param <variableType$archiveImages
-     */
-    public function removeArchiveImage(\Application\Sonata\MediaBundle\Entity\Media $archiveImages)
-    {
-        $this->archiveImages->removeElement($archiveImages);
-    }
-
-    /**
-     * Get archiveImages
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getArchiveImages()
-    {
-        return $this->archiveImages;
-    }
 
     /**
      * Set image3d
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image3d
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image3d
      * @return Object
      */
     public function setImage3d(\Application\Sonata\MediaBundle\Entity\Media $image3d = null)
     {
-        $this->image3d = $image3d;
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if(is_object($image3d) && strlen($image3d->getProviderName()) || is_null($image3d)) {
+            $this->image3d = $image3d;
+        }
         return $this;
     }
 
     /**
      * Get image3d
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage3d()
     {
@@ -606,48 +542,45 @@ class Object
     }
 
 
-    /**
-     * Set imageGallery
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $imageGallery
-     * @return Object
-     */
-    public function setImageGallery(\Application\Sonata\MediaBundle\Entity\Gallery $imageGallery = null)
+
+    public function getImages()
     {
-        $this->imageGallery = $imageGallery;
-        return $this;
+        return $this->images;
     }
 
-    /**
-     * Get imageGallery
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
-     */
-    public function getImageGallery()
+    public function setImages($images)
     {
-        return $this->imageGallery;
+        $this->images = $images;
     }
 
-    /**
-     * Set archiveImageGallery
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $archiveImageGallery
-     * @return Object
-     */
-    public function setArchiveImageGallery(\Application\Sonata\MediaBundle\Entity\Gallery $archiveImageGallery = null)
+    public function removeImage($image)
     {
-        $this->archiveImageGallery = $archiveImageGallery;
-        return $this;
+        $this->images->removeElement($image);
     }
 
-    /**
-     * Get archiveImageGallery
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
-     */
-    public function getArchiveImageGallery()
+    public function addImage($image)
     {
-        return $this->archiveImageGallery;
+        $this->images[] = $image;
+    }
+
+    public function getArchiveImages()
+    {
+        return $this->archiveImages;
+    }
+
+    public function setArchiveImages($archiveImages)
+    {
+        $this->archiveImages = $archiveImages;
+    }
+
+    public function removeArchiveImage($archiveImage)
+    {
+        $this->archiveImages->removeElement($archiveImage);
+    }
+
+    public function addArchiveImage($archiveImage)
+    {
+        $this->archiveImages[] = $archiveImage;
     }
 
 

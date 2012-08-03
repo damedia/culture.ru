@@ -1,14 +1,8 @@
 services:
-    sonata.admin.armd.atlas.category:
-        class: Armd\AtlasBundle\Admin\CategoryAdmin
+    armd_atlas.listener.media:
+        class: Armd\AtlasBundle\Listener\MediaListener
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Categories, show_in_dashboard: true }
-        arguments: [null, Armd\AtlasBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
-
-
-    sonata.admin.armd.atlas.object:
-        class: Armd\AtlasBundle\Admin\ObjectAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Objects, show_in_dashboard: true }
-        arguments: [null, Armd\AtlasBundle\Entity\Object, SonataAdminBundle:CRUD, @service_container]
-
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@sonata.media.provider.image]

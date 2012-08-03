@@ -6,8 +6,8 @@ objects:
       email: test@example.org
       phone: +7 (495) 123 45678
       address: Москва, ул. Московская д.5
-      lat:
-      lon:
+      lat: 59.219216
+      lon: 39.890553
       categories: [museum_flat, museum_house]
       workTime: 12:00-19:00
       weekends: [day6, day7]
@@ -15,6 +15,7 @@ objects:
       archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
+      videos: [video2, video3]
 
     - title: Музей-квартира чехова
       announce: Музей-квартира чехова announce
@@ -23,13 +24,14 @@ objects:
       email: test@example.org
       phone: +7 (495) 123 45678
       address: Москва, ул. Московская д.5
-      lat:
-      lon:
+      lat: 59.221114
+      lon: 39.886753
       categories: [museum_flat]
       workTime: 12:00-19:00
       weekends: [day1]
       images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
       virtualTour: http://ya.ru
+      videos: [video1]
 
     - title: Библиотека имени ленина
       announce: Библиотека имени ленина announce
@@ -38,8 +40,8 @@ objects:
       email: test@example.org
       phone: +7 (495) 123 45678
       address: Москва, ул. Московская д.5
-      lat:
-      lon:
+      lat: 59.235469
+      lon: 39.904629
       categories: [library]
       workTime: 12:00-19:00
       weekends: [day7]
@@ -47,3 +49,4 @@ objects:
       archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
+      videos: [video1, video2, video3]

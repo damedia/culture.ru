@@ -37,15 +37,19 @@ class DBEventListener
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if($entity instanceof Tvigle) {
+        if($entity instanceof Tvigle && strlen($entity->getTvigleId()) > 0) {
 
-            $videoUrlBase = $this->container->get('armd_tvigle.configuration_pool')->getOption('video_url');
-            $key = $this->container->get('request')->request->keys();
-            $key = $key[0];
-            $requestData = $this->container->get('request')->get($key);
-            $filename = $requestData['filename'];
-            $request = $this->container->get('request');
-            $video_url = $request->getScheme().'://'.$request->getHttpHost(). $videoUrlBase.$filename;
+            $configPool = $this->container->get('armd_tvigle.configuration_pool');
+            $videoUrlBase = $configPool->getOption('video_host') . $configPool->getOption('video_url');
+
+//            $key = $this->container->get('request')->request->keys();
+//            $key = $key[0];
+//            $requestData = $this->container->get('request')->get($key);
+//            $filename = $requestData['filename'];
+
+//            $request = $this->container->get('request');
+//            $video_url = $request->getScheme().'://'.$request->getHttpHost(). $videoUrlBase.$filename;
+            $video_url = $videoUrlBase.$entity->getFilename();
 
             $entityManager = $args->getEntityManager();
             $tvigleTask = new TvigleTask();

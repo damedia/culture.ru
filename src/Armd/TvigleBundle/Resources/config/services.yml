@@ -8,3 +8,7 @@ services:
 
     armd_tvigle.configuration_pool:
         class: Armd\TvigleBundle\Pool\ConfigurationPool
+
+    armd_tvigle.type.tvigle:
+        class: Armd\TvigleBundle\Form\Type\TvigleType
+        arguments: [@service_container]
