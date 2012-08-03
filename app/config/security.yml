@@ -54,12 +54,12 @@ security:
                 login_path:     /login
                 use_forward:    false
                 check_path:     /login_check
-                default_target_path: /cp
+                default_target_path: armd_news_list_index
                 failure_path:   null
                 use_referer:    true
             logout:
                 path:           /logout
-                target:         cp
+                target:         armd_news_list_index
             anonymous:          true
             loginza:
                 login_route: _loginza_login_user

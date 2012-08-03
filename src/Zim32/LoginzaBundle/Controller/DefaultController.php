@@ -26,7 +26,7 @@ class DefaultController extends Controller
         $token = $this->container->get('security.context')->getToken();
         if(!$token instanceof \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken) {
             return $this->redirect(
-                $this->generateUrl("cp")
+                $this->generateUrl("armd_news_list_index")
             );
         }
 
@@ -77,6 +77,7 @@ class DefaultController extends Controller
                     $em->persist($user);
                     $em->flush();
                 } catch (\PDOException $e) {
+                    die('rdr');
                     return $this->redirect(
                         $this->generateUrl("_loginza_social_reg", array('error' => 1))
                     );
@@ -89,7 +90,7 @@ class DefaultController extends Controller
 
                 $this->container->get('security.context')->setToken($token);
                 return $this->redirect(
-                    $this->generateUrl("cp")
+                    $this->generateUrl("armd_news_list_index")
                 );
             }
         }

@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class ApplicationSonataUserExtension extends Extension
+class ArmdUserExtension extends Extension
 {
     /**
      * {@inheritDoc}

@@ -88,6 +88,10 @@ sonata_block:
 
 sonata_user:
     security_acl: true
+    class:
+        user:   Armd\UserBundle\Entity\User
+        group:  Armd\UserBundle\Entity\Group
+
     
 sonata_media:
     default_context: news
