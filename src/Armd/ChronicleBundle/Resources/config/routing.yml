@@ -1,0 +1,3 @@
+armd_chronicle:
+    resource: "@ArmdChronicleBundle/Controller/EventController.php"
+    type: annotation

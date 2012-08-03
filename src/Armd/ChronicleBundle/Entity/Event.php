@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Armd\ChronicleBundle\Entity\Event
  *
- * @ORM\Entity 
+ * @ORM\Entity(repositoryClass="Armd\ChronicleBundle\Repository\EventRepository")
  * @ORM\Table(name="content_chronicle_event")
  * @ORM\HasLifecycleCallbacks 
  */

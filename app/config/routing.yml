@@ -63,6 +63,10 @@ armd_news:
     type: annotation
     prefix: /press-centre
 
+armd_chronicle:
+    resource: '@ArmdChronicleBundle/Resources/config/routing.yml'
+    prefix:   /chronicle
+
 armd_banner:
     resource: "@ArmdBannerBundle/Controller/BannerController.php"
     type: annotation
