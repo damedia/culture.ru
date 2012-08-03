@@ -39,12 +39,12 @@ class DefaultController extends Controller
         $user->setEmail($loginzaData['email']);
 
         $form = $this->createFormBuilder( $user )
-            ->add('email', 'text')
-            ->add('userName', 'text')
+            ->add('email', 'text', array('label' => 'E-mail '))
+            ->add('userName', 'text', array('label' => 'Логин '))
             ->getForm();
 
         if($request->get('error')) {
-            $form->addError(new \Symfony\Component\Form\FormError('Email or login exists'));
+            $form->addError(new \Symfony\Component\Form\FormError('Указанный логин или email уже зарегистрирован'));
         }
 
         return $this->render('Zim32LoginzaBundle:UserProfile:email.html.twig', array('form' => $form->createView()));
