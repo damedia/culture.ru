@@ -28,8 +28,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
-            new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
 
+            new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -38,14 +38,13 @@ class AppKernel extends Kernel
             new Sonata\MediaBundle\SonataMediaBundle(),            
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),            
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\AtlasBundle\ArmdAtlasBundle(),
-            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),            
+            new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
             new Armd\CommentBundle\ArmdCommentBundle(),
             new Armd\ListBundle\ArmdListBundle(),
             new Armd\NewsBundle\ArmdNewsBundle(),
-
-            new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
             //new Armd\MainBundle\ArmdMainBundle(),
             new Armd\ChronicleBundle\ArmdChronicleBundle(),
             new Armd\BannerBundle\ArmdBannerBundle()
