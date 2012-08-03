@@ -5,12 +5,13 @@
         "psr-0": { "": "src/" }
     },
     "repositories":{
-        "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" }
+        "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
+        "armd/comment":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" }
     },
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.1.*",
-        "doctrine/orm": "2.2.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "dev-master",
         "twig/extensions": "dev-master",
         "symfony/assetic-bundle": "dev-master",
@@ -23,6 +24,7 @@
         "jms/serializer-bundle": "*",
         "jms/di-extra-bundle": "1.1.*",
 
+        "doctrine/doctrine-migrations-bundle": "master",
         "friendsofsymfony/comment-bundle": "*",
         "friendsofsymfony/jsrouting-bundle": "master",
         "stof/doctrine-extensions-bundle": "*",
@@ -34,9 +36,9 @@
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/media-bundle": "master",
         "kriswallsmith/buzz": "master",
+        
         "armd/banner-bundle": "*",
-        "doctrine/doctrine-migrations-bundle": "master"
-
+        "armd/comment": "*"
     },
     "scripts": {
         "post-install-cmd": [
