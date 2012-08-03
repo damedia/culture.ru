@@ -1558,6 +1558,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			.news-one-image {
 				float:right;
 				margin:0 0 10px 10px;
+				width:366px;
 			}
 				.news-one-image {
 					
@@ -1565,6 +1566,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 				.text p.image-source, .image-source {
 					font-size:12px;
 					margin:8px 0 0;
+					color:#8E8E8E;
+					text-align:left;
 				}  
 			
 			.highlight-text {
@@ -1586,10 +1589,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 				margin-top:30px;
 			}
 			.news-one .share {
-				border-top:1px solid #d1d1d1;
+				/*border-top:1px solid #d1d1d1;*/
 				padding-top:10px;
 				font-size:12px;
 				margin-top:20px;
+				margin-bottom:30px;
 			}
 				.share {
 					text-align:right;
@@ -1674,6 +1678,53 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 						color:#f47e00;
 						font-weight:normal;
 					}
+					
+					
+				.comments .header {
+					font-size:15px;
+					margin-bottom:15px;
+				}
+					.comments-block {
+						
+					}
+						.comment {
+							border:1px solid #dfdfdf;
+							padding:18px 10px 22px 15px;
+							line-heightr:18px;
+						}
+						.comment-author {
+							background:url('../img/comments_bg.gif') no-repeat 10px 0;
+							color:#59adf3;
+							padding:5px 0 10px 29px;
+							margin-top:-1px;
+							position:relative;
+						}	
+							.comment-author span {
+								color:#696969;
+								margin-left:10px;
+							}
+		
+				.comments-form {
+					margin-top:30px;
+				}
+					.comments-form textarea {
+						width:98%;
+						padding:1%;
+						border:1px solid #c3c3c3;
+						height:115px;
+						font-family:Arial, Helvetica, sans-serif;
+					}
+					.comments-form 	.button {
+						float:right;
+					}
+						.button {
+							background:url('../img/send-button-bg.png') repeat-x 0 0;
+							color:#fff;
+							border:0;
+							margin:10px 0 0;
+							padding:5px 10px;
+
+						}			
 
 
 /*dirty css*/
