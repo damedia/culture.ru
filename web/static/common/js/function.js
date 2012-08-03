@@ -380,6 +380,33 @@ $(document).ready(function(){
 			return false;
 		})
 		
+		
+		/*INDEX TABS*/
+		$('.indextabs span').click(function(){
+			if(!$(this).hasClass('active')) {
+				var thisId = $(this).attr('id');
+				$(this).toggleClass('active').siblings().removeClass('active');
+				$('#'+thisId+'_tab').show().siblings('div.indextab').hide();
+				if(thisId == 'rusObrTab') {
+					$(this).closest('.title-block').addClass('orange');
+				} else {
+					$(this).closest('.title-block').removeClass('orange');
+				}
+			}
+		})
+		$('.rusObr-list-one').hover(function(){
+			var width = $(this).width(),
+				height = $(this).height(),
+				parHeight = $(this).parent().height();
+				console.log(parHeight);
+			
+			$(this).addClass('rusHovered').css({'width':width,'height':height});
+			
+		},function(){
+			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto'});
+			$(this).parent().css({'height':'auto'});
+		})
+		
 	});
 	
 	

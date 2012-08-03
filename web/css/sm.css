@@ -1965,3 +1965,20 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 						span.nextPage  {
 							background-position:100% -13px;
 						}
+						
+	#socialnetwork {
+    height:16px;
+    float:right;
+    padding-bottom:10px;
+    position:relative;
+   
+}
+
+	#socialnetwork a {
+		background:url(../img/socialnetwork.gif) 0 0 no-repeat;
+		margin:5px;
+		padding:8px;
+		overflow:hidden;
+		display:block;
+		float:left;
+	}					
