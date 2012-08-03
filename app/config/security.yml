@@ -64,8 +64,8 @@ security:
             loginza:
                 login_route: _loginza_login_user
                 token_route: _loginza_social_reg
-                secret_key: 17322cc0e68e0c86d67ee00c413d43bc
-                widget_id: 27475
+                secret_key: %loginza_secret_key%
+                widget_id: %loginza_widget_id%
                 entity: ArmdUserBundle:User
 
     access_control:
