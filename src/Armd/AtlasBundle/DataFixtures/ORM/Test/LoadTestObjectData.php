@@ -2,6 +2,7 @@
 namespace Armd\AtlasBundle\DataFixtures\ORM\Test;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -103,16 +104,24 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         return $object;
     }
 
-    function createMediaImage($fileName) {
+    public static function createMediaImage($fileName) {
+        $file = self::createUploadedFile($fileName);
+        $media = new Media();
+        $media->setBinaryContent($file);
+        $media->setContext(static::getContext());
+        $media->setProviderName('sonata.media.provider.image');
+        return $media;
+    }
+
+    public static function createUploadedFile($fileName)
+    {
         $filePath = __DIR__ . '/../../../Resources/fixtures/images/' . $fileName;
         if(!file_exists($filePath)) {
             throw new \InvalidArgumentException('Media file not found ' . $fileName);
         }
-        $media = new Media();
-        $media->setBinaryContent($filePath);
-        $media->setContext($this->getContext());
-        $media->setProviderName('sonata.media.provider.image');
-        return $media;
+
+        $file = new UploadedFile($filePath, $fileName);
+        return $file;
     }
 
 //    function createGallery(array $fileNames)
@@ -140,7 +149,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
 //        return $gallery;
 //    }
 
-    function getContext() {
+    public static function getContext() {
         return 'default';
     }
 

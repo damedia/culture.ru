@@ -185,6 +185,23 @@ class Tvigle
         return $this->duration;
     }
 
+    public function getDurationString()
+    {
+        $hours = floor($this->duration / 3600);
+        $durationLeft = $this->duration % 3600;
+
+        $mins = floor($durationLeft / 60);
+        $secs = $durationLeft % 60;
+
+        $durationString = '';
+        if($hours > 0) {
+            $durationString .= sprintf('%02d', $hours) . ':';
+        }
+        $durationString .= sprintf('%02d', $mins) . ':' . sprintf('%02d', $secs);
+
+        return $durationString;
+    }
+
     /**
      * Get duration as string
      *
