@@ -114,7 +114,7 @@ class Object
     private $virtualTour;
 
     /**
-     * @ORM\Column(name="show_at_homepage", type="boolean", length=255, nullable=false)
+     * @ORM\Column(name="show_at_homepage", type="boolean", length=255, nullable=true)
      */
     private $showAtHomepage = true;
 
