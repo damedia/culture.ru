@@ -59,6 +59,11 @@ class TaskProcessCommand extends ContainerAwareCommand
                     $video_url_callback.$video->getId(),
                     $video->getDescription()
                 );
+                \gFuncs::dbgWriteLogVar($video->getId(), false, 'AddTask id'); // DBG:
+                \gFuncs::dbgWriteLogVar($video->getTitle(), false, 'AddTask title'); // DBG:
+                \gFuncs::dbgWriteLogVar($task->getUrl(), false, 'AddTask url'); // DBG:
+                \gFuncs::dbgWriteLogVar($video_url_callback.$video->getId(), false, 'AddTask url1'); // DBG:
+                \gFuncs::dbgWriteLogVar($nId, false, 'AddTask nId'); // DBG:
 
                 $video->setTvigleId( $nId );
                 $em->persist($video);

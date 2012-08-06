@@ -115,6 +115,9 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
+                atlas3dimage: { width: 269, height: 207 }
+                atlasBigImage: { width: 575, height: 285 }
+                atlasThumbnail: { width: 85, height: 85 }
         news:
             download:
                 strategy: sonata.media.security.public_strategy

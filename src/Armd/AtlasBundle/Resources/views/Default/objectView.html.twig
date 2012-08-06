@@ -31,8 +31,8 @@
                             <ul class="thumbs noscript">
                                 {% for image in entity.images %}
                                 <li>
-                                    <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
-                                        <img src="{% path image, 'small' %}" />
+                                    <a class="thumb" name="leaf" href="{% path image, 'atlasBigImage' %}" title="">
+                                        <img src="{% path image, 'atlasThumbnailImage' %}" />
                                     </a>
                                 </li>
                                 {% endfor %}
