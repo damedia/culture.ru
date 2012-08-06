@@ -13,7 +13,8 @@ class MediaImageType extends AbstractType
         $builder->add('formImageFile', 'file', array(
             'label' => ' ',
             'required' => true
-        ));
+        ))
+        ->add('context', 'hidden', array('data' => 'atlas'));
 
         if(!empty($options['with_remove'])) {
             $builder->add('removeMedia', 'checkbox', array('label' => 'Удалить'));

@@ -150,7 +150,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
 //    }
 
     public static function getContext() {
-        return 'default';
+        return 'atlas';
     }
 
     /**

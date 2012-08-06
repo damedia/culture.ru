@@ -115,9 +115,6 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
-                atlas3dimage: { width: 269, height: 207 }
-                atlasBigImage: { width: 575, height: 285 }
-                atlasThumbnail: { width: 85, height: 85 }
         news:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -129,7 +126,19 @@ sonata_media:
                 billboard: { width: 366, height: 261}
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 124}
-                
+
+        atlas:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                image3d: { width: 269, height: 207 }
+                big: { width: 575, height: 285 }
+                thumbnail: { width: 85, height: 85 }
+
+
     cdn:
         server:
             path: /uploads/media # http://media.sonata-project.org/

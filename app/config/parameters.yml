@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_pgsql
     database_host:     localhost
     database_port:     ~
-    database_name:     mk_my
-    database_user:     postgres
-    database_password: qazwsx12
+    database_name:     mk
+    database_user:     mk
+    database_password: Fa3Sheer
 
     mailer_transport:  smtp
     mailer_host:       localhost
@@ -20,3 +20,6 @@ parameters:
         api_service_url:        http://pub.tvigle.ru/soap/index.php?wsdl
         api_login:       Stella_l
         api_password:    armada
+
+    loginza_secret_key: 17322cc0e68e0c86d67ee00c413d43bc
+    loginza_widget_id: 27475

@@ -6,9 +6,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Application\Sonata\UserBundle\Entity\User;
-use Application\Sonata\UserBundle\Entity\Group;
-use Application\Sonata\UserBundle\Entity\UserManager;
+use Armd\UserBundle\Entity\User;
+use Armd\UserBundle\Entity\Group;
+use Armd\UserBundle\Entity\UserManager;
 
 class LoadTestUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
 {

@@ -57,7 +57,7 @@ class Media extends BaseMedia
 
         $this->formImageFile = $formImageFile;
         $this->setBinaryContent($formImageFile);
-        $this->setContext('default');
+        //$this->setContext('default');
         $this->setProviderName('sonata.media.provider.image');
     }
 
