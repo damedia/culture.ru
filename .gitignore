@@ -9,5 +9,6 @@ vendor
 tmp/
 .idea/
 composer.phar
+/app/_debug.php
 *~
 /app/_debug.php

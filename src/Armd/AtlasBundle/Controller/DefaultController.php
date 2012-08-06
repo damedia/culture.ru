@@ -54,7 +54,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/object/{id}", requirements={"id"="\d+"})
+     * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view")
      * @Template()
      */
     public function objectViewAction($id)

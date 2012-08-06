@@ -12,7 +12,7 @@
         <div class="object-one clearfix">
             <div class="object-one-col12">
 
-
+                {% if entity.images|length > 0 %}
                 <div class="block obj-o-foto">
                     <div class="right-icons-block">
                         <a href="#" class="one-person"></a>
@@ -29,42 +29,67 @@
                             <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
 
                             <ul class="thumbs noscript">
+                                {% for image in entity.images %}
                                 <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/1.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/1_thumb.jpg') }}" />
+                                    <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
+                                        <img src="{% path image, 'small' %}" />
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/2.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/2_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/3.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/3_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/4.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/4_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/5.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/5_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/6.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/6_thumb.jpg') }}" />
-                                    </a>
-                                </li>
+                                {% endfor %}
+
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
+                                        {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
+                                    {#</a>#}
+                                {#</li>#}
+
                             </ul>
                             <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
                         </div>
                     </div>
                     <p class="all-list"><a href="#">Все фото</a></p>
                 </div>
+                {% endif %}
 
                 <div class="object-one-col1">
                     <div class="block object-videos">
@@ -72,19 +97,24 @@
                             <a href="#" class="one-person"></a>
                             <a href="#" class="three-persons"></a>
                         </div>
+
+                        {% if entity.videos|length > 0 %}
                         <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
                         <ul class="object-video-list">
+                            {% for video in entity.videos %}
                             <li class="object-video-list-one">
-                                <a href="#"><img src="{{ asset('bundles/armdatlas/common/img/video-holder.jpg') }}" alt="" class="object-video-list-image" /></a>
+                                <a href="#"><img src="{{ video.image }}" alt="" class="object-video-list-image" /></a>
                                 <div class="object-video-list-descr">
-                                    <span class="ovl-date">14:20</span>
-                                    <p class="object-video-header"><a href="#">Экскурсия по сооружениям Ростовского Кремля</a></p>
+                                    <span class="ovl-date">{{ video.durationString }}</span>
+                                    <p class="object-video-header"><a href="#">{{ video.title }}</a></p>
                                     <p>
-                                        Церковь Одигитрии (1692—1693) построена при преемнике Ионы Сысоевича митрополите Иоасафе. Является представителем стиля московского барокко. Последнее по времени самостоятельное сооружение Архиерейского двора.
+                                        {{ video.description }}
                                     </p>
                                 </div>
                             </li>
+                            {% endfor %}
                         </ul>
+                        {% endif %}
                         <p class="all-list"><a href="#">Все видео</a></p>
                     </div>
 
@@ -262,6 +292,7 @@
 						</div>
 					</div>
                     <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p>
+
                 </div>
 
                 <div class="block obj-o-contacts">
@@ -279,10 +310,21 @@
                             {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
                             {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
                         </p>
+
                         <p>
-                            <b>Музей открыт:</b>
-                            Ежедневно – с 10.00 до 17.00<br />
-                            без выходных дней, кроме 1 января
+                            {% if entity.workTime is not empty %}
+                                <b>Музей открыт:</b>
+                                {{ entity.workTime }}<br/>
+                            {% endif %}
+
+                            {% if entity.weekends|length > 0 %}
+                                Выходные:
+                                {% for day in entity.weekends %}
+                                {{ day.name }}{% if not loop.last %}, {%endif%}
+                                {% endfor %}
+                            {% else %}
+                                без выходных дней
+                            {% endif %}
                         </p>
 
                     </div>

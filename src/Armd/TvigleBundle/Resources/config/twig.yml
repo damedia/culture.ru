@@ -1,0 +1,12 @@
+parameters:
+    armd_cms.localdate.twig_extension.class: Armd\TvigleBundle\Extension\LocalDateTwigExtension
+
+services:
+
+    armd_cms.localdate.twig_extension:
+        class: %armd_cms.localdate.twig_extension.class%
+        tags:
+            -  { name: twig.extension }
+        calls:
+            - [ setContainer, [ @service_container ] ]
+

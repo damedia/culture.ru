@@ -23,6 +23,9 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         progorod_api_key: %progorod_api_key%
+    form:
+        resources:
+            - 'ArmdAtlasBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -79,6 +82,8 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
+    templates:
+        layout:  ::admin_base.html.twig
 
 sonata_block:
     default_contexts: [cms]
@@ -109,7 +114,7 @@ sonata_media:
                 - sonata.media.provider.file
 
             formats:
-                adminPreview: { width: 314 , height: 187, , quality: 90}
+                adminPreview: { width: 314, height: 187, quality: 90}
         news:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -186,3 +191,9 @@ sensio_framework_extra:
 knp_paginator:
     template: 
         pagination: "::pagination.html.twig"
+
+armd_tvigle:
+    video_directory:  %kernel.root_dir%/../web/uploads/video
+    video_url:  /uploads/video/
+    video_url_callback:  http://mk.dev.armd.ru/video/callback/
+    video_host: http://mk.dev.armd.ru

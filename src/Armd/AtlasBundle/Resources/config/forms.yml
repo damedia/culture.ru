@@ -1,0 +1,10 @@
+services:
+    armd.atlas_bundle.type.armd_media_image:
+        class: Armd\AtlasBundle\Form\Type\MediaImageType
+        tags:
+            - { name: form.type, alias: armd_media_image }
+
+    armd.atlas_bundle.type.armd_media_images:
+            class: Armd\AtlasBundle\Form\Type\MediaImagesType
+            tags:
+                - { name: form.type, alias: armd_media_images }

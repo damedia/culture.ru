@@ -1,0 +1,14 @@
+services:
+    armd_tvigle.admin.dbevent:
+        class: Armd\TvigleBundle\Listener\DBEventListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@service_container]
+
+    armd_tvigle.configuration_pool:
+        class: Armd\TvigleBundle\Pool\ConfigurationPool
+
+    armd_tvigle.type.tvigle:
+        class: Armd\TvigleBundle\Form\Type\TvigleType
+        arguments: [@service_container]

@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% for category in value %}
+    {{ category.title }}{% if not loop.last%}, {% endif %}
+    {% endfor%}
+{% endblock %}

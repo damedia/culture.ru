@@ -1,0 +1,10 @@
+_sys_tvigle_callback:
+    pattern:  /callback/{id}
+    defaults: { _controller: ArmdTvigleBundle:Callback:update }
+_sys_tvigle_getcode:
+    pattern:  /getcode/{id}
+    defaults: { _controller: ArmdTvigleBundle:Tvigle:getCode }
+
+video_list:
+    pattern:  /
+    defaults: { _controller: ArmdTvigleBundle:Tvigle:list }
