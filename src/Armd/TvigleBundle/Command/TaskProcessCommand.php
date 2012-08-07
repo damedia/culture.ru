@@ -26,10 +26,10 @@ class TaskProcessCommand extends ContainerAwareCommand
         if(!$taskList) {
             $output->writeln('No task');
         } else {
-            $params = $this->getContainer()->getParameter('tvigle');
-            $serviceUrl = $params['api_service_url'];
-            $Login = $params['api_login'];
-            $Password = $params['api_password'];
+            $optionsPool = $this->getContainer()->get('armd_tvigle.configuration_pool');
+            $serviceUrl = $optionsPool->getOption('api_service_url');
+            $Login = $optionsPool->getOption('api_login');
+            $Password = $optionsPool->getOption('api_password');
             $soap = new \SoapClient
             (
                 $serviceUrl,
@@ -59,11 +59,6 @@ class TaskProcessCommand extends ContainerAwareCommand
                     $video_url_callback.$video->getId(),
                     $video->getDescription()
                 );
-                \gFuncs::dbgWriteLogVar($video->getId(), false, 'AddTask id'); // DBG:
-                \gFuncs::dbgWriteLogVar($video->getTitle(), false, 'AddTask title'); // DBG:
-                \gFuncs::dbgWriteLogVar($task->getUrl(), false, 'AddTask url'); // DBG:
-                \gFuncs::dbgWriteLogVar($video_url_callback.$video->getId(), false, 'AddTask url1'); // DBG:
-                \gFuncs::dbgWriteLogVar($nId, false, 'AddTask nId'); // DBG:
 
                 $video->setTvigleId( $nId );
                 $em->persist($video);

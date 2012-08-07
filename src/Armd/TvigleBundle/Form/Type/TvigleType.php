@@ -24,9 +24,6 @@ class TvigleType extends AbstractType
             ->add('description')
             ->add('filename', 'choice',  array('choices' => $tvigleAdmin->getVideoFileField()))
         ;
-
-
-
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

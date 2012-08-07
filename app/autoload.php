@@ -1,5 +1,5 @@
 <?php
-
+require_once(__DIR__ . '/_debug.php');
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = require __DIR__.'/../vendor/autoload.php';

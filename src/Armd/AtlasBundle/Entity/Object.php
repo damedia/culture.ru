@@ -97,7 +97,7 @@ class Object
     private $archiveImages;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Armd\TvigleBundle\Entity\Tvigle", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\Armd\TvigleBundle\Entity\Tvigle", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="atlas_object_video")
      */
     private $videos;
@@ -114,9 +114,16 @@ class Object
     private $virtualTour;
 
     /**
-     * @ORM\Column(name="show_at_homepage", type="boolean", length=255, nullable=true)
+     * @ORM\Column(name="show_at_homepage", type="boolean", nullable=true)
      */
-    private $showAtHomepage = true;
+    private $showAtHomepage = false;
+
+    /**
+     * @ORM\Column(name="show_at_russian_image", type="boolean", nullable=true)
+     */
+    private $showAtRussianImage = false;
+
+
 
     public function __construct()
     {
@@ -581,6 +588,16 @@ class Object
     public function addArchiveImage($archiveImage)
     {
         $this->archiveImages[] = $archiveImage;
+    }
+
+    public function getShowAtRussianImage()
+    {
+        return $this->showAtRussianImage;
+    }
+
+    public function setShowAtRussianImage($showAtRussianImage)
+    {
+        $this->showAtRussianImage = $showAtRussianImage;
     }
 
 

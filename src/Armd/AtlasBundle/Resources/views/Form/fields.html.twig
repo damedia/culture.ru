@@ -6,3 +6,31 @@
 </div>
 {% endspaceless %}
 {% endblock %}
+
+{% block armd_atlas_object_categories_widget %}
+{% spaceless %}
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+        {% if empty_value is not none %}
+            <option value="">{{ empty_value }}</option>
+        {% endif %}
+        {% set options = root_element.children %}
+        {{ block('armd_atlas_object_categories_widget_options') }}
+    </select>
+{% endspaceless %}
+{% endblock %}
+
+{% block armd_atlas_object_categories_widget_options %}
+{% spaceless %}
+{% for choice in options %}
+    {% if choice.children|length > 0 %}
+        <optgroup label="{{ choice.title }}">
+            {% set options = choice.children %}
+            {{ block('armd_atlas_object_categories_widget_options') }}
+        </optgroup>
+    {% else %}
+            <option value="{{ choice.id }}"{% if choice.id in value %} selected="selected"{% endif %}>{{ choice.title|trans({}, translation_domain) }}</option>
+    {% endif %}
+{% endfor %}
+
+{% endspaceless %}
+{% endblock %}
