@@ -28,6 +28,12 @@ class Media extends BaseMedia
      */
     protected $id;
 
+    private $formImageFile;
+
+    private $mediaImageBeforeUpdate;
+
+    private $removeMedia;
+
     /**
      * Get id
      *
@@ -37,4 +43,46 @@ class Media extends BaseMedia
     {
         return $this->id;
     }
+
+    public function getFormImageFile()
+    {
+        return $this->formImageFile;
+    }
+
+
+    public function setFormImageFile(\Symfony\Component\HttpFoundation\File\UploadedFile $formImageFile)
+    {
+        // save previous state to be able clean files in MediaListener
+        $this->mediaImageBeforeUpdate = clone $this;
+
+        $this->formImageFile = $formImageFile;
+        $this->setBinaryContent($formImageFile);
+        //$this->setContext('default');
+        $this->setProviderName('sonata.media.provider.image');
+    }
+
+    public function getMediaImageBeforeUpdate()
+    {
+        return $this->mediaImageBeforeUpdate;
+    }
+
+    public function resetMediaImageBeforeUpdate()
+    {
+        $this->mediaImageBeforeUpdate = null;
+    }
+
+    public function getRemoveMedia()
+    {
+        return $this->removeMedia;
+    }
+
+    public function setRemoveMedia($removeMedia)
+    {
+        // change persistent property to fire MediaListener
+        $this->setHeight($this->getHeight() + 1);
+
+        $this->removeMedia = $removeMedia;
+    }
+
+
 }

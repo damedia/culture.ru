@@ -14,6 +14,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
@@ -45,7 +46,7 @@ class AppKernel extends Kernel
             new Armd\CommentBundle\ArmdCommentBundle(),
             new Armd\ListBundle\ArmdListBundle(),
             new Armd\NewsBundle\ArmdNewsBundle(),
-            //new Armd\MainBundle\ArmdMainBundle(),
+            new Armd\TvigleBundle\ArmdTvigleBundle(),
             new Armd\ChronicleBundle\ArmdChronicleBundle(),
             new Armd\BannerBundle\ArmdBannerBundle()
         );

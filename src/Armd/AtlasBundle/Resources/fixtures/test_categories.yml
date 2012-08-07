@@ -1,0 +1,35 @@
+categories:
+    - title: Музеи
+      icon: pin_musem.png
+      children:
+        - title: Музей-квартира
+          ref_code: museum_flat
+
+        - title: Дом-музей
+          ref_code: museum_house
+
+        - title: Галерея
+          ref_code: museum_gallery
+
+        - title: Этнографический
+        - title: Краеведческий
+        - title: Картинная галерея
+        - title: Музейный комплекс
+        - title: Музей-заповедник
+        - title: Архитектурный
+        - title: Исторический
+
+    - title: Учреждения
+      icon: pin_other.png
+
+    - title: Археологическое общество
+      icon: pin_other.png
+
+    - title: Библиотека
+      ref_code: library
+      icon: pin_library.png
+      children:
+        - title: Детская
+        - title: Высшее учебное заведение
+        - title: Центр писателя
+

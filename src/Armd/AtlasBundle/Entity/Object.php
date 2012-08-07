@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Object
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -66,14 +67,64 @@ class Object
     private $lon;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="objects")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="objects", cascade={"persist"})
      * @ORM\JoinTable(name="atlas_category_object")
      */
     private $categories;
 
+    /**
+     * @ORM\Column(name="work_time", type="string", length=255, nullable=true)
+     */
+    private $workTime;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="WeekDay")
+     * @ORM\JoinTable(name="atlas_object_weekend")
+     */
+    private $weekends;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="atlas_object_image")
+     */
+    private $images;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="atlas_object_archive_image")
+     */
+    private $archiveImages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Armd\TvigleBundle\Entity\Tvigle", cascade={"persist"})
+     * @ORM\JoinTable(name="atlas_object_video")
+     */
+    private $videos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="image3d_id", referencedColumnName="id")
+     */
+    private $image3d;
+
+    /**
+     * @ORM\Column(name="virtual_tour", type="string", length=255, nullable=true)
+     */
+    private $virtualTour;
+
+    /**
+     * @ORM\Column(name="show_at_homepage", type="boolean", length=255, nullable=true)
+     */
+    private $showAtHomepage = true;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->weekends = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->archiveImages = new ArrayCollection();
     }
 
     /**
@@ -158,63 +209,32 @@ class Object
     /**
      * Add category
      *
-     * @param Armd\AtlasBundle\Entity\Category $category
+     * @param \Armd\AtlasBundle\Entity\Category $category
      * @return Object
      */
     public function addCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
-        $this->category[] = $category;
-    
+        $category->addObject($this);
+        $this->categories[] = $category;
+
         return $this;
     }
 
     /**
      * Remove category
      *
-     * @param Armd\AtlasBundle\Entity\Category $category
+     * @param \Armd\AtlasBundle\Entity\Category $category
      */
     public function removeCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
-        $this->category->removeElement($category);
+        $this->categories->removeElement($category);
     }
 
-    /**
-     * Get category
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Add categories
-     *
-     * @param Armd\AtlasBundle\Entity\Category $categories
-     * @return Object
-     */
-    public function addCategorie(\Armd\AtlasBundle\Entity\Category $categories)
-    {
-        $this->categories[] = $categories;
-    
-        return $this;
-    }
-
-    /**
-     * Remove categories
-     *
-     * @param Armd\AtlasBundle\Entity\Category $categories
-     */
-    public function removeCategorie(\Armd\AtlasBundle\Entity\Category $categories)
-    {
-        $this->categories->removeElement($categories);
-    }
 
     /**
      * Get categories
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
@@ -358,4 +378,210 @@ class Object
     {
         return $this->address;
     }
+
+    /**
+     * Set workTime
+     *
+     * @param string $workTime
+     * @return Object
+     */
+    public function setWorkTime($workTime)
+    {
+        $this->workTime = $workTime;
+        return $this;
+    }
+
+    /**
+     * Get workTime
+     *
+     * @return string 
+     */
+    public function getWorkTime()
+    {
+        return $this->workTime;
+    }
+
+    /**
+     * Set virtualTour
+     *
+     * @param string $virtualTour
+     * @return Object
+     */
+    public function setVirtualTour($virtualTour)
+    {
+        $this->virtualTour = $virtualTour;
+        return $this;
+    }
+
+    /**
+     * Get virtualTour
+     *
+     * @return string 
+     */
+    public function getVirtualTour()
+    {
+        return $this->virtualTour;
+    }
+
+    /**
+     * Set showAtHomepage
+     *
+     * @param boolean $showAtHomepage
+     * @return Object
+     */
+    public function setShowAtHomepage($showAtHomepage)
+    {
+        $this->showAtHomepage = $showAtHomepage;
+        return $this;
+    }
+
+    /**
+     * Get showAtHomepage
+     *
+     * @return boolean 
+     */
+    public function getShowAtHomepage()
+    {
+        return $this->showAtHomepage;
+    }
+
+    /**
+     * Add weekends
+     *
+     * @param \Armd\AtlasBundle\Entity\WeekDay $weekends
+     * @return Object
+     */
+    public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekend)
+    {
+        $this->weekends[] = $weekend;
+        return $this;
+    }
+
+    /**
+     * Remove weekends
+     *
+     * @param <variableType$weekends
+     */
+    public function removeWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekends)
+    {
+        $this->weekends->removeElement($weekends);
+    }
+
+    /**
+     * Get weekends
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWeekends()
+    {
+        return $this->weekends;
+    }
+
+
+    /**
+     * Add videos
+     *
+     * @param \Armd\TvigleBundle\Entity\Tvigle $videos
+     * @return Object
+     */
+    public function addVideo(\Armd\TvigleBundle\Entity\Tvigle $videos)
+    {
+        $this->videos[] = $videos;
+        return $this;
+    }
+
+    /**
+     * Remove videos
+     *
+     * @param \Armd\TvigleBundle\Entity\Tvigle $videos
+     */
+    public function removeVideo(\Armd\TvigleBundle\Entity\Tvigle $videos)
+    {
+        $this->videos->removeElement($videos);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    public function setVideos($videos)
+    {
+        $this->videos = $videos;
+    }
+
+
+    /**
+     * Set image3d
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image3d
+     * @return Object
+     */
+    public function setImage3d(\Application\Sonata\MediaBundle\Entity\Media $image3d = null)
+    {
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if(is_object($image3d) && strlen($image3d->getProviderName()) || is_null($image3d)) {
+            $this->image3d = $image3d;
+        }
+        return $this;
+    }
+
+    /**
+     * Get image3d
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getImage3d()
+    {
+        return $this->image3d;
+    }
+
+
+
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
+    public function removeImage($image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    public function addImage($image)
+    {
+        $this->images[] = $image;
+    }
+
+    public function getArchiveImages()
+    {
+        return $this->archiveImages;
+    }
+
+    public function setArchiveImages($archiveImages)
+    {
+        $this->archiveImages = $archiveImages;
+    }
+
+    public function removeArchiveImage($archiveImage)
+    {
+        $this->archiveImages->removeElement($archiveImage);
+    }
+
+    public function addArchiveImage($archiveImage)
+    {
+        $this->archiveImages[] = $archiveImage;
+    }
+
+
 }

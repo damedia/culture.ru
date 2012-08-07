@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <img src="{{ asset("/bundles/armdatlas/images/#{value}") }}" class="sonata_list_icon"/>
+{% endblock %}

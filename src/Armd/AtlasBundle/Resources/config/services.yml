@@ -1,0 +1,8 @@
+services:
+    armd_atlas.listener.media:
+        class: Armd\AtlasBundle\Listener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@sonata.media.provider.image]

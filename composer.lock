@@ -1,5 +1,5 @@
 {
-    "hash": "cbc4abcef41b7c44f452edd3f8d53b98",
+    "hash": "54acbfd7ef36a4e22e4d33cf3a2ad9d1",
     "packages": [
         {
             "package": "armd/banner-bundle",
@@ -10,14 +10,20 @@
         {
             "package": "armd/comment",
             "version": "dev-master",
-            "source-reference": "adf3b1687402ef712f1c8e34185afb61c41bd2a0",
-            "commit-date": "1343913312"
+            "source-reference": "51358a11cfc717b4207a9b5afb05f63fd92aa152",
+            "commit-date": "1344247933"
         },
         {
             "package": "doctrine/common",
             "version": "2.3.x-dev",
             "source-reference": "2ec4bc6db13db6a0976a16b71058083c55cbcdbd",
             "commit-date": "1343847076"
+        },
+        {
+            "package": "doctrine/data-fixtures",
+            "version": "dev-master",
+            "source-reference": "779c3dfe446b6da893be87b908d6be28345d1e01",
+            "commit-date": "1341780535"
         },
         {
             "package": "doctrine/dbal",
@@ -28,8 +34,20 @@
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/doctrine-bundle",
+            "version": "dev-master",
             "source-reference": "ed8d02b491512f947fdb2f8b665dc8fd72b5879c",
             "commit-date": "1343657020"
+        },
+        {
+            "package": "doctrine/doctrine-fixtures-bundle",
+            "version": "dev-master",
+            "source-reference": "a5103a71bcd9b2f851ca6c16519a077784a3184a",
+            "commit-date": "1341472847"
         },
         {
             "package": "doctrine/doctrine-migrations-bundle",
@@ -58,8 +76,8 @@
         {
             "package": "friendsofsymfony/jsrouting-bundle",
             "version": "dev-master",
-            "source-reference": "69a8b5cb437ce415a72ad12274bb59a06b2c0cf5",
-            "commit-date": "1343207051"
+            "source-reference": "1.0.1",
+            "commit-date": "1344246467"
         },
         {
             "package": "friendsofsymfony/rest",
@@ -130,8 +148,8 @@
         {
             "package": "jms/security-extra-bundle",
             "version": "dev-master",
-            "source-reference": "75b21cce40f7714f462deb4292f093a566958b02",
-            "commit-date": "1343654921"
+            "source-reference": "d65a3a9ff17892beea778e376c82bc420b77eb4e",
+            "commit-date": "1344175596"
         },
         {
             "package": "jms/serializer-bundle",
@@ -198,20 +216,20 @@
         {
             "package": "sensio/distribution-bundle",
             "version": "dev-master",
-            "source-reference": "26a1165b8cfbde91bf01d809f87bc286f18f0963",
-            "commit-date": "1343979103"
+            "source-reference": "57190e5baa0cc1d8ef6095ce57e6719a5eae2b79",
+            "commit-date": "1344240835"
+        },
+        {
+            "package": "sensio/framework-extra-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "sensio/framework-extra-bundle",
             "version": "dev-master",
             "source-reference": "ade2d53b20a9fc3428f04c863b3fd4fca0b62181",
             "commit-date": "1344072374"
-        },
-        {
-            "package": "sensio/framework-extra-bundle",
-            "version": "dev-master",
-            "source-reference": "dbe4432742e16ee9ca550a2f953b059f0a80c53d",
-            "commit-date": "1343637454"
         },
         {
             "package": "sensio/generator-bundle",
@@ -318,7 +336,7 @@
         {
             "package": "symfony/swiftmailer-bundle",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA4",
+            "source-reference": "v2.1.0-RC1",
             "commit-date": "1342684512"
         },
         {
@@ -330,8 +348,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "v2.1.0-RC1",
-            "commit-date": "1344072741"
+            "source-reference": "b1618d210cb7e27036edcea9c163a94167e7df59",
+            "commit-date": "1343747192"
         },
         {
             "package": "twig/extensions",

@@ -2,328 +2,374 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
-    <div class="blocksection w" id="f-section">
-        <div class="title-block gray-filter with-social"  >
-            <h2>{{ entity.title }}</h2>
-        </div>
-        <div class="title-social-icons">
-            <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
-        </div>
-        <div class="object-one clearfix">
-            <div class="object-one-col12">
+    {% if entity is empty %}
+        Объект не найден
+    {% else %}
+        <div class="blocksection w" id="f-section">
+            <div class="title-block gray-filter with-social"  >
+                <h2>{{ entity.title }}</h2>
+            </div>
+            <div class="title-social-icons">
+                <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
+            </div>
+            <div class="object-one clearfix">
+                <div class="object-one-col12">
 
-
-                <div class="block obj-o-foto">
-                    <div class="right-icons-block">
-                        <a href="#" class="one-person"></a>
-                        <a href="#" class="three-persons"></a>
-                    </div>
-                    <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
-
-                    <div class="slideshow-container">
-                        <div id="slideshow" class="slideshow"></div>
-                    </div>
-
-                    <div class="navigation-container">
-                        <div id="thumbs" class="navigation">
-                            <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
-
-                            <ul class="thumbs noscript">
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/1.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/1_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/2.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/2_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/3.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/3_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/4.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/4_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/5.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/5_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/6.jpg') }}" title="">
-                                        <img src="{{ asset('bundles/armdatlas/common/img/photo/6_thumb.jpg') }}" />
-                                    </a>
-                                </li>
-                            </ul>
-                            <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
-                        </div>
-                    </div>
-                    <p class="all-list"><a href="#">Все фото</a></p>
-                </div>
-
-                <div class="object-one-col1">
-                    <div class="block object-videos">
+                    {% if entity.images|length > 0 %}
+                    <div class="block obj-o-foto">
                         <div class="right-icons-block">
                             <a href="#" class="one-person"></a>
                             <a href="#" class="three-persons"></a>
                         </div>
-                        <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
-                        <ul class="object-video-list">
-                            <li class="object-video-list-one">
-                                <a href="#"><img src="{{ asset('bundles/armdatlas/common/img/video-holder.jpg') }}" alt="" class="object-video-list-image" /></a>
-                                <div class="object-video-list-descr">
-                                    <span class="ovl-date">14:20</span>
-                                    <p class="object-video-header"><a href="#">Экскурсия по сооружениям Ростовского Кремля</a></p>
-                                    <p>
-                                        Церковь Одигитрии (1692—1693) построена при преемнике Ионы Сысоевича митрополите Иоасафе. Является представителем стиля московского барокко. Последнее по времени самостоятельное сооружение Архиерейского двора.
-                                    </p>
+                        <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
+
+                        <div class="slideshow-container">
+                            <div id="slideshow" class="slideshow"></div>
+                        </div>
+
+                        <div class="navigation-container">
+                            <div id="thumbs" class="navigation">
+                                <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
+
+                                <ul class="thumbs noscript">
+                                    {% for image in entity.images %}
+                                    <li>
+                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
+                                            <img src="{% path image, 'thumbnail' %}" />
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+                                    {#<li>#}
+                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
+                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
+                                        {#</a>#}
+                                    {#</li>#}
+
+                                </ul>
+                                <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
+                            </div>
+                        </div>
+                        <p class="all-list"><a href="#">Все фото</a></p>
+                    </div>
+                    {% endif %}
+
+                    <div class="object-one-col1">
+                        <div class="block object-videos">
+                            <div class="right-icons-block">
+                                <a href="#" class="one-person"></a>
+                                <a href="#" class="three-persons"></a>
+                            </div>
+
+                            {% if entity.videos|length > 0 %}
+                            <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
+                            <ul class="object-video-list">
+                                {% for video in entity.videos %}
+                                <li class="object-video-list-one">
+                                    <a href="#"><img src="{{ video.image }}" alt="" class="object-video-list-image" /></a>
+                                    <div class="object-video-list-descr">
+                                        <span class="ovl-date">{{ video.durationString }}</span>
+                                        <p class="object-video-header"><a href="#">{{ video.title }}</a></p>
+                                        <p>
+                                            {{ video.description }}
+                                        </p>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <p class="all-list"><a href="#">Все видео</a></p>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="object-one-col2">
+                        <div class="block object-infograph">
+                            <a href="#" class="open-big-orange"></a>
+                            <img src="{% path entity.image3d, 'image3d' %}" alt="" />
+                        </div>
+
+                        <div class="block obj-o-foto">
+                            <p class="link_header"><a href="#">Экспонаты</a><!--<sup>234</sup></p>-->
+                            <ul class="obj-o-foto-list">
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat1" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_4988.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat1" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_4988') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_4988') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
                                 </div>
-                            </li>
-                        </ul>
-                        <p class="all-list"><a href="#">Все видео</a></p>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat2" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_4992.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat2" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_4992') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_4992') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat3" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_4998.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat3" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_4998') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_4998') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat4" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_5002.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat4" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5002') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5002') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat5" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_5015.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat5" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5015') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5015') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat6" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_5042.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat6" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5042') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5042') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat7" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_5056.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat7" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5056') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5056') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="obj-o-foto-one">
+                                    <a href="#exponat8" class="virtual-overflow-block">
+                                        <img src="{{ asset('exponats/images/IMG_5104.jpg') }}" alt="" />
+                                    </a>
+                                    <div class="panowrap" style="display:none;">
+                                    <div id="exponat8" class="panoDIV">
+                                        <OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
+                                        <PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5104') }}">
+                                        <PARAM NAME="MENU" VALUE="FALSE">
+                                        <PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
+                                                        <PARAM NAME="SCALE" VALUE="exactfit">
+                                        <EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5104') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
+                                      </OBJECT>
+                                    </div>
+                                </div>
+                                </li>
+                            </ul>
+                            <p class="all-list"><a href="#">Все экспонаты</a></p>
+                        </div>
                     </div>
-
 
 
                 </div>
 
-                <div class="object-one-col2">
-                    <div class="block object-infograph">
-                        <a href="#" class="open-big-orange"></a>
-                        <img src="{{ asset('bundles/armdatlas/common/img/photo/infograph.jpg') }}" alt="" />
-                    </div>
-
-                    <div class="block obj-o-foto">
-                        <p class="link_header"><a href="#">Экспонаты</a><!--<sup>234</sup></p>-->
-                        <ul class="obj-o-foto-list">
-                            <li class="obj-o-foto-one">
-                                <a href="#exponat1" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_4988.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat1" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_4988') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_4988') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-                            <li class="obj-o-foto-one">
-                                <a href="#exponat2" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_4992.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat2" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_4992') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_4992') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-							<li class="obj-o-foto-one">
-                                <a href="#exponat3" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_4998.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat3" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_4998') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_4998') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-							<li class="obj-o-foto-one">
-                                <a href="#exponat4" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_5002.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat4" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5002') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5002') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-							<li class="obj-o-foto-one">
-                                <a href="#exponat5" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_5015.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat5" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5015') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5015') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-							<li class="obj-o-foto-one">
-                                <a href="#exponat6" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_5042.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat6" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5042') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5042') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-							<li class="obj-o-foto-one">
-                                <a href="#exponat7" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_5056.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat7" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5056') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5056') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-							<li class="obj-o-foto-one">
-                                <a href="#exponat8" class="virtual-overflow-block">
-                                    <img src="{{ asset('exponats/images/IMG_5104.jpg') }}" alt="" />
-                                </a>
-								<div class="panowrap" style="display:none;">
-								<div id="exponat8" class="panoDIV">
-									<OBJECT CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="100%" HEIGHT="100%" ID="theMovie">
-									<PARAM NAME="FlashVars" VALUE="zoomifyImagePath={{ asset('exponats/IMG_5104') }}">
-									<PARAM NAME="MENU" VALUE="FALSE">
-									<PARAM NAME="SRC" VALUE="{{ asset('swf/ZoomifyViewer.swf') }}">
-													<PARAM NAME="SCALE" VALUE="exactfit">
-									<EMBED FlashVars="zoomifyImagePath={{ asset('exponats/IMG_5104') }}" SRC="{{ asset('swf/ZoomifyViewer.swf') }}" MENU="false" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"  WIDTH="100%" HEIGHT="100%" SCALE="exactfit" NAME="theMovie"></EMBED>
-								  </OBJECT>
-								</div>
-							</div>
-                            </li>
-                        </ul>
-                        <p class="all-list"><a href="#">Все экспонаты</a></p>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="object-one-col3">
-                <div class="block obj-o-description">
-                    <h1>{{ entity.title }}</h1>
-                    <p>
-                        {{ entity.content|raw }}
-                    </p>
-                    <div class="virtual-tour">
-						<a href="#panoDIV" class="virtual-overflow-block">Виртуальный тур</a>
-						<div class="panowrap" style="display:none;">
-							<div id="panoDIV" class="panoDIV">
-								<script>
-									embedpano({target:"panoDIV",swf:"/static/museum/glinka/virtualtour.swf", xml:"/static/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
-								</script>
-								<noscript>
-										<div id="tour">
-												<object width="100%" height="100%">
-														<embed src="/static/museum/glinka/virtualtour.swf" width="100%" height="100%" allowFullScreen="true">
-														</embed>
-												</object>
-										</div>
-								</noscript>
-							</div>
-						</div>
-					</div>
-                    <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p>
-                </div>
-
-                <div class="block obj-o-contacts">
-                    <div class="obj-o-map">
-                        <a href="#" class="open-big-green"></a>
-                        <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
-                    </div>
-                    <div class="obj-o-contacts-text">
-                        <p class="obj-o-contacts-header">
-                            Контакты
-                        </p>
-                        <p class="obj-o-contacts-main">
-                            {% if entity.address %}{{ entity.address }}<br />{% endif %}
-                            {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
-                            {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
-                            {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
-                        </p>
+                <div class="object-one-col3">
+                    <div class="block obj-o-description">
+                        <h1>{{ entity.title }}</h1>
                         <p>
-                            <b>Музей открыт:</b>
-                            Ежедневно – с 10.00 до 17.00<br />
-                            без выходных дней, кроме 1 января
+                            {{ entity.content|raw }}
                         </p>
+                        <div class="virtual-tour">
+                            <a href="#panoDIV" class="virtual-overflow-block">Виртуальный тур</a>
+                            <div class="panowrap" style="display:none;">
+                                <div id="panoDIV" class="panoDIV">
+                                    <script>
+                                        embedpano({target:"panoDIV",swf:"/static/museum/glinka/virtualtour.swf", xml:"/static/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
+                                    </script>
+                                    <noscript>
+                                            <div id="tour">
+                                                    <object width="100%" height="100%">
+                                                            <embed src="/static/museum/glinka/virtualtour.swf" width="100%" height="100%" allowFullScreen="true">
+                                                            </embed>
+                                                    </object>
+                                            </div>
+                                    </noscript>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p>
 
                     </div>
+
+                    <div class="block obj-o-contacts">
+                        <div class="obj-o-map">
+                            <a href="#" class="open-big-green"></a>
+                            <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
+                        </div>
+                        <div class="obj-o-contacts-text">
+                            <p class="obj-o-contacts-header">
+                                Контакты
+                            </p>
+                            <p class="obj-o-contacts-main">
+                                {% if entity.address %}{{ entity.address }}<br />{% endif %}
+                                {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
+                                {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
+                                {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
+                            </p>
+
+                            <p>
+                                {% if entity.workTime is not empty %}
+                                    <b>Музей открыт:</b>
+                                    {{ entity.workTime }}<br/>
+                                {% endif %}
+
+                                {% if entity.weekends|length > 0 %}
+                                    Выходные:
+                                    {% for day in entity.weekends %}
+                                    {{ day.name }}{% if not loop.last %}, {%endif%}
+                                    {% endfor %}
+                                {% else %}
+                                    без выходных дней
+                                {% endif %}
+                            </p>
+
+                        </div>
+                    </div>
+
+
+
+
+                    {#
+                    <div class="block object-news">
+                        <p class="link_header"><a href="#">Новости</a></p>
+                        <ul class="block-news-list">
+                            <li>
+                                <span class="bnl-date">19 Июля / 2012</span>
+                                <p class="bnl-header"><a href="#">Ростовское действо</a></p>
+                                <p>
+                                    II Международный фестиваль монастырской культуры «РОСТОВСКОЕ ДЕЙСТВО» пройдёт в Государственном музее-заповеднике «Ростовский кремль» в год празднования 1150-летия российской государственности и 1150-летнего юбилея Ростова Великого.
+                                </p>
+                            </li>
+                            <li>
+                                <span class="bnl-date">18 Июля / 2012</span>
+                                <p class="bnl-header"><a href="#">«Прикосновение к вечности...»</a></p>
+                                <p>
+                                Выставка копий фресок XVII века Ростовского кремля по итогам практики студентов Московского государственного академического художественного института им. В.И. Сурикова.
+
+                                </p>
+                            </li>
+                            <li>
+                                <span class="bnl-date">17 Июля / 2012</span>
+                                <p class="bnl-header"><a href="#">«Три сословия Ростова Великого»</a></p>
+                                <p>
+                                    Говоря о Ростове 19 века, мы в первую очередь называем его городом купеческим. Однако, судя по документам, купечество составляло в это время 8% его населения. А кто же были остальные 92% жителей Ростова?
+                                </p>
+                            </li>
+                        </ul>
+                        <p class="all-list"><a href="#">Все новости</a></p>
+                    </div>
+                    #}
                 </div>
-
-
-
-
-				{#
-                <div class="block object-news">
-                    <p class="link_header"><a href="#">Новости</a></p>
-                    <ul class="block-news-list">
-                        <li>
-                            <span class="bnl-date">19 Июля / 2012</span>
-                            <p class="bnl-header"><a href="#">Ростовское действо</a></p>
-                            <p>
-                                II Международный фестиваль монастырской культуры «РОСТОВСКОЕ ДЕЙСТВО» пройдёт в Государственном музее-заповеднике «Ростовский кремль» в год празднования 1150-летия российской государственности и 1150-летнего юбилея Ростова Великого.
-                            </p>
-                        </li>
-                        <li>
-                            <span class="bnl-date">18 Июля / 2012</span>
-                            <p class="bnl-header"><a href="#">«Прикосновение к вечности...»</a></p>
-                            <p>
-                            Выставка копий фресок XVII века Ростовского кремля по итогам практики студентов Московского государственного академического художественного института им. В.И. Сурикова.
-
-                            </p>
-                        </li>
-                        <li>
-                            <span class="bnl-date">17 Июля / 2012</span>
-                            <p class="bnl-header"><a href="#">«Три сословия Ростова Великого»</a></p>
-                            <p>
-                                Говоря о Ростове 19 века, мы в первую очередь называем его городом купеческим. Однако, судя по документам, купечество составляло в это время 8% его населения. А кто же были остальные 92% жителей Ростова?
-                            </p>
-                        </li>
-                    </ul>
-                    <p class="all-list"><a href="#">Все новости</a></p>
-                </div>
-				#}
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -351,6 +397,7 @@
 	<script src="/static/museum/glinka/swfobject/swfkrpano.js"></script>
     <script type="text/javascript">
         $(function(){
+            {% if entity is not empty %}}
             /*AT.init({
                 map: 'map',
                 center: [{{ entity.lon }}, {{ entity.lat }}],
@@ -361,6 +408,7 @@
                 coord: new PGmap.Coord({{ entity.lon }}, {{ entity.lat }}, true)
             });
             AT.map.geometry.add(point);*/
+            {% endif %}
 			
 			if ($('.virtual-overflow-block').length){    
 				$('.virtual-overflow-block').fancybox();
