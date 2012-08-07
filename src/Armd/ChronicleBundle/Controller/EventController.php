@@ -14,17 +14,10 @@ class EventController extends ListController
      */
     public function indexAction($century)
     {
-        var_dump($this->getCenturiesList($century));
         return $this->render($this->getTemplateName('chronicle'), array(
             'century'   => $century,
+            'events'    => $this->getEventsList($century),
         ));
-    }
-    
-    function getDatePeriod($century)
-    {
-        $year = Converter::toNumber($century) * 100;
-        $date = \DateTime::createFromFormat('Y-m-d H:i:s', "{$year}-01-01 00:00:00");
-        var_dump($date);
     }
     
     function centuriesAction($century)
@@ -37,13 +30,35 @@ class EventController extends ListController
     function getCenturiesList($century)
     {
         $result = array();
-        $year = $this->getCenturiesRepository()->getQuery()->getArrayResult();
+        $centuries = $this->getCenturiesRepository()->getQuery()->getArrayResult();
+        
+        foreach ($centuries as $c) {
+            $value = Converter::toRoman($c['century']);           
+            $result[] = array(
+                'value'     => $value,
+                'selected'  => $value == $century,
+            );
+        }
+        
+        return $result;
+    }
+    
+    function getEventsList($century)
+    {
+        return $this->getEventsRepository($century)->getQuery()->getResult();
     }
     
     function getCenturiesRepository()
     {
         return $this->getListRepository()
-            ->selectDistinctYears()
+            ->selectDistinctCenturies()
+            ->orderByCentury();
+    }
+    
+    function getEventsRepository($century)
+    {
+        return $this->getListRepository()
+            ->setCentury(Converter::toNumber($century))
             ->orderByYear();
     }
     

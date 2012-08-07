@@ -1,3 +1,7 @@
-Hello {{ century }}!
+{% extends '::two-column-layout.html.twig' %}
 
-{% render "ArmdChronicleBundle:Event:centuries" with {"century": century} %}
+{% block body%}
+    {% render "ArmdChronicleBundle:Event:centuries" with {"century": century} %}
+    
+    {% include "ArmdChronicleBundle:Event:events.html.twig" with {"events": events} %}
+{% endblock %}    

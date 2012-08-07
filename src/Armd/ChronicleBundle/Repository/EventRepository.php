@@ -12,12 +12,30 @@ use Armd\ListBundle\Repository\ListRepository;
  */
 class EventRepository extends ListRepository
 {
-    function selectDistinctYears()
+    function selectDistinctCenturies()
     {
         $this->qb
-            ->select("{$this->alias}.year")
-            ->distinct();
+            ->select("{$this->alias}.century")
+            ->distinct()
+        ;
         
+        return $this;
+    }
+    
+    function setCentury($century)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.century = :century")
+            ->setParameter('century', $century)
+        ;
+        
+        return $this;
+    }
+    
+    function orderByCentury($order = 'DESC')
+    {
+        $this->qb->orderBy("{$this->alias}.century", $order);
+            
         return $this;
     }
     
@@ -26,5 +44,5 @@ class EventRepository extends ListRepository
         $this->qb->orderBy("{$this->alias}.year", $order);
             
         return $this;
-    }
+    }    
 }

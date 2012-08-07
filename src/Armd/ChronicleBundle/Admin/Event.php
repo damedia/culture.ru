@@ -61,8 +61,8 @@ class Event extends Admin
                 ->add('published')
             ->end()    
             ->with('Media')                
-                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'default')))
-                ->add('gallery', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'default')))                                
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'chronicle')))
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'chronicle')))                                
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -77,7 +77,7 @@ class Event extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('century')
+            ->add('year')
             ->add('published')                            
         ;
         
@@ -88,6 +88,7 @@ class Event extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('century')            
         ;
     }
 }

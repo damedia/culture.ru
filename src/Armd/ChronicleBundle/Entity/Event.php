@@ -53,7 +53,7 @@ class Event
     /**
      * @var integer $century
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $century;
 
@@ -67,7 +67,7 @@ class Event
     /**
      * @var integer $year
      *
-     * @ORM\Column(name="year", type="integer", nullable=true)
+     * @ORM\Column(name="year", type="integer")
      */
     private $year;
     
@@ -108,8 +108,11 @@ class Event
     public function setDate($date = null)
     {
         if (null == $date) {
-            $date = \DateTime::createFromFormat('Y', $year); 
+            $date = \DateTime::createFromFormat('Y-m-d H:i:s', "{$this->year}-01-01 00:00:00"); 
         }
+        
+        $this->setCentury(floor($this->year / 100) + 1);
+//        $this->setDecade();
     
         $this->date = $date;
         return $this;
