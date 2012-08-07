@@ -1,0 +1,294 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="common/css/atlas.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="common/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/jquery-ui-1.8.22.custom.min.js"></script>
+        <script type="text/javascript" src="common/js/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="common/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="common/js/function.js"></script>
+
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="video_list.html">Лекции</a></li>
+                <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
+                <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+        <div id="search" class="w">
+
+         <!--   <form id="formsearch" name="search" method="get">
+				<table class="formsearch-width-type">
+					<tr>
+						<td>
+							 <div id="searcher">
+								<input type="text" id="i-searcher" />
+							</div>
+							<input type="image" src="common/img/search-btn.png" id="i-searchbtn" />
+						</td>
+					</tr>
+				</table>
+
+               
+            </form>
+			-->	
+        </div>
+
+        <div class="blocksection w" id="f-section">
+
+			<div class="filter" style="width:23.7%">
+				<div class="title dark-green-title title-filter">
+                    <h2>Фильтрация</h2>
+                </div>
+				<form action="" class="atlas-filter-form">
+					<div class="simple-search">
+						<label for="ss_input">Точный поиск</label>
+						<input type="text" class="ss-input" id="ss_input" />
+					</div>
+					<div class="filter-tabs">
+						<ul class="filter-tabs-titles">
+							<li><a href="#obj">Объекты</a></li><li><a href="#mrsh">Маршруты</a></li><li class="active"><a href="#maps">Мои карты</a></li>
+						</ul>
+						<div class="filter-tab" id="obj">
+							
+						</div>
+						<div class="filter-tab" id="mrsh">
+							
+						</div>
+						<div class="filter-tab" id="maps" style="display:block;">
+							<div class="filter-sub-tabs">
+								<ul class="filter-sub-tabs-titles">
+									<li class="active"><a href="#myobj">Мои объекты</a></li>
+									<li><a href="#mymrsh">Мои маршруты</a></li>
+								</ul>
+								<div class="filter-sub-tab" id="myobj" style="display:block;">
+									<ol class="filter-sub-tab-list" id="myobj_list">
+										<li>
+											<span>Новый объект</span>
+											<a href="#" class="del" title="Удалить"></a>
+											<span class="moder"></span>
+										</li>
+										<li>
+											<span>Пушкинский музей</span>
+											<a href="#" class="del" title="Удалить"></a>
+										</li>
+										<li>
+											<span>Донской монастырь</span>
+											<a href="#" class="del" title="Удалить"></a>
+										</li>
+										<li>
+											<span>Московский Кремль</span>
+											<a href="#" class="del" title="Удалить"></a>
+										</li>
+									</ol>
+									<input type="button" class="button green-button" value="Добавить объект" />	
+								</div>
+								<div class="filter-sub-tab" id="mymrsh">
+							
+								</div>									
+							</div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+
+            <div class="atlas-center">
+				<div class="title green-title">
+                    <h2>Атлас</h2>
+                </div>
+				
+				<div class="atlas-map" style="margin-top:-10px;">
+					<img src="common/img/map.png" alt="" />
+					<div class="atlas-menu"></div>
+				</div>	
+					<div class="add-object-form draggable" id="add-object-form">
+						<a href="#" class="exit" title="Закрыть"></a>
+						<form action="">
+							<h2>Добавление объекта</h2>
+							<ul class="add-object-form-fields">
+								<li>
+									<label for="name">Заголовок</label>
+									<input type="text" value="Без названия" placeholder="" id="name" />
+								</li>
+								<li>
+									<label for="address">Адрес</label>
+									<input type="text" value="Ломоносовский район, Москва, Россия" placeholder="" id="address" />
+								</li>
+								<li class="coords">
+									<div class="coords-block">
+										<label for="lat">Широта</label>
+										<input type="text" value="36.85685" id="lat" />
+									</div><div class="coords-block">
+										<label for="long">Долгота</label>
+										<input type="text" value="55.90911" id="long" />
+									</div>
+								</li>
+								<li>
+									<label for="descr">Описание</label>
+									<textarea name="descr" id="descr" cols="30" rows="10"></textarea>
+								</li>
+								<li>
+									<label for="category">Категория</label>
+									<select name="category" id="category" class="uniform">
+										<option value="1">Музей</option>
+										<option value="2">Театр</option>
+									</select>
+								</li>
+								<li class="add-photos">
+									<input type="file" value="Добавить фото" class="add-photos-button uniform" />
+									<p class="add-photos-note">Или перетянуть с компьютера</p>
+									<div class="added-images">
+										<div class="added-image">
+											<img src="common/img/photo/obj-image.jpg" alt="" />
+										</div>
+										<div class="added-image">
+											<img src="common/img/photo/obj-image.jpg" alt="" />
+										</div>
+										<div class="added-image">
+											<img src="common/img/photo/obj-image.jpg" alt="" />
+										</div>
+										<div class="added-image">
+											<img src="common/img/photo/obj-image.jpg" alt="" />
+											<a href="#" class="del" title="Удалить"></a>
+										</div>
+										<div class="added-image">
+											<img src="common/img/photo/obj-image.jpg" alt="" />
+											<a href="#" class="del" title="Удалить"></a>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<fieldset class="form-buttons">
+								<input type="submit" class="button sbmt-btn" value="Сохранить"  />
+								<input type="reset" class="button rst-btn" value="Отменить"  />
+							</fieldset>
+							
+						</form>
+					</div>
+					<div class="add-object-form success-object-form draggable" id="success-object-form" >
+						<a href="#" class="exit" title="Закрыть"></a>
+						<form action="">
+							<h2>Все получилось!</h2>
+							<p>Объект <название объекта> успешно добавлен на карту.</p>
+							<label class="sof-check"><input type="checkbox" />Добавить объект на народную карту</label>
+							<p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
+							<fieldset class="form-buttons">
+								<input type="submit" class="button sbmt-btn" value="Готово"  />
+								
+							</fieldset>
+						</form>
+					</div>			
+				</div>
+        </div>
+
+        
+
+        
+
+        
+
+        
+
+        
+            
+
+         
+            
+
+            
+
+        
+
+        
+
+        
+
+        
+
+         <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br>Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
