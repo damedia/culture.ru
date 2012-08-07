@@ -407,6 +407,10 @@ $(document).ready(function(){
 			$(this).parent().css({'height':'auto'});
 		})
 		
+		$('#video_sort li').click(function(){
+			$(this).addClass('active').siblings().removeClass('active');
+		})
+		
 	});
 	
 	
