@@ -60,11 +60,7 @@
 		AddThis Button END -->
 	</div>
    <div class="comments">
-		{% include 'FOSCommentBundle:Thread:comments.html.twig' with {
-			'comments': comments,
-			'thread': thread
-		} %}
-	
+       {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': thread.id} %}
     </div>
 	<!-- /commetns-list-->
 	<p>&nbsp;</p>
