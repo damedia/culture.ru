@@ -39,53 +39,6 @@
                                         </a>
                                     </li>
                                     {% endfor %}
-
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo1.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo3.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo3.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo2.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo2.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a class="thumb" name="leaf" href="{{ asset('bundles/armdatlas/common/img/photo/big_photo4.jpg') }}" title="">#}
-                                            {#<img src="{{ asset('bundles/armdatlas/common/img/photo/photo4.jpg') }}" />#}
-                                        {#</a>#}
-                                    {#</li>#}
-
                                 </ul>
                                 <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
                             </div>
@@ -106,7 +59,11 @@
                             <ul class="object-video-list">
                                 {% for video in entity.videos %}
                                 <li class="object-video-list-one">
-                                    <a href="#"><img src="{{ video.image }}" alt="" class="object-video-list-image" /></a>
+                                    <div class="object-video-list-image">
+                                    {#<a href="#"><img src="{{ video.image }}" alt="" class="object-video-list-image" /></a>#}
+                                        {{ video.resizedCode(200, 150)|raw }}
+
+                                    </div>
                                     <div class="object-video-list-descr">
                                         <span class="ovl-date">{{ video.durationString }}</span>
                                         <p class="object-video-header"><a href="#">{{ video.title }}</a></p>

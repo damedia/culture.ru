@@ -62,10 +62,16 @@ class ObjectAdmin extends Admin
                 ->add('title')
                 ->add('announce')
                 ->add('content')
-                ->add('categories', 'sonata_type_model',
-                    array('multiple' => true, 'expanded' => true)
-                )
+//                ->add('categories', 'sonata_type_model',
+//                    array('multiple' => true, 'expanded' => true)
+//                )
+                ->add('categories', 'armd_atlas_object_categories', array(
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')
+                ))
                 ->add('showAtHomepage', null,
+                    array('required' => false)
+                )
+                ->add('showAtRussianImage', null,
                     array('required' => false)
                 )
                 ->add('siteUrl')

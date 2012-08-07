@@ -60,3 +60,7 @@
 .armd-sonata-tvigle-collection .armd-sonata-tvigle-form .control-label {
     margin-right: 10px;
 }
+
+.sonata-bc .form-horizontal .atlas-object-categories-select {
+    width: 470px;
+}
