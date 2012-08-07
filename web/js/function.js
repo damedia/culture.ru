@@ -106,6 +106,27 @@ $(document).ready(function(){
 		$(window).load(function(){
 			resizePpa();
 		});	
+		
+		
+		/*Expandable*/
+		$('.to_expand_handler a').click(function(){
+			var handler = $(this),
+				blockToExpand  = handler.parent().next('.to_expand_block');
+			;
+			
+			
+			if (handler.hasClass('expanded_handler')) {
+				handler.html(handler.data('text'));
+			} else {
+				handler.data('text', $(this).html());
+				handler.html('свернуть');
+			}
+			
+			handler.toggleClass('expanded_handler');
+			blockToExpand.slideToggle();
+			
+			return false;
+		})
 	});
 	
 	

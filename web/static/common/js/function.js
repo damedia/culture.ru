@@ -411,6 +411,23 @@ $(document).ready(function(){
 			$(this).addClass('active').siblings().removeClass('active');
 		})
 		
+		
+		/*Atlas tabs*/
+		$('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
+			var href = $(this).attr('href');
+			$(this).parent().addClass('active')
+							.siblings().removeClass('active');
+			$(href).show().siblings('div').hide();
+			return false;
+		})
+		
+		if ($('.uniform').length > 0) {
+			$('.uniform').uniform();
+		}
+		
+		if ($('.draggable').length > 0) {
+			$('.draggable').draggable();
+		}
 	});
 	
 	

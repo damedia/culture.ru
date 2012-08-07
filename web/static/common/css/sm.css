@@ -526,11 +526,18 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .green-title h1, .green-title h2, .green-title h3,  .green-title:before {
 	border-color:#00a02d;
 }	
+.dark-green-title h1, .dark-green-title h2, .dark-green-title h3,  .dark-green-title:before {
+	border-color:#007b0c;
+}
 .blue-title h1, .blue-title h2, .blue-title h3,  .blue-title:before {
 	border-color:#01b0f1;
 }
 .dark-blue-title h1, .dark-blue-title h2, .dark-blue-title h3,  .dark-blue-title:before {
 	border-color:#0099d2;
+}
+
+.title-filter:before {
+	background:url('../img/title.png') no-repeat 0 4px;
 }
 	
 	
@@ -2131,6 +2138,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .atlas-center {
 	float:right;
 	width:75%;
+	position:relative;
 }	
 	.atlas-center .title-block {
 		color:#000;
@@ -3265,11 +3273,35 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 				
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
+
+						
+						
+						
+						
+						
+						
+						
+						
+ 
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
