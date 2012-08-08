@@ -40,7 +40,7 @@ class TaskProcessCommand extends ContainerAwareCommand
                 )
             );
 
-            $video_url_callback = $this->getContainer()->get('armd_tvigle.configuration_pool')->getOption('video_url_callback');
+            $video_url_callback = $optionsPool->getOption('video_url_callback');
 
             foreach($taskList as $task) {
                 $output->writeln('Process task '.$task->getId());
