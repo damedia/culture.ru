@@ -7,4 +7,16 @@
 	<div class="time-line-block-text">
         {{ event.body|raw }}
 	</div>
+
+	{% if event.accidents %}
+		<p class="to_expand_handler"><a href="#">развернуть</a></p>
+		<div class="to_expand_block" style="display:none">
+		{%for a in event.accidents %}
+			<div class="time-line-event">
+				<h3>{{ a.year }} год</h3>
+				<p>{{ a.announce|raw}}</p>
+			</div>
+		{% endfor %}	
+		</div>
+	{% endif%}
 </div>

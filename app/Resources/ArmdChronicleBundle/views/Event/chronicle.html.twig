@@ -6,6 +6,12 @@
 	</div>
 
     {% render "ArmdChronicleBundle:Event:centuries" with {"century": century} %}
-    
-    {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": events} %}
+
+    <div class="time-line-content clearfix">
+    	<div class="time-line-header">{{ century }}<br />
+    		<span>век</span>
+    	</div>    
+        
+        {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": events} %}
+    </div>
 {% endblock %}    

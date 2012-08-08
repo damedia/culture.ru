@@ -2,9 +2,9 @@
 
 namespace Armd\NewsBundle\Repository;
 
-use Armd\ListBundle\Repository\ListRepository;
+use Armd\ListBundle\Repository\BaseRepository;
 
-class NewsRepository extends ListRepository
+class NewsRepository extends BaseRepository
 {    
     /**
      * @param \DateTime $date
