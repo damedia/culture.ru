@@ -16,10 +16,11 @@ class CallbackController extends Controller
 
         $status = $this->container->get('request')->get('st');
         if(6 == $status) {
-            $params = $this->container->getParameter('tvigle');
-            $serviceUrl = $params['api_service_url'];
-            $Login = $params['api_login'];
-            $Password = $params['api_password'];
+            $configPool = $this->container->get('armd_tvigle.configuration_pool');
+
+            $serviceUrl = $configPool->getOption('api_service_url');
+            $Login = $configPool->getOption('api_login');
+            $Password = $configPool->getOption('api_password');
             $soap = new \SoapClient
             (
                 $serviceUrl,
