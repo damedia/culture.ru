@@ -1,0 +1,11 @@
+{% extends '::two-column-layout.html.twig' %}
+
+{% block body%}
+	<div class="title-block timeline-title">
+		<h2>Лента времени</h2>
+	</div>
+
+    {% render "ArmdChronicleBundle:Event:centuries" with {"century": century} %}
+    
+    {% include "ArmdChronicleBundle:Event:events.html.twig" with {"events": events} %}
+{% endblock %}    

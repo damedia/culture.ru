@@ -1,0 +1,88 @@
+<div class="time-line-content clearfix">
+	<div class="time-line-header">XIX<br />
+		<span>век</span>
+	</div>
+	<div class="time-line-left">
+		
+		{% for e in events %}
+			{% if loop.index is odd %}
+			<div class="time-line-block">
+				<div class="time-line-block-header">
+					{{ e.title }}
+					<span class="time-line-year">
+						1828 год
+					</span>
+				</div>
+				<img src="/static/common/img/photo/01.jpg" alt="" class="time-line-image" title="Граф И.Ф.Паскевич и принц Аббас-Мирза на подписании мирного
+договора в Туркманчае. В.Машков, Примерно 1828" />
+				<div class="time-line-block-text">
+					<p>
+						{{ e.body }}
+					</p>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	
+	<div class="time-line-right">
+		<div class="time-line-events" id="time-line-events">
+			<div class="time-line-events-header">
+				В мире
+			</div>
+			<div class="time-line-event">
+				<h3>1825 год</h3>
+				<p>Открытие первой в мире железной дороги общего пользования с паровой тягой между Стоктоном и Дарлингтоном (Англия).</p>
+			</div>
+			<div class="time-line-event">
+				<h3>1830 год</h3>
+				<p>Июльская революция во Франции против действующей монархии, закончившаяся низложением старшей линии династии Бурбонов. На престол взошел Луи-Филипп, герцог Орлеанский, чьи властные полномочия ограничивались парламентом, обновленной Хартией и распространением избирательного права.</p>
+			</div>
+			<div class="time-line-event">
+				<h3>1831 год</h3>
+				<p>Композитор Иоганн Штраус создает посвященный Польскому восстанию «Революционный этюд», а ноты записывает альбом, который изначально планировал заполнить автографами друзей.</p>
+			</div>
+			
+			<p class="to_expand_handler"><a href="#">все события</a></p>
+			<div class="to_expand_block" style="display:none">
+				<div class="time-line-event">
+					<h3>1831 год</h3>
+					<p>В Парижском Салоне выставлена картина Эжена Делакруа «Свобода на баррикадах», посвященная июльской революции 1930 г., и имевшая оглушительный успех у публики.</p>
+				</div>
+				<div class="time-line-event">
+					<h3>1832 год</h3>
+					<p>Увидела свет вторая часть «Фауста» И.Ф.Гете, которую поэт завещал опубликовать только после его смерти.</p>
+				</div>
+				<div class="time-line-event">
+					<h3>1837 год</h3>
+					<p>Восшествие на престол Виктории, королевы Соединенного Королевства Великобритании и Ирландии, императрицы Индии. Виктория правила 63 года, ее именем назвали целую эпоху в истории Англии. </p>
+				</div>
+				<div class="time-line-event">
+					<h3>1848 год</h3>
+					<p>Начало революционных движений в Европе: начинаются итальянская, немецкая, чешская, венгерская революции и Австрийской империи. Революционное движение во Франции дало начало Второй французской республике. </p>
+				</div>
+			</div>
+		</div>
+		{% for e in events %}
+			{% if loop.index is odd %}
+			{% else %}
+			<div class="time-line-block">
+				<div class="time-line-block-header">
+					{{ e.title }}
+					<span class="time-line-year">
+						1828 год
+					</span>
+				</div>
+				<img src="/static/common/img/photo/01.jpg" alt="" class="time-line-image" title="Граф И.Ф.Паскевич и принц Аббас-Мирза на подписании мирного
+договора в Туркманчае. В.Машков, Примерно 1828" />
+				<div class="time-line-block-text">
+					<p>
+						{{ e.body }}
+					</p>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+				
