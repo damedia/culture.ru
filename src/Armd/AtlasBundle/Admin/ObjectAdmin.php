@@ -62,10 +62,17 @@ class ObjectAdmin extends Admin
                 ->add('title')
                 ->add('announce')
                 ->add('content')
-                ->add('categories', 'sonata_type_model',
-                    array('multiple' => true, 'expanded' => true)
-                )
+//                ->add('categories', 'sonata_type_model',
+//                    array('multiple' => true, 'expanded' => true)
+//                )
+                ->add('categories', 'armd_atlas_object_categories', array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')
+                ))
                 ->add('showAtHomepage', null,
+                    array('required' => false)
+                )
+                ->add('showAtRussianImage', null,
                     array('required' => false)
                 )
                 ->add('siteUrl')
@@ -92,7 +99,7 @@ class ObjectAdmin extends Admin
                         'allow_add' => true,
                         'allow_delete' => true,
                         'required' => false,
-                        'attr' => array('class' => 'armd-sonata-images-collection')
+                        'attr' => array('class' => 'armd-sonata-images-collection'),
                   ))
                   ->add('archiveImages', 'collection', array(
                         'type' => 'armd_media_image',

@@ -12,6 +12,8 @@ Objects: Объекты
 Object: Объект
 Object List: Объекты атласа
 Object Edit: Измененить объект
+Object Create: Добавить объект
+Object Delete: Удалить объект
 Announce: Анонс
 Content: Описание
 Site Url: Адрес сайта
@@ -23,6 +25,7 @@ Work Time: График работы
 Weekends: Выходные
 Virtual Tour: Виртуальный тур
 Show At Homepage: Показывать на главной
+Show At Russian Image: Образы России
 Media: Медиа
 Image Gallery: Галерея изображений
 Image3d: 3D изображение

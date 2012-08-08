@@ -304,6 +304,13 @@ class Tvigle
         return $this->code;
     }
 
+    public function getResizedCode($width, $height) {
+       $code = preg_replace('~(width="?)(\d)("?)~', '$1' . $width . '$3', $this->code);
+       $code = preg_replace('~(height="?)(\d)("?)~', '$1' . $height . '$3', $code);
+       return $code;
+    }
+
+
     /**
      * Set status
      *

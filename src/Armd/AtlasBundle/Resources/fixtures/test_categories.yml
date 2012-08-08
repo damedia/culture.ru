@@ -1,35 +1,66 @@
 categories:
-    - title: Музеи
-      icon: pin_musem.png
+    - title: Достопримечательности
       children:
-        - title: Музей-квартира
-          ref_code: museum_flat
-
-        - title: Дом-музей
-          ref_code: museum_house
-
-        - title: Галерея
-          ref_code: museum_gallery
-
-        - title: Этнографический
-        - title: Краеведческий
-        - title: Картинная галерея
-        - title: Музейный комплекс
-        - title: Музей-заповедник
-        - title: Архитектурный
-        - title: Исторический
+        - title: Достопримечательности
+        - title: Кремли
+          ref_code: kremlin
+        - title: Памятники
+        - title: Площади
+        - title: Храмы
 
     - title: Учреждения
-      icon: pin_other.png
-
-    - title: Археологическое общество
-      icon: pin_other.png
-
-    - title: Библиотека
-      ref_code: library
-      icon: pin_library.png
       children:
-        - title: Детская
-        - title: Высшее учебное заведение
-        - title: Центр писателя
+        - title: Учреждения
+        - title: Архивы
+        - title: Библиотеки
+          ref_code: library
+        - title: Выставки
+        - title: Заповедники
+        - title: Музеи
+          ref_code: museum
+        - title: Образовательные
+        - title: Общества
+        - title: Официальные
+        - title: Фонды
+
+    - title: Тема
+      children:
+        - title: Археология
+        - title: Архитектура
+        - title: Балет
+        - title: Быт
+        - title: Декор и дизайн
+        - title: Драма
+        - title: Живопись
+        - title: Киноискусство
+        - title: Краеведение
+        - title: Литература
+        - title: Музыка
+        - title: Народное творчество
+        - title: Наука
+        - title: Опера
+        - title: Природа
+        - title: Скульптура
+        - title: Театр
+        - title: Этнография
+
+    - title: Дополнительно
+      children:
+        - title: Религия
+          children:
+            - title: Религия
+            - title: Православие
+            - title: Буддизм
+            - title: Мусульманство
+            - title: Иудаизм
+        - title: История
+        - title: Современность
+        - title: Дети
+        - title: Досуг
+
+    - title: Персоны
+      children:
+        - title: Пушкин А.С.
+        - title: Петр I
+
 

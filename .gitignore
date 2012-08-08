@@ -12,3 +12,5 @@ tmp/
 web/uploads/
 *~
 .idea/
+*.orig
+/bin

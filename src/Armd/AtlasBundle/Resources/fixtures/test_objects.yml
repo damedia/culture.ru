@@ -8,7 +8,7 @@ objects:
       address: Москва, ул. Московская д.5
       lat: 59.219216
       lon: 39.890553
-      categories: [museum_flat, museum_house]
+      categories: [museum, kremlin]
       workTime: 12:00-19:00
       weekends: [day6, day7]
       images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
@@ -26,7 +26,7 @@ objects:
       address: Москва, ул. Московская д.5
       lat: 59.221114
       lon: 39.886753
-      categories: [museum_flat]
+      categories: [museum]
       workTime: 12:00-19:00
       weekends: [day1]
       images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]

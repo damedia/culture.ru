@@ -30,6 +30,9 @@ class Configuration implements ConfigurationInterface
                     ->example('http://mk.dev.armd.ru')
                     ->info('Base site url')
                  ->end()
+                ->scalarNode('api_service_url')->defaultValue('http://pub.tvigle.ru/soap/index.php?wsdl')->end()
+                ->scalarNode('api_login')->cannotBeEmpty()->end()
+                ->scalarNode('api_password')->cannotBeEmpty()->end()
             ->end();
 
         return $treeBuilder;

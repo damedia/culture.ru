@@ -4,7 +4,8 @@ services:
         tags:
             - { name: form.type, alias: armd_media_image }
 
-    armd.atlas_bundle.type.armd_media_images:
-            class: Armd\AtlasBundle\Form\Type\MediaImagesType
+    armd.atlas_bundle.type.armd_object_categories:
+            class: Armd\AtlasBundle\Form\Type\ObjectCategoriesType
+            arguments: [@doctrine.orm.entity_manager]
             tags:
-                - { name: form.type, alias: armd_media_images }
+                - { name: form.type, alias: armd_atlas_object_categories }

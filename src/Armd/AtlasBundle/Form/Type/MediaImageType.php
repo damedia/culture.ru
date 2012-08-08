@@ -35,4 +35,6 @@ class MediaImageType extends AbstractType
     {
         return 'armd_media_image';
     }
+
+
 }

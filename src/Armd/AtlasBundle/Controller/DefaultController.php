@@ -19,6 +19,7 @@ class DefaultController extends Controller
     protected $username = 'admin';
     protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
 
+
     /**
      * @Route("/objects")
      */
