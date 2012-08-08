@@ -43,6 +43,10 @@ class DBEventListener
             $videoUrlBase = $configPool->getOption('video_host') . $configPool->getOption('video_url');
             $video_url = $videoUrlBase.$entity->getFilename();
 
+            if('' != $entity->getFileurl()) {
+                $video_url = $entity->getFileurl();
+            }
+
             $entityManager = $args->getEntityManager();
             $tvigleTask = new TvigleTask();
 

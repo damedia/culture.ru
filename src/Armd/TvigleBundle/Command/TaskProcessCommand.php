@@ -53,7 +53,7 @@ class TaskProcessCommand extends ContainerAwareCommand
 
                 $nId = $soap->AddTask
                 (
-                    $video->getId(),
+                    $video->getId() + 1000,
                     $video->getTitle(),
                     $task->getUrl(),
                     $video_url_callback.$video->getId(),

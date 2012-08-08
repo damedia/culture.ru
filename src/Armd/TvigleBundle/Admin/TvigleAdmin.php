@@ -51,6 +51,7 @@ class TvigleAdmin extends Admin
                 ->add('location')
 //                ->add('filename', 'choice', array('choices' => $video_files, 'property_path' => false))
                 ->add('filename', 'choice', array('choices' => $video_files))
+                ->add('fileurl', 'text', array('required' => false))
             ->end();
     }
 

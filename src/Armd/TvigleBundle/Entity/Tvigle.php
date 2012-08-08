@@ -70,6 +70,8 @@ class Tvigle
 
     private $filename;
 
+    private $fileurl;
+
     public function __toString()
     {
         return $this->getTitle();
@@ -339,5 +341,15 @@ class Tvigle
     public function setFilename($filename)
     {
         $this->filename = $filename;
+    }
+
+    public function getFileurl()
+    {
+        return $this->fileurl;
+    }
+
+    public function setFileurl($fileurl)
+    {
+        $this->fileurl = $fileurl;
     }
 }
