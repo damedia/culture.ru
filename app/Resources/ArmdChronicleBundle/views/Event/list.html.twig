@@ -1,30 +1,16 @@
 <div class="time-line-content clearfix">
-	<div class="time-line-header">XIX<br />
+	<div class="time-line-header">{{ century }}<br />
 		<span>век</span>
 	</div>
-	<div class="time-line-left">
-		
+
+	<div class="time-line-left">	
 		{% for e in events %}
 			{% if loop.index is odd %}
-			<div class="time-line-block">
-				<div class="time-line-block-header">
-					{{ e.title }}
-					<span class="time-line-year">
-						1828 год
-					</span>
-				</div>
-				<img src="/static/common/img/photo/01.jpg" alt="" class="time-line-image" title="Граф И.Ф.Паскевич и принц Аббас-Мирза на подписании мирного
-договора в Туркманчае. В.Машков, Примерно 1828" />
-				<div class="time-line-block-text">
-					<p>
-						{{ e.body }}
-					</p>
-				</div>
-			</div>
+                {% include "ArmdChronicleBundle:Event:event.html.twig" with {"event": e} %}
 			{% endif %}
 		{% endfor %}
 	</div>
-	
+
 	<div class="time-line-right">
 		<div class="time-line-events" id="time-line-events">
 			<div class="time-line-events-header">
@@ -63,26 +49,11 @@
 				</div>
 			</div>
 		</div>
+		
 		{% for e in events %}
-			{% if loop.index is odd %}
-			{% else %}
-			<div class="time-line-block">
-				<div class="time-line-block-header">
-					{{ e.title }}
-					<span class="time-line-year">
-						1828 год
-					</span>
-				</div>
-				<img src="/static/common/img/photo/01.jpg" alt="" class="time-line-image" title="Граф И.Ф.Паскевич и принц Аббас-Мирза на подписании мирного
-договора в Туркманчае. В.Машков, Примерно 1828" />
-				<div class="time-line-block-text">
-					<p>
-						{{ e.body }}
-					</p>
-				</div>
-			</div>
+			{% if loop.index is even %}
+                {% include "ArmdChronicleBundle:Event:event.html.twig" with {"event": e} %}
 			{% endif %}
 		{% endfor %}
 	</div>
 </div>
-				
