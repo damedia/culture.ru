@@ -74,7 +74,12 @@ class Event
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */        
-    protected $published;
+    private $published;
+    
+    /**    
+     * @ORM\OneToMany(targetEntity="Accident", mappedBy="event")    
+     */
+    private $accidents;
         
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
@@ -361,5 +366,45 @@ class Event
     public function getGallery()
     {
         return $this->gallery;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->accidents = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add accidents
+     *
+     * @param Armd\ChronicleBundle\Entity\Accident $accidents
+     * @return Event
+     */
+    public function addAccident(\Armd\ChronicleBundle\Entity\Accident $accidents)
+    {
+        $this->accidents[] = $accidents;
+    
+        return $this;
+    }
+
+    /**
+     * Remove accidents
+     *
+     * @param Armd\ChronicleBundle\Entity\Accident $accidents
+     */
+    public function removeAccident(\Armd\ChronicleBundle\Entity\Accident $accidents)
+    {
+        $this->accidents->removeElement($accidents);
+    }
+
+    /**
+     * Get accidents
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAccidents()
+    {
+        return $this->accidents;
     }
 }

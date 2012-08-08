@@ -5,3 +5,10 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Chronicle, label: Events }
             - { name: armd.content.admin }            
         arguments: [null, Armd\ChronicleBundle\Entity\Event, SonataAdminBundle:CRUD, @service_container]
+        
+    armd.content.chronucle.admin.accident:
+        class: Armd\ChronicleBundle\Admin\Accident
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Chronicle, label: Accidents }
+            - { name: armd.content.admin }            
+        arguments: [null, Armd\ChronicleBundle\Entity\Accident, SonataAdminBundle:CRUD, @service_container]        

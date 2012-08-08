@@ -18,10 +18,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 use Sonata\AdminBundle\Admin\Admin;
 
-class Event extends Admin
+class Accident extends Admin
 {
     protected $datagridValues = array(
-        '_sort_by'      => 'date',    
+        '_sort_by'      => 'year',    
         '_sort_order'   => 'DESC',
     );
 
@@ -33,10 +33,8 @@ class Event extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('title')
             ->add('announce')
-            ->add('body')
-            ->add('date')                                 
+            ->add('year')
         ;
         
         parent::configureShowField($showMapper);        
@@ -51,19 +49,9 @@ class Event extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('title')
+                ->add('event')
                 ->add('announce')
-                ->add('body')
-//                ->add('century')
-//                ->add('decade')
                 ->add('year')                                                    
-//                ->add('accidents', 'sonata_type_collection', array('required' => false, 'by_reference' => false), array('edit' => 'inline', 'inline' => 'table'))                
-                ->add('priority')                                
-                ->add('published')
-            ->end()    
-            ->with('Media')                
-                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'chronicle')))
-                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'chronicle')))                                
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -77,9 +65,8 @@ class Event extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {        
         $listMapper
-            ->addIdentifier('title')
-            ->add('year')
-            ->add('published')                            
+            ->addIdentifier('announce')
+            ->add('year')                           
         ;
         
         parent::configureListFields($listMapper);        
@@ -88,8 +75,9 @@ class Event extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('published')
-            ->add('century')            
+            ->add('event')
         ;
+        
+        parent::configureDatagridFilters($datagridMapper);
     }
 }
