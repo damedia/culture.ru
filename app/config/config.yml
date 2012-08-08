@@ -213,3 +213,14 @@ armd_tvigle:
     api_service_url:        http://pub.tvigle.ru/soap/index.php?wsdl
     api_login:       Stella_l
     api_password:    armada
+
+armd_sphinx_search:
+    indexes:
+        All:
+            %sphinxsearch_index_all%: ~
+
+    searchd:
+        host:   %sphinxsearch_host%
+        port:   %sphinxsearch_port%
+    indexer:
+        bin:    %sphinxsearch_indexer_bin%

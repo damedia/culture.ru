@@ -15,7 +15,7 @@ class NewsController extends ListController
      * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, name="armd_news_list_index_by_category_and_page")                    
      */
     function newsListAction($category = null, $page = 1, $limit = 10)
-    {   
+    {
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
             'news'          => $this->getLatestNewsList($limit, $page, $category),            

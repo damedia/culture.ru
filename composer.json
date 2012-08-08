@@ -6,7 +6,8 @@
     },
     "repositories":{
         "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
-        "armd/comment":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" }
+        "armd/comment":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" },
+        "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" }
     },
     "require": {
         "php": ">=5.3.3",
@@ -37,9 +38,10 @@
         "sonata-project/easy-extends-bundle": "*",
         "sonata-project/media-bundle": "master",
         "kriswallsmith/buzz": "master",
-        
+
         "armd/banner-bundle": "*",
-        "armd/comment": "*"
+        "armd/comment": "*",
+        "armd/sphinx-search-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [
