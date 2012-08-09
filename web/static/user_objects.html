@@ -1,0 +1,249 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="common/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/jquery-ui-1.8.21.custom.min.js"></script>
+        <script type="text/javascript" src="common/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="common/js/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="common/js/function.js"></script>
+		
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="video_list.html">Лекции</a></li>
+                <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
+                <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+
+        <div class="blocksection w" id="f-section">
+			<div class="title green-title title-filter">
+				<h2>Личный кабинет</h2>
+			</div>
+			<ul class="lk-menu green-lk-menu">
+				<li>
+					<a href="#">Мой профиль</a>
+				</li>
+				<li>	
+					<a href="#">Медиа-материалы</a>
+				</li>
+				<li>	
+					<a href="#">Мои комментарии</a>
+				</li>
+				<li class="active">	
+					<a href="#">Объекты</a>
+				</li>
+			</ul>
+					
+			<div class="filter">
+				<div class="filter-accordion  lk-filter ">
+					<p class="filter-search-header">Фильтрация</p>
+					<div id="filter" class="filter-accordion-block">
+						<ul class="lvl-1">
+							<li>
+								<label>Объекты культурного наследия</label>
+								<ul class="lvl-2">
+									<li><label><input type="checkbox" name="category[5]"> Памятники</label></li>
+									<li><label><input type="checkbox" name="category[6]"> Тут пример длинного текста. Должно быть выровнено по левому краю. Под чекбоксом не должно быть текста.</label>
+										<ul class="lvl-3">
+											<li><label><input type="checkbox" name="category[9]"> Светская</label></li>
+											<li><label><input type="checkbox" name="category[10]"> Религиозная</label></li>
+
+										</ul>
+									</li>
+									<li><label><input type="checkbox" name="category[7]"> Природа</label></li>
+									<li><label><input type="checkbox" name="category[8]"> Другое</label></li>
+								</ul>
+							</li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[3]"> Музеи</label></li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[4]"> Учреждения</label>
+								<ul class="lvl-2">
+									<li><label><input type="checkbox" name="category[53]"> Кинотеатр</label></li>
+									<li><label><input type="checkbox" name="category[52]"> Краеведческий</label></li>
+								</ul>
+							</li>
+							<li class="lvl-1"><label><input type="checkbox" name="category[11]"> Археологическое общество</label></li>
+						</ul>
+					</div>
+					
+				</div>
+			</div>		
+			<div class="two-column-right">
+				<h3 class="simple-header" style="margin-top:15px;">Карта</h3>
+				<div class="atlas-map">
+					<img src="common/img/map.png" alt="" />
+					<div class="atlas-menu"></div>
+				</div>
+				<dl class="lk-objects-list">
+					<dt>
+						Московский государственный объединенный музей-заповедник усадьба «Коломенское» 
+					</dt>
+					<dd>	
+						Удивительное место посреди города: река, поля, леса, холмы. На холмах — церкви, ботик Петра, заново отстроенный дворец Алексея Михайловича, две усадьбы — крестьянина и кузнеца. Гуляй не хочу, хоть на Масленицу, хоть так просто в выходной.
+					</dd>
+					<dt>
+						Третьяковская галерея
+					</dt>
+					<dd>
+						В Лаврушинский нужно идти, когда начинает казаться, что все уже видел и искусство больше не трогает душу. «Явление Христа народу», «Апофеоз войны»,«Не ждали», «Последний день Помпеи» и еще десятки картин, которые все знают, но никогда не видят.
+					</dd>
+					<dt>
+
+						Экспериментаниум
+					</dt>
+					<dd>
+						ВШесть разделов постоянной экспозиции — «Механика», «Анатомия», «Авто», «Акустика», «Электромагнетизм», «Оптика» — ничего общего со школьным занудством не имеют. Детский музей, где интересно родителям.
+
+					</dd>
+					<dt>
+						Музей изобразительных искусств им. Пушкина
+					</dt>
+					<dd>	
+						Статуя Давида и мумия кошки — далеко не главное, что есть в Пушкинском. Здесь хранится одна из лучших в мире коллекций импрессионистов и постимпрессионистов. Тут же проходят все важнейшие выставки классического искусства — с самыми длинными очередями в городе.
+					</dd>
+				</dl>
+				
+				<div class="pre-paginates">
+					<span class="prevPage">назад</span>
+					<a href="#" class="nextPage">вперед</a>
+				</div>
+				<div class="virtual-paginates clearfix" style="margin-left:0;">
+					<ul class="virtual-paginates-list">
+						<li>
+							<span class="prevPage">первая</span>
+						</li>
+						<li>
+							<span class="current">1</span>
+						</li>
+						<li>
+							<a href="#">2</a>
+						</li>
+						<li>
+							<a href="#">3</a>
+						</li>
+						<li>
+							<a href="#">4</a>
+						</li>
+						<li>
+							<a href="#">5</a>
+						</li>
+						<li>
+							<a href="#">6</a>
+						</li>
+						<li>
+							<a href="#" class="nextPage">последняя</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			
+
+        </div>
+		
+        
+
+        
+
+        
+
+        
+
+        
+            
+
+         
+            
+
+            
+
+        
+
+        
+
+        
+
+       <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br />Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
