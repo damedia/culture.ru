@@ -1,0 +1,32 @@
+services:
+
+    armd_tvigle_video.configuration_pool:
+        class: Armd\TvigleVideoBundle\Pool\ConfigurationPool
+
+    armd_tvigle_video.type.tvigle_video_selector:
+        class: Armd\TvigleVideoBundle\Form\Type\TvigleVideoSelectorType
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: form.type, alias: armd_tvigle_video_selector}
+
+    armd_tvigle_video.sonata_admin.tvigle_video:
+        class: Armd\TvigleVideoBundle\Admin\TvigleVideoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Video }
+        arguments: [null, Armd\TvigleVideoBundle\Entity\TvigleVideo, SonataAdminBundle:CRUD]
+
+    armd_tvigle_video.manager.tvigle_video:
+        class: Armd\TvigleVideoBundle\TvigleVideo\TvigleVideoManager
+        arguments: [@armd_tvigle_video.configuration_pool]
+
+    armd_tvigle_video.listener.tvigle_video:
+        class: Armd\TvigleVideoBundle\EventListener\TvigleVideoListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+        arguments: [@armd_tvigle_video.manager.tvigle_video]
+
+    armd_tvigle_video.twig.tvigle_video_extension:
+        class: Armd\TvigleVideoBundle\Extension\TvigleVideoTwigExtension
+        tags:
+            - { name: twig.extension }

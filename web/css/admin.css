@@ -24,10 +24,6 @@
     margin-left: 10px;
 }
 
-/*.sonata-bc .form-horizontal .armd-sonata-image input[type=checkbox] + .control-label {*/
-    /*width: auto;*/
-    /*margin-right: 10px;*/
-/*}*/
 
 
 .armd-sonata-images-collection .sonata-collection-row > div {
@@ -44,15 +40,19 @@
 }
 .armd-sonata-tvigle-collection .sonata-collection-row > div > .control-label{
     display: none;
+    /*width: 70px;*/
+    /*padding-right: 7px;*/
 }
 .armd-sonata-tvigle-collection .sonata-collection-row > div {
     padding-left: 20px;
+    /*clear: both;*/
+    margin-bottom: 5px;
 }
 .armd-sonata-tvigle-collection .armd-sonata-tvigle-form {
-    padding: 15px 0;
-    border: 1px solid #666666;
-    border-width: 1px 0 0;
-    width: 500px;
+    /*padding: 15px 0;*/
+    /*border: 1px solid #666666;*/
+    /*border-width: 1px 0 0;*/
+    /*width: 500px;*/
 }
 .armd-sonata-tvigle-collection .armd-sonata-tvigle-form > div {
     margin-bottom: 5px;

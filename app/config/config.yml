@@ -214,15 +214,10 @@ knp_paginator:
     template: 
         pagination: "::pagination.html.twig"
 
-armd_tvigle:
-    video_directory:  %kernel.root_dir%/../web/uploads/video
-    video_url:  /uploads/video/
-    video_url_callback:  http://mk.dev.armd.ru/video/callback/
-    video_host: http://mk.dev.armd.ru
-
-    api_service_url:        http://pub.tvigle.ru/soap/index.php?wsdl
-    api_login:       Stella_l
-    api_password:    armada
+armd_tvigle_video:
+    api_service_url: http://pub.tvigle.ru/soap/index.php?wsdl
+    api_login: Stella_l
+    api_password: armada
 
 armd_sphinx_search:
     indexes:

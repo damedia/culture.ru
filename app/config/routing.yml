@@ -74,14 +74,16 @@ armd_atlas_bundle:
     type:     annotation
     prefix:   /atlas
 
-ArmdTvigleBundle_video:
-    resource: "@ArmdTvigleBundle/Resources/config/routing.yml"
-    prefix:   /video
 
 armd_search_bundle:
     resource: "@ArmdSearchBundle/Controller/"
     type:     annotation
     prefix:   /search/
+
+armd_tvigle_video:
+    resource: "@ArmdTvigleVideoBundle/Controller/"
+    type: annotation
+    prefix:   /tvigle_video
 
     
 # Internal routing configuration to handle ESI
