@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="common/css/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css" media="screen" />
+
+        <script type="text/javascript" src="common/js/jquery.js"></script>
+
+        <script type="text/javascript" src="common/js/jquery-ui-1.8.21.custom.min.js"></script>
+        <script type="text/javascript" src="common/js/jquery.ui.datepicker-ru.js"></script>
+        <script type="text/javascript" src="common/js/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="common/js/function.js"></script>
+		
+    </head>
+
+    <body>
+
+        <div id="header" class="w">
+			<a href="index.html" id="logo"></a>
+
+            <div id="top">
+				<div id="auth">
+					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+				</div>
+                <div id="topbar">
+					<div class="site-versions">	
+						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+					</div>
+					<div class="search_bar">
+						<form action="">
+							<input type="image" src="common/img/top_search.png"  />
+							<input type="text" value="" />
+						</form>
+					</div>
+				</div>
+				<ul class="lang-switch">
+					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
+					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
+				</ul>
+			</div>
+
+			<div class="top-banner">
+				<img src="common/img/header_banner.jpg" alt="" />
+			</div>
+			
+        </div>
+
+        <div id="nav" class="w">
+            <ul class="navmenu">
+                <li class="first"><a href="/atlas/">Атлас</a></li>
+                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="online.html">Трансляции</a></li>
+                <li><a href="video_list.html">Лекции</a></li>
+                <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
+                <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
+				<li><a href="/press-centre/">Новости</a></li>
+				<li class="navmenu_more">
+					<a href="#" class="navmenu_more_link">Еще</a>
+					<ul>
+						<li><a href="goverment_service.html">Государственные услуги</a></li>
+						<li><a href="#">Образы России</a></li>
+						<li><a href="#">О проекте</a></li>
+					</ul>
+				</li>
+            </ul>
+        </div>
+
+
+        <div class="blocksection w" id="f-section">
+			<div class="title green-title title-filter">
+				<h2>Личный кабинет</h2>
+			</div>
+			<ul class="lk-menu green-lk-menu">
+				<li>
+					<a href="#">Мой профиль</a>
+				</li>
+				<li class="active">	
+					<a href="#">Медиа-материалы</a>
+				</li>
+				<li>	
+					<a href="#">Мои комментарии</a>
+				</li>
+				<li>	
+					<a href="#">Объекты</a>
+				</li>
+			</ul>
+					
+			<div class="filter">
+				<div class="filter-accordion  lk-filter filter-radio-inputs">
+					<p class="filter-search-header">Фильтрация</p>
+					<div id="filter" class="filter-accordion-block">
+						<ul class="lvl-1">
+							<li>
+								<label class="fab-opened">Тип материалов<span></span></label>
+								<ul class="lvl-2" style="display: block; ">
+									<li><label><input type="radio">Фотографии<span></span></label></li>
+									<li><label><input type="radio">Видео<span></span></label></li>
+									<li><label><input type="radio">Аудио<span></span></label></li>
+								</ul>
+							</li>
+							<li>
+								<label class="fab-opened">Расположение<span></span></label>
+								<ul class="lvl-2" style="display: block; ">
+									<li><label><input type="radio">Все<span></span></label></li>
+									<li><label><input type="radio">Альбомы<span></span></label></li>
+									<li><label><input type="radio">Неотсортированное<span></span></label></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<input type="button" value="Создать альбом" class="button gray-button" />
+					<input type="button" value="Загрузить фотографию" class="button green-button" />
+				</div>
+			</div>		
+			<div class="two-column-right">
+				<div class="lk-albums">
+					<h3 class="simple-header">Альбомы</h3>
+					<ul>
+						<li>
+							<div class="lk-album">
+								<a href="#"><img src="common/img/photo/lk-album.jpg" alt="" class="lk-album-image" /></a>
+								<div class="lk-album-stat">
+									<a href="#">Музеи</a>
+									<span class="num">8</span>
+								</div>
+							</div>
+						</li><li>
+							<div class="lk-album">
+								<a href="#"><img src="common/img/photo/lk-album.jpg" alt="" class="lk-album-image" /></a>
+								<div class="lk-album-stat">
+									<a href="#">Музеи</a>
+									<span class="num">8</span>
+								</div>
+							</div>
+						</li><li>
+							<div class="lk-album">
+								<a href="#"><img src="common/img/photo/lk-album.jpg" alt="" class="lk-album-image" /></a>
+								<div class="lk-album-stat">
+									<a href="#">Музеи</a>
+									<span class="num">8</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="lk-photos">
+					<h3 class="simple-header">Фотографии</h3>
+					<ul>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						<li>
+							<a href="#"><img src="common/img/photo/lk-photo.jpg" alt="" /></a>
+						</li>
+						
+					</ul>
+					
+					
+					
+				</div>
+				<div class="pre-paginates">
+					<span class="prevPage">назад</span>
+					<a href="#" class="nextPage">вперед</a>
+				</div>
+				<div class="virtual-paginates clearfix" style="margin-left:0;">
+					<ul class="virtual-paginates-list">
+						<li>
+							<span class="prevPage">первая</span>
+						</li>
+						<li>
+							<span class="current">1</span>
+						</li>
+						<li>
+							<a href="#">2</a>
+						</li>
+						<li>
+							<a href="#">3</a>
+						</li>
+						<li>
+							<a href="#">4</a>
+						</li>
+						<li>
+							<a href="#">5</a>
+						</li>
+						<li>
+							<a href="#">6</a>
+						</li>
+						<li>
+							<a href="#" class="nextPage">последняя</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+           
+
+        </div>
+		
+        
+
+        
+
+        
+
+        
+
+        
+            
+
+         
+            
+
+            
+
+        
+
+        
+
+        
+
+       <div id="footer" class="w">
+
+             <div id="contacts">
+                <div class="contacts-copyright">Министерство культуры<br />Российской Федерации</div>
+                <div class="contacts-inner">
+                    <div class="copyright">© Портал культурного наследия России</div>
+                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+                </div>
+            </div>
+
+            <div id="socialnetwork">
+
+                Рассказать о портале
+
+                <div id="i-socialnetwork">
+
+                    <img src="common/img/socialnetwork.png" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

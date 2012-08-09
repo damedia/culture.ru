@@ -44,12 +44,12 @@ $(document).ready(function(){
 			$.datepicker.setDefaults( $.datepicker.regional[ "ru" ] );
 			$( "#calendar" ).datepicker({showOtherMonths: true});
 		}
-		$('.ppa-block').hover(function(){
+		/*$('.ppa-block').hover(function(){
 			$(this).find('.ppa-over').show();
 		},
 		function(){
 			$(this).find('.ppa-over').hide();
-		});
+		});*/
 		
 		/*news filter*/
 		
@@ -91,7 +91,7 @@ $(document).ready(function(){
 			$(this).parent().toggleClass('opened');
 			return false;
 		})
-		
+		/*
 		var resizePpa = function(){
 			var ppaImg = $('.ppa-block img.news-image-frame'),
 				ppaImgheight = ppaImg.height();
@@ -105,7 +105,7 @@ $(document).ready(function(){
 		});
 		$(window).load(function(){
 			resizePpa();
-		});	
+		});	*/
 		
 		
 		/*Expandable*/

@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<h1>Результаты поиска</h1>
+<p>Запрос: {{ searchQuery }}</p>
+
+{% if searchResults|length > 0 %}
+    <ul class="news-list">
+    {% for searchResult in searchResults %}
+        <li>
+            <a class="news-list-image" href="{{ searchResult.object.url }}">
+                <span class="news-list-type">{{ searchResult.section.name }}</span>
+                {% if searchResult.object.imageUrl is defined %}
+                    <img src="{{ searchResult.object.imageUrl }}" />
+                {% endif %}
+            </a>
+
+            <div class="news-list-text">
+                <span class="news-list-date">
+                    {{ searchResult.object.date|date('j ')}}
+                    {{ ('calendar.full.'~searchResult.object.date|date('M'))|trans }}
+                    {{ searchResult.object.date|date(' /Y') }}
+
+                    {#{{ searchResult.object.date|date('j') }}#}
+                </span>
+                <a class="news-list-header" href="{{ searchResult.object.url }}">{{ searchResult.object.title }}</a>
+                <p>{{ searchResult.object.announce|raw }}</p>
+            </div>
+
+        </li>
+    {% endfor %}
+    </ul>
+<div class="navigation">
+    {{ pagination.render()|raw }}
+</div>
+{% else %}
+    По вашему запросу материалов не найдено
+{% endif %}
+
+{% endblock %}
+
+{#<nav class="navigation">#}
+    {#<div class="vitual-paginates clearfix"></div>#}
+{#</nav>#}

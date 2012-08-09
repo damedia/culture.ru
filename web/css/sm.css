@@ -21,7 +21,9 @@ body {
     background: #fff;
 	padding:0 13px;
 }
-
+html {
+	overflow-y:scroll;
+}
 a {
 	color: #007ef4;
 }
@@ -426,6 +428,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     background: url("../img/title-block-gray-press.png") 0 100% no-repeat;
     margin:0;
 	width:73%;
+}
+
+.title-block.timeline-title {
+	background:url('../img/title-block-timeline.png') no-repeat 0 100%;
+	margin-bottom:0;
 }
 
 .title-block h1, .title-block h2, .title-block h3, .title-block h4 {
@@ -1378,7 +1385,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 						margin:0 10px;
 					}
 					.ppa-anons  p {
-						font-size:14px;
+						font-size:13px;
 						color:#fff;
 						margin:0 10px;
 					}
