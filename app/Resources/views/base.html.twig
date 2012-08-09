@@ -33,9 +33,9 @@
 							<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
 						</div>
                         <div class="search_bar">
-                            <form action="">
+                            <form action="{{ path('armd_search_results') }}">
                                 <input type="image" src="{{ asset('/img/top_search.png') }}"  />
-                                <input type="text" value="" />
+                                <input type="text" name="search_query" value="" />
                             </form>
                         </div>
                     </div>
