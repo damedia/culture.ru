@@ -5,6 +5,6 @@
 	</div>
 	{% thumbnail event.image, "list" with {"class": "time-line-image"} %}
 	<div class="time-line-block-text">
-        {{ event.body|raw }}
+        <p>{{ event.body|raw }}</p>
 	</div>
 </div>
