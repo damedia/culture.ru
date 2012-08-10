@@ -1,5 +1,5 @@
 {
-    "hash": "54acbfd7ef36a4e22e4d33cf3a2ad9d1",
+    "hash": "f018834bcb339ac67d5f56e248354ee7",
     "packages": [
         {
             "package": "armd/banner-bundle",
@@ -12,6 +12,12 @@
             "version": "dev-master",
             "source-reference": "51358a11cfc717b4207a9b5afb05f63fd92aa152",
             "commit-date": "1344247933"
+        },
+        {
+            "package": "armd/sphinx-search-bundle",
+            "version": "dev-master",
+            "source-reference": "099e0248c08e6e16800c794407bf7948fd213b36",
+            "commit-date": "1344523073"
         },
         {
             "package": "doctrine/common",
