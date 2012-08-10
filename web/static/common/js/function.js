@@ -394,11 +394,9 @@ $(document).ready(function(){
 				}
 			}
 		})
-		$('.rusObr-list-one').hover(function(){
+		$('#rusObrTab_tab .rusObr-list-one').hover(function(){
 			var width = $(this).width(),
-				height = $(this).height(),
-				parHeight = $(this).parent().height();
-				console.log(parHeight);
+				height = $(this).height();
 			
 			$(this).addClass('rusHovered').css({'width':width,'height':height});
 			
@@ -406,6 +404,32 @@ $(document).ready(function(){
 			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto'});
 			$(this).parent().css({'height':'auto'});
 		})
+		
+		$('.obrazy .rusObr-list-one-wrap').hover(function(){
+			var width = $(this).width(),
+				height = $(this).height(),
+				liMas  = $(this).parents('ul').find('li'),
+				thisli = $(this).closest('li');
+
+			$(this).addClass('rusHovered').css({'width':width*2-1,'height':height});
+			$(this).find('.rusObr-list-one').css({'width':width - 51,'height':height - 50});
+			$(this).find('.rusHovered-contacts').css({'width':width -54,'height':height - 50 });
+			if (liMas.index(thisli)%4 == 3) {
+				$(this).find('.rusHovered-contacts').css({'left':0});
+				$(this).find('.rusObr-list-one').css({'left':width});
+				$(this).css({'left':-width});
+			} else {
+				$(this).find('.rusHovered-contacts').css({'left':width});
+			};
+			
+		},function(){
+			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto','left':0});
+			$(this).find('.rusObr-list-one').css({'width':'auto','height':'auto','left':0});
+			$(this).find('.rusHovered-contacts').css({'width':'auto','height':'auto'});
+			$(this).parent().css({'height':'auto'});
+		})
+		
+		
 		
 		$('#video_sort li').click(function(){
 			$(this).addClass('active').siblings().removeClass('active');
@@ -431,28 +455,30 @@ $(document).ready(function(){
 		
 		
 		/*video filter*/
-		$('.video-filter label').click(function(e){
+		$('.video-filter label, .checks-filter label').click(function(e){
 			var targetName  = e.target.nodeName.toLowerCase();
 			if (targetName == 'span') {
 				$(this).closest('label').toggleClass('checked');
 			}
 		})
 		
-		$('.video-filter .check_all').click(function(){
+		$('.video-filter .check_all, .checks-filter .check_all').click(function(){
 			var parentDiv = $(this).closest('.simple-filter-block');
 			
 			if (!$(this).data('checked')) {
 				parentDiv.find('input:checkbox').attr('checked','checked');
 				parentDiv.find('label').addClass('checked');
-				$(this).data('checked', true);
+				$(this).data('checked', true).addClass('checked');
 				
 			} else {
 				parentDiv.find('input:checkbox').removeAttr('checked');
 				parentDiv.find('label').removeClass('checked');
-				$(this).data('checked', false);
+				$(this).data('checked', false).removeClass('checked');
 				
 			}
 		})
+		
+		
 	});
 	
 	
