@@ -171,8 +171,9 @@ class TvigleVideo
 
     public function getDurationString()
     {
-        $hours = floor($this->duration / 3600);
-        $durationLeft = $this->duration % 3600;
+        $duration = $this->duration / 1000;
+        $hours = floor($duration / 3600);
+        $durationLeft = $duration % 3600;
 
         $mins = floor($durationLeft / 60);
         $secs = $durationLeft % 60;
@@ -186,27 +187,27 @@ class TvigleVideo
         return $durationString;
     }
 
-    /**
-     * Get duration as string
-     *
-     * @return string
-     */
-    public function getDurationAsString()
-    {
-        $hours = floor(($this->duration/1000) / (60*60));
-        $mins = floor((($this->duration/1000) - $hours*60*60 )/ 60);
-        $sec = floor((($this->duration/1000) - $hours*60*60 - $mins * 60 ));
-
-        if($hours) {
-            $res = sprintf("%s:%02s:%02s", $hours, $mins, $sec);
-        } elseif($mins) {
-            $res = sprintf("%02s:%02s", $hours, $mins, $sec);
-        } else {
-            $res = sprintf("%02s", $hours, $mins, $sec);
-        }
-
-        return $res;
-    }
+//    /**
+//     * Get duration as string
+//     *
+//     * @return string
+//     */
+//    public function getDurationAsString()
+//    {
+//        $hours = floor(($this->duration/1000) / (60*60));
+//        $mins = floor((($this->duration/1000) - $hours*60*60 )/ 60);
+//        $sec = floor((($this->duration/1000) - $hours*60*60 - $mins * 60 ));
+//
+//        if($hours) {
+//            $res = sprintf("%s:%02s:%02s", $hours, $mins, $sec);
+//        } elseif($mins) {
+//            $res = sprintf("%02s:%02s", $hours, $mins, $sec);
+//        } else {
+//            $res = sprintf("%02s", $hours, $mins, $sec);
+//        }
+//
+//        return $res;
+//    }
 
 
     /**
