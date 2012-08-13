@@ -5,6 +5,8 @@ namespace Armd\AtlasBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Armd\AtlasBundle\Entity\Object
  *
@@ -484,7 +486,6 @@ class Object
         return $this->weekends;
     }
 
-
     /**
      * Add videos
      *
@@ -493,7 +494,9 @@ class Object
      */
     public function addVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
-        $this->videos[] = $video;
+        if(!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+        }
         return $this;
     }
 
@@ -532,7 +535,7 @@ class Object
     public function setImage3d(\Application\Sonata\MediaBundle\Entity\Media $image3d = null)
     {
         // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
-        if(is_object($image3d) && strlen($image3d->getProviderName()) || is_null($image3d)) {
+        if($image3d->isUploaded() || is_null($image3d)) {
             $this->image3d = $image3d;
         }
         return $this;

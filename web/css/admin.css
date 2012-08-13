@@ -1,4 +1,4 @@
-.armd-sonata-image {
+.armd-sonata-media-file {
     padding-left: 200px;
     margin-bottom: 15px;
 }
@@ -8,7 +8,7 @@
     margin-bottom: 25px;
 }
 
-.armd-sonata-images-collection .armd-sonata-image {
+.armd-sonata-images-collection .armd-sonata-media-file {
     padding-left: 0;
 }
 
@@ -16,11 +16,11 @@
     display: none;
 }
 
-.sonata-bc .form-horizontal .armd-sonata-image .control-label {
+.sonata-bc .form-horizontal .armd-sonata-media-file .control-label {
     width: auto;
 }
 
-.sonata-bc .form-horizontal .armd-sonata-image input[type=checkbox] {
+.sonata-bc .form-horizontal .armd-sonata-media-file input[type=checkbox] {
     margin-left: 10px;
 }
 

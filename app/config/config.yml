@@ -23,9 +23,6 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         progorod_api_key: %progorod_api_key%
-    form:
-        resources:
-            - 'ArmdAtlasBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -147,6 +144,15 @@ sonata_media:
                 image3d: { width: 269, height: 207 }
                 big: { width: 575, height: 285 }
                 thumbnail: { width: 85, height: 85 }
+
+        lecture:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+            formats:
+                big: { width: 575, height: 285 }
 
 
     cdn:

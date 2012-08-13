@@ -1,0 +1,24 @@
+categories:
+    - title: Тематика
+      children:
+        - title: Балет
+          ref_code: balet
+        - title: Война
+          ref_code: war
+        - title: Живопись
+          ref_code: painting
+        - title: История
+        - title: Киноискусство
+        - title: Декор и дизайн
+        - title: Драма
+        - title: Музыка
+        - title: Опера
+        - title: Современность
+    - title: Направление
+      children:
+        - title: Направление1
+          ref_code: direction1
+        - title: Направление2
+          ref_code: direction2
+        - title: Направление3
+        - title: Направление4

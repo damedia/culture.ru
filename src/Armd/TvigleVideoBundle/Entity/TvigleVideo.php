@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="tvigle_video")
+ * @ORM\HasLifecycleCallbacks
  */
 class TvigleVideo
 {

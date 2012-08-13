@@ -1,0 +1,14 @@
+services:
+    armd_media_helper.listener.media:
+        class: Armd\MediaHelperBundle\EventListener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@sonata.media.pool]
+
+    armd_media_helper.type.armd_media_file_type:
+        class: Armd\MediaHelperBundle\Form\Type\MediaFileType
+        tags:
+            - { name: form.type, alias: armd_media_file_type }
+

@@ -2,6 +2,16 @@ ArmdMainBundle:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
     prefix:   /
 
+ArmdMediaHelperBundle:
+    resource: "@ArmdMediaHelperBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ArmdLectureBundle:
+    resource: "@ArmdLectureBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 index:
     pattern: /
     defaults:

@@ -94,7 +94,12 @@ class ObjectAdmin extends Admin
             ->end()
             ->with('Media')
                   ->add('images', 'collection', array(
-                        'type' => 'armd_media_image',
+                        'type' => 'armd_media_file_type',
+                        'options' => array(
+                            'media_context' => 'atlas',
+                            'media_provider' => 'sonata.media.provider.image',
+                            'media_format' => 'thumbnail'
+                        ),
                         'by_reference' => false,
                         'allow_add' => true,
                         'allow_delete' => true,
@@ -102,45 +107,35 @@ class ObjectAdmin extends Admin
                         'attr' => array('class' => 'armd-sonata-images-collection'),
                   ))
                   ->add('archiveImages', 'collection', array(
-                        'type' => 'armd_media_image',
+                        'type' => 'armd_media_file_type',
+                        'options' => array(
+                            'media_context' => 'atlas',
+                            'media_provider' => 'sonata.media.provider.image',
+                            'media_format' => 'thumbnail'
+                        ),
                         'by_reference' => false,
                         'allow_add' => true,
                         'allow_delete' => true,
                         'required' => false,
-                        'attr' => array('class' => 'armd-sonata-images-collection')
+                        'attr' => array('class' => 'armd-sonata-images-collection'),
                   ))
-                ->add('image3d', 'armd_media_image', array(
+                ->add('image3d', 'armd_media_file_type', array(
                     'required' => false,
-                    'with_remove' => true
+                    'with_remove' => true,
+                    'media_context' => 'atlas',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'thumbnail'
                 ))
                 ->add('videos', 'collection', array(
-//                    'type' => $this->container->get('armd_tvigle.type.tvigle'),
                     'type' => 'armd_tvigle_video_selector',
+                    'by_reference' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'attr' => array('class' => 'armd-sonata-tvigle-collection'),
                     'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
                     'label' => 'Видео (Tvigle ID)'
                 ))
-//                ->add('videos', 'sonata_type_model',
-//                    array(
-//                        'required' => false,
-//                        'multiple' => true,
-//                        'expanded' => true,
-//                        'attr' => array('style' => 'height: 250px')
-//                    ))
-//                ->add('videos', 'sonata_type_admin')
-//                ->add('videos', 'collection', array(
-//                    'type' => 'sonata_type_admin',
-//                    'by_reference' => false,
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
-//                    'required' => false,
-//                    'options' => array('sonata_field_description' => array(
-//                        'admin' => 'armd_tvigle.admin.tvigle',
-//                    ))
 
-//                ))
             ->end();
 //        echo get_class($this->container->get('armd_tvigle.admin.tvigle'));
         parent::configureFormFields($formMapper);
@@ -163,6 +158,13 @@ class ObjectAdmin extends Admin
     {
         $datagridMapper->add('title')
             ->add('categories');
+    }
+
+    public function getFormTheme() {
+        $themes = parent::getFormTheme();
+        $themes[] = 'ArmdAtlasBundle:Form:fields.html.twig';
+        $themes[] = 'ArmdMediaHelperBundle:Form:fields.html.twig';
+        return $themes;
     }
 
 }

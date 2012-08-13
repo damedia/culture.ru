@@ -1,0 +1,30 @@
+services:
+    armd_lecture.sonata_admin.lecture_category:
+        class: Armd\LectureBundle\Admin\LectureCategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Lectures, label: Lecture Categories, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+
+    armd_lecture.sonata_admin.lecture:
+        class: Armd\LectureBundle\Admin\LectureAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Lectures, label: Lectures, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+
+    armd_lecture.type.armd_lecture_categories:
+        class: Armd\LectureBundle\Form\Type\LectureCategoriesType
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: form.type, alias: armd_lecture_categories }
+
+    armd_lecture.listener.media:
+        class: Armd\LectureBundle\EventListener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
+
+#    armd_lecture.sonata_admin.lecture:
+#        class: Armd\AtlasBundle\Admin\ObjectAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Objects, show_in_dashboard: true }
+#        arguments: [null, Armd\AtlasBundle\Entity\Object, SonataAdminBundle:CRUD, @service_container]
+

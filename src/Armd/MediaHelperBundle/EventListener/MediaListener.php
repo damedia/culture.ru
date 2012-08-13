@@ -1,18 +1,21 @@
 <?php
 
-namespace Armd\AtlasBundle\Listener;
+namespace Armd\MediaHelperBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Sonata\MediaBundle\Provider\ImageProvider;
 
+use Sonata\MediaBundle\Provider\Pool;
+
+
 class MediaListener
 {
-    private $imageProvider;
+    private $providerPool;
 
-    public function __construct(ImageProvider $imageProvider)
+    public function __construct(Pool $providerPool)
     {
-        $this->imageProvider = $imageProvider;
+        $this->providerPool = $providerPool;
     }
 
     public function preUpdate(LifecycleEventArgs $args)
@@ -20,10 +23,11 @@ class MediaListener
         $media = $args->getEntity();
 
         if ($media instanceof Media) {
-            $formImage = $media->getFormImageFile();
-            if(!empty($formImage)) {
-                $this->imageProvider->preRemove($media->getMediaImageBeforeUpdate());
-                $media->resetMediaImageBeforeUpdate();
+            $formFile = $media->getFormFile();
+            if(!empty($formFile)) {
+                $provider = $this->providerPool->getProvider($media->getProviderName());
+                $provider->preRemove($media->getMediaBeforeUpdate());
+                $media->resetMediaBeforeUpdate();
             }
         }
     }
@@ -45,12 +49,6 @@ class MediaListener
 
         if ($media instanceof Media) {
             if($media->getRemoveMedia()) {
-                $objects = $em->getRepository('ArmdAtlasBundle:Object')->findByImage3d($media);
-                if($objects) {
-                    foreach($objects as $object) {
-                        $object->setImage3d(null);
-                    }
-                }
                 $em->remove($media);
                 $em->flush();
             }

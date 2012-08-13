@@ -28,9 +28,9 @@ class Media extends BaseMedia
      */
     protected $id;
 
-    private $formImageFile;
+    private $formFile;
 
-    private $mediaImageBeforeUpdate;
+    private $mediaBeforeUpdate;
 
     private $removeMedia;
 
@@ -44,31 +44,29 @@ class Media extends BaseMedia
         return $this->id;
     }
 
-    public function getFormImageFile()
+    public function getFormFile()
     {
-        return $this->formImageFile;
+        return $this->formFile;
     }
 
 
-    public function setFormImageFile(\Symfony\Component\HttpFoundation\File\UploadedFile $formImageFile)
+    public function setFormFile(\Symfony\Component\HttpFoundation\File\UploadedFile $formFile)
     {
         // save previous state to be able clean files in MediaListener
-        $this->mediaImageBeforeUpdate = clone $this;
+        $this->mediaBeforeUpdate = clone $this;
 
-        $this->formImageFile = $formImageFile;
-        $this->setBinaryContent($formImageFile);
-        //$this->setContext('default');
-        $this->setProviderName('sonata.media.provider.image');
+        $this->formFile = $formFile;
+        $this->setBinaryContent($formFile);
     }
 
-    public function getMediaImageBeforeUpdate()
+    public function getMediaBeforeUpdate()
     {
-        return $this->mediaImageBeforeUpdate;
+        return $this->mediaBeforeUpdate;
     }
 
-    public function resetMediaImageBeforeUpdate()
+    public function resetMediaBeforeUpdate()
     {
-        $this->mediaImageBeforeUpdate = null;
+        $this->mediaBeforeUpdate = null;
     }
 
     public function getRemoveMedia()
@@ -84,5 +82,17 @@ class Media extends BaseMedia
         $this->removeMedia = $removeMedia;
     }
 
+    public function isUploaded()
+    {
+        if(($this->getProviderStatus() == Media::STATUS_OK) || !empty($this->formFile)) {
+            return true;
+        } else {
+            $content = $this->getBinaryContent();
+            if(!empty($content)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

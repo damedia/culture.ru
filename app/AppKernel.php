@@ -51,7 +51,9 @@ class AppKernel extends Kernel
             new Armd\ChronicleBundle\ArmdChronicleBundle(),
             new Armd\BannerBundle\ArmdBannerBundle(),
             new Armd\SearchBundle\ArmdSearchBundle(),
-            new Armd\SphinxSearchBundle\ArmdSphinxSearchBundle()
+            new Armd\SphinxSearchBundle\ArmdSphinxSearchBundle(),
+            new Armd\LectureBundle\ArmdLectureBundle(),
+            new Armd\MediaHelperBundle\ArmdMediaHelperBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

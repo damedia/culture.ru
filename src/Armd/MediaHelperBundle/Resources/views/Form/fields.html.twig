@@ -1,0 +1,14 @@
+{% block armd_media_file_type_widget %}
+{% spaceless %}
+<div class="armd-sonata-media-file">
+    {% if form.vars.value is not empty %}
+        {% if media_provider == 'sonata.media.provider.image' %}
+            {% media form.vars.value, media_format %}
+        {% elseif media_provider == 'sonata.media.provider.file' %}
+            <a href="{% path form.vars.value, media_format %}">{% path form.vars.value, media_format %}</a>
+        {% endif %}
+    {% endif %}
+    {{ form_widget(form) }}
+</div>
+{% endspaceless %}
+{% endblock %}
