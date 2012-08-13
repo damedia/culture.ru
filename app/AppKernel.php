@@ -46,7 +46,7 @@ class AppKernel extends Kernel
             new Armd\CommentBundle\ArmdCommentBundle(),
             new Armd\ListBundle\ArmdListBundle(),
             new Armd\NewsBundle\ArmdNewsBundle(),
-            new Armd\TvigleBundle\ArmdTvigleBundle(),
+            new Armd\TvigleVideoBundle\ArmdTvigleVideoBundle(),
             new Armd\ChronicleBundle\ArmdChronicleBundle(),
             new Armd\BannerBundle\ArmdBannerBundle(),
             new Armd\SearchBundle\ArmdSearchBundle(),

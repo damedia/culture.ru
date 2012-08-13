@@ -12,12 +12,17 @@ class DefaultControllerTest extends AbstractFunctionalTest
 
     public function testMediaUpdate()
     {
+        $this->loadFixtures();
+
         $imageProvider = $this->container->get('sonata.media.provider.image');
 
-        $object = $this->em->getRepository('ArmdAtlasBundle:Object')->findOneBy(array());
+        $object = $this->em->getRepository('ArmdAtlasBundle:Object')
+            ->createQueryBuilder('o')
+            ->innerJoin('o.images', 'i')
+            ->setMaxResults(1)->getQuery()->getSingleResult();
         $media = $object->getImages()->get(0);
 
-        $oldPath = realpath($this->mediaDir . '/' . $imageProvider->getReferenceImage($media));
+        $oldPath = $this->mediaDir . '/' . $imageProvider->getReferenceImage($media);
         $oldCrc = md5(file_get_contents($oldPath));
         $oldCount = $this->countFiles(dirname($oldPath));
 
@@ -25,7 +30,7 @@ class DefaultControllerTest extends AbstractFunctionalTest
         $media->setFormImageFile($newFile);
         $this->em->flush();
 
-        $newPath = realpath($this->mediaDir . '/' . $imageProvider->getReferenceImage($media));
+        $newPath = $this->mediaDir . '/' . $imageProvider->getReferenceImage($media);
         $newCrc = md5(file_get_contents($newPath));
         $newCount = $this->countFiles(dirname($newPath));
 

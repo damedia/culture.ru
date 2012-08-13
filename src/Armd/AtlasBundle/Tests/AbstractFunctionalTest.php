@@ -27,7 +27,7 @@ abstract class AbstractFunctionalTest extends WebTestCase
         $this->em = $this->container->get('doctrine.orm.entity_manager');
         $this->router = $this->container->get('router');
 
-        $this->mediaDir = $this->container->get('kernel')->getRootDir() . '/../web/uploads/media';
+        $this->mediaDir = realpath($this->container->get('kernel')->getRootDir() . '/../web/uploads/media');
 
     }
 

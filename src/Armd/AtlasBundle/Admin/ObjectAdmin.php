@@ -114,12 +114,13 @@ class ObjectAdmin extends Admin
                     'with_remove' => true
                 ))
                 ->add('videos', 'collection', array(
-                    'type' => $this->container->get('armd_tvigle.type.tvigle'),
+//                    'type' => $this->container->get('armd_tvigle.type.tvigle'),
+                    'type' => 'armd_tvigle_video_selector',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'attr' => array('class' => 'armd-sonata-tvigle-collection'),
-                    'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form'),
-                    )
+                    'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
+                    'label' => 'Видео (Tvigle ID)'
                 ))
 //                ->add('videos', 'sonata_type_model',
 //                    array(

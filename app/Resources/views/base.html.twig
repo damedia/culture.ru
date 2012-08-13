@@ -61,7 +61,7 @@
                         <a href="{{ path('armd_atlas_default_index') }}">Атлас</a>
                     </li>
                     <li>
-                        <a href="/main/timeline.html">Лента времени</a>
+                        <a href="{{ path('armd_chronicle_index') }}">Лента времени</a>
                     </li>
 					<li class="for_big_screen"><a href="/main/obrazy.html">Образы России</a></li>
                     <li>
@@ -116,6 +116,7 @@
             <div class="blocksection w" id="f-section">
                 {% block body%}&nbsp;{% endblock %}
             </div>
+			{% block bottom_blocks%}&nbsp;{% endblock %}
             <div id="footer" class="w">
                  <div id="contacts">
                     <div class="contacts-copyright">Министерство культуры<br />Российской Федерации</div>

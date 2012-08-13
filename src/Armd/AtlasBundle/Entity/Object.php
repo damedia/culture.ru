@@ -97,7 +97,7 @@ class Object
     private $archiveImages;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Armd\TvigleBundle\Entity\Tvigle", cascade={"all"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"})
      * @ORM\JoinTable(name="atlas_object_video")
      */
     private $videos;
@@ -488,23 +488,23 @@ class Object
     /**
      * Add videos
      *
-     * @param \Armd\TvigleBundle\Entity\Tvigle $videos
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
      * @return Object
      */
-    public function addVideo(\Armd\TvigleBundle\Entity\Tvigle $videos)
+    public function addVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
-        $this->videos[] = $videos;
+        $this->videos[] = $video;
         return $this;
     }
 
     /**
      * Remove videos
      *
-     * @param \Armd\TvigleBundle\Entity\Tvigle $videos
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
      */
-    public function removeVideo(\Armd\TvigleBundle\Entity\Tvigle $videos)
+    public function removeVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
-        $this->videos->removeElement($videos);
+        $this->videos->removeElement($video);
     }
 
     /**
