@@ -55,11 +55,11 @@ class LectureAdmin extends Admin
             ))
             ->add('lectureFile', 'armd_media_file_type',
             array(
-                'media_provider' => 'sonata.media.provider.file',
-                'media_context' => 'lecture',
                 'required' => false,
-                'by_reference' => false,
-                'with_remove' => true
+                'with_remove' => true,
+                'media_context' => 'lecture',
+                'media_provider' => 'sonata.media.provider.file',
+                'media_format' => 'default'
             ));
     }
 
@@ -87,7 +87,7 @@ class LectureAdmin extends Admin
             ->addIdentifier('title')
             ->add('createdAt')
             ->add('lectureType')
-            ->add('categories')
+            ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('lecturer');
     }
 

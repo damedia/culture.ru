@@ -5,7 +5,7 @@
         {% if media_provider == 'sonata.media.provider.image' %}
             {% media form.vars.value, media_format %}
         {% elseif media_provider == 'sonata.media.provider.file' %}
-            <a href="{% path form.vars.value, media_format %}">{% path form.vars.value, media_format %}</a>
+            {{ form.vars.value.name }}
         {% endif %}
     {% endif %}
     {{ form_widget(form) }}

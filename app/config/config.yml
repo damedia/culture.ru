@@ -162,7 +162,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.file
             formats:
-                big: { width: 575, height: 285 }
+                default: { width: 575, height: 285 }
 
 
     cdn:
