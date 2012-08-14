@@ -122,20 +122,33 @@
 			<script src="/swf/swfobject/swfkrpano.js"></script>
 			<script type="text/javascript">
 				$(function(){
+					var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
 					
 					if ($('.vob').length){    
-						$('.vob').fancybox();
+						$('.vob').fancybox({
+							'autoScale'  : false,
+							'autoDimensions' : false,
+							'padding':0,
+							'margin':0,
+							'fitToView':true
+						});
 					}
 					
-					$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
+					$('.panoDIV').css({'width':x-18, 'height':y});
+					console.log(x,y);
 					
-					$(window).resize(function(){
-						$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
-				
-					})
 				 })  
 			</script>
-			 
+			 <style type="text/css">
+				.fancybox-wrap {
+					top:0;
+					left:0;
+				}
+				.fancybox-close {
+				top:0;
+				right:0;
+				}
+			 </style>
 			<div class="obrazy virt-museums">
 				<form action="" class="obr-form">
 					<div class="obr-text-input">
@@ -159,7 +172,7 @@
 								<div class="panowrap" style="display:none;">
 									<div id="panoDIV" class="panoDIV">
 										<script>
-											embedpano({target:"panoDIV",swf:"/uploads/museum/glinka/virtualtour.swf", xml:"/uploads/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
+											embedpano({target:"panoDIV",swf:"/uploads/museum/glinka/Virt_musei/virtualtour.swf", xml:"/uploads/museum/glinka/Virt_musei/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
 										</script>
 										<noscript>
 												<div id="tour">
