@@ -27,6 +27,31 @@
             <div id="top">
 				<div id="auth">
 					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
+					<div class="top_2_reg item_2" style="display:none;">
+						<form method="POST" action="">
+							<table class="auth_tbl">
+								<tbody><tr>
+									<td class="td1">Email*:</td>
+									<td class="td2">&nbsp;</td>
+								</tr>
+								<tr>
+									<td class="td3" colspan="2"><input type="text" class="inp tblink" name="email"></td>
+								</tr>
+								<tr>
+									<td class="td1">Пароль*:</td>
+									<td class="td2"><a href="">Забыли пароль?</a>&nbsp;</td>
+								</tr>
+								<tr>
+									<td class="td3" colspan="2"><input type="password" class="inp tblink" name="pass"></td>
+								</tr>
+								<tr>
+									<td class="td4"><input type="submit" class="btn_blue" value="Войти"></td>
+									<td class="td5"><a href="/registration/">Зарегистрироваться</a></td>
+								</tr>
+							</tbody></table>
+							<input type="hidden" name="auth" value="own">
+						</form>
+					</div>
 				</div>
                 <div id="topbar">
 					<div class="site-versions">	
@@ -55,7 +80,7 @@
         <div id="nav" class="w">
             <ul class="navmenu">
                 <li class="first"><a href="/atlas/">Атлас</a></li>
-                <li><a href="timeline.html">Лента времени</a></li>
+                <li><a href="/chronicle/">Лента времени</a></li>
 				<li class="for_big_screen"><a href="obrazy.html">Образы России</a></li>
                 <li><a href="online.html">Трансляции</a></li>
                 <li><a href="video_list.html">Лекции</a></li>

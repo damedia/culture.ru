@@ -479,6 +479,12 @@ $(document).ready(function(){
 		})
 		
 		
+		$('#auth-link').click(function(){
+			$(this).next('.top_2_reg').slideToggle();
+			return false;
+		})
+		
+		
 	});
 	
 	

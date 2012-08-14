@@ -127,6 +127,73 @@ $(document).ready(function(){
 			
 			return false;
 		})
+		
+		/*INDEX TABS*/
+		$('.indextabs span').click(function(){
+			if(!$(this).hasClass('active')) {
+				var thisId = $(this).attr('id');
+				$(this).toggleClass('active').siblings().removeClass('active');
+				$('#'+thisId+'_tab').show().siblings('div.indextab').hide();
+				if(thisId == 'rusObrTab') {
+					$(this).closest('.title-block').addClass('orange');
+				} else {
+					$(this).closest('.title-block').removeClass('orange');
+				}
+			}
+		})
+		$('#rusObrTab_tab .rusObr-list-one').hover(function(){
+			var width = $(this).width(),
+				height = $(this).height();
+			
+			$(this).addClass('rusHovered').css({'width':width,'height':height});
+			
+		},function(){
+			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto'});
+			$(this).parent().css({'height':'auto'});
+		})
+		
+		$('.obrazy .rusObr-list-one-wrap').hover(function(){
+			var width = $(this).width(),
+				height = $(this).height(),
+				liMas  = $(this).parents('ul').find('li'),
+				thisli = $(this).closest('li');
+
+			$(this).addClass('rusHovered').css({'width':width*2-1,'height':height});
+			$(this).find('.rusObr-list-one').css({'width':width - 51,'height':height - 50});
+			$(this).find('.rusHovered-contacts').css({'width':width -54,'height':height - 50 });
+			if (liMas.index(thisli)%4 == 3) {
+				$(this).find('.rusHovered-contacts').css({'left':0});
+				$(this).find('.rusObr-list-one').css({'left':width});
+				$(this).css({'left':-width});
+			} else {
+				$(this).find('.rusHovered-contacts').css({'left':width});
+			};
+			
+		},function(){
+			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto','left':0});
+			$(this).find('.rusObr-list-one').css({'width':'auto','height':'auto','left':0});
+			$(this).find('.rusHovered-contacts').css({'width':'auto','height':'auto'});
+			$(this).parent().css({'height':'auto'});
+		})
+		
+		
+		$('#eventsitem-tab span').click(function(){
+			var handle = $(this).parent(),
+				id = handle.attr('id');
+				
+			handle.addClass('active')
+				  .siblings().removeClass('active');
+			$('#'+id+'_tab').show()
+				  .siblings('.events_tabs').hide();	
+		})
+		
+		
+		/*
+		$('#auth-link').click(function(){
+			$(this).next('.top_2_reg').slideToggle();
+			return false;
+		})*/
+		
 	});
 	
 	

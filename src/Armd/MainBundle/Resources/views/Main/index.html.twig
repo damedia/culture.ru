@@ -1,150 +1,70 @@
+{% extends '::index-layout.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-
-    <head>
-
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-        <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
-
-        <script type="text/javascript" src="common/js/jquery.js"></script>
-
-        <script type="text/javascript" src="common/js/function.js"></script>
-
-    </head>
-
-    <body>
-
-        <div id="header" class="w">
-			<a href="index.html" id="logo"></a>
-
-            <div id="top">
-				<div id="auth">
-					<a id="auth-link" href="#"><span>Личный кабинет</span></a>
-					<div class="top_2_reg item_2" style="display:none;">
-						<form method="POST" action="">
-							<table class="auth_tbl">
-								<tbody><tr>
-									<td class="td1">Email*:</td>
-									<td class="td2">&nbsp;</td>
-								</tr>
-								<tr>
-									<td class="td3" colspan="2"><input type="text" class="inp tblink" name="email"></td>
-								</tr>
-								<tr>
-									<td class="td1">Пароль*:</td>
-									<td class="td2"><a href="">Забыли пароль?</a>&nbsp;</td>
-								</tr>
-								<tr>
-									<td class="td3" colspan="2"><input type="password" class="inp tblink" name="pass"></td>
-								</tr>
-								<tr>
-									<td class="td4"><input type="submit" class="btn_blue" value="Войти"></td>
-									<td class="td5"><a href="/registration/">Зарегистрироваться</a></td>
-								</tr>
-							</tbody></table>
-							<input type="hidden" name="auth" value="own">
-						</form>
-					</div>
-				</div>
-                <div id="topbar">
-					<div class="site-versions">	
-						<a href="#"  class="spec-vers" title="Версия для слабовидящих"></a>
-						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
-					</div>
-					<div class="search_bar">
-						<form action="">
-							<input type="image" src="common/img/top_search.png"  />
-							<input type="text" value="" />
-						</form>
-					</div>
-				</div>
-				<ul class="lang-switch">
-					<li class="active"><span title="русский"><img src="common/img/rus.png" alt="" /></span></li>
-					<li><a href="#" title="english"><img src="common/img/en.jpg" alt="" /></a></li>
-				</ul>
-			</div>
-
-			<div class="top-banner">
-				<img src="common/img/header_banner.jpg" alt="" />
-			</div>
-			
-        </div>
-
-        <div id="nav" class="w">
-            <ul class="navmenu">
-                <li class="first"><a href="/atlas/">Атлас</a></li>
-                <li><a href="/chronicle/">Лента времени</a></li>
-				<li class="for_big_screen"><a href="obrazy.html">Образы России</a></li>
-                <li><a href="online.html">Трансляции</a></li>
-                <li><a href="video_list.html">Лекции</a></li>
-                <li><a href="http://мнения.культура.рф/">Обсуждения</a></li>
-                <li><a href="virtual_museums.html">Виртуальные музеи</a></li>
-				<li><a href="/press-centre/">Новости</a></li>
-				<li class="navmenu_more">
-					<a href="#" class="navmenu_more_link">Еще</a>
-					<ul>
-						<li><a href="goverment_service.html">Государственные услуги</a></li>
-						<li class="for_small_screen"><a href="obrazy.html">Образы России</a></li>
-						<li><a href="#">О проекте</a></li>
-					</ul>
-				</li>
-            </ul>
-        </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    <script src="{{ asset('bundles/armdmain/js/news_tabs.js') }}" type="text/javascript"></script>
+{% endblock %}
 
 
-        
-        <div class="blocksection index-blocksection w clearfix" id="f-section">
 
-            
 
-            <div class="filter">
-               <div class="online-index">
-					<div class="title-block index-title-block">
-						<h2>Онлайн трансляции</h2>
-					</div>	
-					<div class="online-index-block">
-						<a href="online.html"><img src="common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
-						<div class="online-index-text">
-							<p class="online-index-header"><a href="online.html">Борис Годунов</a></p>
-							<p>Борис Годунов
-	Опера М. Мусоргского "Борис Годунов" была 
-	представлена вчера на сцене Театра оперы и 
-	балета им. Мусы Джалиля.</p>
-						</div>
-					</div>
-					<p class="all-list"><a href="online.html">Все трансляции</a></p>
-				</div>
-				<div class="index-article">
-					<div class="title-block index-title-block">
-						<h2>Избранная статья</h2>
-					</div>
-					<div class="index-article-block">
-						<a href="/press-centre/691"><img src="common/img/photo/index_article.jpg" alt="" /></a>
-						<p class="index-article-header">
-							<a href="/press-centre/691">На Исаакиевский собор вернутся колокола</a>
-						</p>
-						<p>
-							Девять колоколов Исаакиевского собора Петербурга, 
-	демонтированных в 1930-х годах прошлого века, 
-	планируется вновь установить в 2012 году.
-						</p>
-						<span class="i-comments">16</span>
-					</div>
-				</div>
-            </div><!--#list-action-->
+{% block online%}
+<div class="online-index">
+	<div class="title-block index-title-block">
+		<h2>Онлайн трансляции</h2>
+	</div>	
+	<div class="online-index-block">
+		<a href="online.html"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
+		<div class="online-index-text">
+			<p class="online-index-header"><a href="online.html">Борис Годунов</a></p>
+			<p>Борис Годунов
+Опера М. Мусоргского "Борис Годунов" была 
+представлена вчера на сцене Театра оперы и 
+балета им. Мусы Джалиля.</p>
+		</div>
+	</div>
+	<p class="all-list"><a href="/main/online.html">Все трансляции</a></p>
+</div>
+{% endblock %}
 
-            
+{% block index_article%}
+	<div class="index-article">
+		<div class="title-block index-title-block">
+			<h2>Избранная статья</h2>
+		</div>
+		<div class="index-article-block">
+			{% set revents = random(news_entities) %}
+			{% set f = revents.date %}
+			{% set t = revents.endDate %}
 
-		   <div class="atlas-center">
-				<div class="title-block green">
-					<h2 class="indextabs"><span id="atlasTab"  class="active">Атлас</span><i>/</i><span id="rusObrTab">Образы России</span></h2>
-				</div>
-				<div id="atlasTab_tab"  class="indextab" style="display:block;">
+			<a href="{{ path('armd_news_news_item', {'id': revents.id}) }}" >
+				{% thumbnail revents.image, 'billboard' %}
+			</a>
+			<p class="index-article-header">
+				<a href="{{ path('armd_news_news_item', {'id': revents.id}) }}">{{ revents.title|raw }}</a>
+			</p>
+			<p>
+				{{ revents.announce|raw }}
+			</p>
+			<span class="i-comments">16</span>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block atlas_header%}
+<div class="title-block green">
+	<h2 class="indextabs"><span id="atlasTab"  class="active">Атлас</span><i>/</i><span id="rusObrTab">Образы России</span></h2>
+</div>
+{% endblock %}
+
+{% block atlas_tab%}
+<div id="atlasTab_tab"  class="indextab" style="display:block;">
 					<div class="atlas-map">
-						<img src="common/img/map.png" alt="" />
+						<img src="/static/common/img/map.png" alt="" />
 						<div class="atlas-menu"></div>
 					</div>
 					
@@ -166,22 +86,22 @@
 							<li class="map-grid-point-li first">
 								<div class="item-grid-point">
 									<div class="preview-img-point">
-										<a href="/atlas/object/280"><img src="common/img/photo/rostov.jpg" /></a>
+										<a href="/atlas/object/280"><img src="/static/common/img/photo/rostov.jpg" /></a>
 									</div>
 									<div class="description-point">
 										<p><a href="/atlas/object/280">Ростовский кремль</a></p>
-										<!--<a href="/atlas/object/280"><img class="type-point" src="common/img/typepoint1.png" /></a>-->
+										<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
 									</div>
 								</div>                          
 							</li>
 							<li class="map-grid-point-li">
 								<div class="item-grid-point">
 									<div class="preview-img-point">
-										<a href="/atlas/object/222"><img src="common/img/photo/car_selo.jpg" /></a>
+										<a href="/atlas/object/222"><img src="/static/common/img/photo/car_selo.jpg" /></a>
 									</div>
 									<div class="description-point">
 										<p><a href="/atlas/object/222">Царское село</a></p>
-										<!--<a href="/atlas/object/222"><img class="type-point" src="common/img/typepoint2.png" /></a>-->
+										<!--<a href="/atlas/object/222"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
 									</div>
 								</div>
 							</li>
@@ -189,11 +109,11 @@
 							<li class="map-grid-point-li">
 								<div class="item-grid-point">
 									<div class="preview-img-point">
-										<a href="/atlas/object/224"><img src="common/img/photo/rasan.jpg" /></a>
+										<a href="/atlas/object/224"><img src="/static/common/img/photo/rasan.jpg" /></a>
 									</div>
 									<div class="description-point">
 										<p><a href="/atlas/object/224">Рязанский музей-заповедник</a></p>
-										<!--<a href="/atlas/object/224"><img class="type-point" src="common/img/typepoint3.png" /></a>-->
+										<!--<a href="/atlas/object/224"><img class="type-point" src="/static/common/img/typepoint3.png" /></a>-->
 									</div>
 								</div>
 							</li>
@@ -201,11 +121,11 @@
 							<li class="map-grid-point-li">
 								<div class="item-grid-point">
 									<div class="preview-img-point">
-										<a href="/atlas/object/223"><img src="common/img/photo/ufa.jpg" /></a>
+										<a href="/atlas/object/223"><img src="/static/common/img/photo/ufa.jpg" /></a>
 									</div>
 									<div class="description-point">
 										<p><a href="/atlas/object/223">Уфимская Государственная академия </a></p>
-										<!--<a href="/atlas/object/223"><img class="type-point" src="common/img/typepoint1.png" /></a>-->
+										<!--<a href="/atlas/object/223"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
 									</div>
 								</div>
 							</li>
@@ -213,11 +133,11 @@
 							<li class="map-grid-point-li">
 								<div class="item-grid-point">
 									<div class="preview-img-point">
-										<a href="/atlas/object/221"><img src="common/img/photo/spas.jpg" /></a>
+										<a href="/atlas/object/221"><img src="/static/common/img/photo/spas.jpg" /></a>
 									</div>
 									<div class="description-point">
 										<p><a href="/atlas/object/221">Государственный мемориальный музей-заповедник </a></p>
-										<!--<a href="/atlas/object/221"><img class="type-point" src="common/img/typepoint2.png" /></a>-->
+										<!--<a href="/atlas/object/221"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
 									</div>
 								</div>
 							</li>    
@@ -225,11 +145,11 @@
 							<li class="map-grid-point-li">
 								<div class="item-grid-point">
 									<div class="preview-img-point">
-										<a href="/atlas/object/129"><img src="common/img/photo/rubcov.jpg" /></a>
+										<a href="/atlas/object/129"><img src="/static/common/img/photo/rubcov.jpg" /></a>
 									</div>
 									<div class="description-point">
 										<p><a href="/atlas/object/129">Дом-музей Н.М.Рубцова</a></p>
-										<!--<a href="/atlas/object/129"><img class="type-point" src="common/img/typepoint1.png" /></a>-->
+										<!--<a href="/atlas/object/129"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
 									</div>
 								</div>
 							</li>
@@ -239,7 +159,10 @@
 						</ul>
 					</div>
 				</div>
-				<div id="rusObrTab_tab" class="indextab" style="display:none;">
+{% endblock %}
+
+{% block rus_tab%}
+<div id="rusObrTab_tab" class="indextab" style="display:none;">
 					<div class="reload-bar">
 						<a href="#" class="reload_btn"></a> <i>/</i> <a href="#">все объекты</a>
 					</div>
@@ -247,7 +170,7 @@
 						<ul class="rusObr-list clearfix">
 							<li>
 								<div  class="rusObr-list-one">
-									<a href="#"><img src="common/img/photo/rusobr1.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="#"><img src="/static/common/img/photo/rusobr1.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="/static/obraz.html" class="rusObr-list-header">
 											Российский государственный архив древних актов
@@ -259,7 +182,7 @@
 								</div>
 							</li><li>
 								<div  class="rusObr-list-one">
-									<a href="#"><img src="common/img/photo/rusobr2.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="#"><img src="/static/common/img/photo/rusobr2.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#" class="rusObr-list-header">
 											Музей антропологии и этнографии имени Петра Великого
@@ -272,7 +195,7 @@
 							
 							</li><li>
 								<div  class="rusObr-list-one" style=="height:300px">
-									<a href="#"><img src="common/img/photo/rusobr3.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="#"><img src="/static/common/img/photo/rusobr3.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#" class="rusObr-list-header">
 											Санкт-Петербургский государственный университет
@@ -285,7 +208,7 @@
 							
 							</li><li>
 								<div  class="rusObr-list-one">
-									<a href="#"><img src="common/img/photo/rusobr4.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="#"><img src="/static/common/img/photo/rusobr4.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#" class="rusObr-list-header">
 											Российский государственный исторический архив
@@ -298,7 +221,7 @@
 							
 							</li><li>
 								<div  class="rusObr-list-one">
-									<a href="#"><img src="common/img/photo/rusobr5.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="#"><img src="/static/common/img/photo/rusobr5.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#" class="rusObr-list-header">
 											Российский государственный архив кинофотодокументов
@@ -311,7 +234,7 @@
 							
 							</li><li>
 								<div  class="rusObr-list-one">
-									<a href="#"><img src="common/img/photo/rusobr6.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="#"><img src="/static/common/img/photo/rusobr6.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#" class="rusObr-list-header">
 											Казанский государственный университет 
@@ -327,28 +250,10 @@
 				</div>
 				
 
-			</div>
+{% endblock %}
 
-                
-
-                
-
-
-            
-
-        </div>
-
-        
-
-        
-
-        <div class="hrbold w"></div>
-
-        
-
-        <div class="blocksection w clearfix" id="s-section">
-
-            <div id="discus">
+{% block community%}
+ <div id="discus">
 
                 <div class="title-block index-title-block">
 
@@ -380,7 +285,7 @@
 
                             <div class="username">
 
-                                <img class="userico" src="common/img/twitter.png" /><a class="orange" href="#">Николай Бурляев</a>
+                                <img class="userico" src="/static/common/img/twitter.png" /><a class="orange" href="#">Николай Бурляев</a>
 
                                 / <span class="gray">Добавлено 30.07.2012</span>
 
@@ -512,7 +417,7 @@
 
                             <div class="username">
 
-                                <img class="userico" src="common/img/twitter.png" /><a class="orange" href="#">РИА Новости</a>
+                                <img class="userico" src="/static/common/img/twitter.png" /><a class="orange" href="#">РИА Новости</a>
 
                                 / <span class="gray">Добавлено 10 минут назад</span>
 
@@ -644,7 +549,7 @@
 
                             <div class="username">
 
-                                <img class="userico" src="common/img/twitter.png" /><a class="orange" href="#">РИА Новости</a>
+                                <img class="userico" src="/static/common/img/twitter.png" /><a class="orange" href="#">РИА Новости</a>
 
                                 / <span class="gray">Добавлено 10 минут назад</span>
 
@@ -784,362 +689,149 @@
 
             </div>
 
-            <!--discus-->
-
             
+{% endblock %}
 
-            
-
-            <div id="events">
-
-                
-
-                <div class="title-block  index-title-block">
-
-                    <h3>События</h3>
-
+{% block afisha %}  
+<div id="events">
+	<div class="title-block  index-title-block">
+		<h2>События</h2>
+	</div>
+    <div id="events-tabs">
+        <ul id="eventsitem-tab">
+            <li id="tab1" class="active">
+                <span>Новости</span>
+            </li>
+            <li id="tab2">
+                <span >События</span>
+            </li>
+			<li id="tab3">
+                <span >Интервью</span>
+            </li>
+        </ul>
+    </div>
+    <div id="tab1_tab" class="events_tabs" >  
+        <div class="first-eventsaction">
+            {% for news in news_entities %}
+            {% set f = news.date %}
+            {% set t = news.endDate %}
+            {% if loop.first %}
+                <div class="event-image">
+                    {% if news.image %}
+                    {% thumbnail news.image, 'billboard' %}
+                    {% else %}
+                    <style>#tab1_tab .first-eventsaction .theevent {margin-left:0px;}</style>
+                    {% endif %}                    
                 </div>
-
-                
-
-                <div id="events-tabs">
-
-                    <ul id="eventsitem-tab">
-
-                        <li><span>Новости</span></li>
-
-                        <li class="active"><span>Анонсы</span></li>
-
-                    </ul>
-
+                <div class="theevent">
+				<span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+			    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+				<p class="theevents"><a href="{{ path('armd_news_news_item', {'id': news.id}) }}">{{ news.title|raw }}</a></p>
+				<p>{{ news.announce|raw }}</p>
                 </div>
-
-                
-
-                <div id="events-content">
-
-                    
-
-                    <div class="eventsitem-content">
-
-                        
-
-                        <div class="first-eventsaction">
-
-                            <div class="event-image">
-
-                                <img src="common/img/photo/photo_5.jpg" width="140" />
-
-                            </div>
-
-                            
-
-                            <div class="theevent">
-
-                                    <div class="date-events">
-
-                                        30 Июля /2012  
-
-                                    </div>
-
-                                    <h3>39 избранных учеников получат мастер-класс от Никиты Михалкова
-
-</h3>
-
-                                    <p>Летняя киноакадемия Никиты Михалкова открылась в субботу на площадке Театра киноактера. Это пилотный проект, рассчитанный на месяц обучения профессии. 39 отобранных студентов бесплатно прослушают курсы актерского мастерства, режиссуры, драматургии, работы с актером.</p>
-
-                            </div>
-
-                            <a class="i-comments" href="#">2</a>
-
-                            
-
-                        </div>
-
-
-
-                        <ul class="events-list">
-
-                            <li class="eventsitem-list">                                
-
-                                <div class="theeventsitem-list">
-
-                                    <div class="date-events">
-
-                                        
-30 Июля /2012 
-
-                                    </div>
-
-                                    <div class="theevents">
-
-                                        <h3>Ведущие хореографы со всего мира приехали в Челябинск</h3>
-
-                                        <p>Вторая международная лаборатория современного танца, которая открылась в воскресенье в Челябинской академии культуры и искусства, собрала более 80 участников со всей России.<a class="i-comments" href="#">7</a></p>
-
-                                    </div>  
-
-                                </div>                          
-
-                            </li>
-
-                            <li class="eventsitem-list">                                
-
-                                <div class="theeventsitem-list">
-
-                                    <div class="date-events">
-
-                                        30 Июля /2012 
-
-                                    </div>
-
-                                    <div class="theevents">
-
-                                        <h3>Иконы из драгоценных камней будут выставлены в Анапе</h3>
-
-                                        <p>Уникальная выставка икон «Каменная палитра» откроется 30 июля в Анапе в храме Серафима Саровского.<a class="i-comments" href="#">9</a></p>
-
-                                    </div>  
-
-                                </div>                          
-
-                            </li>
-
-                        </ul>
-
-                        <p class="all-list"><a class="blue-link" href="/press-centre/archive/">Все новости</a></p>
-
-                        
-
-                        
-
-                    </div>                  
-
-                    
-
-                                    
-
-                    <div class="eventsitem-content active">
-
-                        
-
-                        <div class="first-eventsaction">
-
-                            <div class="event-image">
-
-                                <img src="common/img/photo/photo_4.jpg" width="140" />
-
-                            </div>
-
-                            
-
-                            <div class="theevent">
-
-                                    <div class="date-events">
-
-                                        20 Июля /2012 - 10 Сентября /2012 
-
-                                    </div>
-
-                                    <h3>В гостях у вепсов. Adivoiš</h3>
-
-                                    <p>Фотография, декоративно-прикладное искусство, этнография</p>
-
-                            </div>
-                            
-                            <a class="i-comments" href="#">2</a>
-
-                            
-
-                        </div>
-
-
-
-                        <ul class="events-list">
-
-                            <li class="eventsitem-list">                                
-
-                                <div class="theeventsitem-list">
-
-                                    <div class="date-events">
-
-                                        20 Июля /2012 - 14 Октября /2012 
-
-                                    </div>
-
-                                    <div class="theevents">
-
-                                        <h3>Сальвадор Дали. 100 цветных ксилографий</h3>
-
-                                        <p>Графика<a class="i-comments" href="#">2</a></p>
-
-                                    </div>  
-
-                                </div>                          
-
-                            </li>
-
-                            <li class="eventsitem-list">                                
-
-                                <div class="theeventsitem-list">
-
-                                    <div class="date-events">
-
-                                        20 Июля /2012 - 4 Августа /2012 
-
-                                    </div>
-
-                                    <div class="theevents">
-
-                                        <h3>Планета — Сибирь: Вена — Берлин — Красноярск</h3>
-
-                                        <p>Живопись, графика, фотография, декоративно-прикладное искусство<a class="i-comments" href="#">2</a></p>
-
-                                    </div>  
-
-                                </div>                          
-
-                            </li>
-
-                        </ul>
-
-                        
-						 <p class="all-list"><a class="blue-link" href="#">Все события</a></p>
-                        
-
-                        
-
-                    </div>                  
-
-                </div>
-
-                
-
-                
-
-            </div><!--events-->
-
-            
-
-            
-
-        </div>
-
-        
-<!--
-        
-		
-        <div class="blocksection w" id="t-section">
-			<div class="title-block index-title-block ">
-				<h2>Спецпроекты</h2>
-			</div>
-			<script type="text/javascript" src="common/js/jquery.jcarousel.min.js"></script>
-			<script type="text/javascript">
-				$(function(){
-					jQuery('#carousel').jcarousel({
-						wrap: 'circular',
-						visible: 4
-					});
-				})
-			</script>
-			<div class="spec-projects">
-				<ul class="spec-projects-list" id="carousel">
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div  class="spec-projects-one"> 
-							<a href="#"><img src="common/img/photo/spec-project.jpg" alt="" /></a>
-							<div class="spec-project-description">
-								<p class="spec-project-header"><a href="#">Новый проект</a></p>
-								<p>Вы замечаете, что желаемые вами события начинают. Вы замечаете, что желаемые вами события начинают.</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		
+                <a class="i-comments" href="#">2</a>
 		</div>
-
-       --> 
-
-        
-
-        <div id="footer" class="w">
-
-             <div id="contacts">
-                <div class="contacts-copyright">Министерство культуры<br>Российской Федерации</div>
-                <div class="contacts-inner">
-                    <div class="copyright">© Портал культурного наследия России</div>
-                    <a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
+            {% else %}
+        <ul class="events-list">
+            <li class="eventsitem-list">
+                <div class="theeventsitem-list">
+                    <span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+                    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+                    <div class="theevents">
+                    <p class="theevents"><a href="{{ path('armd_news_news_item', {'id': news.id}) }}">{{ news.title|raw }}</a></p>
+                    <p>{{ news.announce|raw }}
+                    <a class="i-comments" href="#">2</a>
+                    </p>                 
+                    </div>
                 </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index') }}">Все новости</a></p>
+    </div>
+    
+    <div id="tab2_tab"  class="events_tabs" style = "display:none;">
+        <div class="first-eventsaction">
+        {% for events in events_entities %}
+        {% set f = events.date %}
+        {% set t = events.endDate %}
+        {% if loop.first %}
+            <div class="event-image">
+                {% if events.image %}
+                {% thumbnail events.image, 'billboard' %}
+                {% else %}
+                <style>#tab2_tab .first-eventsaction .theevent {margin-left:0px;}</style>
+                {% endif %}                    
             </div>
-
-            <div id="socialnetwork">
-
-                Рассказать о портале
-
-                <div id="i-socialnetwork">
-
-                    <img src="common/img/socialnetwork.png">
-
+            <div class="theevent">
+				<span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+			    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+				<p class="theevents"><a href="{{ path('armd_news_news_item', {'id': events.id}) }}">{{ events.title|raw }}</a></p>
+                <p>{{ events.announce|raw }}</p>
+            </div>
+            <a class="i-comments" href="#">2</a>
+		</div>
+        {% else %}
+        <ul class="events-list">
+            <li class="eventsitem-list">
+                <div class="theeventsitem-list">
+                    <span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+                    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+                    <div class="theevents">
+                        <p class="theevents"><a href="{{ path('armd_news_news_item', {'id': events.id}) }}">{{ events.title|raw }}</a></p>
+                        <p>{{ events.announce|raw }}
+                        <a class="i-comments" href="#">2</a>
+                        </p>                 
+                    </div>
                 </div>
-
-            </div>
-
-        </div>
-
-    </body>
+            </li>
+        {% endif %}
+		{% endfor %}
+        </ul>
+    <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index') }}">Все события</a></p>
+    </div>
 	
-</html>
+	 <div id="tab3_tab"  class="events_tabs" style = "display:none;">
+        <div class="first-eventsaction">
+        {% for interviews in interviews_entities %}
+        {% set f = interviews.date %}
+        {% set t = interviews.endDate %}
+        {% if loop.first %}
+            <div class="event-image">
+                {% if interviews.image %}
+                {% thumbnail interviews.image, 'billboard' %}
+                {% else %}
+                <style>#tab3_tab .first-eventsaction .theevent {margin-left:0px;}</style>
+                {% endif %}                    
+            </div>
+            <div class="theevent">
+				<span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+			    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+				<p class="theevents"><a href="{{ path('armd_news_news_item', {'id': interviews.id}) }}">{{ interviews.title|raw }}</a></p>
+                <p>{{ interviews.announce|raw }}</p>
+            </div>
+            <a class="i-comments" href="#">2</a>
+		</div>
+        {% else %}
+        <ul class="events-list">
+            <li class="eventsitem-list">
+                <div class="theeventsitem-list">
+                    <span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+                    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+                    <div class="theevents">
+                        <p class="theevents"><a href="{{ path('armd_news_news_item', {'id': interviews.id}) }}">{{ interviews.title|raw }}</a></p>
+                        <p>{{ interviews.announce|raw }}
+                        <a class="i-comments" href="#">2</a>
+                        </p>                 
+                    </div>
+                </div>
+            </li>
+        {% endif %}
+		{% endfor %}
+        </ul>
+    <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index') }}">Все события</a></p>
+    </div>
+	
+</div>	
+{% endblock %}

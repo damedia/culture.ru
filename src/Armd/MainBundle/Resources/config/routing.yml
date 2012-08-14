@@ -1,0 +1,3 @@
+ArmdMainBundle_homepage:
+    pattern:  /index
+    defaults: { _controller: ArmdMainBundle:Main:index }

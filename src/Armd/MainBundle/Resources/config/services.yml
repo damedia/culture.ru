@@ -1,0 +1,7 @@
+parameters:
+#    armd_main.example.class: Armd\MainBundle\Example
+
+services:
+#    armd_main.example:
+#        class: %armd_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
