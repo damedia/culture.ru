@@ -21,7 +21,7 @@ class Category implements Node
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -39,12 +39,13 @@ class Category implements Node
      */
     private $description;
 
-    /**
-     * @var string $icon
-     *
-     * @ORM\Column(name="icon", type="string", length=255, nullable=true)
-     */
     private $icon;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="icon_media_id", nullable=true)
+     */
+    private $iconMedia;
 
     /**
      * @Gedmo\TreeRoot
@@ -377,6 +378,26 @@ class Category implements Node
     public function getIcon()
     {
         return $this->icon;
+    }
+
+    /**
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getIconMedia()
+    {
+        return $this->iconMedia;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $iconMedia
+     * @return \Armd\AtlasBundle\Entity\Category
+     */
+    public function setIconMedia(\Application\Sonata\MediaBundle\Entity\Media $iconMedia = null)
+    {
+        if(is_null($iconMedia) || $iconMedia->isUploaded()) {
+            $this->iconMedia = $iconMedia;
+        }
+        return $this;
     }
 
 }

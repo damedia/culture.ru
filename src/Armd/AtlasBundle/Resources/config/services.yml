@@ -3,3 +3,9 @@ services:
         class: Armd\AtlasBundle\EventListener\MediaListener
         tags:
             - { name: doctrine.event_listener, event: preRemove }
+
+    armd_atlas.listener.object_category:
+        class: Armd\AtlasBundle\EventListener\ObjectCategoryListener
+        arguments: [@sonata.media.pool]
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }

@@ -24,8 +24,6 @@ class MediaFileType extends AbstractType
             ))
             ->add('context', 'hidden', array('data' => $options['media_context']))
             ->add('providerName', 'hidden', array('data' => $options['media_provider']));
-
-
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

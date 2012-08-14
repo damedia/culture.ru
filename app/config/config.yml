@@ -145,6 +145,16 @@ sonata_media:
                 big: { width: 575, height: 285 }
                 thumbnail: { width: 85, height: 85 }
 
+        atlas_icon:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: {width: 27, height: 45}
+
+
         lecture:
             download:
                 strategy: sonata.media.security.public_strategy

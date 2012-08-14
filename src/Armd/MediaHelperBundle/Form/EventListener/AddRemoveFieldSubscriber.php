@@ -39,7 +39,7 @@ class AddRemoveFieldSubscriber implements EventSubscriberInterface
 
         // check if the product object is "new"
         if ($data->getId() && $form->getConfig()->getOption('with_remove')) {
-            $form->add($this->factory->createNamed('removeMedia', 'checkbox', false, array('label' => 'Удалить')));
+            $form->add($this->factory->createNamed('removeMedia', 'checkbox', false, array('label' => 'Удалить', 'required' => false)));
         }
     }
 }

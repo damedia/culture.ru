@@ -42,8 +42,7 @@ class CategoryAdmin extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('description')
-            ->add('icon');
+            ->add('description');
     }
 
 
@@ -70,7 +69,14 @@ class CategoryAdmin extends Admin
             ))
             ->add('title')
             ->add('description')
-            ->add('icon')
+            ->add('iconMedia', 'armd_media_file_type',
+            array(
+                'media_provider' => 'sonata.media.provider.image',
+                'media_context' => 'atlas_icon',
+                'media_format' => 'default',
+                'with_remove' => true,
+                'required' => false
+            ))
             ->end();
     }
 
@@ -89,33 +95,15 @@ class CategoryAdmin extends Admin
             ))
             ->add('icon', null,
             array(
-                'template' => 'ArmdAtlasBundle:Admin:list_category_icon.html.twig',
-                'sortable' => false
+                'template' => 'ArmdAtlasBundle:Admin:list_category_icon.html.twig'
             ));
     }
 
-//    public function preRemove($object)
-//    {
-//        $em = $this->modelManager->getEntityManager($object);
-//        $repo = $em->getRepository("ArmdAtlasBundle:Category");
-//        $subtree = $repo->childrenHierarchy($object);
-//
-//        foreach ($subtree AS $el){
-//            $menus = $em->getRepository('ArmdAtlasBundle:Object')
-//                        ->findBy(array('page'=> $el['id']));
-//
-//            foreach ($menus AS $m){
-//                $em->remove($m);
-//            }
-//
-//            $services = $em->getRepository('ShtumiPravBundle:Service')
-//                           ->findBy(array('page'=> $el['id']));
-//
-//            foreach ($services AS $s){
-//                $em->remove($s);
-//            }
-//            $em->flush();
-//        }
-//    }
+    public function getFormTheme()
+    {
+        $themes = parent::getFormTheme();
+        $themes[] = 'ArmdMediaHelperBundle:Form:fields.html.twig';
+        return $themes;
+    }
 
 }
