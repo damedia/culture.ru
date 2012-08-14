@@ -1,6 +1,6 @@
-#ArmdMainBundle:
-#    resource: "@ArmdMainBundle/Resources/config/routing.yml"
-#    prefix:   /
+ArmdMainBundle:
+    resource: "@ArmdMainBundle/Resources/config/routing.yml"
+    prefix:   /
 
 index:
     pattern: /
