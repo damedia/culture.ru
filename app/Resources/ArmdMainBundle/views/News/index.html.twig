@@ -1,0 +1,58 @@
+<div id="events">
+	<div class="title-block  index-title-block">
+		<h2>События</h2>
+	</div>
+    <div id="events-tabs">
+        <ul id="eventsitem-tab">
+    	{% for c in categories %}        
+            <li id="{{ c.slug }}tab" {% if loop.first %}class="active"{% endif %}>
+                <span>{{ c.title }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% for slug, entities in news %}
+    <div id="{{ slug }}tab_tab" class="events_tabs" {% if not loop.first %}style = "display:none;" {% endif %}>
+        <div class="first-eventsaction">  
+        {% for n in entities %}
+            {% set f = n.date %}
+            {% set t = n.endDate %}        
+            {% if loop.first %}
+                <div class="event-image">
+                {% if n.image %}
+                    {% thumbnail n.image, 'billboard' %}
+                {% else %}
+                    <style>#{{ slug }}tab_tab .first-eventsaction .theevent {margin-left:0px;}</style>
+                {% endif %}                    
+                </div>
+                <div class="theevent">
+    			    <span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+    			    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+    			    <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
+    			    <p>{{ n.announce|raw }}</p>
+                </div>
+                <a class="i-comments" href="#">2</a>
+		</div>
+            {% else %}
+                <ul class="events-list">
+                    <li class="eventsitem-list">
+                        <div class="theeventsitem-list">
+                            <span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+                            {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+                            <div class="theevents">
+                            <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
+                            <p>{{ n.announce|raw }}
+                            <a class="i-comments" href="#">2</a>
+                            </p>                 
+                            </div>
+                        </div>
+                    </li>
+                {% if loop.last %}
+                </ul>
+                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">Все {{ n.category.title}}</a></p>                
+                {% endif%}		      
+            {% endif %}
+        {% endfor %}
+    </div>        
+    {% endfor%}
+</div>

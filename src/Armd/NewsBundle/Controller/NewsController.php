@@ -2,12 +2,18 @@
 
 namespace Armd\NewsBundle\Controller;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
 use Armd\CommentBundle\Entity\Thread;
 
 class NewsController extends ListController
 {
+    function __construct(ContainerInterface $container = null)
+    {
+        $this->setContainer($container);    
+    }
+    
     /**
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
@@ -92,7 +98,7 @@ class NewsController extends ListController
         return $query->getResult();
     }
     
-    function getCategoriesList(array $categories)
+    function getCategoriesList(array $categories = array())
     {
         $result = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
         

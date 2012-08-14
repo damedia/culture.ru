@@ -10,4 +10,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: News, label: News }
             - { name: armd.content.admin }
-        arguments: [null, Armd\NewsBundle\Entity\News, SonataAdminBundle:CRUD, @service_container]   
+        arguments: [null, Armd\NewsBundle\Entity\News, SonataAdminBundle:CRUD, @service_container]
+        
+    armd_news.controller.news:
+        class: Armd\NewsBundle\Controller\NewsController
+        arguments:
+            container: "@service_container"        
