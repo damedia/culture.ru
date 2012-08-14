@@ -535,7 +535,7 @@ class Object
     public function setImage3d(\Application\Sonata\MediaBundle\Entity\Media $image3d = null)
     {
         // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
-        if($image3d->isUploaded() || is_null($image3d)) {
+        if(is_null($image3d) || $image3d->isUploaded()) {
             $this->image3d = $image3d;
         }
         return $this;

@@ -3,6 +3,7 @@
 namespace Armd\MediaHelperBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Armd\MediaHelperBundle\Form\EventListener\AddRemoveFieldSubscriber;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,16 +13,18 @@ class MediaFileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('formFile', 'file', array(
-            'label' => ' ',
-            'required' => true
-        ))
-        ->add('context', 'hidden', array('data' => $options['media_context']))
-        ->add('providerName', 'hidden', array('data' => $options['media_provider']));
+        $subscriber = new AddRemoveFieldSubscriber($builder->getFormFactory());
+        $builder->addEventSubscriber($subscriber);
+        
+        $builder
+            ->add('formFile', 'file',
+            array(
+                'label' => ' ',
+                'required' => true
+            ))
+            ->add('context', 'hidden', array('data' => $options['media_context']))
+            ->add('providerName', 'hidden', array('data' => $options['media_provider']));
 
-        if(!empty($options['with_remove'])) {
-            $builder->add('removeMedia', 'checkbox', array('label' => 'Удалить'));
-        }
 
     }
 

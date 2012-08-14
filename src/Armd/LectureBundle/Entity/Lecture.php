@@ -150,9 +150,9 @@ class Lecture
     /**
      * @param \Application\Sonata\MediaBundle\Entity\Media $lectureFile
      */
-    public function setLectureFile(\Application\Sonata\MediaBundle\Entity\Media $lectureFile)
+    public function setLectureFile(\Application\Sonata\MediaBundle\Entity\Media $lectureFile = null)
     {
-        if ($lectureFile->isUploaded() || is_null($lectureFile)) {
+        if (is_null($lectureFile) || $lectureFile->isUploaded()) {
             $this->lectureFile = $lectureFile;
         }
     }
