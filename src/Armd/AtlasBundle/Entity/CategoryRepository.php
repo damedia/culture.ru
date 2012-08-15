@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Entity;
 
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * CategoryRepository
@@ -12,12 +13,14 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class CategoryRepository extends NestedTreeRepository
 {
+    private $container;
+
     public function getNodesAsArray()
     {
         $qb = $this->createQueryBuilder('c')
-            ->where('c.root = (:root)')
-            ->andWhere('c.lvl > 0')
-            ->setParameter('root', 1)
+//            ->where('c.root = (:root)')
+            ->Where('c.lvl > 0')
+//            ->setParameter('root', 1)
             ->orderBy('c.lft', 'ASC');
         $rows = $qb->getQuery()->getResult();
 
@@ -60,6 +63,12 @@ class CategoryRepository extends NestedTreeRepository
         }
 
         return $resultNodes;
+    }
+
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
     }
 
 }
