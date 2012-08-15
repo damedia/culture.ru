@@ -4,6 +4,7 @@ categories:
         - title: Достопримечательности
         - title: Кремли
           ref_code: kremlin
+          icon: pin1.png
         - title: Памятники
         - title: Площади
         - title: Храмы
@@ -14,10 +15,12 @@ categories:
         - title: Архивы
         - title: Библиотеки
           ref_code: library
+          icon: pin14.png
         - title: Выставки
         - title: Заповедники
         - title: Музеи
           ref_code: museum
+          icon: pin12.png
         - title: Образовательные
         - title: Общества
         - title: Официальные

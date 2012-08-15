@@ -2556,9 +2556,6 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			position:relative;
 			border:9px solid #e6e6e6;
 		}
-			.atlas-map img {
-				width:100%;
-			}
 			.atlas-menu {
 				position:absolute;
 				top:-23px;

@@ -39,8 +39,6 @@ class Category implements Node
      */
     private $description;
 
-    private $icon;
-
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="icon_media_id", nullable=true)
@@ -357,28 +355,6 @@ class Category implements Node
         return $this->objects;
     }
 
-    /**
-     * Set icon
-     *
-     * @param string $icon
-     * @return Category
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
-
-    /**
-     * Get icon
-     *
-     * @return string
-     */
-    public function getIcon()
-    {
-        return $this->icon;
-    }
 
     /**
      * @return \Application\Sonata\MediaBundle\Entity\Media

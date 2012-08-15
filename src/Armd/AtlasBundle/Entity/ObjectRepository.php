@@ -18,8 +18,9 @@ class ObjectRepository extends EntityRepository
         $categoryIds = $params['category'];
 
         $qb = $this->createQueryBuilder('o')
-                   ->innerJoin('o.categories', 'c')
+                   ->innerJoin('o.secondaryCategories', 'c')
                    ->where('c IN (:categoryIds)')
+                   ->orWhere('o.primaryCategory IN (:categoryIds)')
                    ->setParameter('categoryIds', $categoryIds);
 
         $rows = $qb->getQuery()->getResult();
