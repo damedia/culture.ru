@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="lecture")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Lecture

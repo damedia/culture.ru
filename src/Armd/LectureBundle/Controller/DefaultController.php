@@ -22,11 +22,43 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/hello/{name}")
+     * @Route("/")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        $em = $this->getDoctrine()->getManager();
+        $lectureRepo = $em->getRepository('ArmdLectureBundle:Lecture');
+
+        $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
+        $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy();
+
+        $recommendedLectures = $lectureRepo->findRecommended();
+        $lastLectures = $lectureRepo->findLastAdded();
+
+        return array(
+            'lectureTypes' => $lectureTypes,
+            'lectureCategories' => $lectureCategories,
+            'recommendedLectures' => $recommendedLectures,
+            'lastLectures' => $lastLectures
+        );
     }
+
+    /**
+     * @Route("/list")
+     * @Template()
+     */
+    public function lectureListAction()
+    {
+
+    }
+
+    /**
+     * @Route("/category_list")
+     */
+    public function categoryListAction()
+    {
+
+    }
+
 }

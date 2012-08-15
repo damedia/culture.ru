@@ -2,16 +2,6 @@ ArmdMainBundle:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
     prefix:   /
 
-ArmdMediaHelperBundle:
-    resource: "@ArmdMediaHelperBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-ArmdLectureBundle:
-    resource: "@ArmdLectureBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 index:
     pattern: /
     defaults:
@@ -95,7 +85,16 @@ armd_tvigle_video:
     type: annotation
     prefix:   /tvigle_video
 
-    
+armd_media_helper:
+    resource: "@ArmdMediaHelperBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+armd_lecture:
+    resource: "@ArmdLectureBundle/Controller/"
+    type:     annotation
+    prefix:   /lecture
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

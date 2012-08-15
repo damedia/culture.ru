@@ -2374,7 +2374,82 @@ white-space:nowrap;
 						padding:0;	
 						margin-top:10px;						
 					}	
-						
+
+
+                    		.online-one {
+			float:left;
+			width:69%;
+		}
+			.online-one .media-one-block h1 {
+				margin-top:0;
+			}
+
+		.online-archive-hide {
+			margin:20px 0 0 0;
+		}
+			.online-archive-item {
+
+				*display:inline;
+				overflow:hidden;
+				width:180px;
+				display:inline-block;
+				margin:0 3px 7px 0;
+				vertical-align:top;
+			}
+				.online-archive-item .video-descr-data-fancy {
+					width:180px;
+
+
+				}
+					.online-archive-item .video-descr-data-fancy img {
+						width:100%;
+					}
+					.video-descr-data {
+						overflow:hidden;
+						margin:5px 0 0;
+						border:1px solid #d6d6d6;
+						font-size:14px;
+						padding:10px 7px;
+						text-align:left;
+					}
+
+.window-overlay {
+	background:#000;
+	opacity:0.5;
+	width:100%;
+	height:100%;
+	position:fixed;
+	display:none;
+	top:0;
+	left:0;
+}
+.panowrap {
+	display:none;
+	position:absolute;
+	z-index:100;
+	top:50%;
+	left:50%:
+}
+#window {
+	position:absolute;
+	top:50%;
+	left:50%;
+	display:none;
+	z-index:101;
+}
+
+
+.center-column {
+	width:51%;
+	margin-left:2%;
+	float:left;
+}
+.right-column {
+	width:22.5%;
+	float:right;
+}
+
+
 		
 .simple-filter-form {
 	margin-left:13px;
@@ -2517,6 +2592,185 @@ white-space:nowrap;
 				}
 
 
+.video-anons {
+	border:1px solid #e3e3e3;
+	margin:31px 0 0 0;
+}
+	.video-anons ul {
+		overflow:hidden;
+		margin-left:2%;
+		margin-right:-2%;
+	}
+		.video-anons li {
+			width:47%;
+			margin:2% 2% 2% 0;
+			float:left;
+			line-height:17px;
+		}
+		.video-anons  img {
+			width:100%;
+			height:auto;
+			margin-bottom:10px;
+		}
+			.va-type {
+				color:#01b0f1;
+				font-size:11px;
+				margin-bottom:5px;
+			}
+			.va-theme {
+				color:#8e8e8e;
+				font-size:11px;
+			}
+			.va-name {
+				color:#000;
+				font-size:14px;
+				font-weight:bold;
+				margin:7px 0;
+				display:block;
+				text-decoration:none;
+			}
+			.va-author {
+				font-size:11px;
+			}
+				.va-author span {
+					color:#3b3b3b;
+					float:left;
+					margin:-1px 3px 2px;
+				}
+
+.video-similar {
+	margin-top:50px;
+}
+	.video-similar ul {
+		margin-right:-4%;
+	}
+	.video-similar  li  {
+		width:30%;
+	}
+	.video-similar p {
+		margin:0;
+	}
+	.similar-title {
+		float:right;
+		margin-right:2%;
+		padding:3px 10px;
+		background:#dadada;
+		color:#000;
+		text-decoration:none;
+		font-size:11px;
+	}
+
+
+	.video-list-block {
+		margin:25px 0 0 13px;
+	}
+		.video-list-sort {
+			font-size:11px;
+			margin-bottom:25px;
+		}
+		.video-sort-header {
+			display:inline-block;
+			vertical-align:middle;
+			margin-right:5px;
+			*display:inline;
+		}
+		.video-list-sort ul {
+			display:inline-block;
+			vertical-align:middle;
+			*display:inline;
+		}
+			.video-list-sort ul  li {
+				display:inline-block;
+				vertical-align:middle;
+				padding:3px 7px;
+				*display:inline;
+			}
+				.video-list-sort ul  span {
+					color:#007ef4;
+					border-bottom:1px dashed;
+					cursor:pointer;
+				}
+			.video-list-sort ul  li.active {
+				background:#dadada;
+			}
+				.video-list-sort ul  li.active span {
+					color:#000;
+					border:0;
+				}
+
+
+
+
+		.video-list {
+			margin-bottom:30px;
+		}
+			.video-list li {
+				overflow:hidden;
+				margin-bottom:20px;
+			}
+				.video-list  img {
+					float:left;
+					margin-right:17px;
+				}
+					.video-list-header {
+
+					}
+					.vl-type {
+						color:#01b0f1;
+						font-size:11px;
+						width:125px;
+						display:inline-block;
+						vertical-align:middle;
+						*display:inline;
+					}
+					.vl-theme {
+						color:#8e8e8e;
+						font-size:11px;
+						display:inline-block;
+						vertical-align:middle;
+						*display:inline;
+					}
+					.vl-name {
+						color:#000;
+						font-size:14px;
+						font-weight:bold;
+						margin:7px 0;
+						display:block;
+						text-decoration:none;
+					}
+					.vl-author {
+						font-size:11px;
+					}
+						.vl-author span {
+							color:#3b3b3b;
+						}
+
+
+				.right-list {
+					margin:29px 0 30px 13px;
+				}
+					.right-list li {
+						overflow:hidden;
+						margin-bottom:15px;
+					}
+					.right-list img {
+						float:left;
+						margin:3px 15px 0 0;
+					}
+					.text-overflow {
+						overflow:hidden;
+					}
+					.rl-type {
+						color:#01b0f1;
+						font-size:11px;
+					}
+					.rl-name {
+						font-size:11px;
+						color:#000;
+						margin:5px 0;
+						display:block;
+						text-decoration:none;
+					}
 
 
 /*INDEX PAGE*/

@@ -1,1 +1,300 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+<div class="filter">
+    <div class="title dark-blue-title">
+        <h2>Фильтрация</h2>
+    </div>
+    <form action="" class="simple-filter-form video-filter">
+        <div class="simple-search">
+            <label for="ss_input">Точный поиск</label>
+            <input type="text" class="ss-input" id="ss_input"/>
+        </div>
+
+        <div class="simple-filter-block">
+            <div class="simple-filter-header clearfix">
+                <span>Типы лекций</span>
+                <p class="check_all checked"><span>все</span></p>
+            </div>
+            <div class="simple-filter-options">
+                {% for lectureType in lectureTypes %}
+                    <label class="checked">
+                        <input type="checkbox" name="video" id="video" checked="checked"/>
+                        <span>Видео</span>
+                    </label>
+                {% endfor %}
+
+                {#<label class="checked">#}
+                    {#<input type="checkbox" name="video" id="video" checked="checked"/>#}
+                    {#<span>Видео</span>#}
+                {#</label>#}
+                {#<label>#}
+                    {#<input type="checkbox" name="presentations" id="presentations"/>#}
+                    {#<span>Презентации</span>#}
+                {#</label>#}
+                {#<label>#}
+                    {#<input type="checkbox" name="texts" id="texts"/>#}
+                    {#<span>Тексты</span>#}
+                {#</label>#}
+            </div>
+        </div>
+
+        <div class="simple-filter-block video-theme">
+            <div class="simple-filter-header clearfix">
+                <span>Тематика</span>
+
+                <p class="check_all checked"><span>все</span></p>
+            </div>
+            <div class="simple-filter-options">
+                <label>
+                    <input type="checkbox" name="ballet" id="ballet"/>
+                    <span>Балет</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="war" id="war"/>
+                    <span>Война</span>
+                </label>
+                <label class="checked">
+                    <input type="checkbox" name="art" id="art" checked="checked"/>
+                    <span>Живопись</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="history" id="history"/>
+                    <span>История</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="cinema" id="cinema"/>
+                    <span>Киноискусство</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="design" id="design"/>
+                    <span>Декор и дизайн</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="drama" id="drama"/>
+                    <span>Драма</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="music" id="music"/>
+                    <span>Музыка</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="opera" id="opera"/>
+                    <span>Опера</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="modern" id="modern"/>
+                    <span>Современность</span>
+                </label>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="center-column">
+    <div class="title dark-blue-title">
+        <h2>Лекции</h2>
+    </div>
+
+    <div class="video-anons">
+        <ul>
+            <li>
+                <a href="media_one4.html">
+                    <img src="common/img/photo/video_anons1.jpg" alt=""/>
+                </a>
+
+                <p class="va-type">Видео</p>
+
+                <p class="va-theme">Изобразительное искусство </p>
+                <a href="media_one4.html" class="va-name">Караваджо. Выставка произведений художника в Москве</a>
+
+                <p class="va-author"><span>Лектор:</span> Андрей Яновский</p>
+            </li>
+            <li>
+                <a href="media_one3.html">
+                    <img src="common/img/photo/video_anons2.jpg" alt=""/>
+                </a>
+
+                <p class="va-type">Презентация</p>
+
+                <p class="va-theme">Бородино</p>
+                <a href="media_one3.html" class="va-name">1812 год в истории России</a>
+
+                <p class="va-author"><span>Лектор:</span> Виктория Эммануиловна Маркова</p>
+            </li>
+        </ul>
+    </div>
+    <div class="video-list-block">
+        <div class="video-list-sort">
+            <p class="video-sort-header">Сортировать:</p>
+            <ul id="video_sort">
+                <li class="active"><span>по дате добавления</span></li>
+                <li><span>самые обсуждаемые</span></li>
+            </ul>
+        </div>
+        <ul class="video-list">
+            <li>
+                <div class="video-list-header">
+                    <span class="vl-type">Видео</span>
+                    <span class="vl-theme">Изобразительное искусство</span>
+                </div>
+                <a href="media_one4.html">
+                    <img src="common/img/photo/video_list1.jpg" alt=""/>
+                </a>
+
+                <div class="text-overflow">
+                    <a href="media_one4.html" class="va-name">Караваджо. Выставка произведений художника в Москве</a>
+
+                    <p class="va-author"><span>Лектор:</span> Андрей Яновский</p>
+                </div>
+            </li>
+            <li>
+                <div class="video-list-header">
+                    <span class="vl-type">Презентация</span>
+                    <span class="vl-theme">Бородино</span>
+                </div>
+                <a href="media_one3.html">
+                    <img src="common/img/photo/video_list2.jpg" alt=""/>
+                </a>
+
+                <div class="text-overflow">
+                    <a href="media_one3.html" class="va-name">1812 год в истории России</a>
+
+                    <p class="va-author"><span>Лектор:</span> Виктория Эммануиловна Маркова</p>
+                </div>
+            </li>
+            <li>
+                <div class="video-list-header">
+                    <span class="vl-type">Видео</span>
+                    <span class="vl-theme">Киноискусство</span>
+                </div>
+                <a href="#">
+                    <img src="common/img/photo/video_list3.jpg" alt=""/>
+                </a>
+
+                <div class="text-overflow">
+                    <a href="#" class="va-name">Фильма «Рада» и творческая встреча с режиссером Всеволодом Судейко </a>
+
+                    <p class="va-author"><span>Лектор:</span>Всеволод Судейко</p>
+                </div>
+            </li>
+            <li>
+                <div class="video-list-header">
+                    <span class="vl-type">Видео</span>
+                    <span class="vl-theme">Театральное искусство</span>
+                </div>
+                <a href="#">
+                    <img src="common/img/photo/video_list4.jpg" alt=""/>
+                </a>
+
+                <div class="text-overflow">
+                    <a href="#" class="va-name">Графическая жестикуляция</a>
+
+                    <p class="va-author"><span>Лектор:</span> Сергей Скуратов</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="virtual-paginates clearfix">
+        <span class="firstPage">первая</span>
+        <ul class="virtual-paginates-list">
+            <li>
+                <span class="prevPage">назад</span>
+            </li>
+            <li>
+                <span class="current">1</span>
+            </li>
+            <li>
+                <a href="#">2</a>
+            </li>
+            <li>
+                <a href="#">3</a>
+            </li>
+            <li>
+                <a href="#">4</a>
+            </li>
+            <li>
+                <a href="#">5</a>
+            </li>
+            <li>
+                <a href="#">6</a>
+            </li>
+            <li>
+                <a href="#" class="nextPage">вперед</a>
+            </li>
+        </ul>
+        <a href="#" class="lastPage">последняя</a>
+    </div>
+</div>
+<div class="right-column">
+    <div class="title">
+        <h2>Рекомендовано</h2>
+    </div>
+    <ul class="right-list">
+        <li>
+            <a href="#">
+                <img src="common/img/photo/right_list.jpg" alt=""/>
+            </a>
+
+            <div class="text-overflow">
+                <span class="rl-type">Трансляции</span>
+                <a href="#" class="rl-name">
+                    Звёзды мировой оперы в Москве. Звёзды Нового Света
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                <img src="common/img/photo/right_list2.jpg" alt=""/>
+            </a>
+
+            <div class="text-overflow">
+                <span class="rl-type">Трансляции</span>
+                <a href="#" class="rl-name">
+                    «По всей России водят хороводы…»
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                <img src="common/img/photo/right_list3.jpg" alt=""/>
+            </a>
+
+            <div class="text-overflow">
+                <span class="rl-type">Видеоархив</span>
+                <a href="#" class="rl-name">
+                    На Заячьем острове появились песчаные фигуры мультгероев
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                <img src="common/img/photo/right_list4.jpg" alt=""/>
+            </a>
+
+            <div class="text-overflow">
+                <span class="rl-type">Видеоархив</span>
+                <a href="#" class="rl-name">
+                    «Дополненная реальность» Русского музея
+                </a>
+            </div>
+        </li>
+    </ul>
+    <div class="virtual-anons-block">
+        <a href="#" class="virtual-anons">
+            <span class="virtual-anons-header">Виртуальный тур</span>
+            <img src="common/img/photo/virt_anons.jpg" alt=""/>
+            <span
+                class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/libs/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+{% endblock %}
