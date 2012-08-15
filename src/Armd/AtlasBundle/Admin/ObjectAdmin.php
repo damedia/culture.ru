@@ -65,7 +65,12 @@ class ObjectAdmin extends Admin
 //                ->add('categories', 'sonata_type_model',
 //                    array('multiple' => true, 'expanded' => true)
 //                )
-                ->add('categories', 'armd_atlas_object_categories', array(
+                ->add('primaryCategory', 'armd_atlas_object_categories',
+                array(
+                    'multiple' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')
+                ))
+                ->add('secondaryCategories', 'armd_atlas_object_categories', array(
                     'required' => false,
                     'attr' => array('class' => 'chzn-select atlas-object-categories-select')
                 ))
@@ -157,7 +162,8 @@ class ObjectAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('title')
-            ->add('categories');
+            ->add('primaryCategory')
+            ->add('secondaryCategories');
     }
 
     public function getFormTheme() {

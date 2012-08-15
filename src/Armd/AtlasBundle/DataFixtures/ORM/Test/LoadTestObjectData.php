@@ -90,13 +90,21 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
             }
         }
 
-        if(!empty($data['categories'])) {
-            foreach($data['categories'] as $categoryRef) {
+        if(!empty($data['primaryCategory'])) {
+            $category = $this->getReference('armd.atlas.category.' . $data['primaryCategory']);
+            if(empty($category)) {
+                throw new \InvalidArgumentException('Category reference ' . $data['primaryCategory'] . ' not found');
+            }
+            $object->setPrimaryCategory($category);
+        }
+
+        if(!empty($data['secondaryCategories'])) {
+            foreach($data['secondaryCategories'] as $categoryRef) {
                 $category = $this->getReference('armd.atlas.category.' . $categoryRef);
                 if(empty($category)) {
                     throw new \InvalidArgumentException('Category reference ' . $categoryRef . ' not found');
                 }
-                $object->addCategory($category);
+                $object->addSecondaryCategory($category);
                 $this->om->persist($category);
             }
         }

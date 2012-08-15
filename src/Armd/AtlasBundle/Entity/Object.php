@@ -69,10 +69,16 @@ class Object
     private $lon;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="objects", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="objects", cascade={"persist"})
+     * @ORM\JoinColumn(name="primary_atlas_category_id", nullable=true)
+     */
+    private $primaryCategory;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", cascade={"persist"})
      * @ORM\JoinTable(name="atlas_category_object")
      */
-    private $categories;
+    private $secondaryCategories;
 
     /**
      * @ORM\Column(name="work_time", type="string", length=255, nullable=true)
@@ -126,10 +132,9 @@ class Object
     private $showAtRussianImage = false;
 
 
-
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->secondaryCategories = new ArrayCollection();
         $this->weekends = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->images = new ArrayCollection();
@@ -139,7 +144,7 @@ class Object
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -155,14 +160,14 @@ class Object
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -178,14 +183,14 @@ class Object
     public function setLat($lat)
     {
         $this->lat = $lat;
-    
+
         return $this;
     }
 
     /**
      * Get lat
      *
-     * @return float 
+     * @return float
      */
     public function getLat()
     {
@@ -201,14 +206,14 @@ class Object
     public function setLon($lon)
     {
         $this->lon = $lon;
-    
+
         return $this;
     }
 
     /**
      * Get lon
      *
-     * @return float 
+     * @return float
      */
     public function getLon()
     {
@@ -221,10 +226,10 @@ class Object
      * @param \Armd\AtlasBundle\Entity\Category $category
      * @return Object
      */
-    public function addCategory(\Armd\AtlasBundle\Entity\Category $category)
+    public function addSecondaryCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
         $category->addObject($this);
-        $this->categories[] = $category;
+        $this->secondaryCategories[] = $category;
 
         return $this;
     }
@@ -234,9 +239,37 @@ class Object
      *
      * @param \Armd\AtlasBundle\Entity\Category $category
      */
-    public function removeCategory(\Armd\AtlasBundle\Entity\Category $category)
+    public function removeSecondaryCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
-        $this->categories->removeElement($category);
+        $this->secondaryCategories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSecondaryCategories()
+    {
+        return $this->secondaryCategories;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryCategory()
+    {
+        return $this->primaryCategory;
+    }
+
+    /**
+     * @param Category $primaryCategory
+     * @return \Armd\AtlasBundle\Entity\Object
+     */
+    public function setPrimaryCategory(\Armd\AtlasBundle\Entity\Category $primaryCategory = null)
+    {
+        $this->primaryCategory = $primaryCategory;
+        return $this;
     }
 
 
@@ -247,7 +280,13 @@ class Object
      */
     public function getCategories()
     {
-        return $this->categories;
+        $categories = new ArrayCollection();
+        $categories[] = $this->getPrimaryCategory();
+        foreach($this->getSecondaryCategories() as $secondaryCategory) {
+            $categories[] = $secondaryCategory;
+        }
+
+        return $categories;
     }
 
     /**
@@ -259,14 +298,14 @@ class Object
     public function setAnnounce($announce)
     {
         $this->announce = $announce;
-    
+
         return $this;
     }
 
     /**
      * Get announce
      *
-     * @return string 
+     * @return string
      */
     public function getAnnounce()
     {
@@ -282,14 +321,14 @@ class Object
     public function setContent($content)
     {
         $this->content = $content;
-    
+
         return $this;
     }
 
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -305,14 +344,14 @@ class Object
     public function setSiteUrl($siteUrl)
     {
         $this->siteUrl = $siteUrl;
-    
+
         return $this;
     }
 
     /**
      * Get siteUrl
      *
-     * @return string 
+     * @return string
      */
     public function getSiteUrl()
     {
@@ -328,14 +367,14 @@ class Object
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -351,14 +390,14 @@ class Object
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -374,14 +413,14 @@ class Object
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -403,7 +442,7 @@ class Object
     /**
      * Get workTime
      *
-     * @return string 
+     * @return string
      */
     public function getWorkTime()
     {
@@ -425,7 +464,7 @@ class Object
     /**
      * Get virtualTour
      *
-     * @return string 
+     * @return string
      */
     public function getVirtualTour()
     {
@@ -447,7 +486,7 @@ class Object
     /**
      * Get showAtHomepage
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getShowAtHomepage()
     {
@@ -494,7 +533,7 @@ class Object
      */
     public function addVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
-        if(!$this->videos->contains($video)) {
+        if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
         }
         return $this;
@@ -535,7 +574,7 @@ class Object
     public function setImage3d(\Application\Sonata\MediaBundle\Entity\Media $image3d = null)
     {
         // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
-        if(is_null($image3d) || $image3d->isUploaded()) {
+        if (is_null($image3d) || $image3d->isUploaded()) {
             $this->image3d = $image3d;
         }
         return $this;
@@ -550,7 +589,6 @@ class Object
     {
         return $this->image3d;
     }
-
 
 
     public function getImages()
