@@ -59,12 +59,12 @@ class Object
     private $address;
 
     /**
-     * @ORM\Column(name="lat", type="decimal", precision=9, scale=6, nullable=true)
+     * @ORM\Column(name="lat", type="decimal", precision=15, scale=10, nullable=true)
      */
     private $lat;
 
     /**
-     * @ORM\Column(name="lon", type="decimal", precision=9, scale=6, nullable=true)
+     * @ORM\Column(name="lon", type="decimal", precision=15, scale=10, nullable=true)
      */
     private $lon;
 
