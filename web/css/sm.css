@@ -836,11 +836,12 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .first-eventsaction .event-image {
 	float: left;
 	width:140px;
+	margin:0 20px 10px 0;
 }
 .event-image img {width:140px; height:auto;}
 
 .first-eventsaction .theevent {
-	margin-left: 160px;
+	/*margin-left: 160px;*/
     position: relative;
 }
 
@@ -2209,10 +2210,16 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 					margin-bottom:7px;
 					color:#606060;
 					font-weight:bold;
+					overflow:hidden;
 				}
+					.time-line-header-name {
+					
+					}
 					.time-line-year {
 						float:right;
 						text-transform:lowercase;
+						width:80px;
+						text-align:right;
 					}
 					.time-line-image {
 						width:100%;

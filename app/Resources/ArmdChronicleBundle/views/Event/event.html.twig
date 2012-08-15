@@ -1,7 +1,7 @@
 <div class="time-line-block">
 	<div class="time-line-block-header">
-		{{ event.title }}
 		<span class="time-line-year">{{ event.year }} год</span>
+		<span class="time-line-header-name">{{ event.title }}</span>
 	</div>
 	{% thumbnail event.image, "list" with {"class": "time-line-image"} %}
 	<div class="time-line-block-text">

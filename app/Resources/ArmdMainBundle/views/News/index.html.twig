@@ -31,7 +31,7 @@
     			    <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
     			    <p>{{ n.announce|raw }}</p>
                 </div>
-                <a class="i-comments" href="#">2</a>
+                {# <a class="i-comments" href="#">2</a> #}
 		</div>
             {% else %}
                 <ul class="events-list">
@@ -42,7 +42,7 @@
                             <div class="theevents">
                             <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
                             <p>{{ n.announce|raw }}
-                            <a class="i-comments" href="#">2</a>
+                            {# <a class="i-comments" href="#">2</a> #}
                             </p>                 
                             </div>
                         </div>
