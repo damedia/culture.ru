@@ -335,13 +335,14 @@ class DefaultController extends Controller
         $rows = array();
         $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
         foreach ($res as $obj) {
+            $icon =
             $rows[] = array(
                 'id' => $obj->getId(),
                 'title' => $obj->getTitle(),
                 'announce' => $obj->getAnnounce(),
                 'lon' => $obj->getLon(),
                 'lat' => $obj->getLat(),
-                'icon' => $mediaHelper->originalUrl($obj->getPrimaryCategory()->getIconMedia()),
+                'icon' => $mediaHelper->originalUrl($obj->getIcon()),
             );
         }
 
