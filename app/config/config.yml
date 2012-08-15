@@ -132,7 +132,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 adminPreview: { width: 314 , height: 187, , quality: 90}
-                list: { width: 412 }
+                list: { width: 592 }
 
         atlas:
             download:
