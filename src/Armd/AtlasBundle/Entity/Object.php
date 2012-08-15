@@ -141,6 +141,17 @@ class Object
         $this->archiveImages = new ArrayCollection();
     }
 
+    public function getIcon()
+    {
+        $category = $this->getPrimaryCategory();
+        $icon = null;
+        if($category) {
+            $icon = $category->getIconMedia();
+        }
+
+        return $icon;
+    }
+
     /**
      * Get id
      *
