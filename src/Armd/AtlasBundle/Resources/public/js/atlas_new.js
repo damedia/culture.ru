@@ -202,7 +202,7 @@ AT.placeObject = function(object) {
 
     var point = new PGmap.Point({
             coord: new PGmap.Coord(object.lon, object.lat, true),
-            url: bundleImagesUri + '/' + object.icon
+            url: object.icon // bundleImagesUri + '/' + 
         });
     var balloon = new PGmap.Balloon({
             content: '',
