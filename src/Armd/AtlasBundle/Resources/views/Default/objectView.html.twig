@@ -37,6 +37,7 @@
                                         <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>
+										<a class="fancy"  href="{% path image, 'big' %}">&nbsp;</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -338,9 +339,11 @@
             margin: 0 auto 20px;
         }
     </style>
-    <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+ 
+   <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
+   <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
+	
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -348,9 +351,10 @@
     {{ parent() }}
     <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
+   
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
 	<script src="/swf/swfobject/swfkrpano.js"></script>
     <script type="text/javascript">
         $(function(){

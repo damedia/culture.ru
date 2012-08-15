@@ -96,12 +96,12 @@ $(document).ready(function(){
             // Initially set opacity on thumbs and add
             // additional styling for hover effect on thumbs
             var onMouseOutOpacity = 0.67;
-            $('#thumbs ul.thumbs li').opacityrollover({
+            /*$('#thumbs ul.thumbs li').opacityrollover({
                 mouseOutOpacity:   onMouseOutOpacity,
                 mouseOverOpacity:  1.0,
                 fadeSpeed:         'fast',
                 exemptionSelector: '.selected'
-            });
+            });*/
             
             // Initialize Advanced Galleriffic Gallery
             var gallery = $('#thumbs').galleriffic({
@@ -114,14 +114,15 @@ $(document).ready(function(){
                 controlsContainerSel:      '#controls',
                 captionContainerSel:       '#caption',
                 loadingContainerSel:       '#loading',
+				navControlsContainerSel:   '#nav',
                 renderSSControls:          true,
                 renderNavControls:         true,
                 playLinkText:              'Play Slideshow',
                 pauseLinkText:             'Pause Slideshow',
-                prevLinkText:              '&lsaquo; Previous Photo',
-                nextLinkText:              'Next Photo &rsaquo;',
-                nextPageLinkText:          'Next &rsaquo;',
-                prevPageLinkText:          '&lsaquo; Prev',
+                prevLinkText:              '&lsaquo; Назад',
+                nextLinkText:              'Вперед &rsaquo;',
+                nextPageLinkText:          'Вперед &rsaquo;',
+                prevPageLinkText:          '&lsaquo; Назад',
                 enableHistory:             true,
                 autoStart:                 false,
                 syncTransitions:           true,
@@ -152,7 +153,9 @@ $(document).ready(function(){
                         nextPageLink.css('opacity', '1');
 
                     this.fadeTo('fast', 1.0);
-                }
+                },
+				enableFancybox:          true
+
             });
 
             /**************** Event handlers for custom next / prev page links **********************/

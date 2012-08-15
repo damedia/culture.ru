@@ -6,6 +6,8 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *
  * Much thanks to primary contributer Ponticlaro (http://www.ponticlaro.com)
+ *
+ * Modifed by Jay Hayes (http://iamvery.com)
  */
 ;(function($) {
 	// Globally keep track of all images by their unique hash.  Each item is an image data object.
@@ -14,7 +16,7 @@
 
 	// Galleriffic static class
 	$.galleriffic = {
-		version: '2.0.1',
+		version: '2.1.0',
 
 		// Strips invalid characters and any leading # characters
 		normalizeHash: function(hash) {
@@ -72,10 +74,9 @@
 		maxPagesToShow:            7,
 		imageContainerSel:         '',
 		captionContainerSel:       '',
-		controlsContainerSel:      '',
+		ssControlsContainerSel:    '',
+		navControlsContainerSel:   '',
 		loadingContainerSel:       '',
-		renderSSControls:          true,
-		renderNavControls:         true,
 		playLinkText:              'Play',
 		pauseLinkText:             'Pause',
 		prevLinkText:              'Previous',
@@ -83,6 +84,8 @@
 		nextPageLinkText:          'Next &rsaquo;',
 		prevPageLinkText:          '&lsaquo; Prev',
 		enableHistory:             false,
+		enableFancybox:            false,
+		fancyOptions:              {}, 
 		enableKeyboardNavigation:  true,
 		autoStart:                 false,
 		syncTransitions:           false,
@@ -145,6 +148,7 @@
 				var slideUrl = $aThumb.attr('href');
 				var title = $aThumb.attr('title');
 				var $caption = $li.find('.caption').remove();
+				var $fancy = $li.find('a.fancy').remove();
 				var hash = $aThumb.attr('name');
 
 				// Increment the image counter
@@ -163,6 +167,7 @@
 					title:title,
 					slideUrl:slideUrl,
 					caption:$caption,
+					fancy:$fancy,
 					hash:hash,
 					gallery:this,
 					index:position
@@ -382,8 +387,8 @@
 					this.slideshowTimeout = undefined;
 				}
 
-				if (this.$controlsContainer) {
-					this.$controlsContainer
+				if (this.$ssControlsContainer) {
+					this.$ssControlsContainer
 						.find('div.ss-controls a').removeClass().addClass('play')
 						.attr('title', this.playLinkText)
 						.attr('href', '#play')
@@ -397,8 +402,8 @@
 			play: function() {
 				this.isSlideshowRunning = true;
 
-				if (this.$controlsContainer) {
-					this.$controlsContainer
+				if (this.$ssControlsContainer) {
+					this.$ssControlsContainer
 						.find('div.ss-controls a').removeClass().addClass('pause')
 						.attr('title', this.pauseLinkText)
 						.attr('href', '#pause')
@@ -492,7 +497,7 @@
 				var imageData = this.data[index];
 				
 				if (!bypassHistory && this.enableHistory)
-					$.historyLoad(String(imageData.hash));  // At the moment, historyLoad only accepts string arguments
+					$.history.load(String(imageData.hash));  // At the moment, history.load only accepts string arguments
 				else
 					this.gotoImage(imageData);
 
@@ -504,7 +509,11 @@
 			gotoImage: function(imageData) {
 				var index = imageData.index;
 
-				if (this.onSlideChange)
+				// Prevent reloading same image
+				if (this.currentImage && this.currentImage.index == index)
+					return this;
+
+				if (this.onSlideChange && this.currentImage)
 					this.onSlideChange(this.currentImage.index, index);
 				
 				this.currentImage = imageData;
@@ -533,8 +542,8 @@
 				var index = imageData.index;
 
 				// Update Controls
-				if (this.$controlsContainer) {
-					this.$controlsContainer
+				if (this.$navControlsContainer) {
+					this.$navControlsContainer
 						.find('div.nav-controls a.prev').attr('href', '#'+this.data[this.getPrevIndex(index)].hash).end()
 						.find('div.nav-controls a.next').attr('href', '#'+this.data[this.getNextIndex(index)].hash);
 				}
@@ -627,14 +636,33 @@
 
 				// Construct new hidden span for the image
 				var newSlide = this.$imageContainer
-					.append('<span class="image-wrapper current"><a class="advance-link" rel="history" href="#'+this.data[nextIndex].hash+'" title="'+imageData.title+'">&nbsp;</a></span>')
+					.append('<span class="image-wrapper current"></span>')
 					.find('span.current').css('opacity', '0');
+
 				
-				newSlide.find('a')
-					.append(imageData.image)
-					.click(function(e) {
+					
+				if (this.enableFancybox && imageData.fancy.attr('href')) {
+					newSlide.append('<a class="fancy-link" id="main-fancy-link" href="' + imageData.fancy.attr('href') + '" title="' + imageData.title + '"  rel="fan">&nbsp;</a>');
+					
+					var fancyImages = [];
+					for (image in allImages){
+						if (allImages[image].slideUrl != imageData.fancy.attr('href'))
+							fancyImages.push('<a class="fancy-link" href="' + allImages[image].slideUrl + '" rel="fan">&nbsp;</a>');
+					}
+					
+					newSlide.append('<div>'+fancyImages.join(' ')+'</div>');
+					
+					
+					newSlide.find('a.fancy-link').fancybox();
+				} else {
+					newSlide.append('<a class="advance-link" rel="history" href="#'+this.data[nextIndex].hash+'" title="'+imageData.title+'">&nbsp;</a>');
+					newSlide.find('a').click(function(e) {
 						gallery.clickHandler(e, this);
 					});
+				}
+
+				newSlide.find('a#main-fancy-link')
+					.append(imageData.image);
 				
 				var newCaption = 0;
 				if (this.$captionContainer) {
@@ -865,8 +893,12 @@
 		$.extend(this, defaults, settings);
 		
 		// Verify the history plugin is available
-		if (this.enableHistory && !$.historyInit)
+		if (this.enableHistory && !$.history)
 			this.enableHistory = false;
+		
+		// Verify the fancybox plugin is available
+		if (this.enableFancybox && !$.fancybox)
+			this.enableFancybox = false;
 		
 		// Select containers
 		if (this.imageContainerSel) this.$imageContainer = $(this.imageContainerSel);
@@ -880,7 +912,6 @@
 			this.maxPagesToShow = 3;
 
 		this.displayedPage = -1;
-		this.currentImage = this.data[0];
 		var gallery = this;
 
 		// Hide the loadingContainer
@@ -888,34 +919,32 @@
 			this.$loadingContainer.hide();
 
 		// Setup controls
-		if (this.controlsContainerSel) {
-			this.$controlsContainer = $(this.controlsContainerSel).empty();
-			
-			if (this.renderSSControls) {
-				if (this.autoStart) {
-					this.$controlsContainer
-						.append('<div class="ss-controls"><a href="#pause" class="pause" title="'+this.pauseLinkText+'">'+this.pauseLinkText+'</a></div>');
-				} else {
-					this.$controlsContainer
-						.append('<div class="ss-controls"><a href="#play" class="play" title="'+this.playLinkText+'">'+this.playLinkText+'</a></div>');
-				}
-
-				this.$controlsContainer.find('div.ss-controls a')
-					.click(function(e) {
-						gallery.toggleSlideshow();
-						e.preventDefault();
-						return false;
-					});
+		if (this.ssControlsContainerSel) {
+			this.$ssControlsContainer = $(this.ssControlsContainerSel).empty();
+			if (this.autoStart) {
+				this.$ssControlsContainer
+					.append('<div class="ss-controls"><a href="#pause" class="pause" title="'+this.pauseLinkText+'">'+this.pauseLinkText+'</a></div>');
+			} else {
+				this.$ssControlsContainer
+					.append('<div class="ss-controls"><a href="#play" class="play" title="'+this.playLinkText+'">'+this.playLinkText+'</a></div>');
 			}
+        
+			this.$ssControlsContainer.find('div.ss-controls a')
+				.click(function(e) {
+					gallery.toggleSlideshow();
+					e.preventDefault();
+					return false;
+				});
+		}
 		
-			if (this.renderNavControls) {
-				this.$controlsContainer
-					.append('<div class="nav-controls"><a class="prev" rel="history" title="'+this.prevLinkText+'">'+this.prevLinkText+'</a><a class="next" rel="history" title="'+this.nextLinkText+'">'+this.nextLinkText+'</a></div>')
-					.find('div.nav-controls a')
-					.click(function(e) {
-						gallery.clickHandler(e, this);
-					});
-			}
+		if (this.navControlsContainerSel) {
+			this.$navControlsContainer = $(this.navControlsContainerSel).empty();
+			this.$navControlsContainer
+				.append('<div class="nav-controls"><a class="prev" rel="history" title="'+this.prevLinkText+'">'+this.prevLinkText+'</a><a class="next" rel="history" title="'+this.nextLinkText+'">'+this.nextLinkText+'</a></div>')
+				.find('div.nav-controls a')
+				.click(function(e) {
+					gallery.clickHandler(e, this);
+				});
 		}
 
 		var initFirstImage = !this.enableHistory || !location.hash;
@@ -977,217 +1006,3 @@
 		return this;
 	};
 })(jQuery);
-
-
-
-/*
- * jQuery history plugin
- * 
- * sample page: http://www.mikage.to/jquery/jquery_history.html
- *
- * Copyright (c) 2006-2009 Taku Sano (Mikage Sawatari)
- * Licensed under the MIT License:
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * Modified by Lincoln Cooper to add Safari support and only call the callback once during initialization
- * for msie when no initial hash supplied.
- */
-
-
-jQuery.extend({
-	historyCurrentHash: undefined,
-	historyCallback: undefined,
-	historyIframeSrc: undefined,
-	
-	historyInit: function(callback, src){
-		jQuery.historyCallback = callback;
-		if (src) jQuery.historyIframeSrc = src;
-		var current_hash = location.hash.replace(/\?.*$/, '');
-		
-		jQuery.historyCurrentHash = current_hash;
-		// if ((jQuery.browser.msie) && (jQuery.browser.version < 8)) {
-		if (jQuery.browser.msie) {
-			// To stop the callback firing twice during initilization if no hash present
-			if (jQuery.historyCurrentHash == '') {
-			jQuery.historyCurrentHash = '#';
-		}
-		
-			// add hidden iframe for IE
-			jQuery("body").prepend('<iframe id="jQuery_history" style="display: none;"'+
-				(jQuery.historyIframeSrc ? ' src="'+jQuery.historyIframeSrc+'"' : '')
-				+'></iframe>'
-			);
-			var ihistory = jQuery("#jQuery_history")[0];
-			var iframe = ihistory.contentWindow.document;
-			iframe.open();
-			iframe.close();
-			iframe.location.hash = current_hash;
-		}
-		else if (jQuery.browser.safari) {
-			// etablish back/forward stacks
-			jQuery.historyBackStack = [];
-			jQuery.historyBackStack.length = history.length;
-			jQuery.historyForwardStack = [];
-			jQuery.lastHistoryLength = history.length;
-			
-			jQuery.isFirst = true;
-		}
-		if(current_hash)
-			jQuery.historyCallback(current_hash.replace(/^#/, ''));
-		setInterval(jQuery.historyCheck, 100);
-	},
-	
-	historyAddHistory: function(hash) {
-		// This makes the looping function do something
-		jQuery.historyBackStack.push(hash);
-		
-		jQuery.historyForwardStack.length = 0; // clear forwardStack (true click occured)
-		this.isFirst = true;
-	},
-	
-	historyCheck: function(){
-		// if ((jQuery.browser.msie) && (jQuery.browser.version < 8)) {
-		if (jQuery.browser.msie) {
-			// On IE, check for location.hash of iframe
-			var ihistory = jQuery("#jQuery_history")[0];
-			var iframe = ihistory.contentDocument || ihistory.contentWindow.document;
-			var current_hash = iframe.location.hash.replace(/\?.*$/, '');
-			if(current_hash != jQuery.historyCurrentHash) {
-			
-				location.hash = current_hash;
-				jQuery.historyCurrentHash = current_hash;
-				jQuery.historyCallback(current_hash.replace(/^#/, ''));
-				
-			}
-		} else if (jQuery.browser.safari) {
-			if(jQuery.lastHistoryLength == history.length && jQuery.historyBackStack.length > jQuery.lastHistoryLength) {
-				jQuery.historyBackStack.shift();
-			}
-			if (!jQuery.dontCheck) {
-				var historyDelta = history.length - jQuery.historyBackStack.length;
-				jQuery.lastHistoryLength = history.length;
-				
-				if (historyDelta) { // back or forward button has been pushed
-					jQuery.isFirst = false;
-					if (historyDelta < 0) { // back button has been pushed
-						// move items to forward stack
-						for (var i = 0; i < Math.abs(historyDelta); i++) jQuery.historyForwardStack.unshift(jQuery.historyBackStack.pop());
-					} else { // forward button has been pushed
-						// move items to back stack
-						for (var i = 0; i < historyDelta; i++) jQuery.historyBackStack.push(jQuery.historyForwardStack.shift());
-					}
-					var cachedHash = jQuery.historyBackStack[jQuery.historyBackStack.length - 1];
-					if (cachedHash != undefined) {
-						jQuery.historyCurrentHash = location.hash.replace(/\?.*$/, '');
-						jQuery.historyCallback(cachedHash);
-					}
-				} else if (jQuery.historyBackStack[jQuery.historyBackStack.length - 1] == undefined && !jQuery.isFirst) {
-					// back button has been pushed to beginning and URL already pointed to hash (e.g. a bookmark)
-					// document.URL doesn't change in Safari
-					if (location.hash) {
-						var current_hash = location.hash;
-						jQuery.historyCallback(location.hash.replace(/^#/, ''));
-					} else {
-						var current_hash = '';
-						jQuery.historyCallback('');
-					}
-					jQuery.isFirst = true;
-				}
-			}
-		} else {
-			// otherwise, check for location.hash
-			var current_hash = location.hash.replace(/\?.*$/, '');
-			if(current_hash != jQuery.historyCurrentHash) {
-				jQuery.historyCurrentHash = current_hash;
-				jQuery.historyCallback(current_hash.replace(/^#/, ''));
-			}
-		}
-	},
-	historyLoad: function(hash){
-		var newhash;
-		hash = decodeURIComponent(hash.replace(/\?.*$/, ''));
-		
-		if (jQuery.browser.safari) {
-			newhash = hash;
-		}
-		else {
-			newhash = '#' + hash;
-			location.hash = newhash;
-		}
-		jQuery.historyCurrentHash = newhash;
-		
-		// if ((jQuery.browser.msie) && (jQuery.browser.version < 8)) {
-		if (jQuery.browser.msie) {
-			var ihistory = jQuery("#jQuery_history")[0];
-			var iframe = ihistory.contentWindow.document;
-			iframe.open();
-			iframe.close();
-			iframe.location.hash = newhash;
-			jQuery.lastHistoryLength = history.length;
-			jQuery.historyCallback(hash);
-		}
-		else if (jQuery.browser.safari) {
-			jQuery.dontCheck = true;
-			// Manually keep track of the history values for Safari
-			this.historyAddHistory(hash);
-			
-			// Wait a while before allowing checking so that Safari has time to update the "history" object
-			// correctly (otherwise the check loop would detect a false change in hash).
-			var fn = function() {jQuery.dontCheck = false;};
-			window.setTimeout(fn, 200);
-			jQuery.historyCallback(hash);
-			// N.B. "location.hash=" must be the last line of code for Safari as execution stops afterwards.
-			//      By explicitly using the "location.hash" command (instead of using a variable set to "location.hash") the
-			//      URL in the browser and the "history" object are both updated correctly.
-			location.hash = newhash;
-		}
-		else {
-		  jQuery.historyCallback(hash);
-		}
-	}
-});
-
-
-/**
- * jQuery Opacity Rollover plugin
- *
- * Copyright (c) 2009 Trent Foley (http://trentacular.com)
- * Licensed under the MIT License:
- *   http://www.opensource.org/licenses/mit-license.php
- */
-;(function($) {
-	var defaults = {
-		mouseOutOpacity:   0.67,
-		mouseOverOpacity:  1.0,
-		fadeSpeed:         'fast',
-		exemptionSelector: '.selected'
-	};
-
-	$.fn.opacityrollover = function(settings) {
-		// Initialize the effect
-		$.extend(this, defaults, settings);
-
-		var config = this;
-
-		function fadeTo(element, opacity) {
-			var $target = $(element);
-			
-			if (config.exemptionSelector)
-				$target = $target.not(config.exemptionSelector);	
-			
-			$target.fadeTo(config.fadeSpeed, opacity);
-		}
-
-		this.css('opacity', this.mouseOutOpacity)
-			.hover(
-				function () {
-					fadeTo(this, config.mouseOverOpacity);
-				},
-				function () {
-					fadeTo(this, config.mouseOutOpacity);
-				});
-
-		return this;
-	};
-})(jQuery);
-
