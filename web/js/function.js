@@ -194,6 +194,45 @@ $(document).ready(function(){
 			return false;
 		})*/
 		
+		
+		
+		/*top scroll*/
+		
+		var eventScroller  = {
+			eventsBlock: $('.time-line-nav'),
+			timeLinePos: function(){
+				return this.eventsBlock.position();
+			},
+			eventScroll: function(){
+				this.eventsBlock.css({'position':'static','visibility':'hidden', 'width':75 });
+				//this.eventsBlock.parent().css({'paddingTop':0 });
+				
+				var pos = this.eventsBlock.position(),
+					windowTop = $(window).scrollTop(),
+					windowLeft = $(window).scrollLeft(),
+					evBlockWidth = this.eventsBlock.width(),
+					evBlockHeight = this.eventsBlock.height();
+				
+				if (this.timeLinePos().top < windowTop) {
+					this.eventsBlock.css({'left':pos.left-windowLeft, 'top':0, 'position':'fixed', 'width':evBlockWidth});
+				} else {
+					this.eventsBlock.css({'position':'static', 'width':75});
+				}
+				
+				this.eventsBlock.css({'visibility':'visible'});
+			}
+		};
+		
+		if($('.time-line-nav').length > 0) {
+			$(window).scroll(function(){
+				eventScroller.eventScroll();
+			});
+			
+			$(window).resize(function(){
+				eventScroller.eventScroll();
+			});
+		}
+		
 	});
 	
 	

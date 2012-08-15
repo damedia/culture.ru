@@ -1,7 +1,8 @@
 
 <ul class="time-line-nav">
 	{% for c in centuries %}
-		<li  id="cen_21" {% if c.selected %}class="active"{% endif%} ><a href="{{ path('armd_chronicle_index_by_century', {'century': c.value}) }}">{{ c.value }}</a>
+		<li  id="cen_21" {% if c.selected %}class="active"{% endif%} ><a href="{{ path('armd_chronicle_index_by_century', {'century': c.value}) }}">{{ c.value }} век</a>
+
 		
 		{#<ul>
 			<li><a href="#year_1990">1990</a></li>
