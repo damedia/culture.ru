@@ -155,7 +155,8 @@ class ObjectAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('title')
-            ->add('categories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
+            ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
+            ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
     }
 
 
