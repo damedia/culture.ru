@@ -2216,6 +2216,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 					}
 					.time-line-image {
 						width:100%;
+						height:auto;
 					}
 			
 				.time-line-block-text {

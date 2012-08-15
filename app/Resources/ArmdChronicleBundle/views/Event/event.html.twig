@@ -8,7 +8,8 @@
         <p>{{ event.body|raw }}</p>
 	</div>
 
-	{% if event.accidents %}
+	{% if event.accidents is empty %}
+	{% else %}
 		<p class="to_expand_handler"><a href="#">развернуть</a></p>
 		<div class="to_expand_block" style="display:none">
 		<div class="time-line-events">
