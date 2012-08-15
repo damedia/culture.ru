@@ -200,6 +200,7 @@ AT.clearMap = function() {
 AT.placeObject = function(object) {
     //console.log(object);
 
+    console.log(object);
     var point = new PGmap.Point({
             coord: new PGmap.Coord(object.lon, object.lat, true),
             url: object.icon // bundleImagesUri + '/' + 

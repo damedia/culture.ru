@@ -93,7 +93,7 @@ class CategoryAdmin extends Admin
                 'template' => 'ArmdAtlasBundle:Admin:list_raw.html.twig',
                 'label' => 'Title'
             ))
-            ->add('icon', null,
+            ->add('iconMedia', null,
             array(
                 'template' => 'ArmdAtlasBundle:Admin:list_category_icon.html.twig'
             ));

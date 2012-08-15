@@ -333,9 +333,10 @@ class DefaultController extends Controller
         $res = $repo->filter($filterParams);
 
         $rows = array();
+        $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
         foreach ($res as $obj) {
             $categories = $obj->getCategories();
-            $icon = $categories[0]->getIcon();
+            $icon = $mediaHelper->originalUrl($categories[0]->getIconMedia());
             $rows[] = array(
                 'id' => $obj->getId(),
                 'title' => $obj->getTitle(),

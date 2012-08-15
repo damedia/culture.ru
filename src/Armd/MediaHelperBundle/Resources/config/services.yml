@@ -12,3 +12,8 @@ services:
         tags:
             - { name: form.type, alias: armd_media_file_type }
 
+    armd_media_helper.twig_extension.media_helper:
+        class: Armd\MediaHelperBundle\Twig\MediaHelperExtension
+        arguments: [@sonata.media.pool]
+        tags:
+          - { name: twig.extension }
