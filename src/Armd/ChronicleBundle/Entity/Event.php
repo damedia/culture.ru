@@ -32,7 +32,7 @@ class Event
     /**
      * @var text $announce
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $announce;
 
@@ -60,14 +60,14 @@ class Event
     /**
      * @var integer $decade
      *
-     * @ORM\Column(name="decade", type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $decade;
 
     /**
      * @var integer $year
      *
-     * @ORM\Column(name="year", type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $year;
     
@@ -96,38 +96,23 @@ class Event
     /**
      * @var integer $priority
      *
-     * @ORM\Column(name="priority", type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $priority;
-
-    /**
-     * Set date
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate     
-     *
-     * @param date $date
-     * @return Event
-     * 
-     */
-    public function setDate($date = null)
-    {
-        if (null == $date) {
-            $date = \DateTime::createFromFormat('Y-m-d H:i:s', "{$this->year}-01-01 00:00:00"); 
-        }
-        
-        $this->setCentury(floor($this->year / 100) + 1);
-//        $this->setDecade();
-    
-        $this->date = $date;
-        return $this;
-    }
 
     public function __toString()
     {
         return $this->getTitle();
     }
-
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->accidents = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -147,6 +132,7 @@ class Event
     public function setTitle($title)
     {
         $this->title = $title;
+    
         return $this;
     }
 
@@ -163,19 +149,20 @@ class Event
     /**
      * Set announce
      *
-     * @param text $announce
+     * @param string $announce
      * @return Event
      */
     public function setAnnounce($announce)
     {
         $this->announce = $announce;
+    
         return $this;
     }
 
     /**
      * Get announce
      *
-     * @return text 
+     * @return string 
      */
     public function getAnnounce()
     {
@@ -185,19 +172,20 @@ class Event
     /**
      * Set body
      *
-     * @param text $body
+     * @param string $body
      * @return Event
      */
     public function setBody($body)
     {
         $this->body = $body;
+    
         return $this;
     }
 
     /**
      * Get body
      *
-     * @return text 
+     * @return string 
      */
     public function getBody()
     {
@@ -205,9 +193,27 @@ class Event
     }
 
     /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Event
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        
+        $year = $date->format('Y');
+
+        $this->setCentury(floor($year / 100) + 1);
+        $this->setDecade(floor($year / 10));
+    
+        return $this;
+    }
+
+    /**
      * Get date
      *
-     * @return date 
+     * @return \DateTime 
      */
     public function getDate()
     {
@@ -223,6 +229,7 @@ class Event
     public function setCentury($century)
     {
         $this->century = $century;
+    
         return $this;
     }
 
@@ -245,6 +252,7 @@ class Event
     public function setDecade($decade)
     {
         $this->decade = $decade;
+    
         return $this;
     }
 
@@ -267,6 +275,7 @@ class Event
     public function setYear($year)
     {
         $this->year = $year;
+    
         return $this;
     }
 
@@ -289,6 +298,7 @@ class Event
     public function setPublished($published)
     {
         $this->published = $published;
+    
         return $this;
     }
 
@@ -311,6 +321,7 @@ class Event
     public function setPriority($priority)
     {
         $this->priority = $priority;
+    
         return $this;
     }
 
@@ -324,57 +335,6 @@ class Event
         return $this->priority;
     }
 
-    /**
-     * Set image
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
-     * @return Event
-     */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set gallery
-     *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
-     * @return Event
-     */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
-    {
-        $this->gallery = $gallery;
-        return $this;
-    }
-
-    /**
-     * Get gallery
-     *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
-     */
-    public function getGallery()
-    {
-        return $this->gallery;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->accidents = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
     /**
      * Add accidents
      *
@@ -406,5 +366,51 @@ class Event
     public function getAccidents()
     {
         return $this->accidents;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @return Event
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @return Event
+     */
+    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+    
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

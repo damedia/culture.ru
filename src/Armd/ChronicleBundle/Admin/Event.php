@@ -34,7 +34,7 @@ class Event extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('announce')
+//            ->add('announce')
             ->add('body')
             ->add('date')                                 
         ;
@@ -52,13 +52,12 @@ class Event extends Admin
         $formMapper
             ->with('General')
                 ->add('title')
-                ->add('announce')
                 ->add('body')
-//                ->add('century')
+                ->add('date', null, array('widget' => 'single_text'))
 //                ->add('decade')
-                ->add('year')                                                    
+//                ->add('year')                                                    
 //                ->add('accidents', 'sonata_type_collection', array('required' => false, 'by_reference' => false), array('edit' => 'inline', 'inline' => 'table'))                
-                ->add('priority')                                
+//                ->add('priority')                                
                 ->add('published')
             ->end()    
             ->with('Media')                
@@ -78,7 +77,7 @@ class Event extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('year')
+            ->add('date')
             ->add('published')                            
         ;
         
