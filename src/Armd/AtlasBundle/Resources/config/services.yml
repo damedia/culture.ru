@@ -3,3 +3,8 @@ services:
         class: Armd\AtlasBundle\EventListener\MediaListener
         tags:
             - { name: doctrine.event_listener, event: preRemove }
+
+    armd_atlas.listener.category:
+        class: Armd\AtlasBundle\EventListener\CategoryListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }

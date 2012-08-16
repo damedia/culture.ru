@@ -255,7 +255,6 @@ class Object
      */
     public function addSecondaryCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
-        $category->addObject($this);
         $this->secondaryCategories[] = $category;
 
         return $this;

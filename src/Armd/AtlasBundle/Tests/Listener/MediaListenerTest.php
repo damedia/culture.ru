@@ -27,7 +27,7 @@ class DefaultControllerTest extends AbstractFunctionalTest
         $oldCount = $this->countFiles(dirname($oldPath));
 
         $newFile = LoadTestObjectData::createUploadedFile('new.png');
-        $media->setFormImageFile($newFile);
+        $media->setFormFile($newFile);
         $this->em->flush();
 
         $newPath = $this->mediaDir . '/' . $imageProvider->getReferenceImage($media);
