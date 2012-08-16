@@ -12,7 +12,7 @@ class Version20120815194825 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->addSql("update content_chronicle_accident set date = to_date(concat(year, '.01.01'), 'YYYY.MM.DD')");
+        $this->addSql("update content_chronicle_accident set date = to_date(year || '.01.01', 'YYYY.MM.DD')");
         $this->addSql("ALTER TABLE content_chronicle_accident ALTER date SET NOT NULL");
         $this->addSql("ALTER TABLE content_chronicle_accident DROP year");
         $this->addSql("ALTER TABLE content_chronicle_accident ADD century INT DEFAULT NULL");
