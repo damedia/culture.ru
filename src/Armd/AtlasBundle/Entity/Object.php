@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="atlas_object")
  * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Entity\ObjectRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Object
 {
@@ -132,6 +133,20 @@ class Object
     private $showAtRussianImage = false;
 
 
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Literature", inversedBy="objects")
+//     * @ORM\JoinTable(name="atlas_object_literature",
+//     *      joinColumns={@ORM\JoinColumn(name="object_id", referencedColumnName="id")},
+//     *      inverseJoinColumns={@ORM\JoinColumn(name="literature_id", referencedColumnName="id")}
+//     *      )
+//     **/
+//
+
+    /**
+     * @ORM\OneToMany(targetEntity="Literature", mappedBy="object", cascade={"all"}, orphanRemoval=true)
+     */
+    private $literatures;
+
     public function __construct()
     {
         $this->secondaryCategories = new ArrayCollection();
@@ -139,13 +154,14 @@ class Object
         $this->videos = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->archiveImages = new ArrayCollection();
+        $this->literatures = new ArrayCollection();
     }
 
     public function getIcon()
     {
         $category = $this->getPrimaryCategory();
         $icon = null;
-        if($category) {
+        if ($category) {
             $icon = $category->getIconMedia();
         }
 
@@ -239,7 +255,6 @@ class Object
      */
     public function addSecondaryCategory(\Armd\AtlasBundle\Entity\Category $category)
     {
-        $category->addObject($this);
         $this->secondaryCategories[] = $category;
 
         return $this;
@@ -293,7 +308,7 @@ class Object
     {
         $categories = new ArrayCollection();
         $categories[] = $this->getPrimaryCategory();
-        foreach($this->getSecondaryCategories() as $secondaryCategory) {
+        foreach ($this->getSecondaryCategories() as $secondaryCategory) {
             $categories[] = $secondaryCategory;
         }
 
@@ -651,6 +666,51 @@ class Object
     {
         $this->showAtRussianImage = $showAtRussianImage;
     }
+
+    public function getLiteratures()
+    {
+        return $this->literatures;
+    }
+
+    public function setLiteratures($literatures)
+    {
+        foreach ($literatures as $literature) {
+            $literature->setObject($this);
+        }
+        $this->literatures = $literatures;
+    }
+
+    public function addLiteratures($literatures)
+    {
+        if(is_array($literatures) || ($literatures instanceof ArrayCollection)) {
+            foreach($literatures as $literature)
+            {
+                $this->addLiterature($literature);
+            }
+
+        } else {
+            $this->addLiterature($literatures);
+        }
+    }
+
+    public function removeLiteratures(Literature $literature)
+    {
+        $literature->setObject(null);
+        $this->literatures->removeElement($literature);
+    }
+
+    public function addLiterature(Literature $literature)
+    {
+        $literature->setObject($this);
+        $this->literatures->add($literature);
+    }
+
+    public function removeLiterature(Literature $literature)
+    {
+        $literature->setObject(null);
+        $this->literatures->removeElement($literature);
+    }
+
 
 
 }

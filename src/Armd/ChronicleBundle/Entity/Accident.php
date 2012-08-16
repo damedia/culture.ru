@@ -31,17 +31,16 @@ class Accident
     /**
      * @var integer $year
      *
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $date;
     
     /**
-     * @var integer $year
+     * @var integer $century
      *
-     * @ORM\Column(name="year", type="integer")
+     * @ORM\Column(type="integer")
      */
-    private $year;
-    
+    private $century;        
     
     /**
      * @ORM\ManyToOne(targetEntity="Event")
@@ -82,26 +81,51 @@ class Accident
     }
 
     /**
-     * Set year
+     * Set date
      *
-     * @param integer $year
+     * @param \DateTime $date
      * @return Accident
      */
-    public function setYear($year)
+    public function setDate($date)
     {
-        $this->year = $year;
+        $this->date = $date;
+        
+        $this->setCentury(floor($date->format('Y') / 100) + 1);
     
         return $this;
     }
 
     /**
-     * Get year
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set century
+     *
+     * @param integer $century
+     * @return Accident
+     */
+    public function setCentury($century)
+    {
+        $this->century = $century;
+    
+        return $this;
+    }
+
+    /**
+     * Get century
      *
      * @return integer 
      */
-    public function getYear()
+    public function getCentury()
     {
-        return $this->year;
+        return $this->century;
     }
 
     /**
@@ -125,28 +149,5 @@ class Accident
     public function getEvent()
     {
         return $this->event;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Accident
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime 
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 }
