@@ -140,8 +140,19 @@ class ObjectAdmin extends Admin
                     'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
                     'label' => 'Видео (Tvigle ID)'
                 ))
-
-            ->end();
+            ->end()
+            ->with('Literature')
+                ->add('literatures', 'sonata_type_collection',
+                    array(
+                        'by_reference' => false,
+                        'required' => true,
+                    ),
+                    array(
+                    'edit' => 'inline',
+                    'inline' => 'table'
+                ))
+            ->end()
+        ;
 //        echo get_class($this->container->get('armd_tvigle.admin.tvigle'));
         parent::configureFormFields($formMapper);
     }
