@@ -8,13 +8,10 @@
     <script src="{{ asset('bundles/armdmain/js/news_tabs.js') }}" type="text/javascript"></script>
 {% endblock %}
 
-
-
-
 {% block online%}
 <div class="online-index">
 	<div class="title-block index-title-block">
-		<h2>Онлайн трансляции</h2>
+		<h2>Трансляции</h2>
 	</div>	
 	<div class="online-index-block">
 		<a href="online.html"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
@@ -30,7 +27,10 @@
 </div>
 {% endblock %}
 
-{#% block index_article%}
+{% block index_article%}
+	{% include "ArmdMainBundle:News:recommend.html.twig" with {"categories": categories} %}
+{% endblock %}
+{# 	
 	<div class="index-article">
 		<div class="title-block index-title-block">
 			<h2>Избранная статья</h2>
@@ -53,7 +53,7 @@
 		</div>
 
 	</div>
-{% endblock %#}
+#}
 
 {% block atlas_header%}
 <div class="title-block green">
