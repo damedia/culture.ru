@@ -5,6 +5,7 @@ var AT = {};
 
 AT.version = '0.2';
 AT.map = null;
+AT.filterTags = [];
 
 AT.init = function(params) {
     console.info('Init Atlas');
@@ -12,6 +13,7 @@ AT.init = function(params) {
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
+    AT.initFilters();
     AT.initHacks();
 
 };
@@ -33,9 +35,9 @@ AT.initMap = function(params) {
 };
 
 AT.initGeocoder = function() {
-    var geocoder = $('#geocoder'),
+    var geocoder = $('.simple-search'),
         resultBox = geocoder.find('.result-box'),
-        searchInput = geocoder.find('.search'),
+        searchInput = $('#ss_input'),
         searchSubmit = geocoder.find('.submit'),
         searchTerm = searchInput.val();
 
@@ -186,6 +188,26 @@ AT.initUI = function() {
         $('#atlas-form').submit();
     });
 
+};
+
+// Init filters
+AT.initFilters = function(){
+
+    function prepareTagsValue() {
+
+        AT.filterTags = [];
+
+        $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
+            AT.filterTags.push( $(this).data('tag') );
+        });
+
+        console.log( AT.filterTags );
+
+    }
+
+    $('.atlas-filter-form').find('.simple-filter-options > label > span').click(function(){
+        prepareTagsValue();
+    });
 };
 
 AT.clearMap = function() {
