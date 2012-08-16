@@ -31,9 +31,17 @@ class Accident
     /**
      * @var integer $year
      *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+    
+    /**
+     * @var integer $year
+     *
      * @ORM\Column(name="year", type="integer")
      */
     private $year;
+    
     
     /**
      * @ORM\ManyToOne(targetEntity="Event")
@@ -117,5 +125,28 @@ class Accident
     public function getEvent()
     {
         return $this->event;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Accident
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

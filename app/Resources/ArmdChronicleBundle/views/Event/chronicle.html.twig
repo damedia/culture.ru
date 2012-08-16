@@ -5,13 +5,16 @@
 		<h2>Лента времени</h2>
 	</div>
 
-    {% render "ArmdChronicleBundle:Event:centuries" with {"century": century} %}
-
+    {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries} %}
+    
+    {% for c in centuries %}
+    <a name="c.name"></a>
     <div class="time-line-content clearfix">
-    	<div class="time-line-header">{{ century }}<br />
+    	<div class="time-line-header">{{ c.name }}<br />
     		<span>век</span>
     	</div>    
         
-        {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": events} %}
-    </div>
+        {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": c.events, "accidents": c.accidents} %}
+    </div>    
+    {% endfor%}
 {% endblock %}    

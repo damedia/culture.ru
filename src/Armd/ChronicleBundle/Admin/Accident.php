@@ -21,7 +21,7 @@ use Sonata\AdminBundle\Admin\Admin;
 class Accident extends Admin
 {
     protected $datagridValues = array(
-        '_sort_by'      => 'year',    
+        '_sort_by'      => 'date',    
         '_sort_order'   => 'DESC',
     );
 
@@ -34,7 +34,7 @@ class Accident extends Admin
     {
         $showMapper
             ->add('announce')
-            ->add('year')
+            ->add('date')
         ;
         
         parent::configureShowField($showMapper);        
@@ -51,7 +51,7 @@ class Accident extends Admin
             ->with('General')
                 ->add('event', null, array('required' => false))
                 ->add('announce')
-                ->add('year')                                                    
+                ->add('date', null, array('widget' => 'single_text'))                                                    
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -66,7 +66,7 @@ class Accident extends Admin
     {        
         $listMapper
             ->addIdentifier('announce')
-            ->add('year')                           
+            ->add('date')                           
         ;
         
         parent::configureListFields($listMapper);        

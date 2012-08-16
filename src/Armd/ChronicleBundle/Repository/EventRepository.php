@@ -39,9 +39,9 @@ class EventRepository extends BaseRepository
         return $this;
     }
     
-    function orderByYear($order = 'DESC')
+    function orderByDate($order = 'ASC')
     {
-        $this->qb->orderBy("{$this->alias}.year", $order);
+        $this->qb->orderBy("{$this->alias}.date", $order);
             
         return $this;
     }    

@@ -9,34 +9,28 @@ use Armd\ChronicleBundle\Util\RomanConverter as Converter;
 class EventController extends ListController
 {
     /**
-     * @Route("/", name="armd_chronicle_index", defaults={"century" = "XXI"})     
-     * @Route("/{century}/", requirements={"century" = "[IVXLCDM]+"}, name="armd_chronicle_index_by_century")     
+     * @Route("/", name="armd_chronicle_index")     
      */
-    public function indexAction($century)
+    public function indexAction()
     {
         return $this->render($this->getTemplateName('chronicle'), array(
-            'century'   => $century,
-            'events'    => $this->getEventsList($century),
+            'centuries' => $this->getCenturiesList(),
         ));
     }
-    
-    function centuriesAction($century)
-    {
-        return $this->render($this->getTemplateName('centuries'), array(
-            'centuries'    => $this->getCenturiesList($century),
-        ));
-    }
-    
-    function getCenturiesList($century)
+        
+    function getCenturiesList()
     {
         $result = array();
         $centuries = $this->getCenturiesRepository()->getQuery()->getArrayResult();
         
         foreach ($centuries as $c) {
-            $value = Converter::toRoman($c['century']);           
+            $century = $c['century'];
+            
             $result[] = array(
-                'value'     => $value,
-                'selected'  => $value == $century,
+                'value'     => $century,
+                'name'      => Converter::toRoman($century),
+                'events'    => $this->getEventsList($century),
+                'accidents' => $this->getAccidentsList($century),
             );
         }
         
@@ -46,6 +40,11 @@ class EventController extends ListController
     function getEventsList($century)
     {
         return $this->getEventsRepository($century)->getQuery()->getResult();
+    }
+    
+    function getAccidentsList($century)
+    {
+        return $this->getDoctrine()->getRepository('ArmdChronicleBundle:Accident')->findBy(array('event' => null), array('date' => 'ASC'));
     }
     
     function getCenturiesRepository()
@@ -58,8 +57,8 @@ class EventController extends ListController
     function getEventsRepository($century)
     {
         return $this->getListRepository()
-            ->setCentury(Converter::toNumber($century))
-            ->orderByYear();
+            ->setCentury($century)
+            ->orderByDate();
     }
     
     public function getControllerName()
