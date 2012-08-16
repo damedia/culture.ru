@@ -15,7 +15,7 @@ class MediaFileType extends AbstractType
     {
         $subscriber = new AddRemoveFieldSubscriber($builder->getFormFactory());
         $builder->addEventSubscriber($subscriber);
-        
+
         $builder
             ->add('formFile', 'file',
             array(
@@ -24,6 +24,10 @@ class MediaFileType extends AbstractType
             ))
             ->add('context', 'hidden', array('data' => $options['media_context']))
             ->add('providerName', 'hidden', array('data' => $options['media_provider']));
+
+        if($options['with_description']) {
+            $builder->add('description');
+        }
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -38,6 +42,7 @@ class MediaFileType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Application\Sonata\MediaBundle\Entity\Media',
             'with_remove' => false,
+            'with_description' => false,
             'media_context' => 'default',
             'media_format' => 'thumbnail',
         ))->setRequired(array('media_provider'));
