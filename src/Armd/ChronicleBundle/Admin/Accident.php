@@ -49,7 +49,7 @@ class Accident extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('event')
+                ->add('event', null, array('required' => false))
                 ->add('announce')
                 ->add('year')                                                    
             ->end();
