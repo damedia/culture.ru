@@ -132,20 +132,16 @@ class Object
      */
     private $showAtRussianImage = false;
 
-
-//    /**
-//     * @ORM\ManyToMany(targetEntity="Literature", inversedBy="objects")
-//     * @ORM\JoinTable(name="atlas_object_literature",
-//     *      joinColumns={@ORM\JoinColumn(name="object_id", referencedColumnName="id")},
-//     *      inverseJoinColumns={@ORM\JoinColumn(name="literature_id", referencedColumnName="id")}
-//     *      )
-//     **/
-//
-
     /**
      * @ORM\OneToMany(targetEntity="Literature", mappedBy="object", cascade={"all"}, orphanRemoval=true)
      */
     private $literatures;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ObjectHint", mappedBy="object", cascade={"all"}, orphanRemoval=true)
+     */
+    private $objectHints;
+
 
     public function __construct()
     {
@@ -155,6 +151,7 @@ class Object
         $this->images = new ArrayCollection();
         $this->archiveImages = new ArrayCollection();
         $this->literatures = new ArrayCollection();
+        $this->objectHints = new ArrayCollection();
     }
 
     public function getIcon()
@@ -693,12 +690,6 @@ class Object
         }
     }
 
-    public function removeLiteratures(Literature $literature)
-    {
-        $literature->setObject(null);
-        $this->literatures->removeElement($literature);
-    }
-
     public function addLiterature(Literature $literature)
     {
         $literature->setObject($this);
@@ -711,6 +702,42 @@ class Object
         $this->literatures->removeElement($literature);
     }
 
+    public function getObjectHints()
+    {
+        return $this->objectHints;
+    }
 
+    public function setObjectHints($objectHints)
+    {
+        foreach($objectHints as $objectHint) {
+            $objectHint->setObject($this);
+        }
+        $this->objectHints = $objectHints;
+    }
+
+    public function addObjectHints($objectHints)
+    {
+        if(is_array($objectHints) || ($objectHints instanceof ArrayCollection)) {
+            foreach($objectHints as $objectHint)
+            {
+                $this->addObjectHint($objectHint);
+            }
+
+        } else {
+            $this->addObjectHint($objectHints);
+        }
+    }
+
+    public function addObjectHint(ObjectHint $objectHint)
+    {
+        $objectHint->setObject($this);
+        $this->objectHints[] = $objectHint;
+    }
+
+    public function removeObjectHint(ObjectHint $objectHint)
+    {
+        $objectHint->setObject(null);
+        $this->objectHints->removeElement($objectHint);
+    }
 
 }

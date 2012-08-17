@@ -17,3 +17,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Atlas, label: Literature, show_in_dashboard: false }
         arguments: [null, Armd\AtlasBundle\Entity\Literature, SonataAdminBundle:CRUD, @service_container]
+
+    armd_atlas.sonata_admin.object_hint:
+        class: Armd\AtlasBundle\Admin\ObjectHintAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Atlas, label: ObjectHint, show_in_dashboard: false }
+        arguments: [null, Armd\AtlasBundle\Entity\ObjectHint, SonataAdminBundle:CRUD, @service_container]
