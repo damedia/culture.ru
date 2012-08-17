@@ -1662,6 +1662,7 @@ white-space:nowrap;
 			font-size: 20px;
 			color: #7791A4;
 			line-height: 47px;
+			cursor:pointer;
 		}
 		.afisha-list-more:hover {
 			text-decoration: none;
@@ -1917,6 +1918,9 @@ white-space:nowrap;
 
 						}			
 
+				.more-comments-show {
+					padding-top:20px;
+				}		
 
 /*dirty css*/
 
