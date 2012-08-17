@@ -215,6 +215,9 @@ AT.clearMap = function() {
 AT.placeObject = function(object) {
     var point = new PGmap.Point({
             coord: new PGmap.Coord(object.lon, object.lat, true),
+            width: 24,
+            height: 38,
+            backpos: '0 0',
             url: object.icon
         });
     var balloon = new PGmap.Balloon({
@@ -224,7 +227,12 @@ AT.placeObject = function(object) {
         });
     //balloon.setSize(350, 140);
     //point.addBalloon(balloon);
-    $(point.element).data('uid', object.id);
+    $(point.element)
+        .data('uid', object.id)
+        .css({
+            'margin-left': '-6px',
+            'margin-top': '-19px'
+        });
 
     AT.map.geometry.add(point);
 
