@@ -1,4 +1,8 @@
 {% extends '::base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" type="text/css" media="screen" />
+{% endblock %}
 {% block body%}
 	<div class="news-press-center">
         <div class="title-block">
