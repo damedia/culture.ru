@@ -23,6 +23,63 @@
 				height:46px;
 				
 			}
+			
+			.atlas_tabs {
+				position:absolute;
+				right:8px;
+				top:16px;
+				width:124px;
+				z-index:100;
+			}
+				.atlas_tabs li {
+					width:62px;
+					height:23px;
+					float:left;
+					background-image:url('../img/atlas_tabs.png');
+					background-repeat:no-repeat;
+					cursor:pointer;
+				}
+				#atlasTab {
+					background-position:0 -23px;
+				}
+					#atlasTab.active {
+						background-position:0 0;
+					}
+				#rusObrTab {
+					background-position:-62px 0;
+				}
+					#rusObrTab.active {
+						background-position:-62px -23px;
+					}
+		
+
+			.map_obraz {
+				position:absolute;
+				border:2px solid #fff;
+				box-shadow:0 0  25px -3px #222;
+			}
+			.map_obraz_small {
+				position:absolute;
+				border:1px solid #fff;
+				box-shadow:0 0  10px -3px #222;
+			}
+			.map_bubble {
+				position:absolute;
+				display:block;
+				width:34px;
+				height:42px;
+				background:url('../img/map_buble.png') no-repeat 0 0;
+				color:#fff;
+				font-size:17px;
+				text-align:center;
+				padding-top:8px;
+				text-decoration:none;
+			}
+			.map_bubble:hover {
+				text-decoration:none;
+			}
+		
+			
 
 /*Atlas Cards*/
 .atlas-filter-form  {

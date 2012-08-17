@@ -171,7 +171,7 @@ $(document).ready(function(){
             });
 
             /****************************************************************************************/
-            /**** Functions to support integration of galleriffic with the jquery.history plugin ****/
+            /**** Functions to support integration of galleriffic with the jquery.history plugin ***
 
             // PageLoad function
             // This function is called when:
@@ -207,7 +207,7 @@ $(document).ready(function(){
                 return false;
             });
 
-            /****************************************************************************************/
+            ***************************************************************************************/
 
         }
         

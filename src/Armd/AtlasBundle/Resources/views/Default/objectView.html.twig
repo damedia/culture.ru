@@ -82,6 +82,32 @@
 						</ol>
 					</div>
 				   
+				   <div class='afisha-list-more' id="more-show">Комментарии</div>
+				   <div class="more-comments-show" style="display:none;">  
+						<div class="comments comments-gray clearfix">
+							<div class="comments-block">
+								<div class="comment">
+									Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
+								</div>
+								<div class="comment-author">
+									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
+								</div>
+							</div>
+							<div class="comments-block">
+								<div class="comment">
+									Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
+								</div>
+								<div class="comment-author">
+									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
+								</div>
+							</div>
+							<form action="" class="comments-form">
+								<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>
+								<input type="submit" value="Отправить" class="button" />
+							</form>
+						</div>
+				   </div>
+				   
                 </div>
 
                 <div class="object-one-col3">
@@ -307,6 +333,9 @@
 			$(window).resize(function(){
 				$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 		
+			})
+			$('#more-show').click(function(){
+				$(this).next('div').toggle();
 			})
 			
         });

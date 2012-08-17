@@ -1,21 +1,13 @@
 <ul class="time-line-nav">
 	{% for c in centuries %}
-		<li  id="cen_{{ c.value }}"><a href="#{{ c.name }}">{{ c.name }} век</a>
-
-		
-		{#<ul>
-			<li><a href="#year_1990">1990</a></li>
-			<li><a href="#year_1980">1980</a></li>
-			<li><a href="#year_1970">1970</a></li>
-			<li><a href="#year_1960">1960</a></li>
-			<li><a href="#year_1950">1950</a></li>
-			<li><a href="#year_1940">1940</a></li>
-			<li><a href="#year_1930">1930</a></li>
-			<li><a href="#year_1920">1920</a></li>
-			<li><a href="#year_1910">1910</a></li>
-			<li><a href="#year_1900">1900</a></li>
-		</ul>#}
-		
+		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}">{{ c.name }} век</a>
+		<ul>
+		{% for e in c.events %}
+            {% set year = e.date|date('Y') %}
+		    {% set decade = year - year % 10 %}
+		    <li><a href="#{{ decade }}">{{ decade }}</a></li>
+		{% endfor %}
+		</ul>
 		</li>
 	{% endfor %}
 	

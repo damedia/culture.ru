@@ -19,6 +19,16 @@ class DefaultController extends Controller
     protected $username = 'admin';
     protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
 
+    /**
+     * @Route("/rebuild_tree")
+     */
+    public function rebuildTreeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repairer = new \Armd\AtlasBundle\Util\TreeRepairer();
+        $repairer->rebuildTree($em, $em->getRepository('ArmdAtlasBundle:Category'));
+        return new Response('ok');
+    }
 
     /**
      * @Route("/objects")
