@@ -129,7 +129,7 @@ $(document).ready(function(){
 		})
 		
 		/*INDEX TABS*/
-		$('.indextabs span').click(function(){
+		$('.atlas_tabs li').click(function(){
 			if(!$(this).hasClass('active')) {
 				var thisId = $(this).attr('id');
 				$(this).toggleClass('active').siblings().removeClass('active');

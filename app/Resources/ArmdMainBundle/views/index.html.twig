@@ -1,11 +1,87 @@
 {% extends '::index-layout.html.twig' %}
 {% block stylesheets %}
 {{ parent() }}
-
+<link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script src="{{ asset('bundles/armdmain/js/news_tabs.js') }}" type="text/javascript"></script>
+	<script>
+		$(function() {
+			//scrollpane parts
+			var scrollPane = $( ".scroll-pane" ),
+				scrollContent = $( ".scroll-content" );
+			
+			scrollContent.width(scrollContent.width());
+			
+			//build slider
+			var scrollbar = $( ".scroll-bar" ).slider({
+				slide: function( event, ui ) {
+					if ( scrollContent.width() > scrollPane.width() ) {
+						scrollContent.css( "margin-left", Math.round(
+							ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
+						) + "px" );
+					} else {
+						scrollContent.css( "margin-left", 0 );
+					}
+				}
+			});
+			
+			//append icon to handle
+			var handleHelper = scrollbar.find( ".ui-slider-handle" )
+			.mousedown(function() {
+				scrollbar.width( handleHelper.width() );
+			})
+			.mouseup(function() {
+				scrollbar.width( "100%" );
+			})
+			.append( "<span class='ui-icon ui-icon-grip-dotted-vertical'></span>" )
+			.wrap( "<div class='ui-handle-helper-parent'></div>" ).parent();
+			
+			//change overflow to hidden now that slider handles the scrolling
+			scrollPane.css( "overflow", "hidden" );
+			
+			//size scrollbar and handle proportionally to scroll distance
+			function sizeScrollbar() {
+				var remainder = scrollContent.width() - scrollPane.width();
+				var proportion = remainder / scrollContent.width();
+				var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+				scrollbar.find( ".ui-slider-handle" ).css({
+					width: handleSize,
+					"margin-left": -handleSize / 2
+				});
+				handleHelper.width( "" ).width( scrollbar.width() - handleSize );
+			}
+			
+			//reset slider value based on scroll content position
+			function resetValue() {
+				var remainder = scrollPane.width() - scrollContent.width();
+				var leftVal = scrollContent.css( "margin-left" ) === "auto" ? 0 :
+					parseInt( scrollContent.css( "margin-left" ) );
+				var percentage = Math.round( leftVal / remainder * 100 );
+				scrollbar.slider( "value", percentage );
+			}
+			
+			//if the slider is 100% and window gets larger, reveal content
+			function reflowContent() {
+					var showing = scrollContent.width() + parseInt( scrollContent.css( "margin-left" ), 10 );
+					var gap = scrollPane.width() - showing;
+					if ( gap > 0 ) {
+						scrollContent.css( "margin-left", parseInt( scrollContent.css( "margin-left" ), 10 ) + gap );
+					}
+			}
+			
+			//change handle position on window resize
+			$( window ).resize(function() {
+				resetValue();
+				sizeScrollbar();
+				reflowContent();
+			});
+			//init scrollbar size
+			setTimeout( sizeScrollbar, 10 );//safari wants a timeout
+		});
+		</script>
 {% endblock %}
 
 {% block online%}
@@ -56,115 +132,288 @@
 #}
 
 {% block atlas_header%}
-<div class="title-block green">
-	<h2 class="indextabs"><span id="atlasTab"  class="active">Атлас</span><i>/</i><span id="rusObrTab">Образы России</span></h2>
+<div class="title-block orange">
+	<h2>Образы России</h2>
 </div>
+<ul id="atlas_tabs" class="atlas_tabs">
+	<li title="Атлас" id="atlasTab" class="active" ></li>
+	<li title="Образы России" id="rusObrTab"></li>
+</ul>
+
 {% endblock %}
 
 {% block atlas_tab%}
 <div id="atlasTab_tab"  class="indextab" style="display:block;">
-					<div class="atlas-map">
-						<img src="/static/common/img/map.png" alt="" />
-						<div class="atlas-menu"></div>
+	<div class="atlas-map">
+		<img src="/static/common/img/index_map.jpg" alt="" />
+		<a  href="#" class="map_obraz" style="top:74px; left:64px;">
+			<img src="/static/common/img/photo/index_atlas.jpg" alt="" />
+		</a>
+		<a  href="#" class="map_obraz_small" style="top:224px; left:84px;">
+			<img src="/static/common/img/photo/index_atlas_small.jpg" alt="" />
+		</a>
+		<a href="#" class="map_bubble" style="top:170px; left:94px;">
+			25
+		</a>
+	</div>
+
+	<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+		<div class="scroll-bar"></div>
+	</div>
+	<div class="map-grid-points scroll-pane ui-widget ui-widget-header ui-corner-all">
+		<ul class="map-grid-point scroll-content">
+			<li class="map-grid-point-li first">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/280"><img src="/static/common/img/photo/rostov.jpg" /></a>
 					</div>
-					
-				
-						
-
-					<div id="border-reload">
-
-						<a href="#"></a>
-
+					<div class="description-point">
+						<p><a href="/atlas/object/280">Ростовский кремль</a></p>
+						<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
 					</div>
-
-						
-
-						
-
-					<div class="map-grid-points">
-						<ul class="map-grid-point">
-							<li class="map-grid-point-li first">
-								<div class="item-grid-point">
-									<div class="preview-img-point">
-										<a href="/atlas/object/280"><img src="/static/common/img/photo/rostov.jpg" /></a>
-									</div>
-									<div class="description-point">
-										<p><a href="/atlas/object/280">Ростовский кремль</a></p>
-										<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
-									</div>
-								</div>                          
-							</li>
-							<li class="map-grid-point-li">
-								<div class="item-grid-point">
-									<div class="preview-img-point">
-										<a href="/atlas/object/222"><img src="/static/common/img/photo/car_selo.jpg" /></a>
-									</div>
-									<div class="description-point">
-										<p><a href="/atlas/object/222">Царское село</a></p>
-										<!--<a href="/atlas/object/222"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
-									</div>
-								</div>
-							</li>
-
-							<li class="map-grid-point-li">
-								<div class="item-grid-point">
-									<div class="preview-img-point">
-										<a href="/atlas/object/224"><img src="/static/common/img/photo/rasan.jpg" /></a>
-									</div>
-									<div class="description-point">
-										<p><a href="/atlas/object/224">Рязанский музей-заповедник</a></p>
-										<!--<a href="/atlas/object/224"><img class="type-point" src="/static/common/img/typepoint3.png" /></a>-->
-									</div>
-								</div>
-							</li>
-
-							<li class="map-grid-point-li">
-								<div class="item-grid-point">
-									<div class="preview-img-point">
-										<a href="/atlas/object/223"><img src="/static/common/img/photo/ufa.jpg" /></a>
-									</div>
-									<div class="description-point">
-										<p><a href="/atlas/object/223">Уфимская Государственная академия </a></p>
-										<!--<a href="/atlas/object/223"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
-									</div>
-								</div>
-							</li>
-
-							<li class="map-grid-point-li">
-								<div class="item-grid-point">
-									<div class="preview-img-point">
-										<a href="/atlas/object/221"><img src="/static/common/img/photo/spas.jpg" /></a>
-									</div>
-									<div class="description-point">
-										<p><a href="/atlas/object/221">Государственный мемориальный музей-заповедник </a></p>
-										<!--<a href="/atlas/object/221"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
-									</div>
-								</div>
-							</li>    
-
-							<li class="map-grid-point-li">
-								<div class="item-grid-point">
-									<div class="preview-img-point">
-										<a href="/atlas/object/129"><img src="/static/common/img/photo/rubcov.jpg" /></a>
-									</div>
-									<div class="description-point">
-										<p><a href="/atlas/object/129">Дом-музей Н.М.Рубцова</a></p>
-										<!--<a href="/atlas/object/129"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
-									</div>
-								</div>
-							</li>
-
-							
-							
-						</ul>
+				</div>                          
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/222"><img src="/static/common/img/photo/car_selo.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/222">Царское село</a></p>
+						<!--<a href="/atlas/object/222"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
 					</div>
 				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/224"><img src="/static/common/img/photo/rasan.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/224">Рязанский музей-заповедник</a></p>
+						<!--<a href="/atlas/object/224"><img class="type-point" src="/static/common/img/typepoint3.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/223"><img src="/static/common/img/photo/ufa.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/223">Уфимская Государственная академия </a></p>
+						<!--<a href="/atlas/object/223"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/221"><img src="/static/common/img/photo/spas.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/221">Государственный мемориальный музей-заповедник </a></p>
+						<!--<a href="/atlas/object/221"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/129"><img src="/static/common/img/photo/rubcov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/129">Дом-музей Н.М.Рубцова</a></p>
+						<!--<a href="/atlas/object/129"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li ">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/280"><img src="/static/common/img/photo/rostov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/280">Ростовский кремль</a></p>
+						<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>                          
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/222"><img src="/static/common/img/photo/car_selo.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/222">Царское село</a></p>
+						<!--<a href="/atlas/object/222"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/224"><img src="/static/common/img/photo/rasan.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/224">Рязанский музей-заповедник</a></p>
+						<!--<a href="/atlas/object/224"><img class="type-point" src="/static/common/img/typepoint3.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/223"><img src="/static/common/img/photo/ufa.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/223">Уфимская Государственная академия </a></p>
+						<!--<a href="/atlas/object/223"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/221"><img src="/static/common/img/photo/spas.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/221">Государственный мемориальный музей-заповедник </a></p>
+						<!--<a href="/atlas/object/221"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/129"><img src="/static/common/img/photo/rubcov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/129">Дом-музей Н.М.Рубцова</a></p>
+						<!--<a href="/atlas/object/129"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li ">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/280"><img src="/static/common/img/photo/rostov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/280">Ростовский кремль</a></p>
+						<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>                          
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/222"><img src="/static/common/img/photo/car_selo.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/222">Царское село</a></p>
+						<!--<a href="/atlas/object/222"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/224"><img src="/static/common/img/photo/rasan.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/224">Рязанский музей-заповедник</a></p>
+						<!--<a href="/atlas/object/224"><img class="type-point" src="/static/common/img/typepoint3.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/223"><img src="/static/common/img/photo/ufa.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/223">Уфимская Государственная академия </a></p>
+						<!--<a href="/atlas/object/223"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/221"><img src="/static/common/img/photo/spas.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/221">Государственный мемориальный музей-заповедник </a></p>
+						<!--<a href="/atlas/object/221"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/129"><img src="/static/common/img/photo/rubcov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/129">Дом-музей Н.М.Рубцова</a></p>
+						<!--<a href="/atlas/object/129"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li ">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/280"><img src="/static/common/img/photo/rostov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/280">Ростовский кремль</a></p>
+						<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>                          
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/222"><img src="/static/common/img/photo/car_selo.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/222">Царское село</a></p>
+						<!--<a href="/atlas/object/222"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/224"><img src="/static/common/img/photo/rasan.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/224">Рязанский музей-заповедник</a></p>
+						<!--<a href="/atlas/object/224"><img class="type-point" src="/static/common/img/typepoint3.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/223"><img src="/static/common/img/photo/ufa.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/223">Уфимская Государственная академия </a></p>
+						<!--<a href="/atlas/object/223"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/221"><img src="/static/common/img/photo/spas.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/221">Государственный мемориальный музей-заповедник </a></p>
+						<!--<a href="/atlas/object/221"><img class="type-point" src="/static/common/img/typepoint2.png" /></a>-->
+					</div>
+				</div>
+			</li><li class="map-grid-point-li">
+				<div class="item-grid-point">
+					<div class="preview-img-point">
+						<a href="/atlas/object/129"><img src="/static/common/img/photo/rubcov.jpg" /></a>
+					</div>
+					<div class="description-point">
+						<p><a href="/atlas/object/129">Дом-музей Н.М.Рубцова</a></p>
+						<!--<a href="/atlas/object/129"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>	
+</div>
+						
+
 {% endblock %}
 
 {% block rus_tab%}
 <div id="rusObrTab_tab" class="indextab" style="display:none;">
 					<div class="reload-bar">
-						<a href="#" class="reload_btn"></a> <i>/</i> <a href="#">все объекты</a>
+						<a href="#" class="reload_btn"></a> <i>/</i> <span>6 из 46</span>
 					</div>
 					<div class="rusObr-block">
 						<ul class="rusObr-list clearfix">

@@ -382,7 +382,7 @@ $(document).ready(function(){
 		
 		
 		/*INDEX TABS*/
-		$('.indextabs span').click(function(){
+		$('.atlas_tabs li').click(function(){
 			if(!$(this).hasClass('active')) {
 				var thisId = $(this).attr('id');
 				$(this).toggleClass('active').siblings().removeClass('active');
@@ -411,21 +411,22 @@ $(document).ready(function(){
 				liMas  = $(this).parents('ul').find('li'),
 				thisli = $(this).closest('li');
 
-			$(this).addClass('rusHovered').css({'width':width*2-1,'height':height});
+			$(this).addClass('rusHovered');
+					//.css({'width':width*2-1,'height':height});
 			$(this).find('.rusObr-list-one').css({'width':width - 51,'height':height - 50});
-			$(this).find('.rusHovered-contacts').css({'width':width -54,'height':height - 50 });
+			//$(this).find('.rusHovered-contacts').css({'width':width -54,'height':height - 50 });
 			if (liMas.index(thisli)%4 == 3) {
-				$(this).find('.rusHovered-contacts').css({'left':0});
-				$(this).find('.rusObr-list-one').css({'left':width});
-				$(this).css({'left':-width});
+				$(this).find('.rusHovered-contacts').css({'left':-247}).addClass('left-hand');
+				$(this).find('.rusObr-list-one').css({'left':0});
+				//$(this).css({'left':-width});
 			} else {
-				$(this).find('.rusHovered-contacts').css({'left':width});
+				$(this).find('.rusHovered-contacts').css({'left':width-1});
 			};
 			
 		},function(){
 			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto','left':0});
 			$(this).find('.rusObr-list-one').css({'width':'auto','height':'auto','left':0});
-			$(this).find('.rusHovered-contacts').css({'width':'auto','height':'auto'});
+			//$(this).find('.rusHovered-contacts').css({'width':'auto','height':'auto'});
 			$(this).parent().css({'height':'auto'});
 		})
 		
