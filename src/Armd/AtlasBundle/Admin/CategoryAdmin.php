@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Armd\AtlasBundle\Util\TreeRepairer;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -14,11 +15,18 @@ class CategoryAdmin extends Admin
     protected $maxPerPage = 2500;
     protected $maxPageLinks = 2500;
     protected $translationDomain = 'ArmdAtlasBundle';
+    protected $container;
 
     protected $datagridValues = array(
         '_sort_order' => 'ASC',
         '_sort_by' => 'lft'
     );
+
+    public function __construct($code, $class, $baseControllerName, $container)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $container;
+    }
 
     public function createQuery($context = 'list')
     {
@@ -106,4 +114,28 @@ class CategoryAdmin extends Admin
         return $themes;
     }
 
+//    public function postPersist($object)
+//    {
+//        $this->checkAndRepairTree();
+//        parent::postPersist($object);
+//    }
+//
+//    public function postUpdate($object)
+//    {
+//        $this->checkAndRepairTree();
+//        parent::postUpdate($object);
+//
+//    }
+//
+//    public function checkAndRepairTree()
+//    {
+//        $em = $this->container->get('doctrine')->getManager();
+//        $repo = $em->getRepository("ArmdAtlasBundle:Category");
+//
+//        $errors = $repo->verify();
+//        if(is_array($errors)) {
+//            $treeRepairer = new TreeRepairer();
+//            $treeRepairer->rebuildTree($em, $repo);
+//        }
+//    }
 }

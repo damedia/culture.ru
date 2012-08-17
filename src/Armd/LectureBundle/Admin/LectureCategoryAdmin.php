@@ -3,6 +3,7 @@
 namespace Armd\LectureBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Armd\AtlasBundle\Util\TreeRepairer;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -85,6 +86,29 @@ class LectureCategoryAdmin extends Admin
             ));
     }
 
-
+//    public function postPersist($object)
+//    {
+//        $this->checkAndRepairTree();
+//        parent::postPersist($object);
+//    }
+//
+//    public function postUpdate($object)
+//    {
+//        $this->checkAndRepairTree();
+//        parent::postUpdate($object);
+//
+//    }
+//
+//    public function checkAndRepairTree()
+//    {
+//        $em = $this->container->get('doctrine')->getManager();
+//        $repo = $em->getRepository("ArmdAtlasBundle:Category");
+//
+//        $errors = $repo->verify();
+//        if(is_array($errors)) {
+//            $treeRepairer = new TreeRepairer();
+//            $treeRepairer->rebuildTree($em, $repo);
+//        }
+//    }
 
 }
