@@ -1,6 +1,6 @@
 <div class="time-line-block">
 	<div class="time-line-block-header">
-		<span class="time-line-year">{{ event.year }} год</span>
+		<span class="time-line-year">{{ event.date|date('Y') }} год</span>
 		<span class="time-line-header-name">{{ event.title }}</span>
 	</div>
 	{% thumbnail event.image, "list" with {"class": "time-line-image"} %}
@@ -15,7 +15,7 @@
 		<div class="time-line-events">
 		{%for a in event.accidents %}
 			<div class="time-line-event">
-				<h3>{{ a.year }} год</h3>
+				<h3>{{ a.date|date('Y') }} год</h3>
 				<p>{{ a.announce|raw}}</p>
 			</div>
 		{% endfor %}	

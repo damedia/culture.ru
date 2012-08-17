@@ -8,7 +8,7 @@
     {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries} %}
     
     {% for c in centuries %}
-    <a name="c.name"></a>
+    <a name="{{ c.name }}"></a>
     <div class="time-line-content clearfix">
     	<div class="time-line-header">{{ c.name }}<br />
     		<span>век</span>

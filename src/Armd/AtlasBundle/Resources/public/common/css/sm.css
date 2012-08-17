@@ -81,6 +81,7 @@
 		}
 		.link_header a:hover {
 			border-color:#fff;
+			text-decoration:none;
 		}
 		.link_header sup {
 			color:#de600c;
@@ -359,8 +360,70 @@
 			.prev span {
 				background-position:50% -148px;
 			}
+		
+.object-one-text {
+	margin-top:23px;
+}
+	.literature {
+		margin-top:20px;
+	}
+		.lit-header {
+			background:url('../img/lit.png') no-repeat 5px 0;
+			padding:8px 0 13px 44px;
+			position:relative;
+			font-size:15px;
+			margin-bottom:22px;
+		}
+		.lit-header:after {
+			content:'';
+			position:absolute;
+			bottom:0;
+			left:0;
+			background: #bababa;
+			background: -moz-linear-gradient(left,  #bababa 0%, #b8b8b8 1%, #b8b8b8 50%, #bababa 50%, #bababa 55%, #bcbcbc 55%, #bbbbbb 56%, #bdbdbd 56%, #bcbcbc 57%, #c0c0c0 58%, #c1c1c1 60%, #c6c6c6 61%, #c5c5c5 62%, #c7c7c7 62%, #c8c8c8 63%, #cbcbcb 63%, #cfcfcf 64%, #d0d0d0 65%, #d6d6d6 66%, #d9d9d9 67%, #d8d8d8 68%, #dcdcdc 68%, #e6e6e6 72%, #e9e9e9 74%, #ebebeb 75%, #eaeaea 76%, #eeeeee 79%, #ededed 80%, #efefef 80%, #efefef 100%);
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bababa), color-stop(1%,#b8b8b8), color-stop(50%,#b8b8b8), color-stop(50%,#bababa), color-stop(55%,#bababa), color-stop(55%,#bcbcbc), color-stop(56%,#bbbbbb), color-stop(56%,#bdbdbd), color-stop(57%,#bcbcbc), color-stop(58%,#c0c0c0), color-stop(60%,#c1c1c1), color-stop(61%,#c6c6c6), color-stop(62%,#c5c5c5), color-stop(62%,#c7c7c7), color-stop(63%,#c8c8c8), color-stop(63%,#cbcbcb), color-stop(64%,#cfcfcf), color-stop(65%,#d0d0d0), color-stop(66%,#d6d6d6), color-stop(67%,#d9d9d9), color-stop(68%,#d8d8d8), color-stop(68%,#dcdcdc), color-stop(72%,#e6e6e6), color-stop(74%,#e9e9e9), color-stop(75%,#ebebeb), color-stop(76%,#eaeaea), color-stop(79%,#eeeeee), color-stop(80%,#ededed), color-stop(80%,#efefef), color-stop(100%,#efefef));
+			background: -webkit-linear-gradient(left,  #bababa 0%,#b8b8b8 1%,#b8b8b8 50%,#bababa 50%,#bababa 55%,#bcbcbc 55%,#bbbbbb 56%,#bdbdbd 56%,#bcbcbc 57%,#c0c0c0 58%,#c1c1c1 60%,#c6c6c6 61%,#c5c5c5 62%,#c7c7c7 62%,#c8c8c8 63%,#cbcbcb 63%,#cfcfcf 64%,#d0d0d0 65%,#d6d6d6 66%,#d9d9d9 67%,#d8d8d8 68%,#dcdcdc 68%,#e6e6e6 72%,#e9e9e9 74%,#ebebeb 75%,#eaeaea 76%,#eeeeee 79%,#ededed 80%,#efefef 80%,#efefef 100%);
+			background: -o-linear-gradient(left,  #bababa 0%,#b8b8b8 1%,#b8b8b8 50%,#bababa 50%,#bababa 55%,#bcbcbc 55%,#bbbbbb 56%,#bdbdbd 56%,#bcbcbc 57%,#c0c0c0 58%,#c1c1c1 60%,#c6c6c6 61%,#c5c5c5 62%,#c7c7c7 62%,#c8c8c8 63%,#cbcbcb 63%,#cfcfcf 64%,#d0d0d0 65%,#d6d6d6 66%,#d9d9d9 67%,#d8d8d8 68%,#dcdcdc 68%,#e6e6e6 72%,#e9e9e9 74%,#ebebeb 75%,#eaeaea 76%,#eeeeee 79%,#ededed 80%,#efefef 80%,#efefef 100%);
+			background: -ms-linear-gradient(left,  #bababa 0%,#b8b8b8 1%,#b8b8b8 50%,#bababa 50%,#bababa 55%,#bcbcbc 55%,#bbbbbb 56%,#bdbdbd 56%,#bcbcbc 57%,#c0c0c0 58%,#c1c1c1 60%,#c6c6c6 61%,#c5c5c5 62%,#c7c7c7 62%,#c8c8c8 63%,#cbcbcb 63%,#cfcfcf 64%,#d0d0d0 65%,#d6d6d6 66%,#d9d9d9 67%,#d8d8d8 68%,#dcdcdc 68%,#e6e6e6 72%,#e9e9e9 74%,#ebebeb 75%,#eaeaea 76%,#eeeeee 79%,#ededed 80%,#efefef 80%,#efefef 100%);
+			background: linear-gradient(to right,  #bababa 0%,#b8b8b8 1%,#b8b8b8 50%,#bababa 50%,#bababa 55%,#bcbcbc 55%,#bbbbbb 56%,#bdbdbd 56%,#bcbcbc 57%,#c0c0c0 58%,#c1c1c1 60%,#c6c6c6 61%,#c5c5c5 62%,#c7c7c7 62%,#c8c8c8 63%,#cbcbcb 63%,#cfcfcf 64%,#d0d0d0 65%,#d6d6d6 66%,#d9d9d9 67%,#d8d8d8 68%,#dcdcdc 68%,#e6e6e6 72%,#e9e9e9 74%,#ebebeb 75%,#eaeaea 76%,#eeeeee 79%,#ededed 80%,#efefef 80%,#efefef 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bababa', endColorstr='#efefef',GradientType=1 );
+			display:block;
+			height:1px;
+			width:100%;
+		}
+		.literature ol {
 			
-			
+		}
+			.literature li {
+				list-style-type:decimal;
+				color:#8e8e8e;
+				margin:0 0 16px 28px;
+				line-height:17px;
+			}
+					.literature li  span {
+						color:#524f4f;
+					}
+		
+	.object-archive-list {
+		margin-top:22px;
+		margin-bottom:-20px;
+	}	
+		.object-archive-list li {
+			background:url('../img/archive.png') no-repeat 0 0;
+			padding:0 0 25px 42px;
+		}
+		.object-archive-list  a {
+			font-size:13px;
+			text-decoration:none;
+			color:#000;
+		}
+		.object-archive-list span {
+			display:block;
+			font-size:11px;
+		}
+
+
+	
 /*Atlas*/		
 .atlas-center {
 	float:right;

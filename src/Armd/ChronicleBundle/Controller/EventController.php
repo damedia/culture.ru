@@ -44,7 +44,7 @@ class EventController extends ListController
     
     function getAccidentsList($century)
     {
-        return $this->getDoctrine()->getRepository('ArmdChronicleBundle:Accident')->findBy(array('event' => null), array('date' => 'ASC'));
+        return $this->getDoctrine()->getRepository('ArmdChronicleBundle:Accident')->findBy(array('event' => null, 'century' => $century), array('date' => 'ASC'));
     }
     
     function getCenturiesRepository()

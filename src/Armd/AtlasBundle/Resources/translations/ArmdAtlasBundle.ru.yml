@@ -8,7 +8,6 @@ Title: Название
 Description: Описание
 Parent category: Родительская категория
 
-
 Objects: Объекты
 Object: Объект
 Object List: Объекты атласа
@@ -35,8 +34,12 @@ Archive Image Gallery: Галерея архивных изображений
 Images: Изображения
 Archive Images: Архивные изображения
 Icon Media: Иконка
-
 Description: Описание
-
 Primary Category: Основная категория
 Secondary Categories: Дополнительные категории
+Literature: Список литературы
+Literatures: Список литературы
+Hints: Подсказки
+Object Hints: Подсказки
+Hint Text: Текст (резделитель страниц "---")
+
