@@ -149,9 +149,22 @@ class ObjectAdmin extends Admin
                         'required' => true,
                     ),
                     array(
-                    'edit' => 'inline',
-                    'inline' => 'table'
-                ))
+                        'edit' => 'inline',
+                        'inline' => 'table'
+                    )
+                )
+            ->end()
+            ->with('Hints')
+                ->add('objectHints', 'sonata_type_collection',
+                    array(
+                        'by_reference' => false,
+                        'required' => true,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table'
+                    )
+                )
             ->end()
         ;
 //        echo get_class($this->container->get('armd_tvigle.admin.tvigle'));
