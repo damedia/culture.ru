@@ -147,6 +147,32 @@ class DefaultController extends Controller
 
         $categories = $repo->getNodesAsArray();
 
+        $categories = array(
+            array('title'=>'categoryA', 'tags'=>array(
+                array('id'=>1,  'title'=>'tag-1-1'),
+                array('id'=>2,  'title'=>'tag-1-2'),
+                array('id'=>3,  'title'=>'tag-1-3'),
+                array('id'=>4,  'title'=>'tag-1-4'),
+                array('id'=>5,  'title'=>'tag-1-5'),
+            )),
+            array('title'=>'categoryB', 'tags'=>array(
+                array('id'=>6,  'title'=>'tag-2-1'),
+                array('id'=>7,  'title'=>'tag-2-2'),
+                array('id'=>8,  'title'=>'tag-2-3'),
+                array('id'=>9,  'title'=>'tag-2-4'),
+                array('id'=>10, 'title'=>'tag-2-5'),
+            )),
+            array('title'=>'categoryC', 'tags'=>array(
+                array('id'=>11, 'title'=>'tag-3-1'),
+                array('id'=>12, 'title'=>'tag-3-2'),
+                array('id'=>13, 'title'=>'tag-3-3'),
+                array('id'=>14, 'title'=>'tag-3-4'),
+                array('id'=>15, 'title'=>'tag-3-5'),
+            )),
+        );
+
+        $categories = $repo->getDataForFilter();
+
         return array(
             'categories' => $categories,
         );

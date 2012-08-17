@@ -36,19 +36,22 @@
                             </div>
                         </div>
 
-                        <div class="simple-filter-block">
-                            <div class="simple-filter-header clearfix">
-                                <span>Достопримечательности</span>
-                                <p class="check_all"><span>все</span></p>
+                        {% for category in categories %}
+                            <div class="simple-filter-block">
+                                <div class="simple-filter-header clearfix">
+                                    <span>{{ category.title }}</span>
+                                    <p class="check_all"><span>все</span></p>
+                                </div>
+                                <div class="simple-filter-options">
+                                    {% for tag in category.tags %}
+                                        <label class="darkred-checked">
+                                            <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="simple-filter-options">
-                                {% for category in categories %}
-                                    <label class="darkred-checked">
-                                        <span data-tag="{{ category.id }}">{{ category.title }}</span>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                        </div>
+                        {% endfor %}
+
 {#
                         <div class="simple-filter-block">
                             <div class="simple-filter-header clearfix">

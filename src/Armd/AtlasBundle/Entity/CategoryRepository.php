@@ -71,4 +71,29 @@ class CategoryRepository extends NestedTreeRepository
         $this->container = $container;
     }
 
+    /*
+    select
+      t1.id, t1.title, t1.lvl, t1.lft, t1.rgt,
+      '-',
+      t2.id, t2.title, t2.lvl, t2.lft, t2.rgt
+    from atlas_category as t1
+    join atlas_category as t2 on t2.lft > t1.lft and t2.rgt < t1.rgt
+    where t1.lvl=1
+    order by t1.lft asc, t2.title;
+    */
+    public function getDataForFilter()
+    {
+        $qb = $this->createQueryBuilder('t1')
+            ->select('t1.id, t1.title AS category, t2.id AS tag_id, t2.title AS tag')
+            ->innerJoin('ArmdAtlasBundle:Category', 't2', 'WITH', 't2.lft > t1.lft AND t2.rgt < t1.rgt')
+            ->where('t1.lvl = 1')
+            ->orderBy('t1.lft', 'ASC');
+        $rows = $qb->getQuery()->getResult();
+
+        $res = array();
+        foreach ($rows as $row) {
+
+        }
+        var_dump($res);
+    }
 }
