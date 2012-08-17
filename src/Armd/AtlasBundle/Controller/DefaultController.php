@@ -318,14 +318,10 @@ class DefaultController extends Controller
         $request = $this->getRequest();
 
         $category = $request->get('category');
-        if (is_array($category)) {
-            $categoryIds = array_keys($category);
-        } else {
-            exit;
-        }
+        $categoryIds = explode(',', $category);
 
         $filterParams = array(
-            'term' => $request->get('term'),
+            'term' => '',
             'category' => $categoryIds,
         );
 

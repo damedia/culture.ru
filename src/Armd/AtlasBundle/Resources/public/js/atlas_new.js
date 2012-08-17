@@ -3,7 +3,7 @@
  */
 var AT = {};
 
-AT.version = '0.2';
+AT.version = '0.3';
 AT.map = null;
 AT.filterTags = [];
 
@@ -100,7 +100,7 @@ AT.initGeocoder = function() {
 
 AT.initUI = function() {
 
-    $('#atlas-form').ajaxForm({
+    $('#atlas-filter-form').ajaxForm({
         success: function(responseText, statusText, xhr, $form){
             var objects = $.parseJSON(responseText);
             //console.log('ok', objects);
@@ -193,20 +193,13 @@ AT.initUI = function() {
 // Init filters
 AT.initFilters = function(){
 
-    function prepareTagsValue() {
-
-        AT.filterTags = [];
-
-        $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
-            AT.filterTags.push( $(this).data('tag') );
-        });
-
-        console.log( AT.filterTags );
-
-    }
-
-    $('.atlas-filter-form').find('.simple-filter-options > label > span').click(function(){
-        prepareTagsValue();
+    $('.atlas-filter-form').find('.simple-filter-options > label > span').click(function(e){
+        // перехват обработчика из function.js
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).closest('label').toggleClass('checked');
+        // сбор отмеченных тегов
+        AT.submitFiltersForm();
     });
 };
 
@@ -230,7 +223,7 @@ AT.placeObject = function(object) {
             isHidden: true
         });
     //balloon.setSize(350, 140);
-    point.addBalloon(balloon);
+    //point.addBalloon(balloon);
     $(point.element).data('uid', object.id);
 
     AT.map.geometry.add(point);
@@ -264,4 +257,26 @@ AT.initHacks = function() {
 
         return false;
     });
+};
+
+AT.collectTagsValue = function() {
+    var filterTags = [];
+    $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
+        filterTags.push( $(this).data('tag') );
+    });
+    $('#category-id').val(filterTags);
+    return filterTags;
+};
+
+AT.submitFiltersForm = function() {
+    console.info('AT.submitFiltersForm');
+
+    // Собираем отмеченные категории
+    AT.collectTagsValue();
+
+    // очищаем карту
+    AT.clearMap();
+
+    // Сабмитим форму
+    $('#atlas-filter-form').submit();
 };
