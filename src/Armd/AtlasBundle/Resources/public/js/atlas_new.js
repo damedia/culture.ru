@@ -99,105 +99,71 @@ AT.initGeocoder = function() {
 };
 
 AT.initUI = function() {
-
     $('#atlas-filter-form').ajaxForm({
+        beforeSubmit: function(){
+            //console.log('xxx');
+            $('#ajax-loading').show();
+        },
         success: function(responseText, statusText, xhr, $form){
-            var objects = $.parseJSON(responseText);
-            //console.log('ok', objects);
-
+            $('#ajax-loading').hide();
+            var json = $.parseJSON(responseText);
+            if (json.success) {
+                var objects = json.result;
+            } else {
+                alert(json.message);
+            }
             AT.clearMap();
-
             if (objects && objects.length) {
-
-                var minLon=1000, maxLon=0,
-                    minLat=1000, maxLat=0;
-
+                //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
+                var points = [];
                 for (i in objects) {
-                    var el = objects[i];
-
-                    AT.placeObject(el);
-
-                    /*
-                    if (parseFloat(el.lat) > maxLat) maxLat = el.lat;
-                    if (parseFloat(el.lat) < minLat) minLat = el.lat;
-                    if (parseFloat(el.lon) > maxLon) maxLon = el.lon;
-                    if (parseFloat(el.lon) < minLon) minLon = el.lon;
-                    */
+                    points.push(AT.placePoint(objects[i]));
                 }
 
-                /*
-                var bbox = {
-                    lon1: PGmap.Utils.mercX(minLon),
-                    lon2: PGmap.Utils.mercX(maxLon),
-                    lat1: PGmap.Utils.mercY(minLat),
-                    lat2: PGmap.Utils.mercY(maxLat)
+                // clusterize points
+                var clusterPoints = new PGmap.GeometryLayer({
+                    points: points,
+                    clusterSize: 34,
+                    clusterImage: bundleImagesUri + "/klaster_1.1.png"
+                });
+                clusterPoints.setClusterImageByCount = function(count) {
+                    return "0px 0px";
                 };
+                clusterPoints.setHandlersToClusters = function() {
+                    for (var n = this.clusters.length; n--;) {
+                        (function(cluster){
+                            PGmap.Events.addHandlerByName(cluster.element, 'click', function(e){
+                                instance.globals.mapObject().setCenterByBbox(cluster.bbox);
+                            }, 'click_' + cluster.index);
 
-                AT.map.setCenterByBbox(bbox);
-                */
+                            PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
+                            }, 'mouseover_' + cluster.index);
+
+                            PGmap.Events.addHandlerByName(cluster.element, 'mouseout', function(e){
+                            }, 'mouseout_' + cluster.index);
+                        })(this.clusters[n]);
+                    }
+                };
+                clusterPoints.setClusters();
             }
         }
     });
-
-    var filterCheckboxes = $('#filter').find(':checkbox');
-
-    // Принудительно грузим предварительно установленные в куке метки
-    filterCheckboxes.removeAttr('checked');
-
-    var filterCategories = $.cookie('filter_categories');
-
-    if (! filterCategories) {
-        // По-умолчанию, взводим чекбоксы с музеями
-        $(filterCheckboxes[0]).attr('checked', 'checked');
-        $("#filter .lvl-1:first .lvl-2:first :checkbox").each(function(i,el){
-            $(el).attr('checked', 'checked');
-        });
-    } else {
-        // Взводим чекбоксы из куков
-        filterCategories = filterCategories.split(',');
-        for (var i=0; i<filterCheckboxes.length; i++) {
-            var categoryId = $(filterCheckboxes[i]).data('category');
-
-            if ($.inArray(categoryId.toString(), filterCategories) >= 0) {
-                $(filterCheckboxes[i]).attr('checked', 'checked');
-            } else {
-                $(filterCheckboxes[i]).removeAttr('checked');
-            }
-           
-        }
-    }
-
     // Сабмитим форму
     $('#atlas-form').submit();
-
-    // При клике по чекбоксу сабмитим форму
-    filterCheckboxes.bind('change', function(){
-
-        // Собираем id всех отмеченных категорий и сохраняем в comma-separated строке в куке
-        var categories = [];
-        for (var i=0; i<filterCheckboxes.length; i++) {
-            if ($(filterCheckboxes[i]).is(':checked')) {
-                var categoryId = $(filterCheckboxes[i]).data('category');
-                categories.push(categoryId);
-            }
-        }
-        var cookieValue = categories.join(',');
-        $.cookie('filter_categories', cookieValue);
-
-        // Сабмитим форму
-        $('#atlas-form').submit();
-    });
-
 };
 
 // Init filters
 AT.initFilters = function(){
-
     $('.atlas-filter-form').find('.simple-filter-options > label > span').click(function(e){
         // перехват обработчика из function.js
         e.preventDefault();
         e.stopPropagation();
         $(this).closest('label').toggleClass('checked');
+        // сбор отмеченных тегов
+        AT.submitFiltersForm();
+    });
+
+    $('.atlas-filter-form').find('.check_all').click(function(e){
         // сбор отмеченных тегов
         AT.submitFiltersForm();
     });
@@ -212,7 +178,7 @@ AT.clearMap = function() {
     }
 };
 
-AT.placeObject = function(object) {
+AT.placePoint = function(object) {
     var point = new PGmap.Point({
             coord: new PGmap.Coord(object.lon, object.lat, true),
             width: 24,
@@ -220,49 +186,35 @@ AT.placeObject = function(object) {
             backpos: '0 0',
             url: object.icon
         });
-    var balloon = new PGmap.Balloon({
-            content: '',
-            isClosing: true,
-            isHidden: true
-        });
-    //balloon.setSize(350, 140);
-    //point.addBalloon(balloon);
     $(point.element)
         .data('uid', object.id)
         .css({
             'margin-left': '-6px',
             'margin-top': '-19px'
         });
-
     AT.map.geometry.add(point);
 
+    // клик по точке
     PGmap.Events.addHandler(point.element, 'click', function(e) {
         var uid = $(point.element).data('uid');
         $.ajax({
             url: fetchMarkerDetailUri,
             data: { id: uid },
             success: function(res) {
-                //console.log( $(point.balloon.element) );
-                //$(point.balloon.element).find('span').html($('<div class="w"></div>').append(res));
-                $(point.balloon.element)
-                    .data('point', point)
-                    .html(res);
-
-                point.balloon.show();
-
+                point.addContent(res);
+                point.toggleBalloon();
             }
         });
 
     });
 
+    return point;
 };
 
 AT.initHacks = function() {
     $('.g-closer').live('click', function(){
         console.log('try to close bubble');
-
         $(this).closest('.b-balloon').data('point').hideBalloon();
-
         return false;
     });
 };
@@ -278,13 +230,8 @@ AT.collectTagsValue = function() {
 
 AT.submitFiltersForm = function() {
     console.info('AT.submitFiltersForm');
-
     // Собираем отмеченные категории
     AT.collectTagsValue();
-
-    // очищаем карту
-    AT.clearMap();
-
     // Сабмитим форму
     $('#atlas-filter-form').submit();
 };

@@ -144,35 +144,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
-
-        $categories = $repo->getNodesAsArray();
-
-        $categories = array(
-            array('title'=>'categoryA', 'tags'=>array(
-                array('id'=>1,  'title'=>'tag-1-1'),
-                array('id'=>2,  'title'=>'tag-1-2'),
-                array('id'=>3,  'title'=>'tag-1-3'),
-                array('id'=>4,  'title'=>'tag-1-4'),
-                array('id'=>5,  'title'=>'tag-1-5'),
-            )),
-            array('title'=>'categoryB', 'tags'=>array(
-                array('id'=>6,  'title'=>'tag-2-1'),
-                array('id'=>7,  'title'=>'tag-2-2'),
-                array('id'=>8,  'title'=>'tag-2-3'),
-                array('id'=>9,  'title'=>'tag-2-4'),
-                array('id'=>10, 'title'=>'tag-2-5'),
-            )),
-            array('title'=>'categoryC', 'tags'=>array(
-                array('id'=>11, 'title'=>'tag-3-1'),
-                array('id'=>12, 'title'=>'tag-3-2'),
-                array('id'=>13, 'title'=>'tag-3-3'),
-                array('id'=>14, 'title'=>'tag-3-4'),
-                array('id'=>15, 'title'=>'tag-3-5'),
-            )),
-        );
-
         $categories = $repo->getDataForFilter();
-
         return array(
             'categories' => $categories,
         );
@@ -352,34 +324,46 @@ class DefaultController extends Controller
     public function filterAction()
     {
         $request = $this->getRequest();
-
         $category = $request->get('category');
-        $categoryIds = explode(',', $category);
+        try {
+            $categoryIds = explode(',', $category);
+            if (! is_array($categoryIds))
+                throw new \Exception('Categories is null');
 
-        $filterParams = array(
-            'term' => '',
-            'category' => $categoryIds,
-        );
-
-        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $res = $repo->filter($filterParams);
-
-        $rows = array();
-        $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
-        foreach ($res as $obj) {
-            $icon =
-            $rows[] = array(
-                'id' => $obj->getId(),
-                'title' => $obj->getTitle(),
-                'announce' => $obj->getAnnounce(),
-                'lon' => $obj->getLon(),
-                'lat' => $obj->getLat(),
-                'icon' => $mediaHelper->originalUrl($obj->getIcon()),
+            $filterParams = array(
+                'term' => '',
+                'category' => $categoryIds,
             );
-        }
 
-        $response = json_encode($rows);
-        return new Response($response);
+            $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+            $res = $repo->filter($filterParams);
+
+            $rows = array();
+            $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
+            foreach ($res as $obj) {
+                $rows[] = array(
+                    'id' => $obj->getId(),
+                    'title' => $obj->getTitle(),
+                    'announce' => $obj->getAnnounce(),
+                    'lon' => $obj->getLon(),
+                    'lat' => $obj->getLat(),
+                    'icon' => $mediaHelper->originalUrl($obj->getIcon()),
+                );
+            }
+
+            $response = json_encode(array(
+                'success' => true,
+                'result' => $rows,
+            ));
+            return new Response($response);
+        }
+        catch (\Exception $e) {
+            $response = json_encode(array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            ));
+            return new Response($response);
+        }
     }
 
     /**

@@ -11,9 +11,6 @@
 			position:relative;
 			border:9px solid #e6e6e6;
 		}
-			.atlas-map img {
-				width:100%;
-			}
 			.atlas-menu {
 				position:absolute;
 				top:-23px;
@@ -159,7 +156,7 @@
 				}
 				
 				
-	/*Форма добавления объекта*/			
+	/*пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/			
 		.add-object-form {
 			position:absolute;
 			top:30px;
