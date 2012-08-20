@@ -6,15 +6,19 @@
 	</div>
 
     {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries} %}
-    
+    <div class="wayponits-area">
     {% for c in centuries %}
-    <a name="{{ c.name }}"></a>
-    <div class="time-line-content clearfix">
+   
+   
+    {# <a name="{{ c.name }}"></a> #}
+    <div class="time-line-content clearfix" id="{{ c.name }}">
     	<div class="time-line-header">{{ c.name }}<br />
     		<span>век</span>
     	</div>    
+   
         
         {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": c.events, "accidents": c.accidents} %}
     </div>    
     {% endfor%}
+    </div> <!-- //wayponits-area-->
 {% endblock %}    

@@ -11,6 +11,7 @@
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
@@ -138,9 +139,16 @@
             </div>
 			{% block bottom_blocks%}&nbsp;{% endblock %}
             <div id="footer" class="w">
-                 <div id="contacts">
-                    <div class="contacts-copyright">Министерство культуры<br />Российской Федерации</div>
-                    <div class="contacts-inner">
+            
+            <div class="footer-logo">
+                    <img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
+                    Министерство культуры<br />Российской Федерации
+                    </div>
+                    
+                <div id="contacts">
+                   	
+                 
+             <div class="contacts-inner">
     					<div class="copyright">© Портал культурного наследия России</div>
     					<a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
                     </div>
@@ -155,7 +163,12 @@
                         <img src="{{ asset('/img/socialnetwork.png') }}" />
                     </div>
                 </div>
+          
             </div>
+            
+                  <div class="footer-counters w">
+              <img src="{{ asset('/img/footer-couter.jpg') }}" /> 
+                </div> <!-- /footer-counters-->
         </div>
     </body>
 </html>

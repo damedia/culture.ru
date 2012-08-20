@@ -58,7 +58,7 @@ class EventController extends ListController
     {
         return $this->getListRepository()
             ->setCentury($century)
-            ->orderByDate();
+            ->orderByDate('DESC');
     }
     
     public function getControllerName()
