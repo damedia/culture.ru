@@ -20,7 +20,7 @@ $(document).ready(function(){
 	});
 	
 	// Register each section as a waypoint.
-	$('.wayponits-area > .time-line-content').waypoint({ offset: '10px' });
+	$('.wayponits-area > .time-line-content').waypoint({ offset: '50%' });
 	
 	// Wicked credit to
 	// http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
