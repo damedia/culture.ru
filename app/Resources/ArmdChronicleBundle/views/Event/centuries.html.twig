@@ -2,10 +2,14 @@
 	{% for c in centuries %}
 		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}">{{ c.name }} век</a>
 		<ul>
+		{% set d = null %}
 		{% for e in c.events %}
             {% set year = e.date|date('Y') %}
 		    {% set decade = year - year % 10 %}
-		    <li><a href="#{{ decade }}">{{ decade }}</a></li>
+		    {% if decade != d and decade % 100 != 0 %}
+    		    {% set d = decade %}
+    		    <li><a href="#{{ d }}">{{ d }}</a></li>
+            {% endif %}
 		{% endfor %}
 		</ul>
 		</li>
