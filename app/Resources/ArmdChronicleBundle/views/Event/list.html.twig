@@ -1,6 +1,13 @@
-<div class="time-line-left">	
+<div class="time-line-left">
+    {% set d = null %}	
 	{% for e in events %}
 		{% if loop.index is odd %}
+            {% set year = e.date|date('Y') %}
+		    {% set decade = year - year % 10 %}
+		    {% if decade != d and decade % 100 != 0 %}
+    		    {% set d = decade %}
+                <a name="{{ d }}"></a>
+		    {% endif %}
             {% include "ArmdChronicleBundle:Event:event.html.twig" with {"event": e} %}
 		{% endif %}
 	{% endfor %}
@@ -31,6 +38,12 @@
 	
 	{% for e in events %}
 		{% if loop.index is even %}
+            {% set year = e.date|date('Y') %}
+		    {% set decade = year - year % 10 %}
+		    {% if decade != d and decade % 100 != 0 %}
+    		    {% set d = decade %}		    
+                <a name="{{ d }}"></a>
+		    {% endif %}		
             {% include "ArmdChronicleBundle:Event:event.html.twig" with {"event": e} %}
 		{% endif %}
 	{% endfor %}
