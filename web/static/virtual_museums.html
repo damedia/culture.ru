@@ -1,16 +1,11 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 
     <head>
 
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
         <link href="common/css/sm.css" rel="stylesheet" type="text/css" media="screen" />
-
         <script type="text/javascript" src="common/js/jquery.js"></script>
-
         <script type="text/javascript" src="common/js/function.js"></script>
 		<script type="text/javascript" src="common/js/fancybox/jquery.fancybox.js?v=2.0.6"></script>
 		<link rel="stylesheet" type="text/css" href="common/js/fancybox/jquery.fancybox.css?v=2.0.6" media="screen" />
@@ -168,7 +163,7 @@
 						<li>
 							<div class="rusObr-list-one-wrap" style="" >
 								<div  class="rusObr-list-one">
-									<a href="#panoDIV" class="vob"><img src="common/img/photo/virtual_museums/03.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="/uploads/museum/glinka/glinka_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/03.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#panoDIV" class="rusObr-list-header">
 											Музей музыкальной культуры им. М.И. Глинки
@@ -177,7 +172,7 @@
 											<a href="#">Наследие Рерихов</a>
 										</p>
 									</div>
-									<div class="panowrap" style="display:none;">
+									<!--div class="panowrap" style="display:none;">
 										<div id="panoDIV" class="panoDIV">
 											<script>
 												embedpano({target:"panoDIV",swf:"/uploads/museum/glinka/krpano.swf", xml:"/uploads/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
@@ -191,7 +186,7 @@
 													</div>
 											</noscript>
 										</div>
-									</div>
+									</div-->
 								</div>
 								<div class="rusHovered-contacts" >
 									<div class="obj-o-contacts-text">
@@ -212,7 +207,7 @@
 						</li><li>
 							<div class="rusObr-list-one-wrap" style="" >
 								<div  class="rusObr-list-one">
-									<a href="#bahrushina" class="vob"><img src="common/img/photo/virtual_museums/01.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="/uploads/museum/bahrushina/bahrushina_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/01.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
 										<a href="#" class="rusObr-list-header">
 											Государственный центральный театральный музей имени А. А. Бахрушина
@@ -254,8 +249,24 @@
 								</div>
 							</div>
 						</li><li>
+
+<script type="text/javascript">
+$(function(){
+	$(".iframe").fancybox({
+	'width' : '100%',
+	'height' : '100%',
+	'autoScale' : false,
+	'transitionIn' : 'none',
+	'transitionOut' : 'none',
+	'type' : 'iframe'
+	});
+})
+
+</script>
+
+
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/02.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://mk.dev.armd.ru/uploads/museum/glinka/glinka_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/02.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
 									<a href="#vost" class="rusObr-list-header">
 										Государственный музей искусства народов Востока
