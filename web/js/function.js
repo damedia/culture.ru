@@ -5,22 +5,27 @@ $(document).ready(function(){
 	
 		// The same for all waypoints
 	$('body').delegate('.wayponits-area > .time-line-content', 'waypoint.reached', function(event, direction) {
+		
 		var $active = $(this);
 
 		if (direction === "up") {
 			$active = $active.prev();
+			
+			console.log ("up");
 		}
-		if (!$active.length) $active = $active.end();
+		/*if (!$active.length) $active = $active.end();*/
 		
 		$('.section-active').removeClass('section-active');
 		$active.addClass('section-active');
 		
 		$('.active').removeClass('active');
 		$('a[href=#'+$active.attr('id')+']').parent().addClass('active');
+		
+		console.log ($('a[href=#'+$active.attr('id')+']'));
 	});
 	
 	// Register each section as a waypoint.
-	$('.wayponits-area > .time-line-content').waypoint({ offset: '50%' });
+	$('.wayponits-area > .time-line-content').waypoint( {offset: '50%'});
 	
 	// Wicked credit to
 	// http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
