@@ -1,11 +1,12 @@
 <ul class="time-line-nav">
 	{% for c in centuries %}
-		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}">{{ c.name }} век</a>
+		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}" class="smooth-scroll">{{ c.name }} век</a>
 		<ul>
 		{% for e in c.events %}
             {% set year = e.date|date('Y') %}
 		    {% set decade = year - year % 10 %}
 		    <li><a href="#{{ decade }}">{{ decade }}</a></li>
+            
 		{% endfor %}
 		</ul>
 		</li>
