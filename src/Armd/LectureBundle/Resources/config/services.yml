@@ -22,6 +22,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preRemove }
 
+    armd_lecture.manager.lecture:
+        class: Armd\LectureBundle\Manager\LectureManager
+        arguments:  [@doctrine.orm.entity_manager, @knp_paginator, @search.sphinxsearch.search]
+
 #    armd_lecture.sonata_admin.lecture:
 #        class: Armd\AtlasBundle\Admin\ObjectAdmin
 #        tags:

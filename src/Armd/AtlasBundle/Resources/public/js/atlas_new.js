@@ -33,6 +33,8 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
+
+    this.map.controls.addControl('slider');
 };
 
 AT.initGeocoder = function() {
@@ -148,16 +150,19 @@ AT.initUI = function() {
                                 // Содержимое балуна
                                 cluster.name = ids.join(',');
                                 console.log('cluster points ids:', cluster.name);
-                                /*
-                                if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
-                                    cluster.balloon.open(cluster);
-                                    //cont.style.zIndex = '75';
+
+                                // Если достигнут последний уровень зума, показываем бабл
+                                if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
+                                    if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
+                                        cluster.balloon.open(cluster);
+                                        //cont.style.zIndex = '75';
+                                    } else {
+                                        cluster.balloon.close();
+                                        //cont.style.zIndex = '73';
+                                    }
                                 } else {
-                                    cluster.balloon.close();
-                                    //cont.style.zIndex = '73';
+                                    AT.clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
                                 }
-                                */
-                                AT.clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
                             }, 'click_' + cluster.index);
                             PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
                                 //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px -69px" : ( cluster.count < 100  ) ? "-56px -69px" : "5px -69px";

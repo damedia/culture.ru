@@ -33,6 +33,10 @@ class LoadTestUserData extends AbstractFixture implements FixtureInterface, Cont
         $user->setPlainPassword('111111');
         $user->setUsername('superadmin');
         $user->setEnabled(true);
+        $user->setSalt('123');
+        $user->setLocked(false);
+        $user->setExpired(false);
+        $user->setCredentialsExpired(false);
         $userManager->updateUser($user, true);
 
     }
