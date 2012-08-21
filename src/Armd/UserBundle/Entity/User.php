@@ -304,4 +304,10 @@ class User extends BaseUser
     {
         return $this->city;
     }
+
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
 }

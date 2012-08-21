@@ -71,7 +71,7 @@ class LectureRepository extends EntityRepository
                 ->from('ArmdLectureBundle:LectureCategory', 'c')
                 ->innerJoin('c.lectures', 'l')
                 ->where('l.lectureType = :type')->setParameter('type', $type)
-                ->groupBy('c.id')
+                ->groupBy('c')
                 ->getQuery()->getResult();
 
             $result[$type->getId()] = array();
@@ -79,6 +79,7 @@ class LectureRepository extends EntityRepository
                 $result[$type->getId()][] = $category->getId();
             }
         }
+        \gFuncs::dbgWriteLogVar($result, false, 'getTypeCategories'); // DBG:
 
         return $result;
     }
