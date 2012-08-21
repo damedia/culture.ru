@@ -33,6 +33,8 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
+
+    this.map.controls.addControl('slider');
 };
 
 AT.initGeocoder = function() {
