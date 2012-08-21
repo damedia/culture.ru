@@ -40,6 +40,12 @@ class TvigleVideo
     private $image;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="image_media_id", nullable=true)
+     */
+    private $imageMedia;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $duration;
@@ -265,6 +271,16 @@ class TvigleVideo
     public function setSwf($swf)
     {
         $this->swf = $swf;
+    }
+
+    public function getImageMedia()
+    {
+        return $this->imageMedia;
+    }
+
+    public function setImageMedia($imageMedia)
+    {
+        $this->imageMedia = $imageMedia;
     }
 
 }

@@ -12,82 +12,38 @@
             <input type="text" class="ss-input" id="ss_input"/>
         </div>
 
-        <div class="simple-filter-block">
+        <div class="simple-filter-block lecture-type">
             <div class="simple-filter-header clearfix">
                 <span>Типы лекций</span>
-                <p class="check_all checked"><span>все</span></p>
+                <p class="check_all checked" ><span>все</span></p>
             </div>
             <div class="simple-filter-options">
                 {% for lectureType in lectureTypes %}
                     <label class="checked">
-                        <input type="checkbox" name="video" id="video" checked="checked"/>
-                        <span>Видео</span>
+                        <input type="checkbox" checked="checked" data-lecture-type-id="{{ lectureType.id }}" />
+                        <span>{{ lectureType.name }}</span>
                     </label>
                 {% endfor %}
-
-                {#<label class="checked">#}
-                    {#<input type="checkbox" name="video" id="video" checked="checked"/>#}
-                    {#<span>Видео</span>#}
-                {#</label>#}
-                {#<label>#}
-                    {#<input type="checkbox" name="presentations" id="presentations"/>#}
-                    {#<span>Презентации</span>#}
-                {#</label>#}
-                {#<label>#}
-                    {#<input type="checkbox" name="texts" id="texts"/>#}
-                    {#<span>Тексты</span>#}
-                {#</label>#}
             </div>
         </div>
 
         <div class="simple-filter-block video-theme">
-            <div class="simple-filter-header clearfix">
-                <span>Тематика</span>
-
-                <p class="check_all checked"><span>все</span></p>
-            </div>
-            <div class="simple-filter-options">
-                <label>
-                    <input type="checkbox" name="ballet" id="ballet"/>
-                    <span>Балет</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="war" id="war"/>
-                    <span>Война</span>
-                </label>
-                <label class="checked">
-                    <input type="checkbox" name="art" id="art" checked="checked"/>
-                    <span>Живопись</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="history" id="history"/>
-                    <span>История</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="cinema" id="cinema"/>
-                    <span>Киноискусство</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="design" id="design"/>
-                    <span>Декор и дизайн</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="drama" id="drama"/>
-                    <span>Драма</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="music" id="music"/>
-                    <span>Музыка</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="opera" id="opera"/>
-                    <span>Опера</span>
-                </label>
-                <label>
-                    <input type="checkbox" name="modern" id="modern"/>
-                    <span>Современность</span>
-                </label>
-            </div>
+            {% for lectureCategory in lectureCategories %}
+                <div class="simple-filter-header clearfix">
+                    <span>{{ lectureCategory.title }}</span>
+                    {% if loop.first %}
+                        <p class="check_all checked"><span>все</span></p>
+                    {% endif %}
+                </div>
+                {% for lectureTag in lectureCategory.__children %}
+                    <div class="simple-filter-options">
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="{{ lectureTag.id }}" checked="checked" />
+                            <span>{{ lectureTag.title }}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </form>
 
@@ -100,187 +56,68 @@
 
     <div class="video-anons">
         <ul>
-            <li>
-                <a href="media_one4.html">
-                    <img src="common/img/photo/video_anons1.jpg" alt=""/>
-                </a>
+            {% for lecture in lastLectures %}
+                <li>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                        {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% endif %}
+                    </a>
 
-                <p class="va-type">Видео</p>
+                    <p class="va-type">{{ lecture.lectureType.name }}</p>
 
-                <p class="va-theme">Изобразительное искусство </p>
-                <a href="media_one4.html" class="va-name">Караваджо. Выставка произведений художника в Москве</a>
+                    <p class="va-theme">
+                        {% for category in lecture.categories %}
+                            {{ category.title }}
+                            {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
 
-                <p class="va-author"><span>Лектор:</span> Андрей Яновский</p>
-            </li>
-            <li>
-                <a href="media_one3.html">
-                    <img src="common/img/photo/video_anons2.jpg" alt=""/>
-                </a>
+                    <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                </li>
+            {% endfor %}
 
-                <p class="va-type">Презентация</p>
-
-                <p class="va-theme">Бородино</p>
-                <a href="media_one3.html" class="va-name">1812 год в истории России</a>
-
-                <p class="va-author"><span>Лектор:</span> Виктория Эммануиловна Маркова</p>
-            </li>
         </ul>
     </div>
-    <div class="video-list-block">
-        <div class="video-list-sort">
-            <p class="video-sort-header">Сортировать:</p>
-            <ul id="video_sort">
-                <li class="active"><span>по дате добавления</span></li>
-                <li><span>самые обсуждаемые</span></li>
-            </ul>
+
+    <div id="lecture-list-wrapper">
+        <div id="lecture-list-loading"></div>
+        <div id="lecture-list-container">
+            {% render 'ArmdLectureBundle:Default:lectureList' with {'page': page, 'types': 'all', 'categories': 'all'} %}
         </div>
-        <ul class="video-list">
-            <li>
-                <div class="video-list-header">
-                    <span class="vl-type">Видео</span>
-                    <span class="vl-theme">Изобразительное искусство</span>
-                </div>
-                <a href="media_one4.html">
-                    <img src="common/img/photo/video_list1.jpg" alt=""/>
-                </a>
-
-                <div class="text-overflow">
-                    <a href="media_one4.html" class="va-name">Караваджо. Выставка произведений художника в Москве</a>
-
-                    <p class="va-author"><span>Лектор:</span> Андрей Яновский</p>
-                </div>
-            </li>
-            <li>
-                <div class="video-list-header">
-                    <span class="vl-type">Презентация</span>
-                    <span class="vl-theme">Бородино</span>
-                </div>
-                <a href="media_one3.html">
-                    <img src="common/img/photo/video_list2.jpg" alt=""/>
-                </a>
-
-                <div class="text-overflow">
-                    <a href="media_one3.html" class="va-name">1812 год в истории России</a>
-
-                    <p class="va-author"><span>Лектор:</span> Виктория Эммануиловна Маркова</p>
-                </div>
-            </li>
-            <li>
-                <div class="video-list-header">
-                    <span class="vl-type">Видео</span>
-                    <span class="vl-theme">Киноискусство</span>
-                </div>
-                <a href="#">
-                    <img src="common/img/photo/video_list3.jpg" alt=""/>
-                </a>
-
-                <div class="text-overflow">
-                    <a href="#" class="va-name">Фильма «Рада» и творческая встреча с режиссером Всеволодом Судейко </a>
-
-                    <p class="va-author"><span>Лектор:</span>Всеволод Судейко</p>
-                </div>
-            </li>
-            <li>
-                <div class="video-list-header">
-                    <span class="vl-type">Видео</span>
-                    <span class="vl-theme">Театральное искусство</span>
-                </div>
-                <a href="#">
-                    <img src="common/img/photo/video_list4.jpg" alt=""/>
-                </a>
-
-                <div class="text-overflow">
-                    <a href="#" class="va-name">Графическая жестикуляция</a>
-
-                    <p class="va-author"><span>Лектор:</span> Сергей Скуратов</p>
-                </div>
-            </li>
-        </ul>
     </div>
-    <div class="virtual-paginates clearfix">
-        <span class="firstPage">первая</span>
-        <ul class="virtual-paginates-list">
-            <li>
-                <span class="prevPage">назад</span>
-            </li>
-            <li>
-                <span class="current">1</span>
-            </li>
-            <li>
-                <a href="#">2</a>
-            </li>
-            <li>
-                <a href="#">3</a>
-            </li>
-            <li>
-                <a href="#">4</a>
-            </li>
-            <li>
-                <a href="#">5</a>
-            </li>
-            <li>
-                <a href="#">6</a>
-            </li>
-            <li>
-                <a href="#" class="nextPage">вперед</a>
-            </li>
-        </ul>
-        <a href="#" class="lastPage">последняя</a>
-    </div>
+
 </div>
 <div class="right-column">
     <div class="title">
         <h2>Рекомендовано</h2>
     </div>
     <ul class="right-list">
-        <li>
-            <a href="#">
-                <img src="common/img/photo/right_list.jpg" alt=""/>
-            </a>
-
-            <div class="text-overflow">
-                <span class="rl-type">Трансляции</span>
-                <a href="#" class="rl-name">
-                    Звёзды мировой оперы в Москве. Звёзды Нового Света
+        {% for lecture in recommendedLectures %}
+            <li>
+                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                    {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                        <img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>
+                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
+                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />
+                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
+                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />
+                    {% endif %}
                 </a>
-            </div>
-        </li>
-        <li>
-            <a href="#">
-                <img src="common/img/photo/right_list2.jpg" alt=""/>
-            </a>
 
-            <div class="text-overflow">
-                <span class="rl-type">Трансляции</span>
-                <a href="#" class="rl-name">
-                    «По всей России водят хороводы…»
-                </a>
-            </div>
-        </li>
-        <li>
-            <a href="#">
-                <img src="common/img/photo/right_list3.jpg" alt=""/>
-            </a>
-
-            <div class="text-overflow">
-                <span class="rl-type">Видеоархив</span>
-                <a href="#" class="rl-name">
-                    На Заячьем острове появились песчаные фигуры мультгероев
-                </a>
-            </div>
-        </li>
-        <li>
-            <a href="#">
-                <img src="common/img/photo/right_list4.jpg" alt=""/>
-            </a>
-
-            <div class="text-overflow">
-                <span class="rl-type">Видеоархив</span>
-                <a href="#" class="rl-name">
-                    «Дополненная реальность» Русского музея
-                </a>
-            </div>
-        </li>
+                <div class="text-overflow">
+                    <span class="rl-type">{{ lecture.lectureType.name }}</span>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">
+                        {{ lecture.title }}
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
     </ul>
     <div class="virtual-anons-block">
         <a href="#" class="virtual-anons">
@@ -297,4 +134,11 @@
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/libs/jquery-1.7.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/jquery.ajaxmanager.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    <script type="text/javascript">
+        armdLecture.typeCategories = {{ typeCategories|json_encode|raw }};
+    </script>
 {% endblock %}

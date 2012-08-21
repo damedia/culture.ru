@@ -1,0 +1,50 @@
+<div class="video-list-block">
+    {% if pagination|length %}
+
+        {#<div class="video-list-sort">#}
+            {#<p class="video-sort-header">Сортировать:</p>#}
+            {#<ul id="video_sort">#}
+                {#<li {% if sortBy == 'date' %} class="active" {% endif %}><span class="video-list-sort-by" data-sort-by="date">по дате добавления</span></li>#}
+                {#<li {% if sortBy == 'comment' %} class="active" {% endif %}><span class="video-list-sort-by" data-sort-by="comment">самые обсуждаемые</span></li>#}
+            {#</ul>#}
+        {#</div>#}
+
+        <ul class="video-list">
+            {% for lecture in pagination %}
+                <li>
+                    <div class="video-list-header">
+                        <span class="vl-type">{{ lecture.lectureType.name }}</span>
+                        <span class="vl-theme">
+                            {% for category in lecture.categories %}
+                                {{ category.title }}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        </span>
+                    </div>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                        {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% endif %}
+                    </a>
+
+                    <div class="text-overflow">
+                        <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">
+                            {{ lecture.lectureType.name }}
+                        </a>
+
+                        <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <strong>Лекций удовлетворяющих запросу не найдено</strong>
+    {% endif %}
+
+</div>
+
+{{ pagination.render()|raw }}

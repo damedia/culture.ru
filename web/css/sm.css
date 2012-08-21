@@ -2638,6 +2638,22 @@ white-space:nowrap;
 					margin:-1px 3px 2px;
 				}
 
+#lecture-list-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+#lecture-list-loading {
+    display: none;
+    opacity: 0.9;
+    background: #cccccc url('../img/lectures_loading.gif') no-repeat scroll 50% 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
 .video-similar {
 	margin-top:50px;
 }
