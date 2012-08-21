@@ -16,8 +16,8 @@
         {
             "package": "armd/sphinx-search-bundle",
             "version": "dev-master",
-            "source-reference": "099e0248c08e6e16800c794407bf7948fd213b36",
-            "commit-date": "1344523073"
+            "source-reference": "1dc022156e63a805ebfe0e302cfd919fcec9e39d",
+            "commit-date": "1345554878"
         },
         {
             "package": "doctrine/common",

@@ -1,0 +1,138 @@
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+
+<div class="media-one text" style="width: 100%">
+	<div class="title-block blue-no-icon">
+		<h2>Лекция</h2>
+	</div>
+	<div class="media-one-block">
+
+		<div id="videoplayer" style="background: none">
+            {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                {{ armd_tvigle_video_player(lecture.lectureVideo, 640, 360)|raw }}
+            {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
+                {% if lecture.lectureFile is not empty %}
+                    <a href="{{ armd_media_original_url(lecture.lectureFile) }}">Скачать файл</a>
+                {% endif %}
+            {% endif %}
+		</div>
+		<div class="video-stats">
+            {% if lecture.lecturer is not empty %}
+			    <p class="vs-lector">Лектор: <span>{{ lecture.lecturer }}</span></p>
+            {% endif %}
+			<p class="vs-date">Дата: <span>{{ lecture.createdAt|date('d.m.Y') }}</span></p>
+		</div>
+
+		<div class="video-description">
+			<p>
+		        {{ lecture.title }}
+			</p>
+		</div>
+    {#
+		<div class="share">
+			<span>Поделиться ссылкой: </span>
+			<img src="common/img/share.jpg" alt="" />
+		</div>
+
+		<div class="comments">
+			<p class="header">Комментарии</p>
+			<div class="comments-block">
+				<div class="comment">
+					Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
+				</div>
+				<div class="comment-author">
+					<p>Сергей <span class="comment-date">3 мес. назад</span></p>
+				</div>
+			</div>
+			<div class="comments-block">
+				<div class="comment">
+					Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
+				</div>
+				<div class="comment-author">
+					<p>Сергей <span class="comment-date">3 мес. назад</span></p>
+				</div>
+			</div>
+			<form action="" class="comments-form">
+				<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>
+				<input type="submit" value="Отправить" class="button" />
+			</form>
+		</div>
+		#}
+	</div>
+</div>
+
+
+{#
+<div class="media-side-list" style="display: none">
+	<ul>
+		<li class="media-list-one">
+			<a href="#" class="media-list-image">
+				<img src="common/img/photo/video-side.jpg" alt="" />
+				<span class="type_video"></span>
+			</a>
+			<div class="media-list-description">
+				<p class="mld-header"><a href="#">Культура народов оссии</a></p>
+				<p class="mld-date">
+					Алексей Макиенко
+				</p>
+				<p>11.12.12</p>
+			</div>
+		</li>
+		<li class="media-list-one">
+			<a href="#" class="media-list-image">
+				<img src="common/img/photo/video-side.jpg" alt="" />
+				<span class="type_tv"></span>
+			</a>
+			<div class="media-list-description">
+				<p class="mld-header"><a href="#">Культура народов оссии</a></p>
+				<p class="mld-date">
+					Алексей Макиенко
+				</p>
+				<p>11.12.12</p>
+			</div>
+		</li>
+		<li class="media-list-one">
+			<a href="#" class="media-list-image">
+				<img src="common/img/photo/video-side.jpg" alt="" />
+				<span class="type_text"></span>
+			</a>
+			<div class="media-list-description">
+				<p class="mld-header"><a href="#">Культура народов оссии</a></p>
+				<p class="mld-date">
+					Алексей Макиенко
+				</p>
+				<p>11.12.12</p>
+			</div>
+		</li>
+		<li class="media-list-one">
+			<a href="#" class="media-list-image">
+				<img src="common/img/photo/video-side.jpg" alt="" />
+				<span class="type_audio"></span>
+			</a>
+			<div class="media-list-description">
+				<p class="mld-header"><a href="#">Культура народов оссии</a></p>
+				<p class="mld-date">
+					Алексей Макиенко
+				</p>
+				<p>11.12.12</p>
+			</div>
+		</li>
+		<li class="media-list-one">
+			<a href="#" class="media-list-image">
+				<img src="common/img/photo/video-side.jpg" alt="" />
+				<span class="type_video"></span>
+			</a>
+			<div class="media-list-description">
+				<p class="mld-header"><a href="#">Культура народов оссии</a></p>
+				<p class="mld-date">
+					Алексей Макиенко
+				</p>
+				<p>11.12.12</p>
+			</div>
+		</li>
+	</ul>
+</div>#}
+
+{% endblock %}

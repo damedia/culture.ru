@@ -1,7 +1,7 @@
 {% if pageCount > 1 %}
 <div class="virtual-paginates clearfix">
 	{% if first is defined and current != first %}
-        <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="firstPage">первая</a>
+        <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="firstPage" data-page="{{ first }}">первая</a>
     {% else %}
 		<span class="firstPage">первая</span>
 	{% endif %}
@@ -9,7 +9,7 @@
 
 		<li>
 			{% if previous is defined %}
-				<a href="{{ path(route, query|merge({(pageParameterName): previous})) }}"  class="prevPage">назад</a>
+				<a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="prevPage" data-page="{{ previous }}">назад</a>
 			{% else %}
 				<span class="prevPage">назад</span>
 			{% endif %}
@@ -19,7 +19,7 @@
 		{% for page in pagesInRange %}
 			{% if page != current %}
 				<li>
-					<a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+					<a href="{{ path(route, query|merge({(pageParameterName): page})) }}" data-page="{{ page }}">{{ page }}</a>
 				</li>
 			{% else %}
 				<li><span class="current">{{ page }}</span></span>
@@ -28,7 +28,7 @@
 		{% endfor %}
 		<li>
 		{% if next is defined %}
-			<a href="{{ path(route, query|merge({(pageParameterName): next})) }}"  class="nextPage">вперед</a>
+			<a href="{{ path(route, query|merge({(pageParameterName): next})) }}"  class="nextPage" data-page="{{ next }}">вперед</a>
 		{% else %}
 			<span class="nextPage">вперед</span>
 		{% endif %}
@@ -37,7 +37,7 @@
 	</ul>
 	
 	{% if last is defined and current != last %}
-		<a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="lastPage">последняя</a>
+		<a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="lastPage" data-page="{{ last }}">последняя</a>
 	{% else %}
 		<span class="lastPage">
 			последняя

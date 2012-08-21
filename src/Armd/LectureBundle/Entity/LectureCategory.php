@@ -8,11 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Armd\AtlasBundle\Entity\Category
- *
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="lecture_category")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
 class LectureCategory implements Node
 {

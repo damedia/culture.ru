@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="lecture")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Lecture
@@ -40,7 +40,7 @@ class Lecture
     private $recommended = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="lecture_video_id", referencedColumnName="id")
      */
     private $lectureVideo;
@@ -52,13 +52,13 @@ class Lecture
     private $lectureFile;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LectureType")
+     * @ORM\ManyToOne(targetEntity="LectureType", fetch="EAGER")
      * @ORM\JoinColumn(name="lecture_type_id", referencedColumnName="id")
      */
     private $lectureType;
 
     /**
-     * @ORM\ManyToMany(targetEntity="LectureCategory", inversedBy="lectures")
+     * @ORM\ManyToMany(targetEntity="LectureCategory", inversedBy="lectures", fetch="EAGER")
      * @ORM\JoinTable(name="lecture_category_lecture")
      */
     private $categories;
