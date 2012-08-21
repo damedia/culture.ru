@@ -163,7 +163,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		text-transform:uppercase;
 		float:left;
 		padding:4px 6px 3px;
-		margin-right:13px;
+		margin-right:10px;
 		text-decoration:none;
 		color:#000;
 	}
@@ -941,8 +941,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 #footer {
-	background: #F4F4F4 url('../img/footer-couter.jpg') no-repeat 97% 100%;
-	padding: 25px 30px 45px;
+	background: #f4f4f4 /*url('../img/footer-couter.jpg') no-repeat 97% 100%*/;
+	padding: 25px 30px 15px;
 	margin: 0px auto 15px;
     line-height: 2em;
 	font-size: 13px;
@@ -951,14 +951,35 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	position: relative;
 }
 
+.footer-logo {
+	float:left;
+	font-size:11px;
+	line-height:15px;
+	text-align:center;
+	margin-top:-10px;
+}
+
+	.footer-logo  img {
+		display:block;
+		position:relative;
+		margin:0 auto;
+	}
+
+
+.footer-counters {
+	margin-top:-5px;
+	margin-bottom:15px;
+	text-align:right;
+	padding:0 0 0 60px;
+}
+
 #contacts {
 	float: left;
-	background:url('../img/footer-logo.png') no-repeat 0 -2px;
-	padding:5px 0 5px 50px;
-	line-height:19px;
-	margin-top:4px;
+	/*background:url('../img/footer-logo.png') no-repeat 0 -2px;*/
+	padding:5px 0 5px 0;
 	position: relative;
-	left: 40px;
+	top:24px;
+	margin-left:100px;
 }
 
 .contacts-copyright {
@@ -968,7 +989,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .contacts-inner {
-	padding: 0px 0px 0px 110px;
+	
 }
 
 .counters {
@@ -976,14 +997,14 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	margin-top:10px;
 	margin-left:50px;
 }
+
 #socialnetwork {
 	float: right;
 	font-size: 12px;
-	text-align: right;
+	text-align: left;
 	color: #8e8e8e;
-	
+	top:24px;
 }
-
 #i-socialnetwork {
 	margin: -5px 0 0 0;
 }
