@@ -214,11 +214,6 @@ class User extends BaseUser
     private $middlename;
 
     /**
-     * @var boolead $sex
-     */
-    private $sex;
-
-    /**
      * @var string $city
      */
     private $city;
@@ -233,6 +228,8 @@ class User extends BaseUser
      */
     public function __construct()
     {
+        parent:: __construct();
+        
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -257,29 +254,6 @@ class User extends BaseUser
     public function getMiddlename()
     {
         return $this->middlename;
-    }
-
-    /**
-     * Set sex
-     *
-     * @param boolead $sex
-     * @return User
-     */
-    public function setSex(\boolead $sex)
-    {
-        $this->sex = $sex;
-    
-        return $this;
-    }
-
-    /**
-     * Get sex
-     *
-     * @return boolead 
-     */
-    public function getSex()
-    {
-        return $this->sex;
     }
 
     /**

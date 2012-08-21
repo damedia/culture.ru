@@ -1,0 +1,9 @@
+{% extends "::two-column-layout.html.twig" %}
+
+{% block press_header %}
+    Регистрация
+{% endblock %}
+
+{% block top_list %}
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock %}
