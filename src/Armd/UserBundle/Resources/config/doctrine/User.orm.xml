@@ -11,6 +11,10 @@
             <generator strategy="AUTO" />
         </id>
 
+        <field name="middlename" type="string" nullable="true" />
+        <field name="sex" type="boolean" />
+        <field name="city" type="string" nullable="true" />
+        
         <field name="okUid" column="ok_uid" type="string" nullable="true" />
 
         <field name="vkUid" column="vk_uid" type="string" nullable="true" />
