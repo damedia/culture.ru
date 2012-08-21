@@ -17,14 +17,21 @@ services:
 
     armd_tvigle_video.manager.tvigle_video:
         class: Armd\TvigleVideoBundle\TvigleVideo\TvigleVideoManager
-        arguments: [@armd_tvigle_video.configuration_pool]
+        arguments: [@armd_tvigle_video.configuration_pool, @doctrine.orm.entity_manager]
+
 
     armd_tvigle_video.listener.tvigle_video:
         class: Armd\TvigleVideoBundle\EventListener\TvigleVideoListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
-        arguments: [@armd_tvigle_video.manager.tvigle_video]
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    armd_tvigle_video.listener.media:
+        class: Armd\TvigleVideoBundle\EventListener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
 
     armd_tvigle_video.twig.tvigle_video_extension:
         class: Armd\TvigleVideoBundle\Extension\TvigleVideoTwigExtension

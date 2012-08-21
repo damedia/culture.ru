@@ -3,23 +3,25 @@
 namespace Armd\TvigleVideoBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\DependencyInjection\Container;
 use Armd\TvigleVideoBundle\TvigleVideo\TvigleVideoManager;
 use Armd\TvigleVideoBundle\Entity\TvigleVideo;
 
 class TvigleVideoListener
 {
-    private $tvigleManager;
+    private $container;
 
-    public function __construct(TvigleVideoManager $tvigleManager)
+    public function setContainer(Container $container)
     {
-        $this->tvigleManager = $tvigleManager;
+        $this->container = $container;
     }
 
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
         if ($entity instanceof TvigleVideo) {
-            $this->tvigleManager->updateVideoDataFromTvigle($entity);
+            $tvigleManager = $this->container->get('armd_tvigle_video.manager.tvigle_video');
+            $tvigleManager->updateVideoDataFromTvigle($entity);
         }
     }
 
@@ -28,9 +30,11 @@ class TvigleVideoListener
         $entity = $args->getEntity();
         if ($entity instanceof TvigleVideo) {
             if ($args->hasChangedField('tvigleId')) {
-                $this->tvigleManager->updateVideoDataFromTvigle($entity);
+                $tvigleManager = $this->container->get('armd_tvigle_video.manager.tvigle_video');
+                $tvigleManager->updateVideoDataFromTvigle($entity);
             }
         }
     }
+
 
 }

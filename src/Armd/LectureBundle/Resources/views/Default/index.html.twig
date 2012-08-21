@@ -1,1 +1,144 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+<div class="filter">
+    <div class="title dark-blue-title">
+        <h2>Фильтрация</h2>
+    </div>
+    <form action="" class="simple-filter-form video-filter">
+        <div class="simple-search">
+            <label for="ss_input">Точный поиск</label>
+            <input type="text" class="ss-input" id="ss_input"/>
+        </div>
+
+        <div class="simple-filter-block lecture-type">
+            <div class="simple-filter-header clearfix">
+                <span>Типы лекций</span>
+                <p class="check_all checked" ><span>все</span></p>
+            </div>
+            <div class="simple-filter-options">
+                {% for lectureType in lectureTypes %}
+                    <label class="checked">
+                        <input type="checkbox" checked="checked" data-lecture-type-id="{{ lectureType.id }}" />
+                        <span>{{ lectureType.name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="simple-filter-block video-theme">
+            {% for lectureCategory in lectureCategories %}
+                <div class="simple-filter-header clearfix">
+                    <span>{{ lectureCategory.title }}</span>
+                    {% if loop.first %}
+                        <p class="check_all checked"><span>все</span></p>
+                    {% endif %}
+                </div>
+                {% for lectureTag in lectureCategory.__children %}
+                    <div class="simple-filter-options">
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="{{ lectureTag.id }}" checked="checked" />
+                            <span>{{ lectureTag.title }}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </form>
+
+</div>
+
+<div class="center-column">
+    <div class="title dark-blue-title">
+        <h2>Лекции</h2>
+    </div>
+
+    <div class="video-anons">
+        <ul>
+            {% for lecture in lastLectures %}
+                <li>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                        {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% endif %}
+                    </a>
+
+                    <p class="va-type">{{ lecture.lectureType.name }}</p>
+
+                    <p class="va-theme">
+                        {% for category in lecture.categories %}
+                            {{ category.title }}
+                            {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
+
+                    <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+    <div id="lecture-list-wrapper">
+        <div id="lecture-list-loading"></div>
+        <div id="lecture-list-container">
+            {% render 'ArmdLectureBundle:Default:lectureList' with {'page': page, 'types': 'all', 'categories': 'all'} %}
+        </div>
+    </div>
+
+</div>
+<div class="right-column">
+    <div class="title">
+        <h2>Рекомендовано</h2>
+    </div>
+    <ul class="right-list">
+        {% for lecture in recommendedLectures %}
+            <li>
+                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                    {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                        <img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>
+                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
+                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />
+                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
+                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />
+                    {% endif %}
+                </a>
+
+                <div class="text-overflow">
+                    <span class="rl-type">{{ lecture.lectureType.name }}</span>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">
+                        {{ lecture.title }}
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="virtual-anons-block">
+        <a href="#" class="virtual-anons">
+            <span class="virtual-anons-header">Виртуальный тур</span>
+            <img src="common/img/photo/virt_anons.jpg" alt=""/>
+            <span
+                class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/libs/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/jquery.ajaxmanager.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    <script type="text/javascript">
+        armdLecture.typeCategories = {{ typeCategories|json_encode|raw }};
+    </script>
+{% endblock %}

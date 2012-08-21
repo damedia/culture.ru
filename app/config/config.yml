@@ -161,8 +161,13 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.file
+                - sonata.media.provider.image
             formats:
-                default: { width: 575, height: 285 }
+                big: { width: 222, height: 160 }
+                medium: { width: 111, height: 80 }
+                small: {width: 85, height: 61}
+
+
 
 
     cdn:
@@ -243,6 +248,8 @@ armd_sphinx_search:
     indexes:
         All:
             %sphinxsearch_index_all%: ~
+        Lectures:
+            %sphinxsearch_index_lectures%: ~
 
     searchd:
         host:   %sphinxsearch_host%
