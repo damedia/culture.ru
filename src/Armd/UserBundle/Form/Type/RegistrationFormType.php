@@ -18,7 +18,7 @@ class RegistrationFormType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder            
-            ->add('sex')
+            ->add('gender')
             ->add('city');
     }
 
