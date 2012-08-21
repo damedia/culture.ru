@@ -14,9 +14,6 @@ class Version20120821142034 extends AbstractMigration
     {
         $this->addSql("ALTER TABLE fos_user_user ADD middlename VARCHAR(255) DEFAULT NULL");
         $this->addSql("ALTER TABLE fos_user_user ADD city VARCHAR(255) DEFAULT NULL");
-        $this->addSql("ALTER TABLE fos_user_user ADD sex BOOLEAN DEFAULT NULL");
-        $this->addSql("update fos_user_user set sex = 't'");
-        $this->addSql("ALTER TABLE fos_user_user ALTER sex SET NOT NULL");
     }
 
     public function down(Schema $schema)
