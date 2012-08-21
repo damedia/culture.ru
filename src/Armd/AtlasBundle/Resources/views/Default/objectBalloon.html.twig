@@ -1,7 +1,11 @@
 <div class="bubble">
-    <div class="bubble_image">
-        <img src="{{ asset("bundles/armdatlas/common/img/1.png") }}" alt="">
-    </div>
+    {% for image in entity.images if loop.first %}
+        <div class="bubble_image">
+            <a class="thumb" href="{% path image, 'big' %}">
+                <img src="{% path image, 'thumbnail' %}" />
+            </a>
+        </div>
+    {% endfor %}
     <div class="bubble_content">
         <div class="caption">
             <a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
@@ -9,15 +13,7 @@
             </a>
         </div>
         <div class="text">
-            {{ entity.announce|raw}}
+            {{ entity.announce|raw }}
         </div>
-        <div class="rating">
-            <ul>
-                <li class="icon1"></li>
-                <li class="icon2"></li>
-                <li class="icon3"></li>
-            </ul>
-        </div>
-        <div class="number"></div>
     </div>
 </div>

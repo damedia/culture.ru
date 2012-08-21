@@ -324,10 +324,14 @@ class DefaultController extends Controller
     public function filterAction()
     {
         $request = $this->getRequest();
-        $category = $request->get('category');
         try {
+            $category = $request->get('category');
+            if (empty($category))
+                throw new \Exception('Categories is null');
+
             $categoryIds = explode(',', $category);
-            if (! is_array($categoryIds))
+
+            if (empty($categoryIds))
                 throw new \Exception('Categories is null');
 
             $filterParams = array(
