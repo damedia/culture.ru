@@ -144,9 +144,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
-
-        $categories = $repo->getNodesAsArray();
-
+        $categories = $repo->getDataForFilter();
         return array(
             'categories' => $categories,
         );
@@ -326,38 +324,46 @@ class DefaultController extends Controller
     public function filterAction()
     {
         $request = $this->getRequest();
-
         $category = $request->get('category');
-        if (is_array($category)) {
-            $categoryIds = array_keys($category);
-        } else {
-            exit;
-        }
+        try {
+            $categoryIds = explode(',', $category);
+            if (! is_array($categoryIds))
+                throw new \Exception('Categories is null');
 
-        $filterParams = array(
-            'term' => $request->get('term'),
-            'category' => $categoryIds,
-        );
-
-        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $res = $repo->filter($filterParams);
-
-        $rows = array();
-        $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
-        foreach ($res as $obj) {
-            $icon =
-            $rows[] = array(
-                'id' => $obj->getId(),
-                'title' => $obj->getTitle(),
-                'announce' => $obj->getAnnounce(),
-                'lon' => $obj->getLon(),
-                'lat' => $obj->getLat(),
-                'icon' => $mediaHelper->originalUrl($obj->getIcon()),
+            $filterParams = array(
+                'term' => '',
+                'category' => $categoryIds,
             );
-        }
 
-        $response = json_encode($rows);
-        return new Response($response);
+            $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+            $res = $repo->filter($filterParams);
+
+            $rows = array();
+            $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
+            foreach ($res as $obj) {
+                $rows[] = array(
+                    'id' => $obj->getId(),
+                    'title' => $obj->getTitle(),
+                    'announce' => $obj->getAnnounce(),
+                    'lon' => $obj->getLon(),
+                    'lat' => $obj->getLat(),
+                    'icon' => $mediaHelper->originalUrl($obj->getIcon()),
+                );
+            }
+
+            $response = json_encode(array(
+                'success' => true,
+                'result' => $rows,
+            ));
+            return new Response($response);
+        }
+        catch (\Exception $e) {
+            $response = json_encode(array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            ));
+            return new Response($response);
+        }
     }
 
     /**
