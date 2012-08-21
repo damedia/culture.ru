@@ -1,10 +1,16 @@
 services:
-  activity_listener:
-    class: Armd\UserBundle\Listener\ActivityListener
-    arguments: [@security.context, @doctrine]
-    tags:
-      - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+    activity_listener:
+        class: Armd\UserBundle\Listener\ActivityListener
+        arguments: [@security.context, @doctrine]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
 
-  fos_user.user_manager.default:
-    class: Armd\UserBundle\Entity\UserManager
-    arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, %fos_user.model.user.class%]
+    fos_user.user_manager.default:
+        class: Armd\UserBundle\Entity\UserManager
+        arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, %fos_user.model.user.class%]
+    
+    armd_user.registration.form.type:
+        class: Armd\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: armd_user_registration }

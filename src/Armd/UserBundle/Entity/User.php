@@ -208,4 +208,100 @@ class User extends BaseUser
     {
         return $this->socialName;
     }
+    /**
+     * @var string $middlename
+     */
+    private $middlename;
+
+    /**
+     * @var boolead $sex
+     */
+    private $sex;
+
+    /**
+     * @var string $city
+     */
+    private $city;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $groups;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set middlename
+     *
+     * @param string $middlename
+     * @return User
+     */
+    public function setMiddlename($middlename)
+    {
+        $this->middlename = $middlename;
+    
+        return $this;
+    }
+
+    /**
+     * Get middlename
+     *
+     * @return string 
+     */
+    public function getMiddlename()
+    {
+        return $this->middlename;
+    }
+
+    /**
+     * Set sex
+     *
+     * @param boolead $sex
+     * @return User
+     */
+    public function setSex(\boolead $sex)
+    {
+        $this->sex = $sex;
+    
+        return $this;
+    }
+
+    /**
+     * Get sex
+     *
+     * @return boolead 
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
 }
