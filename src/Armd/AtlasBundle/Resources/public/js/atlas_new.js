@@ -6,6 +6,7 @@ var AT = {};
 AT.version = '0.3';
 AT.map = null;
 AT.filterTags = [];
+AT.clusterPoints = null;
 
 AT.init = function(params) {
     console.info('Init Atlas');
@@ -110,9 +111,11 @@ AT.initUI = function() {
             if (json.success) {
                 var objects = json.result;
             } else {
-                alert(json.message);
+                console.error(json.message);
             }
+
             AT.clearMap();
+
             if (objects && objects.length) {
                 //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
                 var points = [];
@@ -121,30 +124,51 @@ AT.initUI = function() {
                 }
 
                 // clusterize points
-                var clusterPoints = new PGmap.GeometryLayer({
+                AT.clusterPoints = new PGmap.GeometryLayer({
                     points: points,
-                    clusterSize: 34,
+                    clusterSize: 100,
                     clusterImage: bundleImagesUri + "/klaster_1.1.png"
                 });
-                clusterPoints.setClusterImageByCount = function(count) {
+                AT.clusterPoints.setClusterImageByCount = function(count) {
                     return "0px 0px";
                 };
-                clusterPoints.setHandlersToClusters = function() {
-                    for (var n = this.clusters.length; n--;) {
+                AT.clusterPoints.setClusters.callback = function() {
+                    for (var n = AT.clusterPoints.clusters.length; n--; ) {
                         (function(cluster){
                             PGmap.Events.addHandlerByName(cluster.element, 'click', function(e){
-                                instance.globals.mapObject().setCenterByBbox(cluster.bbox);
+
+                                console.log('click on cluster');
+
+                                // Балун для кластера
+                                cluster.balloon = AT.map.balloon;
+                                var ids = [];
+                                for (var i=0; i<cluster.points.length; i++) {
+                                    ids.push($(cluster.points[i].container).data('uid'));
+                                }
+                                // Содержимое балуна
+                                cluster.name = ids.join(',');
+                                console.log('cluster points ids:', cluster.name);
+                                /*
+                                if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
+                                    cluster.balloon.open(cluster);
+                                    //cont.style.zIndex = '75';
+                                } else {
+                                    cluster.balloon.close();
+                                    //cont.style.zIndex = '73';
+                                }
+                                */
+                                AT.clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
                             }, 'click_' + cluster.index);
-
                             PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
+                                //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px -69px" : ( cluster.count < 100  ) ? "-56px -69px" : "5px -69px";
                             }, 'mouseover_' + cluster.index);
-
                             PGmap.Events.addHandlerByName(cluster.element, 'mouseout', function(e){
+                                //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px 0" : ( cluster.count < 100  ) ? "-56px 0" : "5px 0";
                             }, 'mouseout_' + cluster.index);
-                        })(this.clusters[n]);
+                        })(AT.clusterPoints.clusters[n]);
                     }
                 };
-                clusterPoints.setClusters();
+                AT.clusterPoints.setClusters();
             }
         }
     });
@@ -170,11 +194,27 @@ AT.initFilters = function(){
 };
 
 AT.clearMap = function() {
+
+    console.info('AT.clearMap');
+
     var points = AT.map.geometry.get({ type:'points' });
+
+    console.info(points);
+
     if (points.length > 0) {
         for (var i=points.length; i--; ) {
             AT.map.geometry.remove(points[i]);
         }
+
+        for (var n = AT.clusterPoints.clusters.length; n--; ) {
+            (function(cluster){
+                PGmap.Events.removeHandlerByName(cluster.element, 'click',  'click_' + cluster.index);
+                PGmap.Events.removeHandlerByName(cluster.element, 'mouseover', 'mouseover_' + cluster.index);
+                PGmap.Events.removeHandlerByName(cluster.element, 'mouseout',  'mouseout_' + cluster.index);
+            })(AT.clusterPoints.clusters[n]);
+        }
+
+        AT.clusterPoints.removeClusters();
     }
 };
 
@@ -186,17 +226,18 @@ AT.placePoint = function(object) {
             backpos: '0 0',
             url: object.icon
         });
-    $(point.element)
+    //console.log( $(point.element) );
+    $(point.container)
         .data('uid', object.id)
         .css({
-            'margin-left': '-6px',
-            'margin-top': '-19px'
+            'margin-left': '-12px',
+            'margin-top': '-38px'
         });
     AT.map.geometry.add(point);
 
     // клик по точке
     PGmap.Events.addHandler(point.element, 'click', function(e) {
-        var uid = $(point.element).data('uid');
+        var uid = $(point.container).data('uid');
         $.ajax({
             url: fetchMarkerDetailUri,
             data: { id: uid },
