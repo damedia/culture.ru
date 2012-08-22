@@ -37,7 +37,7 @@
                                         <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>
-										<a class="fancy"  href="{% path image, 'big' %}">&nbsp;</a>
+										<a class="fancy"  href="{{ armd_media_original_url(image) }}{#{% path image, 'big' %}#}">&nbsp;</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
