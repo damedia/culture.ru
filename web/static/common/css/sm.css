@@ -4102,7 +4102,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		
 	}
 		.rusHovered .rusObr-list-one .rusObr-list-place a {
-			color:#fff;
+			color:#000;
 		}
 	
 	.rusHovered-contacts {
@@ -4153,7 +4153,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			}
 			
 		.rusHovered-contacts a {
-			color:#fff;
+			color:#000;
 		}
 			.rusHovered-contacts  p {
 				margin-bottom:7px;

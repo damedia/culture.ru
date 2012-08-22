@@ -33,6 +33,11 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $user->setPlainPassword('111111');
         $user->setUsername('superadmin');
         $user->setEnabled(true);
+        $user->setSalt('123');
+        $user->setLocked(false);
+        $user->setExpired(false);
+        $user->setCredentialsExpired(false);
+        $user->setRoles(array('ROLE_ADMIN', 'ROLE_SONATA_ADMIN'));
         $userManager->updateUser($user, true);
 
     }

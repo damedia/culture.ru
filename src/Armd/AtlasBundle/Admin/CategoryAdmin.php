@@ -96,6 +96,8 @@ class CategoryAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('up', 'text', array('template' => 'ArmdAtlasBundle:Admin:list_category_up.html.twig', 'label'=>' '))
+            ->add('down', 'text', array('template' => 'ArmdAtlasBundle:Admin:list_category_down.html.twig', 'label'=>' '))
             ->addIdentifier('spaceLeveledTitle', null,
             array(
                 'template' => 'ArmdAtlasBundle:Admin:list_raw.html.twig',
