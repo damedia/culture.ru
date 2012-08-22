@@ -235,8 +235,6 @@ AT.clearMap = function() {
 
     var points = AT.map.geometry.get({ type:'points' });
 
-    console.info(points);
-
     if (points.length > 0) {
         for (var i=points.length; i--; ) {
             AT.map.geometry.remove(points[i]);
@@ -281,7 +279,9 @@ AT.placePoint = function(object) {
 
                 console.log('here');
 
-                point.addContent(res);
+                //point.addContent(res);
+                point.name = res;
+                point.balloon = AT.map.balloon;
                 //PGmap.Events.removeHandler(point.container, 'click', point.toggleBalloon);
                 point.toggleBalloon();
             }

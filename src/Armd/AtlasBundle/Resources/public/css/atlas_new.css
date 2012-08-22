@@ -7,11 +7,12 @@
 /* Кастомизация карты */
 #map{ width:100%; height:600px; }
 #map .b-balloon{ z-index:76; }
-#map .b-balloon__content{ /*width:300px !important;*/ padding:0; margin:0 0 15px 50px; border:none; background:#fff; box-shadow:2px 2px 10px #777; border-radius:0; }
+#map .b-balloon__content{ /*width:300px !important;*/ padding:0; margin:0 0 15px 50px; border:none; background:#f9f6ed; box-shadow:2px 2px 10px #777; border-radius:0; }
 #map .PGmap-balloon-inner{ padding:10px; }
 #map .PGmap-balloon-inner .caption{ margin-bottom:5px; }
 #map .PGmap-balloon-inner .caption a{ text-decoration:none; color:#000; }
 #map .PGmap-balloon-inner .text{ font-size:11px; color:#555; }
+#map .PGmap-balloon-inner .bubble_image{ float:left; margin:0 10px 10px 0; }
 #map .b-balloon__content h3{ margin:0; padding:0; }
 #map .b-balloon__shadow{ display:none; }
 #map .b-balloon__ar{ display:none; }
