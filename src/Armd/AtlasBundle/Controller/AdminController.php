@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -37,5 +38,24 @@ class AdminController extends Controller
             $repo->moveDown($category);
         }
         return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/export_objects")
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function exportObjects()
+    {
+        $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')->findAll();
+        $categories = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Category')->childrenHierarchy();
+
+        $content = $this->renderView('ArmdAtlasBundle:Admin:export_objects.xml.twig', array(
+            'objects' => $objects,
+            'categories' => $categories
+        ));
+
+        $response = new Response($content, 200, array('content-type' => 'text/xml'));
+//        $response = new Response($content, 200);
+        return $response;
     }
 }

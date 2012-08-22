@@ -34,8 +34,8 @@
                                 <ul class="thumbs noscript">
                                     {% for image in entity.images %}
                                     <li>
-                                        <a class="fancy" href="{% path image, 'reference' %}" title="image.name">&nbsp;</a>
-                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="{{ image.name }}">
+                                        <a class="fancy" href="{% path image, 'reference' %}" title="{{ image.name }}">&nbsp;</a>
+                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>										
 										{#<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>#}                                        
@@ -53,7 +53,7 @@
 						<h1>{{ entity.title }}</h1>
 						<big>{{ entity.announce }}</big>
 						<div class="content-text">
-							{{ entity.content }}
+							{{ entity.content|raw }}
 						</div>	
 						
 				   </div>
@@ -86,7 +86,7 @@
 				   <div class='afisha-list-more' id="more-show">Комментарии</div>
 				   <div class="more-comments-show" style="display:none;">  
 						<div class="comments comments-gray clearfix">
-							<div class="comments-block">
+							{#<div class="comments-block">
 								<div class="comment">
 									Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
 								</div>
@@ -101,7 +101,7 @@
 								<div class="comment-author">
 									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
 								</div>
-							</div>
+							</div>#}
 							<form action="" class="comments-form">
 								<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>
 								<input type="submit" value="Отправить" class="button" />
@@ -140,11 +140,11 @@
                     </div>
 
                     <div class="block obj-o-contacts">
-                        <div class="obj-o-map">
+                       {# <div class="obj-o-map">
                             <a href="#" class="open-big-green"></a>
                             <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
-                        </div>
-                        <div class="obj-o-contacts-text">
+                        </div>#}
+                        <div class="obj-o-contacts-text" style="margin-top:0">
                             <p class="obj-o-contacts-header">
                                 Контакты
                             </p>
@@ -183,18 +183,26 @@
                             </div>#}
 
                             {% if entity.videos|length > 0 %}
-                            <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
+                            <p class="link_header"><a {#href="#"#} style="border:none;">Видео</a><!--<sup>207</sup></p>-->
                             <ul class="object-video-list">
                                 {% for video in entity.videos %}
                                 <li class="object-video-list-one">
                                     <div class="object-video-list-image">
                                     <a class="in-fancybox" href="#data-{{ loop.index }}"><img src="{{ video.image  }}" alt="" style="width:91px;" /></a>
-                                      <div style="display:none;"> <div id="data-{{ loop.index }}"> {{ armd_tvigle_video_player(video, 640, 360)|raw }}</div></div>
+                                      <div style="display:none;">
+                                      
+                                      <div id="data-{{ loop.index }}">
+                                      <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
+                                      {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                                      </div>
+                                      </div>
+                                      
+                                      </div>
 
                                     </div>
                                     <div class="object-video-list-descr">
                                         <span class="ovl-date">{{ video.durationString }}</span>
-                                        <p class="object-video-header"><a href="#">{{ video.title }}</a></p>
+                                        <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
                                         <p>
                                             {{ video.description }}
                                         </p>
@@ -203,7 +211,7 @@
                                 {% endfor %}
                             </ul>
                             {% endif %}
-                            <p class="all-list"><a href="#">Все видео</a></p>
+                           {# <p class="all-list"><a href="#">Все видео</a></p> #}
                         </div>
 						
 						{% endif %}	
@@ -216,36 +224,31 @@
 							</div>
 						{% endif %}	
 						
-						
-						<div class="block object-archives">
-                            {#<div class="right-icons-block">
-                                <a href="#" class="one-person"></a>
-                                <a href="#" class="three-persons"></a>
-                            </div>#}
 
-                            
-                            <p class="link_header"><a href="#">Архивы</a><!--<sup>207</sup></p>-->
-                            <ul class="object-archive-list">
-								<li>
-									<a href="#">Архивный документ №1</a>
-									<span>
-										За смелость называться cовременником
-										нужно отвечать всю жизнь. 
-									</span>
-								</li>
-								<li>
-									<a href="#">Архивный документ №1</a>
-									<span>
-										За смелость называться cовременником
-										нужно отвечать всю жизнь. 
-									</span>
-								</li>
-                                
-                            </ul>
-							
-							
-                            <p class="all-list"><a href="#">Все архивы</a></p>
-                        </div>
+                        {% if entity.archiveImages|length > 0 %}
+                            <div class="block object-archives">
+                                {#<div class="right-icons-block">
+                                    <a href="#" class="one-person"></a>
+                                    <a href="#" class="three-persons"></a>
+                                </div>#}
+
+                                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
+                                <ul class="object-archive-list">
+                                {% for h in entity.archiveImages %}
+                                    <li>
+                                    <a href="{{ path('sonata_media_download', {'id': h.id}) }}/{{ h }}" class="in-fancybox">Архивный документ №{{ loop.index }}</a>
+
+                                        <span>
+                                            {{ h.description }}
+                                        </span>
+                                    </li>
+                                    {% endfor%}
+
+                                </ul>
+
+                               {# <p class="all-list"><a href="#">Все архивы</a></p> #}
+                            </div>
+                        {% endif %}
                         
                         
                         {% if entity.objectHints|length > 0 %}
@@ -253,18 +256,18 @@
                         
                         
 
-                        	<h4><em>Пять правил</em>,которые нужно знать при осмотре петроглифов <span class="bullet">↓</span></h4>
+                            {% for objectHint in entity.objectHints %}
+                        	<h4>{{ objectHint.title|raw }} <span class="bullet">↓</span></h4>
                             
                             <div class="sliderkit">
                             <div class="">
                             <div class="rules-content sliderkit-panels">
                             
-                            {% for h in entity.objectHints %}
+                            {% for hintPage in objectHint.pagedHintText %}
                             	<div class="sliderkit-panel">
-							{#{ h.title }#}
-                               {{ h.hintText }}
+                                    {{ hintPage|raw }}
                                 </div>
-                              {% endfor%}  
+                            {% endfor%}
 	
                             </div> <!--rules-content -->
                             
@@ -284,6 +287,7 @@
                              </div>  <!-- /sliderkit-panels -->
                             
                             </div>  <!-- /sliderkit -->
+                            {% endfor %}
                            
                             
                             

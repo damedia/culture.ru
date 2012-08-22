@@ -30,6 +30,7 @@ class DefaultController extends Controller
         return new Response('ok');
     }
 
+
     /**
      * @Route("/objects")
      */
