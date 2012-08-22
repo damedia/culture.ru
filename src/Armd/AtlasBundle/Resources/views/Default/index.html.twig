@@ -16,83 +16,35 @@
                     <input type="text" class="ss-input" id="ss_input" />
                 </div>
 
-                <div class="filter-tabs">
-                    <ul class="filter-tabs-titles">
-                        <li class="active"><a href="#obj">Объекты</a></li>
-                        <li class=""><a href="#mrsh">Маршруты</a></li>
-                        <li class=""><a href="#maps">Мои карты</a></li>
-                    </ul>
-                    <div class="filter-tab" id="obj" style="display:block;">
-                        <!-- объекты -->
-                        <div class="simple-filter-block">
-                            <div class="simple-filter-options">
-                                <label class="red-checked">
-                                    <input type="checkbox" name="video" id="video"  />
-                                    <span data-tag="74">ОБРАЗЫ РОССИИ</span>
-                                </label><label class="red-checked">
-                                    <input type="checkbox" name="presentations" id="presentations" />
-                                    <span data-tag="75">ЮНЕСКО</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        {% for category in categories %}
-                            <div class="simple-filter-block">
-                                <div class="simple-filter-header clearfix">
-                                    <span>{{ category.title }}</span>
-                                    <p class="check_all"><span>все</span></p>
-                                </div>
-                                <div class="simple-filter-options">
-                                    {% for tag in category.tags %}
-                                        <label class="darkred-checked">
-                                            <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
-                                        </label>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% else %}
-                            No categories found.
-                        {% endfor %}
-                        <!-- -->
-                    </div>
-                    <div class="filter-tab" id="mrsh">
-                        <!-- маршруты -->
-                    </div>
-                    <div class="filter-tab" id="maps">
-                        <!-- мои карты -->
-                        <div class="filter-sub-tabs">
-                            <ul class="filter-sub-tabs-titles">
-                                <li class="active"><a href="#myobj">Мои объекты</a></li>
-                                <li><a href="#mymrsh">Мои маршруты</a></li>
-                            </ul>
-                            <div class="filter-sub-tab" id="myobj" style="display:block;">
-                                <ol class="filter-sub-tab-list" id="myobj_list">
-                                    <li>
-                                        <span>Новый объект</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                        <span class="moder"></span>
-                                    </li>
-                                    <li>
-                                        <span>Пушкинский музей</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                    </li>
-                                    <li>
-                                        <span>Донской монастырь</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                    </li>
-                                    <li>
-                                        <span>Московский Кремль</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                    </li>
-                                </ol>
-                                <input type="button" class="button green-button" value="Добавить объект" />
-                            </div>
-                            <div class="filter-sub-tab" id="mymrsh">
-
-                            </div>
-                        </div>
+                <div class="simple-filter-block">
+                    <div class="simple-filter-options">
+                        <label class="red-checked">
+                            <input type="checkbox" name="video" id="video"  />
+                            <span data-tag="74">ОБРАЗЫ РОССИИ</span>
+                        </label><label class="red-checked">
+                            <input type="checkbox" name="presentations" id="presentations" />
+                            <span data-tag="75">ЮНЕСКО</span>
+                        </label>
                     </div>
                 </div>
+
+                {% for category in categories %}
+                    <div class="simple-filter-block">
+                        <div class="simple-filter-header clearfix">
+                            <span>{{ category.title }}</span>
+                            <p class="check_all"><span>все</span></p>
+                        </div>
+                        <div class="simple-filter-options">
+                            {% for tag in category.tags %}
+                                <label class="darkred-checked">
+                                    <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    No categories found.
+                {% endfor %}
 
             </form>
         </div>
@@ -103,6 +55,10 @@
             <div class="atlas-map" style="margin-top:-10px;">
                 <div id="map"></div>
                 {# <div class="atlas-menu"></div> #}
+                <div id="regions-selector" class="">
+                    <select data-placeholder="Выберите регион..." style="width:350px;" class="chzn-select">
+                    </select>
+                </div>
                 <div id="ajax-loading" class="ajax-loading"></div>
             </div>
         </div>
@@ -112,6 +68,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('static/common/css/atlas.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
@@ -126,6 +83,7 @@
     <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/common/js/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>

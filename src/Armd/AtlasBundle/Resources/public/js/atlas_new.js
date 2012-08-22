@@ -7,6 +7,7 @@ AT.version = '0.3';
 AT.map = null;
 AT.filterTags = [];
 AT.clusterPoints = null;
+AT.regions = [];
 
 AT.init = function(params) {
     console.info('Init Atlas');
@@ -17,6 +18,8 @@ AT.init = function(params) {
     AT.initFilters();
     AT.initHacks();
 
+    // Сабмитим форму
+    $('#atlas-form').submit();
 };
 
 AT.initMap = function(params) {
@@ -33,7 +36,7 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-
+    this.map.balloon.content.parentNode.style.width = '500px';
     this.map.controls.addControl('slider');
 };
 
@@ -177,8 +180,29 @@ AT.initUI = function() {
             }
         }
     });
-    // Сабмитим форму
-    $('#atlas-form').submit();
+
+    // Инициализируем список регионов
+    var regionsJsonPath = bundleImagesUri + '/../js/regions.json',
+        regionsSelector = $('#regions-selector select');
+    $.getJSON(regionsJsonPath, function(res){
+        AT.regions = res;
+        for (var i=0; i<res.length; i++) {
+            regionsSelector.append('<option value="'+res[i].id+'">'+res[i].name+'</option>');
+        }
+        regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
+            var regionId = $(this).val(),
+                regionData = null;
+
+            console.log('change', regionId );
+
+            for (var i=0; i<AT.regions.length; i++) {
+                if (AT.regions[i].id == regionId) {
+                    console.log( 'found region:', AT.regions[i] );
+                }
+            }
+        });
+    });
+
 };
 
 // Init filters
@@ -247,6 +271,9 @@ AT.placePoint = function(object) {
             url: fetchMarkerDetailUri,
             data: { id: uid },
             success: function(res) {
+
+                console.log('here');
+
                 point.addContent(res);
                 point.toggleBalloon();
             }
