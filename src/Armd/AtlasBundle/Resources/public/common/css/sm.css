@@ -703,3 +703,180 @@ ul{ list-style: none;
 	float:right;
 	margin:-21px 0 0 0;
 }	
+
+
+/*five rules sidebar */
+
+.block.rules {
+	border:5px solid #d3b790;
+}
+
+	.block.rules h4 {
+		font-size:25px;
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		font-weight:normal;
+		margin:0 0 20px 0;
+		text-transform:uppercase;
+		line-height:25px;
+	}
+	
+		.block.rules h4 em {
+			color:#9a5a00;
+			font-style:normal;
+		}
+		
+		.block.rules h4 .bullet {
+			font-family:Calibri,"Trebuchet MS", Arial, Helvetica, sans-serif;
+			color:#9a5a00;
+			font-size:20px;
+			
+		}
+		
+		.block.rules .sliderkit {
+			padding:25px 25px 0 25px;
+			position:relative;
+			margin-left: -60px;
+			margin-right: -48px;
+			margin-top: -25px;
+		}
+		
+		.block.rules .rules-content {
+			border:1px solid #d4bb97;
+			padding:18px 15px;
+			-webkit-box-shadow: rgba(0,0,0,0.3) 0px 0px 16px ;
+			-moz-box-shadow: rgba(0,0,0,0.3) 0px 0px 16px ;
+			box-shadow: rgba(0,0,0,0.3) 0px 0px 16px;
+			font-size:12px;
+			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+			color:#696969;
+			background:#FFF;
+		}
+		
+		
+		.block.rules .rules-nav {
+			margin:15px 0 0 0;
+			text-align:center;
+			color:#b9b9b9;
+			font-size:37px;
+			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+		}
+		
+		.lt-ie8 .block.rules .rules-nav,
+		.lt-ie8 .block.rules .rules-nav span,
+		.lt-ie8 .block.rules .rules-nav a,
+		.lt-ie8 .block.rules .rules-nav .rules-nav-wrapper { display:inline; zoom:1; }
+		
+			.block.rules .rules-nav span,
+			.block.rules .rules-nav a {
+				display:inline-block;
+				vertical-align:top;
+			}
+			
+				.block.rules .rules-nav .prev,
+				.block.rules .rules-nav .next,
+				.block.rules .rules-nav span.active {
+					color:#000;
+				}
+				
+				.block.rules .rules-nav .prev,
+				.block.rules .rules-nav .next {
+					font-family:Calibri,"Trebuchet MS", Arial, Helvetica, sans-serif;
+					color:#b9b9b9;
+					text-decoration:none;
+				}
+				
+				.block.rules .rules-nav .prev { margin-right:28px; }
+				
+				.block.rules .rules-nav .next { margin-left:28px; }
+				
+				.block.rules .rules-nav .rules-nav-wrapper { display:inline-block; }
+				
+				
+			
+/** 
+ *  sliderkit-core.css
+ *	> Core CSS styles
+ *  
+ *  This file is part of Slider Kit jQuery plugin.
+ *  http://www.kyrielles.net/sliderkit/
+ *  
+ *  Copyright (c) 2010-2012 Alan Frog
+ *  Licensed under the GNU General Public License
+ *  See <license.txt> or <http://www.gnu.org/licenses/>
+ *
+ */
+
+/*
+ *  PLUGIN BASICS
+ *  ------------------------------------------------
+ */
+.sliderkit{display:none;position:relative;overflow:hidden;text-align:left;}
+.sliderkit a,
+.sliderkit a:hover{text-decoration:none;}
+.sliderkit a:focus{outline:1px dotted #000;/*optional*/}
+.sliderkit img{border:0;}
+
+/*---------------------------------
+ *  Navigation
+ *---------------------------------*/
+.sliderkit .sliderkit-nav{z-index:10;position:absolute;text-align:center;}
+
+/* Nav > Clip */
+.sliderkit .sliderkit-nav-clip{position:relative;overflow:hidden;margin:0 auto;}
+.sliderkit .sliderkit-nav-clip ul{position:relative;left:0;top:0;list-style:none;margin:0;padding:0;}
+.sliderkit .sliderkit-nav-clip ul li{float:left;}
+.sliderkit .sliderkit-nav-clip ul li a{display:block;overflow:hidden;}
+
+/*---------------------------------
+ *  Buttons
+ *---------------------------------*/
+.sliderkit .sliderkit-btn{z-index:10;}
+
+/*---------------------------------
+ *  Panels
+ *---------------------------------*/
+.sliderkit .sliderkit-panel{z-index:1; /* position:absolute; */overflow:hidden;}
+.sliderkit .sliderkit-panel-active{z-index:5;}
+.sliderkit .sliderkit-panel-old{z-index:4;}
+
+/* Panels > Overlay */
+.sliderkit .sliderkit-panel .sliderkit-panel-textbox{position:absolute;z-index:1;}
+.sliderkit .sliderkit-panel .sliderkit-panel-text{position:absolute;z-index:3;top:0;left:0;}
+.sliderkit .sliderkit-panel .sliderkit-panel-overlay{position:absolute;z-index:2;top:0;left:0;}
+
+/*---------------------------------
+ *  Counter
+ *---------------------------------*/
+.sliderkit .sliderkit-count /* {position:absolute;top:5px;right:5px;z-index:10;padding:5px;color:#fff;background:#000; */}
+
+/*---------------------------------
+ *  Loader
+ *---------------------------------*/
+.sliderkit .sliderkit-timer{position:absolute;top:0;left:0;z-index:10;height:3px;background:#ccc;}
+
+
+/* This code can be reduced and pasted in any other CSS file :
+
+Here is a compact version :
+-------------------------------
+
+.sliderkit{display:none;position:relative;overflow:hidden;text-align:left;}
+.sliderkit a,
+.sliderkit a:hover{text-decoration:none;}
+.sliderkit a:focus{outline:1px dotted #000;}
+.sliderkit img{border:0;}
+.sliderkit .sliderkit-nav{z-index:10;position:absolute;text-align:center;}
+.sliderkit .sliderkit-nav-clip{position:relative;overflow:hidden;margin:0 auto;}
+.sliderkit .sliderkit-nav-clip ul{position:relative;left:0;top:0;list-style:none;margin:0;padding:0;}
+.sliderkit .sliderkit-nav-clip ul li{float:left;}
+.sliderkit .sliderkit-nav-clip ul li a{display:block;overflow:hidden;}
+.sliderkit .sliderkit-btn{z-index:10;}
+.sliderkit .sliderkit-panel{z-index:1;position:absolute;overflow:hidden;}
+.sliderkit .sliderkit-panel-active{z-index:5;}
+.sliderkit .sliderkit-panel-old{z-index:4;}
+.sliderkit .sliderkit-panel .sliderkit-panel-textbox{position:absolute;z-index:1;}
+.sliderkit .sliderkit-panel .sliderkit-panel-text{position:absolute;z-index:3;top:0;left:0;}
+.sliderkit .sliderkit-panel .sliderkit-panel-overlay{position:absolute;z-index:2;top:0;left:0;}
+.sliderkit .sliderkit-count{position:absolute;top:5px;right:5px;z-index:10;padding:5px;color:#fff;background:#000;}
+.sliderkit .sliderkit-timer{position:absolute;top:0;left:0;z-index:10;height:3px;background:#ccc;}
+*/			

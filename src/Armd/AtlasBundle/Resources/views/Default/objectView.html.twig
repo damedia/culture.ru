@@ -34,10 +34,11 @@
                                 <ul class="thumbs noscript">
                                     {% for image in entity.images %}
                                     <li>
-                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
+                                        <a class="fancy" href="{% path image, 'big' %}" title="image.name">&nbsp;</a>                                    
+                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="{{ image.name }}">
                                             <img src="{% path image, 'thumbnail' %}" />
-                                        </a>
-										<a class="fancy"  href="{% path image, 'big' %}">&nbsp;</a>
+                                        </a>										
+										{#<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>#}                                        
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -56,7 +57,7 @@
 						</div>	
 						
 				   </div>
-					<div class="literature">
+					{# <div class="literature">
 						<p class="lit-header">Использованная литература</p>
 						<ol>
 							<li>
@@ -80,7 +81,7 @@
 								</span>
 							</li>
 						</ol>
-					</div>
+					</div> #}
 				   
 				   <div class='afisha-list-more' id="more-show">Комментарии</div>
 				   <div class="more-comments-show" style="display:none;">  
@@ -112,10 +113,10 @@
 
                 <div class="object-one-col3">
                     <div class="block obj-o-description">
-                        <h1>{{ entity.title }}</h1>
+                       {# <h1>{{ entity.title }}</h1>
                         <p>
                             {{ entity.content|raw }}
-                        </p>
+                        </p> #}
                         <div class="virtual-tour">
                             <a href="{{ entity.virtualTour }}" class="virtual-overflow-block">Виртуальный тур</a>
                             {#<div class="panowrap" style="display:none;">#}
@@ -187,8 +188,8 @@
                                 {% for video in entity.videos %}
                                 <li class="object-video-list-one">
                                     <div class="object-video-list-image">
-                                    {#<a href="#"><img src="{{ video.image }}" alt="" class="object-video-list-image" /></a>#}
-                                        {{ armd_tvigle_video_player(video, 200, 150)|raw }}
+                                    <a class="in-fancybox" href="#data-{{ loop.index }}"><img src="{{ video.image  }}" alt="" style="width:91px;" /></a>
+                                      <div style="display:none;"> <div id="data-{{ loop.index }}"> {{ armd_tvigle_video_player(video, 640, 360)|raw }}</div></div>
 
                                     </div>
                                     <div class="object-video-list-descr">
@@ -210,7 +211,7 @@
 						
 						{% if entity.image3d %}
 							<div class="block object-infograph">
-								<a href="#" class="open-big-orange"></a>
+								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox open-big-orange"></a>
 								<img src="{% path entity.image3d, 'image3d' %}" alt="" />
 							</div>
 						{% endif %}	
@@ -245,6 +246,48 @@
 							
                             <p class="all-list"><a href="#">Все архивы</a></p>
                         </div>
+                        
+                        
+                        <div class="block rules">
+                        
+                        
+
+                        	<h4><em>Пять правил</em>,которые нужно знать при осмотре петроглифов <span class="bullet">↓</span></h4>
+                            
+                            <div class="sliderkit">
+                            <div class="">
+                            <div class="rules-content sliderkit-panels">
+                            
+                            {% for h in entity.objectHints %}
+                            	<div class="sliderkit-panel">
+							{#{ h.title }#}
+                               {{ h.hintText }}
+                                </div>
+                              {% endfor%}  
+	
+                            </div> <!--rules-content -->
+                            
+                            
+                            <div class="rules-nav">
+                              	<div class="rules-nav-wrapper sliderkit-count sliderkit-count-items">
+                                
+                                 
+                                
+                                <a href="#" class="prev sliderkit-btn sliderkit-go-btn sliderkit-go-prev">←</a>
+                                <span class="active sliderkit-count-current">1</span>/<span class="total sliderkit-count-total">5</span>
+                                <a href="#" class="next sliderkit-go-btn sliderkit-go-next">→</a>
+                                </div><!-- /rules-nav-wrapper -->
+                            
+                            </div>  <!-- /rules-nav -->
+                            
+                             </div>  <!-- /sliderkit-panels -->
+                            
+                            </div>  <!-- /sliderkit -->
+                           
+                            
+                            
+                            
+                        </div> <!-- /rules -->
 						
 
                     {#
