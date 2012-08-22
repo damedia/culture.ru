@@ -6,21 +6,21 @@
         Объект не найден
     {% else %}
         
-            <div class="title-block gray-filter with-social"  >
+            <div class="title-block with-social"  >
                 <h2>{{ entity.title }}</h2>
             </div>
-            <div class="title-social-icons">
+          {#  <div class="title-social-icons">
                 <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
-            </div>
+            </div>#}
             <div class="object-one clearfix">
                 <div class="object-one-col12">
 
                     {% if entity.images|length > 0 %}
                     <div class="block obj-o-foto">
-                        <div class="right-icons-block">
+                       {# <div class="right-icons-block">
                             <a href="#" class="one-person"></a>
                             <a href="#" class="three-persons"></a>
-                        </div>
+                        </div>#}
                         <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
 
                         <div class="slideshow-container">
@@ -37,7 +37,7 @@
                                         <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>
-										<a class="fancy"  href="{{ armd_media_original_url(image) }}{#{% path image, 'big' %}#}">&nbsp;</a>
+										<a class="fancy"  href="{{ armd_media_original_url(image) }}">&nbsp;</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -56,7 +56,7 @@
 						</div>	
 						
 				   </div>
-					<div class="literature">
+					{# <div class="literature">
 						<p class="lit-header">Использованная литература</p>
 						<ol>
 							<li>
@@ -80,7 +80,7 @@
 								</span>
 							</li>
 						</ol>
-					</div>
+					</div> #}
 				   
 				   <div class='afisha-list-more' id="more-show">Комментарии</div>
 				   <div class="more-comments-show" style="display:none;">  
@@ -112,10 +112,10 @@
 
                 <div class="object-one-col3">
                     <div class="block obj-o-description">
-                        <h1>{{ entity.title }}</h1>
+                       {# <h1>{{ entity.title }}</h1>
                         <p>
                             {{ entity.content|raw }}
-                        </p>
+                        </p> #}
                         <div class="virtual-tour">
                             <a href="{{ entity.virtualTour }}" class="virtual-overflow-block">Виртуальный тур</a>
                             {#<div class="panowrap" style="display:none;">#}
@@ -176,10 +176,10 @@
 					{% if entity.videos is empty %}
 						{% else %}
 						<div class="block object-videos">
-                            <div class="right-icons-block">
+                           {# <div class="right-icons-block">
                                 <a href="#" class="one-person"></a>
                                 <a href="#" class="three-persons"></a>
-                            </div>
+                            </div>#}
 
                             {% if entity.videos|length > 0 %}
                             <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
@@ -187,8 +187,8 @@
                                 {% for video in entity.videos %}
                                 <li class="object-video-list-one">
                                     <div class="object-video-list-image">
-                                    {#<a href="#"><img src="{{ video.image }}" alt="" class="object-video-list-image" /></a>#}
-                                        {{ armd_tvigle_video_player(video, 200, 150)|raw }}
+                                    <a class="in-fancybox" href="#data-{{ loop.index }}"><img src="{{ video.image  }}" alt="" style="width:91px;" /></a>
+                                      <div style="display:none;"> <div id="data-{{ loop.index }}"> {{ armd_tvigle_video_player(video, 640, 360)|raw }}</div></div>
 
                                     </div>
                                     <div class="object-video-list-descr">
@@ -210,17 +210,17 @@
 						
 						{% if entity.image3d %}
 							<div class="block object-infograph">
-								<a href="#" class="open-big-orange"></a>
+								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox open-big-orange"></a>
 								<img src="{% path entity.image3d, 'image3d' %}" alt="" />
 							</div>
 						{% endif %}	
 						
 						
 						<div class="block object-archives">
-                            <div class="right-icons-block">
+                            {#<div class="right-icons-block">
                                 <a href="#" class="one-person"></a>
                                 <a href="#" class="three-persons"></a>
-                            </div>
+                            </div>#}
 
                             
                             <p class="link_header"><a href="#">Архивы</a><!--<sup>207</sup></p>-->
@@ -245,6 +245,51 @@
 							
                             <p class="all-list"><a href="#">Все архивы</a></p>
                         </div>
+						
+
+                        {% if entity.objectHints|length > 0 %}
+                        <div class="block rules">
+                        
+                        
+
+                        	<h4><em>Пять правил</em>,которые нужно знать при осмотре петроглифов <span class="bullet">↓</span></h4>
+                            
+                            <div class="sliderkit">
+                            <div class="">
+                            <div class="rules-content sliderkit-panels">
+                            
+                            {% for h in entity.objectHints %}
+                            	<div class="sliderkit-panel">
+							{#{ h.title }#}
+                               {{ h.hintText }}
+                                </div>
+                              {% endfor%}  
+	
+                            </div> <!--rules-content -->
+                            
+                            
+                            <div class="rules-nav">
+                              	<div class="rules-nav-wrapper sliderkit-count sliderkit-count-items">
+                                
+                                 
+                                
+                                <a href="#" class="prev sliderkit-btn sliderkit-go-btn sliderkit-go-prev">←</a>
+                                <span class="active sliderkit-count-current">1</span>/<span class="total sliderkit-count-total">5</span>
+                                <a href="#" class="next sliderkit-go-btn sliderkit-go-next">→</a>
+                                </div><!-- /rules-nav-wrapper -->
+                            
+                            </div>  <!-- /rules-nav -->
+                            
+                             </div>  <!-- /sliderkit-panels -->
+                            
+                            </div>  <!-- /sliderkit -->
+                           
+                            
+                            
+                            
+                        </div> <!-- /rules -->
+                        
+                        {% endif %}	
 						
 
                     {#
