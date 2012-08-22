@@ -34,7 +34,7 @@
                                 <ul class="thumbs noscript">
                                     {% for image in entity.images %}
                                     <li>
-                                        <a class="fancy" href="{% path image, 'reference' %}" title="image.name">&nbsp;</a>
+                                        <a class="fancy" href="{% path image, 'reference' %}" title="{{ image.name }}">&nbsp;</a>
                                         <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="{{ image.name }}">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>										
