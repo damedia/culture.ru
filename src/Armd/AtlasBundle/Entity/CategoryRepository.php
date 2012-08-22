@@ -78,7 +78,7 @@ class CategoryRepository extends NestedTreeRepository
             ->innerJoin('ArmdAtlasBundle:Category', 't2', 'WITH', 't2.lft > t1.lft AND t2.rgt < t1.rgt')
             ->where('t1.lvl = 1')
             ->orderBy('t1.lft', 'ASC')
-            ->orderBy('t2.title', 'ASC');
+            ->orderBy('t2.lft', 'ASC');
         $rows = $qb->getQuery()->getResult();
         $tags = array();
         $cats = array();

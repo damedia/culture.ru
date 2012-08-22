@@ -7,7 +7,7 @@
 /* Кастомизация карты */
 #map{ width:100%; height:600px; }
 #map .b-balloon{ z-index:76; }
-#map .b-balloon__content{ /*width:300px !important;*/ padding:0; margin:0 0 15px 50px; border:none; bottom:10px; background:#fff; box-shadow:2px 2px 10px #777; border-radius:0; }
+#map .b-balloon__content{ /*width:300px !important;*/ padding:0; margin:0 0 15px 50px; border:none; background:#fff; box-shadow:2px 2px 10px #777; border-radius:0; }
 #map .PGmap-balloon-inner{ padding:10px; }
 #map .PGmap-balloon-inner .caption{ margin-bottom:5px; }
 #map .PGmap-balloon-inner .caption a{ text-decoration:none; color:#000; }
@@ -23,3 +23,8 @@
 
 #ajax-loading{ display:none; height:32px; left:50%; position:absolute; top:50%; width:32px; z-index:10000; padding:10px; margin:-26px 0 0 -26px; background:rgba(255,255,255,0.7) url(../images/ajax-loading.gif) 10px 10px no-repeat; }
 .atlas-map img{ width:auto; }
+
+.atlas-map .regions-selector{ z-index:100; position:absolute; top:-25px; right:0; }
+.atlas-map .regions-selector .chzn-container-single .chzn-single{ height:25px; border:none; box-shadow:none; background:#00A02D; color:#fff; }
+.atlas-map .regions-selector .chzn-container .chzn-results .highlighted{ background:#00A02D; }
+.atlas-map .regions-selector .chzn-container .chzn-results li{ padding:4px 6px; }
