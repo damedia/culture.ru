@@ -37,6 +37,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
+        $user->setRoles(array('ROLE_ADMIN', 'ROLE_SONATA_ADMIN'));
         $userManager->updateUser($user, true);
 
     }
