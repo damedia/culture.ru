@@ -114,7 +114,7 @@ $(document).ready(function(){
                 controlsContainerSel:      '#controls',
                 captionContainerSel:       '#caption',
                 loadingContainerSel:       '#loading',
-				navControlsContainerSel:   '#nav',
+				navControlsContainerSel:   '#nav-slider',
                 renderSSControls:          true,
                 renderNavControls:         true,
                 playLinkText:              'Play Slideshow',
@@ -280,9 +280,33 @@ $(document).ready(function(){
                 
             }
         });
+		
+		
+		/*fancybox img video etc */
+		$("a.in-fancybox").fancybox();
+		
+
+		
+		
         
     });
     
     
     
+$(window).load(function(){ //$(window).load() must be used instead of $(document).ready() because of Webkit compatibility
+				
+				/*---------------------------------
+				 *	Counter add-on, example 01
+				 *---------------------------------*/
+				$(".sliderkit").sliderkit({
+					mousewheel:false,
+					shownavitems:2,
+					panelbtnshover:false,
+					auto:false,
+					navscrollatend:false,
+					counter:true,
+					freeheight:true
+				});
 
+				
+});

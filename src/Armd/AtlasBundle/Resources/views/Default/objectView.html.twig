@@ -34,10 +34,11 @@
                                 <ul class="thumbs noscript">
                                     {% for image in entity.images %}
                                     <li>
-                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="">
+                                        <a class="fancy" href="{% path image, 'big' %}" title="image.name">&nbsp;</a>                                    
+                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="{{ image.name }}">
                                             <img src="{% path image, 'thumbnail' %}" />
-                                        </a>
-										<a class="fancy"  href="{{ armd_media_original_url(image) }}">&nbsp;</a>
+                                        </a>										
+										{#<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>#}                                        
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -245,8 +246,8 @@
 							
                             <p class="all-list"><a href="#">Все архивы</a></p>
                         </div>
-						
-
+                        
+                        
                         {% if entity.objectHints|length > 0 %}
                         <div class="block rules">
                         
