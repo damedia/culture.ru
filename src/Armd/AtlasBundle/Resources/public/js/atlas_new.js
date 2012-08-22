@@ -187,19 +187,26 @@ AT.initUI = function() {
     $.getJSON(regionsJsonPath, function(res){
         AT.regions = res;
         for (var i=0; i<res.length; i++) {
-            regionsSelector.append('<option value="'+res[i].id+'">'+res[i].name+'</option>');
+            regionsSelector.append('<option value="'+res[i].name+'">'+res[i].name+'</option>');
         }
+        // При выборе региона, зумим карту к нему
         regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
-            var regionId = $(this).val(),
-                regionData = null;
-
-            console.log('change', regionId );
-
-            for (var i=0; i<AT.regions.length; i++) {
-                if (AT.regions[i].id == regionId) {
-                    console.log( 'found region:', AT.regions[i] );
+            AT.map.search({
+                q: $(this).val(),
+                type: 'search'
+            }, function(r){
+                var json = $.parseJSON(r);
+                if (json.success) {
+                    var bbox = json.res[0].bbox;
+                    var addrBbox = {
+                        lon1: PGmap.Utils.mercX(bbox.x1),
+                        lon2: PGmap.Utils.mercX(bbox.x2),
+                        lat1: PGmap.Utils.mercY(bbox.y1),
+                        lat2: PGmap.Utils.mercY(bbox.y2)
+                    };
+                    AT.map.setCenterByBbox(addrBbox);
                 }
-            }
+            });
         });
     });
 
