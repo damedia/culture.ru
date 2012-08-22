@@ -146,6 +146,7 @@
 				var $li = ( typeof listItem === "string" ) ? $(listItem) : listItem;				
 				var $aThumb = $li.find('a.thumb');
 				var slideUrl = $aThumb.attr('href');
+                var fancySlideUrl = $aThumb.data('fancy-image');
 				var title = $aThumb.attr('title');
 				var $caption = $li.find('.caption').remove();
 				var $fancy = $li.find('a.fancy').remove();
@@ -166,6 +167,7 @@
 				var imageData = {
 					title:title,
 					slideUrl:slideUrl,
+                    fancySlideUrl:fancySlideUrl,
 					caption:$caption,
 					fancy:$fancy,
 					hash:hash,
@@ -640,14 +642,13 @@
 					.find('span.current').css('opacity', '0');
 
 				
-					
 				if (this.enableFancybox && imageData.fancy.attr('href')) {
 					newSlide.append('<a class="fancy-link" id="main-fancy-link" href="' + imageData.fancy.attr('href') + '" title="' + imageData.title + '"  rel="fan">&nbsp;</a>');
 					
 					var fancyImages = [];
 					for (image in allImages){
 						if (allImages[image].slideUrl != imageData.fancy.attr('href'))
-							fancyImages.push('<a class="fancy-link" href="' + allImages[image].slideUrl + '" rel="fan">&nbsp;</a>');
+							fancyImages.push('<a class="fancy-link" href="' + allImages[image].fancySlideUrl + '" rel="fan">&nbsp;</a>');
 					}
 					
 					newSlide.append('<div>'+fancyImages.join(' ')+'</div>');

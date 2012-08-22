@@ -14,9 +14,8 @@ class DefaultController extends Controller
      */
     public function testAction()
     {
-        // DBG: remove this action
-        $typeCategories = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->getTypeCategories();
-        var_dump($typeCategories);
+//        $typeCategories = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->getTypeCategories();
+//        var_dump($typeCategories);
         return new Response();
     }
 
@@ -80,8 +79,7 @@ class DefaultController extends Controller
 
         $manager = $this->get('armd_lecture.manager.lecture');
 
-         // DBG: remove perpage limit
-        $lectures = $manager->findFiltered($page, 3, $types, $categories, $sortBy, $searchString);
+        $lectures = $manager->findFiltered($page, 20, $types, $categories, $sortBy, $searchString);
 
         return array(
             'pagination' => $lectures,

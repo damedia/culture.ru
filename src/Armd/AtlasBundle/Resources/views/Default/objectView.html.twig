@@ -34,8 +34,8 @@
                                 <ul class="thumbs noscript">
                                     {% for image in entity.images %}
                                     <li>
-                                        <a class="fancy" href="{% path image, 'reference' %}" title="image.name">&nbsp;</a>
-                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" title="{{ image.name }}">
+                                        <a class="fancy" href="{% path image, 'reference' %}" title="{{ image.name }}">&nbsp;</a>
+                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>										
 										{#<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>#}                                        
