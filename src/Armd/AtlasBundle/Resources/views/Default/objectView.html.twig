@@ -6,7 +6,7 @@
         Объект не найден
     {% else %}
         
-            <div class="title-block gray-filter with-social"  >
+            <div class="title-block with-social"  >
                 <h2>{{ entity.title }}</h2>
             </div>
             <div class="title-social-icons">
@@ -17,10 +17,10 @@
 
                     {% if entity.images|length > 0 %}
                     <div class="block obj-o-foto">
-                        <div class="right-icons-block">
+                       {# <div class="right-icons-block">
                             <a href="#" class="one-person"></a>
                             <a href="#" class="three-persons"></a>
-                        </div>
+                        </div>#}
                         <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
 
                         <div class="slideshow-container">
@@ -177,10 +177,10 @@
 					{% if entity.videos is empty %}
 						{% else %}
 						<div class="block object-videos">
-                            <div class="right-icons-block">
+                           {# <div class="right-icons-block">
                                 <a href="#" class="one-person"></a>
                                 <a href="#" class="three-persons"></a>
-                            </div>
+                            </div>#}
 
                             {% if entity.videos|length > 0 %}
                             <p class="link_header"><a href="#">Видео</a><!--<sup>207</sup></p>-->
@@ -218,10 +218,10 @@
 						
 						
 						<div class="block object-archives">
-                            <div class="right-icons-block">
+                            {#<div class="right-icons-block">
                                 <a href="#" class="one-person"></a>
                                 <a href="#" class="three-persons"></a>
-                            </div>
+                            </div>#}
 
                             
                             <p class="link_header"><a href="#">Архивы</a><!--<sup>207</sup></p>-->
