@@ -224,30 +224,31 @@
 							</div>
 						{% endif %}	
 						
-						
-						<div class="block object-archives">
-                            {#<div class="right-icons-block">
-                                <a href="#" class="one-person"></a>
-                                <a href="#" class="three-persons"></a>
-                            </div>#}
 
-                            <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
-                            <ul class="object-archive-list">
-                            {% for h in entity.archiveImages %}
-								<li>
-                                <a href="{{ path('sonata_media_download', {'id': h.id}) }}/{{ h }}" class="in-fancybox">Архивный документ №{{ loop.index }}</a>
-							
-									<span>
-										{{ h.description }} 
-									</span>
-								</li>
-                                {% endfor%}
-								
-                            </ul>
-							
-							
-                           {# <p class="all-list"><a href="#">Все архивы</a></p> #}
-                        </div>
+                        {% if entity.archiveImages|length > 0 %}
+                            <div class="block object-archives">
+                                {#<div class="right-icons-block">
+                                    <a href="#" class="one-person"></a>
+                                    <a href="#" class="three-persons"></a>
+                                </div>#}
+
+                                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
+                                <ul class="object-archive-list">
+                                {% for h in entity.archiveImages %}
+                                    <li>
+                                    <a href="{{ path('sonata_media_download', {'id': h.id}) }}/{{ h }}" class="in-fancybox">Архивный документ №{{ loop.index }}</a>
+
+                                        <span>
+                                            {{ h.description }}
+                                        </span>
+                                    </li>
+                                    {% endfor%}
+
+                                </ul>
+
+                               {# <p class="all-list"><a href="#">Все архивы</a></p> #}
+                            </div>
+                        {% endif %}
                         
                         
                         {% if entity.objectHints|length > 0 %}
@@ -255,18 +256,18 @@
                         
                         
 
-                        	<h4><em>Пять правил</em>,которые нужно знать при осмотре петроглифов <span class="bullet">↓</span></h4>
+                            {% for objectHint in entity.objectHints %}
+                        	<h4>{{ objectHint.title|raw }} <span class="bullet">↓</span></h4>
                             
                             <div class="sliderkit">
                             <div class="">
                             <div class="rules-content sliderkit-panels">
                             
-                            {% for h in entity.objectHints %}
+                            {% for hintPage in objectHint.pagedHintText %}
                             	<div class="sliderkit-panel">
-							{#{ h.title }#}
-                               {{ h.hintText }}
+                                    {{ hintPage|raw }}
                                 </div>
-                              {% endfor%}  
+                            {% endfor%}
 	
                             </div> <!--rules-content -->
                             
@@ -286,6 +287,7 @@
                              </div>  <!-- /sliderkit-panels -->
                             
                             </div>  <!-- /sliderkit -->
+                            {% endfor %}
                            
                             
                             

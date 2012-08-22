@@ -96,18 +96,21 @@ class Object
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="atlas_object_image")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $images;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="atlas_object_archive_image")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $archiveImages;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"})
      * @ORM\JoinTable(name="atlas_object_video")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $videos;
 
@@ -134,11 +137,13 @@ class Object
 
     /**
      * @ORM\OneToMany(targetEntity="Literature", mappedBy="object", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $literatures;
 
     /**
      * @ORM\OneToMany(targetEntity="ObjectHint", mappedBy="object", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $objectHints;
 
