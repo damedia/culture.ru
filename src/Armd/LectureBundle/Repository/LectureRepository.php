@@ -79,7 +79,6 @@ class LectureRepository extends EntityRepository
                 $result[$type->getId()][] = $category->getId();
             }
         }
-        \gFuncs::dbgWriteLogVar($result, false, 'getTypeCategories'); // DBG:
 
         return $result;
     }
