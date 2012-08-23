@@ -13,6 +13,7 @@
 #map .PGmap-balloon-inner .caption a{ text-decoration:none; color:#000; }
 #map .PGmap-balloon-inner .text{ font-size:11px; color:#555; }
 #map .PGmap-balloon-inner .bubble_image{ float:left; margin:0 10px 10px 0; }
+#map .PGmap-balloon-inner .bubble_image .thumb img{ vertical-align:top; }
 #map .b-balloon__content h3{ margin:0; padding:0; }
 #map .b-balloon__shadow{ display:none; }
 #map .b-balloon__ar{ display:none; }
@@ -26,6 +27,8 @@
 .atlas-map img{ width:auto; }
 
 .atlas-map .regions-selector{ z-index:100; position:absolute; top:-25px; right:0; }
+.atlas-map .regions-selector select{ width:270px; }
 .atlas-map .regions-selector .chzn-container-single .chzn-single{ height:25px; border:none; box-shadow:none; background:#00A02D; color:#fff; }
+.atlas-map .regions-selector .chzn-container-single .chzn-drop{ border-radius:0; }
 .atlas-map .regions-selector .chzn-container .chzn-results .highlighted{ background:#00A02D; }
 .atlas-map .regions-selector .chzn-container .chzn-results li{ padding:4px 6px; }

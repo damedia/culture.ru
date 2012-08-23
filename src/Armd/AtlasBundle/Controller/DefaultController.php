@@ -88,7 +88,6 @@ class DefaultController extends Controller
         $id = (int) $this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         $entity = $repo->find($id);
-
         return array(
             'entity' => $entity,
         );
@@ -343,16 +342,39 @@ class DefaultController extends Controller
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
             $res = $repo->filter($filterParams);
 
+            $mediaImageProvider = $this->get('sonata.media.provider.image');
             $rows = array();
-            $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
             foreach ($res as $obj) {
+
+                $iconUrl = '';
+                if ($obj->getIcon()) {
+                    $iconUrl = $mediaImageProvider->generatePublicUrl($obj->getIcon(), 'reference');
+                }
+
+                $obraz = false;
+                $imageUrl = '';
+                foreach ($obj->getCategories() as $category) {
+                    if ($category->getTitle() == 'Образы России') {
+                        $obraz = true;
+                        $images = $obj->getImages();
+                        if (sizeof($images)) {
+                            foreach ($images as $image) {
+                                $imageUrl = $mediaImageProvider->generatePublicUrl($image, 'thumbnail');
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 $rows[] = array(
                     'id' => $obj->getId(),
                     'title' => $obj->getTitle(),
                     'announce' => $obj->getAnnounce(),
                     'lon' => $obj->getLon(),
                     'lat' => $obj->getLat(),
-                    'icon' => $mediaHelper->originalUrl($obj->getIcon()),
+                    'icon' => $iconUrl,
+                    'obraz' => $obraz,
+                    'imageUrl' => $imageUrl,
                 );
             }
 

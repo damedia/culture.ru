@@ -36,7 +36,7 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-    this.map.balloon.content.parentNode.style.width = '500px';
+    this.map.balloon.content.parentNode.style.width = '300px';
     this.map.controls.addControl('slider');
 };
 
@@ -253,13 +253,29 @@ AT.clearMap = function() {
 };
 
 AT.placePoint = function(object) {
-    var point = new PGmap.Point({
-            coord: new PGmap.Coord(object.lon, object.lat, true),
-            width: 24,
-            height: 38,
-            backpos: '0 0',
-            url: object.icon
-        });
+
+    console.log( object );
+
+    if (object.obraz) {
+        var point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true),
+                width: 24,
+                height: 38,
+                backpos: '0 0',
+                innerImage: {
+                    src: object.imageUrl,
+                    width: 32
+                }
+            });
+    } else {
+        var point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true),
+                width: 24,
+                height: 38,
+                backpos: '0 0',
+                url: object.icon
+            });
+    }
     //console.log( $(point.element) );
     $(point.container)
         .data('uid', object.id)
