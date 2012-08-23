@@ -22,6 +22,7 @@ parameters:
     sphinxsearch_indexer_bin: c:/sphinx/bin/indexer.exe
     sphinxsearch_host: localhost
     sphinxsearch_port: 9312
-    sphinxsearch_index_news: mk_news
-
+    sphinxsearch_index_all: mk_news
+    sphinxsearch_index_lectures: mk_lectures
+    domain:
 

@@ -10,27 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/test")
-     */
-    public function testAction()
-    {
-//        $typeCategories = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->getTypeCategories();
-//        var_dump($typeCategories);
-        return new Response();
-    }
-
-    /**
-     * @Route("/rebuild_tree")
-     */
-    public function rebuildTreeAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repairer = new \Armd\AtlasBundle\Util\TreeRepairer();
-        $repairer->rebuildTree($em, $em->getRepository('ArmdLectureBundle:LectureCategory'));
-        return new Response('ok');
-    }
-
-    /**
      * @Route("/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_index")
      * @Template()
      */
@@ -93,14 +72,26 @@ class DefaultController extends Controller
      */
     public function lectureDetailsAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);
         if(!$lecture) {
             throw $this->createNotFoundException('Lecture not found');
         }
 
+        $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
+        $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy();
+        if(isset($lectureCategories[0]['__children'])) {
+            $lectureCategories = $lectureCategories[0]['__children'];
+        } else {
+            $lectureCategories = array();
+        }
+
         return array(
-            'lecture' => $lecture
+            'lecture' => $lecture,
+            'lectureTypes' => $lectureTypes,
+            'lectureCategories' => $lectureCategories
         );
     }
 

@@ -13,7 +13,7 @@ services:
         class: Armd\TvigleVideoBundle\Admin\TvigleVideoAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Video }
-        arguments: [null, Armd\TvigleVideoBundle\Entity\TvigleVideo, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\TvigleVideoBundle\Entity\TvigleVideo, ArmdTvigleVideoBundle:TvigleVideoCrud]
 
     armd_tvigle_video.manager.tvigle_video:
         class: Armd\TvigleVideoBundle\TvigleVideo\TvigleVideoManager
