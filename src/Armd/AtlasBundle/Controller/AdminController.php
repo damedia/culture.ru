@@ -41,6 +41,15 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/delete_category/{id}", name="armd_atlas_admin_category_delete")
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function deleteCategoryAction()
+    {
+        return new Response('not implemented');
+    }
+
+    /**
      * @Route("/export_objects")
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
@@ -58,4 +67,30 @@ class AdminController extends Controller
 //        $response = new Response($content, 200);
         return $response;
     }
+
+    /**
+     * @Route("/rebuild_tree")
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function rebuildTreeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repairer = new \Armd\AtlasBundle\Util\TreeRepairer();
+        $repairer->rebuildTree($em, $em->getRepository('ArmdAtlasBundle:Category'));
+        return new Response('ok');
+    }
+
+    /**
+     * @Route("/verify_tree")
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function verifyTreeAction()
+    {
+        $errors = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdAtlasBundle:Category')->verify();
+        var_dump($errors);
+        return new Response();
+    }
+
+
 }

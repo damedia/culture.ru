@@ -12,7 +12,7 @@ objects:
       secondaryCategories: [kremlin]
       workTime: 12:00-19:00
       weekends: [day6, day7]
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg]
       archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
