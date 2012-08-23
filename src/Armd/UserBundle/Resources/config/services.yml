@@ -14,6 +14,8 @@ services:
     armd_user.security.logout_success_handler:
         class: Armd\UserBundle\Security\LogoutSuccessHandler
         arguments: [@security.http_utils]
+        calls:
+            - [setContainer, [@service_container]]        
 
     fos_user.user_manager.default:
         class: Armd\UserBundle\Entity\UserManager

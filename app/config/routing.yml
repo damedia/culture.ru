@@ -94,6 +94,12 @@ armd_lecture:
     resource: "@ArmdLectureBundle/Controller/"
     type:     annotation
     prefix:   /lecture
+    
+armd_user_bundle:
+    resource: "@ArmdUserBundle/Controller/AuthenticationController.php"
+    type: annotation
+    prefix: /user
+    
 
 # Internal routing configuration to handle ESI
 #_internal:
