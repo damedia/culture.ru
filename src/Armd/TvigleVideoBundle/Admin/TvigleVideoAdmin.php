@@ -61,9 +61,9 @@ class TvigleVideoAdmin extends Admin
     {
         $actions = parent::getBatchActions();
 
-        $actions['updateMetadata'] = [
+        $actions['updateMetadata'] = array(
             'label' => 'Обновить метаданные Tvigle'
-        ];
+        );
 
         return $actions;
     }
