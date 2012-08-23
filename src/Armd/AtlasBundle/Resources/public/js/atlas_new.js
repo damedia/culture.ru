@@ -254,9 +254,10 @@ AT.clearMap = function() {
 
 AT.placePoint = function(object) {
 
-    console.log( object );
-
     if (object.obraz) {
+
+        //console.log( object );
+
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
                 width: 24,

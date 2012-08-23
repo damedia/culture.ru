@@ -22,6 +22,7 @@
 #map .PGmap-cluster-container{ width:34px; height:34px; margin-left:-17px; margin-top:-17px; }
 #map .PGmap-cluster-bitmap{ margin-top:8px; font-size:15px; }
 #map .PGmap-copyright{ display:none; }
+#map .PGmap-geometry-point img{ border:solid 1px #fff; box-shadow:1px 1px 5px #777; }
 
 #ajax-loading{ display:none; height:32px; left:50%; position:absolute; top:50%; width:32px; z-index:10000; padding:10px; margin:-26px 0 0 -26px; background:rgba(255,255,255,0.7) url(../images/ajax-loading.gif) 10px 10px no-repeat; }
 .atlas-map img{ width:auto; }

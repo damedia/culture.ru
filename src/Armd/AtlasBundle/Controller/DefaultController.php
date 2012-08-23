@@ -331,24 +331,26 @@ class DefaultController extends Controller
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
             $res = $repo->filter($filterParams);
 
-            $mediaImageProvider = $this->get('sonata.media.provider.image');
+            $twigExtension = $this->get('sonata.media.twig.extension');
             $rows = array();
             foreach ($res as $obj) {
 
                 $iconUrl = '';
                 if ($obj->getIcon()) {
-                    $iconUrl = $mediaImageProvider->generatePublicUrl($obj->getIcon(), 'reference');
+                    $iconUrl = $twigExtension->path($obj->getIcon(), 'reference');
                 }
 
                 $obraz = false;
                 $imageUrl = '';
-                if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
-                    $obraz = true;
-                    $images = $obj->getImages();
-                    if (sizeof($images)) {
-                        foreach ($images as $image) {
-                            $imageUrl = $mediaImageProvider->generatePublicUrl($image, 'thumbnail');
-                            break;
+                if ($obj->getPrimaryCategory()) {
+                    if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
+                        $obraz = true;
+                        $images = $obj->getImages();
+                        if (sizeof($images)) {
+                            foreach ($images as $image) {
+                                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
+                                break;
+                            }
                         }
                     }
                 }
