@@ -7,6 +7,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
+/**
+ * TvigleVideoAdmin
+ */
+
 class TvigleVideoAdmin extends Admin
 {
     protected $translationDomain = 'ArmdTvigleVideoBundle';
