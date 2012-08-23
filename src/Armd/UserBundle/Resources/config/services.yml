@@ -1,9 +1,19 @@
 services:
-    activity_listener:
+    armd_user.activity_listener:
         class: Armd\UserBundle\Listener\ActivityListener
         arguments: [@security.context, @doctrine]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+            
+    armd_user.security.authentication_success_handler:
+        class: Armd\UserBundle\Security\AuthenticationSuccessHandler
+        arguments: [@security.http_utils, {}]        
+        calls:
+            - [setContainer, [@service_container]]
+            
+    armd_user.security.logout_success_handler:
+        class: Armd\UserBundle\Security\LogoutSuccessHandler
+        arguments: [@security.http_utils]
 
     fos_user.user_manager.default:
         class: Armd\UserBundle\Entity\UserManager

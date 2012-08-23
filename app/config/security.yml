@@ -40,7 +40,7 @@ security:
             anonymous:    true
             remember_me:
                 key:      "%secret%"
-                lifetime: 3600
+                lifetime: 360000
                 domain:   ~ # Defaults to the current domain from $_SERVER
         # -> end custom configuration
 
@@ -52,14 +52,16 @@ security:
             form_login:
                 provider:       fos_userbundle
                 login_path:     /login
-                use_forward:    false
+                use_forward:    true
                 check_path:     /login_check
-                default_target_path: armd_news_list_index
+#                default_target_path: armd_news_list_index
                 failure_path:   null
                 use_referer:    true
+                success_handler: armd_user.security.authentication_success_handler
             logout:
                 path:           /logout
                 target:         armd_news_list_index
+                success_handler: armd_user.security.logout_success_handler
             anonymous:          true
             loginza:
                 login_route: _loginza_login_user

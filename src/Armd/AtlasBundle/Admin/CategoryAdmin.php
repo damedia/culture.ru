@@ -106,7 +106,9 @@ class CategoryAdmin extends Admin
             ->add('iconMedia', null,
             array(
                 'template' => 'ArmdAtlasBundle:Admin:list_category_icon.html.twig'
-            ));
+            ))
+//            ->add('actions', 'text', array('template' => 'ArmdAtlasBundle:Admin:list_category_row_actions.html.twig'))
+        ;
     }
 
     public function getFormTheme()
@@ -116,28 +118,10 @@ class CategoryAdmin extends Admin
         return $themes;
     }
 
-//    public function postPersist($object)
-//    {
-//        $this->checkAndRepairTree();
-//        parent::postPersist($object);
-//    }
-//
-//    public function postUpdate($object)
-//    {
-//        $this->checkAndRepairTree();
-//        parent::postUpdate($object);
-//
-//    }
-//
-//    public function checkAndRepairTree()
-//    {
-//        $em = $this->container->get('doctrine')->getManager();
-//        $repo = $em->getRepository("ArmdAtlasBundle:Category");
-//
-//        $errors = $repo->verify();
-//        if(is_array($errors)) {
-//            $treeRepairer = new TreeRepairer();
-//            $treeRepairer->rebuildTree($em, $repo);
-//        }
-//    }
+    public function getBatchActions()
+    {
+        return array();
+    }
+
+
 }

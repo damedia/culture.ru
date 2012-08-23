@@ -22,11 +22,11 @@
                     </div>
                     <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
                         {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>
+                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}" width="111"/>
                         {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
-                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" width="111" />
                         {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
-                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" width="111" />
                         {% endif %}
                     </a>
 

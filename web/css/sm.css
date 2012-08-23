@@ -302,12 +302,19 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     margin: 0 31px 0 0;
 	color: #fff;
 	position:relative;
+	
+	
 }
 
 #nav .navmenu li.first {
     list-style-type: none;
     padding: 0px;
 }
+
+:root #nav .navmenu li.first { top:3px\0/IE9; }
+
+.lt-ie9 #nav .navmenu li.first { top:3px; }
+
 
 #nav .navmenu li a {
     text-decoration: none;
@@ -2517,6 +2524,7 @@ white-space:nowrap;
 				display:none;
 			}
 		.simple-filter-header {
+			margin-top:20px;
 			
 		}
 			.simple-filter-header span {
