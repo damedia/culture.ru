@@ -7,6 +7,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
+/**
+ * TvigleVideoAdmin
+ */
+
 class TvigleVideoAdmin extends Admin
 {
     protected $translationDomain = 'ArmdTvigleVideoBundle';
@@ -55,5 +59,19 @@ class TvigleVideoAdmin extends Admin
             ->add('title')
             ->add('created');
     }
+
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+
+        $actions['updateMetadata'] = array(
+            'label' => 'Обновить метаданные Tvigle'
+        );
+
+        return $actions;
+    }
+
+
 
 }

@@ -219,8 +219,8 @@
 						
 						{% if entity.image3d %}
 							<div class="block object-infograph">
-								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox open-big-orange"></a>
-								<img src="{% path entity.image3d, 'image3d' %}" alt="" />
+								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>
+								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox"><img src="{% path entity.image3d, 'image3d' %}" alt="" /></a>
 							</div>
 						{% endif %}	
 						
