@@ -342,15 +342,13 @@ class DefaultController extends Controller
 
                 $obraz = false;
                 $imageUrl = '';
-                foreach ($obj->getCategories() as $category) {
-                    if ($category->getTitle() == 'Образы России') {
-                        $obraz = true;
-                        $images = $obj->getImages();
-                        if (sizeof($images)) {
-                            foreach ($images as $image) {
-                                $imageUrl = $mediaImageProvider->generatePublicUrl($image, 'thumbnail');
-                                break;
-                            }
+                if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
+                    $obraz = true;
+                    $images = $obj->getImages();
+                    if (sizeof($images)) {
+                        foreach ($images as $image) {
+                            $imageUrl = $mediaImageProvider->generatePublicUrl($image, 'thumbnail');
+                            break;
                         }
                     }
                 }
