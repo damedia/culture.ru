@@ -1,17 +1,20 @@
 {% extends '::base.html.twig' %}
 
-
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('common/css/sm.css') }}">
+{% endblock %}
 {% block body %}
 
-<div class="media-one text" style="width: 100%">
-	<div class="title-block blue-no-icon">
-		<h2>Лекция</h2>
-	</div>
-	<div class="media-one-block">
+<div class="left-column type-2 text">
+					<div class="title blue-title">
+						<h2>Лекция</h2>
+					</div>
+					<div class="media-one-block">
 
 		<div id="videoplayer" style="background: none">
             {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                {{ armd_tvigle_video_player(lecture.lectureVideo, 640, 360)|raw }}
+                {{ armd_tvigle_video_player(lecture.lectureVideo, 900, 506)|raw }}
             {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
                 {% if lecture.lectureFile is not empty %}
                     <a href="{{ armd_media_original_url(lecture.lectureFile) }}">Скачать файл</a>
@@ -28,8 +31,17 @@
 		<div class="video-description">
 			<p>
 		        {{ lecture.title }}
+          
 			</p>
 		</div>
+        
+        <div class="tags">
+              {% for lectureCategory in lecture.categories %}
+               	<a {#href="#"#} style="text-decoration:none;">{{ lectureCategory.title }}</a>
+               {% endfor %}
+        </div>
+        
+        
     {#
 		<div class="share">
 			<span>Поделиться ссылкой: </span>
@@ -134,5 +146,29 @@
 		</li>
 	</ul>
 </div>#}
+
+
+<div class="right-column">
+
+ {#% include 'ArmdNewsBundle:News:latest-news.html.twig' with {'news': linkedNews} only %#}
+
+
+
+
+    <div class="title">
+        <h2>Рекомендовано</h2>
+    </div>
+
+    <div class="virtual-anons-block">
+        <a href="#" class="virtual-anons">
+            <span class="virtual-anons-header">Виртуальный тур</span>
+            <img src="{{ asset('main/common/img/photo/virtual_museums/03.jpg') }}" alt=""/>
+            <span
+                class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
+        </a>
+    </div>
+</div>
+
+
 
 {% endblock %}

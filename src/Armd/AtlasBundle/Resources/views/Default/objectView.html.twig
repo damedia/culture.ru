@@ -252,11 +252,12 @@
                         
                         
                         {% if entity.objectHints|length > 0 %}
-                        <div class="block rules">
+                       
                         
                         
 
                             {% for objectHint in entity.objectHints %}
+                             <div class="block rules">
                         	<h4>{{ objectHint.title|raw }} <span class="bullet">↓</span></h4>
                             
                             <div class="sliderkit">
@@ -287,12 +288,8 @@
                              </div>  <!-- /sliderkit-panels -->
                             
                             </div>  <!-- /sliderkit -->
+                            </div> <!-- /rules -->
                             {% endfor %}
-                           
-                            
-                            
-                            
-                        </div> <!-- /rules -->
                         
                         {% endif %}	
 						
