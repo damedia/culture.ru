@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% spaceless %}
+            <a href="{{ path('armd_atlas_admin_category_delete', {'id': object.id}) }}">
+                Удалить
+            </a>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
