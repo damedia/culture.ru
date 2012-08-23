@@ -37,9 +37,8 @@
 					</div>
 					<div id="topbar">
 						<div id="auth">
-							<!--
-							<a id="auth-link" href="#"><span>Личный кабинет</span></a>
-							<div class="top_2_reg item_2" style="display:none;">
+							<a id="auth-link" href="{{ path('sonata_user_profile_show') }}"><span>Личный кабинет</span></a>
+							<!-- div class="top_2_reg item_2" style="display:none;">
 								<form method="POST" action="">
 									<table class="auth_tbl">
 										<tbody><tr>
@@ -65,7 +64,7 @@
 								</form>
 							</div>
 							-->
-							{% render "Zim32LoginzaBundle:Default:login" %}
+							{#% render "Zim32LoginzaBundle:Default:login" %#}
 						</div>
 						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
 						<ul class="lang-switch">
