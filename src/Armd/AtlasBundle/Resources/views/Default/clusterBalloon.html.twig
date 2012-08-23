@@ -1,0 +1,25 @@
+<div class="bubble cluster">
+    <ol>
+        {% for entity in entities %}
+            <li>
+                {% for image in entity.images if loop.first %}
+                    <div class="bubble_image">
+                        <a class="thumb" href="{% path image, 'big' %}">
+                            <img src="{% path image, 'thumbnail' %}" />
+                        </a>
+                    </div>
+                {% endfor %}
+                <div class="bubble_content">
+                    <div class="caption">
+                        <a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
+                            {{ entity.title }}
+                        </a>
+                    </div>
+                    <div class="text">
+                        {{ entity.announce|raw }}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+</div>

@@ -76,10 +76,28 @@ class DefaultController extends Controller
     {
         $id = (int) $this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $entity = $repo->find($id);
-        return array(
-            'entity' => $entity,
-        );
+        if ($id) {
+            $entity = $repo->find($id);
+            return array(
+                'entity' => $entity,
+            );
+        }
+    }
+
+    /**
+     * @Route("/object/cluster")
+     * @Template()
+     */
+    public function clusterBalloonAction()
+    {
+        $ids = $this->getRequest()->query->get('ids');
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        if ($ids) {
+            $entities = $repo->findById($ids);
+            return array(
+                'entities' => $entities,
+            );
+        }
     }
 
     /**

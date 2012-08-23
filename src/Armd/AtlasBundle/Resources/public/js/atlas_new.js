@@ -36,7 +36,7 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-    this.map.balloon.content.parentNode.style.width = '300px';
+    this.map.balloon.content.parentNode.style.width = '400px';
     this.map.controls.addControl('slider');
 };
 
@@ -151,14 +151,24 @@ AT.initUI = function() {
                                     ids.push($(cluster.points[i].container).data('uid'));
                                 }
                                 // Содержимое балуна
-                                cluster.name = ids.join(',');
+                                //cluster.name = ids.join(',');
                                 console.log('cluster points ids:', cluster.name);
 
                                 // Если достигнут последний уровень зума, показываем бабл
                                 if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
                                     if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
-                                        cluster.balloon.open(cluster);
-                                        //cont.style.zIndex = '75';
+
+                                        $.ajax({
+                                            url: fetchClusterDetailUri,
+                                            data: { ids: ids },
+                                            success: function(res){
+                                                console.log(res);
+                                                cluster.name = res;
+                                                cluster.balloon.open(cluster);
+                                                //cont.style.zIndex = '75';
+                                            }
+                                        });
+
                                     } else {
                                         cluster.balloon.close();
                                         //cont.style.zIndex = '73';

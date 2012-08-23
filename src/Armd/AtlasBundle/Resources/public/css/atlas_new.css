@@ -11,9 +11,15 @@
 #map .PGmap-balloon-inner{ padding:10px; }
 #map .PGmap-balloon-inner .caption{ margin-bottom:5px; }
 #map .PGmap-balloon-inner .caption a{ text-decoration:none; color:#000; }
+#map .PGmap-balloon-inner .caption a:hover{ text-decoration:underline; }
 #map .PGmap-balloon-inner .text{ font-size:11px; color:#555; }
 #map .PGmap-balloon-inner .bubble_image{ float:left; margin:0 10px 10px 0; }
 #map .PGmap-balloon-inner .bubble_image .thumb img{ vertical-align:top; }
+
+#map .PGmap-balloon-inner .bubble.cluster{ height:250px; overflow-y:scroll; }
+#map .PGmap-balloon-inner .bubble.cluster ol{ list-style:decimal; margin:0 0 0 25px; }
+#map .PGmap-balloon-inner .bubble.cluster ol li{ list-style:decimal; margin:0 0 10px 0; }
+
 #map .b-balloon__content h3{ margin:0; padding:0; }
 #map .b-balloon__shadow{ display:none; }
 #map .b-balloon__ar{ display:none; }
