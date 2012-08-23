@@ -733,10 +733,10 @@ ul{ list-style: none;
 		}
 		
 		.block.rules .sliderkit {
-			padding:25px 25px 0 25px;
+			padding:25px 15px 0 25px;
 			position:relative;
 			margin-left: -60px;
-			margin-right: -48px;
+			margin-right: -38px;
 			margin-top: -25px;
 		}
 		

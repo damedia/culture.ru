@@ -35,14 +35,16 @@
                         <p class="check_all checked"><span>все</span></p>
                     {% endif %}
                 </div>
+                <div class="simple-filter-options">
                 {% for lectureTag in lectureCategory.__children %}
-                    <div class="simple-filter-options">
+                    
                         <label class="checked">
                             <input type="checkbox" data-lecture-category-id="{{ lectureTag.id }}" checked="checked" />
                             <span>{{ lectureTag.title }}</span>
                         </label>
-                    </div>
+                    
                 {% endfor %}
+                </div>
             {% endfor %}
         </div>
     </form>
@@ -122,7 +124,7 @@
     <div class="virtual-anons-block">
         <a href="#" class="virtual-anons">
             <span class="virtual-anons-header">Виртуальный тур</span>
-            <img src="common/img/photo/virt_anons.jpg" alt=""/>
+            <img src="{{ asset('img/virt_anons.jpg') }}" alt=""/>
             <span
                 class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
         </a>

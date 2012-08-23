@@ -313,6 +313,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     padding: 0px;
 }
 
+:root #nav .navmenu li.first { top:3px\0/IE9; }
+
+.lt-ie9 #nav .navmenu li.first { top:3px; }
+
 #nav .navmenu li a {
     text-decoration: none;
     color: #fff;
