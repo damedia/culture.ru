@@ -92,6 +92,12 @@ class Object
      */
     private $weekends;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="primary_image_id", referencedColumnName="id")
+     */
+    private $primaryImage;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
@@ -554,6 +560,27 @@ class Object
     }
 
     /**
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getPrimaryImage()
+    {
+        return $this->primaryImage;
+
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $primaryImage
+     * @return Object
+     */
+    public function setPrimaryImage(\Application\Sonata\MediaBundle\Entity\Media $primaryImage = null)
+    {
+        if (is_null($primaryImage) || $primaryImage->isUploaded()) {
+            $this->primaryImage = $primaryImage;
+        }
+        return $this;
+    }
+
+    /**
      * Add videos
      *
      * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $videos
@@ -684,13 +711,13 @@ class Object
 
     public function addLiteratures($literatures)
     {
-        if(is_array($literatures) || ($literatures instanceof ArrayCollection)) {
-            foreach($literatures as $literature)
-            {
+        if (is_array($literatures) || ($literatures instanceof ArrayCollection)) {
+            foreach ($literatures as $literature) {
                 $this->addLiterature($literature);
             }
 
-        } else {
+        }
+        else {
             $this->addLiterature($literatures);
         }
     }
@@ -714,7 +741,7 @@ class Object
 
     public function setObjectHints($objectHints)
     {
-        foreach($objectHints as $objectHint) {
+        foreach ($objectHints as $objectHint) {
             $objectHint->setObject($this);
         }
         $this->objectHints = $objectHints;
@@ -722,13 +749,13 @@ class Object
 
     public function addObjectHints($objectHints)
     {
-        if(is_array($objectHints) || ($objectHints instanceof ArrayCollection)) {
-            foreach($objectHints as $objectHint)
-            {
+        if (is_array($objectHints) || ($objectHints instanceof ArrayCollection)) {
+            foreach ($objectHints as $objectHint) {
                 $this->addObjectHint($objectHint);
             }
 
-        } else {
+        }
+        else {
             $this->addObjectHint($objectHints);
         }
     }
@@ -744,5 +771,6 @@ class Object
         $objectHint->setObject(null);
         $this->objectHints->removeElement($objectHint);
     }
+
 
 }

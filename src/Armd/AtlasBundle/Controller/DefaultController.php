@@ -76,11 +76,28 @@ class DefaultController extends Controller
     {
         $id = (int) $this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $entity = $repo->find($id);
+        if ($id) {
+            $entity = $repo->find($id);
+            return array(
+                'entity' => $entity,
+            );
+        }
+    }
 
-        return array(
-            'entity' => $entity,
-        );
+    /**
+     * @Route("/object/cluster")
+     * @Template()
+     */
+    public function clusterBalloonAction()
+    {
+        $ids = $this->getRequest()->query->get('ids');
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        if ($ids) {
+            $entities = $repo->findById($ids);
+            return array(
+                'entities' => $entities,
+            );
+        }
     }
 
     /**
@@ -332,16 +349,39 @@ class DefaultController extends Controller
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
             $res = $repo->filter($filterParams);
 
+            $twigExtension = $this->get('sonata.media.twig.extension');
             $rows = array();
-            $mediaHelper = $this->get('armd_media_helper.twig_extension.media_helper');
             foreach ($res as $obj) {
+
+                $iconUrl = '';
+                if ($obj->getIcon()) {
+                    $iconUrl = $twigExtension->path($obj->getIcon(), 'reference');
+                }
+
+                $obraz = false;
+                $imageUrl = '';
+                if ($obj->getPrimaryCategory()) {
+                    if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
+                        $obraz = true;
+                        $images = $obj->getImages();
+                        if (sizeof($images)) {
+                            foreach ($images as $image) {
+                                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 $rows[] = array(
                     'id' => $obj->getId(),
                     'title' => $obj->getTitle(),
                     'announce' => $obj->getAnnounce(),
                     'lon' => $obj->getLon(),
                     'lat' => $obj->getLat(),
-                    'icon' => $mediaHelper->originalUrl($obj->getIcon()),
+                    'icon' => $iconUrl,
+                    'obraz' => $obraz,
+                    'imageUrl' => $imageUrl,
                 );
             }
 

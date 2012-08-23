@@ -36,7 +36,7 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-    this.map.balloon.content.parentNode.style.width = '500px';
+    this.map.balloon.content.parentNode.style.width = '400px';
     this.map.controls.addControl('slider');
 };
 
@@ -151,14 +151,24 @@ AT.initUI = function() {
                                     ids.push($(cluster.points[i].container).data('uid'));
                                 }
                                 // Содержимое балуна
-                                cluster.name = ids.join(',');
+                                //cluster.name = ids.join(',');
                                 console.log('cluster points ids:', cluster.name);
 
                                 // Если достигнут последний уровень зума, показываем бабл
                                 if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
                                     if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
-                                        cluster.balloon.open(cluster);
-                                        //cont.style.zIndex = '75';
+
+                                        $.ajax({
+                                            url: fetchClusterDetailUri,
+                                            data: { ids: ids },
+                                            success: function(res){
+                                                console.log(res);
+                                                cluster.name = res;
+                                                cluster.balloon.open(cluster);
+                                                //cont.style.zIndex = '75';
+                                            }
+                                        });
+
                                     } else {
                                         cluster.balloon.close();
                                         //cont.style.zIndex = '73';
@@ -253,13 +263,30 @@ AT.clearMap = function() {
 };
 
 AT.placePoint = function(object) {
-    var point = new PGmap.Point({
-            coord: new PGmap.Coord(object.lon, object.lat, true),
-            width: 24,
-            height: 38,
-            backpos: '0 0',
-            url: object.icon
-        });
+
+    if (object.obraz) {
+
+        //console.log( object );
+
+        var point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true),
+                width: 24,
+                height: 38,
+                backpos: '0 0',
+                innerImage: {
+                    src: object.imageUrl,
+                    width: 32
+                }
+            });
+    } else {
+        var point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true),
+                width: 24,
+                height: 38,
+                backpos: '0 0',
+                url: object.icon
+            });
+    }
     //console.log( $(point.element) );
     $(point.container)
         .data('uid', object.id)

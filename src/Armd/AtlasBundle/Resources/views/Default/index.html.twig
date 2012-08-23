@@ -44,7 +44,7 @@
                 <div id="map"></div>
                 {# <div class="atlas-menu"></div> #}
                 <div id="regions-selector" class="regions-selector">
-                    <select data-placeholder="Выберите регион..." style="width:350px;" class="chzn-select">
+                    <select data-placeholder="Выберите регион..." class="chzn-select">
                         <option>Выберите регион...</option>
                     </select>
                 </div>
@@ -79,6 +79,7 @@
     <script type="text/javascript">
         var fetchMarkersUri      = '{{ path('armd_atlas_default_filter') }}',
             fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
+            fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
             bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
 
         $(function(){

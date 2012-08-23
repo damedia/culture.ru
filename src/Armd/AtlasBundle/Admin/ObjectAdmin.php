@@ -98,6 +98,13 @@ class ObjectAdmin extends Admin
                 ->add('virtualTour')
             ->end()
             ->with('Media')
+                ->add('primaryImage', 'armd_media_file_type', array(
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'atlas',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'thumbnail'
+                ))
                   ->add('images', 'collection', array(
                         'type' => 'armd_media_file_type',
                         'options' => array(
