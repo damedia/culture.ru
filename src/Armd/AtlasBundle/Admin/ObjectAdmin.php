@@ -80,9 +80,16 @@ class ObjectAdmin extends Admin
                 ->add('showAtRussianImage', null,
                     array('required' => false)
                 )
+                ->add('virtualTour')
+            ->end()
+            ->with('Contacts')
                 ->add('siteUrl')
                 ->add('email')
                 ->add('phone')
+                ->add('regions', null, array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-region-select')
+                ))
                 ->add('address')
                 ->add('lat')
                 ->add('lon')
@@ -95,7 +102,6 @@ class ObjectAdmin extends Admin
                         'attr' => array('class' => 'armd-sonata-weekdays')
                     )
                 )
-                ->add('virtualTour')
             ->end()
             ->with('Media')
                 ->add('primaryImage', 'armd_media_file_type', array(

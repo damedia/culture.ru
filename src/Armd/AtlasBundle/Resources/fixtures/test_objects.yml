@@ -12,11 +12,12 @@ objects:
       secondaryCategories: [kremlin]
       workTime: 12:00-19:00
       weekends: [day6, day7]
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg, big_photo4.jpg]
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg, big_photo4.jpg]
       archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video2, video3]
+      regions: [moscow, tumen]
 
     - title: Музей-квартира чехова
       announce: Музей-квартира чехова announce
@@ -34,6 +35,7 @@ objects:
       images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
       virtualTour: http://ya.ru
       videos: [video1]
+      regions: [moscow, piter]
 
     - title: Библиотека имени ленина
       announce: Библиотека имени ленина announce
@@ -53,6 +55,7 @@ objects:
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
+      regions: [tatarstan, piter]
 
     - title: Библиотека имен Пушкина
       announce: Библиотека имен Пушкина announce

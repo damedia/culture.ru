@@ -61,6 +61,7 @@
     margin-right: 10px;
 }
 
-.sonata-bc .form-horizontal .atlas-object-categories-select {
+.sonata-bc .form-horizontal .atlas-object-categories-select,
+.sonata-bc .form-horizontal .atlas-object-region-select {
     width: 470px;
 }

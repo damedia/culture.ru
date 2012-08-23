@@ -105,7 +105,15 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
                     throw new \InvalidArgumentException('Category reference ' . $categoryRef . ' not found');
                 }
                 $object->addSecondaryCategory($category);
-                $this->om->persist($category);
+            }
+        }
+
+        if(!empty($data['regions'])) {
+            foreach($data['regions'] as $regionRef) {
+                $region = $this->getReference('armd_atlas.region.' . $regionRef);
+                if(!empty($region)) {
+                    $object->addRegion($region);
+                }
             }
         }
 

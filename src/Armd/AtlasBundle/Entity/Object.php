@@ -153,6 +153,12 @@ class Object
      */
     private $objectHints;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Region")
+     * @ORM\JoinTable(name="atlas_object_region")
+     */
+    private $regions;
+
 
     public function __construct()
     {
@@ -163,6 +169,7 @@ class Object
         $this->archiveImages = new ArrayCollection();
         $this->literatures = new ArrayCollection();
         $this->objectHints = new ArrayCollection();
+        $this->regions = new ArrayCollection();
     }
 
     public function getIcon()
@@ -772,5 +779,37 @@ class Object
         $this->objectHints->removeElement($objectHint);
     }
 
+    public function getRegions()
+    {
+        return $this->regions;
+    }
+
+    public function setRegions($regions)
+    {
+        $this->regions = $regions;
+    }
+
+    /**
+     * Add region
+     *
+     * @param Region $region
+     * @return Object
+     */
+    public function addRegion(Region $region)
+    {
+        $this->regions[] = $region;
+
+        return $this;
+    }
+
+    /**
+     * Remove region
+     *
+     * @param Region $region
+     */
+    public function removeRegion(Region $region)
+    {
+        $this->regions->removeElement($region);
+    }
 
 }
