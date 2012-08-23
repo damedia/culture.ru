@@ -40,7 +40,7 @@ security:
             anonymous:    true
             remember_me:
                 key:      "%secret%"
-                lifetime: 3600
+                lifetime: 360000
                 domain:   ~ # Defaults to the current domain from $_SERVER
         # -> end custom configuration
 
