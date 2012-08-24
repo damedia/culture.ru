@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="atlas_category")
- * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Entity\CategoryRepository")
+ * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\CategoryRepository")
  */
 class Category implements Node
 {

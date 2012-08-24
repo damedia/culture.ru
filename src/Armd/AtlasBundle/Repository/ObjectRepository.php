@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\AtlasBundle\Entity;
+namespace Armd\AtlasBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -25,6 +25,16 @@ class ObjectRepository extends EntityRepository
 
         $rows = $qb->getQuery()->getResult();
         return $rows;
+    }
+
+    public function findRussiaImages()
+    {
+        $objects = $this->createQueryBuilder('o')
+            ->where('o.showAtRussianImage = TRUE')
+            ->getQuery()
+            ->getResult();
+
+        return $objects;
     }
 
 }
