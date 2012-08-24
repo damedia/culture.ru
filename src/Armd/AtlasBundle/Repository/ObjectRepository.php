@@ -12,26 +12,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class ObjectRepository extends EntityRepository
 {
-    public function filter($params=array())
+    public function filter($params = array())
     {
         $term = $params['term'];
         $categoryIds = $params['category'];
 
         $qb = $this->createQueryBuilder('o')
-                   ->innerJoin('o.secondaryCategories', 'c')
-                   ->where('c IN (:categoryIds)')
-                   ->orWhere('o.primaryCategory IN (:categoryIds)')
-                   ->setParameter('categoryIds', $categoryIds);
+            ->innerJoin('o.secondaryCategories', 'c')
+            ->where('c IN (:categoryIds)')
+            ->orWhere('o.primaryCategory IN (:categoryIds)')
+            ->setParameter('categoryIds', $categoryIds);
 
         $rows = $qb->getQuery()->getResult();
         return $rows;
     }
 
-    public function findRussiaImages()
+    public function findRussiaImages($limit = null)
     {
-        $objects = $this->createQueryBuilder('o')
-            ->where('o.showAtRussianImage = TRUE')
-            ->getQuery()
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.showAtRussianImage = TRUE');
+
+        if (!is_null($limit)) {
+            $qb->setMaxResults($limit);
+        }
+
+        $objects = $qb->getQuery()
             ->getResult();
 
         return $objects;

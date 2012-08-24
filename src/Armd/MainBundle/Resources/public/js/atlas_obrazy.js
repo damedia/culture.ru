@@ -25,8 +25,18 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-    this.map.balloon.content.parentNode.style.width = '300px';
     this.map.controls.addControl('slider');
+
+    var m = this.map;
+    this.map.balloon.content.parentNode.style.width = '300px';
+    var el = this.map.balloon.element.getElementsByTagName("b")[0];
+    PGmap.Events.addHandler(el, 'mousedown', function(e){
+        var coords = m.globals.getCoords();
+        coords.lon = coords.lon + 20000;
+        m.setCenter(coords);
+    });
+
+
 };
 
 AT.initUI = function() {
@@ -55,9 +65,6 @@ AT.initUI = function() {
 AT.placePoint = function(object) {
 
     if (object.obraz) {
-
-        //console.log( object );
-
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
                 width: 24,
@@ -65,16 +72,8 @@ AT.placePoint = function(object) {
                 backpos: '0 0',
                 innerImage: {
                     src: object.imageUrl,
-                    width: 32
+                    width: 50
                 }
-            });
-    } else {
-        var point = new PGmap.Point({
-                coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 24,
-                height: 38,
-                backpos: '0 0',
-                url: object.icon
             });
     }
     //console.log( $(point.element) );

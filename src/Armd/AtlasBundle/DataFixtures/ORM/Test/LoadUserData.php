@@ -10,7 +10,7 @@ use Armd\UserBundle\Entity\User;
 use Armd\UserBundle\Entity\Group;
 use Armd\UserBundle\Entity\UserManager;
 
-class LoadTestUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
 {
     private $container;
 
@@ -20,6 +20,20 @@ class LoadTestUserData extends AbstractFixture implements FixtureInterface, Cont
     }
 
     public function load(ObjectManager $manager)
+    {
+        $userCount = $manager->getRepository('ArmdUserBundle:User')
+            ->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->getQuery()->getSingleScalarResult();
+
+        if($userCount == 0) {
+            $this->loadUsers($manager);
+        }
+
+
+    }
+
+    public function loadUsers($manager)
     {
         $userManager = $this->container->get('fos_user.user_manager.default');
 

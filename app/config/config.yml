@@ -146,6 +146,7 @@ sonata_media:
                 big: { width: 575 }
                 thumbnail: { width: 85, height: 85 }
                 imagesOfRussia: { width: 190, height: 147}
+                imagesOfRussiaSmall: {width: 85, height: 61}
 
         atlas_icon:
             download:

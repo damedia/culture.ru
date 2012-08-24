@@ -306,6 +306,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     margin: 0 31px 0 0;
 	color: #fff;
 	position:relative;
+	
+	
 }
 
 #nav .navmenu li.first {
@@ -316,6 +318,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 :root #nav .navmenu li.first { top:3px\0/IE9; }
 
 .lt-ie9 #nav .navmenu li.first { top:3px; }
+
 
 #nav .navmenu li a {
     text-decoration: none;
@@ -333,10 +336,28 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		margin-right:0;
 	}
 		.navmenu_more_link {
-			padding-right:18px;
-			background:url('../img/accordeon_arr.png') no-repeat 100% -37px;
+			padding:6px 26px 10px 13px;
+			background:url('../img/accordeon_arr.png') no-repeat 44px -32px;
+			left: -12px;
+			position:relative;
 			
 		}
+		
+		#nav .navmenu li .navmenu_more_link:hover {
+			border-bottom:none;
+		}
+		
+		.navmenu_more_link:hover:before {
+			content:"";
+			position:absolute;
+			width:40%;
+			height:1px;
+			top:20px;
+			left:13px;
+			border-bottom:1px solid #f5d9d9
+		}
+		
+		#nav .navmenu li.opened .navmenu_more_link:hover:before { display:none; } 
 		
 		
 	.navmenu li ul {
@@ -355,6 +376,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			padding:3px 14px 0;
 			list-style:none;
 			margin:0;
+			line-height:20px;
 			
 			
 		}
@@ -386,7 +408,6 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			#nav .navmenu li.opened a:hover {
 				border-bottom:0;
 			}
-		
 		
 
 
@@ -1082,6 +1103,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	.rusObr-list {
 		
 	}
+	
+	.rusObr-list.type-2,
+	.rusObr-list.type-2 li { font-size:0; }
+	
 		.rusObr-list li {
 			width:33.33%;
 			display:inline-block;
@@ -3596,7 +3621,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 				margin-left:2px;
 			}
 			
-		.form input[type="text"], .form input[type="password"] {
+		.form input[type="text"], .form input[type="password"], .form input[type="email"] {
 			background:#f0f0f0;
 			border:0;
 			padding:5px 10px;
@@ -3655,7 +3680,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 					margin-right:5px;
 					*display:inline;
 				}
-					.lk input[type="text"], .lk input[type="password"], .lk textarea {
+					.lk input[type="text"], .lk input[type="password"], .lk input[type="email"] .lk textarea {
 						width:89%;
 						padding:9px 13px;
 					}
@@ -4216,3 +4241,31 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	.scroll-bar-wrap .ui-slider-handle .ui-icon {
 		background:url('../img/slider_handle.png') no-repeat 0 0;
 		width:53px; height:19px; display:block;   margin: -8px auto 0; position: relative; top: 50%; }	
+		
+		
+		
+			
+.flash-overlap {
+	display:block;
+	position:relative;
+	background:#555;
+}
+
+	.flash-overlap a {
+		position:absolute;
+		width:100%;
+		height:100%;
+		z-index:200;
+		display:block;
+		
+	}
+	
+	.flash-overlap a img { 
+		width:100%;
+		height:100%;
+	}
+
+	.flash-overlap .flash {
+		position:relative;
+		z-index:100;
+	}	

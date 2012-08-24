@@ -97,39 +97,32 @@
 
 </div>
 <div class="right-column">
-    <div class="title">
-        <h2>Рекомендовано</h2>
-    </div>
-    <ul class="right-list">
-        {% for lecture in recommendedLectures %}
-            <li>
-                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                    {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                        <img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>
-                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
-                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />
-                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
-                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />
-                    {% endif %}
-                </a>
+    {% render 'ArmdLectureBundle:Default:rightColumn' %}
+    {#&#123;&#35;</ul>&#35;&#125;    #}
 
-                <div class="text-overflow">
-                    <span class="rl-type">{{ lecture.lectureType.name }}</span>
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">
-                        {{ lecture.title }}
-                    </a>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    <div class="virtual-anons-block">
-        <a href="#" class="virtual-anons">
-            <span class="virtual-anons-header">Виртуальный тур</span>
-            <img src="{{ asset('img/virt_anons.jpg') }}" alt=""/>
-            <span
-                class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
-        </a>
-    </div>
+    {#<ul class="right-list">#}
+        {#{% for lecture in recommendedLectures %}#}
+            {#<li>#}
+                {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">#}
+                    {#{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}#}
+                        {#<img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>#}
+                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}#}
+                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />#}
+                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}#}
+                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />#}
+                    {#{% endif %}#}
+                {#</a>#}
+
+                {#<div class="text-overflow">#}
+                    {#<span class="rl-type">{{ lecture.lectureType.name }}</span>#}
+                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">#}
+                        {#{{ lecture.title }}#}
+                    {#</a>#}
+                {#</div>#}
+            {#</li>#}
+        {#{% endfor %}#}
+    {#</ul>#}
+
 </div>
 
 {% endblock %}
