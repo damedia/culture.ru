@@ -2653,7 +2653,7 @@ white-space:nowrap;
 #lecture-list-loading {
     display: none;
     opacity: 0.9;
-    background: #cccccc url('../img/lectures_loading.gif') no-repeat scroll 50% 100px;
+    background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
     position: absolute;
     top: 0;
     left: 0;
@@ -2978,7 +2978,7 @@ white-space:nowrap;
 		position:relative;
 		top:2px;
 	}
-	
+
 .rusObr-block {
 	border:8px solid #e6e6e6;
 }
@@ -3029,11 +3029,149 @@ white-space:nowrap;
 				left:0;
 				box-shadow:0 0 25px #000;
 				z-index:5;
-				border-color:#fff;
-				background:#fff;
-			}	
 
-			
+			}
+
+
+
+.virt-museums {
+	margin-top:-10px;
+}
+	.obr-form {
+		background:#e6e6e6;
+		position:relative;
+		padding:8px 8px 0;
+	}
+		.obr-text-input {
+			padding-right:30px;
+		}
+			.obr-text-input input {
+				border:0;
+				height:17px;
+				line-height:17px;
+				width:98%;
+				padding:0 1%;
+				border:1px solid #dfdfdf;
+			}
+
+		.obr-submit-input {
+			position:absolute;
+			top:11px;
+			right:15px;
+			width:10px;
+			height:15px;
+			border:0;
+			background:url('../img/top_search.png') no-repeat 0 0;
+			cursor:pointer;
+		}
+
+	.obrazy .rusObr-list li {
+		width:24%;
+	}
+	.obrazy .rusObr-list-one {
+		padding:25px;
+	}
+
+	.obrazy  .rusHovered {
+		top:0;
+	}
+
+	.rusHovered .rusObr-list-one {
+		width:192px;
+		height:266px;
+		padding:25px;
+		position:absolute;
+		top:0;
+		left:0;
+		border:0;
+		background:#ffaa00 url('../img/obraz_bg.jpg') no-repeat 0 0;
+
+	}
+		.rusHovered .rusObr-list-one .rusObr-list-place a {
+			color:#000;
+		}
+
+	.rusHovered-contacts {
+		position:absolute;
+		left:243px;
+		top:0;
+		width:197px;
+		padding:25px;
+		box-shadow:0 0 50px -7px black;
+		background:#ffaa00;
+		z-index:3;
+		display:none;
+
+	}
+	.rusHovered-contacts:after {
+		content:'';
+		width:14px;
+		height:14px;
+		background:url('../img/obrazy_corner.png') no-repeat 0 0;
+		position:absolute;
+		bottom:-14px;
+		left:0;
+	}
+	.left-hand {}
+	.left-hand:after {
+		right:0;
+		left:auto;
+		background-position:0 -14px;
+	}
+
+	.rusHovered .rusHovered-contacts  {
+		display:block;
+
+	}
+
+		.rusHovered-contacts  .obj-o-contacts-text {
+			padding-bottom:2px;
+			margin-top:0;
+
+		}
+		.rusHovered-contacts  .virtual-tour {
+			margin-top:23px;
+		}
+			.rusHovered-contacts  .virtual-tour a {
+				font-size:17px;
+				background:url('../img/tour_small.png') no-repeat 0 0;
+				padding:5px 0 8px 41px;
+			}
+
+		.rusHovered-contacts a {
+			color:#000;
+		}
+			.rusHovered-contacts  p {
+				margin-bottom:7px;
+				font-size:12px;
+				font-weight:normal;
+			}
+
+
+	.rusObr-list-one-wrap {
+		box-shadow:none;
+	}
+	.rusObr-list-one-wrap.rusHovered .rusObr-list-one {
+		box-shadow:0 0 50px -7px black;
+		z-index:5;
+	}
+
+#images-of-russia-wrapper {
+    position: relative;
+}
+    #images-of-russia-loading {
+        display: none;
+        opacity: 0.9;
+        background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+    }
+
+
 .scroll-pane { overflow: auto; width: 100%; float:left; }
 	.scroll-content { float: left; }
 	.scroll-content-item { width: 100px; height: 100px; float: left; margin: 10px; font-size: 3em; line-height: 96px; text-align: center; }

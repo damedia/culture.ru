@@ -52,7 +52,8 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
             'lat',
             'lon',
             'workTime',
-            'virtualTour'
+            'virtualTour',
+            'showAtRussianImage'
         );
 
         foreach ($simpleFields as $simpleField) {
@@ -63,6 +64,11 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
                 }
             }
         }
+
+        if(!empty($data['primaryImage'])) {
+            $object->setPrimaryImage($this->createMediaImage($data['primaryImage']));
+        }
+
 
         if(!empty($data['images'])) {
             foreach($data['images'] as $fileName) {
@@ -105,7 +111,15 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
                     throw new \InvalidArgumentException('Category reference ' . $categoryRef . ' not found');
                 }
                 $object->addSecondaryCategory($category);
-                $this->om->persist($category);
+            }
+        }
+
+        if(!empty($data['regions'])) {
+            foreach($data['regions'] as $regionRef) {
+                $region = $this->getReference('armd_atlas.region.' . $regionRef);
+                if(!empty($region)) {
+                    $object->addRegion($region);
+                }
             }
         }
 
