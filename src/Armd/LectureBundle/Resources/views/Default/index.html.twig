@@ -97,29 +97,7 @@
 
 </div>
 <div class="right-column">
-    <div class="title">
-        <h2>Рекомендовано</h2>
-    </div>
-
-    <ul class="right-list">
-        {% for object in russiaImages %}
-            <li>
-                <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">
-                    {% if object.primaryImage is not null %}
-                        <img src="{% path object.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ object.title }}"/>
-                    {% elseif object.images|length > 0%}
-                        <img src="{% path object.images, 'imagesOfRussiaSmall' %}" alt="{{ object.title }}"/>
-                    {% endif %}
-                </a>
-
-                <div class="text-overflow">
-                    <span class="rl-type">Образы России</span>
-                    <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}" class="rl-name">
-                        {{ object.title }}
-                    </a>
-                </div>
-            </li>
-        {% endfor %}
+    {% render 'ArmdLectureBundle:Default:rightColumn' %}
     {#&#123;&#35;</ul>&#35;&#125;    #}
 
     {#<ul class="right-list">#}
@@ -145,14 +123,7 @@
         {#{% endfor %}#}
     {#</ul>#}
 
-    <div class="virtual-anons-block">
-        <a href="#" class="virtual-anons">
-            <span class="virtual-anons-header">Виртуальный тур</span>
-            <img src="{{ asset('img/virt_anons.jpg') }}" alt=""/>
-            <span
-                class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
-        </a>
-    </div>
+
 </div>
 
 {% endblock %}
