@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Armd\AtlasBundle\Entity\Object
  *
  * @ORM\Table(name="atlas_object")
- * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Entity\ObjectRepository")
+ * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Object
@@ -132,6 +132,12 @@ class Object
     private $virtualTour;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="virtual_tour_image_id", referencedColumnName="id")
+     */
+    private $virtualTourImage;
+
+    /**
      * @ORM\Column(name="show_at_homepage", type="boolean", nullable=true)
      */
     private $showAtHomepage = false;
@@ -153,6 +159,12 @@ class Object
      */
     private $objectHints;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Region")
+     * @ORM\JoinTable(name="atlas_object_region")
+     */
+    private $regions;
+
 
     public function __construct()
     {
@@ -163,6 +175,7 @@ class Object
         $this->archiveImages = new ArrayCollection();
         $this->literatures = new ArrayCollection();
         $this->objectHints = new ArrayCollection();
+        $this->regions = new ArrayCollection();
     }
 
     public function getIcon()
@@ -518,6 +531,31 @@ class Object
     }
 
     /**
+     * Set virtualTourImage
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $virtualTourImage
+     * @return Object
+     */
+    public function setVirtualTourImage(\Application\Sonata\MediaBundle\Entity\Media $virtualTourImage = null)
+    {
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if (is_null($virtualTourImage) || $virtualTourImage->isUploaded()) {
+            $this->virtualTourImage = $virtualTourImage;
+        }
+        return $this;
+    }
+
+    /**
+     * Get image3d
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getVirtualTourImage()
+    {
+        return $this->virtualTourImage;
+    }
+
+    /**
      * Get showAtHomepage
      *
      * @return boolean
@@ -772,5 +810,37 @@ class Object
         $this->objectHints->removeElement($objectHint);
     }
 
+    public function getRegions()
+    {
+        return $this->regions;
+    }
+
+    public function setRegions($regions)
+    {
+        $this->regions = $regions;
+    }
+
+    /**
+     * Add region
+     *
+     * @param Region $region
+     * @return Object
+     */
+    public function addRegion(Region $region)
+    {
+        $this->regions[] = $region;
+
+        return $this;
+    }
+
+    /**
+     * Remove region
+     *
+     * @param Region $region
+     */
+    public function removeRegion(Region $region)
+    {
+        $this->regions->removeElement($region);
+    }
 
 }

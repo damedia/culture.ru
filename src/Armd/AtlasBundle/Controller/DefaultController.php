@@ -15,7 +15,7 @@ use Armd\AtlasBundle\Form\ObjectType;
 class DefaultController extends Controller
 {
     protected $testmarkersUrl = 'http://mkprom.dev.armd.ru/_sys/map/testmarkers';
-    protected $detailsUrl     = 'http://mkprom.dev.armd.ru/_sys/map/testmarkerdetail';
+    protected $detailsUrl = 'http://mkprom.dev.armd.ru/_sys/map/testmarkerdetail';
     protected $username = 'admin';
     protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
 
@@ -74,7 +74,7 @@ class DefaultController extends Controller
      */
     public function objectBalloonAction()
     {
-        $id = (int) $this->getRequest()->query->get('id');
+        $id = (int)$this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         if ($id) {
             $entity = $repo->find($id);
@@ -117,7 +117,7 @@ class DefaultController extends Controller
             'p2x' => 39.511026391701535,
             'p2y' => 55.55940194740992,
         );
-        $url = 'http://route.tmcrussia.com/cgi/getroute?'.http_build_query($params).'&'.$progorodApiKey;
+        $url = 'http://route.tmcrussia.com/cgi/getroute?' . http_build_query($params) . '&' . $progorodApiKey;
 
         $browser = new Browser();
         $response = $browser->get($url);
@@ -390,8 +390,7 @@ class DefaultController extends Controller
                 'result' => $rows,
             ));
             return new Response($response);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $response = json_encode(array(
                 'success' => false,
                 'message' => $e->getMessage(),
@@ -407,8 +406,8 @@ class DefaultController extends Controller
      */
     public function moveCategoryAction()
     {
-        $source = (int) $this->getRequest()->query->get('source');
-        $target = (int) $this->getRequest()->query->get('target');
+        $source = (int)$this->getRequest()->query->get('source');
+        $target = (int)$this->getRequest()->query->get('target');
 
         var_dump($source, $target);
 
@@ -453,6 +452,61 @@ class DefaultController extends Controller
         return new Response($response);
     }
 
+
+    /**
+     * @Route("russia-images", name="armd_atlas_russia_images")
+     * @Template()
+     */
+    public function russiaImagesAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Route("russia-images-list", name="armd_atlas_russia_images_list", options={"expose"=true})
+     * @Template()
+     */
+    public function russiaImagesListAction()
+    {
+        $searchString = $this->getRequest()->get('searchString');
+        $objectRepo = $this->getDoctrine()->getManager()
+                        ->getRepository('ArmdAtlasBundle:Object');
+
+        if (!empty($searchString)) {
+            $search = $this->get('search.sphinxsearch.search');
+            $searchParams = array(
+                'Atlas' => array(
+                    'filters' => array(
+                        array(
+                            'attribute' => 'show_at_russian_image',
+                            'values' => array(1)
+                        )
+                    )
+                )
+            );
+
+            $searchResult = $search->search($searchString, $searchParams);
+            $objects = array();
+            if (!empty($searchResult['Atlas']['matches'])) {
+                foreach ($searchResult['Atlas']['matches'] as $id => $data) {
+                    $object = $objectRepo->find($id);
+                    if(!empty($object)) {
+                        $objects[] = $object;
+                    }
+                }
+            }
+
+        }
+        else {
+            $objects = $objectRepo->findRussiaImages();
+        }
+
+
+        return array(
+            'objects' => $objects
+        );
+    }
+
     /**
      * @Route("/category/{id}/delete")
      */
@@ -475,7 +529,7 @@ class DefaultController extends Controller
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
         curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
 
@@ -491,17 +545,17 @@ class DefaultController extends Controller
 
         $res = array();
         foreach ($xml->GeoObjectCollection->featureMember as $featureMember) {
-            $latLng = (string) $featureMember->GeoObject->Point->pos;
+            $latLng = (string)$featureMember->GeoObject->Point->pos;
             list($lat, $lon) = explode(' ', $latLng);
             $point = array(
-                'name' => (string) $featureMember->GeoObject->name,
-                'description' => (string) $featureMember->GeoObject->description,
+                'name' => (string)$featureMember->GeoObject->name,
+                'description' => (string)$featureMember->GeoObject->description,
                 'lat' => $lat,
                 'lon' => $lon,
             );
             $res[] = $point;
         }
 
-        return ! empty($res) ? $res[0] : false;
+        return !empty($res) ? $res[0] : false;
     }
 }

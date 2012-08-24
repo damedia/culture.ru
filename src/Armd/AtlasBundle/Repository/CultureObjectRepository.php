@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\AtlasBundle\Entity;
+namespace Armd\AtlasBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

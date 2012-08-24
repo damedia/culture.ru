@@ -145,6 +145,8 @@ sonata_media:
                 image3d: { width: 269, height: 207 }
                 big: { width: 575, height: 285 }
                 thumbnail: { width: 85, height: 85 }
+                imagesOfRussia: { width: 190, height: 147}
+                imagesOfRussiaSmall: {width: 85, height: 61}
 
         atlas_icon:
             download:
@@ -251,6 +253,8 @@ armd_sphinx_search:
             %sphinxsearch_index_all%: ~
         Lectures:
             %sphinxsearch_index_lectures%: ~
+        Atlas:
+            %sphinxsearch_index_atlas%: ~
 
     searchd:
         host:   %sphinxsearch_host%

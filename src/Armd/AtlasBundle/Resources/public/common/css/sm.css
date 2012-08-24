@@ -619,26 +619,10 @@
 		
 
 
-.bubble{
-	width: 300px;
-	background: #F9F6EC;
-	margin: 0px 0 0 40px;
-	-moz-box-shadow: 5px 9px 30px 3px #C6C4BC; /* Для Firefox */
-    -webkit-box-shadow: 5px 9px 30px 3px #C6C4BC; /* Для Safari и Chrome */
-    box-shadow: 5px 9px 30px 3px #C6C4BC; /* Параметры тени */
-	padding-bottom: 10px;
-    text-align: left;
-}
-.bubble_content{
-	margin: 0 10px 0 10px;
-	overflow:hidden;
-}
 *html .bubble_content{ float:left;}
 .caption{
 	font-size: 13px;
 	font-weight: bold;
-	padding-top: 10px;
-
 }
 .bubble a{
     color:#000;
@@ -685,18 +669,6 @@ ul{ list-style: none;
 	height: 18px;
 	background: url("../img/23.png") top right;
 	float: right;
-}
-.bubble_image{
-	width: 84px;
-	height:83px;
-	background: url("../img/1.png") no-repeat;
-	float: left;
-	margin: 10px;
-	display:inline;
-	-moz-box-shadow: -4px -4px  #D2CDC5; /* Для Firefox */
-    -webkit-box-shadow: -4px -4px  #D2CDC5; /* Для Safari и Chrome */
-    box-shadow: -4px -4px  #D2CDC5; /* Параметры тени */
-
 }
 
 .title-social-icons {
