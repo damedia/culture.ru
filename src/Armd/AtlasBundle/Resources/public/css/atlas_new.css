@@ -12,7 +12,7 @@
 #map .PGmap-balloon-inner .caption{ margin-bottom:5px; }
 #map .PGmap-balloon-inner .caption a{ text-decoration:none; color:#000; }
 #map .PGmap-balloon-inner .caption a:hover{ text-decoration:underline; }
-#map .PGmap-balloon-inner .text{ font-size:11px; color:#555; margin-bottom:5px; }
+#map .PGmap-balloon-inner .text{ font-size:11px; color:#555; margin-bottom:5px; padding-bottom:0; }
 #map .PGmap-balloon-inner .bubble_image{ float:left; margin:0 10px 10px 0; }
 #map .PGmap-balloon-inner .bubble_image .thumb img{ vertical-align:top; }
 
@@ -23,6 +23,7 @@
 #map .b-balloon__content h3{ margin:0; padding:0; }
 #map .b-balloon__shadow{ display:none; }
 #map .b-balloon__ar{ display:none; }
+#map .g-closer{ margin:7px 5px 0 5px; }
 #map .g-closer__icon{ width:9px; height:9px; background:url(../images/chosen-sprite.png) -50px -2px no-repeat; }
 #map .g-closer__icon:hover{ background-position:-50px -13px; }
 #map .PGmap-cluster-container{ width:34px; height:34px; margin-left:-17px; margin-top:-17px; }
