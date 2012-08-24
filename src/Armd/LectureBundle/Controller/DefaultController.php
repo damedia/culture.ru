@@ -28,16 +28,15 @@ class DefaultController extends Controller
         }
 
         // recommended and last lectures
-        $recommendedLectures = $lectureRepo->findRecommended();
+//        $recommendedLectures = $lectureRepo->findRecommended();
         $lastLectures = $lectureRepo->findLastAdded();
-
 
         $typeCategories = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->getTypeCategories();
 
         return array(
             'lectureTypes' => $lectureTypes,
             'lectureCategories' => $lectureCategories,
-            'recommendedLectures' => $recommendedLectures,
+//            'recommendedLectures' => $recommendedLectures,
             'lastLectures' => $lastLectures,
             'page' => $page,
             'typeCategories' => $typeCategories
@@ -72,36 +71,29 @@ class DefaultController extends Controller
      */
     public function lectureDetailsAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);
         if(!$lecture) {
             throw $this->createNotFoundException('Lecture not found');
         }
 
-        $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
-        $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy();
-        if(isset($lectureCategories[0]['__children'])) {
-            $lectureCategories = $lectureCategories[0]['__children'];
-        } else {
-            $lectureCategories = array();
-        }
-
         return array(
             'lecture' => $lecture,
-            'lectureTypes' => $lectureTypes,
-            'lectureCategories' => $lectureCategories
         );
     }
 
 
     /**
-     * @Route("/category_list")
+     * @Route()
+     * @Template()
      */
-    public function categoryListAction()
+    public function rightColumnAction()
     {
-
+        $em = $this->getDoctrine()->getManager();
+        $russiaImages = $em->getRepository('ArmdAtlasBundle:Object')->findRussiaImages(6);
+        return array(
+            'russiaImages' => $russiaImages
+        );
     }
 
 }

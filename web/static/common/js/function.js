@@ -486,6 +486,9 @@ $(document).ready(function(){
 		})
 		
 		
+		/*fancybox img video etc */
+		$("a.in-fancybox").fancybox();
+		
 	});
 	
 	

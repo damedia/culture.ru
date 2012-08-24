@@ -132,6 +132,12 @@ class Object
     private $virtualTour;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="virtual_tour_image_id", referencedColumnName="id")
+     */
+    private $virtualTourImage;
+
+    /**
      * @ORM\Column(name="show_at_homepage", type="boolean", nullable=true)
      */
     private $showAtHomepage = false;
@@ -522,6 +528,31 @@ class Object
     {
         $this->showAtHomepage = $showAtHomepage;
         return $this;
+    }
+
+    /**
+     * Set virtualTourImage
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $virtualTourImage
+     * @return Object
+     */
+    public function setVirtualTourImage(\Application\Sonata\MediaBundle\Entity\Media $virtualTourImage = null)
+    {
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if (is_null($virtualTourImage) || $virtualTourImage->isUploaded()) {
+            $this->virtualTourImage = $virtualTourImage;
+        }
+        return $this;
+    }
+
+    /**
+     * Get image3d
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getVirtualTourImage()
+    {
+        return $this->virtualTourImage;
     }
 
     /**

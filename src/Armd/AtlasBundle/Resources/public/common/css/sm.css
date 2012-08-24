@@ -722,6 +722,7 @@ ul{ list-style: none;
 			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 			color:#696969;
 			background:#FFF;
+			min-height:145px;
 		}
 		
 		
