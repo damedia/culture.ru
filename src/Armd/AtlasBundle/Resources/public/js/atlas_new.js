@@ -146,6 +146,7 @@ AT.initUI = function() {
 
                                 // Балун для кластера
                                 cluster.balloon = AT.map.balloon;
+
                                 var ids = [];
                                 for (var i=0; i<cluster.points.length; i++) {
                                     ids.push($(cluster.points[i].container).data('uid'));
@@ -304,7 +305,7 @@ AT.placePoint = function(object) {
             data: { id: uid },
             success: function(res) {
 
-                console.log('here');
+                console.log('click on point');
 
                 //point.addContent(res);
                 point.name = res;
