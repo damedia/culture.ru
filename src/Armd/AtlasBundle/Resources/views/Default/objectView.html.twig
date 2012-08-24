@@ -5,6 +5,64 @@
     {% if entity is empty %}
         Объект не найден
     {% else %}
+
+    
+    
+    <script type="text/javascript">
+
+    $(window).load(function(){
+      $('#carousel').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 70,
+        itemMargin: 0,
+        asNavFor: '#slider',
+		minItems: 5,   
+		maxItems: 10,
+      });
+      
+      $('#slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        sync: "#carousel",
+		directionNav: false,
+        start: function(slider){
+          $('body').removeClass('loading');
+		 $("#carousel").hide();
+        }
+      });
+	  
+	 
+	 $("#slider").mouseenter(function(){
+      	$('#carousel').show();
+    }).mouseleave(function(){
+     	 $('#carousel').hide();
+    });
+	
+	 $("#carousel").mouseenter(function(){
+      	$('#carousel').show();
+    }).mouseleave(function(){
+     	 $('#carousel').hide();
+    });
+	 
+	 
+	  
+	 /* $("#slider").mouseenter(function() {
+    		$('#carousel').show();
+	  })
+	  
+	  $("#slider").mouseleave(function() {
+   			$('#carousel').hide();
+	  })	*/  
+	  
+    });
+  </script>
+    
+    
         
             <div class="title-block with-social"  >
                 <h2>{{ entity.title }}</h2>
@@ -14,13 +72,22 @@
             </div>#}
             <div class="object-one clearfix">
                 <div class="object-one-col12">
-
+                
+                
+              
+               
+                              
+                                    
+                
+              
+                
+{#
                     {% if entity.images|length > 0 %}
                     <div class="block obj-o-foto">
-                       {# <div class="right-icons-block">
+                      <div class="right-icons-block">
                             <a href="#" class="one-person"></a>
                             <a href="#" class="three-persons"></a>
-                        </div>#}
+                        </div>
                         <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
 
                         <div class="slideshow-container">
@@ -38,7 +105,7 @@
                                         <a class="thumb" name="leaf" href="{% path image, 'big' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
                                             <img src="{% path image, 'thumbnail' %}" />
                                         </a>										
-										{#<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>#}                                        
+										<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>                                        
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -48,8 +115,47 @@
                         <p class="all-list"><a href="#">Все фото</a></p>
                     </div>
                     {% endif %}
+                    
+                    #}
 
                    <div class="object-one-text content">
+                   
+                    {% if entity.images|length > 0 %}
+                    <div class="photo-gallery">
+                
+                <div id="slider" class="flexslider">
+          <ul class="slides">
+            {% for image in entity.images %}
+            <li>
+  	    	     <a class="in-fancybox" rel="gallery" name="leaf" href="{% path image, 'reference' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
+                                            <img src="{% path image, 'big' %}" />
+                  </a>	
+  	    		</li>
+  			{% endfor %}
+          </ul>
+        </div>
+        
+        <div class="nav">
+        <div id="carousel" class="flexslider ">
+          <ul class="slides">
+            {% for image in entity.images %}
+                                    <li>
+                                        
+                                            <img src="{% path image, 'thumbnail' %}" />
+                                                                           
+                                    </li>
+                                    {% endfor %}
+
+          </ul>
+        </div>
+        </div>
+        
+        </div> <!--// photo-gallery-->
+                
+                
+               {% endif %}
+                   
+                   <div class="text">
 						<h1>{{ entity.title }}</h1>
 						<big>{{ entity.announce }}</big>
 						<div class="content-text">
@@ -57,6 +163,8 @@
 						</div>	
 						
 				   </div>
+                   </div>
+                   
 					{# <div class="literature">
 						<p class="lit-header">Использованная литература</p>
 						<ol>
@@ -140,6 +248,23 @@
 
                     </div>
                     {% endif %}
+                    
+                    <div class="virtual-anons-block">
+					<a class="virtual-anons block" href="/main/virtual_museums.html">
+						<span class="virtual-anons-header">Виртуальный тур</span>
+						<img alt="" src="/main/common/img/photo/virt_anons.jpg">
+						
+					</a>
+				</div>
+                    
+                  {% if entity.image3d %}
+							<div class="block object-infograph">
+                            <P class="obj-o-infograph-header">Инфографика</P>
+								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>
+								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox"><img src="{% path entity.image3d, 'image3d' %}" alt="" /></a>
+							</div>
+						{% endif %}	  
+                    
 
                     <div class="block obj-o-contacts">
                        {# <div class="obj-o-map">
@@ -219,12 +344,7 @@
 						{% endif %}	
 
 						
-						{% if entity.image3d %}
-							<div class="block object-infograph">
-								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>
-								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox"><img src="{% path entity.image3d, 'image3d' %}" alt="" /></a>
-							</div>
-						{% endif %}	
+						
 						
 
                         {% if entity.archiveImages|length > 0 %}
@@ -356,6 +476,7 @@
    
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
 	<script src="/swf/swfobject/swfkrpano.js"></script>
     <script type="text/javascript">
