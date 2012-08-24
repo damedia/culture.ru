@@ -62,7 +62,7 @@ AT.initUI = function() {
 };
 
 AT.placePoint = function(object) {
-    if (object.obraz) {
+    if (object.obraz && object.imageUrl) {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
                 width: 24,
