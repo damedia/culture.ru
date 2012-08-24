@@ -73,27 +73,27 @@ AT.placePoint = function(object) {
                     width: 50
                 }
             });
-    }
-    $(point.container)
-        .data('uid', object.id)
-        .css({
-            'margin-left': '-12px',
-            'margin-top': '-38px'
-        });
-    AT.map.geometry.add(point);
+        $(point.container)
+            .data('uid', object.id)
+            .css({
+                'margin-left': '-12px',
+                'margin-top': '-38px'
+            });
+        AT.map.geometry.add(point);
 
-    // клик по точке
-    PGmap.Events.addHandler(point.container, 'click', function(e) {
-        var uid = $(point.container).data('uid');
-        $.ajax({
-            url: fetchMarkerDetailUri,
-            data: { id: uid },
-            success: function(res) {
-                point.name = res;
-                point.balloon = AT.map.balloon;
-                point.toggleBalloon();
-            }
+        // клик по точке
+        PGmap.Events.addHandler(point.container, 'click', function(e) {
+            var uid = $(point.container).data('uid');
+            $.ajax({
+                url: fetchMarkerDetailUri,
+                data: { id: uid },
+                success: function(res) {
+                    point.name = res;
+                    point.balloon = AT.map.balloon;
+                    point.toggleBalloon();
+                }
+            });
         });
-    });
-    return point;
+        return point;
+    }
 };
