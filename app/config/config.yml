@@ -143,7 +143,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 image3d: { width: 269, height: 207 }
-                big: { width: 575, height: 285 }
+                big: { width: 575 }
                 thumbnail: { width: 85, height: 85 }
 
         atlas_icon:
