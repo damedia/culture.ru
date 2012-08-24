@@ -511,6 +511,7 @@ class DefaultController extends Controller
         );
     }
 
+
     /**
      * @Route("/category/{id}/delete")
      */

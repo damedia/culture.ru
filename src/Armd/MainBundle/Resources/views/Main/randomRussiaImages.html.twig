@@ -1,0 +1,27 @@
+{% if russiaImages|length %}
+    <ul class="rusObr-list clearfix">
+
+        {% for object in russiaImages %}
+        <li>
+            <div  class="rusObr-list-one">
+                <a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">
+                    <img src="{% path object.primaryImage, 'imagesOfRussia' %}" alt="" class="rusObr-list-image" />
+                </a>
+                <div class="rusObr-list-text">
+                    <a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}" class="rusObr-list-header">
+                        {{ object.title }}
+                    </a>
+                    <p class="rusObr-list-place">
+                        {% if object.regions|length > 0 %}
+                            {% for region in object.regions %}
+                                {{ region.title }}{% if not loop.last %} / {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+
+    </ul>
+{% endif %}
