@@ -112,6 +112,7 @@
                 </div>
 
                 <div class="object-one-col3">
+                    {% if entity.virtualTour is not empty %}
                     <div class="block obj-o-description">
                        {# <h1>{{ entity.title }}</h1>
                         <p>
@@ -138,6 +139,7 @@
                         <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p>
 
                     </div>
+                    {% endif %}
 
                     <div class="block obj-o-contacts">
                        {# <div class="obj-o-map">
