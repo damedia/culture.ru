@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Armd\AtlasBundle\Entity\Object
  *
  * @ORM\Table(name="atlas_object")
- * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Entity\ObjectRepository")
+ * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Object

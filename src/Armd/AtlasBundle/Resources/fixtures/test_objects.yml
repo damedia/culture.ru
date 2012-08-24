@@ -74,3 +74,131 @@ objects:
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
+
+
+    - title: Образ России 1
+      announce: Образ России announce
+      content: Образ России content
+      siteUrl: http://ya.ru
+      email: test@example.org
+      phone: +7 (495) 123 45678
+      address: Москва, ул. Московская д.5
+      lat: 59.335469
+      lon: 39.804629
+      secondaryCategories: [library]
+      workTime: 12:00-19:00
+      weekends: [day7]
+      primaryImage: primary_image.jpg
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+      image3d: 3d.jpg
+      virtualTour: http://ya.ru
+      videos: [video1, video2, video3]
+      showAtRussianImage: true
+      regions: [tatarstan, piter]
+
+
+    - title: Образ России 2
+      announce: Образ России announce
+      content: Образ России content
+      siteUrl: http://ya.ru
+      email: test@example.org
+      phone: +7 (495) 123 45678
+      address: Москва, ул. Московская д.5
+      lat: 59.335469
+      lon: 39.804629
+      secondaryCategories: [library]
+      workTime: 12:00-19:00
+      weekends: [day7]
+      primaryImage: primary_image.jpg
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+      image3d: 3d.jpg
+      virtualTour: http://ya.ru
+      videos: [video1, video2, video3]
+      showAtRussianImage: true
+      regions: [tatarstan, piter]
+
+    - title: Образ России 3
+      announce: Образ России announce
+      content: Образ России content
+      siteUrl: http://ya.ru
+      email: test@example.org
+      phone: +7 (495) 123 45678
+      address: Москва, ул. Московская д.5
+      lat: 59.335469
+      lon: 39.804629
+      secondaryCategories: [library]
+      workTime: 12:00-19:00
+      weekends: [day7]
+      primaryImage: primary_image.jpg
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+      image3d: 3d.jpg
+      virtualTour: http://ya.ru
+      videos: [video1, video2, video3]
+      showAtRussianImage: true
+      regions: [tatarstan, piter]
+
+    - title: Образ России 4
+      announce: Образ России announce
+      content: Образ России content
+      siteUrl: http://ya.ru
+      email: test@example.org
+      phone: +7 (495) 123 45678
+      address: Москва, ул. Московская д.5
+      lat: 59.335469
+      lon: 39.804629
+      secondaryCategories: [library]
+      workTime: 12:00-19:00
+      weekends: [day7]
+      primaryImage: primary_image.jpg
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+      image3d: 3d.jpg
+      virtualTour: http://ya.ru
+      videos: [video1, video2, video3]
+      showAtRussianImage: true
+
+    - title: Образ России 5
+      announce: Образ России announce
+      content: Образ России content
+      siteUrl: http://ya.ru
+      email: test@example.org
+      phone: +7 (495) 123 45678
+      address: Москва, ул. Московская д.5
+      lat: 59.335469
+      lon: 39.804629
+      secondaryCategories: [library]
+      workTime: 12:00-19:00
+      weekends: [day7]
+      primaryImage: primary_image.jpg
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+      image3d: 3d.jpg
+      virtualTour: http://ya.ru
+      videos: [video1, video2, video3]
+      showAtRussianImage: true
+      regions: [moscow, piter]
+
+
+    - title: Образ России 6
+      announce: Образ России announce
+      content: Образ России content
+      siteUrl: http://ya.ru
+      email: test@example.org
+      phone: +7 (495) 123 45678
+      address: Москва, ул. Московская д.5
+      lat: 59.335469
+      lon: 39.804629
+      secondaryCategories: [library]
+      workTime: 12:00-19:00
+      weekends: [day7]
+      primaryImage: primary_image.jpg
+      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+      image3d: 3d.jpg
+      virtualTour: http://ya.ru
+      videos: [video1, video2, video3]
+      showAtRussianImage: true
+      regions: [moscow, piter]

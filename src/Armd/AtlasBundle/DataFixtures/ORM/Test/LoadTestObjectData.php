@@ -52,7 +52,8 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
             'lat',
             'lon',
             'workTime',
-            'virtualTour'
+            'virtualTour',
+            'showAtRussianImage'
         );
 
         foreach ($simpleFields as $simpleField) {
@@ -63,6 +64,11 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
                 }
             }
         }
+
+        if(!empty($data['primaryImage'])) {
+            $object->setPrimaryImage($this->createMediaImage($data['primaryImage']));
+        }
+
 
         if(!empty($data['images'])) {
             foreach($data['images'] as $fileName) {
