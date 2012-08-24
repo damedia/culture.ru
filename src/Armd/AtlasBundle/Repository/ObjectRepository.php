@@ -27,6 +27,15 @@ class ObjectRepository extends EntityRepository
         return $rows;
     }
 
+    public function getRussiaImagesCount()
+    {
+        $objectCount = $this->createQueryBuilder('o')
+                    ->select('COUNT(o)')
+                    ->where('o.showAtRussianImage = TRUE')
+                    ->getQuery()->getSingleScalarResult();
+        return $objectCount;
+    }
+
     public function findRussiaImages($limit = null)
     {
         $qb = $this->createQueryBuilder('o')
@@ -38,6 +47,36 @@ class ObjectRepository extends EntityRepository
 
         $objects = $qb->getQuery()
             ->getResult();
+
+        return $objects;
+    }
+
+    public function findRandomRussiaImages($limit)
+    {
+        $objectCount = $this->getRussiaImagesCount();
+
+        if ($objectCount <= $limit) {
+            $objects = $this->findRussiaImages($limit);
+        } else {
+            $offsets = array();
+            for($i = 0; $i < $limit; $i++) {
+                $j = 0;
+                do {
+                    $offset = rand(0, $objectCount - 1);
+                } while($j++ < 10 && in_array($offset, $offsets));
+                $offsets[] = $offset;
+            }
+
+            $objects = array();
+            foreach($offsets as $offset) {
+                $objects[] = $this->createQueryBuilder('o')
+                    ->select('o')
+                    ->where('o.showAtRussianImage = TRUE')
+                    ->setMaxResults(1)
+                    ->setFirstResult($offset)
+                    ->getQuery()->getSingleResult();
+            }
+        }
 
         return $objects;
     }

@@ -13,10 +13,20 @@ class MainController extends Controller
     {
         $categories = $this->get('armd_news.controller.news')->getCategoriesList();
 
+
+
         return $this->render('ArmdMainBundle::index.html.twig', array(
             'news'          => $this->getNews($categories),        
-            'categories'    => $categories, 
-        ));   
+            'categories'    => $categories,
+            'russiaImages'  => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRussiaImages(),
+        ));
+    }
+
+    public function randomRussiaImagesAction()
+    {
+        return $this->render('ArmdMainBundle:Main:randomRussiaImages.html.twig', array(
+            'russiaImages' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRandomRussiaImages(6)
+        ));
     }
     
     function getNews(array $categories)
