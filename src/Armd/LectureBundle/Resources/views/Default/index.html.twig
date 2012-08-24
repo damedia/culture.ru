@@ -100,28 +100,51 @@
     <div class="title">
         <h2>Рекомендовано</h2>
     </div>
+
     <ul class="right-list">
-        {% for lecture in recommendedLectures %}
+        {% for object in russiaImages %}
             <li>
-                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                    {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                        <img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>
-                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
-                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />
-                    {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
-                        <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />
+                <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">
+                    {% if object.primaryImage is not null %}
+                        <img src="{% path object.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ object.title }}"/>
+                    {% elseif object.images|length > 0%}
+                        <img src="{% path object.images, 'imagesOfRussiaSmall' %}" alt="{{ object.title }}"/>
                     {% endif %}
                 </a>
 
                 <div class="text-overflow">
-                    <span class="rl-type">{{ lecture.lectureType.name }}</span>
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">
-                        {{ lecture.title }}
+                    <span class="rl-type">Образы России</span>
+                    <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}" class="rl-name">
+                        {{ object.title }}
                     </a>
                 </div>
             </li>
         {% endfor %}
-    </ul>
+    {#&#123;&#35;</ul>&#35;&#125;    #}
+
+    {#<ul class="right-list">#}
+        {#{% for lecture in recommendedLectures %}#}
+            {#<li>#}
+                {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">#}
+                    {#{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}#}
+                        {#<img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>#}
+                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}#}
+                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />#}
+                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}#}
+                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />#}
+                    {#{% endif %}#}
+                {#</a>#}
+
+                {#<div class="text-overflow">#}
+                    {#<span class="rl-type">{{ lecture.lectureType.name }}</span>#}
+                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">#}
+                        {#{{ lecture.title }}#}
+                    {#</a>#}
+                {#</div>#}
+            {#</li>#}
+        {#{% endfor %}#}
+    {#</ul>#}
+
     <div class="virtual-anons-block">
         <a href="#" class="virtual-anons">
             <span class="virtual-anons-header">Виртуальный тур</span>

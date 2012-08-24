@@ -28,8 +28,9 @@ class DefaultController extends Controller
         }
 
         // recommended and last lectures
-        $recommendedLectures = $lectureRepo->findRecommended();
+//        $recommendedLectures = $lectureRepo->findRecommended();
         $lastLectures = $lectureRepo->findLastAdded();
+        $russiaImages = $em->getRepository('ArmdAtlasBundle:Object')->findRussiaImages(6);
 
 
         $typeCategories = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->getTypeCategories();
@@ -37,7 +38,8 @@ class DefaultController extends Controller
         return array(
             'lectureTypes' => $lectureTypes,
             'lectureCategories' => $lectureCategories,
-            'recommendedLectures' => $recommendedLectures,
+//            'recommendedLectures' => $recommendedLectures,
+            'russiaImages' => $russiaImages,
             'lastLectures' => $lastLectures,
             'page' => $page,
             'typeCategories' => $typeCategories
