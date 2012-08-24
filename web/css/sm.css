@@ -609,7 +609,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .title-filter:before {
-	background:url('../img/title.png') no-repeat 0 4px;
+	background:url('../img/title-icon.gif') no-repeat 0 4px;
 }
 	
 	
