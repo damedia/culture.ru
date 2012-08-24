@@ -29,10 +29,11 @@ class LectureRepository extends EntityRepository
         return $lastAdded;
     }
 
-    public function getFilterQueryBuilder($alias, $typeIds = null, $categoryIds = null, $sortBy = 'date')
+    public function getFilterQueryBuilder($alias, $superType, $typeIds = null, $categoryIds = null, $sortBy = 'date')
     {
         $qb = $this->createQueryBuilder($alias)
             ->innerJoin($alias.'.categories', 'c')
+            ->where($alias.'.superType = :superType')->setParameter('superType', $superType)
         ;
 
         // filter by types

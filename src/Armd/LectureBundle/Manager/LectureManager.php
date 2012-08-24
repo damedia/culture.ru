@@ -2,6 +2,7 @@
 namespace Armd\LectureBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Armd\LectureBundle\Entity\LectureSuperType;
 use Armd\SphinxSearchBundle\Services\Search\SphinxSearch;
 use Knp\Component\Pager\Paginator;
 
@@ -18,7 +19,7 @@ class LectureManager
         $this->search = $search;
     }
 
-    public function findFiltered($page = 1, $perPage = 20, $typeIds = null, $categoryIds = null, $sortBy = 'date', $searchString = '')
+    public function findFiltered(LectureSuperType $superType, $page = 1, $perPage = 20, $typeIds = null, $categoryIds = null, $sortBy = 'date', $searchString = '')
     {
         $lectureRepo = $this->em->getRepository('ArmdLectureBundle:Lecture');
         if (empty($searchString)) {
@@ -33,7 +34,12 @@ class LectureManager
                     'result_offset' => ($page - 1) * $perPage,
                     'result_limit' => $perPage,
                     'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC',
-                    'filters' => array()
+                    'filters' => array(
+                        array(
+                            'attribute' => 'lecture_super_type_id',
+                            'values' => array($superType->getId())
+                        )
+                    )
                 )
             );
             // search by text with Sphinx
