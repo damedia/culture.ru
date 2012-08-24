@@ -41,6 +41,7 @@ class LectureAdmin extends Admin
     {
         $formMapper
             ->add('title')
+            ->add('lectureSuperType')
             ->add('lectureType')
             ->add('categories', 'armd_lecture_categories',
             array(

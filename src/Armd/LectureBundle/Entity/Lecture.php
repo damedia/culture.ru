@@ -52,6 +52,12 @@ class Lecture
     private $lectureFile;
 
     /**
+     * @ORM\ManyToOne(targetEntity="LectureSuperType", fetch="EAGER")
+     * @ORM\JoinColumn(name="lecture_super_type_id", referencedColumnName="id")
+     */
+    private $lectureSuperType;
+
+    /**
      * @ORM\ManyToOne(targetEntity="LectureType", fetch="EAGER")
      * @ORM\JoinColumn(name="lecture_type_id", referencedColumnName="id")
      */
@@ -158,6 +164,24 @@ class Lecture
     }
 
     /**
+     * @return \Armd\LectureBundle\Entity\LectureSuperType
+     */
+    public function getLectureSuperType()
+    {
+        return $this->lectureSuperType;
+    }
+
+    /**
+     * @param LectureSuperType $lectureSuperType
+     * @return \Armd\LectureBundle\Entity\Lecture
+     */
+    public function setLectureSuperType(LectureSuperType $lectureSuperType)
+    {
+        $this->lectureSuperType = $lectureSuperType;
+        return $this;
+    }
+
+    /**
      * @return \Armd\LectureBundle\Entity\LectureType
      */
     public function getLectureType()
@@ -172,6 +196,8 @@ class Lecture
     {
         $this->lectureType = $lectureType;
     }
+
+
 
     public function getCategories()
     {
@@ -192,4 +218,7 @@ class Lecture
     {
         $this->categories->removeCategory($category);
     }
+
+
+
 }
