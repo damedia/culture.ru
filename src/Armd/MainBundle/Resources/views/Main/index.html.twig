@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdmain/css/atlas_obrazy.css') }}">
 {% endblock %}
 
@@ -65,7 +66,7 @@
 <div id="atlasTab_tab"  class="indextab" style="display:block;">
 
 					<div class="atlas-map">
-						<img src="/static/common/img/map.png" alt="" />
+						<div id="map"></div>
 						<div class="atlas-menu"></div>
 					</div>
 					

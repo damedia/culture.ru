@@ -276,7 +276,7 @@ AT.placePoint = function(object) {
                 backpos: '0 0',
                 innerImage: {
                     src: object.imageUrl,
-                    width: 32
+                    width: 50
                 }
             });
     } else {

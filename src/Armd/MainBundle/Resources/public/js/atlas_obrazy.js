@@ -52,7 +52,6 @@ AT.initUI = function() {
                 console.error(json.message);
             }
             if (objects && objects.length) {
-                //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
                 var points = [];
                 for (i in objects) {
                     AT.placePoint(objects[i]);
@@ -63,7 +62,6 @@ AT.initUI = function() {
 };
 
 AT.placePoint = function(object) {
-
     if (object.obraz) {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
@@ -76,7 +74,6 @@ AT.placePoint = function(object) {
                 }
             });
     }
-    //console.log( $(point.element) );
     $(point.container)
         .data('uid', object.id)
         .css({
@@ -92,17 +89,11 @@ AT.placePoint = function(object) {
             url: fetchMarkerDetailUri,
             data: { id: uid },
             success: function(res) {
-
-                console.log('click on point');
-
-                //point.addContent(res);
                 point.name = res;
                 point.balloon = AT.map.balloon;
-                //PGmap.Events.removeHandler(point.container, 'click', point.toggleBalloon);
                 point.toggleBalloon();
             }
         });
     });
-
     return point;
 };
