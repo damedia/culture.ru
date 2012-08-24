@@ -27,9 +27,9 @@ AT.initMap = function(params) {
     this.map = new PGmap(map_el, parameters);
     this.map.controls.addControl('slider');
 
+    this.map.balloon.content.parentNode.style.width = '300px';
     if ($.browser.opera) {
         var m = this.map;
-        this.map.balloon.content.parentNode.style.width = '300px';
         var el = this.map.balloon.element.getElementsByTagName("b")[0];
         PGmap.Events.addHandler(el, 'mousedown', function(e){
             var coords = m.globals.getCoords();
