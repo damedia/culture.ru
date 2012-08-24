@@ -15,9 +15,11 @@
         <div class="text">
             {{ entity.announce|raw }}
         </div>
-        <div class="text">
-            {% if entity.phone %}{{ entity.phone }}<br/>{% endif %}
-            {% if entity.address %}{{ entity.address }}{% endif %}
-        </div>
+        {% if not entity.images|length %}
+            <div class="text">
+                {% if entity.phone %}{{ entity.phone }}<br/>{% endif %}
+                {% if entity.address %}{{ entity.address }}{% endif %}
+            </div>
+        {% endif %}
     </div>
 </div>
