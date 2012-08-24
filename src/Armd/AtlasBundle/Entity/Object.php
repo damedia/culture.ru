@@ -148,6 +148,11 @@ class Object
     private $showAtRussianImage = false;
 
     /**
+     * @ORM\Column(name="russia_image_announce", type="text", nullable=true)
+     */
+    private $russiaImageAnnounce;
+
+    /**
      * @ORM\OneToMany(targetEntity="Literature", mappedBy="object", cascade={"all"}, orphanRemoval=true)
      * @ORM\OrderBy({"id" = "ASC"})
      */
@@ -734,6 +739,17 @@ class Object
         $this->showAtRussianImage = $showAtRussianImage;
     }
 
+    public function getRussiaImageAnnounce()
+    {
+        return $this->russiaImageAnnounce;
+    }
+
+    public function setRussiaImageAnnounce($russiaImageAnnounce)
+    {
+        $this->russiaImageAnnounce = $russiaImageAnnounce;
+    }
+
+
     public function getLiteratures()
     {
         return $this->literatures;
@@ -842,5 +858,6 @@ class Object
     {
         $this->regions->removeElement($region);
     }
+
 
 }
