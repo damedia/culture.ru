@@ -25,6 +25,12 @@ class Region
     private $title;
 
     /**
+     * @ORM\Column(name="sort_index", type="integer", nullable=false)
+     */
+    private $sortIndex = 500;
+
+
+    /**
      * @return string
      */
     public function __toString()
@@ -64,5 +70,15 @@ class Region
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getSortIndex()
+    {
+        return $this->sortIndex;
+    }
+
+    public function setSortIndex($sortIndex)
+    {
+        $this->sortIndex = $sortIndex;
     }
 }
