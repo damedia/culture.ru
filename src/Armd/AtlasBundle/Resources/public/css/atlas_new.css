@@ -4,6 +4,9 @@
 
 .geocoder .search-box .search{ font-size:15px; width:90%; }
 
+.simple-search input{ border:solid 1px #ddd; padding:5px 10px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
+.simple-search input:focus{ border:solid 1px #f90; }
+
 /* Кастомизация карты */
 #map{ width:100%; height:600px; }
 #map .b-balloon{ z-index:76; }
@@ -40,3 +43,7 @@
 .atlas-map .regions-selector .chzn-container-single .chzn-drop{ border-radius:0; }
 .atlas-map .regions-selector .chzn-container .chzn-results .highlighted{ background:#00A02D; }
 .atlas-map .regions-selector .chzn-container .chzn-results li{ padding:4px 6px; }
+
+.ui-autocomplete{ width:300px; padding:5px; font-size:13px; background:#eee; box-shadow:1px 1px 5px #aaa; }
+.ui-autocomplete .ui-menu-item{ padding:2px 0; }
+.ui-autocomplete .ui-menu-item a{ cursor:pointer; color:#000; }
