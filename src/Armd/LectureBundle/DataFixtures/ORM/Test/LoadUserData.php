@@ -1,5 +1,5 @@
 <?php
-namespace Armd\AtlasBundle\DataFixtures\ORM\Test;
+namespace Armd\LectureBundle\DataFixtures\ORM\Test;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,6 +20,20 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     }
 
     public function load(ObjectManager $manager)
+    {
+        $userCount = $manager->getRepository('ArmdUserBundle:User')
+            ->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->getQuery()->getSingleScalarResult();
+
+        if($userCount == 0) {
+            $this->loadUsers($manager);
+        }
+
+
+    }
+
+    public function loadUsers($manager)
     {
         $userManager = $this->container->get('fos_user.user_manager.default');
 
