@@ -25,11 +25,8 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-    this.map.balloon.content.parentNode.style.width = '400px';
+    this.map.balloon.content.parentNode.style.width = '300px';
     this.map.controls.addControl('slider');
-
-
-    console.log(obrazCategoryId);
 };
 
 AT.initUI = function() {
