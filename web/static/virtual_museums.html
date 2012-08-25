@@ -85,7 +85,7 @@
                 <li><a href="obrazy.html">Образы России</a></li>
 				<li><a href="virtual_museums.html">Виртуальные музеи</a></li>
                 <li><a href="online.html">Трансляции</a></li>
-                <li><a href="video_list.html">Лекции</a></li>
+                <li><a href="/lecture/">Лекции</a></li>
 				<li><a href="/chronicle/">Лента времени</a></li>
                 <li><a href="/press-centre/">Новости</a></li>
 				<li><a href="http://мнения.культура.рф/">Общение</a></li>
@@ -143,6 +143,16 @@
 					$('.panoDIV').css({'width':x-18, 'height':y});
 					console.log(x,y);
 					
+					$(".iframe").fancybox({
+					'width' : '100%',
+					'height' : '100%',
+					'autoScale' : true,
+					'transitionIn' : 'none',
+					'transitionOut' : 'none',
+					'type' : 'iframe'
+					});
+
+					
 				 })  
 			</script>
 			 <style type="text/css">
@@ -167,59 +177,29 @@
 						<li>
 							<div class="rusObr-list-one-wrap" style="" >
 								<div  class="rusObr-list-one">
-									<a href="/uploads/museum/glinka/glinka_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/03.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="http://eyera.dev.armd.ru/glinka_museum/glinka_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/03.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
-										<a href="#panoDIV" class="rusObr-list-header">
+										<a href="http://eyera.dev.armd.ru/glinka_museum/glinka_museum.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 											Всероссийское музейное объединение музыкальной культуры имени М.И. Глинки
 										</a>
 										
 									</div>
-									<!--div class="panowrap" style="display:none;">
-										<div id="panoDIV" class="panoDIV">
-											<script>
-												embedpano({target:"panoDIV",swf:"/uploads/museum/glinka/krpano.swf", xml:"/uploads/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});
-											</script>
-											<noscript>
-													<div id="tour">
-															<object width="100%" height="100%">
-																	<embed src="/uploads/museum/glinka/krpano.swf" width="100%" height="100%" allowFullScreen="true">
-																	</embed>
-															</object>
-													</div>
-											</noscript>
-										</div>
-									</div-->
-								</div>
-								<!--<div class="rusHovered-contacts" >
-									<div class="obj-o-contacts-text">
-										<p class="obj-o-contacts-main">
-											г. Рыбинск <br />
-											Преображенский пер., 6а
-										</p>
-										<p class="obj-o-contacts-main">
-											Сайт: &nbsp;<a href="http://www.rybmuseum.ru">http://www.rybmuseum.ru</a><br />
-											Email: <a href="mailto:rmz@rybmuseum.ru">rmz@rybmuseum.ru</a>
-										</p>
-										<p class="obj-o-contacts-main">
-											Телефон: (4855) 20-17-93
-										</p>
-									</div>
-								</div>-->
 							</div>
 						</li><li>
+							
 							<div class="rusObr-list-one-wrap" style="" >
 								<div  class="rusObr-list-one">
-									<a href="/uploads/museum/bahrushina/bahrushina_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/01.jpg" alt="" class="rusObr-list-image" /></a>
+									<a href="http://eyera.dev.armd.ru/bahrushina/bahrushina_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/01.jpg" alt="" class="rusObr-list-image" /></a>
 									<div class="rusObr-list-text">
-										<a href="#" class="rusObr-list-header">
+										<a  href="http://eyera.dev.armd.ru/bahrushina/bahrushina_museum.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 											Театральный музей имени А.А. Бахрушина
 										</a>
 									
 									</div>
-									<div class="panowrap" style="display:none;">
+									<!--div class="panowrap" style="display:none;">
 										<div id="bahrushina" class="panoDIV">
 											<script>
-												embedpano({target:"bahrushina",swf:"/uploads/museum/bahrushina/krpano.swf", xml:"/uploads/museum/bahrushina/entry_bahrushina14.xml", width:"100%",height:"100%",allowFullScreen:"true"});
+												embedpano({target:"bahrushina",swf:"http://eyera.dev.armd.ru/bahrushina/bahrushina.swf", xml:"http://eyera.dev.armd.ru/bahrushina/bahrushina.xml", width:"100%",height:"100%",allowFullScreen:"true"});
 											</script>
 											<noscript>
 													<div id="tour">
@@ -231,50 +211,24 @@
 											</noscript>
 										</div>
 									</div>
-								</div>
-								<!--<div class="rusHovered-contacts" >
-									<div class="obj-o-contacts-text">
-										<p class="obj-o-contacts-main">
-											г. Рыбинск <br />
-											Преображенский пер., 6а
-										</p>
-										<p class="obj-o-contacts-main">
-											Сайт: &nbsp;<a href="http://www.rybmuseum.ru">http://www.rybmuseum.ru</a><br />
-											Email: <a href="mailto:rmz@rybmuseum.ru">rmz@rybmuseum.ru</a>
-										</p>
-										<p class="obj-o-contacts-main">
-											Телефон: (4855) 20-17-93
-										</p>
-									</div>
-								</div>-->
+								</div-->
+								
 							</div>
 						</li><li>
 
-<script type="text/javascript">
-$(function(){
-	$(".iframe").fancybox({
-	'width' : '100%',
-	'height' : '100%',
-	'autoScale' : true,
-	'transitionIn' : 'none',
-	'transitionOut' : 'none',
-	'type' : 'iframe'
-	});
-})
-
-</script>
-
-
+					<div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="http://mk.dev.armd.ru/uploads/museum/glinka/glinka_museum.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/vostoka.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/vostok/vostok.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/vostoka.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#vost" class="rusObr-list-header">
+									<a href="http://eyera.dev.armd.ru/vostok/vostok.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 										Государственный музей искусства народов Востока
 									</a>
 								
 								</div>
-							</div>		
+							</div>	
+                            </div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
 								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/sklif.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
@@ -283,100 +237,110 @@ $(function(){
 									</a>
 							
 								</div>
+								</div>
 							</div>	
 						</li><li>
-						
+						<div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/__borodinskaya.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/borodino/borodino.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/borodinskaya.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#" class="rusObr-list-header">
+									<a href="http://eyera.dev.armd.ru/borodino/borodino.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 										Музей-панорама &laquo;Бородинская битва&raquo;
 									</a>
-							
+							</div>
 								</div>
 							</div>
 								
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/pushkin.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/pushkin/pushkin.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header"><img src="common/img/photo/virtual_museums/pushkin.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#" class="rusObr-list-header">
+									<a href="http://eyera.dev.armd.ru/pushkin/pushkin.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 										Мемориальный Музей-квартира А.С.Пушкина
 									</a>
-							
+							</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/kulikovo.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/kulikovo/kulikovo_pole.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/kulikovo.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#" class="rusObr-list-header">
-										 &laquo;Куликово поле&raquo;
+									<a href="http://eyera.dev.armd.ru/kulikovo/kulikovo_pole.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
+										 Государственный военно-исторический и природный<br>музей-заповедник &laquo;Куликово поле&raquo;
 									</a>
-								
+								</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/yasnaya_polyana.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/polyana/iasnaya_polyana.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/yasnaya_polyana.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#" class="rusObr-list-header">
+									<a href="http://eyera.dev.armd.ru/polyana/iasnaya_polyana.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 										 Музей-усадьба Л.Н. Толстого<br> «Ясная Поляна»
 									</a>
-								
+								</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/radisheva.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/radisheva/radisheva.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/radisheva.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#" class="rusObr-list-header">
+									<a href="http://eyera.dev.armd.ru/radisheva/radisheva.html" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
 										Саратовский государственный художественный музей <br>имени А.Н. Радищева
 									</a>
-									
+									</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
 								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/tretyakovka.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
 									<a href="#" class="rusObr-list-header">
 										Государственная Третьяковская галерея
 									</a>
-								
+								</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
 								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/schuseva.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
 									<a href="#" class="rusObr-list-header">
 										Государственный музей архитектуры <br>имени А.В. Щусева
 									</a>
-								
+								</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
 								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/ryazan.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
 									<a href="#" class="rusObr-list-header">
 										Рязанский историко-архитектурный музей-заповедник
 									</a>
-								
+								</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/dekabristy.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="http://eyera.dev.armd.ru/dekabristy/dekabristy.html" data-fancybox-type="iframe" class="vob iframe"><img src="common/img/photo/virtual_museums/dekabristy.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
-									<a href="#" class="rusObr-list-header">
+									<a href="http://eyera.dev.armd.ru/dekabristy/dekabristy.html" data-fancybox-type="iframe" class="rusObr-list-header vob iframe">
 										Музей  Памяти декабристов
 									</a>
-									
+									</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
 								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/malye_korely.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
@@ -385,27 +349,29 @@ $(function(){
  и народного искусства «Малые Корелы»
 
 									</a>
-									
+									</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
-								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/_russian_etnograf.jpg" alt="" class="rusObr-list-image" /></a>
+								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/russian_etnograf.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
 									<a href="#" class="rusObr-list-header">
 										Российский этнографический музей
 									</a>
-									
+									</div>
 								</div>
 							</div>	
 						</li><li>
+                        <div class="rusObr-list-one-wrap" style="" >
 							<div  class="rusObr-list-one">
 								<a href="#" class="vob"><img src="common/img/photo/virtual_museums/tzarskoe_selo.jpg" alt="" class="rusObr-list-image" /></a>
 								<div class="rusObr-list-text">
 									<a href="#" class="rusObr-list-header">
 										Государственный музей-заповедник «Царское Село»
 									</a>
-									
+									</div>
 								</div>
 							</div>	
 						</li>							
