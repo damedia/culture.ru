@@ -283,7 +283,12 @@ $(document).ready(function(){
 		
 		
 		/*fancybox img video etc */
-		$("a.in-fancybox").fancybox();
+		$("a.in-fancybox").fancybox({
+			 tpl: {
+			  next: '<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
+			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>'
+			 }
+		});
 		
 	$(".iframe").fancybox({
 		'width' : '100%',
@@ -317,7 +322,7 @@ $(window).load(function(){
 				
 $('#carousel').flexslider({
         animation: "slide",
-        controlNav: false,
+        controlNav: true,
         animationLoop: false,
         slideshow: false,
         itemWidth: 70,
@@ -325,6 +330,8 @@ $('#carousel').flexslider({
         asNavFor: '#slider',
 		minItems: 5,   
 		maxItems: 10,
+		prevText: "Предыдущая",           
+		nextText: "Следующая",  
       });
       
       $('#slider').flexslider({
