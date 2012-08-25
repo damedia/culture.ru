@@ -279,6 +279,39 @@ $(document).ready(function () {
             eventScroller.eventScroll();
         });
     }
+	
+	
+	
+// Reset Font Size
+  var originalFontSize = $('.text').css('font-size');
+    $(".resetFont").click(function(){
+    $('html').css('font-size', originalFontSize);
+  });
+  // Increase Font Size
+  $(".spec-vers").click(function(){
+    var currentFontSize = $('.text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*1.2;
+    $('.text').css('font-size', newFontSize);
+	$(this).removeClass("spec-vers")
+	$(this).addClass("decreaseFont")
+	console.log(currentFontSize);
+    return false;
+  });
+  // Decrease Font Size
+  $(".decreaseFont").click(function(){
+    var currentFontSize = $('.text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*0.8;
+    $('.text').css('font-size', newFontSize);
+	$(this).removeClass("decreaseFont")
+	$(this).addClass("spec-vers")
+	
+	
+    return false;
+  });	
+	
+	
 
 });
 	
