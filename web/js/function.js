@@ -11,7 +11,7 @@ $(document).ready(function () {
         if (direction === "up") {
             $active = $active.prev();
 
-            console.log("up");
+          //  console.log("up");
         }
         /*if (!$active.length) $active = $active.end();*/
 
@@ -21,11 +21,19 @@ $(document).ready(function () {
         $('.active').removeClass('active');
         $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
 
-        console.log($('a[href=#' + $active.attr('id') + ']'));
+       // console.log($('a[href=#' + $active.attr('id') + ']'));
     });
+	
+	
+	
+	
+ 
+	
+	
 
     // Register each section as a waypoint.
     $('.wayponits-area > .time-line-content').waypoint({offset:'50%'});
+
 
     // Wicked credit to
     // http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html

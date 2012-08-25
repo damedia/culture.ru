@@ -9,7 +9,7 @@
 		    {% set decade = year - year % 10 %}
 		    {% if decade != d and decade % 100 != 0 %}
     		    {% set d = decade %}
-    		    <li><a href="#{{ d }}">{{ d }}</a></li>
+    		    <li><a href="#{{ d }}" class="smooth-scroll">{{ d }} гг.</a></li>
             {% endif %}
 		{% endfor %}
 		</ul>
