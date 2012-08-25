@@ -4,7 +4,7 @@
             <li>
                 {% for image in entity.images if loop.first %}
                     <div class="bubble_image">
-                        <a class="thumb" href="{% path image, 'big' %}">
+                        <a class="thumb" href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
                             <img src="{% path image, 'thumbnail' %}" />
                         </a>
                     </div>
