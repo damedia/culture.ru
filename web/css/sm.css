@@ -610,7 +610,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .title-filter:before {
-	background:url('../img/title.png') no-repeat 0 4px;
+	background:url('../img/title-icon.gif') no-repeat 0 4px;
 }
 	
 	
@@ -3375,7 +3375,7 @@ white-space:nowrap;
 	.rusObr-list.type-2 li { float:left; }
 	
 		.rusObr-list li {
-			width:33.33%;
+			width:32%;
 			display:inline-block;
 			*display:inline;
 			position:relative;

@@ -363,6 +363,7 @@ class DefaultController extends Controller
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
                         $obraz = true;
+                        /*
                         $images = $obj->getImages();
                         if (sizeof($images)) {
                             foreach ($images as $image) {
@@ -370,6 +371,9 @@ class DefaultController extends Controller
                                 break;
                             }
                         }
+                        */
+                        $image = $obj->getPrimaryImage();
+                        $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
                     }
                 }
 
@@ -506,6 +510,7 @@ class DefaultController extends Controller
             'objects' => $objects
         );
     }
+
 
     /**
      * @Route("/category/{id}/delete")

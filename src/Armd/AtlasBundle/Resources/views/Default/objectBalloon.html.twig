@@ -8,9 +8,13 @@
     {% endfor %}
     <div class="bubble_content">
         <div class="caption">
-            <a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
+            {% if entity.images|length %}
+                <a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
+                    {{ entity.title }}
+                </a>
+            {% else %}
                 {{ entity.title }}
-            </a>
+            {% endif  %}
         </div>
         <div class="text">
             {{ entity.announce|raw }}

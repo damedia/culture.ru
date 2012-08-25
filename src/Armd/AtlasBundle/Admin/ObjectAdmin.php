@@ -77,9 +77,12 @@ class ObjectAdmin extends Admin
                 ->add('showAtHomepage', null,
                     array('required' => false)
                 )
+            ->end()
+            ->with('Russia Image')
                 ->add('showAtRussianImage', null,
                     array('required' => false)
                 )
+                ->add('russiaImageAnnounce')
             ->end()
             ->with('Virtual Tour')
                 ->add('virtualTour')

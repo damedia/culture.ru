@@ -25,8 +25,18 @@ AT.initMap = function(params) {
         };
 
     this.map = new PGmap(map_el, parameters);
-    this.map.balloon.content.parentNode.style.width = '300px';
     this.map.controls.addControl('slider');
+
+    this.map.balloon.content.parentNode.style.width = '300px';
+    if ($.browser.opera) {
+        var m = this.map;
+        var el = this.map.balloon.element.getElementsByTagName("b")[0];
+        PGmap.Events.addHandler(el, 'mousedown', function(e){
+            var coords = m.globals.getCoords();
+            coords.lon = coords.lon + 20000;
+            m.setCenter(coords);
+        });
+    }
 };
 
 AT.initUI = function() {
@@ -42,7 +52,6 @@ AT.initUI = function() {
                 console.error(json.message);
             }
             if (objects && objects.length) {
-                //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
                 var points = [];
                 for (i in objects) {
                     AT.placePoint(objects[i]);
@@ -53,11 +62,7 @@ AT.initUI = function() {
 };
 
 AT.placePoint = function(object) {
-
-    if (object.obraz) {
-
-        //console.log( object );
-
+    if (object.obraz && object.imageUrl!='') {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
                 width: 24,
@@ -65,45 +70,30 @@ AT.placePoint = function(object) {
                 backpos: '0 0',
                 innerImage: {
                     src: object.imageUrl,
-                    width: 32
+                    width: 50
                 }
             });
-    } else {
-        var point = new PGmap.Point({
-                coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 24,
-                height: 38,
-                backpos: '0 0',
-                url: object.icon
+        $(point.container)
+            .data('uid', object.id)
+            .css({
+                'margin-left': '-12px',
+                'margin-top': '-38px'
             });
+        AT.map.geometry.add(point);
+
+        // клик по точке
+        PGmap.Events.addHandler(point.container, 'click', function(e) {
+            var uid = $(point.container).data('uid');
+            $.ajax({
+                url: fetchMarkerDetailUri,
+                data: { id: uid },
+                success: function(res) {
+                    point.name = res;
+                    point.balloon = AT.map.balloon;
+                    point.toggleBalloon();
+                }
+            });
+        });
+        return point;
     }
-    //console.log( $(point.element) );
-    $(point.container)
-        .data('uid', object.id)
-        .css({
-            'margin-left': '-12px',
-            'margin-top': '-38px'
-        });
-    AT.map.geometry.add(point);
-
-    // клик по точке
-    PGmap.Events.addHandler(point.container, 'click', function(e) {
-        var uid = $(point.container).data('uid');
-        $.ajax({
-            url: fetchMarkerDetailUri,
-            data: { id: uid },
-            success: function(res) {
-
-                console.log('click on point');
-
-                //point.addContent(res);
-                point.name = res;
-                point.balloon = AT.map.balloon;
-                //PGmap.Events.removeHandler(point.container, 'click', point.toggleBalloon);
-                point.toggleBalloon();
-            }
-        });
-    });
-
-    return point;
 };
