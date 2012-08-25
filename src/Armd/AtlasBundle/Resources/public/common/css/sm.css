@@ -120,7 +120,8 @@
 			}
 			.obj-o-contacts-main {
 				color:#000;
-				font-weight:bold;
+				/*font-weight:bold;*/
+				font-size:12px
 			}
 			.obj-o-contacts-text b {
 				
@@ -214,18 +215,50 @@
 			margin-top:20px;
 		}	
 			.object-video-list-one {
-				margin-bottom:20px;
+				margin-top:20px;
 				overflow:hidden;
 			}
+			
+			.object-video-list-one:first-child { margin-top:0; }
+			
 			.object-video-list-image {
-				float:left;
+				/*float:left;
 				border:1px solid #e4e4e4;
-				margin-right:20px;
+				margin-right:20px;*/
+				position:relative;
 			}
+			
+				.object-video-list-image img {
+					width:100%;
+				}
+				
+				.object-video-list-image a {
+					display:block;
+
+					position:relative;
+				}
+				
+				.object-video-list-image a,
+				.object-video-list-image a:hover {
+					text-decoration:none;
+				}
+				
+				.object-video-list-image a .title-video {
+					position:absolute;
+					width:100%;
+					padding:12px 10px;
+					color:#FFF;
+					font-size:14px;
+					bottom:0;
+					left:0;
+					background:rgba(0, 0, 0, 0.8);
+				}
+					
 
 			.object-video-list-descr {
 				overflow:hidden;
-				font-size:10px;
+				font-size:14px;
+				text-align:center;
 			}
 				.ovl-date {
 					color:#3980d1;
@@ -898,7 +931,77 @@ Here is a compact version :
 	
 	.object-one-text.content .text {
 		padding:20px 26px;
+		font-size:14px;
 	}
+	
+	.object-one-text.content .text .notes {
+		margin:20px -26px;
+		border-left:1px solid #d3b790;
+		padding-left:26px;
+
+	}
+	
+		.object-one-text.content .text .notes ol {
+			font-style:italic;
+			background:#fbf8f4;
+			padding:15px 40px 15px 46px;
+			counter-reset: list 0;
+		}
+		
+			.object-one-text.content .text .notes li {
+				list-style:none;
+				margin-bottom:15px;
+				font-size:14px;
+		
+			}
+			
+			.object-one-text.content .text .notes li:before {
+				counter-increment: list;
+				content: counter(list) ". ";
+				color:#d3b790;
+				padding-right: 10px;
+				position: relative;
+				text-align: right;
+				width: 30px;
+				display:inline-block;
+				margin-left:-40px;
+				line-height:20px;
+				float:left;
+			}
+			
+			.object-one-text.content #full-text { display:none; }
+			
+	.object-one-text.content .btn-more {
+		position:relative;
+		margin-top: -40px;
+		position: relative;
+		text-align: right;
+		top: 40px;
+		margin-bottom: 60px;
+	}
+	
+		.object-one-text.content .btn-more a {
+			position:relative;
+			display:inline-block;
+			width:144px;
+			height:34px;
+			background:url(/img/bg-btn-more.png) no-repeat 0 0;
+			color:#FFF;
+			text-decoration:none;
+			padding-top:6px;
+			text-align:center;
+			font-size:14px;
+			margin-right:-5px;
+		}
+			.object-one-text.content .btn-more a.opened .less { display:inline }
+			
+			.object-one-text.content .btn-more a.opened .more { display:none; }
+			
+			.object-one-text.content .btn-more a .less { display:none }
+			
+			.object-one-text.content .btn-more a .more { display:inline }
+			
+			
 	
 
 

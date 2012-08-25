@@ -8,59 +8,7 @@
 
     
     
-    <script type="text/javascript">
-
-    $(window).load(function(){
-      $('#carousel').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        itemWidth: 70,
-        itemMargin: 0,
-        asNavFor: '#slider',
-		minItems: 5,   
-		maxItems: 10,
-      });
-      
-      $('#slider').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        sync: "#carousel",
-		directionNav: false,
-        start: function(slider){
-          $('body').removeClass('loading');
-		 $("#carousel").hide();
-        }
-      });
-	  
-	 
-	 $("#slider").mouseenter(function(){
-      	$('#carousel').show();
-    }).mouseleave(function(){
-     	 $('#carousel').hide();
-    });
-	
-	 $("#carousel").mouseenter(function(){
-      	$('#carousel').show();
-    }).mouseleave(function(){
-     	 $('#carousel').hide();
-    });
-	 
-	 
-	  
-	 /* $("#slider").mouseenter(function() {
-    		$('#carousel').show();
-	  })
-	  
-	  $("#slider").mouseleave(function() {
-   			$('#carousel').hide();
-	  })	*/  
-	  
-    });
-  </script>
+   
     
     
         
@@ -157,13 +105,20 @@
                    
                    <div class="text">
 						<h1>{{ entity.title }}</h1>
-						<big>{{ entity.announce }}</big>
-						<div class="content-text">
+						<div class="content-anons">{{ entity.announce|raw }}</div>
+						
+                        <div class="content-text" id="full-text">
 							{{ entity.content|raw }}
 						</div>	
 						
 				   </div>
+                   {% if entity.content|length > 0 %}
+                   <div class="btn-more">
+                   <a href="#" rel="full-text" title="Далее" class=""><span class="more">Далее...</span><span class="less">Свернуть</span></a>
                    </div>
+                   {% endif %}
+                   
+                   </div><!--// content-->
                    
 					{# <div class="literature">
 						<p class="lit-header">Использованная литература</p>
@@ -221,13 +176,19 @@
 
                 <div class="object-one-col3">
                     {% if entity.virtualTour is not empty %}
-                    <div class="block obj-o-description">
+                    <div class="block virtual-anons-block virtual-anons">
+                    <span class="virtual-anons-header">Виртуальный тур</span>
                        {# <h1>{{ entity.title }}</h1>
                         <p>
                             {{ entity.content|raw }}
                         </p> #}
-                        <div class="virtual-tour">
-                            <a href="{{ entity.virtualTour }}" class="virtual-overflow-block">Виртуальный тур</a>
+                       
+                        
+                            <a href="{{ entity.virtualTour }}" data-fancybox-type="iframe" class="vob iframe">
+                            <img alt="" src="{% path entity.virtualTourImage, 'reference' %}">
+                            
+                            
+                            </a>
                             {#<div class="panowrap" style="display:none;">#}
                                 {#<div id="panoDIV" class="panoDIV">#}
                                     {#<script>#}
@@ -243,63 +204,30 @@
                                     {#</noscript>#}
                                 {#</div>#}
                             {#</div>#}
-                        </div>
-                        <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p>
+                        
+                        {# <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p> #}
 
                     </div>
                     {% endif %}
                     
-                    <div class="virtual-anons-block">
+                   {# <div class="virtual-anons-block">
 					<a class="virtual-anons block" href="/main/virtual_museums.html">
 						<span class="virtual-anons-header">Виртуальный тур</span>
 						<img alt="" src="/main/common/img/photo/virt_anons.jpg">
 						
 					</a>
-				</div>
+				</div> #}
                     
                   {% if entity.image3d %}
 							<div class="block object-infograph">
                             <P class="obj-o-infograph-header">Инфографика</P>
-								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>
-								<a href="{{ path('sonata_media_download', {'id': entity.image3d.id}) }}/{{ entity.image3d }}" class="in-fancybox"><img src="{% path entity.image3d, 'image3d' %}" alt="" /></a>
+								{#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
+								<a href="{% path entity.image3d, 'reference' %}" class="in-fancybox"><img src="{% path entity.image3d, 'image3d' %}" alt="" /></a>
 							</div>
 						{% endif %}	  
                     
 
-                    <div class="block obj-o-contacts">
-                       {# <div class="obj-o-map">
-                            <a href="#" class="open-big-green"></a>
-                            <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
-                        </div>#}
-                        <div class="obj-o-contacts-text" style="margin-top:0">
-                            <p class="obj-o-contacts-header">
-                                Контакты
-                            </p>
-                            <p class="obj-o-contacts-main">
-                                {% if entity.address %}{{ entity.address }}<br />{% endif %}
-                                {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
-                                {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
-                                {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
-                            </p>
-
-                            <p>
-                                {% if entity.workTime is not empty %}
-                                    <b>Музей открыт:</b>
-                                    {{ entity.workTime }}<br/>
-                                {% endif %}
-
-                                {% if entity.weekends|length > 0 %}
-                                    Выходные:
-                                    {% for day in entity.weekends %}
-                                    {{ day.name }}{% if not loop.last %}, {%endif%}
-                                    {% endfor %}
-                                {% else %}
-                                    без выходных дней
-                                {% endif %}
-                            </p>
-
-                        </div>
-                    </div>
+                    
 					
 					{% if entity.videos is empty %}
 						{% else %}
@@ -315,7 +243,15 @@
                                 {% for video in entity.videos %}
                                 <li class="object-video-list-one">
                                     <div class="object-video-list-image">
-                                    <a class="in-fancybox" href="#data-{{ loop.index }}"><img src="{{ video.image  }}" alt="" style="width:91px;" /></a>
+                                    <a class="in-fancybox" href="#data-{{ loop.index }}">
+                                    
+                                    <img src="{{ video.image  }}" alt="" />
+                                    
+                                    <div class="title-video">{{ video.title }}</div>
+                                    
+                                    </a>
+                                      
+                                      
                                       <div style="display:none;">
                                       
                                       <div id="data-{{ loop.index }}">
@@ -327,13 +263,13 @@
                                       </div>
 
                                     </div>
-                                    <div class="object-video-list-descr">
+                                   {# <div class="object-video-list-descr">
                                         <span class="ovl-date">{{ video.durationString }}</span>
                                         <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
                                         <p>
                                             {{ video.description }}
                                         </p>
-                                    </div>
+                                    </div> #}
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -342,6 +278,45 @@
                         </div>
 						
 						{% endif %}	
+                        
+                        
+<div class="block obj-o-contacts">
+                       {# <div class="obj-o-map">
+                            <a href="#" class="open-big-green"></a>
+                            <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
+                        </div>#}
+                        <div class="obj-o-contacts-text" style="margin-top:0">
+                            <p class="obj-o-contacts-header">
+                                Контакты
+                            </p>
+                            <div class="obj-o-contacts-main">
+                                {% if entity.address %}<p>{{ entity.address }}</p>{% endif %}
+                                {% if entity.siteUrl or entity.email or entity.phone  %}<p>{% endif %}
+                                
+                                {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
+                                {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
+                                {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
+                                {% if entity.siteUrl or entity.email or entity.phone  %}</p>{% endif %}
+                           
+                                <p>
+                                {% if entity.workTime is not empty %}
+                                    Музей открыт:
+                                    {{ entity.workTime }}
+                                {% endif %}
+
+                                {% if entity.weekends|length > 0 %}
+                                    <br />Выходные:
+                                    {% for day in entity.weekends %}
+                                    {{ day.name }}{% if not loop.last %}, {%endif%}
+                                    {% endfor %}
+                                {% else %}
+                                    без выходных дней
+                                {% endif %}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>                        
 
 						
 						
@@ -464,7 +439,7 @@
  
    <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
+	
 	
 {% endblock %}
 
@@ -475,7 +450,7 @@
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
    
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    
     <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
 	<script src="/swf/swfobject/swfkrpano.js"></script>

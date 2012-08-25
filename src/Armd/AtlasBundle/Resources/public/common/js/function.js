@@ -285,6 +285,14 @@ $(document).ready(function(){
 		/*fancybox img video etc */
 		$("a.in-fancybox").fancybox();
 		
+	$(".iframe").fancybox({
+		'width' : '100%',
+		'height' : '100%',
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'type' : 'iframe'
+	});				
 
 		
 		
@@ -293,12 +301,9 @@ $(document).ready(function(){
     
     
     
-$(window).load(function(){ //$(window).load() must be used instead of $(document).ready() because of Webkit compatibility
+$(window).load(function(){ 
 				
-				/*---------------------------------
-				 *	Counter add-on, example 01
-				 *---------------------------------*/
-				$(".sliderkit").sliderkit({
+					$(".sliderkit").sliderkit({
 					mousewheel:false,
 					shownavitems:2,
 					panelbtnshover:false,
@@ -307,6 +312,55 @@ $(window).load(function(){ //$(window).load() must be used instead of $(document
 					counter:true,
 					freeheight:true
 				});
+				
+				
+				
+$('#carousel').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 70,
+        itemMargin: 0,
+        asNavFor: '#slider',
+		minItems: 5,   
+		maxItems: 10,
+      });
+      
+      $('#slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        sync: "#carousel",
+		directionNav: false,
+        start: function(slider){
+          $('body').removeClass('loading');
+		 $("#carousel").hide();
+        }
+      });
+	  
+	 
+	 $("#slider").mouseenter(function(){
+      	$('#carousel').show();
+    }).mouseleave(function(){
+     	 $('#carousel').hide();
+    });
+	
+	 $("#carousel").mouseenter(function(){
+      	$('#carousel').show();
+    }).mouseleave(function(){
+     	 $('#carousel').hide();
+    });
+	
+	
+	$('.btn-more a').click(function(){
+		$("div#" + $(this).attr('rel')).slideToggle();
+		$(this).toggleClass("opened");
+		 return false;
+ });
+	
+			
 
 				
 });

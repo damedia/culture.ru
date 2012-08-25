@@ -17,9 +17,10 @@ img {
 }
 
 body {
-    font: 100.01% 'Trebushet MS', Arial, Tahoma, Helvetica, sans-serif;
-    background: #fff;
-	padding:0 13px;
+	background: #fff;
+	padding: 0 13px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 100.01%;
 }
 html {
 	overflow-y:scroll;
@@ -3455,6 +3456,7 @@ white-space:nowrap;
 
 	.obrazy .rusObr-list li {
 		width:24%;
+		margin-left:-4px;
 	}
 	.obrazy .rusObr-list-one {
 		padding:25px;

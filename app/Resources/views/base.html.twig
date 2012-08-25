@@ -8,12 +8,14 @@
      
         {% block stylesheets %}
             <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
         {% endblock %}
 
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
