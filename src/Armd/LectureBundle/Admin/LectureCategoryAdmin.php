@@ -41,9 +41,9 @@ class LectureCategoryAdmin extends Admin
             ->select('c')
             ->from('ArmdLectureBundle:LectureCategory', 'c')
             ->where('c.parent IS NOT NULL')
-            ->andWhere('c.root = :root_category_id')
+            ->andWhere('c.root = :root_id')
             ->setParameters(array(
-                'root_category_id' => $rootCategory->getId()
+                'root_id' => $rootCategory->getRoot()
             ));
 
         $query = new ProxyQuery($queryBuilder);
