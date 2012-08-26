@@ -1,0 +1,65 @@
+<div class="title-block index-title-block">
+    <h2>Коммуникационная площадка</h2>
+</div>
+
+<div id="duscus-tabs">
+    <ul id="discusitem-tab">
+        <li class="active"><span>Предложения</span></li>
+        <li><span>Члены Общественного совета</span></li>
+{#
+        <li><span>Опросы</span></li>
+#}
+    </ul>
+</div>
+
+<div id="discus-content">
+{% for t in topics %}
+    <div class="discusitem-content {% if loop.first %}active{% endif %}">
+    {% for i in t.items %}
+        {% set raiting = i.count_like - i.count_dislike %}
+        {% if loop.first %}
+            <div class="first-useraction">
+                <span class="voting"><span class="gray">+</span><span class="green">&nbsp;{{ raiting }}</span></span>
+                <div class="username">
+                    <img class="userico" src="/static/common/img/twitter.png" /><span class="orange">{{ i.title }}</span>
+                    / <span class="gray">Добавлено {{ i.date_add }}</span>
+                </div>
+                <div class="useraction"><h3>{{ i.content }}</h3>
+                </div>
+            </div>            
+        {% else %}
+            {% if loop.index == 2 %}
+                <ul class="list-useraction">
+            {%endif%}
+                <li class="item-list-useraction">
+                    <div class="username">
+                        <span>{{ i.title }}</span>
+                        / <span class="gray">Добавлено {{ i.date_add }}</span>
+                    </div>
+                    <div class="useraction">
+                        <p><a href="{{ i.url }}">{{ i.content }}</a></p>
+                    </div>
+                    <div class="voteblock">
+                        <a href="#" class="red">&minus;</a>&nbsp;<a href="#" class="gray">&#43;</a>&nbsp;/&nbsp;<span class="allvote">{{ raiting }}</span>
+                    </div>
+                </li>            
+            {% if loop.index == 2 %}
+                </ul>
+            {%endif%}            
+        {% endif %}
+    {% endfor %}
+{#
+        <div class="l-comments">
+            <a class="i-comments" href="#">23</a>
+        </div>
+#}        
+        <div id="alldiscus">
+            <span class="theheading">Обсуждений в&nbsp;рубрике: <a href="{{ t.list_url }}">{{ t.count }}</a></span>
+{#
+            Голосов: <span class="orange">114</span>
+#}
+            <a class="thelink" href="http://мнения.культура.рф/">Посмотреть все</a>
+        </div>    
+    </div>
+{% endfor%}
+</div>

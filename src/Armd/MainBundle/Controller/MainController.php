@@ -13,8 +13,6 @@ class MainController extends Controller
     {
         $categories = $this->get('armd_news.controller.news')->getCategoriesList();
 
-
-
         return $this->render('ArmdMainBundle::index.html.twig', array(
             'news'          => $this->getNews($categories),        
             'categories'    => $categories,
@@ -27,6 +25,24 @@ class MainController extends Controller
         return $this->render('ArmdMainBundle:Main:randomRussiaImages.html.twig', array(
             'russiaImages' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRandomRussiaImages(6)
         ));
+    }
+    
+    public function latestTopicsAction()
+    {
+        $topics = array(
+            'http://mk2.dev.armd.ru/export/?module=m_ep_forum',
+            'http://mk2.dev.armd.ru/export/?module=m_ep_propostal'
+        );
+        
+        $result = array();
+        
+        foreach ($topics as $url)
+        {
+            $obj = json_decode(file_get_contents($url));
+            $result[] = $obj->{'data'};
+        }
+        
+        return $this->render('ArmdMainBundle:Communication:index.html.twig', array('topics' => $result)); 
     }
     
     function getNews(array $categories)
