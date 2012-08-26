@@ -25,14 +25,13 @@ class LectureCategoryAdmin extends Admin
 
     public function createQuery($context = 'list')
     {
-        $routes = $this->getRoutes();
-
         $rootCategory = $this->modelManager->getEntityManager('Armd\LectureBundle\Entity\LectureCategory')
             ->createQueryBuilder()
             ->select('c')
             ->from('ArmdLectureBundle:LectureCategory', 'c')
             ->innerJoin('c.lectureSuperType', 'st')
             ->where('st.code = :superTypeCode')
+            ->andWhere('c.parent IS NULL')
             ->setParameters(array(
                 'superTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE'
             ))->getQuery()->getSingleResult();
@@ -42,9 +41,9 @@ class LectureCategoryAdmin extends Admin
             ->select('c')
             ->from('ArmdLectureBundle:LectureCategory', 'c')
             ->where('c.parent IS NOT NULL')
-            ->andWhere('c.root = :root_category_id')
+            ->andWhere('c.root = :root_id')
             ->setParameters(array(
-                'root_category_id' => $rootCategory->getId()
+                'root_id' => $rootCategory->getRoot()
             ));
 
         $query = new ProxyQuery($queryBuilder);
