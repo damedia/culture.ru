@@ -33,6 +33,7 @@ class LectureTranslationCategoryAdmin extends Admin
             ->from('ArmdLectureBundle:LectureCategory', 'c')
             ->innerJoin('c.lectureSuperType', 'st')
             ->where('st.code = :superTypeCode')
+            ->andWhere('c.parent IS NULL')
             ->setParameters(array(
                 'superTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION'
             ))->getQuery()->getSingleResult();

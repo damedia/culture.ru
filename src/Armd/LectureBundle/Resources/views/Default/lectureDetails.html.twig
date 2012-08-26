@@ -8,7 +8,13 @@
 
 <div class="left-column type-2 text">
 					<div class="title blue-title">
-						<h2>Лекция</h2>
+						<h2>
+                            {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+                                Лекция
+                            {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+                                Трансляция
+                            {% endif %}
+                        </h2>
 					</div>
 					<div class="media-one-block">
 
