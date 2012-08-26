@@ -10,13 +10,15 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 
-class LectureCategoryAdmin extends Admin
+class LectureTranslationCategoryAdmin extends Admin
 {
     protected $maxPerPage = 2500;
     protected $maxPageLinks = 2500;
     protected $translationDomain = 'ArmdLectureBundle';
-    protected $baseRouteName = 'lecture_category';
-    protected $baseRoutePattern = 'lecture_category';
+    protected $classnameLabel = 'TranslationCategory';
+    protected $baseRouteName = 'lecture_translation_category';
+    protected $baseRoutePattern = 'lecture_translation_category';
+
 
     protected $datagridValues = array(
         '_sort_order' => 'ASC',
@@ -25,8 +27,6 @@ class LectureCategoryAdmin extends Admin
 
     public function createQuery($context = 'list')
     {
-        $routes = $this->getRoutes();
-
         $rootCategory = $this->modelManager->getEntityManager('Armd\LectureBundle\Entity\LectureCategory')
             ->createQueryBuilder()
             ->select('c')
@@ -34,7 +34,7 @@ class LectureCategoryAdmin extends Admin
             ->innerJoin('c.lectureSuperType', 'st')
             ->where('st.code = :superTypeCode')
             ->setParameters(array(
-                'superTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE'
+                'superTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION'
             ))->getQuery()->getSingleResult();
 
         $queryBuilder = $this->modelManager->getEntityManager('Armd\LectureBundle\Entity\LectureCategory')

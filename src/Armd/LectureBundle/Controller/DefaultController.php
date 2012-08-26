@@ -9,45 +9,76 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
+
     /**
-     * @Route("/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_index")
+     * @Route("/lecture/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_lecture_index")
      * @Template()
      */
-    public function indexAction($page)
+    public function lectureIndexAction($page)  {
+        return $this->forward('ArmdLectureBundle:Default:index', array(
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE',
+            'page' => $page
+        ));
+    }
+
+    /**
+     * @Route("/translation/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_translation_index")
+     * @Template()
+     */
+    public function translationIndexAction($page)  {
+        return $this->forward('ArmdLectureBundle:Default:index', array(
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION',
+            'page' => $page
+        ));
+    }
+
+
+    /**
+     * @Route("/index/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1})
+     * @Template()
+     */
+    public function indexAction($lectureSuperTypeCode, $page)
     {
         $em = $this->getDoctrine()->getManager();
         $lectureRepo = $em->getRepository('ArmdLectureBundle:Lecture');
+        $categoryRepo =  $em->getRepository('ArmdLectureBundle:LectureCategory');
+
+        $superType = $em->getRepository('ArmdLectureBundle:LectureSuperType')->findOneByCode($lectureSuperTypeCode);
+        $rootCategory = $categoryRepo->findOneByLectureSuperType($superType);
 
         // lecture types and categories
         $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
-        $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy();
-        if(isset($lectureCategories[0]['__children'])) {
-            $lectureCategories = $lectureCategories[0]['__children'];
-        } else {
-            $lectureCategories = array();
-        }
+        $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy($rootCategory);
+
+//        if(isset($lectureCategories[0]['__children'])) {
+//            $lectureCategories = $lectureCategories[0]['__children'];
+//        } else {
+//            $lectureCategories = array();
+//        }
 
         // recommended and last lectures
-//        $recommendedLectures = $lectureRepo->findRecommended();
-        $lastLectures = $lectureRepo->findLastAdded();
+        $lastLectures = $lectureRepo->findLastAdded($superType);
 
-        $typeCategories = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')->getTypeCategories();
+        $typeCategories = $lectureRepo->getTypeCategories($superType);
 
         return array(
+            'lectureSuperTypeCode' => $superType->getCode(),
+            'lectureSuperType' => $superType,
             'lectureTypes' => $lectureTypes,
             'lectureCategories' => $lectureCategories,
-//            'recommendedLectures' => $recommendedLectures,
             'lastLectures' => $lastLectures,
             'page' => $page,
             'typeCategories' => $typeCategories
         );
     }
 
+
+
     /**
-     * @Route("/list/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_list", options={"expose"=true})
+     * @Route("/list/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_list", options={"expose"=true})
      * @Template()
      */
-    public function lectureListAction($page)
+    public function lectureListAction($lectureSuperTypeCode, $page)
     {
         $request = $this->getRequest();
         $sortBy = $request->get('sortBy', 'date');
@@ -55,9 +86,13 @@ class DefaultController extends Controller
         $types = $request->get('types');
         $searchString = $request->get('searchString');
 
+        $superType = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneByCode($lectureSuperTypeCode);
+
         $manager = $this->get('armd_lecture.manager.lecture');
 
-        $lectures = $manager->findFiltered($page, 20, $types, $categories, $sortBy, $searchString);
+        $lectures = $manager->findFiltered($superType, $page, 20, $types, $categories, $sortBy, $searchString);
 
         return array(
             'pagination' => $lectures,

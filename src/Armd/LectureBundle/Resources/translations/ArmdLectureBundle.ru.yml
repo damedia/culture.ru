@@ -14,8 +14,21 @@ Parent category: Родительская категория
 Categories: Категории
 Lecturer: Лектор
 Created At: Дата создания
+Lecture Super Type: Раздел
 Lecture Type: Тип лекций
 Categories: Категории
 Recommended: Рекомендована
 Lecture Video: Видео лекции (Tvigle ID)
 Lecture File: Файл лекции
+
+Translations: Трансляции
+Translation List: Список Трансляций
+Translation Create: Создать Трансляцию
+Translation Edit: Изменить Трансляцию
+Translation Delete: Удалить Трансляцию
+
+Translation Categories: Категории Трансляций
+Translation Category List: Список Категорий Трансляций
+Translation Category Create: Создать Категорию Трансляции
+Translation Category Edit: Изменить Категорию Трансляции
+Translation Category Delete: Удалить Категорию Трансляции

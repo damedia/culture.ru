@@ -68,6 +68,12 @@ class LectureCategory implements Node
     private $children;
 
     /**
+     * @ORM\ManyToOne(targetEntity="LectureSuperType")
+     * @ORM\JoinColumn(name="super_type_id")
+    */
+    private $lectureSuperType;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Lecture", mappedBy="categories", cascade={"persist"})
      */
     private $lectures;
@@ -296,6 +302,25 @@ class LectureCategory implements Node
 
         return $this;
     }
+
+    /**
+     * @return LectureSuperType
+     */
+    public function getLectureSuperType()
+    {
+        return $this->lectureSuperType;
+    }
+
+    /**
+     * @param LectureSuperType $superType
+     * @return LectureCategory
+     */
+    public function setLectureSuperType(LectureSuperType $superType)
+    {
+        $this->lectureSuperType = $superType;
+        return $this;
+    }
+
 
     /**
      * Remove lecture

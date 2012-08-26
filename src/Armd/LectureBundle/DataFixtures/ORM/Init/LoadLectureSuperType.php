@@ -4,26 +4,25 @@ namespace Armd\LectureBundle\DataFixtures\ORM\Test;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Armd\LectureBundle\Entity\LectureType;
+use Armd\LectureBundle\Entity\LectureSuperType;
 use Symfony\Component\Yaml\Parser;
 
 
-class LoadLectureTypeData extends AbstractFixture implements OrderedFixtureInterface
+class LoadLectureSuperTypeData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         $types = array(
-          'LECTURE_TYPE_VIDEO' => 'Видео',
-          'LECTURE_TYPE_AUDIO' => 'Аудио',
-          'LECTURE_TYPE_TEXT' => 'Текст',
+          'LECTURE_SUPER_TYPE_LECTURE' => 'Лекция',
+          'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' => 'Трансляция',
         );
 
         foreach($types as $key => $val) {
-            $type = new LectureType();
+            $type = new LectureSuperType();
             $type->setCode($key);
             $type->setName($val);
             $manager->persist($type);
-            $this->setReference('armd_lecture.lecture_type.' . strtolower($key), $type);
+            $this->setReference('armd_lecture.lecture_super_type.' . strtolower($key), $type);
         }
         $manager->flush();
     }

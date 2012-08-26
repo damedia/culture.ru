@@ -22,7 +22,9 @@
                     </div>
                     <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
                         {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}" width="111"/>
+                            {% if lecture.lectureVideo.imageMedia is defined %}
+                                <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}" width="111"/>
+                            {% endif %}
                         {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
                             <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" width="111" />
                         {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
