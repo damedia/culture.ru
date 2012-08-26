@@ -1,9 +1,17 @@
-{% extends "::two-column-layout.html.twig" %}
+{% extends "::base.html.twig" %}
+{% block body %}
+		<div class="one-column" >
+					<div class="title red-title">
+						<h2>Регистрация</h2>
+					</div>
 
-{% block press_header %}
-    Регистрация
-{% endblock %}
+    
 
-{% block top_list %}
+
+<div class="lk form">
 {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+</div>
+
+
+
 {% endblock %}

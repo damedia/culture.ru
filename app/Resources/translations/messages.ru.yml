@@ -14,3 +14,8 @@ calendar:
         Dec: Декабря
     short:
         Jul: Июл
+Lastname: Фамилия
+Firstname: Имя
+Middlename: Отчество
+Gender: Пол
+City: Город		
