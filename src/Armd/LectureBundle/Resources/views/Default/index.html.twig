@@ -54,7 +54,13 @@
 
 <div class="center-column">
     <div class="title dark-blue-title">
-        <h2>Лекции</h2>
+        <h2>
+            {% if lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_LECTURE' %}
+                Лекции
+            {% elseif lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+                Трансляции
+            {% endif %}
+        </h2>
     </div>
 
     <div class="video-anons">

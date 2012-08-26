@@ -37,14 +37,16 @@
                             {{ lecture.title }}
                         </a>
 
-                        <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                        {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+                            <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                        {% endif %}
                     </div>
                 </li>
             {% endfor %}
 
         </ul>
     {% else %}
-        <strong>Лекций удовлетворяющих запросу не найдено</strong>
+        <strong>Объектов удовлетворяющих запросу не найдено</strong>
     {% endif %}
 
 </div>
