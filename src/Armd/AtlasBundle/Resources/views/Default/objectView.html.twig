@@ -75,7 +75,7 @@
           <ul class="slides">
             {% for image in entity.images %}
             <li>
-  	    	     <a class="in-fancybox" rel="gallery" name="leaf" href="{% path image, 'reference' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
+  	    	     <a class="in-fancybox" rel="gallery" name="leaf" href="{% path image, 'reference' %}" data-fancy-image="{% path image, 'reference' %}">
                                             <img src="{% path image, 'big' %}" />
                   </a>	
   	    		</li>
