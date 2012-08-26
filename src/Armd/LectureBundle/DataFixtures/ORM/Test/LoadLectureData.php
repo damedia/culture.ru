@@ -63,6 +63,16 @@ class LoadLectureData extends AbstractFixture implements OrderedFixtureInterface
             }
         }
 
+        if(!empty($data['lectureSuperType'])) {
+            $lectureSuperTypeRef = 'armd_lecture.lecture_super_type.' . strtolower($data['lectureSuperType']);
+            $lectureSuperType = $this->getReference($lectureSuperTypeRef);
+            if(empty($lectureSuperType)) {
+                throw new \InvalidArgumentException('LectureSuperType reference ' . $lectureSuperTypeRef . ' not found');
+            }
+            $lecture->setLectureSuperType($lectureSuperType);
+
+        }
+
         if(!empty($data['lectureType'])) {
             $lectureTypeRef = 'armd_lecture.lecture_type.' . strtolower($data['lectureType']);
             $lectureType = $this->getReference($lectureTypeRef);

@@ -53,7 +53,7 @@ class Lecture
 
     /**
      * @ORM\ManyToOne(targetEntity="LectureSuperType", fetch="EAGER")
-     * @ORM\JoinColumn(name="lecture_super_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="lecture_super_type_id", referencedColumnName="id", nullable=true)
      */
     private $lectureSuperType;
 

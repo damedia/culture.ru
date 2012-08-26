@@ -14,7 +14,7 @@ class LoadLectureSuperTypeData extends AbstractFixture implements OrderedFixture
     {
         $types = array(
           'LECTURE_SUPER_TYPE_LECTURE' => 'Лекция',
-          'LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS' => 'Трансляция',
+          'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' => 'Трансляция',
         );
 
         foreach($types as $key => $val) {
@@ -34,6 +34,6 @@ class LoadLectureSuperTypeData extends AbstractFixture implements OrderedFixture
      */
     function getOrder()
     {
-        return 10;
+        return 5;
     }
 }

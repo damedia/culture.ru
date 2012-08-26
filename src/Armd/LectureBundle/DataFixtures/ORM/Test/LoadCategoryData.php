@@ -17,14 +17,15 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
      */
     function load(ObjectManager $manager)
     {
-        // create root category
-        $rootCategory = $this->getReference('armd_lecture.lecture_category.root');
 
         $parser = new Parser();
         $data = $parser->parse(file_get_contents(__DIR__ . '/../../../Resources/fixtures/test_categories.yml'));
 
-        foreach ($data['categories'] as $categoryData) {
-            $this->saveCategory($manager, $categoryData, $rootCategory);
+        foreach ($data['categories'] as $rootKey => $rootVal) {
+            $rootCategory = $this->getReference('armd_lecture.lecture_category.' . $rootKey);
+            foreach($rootVal as $categoryData) {
+                $this->saveCategory($manager, $categoryData, $rootCategory);
+            }
         }
         $manager->flush();
     }

@@ -50,49 +50,49 @@ lectures:
 
 # video translations
 
-    - title: Графическая жестикуляция1
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS
+    - title: Трансляция Графическая жестикуляция1
+      categories: [tranlation_movie, translation_direction1]
+      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
       lectureType: LECTURE_TYPE_VIDEO
       lecturer: Сергей Скуратов
       recommended: true
       lectureVideo: tvigle_video1
 
-    - title: Графическая жестикуляция2
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS
+    - title: Трансляция Графическая жестикуляция2
+      categories: [tranlation_movie, tranlation_literature, translation_direction1]
+      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
       lectureType: LECTURE_TYPE_VIDEO
       lecturer: Сергей Скуратов
       recommended: true
       lectureVideo: tvigle_video1
 
-    - title: Графическая жестикуляция3
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS
+    - title: Трансляция Графическая жестикуляция3
+      categories: [tranlation_literature, translation_direction2]
+      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
       lectureType: LECTURE_TYPE_VIDEO
       lecturer: Сергей Скуратов
       recommended: true
       lectureVideo: tvigle_video1
 
-    - title: Графическая жестикуляция4
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS
+    - title: Трансляция Графическая жестикуляция4
+      categories: [tranlation_theater, translation_direction2]
+      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
       lectureType: LECTURE_TYPE_VIDEO
       lecturer: Сергей Скуратов
       recommended: true
       lectureVideo: tvigle_video1
 
-    - title: Графическая жестикуляция5
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS
+    - title: Трансляция Графическая жестикуляция5
+      categories: [tranlation_literature, tranlation_theater]
+      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
       lectureType: LECTURE_TYPE_VIDEO
       lecturer: Сергей Скуратов
       recommended: true
       lectureVideo: tvigle_video1
 
-    - title: Графическая жестикуляция6
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATIONS
+    - title: Трансляция Графическая жестикуляция6
+      categories: [tranlation_theater, translation_direction1]
+      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
       lectureType: LECTURE_TYPE_VIDEO
       lecturer: Сергей Скуратов
       recommended: true

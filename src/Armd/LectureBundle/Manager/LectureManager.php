@@ -24,7 +24,7 @@ class LectureManager
         $lectureRepo = $this->em->getRepository('ArmdLectureBundle:Lecture');
         if (empty($searchString)) {
             // when there is no text to search then search by Doctrine
-            $lecturesQb = $lectureRepo->getFilterQueryBuilder('l', $typeIds, $categoryIds, $sortBy);
+            $lecturesQb = $lectureRepo->getFilterQueryBuilder('l', $superType, $typeIds, $categoryIds, $sortBy);
             $pagination = $this->paginator->paginate($lecturesQb->getQuery(), $page, $perPage);
 
         }

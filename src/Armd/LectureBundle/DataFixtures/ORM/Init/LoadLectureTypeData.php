@@ -35,6 +35,6 @@ class LoadLectureTypeData extends AbstractFixture implements OrderedFixtureInter
      */
     function getOrder()
     {
-        return 10;
+        return 5;
     }
 }

@@ -3,27 +3,36 @@
 namespace Armd\LectureBundle\Repository;
 
 use \Doctrine\ORM\EntityRepository;
+use Armd\LectureBundle\Entity\LectureSuperType;
 use Knp\Component\Pager\Paginator;
 
 class LectureRepository extends EntityRepository
 {
 
-    public function findRecommended($limit = 4)
+    public function findRecommended(LectureSuperType $superType, $limit = 4)
     {
         $recommendedLectures = $this->createQueryBuilder('l')
             ->where('l.recommended = TRUE')
+            ->andWhere('l.lectureSuperType = :superType')
             ->orderBy('l.createdAt', 'DESC')
             ->setMaxResults($limit)
+            ->setParameters(array(
+                'superType' => $superType
+            ))
             ->getQuery()->getResult();
 
         return $recommendedLectures;
     }
 
-    public function findLastAdded($limit = 2)
+    public function findLastAdded(LectureSuperType $superType, $limit = 2)
     {
         $lastAdded = $this->createQueryBuilder('l')
+            ->where('l.lectureSuperType = :superType')
             ->orderBy('l.createdAt', 'DESC')
             ->setMaxResults($limit)
+            ->setParameters(array(
+                'superType' => $superType
+            ))
             ->getQuery()->getResult();
 
         return $lastAdded;
@@ -33,7 +42,7 @@ class LectureRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder($alias)
             ->innerJoin($alias.'.categories', 'c')
-            ->where($alias.'.superType = :superType')->setParameter('superType', $superType)
+            ->where($alias.'.lectureSuperType = :superType')->setParameter('superType', $superType)
         ;
 
         // filter by types
@@ -60,7 +69,7 @@ class LectureRepository extends EntityRepository
 
 
 
-    public function getTypeCategories()
+    public function getTypeCategories(LectureSuperType $superType)
     {
         $types = $this->_em->getRepository('ArmdLectureBundle:LectureType')
             ->findAll();
@@ -71,8 +80,13 @@ class LectureRepository extends EntityRepository
                 ->select('c')
                 ->from('ArmdLectureBundle:LectureCategory', 'c')
                 ->innerJoin('c.lectures', 'l')
-                ->where('l.lectureType = :type')->setParameter('type', $type)
+                ->where('l.lectureType = :type')
+                ->andWhere('l.lectureSuperType = :superType')
                 ->groupBy('c')
+                ->setParameters(array(
+                    'type' =>  $type,
+                    'superType' => $superType
+                ))
                 ->getQuery()->getResult();
 
             $result[$type->getId()] = array();

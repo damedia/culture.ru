@@ -17,11 +17,19 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
      */
     function load(ObjectManager $manager)
     {
-        // create root category
+        // create root lecture category
         $rootCategory = new Category();
-        $rootCategory->setTitle('== Корневая категория ==');
+        $rootCategory->setTitle('== Корневая категория (Лекции) ==');
+        $rootCategory->setLectureSuperType($this->getReference('armd_lecture.lecture_super_type.lecture_super_type_lecture'));
         $manager->persist($rootCategory);
-        $this->addReference('armd_lecture.lecture_category.root', $rootCategory);
+        $this->addReference('armd_lecture.lecture_category.lecture_root', $rootCategory);
+
+        // create root tranlation category
+        $rootCategory = new Category();
+        $rootCategory->setTitle('== Корневая категория (Трансляции) ==');
+        $rootCategory->setLectureSuperType($this->getReference('armd_lecture.lecture_super_type.lecture_super_type_video_translation'));
+        $manager->persist($rootCategory);
+        $this->addReference('armd_lecture.lecture_category.translation_root', $rootCategory);
         $manager->flush();
     }
 
@@ -33,6 +41,6 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
      */
     function getOrder()
     {
-        return 5;
+        return 10;
     }
 }

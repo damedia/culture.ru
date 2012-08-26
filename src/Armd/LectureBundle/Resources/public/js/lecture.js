@@ -6,6 +6,7 @@ var armdLecture = {
     sortBy:'date',
     page:1,
     typeCategories:{},
+    lectureSuperTypeCode:'',
 
     init:function () {
         $.manageAjax.create('lifo', {queue: 'clear', maxRequests: 2, abortOld: true});
@@ -77,7 +78,12 @@ var armdLecture = {
         armdLecture.startLoading();
         $.manageAjax.clear('lifo', true);
         $.manageAjax.add('lifo', {
-            url:Routing.generate('armd_lecture_list', {page:armdLecture.page}),
+            url:Routing.generate('armd_lecture_list',
+                {
+                    lectureSuperTypeCode: armdLecture.lectureSuperTypeCode,
+                    page:armdLecture.page
+                }
+            ),
             cache:false,
             dataType:'html',
             type:'POST',

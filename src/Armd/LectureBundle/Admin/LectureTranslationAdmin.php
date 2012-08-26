@@ -3,6 +3,7 @@
 namespace Armd\LectureBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\EntityRepository;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -10,22 +11,24 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 
-class LectureAdmin extends Admin
+class LectureTranslationAdmin extends Admin
 {
     protected $translationDomain = 'ArmdLectureBundle';
-    protected $baseRouteName = 'lecture';
-    protected $baseRoutePattern = 'lecture';
+    protected $classnameLabel = 'Translation';
+    protected $baseRouteName = 'lecture_translation';
+    protected $baseRoutePattern = 'lecture_translation';
+
 
     public function createQuery($context = 'list')
     {
+
         $qb = $this->modelManager->getEntityManager('ArmdLectureBundle:Lecture')
             ->getRepository('ArmdLectureBundle:Lecture')->createQueryBuilder('l')
             ->innerJoin('l.lectureSuperType', 'st')
-            ->where('st.code = \'LECTURE_SUPER_TYPE_LECTURE\'');
+            ->where('st.code = \'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION\'');
 
         return new ProxyQuery($qb);
     }
-
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -36,7 +39,6 @@ class LectureAdmin extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('lectureType')
             ->add('categories')
             ->add('createdAt')
             ->add('lecturer')
@@ -55,31 +57,28 @@ class LectureAdmin extends Admin
         $lecture = $this->getSubject();
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
-            ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
+            ->findOneByCode('LECTURE_SUPER_TYPE_VIDEO_TRANSLATION');
+
+        $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
+            ->getRepository('ArmdLectureBundle:LectureType')
+            ->findOneByCode('LECTURE_TYPE_VIDEO');
+
         $lecture->setLectureSuperType($superType);
+        $lecture->setLectureType($type);
+
 
         $formMapper
             ->add('title')
-            ->add('lectureType')
             ->add('categories', 'armd_lecture_categories',
             array(
                 'required' => false,
                 'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
                 'super_type' => $superType
             ))
-            ->add('lecturer')
             ->add('recommended')
             ->add('lectureVideo', 'armd_tvigle_video_selector',
             array(
                 'required' => false
-            ))
-            ->add('lectureFile', 'armd_media_file_type',
-            array(
-                'required' => false,
-                'with_remove' => true,
-                'media_context' => 'lecture',
-                'media_provider' => 'sonata.media.provider.file',
-                'media_format' => 'default'
             ));
     }
 
@@ -91,8 +90,7 @@ class LectureAdmin extends Admin
     {
         $datagridMapper
             ->add('title')
-            ->add('categories')
-            ->add('lecturer');
+            ->add('categories');
     }
 
 
@@ -106,9 +104,8 @@ class LectureAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('createdAt')
-            ->add('lectureType')
             ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
-            ->add('lecturer');
+        ;
     }
 
     public function getFormTheme()
