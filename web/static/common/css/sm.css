@@ -989,6 +989,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		position:relative;
 		margin:0 auto;
 	}
+	
+	.footer-logo a {
+		text-decoration:none;
+		color:#000;
+	}
 
 
 .footer-counters {
@@ -4269,3 +4274,46 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		position:relative;
 		z-index:100;
 	}	
+	
+	
+	.object-one-text.content .text {
+		padding:20px 26px;
+		font-size:14px;
+		line-height:20px
+	}
+	
+	.object-one-text.content .text .notes {
+		margin:20px -26px;
+		border-left:1px solid #d3b790;
+		padding-left:26px;
+
+	}
+	
+		.object-one-text.content .text .notes ol {
+			font-style:italic;
+			background:#fbf8f4;
+			padding:15px 40px 15px 46px;
+			counter-reset: list 0;
+		}
+		
+			.object-one-text.content .text .notes li {
+				list-style:none;
+				margin-bottom:15px;
+				font-size:14px;
+		
+			}
+			
+			.object-one-text.content .text .notes li:before {
+				counter-increment: list;
+				content: counter(list) ". ";
+				color:#d3b790;
+				padding-right: 10px;
+				position: relative;
+				text-align: right;
+				width: 30px;
+				display:inline-block;
+				margin-left:-40px;
+				line-height:20px;
+				float:left;
+			}
+				

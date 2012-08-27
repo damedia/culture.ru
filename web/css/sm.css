@@ -604,11 +604,6 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .red-title h1, .red-title h2, .red-title h3,  .red-title:before {
 	border-color:#bd0002;
 }
-
-.title-filter:before {
-	background:url('../img/title.png') no-repeat 0 4px;
-}
-	
 	
 .title-one-line h1,.title-one-line h2, .title-one-line h3 {
 	margin-bottom:0;
@@ -957,6 +952,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	text-align:center;
 	margin-top:-10px;
 }
+
+	.footer-logo a {
+		text-decoration:none;
+		color:#000;
+	}
 
 	.footer-logo  img {
 		display:block;
@@ -3376,6 +3376,7 @@ white-space:nowrap;
 			*display:inline;
 			position:relative;
 			vertical-align:top;
+			margin-left:-4px;
 		}
 			.rusObr-list-one {
 				border:1px solid #d9d9d9;
