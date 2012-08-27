@@ -4,8 +4,8 @@
         {
             "package": "armd/banner-bundle",
             "version": "dev-master",
-            "source-reference": "4072990d218b151a48ae681559211affca211f97",
-            "commit-date": "1343743397"
+            "source-reference": "6ed0a63c548f0e517559fc1d0165e4810612e175",
+            "commit-date": "1346059606"
         },
         {
             "package": "armd/comment",
@@ -36,6 +36,12 @@
             "version": "2.3.x-dev",
             "source-reference": "6470e2089e9ab4a2d24e6927ebe073b7935d7ed5",
             "commit-date": "1344980709"
+        },
+        {
+            "package": "doctrine/doctrine-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
         },
         {
             "package": "doctrine/doctrine-bundle",
@@ -218,6 +224,12 @@
             "version": "dev-master",
             "source-reference": "bd98b5fb0e4a5dddb4f7acd2e11f28c4cd7eacee",
             "commit-date": "1345139690"
+        },
+        {
+            "package": "sensio/framework-extra-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "sensio/framework-extra-bundle",
