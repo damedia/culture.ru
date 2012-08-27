@@ -47,7 +47,10 @@ class MainController extends Controller
             $result[] = $obj->{'data'};
         }
         
-        return $this->render('ArmdMainBundle:Communication:index.html.twig', array('topics' => $result)); 
+        return $this->render('ArmdMainBundle:Communication:index.html.twig', array(
+            'topics'    => $result,
+            'domain'    => $domain,
+        )); 
     }
     
     function getNews(array $categories)
