@@ -4319,4 +4319,26 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 				line-height:20px;
 				float:left;
 			}
-				
+			
+	.object-one-text.content .text.e404 {
+		padding:150px 0 150px 115px;
+		border:1px solid #D3D3D3;
+		margin:10px 0;
+	}
+
+	.e404 h1 {
+		font-size:25px;
+		color:#000;
+		margin-bottom:15px;
+	}
+	
+	.e404 p {
+		color:#708694;
+		font-size:16px;
+		font-weight:bold;
+	}
+	
+		.e404 p strong {
+			
+			color:#BE0002;
+		}
