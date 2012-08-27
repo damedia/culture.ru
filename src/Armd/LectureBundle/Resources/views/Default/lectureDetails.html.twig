@@ -20,7 +20,7 @@
 
 		<div id="videoplayer" style="background: none">
             {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                {{ armd_tvigle_video_player(lecture.lectureVideo, 900, 506)|raw }}
+                {{ armd_tvigle_video_player(lecture.lectureVideo, '100%', 506)|raw }}
             {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
                 {% if lecture.lectureFile is not empty %}
                     <a href="{{ armd_media_original_url(lecture.lectureFile) }}">Скачать файл</a>

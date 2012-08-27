@@ -5,7 +5,7 @@
 		<ul>
 		{% set d = null %}
 		{% for e in c.events %}
-            {% set year = e.date|date('Y') %}
+            {% set year = e.date|date('Y')|abs %}
 		    {% set decade = year - year % 10 %}
 		    {% if decade != d and decade % 100 != 0 %}
     		    {% set d = decade %}
