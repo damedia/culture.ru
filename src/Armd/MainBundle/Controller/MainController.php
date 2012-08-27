@@ -9,6 +9,11 @@ use Armd\ListBundle\Repository\BaseRepository;
 
 class MainController extends Controller
 {
+    public function bannerAction()
+    {
+        return $this->render('ArmdMainBundle::banner.html.twig', array());
+    }
+
     public function indexAction()
     {
         $categories = $this->get('armd_news.controller.news')->getCategoriesList();
@@ -27,22 +32,25 @@ class MainController extends Controller
         ));
     }
     
-    public function latestTopicsAction()
+    public function latestTopicsAction($domain)
     {
         $topics = array(
-            'http://mk2.dev.armd.ru/export/?module=m_ep_forum',
-            'http://mk2.dev.armd.ru/export/?module=m_ep_propostal'
+            '/export/?module=m_ep_propostal',
+            '/export/?module=m_ep_forum',            
         );
         
         $result = array();
         
         foreach ($topics as $url)
         {
-            $obj = json_decode(file_get_contents($url));
+            $obj = json_decode(file_get_contents("http://{$domain}{$url}"));
             $result[] = $obj->{'data'};
         }
         
-        return $this->render('ArmdMainBundle:Communication:index.html.twig', array('topics' => $result)); 
+        return $this->render('ArmdMainBundle:Communication:index.html.twig', array(
+            'topics'    => $result,
+            'domain'    => $domain,
+        )); 
     }
     
     function getNews(array $categories)

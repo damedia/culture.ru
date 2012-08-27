@@ -1,6 +1,10 @@
 armd_main_homepage:
     pattern:  /main
     defaults: { _controller: ArmdMainBundle:Main:index }
+    
+armd_main_banner:
+    pattern:  /
+    defaults: { _controller: ArmdMainBundle:Main:banner }    
 
 armd_main_random_russia_images:
     pattern: /main/random-russia-images

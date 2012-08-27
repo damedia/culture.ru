@@ -18,8 +18,15 @@ AT.init = function(params) {
     AT.initFilters();
     AT.initHacks();
 
-    // Сабмитим форму
-    $('#atlas-form').submit();
+    // Сабмитим форму (показываем Образы России)
+    var elems = $('#atlas-filter-form').find('.gray-checked');
+    for (var i=0; i<elems.length; i++) {
+        var tagId = $(elems[i]).find('span').data('tag');
+        if (tagId == 74) {
+            $(elems[i]).find('span').click();
+            break;
+        }
+    }
 };
 
 AT.initMap = function(params) {
@@ -32,7 +39,8 @@ AT.initMap = function(params) {
                 ]
             },
             coord: new PGmap.Coord(params.center[0], params.center[1], true),
-            zoom: params.zoom
+            zoom: params.zoom,
+            minZoom: 3
         };
 
     this.map = new PGmap(map_el, parameters);
@@ -281,8 +289,8 @@ AT.placePoint = function(object) {
 
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 24,
-                height: 38,
+                width: 42,
+                height: 39,
                 backpos: '0 0',
                 innerImage: {
                     src: object.imageUrl,
@@ -292,8 +300,8 @@ AT.placePoint = function(object) {
     } else {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 24,
-                height: 38,
+                width: 42,
+                height: 39,
                 backpos: '0 0',
                 url: object.icon
             });
