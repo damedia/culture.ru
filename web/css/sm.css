@@ -605,11 +605,6 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	border-color:#bd0002;
 }
 
-.title-filter:before {
-	background:url('../img/title.png') no-repeat 0 4px;
-}
-	
-	
 .title-one-line h1,.title-one-line h2, .title-one-line h3 {
 	margin-bottom:0;
 }
