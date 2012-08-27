@@ -4,7 +4,7 @@
 
 <div id="duscus-tabs">
     <ul id="discusitem-tab">
-        <li class="active"><span>Открытое Правительство</span></li>
+        <li class="active"><span>Предложения</span></li>
         <li><span>Открытый Форум</span></li>
 {#
         <li><span>Опросы</span></li>
@@ -21,10 +21,10 @@
             <div class="first-useraction">
                 <span class="voting"><span class="gray">+</span><span class="green">&nbsp;{{ raiting }}</span></span>
                 <div class="username">
-                    <!-- img class="userico" src="/static/common/img/twitter.png" / --><span class="orange">{{ i.title }}</span>
+                    <img class="userico" src="/static/common/img/twitter.png" /><span class="orange">{{ i.title }}</span>
                     / <span class="gray">Добавлено {{ i.date_add }}</span>
                 </div>
-                <div class="useraction"><h3>{{ i.content }}</h3>
+                <div class="useraction"><h3><a href="{{ i.url }}">{{{ i.content }}</a></h3>
                 </div>
             </div>            
         {% else %}
