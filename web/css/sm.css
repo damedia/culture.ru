@@ -953,6 +953,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	margin-top:-10px;
 }
 
+	.footer-logo a {
+		text-decoration:none;
+		color:#000;
+	}
+
 	.footer-logo  img {
 		display:block;
 		position:relative;
@@ -3371,6 +3376,7 @@ white-space:nowrap;
 			*display:inline;
 			position:relative;
 			vertical-align:top;
+			margin-left:-4px;
 		}
 			.rusObr-list-one {
 				border:1px solid #d9d9d9;
