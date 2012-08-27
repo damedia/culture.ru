@@ -4,8 +4,8 @@
         {
             "package": "armd/banner-bundle",
             "version": "dev-master",
-            "source-reference": "6ed0a63c548f0e517559fc1d0165e4810612e175",
-            "commit-date": "1346059606"
+            "source-reference": "383fc93e281881dc50c4d443ab211a6e6a2931ce",
+            "commit-date": "1346060656"
         },
         {
             "package": "armd/comment",
