@@ -1084,6 +1084,7 @@ white-space:nowrap;
 
 .description-point p {
 	padding: 0 14px 0 0;
+	line-height:13px;
 }
 
 .description-point p a {
