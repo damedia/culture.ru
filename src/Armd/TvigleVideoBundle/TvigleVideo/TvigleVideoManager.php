@@ -48,6 +48,7 @@ class TvigleVideoManager
         $video->setSwf($res->swf);
         $video->setDuration($res->duration);
         $video->setCreated(new \DateTime($res->date));
+        $video->setFrame($res->frame);
 
         $media = $this->createMediaFromUrl($res->img);
         $video->setImageMedia($media);

@@ -52,22 +52,12 @@ class TvigleVideoTwigExtension extends Twig_Extension
 
     public function videoPlayerFunction(TvigleVideo $video, $width, $height)
     {
-        if($video->getSwf()) {
+        if($video->getFrame()) {
             $html = '
-                <object id="v991e13289f9da885507781e166b83740"
-                    classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-                    codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0"
-                    width="'. $width . '" height="' . $height . '"
-                    align="middle">
-                    <param name="allowFullScreen" value="true"></param>
-                    <param name="allowscriptaccess" value="always"></param>
-                    <param name="movie" value="' . $video->getSwf() . '"></param>
-                    <embed src="' . $video->getSwf() . '"
-                        width="' . $width . '" height="' . $height . '"
-                        allowfullscreen="true" allowscriptaccess="always"
-                        type="application/x-shockwave-flash"
-                        pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>
-            ';
+                <iframe width="'.$width.'" height="' . $height . '"
+                    src="'.$video->getFrame().'" style="border: 0px;"></iframe>
+                ';
+
         } else {
             $html = 'No swf';
         }
