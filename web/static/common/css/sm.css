@@ -1033,10 +1033,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	font-size: 12px;
 	text-align: left;
 	color: #8e8e8e;
-	top:24px;
+	top:28px;
+	position:relative;
 }
 #i-socialnetwork {
-	margin: -5px 0 0 0;
+	margin: 0 0 0 0;
 }
 
 #atlas {
@@ -4319,4 +4320,47 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 				line-height:20px;
 				float:left;
 			}
-				
+			
+	.object-one-text.content .text.e404 {
+		padding:150px 0 150px 115px;
+		border:1px solid #D3D3D3;
+		margin:10px 0;
+	}
+
+	.e404 h1 {
+		font-size:25px;
+		color:#000;
+		margin-bottom:15px;
+	}
+	
+	.e404 p {
+		color:#708694;
+		font-size:16px;
+		font-weight:bold;
+	}
+	
+		.e404 p strong {
+			
+			color:#BE0002;
+		}
+		
+		
+#socialnetwork-links {}	
+
+	#socialnetwork-links a {
+		display:inline-block;
+		width:20px;
+		height:20px;
+		margin:0 10px 0 0;
+		background:url(/img/sprite-social-ico.png) no-repeat 0 0;
+		padding:0;
+		float:none;
+	}	
+	
+	#socialnetwork-links .vk {	background-position:0 -40px; }
+	
+	#socialnetwork-links .lj { display:none; }	
+	
+	#socialnetwork-links .tw { background-position:0 -60px; }
+	
+	#socialnetwork-links .fb { background-position:0 -0px; }			
