@@ -20,8 +20,8 @@ class Version20120827012639 extends AbstractMigration
 
         // add data
         $types = array(
-            'LECTURE_SUPER_TYPE_LECTURE' => 'Ëåêöèÿ',
-            'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' => 'Òðàíñëÿöèÿ',
+            'LECTURE_SUPER_TYPE_LECTURE' => 'Ð›ÐµÐºÑ†Ð¸Ñ',
+            'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' => 'Ð¢Ñ€Ð°Ð½ÑÐ»ÑÑ†Ð¸Ñ',
         );
         foreach ($types as $key => $val) {
             $this->addSql("
