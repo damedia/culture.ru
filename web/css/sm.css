@@ -3376,6 +3376,7 @@ white-space:nowrap;
 			*display:inline;
 			position:relative;
 			vertical-align:top;
+			margin-left:-4px;
 		}
 			.rusObr-list-one {
 				border:1px solid #d9d9d9;
