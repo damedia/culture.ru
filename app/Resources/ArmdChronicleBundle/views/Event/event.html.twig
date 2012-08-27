@@ -15,7 +15,7 @@
 		<div class="time-line-events">
 		{%for a in event.accidents %}
 			<div class="time-line-event">
-				<h3>{{ a.date|date('Y') }} год</h3>
+				<h3>{{ a.date|date('Y')|abs }} год</h3>
 				<p>{{ a.announce|raw}}</p>
 			</div>
 		{% endfor %}	
