@@ -604,6 +604,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .red-title h1, .red-title h2, .red-title h3,  .red-title:before {
 	border-color:#bd0002;
 }
+
+.title-filter:before {
+	background:url('../img/title.png') no-repeat 0 4px;
+}
+	
 	
 .title-one-line h1,.title-one-line h2, .title-one-line h3 {
 	margin-bottom:0;
@@ -3365,6 +3370,7 @@ white-space:nowrap;
 	border:8px solid #e6e6e6;
 }
 	.rusObr-list {
+		font-size:0;
 		
 	}
 	
@@ -3376,7 +3382,8 @@ white-space:nowrap;
 			*display:inline;
 			position:relative;
 			vertical-align:top;
-			margin-left:-4px;
+			
+			font-size:12px;
 		}
 			.rusObr-list-one {
 				border:1px solid #d9d9d9;
@@ -3453,7 +3460,7 @@ white-space:nowrap;
 
 	.obrazy .rusObr-list li {
 		width:24%;
-		margin-left:-4px;
+		
 	}
 	.obrazy .rusObr-list-one {
 		padding:25px;

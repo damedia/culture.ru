@@ -1107,6 +1107,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 	.rusObr-list {
 		
+		font-size:0;
+		
 	}
 	
 	.rusObr-list.type-2,
@@ -1118,6 +1120,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			*display:inline;
 			position:relative;
 			vertical-align:top;
+			font-size:12px;
 		}
 			.rusObr-list-one {
 				border:1px solid #d9d9d9;
