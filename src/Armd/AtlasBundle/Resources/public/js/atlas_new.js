@@ -289,8 +289,8 @@ AT.placePoint = function(object) {
 
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 24,
-                height: 38,
+                width: 42,
+                height: 39,
                 backpos: '0 0',
                 innerImage: {
                     src: object.imageUrl,
@@ -300,8 +300,8 @@ AT.placePoint = function(object) {
     } else {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 24,
-                height: 38,
+                width: 42,
+                height: 39,
                 backpos: '0 0',
                 url: object.icon
             });
