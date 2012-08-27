@@ -35,8 +35,8 @@ class MainController extends Controller
     public function latestTopicsAction($domain)
     {
         $topics = array(
-            '/export/?module=m_ep_forum',
             '/export/?module=m_ep_propostal',
+            '/export/?module=m_ep_forum',            
         );
         
         $result = array();
