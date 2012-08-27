@@ -18,8 +18,15 @@ AT.init = function(params) {
     AT.initFilters();
     AT.initHacks();
 
-    // Сабмитим форму
-    $('#atlas-form').submit();
+    // Сабмитим форму (показываем Образы России)
+    var elems = $('#atlas-filter-form').find('.gray-checked');
+    for (var i=0; i<elems.length; i++) {
+        var tagId = $(elems[i]).find('span').data('tag');
+        if (tagId == 74) {
+            $(elems[i]).find('span').click();
+            break;
+        }
+    }
 };
 
 AT.initMap = function(params) {
