@@ -50,8 +50,10 @@ class TvigleVideoManager
         $video->setCreated(new \DateTime($res->date));
         $video->setFrame($res->frame);
 
-        $media = $this->createMediaFromUrl($res->img);
-        $video->setImageMedia($media);
+        if($res->img) {
+            $media = $this->createMediaFromUrl($res->img);
+            $video->setImageMedia($media);
+        }
 
     }
 
