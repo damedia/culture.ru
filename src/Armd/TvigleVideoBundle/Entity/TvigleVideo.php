@@ -60,6 +60,10 @@ class TvigleVideo
      */
     private $swf;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $frame;
 
     public function __toString()
     {
@@ -271,6 +275,16 @@ class TvigleVideo
     public function setSwf($swf)
     {
         $this->swf = $swf;
+    }
+
+    public function getFrame()
+    {
+        return $this->frame;
+    }
+
+    public function setFrame($frame)
+    {
+        $this->frame = $frame;
     }
 
     public function getImageMedia()
