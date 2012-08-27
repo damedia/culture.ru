@@ -1033,10 +1033,11 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	font-size: 12px;
 	text-align: left;
 	color: #8e8e8e;
-	top:24px;
+	top:28px;
+	position:relative;
 }
 #i-socialnetwork {
-	margin: -5px 0 0 0;
+	margin: 0 0 0 0;
 }
 
 #atlas {
@@ -4342,3 +4343,24 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			
 			color:#BE0002;
 		}
+		
+		
+#socialnetwork-links {}	
+
+	#socialnetwork-links a {
+		display:inline-block;
+		width:20px;
+		height:20px;
+		margin:0 10px 0 0;
+		background:url(/img/sprite-social-ico.png) no-repeat 0 0;
+		padding:0;
+		float:none;
+	}	
+	
+	#socialnetwork-links .vk {	background-position:0 -40px; }
+	
+	#socialnetwork-links .lj { display:none; }	
+	
+	#socialnetwork-links .tw { background-position:0 -60px; }
+	
+	#socialnetwork-links .fb { background-position:0 -0px; }			
