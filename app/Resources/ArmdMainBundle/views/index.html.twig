@@ -452,7 +452,7 @@
 
 {% block community%}
 <div id="discus">
-    {% render "ArmdMainBundle:Main:latestTopics" %}
+    {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.roskult.ru"} %}
 </div>
 {% endblock %}
 
