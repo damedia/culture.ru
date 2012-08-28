@@ -47,15 +47,6 @@ AT.initMap = function(params) {
     this.map.controls.addControl('slider');
 
     this.map.balloon.content.parentNode.style.width = '300px';
-    if ($.browser.opera) {
-        var m = this.map;
-        var el = this.map.balloon.element.getElementsByTagName("b")[0];
-        PGmap.Events.addHandler(el, 'mousedown', function(e){
-            var coords = m.globals.getCoords();
-            coords.lon = coords.lon + 20000;
-            m.setCenter(coords);
-        });
-    }
 };
 
 AT.initGeocoder = function() {
@@ -299,11 +290,11 @@ AT.placePoint = function(object) {
             });
     } else {
         var point = new PGmap.Point({
-                coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 42,
-                height: 39,
-                backpos: '0 0',
-                url: object.icon
+                coord: new PGmap.Coord(object.lon, object.lat, true)
+                //width: 42,
+                //height: 39,
+                //backpos: '0 0',
+                //url: object.icon
             });
     }
     //console.log( $(point.element) );
