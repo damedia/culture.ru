@@ -203,7 +203,6 @@ $(document).ready(function () {
                 $(this).closest('.title-block').addClass('orange');
             }
             else {
-                location.reload();
                 $(this).closest('.title-block').removeClass('orange');
             }
         }

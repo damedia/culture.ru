@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <title>Портал культурного наследия России{% block title %}{% endblock %}</title>
+     
         {% block stylesheets %}
             <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
@@ -104,7 +104,7 @@
 						<ul>
 							<li><a href="http://people.roskult.ru/community_council/">Общественный совет</a></li>
 							<li><a href="/main/goverment_service.html">Госуслуги</a></li>
-							<li><a href="/main/about.html">О проекте</a></li>
+							<li><a href="#">О проекте</a></li>
 						</ul>
 					</li>
 					
@@ -145,8 +145,8 @@
             <div id="footer" class="w">
             
             <div class="footer-logo">
-                   <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
-                    Министерство культуры<br />Российской Федерации</a>
+                    <img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
+                    Министерство культуры<br />Российской Федерации
                     </div>
                     
                 <div id="contacts">
@@ -154,7 +154,7 @@
                  
              <div class="contacts-inner">
     					<div class="copyright">© Портал культурного наследия России</div>
-    					<a href="/main/about.html">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:info@mkrf.ru">info@mkrf.ru</a>
+    					<a href="#">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="#">Контактная информация</a>
                     </div>
                 </div>
 
@@ -164,38 +164,26 @@
                 <div id="socialnetwork">
                     Рассказать о портале
                     <div id="i-socialnetwork">
-                            <!-- <img src="{{ asset('/img/socialnetwork.png') }}" /> -->
-                            <form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork-links">
-                                <a class="vk" href="http://vkontakte.ru/share.php?url=http://roskult.ru/&amp;title=Портал культурного наследия&amp;description=&image=http://mk.dev.armd.ru/img/logo.png" target="_blank"></a>
-                                <a onclick="$(this).parent().submit(); return false;" class="lj" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/&subject=Портал культурного наследия%3C%2Fa%3E" target="_blank"></a>
-                                <a class="tw" href="http://twitter.com/intent/tweet?text=Портал культурного наследия&url=http://roskult.ru/" target="_blank"></a>
-                                <input type="hidden" name="subject" value="Портал культурного наследия">
-                                <textarea name="event" style="display:none">
-                                    <div style="padding:20px; margin:10px;">
-                                        <h3 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">Портал культурного наследия</h3>
-                                        <a href="{{ url('cp') }}">Подробнее</a>
-                                    </div>
-                                </textarea>
-                                <a style="fb" href="http://www.facebook.com/sharer.php?u=http://roskult.ru/&t=Портал культурного наследия&src=sp" target="_blank"></a>
-                            </form>
+                        <!-- AddThis Button BEGIN
+                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">
+                        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
+                        <a id="all-repost" class="addthis_button_preferred_1"></a>
+                        <script type="text/javascript">
+                        addthis.button('#all-repost', {}, {url: '{{ url('cp_show', { 'id': 1 }) }}', title: 'Title here'});
+                        </script>
+                        </div>
+                        AddThis Button END -->
+<!--
+                        <img src="{{ asset('/img/socialnetwork.png') }}" />
+-->
                     </div>
                 </div>
           
             </div>
             
                   <div class="footer-counters w">
-              
-              <!--LiveInternet logo--><a href="http://www.liveinternet.ru/click" 
-                target="_blank"><img src="http://counter.yadro.ru/logo?44.1" 
-                title="LiveInternet" 
-                alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
-<!-- Rating@Mail.ru logo -->
-<a target="_top" href="http://top.mail.ru/jump?from=2232750">
-<img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1" 
-border="0" height="31" width="88" alt="Рейтинг@Mail.ru"></a>
-<!-- //Rating@Mail.ru logo -->
-              
-                             </div> <!-- /footer-counters-->
+              <img src="{{ asset('/img/footer-couter.jpg') }}" /> 
+                </div> <!-- /footer-counters-->
         </div>
     </body>
 </html>

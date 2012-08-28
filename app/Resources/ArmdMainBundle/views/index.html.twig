@@ -95,10 +95,10 @@
 
         <script>
             // Атлас. Образы России
-            var fetchMarkersUri      = '/app_dev.php/atlas/objects/filter',
-                fetchMarkerDetailUri = '/app_dev.php/atlas/object/balloon',
-                fetchClusterDetailUri = '/app_dev.php/atlas/object/cluster',
-                bundleImagesUri      = '/bundles/armdatlas/images',
+            var fetchMarkersUri      = '{{ path('armd_atlas_default_filter') }}',
+                fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
+                fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
+                bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}',
                 obrazCategoryId = 74;
             $(function(){
                 AT.init({
@@ -116,13 +116,9 @@
 		<h2>Трансляции</h2>
 	</div>	
 	<div class="online-index-block">
-		<a href="/lecture/view/45"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
+		<a href="/lecture/view/35"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
 		<div class="online-index-text">
-			<p class="online-index-header"><a href="/lecture/view/45">Борис Годунов</a></p>
-			<p>Борис Годунов
-Опера М. Мусоргского "Борис Годунов" была 
-представлена вчера на сцене Театра оперы и 
-балета им. Мусы Джалиля.</p>
+			<p class="online-index-header"><a href="/lecture/view/35">ХI Московский Пасхальный фестиваль.</a></p>
 		</div>
 	</div>
 	<p class="all-list"><a href="/lecture/translation">Все трансляции</a></p>

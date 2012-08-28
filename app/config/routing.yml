@@ -3,10 +3,10 @@ armd_main:
     prefix:   /
 
 index:
-    pattern: /
+    pattern: /main
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
-        route: armd_news_list_index
+        route: armd_main_homepage
         permanent: true    
 
 admin:
