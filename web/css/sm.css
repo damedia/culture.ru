@@ -4235,3 +4235,15 @@ white-space:nowrap;
 	#socialnetwork-links .tw { background-position:0 -60px; }
 	
 	#socialnetwork-links .fb { background-position:0 -0px; }			
+	
+	
+	
+	
+	.lt-ie9	.rusObr-list-text { height:160px; }
+	
+	
+	
+@media only screen and (max-width: 1024px) {
+	.rusObr-list-text { height:160px; }
+ 
+}		
