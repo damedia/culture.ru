@@ -37,14 +37,14 @@
 	{% endif %}
 	<div class="share" >
 		<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">
-			<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url={{ url('cp_show', { 'id': entity.id }) }}&amp;title='{{ entity.title }}'&amp;description='{{ entity.announce }}'" target="_blank"></a>
-			<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event={{ url('cp_show', { 'id': entity.id }) }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>
-			<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url={{ url('cp_show', { 'id': entity.id }) }}" target="_blank"></a>
+			<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>
+			<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>
+			<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}" target="_blank"></a>
 			<input type="hidden" name="subject" value="{{ entity.title }}">
 			<textarea name="event" style="display:none">
 				<div style="padding:20px; margin:10px;">
 					<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}
-					<a href="{{ url('cp_show', { 'id': entity.id }) }}">Подробнее</a>					
+					<a href="http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}">Подробнее</a>
 				</div>
 			</textarea>
 			<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ url('cp_show', { 'id': entity.id }) }}&t={{ entity.title }}&src=sp" target="_blank"></a>

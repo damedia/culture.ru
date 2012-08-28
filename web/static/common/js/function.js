@@ -372,13 +372,13 @@ $(document).ready(function(){
 			$(this).removeClass('hovered');
 		})
 		
-		/*MENU MORE*/
+		/*MENU MORE
 		$('.navmenu_more > a').click(function(){
 			var hiddenList = $(this).parent().find('ul');
 			hiddenList.slideToggle();
 			$(this).parent().toggleClass('opened');
 			return false;
-		})
+		})*/
 		
 		
 		/*INDEX TABS*/
