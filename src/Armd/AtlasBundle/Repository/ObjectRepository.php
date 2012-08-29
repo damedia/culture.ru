@@ -14,10 +14,6 @@ class ObjectRepository extends EntityRepository
 {
     public function filter($params = array())
     {
-        //var_dump($params);
-
-        $term = $params['term'];
-        $categoryIds = $params['category'];
         $categoryTree = $params['categoryTree'];
 
         $qb = $this->createQueryBuilder('o');
@@ -27,36 +23,14 @@ class ObjectRepository extends EntityRepository
             foreach ($group['tags'] as $tag) {
                 $groupIds[] = $tag['id'];
             }
-            //var_dump($groupIds);
-            $groupIds = implode(',',$groupIds);
-
             $qb->innerJoin('o.secondaryCategories', 't'.$i);
-            $qb->andWhere('t'.$i.' IN ('.$groupIds.')');
+            $qb->andWhere('t'.$i.' IN (:groupIds)');
+            $qb->setParameter('groupIds', $groupIds);
         }
 
         $query = $qb->getQuery();
-        //print '<pre>'.$query->getSQL().'</pre>';
 
         $rows = $query->getResult();
-
-        /*
-        header('Content-Type: text/html; charset=utf-8');
-        print '<table border="1" style="font-size:11px;">';
-        foreach ($rows as $row) {
-            $tags = array();
-            foreach ($row->getSecondaryCategories() as $tag) {
-                $tags[] = $tag->getTitle().' ('.$tag->getId().')';
-            }
-            print '<tr>';
-            print '<td>'.$row->getPrimaryCategory()->getTitle().' ('.$row->getPrimaryCategory()->getId().')</td>';
-            print '<td>'.implode(', ', $tags).'</td>';
-            print '<td>'.$row->getId().'</td>';
-            print '<td>'.$row->getTitle().'</td>';
-            print '</tr>';
-        }
-        print '</table>';
-        exit;
-        */
 
         return $rows;
     }

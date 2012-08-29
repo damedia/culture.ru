@@ -132,11 +132,16 @@ AT.initUI = function() {
 
             if (objects && objects.length) {
                 //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
-                var points = [];
-                for (i in objects) {
+                var points = []
+                    categories = [];
+                for (var i in objects) {
                     var point = AT.placePoint(objects[i]);
                     if (point) {
                         points.push(point);
+                        for (var j in objects[i].categories) {
+                            
+                            console.log( objects[i].categories );
+                        }
                     }
                 }
 

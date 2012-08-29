@@ -367,18 +367,14 @@ class DefaultController extends Controller
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
                         $obraz = true;
-                        /*
-                        $images = $obj->getImages();
-                        if (sizeof($images)) {
-                            foreach ($images as $image) {
-                                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
-                                break;
-                            }
-                        }
-                        */
                         $image = $obj->getPrimaryImage();
                         $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
                     }
+                }
+
+                $categoriesIds = array();
+                foreach ($obj->getSecondaryCategories() as $category) {
+                    $categoriesIds[] = $category->getId();
                 }
 
                 $rows[] = array(
@@ -390,6 +386,7 @@ class DefaultController extends Controller
                     'icon' => $iconUrl,
                     'obraz' => $obraz,
                     'imageUrl' => $imageUrl,
+                    'categories' => $categoriesIds,
                 );
             }
 
