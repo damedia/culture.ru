@@ -121,17 +121,18 @@ AT.initUI = function() {
         },
         success: function(responseText, statusText, xhr, $form){
             $('#ajax-loading').hide();
+
+            var elems = $('.atlas-filter-form .tag');
             var json = $.parseJSON(responseText);
             if (json.success) {
                 var objects = json.result;
+                elems.addClass('disabled');
             } else {
+                elems.removeClass('disabled');
                 console.error(json.message);
             }
 
             AT.clearMap();
-
-            var elems = $('.atlas-filter-form .tag');
-            elems.addClass('disabled');
 
             if (objects && objects.length) {
                 var points = [];
@@ -317,7 +318,7 @@ AT.placePoint = function(object) {
                 width: 42,
                 height: 39,
                 backpos: '0 0',
-                url: object.icon
+                url: 'http://культура.рф/uploads/media/atlas_icon/0001/05/10bbc0516e276f972f46e0586115c1a0af7df695.png' //object.icon
             });
     }
     //console.log( $(point.element) );
