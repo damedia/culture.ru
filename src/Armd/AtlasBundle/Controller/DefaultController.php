@@ -354,6 +354,7 @@ class DefaultController extends Controller
             $res = $repo->filter($filterParams);
 
             $twigExtension = $this->get('sonata.media.twig.extension');
+            $allCategoriesIds = array();
             $rows = array();
             foreach ($res as $obj) {
 
@@ -374,7 +375,8 @@ class DefaultController extends Controller
 
                 $categoriesIds = array();
                 foreach ($obj->getSecondaryCategories() as $category) {
-                    $categoriesIds[] = $category->getId();
+                    $categoriesIds[] = $category->getTitle();
+                    $allCategoriesIds[] = $category->getId();
                 }
 
                 $rows[] = array(
@@ -393,6 +395,7 @@ class DefaultController extends Controller
             $response = json_encode(array(
                 'success' => true,
                 'result' => $rows,
+                'allCategoriesIds' => array_unique($allCategoriesIds),
             ));
             return new Response($response);
         } catch (\Exception $e) {

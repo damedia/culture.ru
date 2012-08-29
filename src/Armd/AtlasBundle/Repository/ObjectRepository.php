@@ -21,11 +21,10 @@ class ObjectRepository extends EntityRepository
         foreach ($categoryTree as $i=>$group) {
             $groupIds = array();
             foreach ($group['tags'] as $tag) {
-                $groupIds[] = $tag['id'];
+                $groupIds[] = (int) $tag['id'];
             }
             $qb->innerJoin('o.secondaryCategories', 't'.$i);
-            $qb->andWhere('t'.$i.' IN (:groupIds)');
-            $qb->setParameter('groupIds', $groupIds);
+            $qb->andWhere('t'.$i.' IN ('. implode(',',$groupIds) .')');
         }
 
         $query = $qb->getQuery();

@@ -130,20 +130,30 @@ AT.initUI = function() {
 
             AT.clearMap();
 
+            var elems = $('.atlas-filter-form .tag');
+            elems.addClass('disabled');
+
             if (objects && objects.length) {
-                //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
-                var points = []
-                    categories = [];
+                var points = [];
                 for (var i in objects) {
                     var point = AT.placePoint(objects[i]);
                     if (point) {
                         points.push(point);
-                        for (var j in objects[i].categories) {
-                            
-                            console.log( objects[i].categories );
-                        }
                     }
                 }
+                //console.log(json.allCategoriesIds);
+
+                for (var i in json.allCategoriesIds) {
+                    var tag = json.allCategoriesIds[i];
+                    elems.each(function(i, el){
+                        var elSpan = $(el).find('span');
+                        var tagId = elSpan.data('tag');
+                        if (tagId == tag) {
+                            $(el).removeClass('disabled');
+                        }
+                    });
+                }
+
 
                 // clusterize points
                 AT.clusterPoints = new PGmap.GeometryLayer({
@@ -365,3 +375,4 @@ AT.submitFiltersForm = function() {
     // Сабмитим форму
     $('#atlas-filter-form').submit();
 };
+
