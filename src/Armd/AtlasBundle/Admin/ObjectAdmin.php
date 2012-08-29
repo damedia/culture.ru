@@ -219,6 +219,11 @@ class ObjectAdmin extends Admin
                 'field_type' => 'entity',
                 'field_options' => array(
                     'class' => 'Armd\AtlasBundle\Entity\Category',
+                    'query_builder' => function($er) {
+                        $qb = $er->createQueryBuilder('c');
+                        $qb->orderBy('c.root, c.lft', 'ASC');
+                        return $qb;
+                    }
                 ),
             ))
             ->add('primaryCategory')
@@ -244,7 +249,7 @@ class ObjectAdmin extends Admin
     public function getCategoriesFilter($qb, $alias, $field, $value)
     {
         if(!empty($value['value']) && $value['value'] instanceof Category) {
-            $qb ->innerJoin($alias.'.secondaryCategories', 'filter_sc')
+            $qb->leftJoin($alias.'.secondaryCategories', 'filter_sc')
                 ->andWhere($qb->expr()->orX(
                     $qb->expr()->eq($alias.'.primaryCategory', $value['value']->getId()),
                     $qb->expr()->eq('filter_sc.id', $value['value']->getId())
