@@ -3,8 +3,12 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/backend/admin_user_acl.js') }}"></script>
     <script type="text/javascript">
-        console.log('i am user list js!');
+        $(function () {
+            armdAtlasAdminUserAcl.init();
+            armdAtlasAdminUserAcl.listUrl = '{{ path('armd_atlas_admin_list_user_objects', {'userId': 0}) }}'
+        });
     </script>
 
 {% endblock%}

@@ -113,6 +113,7 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
+
         news:
             download:
                 strategy: sonata.media.security.public_strategy

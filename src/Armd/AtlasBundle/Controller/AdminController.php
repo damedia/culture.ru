@@ -3,6 +3,10 @@
 namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -102,30 +106,91 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/user-objects/{userId}", name="armd_atlas_admin_user_objects", options={"expose"=true})
+     * @Route("/list-user-objects/user/{userId}",
+     * name="armd_atlas_admin_list_user_objects",
+     * options={"expose"=true})
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     * @Template()
      */
-    public function userObjectsAction($userId)
+    public function listUserObjectsAction($userId)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
-        $objects = $this->get('armd_atlas.manager.object')->getUserObjects($user);
+        if(empty($user)) {
+            throw new \InvalidArgumentException('User not found');
+        }
+        $userObjects = $this->get('armd_atlas.manager.object')->getUserObjects($user);
 
-//        foreach($objects as $object) {
-//            echo $object->getId() . ' ' . $object->getTitle() . '<br>';
-//
-//        }
+        $qbOtherObjects = $em->getRepository('ArmdAtlasBundle:Object')
+            ->createQueryBuilder('o')
+            ->orderBy('o.title', 'ASC');
+        if(count($userObjects)) {
+            $qbOtherObjects->where('o NOT IN (:objects)')
+            ->setParameter('objects', $userObjects);
+        }
+        $otherObjects = $qbOtherObjects->getQuery()->getResult();
 
-        return new Response('');
+        return array(
+            'userObjects' => $userObjects,
+            'otherObjects' => $otherObjects,
+        );
 
-//        $em = $this->getDoctrine()->getManager();
-//        $aclProvider = $this->container->get('security.acl.provider');
-//        $securityContext = $this->container->get('security.context');
-//
-//        $aclProvider->findAcls($oids, $sid);
-//
-//        $aclProvider->
+    }
 
+    /**
+     * @Route("/add-user-object/user/{userId}/object/{objectId}",
+     *  name="armd_atlas_admin_add_user_object",
+     *  requirements={"userId"="\d+", "objectId"="\d+"},
+     *  options={"expose"=true}
+     * )
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function addUserObjectAction($userId, $objectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
+        if(empty($user)) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        if(empty($object)) {
+            throw new \InvalidArgumentException('Atlas object not found');
+        }
+
+        $aclManager = $this->get('armd_user.manager.acl');
+        $aclManager->grant($user, $object, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
+
+        return new Response(json_encode(array('resultCode' => 'OK')));
+    }
+
+    /**
+     * @Route("/remove-user-object/user/{userId}/object/{objectId}",
+     *  name="armd_atlas_admin_remove_user_object",
+     *  requirements={"userId"="\d+", "objectId"="\d+"},
+     *  options={"expose"=true}
+     * )
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function removeUserObjectAction($userId, $objectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
+        if(empty($user)) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        if(empty($object)) {
+            throw new \InvalidArgumentException('Atlas object not found');
+        }
+
+        $aclManager = $this->get('armd_user.manager.acl');
+        $aclManager->revoke($user, $object, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
+
+        return new Response(json_encode(array('resultCode' => 'OK')));
     }
 
 }

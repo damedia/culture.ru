@@ -10,8 +10,6 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Application\Sonata\MediaBundle\Entity\Media;
-use Armd\AtlasBundle\Entity\Object;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 
 class ObjectListener
