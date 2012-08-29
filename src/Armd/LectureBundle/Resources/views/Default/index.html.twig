@@ -7,7 +7,9 @@
         <h2>Фильтрация</h2>
     </div>
     <form action="" class="simple-filter-form video-filter">
-        <div class="simple-search">
+
+         {# this block is hidden because problems with ajax post and nginx #}
+        <div class="simple-search" style="display:none">
             <label for="ss_input">Точный поиск</label>
             <input type="text" class="ss-input" id="ss_input"/>
         </div>
