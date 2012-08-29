@@ -27,7 +27,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+//            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
 
             new Zim32\LoginzaBundle\Zim32LoginzaBundle(),

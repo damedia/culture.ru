@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <meta property="og:image" content="http://roskult.ru/img/logo.png" />
-        <title>Портал культурного наследия России{% block title %}{% endblock %}</title>
+     
         {% block stylesheets %}
             <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
@@ -19,45 +18,10 @@
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
+{#            
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>   
-   
- {% if app.environment == 'dev' %}  
-            
-            <!-- Rating@Mail.ru counter -->
-<script type="text/javascript">//<![CDATA[
-var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
-try{s=screen;a+=';s='+s.width+'*'+s.height;a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;}catch(e){}
-try{if(typeof((new Array).push('t'))==="number")js=13;}catch(e){}
-try{(new Image()).src='http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;js='+js+a+';rand='+Math.random();}catch(e){}//]]></script>
-<noscript><p><a href="http://top.mail.ru/jump?from=2232750"><img src="http://d1.c1.b2.a2.top.mail.ru/counter?js=na;id=2232750" 
-style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" /></a></p></noscript>
-<!-- //Rating@Mail.ru counter -->
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-
-var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-310467-9']);
-  _gaq.push(['_setDomainName', 'культура.рф']);
-  _gaq.push(['_trackPageview']);
-(function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-{% endif %}
-
-
-                 
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
+#}            
         {% endblock %}
     </head>
     <body>
@@ -204,7 +168,7 @@ var _gaq = _gaq || [];
                     <div id="i-socialnetwork">
                             <!-- <img src="{{ asset('/img/socialnetwork.png') }}" /> -->
                             <form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork-links">
-                                <a class="vk" href="http://vkontakte.ru/share.php?url=http://roskult.ru/&amp;title=Портал культурного наследия&amp;description=&image=http://roskult.ru/img/logo.png" target="_blank"></a>
+                                <a class="vk" href="http://vkontakte.ru/share.php?url=http://roskult.ru/&amp;title=Портал культурного наследия&amp;description=" target="_blank"></a>
                                 <a onclick="$(this).parent().submit(); return false;" class="lj" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/&subject=Портал культурного наследия%3C%2Fa%3E" target="_blank"></a>
                                 <a class="tw" href="http://twitter.com/intent/tweet?text=Портал культурного наследия&url=http://roskult.ru/" target="_blank"></a>
                                 <input type="hidden" name="subject" value="Портал культурного наследия">
@@ -227,11 +191,11 @@ var _gaq = _gaq || [];
                 target="_blank"><img src="http://counter.yadro.ru/logo?44.1" 
                 title="LiveInternet" 
                 alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
-<!-- Rating@Mail.ru counter -->
-<a href="http://top.mail.ru/jump?from=2232750">
+<!-- Rating@Mail.ru logo -->
+<a target="_top" href="http://top.mail.ru/jump?from=2232750">
 <img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1" 
-style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
-<!-- //Rating@Mail.ru counter -->
+border="0" height="31" width="88" alt="Рейтинг@Mail.ru"></a>
+<!-- //Rating@Mail.ru logo -->
               
                              </div> <!-- /footer-counters-->
         </div>
