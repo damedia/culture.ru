@@ -341,9 +341,13 @@ class DefaultController extends Controller
             if (empty($categoryIds))
                 throw new \Exception('Categories is null');
 
+            $categoryRepo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Category');
+            $categoryTree = $categoryRepo->getDataForFilter($categoryIds);
+
             $filterParams = array(
                 'term' => '',
                 'category' => $categoryIds,
+                'categoryTree' => $categoryTree,
             );
 
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');

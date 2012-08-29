@@ -71,7 +71,7 @@ class CategoryRepository extends NestedTreeRepository
         $this->container = $container;
     }
 
-    public function getDataForFilter()
+    public function getDataForFilter($ids=array())
     {
         $qb = $this->createQueryBuilder('t1')
             ->select('t1.id, t1.title AS category, t2.id AS tag_id, t2.title AS tag')
@@ -79,6 +79,12 @@ class CategoryRepository extends NestedTreeRepository
             ->where('t1.lvl = 1')
             ->orderBy('t1.lft', 'ASC')
             ->orderBy('t2.lft', 'ASC');
+
+        if ($ids) {
+            $qb->andWhere('t2.id IN (:ids)')
+               ->setParameter('ids', $ids);
+        }
+
         $rows = $qb->getQuery()->getResult();
         $tags = array();
         $cats = array();
