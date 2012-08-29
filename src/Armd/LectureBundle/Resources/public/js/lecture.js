@@ -79,12 +79,14 @@ var armdLecture = {
         armdLecture.startLoading();
         $.manageAjax.clear('lifo', true);
         $.manageAjax.add('lifo', {
-            url:Routing.generate('armd_lecture_list',
-                {
-                    lectureSuperTypeCode: armdLecture.lectureSuperTypeCode,
-                    page:armdLecture.page
-                }
-            ),
+//            url:Routing.generate('armd_lecture_list',
+//                {
+//                    lectureSuperTypeCode: armdLecture.lectureSuperTypeCode,
+//                    page:armdLecture.page
+//                }
+//            ),
+            // route: armd_lecture_list
+            url: '/lecture/list/' + armdLecture.lectureSuperTypeCode + '/' + armdLecture.page,
             cache:false,
             dataType:'html',
             type:'GET',
