@@ -134,7 +134,10 @@ AT.initUI = function() {
                 //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
                 var points = [];
                 for (i in objects) {
-                    points.push(AT.placePoint(objects[i]));
+                    var point = AT.placePoint(objects[i]);
+                    if (point) {
+                        points.push(point);
+                    }
                 }
 
                 // clusterize points
@@ -273,6 +276,11 @@ AT.clearMap = function() {
 };
 
 AT.placePoint = function(object) {
+
+    if (! (object.lon || object.lat)) {
+        console.log('Coords is not set properly', object);
+        return false;
+    }
 
     if (object.obraz) {
 

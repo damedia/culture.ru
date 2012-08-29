@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
+use Armd\AtlasBundle\Entity\Category;
 
 class ObjectAdmin extends Admin
 {
@@ -213,8 +214,47 @@ class ObjectAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('title')
+            ->add('category', 'doctrine_orm_callback', array(
+                'callback' => array($this, 'getCategoriesFilter'),
+                'field_type' => 'entity',
+                'field_options' => array(
+                    'class' => 'Armd\AtlasBundle\Entity\Category',
+                    'query_builder' => function($er) {
+                        $qb = $er->createQueryBuilder('c');
+                        $qb->orderBy('c.root, c.lft', 'ASC');
+                        return $qb;
+                    }
+                ),
+            ))
             ->add('primaryCategory')
-            ->add('secondaryCategories');
+            ->add('secondaryCategories')
+            ->add('coordinatesAreEmpty', 'doctrine_orm_callback', array(
+                'field_type' => 'checkbox',
+                'callback' => array($this, 'getEmptyCoordinatesFilter')
+            ));
+    }
+
+    public function getEmptyCoordinatesFilter($qb, $alias, $field, $value)
+    {
+        if(!empty($value['value'])) {
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->eq($alias.'.lon', 0),
+                $qb->expr()->isNull($alias.'.lon'),
+                $qb->expr()->eq($alias.'.lat', 0),
+                $qb->expr()->isNull($alias.'.lat')
+            ));
+        }
+    }
+
+    public function getCategoriesFilter($qb, $alias, $field, $value)
+    {
+        if(!empty($value['value']) && $value['value'] instanceof Category) {
+            $qb->leftJoin($alias.'.secondaryCategories', 'filter_sc')
+                ->andWhere($qb->expr()->orX(
+                    $qb->expr()->eq($alias.'.primaryCategory', $value['value']->getId()),
+                    $qb->expr()->eq('filter_sc.id', $value['value']->getId())
+            ));
+        }
     }
 
     public function getFormTheme() {
