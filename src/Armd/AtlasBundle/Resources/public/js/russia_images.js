@@ -5,7 +5,7 @@ var armdRussiaImages = {
         $.manageAjax.create('lifo', {queue:'clear', maxRequests:2, abortOld:true});
 
         // search
-        armdRussiaImages.afterDelayedEvent('keyup', '#search_text', 500, function () {
+        armdRussiaImages.afterDelayedEvent('keyup', '#search_text', 1000, function () {
             armdRussiaImages.loadList();
         });
 
@@ -13,7 +13,6 @@ var armdRussiaImages = {
     },
 
     initUi:function () {
-
 
 
         $('#images-of-russia-container').on('mouseenter', '.obrazy .rusObr-list-one-wrap', function () {
@@ -74,10 +73,10 @@ var armdRussiaImages = {
 
     afterDelayedEvent:function afterDelayedEvent(eventtype, selector, delay, action) {
         $(selector).bind(eventtype, function () {
-            if (typeof(window['inputTimeout']) != "undefined") {
-                clearTimeout(afterDelayedEvent.inputTimeout);
+            if (typeof(armdRussiaImages.inputTimeout) != "undefined") {
+                clearTimeout(armdRussiaImages.inputTimeout);
             }
-            afterDelayedEvent.inputTimeout = setTimeout(action, delay);
+            armdRussiaImages.inputTimeout = setTimeout(action, delay);
         });
     },
 
