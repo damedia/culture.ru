@@ -84,7 +84,8 @@ var armdRussiaImages = {
         armdRussiaImages.startLoading();
         $.manageAjax.clear('lifo', true);
         $.manageAjax.add('lifo', {
-            url:Routing.generate('armd_atlas_russia_images_list'),
+//            url:Routing.generate('armd_atlas_russia_images_list'),
+            url: '/atlas/russia-images-list',
             cache:false,
             dataType:'html',
             type:'POST',
