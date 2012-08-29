@@ -7,6 +7,7 @@ var armdLecture = {
     page:1,
     typeCategories:{},
     lectureSuperTypeCode:'',
+    inputTimeout:null,
 
     init:function () {
         $.manageAjax.create('lifo', {queue: 'clear', maxRequests: 2, abortOld: true});
@@ -86,7 +87,7 @@ var armdLecture = {
             ),
             cache:false,
             dataType:'html',
-            type:'POST',
+            type:'GET',
             data:{
                 sortBy:armdLecture.sortBy,
                 categories:armdLecture.getSelectedCategories(),
@@ -143,10 +144,10 @@ var armdLecture = {
 
     afterDelayedEvent:function afterDelayedEvent(eventtype, selector, delay, action) {
         $(selector).bind(eventtype, function() {
-            if (typeof(window['inputTimeout']) != "undefined") {
-                clearTimeout(inputTimeout);
+            if (typeof(armdLecture.inputTimeout) != "undefined") {
+                clearTimeout(armdLecture.inputTimeout);
             }
-            inputTimeout = setTimeout(action, delay);
+            armdLecture.inputTimeout = setTimeout(action, delay);
         });
     }
 
