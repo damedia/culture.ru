@@ -41,6 +41,6 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
      */
     function getOrder()
     {
-        return 10;
+        return 5;
     }
 }

@@ -101,5 +101,31 @@ class AdminController extends Controller
         return new Response();
     }
 
+    /**
+     * @Route("/user-objects/{userId}", name="armd_atlas_admin_user_objects", options={"expose"=true})
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function userObjectsAction($userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
+        $objects = $this->get('armd_atlas.manager.object')->getUserObjects($user);
+
+//        foreach($objects as $object) {
+//            echo $object->getId() . ' ' . $object->getTitle() . '<br>';
+//
+//        }
+
+        return new Response('');
+
+//        $em = $this->getDoctrine()->getManager();
+//        $aclProvider = $this->container->get('security.acl.provider');
+//        $securityContext = $this->container->get('security.context');
+//
+//        $aclProvider->findAcls($oids, $sid);
+//
+//        $aclProvider->
+
+    }
 
 }

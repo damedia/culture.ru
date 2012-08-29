@@ -262,3 +262,7 @@ armd_sphinx_search:
         port:   %sphinxsearch_port%
     indexer:
         bin:    %sphinxsearch_indexer_bin%
+
+
+parameters:
+    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin

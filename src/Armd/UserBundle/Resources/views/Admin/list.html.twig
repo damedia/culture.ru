@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        console.log('i am user list js!');
+    </script>
+
+{% endblock%}
