@@ -11,8 +11,24 @@ class MainController extends Controller
 {
     public function bannerAction()
     {
-        return $this->render('ArmdMainBundle::banner.html.twig', array());
+        return $this->renderTemplate('banner');
     }
+    
+    public function museumsAction()
+    {
+        return $this->renderTemplate('museums');
+    }
+    
+    public function aboutAction()
+    {
+        return $this->renderTemplate('about');
+    }
+    
+    public function servicesAction()
+    {
+        return $this->renderTemplate('services');
+    }
+    
 
     public function indexAction()
     {
@@ -63,6 +79,11 @@ class MainController extends Controller
         }
         
         return $result;
+    }
+    
+    function renderTemplate($template)
+    {
+        return $this->render("ArmdMainBundle::{$template}.html.twig", array());
     }
     
     function getTemplateName($action)

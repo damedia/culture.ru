@@ -4,7 +4,20 @@ armd_main_homepage:
     
 armd_main_banner:
     pattern:  /banner
-    defaults: { _controller: ArmdMainBundle:Main:banner }    
+    defaults: { _controller: ArmdMainBundle:Main:banner }
+    
+armd_main_museums:
+    pattern:  /museums
+    defaults: { _controller: ArmdMainBundle:Main:museums }    
+
+armd_main_about:
+    pattern:  /about
+    defaults: { _controller: ArmdMainBundle:Main:about }    
+
+armd_main_services:
+    pattern:  /services
+    defaults: { _controller: ArmdMainBundle:Main:services }    
+        
 
 armd_main_random_russia_images:
     pattern: /main/random-russia-images

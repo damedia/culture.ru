@@ -38,8 +38,8 @@ fos_user_routing:
     resource: '@ArmdUserBundle/Resources/config/routing/fos_user_routing.yml'
     prefix:   /
 
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+#fos_js_routing:
+#    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 zim32_loginza:
     resource: '@Zim32LoginzaBundle/Resources/config/routing.yml'
