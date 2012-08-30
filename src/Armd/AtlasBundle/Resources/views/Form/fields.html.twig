@@ -19,7 +19,9 @@
             {{ block('armd_atlas_object_categories_widget_options') }}
         </optgroup>
     {% else %}
+        {% if not only_with_icon or only_with_icon and choice.iconMedia is not empty %}
             <option value="{{ choice.id }}"{% if choice.id in value %} selected="selected"{% endif %}>{{ choice.title|trans({}, translation_domain) }}</option>
+        {% endif %}
     {% endif %}
 {% endfor %}
 

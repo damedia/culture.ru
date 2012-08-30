@@ -171,6 +171,15 @@ class Object
     private $regions;
 
 
+    public function syncPrimaryAndSecondaryCategories()
+    {
+        if (!empty($this->primaryCategory)
+            && !$this->secondaryCategories->contains($this->primaryCategory))
+        {
+            $this->secondaryCategories->add($this->primaryCategory);
+        }
+    }
+
     public function __construct()
     {
         $this->secondaryCategories = new ArrayCollection();
