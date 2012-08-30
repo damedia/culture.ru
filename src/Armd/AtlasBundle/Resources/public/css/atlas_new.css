@@ -49,3 +49,5 @@
 .ui-autocomplete .ui-menu-item a{ cursor:pointer; color:#000; }
 
 .simple-filter-options label.disabled span{ color:#999; border:none; }
+.simple-filter-options label.checked.disabled{ background:#ccc; }
+.simple-filter-options label.checked.disabled span{ color:#fff; }
