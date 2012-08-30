@@ -25,6 +25,9 @@ class MediaFileType extends AbstractType
             ->add('context', 'hidden', array('data' => $options['media_context']))
             ->add('providerName', 'hidden', array('data' => $options['media_provider']));
 
+        if($options['with_title']) {
+            $builder->add('title');
+        }
         if($options['with_description']) {
             $builder->add('description');
         }
@@ -43,6 +46,7 @@ class MediaFileType extends AbstractType
             'data_class' => 'Application\Sonata\MediaBundle\Entity\Media',
             'with_remove' => false,
             'with_description' => false,
+            'with_title' => false,
             'media_context' => 'default',
             'media_format' => 'thumbnail',
         ))->setRequired(array('media_provider'));

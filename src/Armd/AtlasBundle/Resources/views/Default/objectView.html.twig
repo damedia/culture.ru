@@ -333,7 +333,9 @@
                                 <ul class="object-archive-list">
                                 {% for h in entity.archiveImages %}
                                     <li>
-                                    <a href="{{ path('sonata_media_download', {'id': h.id}) }}/{{ h }}" class="in-fancybox">Архивный документ №{{ loop.index }}</a>
+                                    <a href="{{ path('sonata_media_download', {'id': h.id}) }}/{{ h }}" class="in-fancybox">
+                                        {{ h.title|default('Архивный документ') }}
+                                    </a>
 
                                         <span>
                                             {{ h.description }}

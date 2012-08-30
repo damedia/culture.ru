@@ -146,6 +146,7 @@ class ObjectAdmin extends Admin
                             'media_context' => 'atlas',
                             'media_provider' => 'sonata.media.provider.image',
                             'media_format' => 'thumbnail',
+                            'with_title' => true,
                             'with_description' => true
                         ),
                         'by_reference' => false,
