@@ -14,7 +14,7 @@ class MediaListener
         $em = $args->getEntityManager();
 
         if ($entity instanceof Media) {
-
+            
             // unlink referenced atlas objects (image3d)
             $objects = $em->getRepository('ArmdAtlasBundle:Object')->findByImage3d($entity);
             if($objects) {
@@ -32,12 +32,21 @@ class MediaListener
             }
 
             // unlink referenced atlas categories
+            $categories = $em->getRepository('ArmdAtlasBundle:Object')->findByVirtualTourImage($entity);
+            if($categories) {
+                foreach($categories as $category) {
+                    $category->setVirtualTourImage(null);
+                }
+            }
+
+            // unlink referenced atlas categories
             $categories = $em->getRepository('ArmdAtlasBundle:Category')->findByIconMedia($entity);
             if($categories) {
                 foreach($categories as $category) {
                     $category->setIconMedia(null);
                 }
             }
+
 
         }
     }
