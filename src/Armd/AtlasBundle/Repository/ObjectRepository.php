@@ -17,11 +17,16 @@ class ObjectRepository extends EntityRepository
         $term = $params['term'];
         $categoryIds = $params['category'];
 
-        $qb = $this->createQueryBuilder('o')
-            ->innerJoin('o.secondaryCategories', 'c')
-            ->where('c IN (:categoryIds)')
-            ->orWhere('o.primaryCategory IN (:categoryIds)')
-            ->setParameter('categoryIds', $categoryIds);
+        $qb = $this->createQueryBuilder('o');
+        $qb->innerJoin('o.secondaryCategories', 'c')
+            ->where('o.published = TRUE')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->in('c', $categoryIds),
+                $qb->expr()->in('o', $categoryIds)
+            ));
+//            'c IN (:categoryIds)')
+//            ->orWhere('o.primaryCategory IN (:categoryIds)')
+//            ->setParameter('categoryIds', $categoryIds);
 
         $rows = $qb->getQuery()->getResult();
         return $rows;
@@ -32,6 +37,7 @@ class ObjectRepository extends EntityRepository
         $objectCount = $this->createQueryBuilder('o')
                     ->select('COUNT(o)')
                     ->where('o.showAtRussianImage = TRUE')
+                    ->andWhere('o.published = TRUE')
                     ->getQuery()->getSingleScalarResult();
         return $objectCount;
     }
@@ -39,7 +45,9 @@ class ObjectRepository extends EntityRepository
     public function findRussiaImages($limit = null)
     {
         $qb = $this->createQueryBuilder('o')
-            ->where('o.showAtRussianImage = TRUE');
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+        ;
 
         if (!is_null($limit)) {
             $qb->setMaxResults($limit);

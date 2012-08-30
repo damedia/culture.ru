@@ -28,10 +28,18 @@ class TvigleVideoListener
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+        $em = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
         if ($entity instanceof TvigleVideo) {
             if ($args->hasChangedField('tvigleId')) {
                 $tvigleManager = $this->container->get('armd_tvigle_video.manager.tvigle_video');
                 $tvigleManager->updateVideoDataFromTvigle($entity);
+
+                $uow->computeChangeSet(
+                    $em->getClassMetadata('TvigleVideoBundle:TvigleVideo'),
+                    $entity
+                );
             }
         }
     }

@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="atlas_object")
  * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
- * @ORM\HasLifecycleCallbacks
  */
 class Object
 {
@@ -23,6 +22,11 @@ class Object
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published = true;
 
     /**
      * @ORM\Column(name="title", type="string", length=255)
@@ -212,6 +216,17 @@ class Object
     {
         return $this->id;
     }
+
+    public function getPublished()
+     {
+         return $this->published;
+     }
+
+     public function setPublished($published)
+     {
+         $this->published = $published;
+         return $this;
+     }
 
     /**
      * Set title
@@ -867,6 +882,5 @@ class Object
     {
         $this->regions->removeElement($region);
     }
-
 
 }

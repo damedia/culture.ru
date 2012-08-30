@@ -60,6 +60,7 @@ class ObjectAdmin extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('announce')
                 ->add('content')
@@ -208,6 +209,7 @@ class ObjectAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('title')
+            ->add('published')
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
     }
@@ -257,6 +259,20 @@ class ObjectAdmin extends Admin
                     $qb->expr()->eq('filter_sc.id', $value['value']->getId())
             ));
         }
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+
+        $actions['publish'] = array(
+            'label' => 'Публиковать'
+        );
+        $actions['unpublish'] = array(
+            'label' => 'Снять публикацию'
+        );
+
+        return $actions;
     }
 
     public function getFormTheme() {

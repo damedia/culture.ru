@@ -14,6 +14,8 @@ Object List: Объекты атласа
 Object Edit: Измененить объект
 Object Create: Добавить объект
 Object Delete: Удалить объект
+
+Published: Опубликовать
 Announce: Анонс
 Content: Описание
 Contacts: Контакты
@@ -51,3 +53,7 @@ Hint Text: Текст (резделитель страниц "---")
 
 Coordinates Are Empty: Не заданы координаты
 Category: Теги
+
+
+flash_batch_publish_success: Выбранные объекты опубликованы
+flash_batch_unpublish_success: Выбранные объекты сняты с публикации
