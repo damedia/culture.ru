@@ -5,6 +5,7 @@ namespace Armd\AtlasBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Buzz\Browser;
@@ -61,11 +62,16 @@ class DefaultController extends Controller
     public function objectViewAction($id)
     {
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $entity = $repo->find($id);
-
-        return array(
-            'entity' => $entity,
-        );
+        $entity = $repo->findOneBy(array(
+            'published' => true,
+            'id' => $id,
+        ));
+        if ($entity)
+            return array(
+                'entity' => $entity,
+            );
+        else
+            throw new NotFoundHttpException("Page not found");
     }
 
     /**
@@ -77,10 +83,13 @@ class DefaultController extends Controller
         $id = (int)$this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         if ($id) {
-            $entity = $repo->find($id);
-            return array(
-                'entity' => $entity,
-            );
+            $entity = $repo->findOneBy(array('id'=>$id, 'published'=>true));
+            if ($entity)
+                return array(
+                    'entity' => $entity,
+                );
+            else
+                throw new NotFoundHttpException("Page not found");
         }
     }
 
@@ -93,7 +102,10 @@ class DefaultController extends Controller
         $ids = $this->getRequest()->query->get('ids');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         if ($ids) {
-            $entities = $repo->findById($ids);
+            $entities = $repo->findBy(array(
+                'published' => true,
+                'id' => $ids,
+            ));
             return array(
                 'entities' => $entities,
             );
@@ -363,15 +375,6 @@ class DefaultController extends Controller
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
                         $obraz = true;
-                        /*
-                        $images = $obj->getImages();
-                        if (sizeof($images)) {
-                            foreach ($images as $image) {
-                                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
-                                break;
-                            }
-                        }
-                        */
                         $image = $obj->getPrimaryImage();
                         $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
                     }
@@ -394,7 +397,8 @@ class DefaultController extends Controller
                 'result' => $rows,
             ));
             return new Response($response);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $response = json_encode(array(
                 'success' => false,
                 'message' => $e->getMessage(),
