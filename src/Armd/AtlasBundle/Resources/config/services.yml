@@ -8,3 +8,10 @@ services:
         class: Armd\AtlasBundle\EventListener\CategoryListener
         tags:
             - { name: doctrine.event_listener, event: preRemove }
+
+    armd_atlas.listener.object:
+        class: Armd\AtlasBundle\EventListener\ObjectListener
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+#            - { name: doctrine.event_listener, event: preFlush }

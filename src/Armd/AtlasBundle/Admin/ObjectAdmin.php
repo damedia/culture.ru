@@ -69,10 +69,12 @@ class ObjectAdmin extends Admin
                 ->add('primaryCategory', 'armd_atlas_object_categories',
                 array(
                     'multiple' => false,
-                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                    'only_with_icon' => true,
+                    'empty_value' => '=== Не выбрано ==='
                 ))
                 ->add('secondaryCategories', 'armd_atlas_object_categories', array(
-                    'required' => false,
+                    'required' => true,
                     'attr' => array('class' => 'chzn-select atlas-object-categories-select')
                 ))
                 ->add('showAtHomepage', null,
@@ -226,8 +228,8 @@ class ObjectAdmin extends Admin
                     }
                 ),
             ))
-            ->add('primaryCategory')
-            ->add('secondaryCategories')
+//            ->add('primaryCategory')
+//            ->add('secondaryCategories')
             ->add('coordinatesAreEmpty', 'doctrine_orm_callback', array(
                 'field_type' => 'checkbox',
                 'callback' => array($this, 'getEmptyCoordinatesFilter')

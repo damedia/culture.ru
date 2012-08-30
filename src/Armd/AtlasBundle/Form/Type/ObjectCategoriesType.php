@@ -38,6 +38,7 @@ class ObjectCategoriesType extends AbstractType
     {
         parent::buildView($view, $form, $options);
         $view->vars['root_element'] = $this->getRootElement();
+        $view->vars['only_with_icon'] = $options['only_with_icon'];
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -45,7 +46,7 @@ class ObjectCategoriesType extends AbstractType
         $resolver->setDefaults(array(
             'class' => 'Armd\AtlasBundle\Entity\Category',
             'multiple' => true,
-
+            'only_with_icon' => false
         ));
     }
 
