@@ -10,7 +10,7 @@ services:
         class: Armd\AtlasBundle\Admin\ObjectAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Atlas, label: Objects, show_in_dashboard: true }
-        arguments: [null, Armd\AtlasBundle\Entity\Object, SonataAdminBundle:CRUD, @service_container]
+        arguments: [null, Armd\AtlasBundle\Entity\Object, ArmdAtlasBundle:ObjectCrud, @service_container]
 
     armd_atlas.sonata_admin.literature:
         class: Armd\AtlasBundle\Admin\LiteratureAdmin

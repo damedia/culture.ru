@@ -11,6 +11,15 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class AdminController extends Controller
 {
     /**
+     * @Route("/test")
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function testAction()
+    {
+        return new Response('ok');
+    }
+
+    /**
      * @Route("/category_up/{id}", name="armd_atlas_admin_category_tree_up")
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
