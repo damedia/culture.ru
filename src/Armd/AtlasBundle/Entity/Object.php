@@ -70,7 +70,7 @@ class Object
     private $lon;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="objects", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="objects", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="primary_atlas_category_id", nullable=true)
      */
     private $primaryCategory;
@@ -93,7 +93,7 @@ class Object
     private $weekends;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="primary_image_id", referencedColumnName="id")
      */
     private $primaryImage;

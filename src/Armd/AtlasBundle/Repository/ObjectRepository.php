@@ -15,9 +15,7 @@ class ObjectRepository extends EntityRepository
     public function filter($params = array())
     {
         $categoryTree = $params['categoryTree'];
-
         $qb = $this->createQueryBuilder('o');
-
         foreach ($categoryTree as $i=>$group) {
             $groupIds = array();
             foreach ($group['tags'] as $tag) {
@@ -26,11 +24,8 @@ class ObjectRepository extends EntityRepository
             $qb->innerJoin('o.secondaryCategories', 't'.$i);
             $qb->andWhere('t'.$i.' IN ('. implode(',',$groupIds) .')');
         }
-
         $query = $qb->getQuery();
-
         $rows = $query->getResult();
-
         return $rows;
     }
 
@@ -86,6 +81,23 @@ class ObjectRepository extends EntityRepository
         }
 
         return $objects;
+    }
+
+    public function fetchObjectsCategories($objects)
+    {
+        $objectsIds = array();
+        foreach ($objects as $obj)
+            $objectsIds[] = $obj->getId();
+        $qb = $this->createQueryBuilder('o')
+                   ->select('o.id objectId, c.id categoryId , c.title')
+                   ->innerJoin('o.secondaryCategories', 'c')
+                   ->where('o IN (:objectsIds)')
+                   ->setParameter('objectsIds', $objectsIds);
+        $result = $qb->getQuery()->getResult();
+        $res = array();
+        foreach ($result as $row)
+            $res[] = $row['categoryId'];
+        return array_unique($res);
     }
 
 }

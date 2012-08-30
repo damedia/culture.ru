@@ -351,12 +351,20 @@ class DefaultController extends Controller
             );
 
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-            $res = $repo->filter($filterParams);
+            $objects = $repo->filter($filterParams);
 
             $twigExtension = $this->get('sonata.media.twig.extension');
-            $allCategoriesIds = array();
+
             $rows = array();
-            foreach ($res as $obj) {
+            $allCategoriesIds = array();
+            $categoriesIds = array();
+
+            $allCategoriesIds = $repo->fetchObjectsCategories($objects);
+
+            //var_dump($allCategoriesIds);
+
+
+            foreach ($objects as $obj) {
 
                 $iconUrl = '';
                 if ($obj->getIcon()) {
@@ -373,11 +381,12 @@ class DefaultController extends Controller
                     }
                 }
 
-                $categoriesIds = array();
+                /*
                 foreach ($obj->getSecondaryCategories() as $category) {
                     $categoriesIds[] = $category->getTitle();
                     $allCategoriesIds[] = $category->getId();
                 }
+                */
 
                 $rows[] = array(
                     'id' => $obj->getId(),
@@ -388,7 +397,7 @@ class DefaultController extends Controller
                     'icon' => $iconUrl,
                     'obraz' => $obraz,
                     'imageUrl' => $imageUrl,
-                    'categories' => $categoriesIds,
+                    //'categories' => $categoriesIds,
                 );
             }
 
@@ -396,9 +405,11 @@ class DefaultController extends Controller
                 'success' => true,
                 'result' => $rows,
                 'allCategoriesIds' => array_unique($allCategoriesIds),
+                //'debug' => $this->get('db')->getQueryCount(),
             ));
             return new Response($response);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $response = json_encode(array(
                 'success' => false,
                 'message' => $e->getMessage(),

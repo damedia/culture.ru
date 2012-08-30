@@ -105,4 +105,5 @@ class CategoryRepository extends NestedTreeRepository
         }
         return $result;
     }
+
 }
