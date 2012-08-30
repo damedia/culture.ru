@@ -17,9 +17,10 @@ img {
 }
 
 body {
-    font: 100.01% 'Trebushet MS', Arial, Tahoma, Helvetica, sans-serif;
-    background: #fff;
-	padding:0 13px;
+  	background: #fff;
+	padding: 0 13px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 100.01%;
 }
 html {
 	overflow-y:scroll;
@@ -73,7 +74,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	padding: 0 0;
 	max-width: 1400px;
 	min-width: 980px;
-	margin-top:20px;
+	/*margin-top:20px*/;
 }
 .index-blocksection {
 	margin-top:20px;
@@ -285,17 +286,17 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 
 
 
-
 #nav {
 	background: #bd0002;
-	height: 25px;
-	padding: 5px 0 0 30px;
+	height: 30px;
+	padding: 0px 0 0 30px;
 	max-width: 1370px;
 	min-width: 950px;
 }
 
 #nav .navmenu {
 	margin: 0 0 0 -12px;
+	
 }
 
 #nav .navmenu li {
@@ -306,6 +307,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     margin: 0 31px 0 0;
 	color: #fff;
 	position:relative;
+	font-size:13px;
+	line-height:30px;
 	
 	
 }
@@ -315,9 +318,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     padding: 0px;
 }
 
-:root #nav .navmenu li.first { top:3px\0/IE9; }
 
-.lt-ie9 #nav .navmenu li.first { top:3px; }
 
 
 #nav .navmenu li a {
@@ -326,6 +327,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	text-transform:uppercase;
 	font-size:12px;
 	font-weight:bold;
+	line-height:30px
 }
 
 #nav .navmenu li a:hover {
@@ -336,34 +338,35 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		margin-right:0;
 	}
 		.navmenu_more_link {
-			padding:6px 26px 10px 13px;
-			background:url('../img/accordeon_arr.png') no-repeat 44px -32px;
+			padding:0px 26px 0px 13px;
+			background:url('../img/accordeon_arr.png') no-repeat 44px -35px;
 			left: -12px;
 			position:relative;
-			
+		}			
+
+		.navmenu_more_link:hover:before {
+			content:"";
+			position:absolute;
+			width:42%;
+			height:1px;
+			top:17px;
+			left:13px;
+			border-bottom:1px solid #f5d9d9
 		}
 		
 		#nav .navmenu li .navmenu_more_link:hover {
 			border-bottom:none;
 		}
 		
-		.navmenu_more_link:hover:before {
-			content:"";
-			position:absolute;
-			width:40%;
-			height:1px;
-			top:20px;
-			left:13px;
-			border-bottom:1px solid #f5d9d9
-		}
+
 		
 		#nav .navmenu li.opened .navmenu_more_link:hover:before { display:none; } 
 		
 		
 	.navmenu li ul {
 		position:absolute;
-		right:12px;
-		top:28px;
+		right:11px;
+		top:30px;
 		background:#f0f0f0;
 		z-index:10;
 		padding:10px 0;
@@ -390,14 +393,13 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		}
 		#nav .navmenu li.opened > a{
 			display:block;
-			padding:5px 25px 10px 12px;
-			left:-12px;
-			top:-2px;
+			padding:0px 25px 0px 12px;
+			left:-11px;
 			background-color:#f0f0f0;
 			position:relative;
 			z-index:11;
 			background-image:url(../img/nav_arr_up.png);
-			background-position:44px 10px;
+			background-position:44px 12px;
 			border:1px solid #ccc;
 			border-bottom:0;
 		}
@@ -2056,7 +2058,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		text-decoration:none;
 		font-size:14px;
 		display:table;
-		width:100%;
+		/*width:100%;*/
 	}
 	.gos-button:hover, .gos-buttons .active .gos-button {
 		background: #ffffff;

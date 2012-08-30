@@ -3463,6 +3463,9 @@ white-space:nowrap;
 		width:24%;
 		
 	}
+	
+	.obrazy.virt-museums .rusObr-list li { width: 25%; }
+
 	.obrazy .rusObr-list-one {
 		padding:25px;
 	}

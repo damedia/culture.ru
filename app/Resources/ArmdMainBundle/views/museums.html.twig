@@ -1,1 +1,212 @@
-{% extends '::index-layout.html.twig' %}
+{% extends '::base.html.twig' %}
+
+
+{% block stylesheets %}
+
+<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+
+{{ parent() }}
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('/main/common/js/function.js') }}"></script>
+
+<script src="{{ asset('/swf/swfobject/swfkrpano.js') }}"></script>
+			<script type="text/javascript">
+				$(function(){
+					var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+					
+					if ($('.vob').length){    
+						$('.vob').fancybox({
+							'autoScale'  : false,
+							'autoDimensions' : false,
+							'padding':0,
+							'margin':0,
+							'fitToView':true
+						});
+					}
+					
+					$('.panoDIV').css({'width':x-18, 'height':y});
+					console.log(x,y);
+					
+					$(".iframe").fancybox({
+					'width' : '100%',
+					'height' : '100%',
+					'autoScale' : true,
+					'transitionIn' : 'none',
+					'transitionOut' : 'none',
+					'type' : 'iframe'
+					});
+
+					
+				 })  
+			</script>
+
+
+{% endblock %}
+
+
+{% block title %} — Виртуальные музеи{% endblock %}
+
+
+{% block body%}
+
+	<div class="title-block timeline-title">
+				<h2>Виртуальные музеи</h2>
+			</div>
+
+
+
+{% macro museum_item(link, img, description) %}
+
+						<li>
+							<div class="rusObr-list-one-wrap" style="" >
+								<div  class="rusObr-list-one">
+									<a href="http://eyera.dev.armd.ru{{ asset(link|raw) }}" data-fancybox-type="iframe" class="vob iframe"><img src="/main/common/img/photo/virtual_museums{{ asset(img|raw) }}" alt="" class="rusObr-list-image" /></a>
+									<div class="rusObr-list-text">
+										<a href="http://eyera.dev.armd.ru{{ asset(link|raw) }}" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
+											{{ description|raw }}
+										</a>
+										
+									</div>
+								</div>
+							</div>
+						</li>
+
+
+    
+{% endmacro %}
+
+
+{% set museums = [	{		'link': '/glinka_museum/glinka_museum.html',
+							'img': '/03.jpg',
+							'description':'Всероссийское музейное объединение музыкальной культуры имени М.И. Глинки'
+					},
+					 	{	'link': '/bahrushina/bahrushina_museum.html',
+					 		'img': '/01.jpg',
+					 		'description':'Театральный музей имени А.А. Бахрушина'
+					 },
+					 	{	'link': '/vostok/vostok.html',
+					 		'img': '/vostoka.jpg',
+					 		'description':'Государственный музей искусства народов Востока'
+					 },
+					 	{	'link': '/sklif2/sheremetieva-media-trest.html',
+					 		'img': '/sklif.jpg',
+					 		'description':'Странноприимный дом<br>Н.П. Шереметьева'
+					 },
+					 	{	'link': '/borodino/borodino.html',
+					 		'img': '/borodinskaya.jpg',
+					 		'description':'Музей-панорама &laquo;Бородинская битва&raquo;'
+					 },
+					 	{	'link': '/pushkin/pushkin.html',
+					 		'img': '/pushkin.jpg',
+					 		'description':'Мемориальный Музей-квартира А.С.Пушкина'
+					 },
+					 	{	'link': '/kulikovo/kulikovo_pole.html',
+					 		'img': '/kulikovo.jpg',
+					 		'description':'Государственный военно-исторический и природный<br>музей-заповедник &laquo;Куликово поле&raquo;'
+					 },
+					 	{	'link': '/polyana/iasnaya_polyana.html',
+					 		'img': '/yasnaya_polyana.jpg',
+					 		'description':'Музей-усадьба Л.Н. Толстого<br> «Ясная Поляна»'
+					 },
+					 	{	'link': '/radisheva/radisheva.html',
+					 		'img': '/radisheva.jpg',
+					 		'description':'Саратовский государственный художественный музей <br>имени А.Н. Радищева'
+					 },
+					 	{	'link': '/monastyr_suzdal/monastery_suzdal.html',
+					 		'img': '/suzdal.jpg',
+					 		'description':'Владимиро-Суздальский музей-заповедник'
+					 },
+					 	{	'link': '/schusev/schusev.html',
+					 		'img': '/schuseva.jpg',
+					 		'description':'Государственный музей архитектуры <br>имени А.В. Щусева'
+					 },
+					 	{	'link': '/ryazan/ryazan.html',
+					 		'img': '/ryazan.jpg',
+					 		'description':'Рязанский историко-архитектурный музей-заповедник'
+					 },
+					 {	'link': '/dekabristy/dekabristy.html',
+					 		'img': '/dekabristy.jpg',
+					 		'description':'Музей  Памяти декабристов'
+					 },
+					 {	'link': '/malye_korely.html',
+					 		'img': '/malye_korely.jpg',
+					 		'description':'Архангельский государственный музей деревянного зодчества<br>
+ и народного искусства «Малые Корелы»'
+					 },
+					 {	'link': '/kalashnikova/kalashnikova.html',
+					 		'img': '/kalash.jpg',
+					 		'description':'Музей стрелкового оружия им. Михаила Калашникова'
+					 },
+					 {	'link': '/tsarskoe_selo/tsarskoe_selo.html',
+					 		'img': '/tzarskoe_selo.jpg',
+					 		'description':'Государственный музей-заповедник «Царское Село»'
+					 }
+
+					 ] %}
+
+
+
+
+
+<div class="obrazy virt-museums">
+				<form action="" class="obr-form">
+					<div class="obr-text-input">
+						<input type="text" name="search" id="search_text" value="Поиск по музеям" />
+					</div>
+					<input type="submit" class="obr-submit-input" value="" />
+				</form>
+				<div class="rusObr-block">
+					<ul class="rusObr-list clearfix">
+				
+					{% for museum in museums %}
+					    {{ _self.museum_item(museum.link, asset(museum.img), museum.description) }}
+					  {% endfor %}			
+					</ul>
+							
+			
+			
+			</div>
+			<div class="no-margin-paginates">
+				<!--<div class="virtual-paginates clearfix">
+					<span class="firstPage">первая</span>
+					<ul class="virtual-paginates-list">
+						<li>
+							<span class="prevPage">назад</span>
+						</li>
+						<li>
+							<span class="current">1</span>
+						</li>
+						<li>
+							<a href="#">2</a>
+						</li>
+						<li>
+							<a href="#">3</a>
+						</li>
+						<li>
+							<a href="#">4</a>
+						</li>
+						<li>
+							<a href="#">5</a>
+						</li>
+						<li>
+							<a href="#">6</a>
+						</li>
+						<li>
+							<a href="#" class="nextPage">вперед</a>
+						</li>
+					</ul>
+					<a href="#" class="lastPage">последняя</a>
+				</div>	-->
+			</div>
+		</div>
+
+
+
+
+{% endblock %}

@@ -132,7 +132,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 <ul class="navmenu">
                     <li class="first"><a href="{{ path('armd_atlas_default_index') }}">Атлас</a></li>
 					<li><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></li>
-					<li><a href="/main/virtual_museums.html">Виртуальные музеи</a></li>
+					<li><a href="{{ path('armd_main_museums') }}">Виртуальные музеи</a></li>
 					<li><a href="{{ path('armd_lecture_translation_index') }}">Трансляции</a></li>
 					<li><a href="{{ path('armd_lecture_lecture_index') }}">Лекции</a></li>
 					<li><a href="{{ path('armd_chronicle_index') }}">Лента времени</a></li>
@@ -144,8 +144,8 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 						<a href="#" class="navmenu_more_link">Еще</a>
 						<ul>
 							<li><a href="http://people.roskult.ru/community_council/">Общественный совет</a></li>
-							<li><a href="/main/goverment_service.html">Госуслуги</a></li>
-							<li><a href="/main/about.html">О проекте</a></li>
+							<li><a href="{{ path('armd_main_services') }}">Госуслуги</a></li>
+							<li><a href="{{ path('armd_main_about') }}">О проекте</a></li>
 						</ul>
 					</li>
 					
@@ -179,7 +179,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 </form>
             </div>
 #}            
-            <div class="blocksection w" id="f-section">
+            <div class="blocksection w clearfix" id="f-section">
                 {% block body%}&nbsp;{% endblock %}
             </div>
 			{% block bottom_blocks%}&nbsp;{% endblock %}
@@ -195,7 +195,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                  
              <div class="contacts-inner">
     					<div class="copyright">© Портал культурного наследия России</div>
-    					<a href="/main/about.html">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:info@mkrf.ru">info@mkrf.ru</a>
+    					<a href="{{ path('armd_main_about') }}">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:info@mkrf.ru">info@mkrf.ru</a>
                     </div>
                 </div>
 
