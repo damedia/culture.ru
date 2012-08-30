@@ -6,7 +6,7 @@ use Armd\AtlasBundle\Tests\AbstractFunctionalTest;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Armd\AtlasBundle\DataFixtures\ORM\Test\LoadTestObjectData;
 
-class DefaultControllerTest extends AbstractFunctionalTest
+class MediaListenerTest extends AbstractFunctionalTest
 {
 
 
