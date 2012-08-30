@@ -318,7 +318,7 @@ AT.placePoint = function(object) {
                 width: 42,
                 height: 39,
                 backpos: '0 0',
-                url: 'http://культура.рф/uploads/media/atlas_icon/0001/05/10bbc0516e276f972f46e0586115c1a0af7df695.png' //object.icon
+                url: object.icon // 'http://культура.рф/uploads/media/atlas_icon/0001/05/10bbc0516e276f972f46e0586115c1a0af7df695.png'
             });
     }
     //console.log( $(point.element) );
