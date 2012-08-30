@@ -121,40 +121,26 @@ AT.initUI = function() {
         },
         success: function(responseText, statusText, xhr, $form){
             $('#ajax-loading').hide();
-
-            var elems = $('.atlas-filter-form .tag');
             var json = $.parseJSON(responseText);
             if (json.success) {
                 var objects = json.result;
-                elems.addClass('disabled');
             } else {
-                elems.removeClass('disabled');
                 console.error(json.message);
             }
 
             AT.clearMap();
 
             if (objects && objects.length) {
+                //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
                 var points = [];
-                for (var i in objects) {
+                for (i in objects) {
+                    var object = objects[i];
+                    console.log(object);
                     var point = AT.placePoint(objects[i]);
-                    if (point) {
+                    if (point && !object.obraz) {
                         points.push(point);
                     }
                 }
-                //console.log(json.allCategoriesIds);
-
-                for (var i in json.allCategoriesIds) {
-                    var tag = json.allCategoriesIds[i];
-                    elems.each(function(i, el){
-                        var elSpan = $(el).find('span');
-                        var tagId = elSpan.data('tag');
-                        if (tagId == tag) {
-                            $(el).removeClass('disabled');
-                        }
-                    });
-                }
-
 
                 // clusterize points
                 AT.clusterPoints = new PGmap.GeometryLayer({
@@ -318,7 +304,7 @@ AT.placePoint = function(object) {
                 width: 42,
                 height: 39,
                 backpos: '0 0',
-                url: object.icon // 'http://культура.рф/uploads/media/atlas_icon/0001/05/10bbc0516e276f972f46e0586115c1a0af7df695.png'
+                url: 'http://культура.рф/uploads/media/atlas_icon/0001/05/767c531fdfefbeb67860e985bfc4755ad4e2545e.png' //object.icon
             });
     }
     //console.log( $(point.element) );
@@ -376,4 +362,3 @@ AT.submitFiltersForm = function() {
     // Сабмитим форму
     $('#atlas-filter-form').submit();
 };
-
