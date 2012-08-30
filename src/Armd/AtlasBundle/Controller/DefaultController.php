@@ -331,6 +331,8 @@ class DefaultController extends Controller
     public function filterAction()
     {
         $request = $this->getRequest();
+        $twigExtension = $this->get('sonata.media.twig.extension');
+
         try {
             $category = $request->get('category');
             if (empty($category))
@@ -353,16 +355,12 @@ class DefaultController extends Controller
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
             $objects = $repo->filter($filterParams);
 
-            $twigExtension = $this->get('sonata.media.twig.extension');
-
-            $rows = array();
-            $allCategoriesIds = array();
-            $categoriesIds = array();
+            if (! $objects)
+                throw new \Exception('Not found');
 
             $allCategoriesIds = $repo->fetchObjectsCategories($objects);
 
-            //var_dump($allCategoriesIds);
-
+            $rows = array();
 
             foreach ($objects as $obj) {
 
@@ -381,13 +379,6 @@ class DefaultController extends Controller
                     }
                 }
 
-                /*
-                foreach ($obj->getSecondaryCategories() as $category) {
-                    $categoriesIds[] = $category->getTitle();
-                    $allCategoriesIds[] = $category->getId();
-                }
-                */
-
                 $rows[] = array(
                     'id' => $obj->getId(),
                     'title' => $obj->getTitle(),
@@ -397,7 +388,6 @@ class DefaultController extends Controller
                     'icon' => $iconUrl,
                     'obraz' => $obraz,
                     'imageUrl' => $imageUrl,
-                    //'categories' => $categoriesIds,
                 );
             }
 
@@ -405,7 +395,6 @@ class DefaultController extends Controller
                 'success' => true,
                 'result' => $rows,
                 'allCategoriesIds' => array_unique($allCategoriesIds),
-                //'debug' => $this->get('db')->getQueryCount(),
             ));
             return new Response($response);
         }

@@ -70,7 +70,7 @@ class Object
     private $lon;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="objects", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="objects", cascade={"persist"})
      * @ORM\JoinColumn(name="primary_atlas_category_id", nullable=true)
      */
     private $primaryCategory;
