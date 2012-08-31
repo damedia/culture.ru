@@ -46,6 +46,10 @@ class Media extends BaseMedia
         return $this->id;
     }
 
+    /**
+     * This title is used for image title display in sonata admin
+     * @return string
+     */
     public function getAdminTitle()
     {
         return $this->getName();
