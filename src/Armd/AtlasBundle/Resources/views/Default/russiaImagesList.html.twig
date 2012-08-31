@@ -8,7 +8,7 @@
                         <div class="rusObr-list-one">
                             <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
                                 {% if object.primaryImage is not empty %}
-                                    <img src="{% path object.primaryImage, 'imagesOfRussia' %}" alt="" class="rusObr-list-image"/></a>
+                                    <img src="{% path object.primaryImage, 'reference' %}" alt="" class="rusObr-list-image"/></a>
                                 {% elseif object.images|length > 0 %}
                                     <img src="{% path object.images[0], 'imagesOfRussia' %}" alt="" class="rusObr-list-image"/></a>
                                 {% endif %}

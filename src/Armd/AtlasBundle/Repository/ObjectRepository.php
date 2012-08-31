@@ -45,6 +45,8 @@ class ObjectRepository extends EntityRepository
     public function findRussiaImages($limit = null)
     {
         $qb = $this->createQueryBuilder('o')
+            ->leftJoin('o.primaryImage', 'pi')
+            ->leftJoin('o.regions', 'r')
             ->where('o.showAtRussianImage = TRUE')
             ->andWhere('o.published = TRUE')
         ;
