@@ -230,6 +230,12 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 		border-bottom: 1px #7c7a79 dashed;
 	}
 
+	#auth-link.no-popup { text-decoration: underline; }
+
+	#auth-link.no-popup span {
+		border-bottom: none;
+	}	
+
 	.lang-switch {
 		float:right;
 		width:42px;
@@ -4250,3 +4256,10 @@ white-space:nowrap;
 	.rusObr-list-text { height:160px; }
  
 }		
+
+
+.login-page {}
+
+	.login-page p {
+		margin-bottom: 10px;
+	}
