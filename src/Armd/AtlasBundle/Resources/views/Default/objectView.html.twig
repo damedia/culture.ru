@@ -278,9 +278,42 @@
                         </div>
 						
 						{% endif %}	
+
+
+
+                        {% if entity.archiveImages|length > 0 %}
+                            <div class="block object-archives">
+                                {#<div class="right-icons-block">
+                                    <a href="#" class="one-person"></a>
+                                    <a href="#" class="three-persons"></a>
+                                </div>#}
+
+                                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
+                                <ul class="object-archive-list">
+                                {% for h in entity.archiveImages %}
+                                    <li>
+                                    <a href="{% path h, 'reference' %}" class="in-fancybox">
+                                        <span class="preview" style="background: url({% path h, 'thumbnail' %}) no-repeat center center">
+                                            <img src="{% path h, 'thumbnail' %}" alt="">
+                                        </span>
+
+                                        {{ h.title|default('Архивный документ') }}
+                                    </a>
+
+                                        <span>
+                                            {{ h.description }}
+                                        </span>
+                                    </li>
+                                    {% endfor%}
+
+                                </ul>
+
+                               {# <p class="all-list"><a href="#">Все архивы</a></p> #}
+                            </div>
+                        {% endif %}                        
                         
                         
-<div class="block obj-o-contacts">
+                    <div class="block obj-o-contacts">
                        {# <div class="obj-o-map">
                             <a href="#" class="open-big-green"></a>
                             <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
@@ -322,32 +355,7 @@
 						
 						
 
-                        {% if entity.archiveImages|length > 0 %}
-                            <div class="block object-archives">
-                                {#<div class="right-icons-block">
-                                    <a href="#" class="one-person"></a>
-                                    <a href="#" class="three-persons"></a>
-                                </div>#}
-
-                                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
-                                <ul class="object-archive-list">
-                                {% for h in entity.archiveImages %}
-                                    <li>
-                                    <a href="{{ path('sonata_media_download', {'id': h.id}) }}/{{ h }}" class="in-fancybox">
-                                        {{ h.title|default('Архивный документ') }}
-                                    </a>
-
-                                        <span>
-                                            {{ h.description }}
-                                        </span>
-                                    </li>
-                                    {% endfor%}
-
-                                </ul>
-
-                               {# <p class="all-list"><a href="#">Все архивы</a></p> #}
-                            </div>
-                        {% endif %}
+                        
                         
                         
                         {% if entity.objectHints|length > 0 %}

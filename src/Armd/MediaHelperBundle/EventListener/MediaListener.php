@@ -3,6 +3,9 @@
 namespace Armd\MediaHelperBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Sonata\MediaBundle\Provider\ImageProvider;
 
@@ -12,10 +15,12 @@ use Sonata\MediaBundle\Provider\Pool;
 class MediaListener
 {
     private $providerPool;
+    private $pendingForRemovalMedias;
 
     public function __construct(Pool $providerPool)
     {
         $this->providerPool = $providerPool;
+        $this->pendingForRemovalMedias = array();
     }
 
     public function preUpdate(LifecycleEventArgs $args)
@@ -29,32 +34,23 @@ class MediaListener
                 $provider->preRemove($media->getMediaBeforeUpdate());
                 $media->resetMediaBeforeUpdate();
             }
-        }
-    }
-
-    public function postUpdate(LifecycleEventArgs $args)
-    {
-        $this->removeMedia($args);
-    }
-
-    public function postPersist(LifecycleEventArgs $args)
-    {
-        $this->removeMedia($args);
-    }
-
-    public function removeMedia(LifecycleEventArgs $args)
-    {
-        $media = $args->getEntity();
-        $em = $args->getEntityManager();
-
-        if ($media instanceof Media) {
             if($media->getRemoveMedia()) {
-                $em->remove($media);
-                $em->flush();
+                $this->pendingForRemovalMedias[] = $media;
             }
         }
-
     }
 
+    public function postFlush(PostFlushEventArgs $args)
+    {
+        if(count($this->pendingForRemovalMedias)) {
+            $em = $args->getEntityManager();
+            foreach($this->pendingForRemovalMedias as $media)
+            {
+                $em->remove($media);
+            }
+            $this->pendingForRemovalMedias = array();
+            $em->flush();
+        }
+    }
 
 }
