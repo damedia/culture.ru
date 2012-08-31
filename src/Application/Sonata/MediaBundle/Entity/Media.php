@@ -46,6 +46,11 @@ class Media extends BaseMedia
         return $this->id;
     }
 
+    public function getAdminTitle()
+    {
+        return $this->getName();
+    }
+
     public function getTitle()
     {
         return $this->title;
