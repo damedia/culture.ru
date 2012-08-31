@@ -167,9 +167,9 @@ sonata_media:
                 - sonata.media.provider.file
                 - sonata.media.provider.image
             formats:
-                big: { width: 296 }
+                big: { width: 335, height: 189 }
                 medium: { width: 111 }
-                small: {width: 85}
+                small: { width: 85 }
 
 
 
