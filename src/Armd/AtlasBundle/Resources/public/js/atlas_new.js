@@ -239,6 +239,21 @@ AT.initUI = function() {
 
 // Init filters
 AT.initFilters = function(){
+
+    $('.atlas-filter-form .check_all').click(function(){
+        var parentDiv = $(this).closest('.simple-filter-block');
+        if (!$(this).data('checked')) {
+            parentDiv.find('input:checkbox').attr('checked','checked');
+            parentDiv.find('label').addClass('checked');
+            $(this).data('checked', true).addClass('checked');
+        } else {
+            parentDiv.find('input:checkbox').removeAttr('checked');
+            parentDiv.find('label').removeClass('checked');
+            $(this).data('checked', false).removeClass('checked');
+
+        }
+    });
+
     $('.atlas-filter-form').find('.simple-filter-options > label > span').click(function(e){
         // перехват обработчика из function.js
         e.preventDefault();
