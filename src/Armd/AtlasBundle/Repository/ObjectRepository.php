@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ObjectRepository extends EntityRepository
 {
+    // @TODO: вставить проверку на published
     public function filter($params = array())
     {
         $categoryTree = $params['categoryTree'];
@@ -34,6 +35,7 @@ class ObjectRepository extends EntityRepository
         $objectCount = $this->createQueryBuilder('o')
                     ->select('COUNT(o)')
                     ->where('o.showAtRussianImage = TRUE')
+                    ->andWhere('o.published = TRUE')
                     ->getQuery()->getSingleScalarResult();
         return $objectCount;
     }
@@ -41,7 +43,9 @@ class ObjectRepository extends EntityRepository
     public function findRussiaImages($limit = null)
     {
         $qb = $this->createQueryBuilder('o')
-            ->where('o.showAtRussianImage = TRUE');
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+        ;
 
         if (!is_null($limit)) {
             $qb->setMaxResults($limit);

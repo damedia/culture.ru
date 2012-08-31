@@ -14,6 +14,8 @@ Object List: Объекты атласа
 Object Edit: Измененить объект
 Object Create: Добавить объект
 Object Delete: Удалить объект
+
+Published: Опубликовать
 Announce: Анонс
 Content: Описание
 Contacts: Контакты
@@ -41,8 +43,8 @@ Images: Изображения
 Archive Images: Архивные изображения
 Icon Media: Иконка
 Description: Описание
-Primary Category: Основная категория
-Secondary Categories: Дополнительные категории
+Primary Category: Иконка на карте
+Secondary Categories: Теги
 Literature: Список литературы
 Literatures: Список литературы
 Hints: Подсказки
@@ -50,4 +52,8 @@ Object Hints: Подсказки
 Hint Text: Текст (резделитель страниц "---")
 
 Coordinates Are Empty: Не заданы координаты
-Category: Категория (основная или дополнительная)
+Category: Теги
+
+
+flash_batch_publish_success: Выбранные объекты опубликованы
+flash_batch_unpublish_success: Выбранные объекты сняты с публикации

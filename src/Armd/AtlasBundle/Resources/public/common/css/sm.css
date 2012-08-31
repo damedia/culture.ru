@@ -446,22 +446,47 @@
 					}
 		
 	.object-archive-list {
-		margin-top:22px;
+		margin-top:10px;
 		margin-bottom:-20px;
 	}	
 		.object-archive-list li {
-			background:url('../img/archive.png') no-repeat 0 0;
-			padding:0 0 25px 42px;
+			/*background:url('../img/archive.png') no-repeat 0 0;*/
+			padding:0 0 25px 70px;
 		}
+
+	
+
 		.object-archive-list  a {
-			font-size:13px;
+			font-size:15px;
 			text-decoration:none;
 			color:#000;
+			position: relative;
 		}
 		.object-archive-list span {
 			display:block;
-			font-size:11px;
+			font-size:12px;
+			color: #8e8e8e;
+			padding-top: 7px;
+			position: relative;
 		}
+
+
+			.object-archive-list a span {
+				position: absolute;
+				width: 57px;
+				height: 57px;
+				text-align: center;
+				overflow: hidden;
+				left: -70px;
+				top: 0;
+				background-position: center center;
+			}
+
+				.object-archive-list a span img {
+					position: relative;
+					height: 100%;
+					display: none;
+				}
 
 
 	

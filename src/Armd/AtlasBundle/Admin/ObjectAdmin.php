@@ -60,6 +60,7 @@ class ObjectAdmin extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('announce')
                 ->add('content')
@@ -69,10 +70,12 @@ class ObjectAdmin extends Admin
                 ->add('primaryCategory', 'armd_atlas_object_categories',
                 array(
                     'multiple' => false,
-                    'attr' => array('class' => 'chzn-select atlas-object-categories-select')
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                    'only_with_icon' => true,
+                    'empty_value' => '=== Не выбрано ==='
                 ))
                 ->add('secondaryCategories', 'armd_atlas_object_categories', array(
-                    'required' => false,
+                    'required' => true,
                     'attr' => array('class' => 'chzn-select atlas-object-categories-select')
                 ))
                 ->add('showAtHomepage', null,
@@ -143,6 +146,7 @@ class ObjectAdmin extends Admin
                             'media_context' => 'atlas',
                             'media_provider' => 'sonata.media.provider.image',
                             'media_format' => 'thumbnail',
+                            'with_title' => true,
                             'with_description' => true
                         ),
                         'by_reference' => false,
@@ -206,6 +210,7 @@ class ObjectAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('title')
+            ->add('published')
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
     }
@@ -219,10 +224,15 @@ class ObjectAdmin extends Admin
                 'field_type' => 'entity',
                 'field_options' => array(
                     'class' => 'Armd\AtlasBundle\Entity\Category',
+                    'query_builder' => function($er) {
+                        $qb = $er->createQueryBuilder('c');
+                        $qb->orderBy('c.root, c.lft', 'ASC');
+                        return $qb;
+                    }
                 ),
             ))
-            ->add('primaryCategory')
-            ->add('secondaryCategories')
+//            ->add('primaryCategory')
+//            ->add('secondaryCategories')
             ->add('coordinatesAreEmpty', 'doctrine_orm_callback', array(
                 'field_type' => 'checkbox',
                 'callback' => array($this, 'getEmptyCoordinatesFilter')
@@ -244,12 +254,26 @@ class ObjectAdmin extends Admin
     public function getCategoriesFilter($qb, $alias, $field, $value)
     {
         if(!empty($value['value']) && $value['value'] instanceof Category) {
-            $qb ->innerJoin($alias.'.secondaryCategories', 'filter_sc')
+            $qb->leftJoin($alias.'.secondaryCategories', 'filter_sc')
                 ->andWhere($qb->expr()->orX(
                     $qb->expr()->eq($alias.'.primaryCategory', $value['value']->getId()),
                     $qb->expr()->eq('filter_sc.id', $value['value']->getId())
             ));
         }
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+
+        $actions['publish'] = array(
+            'label' => 'Публиковать'
+        );
+        $actions['unpublish'] = array(
+            'label' => 'Снять публикацию'
+        );
+
+        return $actions;
     }
 
     public function getFormTheme() {

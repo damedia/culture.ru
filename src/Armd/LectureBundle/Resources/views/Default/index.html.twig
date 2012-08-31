@@ -139,9 +139,10 @@
     <script type="text/javascript" src="{{ asset('js/libs/jquery-1.7.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/libs/jquery.ajaxmanager.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/function.js') }}"></script>
     {#<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>#}
     {#<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>#}
-
     <script type="text/javascript">
         armdLecture.typeCategories = {{ typeCategories|json_encode|raw }};
         armdLecture.lectureSuperTypeCode = '{{ lectureSuperTypeCode }}';

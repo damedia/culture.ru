@@ -33,7 +33,7 @@
 	</p>
     {{ entity.body|raw }}
 	{% if entity.source %}
-    	<div class="source">{{ entity.source }}</div>
+    	<div class="source">{{ entity.source|replace({"РИА «Новости»": '<a target="_blank" href="http://ria.ru/">РИА «Новости»</a>'})|raw }}</div>
 	{% endif %}
 	<div class="share" >
 		<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">
