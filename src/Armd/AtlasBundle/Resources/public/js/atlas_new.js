@@ -134,8 +134,10 @@ AT.initUI = function() {
                 //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
                 var points = [];
                 for (i in objects) {
-                    var point = AT.placePoint(objects[i]);
-                    if (point) {
+                    var object = objects[i],
+                        point = AT.placePoint(objects[i]);
+
+                    if (point && !object.obraz) {
                         points.push(point);
                     }
                 }
