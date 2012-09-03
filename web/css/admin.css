@@ -80,7 +80,17 @@
     background: #666666;
 }
 
-.atlas-object-acl-dialog.ui-dialog.loading {
-    background: url(../img/loading_circle.gif) center no-repeat !important}
+.atlas-object-acl-dialog .loading {
+    background: #cccccc url(../img/loading_circle.gif) center no-repeat !important;
+    z-index: 100;
 }
+
+.atlas-object-acl-dialog.ui-dialog .atlas-object-list {
+    list-style-type: none;
+}
+
+.atlas-object-acl-dialog.ui-dialog .chzn-select {
+    width: 500px;
+}
+
 /*--- /user list ---*/

@@ -7,7 +7,9 @@
     <script type="text/javascript">
         $(function () {
             armdAtlasAdminUserAcl.init();
-            armdAtlasAdminUserAcl.listUrl = '{{ path('armd_atlas_admin_list_user_objects', {'userId': 0}) }}'
+            armdAtlasAdminUserAcl.listUrl = '{{ path('armd_atlas_admin_list_user_objects', {'userId': '~user_id~'}) }}';
+            armdAtlasAdminUserAcl.grantUrl = '{{ path('armd_atlas_admin_grant_user_object', {'userId': '~user_id~', 'objectId': '~object_id~'}) }}';
+            armdAtlasAdminUserAcl.revokeUrl = '{{ path('armd_atlas_admin_revoke_user_object', {'userId': '~user_id~', 'objectId': '~object_id~'}) }}';
         });
     </script>
 

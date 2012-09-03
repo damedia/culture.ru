@@ -131,6 +131,7 @@ class AdminController extends Controller
         $otherObjects = $qbOtherObjects->getQuery()->getResult();
 
         return array(
+            'user' => $user,
             'userObjects' => $userObjects,
             'otherObjects' => $otherObjects,
         );
@@ -138,14 +139,13 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/add-user-object/user/{userId}/object/{objectId}",
-     *  name="armd_atlas_admin_add_user_object",
-     *  requirements={"userId"="\d+", "objectId"="\d+"},
+     * @Route("/grant-user-object/user/{userId}/object/{objectId}",
+     *  name="armd_atlas_admin_grant_user_object",
      *  options={"expose"=true}
      * )
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
-    public function addUserObjectAction($userId, $objectId)
+    public function grantUserObjectAction($userId, $objectId)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -162,18 +162,18 @@ class AdminController extends Controller
         $aclManager = $this->get('armd_user.manager.acl');
         $aclManager->grant($user, $object, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
 
-        return new Response(json_encode(array('resultCode' => 'OK')));
+//        return new Response(json_encode(array('resultCode' => 'OK')));
+        return $this->forward('ArmdAtlasBundle:Admin:listUserObjects', array('userId' => $userId));
     }
 
     /**
-     * @Route("/remove-user-object/user/{userId}/object/{objectId}",
-     *  name="armd_atlas_admin_remove_user_object",
-     *  requirements={"userId"="\d+", "objectId"="\d+"},
+     * @Route("/revoke-user-object/user/{userId}/object/{objectId}",
+     *  name="armd_atlas_admin_revoke_user_object",
      *  options={"expose"=true}
      * )
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
-    public function removeUserObjectAction($userId, $objectId)
+    public function revokeUserObjectAction($userId, $objectId)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -190,7 +190,9 @@ class AdminController extends Controller
         $aclManager = $this->get('armd_user.manager.acl');
         $aclManager->revoke($user, $object, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
 
-        return new Response(json_encode(array('resultCode' => 'OK')));
+        return $this->forward('ArmdAtlasBundle:Admin:listUserObjects', array('userId' => $userId));
+
+//        return new Response(json_encode(array('resultCode' => 'OK')));
     }
 
 }

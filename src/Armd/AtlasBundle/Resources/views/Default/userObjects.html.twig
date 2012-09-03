@@ -1,0 +1,10 @@
+{{ extends '::base.html.twig' }}
+
+{% block body %}
+<h1>Объекты атласа</h1>
+<ul>
+    {% for object in userObjects %}
+        <li><a href="{{ path('armd_atlas_user_object', {'objectId': object.id} ) }}">{{ object.title }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
