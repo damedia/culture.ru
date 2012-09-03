@@ -50,11 +50,7 @@ class DefaultController extends Controller
                     'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC'
                 )
             );
-            \gFuncs::dbgWriteLogVar($searchParams, false, 'searchParams'); // DBG:
             $res = $search->search($words, $searchParams);
-            \gFuncs::dbgWriteLogVar($res, false, 'searchResult'); // DBG:
-            \gFuncs::dbgWriteLogVar($search->getSphinx()->_error, false, 'sphinx error'); // DBG:
-            \gFuncs::dbgWriteLogVar($search->getSphinx()->_warning, false, 'sphinx warning'); // DBG:
 
             if (!empty($res['All']['matches'])) {
                 $newsRepo = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News');
