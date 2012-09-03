@@ -94,6 +94,14 @@ $(document).ready(function () {
         return false;
     }).eq(0)
 
+    /*Atlas tabs*/
+    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
+        var href = $(this).attr('href');
+        $(this).parent().addClass('active')
+                        .siblings().removeClass('active');
+        $(href).show().siblings('div').hide();
+        return false;
+    })
 
     $('.filter-checkboxes label').click(function (e) {
         if (e.target.nodeName == 'LABEL') {
