@@ -20,7 +20,7 @@ source mk_news_source_all
 		 cn.body ftsrch3, \
 		 '' ftsrch4, \
 		 '' ftsrch5, \
-		 'news' AS object_type, \
+		 1 AS object_type, \
 		 date_part('epoch', cn.date_from)::int4 AS date_from \
 		FROM \
 		 content_news cn, \
@@ -29,7 +29,7 @@ source mk_news_source_all
 		 cn.category_id = cnc.id \
 		 and cnc.filtrable = 't'
 
-	sql_attr_string = object_type
+	sql_attr_uint = object_type
 	sql_attr_timestamp = date_from
 
 	sql_query_info		= SELECT * FROM content_news WHERE id=$id
@@ -53,11 +53,11 @@ source mk_lectures_source_all
 			'' ftsrch3, \
 			'' ftsrch4, \
 			'' ftsrch5, \
-			'lecture' AS object_type, \
+			2 AS object_type, \
 			date_part('epoch', l.created_at)::int4 AS date_from \
 		FROM lecture l \
 
-	sql_attr_string = object_type
+	sql_attr_uint = object_type
 	sql_attr_timestamp = date_from
 
 	sql_query_info		= SELECT * FROM lecture WHERE id=$id
@@ -81,11 +81,11 @@ source mk_atlas_source_all
 			o.content ftsrch3, \
 			o.phone ftsrch4, \
 			o.address ftsrch5, \
-			'atlas_object' AS object_type, \
+			3 AS object_type, \
 		  NOW() AS date_from \
 		FROM atlas_object o \
 
-	sql_attr_string = object_type
+	sql_attr_uint = object_type
 	sql_attr_timestamp = date_from
 
 	sql_query_info		= SELECT * FROM atlas_object WHERE id=$id
@@ -118,7 +118,7 @@ source mk_lectures_source
 	sql_attr_timestamp = date_from
 	sql_attr_bigint = lecture_type_id
 	sql_attr_bigint = lecture_super_type_id
-	sql_attr_multi = bigint lecture_category_id from query; \
+	sql_attr_multi = bigint lecturecategory_id from query; \
 		SELECT lecture_id, lecturecategory_id \
 			FROM lecture_category_lecture
 

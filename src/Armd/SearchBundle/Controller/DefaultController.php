@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
+    const OBJECT_TYPE_NEWS = 1;
+    const OBJECT_TYPE_LECTURE = 2;
+    const OBJECT_TYPE_ATLAS = 3;
 
     /**
      * @Route("/test")
@@ -62,7 +65,7 @@ class DefaultController extends Controller
                 foreach ($res['All']['matches'] as $id => $data) {
                     if (isset($data['attrs']['object_type'])) {
 
-                        if ($data['attrs']['object_type'] === 'news') {
+                        if ($data['attrs']['object_type'] == self::OBJECT_TYPE_NEWS) {
                             $article = $newsRepo->find($id);
                             if (!empty($article)) {
                                 $searchResult = array(
@@ -86,7 +89,7 @@ class DefaultController extends Controller
                             }
 
                         }
-                        elseif ($data['attrs']['object_type'] === 'lecture') {
+                        elseif ($data['attrs']['object_type']  == self::OBJECT_TYPE_LECTURE) {
 
                             $lecture = $lectureRepo->find($id);
                             if (!empty($lecture)) {
@@ -111,7 +114,7 @@ class DefaultController extends Controller
                             }
 
                         }
-                        elseif ($data['attrs']['object_type'] === 'atlas_object') {
+                        elseif ($data['attrs']['object_type'] == self::OBJECT_TYPE_ATLAS) {
 
                             $atlasObject = $atlasObjectRepo->find($id);
                             if (!empty($atlasObject)) {
