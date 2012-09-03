@@ -14,6 +14,10 @@ var armdLecture = {
 
         armdLecture.checkTypeCategories();
 
+        $('.video-filter').bind('submit', function (event) {
+            event.preventDefault();
+        });
+
         // video filter
         $('.video-filter label, .checks-filter label').click(function (e) {
             var targetName = e.target.nodeName.toLowerCase();
@@ -79,17 +83,11 @@ var armdLecture = {
         armdLecture.startLoading();
         $.manageAjax.clear('lifo', true);
         $.manageAjax.add('lifo', {
-//            url:Routing.generate('armd_lecture_list',
-//                {
-//                    lectureSuperTypeCode: armdLecture.lectureSuperTypeCode,
-//                    page:armdLecture.page
-//                }
-//            ),
             // route: armd_lecture_list
             url: '/lecture/list/' + armdLecture.lectureSuperTypeCode + '/' + armdLecture.page,
             cache:false,
             dataType:'html',
-            type:'GET',
+            type:'POST',
             data:{
                 sortBy:armdLecture.sortBy,
                 categories:armdLecture.getSelectedCategories(),
@@ -99,15 +97,13 @@ var armdLecture = {
             success:function (data) {
                 $('#lecture-list-container').html(data);
                 armdLecture.stopLoading();
-            },
-            error:function (jqXHR, textStatus, errorThrown) {
-                if(errorThrown !== 'abort') {
-                    alert('Ошибка: ' + errorThrown);
-                    armdLecture.stopLoading();
-                }
-            },
-            complete:function() {
             }
+//            error:function (jqXHR, textStatus, errorThrown) {
+//                if(errorThrown !== 'abort') {
+//                    alert('Ошибка: ' + errorThrown);
+//                    armdLecture.stopLoading();
+//                }
+//            },
         });
     },
 
