@@ -12,6 +12,13 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Atlas, label: Objects, show_in_dashboard: true }
         arguments: [null, Armd\AtlasBundle\Entity\Object, ArmdAtlasBundle:ObjectCrud, @service_container]
 
+    armd_atlas.sonata_admin.region:
+        class: Armd\AtlasBundle\Admin\RegionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Regions, show_in_dashboard: true }
+        arguments: [null, Armd\AtlasBundle\Entity\Region, SonataAdminBundle:CRUD]
+
+
     armd_atlas.sonata_admin.literature:
         class: Armd\AtlasBundle\Admin\LiteratureAdmin
         tags:
