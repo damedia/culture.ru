@@ -1,7 +1,12 @@
-{#{% extends '::base.html.twig' %}#}
+{% extends '::base.html.twig' %}
 
-{#{% block body %}#}
-{#{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}#}
+{% block body %}
+{% form_theme form 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+<form enctype="multipart/form-data">
+    {{ form_widget(form) }}
+</form>
+
 
 {#{% use 'SonataAdminBundle:CRUD:base_edit_form.html.twig' with form as parentForm %}#}
 
@@ -9,17 +14,19 @@
     {#{{ block('parentForm') }}#}
 {#{% endblock %}#}
 
-{#<form enctype="multipart/form-data">#}
-    {#{{ form_widget(form) }}#}
-{#</form>#}
 
 {#{% set base_template = '::base.html.twig' %}#}
 
-{% include admin.template('edit') with{
-    'action': 'edit',
-    'form': form,
-    'object': object,
-    'admin': admin
-    'base_template': '::admin_base.html.twig'
-} only %}
-{#{% endblock %}#}
+
+{% endblock %}
+
+
+{#{{ dump(base_template) }}#}
+{#{% include admin.template('edit') with{#}
+    {#'action': 'edit',#}
+    {#'form': form,#}
+    {#'object': object,#}
+    {#'admin': admin#}
+    {#'base_template': '::admin_base.html.twig'#}
+{#} only %}#}
+

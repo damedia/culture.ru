@@ -96,10 +96,12 @@ class DefaultController extends Controller
      */
     public function userObjectAction($objectId)
     {
-        $this->forward('SonataAdminBundle:CRUD:edit', array(
-            'id' => $objectId,
-        ));
-        /*
+//        return $this->forward('SonataAdminBundle:CRUD:edit', array(
+//            'id' => $objectId,
+//            'base_template' => '::base.html.twig',
+//            '_sonata_admin' => 'armd_atlas.sonata_admin.object'
+//        ));
+
         $object = $this->getDoctrine()->getManager()
             ->getRepository('ArmdAtlasBundle:Object')->find($objectId);
         if(empty($object)) {
@@ -122,7 +124,7 @@ class DefaultController extends Controller
             'admin' => $objectAdmin,
             'object' => $object
         );
-        */
+
     }
 
     /**

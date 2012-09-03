@@ -1,4 +1,6 @@
-{{ extends '::base.html.twig' }}
+{% extends '::base.html.twig' %}
+
+{% block body %}
 <div class="sonata-user-show">
 
     <b>{{ app.user.fullname }}</b>
@@ -9,3 +11,4 @@
         <li><a href="{{ path('armd_atlas_user_objects') }}">Объекты атласа</a></li>
     </ul>
 </div>
+{% endblock %}
