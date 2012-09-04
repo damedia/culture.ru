@@ -47,7 +47,14 @@ class DefaultController extends Controller
                 'All' => array(
                     'result_offset' => ($page - 1) * $perPage,
                     'result_limit' => $perPage,
-                    'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC'
+                    'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC',
+                    'filters' => array(
+                        array(
+                            'attribute' => 'published',
+                            'values' => array(1)
+                        )
+                    )
+
                 )
             );
             $res = $search->search($words, $searchParams);
@@ -85,7 +92,7 @@ class DefaultController extends Controller
                             }
 
                         }
-                        elseif ($data['attrs']['object_type']  == self::OBJECT_TYPE_LECTURE) {
+                        elseif ($data['attrs']['object_type'] == self::OBJECT_TYPE_LECTURE) {
 
                             $lecture = $lectureRepo->find($id);
                             if (!empty($lecture)) {
