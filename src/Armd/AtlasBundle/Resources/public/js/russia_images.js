@@ -1,5 +1,6 @@
 var armdRussiaImages = {
     inputTimeout:null,
+    listUrl: null,
 
     init:function () {
         $.manageAjax.create('lifo', {queue:'clear', maxRequests:2, abortOld:true});
@@ -87,7 +88,7 @@ var armdRussiaImages = {
         armdRussiaImages.startLoading();
         $.manageAjax.clear('lifo', true);
         $.manageAjax.add('lifo', {
-            url:'/atlas/russia-images-list',
+            url: armdRussiaImages.listUrl,
             cache:false,
             dataType:'html',
             type:'POST',

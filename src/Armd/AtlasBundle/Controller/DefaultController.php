@@ -488,6 +488,10 @@ class DefaultController extends Controller
                         array(
                             'attribute' => 'show_at_russian_image',
                             'values' => array(1)
+                        ),
+                        array(
+                            'attribute' => 'published',
+                            'values' => array(1)
                         )
                     )
                 )
