@@ -52,7 +52,7 @@ class LectureManager
 
             if (is_array($categoryIds)) {
                 $searchParams['Lectures']['filters'][] = array(
-                    'attribute' => 'lecture_category_id',
+                    'attribute' => 'lecturecategory_id',
                     'values' => $categoryIds
                 );
             }

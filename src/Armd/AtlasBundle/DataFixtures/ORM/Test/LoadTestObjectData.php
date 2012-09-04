@@ -123,6 +123,10 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
             }
         }
 
+        if (!empty($data['ref_code'])) {
+            $this->addReference('armd_atlas.object.' . $data['ref_code'], $object);
+        }
+
         return $object;
     }
 

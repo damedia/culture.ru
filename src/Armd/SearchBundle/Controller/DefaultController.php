@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
+    const OBJECT_TYPE_NEWS = 1;
+    const OBJECT_TYPE_LECTURE = 2;
+    const OBJECT_TYPE_ATLAS = 3;
 
     /**
      * @Route("/test")
@@ -37,43 +40,106 @@ class DefaultController extends Controller
         $words = $this->getRequest()->get('search_query');
 
         $searchResults = array();
-        if(!empty($words)) {
+        if (!empty($words)) {
 
             $search = $this->container->get('search.sphinxsearch.search');
-            $res = $search->search($words, array(
+            $searchParams = array(
                 'All' => array(
                     'result_offset' => ($page - 1) * $perPage,
                     'result_limit' => $perPage,
-                    'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC'
-                )
-            ));
+                    'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC',
+                    'filters' => array(
+                        array(
+                            'attribute' => 'published',
+                            'values' => array(1)
+                        )
+                    )
 
-            if(!empty($res['All']['matches'])) {
+                )
+            );
+            $res = $search->search($words, $searchParams);
+
+            if (!empty($res['All']['matches'])) {
                 $newsRepo = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News');
+                $lectureRepo = $this->getDoctrine()->getManager()->getRepository('ArmdLectureBundle:Lecture');
+                $atlasObjectRepo = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object');
                 $imageProvider = $this->get('sonata.media.provider.image');
 
-                foreach($res['All']['matches'] as $id => $data) {
-                    if(isset($data['attrs']['object_type']) && $data['attrs']['object_type'] === 'news') {
-                        $article = $newsRepo->find($id);
-                        if(!empty($article)) {
-                            $searchResult = array(
-                                'object' => array(
-                                    'url' => $router->generate('armd_news_item_by_category',
-                                        array('category' => 'news', 'id' => $id)),
-                                    'date' => $article->getDate(),
-                                    'title' => $article->getTitle(),
-                                    'announce' => $article->getAnnounce()
-                                ),
-                                'section' => array(
-                                    'name' => 'Новости',
-                                )
-                            );
+                foreach ($res['All']['matches'] as $id => $data) {
+                    if (isset($data['attrs']['object_type'])) {
 
-                            if($article->getImage()) {
-                                $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($article->getImage(), 'news_list');
+                        if ($data['attrs']['object_type'] == self::OBJECT_TYPE_NEWS) {
+                            $article = $newsRepo->find($id);
+                            if (!empty($article)) {
+                                $searchResult = array(
+                                    'object' => array(
+                                        'url' => $router->generate('armd_news_item_by_category',
+                                            array('category' => 'news', 'id' => $id)),
+                                        'date' => $article->getDate(),
+                                        'title' => $article->getTitle(),
+                                        'announce' => $article->getAnnounce()
+                                    ),
+                                    'section' => array(
+                                        'name' => 'Новости',
+                                    )
+                                );
+
+                                if ($article->getImage()) {
+                                    $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($article->getImage(), 'news_list');
+                                }
+
+                                $searchResults[] = $searchResult;
                             }
 
-                            $searchResults[] = $searchResult;
+                        }
+                        elseif ($data['attrs']['object_type'] == self::OBJECT_TYPE_LECTURE) {
+
+                            $lecture = $lectureRepo->find($id);
+                            if (!empty($lecture)) {
+                                $searchResult = array(
+                                    'object' => array(
+                                        'url' => $router->generate('armd_lecture_view',
+                                            array('id' => $id)),
+                                        'date' => $lecture->getCreatedAt(),
+                                        'title' => $lecture->getTitle(),
+                                        'announce' => ''
+                                    ),
+                                    'section' => array(
+                                        'name' => $lecture->getLectureSuperType()->getCode() == 'LECTURE_SUPER_TYPE_LECTURE' ? 'Лекции' : 'Трансляции',
+                                    )
+                                );
+
+                                if ($lecture->getLectureVideo()) {
+                                    $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($lecture->getLectureVideo()->getImageMedia(), 'news_list');
+                                }
+
+                                $searchResults[] = $searchResult;
+                            }
+
+                        }
+                        elseif ($data['attrs']['object_type'] == self::OBJECT_TYPE_ATLAS) {
+
+                            $atlasObject = $atlasObjectRepo->find($id);
+                            if (!empty($atlasObject)) {
+                                $searchResult = array(
+                                    'object' => array(
+                                        'url' => $router->generate('armd_atlas_default_object_view',
+                                            array('id' => $id)),
+                                        'date' => null,
+                                        'title' => $atlasObject->getTitle(),
+                                        'announce' => $atlasObject->getAnnounce()
+                                    ),
+                                    'section' => array(
+                                        'name' => 'Атлас',
+                                    )
+                                );
+
+                                if ($atlasObject->getPrimaryImage()) {
+                                    $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($atlasObject->getPrimaryImage(), 'news_list');
+                                }
+
+                                $searchResults[] = $searchResult;
+                            }
                         }
                     }
                 }

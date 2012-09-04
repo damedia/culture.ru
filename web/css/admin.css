@@ -24,8 +24,6 @@
     margin-left: 10px;
 }
 
-
-
 .armd-sonata-images-collection .sonata-collection-row > div {
     padding-left: 25px;
 }
@@ -65,3 +63,34 @@
 .sonata-bc .form-horizontal .atlas-object-region-select {
     width: 470px;
 }
+
+/*--- user list ---*/
+
+
+.atlas-object-acl-dialog.ui-dialog {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 6px #cccccc;
+}
+
+.atlas-object-acl-dialog.ui-dialog .ui-dialog-titlebar,
+.atlas-object-acl-dialog.ui-dialog .ui-dialog-titlebar .ui-dialog-title
+{
+    color: #ffffff;
+    background: #666666;
+}
+
+.atlas-object-acl-dialog .loading {
+    background: #cccccc url(../img/loading_circle.gif) center no-repeat !important;
+    z-index: 100;
+}
+
+.atlas-object-acl-dialog.ui-dialog .atlas-object-list {
+    list-style-type: none;
+}
+
+.atlas-object-acl-dialog.ui-dialog .chzn-select {
+    width: 500px;
+}
+
+/*--- /user list ---*/
