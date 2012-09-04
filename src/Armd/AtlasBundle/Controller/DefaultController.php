@@ -96,12 +96,6 @@ class DefaultController extends Controller
      */
     public function userObjectAction($objectId)
     {
-//        return $this->forward('SonataAdminBundle:CRUD:edit', array(
-//            'id' => $objectId,
-//            'base_template' => '::base.html.twig',
-//            '_sonata_admin' => 'armd_atlas.sonata_admin.object'
-//        ));
-
         $em = $this->getDoctrine()->getManager();
         $request = $this->get('request');
 
