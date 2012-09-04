@@ -1,4 +1,5 @@
 /*1--*/
+/*222*/
 
 html, body, form, table, ul, ol, li , p, dl, dt, dd, h1, h2, h3, h4, h5, h6, var{ 
     margin: 0;
@@ -1108,7 +1109,6 @@ white-space:nowrap;
 
 .filter {
  width:22.3%;
-
  float:left;
 }
 
@@ -4239,13 +4239,10 @@ white-space:nowrap;
 		float:none;
 	}	
 	
-	#socialnetwork-links .vk {	background-position:0 -40px; }
-	
-	#socialnetwork-links .lj { display:none; }	
-	
-	#socialnetwork-links .tw { background-position:0 -60px; }
-	
-	#socialnetwork-links .fb { background-position:0 -0px; }			
+	#socialnetwork-links .vk {	background-position:0 -40px;}	
+	#socialnetwork-links .lj { display:none;}
+	#socialnetwork-links .tw { background-position:0 -60px;}	
+	#socialnetwork-links .fb { background-position:0 -0px;}			
 	
 	
 	
