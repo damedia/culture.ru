@@ -17,6 +17,7 @@ AT.init = function(params) {
     AT.initUI();
     AT.initFilters();
     AT.initHacks();
+    AT.initMyObjects();
 
     // Сабмитим форму (показываем Образы России)
     var elems = $('#atlas-filter-form').find('.gray-checked');
@@ -295,14 +296,11 @@ AT.clearMap = function() {
 AT.placePoint = function(object) {
 
     if (! (object.lon || object.lat)) {
-        console.log('Coords is not set properly', object);
+        //console.log('Coords is not set properly', object);
         return false;
     }
 
     if (object.obraz) {
-
-        //console.log( object );
-
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
                 width: 42,
@@ -322,7 +320,6 @@ AT.placePoint = function(object) {
                 url: object.icon
             });
     }
-    //console.log( $(point.element) );
     $(point.container)
         .data('uid', object.id)
         .css({
@@ -377,3 +374,17 @@ AT.submitFiltersForm = function() {
     // Сабмитим форму
     $('#atlas-filter-form').submit();
 };
+
+AT.initMyObjects = function() {
+    $('#atlas-objects-add').click(function(e){
+        e.preventDefault();
+        console.log('add new point');
+        var point = new PGmap.Point({
+            coord: new PGmap.Coord(object.lon, object.lat, true),
+            width: 42,
+            height: 39,
+            backpos: '0 0',
+            url: ''
+        });
+    });
+}
