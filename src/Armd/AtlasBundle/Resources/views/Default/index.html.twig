@@ -99,11 +99,99 @@
             </div>
         </div>
     </div>
+
+    <!-- popups -->
+    <div class="add-object-form draggable" id="add-object-form">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <form action="">
+            <h2>Добавление объекта</h2>
+            <ul class="add-object-form-fields">
+                <li>
+                    <label for="name">Заголовок</label>
+                    <input type="text" value="Без названия" placeholder="" id="name" />
+                </li>
+                <li>
+                    <label for="address">Адрес</label>
+                    <input type="text" value="Ломоносовский район, Москва, Россия" placeholder="" id="address" />
+                </li>
+                <li class="coords">
+                    <div class="coords-block">
+                        <label for="lat">Широта</label>
+                        <input type="text" value="36.85685" id="lat" />
+                    </div><div class="coords-block">
+                        <label for="long">Долгота</label>
+                        <input type="text" value="55.90911" id="long" />
+                    </div>
+                </li>
+                <li>
+                    <label for="descr">Описание</label>
+                    <textarea name="descr" id="descr" cols="30" rows="10"></textarea>
+                </li>
+                <li>
+                    <label for="category">Категория</label>
+                    <select name="category" id="category" class="uniform">
+                        <option value="1">Музей</option>
+                        <option value="2">Театр</option>
+                    </select>
+                </li>
+                <li class="add-photos">
+                    <input type="file" value="Добавить фото" class="add-photos-button uniform" />
+                    <p class="add-photos-note">Или перетянуть с компьютера</p>
+                    <div class="added-images">
+                        <div class="added-image">
+                            <img src="common/img/photo/obj-image.jpg" alt="" />
+                        </div>
+                        <div class="added-image">
+                            <img src="common/img/photo/obj-image.jpg" alt="" />
+                        </div>
+                        <div class="added-image">
+                            <img src="common/img/photo/obj-image.jpg" alt="" />
+                        </div>
+                        <div class="added-image">
+                            <img src="common/img/photo/obj-image.jpg" alt="" />
+                            <a href="#" class="del" title="Удалить"></a>
+                        </div>
+                        <div class="added-image">
+                            <img src="common/img/photo/obj-image.jpg" alt="" />
+                            <a href="#" class="del" title="Удалить"></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button sbmt-btn" value="Сохранить"  />
+                <input type="reset" class="button rst-btn" value="Отменить"  />
+            </fieldset>
+        </form>
+    </div>
+    <div class="add-object-form success-object-form draggable" id="success-object-form" >
+        <a href="#" class="exit" title="Закрыть"></a>
+        <form action="">
+            <h2>Все получилось!</h2>
+            <p>Объект <название объекта> успешно добавлен на карту.</p>
+            <label class="sof-check"><input type="checkbox" />Добавить объект на народную карту</label>
+            <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button sbmt-btn" value="Готово"  />
+            </fieldset>
+        </form>
+    </div>
+    <!-- /popups -->
+
+    <div id="script_block" class="script_block"></div>
+    <div id="script_ad" class="script_ad" style="display:none;">
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
+        document.getElementById('script_ad').style.display = 'block';
+    </script>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('static/common/css/atlas.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
@@ -112,10 +200,10 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?&version=0.1.8-rc2"></script> #}
     {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script> #}
-    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script> #}
     {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script> #}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>

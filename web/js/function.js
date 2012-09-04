@@ -103,6 +103,14 @@ $(document).ready(function () {
         return false;
     })
 
+    if ($('.uniform').length > 0) {
+        $('.uniform').uniform();
+    }
+
+    if ($('.draggable').length > 0) {
+        $('.draggable').draggable();
+    }
+
     $('.filter-checkboxes label').click(function (e) {
         if (e.target.nodeName == 'LABEL') {
             $(this).toggleClass('checked');

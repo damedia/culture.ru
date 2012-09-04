@@ -375,16 +375,88 @@ AT.submitFiltersForm = function() {
     $('#atlas-filter-form').submit();
 };
 
+/**
+ * Работа с пользовательскими объектами
+ */
 AT.initMyObjects = function() {
+
+    // Кнопка-крестик закрывает попап
+    $('#add-object-form .exit').click(function(){
+        $('#add-object-form').hide();
+        return false;
+    });
+
+    // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
         e.preventDefault();
         console.log('add new point');
-        var point = new PGmap.Point({
-            coord: new PGmap.Coord(object.lon, object.lat, true),
-            width: 42,
-            height: 39,
-            backpos: '0 0',
-            url: ''
-        });
+
+        PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', addPoint);
+        function addPoint(e) {
+            PGmap.Events.stopEvent(e);
+            PGmap.Events.addHandler(this, 'mousemove', test);
+            PGmap.Events.addHandler(this, 'mouseup', test2);
+        }
+        function test(e) {
+            //console.log('test - mousemove');
+            //PGmap.Event.killEvent(e);
+            //console.log( AT.map.globals.mainElement() );
+            PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', test2);
+        }
+        function test2(e) {
+            console.log('test2 - mouseup - drop pin');
+            var diff = AT.map.globals.getPosition()
+                , e = e || window.event
+                , off = PGmap.Utils.getOffset(document.getElementById('map'))
+                , mousepos = {x: (e.pageX || e.clientX) - off.left, y: (e.pageY || e.clientY) - off.top}
+                , coord = AT.map.globals.xyToLonLat(mousepos.x - diff.left, mousepos.y - diff.top);
+
+            console.log(coord);
+
+            placePoint(coord, 1, false);
+
+            AT.showAddObjectForm({
+                coord: coord
+            });
+
+        }
+        function placePoint(coord, draggable, onClick) {
+            // установка точки
+            var point = new PGmap.Point({
+                coord: coord,
+                //width: 24,
+                //height: 36,
+                //url: 'middle_sprite.png',
+                //backpos: '-48px 0',
+                draggable: draggable
+            });
+
+            if (! onClick) {
+                //PGmap.Events.addHandler(point.element, 'click', onClick);
+            } else {
+                PGmap.Events.addHandler(point.container, 'click', function(e) {
+                    console.log('click');
+                    //e.stopPropagation();
+                    e.preventDefault();
+                });
+            }
+            AT.map.geometry.add(point);
+            return point;
+        }
+
     });
+};
+
+/**
+ * Открывает попап с информацией о точке
+ * @param params
+ */
+AT.showAddObjectForm = function(params) {
+    $('#add-object-form form').resetForm();
+
+    console.log( params, params.coord );
+    $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
+    $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
+
+    $('#add-object-form').show();
 }
