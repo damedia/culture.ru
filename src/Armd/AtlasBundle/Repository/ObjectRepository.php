@@ -21,9 +21,9 @@ class ObjectRepository extends EntityRepository
         $qb->innerJoin('o.secondaryCategories', 'c')
             ->where('o.published = TRUE')
             ->andWhere($qb->expr()->orX(
-                $qb->expr()->in('c', $categoryIds),
-                $qb->expr()->in('o', $categoryIds)
-            ));
+            $qb->expr()->in('c', $categoryIds),
+            $qb->expr()->in('o', $categoryIds)
+        ));
 //            'c IN (:categoryIds)')
 //            ->orWhere('o.primaryCategory IN (:categoryIds)')
 //            ->setParameter('categoryIds', $categoryIds);
@@ -35,21 +35,22 @@ class ObjectRepository extends EntityRepository
     public function getRussiaImagesCount()
     {
         $objectCount = $this->createQueryBuilder('o')
-                    ->select('COUNT(o)')
-                    ->where('o.showAtRussianImage = TRUE')
-                    ->andWhere('o.published = TRUE')
-                    ->getQuery()->getSingleScalarResult();
+            ->select('COUNT(o)')
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+            ->getQuery()
+            ->getSingleScalarResult();
         return $objectCount;
     }
 
     public function findRussiaImages($limit = null)
     {
         $qb = $this->createQueryBuilder('o')
+            ->select('o, pi, r')
             ->leftJoin('o.primaryImage', 'pi')
             ->leftJoin('o.regions', 'r')
             ->where('o.showAtRussianImage = TRUE')
-            ->andWhere('o.published = TRUE')
-        ;
+            ->andWhere('o.published = TRUE');
 
         if (!is_null($limit)) {
             $qb->setMaxResults($limit);
@@ -67,18 +68,19 @@ class ObjectRepository extends EntityRepository
 
         if ($objectCount <= $limit) {
             $objects = $this->findRussiaImages($limit);
-        } else {
+        }
+        else {
             $offsets = array();
-            for($i = 0; $i < $limit; $i++) {
+            for ($i = 0; $i < $limit; $i++) {
                 $j = 0;
                 do {
                     $offset = rand(0, $objectCount - 1);
-                } while($j++ < 10 && in_array($offset, $offsets));
+                } while ($j++ < 10 && in_array($offset, $offsets));
                 $offsets[] = $offset;
             }
 
             $objects = array();
-            foreach($offsets as $offset) {
+            foreach ($offsets as $offset) {
                 $objects[] = $this->createQueryBuilder('o')
                     ->select('o')
                     ->where('o.showAtRussianImage = TRUE')
