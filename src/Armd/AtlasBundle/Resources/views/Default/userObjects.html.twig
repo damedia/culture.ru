@@ -4,7 +4,7 @@
 <h1>Объекты атласа</h1>
 <ul>
     {% for object in userObjects %}
-        <li><a href="{{ path('armd_atlas_user_object', {'objectId': object.id} ) }}">{{ object.title }}</li>
+        <li><a href="{{ path('armd_atlas_user_object', {'objectId': object.id} ) }}">{{ object.title }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

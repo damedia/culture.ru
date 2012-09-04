@@ -102,8 +102,15 @@ class DefaultController extends Controller
 //            '_sonata_admin' => 'armd_atlas.sonata_admin.object'
 //        ));
 
-        $object = $this->getDoctrine()->getManager()
-            ->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+
+        // redirect to edit mode
+        if($request->get('btn_return_to_list')) {
+            return $this->redirect($this->generateUrl('armd_atlas_user_objects'));
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
         if(empty($object)) {
             throw new \InvalidArgumentException('Object not found');
         }
@@ -114,15 +121,41 @@ class DefaultController extends Controller
         }
 
         $objectAdmin = $this->get('armd_atlas.sonata_admin.object');
+        if ($request->get('uniqid')) {
+            $objectAdmin->setUniqid($request->get('uniqid'));
+        }
         $objectAdmin->setSubject($object);
+
 
         $form = $objectAdmin->getForm();
         $form->setData($object);
 
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            $isFormValid = $form->isValid();
+
+            if ($isFormValid) {
+                $objectAdmin->update($object);
+                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+                $em->flush();
+                return $this->redirect($this->generateUrl('armd_atlas_user_object', array('objectId' => $object->getId())));
+
+            } else {
+                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+            }
+        }
+
+        $view = $form->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $objectAdmin->getFormTheme());
+
+
         return array(
-            'form' => $objectAdmin->getForm()->createView(),
+            'form' => $view,
             'admin' => $objectAdmin,
-            'object' => $object
+            'object' => $object,
         );
 
     }
