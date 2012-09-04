@@ -14,4 +14,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
-#            - { name: doctrine.event_listener, event: preFlush }
+            - { name: doctrine.event_listener, event: postRemove }
+        arguments: [@service_container]
+
+    armd_atlas.manager.object:
+        class: Armd\AtlasBundle\Manager\ObjectManager
+        arguments: [@doctrine.orm.entity_manager]

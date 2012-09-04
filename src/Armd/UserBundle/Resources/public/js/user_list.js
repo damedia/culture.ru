@@ -1,0 +1,5 @@
+var armdUserList = {
+    init: function() {
+
+    }
+};

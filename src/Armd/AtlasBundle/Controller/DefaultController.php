@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -72,6 +73,143 @@ class DefaultController extends Controller
             );
         else
             throw new NotFoundHttpException("Page not found");
+    }
+
+    /**
+     * @Route("/user-objects", name="armd_atlas_user_objects")
+     * @Template()
+     */
+    public function userObjectsAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $userObjects = $this->get('armd_atlas.manager.object')->getUserObjects($user);
+
+        return array(
+            'user' => $user,
+            'userObjects' => $userObjects
+        );
+    }
+
+    /**
+     * @Route("/user-object/{objectId}", requirements={"objectId"="\d+"}, name="armd_atlas_user_object")
+     * @Template()
+     */
+    public function userObjectAction($objectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+
+        // redirect to edit mode
+        if($request->get('btn_return_to_list')) {
+            return $this->redirect($this->generateUrl('armd_atlas_user_objects'));
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        if(empty($object)) {
+            throw new \InvalidArgumentException('Object not found');
+        }
+
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('EDIT', $object)) {
+            throw new AccessDeniedException();
+        }
+
+        $objectAdmin = $this->get('armd_atlas.sonata_admin.object');
+        if ($request->get('uniqid')) {
+            $objectAdmin->setUniqid($request->get('uniqid'));
+        }
+        $objectAdmin->setSubject($object);
+
+
+        $form = $objectAdmin->getForm();
+        $form->setData($object);
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            $isFormValid = $form->isValid();
+
+            if ($isFormValid) {
+                $objectAdmin->update($object);
+                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+                $em->flush();
+                return $this->redirect($this->generateUrl('armd_atlas_user_object', array('objectId' => $object->getId())));
+
+            } else {
+                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+            }
+        }
+
+        $view = $form->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $objectAdmin->getFormTheme());
+
+
+        return array(
+            'form' => $view,
+            'admin' => $objectAdmin,
+            'object' => $object,
+        );
+
+    }
+
+    /**
+     * @Route("russia-images", name="armd_atlas_russia_images")
+     * @Template()
+     */
+    public function russiaImagesAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Route("russia-images-list", name="armd_atlas_russia_images_list", options={"expose"=true})
+     * @Template()
+     */
+    public function russiaImagesListAction()
+    {
+        $searchString = $this->getRequest()->get('searchString');
+        $objectRepo = $this->getDoctrine()->getManager()
+                        ->getRepository('ArmdAtlasBundle:Object');
+
+        if (!empty($searchString)) {
+            $search = $this->get('search.sphinxsearch.search');
+            $searchParams = array(
+                'Atlas' => array(
+                    'filters' => array(
+                        array(
+                            'attribute' => 'show_at_russian_image',
+                            'values' => array(1)
+                        ),
+                        array(
+                            'attribute' => 'published',
+                            'values' => array(1)
+                        )
+                    )
+                )
+            );
+
+            $searchResult = $search->search($searchString, $searchParams);
+            $objects = array();
+            if (!empty($searchResult['Atlas']['matches'])) {
+                foreach ($searchResult['Atlas']['matches'] as $id => $data) {
+                    $object = $objectRepo->find($id);
+                    if(!empty($object)) {
+                        $objects[] = $object;
+                    }
+                }
+            }
+
+        }
+        else {
+            $objects = $objectRepo->findRussiaImages();
+        }
+
+
+        return array(
+            'objects' => $objects
+        );
     }
 
     /**
@@ -169,173 +307,6 @@ class DefaultController extends Controller
         );
     }
 
-    protected function getUrl($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $res = curl_exec($ch);
-        curl_close($ch);
-        return $res;
-    }
-
-    /**
-     * @Route("/addnode/{parentId}")
-     * Usage: http://local.armd.ru/app_dev.php/atlas/addnode/1?title=%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B%20%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%B8%D1%8F
-     */
-    public function addNodeAction($parentId)
-    {
-        $title = $this->getRequest()->query->get('title');
-
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Category');
-
-        $entity = new Category();
-        $entity->setTitle($title);
-
-        $parent = $repo->find($parentId);
-        if ($parent) {
-            $entity->setParent($parent);
-        }
-
-        $em->persist($entity);
-        $em->flush();
-
-        $response = '';
-        return new Response($response);
-    }
-
-    /**
-     * @Route("/object/{id}/edit")
-     * @Template("ArmdAtlasBundle:Default:objectEdit.html.twig")
-     */
-    public function editAction($id)
-    {
-        $entity = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->find($id);
-        $form = $this->createForm(new ObjectType(), $entity);
-        $request = $this->getRequest();
-
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('armd_atlas_default_list'));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'entity' => $entity,
-        );
-    }
-
-    /**
-     * @Route("/objects/create")
-     * @Template("ArmdAtlasBundle:Default:objectCreate.html.twig")
-     */
-    public function createAction()
-    {
-        $entity = new Object();
-        $form = $this->createForm(new ObjectType(), $entity);
-        $request = $this->getRequest();
-
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('armd_atlas_default_edit', array('id' => $entity->getId())));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'entity' => $entity,
-        );
-    }
-
-    /**
-     * @Route("/objects/list")
-     * @Template("ArmdAtlasBundle:Default:objectList.html.twig")
-     */
-    public function listAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT o FROM ArmdAtlasBundle:Object o ORDER BY o.id ASC");
-        $entities = $query->getResult();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-
-    /**
-     * @Route("/objects/{id}/delete")
-     */
-    public function deleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Object');
-
-        $entity = $repo->find($id);
-
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('armd_atlas_default_list'));
-    }
-
-    /**
-     * @Route("/objects/import")
-     * @Template("ArmdAtlasBundle:Default:objectImport.html.twig")
-     */
-    public function importAction()
-    {
-        if ($this->getRequest()->getMethod() == 'POST') {
-
-            $userfile = $_FILES['userfile'];
-
-            $rows = file($userfile['tmp_name']);
-            $data = array();
-            foreach ($rows as $row) {
-                $row = trim($row);
-                $rowData = str_getcsv($row, ';', '"');
-                $data[] = $rowData;
-            }
-            //var_dump($data);
-
-
-            //------------
-            $em = $this->getDoctrine()->getManager();
-            //$repo = $em->getRepository('ArmdAtlasBundle:Object');
-
-            foreach ($data as $row) {
-
-                $entity = new Object();
-                $entity->setTitle(trim($row[5]));
-                if ($row[11] != '') $entity->setLat($row[11]);
-                if ($row[12] != '') $entity->setLon($row[12]);
-                $entity->setAnnounce(trim($row[6]));
-                $entity->setContent(trim($row[7]));
-                $entity->setSiteUrl(trim($row[8]));
-                $entity->setEmail(trim($row[9]));
-                $entity->setPhone(trim($row[10]));
-                if ($row[13]) $entity->setAddress(trim($row[13]));
-
-                $em->persist($entity);
-                $em->flush();
-            }
-        }
-
-        return array();
-    }
 
     /**
      * @Route("/objects/filter")
@@ -408,32 +379,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * Метод перемещает узлы категорий. source в target
-     *
-     * @Route("/category/move")
-     */
-    public function moveCategoryAction()
-    {
-        $source = (int)$this->getRequest()->query->get('source');
-        $target = (int)$this->getRequest()->query->get('target');
-
-        var_dump($source, $target);
-
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Category');
-
-        $sourceNode = $repo->find($source);
-        $targetNode = $repo->find($target);
-
-        $sourceNode->setParent($targetNode);
-        $em->persist($sourceNode);
-        $em->flush();
-
-        $response = 'OK';
-        return new Response($response);
-    }
-
-    /**
      * @Route("/objects/geocoder")
      */
     public function geocoderAction()
@@ -460,80 +405,14 @@ class DefaultController extends Controller
         return new Response($response);
     }
 
-
-    /**
-     * @Route("russia-images", name="armd_atlas_russia_images")
-     * @Template()
-     */
-    public function russiaImagesAction()
+    protected function getUrl($url)
     {
-        return array();
-    }
-
-    /**
-     * @Route("russia-images-list", name="armd_atlas_russia_images_list", options={"expose"=true})
-     * @Template()
-     */
-    public function russiaImagesListAction()
-    {
-        $searchString = $this->getRequest()->get('searchString');
-        $objectRepo = $this->getDoctrine()->getManager()
-                        ->getRepository('ArmdAtlasBundle:Object');
-
-        if (!empty($searchString)) {
-            $search = $this->get('search.sphinxsearch.search');
-            $searchParams = array(
-                'Atlas' => array(
-                    'filters' => array(
-                        array(
-                            'attribute' => 'show_at_russian_image',
-                            'values' => array(1)
-                        ),
-                        array(
-                            'attribute' => 'published',
-                            'values' => array(1)
-                        )
-                    )
-                )
-            );
-
-            $searchResult = $search->search($searchString, $searchParams);
-            $objects = array();
-            if (!empty($searchResult['Atlas']['matches'])) {
-                foreach ($searchResult['Atlas']['matches'] as $id => $data) {
-                    $object = $objectRepo->find($id);
-                    if(!empty($object)) {
-                        $objects[] = $object;
-                    }
-                }
-            }
-
-        }
-        else {
-            $objects = $objectRepo->findRussiaImages();
-        }
-
-
-        return array(
-            'objects' => $objects
-        );
-    }
-
-
-    /**
-     * @Route("/category/{id}/delete")
-     */
-    public function categoryDeleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Category');
-
-        $entity = $repo->find($id);
-        $em->remove($entity);
-        $em->flush();
-
-        $response = 'OK';
-        return new Response($response);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        return $res;
     }
 
     protected function resolveAddress($geocode)
@@ -571,4 +450,6 @@ class DefaultController extends Controller
 
         return !empty($res) ? $res[0] : false;
     }
+
+
 }
