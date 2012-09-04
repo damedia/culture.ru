@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="sonata-user-edit-profile">
+        <h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}</h2>
+        <form action="{{ path('sonata_user_profile_edit') }}" method="POST">
+            {{ form_rest(form) }}
+            <input type="submit" name="submit" value="{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}" />
+        </form>
+    </div>
+{% endblock %}
