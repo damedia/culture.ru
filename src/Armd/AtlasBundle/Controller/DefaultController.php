@@ -594,6 +594,10 @@ class DefaultController extends Controller
     {
         $res = array(
             'success' => true,
+            'result' => array(
+                'id' => 134,
+                'title' => 'Какой-то старый монастырь',
+            ),
         );
         return new Response(json_encode($res));
     }

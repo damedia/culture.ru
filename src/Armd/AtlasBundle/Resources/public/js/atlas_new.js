@@ -467,32 +467,55 @@ AT.initMyObjects = function() {
  */
 AT.showAddObjectForm = function(params) {
     var jPopup = $('#add-object-form'),
+        jPopupForm = jPopup.find('form'),
         jSuccess = $('#success-object-form'),
-        jForm = jPopup.find('form');
+        jSuccessForm = jSuccess.find('form'),
+        jMyObjectsList = $('#myobj_list');
 
     // Fill form
-    jForm.resetForm();
+    jPopupForm.resetForm();
     $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
     $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
 
     jPopup.show();
 
     // Submit form data
-    jForm.ajaxForm({
+    jPopupForm.ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
             $('#ajax-loading').show();
         },
-        success: function(responseText, statusText, xhr, $form){
+        success: function(response, statusText, xhr, $form){
             $('#ajax-loading').hide();
-            if (responseText.success) {
-                var createdObject = responseText.result;
+            if (response.success) {
+                var createdObject = response.result;
                 jPopup.hide();
                 jSuccess.find('.object-id').val(createdObject.id);
                 jSuccess.find('.object-title').val(createdObject.title);
-                jSuccess.show();
+                jSuccess.css({ top:100, left:($(window).width()/2-jSuccess.width()/2) }).show();
             }
-            console.log(responseText);
+            console.log(response);
+        }
+    });
+
+    // Добавить объект на народную карту
+    jSuccessForm.ajaxForm({
+        dataType: 'json',
+        beforeSubmit: function(){
+            $('#ajax-loading').show();
+        },
+        success: function(response, statusText, xhr, $form){
+            $('#ajax-loading').hide();
+            if (response.success) {
+                jSuccessForm.hide();
+
+                objectTitle = response.result.title;
+
+                // Добавляем в список точку
+                jMyObjectsList.append($('#myobj_list_template').tmpl({
+                    'title': objectTitle
+                }));
+            }
         }
     });
 
