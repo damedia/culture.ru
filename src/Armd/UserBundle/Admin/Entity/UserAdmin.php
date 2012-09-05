@@ -14,12 +14,9 @@ class UserAdmin extends BaseAdmin {
     {
         parent::configureListFields($listMapper);
 
-        $listMapper->add('actions', 'text', array('template' => 'ArmdUserBundle:Admin:user_row_actions.html.twig'));
-    }
+        $this->setTemplate('list', 'ArmdUserBundle:Admin:list.html.twig');
 
-    public function getListTemplate()
-    {
-        return 'ArmdUserBundle:Admin:list.html.twig';
+        $listMapper->add('actions', 'text', array('template' => 'ArmdUserBundle:Admin:user_row_actions.html.twig'));
     }
 
 }
