@@ -136,14 +136,15 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					<li><a href="{{ path('armd_lecture_translation_index') }}">Трансляции</a></li>
 					<li><a href="{{ path('armd_lecture_lecture_index') }}">Лекции</a></li>
 					<li><a href="{{ path('armd_chronicle_index') }}">Лента времени</a></li>
-					<li><a href="{{ path('armd_news_news_list') }}">События</a></li>
+
 					<li><a href="http://people.roskult.ru/forum/best/">Общение</a></li>
-					
+                    <li><a href="http://бородино.культура.рф/">Бородино</a></li>					
 					
 					<li class="navmenu_more">
 						<a href="#" class="navmenu_more_link">Еще</a>
 						<ul>
-							<li><a href="http://people.roskult.ru/community_council/">Общественный совет</a></li>
+                            <li><a href="{{ path('armd_news_news_list') }}">События</a></li>
+                            <li><a href="http://people.roskult.ru/community_council/">Общественный совет</a></li>
 							<li><a href="{{ path('armd_main_services') }}">Госуслуги</a></li>
 							<li><a href="{{ path('armd_main_about') }}">О проекте</a></li>
 						</ul>
