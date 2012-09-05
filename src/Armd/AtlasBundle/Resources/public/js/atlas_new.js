@@ -403,39 +403,39 @@ AT.initMyObjects = function() {
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
         e.preventDefault();
-        console.log('add new point');
+        console.log('Add new point button clicked');
 
-        PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', addPoint);
-        function addPoint(e) {
+        PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
+
+        function onMouseDown(e) {
+            console.log('onMouseDown');
             PGmap.Events.stopEvent(e);
-            PGmap.Events.addHandler(this, 'mousemove', test);
-            PGmap.Events.addHandler(this, 'mouseup', test2);
+            PGmap.Events.addHandler(this, 'mousemove', onMouseMove);
+            PGmap.Events.addHandler(this, 'mouseup', onMouseUp);
         }
-        function test(e) {
-            //console.log('test - mousemove');
+        function onMouseMove(e) {
+            // console.log('onMouseMove'); // частит слишком. отключил
             //PGmap.Event.killEvent(e);
             //console.log( AT.map.globals.mainElement() );
-            PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', test2);
+            PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
         }
-        function test2(e) {
-            console.log('test2 - mouseup - drop pin');
-            var diff = AT.map.globals.getPosition()
-                , e = e || window.event
-                , off = PGmap.Utils.getOffset(document.getElementById('map'))
-                , mousepos = {x: (e.pageX || e.clientX) - off.left, y: (e.pageY || e.clientY) - off.top}
-                , coord = AT.map.globals.xyToLonLat(mousepos.x - diff.left, mousepos.y - diff.top);
-
-            console.log(coord);
-
-            placePoint(coord, 1, false);
-
+        function onMouseUp(e) {
+            console.log('onMouseUp');
+            var diff = AT.map.globals.getPosition(),
+                e = e || window.event,
+                off = PGmap.Utils.getOffset(document.getElementById('map')),
+                mousepos = { x: (e.pageX || e.clientX) - off.left, y: (e.pageY || e.clientY) - off.top },
+                coord = AT.map.globals.xyToLonLat(mousepos.x - diff.left, mousepos.y - diff.top);
+            var point = placePoint(coord, 1, false);
             AT.showAddObjectForm({
-                coord: coord
+                coord: coord,
+                point: point
             });
-
+            PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
         }
         function placePoint(coord, draggable, onClick) {
             // установка точки
+            console.log('placePoint');
             var point = new PGmap.Point({
                 coord: coord,
                 //width: 24,
@@ -457,7 +457,6 @@ AT.initMyObjects = function() {
             AT.map.geometry.add(point);
             return point;
         }
-
     });
 };
 
@@ -466,11 +465,15 @@ AT.initMyObjects = function() {
  * @param params
  */
 AT.showAddObjectForm = function(params) {
-    var jPopup = $('#add-object-form'),
+    var
+        myPoint = params.point,
+        jPopup = $('#add-object-form'),
         jPopupForm = jPopup.find('form'),
         jSuccess = $('#success-object-form'),
         jSuccessForm = jSuccess.find('form'),
         jMyObjectsList = $('#myobj_list');
+
+    console.log('Show dialog for point:', myPoint);
 
     // Fill form
     jPopupForm.resetForm();
@@ -479,7 +482,19 @@ AT.showAddObjectForm = function(params) {
 
     jPopup.show();
 
-    // Submit form data
+    // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
+    jPopup.find('.rst-btn, .exit').click(function(){
+        jPopup.hide();
+        return false;
+    });
+
+    // Диалог после добавления объекта. Крестик. Скрываем диалог.
+    jSuccess.find('.exit').click(function(){
+        jSuccess.hide();
+        return false;
+    });
+
+    // Отправка данных. Добавить объект.
     jPopupForm.ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
@@ -489,16 +504,20 @@ AT.showAddObjectForm = function(params) {
             $('#ajax-loading').hide();
             if (response.success) {
                 var createdObject = response.result;
-                jPopup.hide();
                 jSuccess.find('.object-id').val(createdObject.id);
                 jSuccess.find('.object-title').val(createdObject.title);
-                jSuccess.css({ top:100, left:($(window).width()/2-jSuccess.width()/2) }).show();
+                jSuccess.show();
+            } else {
+                alert(response.message);
             }
-            console.log(response);
+            jPopup.hide();
+
+            // тут надо отключить перетаскивание точки
+            myPoint.draggable.kill();
         }
     });
 
-    // Добавить объект на народную карту
+    // Добавить объект на народную карту.
     jSuccessForm.ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
@@ -507,7 +526,7 @@ AT.showAddObjectForm = function(params) {
         success: function(response, statusText, xhr, $form){
             $('#ajax-loading').hide();
             if (response.success) {
-                jSuccessForm.hide();
+                jSuccess.hide();
 
                 objectTitle = response.result.title;
 

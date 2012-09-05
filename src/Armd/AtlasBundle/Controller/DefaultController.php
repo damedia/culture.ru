@@ -575,13 +575,23 @@ class DefaultController extends Controller
      */
     public function objectsAddAction()
     {
-        $res = array(
-            'success' => true,
-            'result' => array(
-                'id' => 134,
-                'title' => 'Какой-то старый монастырь',
-            ),
-        );
+        try {
+            $res = array(
+                'success' => true,
+                'post' => $_POST,
+                'result' => array(
+                    'id' => 134,
+                    'title' => 'Какой-то старый монастырь',
+                ),
+            );
+            //throw new \Exception('Error create object');
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
         return new Response(json_encode($res));
     }
 
