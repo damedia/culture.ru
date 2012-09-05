@@ -576,15 +576,27 @@ class DefaultController extends Controller
     public function objectsAddAction()
     {
         try {
+            $request = $this->getRequest();
+            $entity = new Object();
+
+            $entity->setTitle($request->get('title'));
+            $entity->setAnnounce($request->get('description'));
+            $entity->setAddress($request->get('address'));
+            $entity->setLon($request->get('lon'));
+            $entity->setLat($request->get('lat'));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
             $res = array(
                 'success' => true,
                 'post' => $_POST,
                 'result' => array(
-                    'id' => 134,
-                    'title' => 'Какой-то старый монастырь',
+                    'id' => $entity->getId(),
+                    'title' => $entity->getTitle(),
                 ),
             );
-            //throw new \Exception('Error create object');
         }
         catch (\Exception $e) {
             $res = array(
@@ -602,13 +614,26 @@ class DefaultController extends Controller
      */
     public function objectMakePublicAction()
     {
-        $res = array(
-            'success' => true,
-            'result' => array(
-                'id' => 134,
-                'title' => 'Какой-то старый монастырь',
-            ),
-        );
+        try {
+            $request = $this->getRequest();
+            $id = (int) $request->get('id');
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $entity = $repo->find($id);
+            $res = array(
+                'success' => true,
+                'result' => array(
+                    'id' => $entity->getId(),
+                    'title' => $entity->getTitle(),
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
         return new Response(json_encode($res));
     }
 

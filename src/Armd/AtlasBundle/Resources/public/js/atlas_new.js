@@ -343,26 +343,27 @@ AT.placePoint = function(object) {
     AT.map.geometry.add(point);
 
     // клик по точке
-    PGmap.Events.addHandler(point.container, 'click', function(e) {
-        var uid = $(point.container).data('uid');
-        $.ajax({
-            url: fetchMarkerDetailUri,
-            data: { id: uid },
-            success: function(res) {
-
-                console.log('click on point');
-
-                //point.addContent(res);
-                point.name = res;
-                point.balloon = AT.map.balloon;
-                //PGmap.Events.removeHandler(point.container, 'click', point.toggleBalloon);
-                point.toggleBalloon();
-            }
-        });
+    PGmap.Events.addHandler(point.container, 'click', function(){
+        AT.triggerPointClick(point);
     });
 
     return point;
 };
+
+AT.triggerPointClick = function(point) {
+    console.log('triggerPointClick');
+    var uid = $(point.container).data('uid');
+    $.ajax({
+        url: fetchMarkerDetailUri,
+        data: { id: uid },
+        success: function(res) {
+            console.log('click on point');
+            point.name = res;
+            point.balloon = AT.map.balloon;
+            point.toggleBalloon();
+        }
+    });
+}
 
 AT.initHacks = function() {
     $('.g-closer').live('click', function(){
@@ -408,51 +409,44 @@ AT.initMyObjects = function() {
         PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
 
         function onMouseDown(e) {
-            console.log('onMouseDown');
             PGmap.Events.stopEvent(e);
             PGmap.Events.addHandler(this, 'mousemove', onMouseMove);
             PGmap.Events.addHandler(this, 'mouseup', onMouseUp);
         }
         function onMouseMove(e) {
-            // console.log('onMouseMove'); // частит слишком. отключил
-            //PGmap.Event.killEvent(e);
-            //console.log( AT.map.globals.mainElement() );
             PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
         }
         function onMouseUp(e) {
-            console.log('onMouseUp');
             var diff = AT.map.globals.getPosition(),
                 e = e || window.event,
                 off = PGmap.Utils.getOffset(document.getElementById('map')),
                 mousepos = { x: (e.pageX || e.clientX) - off.left, y: (e.pageY || e.clientY) - off.top },
                 coord = AT.map.globals.xyToLonLat(mousepos.x - diff.left, mousepos.y - diff.top);
-            var point = placePoint(coord, 1, false);
+
+            // Бросили точку на карту
+            var point = placePoint(coord, 1, function(){
+                // При клике по точке показываем обычный бабл с инфой
+                AT.triggerPointClick(point);
+                e.preventDefault();
+            });
+
+            // Показываем форму создания объекта
             AT.showAddObjectForm({
                 coord: coord,
                 point: point
             });
+
+            // Запрещаем ставить точки, пока не закончим с текущей
             PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
         }
         function placePoint(coord, draggable, onClick) {
             // установка точки
-            console.log('placePoint');
             var point = new PGmap.Point({
-                coord: coord,
-                //width: 24,
-                //height: 36,
-                //url: 'middle_sprite.png',
-                //backpos: '-48px 0',
-                draggable: draggable
+                draggable: draggable,
+                coord: coord
             });
-
-            if (! onClick) {
-                //PGmap.Events.addHandler(point.element, 'click', onClick);
-            } else {
-                PGmap.Events.addHandler(point.container, 'click', function(e) {
-                    console.log('click');
-                    //e.stopPropagation();
-                    e.preventDefault();
-                });
+            if (onClick) {
+                PGmap.Events.addHandler(point.container, 'click', onClick);
             }
             AT.map.geometry.add(point);
             return point;
@@ -462,7 +456,6 @@ AT.initMyObjects = function() {
 
 /**
  * Открывает попап с информацией о точке
- * @param params
  */
 AT.showAddObjectForm = function(params) {
     var
@@ -504,6 +497,7 @@ AT.showAddObjectForm = function(params) {
             $('#ajax-loading').hide();
             if (response.success) {
                 var createdObject = response.result;
+                $(myPoint.container).data('uid', createdObject.id);
                 jSuccess.find('.object-id').val(createdObject.id);
                 jSuccess.find('.object-title').val(createdObject.title);
                 jSuccess.show();
@@ -512,7 +506,7 @@ AT.showAddObjectForm = function(params) {
             }
             jPopup.hide();
 
-            // тут надо отключить перетаскивание точки
+            // Отключение перетаскивания точки
             myPoint.draggable.kill();
         }
     });
