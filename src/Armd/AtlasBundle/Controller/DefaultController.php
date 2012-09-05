@@ -567,4 +567,35 @@ class DefaultController extends Controller
 
         return !empty($res) ? $res[0] : false;
     }
+
+    /**
+     * Мои объекты. Добавить объект
+     *
+     * @Route("/objects/add")
+     */
+    public function objectsAddAction()
+    {
+        $res = array(
+            'success' => true,
+            'result' => array(
+                'id' => 134,
+                'title' => 'Какой-то старый монастырь',
+            ),
+        );
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Добавить объект на народную карту
+     *
+     * @Route("/object/makepublic")
+     */
+    public function objectMakePublicAction()
+    {
+        $res = array(
+            'success' => true,
+        );
+        return new Response(json_encode($res));
+    }
+
 }

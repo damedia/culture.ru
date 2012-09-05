@@ -103,7 +103,7 @@
     <!-- popups -->
     <div class="add-object-form draggable" id="add-object-form">
         <a href="#" class="exit" title="Закрыть"></a>
-        <form action="">
+        <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
             <h2>Добавление объекта</h2>
             <ul class="add-object-form-fields">
                 <li>
@@ -166,10 +166,11 @@
     </div>
     <div class="add-object-form success-object-form draggable" id="success-object-form" >
         <a href="#" class="exit" title="Закрыть"></a>
-        <form action="">
+        <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
+            <input class="object-id" name="object_id" type="hidden"/>
             <h2>Все получилось!</h2>
-            <p>Объект <название объекта> успешно добавлен на карту.</p>
-            <label class="sof-check"><input type="checkbox" />Добавить объект на народную карту</label>
+            <p>Объект <b class="object-title"></b> успешно добавлен на карту.</p>
+            <label class="sof-check"><input name="is_public" type="checkbox" />Добавить объект на народную карту</label>
             <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
             <fieldset class="form-buttons">
                 <input type="submit" class="button sbmt-btn" value="Готово"  />

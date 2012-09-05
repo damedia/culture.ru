@@ -115,6 +115,21 @@ AT.initGeocoder = function() {
 };
 
 AT.initUI = function() {
+
+    // Вкладки. Перехват смены вкладок
+    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
+        var href = $(this).attr('href');
+        if (href == "#maps") {
+            // Переключение на Мои карты. Очистим карту.
+            AT.clearMap();
+        } else if (href == "#obj") {
+            // Отображаем объекты с примененным фильтром
+            $('#atlas-filter-form').submit();
+        }
+        return false;
+    });
+
+    // Объекты. Фильтр
     $('#atlas-filter-form').ajaxForm({
         beforeSubmit: function(){
             //console.log('xxx');
@@ -144,65 +159,67 @@ AT.initUI = function() {
                 }
 
                 // clusterize points
-                AT.clusterPoints = new PGmap.GeometryLayer({
-                    points: points,
-                    clusterSize: 100,
-                    clusterImage: bundleImagesUri + "/klaster_1.1.png"
-                });
-                AT.clusterPoints.setClusterImageByCount = function(count) {
-                    return "0px 0px";
-                };
-                AT.clusterPoints.setClusters.callback = function() {
-                    for (var n = AT.clusterPoints.clusters.length; n--; ) {
-                        (function(cluster){
-                            PGmap.Events.addHandlerByName(cluster.element, 'click', function(e){
+                if (points.length) {
+                    AT.clusterPoints = new PGmap.GeometryLayer({
+                        points: points,
+                        clusterSize: 100,
+                        clusterImage: bundleImagesUri + "/klaster_1.1.png"
+                    });
+                    AT.clusterPoints.setClusterImageByCount = function(count) {
+                        return "0px 0px";
+                    };
+                    AT.clusterPoints.setClusters.callback = function() {
+                        for (var n = AT.clusterPoints.clusters.length; n--; ) {
+                            (function(cluster){
+                                PGmap.Events.addHandlerByName(cluster.element, 'click', function(e){
 
-                                console.log('click on cluster');
+                                    console.log('click on cluster');
 
-                                // Балун для кластера
-                                cluster.balloon = AT.map.balloon;
+                                    // Балун для кластера
+                                    cluster.balloon = AT.map.balloon;
 
-                                var ids = [];
-                                for (var i=0; i<cluster.points.length; i++) {
-                                    ids.push($(cluster.points[i].container).data('uid'));
-                                }
-                                // Содержимое балуна
-                                //cluster.name = ids.join(',');
-                                console.log('cluster points ids:', cluster.name);
-
-                                // Если достигнут последний уровень зума, показываем бабл
-                                if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
-                                    if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
-
-                                        $.ajax({
-                                            url: fetchClusterDetailUri,
-                                            data: { ids: ids },
-                                            success: function(res){
-                                                console.log(res);
-                                                cluster.name = res;
-                                                cluster.balloon.open(cluster);
-                                                //cont.style.zIndex = '75';
-                                            }
-                                        });
-
-                                    } else {
-                                        cluster.balloon.close();
-                                        //cont.style.zIndex = '73';
+                                    var ids = [];
+                                    for (var i=0; i<cluster.points.length; i++) {
+                                        ids.push($(cluster.points[i].container).data('uid'));
                                     }
-                                } else {
-                                    AT.clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
-                                }
-                            }, 'click_' + cluster.index);
-                            PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
-                                //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px -69px" : ( cluster.count < 100  ) ? "-56px -69px" : "5px -69px";
-                            }, 'mouseover_' + cluster.index);
-                            PGmap.Events.addHandlerByName(cluster.element, 'mouseout', function(e){
-                                //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px 0" : ( cluster.count < 100  ) ? "-56px 0" : "5px 0";
-                            }, 'mouseout_' + cluster.index);
-                        })(AT.clusterPoints.clusters[n]);
-                    }
-                };
-                AT.clusterPoints.setClusters();
+                                    // Содержимое балуна
+                                    //cluster.name = ids.join(',');
+                                    console.log('cluster points ids:', cluster.name);
+
+                                    // Если достигнут последний уровень зума, показываем бабл
+                                    if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
+                                        if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
+
+                                            $.ajax({
+                                                url: fetchClusterDetailUri,
+                                                data: { ids: ids },
+                                                success: function(res){
+                                                    console.log(res);
+                                                    cluster.name = res;
+                                                    cluster.balloon.open(cluster);
+                                                    //cont.style.zIndex = '75';
+                                                }
+                                            });
+
+                                        } else {
+                                            cluster.balloon.close();
+                                            //cont.style.zIndex = '73';
+                                        }
+                                    } else {
+                                        AT.clusterPoints.globals.mapObject().setCenterByBbox(cluster.bbox);
+                                    }
+                                }, 'click_' + cluster.index);
+                                PGmap.Events.addHandlerByName(cluster.element, 'mouseover', function(e){
+                                    //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px -69px" : ( cluster.count < 100  ) ? "-56px -69px" : "5px -69px";
+                                }, 'mouseover_' + cluster.index);
+                                PGmap.Events.addHandlerByName(cluster.element, 'mouseout', function(e){
+                                    //this.style.backgroundPosition = ( cluster.count <= 10 ) ? "-120px 0" : ( cluster.count < 100  ) ? "-56px 0" : "5px 0";
+                                }, 'mouseout_' + cluster.index);
+                            })(AT.clusterPoints.clusters[n]);
+                        }
+                    };
+                    AT.clusterPoints.setClusters();
+                }
             }
         }
     });
@@ -271,25 +288,22 @@ AT.initFilters = function(){
 };
 
 AT.clearMap = function() {
-
     console.info('AT.clearMap');
-
     var points = AT.map.geometry.get({ type:'points' });
-
     if (points.length > 0) {
         for (var i=points.length; i--; ) {
             AT.map.geometry.remove(points[i]);
         }
-
-        for (var n = AT.clusterPoints.clusters.length; n--; ) {
-            (function(cluster){
-                PGmap.Events.removeHandlerByName(cluster.element, 'click',  'click_' + cluster.index);
-                PGmap.Events.removeHandlerByName(cluster.element, 'mouseover', 'mouseover_' + cluster.index);
-                PGmap.Events.removeHandlerByName(cluster.element, 'mouseout',  'mouseout_' + cluster.index);
-            })(AT.clusterPoints.clusters[n]);
+        if (AT.clusterPoints) {
+            for (var n = AT.clusterPoints.clusters.length; n--; ) {
+                (function(cluster){
+                    PGmap.Events.removeHandlerByName(cluster.element, 'click',  'click_' + cluster.index);
+                    PGmap.Events.removeHandlerByName(cluster.element, 'mouseover', 'mouseover_' + cluster.index);
+                    PGmap.Events.removeHandlerByName(cluster.element, 'mouseout',  'mouseout_' + cluster.index);
+                })(AT.clusterPoints.clusters[n]);
+            }
+            AT.clusterPoints.removeClusters();
         }
-
-        AT.clusterPoints.removeClusters();
     }
 };
 
@@ -452,11 +466,34 @@ AT.initMyObjects = function() {
  * @param params
  */
 AT.showAddObjectForm = function(params) {
-    $('#add-object-form form').resetForm();
+    var jPopup = $('#add-object-form'),
+        jSuccess = $('#success-object-form'),
+        jForm = jPopup.find('form');
 
-    console.log( params, params.coord );
+    // Fill form
+    jForm.resetForm();
     $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
     $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
 
-    $('#add-object-form').show();
+    jPopup.show();
+
+    // Submit form data
+    jForm.ajaxForm({
+        dataType: 'json',
+        beforeSubmit: function(){
+            $('#ajax-loading').show();
+        },
+        success: function(responseText, statusText, xhr, $form){
+            $('#ajax-loading').hide();
+            if (responseText.success) {
+                var createdObject = responseText.result;
+                jPopup.hide();
+                jSuccess.find('.object-id').val(createdObject.id);
+                jSuccess.find('.object-title').val(createdObject.title);
+                jSuccess.show();
+            }
+            console.log(responseText);
+        }
+    });
+
 }
