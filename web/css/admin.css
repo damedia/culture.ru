@@ -1,10 +1,38 @@
+/*--- media file ---*/
 .armd-sonata-media-file {
-    padding-left: 200px;
-    margin-bottom: 15px;
+    padding-left: 160px;
+    margin-bottom: 20px;
 }
 
+.sonata-bc .armd-sonata-media-file input {
+    display: block;
+}
+
+.sonata-bc .form-horizontal .armd-sonata-media-file .control-label {
+    width: auto;
+    margin-right: 10px;
+}
+
+/*--- /media file ---*/
+
+/*--- tvigle collection ---*/
+.armd-sonata-tvigle-collection {
+    padding-left: 160px;
+}
+.armd-sonata-tvigle-collection .sonata-collection-row .control-label {
+    display: none;
+}
+.armd-sonata-tvigle-collection .sonata-collection-row {
+    margin-bottom: 5px;
+}
+.armd-sonata-tvigle-collection .sonata-collection-row .sonata-collection-delete {
+    margin-right: 10px;
+}
+/*--- /tvigle collection ---*/
+
+
 .armd-sonata-images-collection {
-    padding-left: 200px;
+    padding-left: 160px;
     margin-bottom: 25px;
 }
 
@@ -16,13 +44,6 @@
     display: none;
 }
 
-.sonata-bc .form-horizontal .armd-sonata-media-file .control-label {
-    width: auto;
-}
-
-.sonata-bc .form-horizontal .armd-sonata-media-file input[type=checkbox] {
-    margin-left: 10px;
-}
 
 .armd-sonata-images-collection .sonata-collection-row > div {
     padding-left: 25px;
@@ -33,36 +54,12 @@
     margin-right: 10px;
 }
 
-.armd-sonata-tvigle-collection {
-    padding-left: 200px;
-}
-.armd-sonata-tvigle-collection .sonata-collection-row > div > .control-label{
-    display: none;
-    /*width: 70px;*/
-    /*padding-right: 7px;*/
-}
-.armd-sonata-tvigle-collection .sonata-collection-row > div {
-    padding-left: 20px;
-    /*clear: both;*/
-    margin-bottom: 5px;
-}
-.armd-sonata-tvigle-collection .armd-sonata-tvigle-form {
-    /*padding: 15px 0;*/
-    /*border: 1px solid #666666;*/
-    /*border-width: 1px 0 0;*/
-    /*width: 500px;*/
-}
-.armd-sonata-tvigle-collection .armd-sonata-tvigle-form > div {
-    margin-bottom: 5px;
-}
-.armd-sonata-tvigle-collection .armd-sonata-tvigle-form .control-label {
-    margin-right: 10px;
-}
 
 .sonata-bc .form-horizontal .atlas-object-categories-select,
 .sonata-bc .form-horizontal .atlas-object-region-select {
     width: 470px;
 }
+
 
 /*--- user list ---*/
 
