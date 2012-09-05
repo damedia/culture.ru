@@ -52,6 +52,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Асинхронная загрузка jsapi -->
+    <div id="script_block" class="script_block"></div>
+    <div id="script_ad" class="script_ad" style="display:none;">
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
+        document.getElementById('script_ad').style.display = 'block';
+    </script>
+    <!-- /Асинхронная загрузка jsapi -->
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -68,7 +79,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?&version=0.1.8-rc2"></script> #}
     {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script> #}
-    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script> #}
     {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script> #}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>

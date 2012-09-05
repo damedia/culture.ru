@@ -1,4 +1,7 @@
-html, body, form, table, ul, ol, li , p, dl, dt, dd, h1, h2, h3, h4, h5, h6, var{
+/*1--*/
+/*222*/
+
+html, body, form, table, ul, ol, li , p, dl, dt, dd, h1, h2, h3, h4, h5, h6, var{ 
     margin: 0;
     padding: 0;
 }
@@ -1054,7 +1057,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 
 
 .map-grid-points {
-	height:185px;
+	height:205px;
 	overflow:hidden;
 	margin-top:5px;
 	white-space:nowrap;
@@ -1085,7 +1088,7 @@ white-space:nowrap;
 	border: 1px #e6e6e6 solid;
 	padding: 6px;
 	margin: 1px 0 0 0;
-	height:60px;
+	height:90px;
 }
 
 .description-point p {
@@ -1106,7 +1109,6 @@ white-space:nowrap;
 
 .filter {
  width:22.3%;
-
  float:left;
 }
 
@@ -4237,13 +4239,10 @@ white-space:nowrap;
 		float:none;
 	}	
 	
-	#socialnetwork-links .vk {	background-position:0 -40px; }
-	
-	#socialnetwork-links .lj { display:none; }	
-	
-	#socialnetwork-links .tw { background-position:0 -60px; }
-	
-	#socialnetwork-links .fb { background-position:0 -0px; }			
+	#socialnetwork-links .vk {	background-position:0 -40px;}	
+	#socialnetwork-links .lj { display:none;}
+	#socialnetwork-links .tw { background-position:0 -60px;}	
+	#socialnetwork-links .fb { background-position:0 -0px;}			
 	
 	
 	
