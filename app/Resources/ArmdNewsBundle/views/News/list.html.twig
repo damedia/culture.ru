@@ -20,7 +20,8 @@
 		<li>
 			<a href="{{ href }}" class="news-list-image">
 				<span class="news-list-type">{{ n.category.title }}</span>
-				{% thumbnail n.image, 'list' %}
+				{#% thumbnail n.image, 'list' %#}
+				<img width="160" height="107" src="{% path n.image, 'latest' %}" />
 			</a>
 			<div class="news-list-text">
 				<span class="news-list-date">
@@ -33,7 +34,7 @@
 		</li>
     {% endfor %}
 	</ul>
-</div>
+</div> 
 
 <div class="news-nav-block">
     <nav class="navigation">
