@@ -18,8 +18,8 @@
 			{% if entity.image.copyright or entity.image.authorName %}		
 				<p class="image-source">
 					{% if entity.image.copyright %}
-						{{ entity.image.copyright }}
-						{% if entity.image.authorName %}, {% endif %}
+						{{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
+
 					{% endif %}
 					{% if entity.image.authorName %}
 						{{ entity.image.authorName }}
