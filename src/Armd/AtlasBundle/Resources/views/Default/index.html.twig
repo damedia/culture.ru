@@ -137,9 +137,14 @@
                 </li>
                 <li>
                     <label for="category">Категория</label>
-                    <select name="category" id="category" class="uniform">
-                        {% for category in allCategories %}
-                            <option value="{{ category.id }}">{{ category.title }}</option>
+                    <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="Выберите категории" style="width:298px">
+                        <option value=""></option>
+                        {% for optgroup in categories %}
+                            <optgroup label="{{ optgroup.title }}">
+                                {% for tag in optgroup.tags %}
+                                    <option value="{{ tag.id }}">{{ tag.title }}</option>
+                                {% endfor %}
+                            </optgroup>
                         {% endfor %}
                     </select>
                 </li>

@@ -164,9 +164,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
         $categories = $repo->getDataForFilter();
-        $allCategories = $repo->getOrderedList();
         return array(
-            'allCategories' => $allCategories,
             'categories' => $categories,
         );
     }
@@ -579,21 +577,41 @@ class DefaultController extends Controller
     {
         try {
             $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
+
+            $title = trim($request->get('title'));
+            if (! $title) throw new \Exception('Заполните название');
+
+            $announce = trim($request->get('description'));
+            if (! $announce) throw new \Exception('Заполните анонс');
+
             $entity = new Object();
 
-            $entity->setTitle($request->get('title'));
-            $entity->setAnnounce($request->get('description'));
+            $entity->setTitle($title);
+            $entity->setAnnounce($announce);
             $entity->setAddress($request->get('address'));
             $entity->setLon($request->get('lon'));
             $entity->setLat($request->get('lat'));
 
-            $em = $this->getDoctrine()->getManager();
+            $categoryIds = $request->get('category');
+            if (is_array($categoryIds) && sizeof($categoryIds)) {
+                foreach ($categoryIds as $id) {
+                    $id = (int) $id;
+                    $category = $repoCategory->find($id);
+                    if ($category) {
+                        $entity->addSecondaryCategory($category);
+                    }
+                }
+            }
+
             $em->persist($entity);
             $em->flush();
 
             $res = array(
                 'success' => true,
                 'post' => $_POST,
+                'categoryIds' => $categoryIds,
                 'result' => array(
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),

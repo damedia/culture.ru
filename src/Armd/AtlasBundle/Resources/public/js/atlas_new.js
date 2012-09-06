@@ -56,46 +56,32 @@ AT.initGeocoder = function() {
         searchInput = $('#ss_input'),
         searchSubmit = geocoder.find('.submit'),
         searchTerm = searchInput.val();
-
     searchInput.val('');
-
     searchInput.autocomplete({
         source: function(request, response) {
-            //console.log(request, response);
-            //console.log('Try to search:', searchTerm);
-
             AT.map.search({
                 q: request.term,
                 type: 'search'
             }, function(r){
                 var json = $.parseJSON(r);
                 if (json.success) {
-                    // console.log(json);
                     var results = [];
-
                     for (var i in json.res) {
-
                         var el = json.res[i];
-
-                        // el - найденный элемент (addr|poi)
                         if (el.type == "addr") {
                             for (var j in el.matches) {
                                 var match = el.matches[j];
-
                                 var obj = {
                                     label: match.addr,
                                     value: match.addr,
                                     match: match
                                 };
-
                                 results.push(obj);
                             }
                         }
                     }
-
                     response(results);
                 }
-
             });
         },
         select: function (event, ui) {
@@ -406,9 +392,11 @@ AT.initMyObjects = function() {
         e.preventDefault();
         console.log('Add new point button clicked');
 
+        // При клике на карте запускаем сложный механизм отслеживания событий
         PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
 
         function onMouseDown(e) {
+            // Если нажали кнопку мышки
             PGmap.Events.stopEvent(e);
             PGmap.Events.addHandler(this, 'mousemove', onMouseMove);
             PGmap.Events.addHandler(this, 'mouseup', onMouseUp);
@@ -470,10 +458,15 @@ AT.showAddObjectForm = function(params) {
 
     // Fill form
     jPopupForm.resetForm();
+
+    // Открываем попап
+    jPopup.show();
+
     $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
     $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
 
-    jPopup.show();
+    // Список категорий в диалоге
+    $('#category').chosen();
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     jPopup.find('.rst-btn, .exit').click(function(){
@@ -489,6 +482,51 @@ AT.showAddObjectForm = function(params) {
         return false;
     });
 
+    // Адрес. Геолокация
+    $('#address').autocomplete({
+        source: function(request, response) {
+            AT.map.search({
+                q: request.term,
+                type: 'search'
+            }, function(r){
+                var json = $.parseJSON(r);
+                if (json.success) {
+                    var results = [];
+                    for (var i in json.res) {
+                        var el = json.res[i];
+                        if (el.type == "addr") {
+                            for (var j in el.matches) {
+                                var match = el.matches[j];
+                                var obj = {
+                                    label: match.addr,
+                                    value: match.addr,
+                                    match: match
+                                };
+                                results.push(obj);
+                            }
+                        }
+                    }
+                    response(results);
+                }
+            });
+        },
+        select: function (event, ui) {
+            var lon = ui.item.match.x,
+                lat = ui.item.match.y;
+            $('#lat').val(lat);
+            $('#lon').val(lon);
+            myPoint.coord.lon = PGmap.Utils.mercX(lon);
+            myPoint.coord.lat = PGmap.Utils.mercY(lat);
+            myPoint.update();
+            AT.map.setCenter(new PGmap.Coord(lon, lat, true));
+        }
+    }).data('autocomplete')._renderItem = function(ul, item) {
+        return $("<li></li>")
+            .data("item.autocomplete", item)
+            .append('<a>' + item.label + '</a>')
+            .appendTo(ul);
+    }
+
     // Отправка данных. Добавить объект.
     jPopupForm.ajaxForm({
         dataType: 'json',
@@ -498,6 +536,9 @@ AT.showAddObjectForm = function(params) {
         success: function(response, statusText, xhr, $form){
             $('#ajax-loading').hide();
             if (response.success) {
+                jPopup.hide(); // Прячем диалог добавления точки
+                myPoint.draggable.kill(); // Отключение перетаскивания точки
+
                 var createdObject = response.result;
                 $(myPoint.container).data('uid', createdObject.id);
                 jSuccess.find('.object-id').val(createdObject.id);
@@ -506,8 +547,6 @@ AT.showAddObjectForm = function(params) {
             } else {
                 alert(response.message);
             }
-            jPopup.hide(); // Прячем диалог добавления точки
-            myPoint.draggable.kill(); // Отключение перетаскивания точки
         }
     });
 
