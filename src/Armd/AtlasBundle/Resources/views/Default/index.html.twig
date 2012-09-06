@@ -138,8 +138,9 @@
                 <li>
                     <label for="category">Категория</label>
                     <select name="category" id="category" class="uniform">
-                        <option value="1">Музей</option>
-                        <option value="2">Театр</option>
+                        {% for category in allCategories %}
+                            <option value="{{ category.id }}">{{ category.title }}</option>
+                        {% endfor %}
                     </select>
                 </li>
                 <li class="add-photos">

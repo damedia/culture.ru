@@ -164,7 +164,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
         $categories = $repo->getDataForFilter();
+        $allCategories = $repo->getOrderedList();
         return array(
+            'allCategories' => $allCategories,
             'categories' => $categories,
         );
     }

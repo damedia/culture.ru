@@ -99,4 +99,14 @@ class CategoryRepository extends NestedTreeRepository
         }
         return $result;
     }
+
+    public function getOrderedList()
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.lvl > 0')
+            ->orderBy('t.title', 'ASC');
+        $result = $qb->getQuery()->getResult();
+        return $result;
+    }
+
 }

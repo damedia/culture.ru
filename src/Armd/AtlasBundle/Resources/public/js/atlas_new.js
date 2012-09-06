@@ -478,12 +478,14 @@ AT.showAddObjectForm = function(params) {
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     jPopup.find('.rst-btn, .exit').click(function(){
         jPopup.hide();
+        AT.map.geometry.remove(myPoint); // Удаляем точку с карты
         return false;
     });
 
     // Диалог после добавления объекта. Крестик. Скрываем диалог.
     jSuccess.find('.exit').click(function(){
         jSuccess.hide();
+        myPoint.draggable.kill(); // Отключение перетаскивания точки
         return false;
     });
 
@@ -504,10 +506,8 @@ AT.showAddObjectForm = function(params) {
             } else {
                 alert(response.message);
             }
-            jPopup.hide();
-
-            // Отключение перетаскивания точки
-            myPoint.draggable.kill();
+            jPopup.hide(); // Прячем диалог добавления точки
+            myPoint.draggable.kill(); // Отключение перетаскивания точки
         }
     });
 
