@@ -1,5 +1,5 @@
 {
-    "hash": "34c384575a7d72ce6b722db25db3f85c",
+    "hash": "d8cd117fed093f4de53c18968b3769a0",
     "packages": [
         {
             "package": "armd/banner-bundle",
@@ -153,13 +153,7 @@
         },
         {
             "package": "jms/security-extra-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "1.2.x-dev",
-            "alias-version": "1.2.9999999.9999999-dev"
-        },
-        {
-            "package": "jms/security-extra-bundle",
-            "version": "dev-master",
+            "version": "1.2.x-dev",
             "source-reference": "81070f525ec24f9e6cf6509532b260bc54c42ea5",
             "commit-date": "1346345841"
         },
