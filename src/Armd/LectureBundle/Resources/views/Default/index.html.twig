@@ -79,7 +79,7 @@
                         {% endif %}
                     </a>
 
-                    <p class="va-type">{{ lecture.lectureType.name }}</p>
+                    {#<p class="va-type">{{ lecture.lectureType.name }}</p>#}
 
                     <p class="va-theme">
                         {% for category in lecture.categories %}
@@ -89,7 +89,7 @@
                     </p>
                     <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
 
-                    <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                    {#<p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>#}
                 </li>
             {% endfor %}
 
