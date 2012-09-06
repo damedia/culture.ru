@@ -2110,7 +2110,7 @@ white-space:nowrap;
 				.all-list a {
 					color:#de600c;
 					text-transform:uppercase;
-					font-size:8px;
+					font-size:9px !important;
 				}
 				.all-list a.blue-link {
 					color:#007EF4;
@@ -3720,7 +3720,7 @@ white-space:nowrap;
 				margin-left:2px;
 			}
 			
-		.form input[type="text"], .form input[type="password"], .form input[type="email"] {
+		.form input[type="text"], .form input[type="date"], .form input[type="password"], .form input[type="email"] {
 			background:#f0f0f0;
 			border:0;
 			padding:5px 10px;
@@ -3779,7 +3779,7 @@ white-space:nowrap;
 					margin-right:5px;
 					*display:inline;
 				}
-					.lk input[type="text"], .lk input[type="password"], .lk input[type="email"], .lk textarea {
+					.lk input[type="text"], .lk input[type="date"], .lk input[type="password"], .lk input[type="email"], .lk textarea {
 						width:89%;
 						padding:9px 13px;
 					}
@@ -3816,6 +3816,7 @@ white-space:nowrap;
 						color:#F00;
 					}
 				.lk.form div input[type="text"],
+				.lk.form div input[type="date"],
 				.lk.form div input[type="password"],
 				.lk.form div input[type="email"],
 				.lk.form div textarea {

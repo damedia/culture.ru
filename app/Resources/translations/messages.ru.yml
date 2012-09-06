@@ -18,4 +18,11 @@ Lastname: Фамилия
 Firstname: Имя
 Middlename: Отчество
 Gender: Пол
-City: Город		
+City: Город
+Dateofbirth: Дата рождения
+Website: Сайт
+Biography: Биография
+Timezone: Временная зона
+Phone: Телефон
+Locale: Регион
+sonata_user_submit: Отправить

@@ -1,11 +1,86 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
+    <div class="title">
+        <h2>Редактирование профиля</h2>
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	if ($('.uniform').length > 0) {
+			$('.uniform').uniform();
+		}
+    })
+    </script>
+
+
+<div class="login-page lk form">
     <div class="sonata-user-edit-profile">
-        <h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_profile" | trans({}, 'SonataUserBundle')}}</h2>
         <form action="{{ path('sonata_user_profile_edit') }}" method="POST">
-            {{ form_rest(form) }}
-            <input type="submit" name="submit" value="{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}" />
+
+        <div>
+        	<label for="sonata_user_profile_form_gender">Пол</label>
+        	{{ form_widget(form.gender, { 'attr': {'placeholder': 'Пол'} } ) }}		
+        </div>
+
+        <div>
+        	<label for="sonata_user_profile_form_firstname">Имя</label>
+			{{ form_widget(form.firstname, { 'attr': {'placeholder': 'Имя'} } ) }}		
+		</div>
+
+		<div>
+        	<label for="sonata_user_profile_form_lastname">Фамилия</label>
+			{{ form_widget(form.lastname, { 'attr': {'placeholder': 'Фамилия'} } ) }}		
+		</div>
+
+
+		<div>
+			<label for="uniform-sonata_user_profile_form_dateOfBirth">Дата рождения</label>
+
+	        {{ form_widget(form.dateOfBirth) }}
+
+        </div>
+
+
+		<div>
+        	<label for="sonata_user_profile_form_website">Сайт</label>
+			{{ form_widget(form.website, { 'attr': {'placeholder': 'Сайт'} } ) }}		
+		</div>
+
+
+		<div>
+        	<label for="sonata_user_profile_form_biography">Биография</label>
+			{{ form_widget(form.biography, { 'attr': {'placeholder': 'Биография'} } ) }}		
+		</div>
+
+		<div>
+			<label for="uniform-sonata_user_profile_form_locale">Регион</label>
+		<ul><li>
+        	{{ form_widget(form.locale, { 'attr': {'class': 'uniform'} } ) }}
+		</li></ul>
+        </div>
+
+		<div>
+			<label for="uniform-sonata_user_profile_form_timezone">Временная зона</label>
+		<ul><li>
+        	{{ form_widget(form.timezone, { 'attr': {'class': 'uniform'} } ) }}
+		</li></ul>
+        </div>
+
+
+		<div>
+        	<label for="sonata_user_profile_form_phone">Телефон</label>
+			{{ form_widget(form.phone, { 'attr': {'placeholder': 'Телефон'} } ) }}		
+		</div>
+
+
+
+        {#{ form_rest(form) }#}
+
+
+
+            <input type="submit" name="submit" value="Отправить" />
         </form>
     </div>
+</div>
 {% endblock %}
