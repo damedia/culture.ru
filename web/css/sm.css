@@ -3396,7 +3396,7 @@ white-space:nowrap;
 		}
 			.rusObr-list-one {
 				border:1px solid #d9d9d9;
-				border-width:1px 1px 0 0;
+				border-width:0px 1px 1px 0;
 				padding:10px;
 			}
 				.rusObr-list-one img {
