@@ -95,6 +95,9 @@ sonata_user:
         user:   Armd\UserBundle\Entity\User
         group:  Armd\UserBundle\Entity\Group
     impersonating_route:    armd_news_list_index
+    profile:
+        form:
+            type: armd_user_profile
 
     
 sonata_media:
