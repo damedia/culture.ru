@@ -27,6 +27,12 @@ services:
         tags:
             - { name: form.type, alias: armd_user_registration }
 
+    armd_user.profile.form.type:
+        class: Armd\UserBundle\Form\Type\ProfileType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: armd_user_profile }
+
     armd_user.manager.acl:
         class: Armd\UserBundle\Security\AclManager
         arguments: [@security.acl.provider]

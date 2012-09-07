@@ -59,6 +59,11 @@ class User extends BaseUser
     protected $socialName;
 
     /**
+     * @var \Armd\AtlasBundle\Entity\Region
+     */
+    protected $region;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -282,6 +287,24 @@ class User extends BaseUser
     public function setSalt($salt)
     {
         $this->salt = $salt;
+    }
+
+    /**
+     * @return \Armd\AtlasBundle\Entity\Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param \Armd\AtlasBundle\Entity\Region $region
+     * @return \Armd\UserBundle\Entity\User
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+        return $this;
     }
 
 }
