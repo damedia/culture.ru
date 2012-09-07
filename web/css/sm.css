@@ -2974,6 +2974,13 @@ white-space:nowrap;
 						padding-top: 25px;
 						/*height: 0;*/
 					}
+
+					.media-one-block #videoplayer iframe {
+						
+					}
+
+
+
 					#videoplayer object,#videoplayer embed  {
 						position: absolute;
 						top: 0;
