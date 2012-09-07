@@ -15,6 +15,16 @@ class NewsController extends ListController
     }
     
     /**
+     * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
+     */        
+    function rssAction()
+    {
+        return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
+            'news' => $this->getLatestNewsList(),
+        ));
+    }        
+    
+    /**
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category")
@@ -46,8 +56,8 @@ class NewsController extends ListController
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
-    }    
-    
+    }
+        
     function categoriesAction($category)
     {
         return $this->render($this->getTemplateName('categories'), array(

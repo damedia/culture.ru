@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Портал культурного наследия России</title>
+        <link>http://roskult.ru/press-centre/</link>
+        <pubDate>{{ ''|date('r') }}</pubDate>
+
+        {% for i in news %}
+        <item>
+        <title>{{ i.title }}</title>
+        <description>{{ i.announce }}</description>
+        <link></link>
+        <guid isPermaLink="false">{{ i.id }}</guid>
+        <pubDate>{{ i.date|date('r')}}</pubDate>
+        </item>
+        {% endfor %}
+
+    </channel>
+</rss>
