@@ -122,12 +122,6 @@
             "commit-date": "1343804719"
         },
         {
-            "package": "imagine/Imagine",
-            "version": "dev-master",
-            "source-reference": "v0.3.0",
-            "commit-date": "1343522118"
-        },
-        {
             "package": "jms/aop-bundle",
             "version": "1.0.0"
         },
@@ -214,12 +208,6 @@
             "version": "dev-master",
             "source-reference": "db682ee6bf6b15131a5433f2a71f8ca39555ccaa",
             "commit-date": "1346007196"
-        },
-        {
-            "package": "kriswallsmith/buzz",
-            "version": "dev-master",
-            "source-reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
-            "commit-date": "1341070218"
         },
         {
             "package": "monolog/monolog",
