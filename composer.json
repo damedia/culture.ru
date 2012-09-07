@@ -22,7 +22,6 @@
         "sensio/framework-extra-bundle": "2.1.*",
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
-        "jms/di-extra-bundle": "1.1.*",
 
         "doctrine/doctrine-fixtures-bundle": "*",
         "doctrine/doctrine-migrations-bundle": "master",
@@ -34,7 +33,6 @@
 
         "sonata-project/media-bundle": "master",
         "sonata-project/doctrine-orm-admin-bundle": "*",
-        "kriswallsmith/buzz": "master",
 
         "armd/banner-bundle": "*",
         "armd/comment": "*",

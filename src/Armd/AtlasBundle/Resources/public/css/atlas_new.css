@@ -47,3 +47,7 @@
 .ui-autocomplete{ width:300px; padding:5px; font-size:13px; background:#eee; box-shadow:1px 1px 5px #aaa; }
 .ui-autocomplete .ui-menu-item{ padding:2px 0; }
 .ui-autocomplete .ui-menu-item a{ cursor:pointer; color:#000; }
+
+.simple-filter-options label.disabled span{ color:#999; border:none; }
+.simple-filter-options label.checked.disabled{ background:#ccc; }
+.simple-filter-options label.checked.disabled span{ color:#fff; }
