@@ -49,3 +49,6 @@
 .ui-autocomplete .ui-menu-item a{ cursor:pointer; color:#000; }
 
 .chzn-container{ font-size:11px; }
+
+.add-object-form{ top:220px; right:50px; left:inherit; }
+.atlas-filter-form .green-button.active{ background:#f90; box-shadow:0 1px 2px #704309 inset; }

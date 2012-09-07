@@ -54,27 +54,15 @@
                             </ul>
                             <div class="filter-sub-tab" id="myobj" style="display:block;">
                                 <ol class="filter-sub-tab-list" id="myobj_list">
-                                    <li>
+                                    {#<li>
                                         <span>Новый объект</span>
                                         <a href="#" class="del" title="Удалить"></a>
                                         <span class="moder"></span>
-                                    </li>
-                                    <li>
-                                        <span>Пушкинский музей</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                    </li>
-                                    <li>
-                                        <span>Донской монастырь</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                    </li>
-                                    <li>
-                                        <span>Московский Кремль</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                    </li>
+                                    </li>#}
                                 </ol>
                                 <!-- template -->
                                 <script id="myobj_list_template" type="text/x-jquery-tmpl">
-                                    <li>
+                                    <li data-id="${id}">
                                         <span>${title}</span>
                                         <a class="del" href="#" title="Удалить"></a>
                                     </li>
@@ -229,10 +217,11 @@
    {# <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script> #}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
-        var fetchMarkersUri      = '{{ path('armd_atlas_default_filter') }}',
-            fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
+        var fetchMarkersUri       = '{{ path('armd_atlas_default_filter') }}',
+            fetchMarkerDetailUri  = '{{ path('armd_atlas_default_objectballoon') }}',
             fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
-            bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
+            fetchMyObjectsUri     = '{{ path('armd_atlas_default_objectsmy') }}',
+            bundleImagesUri       = '{{ asset('bundles/armdatlas/images') }}';
 
         $(function(){
             AT.init({

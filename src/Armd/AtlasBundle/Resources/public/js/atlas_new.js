@@ -17,7 +17,6 @@ AT.init = function(params) {
     AT.initUI();
     AT.initFilters();
     AT.initHacks();
-    AT.initMyObjects();
 
     // Сабмитим форму (показываем Образы России)
     var elems = $('#atlas-filter-form').find('.gray-checked');
@@ -108,7 +107,9 @@ AT.initUI = function() {
         if (href == "#maps") {
             // Переключение на Мои карты. Очистим карту.
             AT.clearMap();
-        } else if (href == "#obj") {
+            AT.initMyObjects();
+        }
+        else if (href == "#obj") {
             // Отображаем объекты с примененным фильтром
             $('#atlas-filter-form').submit();
         }
@@ -381,6 +382,33 @@ AT.submitFiltersForm = function() {
  */
 AT.initMyObjects = function() {
 
+    // Построение списка моих объектов
+    $.ajax({
+        url: fetchMyObjectsUri, // /atlas/objects/my
+        dataType: 'json',
+        success: function(res) {
+            if (res.success) {
+                $('#myobj_list').empty();
+                for (var i in res.result) {
+                    var el = res.result[i],
+                        row = $('#myobj_list_template').tmpl(el);
+                    $('#myobj_list').append(row);
+                }
+            } else {
+                alert(res.message);
+            }
+        }
+    });
+
+    // Удаление точки из списка, с карты и вообще
+    $('#myobj_list li .del').live('click', function(){
+        var el = $(this).closest('li'),
+            objectId = el.data('id');
+        console.log('remove', objectId);
+        el.remove();
+        return false;
+    });
+
     // Кнопка-крестик закрывает попап
     $('#add-object-form .exit').click(function(){
         $('#add-object-form').hide();
@@ -389,8 +417,9 @@ AT.initMyObjects = function() {
 
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
-        e.preventDefault();
         console.log('Add new point button clicked');
+
+        $(this).addClass('active');
 
         // При клике на карте запускаем сложный механизм отслеживания событий
         PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
@@ -470,6 +499,7 @@ AT.showAddObjectForm = function(params) {
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     jPopup.find('.rst-btn, .exit').click(function(){
+        $('#atlas-objects-add').removeClass('active');
         jPopup.hide();
         AT.map.geometry.remove(myPoint); // Удаляем точку с карты
         return false;
@@ -477,6 +507,7 @@ AT.showAddObjectForm = function(params) {
 
     // Диалог после добавления объекта. Крестик. Скрываем диалог.
     jSuccess.find('.exit').click(function(){
+        $('#atlas-objects-add').removeClass('active');
         jSuccess.hide();
         myPoint.draggable.kill(); // Отключение перетаскивания точки
         return false;
@@ -559,6 +590,7 @@ AT.showAddObjectForm = function(params) {
         success: function(response, statusText, xhr, $form){
             $('#ajax-loading').hide();
             if (response.success) {
+                $('#atlas-objects-add').removeClass('active');
                 jSuccess.hide();
 
                 objectTitle = response.result.title;
@@ -570,5 +602,8 @@ AT.showAddObjectForm = function(params) {
             }
         }
     });
+};
 
-}
+AT.hideAddObjectForm = function() {
+
+};

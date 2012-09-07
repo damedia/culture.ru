@@ -610,8 +610,6 @@ class DefaultController extends Controller
 
             $res = array(
                 'success' => true,
-                'post' => $_POST,
-                'categoryIds' => $categoryIds,
                 'result' => array(
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
@@ -646,6 +644,46 @@ class DefaultController extends Controller
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
                 ),
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Список моих объектов
+     *
+     * @Route("/objects/my")
+     */
+    public function objectsMyAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+
+            $currentUser = $this->container->get('security.context')->getToken()->getUser();
+
+            $repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $entities = $repo->findBy(array('createdBy' => $currentUser));
+
+            $result = array();
+            foreach ($entities as $obj) {
+                $result[] = array(
+                    'id' => $obj->getId(),
+                    'title' => $obj->getTitle(),
+                    'lon' => $obj->getLon(),
+                    'lat' => $obj->getLat(),
+                );
+            }
+
+            $res = array(
+                'success' => true,
+                'result' => $result,
             );
         }
         catch (\Exception $e) {

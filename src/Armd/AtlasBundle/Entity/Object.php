@@ -174,6 +174,11 @@ class Object
      */
     private $regions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
+     */
+    private $createdBy;
 
     public function syncPrimaryAndSecondaryCategories()
     {
@@ -883,4 +888,50 @@ class Object
         $this->regions->removeElement($region);
     }
 
+
+    /**
+     * Add secondaryCategories
+     *
+     * @param Armd\AtlasBundle\Entity\Category $secondaryCategories
+     * @return Object
+     */
+    public function addSecondaryCategorie(\Armd\AtlasBundle\Entity\Category $secondaryCategories)
+    {
+        $this->secondaryCategories[] = $secondaryCategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove secondaryCategories
+     *
+     * @param Armd\AtlasBundle\Entity\Category $secondaryCategories
+     */
+    public function removeSecondaryCategorie(\Armd\AtlasBundle\Entity\Category $secondaryCategories)
+    {
+        $this->secondaryCategories->removeElement($secondaryCategories);
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param Armd\UserBundle\Entity\User $createdBy
+     * @return Object
+     */
+    public function setCreatedBy(\Armd\UserBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return Armd\UserBundle\Entity\User 
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
 }
