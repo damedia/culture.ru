@@ -175,7 +175,7 @@ class Object
     private $regions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
      */
     private $createdBy;

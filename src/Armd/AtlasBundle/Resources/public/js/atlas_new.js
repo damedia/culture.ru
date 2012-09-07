@@ -390,9 +390,10 @@ AT.initMyObjects = function() {
             if (res.success) {
                 $('#myobj_list').empty();
                 for (var i in res.result) {
-                    var el = res.result[i],
-                        row = $('#myobj_list_template').tmpl(el);
+                    var object = res.result[i],
+                        row = $('#myobj_list_template').tmpl(object);
                     $('#myobj_list').append(row);
+                    AT.placePoint(object);
                 }
             } else {
                 alert(res.message);
@@ -403,9 +404,20 @@ AT.initMyObjects = function() {
     // Удаление точки из списка, с карты и вообще
     $('#myobj_list li .del').live('click', function(){
         var el = $(this).closest('li'),
-            objectId = el.data('id');
-        console.log('remove', objectId);
-        el.remove();
+            id = el.data('id');
+
+        $.ajax({
+            dataType: 'json',
+            url: deleteMyObjectsUri,
+            data: { id: id },
+            success: function(json){
+                if (json.success) {
+                    el.remove();
+                } else {
+                    alert(json.message);
+                }
+            }
+        });
         return false;
     });
 
@@ -602,8 +614,4 @@ AT.showAddObjectForm = function(params) {
             }
         }
     });
-};
-
-AT.hideAddObjectForm = function() {
-
 };

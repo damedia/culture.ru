@@ -277,7 +277,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/objects/{id}/delete")
+     * @Route("/objects/{id}/delete", requirements={"id"="\d+"})
      */
     public function deleteAction($id)
     {
@@ -678,9 +678,48 @@ class DefaultController extends Controller
                     'title' => $obj->getTitle(),
                     'lon' => $obj->getLon(),
                     'lat' => $obj->getLat(),
+                    'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
                 );
             }
 
+            $res = array(
+                'success' => true,
+                'result' => $result,
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Удаление объекта
+     *
+     * @Route("/objects/my/delete")
+     */
+    public function objectsMyDeleteAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $entityId = (int) $request->get('id');
+            if (! $entityId)
+                throw new \Exception('Объект не найден');
+            $currentUser = $this->container->get('security.context')->getToken()->getUser();
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $entity = $repo->findOneBy(array(
+                'id' => $entityId,
+                'createdBy' => $currentUser,
+            ));
+            if (! $entity)
+                throw new \Exception('Объект не найден');
+            $em->remove($entity);
+            $em->flush();
+            $result = $entityId;
             $res = array(
                 'success' => true,
                 'result' => $result,
