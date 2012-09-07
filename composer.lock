@@ -1,5 +1,5 @@
 {
-    "hash": "04044c0058ba0215c1f23374f9bc287b",
+    "hash": "d0b2880239595b8ce20d4cf06fe62292",
     "packages": [
         {
             "package": "armd/banner-bundle",
@@ -371,24 +371,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "symfony/symfony": 5,
-        "doctrine/doctrine-bundle": 20,
-        "twig/extensions": 15,
-        "symfony/assetic-bundle": 5,
-        "symfony/swiftmailer-bundle": 5,
-        "symfony/monolog-bundle": 20,
-        "sensio/distribution-bundle": 5,
-        "sensio/framework-extra-bundle": 5,
-        "sensio/generator-bundle": 5,
-        "jms/security-extra-bundle": 20,
-        "doctrine/doctrine-fixtures-bundle": 20,
-        "doctrine/doctrine-migrations-bundle": 20,
-        "jms/serializer-bundle": 20,
-        "friendsofsymfony/comment-bundle": 20,
-        "stof/doctrine-extensions-bundle": 20,
-        "sonata-project/media-bundle": 20,
-        "sonata-project/doctrine-orm-admin-bundle": 20,
-        "sonata-project/user-bundle": 20
-    }
+    "stability-flags": [
+
+    ]
 }
