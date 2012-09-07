@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="title">
-        <h2>Объекты атласа</h2>
+        <h2>Личный кабинет</h2>
     </div>
 
 <div class="sonata-user-show">
@@ -12,10 +12,11 @@
         <li class="active"><a href="{{ path('armd_atlas_user_objects') }}">Мои объекты</a></li>
     </ul>
 </div>
-    
-<ul>
+<div class="lk-block-wrapper">
+<ul class="lk-list-links green">
     {% for object in userObjects %}
         <li><a href="{{ path('armd_atlas_user_object', {'objectId': object.id} ) }}">{{ object.title }}</a></li>
     {% endfor %}
 </ul>
+</div>
 {% endblock %}
