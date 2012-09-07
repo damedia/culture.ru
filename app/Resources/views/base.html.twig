@@ -19,6 +19,7 @@
             <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
 {#            
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -80,7 +81,11 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					</div>
 					<div id="topbar">
 						<div id="auth">
-							<a id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_show') }}"><span>Личный кабинет</span></a>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>Личный кабинет</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="/logout"><span>Выйти</span></a>
+                            {% else %}
+                            <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('fos_user_registration_register') }}"><span>Зарегистрироваться</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_login') }}"><span>Войти</span></a>
+                            {% endif %}
 							<!-- div class="top_2_reg item_2" style="display:none;">
 								<form method="POST" action="">
 									<table class="auth_tbl">

@@ -12,23 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class ObjectRepository extends EntityRepository
 {
+    // @TODO: вставить проверку на published
     public function filter($params = array())
     {
-        $term = $params['term'];
-        $categoryIds = $params['category'];
-
+        $categoryTree = $params['categoryTree'];
         $qb = $this->createQueryBuilder('o');
-        $qb->innerJoin('o.secondaryCategories', 'c')
-            ->where('o.published = TRUE')
-            ->andWhere($qb->expr()->orX(
-            $qb->expr()->in('c', $categoryIds),
-            $qb->expr()->in('o', $categoryIds)
-        ));
-//            'c IN (:categoryIds)')
-//            ->orWhere('o.primaryCategory IN (:categoryIds)')
-//            ->setParameter('categoryIds', $categoryIds);
-
-        $rows = $qb->getQuery()->getResult();
+        foreach ($categoryTree as $i=>$group) {
+            $groupIds = array();
+            foreach ($group['tags'] as $tag) {
+                $groupIds[] = (int) $tag['id'];
+            }
+            $qb->innerJoin('o.secondaryCategories', 't'.$i);
+            $qb->andWhere('t'.$i.' IN ('. implode(',',$groupIds) .')');
+        }
+        $query = $qb->getQuery();
+        $rows = $query->getResult();
         return $rows;
     }
 
@@ -91,6 +89,23 @@ class ObjectRepository extends EntityRepository
         }
 
         return $objects;
+    }
+
+    public function fetchObjectsCategories($objects)
+    {
+        $objectsIds = array();
+        foreach ($objects as $obj)
+            $objectsIds[] = $obj->getId();
+        $qb = $this->createQueryBuilder('o')
+                   ->select('o.id objectId, c.id categoryId , c.title')
+                   ->innerJoin('o.secondaryCategories', 'c')
+                   ->where('o IN (:objectsIds)')
+                   ->setParameter('objectsIds', $objectsIds);
+        $result = $qb->getQuery()->getResult();
+        $res = array();
+        foreach ($result as $row)
+            $res[] = $row['categoryId'];
+        return array_unique($res);
     }
 
 }
