@@ -24,6 +24,7 @@ class ObjectRepository extends EntityRepository
             }
             $qb->innerJoin('o.secondaryCategories', 't'.$i);
             $qb->andWhere('t'.$i.' IN ('. implode(',',$groupIds) .')');
+            $qb->andWhere('o.published = TRUE');
         }
         $query = $qb->getQuery();
         $rows = $query->getResult();
