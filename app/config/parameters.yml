@@ -16,8 +16,8 @@ parameters:
 
     progorod_api_key:  e316fab34585f12b5506493c1c17d41c
 
-    loginza_secret_key: 17322cc0e68e0c86d67ee00c413d43bc
-    loginza_widget_id: 27475
+    loginza_secret_key: 466606b35b65d7a94a8fe5452e27f8d7
+    loginza_widget_id: 32096
 
     sphinxsearch_indexer_bin: c:/sphinx/bin/indexer.exe
     sphinxsearch_host: localhost

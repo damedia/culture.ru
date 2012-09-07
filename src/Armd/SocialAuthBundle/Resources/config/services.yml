@@ -1,0 +1,8 @@
+services:
+    security.authentication.listener.armd_social_auth:
+        class: Armd\SocialAuthBundle\Security\SocialAuthListener
+        arguments: [@security.context, @security.authentication.manager, @service_container]
+
+    security.user.provider.armd_social_auth:
+        class: Armd\SocialAuthBundle\Security\
+        arguments: [@session]

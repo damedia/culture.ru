@@ -171,7 +171,11 @@
 							</form>
 						</div>
 				   </div>
-				   
+
+                    <div>
+                        <p>Чтобы оставлять комментарии необходимо авторизоваться на сайте.</p>
+                        <p><a href="https://loginza.ru/api/widget?token_url={{ tokenUrl|url_encode }}&providers_set=vkontakte,facebook,odnoklassniki,twitter,google" class="loginza">Войти через социальную сеть</a></p>
+                    </div>
                 </div>
 
                 <div class="object-one-col3">
@@ -506,25 +510,11 @@
 	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
 	<script src="/swf/swfobject/swfkrpano.js"></script>
+    <script src="https://loginza.ru/js/widget.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         $(function(){
-            {% if entity is not empty %}
-            /*AT.init({
-                map: 'map',
-                center: [{{ entity.lon }}, {{ entity.lat }}],
-                zoom: 10
-            });
 
-            var point = new PGmap.Point({
-                coord: new PGmap.Coord({{ entity.lon }}, {{ entity.lat }}, true)
-            });
-            AT.map.geometry.add(point);*/
-            {% endif %}
-			
-//			if ($('.virtual-overflow-block').length){
-//				$('.virtual-overflow-block').fancybox();
-//			}
-			
 			$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 			
 			$(window).resize(function(){

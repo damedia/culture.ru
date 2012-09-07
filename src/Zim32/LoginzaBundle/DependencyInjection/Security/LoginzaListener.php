@@ -28,13 +28,17 @@ class LoginzaListener implements ListenerInterface  {
         $request = $event->getRequest();
         if($request->request->has('token') !== false){
             $loginzaToken = $request->request->get('token');
+            \gFuncs::dbgWriteLogVar($loginzaToken, false, 'LoginzaListener::handle loginzaToken'); // DBG:
             $signature = md5($loginzaToken.$this->container->getParameter('security.loginza.secret_key'));
-            $ch = curl_init("http://loginza.ru/api/authinfo?token={$loginzaToken}&id={$this->container->getParameter('security.loginza.widget_id')}&sig={$signature}");
+            $url = "http://loginza.ru/api/authinfo?token={$loginzaToken}&id={$this->container->getParameter('security.loginza.widget_id')}&sig={$signature}";
+            \gFuncs::dbgWriteLogVar($url, false, 'LoginzaListener::handle url'); // DBG:
+            $ch = curl_init($url);
             curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
             $decoded = json_decode($result,true);
+            \gFuncs::dbgWriteLogVar($result, false, 'LoginzaListener::handle loginza result'); // DBG:
 
-            if(empty($decoded)) throw new AuthenticationException("Wrong loginza responce format");
+            if(empty($decoded)) throw new AuthenticationException("Wrong loginza response format");
             if(isset($decoded['error_message'])) throw new AuthenticationException($decoded['error_message']);
 
             $userParam = $this->getUserParams($decoded);
