@@ -314,6 +314,8 @@ class DefaultController extends Controller
     public function filterAction()
     {
         $request = $this->getRequest();
+        $twigExtension = $this->get('sonata.media.twig.extension');
+
         try {
             $category = $request->get('category');
             if (empty($category))
@@ -324,17 +326,26 @@ class DefaultController extends Controller
             if (empty($categoryIds))
                 throw new \Exception('Categories is null');
 
+            $categoryRepo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Category');
+            $categoryTree = $categoryRepo->getDataForFilter($categoryIds);
+
             $filterParams = array(
                 'term' => '',
                 'category' => $categoryIds,
+                'categoryTree' => $categoryTree,
             );
 
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-            $res = $repo->filter($filterParams);
+            $objects = $repo->filter($filterParams);
 
-            $twigExtension = $this->get('sonata.media.twig.extension');
+            if (! $objects)
+                throw new \Exception('Not found');
+
+            $allCategoriesIds = $repo->fetchObjectsCategories($objects);
+
             $rows = array();
-            foreach ($res as $obj) {
+
+            foreach ($objects as $obj) {
 
                 $iconUrl = '';
                 if ($obj->getIcon()) {
@@ -366,6 +377,7 @@ class DefaultController extends Controller
             $response = json_encode(array(
                 'success' => true,
                 'result' => $rows,
+                'allCategoriesIds' => array_unique($allCategoriesIds),
             ));
             return new Response($response);
         }

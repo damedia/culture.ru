@@ -97,7 +97,7 @@ class Object
     private $weekends;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="primary_image_id", referencedColumnName="id")
      */
     private $primaryImage;

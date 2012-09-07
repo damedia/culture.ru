@@ -1,6 +1,4 @@
 /*1--*/
-/*222*/
-
 html, body, form, table, ul, ol, li , p, dl, dt, dd, h1, h2, h3, h4, h5, h6, var{ 
     margin: 0;
     padding: 0;
@@ -2974,6 +2972,13 @@ white-space:nowrap;
 						padding-top: 25px;
 						/*height: 0;*/
 					}
+
+					.media-one-block #videoplayer iframe {
+						
+					}
+
+
+
 					#videoplayer object,#videoplayer embed  {
 						position: absolute;
 						top: 0;
@@ -3853,8 +3858,30 @@ white-space:nowrap;
 						.lk div.selector select  {
 							height:34px;
 						}
-						
-			
+
+.lk-block-wrapper {
+	height: 400px;
+}
+
+.lk-list-links li {				
+	font-size: 13px;
+	margin: 31px 0 20px 13px;
+}
+
+.lk-list-links li {
+	list-style: disc;
+}
+
+.lk-list-links a {
+	color: #000;
+	text-decoration: underline;
+}
+
+.lk-list-links.green {
+	color: #5DB61B;
+}
+
+
 		.lk-menu {
 			overflow:hidden;
 			*zoom:1;

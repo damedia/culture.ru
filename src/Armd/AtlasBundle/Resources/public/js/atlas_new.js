@@ -121,14 +121,29 @@ AT.initUI = function() {
         },
         success: function(responseText, statusText, xhr, $form){
             $('#ajax-loading').hide();
-            var json = $.parseJSON(responseText);
+            var elems = $('.atlas-filter-form .tag'),
+                json = $.parseJSON(responseText);
+
             if (json.success) {
                 var objects = json.result;
+                elems.addClass('disabled');
             } else {
+                elems.removeClass('disabled');
                 console.error(json.message);
             }
 
             AT.clearMap();
+
+            for (var i in json.allCategoriesIds) {
+                var tag = json.allCategoriesIds[i];
+                elems.each(function(i, el){
+                    var elSpan = $(el).find('span');
+                    var tagId = elSpan.data('tag');
+                    if (tagId == tag) {
+                        $(el).removeClass('disabled');
+                    }
+                });
+            }
 
             if (objects && objects.length) {
                 //var minLon=1000, maxLon=0, minLat=1000, maxLat=0;
@@ -144,6 +159,7 @@ AT.initUI = function() {
 
                 // clusterize points
                 if (points.length) {
+
                     AT.clusterPoints = new PGmap.GeometryLayer({
                         points: points,
                         clusterSize: 100,
@@ -281,7 +297,6 @@ AT.clearMap = function() {
         for (var i=points.length; i--; ) {
             AT.map.geometry.remove(points[i]);
         }
-
         if (AT.clusterPoints) {
             for (var n = AT.clusterPoints.clusters.length; n--; ) {
                 (function(cluster){
