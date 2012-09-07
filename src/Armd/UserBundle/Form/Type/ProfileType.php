@@ -3,6 +3,7 @@
 namespace Armd\UserBundle\Form\Type;
 
 use Sonata\UserBundle\Form\Type\ProfileType as BaseType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProfileType extends BaseType
@@ -25,7 +26,12 @@ class ProfileType extends BaseType
             ->remove('timezone')
             ->add('region', null, array(
                 'empty_value' => '--- Выберите регион ---',
-                'required' => false
+                'required' => false,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.sortIndex', 'ASC')
+                        ->addOrderBy('r.title', 'ASC');
+                }
             ));
     }
 
