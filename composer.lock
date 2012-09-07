@@ -1,5 +1,5 @@
 {
-    "hash": "d8cd117fed093f4de53c18968b3769a0",
+    "hash": "2f1c701a9edc46f1653408adf0985a6b",
     "packages": [
         {
             "package": "armd/banner-bundle",
@@ -144,8 +144,8 @@
         {
             "package": "jms/di-extra-bundle",
             "version": "dev-master",
-            "source-reference": "1.1.0-RC",
-            "commit-date": "1345140102"
+            "source-reference": "af219527024c584d7311aa855d7522429c5bdb67",
+            "commit-date": "1346947722"
         },
         {
             "package": "jms/metadata",
@@ -153,9 +153,15 @@
         },
         {
             "package": "jms/security-extra-bundle",
-            "version": "1.2.x-dev",
-            "source-reference": "81070f525ec24f9e6cf6509532b260bc54c42ea5",
-            "commit-date": "1346345841"
+            "version": "dev-master",
+            "alias-pretty-version": "1.2.x-dev",
+            "alias-version": "1.2.9999999.9999999-dev"
+        },
+        {
+            "package": "jms/security-extra-bundle",
+            "version": "dev-master",
+            "source-reference": "9ab6aceda50fc7a2b07d741ba4b3f0695508afcb",
+            "commit-date": "1346947943"
         },
         {
             "package": "jms/serializer-bundle",
@@ -398,8 +404,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "v2.1.0",
-            "commit-date": "1346922116"
+            "source-reference": "e7059b44c78ca8e1e892adb4d93b5a482f4eb9b3",
+            "commit-date": "1346926323"
         },
         {
             "package": "twig/extensions",
