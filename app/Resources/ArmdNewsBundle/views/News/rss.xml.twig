@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+{% set title = "Портал культурного наследия России" %}
+{% set link = url('armd_news_list_index') %}
+{% set pubDate = null %}
+{% for i in news %}
+    {% if i.publishedAt > pubDate %}
+        {% set pubDate = i.publishedAt %}
+    {% endif %}
+{% endfor %}
 <rss version="2.0">
     <channel>
-        <title>Портал культурного наследия России</title>
-        <link>http://roskult.ru/press-centre/</link>
-        <pubDate>{{ ''|date('r') }}</pubDate>
+        <title>{{ title }}</title>
+        <link>{{ link }}</link>
+        <image>
+            <url>{{ app.request.uriForPath('/img/logo.png') }}</url>
+            <title>{{ title }}</title>
+            <link>{{ link }}</link>        
+        </image>
+        <pubDate>{{ pubDate|date('r') }}</pubDate>
 
         {% for i in news %}
         <item>
-        <title>{{ i.title }}</title>
-        <description>{{ i.announce }}</description>
-        <link></link>
-        <guid isPermaLink="false">{{ i.id }}</guid>
-        <pubDate>{{ i.date|date('r')}}</pubDate>
+            {% set url = url('armd_news_item_by_category', { 'id': i.id, 'category': i.category.slug }) %}
+            <title>{{ i.title }}</title>
+            <description>{{ i.announce }}</description>
+            <link>{{ url }}</link>
+            <guid>{{ url }}</guid>
+            <pubDate>{{ i.publishedAt|date('r')}}</pubDate>
+            {#% if i.image %}
+                <enclosure url="{% path i.image, 'latest' %}" type="{{ i.image.contentType }}" />
+            {% endif %#}
         </item>
         {% endfor %}
-
     </channel>
 </rss>
