@@ -537,7 +537,7 @@ AT.showAddObjectForm = function(params) {
     $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
 
     // Список категорий в диалоге
-    $('#category').chosen();
+    $('#primary-category, #category').chosen();
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     jPopup.find('.rst-btn, .exit').click(function(){
@@ -644,4 +644,14 @@ AT.showAddObjectForm = function(params) {
             }
         }
     });
+
+    // Ajax file uploader
+    var uploader = new qq.FileUploader({
+        element: $('#file-uploader')[0],
+        action: imageUploadUri, // /objects/my/upload
+        onComplete: function(id, filename, response) {
+            console.log(id, filename, response);
+        }
+    });
+
 };

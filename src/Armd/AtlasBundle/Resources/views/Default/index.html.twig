@@ -128,6 +128,19 @@
                     <textarea name="description" id="descr" cols="30" rows="10"></textarea>
                 </li>
                 <li>
+                    <label for="category">Категория (главная)</label>
+                    <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="Выберите категорию" style="width:298px">
+                        <option value=""></option>
+                        {% for optgroup in categories %}
+                            <optgroup label="{{ optgroup.title }}">
+                                {% for tag in optgroup.tags %}
+                                    <option value="{{ tag.id }}">{{ tag.title }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor %}
+                    </select>
+                </li>
+                <li>
                     <label for="category">Категория</label>
                     <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="Выберите категории" style="width:298px">
                         <option value=""></option>
@@ -141,8 +154,11 @@
                     </select>
                 </li>
                 <li class="add-photos">
+                    {#
                     <input type="file" value="Добавить фото" class="add-photos-button uniform" />
                     <p class="add-photos-note">Или перетянуть с компьютера</p>
+                    #}
+                    <div id="file-uploader"></div>
                     <div class="added-images">
                         <div class="added-image">
                             <img src="/static/common/img/photo/obj-image.jpg" alt="" />
@@ -200,6 +216,7 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/valums-file-uploader/client/fileuploader.css') }}">
     <link rel="stylesheet" href="{{ asset('static/common/css/atlas.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
@@ -216,9 +233,10 @@
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.tmpl.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/valums-file-uploader/client/fileuploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/common/js/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/common/js/fancybox/jquery.fancybox.js') }}"></script>
-   {# <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script> #}
+    {# <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script> #}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
         var fetchMarkersUri       = '{{ path('armd_atlas_default_filter') }}',
@@ -226,7 +244,8 @@
             fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
             fetchMyObjectsUri     = '{{ path('armd_atlas_default_objectsmy') }}',
             deleteMyObjectsUri    = '{{ path('armd_atlas_default_objectsmydelete') }}',
-            bundleImagesUri       = '{{ asset('bundles/armdatlas/images') }}';
+            bundleImagesUri       = '{{ asset('bundles/armdatlas/images') }}',
+            imageUploadUri        = '{{ path('armd_atlas_default_objectsmyupload') }}';
 
         $(function(){
             AT.init({

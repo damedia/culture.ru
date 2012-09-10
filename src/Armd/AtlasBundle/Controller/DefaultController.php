@@ -734,4 +734,38 @@ class DefaultController extends Controller
         return new Response(json_encode($res));
     }
 
+    /**
+     * Мои объекты. Загрузка изображений для объекта
+     *
+     * @Route("/objects/my/upload")
+     */
+    public function objectsMyUploadAction()
+    {
+        try {
+            $input = fopen("php://input", "r");
+            $binaryContent = stream_get_contents($input);
+            fclose($input);
+
+            $session = $this->getRequest()->getSession();
+            $session->set('binaryContent', $binaryContent);
+
+            //$target = fopen($path, "w");
+            //fseek($temp, 0, SEEK_SET);
+            //stream_copy_to_stream($temp, $target);
+            //fclose($target);
+
+            $res = array(
+                'success' => true,
+                'result' => '>>>'.sizeof($binaryContent),
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
 }
