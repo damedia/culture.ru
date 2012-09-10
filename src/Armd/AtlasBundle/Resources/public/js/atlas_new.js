@@ -431,21 +431,46 @@ AT.initMyObjects = function() {
     $('#atlas-objects-add').click(function(e){
         console.log('Add new point button clicked');
 
-        $(this).addClass('active');
+        // Если кнопка добавления объекта находится в зажатом состоянии, отжимаем ее и отменяем процесс.
+        if ($(this).hasClass('active')) {
+            console.log('Discard add point');
+
+            $(this).removeClass('active');
+            $('#add-object-form').hide();
+            PGmap.Events.stopEvent(e);
+
+            var droppedPoint = $('#atlas-objects-add').data('droppedPoint');
+            console.log('Remove droppedPoint', droppedPoint);
+            AT.map.geometry.remove(droppedPoint);
+
+            // @TODO: Как удалить событие нажатия мыши?
+            PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
+            //PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
+            return false;
+        }
+        else {
+            $(this).addClass('active');
+        }
+
+        console.log('here');
 
         // При клике на карте запускаем сложный механизм отслеживания событий
         PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
 
         function onMouseDown(e) {
+            console.log('onMouseDown');
             // Если нажали кнопку мышки
             PGmap.Events.stopEvent(e);
             PGmap.Events.addHandler(this, 'mousemove', onMouseMove);
             PGmap.Events.addHandler(this, 'mouseup', onMouseUp);
         }
+
         function onMouseMove(e) {
             PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
         }
+
         function onMouseUp(e) {
+            console.log('onMouseUp');
             var diff = AT.map.globals.getPosition(),
                 e = e || window.event,
                 off = PGmap.Utils.getOffset(document.getElementById('map')),
@@ -459,6 +484,9 @@ AT.initMyObjects = function() {
                 e.preventDefault();
             });
 
+            // Сохраним в кнопке Добавить объект ссылку на созданную точку
+            $('#atlas-objects-add').data('droppedPoint', point);
+
             // Показываем форму создания объекта
             AT.showAddObjectForm({
                 coord: coord,
@@ -468,7 +496,9 @@ AT.initMyObjects = function() {
             // Запрещаем ставить точки, пока не закончим с текущей
             PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
         }
+
         function placePoint(coord, draggable, onClick) {
+            console.log('placePoint');
             // установка точки
             var point = new PGmap.Point({
                 draggable: draggable,

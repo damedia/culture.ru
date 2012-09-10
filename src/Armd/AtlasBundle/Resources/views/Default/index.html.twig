@@ -20,7 +20,9 @@
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">Объекты</a></li>
                         <li class=""><a href="#mrsh">Маршруты</a></li>
-                        <li class=""><a href="#maps">Мои карты</a></li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class=""><a href="#maps">Мои карты</a></li>
+                        {% endif %}
                     </ul>
                     <div class="filter-tab" id="obj" style="display:block;">
                         <!-- объекты -->
@@ -45,36 +47,38 @@
                     <div class="filter-tab" id="mrsh">
                         <!-- маршруты -->
                     </div>
-                    <div class="filter-tab" id="maps">
-                        <!-- мои карты -->
-                        <div class="filter-sub-tabs">
-                            <ul class="filter-sub-tabs-titles">
-                                <li class="active"><a href="#myobj">Мои объекты</a></li>
-                                <li><a href="#mymrsh">Мои маршруты</a></li>
-                            </ul>
-                            <div class="filter-sub-tab" id="myobj" style="display:block;">
-                                <ol class="filter-sub-tab-list" id="myobj_list">
-                                    {#<li>
-                                        <span>Новый объект</span>
-                                        <a href="#" class="del" title="Удалить"></a>
-                                        <span class="moder"></span>
-                                    </li>#}
-                                </ol>
-                                <!-- template -->
-                                <script id="myobj_list_template" type="text/x-jquery-tmpl">
-                                    <li data-id="${id}">
-                                        <span>${title}</span>
-                                        <a class="del" href="#" title="Удалить"></a>
-                                    </li>
-                                </script>
-                                <!-- /template -->
-                                <input id="atlas-objects-add" type="button" class="button green-button" value="Добавить объект" />
-                            </div>
-                            <div class="filter-sub-tab" id="mymrsh">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <div class="filter-tab" id="maps">
+                            <!-- мои карты -->
+                            <div class="filter-sub-tabs">
+                                <ul class="filter-sub-tabs-titles">
+                                    <li class="active"><a href="#myobj">Мои объекты</a></li>
+                                    <li><a href="#mymrsh">Мои маршруты</a></li>
+                                </ul>
+                                <div class="filter-sub-tab" id="myobj" style="display:block;">
+                                    <ol class="filter-sub-tab-list" id="myobj_list">
+                                        {#<li>
+                                            <span>Новый объект</span>
+                                            <a href="#" class="del" title="Удалить"></a>
+                                            <span class="moder"></span>
+                                        </li>#}
+                                    </ol>
+                                    <!-- template -->
+                                    <script id="myobj_list_template" type="text/x-jquery-tmpl">
+                                        <li data-id="${id}">
+                                            <span>${title}</span>
+                                            <a class="del" href="#" title="Удалить"></a>
+                                        </li>
+                                    </script>
+                                    <!-- /template -->
+                                    <input id="atlas-objects-add" type="button" class="button green-button" value="Добавить объект" />
+                                </div>
+                                <div class="filter-sub-tab" id="mymrsh">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
 
             </form>
@@ -227,7 +231,7 @@
         $(function(){
             AT.init({
                 map: 'map',
-                center: [97.759578,63.44936],
+                center: [84.967319,60.329728],
                 zoom: 3
             });
         });
