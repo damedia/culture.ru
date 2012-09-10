@@ -9,7 +9,7 @@
         <title>Портал культурного наследия России{% block title %}{% endblock %}</title> 
         
         {% block rss %}
-            <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="События" />        
+            <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="События" />
         {% endblock %}
      
         {% block stylesheets %}
@@ -229,7 +229,8 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                                     </div>
                                 </textarea>
                                 <a style="fb" href="http://www.facebook.com/sharer.php?u=http://roskult.ru/&t=Портал культурного наследия&src=sp" target="_blank"></a>
-                            </form>
+								<a href="{{ path('armd_news_rss') }}" class="rss-icon" title="События"></a>
+							</form>
                     </div>
                 </div>
           
