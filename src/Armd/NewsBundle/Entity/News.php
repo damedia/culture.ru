@@ -68,9 +68,14 @@ class News extends BaseNews implements CommentableInterface
     protected $priority;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */        
     protected $published;
+
+    /**
+     * @ORM\Column(name="published_at", type="datetime", nullable=true)
+     */            
+    protected $publishedAt;    
     
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -105,12 +110,24 @@ class News extends BaseNews implements CommentableInterface
     /** 
      * @ORM\PrePersist
      * @ORM\PreUpdate
-    */
+     */
     public function setDateParts()
     {
         $this->day = $this->getDate()->format('d');
         $this->month = $this->getDate()->format('m');
-    }        
+    }
+
+    /** 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */    
+    public function setPublicationDate() 
+    {
+        if ($this->published)
+        {
+            $this->publishedAt = new \DateTime();
+        }
+    }       
 
     /**
      * Set announce
@@ -450,5 +467,28 @@ class News extends BaseNews implements CommentableInterface
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Set publishedAt
+     *
+     * @param \DateTime $publishedAt
+     * @return News
+     */
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get publishedAt
+     *
+     * @return \DateTime 
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
     }
 }
