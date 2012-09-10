@@ -24,7 +24,6 @@ class DefaultController extends Controller
 
     public function socialRegisterAction(Request $request) {
         $token = $this->container->get('security.context')->getToken();
-        \gFuncs::dbgWriteLogVar($token, false, 'LoginzaController:socialRegister token'); // DBG:
         if(!$token instanceof \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken) {
             return $this->redirect(
                 $this->generateUrl("armd_news_list_index")

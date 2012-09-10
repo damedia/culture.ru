@@ -70,7 +70,7 @@ security:
                 widget_id: %loginza_widget_id%
                 entity: ArmdUserBundle:User
             armd_social_auth:
-                auth_providers: [vkontakte]
+                auth_providers: %armd_social_auth_auth_providers%
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users

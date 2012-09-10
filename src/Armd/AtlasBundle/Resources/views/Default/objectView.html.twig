@@ -170,13 +170,15 @@
 								<input type="submit" value="Отправить" class="button" />
 							</form>
 						</div>
-				   </div>
+				    </div>
+                    {% if not is_granted('ROLE_USER') %}
+                        <div>
+                            <p>Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>
+                        </div>
+                    {% endif %}
 
-                    <div>
-                        <p>Чтобы оставлять комментарии необходимо авторизоваться на сайте.</p>
-                        <p><a href="https://loginza.ru/api/widget?token_url={{ tokenUrl|url_encode }}&providers_set=vkontakte,facebook,odnoklassniki,twitter,google" class="loginza">Войти через социальную сеть</a></p>
-                    </div>
                 </div>
+
 
                 <div class="object-one-col3">
                     {% if entity.virtualTour is not empty %}

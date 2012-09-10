@@ -1,8 +1,11 @@
 services:
     security.authentication.listener.armd_social_auth:
-        class: Armd\SocialAuthBundle\Security\SocialAuthListener
-        arguments: [@security.context, @security.authentication.manager, @service_container]
+        class: Armd\SocialAuthBundle\Security\Firewall\SocialAuthenticationListener
+        abstract: true
+        arguments: [@security.context, @security.authentication.manager]
 
-    security.user.provider.armd_social_auth:
-        class: Armd\SocialAuthBundle\Security\
-        arguments: [@session]
+
+    security.authentication.provider.armd_social_auth_vkontakte:
+        class: Armd\SocialAuthBundle\Security\Authentication\Provider\VkontakteAuthenticationProvider
+        arguments: [@service_container]
+        abstract: true
