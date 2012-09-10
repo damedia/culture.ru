@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+{% set title = "Портал культурного наследия России" %}
+{% set link = url('armd_news_list_index') %}
 {% set pubDate = null %}
 {% for i in news %}
     {% if i.publishedAt > pubDate %}
@@ -7,8 +9,13 @@
 {% endfor %}
 <rss version="2.0">
     <channel>
-        <title>Портал культурного наследия России</title>
-        <link>{{ url('armd_news_list_index') }}</link>
+        <title>{{ title }}</title>
+        <link>{{ link }}</link>
+        <image>
+            <url>{{ app.request.uriForPath('/img/logo.png') }}</url>
+            <title>{{ title }}</title>
+            <link>{{ link }}</link>        
+        </image>
         <pubDate>{{ pubDate|date('r') }}</pubDate>
 
         {% for i in news %}
@@ -19,6 +26,9 @@
             <link>{{ url }}</link>
             <guid>{{ url }}</guid>
             <pubDate>{{ i.publishedAt|date('r')}}</pubDate>
+            {#% if i.image %}
+                <enclosure url="{% path i.image, 'latest' %}" type="{{ i.image.contentType }}" />
+            {% endif %#}
         </item>
         {% endfor %}
     </channel>
