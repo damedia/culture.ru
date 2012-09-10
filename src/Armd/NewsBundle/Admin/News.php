@@ -59,6 +59,7 @@ class News extends Admin
                 ->add('category')
                 ->add('source')                
                 ->add('important')
+                ->add('borodino')                
                 ->add('priority')                                
                 ->add('published')
             ->end()    
@@ -82,6 +83,7 @@ class News extends Admin
             ->add('date')            
             ->add('category')
             ->add('important')                
+            ->add('borodino')            
             ->add('published')                            
         ;
         
@@ -94,6 +96,7 @@ class News extends Admin
             ->add('category')
             ->add('published')
             ->add('important')            
+            ->add('borodino')
         ;
     }
 }
