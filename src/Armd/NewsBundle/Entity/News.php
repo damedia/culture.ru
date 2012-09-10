@@ -98,6 +98,12 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */        
+    private $borodino;
+    
 
     /**
      * Thread of this comment
@@ -490,5 +496,28 @@ class News extends BaseNews implements CommentableInterface
     public function getPublishedAt()
     {
         return $this->publishedAt;
+    }
+
+    /**
+     * Set borodino
+     *
+     * @param boolean $borodino
+     * @return News
+     */
+    public function setBorodino($borodino)
+    {
+        $this->borodino = $borodino;
+    
+        return $this;
+    }
+
+    /**
+     * Get borodino
+     *
+     * @return boolean 
+     */
+    public function getBorodino()
+    {
+        return $this->borodino;
     }
 }
