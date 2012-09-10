@@ -7,6 +7,10 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta property="og:image" content="http://roskult.ru/img/logo.png" />
         <title>Портал культурного наследия России{% block title %}{% endblock %}</title> 
+        
+        {% block rss %}
+            <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="События" />        
+        {% endblock %}
      
         {% block stylesheets %}
             <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
