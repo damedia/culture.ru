@@ -14,7 +14,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: postRemove }
+            - { name: doctrine.event_listener, event: preRemove }
         arguments: [@service_container]
 
     armd_atlas.manager.object:

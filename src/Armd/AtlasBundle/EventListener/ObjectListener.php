@@ -47,23 +47,11 @@ class ObjectListener
         }
     }
 
-//    public function postPersist(LifecycleEventArgs $args)
-//    {
-//        $aclProvider = $this->container->get('security.acl.provider');
-//        $entity = $args->getEntity();
-//        if($entity instanceof Object) {
-//            $objectIdentity = ObjectIdentity::fromDomainObject($entity);
-//            try {
-//                $acl = $aclProvider->createAcl($objectIdentity);
-//                $aclProvider->updateAcl($acl);
-//            } catch(AclAlreadyExistsException $e) {}
-//        }
-//    }
-
-    public function postRemove(LifecycleEventArgs $args)
+    public function preRemove(LifecycleEventArgs $args)
     {
         $aclProvider = $this->container->get('security.acl.provider');
         $entity = $args->getEntity();
+
         if($entity instanceof Object) {
             // remove acl
             $objectIdentity = ObjectIdentity::fromDomainObject($entity);
