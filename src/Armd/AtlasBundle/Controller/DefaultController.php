@@ -597,6 +597,11 @@ class DefaultController extends Controller
             $entity->setLon($request->get('lon'));
             $entity->setLat($request->get('lat'));
 
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+            if (! $currentUser)
+                throw new \Exception('Пользователь не найден');
+            $entity->setCreatedBy($currentUser);
+
             $primaryCategoryId = $request->get('primary_category');
             if ($primaryCategoryId) {
                 $primaryCategory = $repoCategory->find($primaryCategoryId);

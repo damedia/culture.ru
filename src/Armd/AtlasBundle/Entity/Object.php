@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="atlas_object")
  * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Object
 {
@@ -179,6 +180,22 @@ class Object
      * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
      */
     private $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id")
+     */
+    private $updatedBy;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    protected $updatedAt;
 
     public function syncPrimaryAndSecondaryCategories()
     {
@@ -366,7 +383,6 @@ class Object
         foreach ($this->getSecondaryCategories() as $secondaryCategory) {
             $categories[] = $secondaryCategory;
         }
-
         return $categories;
     }
 
@@ -637,7 +653,6 @@ class Object
     public function getPrimaryImage()
     {
         return $this->primaryImage;
-
     }
 
     /**
@@ -836,9 +851,7 @@ class Object
             foreach ($objectHints as $objectHint) {
                 $this->addObjectHint($objectHint);
             }
-
-        }
-        else {
+        } else {
             $this->addObjectHint($objectHints);
         }
     }
@@ -934,4 +947,95 @@ class Object
     {
         return $this->createdBy;
     }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Object
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Object
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param Armd\UserBundle\Entity\User $updatedBy
+     * @return Object
+     */
+    public function setUpdatedBy(\Armd\UserBundle\Entity\User $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return Armd\UserBundle\Entity\User 
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * Hook on pre-persist operations
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime;
+        $this->updatedAt = new \DateTime;
+    }
+
+    /**
+     * Hook on pre-update operations
+
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime;
+    }
+
 }

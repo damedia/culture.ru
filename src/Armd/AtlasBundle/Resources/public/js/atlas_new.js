@@ -440,29 +440,31 @@ AT.initMyObjects = function() {
             PGmap.Events.stopEvent(e);
 
             var droppedPoint = $('#atlas-objects-add').data('droppedPoint');
-            console.log('Remove droppedPoint', droppedPoint);
-            AT.map.geometry.remove(droppedPoint);
+            if (droppedPoint) {
+                console.log('Remove droppedPoint', droppedPoint);
+                AT.map.geometry.remove(droppedPoint);
+            }
 
             // @TODO: Как удалить событие нажатия мыши?
             PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
-            //PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
+            PGmap.Events.removeHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
             return false;
         }
         else {
             $(this).addClass('active');
+
+            console.log('Activate drop point');
+
+            // При клике на карте запускаем сложный механизм отслеживания событий
+            PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
         }
-
-        console.log('here');
-
-        // При клике на карте запускаем сложный механизм отслеживания событий
-        PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
 
         function onMouseDown(e) {
             console.log('onMouseDown');
             // Если нажали кнопку мышки
             PGmap.Events.stopEvent(e);
-            PGmap.Events.addHandler(this, 'mousemove', onMouseMove);
-            PGmap.Events.addHandler(this, 'mouseup', onMouseUp);
+            PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousemove', onMouseMove);
+            PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mouseup', onMouseUp);
         }
 
         function onMouseMove(e) {
@@ -504,6 +506,9 @@ AT.initMyObjects = function() {
                 draggable: draggable,
                 coord: coord
             });
+            point.ondraggable = function() {
+                console.log('ondraggable');
+            }
             if (onClick) {
                 PGmap.Events.addHandler(point.container, 'click', onClick);
             }
