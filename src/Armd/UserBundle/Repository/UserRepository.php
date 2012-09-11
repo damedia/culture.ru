@@ -23,4 +23,5 @@ class UserRepository extends EntityRepository
             ->leftJoin('u.groups', 'g')
             ->getQuery()->execute();
     }
+
 }
