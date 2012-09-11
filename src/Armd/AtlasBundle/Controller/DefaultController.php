@@ -12,6 +12,7 @@ use Buzz\Browser;
 use Armd\AtlasBundle\Entity\Category;
 use Armd\AtlasBundle\Entity\Object;
 use Armd\AtlasBundle\Form\ObjectType;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 class DefaultController extends Controller
 {
@@ -742,21 +743,38 @@ class DefaultController extends Controller
     public function objectsMyUploadAction()
     {
         try {
-            $input = fopen("php://input", "r");
-            $binaryContent = stream_get_contents($input);
+            // Читаем бинарник картинки, пишем во временный файл
+            $input = fopen('php://input', 'r');
+            $tempPath = tempnam(sys_get_temp_dir(), 'media');
+            $tempHandler = fopen($tempPath, 'w');
+            $realSize = stream_copy_to_stream($input, $tempHandler);
             fclose($input);
 
-            $session = $this->getRequest()->getSession();
-            $session->set('binaryContent', $binaryContent);
+            // Создаем сущность Media
+            $media = new Media();
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $binaryContent = new UploadedFile($tempPath, $this->getRequest()->get('qqfile'));
+            $media->setBinaryContent($binaryContent);
+            $media->setContext('atlas');
+            $media->setProviderName('sonata.media.provider.image');
+            $mediaManager->save($media);
 
-            //$target = fopen($path, "w");
-            //fseek($temp, 0, SEEK_SET);
-            //stream_copy_to_stream($temp, $target);
-            //fclose($target);
+            // Добавляем картинку к объекту
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $entity = $repo->find(1498);
+            $entity->addImage($media);
+            $em->persist($entity);
+            $em->flush();
 
+            // Возвращаем инфу добавленной картинки
             $res = array(
                 'success' => true,
-                'result' => '>>>'.sizeof($binaryContent),
+                'result' => array(
+                    'id' => $media->getId(),
+                    'imageUrl' => $this->get('sonata.media.twig.extension')->path($media, 'thumbnail'),
+                    'realSize' => $realSize,
+                ),
             );
         }
         catch (\Exception $e) {
@@ -765,7 +783,17 @@ class DefaultController extends Controller
                 'message' => $e->getMessage(),
             );
         }
+        fclose($tempHandler);
         return new Response(json_encode($res));
+    }
+
+    /**
+     * @Route("/test/upload")
+     * @Template()
+     */
+    public function testUploadAction()
+    {
+        return array();
     }
 
 }

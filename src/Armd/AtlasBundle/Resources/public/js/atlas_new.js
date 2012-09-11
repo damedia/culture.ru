@@ -523,7 +523,8 @@ AT.showAddObjectForm = function(params) {
         jPopupForm = jPopup.find('form'),
         jSuccess = $('#success-object-form'),
         jSuccessForm = jSuccess.find('form'),
-        jMyObjectsList = $('#myobj_list');
+        jMyObjectsList = $('#myobj_list'),
+        jAddedImages = jPopup.find('.added-images');
 
     console.log('Show dialog for point:', myPoint);
 
@@ -651,6 +652,11 @@ AT.showAddObjectForm = function(params) {
         action: imageUploadUri, // /objects/my/upload
         onComplete: function(id, filename, response) {
             console.log(id, filename, response);
+            if (response.success) {
+                jAddedImages.append($('#added-image-template').tmpl(response.result));
+            } else {
+                alert(response.message);
+            }
         }
     });
 

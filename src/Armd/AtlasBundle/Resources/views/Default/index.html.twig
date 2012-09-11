@@ -63,6 +63,7 @@
                                             <span class="moder"></span>
                                         </li>#}
                                     </ol>
+
                                     <!-- template -->
                                     <script id="myobj_list_template" type="text/x-jquery-tmpl">
                                         <li data-id="${id}">
@@ -71,6 +72,7 @@
                                         </li>
                                     </script>
                                     <!-- /template -->
+
                                     <input id="atlas-objects-add" type="button" class="button green-button" value="Добавить объект" />
                                 </div>
                                 <div class="filter-sub-tab" id="mymrsh">
@@ -160,24 +162,15 @@
                     #}
                     <div id="file-uploader"></div>
                     <div class="added-images">
-                        <div class="added-image">
-                            <img src="/static/common/img/photo/obj-image.jpg" alt="" />
-                        </div>
-                        <div class="added-image">
-                            <img src="/static/common/img/photo/obj-image.jpg" alt="" />
-                        </div>
-                        <div class="added-image">
-                            <img src="/static/common/img/photo/obj-image.jpg" alt="" />
-                        </div>
-                        <div class="added-image">
-                            <img src="/static/common/img/photo/obj-image.jpg" alt="" />
-                            <a href="#" class="del" title="Удалить"></a>
-                        </div>
-                        <div class="added-image">
-                            <img src="/static/common/img/photo/obj-image.jpg" alt="" />
-                            <a href="#" class="del" title="Удалить"></a>
-                        </div>
                     </div>
+                    <!-- template for .added-images -->
+                    <script id="added-image-template" type="text/x-jquery-tmpl">
+                        <div class="added-image" data-id="${id}">
+                            <img src="${imageUrl}" alt="" />
+                            <a href="#" class="del" title="Удалить"></a>
+                        </div>
+                    </script>
+                    <!-- /template for .added-images -->
                 </li>
             </ul>
             <fieldset class="form-buttons">
