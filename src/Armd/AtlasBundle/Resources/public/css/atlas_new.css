@@ -51,4 +51,10 @@
 .chzn-container{ font-size:11px; }
 
 .add-object-form{ top:220px; right:50px; left:inherit; }
+.add-object-form .qq-upload-button{ width:100px; padding:7px 13px; font-size:12px; cursor:pointer; color:#FFFFFF; background:-moz-linear-gradient(center top , #E4E3DE 0%, #CBC5B3 4%, #CBC5B3 48%, #C0B9A4 56%, #C1B8A3 100%) repeat scroll 0 0 transparent; }
+.add-object-form .qq-upload-list{ display:none; }
+.add-object-form .added-images .added-image .image-wrapper{ overflow:hidden; width:50px; height:50px; }
+.add-object-form .added-images .added-image .del{ cursor:pointer; }
+
 .atlas-filter-form .green-button.active{ background:#f90; box-shadow:0 1px 2px #704309 inset; }
+

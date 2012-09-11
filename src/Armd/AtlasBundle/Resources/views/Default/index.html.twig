@@ -166,8 +166,9 @@
                     <!-- template for .added-images -->
                     <script id="added-image-template" type="text/x-jquery-tmpl">
                         <div class="added-image" data-id="${id}">
-                            <img src="${imageUrl}" alt="" />
-                            <a href="#" class="del" title="Удалить"></a>
+                            <div class="image-wrapper"><img src="${imageUrl}" alt=""/></div>
+                            <ins class="del" title="Удалить"></ins>
+                            <input type="hidden" name="media[]" value="${id}">
                         </div>
                     </script>
                     <!-- /template for .added-images -->

@@ -582,10 +582,12 @@ class DefaultController extends Controller
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
 
             $title = trim($request->get('title'));
-            if (! $title) throw new \Exception('Заполните название');
+            if (! $title)
+                throw new \Exception('Заполните название');
 
             $announce = trim($request->get('description'));
-            if (! $announce) throw new \Exception('Заполните анонс');
+            if (! $announce)
+                throw new \Exception('Заполните анонс');
 
             $entity = new Object();
 
@@ -595,6 +597,14 @@ class DefaultController extends Controller
             $entity->setLon($request->get('lon'));
             $entity->setLat($request->get('lat'));
 
+            $primaryCategoryId = $request->get('primary_category');
+            if ($primaryCategoryId) {
+                $primaryCategory = $repoCategory->find($primaryCategoryId);
+                if ($primaryCategory) {
+                    $entity->setPrimaryCategory($primaryCategory);
+                }
+            }
+
             $categoryIds = $request->get('category');
             if (is_array($categoryIds) && sizeof($categoryIds)) {
                 foreach ($categoryIds as $id) {
@@ -602,6 +612,18 @@ class DefaultController extends Controller
                     $category = $repoCategory->find($id);
                     if ($category) {
                         $entity->addSecondaryCategory($category);
+                    }
+                }
+            }
+
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $mediaIds = $request->get('media');
+            if (is_array($mediaIds) && sizeof($mediaIds)) {
+                foreach ($mediaIds as $id) {
+                    $id = (int) $id;
+                    $media = $mediaManager->findOneBy(array('id' => $id));
+                    if ($media) {
+                        $entity->addImage($media);
                     }
                 }
             }
@@ -785,15 +807,6 @@ class DefaultController extends Controller
         }
         fclose($tempHandler);
         return new Response(json_encode($res));
-    }
-
-    /**
-     * @Route("/test/upload")
-     * @Template()
-     */
-    public function testUploadAction()
-    {
-        return array();
     }
 
 }

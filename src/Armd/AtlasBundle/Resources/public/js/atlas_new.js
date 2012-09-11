@@ -648,12 +648,23 @@ AT.showAddObjectForm = function(params) {
 
     // Ajax file uploader
     var uploader = new qq.FileUploader({
-        element: $('#file-uploader')[0],
+        element: document.getElementById('file-uploader'),
         action: imageUploadUri, // /objects/my/upload
+        template: '<div class="qq-uploader">'
+                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Перетяните сюда фото для загрузки</span></div>'
+                + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'
+                + '  <ul class="qq-upload-list">Загрузить фото&hellip;</ul>'
+                + '</div>',
         onComplete: function(id, filename, response) {
-            console.log(id, filename, response);
             if (response.success) {
-                jAddedImages.append($('#added-image-template').tmpl(response.result));
+                var jImageTemplate = $('#added-image-template').tmpl(response.result);
+                jAddedImages.append(jImageTemplate);
+                jImageTemplate.find('.del').on('click', function(){
+                    if (confirm('Удалить?')) {
+                        $(this).closest('.added-image').remove();
+                        // И с сервака удалить тоже
+                    }
+                });
             } else {
                 alert(response.message);
             }
