@@ -69,6 +69,8 @@
                                         <li data-id="${id}">
                                             <span>${title}</span>
                                             <a class="del" href="#" title="Удалить"></a>
+                                            <ins class="moder"></ins>
+                                            <ins class="edit"></ins>
                                         </li>
                                     </script>
                                     <!-- /template -->
@@ -110,19 +112,19 @@
             <ul class="add-object-form-fields">
                 <li>
                     <label for="name">Заголовок</label>
-                    <input name="title" type="text" value="Без названия" placeholder="" id="name" />
+                    <input name="title" type="text" value="" placeholder="" id="name" />
                 </li>
                 <li>
                     <label for="address">Адрес</label>
-                    <input name="address" type="text" value="Ломоносовский район, Москва, Россия" placeholder="" id="address" />
+                    <input name="address" type="text" value="" placeholder="" id="address" />
                 </li>
                 <li class="coords">
                     <div class="coords-block">
                         <label for="lat">Широта</label>
-                        <input name="lat" type="text" value="36.85685" id="lat" />
+                        <input name="lat" type="text" value="" id="lat" />
                     </div><div class="coords-block">
-                        <label for="long">Долгота</label>
-                        <input name="lon" type="text" value="55.90911" id="long" />
+                        <label for="lon">Долгота</label>
+                        <input name="lon" type="text" value="" id="lon" />
                     </div>
                 </li>
                 <li>
@@ -135,7 +137,7 @@
                         <option value=""></option>
                         {% for optgroup in categories %}
                             <optgroup label="{{ optgroup.title }}">
-                                {% for tag in optgroup.tags %}
+                                {% for tag in optgroup.tags if tag.hasIcon %}
                                     <option value="{{ tag.id }}">{{ tag.title }}</option>
                                 {% endfor %}
                             </optgroup>

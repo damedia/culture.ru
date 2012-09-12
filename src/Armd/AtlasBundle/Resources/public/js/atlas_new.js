@@ -177,11 +177,12 @@ AT.initUI = function() {
                                     if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
                                         if (! cluster.balloon.element.offsetHeight || cluster.balloon.currEl != cluster ) {
 
+                                            $('#ajax-loading').show();
                                             $.ajax({
                                                 url: fetchClusterDetailUri,
                                                 data: { ids: ids },
                                                 success: function(res){
-                                                    console.log(res);
+                                                    $('#ajax-loading').hide();
                                                     cluster.name = res;
                                                     cluster.balloon.open(cluster);
                                                     //cont.style.zIndex = '75';
@@ -340,11 +341,14 @@ AT.placePoint = function(object) {
 AT.triggerPointClick = function(point) {
     console.log('triggerPointClick');
     var uid = $(point.container).data('uid');
+
+    $('#ajax-loading').show();
     $.ajax({
         url: fetchMarkerDetailUri,
         data: { id: uid },
         success: function(res) {
             console.log('click on point');
+            $('#ajax-loading').hide();
             point.name = res;
             point.balloon = AT.map.balloon;
             point.toggleBalloon();
@@ -383,17 +387,20 @@ AT.submitFiltersForm = function() {
 AT.initMyObjects = function() {
 
     // Построение списка моих объектов
+    $('#ajax-loading').show();
     $.ajax({
         url: fetchMyObjectsUri, // /atlas/objects/my
         dataType: 'json',
         success: function(res) {
+            $('#ajax-loading').hide();
             if (res.success) {
                 $('#myobj_list').empty();
                 for (var i in res.result) {
                     var object = res.result[i],
-                        row = $('#myobj_list_template').tmpl(object);
-                    $('#myobj_list').append(row);
-                    AT.placePoint(object);
+                        jLi = $('#myobj_list_template').tmpl(object);
+                    var point = AT.placePoint(object);
+                    jLi.data('point', point);
+                    $('#myobj_list').append(jLi);
                 }
             } else {
                 alert(res.message);
@@ -401,23 +408,45 @@ AT.initMyObjects = function() {
         }
     });
 
-    // Удаление точки из списка, с карты и вообще
-    $('#myobj_list li .del').live('click', function(){
-        var el = $(this).closest('li'),
-            id = el.data('id');
+    // Мои карты -> Мои объекты. Клик по элементу списка. map.setCenter
+    $('#myobj_list li span').live('click', function(){
+        var jLi = $(this).closest('li'),
+            point = jLi.data('point');
+        AT.map.setCenter(point.coord);
+        AT.triggerPointClick(point);
+    });
 
-        $.ajax({
-            dataType: 'json',
-            url: deleteMyObjectsUri,
-            data: { id: id },
-            success: function(json){
-                if (json.success) {
-                    el.remove();
-                } else {
-                    alert(json.message);
+    // Мои карты -> Мои объекты. Редактирование точки из списка.
+    $('#myobj_list li .edit').live('click', function(){
+        console.log('xxx');
+        $('#add-object-form').show();
+
+
+
+
+    });
+
+    // Мои карты -> Мои объекты. Удаление точки из списка, с карты и вообще.
+    $('#myobj_list li .del').live('click', function(){
+        if (confirm('Удалить?')) {
+            var el = $(this).closest('li'),
+                id = el.data('id');
+
+            $('#ajax-loading').show();
+            $.ajax({
+                dataType: 'json',
+                url: deleteMyObjectsUri,
+                data: { id: id },
+                success: function(json){
+                    $('#ajax-loading').hide();
+                    if (json.success) {
+                        el.remove();
+                    } else {
+                        alert(json.message);
+                    }
                 }
-            }
-        });
+            });
+        }
         return false;
     });
 
@@ -490,7 +519,7 @@ AT.initMyObjects = function() {
             $('#atlas-objects-add').data('droppedPoint', point);
 
             // Показываем форму создания объекта
-            AT.showAddObjectForm({
+            AT.showObjectForm({
                 coord: coord,
                 point: point
             });
@@ -506,11 +535,12 @@ AT.initMyObjects = function() {
                 draggable: draggable,
                 coord: coord
             });
-            point.ondraggable = function() {
+            /* @TODO: Draggable point handler -> update coords
+            point.draggable.callback = function() {
                 console.log('ondraggable');
-            }
+            }*/
             if (onClick) {
-                PGmap.Events.addHandler(point.container, 'click', onClick);
+                //PGmap.Events.addHandler(point.container, 'click', onClick);
             }
             AT.map.geometry.add(point);
             return point;
@@ -521,7 +551,8 @@ AT.initMyObjects = function() {
 /**
  * Открывает попап с информацией о точке
  */
-AT.showAddObjectForm = function(params) {
+AT.showObjectForm = function(params) {
+    console.log('showObjectForm', params);
     var
         myPoint = params.point,
         jPopup = $('#add-object-form'),
@@ -539,11 +570,23 @@ AT.showAddObjectForm = function(params) {
     // Открываем попап
     jPopup.show();
 
-    $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
-    $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
+    var lon = PGmap.Utils.fromMercX(params.coord.lon),
+        lat = PGmap.Utils.fromMercY(params.coord.lat);
+    console.info(lon.toFixed(6), lat.toFixed(6));
+    $('#lon').val(lon);
+    $('#lat').val(lat);
 
     // Список категорий в диалоге
     $('#primary-category, #category').chosen();
+    $('#primary-category').change(function(){
+        console.log('Change primary category for', $(myPoint.container));
+        $(myPoint.container).css({
+            'background-position': '0 0',
+            'background-image': 'url(http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b)'
+        });
+        //myPoint.url = 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b';
+        //myPoint.update();
+    });
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     jPopup.find('.rst-btn, .exit').click(function(){
@@ -592,8 +635,8 @@ AT.showAddObjectForm = function(params) {
         select: function (event, ui) {
             var lon = ui.item.match.x,
                 lat = ui.item.match.y;
-            $('#lat').val(lat);
             $('#lon').val(lon);
+            $('#lat').val(lat);
             myPoint.coord.lon = PGmap.Utils.mercX(lon);
             myPoint.coord.lat = PGmap.Utils.mercY(lat);
             myPoint.update();
@@ -641,12 +684,15 @@ AT.showAddObjectForm = function(params) {
                 $('#atlas-objects-add').removeClass('active');
                 jSuccess.hide();
 
-                objectTitle = response.result.title;
-
                 // Добавляем в список точку
-                jMyObjectsList.append($('#myobj_list_template').tmpl({
-                    'title': objectTitle
-                }));
+                var objectId = response.result.id,
+                    objectTitle = response.result.title,
+                    jLi = $('#myobj_list_template').tmpl({ 'title': objectTitle });
+
+                // Связываем точку с элементом списка
+                jLi.data('id', objectId),
+                jLi.data('point', myPoint);
+                jMyObjectsList.append(jLi);
             }
         }
     });
@@ -667,7 +713,7 @@ AT.showAddObjectForm = function(params) {
                 jImageTemplate.find('.del').on('click', function(){
                     if (confirm('Удалить?')) {
                         $(this).closest('.added-image').remove();
-                        // И с сервака удалить тоже
+                        // @TODO: И с сервака удалить тоже
                     }
                 });
             } else {

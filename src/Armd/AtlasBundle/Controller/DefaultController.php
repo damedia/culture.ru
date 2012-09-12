@@ -581,35 +581,41 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
 
+            // Название объекта
             $title = trim($request->get('title'));
             if (! $title)
                 throw new \Exception('Заполните название');
 
+            // Анонс
             $announce = trim($request->get('description'));
             if (! $announce)
                 throw new \Exception('Заполните анонс');
 
-            $entity = new Object();
+            // Автор
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+            if (! $currentUser)
+                throw new \Exception('Пользователь не найден');
 
+            // Создаем объект
+            $entity = new Object();
             $entity->setTitle($title);
             $entity->setAnnounce($announce);
             $entity->setAddress($request->get('address'));
             $entity->setLon($request->get('lon'));
             $entity->setLat($request->get('lat'));
-
-            $currentUser = $this->get('security.context')->getToken()->getUser();
-            if (! $currentUser)
-                throw new \Exception('Пользователь не найден');
             $entity->setCreatedBy($currentUser);
 
+            // Главная категория
             $primaryCategoryId = $request->get('primary_category');
             if ($primaryCategoryId) {
                 $primaryCategory = $repoCategory->find($primaryCategoryId);
                 if ($primaryCategory) {
                     $entity->setPrimaryCategory($primaryCategory);
                 }
-            }
+            } else
+                throw new \Exception('Укажите главную категорию');
 
+            // Второстепенные категории
             $categoryIds = $request->get('category');
             if (is_array($categoryIds) && sizeof($categoryIds)) {
                 foreach ($categoryIds as $id) {
@@ -619,8 +625,10 @@ class DefaultController extends Controller
                         $entity->addSecondaryCategory($category);
                     }
                 }
-            }
+            } else
+                throw new \Exception('Укажите хотя бы одну второстепенную категорию');
 
+            // Изображения
             $mediaManager = $this->get('sonata.media.manager.media');
             $mediaIds = $request->get('media');
             if (is_array($mediaIds) && sizeof($mediaIds)) {
@@ -633,6 +641,7 @@ class DefaultController extends Controller
                 }
             }
 
+            // Сохраняем объект
             $em->persist($entity);
             $em->flush();
 
@@ -694,7 +703,7 @@ class DefaultController extends Controller
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
 
-            $currentUser = $this->container->get('security.context')->getToken()->getUser();
+            $currentUser = $this->get('security.context')->getToken()->getUser();
 
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
             $entities = $repo->findBy(array('createdBy' => $currentUser));
@@ -785,14 +794,6 @@ class DefaultController extends Controller
             $media->setContext('atlas');
             $media->setProviderName('sonata.media.provider.image');
             $mediaManager->save($media);
-
-            // Добавляем картинку к объекту
-            $em = $this->getDoctrine()->getManager();
-            $repo = $em->getRepository('ArmdAtlasBundle:Object');
-            $entity = $repo->find(1498);
-            $entity->addImage($media);
-            $em->persist($entity);
-            $em->flush();
 
             // Возвращаем инфу добавленной картинки
             $res = array(

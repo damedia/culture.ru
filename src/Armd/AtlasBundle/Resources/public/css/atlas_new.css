@@ -58,3 +58,5 @@
 
 .atlas-filter-form .green-button.active{ background:#f90; box-shadow:0 1px 2px #704309 inset; }
 
+.filter-sub-tab-list .edit{ cursor:pointer; display:inline-block; width:10px; height:10px; border:none; background:#C0D6BF; }
+

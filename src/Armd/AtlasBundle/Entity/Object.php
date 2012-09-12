@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Armd\AtlasBundle\Entity\Object
@@ -31,11 +32,13 @@ class Object
 
     /**
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(name="announce", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $announce;
 
