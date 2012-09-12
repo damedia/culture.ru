@@ -13,9 +13,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\NonceExpiredException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Armd\SocialAuthBundle\Security\Authentication\Token\VkontakteToken;
+use Armd\SocialAuthBundle\Security\Authentication\Token\FacebookToken;
 
-class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
+class FacebookAuthenticationProvider implements AuthenticationProviderInterface
 {
     protected $router;
     protected $em;
@@ -33,10 +33,10 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         $host = $request->getHost();
         $socialParams = $this->container->getParameter('armd_social_auth_auth_providers');
 
-        if (empty($socialParams[$host]['vkontakte'])) {
-            throw new InvalidConfigurationException('armd_social_auth_auth_providers for host ' . $host . ' was not found');
+        if (empty($socialParams[$host]['facebook'])) {
+            throw new InvalidConfigurationException('Facebook armd_social_auth_auth_providers for host ' . $host . ' was not found');
         }
-        $socialParams = $socialParams[$host]['vkontakte'];
+        $socialParams = $socialParams[$host]['facebook'];
 
         return $socialParams;
     }
@@ -47,6 +47,7 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
             return null;
         }
 
+        $this->checkFacebookState($token);
         $this->retrieveAccessToken($token);
         $this->retrieveUserData($token);
 
@@ -64,69 +65,71 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         return false;
     }
 
-    public function retrieveAccessToken(VkontakteToken $token)
+    public function checkFacebookState(FacebookToken $token)
+    {
+        $storedFacebookState = $this->container->get('request')->getSession()->get('armd_social_auth.facebook_state');
+        if(empty($token->accessState) || $storedFacebookState !== $token->accessState) {
+            throw new AuthenticationException('Error during validation of facebook "state" variable');
+        }
+    }
+
+    public function retrieveAccessToken(FacebookToken $token)
     {
         $socialParams = $this->getParameters();
 
         $redirectUrl = $this->router->generate('armd_social_auth_auth_result', array(
-            'armd_social_auth_provider' => 'vkontakte'
+            'armd_social_auth_provider' => 'facebook'
         ), true);
 
-        $tokenUrl = 'https://oauth.vk.com/access_token?';
+        $tokenUrl = 'https://graph.facebook.com/oauth/access_token?';
         $tokenUrl .= 'client_id=' . $socialParams['app_id'];
+        $tokenUrl .= '&redirect_uri=' . urlencode($redirectUrl);
         $tokenUrl .= '&client_secret=' . $socialParams['secret'];
         $tokenUrl .= '&code=' . $token->accessCode;
-        $tokenUrl .= '&redirect_uri=' . urlencode($redirectUrl);
 
         $content = $this->curlRequest($tokenUrl);
         if ($content === false) {
-            throw new AuthenticationException('Can\'t get vkontakte access token');
+            throw new AuthenticationException('Can\'t get facebook access token');
         }
-        $content = json_decode($content, true);
-        if (!empty($content['error'])) {
-            throw new AuthenticationException('Can\'t get vkontakte access token');
+        parse_str($content, $accessTokenData);
+        if (empty($accessTokenData['access_token'])) {
+            return false;
         }
 
-        $token->accessToken = $content['access_token'];
-        $token->accessTokenExpiresIn = $content['expires_in'];
+        $token->accessToken = $accessTokenData['access_token'];
+        $token->accessTokenExpires = $accessTokenData['expires'];
         $token->accessTokenDateTime = new \DateTime();
-        $token->accessTokenUserId = $content['user_id'];
 
         return true;
     }
 
-    public function retrieveUserData(VkontakteToken $token)
+    public function retrieveUserData(FacebookToken $token)
     {
-        if (empty($token->accessTokenUserId)) {
-            throw new AuthenticationException('Trying to retrieve vk user data with empty user_id');
-        }
         if (empty($token->accessToken)) {
-            throw new AuthenticationException('Trying to retrieve vk user data without access token');
+            throw new AuthenticationException('Trying to retrieve facebook user data without access token');
         }
 
-        $apiUrl = 'https://api.vk.com/method/users.get?';
-        $apiUrl .= 'uids=' . $token->accessTokenUserId;
+        $apiUrl = 'https://graph.facebook.com/me?';
         $apiUrl .= '&access_token=' . $token->accessToken;
-        $apiUrl .= '&fields=uid,first_name,last_name,nickname,screen_name,sex,bdate,city,country,timezone,photo,photo_medium,photo_big,has_mobile,rate,contacts,education,online,counters';
 
         $result = $this->curlRequest($apiUrl);
         if ($result === false) {
-            throw new AuthenticationException('Can\'t get vk user data');
+            throw new AuthenticationException('Can\'t get facebook user data');
         }
 
         $userData = json_decode($result, true);
-        $token->vkUserData = $userData['response'][0];
+        $token->facebookUserData = $userData;
 
     }
 
-    public function loadUser(VkontakteToken $token)
+    public function loadUser(FacebookToken $token)
     {
-        if(strlen(trim($token->accessTokenUserId)) === 0) {
-            throw new AuthenticationException('Trying to load user by empty vkontakte uid');
+        if(strlen(trim($token->facebookUserData['id'])) === 0) {
+            throw new AuthenticationException('Trying to load user by empty facebook uid');
         }
         $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        $user = $repo->findOneByVkUid($token->accessTokenUserId);
+        $user = $repo->findOneByFbUid($token->facebookUserData['id']);
         if ($user) {
             return $user;
         }
@@ -134,22 +137,22 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         return false;
     }
 
-    public function createUser(VkontakteToken $token)
+    public function createUser(FacebookToken $token)
     {
         $userManager = $this->container->get('fos_user.user_manager.default');
 
         $user = new User();
-        $user->setEmail($token->vkUserData['uid'] . '@vk.com');
+        $user->setEmail($token->facebookUserData['email']);
         $user->setPlainPassword(substr(md5(rand(0, 10000) . microtime()), 0, 15));
-        $user->setUsername('vk' . $token->vkUserData['uid']);
+        $user->setUsername('fb' . $token->facebookUserData['id']);
         $user->setEnabled(true);
         $user->setSalt(rand(0, 100000));
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
-        $user->setVkUid($token->vkUserData['uid']);
-        $user->setFirstname($token->vkUserData['first_name']);
-        $user->setLastname($token->vkUserData['last_name']);
+        $user->setFbUid($token->facebookUserData['id']);
+        $user->setFirstname($token->facebookUserData['first_name']);
+        $user->setLastname($token->facebookUserData['last_name']);
         $user->setRoles(array('ROLE_USER'));
 
         $userManager->updateUser($user, true);
@@ -159,7 +162,7 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
 
     public function supports(TokenInterface $token)
     {
-        return $token instanceof VkontakteToken;
+        return $token instanceof FacebookToken;
     }
 
     public function curlRequest($url)
@@ -173,7 +176,6 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $result = curl_exec($ch); // run the whole process
         if ($result === false) {
-            var_dump(curl_error($ch));
             throw new \Exception('Curl error');
         }
         curl_close($ch);
