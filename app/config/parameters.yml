@@ -20,6 +20,10 @@ parameters:
     loginza_widget_id: 32096
 
     armd_social_auth_auth_providers:
+        default:
+            twitter:
+                oauth_consumer_key: IVysXnVjx31A9b72xQwg
+                secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
 
         roskult.ru:
             vkontakte:
