@@ -7,21 +7,23 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class VkontakteToken extends AbstractToken {
+class FacebookToken extends AbstractToken {
 
     public $accessCode;
+    public $accessState;
 
     public $accessToken;
     public $accessTokenDateTime;
-    public $accessTokenExpiresIn;
+    public $accessTokenExpires;
     public $accessTokenUserId;
 
-    public $vkUserData;
+    public $facebookUserData;
 
-    public function __construct(array $roles = array(), $accessCode = null)
+    public function __construct(array $roles = array(), $accessCode = null, $accessState = null)
     {
         parent::__construct($roles);
         $this->accessCode = $accessCode;
+        $this->accessState = $accessState;
     }
 
     /**
@@ -60,7 +62,7 @@ class VkontakteToken extends AbstractToken {
         return serialize(array(
             $this->accessToken,
             $this->accessTokenDateTime,
-            $this->accessTokenExpiresIn,
+            $this->accessTokenExpires,
             $this->accessTokenUserId,
             parent::serialize()
         ));
@@ -74,7 +76,7 @@ class VkontakteToken extends AbstractToken {
         list(
             $this->accessToken,
             $this->accessTokenDateTime,
-            $this->accessTokenExpiresIn,
+            $this->accessTokenExpires,
             $this->accessTokenUserId,
             $parentStr
         ) = unserialize($serialized);

@@ -31,7 +31,7 @@
    <p> <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
    </p>
 
-   {% include 'ArmdSocialAuthBundle:Default:auth_links.html.twig' %}
+   {% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': path('sonata_user_profile_edit') } %}
 </form>
 
 </div>

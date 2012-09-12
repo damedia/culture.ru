@@ -15,10 +15,20 @@ class SocialSecurityFactory implements SecurityFactoryInterface
 
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
-        // create auth provider
+        //--- create auth providers
+
+        // vkontakte
         $authProviderId = 'security.authentication.provider.armd_social_auth_vkontakte.' . $id;
         $container
             ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.armd_social_auth_vkontakte'));
+
+        // facebook
+        $authProviderId = 'security.authentication.provider.armd_social_auth_facebook.' . $id;
+        $container
+            ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.armd_social_auth_facebook'));
+
+
+        //--- /create auth providers
 
         // create auth listener
         $listenerId = 'security.authentication.listener.armd_social_auth.' . $id;
