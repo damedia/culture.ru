@@ -15,13 +15,34 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class AdminController extends Controller
 {
     /**
+     * Some temp or test actions here
+     *
      * @Route("/test")
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
     public function testAction()
     {
+        $testType = $this->getRequest()->get('type');
+
+        switch($testType) {
+            case 'list_without_3d':
+                $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
+                    ->createQueryBuilder('o')
+                    ->where('o.image3d IS NULL')
+                    ->getQuery()
+                    ->getResult();
+
+                $response = '';
+                foreach($objects as $object) {
+                    $response .= $object->getId() . ' ' . $object->getTitle() . '<br>';
+                }
+                return new Response($response);
+                break;
+        }
+
         return new Response('ok');
     }
+
 
     /**
      * @Route("/category_up/{id}", name="armd_atlas_admin_category_tree_up")
