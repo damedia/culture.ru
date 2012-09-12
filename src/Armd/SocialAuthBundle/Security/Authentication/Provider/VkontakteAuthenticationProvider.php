@@ -19,26 +19,14 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
 {
     protected $router;
     protected $em;
+    protected $paramsReader;
 
     public function __construct(Container $container)
     {
         $this->router = $container->get('router');
         $this->em = $container->get('doctrine')->getEntityManager();
         $this->container = $container;
-    }
-
-    public function getParameters()
-    {
-        $request = $this->container->get('request');
-        $host = $request->getHost();
-        $socialParams = $this->container->getParameter('armd_social_auth_auth_providers');
-
-        if (empty($socialParams[$host]['vkontakte'])) {
-            throw new InvalidConfigurationException('armd_social_auth_auth_providers for host ' . $host . ' was not found');
-        }
-        $socialParams = $socialParams[$host]['vkontakte'];
-
-        return $socialParams;
+        $this->paramsReader = $container->get('armd_social_auth.provider_parameters_reader');
     }
 
     public function authenticate(TokenInterface $token)
@@ -66,10 +54,10 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
 
     public function retrieveAccessToken(VkontakteToken $token)
     {
-        $socialParams = $this->getParameters();
+        $socialParams = $this->paramsReader->getParameters($this->getProviderName());
 
         $redirectUrl = $this->router->generate('armd_social_auth_auth_result', array(
-            'armd_social_auth_provider' => 'vkontakte'
+            'armd_social_auth_provider' => $this->getProviderName()
         ), true);
 
         $tokenUrl = 'https://oauth.vk.com/access_token?';
@@ -121,7 +109,7 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
 
     public function loadUser(VkontakteToken $token)
     {
-        if(strlen(trim($token->accessTokenUserId)) === 0) {
+        if (strlen(trim($token->accessTokenUserId)) === 0) {
             throw new AuthenticationException('Trying to load user by empty vkontakte uid');
         }
         $repo = $this->em->getRepository('ArmdUserBundle:User');
@@ -178,5 +166,10 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         }
         curl_close($ch);
         return $result;
+    }
+
+    public function getProviderName()
+    {
+        return 'vkontakte';
     }
 }

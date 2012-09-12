@@ -14,3 +14,7 @@ services:
         class: Armd\SocialAuthBundle\Security\Authentication\Provider\FacebookAuthenticationProvider
         arguments: [@service_container]
         abstract: true
+
+    armd_social_auth.provider_parameters_reader:
+        class: Armd\SocialAuthBundle\Security\Authentication\Provider\AuthenticationProviderParametersReader
+        arguments: [@service_container]

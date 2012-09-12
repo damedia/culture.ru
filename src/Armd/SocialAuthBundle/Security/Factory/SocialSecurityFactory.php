@@ -16,6 +16,7 @@ class SocialSecurityFactory implements SecurityFactoryInterface
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
         //--- create auth providers
+        $container->setParameter('armd_social_auth.firewall_parameters', $config);
 
         // vkontakte
         $authProviderId = 'security.authentication.provider.armd_social_auth_vkontakte.' . $id;
@@ -50,7 +51,7 @@ class SocialSecurityFactory implements SecurityFactoryInterface
     public function addConfiguration(NodeDefinition $builder)
     {
         $builder->children()
-            ->arrayNode('auth_providers')
+            ->arrayNode('auth_provider_parameters')
                 ->prototype('array')
                     ->prototype('array')
                         ->prototype('scalar')
