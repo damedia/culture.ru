@@ -38,6 +38,20 @@ class AdminController extends Controller
                 }
                 return new Response($response);
                 break;
+
+            case 'list_with_virtual_tour_image':
+                $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
+                    ->createQueryBuilder('o')
+                    ->where('o.virtualTourImage IS NOT NULL')
+                    ->getQuery()
+                    ->getResult();
+
+                $response = '';
+                foreach($objects as $object) {
+                    $response .= $object->getId() . ' ' . $object->getTitle() . '<br>';
+                }
+                return new Response($response);
+                break;
         }
 
         return new Response('ok');
