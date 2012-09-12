@@ -82,7 +82,6 @@ class SocialAuthenticationListener implements ListenerInterface //extends Abstra
     {
         if($event->getRequest()->query->has('code'))
         {
-            \gFuncs::dbgWriteLogVar($event->getRequest()->query, false, 'facebook code result'); // DBG:
             $token = new FacebookToken(
                 array(),
                 $event->getRequest()->get('code'),

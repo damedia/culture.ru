@@ -113,13 +113,11 @@ class FacebookAuthenticationProvider implements AuthenticationProviderInterface
         $apiUrl .= '&access_token=' . $token->accessToken;
 
         $result = $this->curlRequest($apiUrl);
-        \gFuncs::dbgWriteLogVar($result, false, 'retrieveUserData'); // DBG:
         if ($result === false) {
             throw new AuthenticationException('Can\'t get facebook user data');
         }
 
         $userData = json_decode($result, true);
-        \gFuncs::dbgWriteLogVar($userData, false, 'userdata'); // DBG:
         $token->facebookUserData = $userData;
 
     }
