@@ -63,42 +63,54 @@ security:
                 target:         armd_news_list_index
                 success_handler: armd_user.security.logout_success_handler
             anonymous:          true
-            loginza:
-                login_route: _loginza_login_user
-                token_route: _loginza_social_reg
-                secret_key: %loginza_secret_key%
-                widget_id: %loginza_widget_id%
-                entity: ArmdUserBundle:User
-            armd_social_auth:
-                auth_provider_parameters:
-                    default:
-                        twitter:
-                            oauth_consumer_key: IVysXnVjx31A9b72xQwg
-                            secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+#                    google:             "/login/check-google"
+#                    my_custom_provider: "/login/check-custom"
+#                    my_github:          "/login/check-github"
+                login_path:        /login
+                failure_path:      /login
 
-                    roskult.ru:
-                        vkontakte:
-                            app_id: 3118810
-                            secret: yTocvcEwl4cv4NHNJJEl
-                        facebook:
-                            app_id: 182778148514104
-                            secret: 19c7d10f46b7e753c81143c27d48357c
+                oauth_user_provider:
+                    service: my.oauth_aware.user_provider.service
 
-                    культура.рф:
-                        vkontakte:
-                            app_id: 3119050
-                            secret: niPCbh2ywoUeQOJSVPih
-                        facebook:
-                            app_id: 302490536525585
-                            secret: 5c3ba92cecd1833c6773d085d58b0198
-
-                    mk.armd.shams.su:
-                        vkontakte:
-                            app_id: 3119047
-                            secret: d0H7euAEzj12bcxvcmMu
-                        facebook:
-                            app_id: 482442168446063
-                            secret: 4dc17cf63e24d79b6b4a54360bc3db66
+#            loginza:
+#                login_route: _loginza_login_user
+#                token_route: _loginza_social_reg
+#                secret_key: %loginza_secret_key%
+#                widget_id: %loginza_widget_id%
+#                entity: ArmdUserBundle:User
+#            armd_social_auth:
+#                auth_provider_parameters:
+#                    default:
+#                        twitter:
+#                            oauth_consumer_key: IVysXnVjx31A9b72xQwg
+#                            secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
+#
+#                    roskult.ru:
+#                        vkontakte:
+#                            app_id: 3118810
+#                            secret: yTocvcEwl4cv4NHNJJEl
+#                        facebook:
+#                            app_id: 182778148514104
+#                            secret: 19c7d10f46b7e753c81143c27d48357c
+#
+#                    культура.рф:
+#                        vkontakte:
+#                            app_id: 3119050
+#                            secret: niPCbh2ywoUeQOJSVPih
+#                        facebook:
+#                            app_id: 302490536525585
+#                            secret: 5c3ba92cecd1833c6773d085d58b0198
+#
+#                    mk.armd.shams.su:
+#                        vkontakte:
+#                            app_id: 3119047
+#                            secret: d0H7euAEzj12bcxvcmMu
+#                        facebook:
+#                            app_id: 482442168446063
+#                            secret: 4dc17cf63e24d79b6b4a54360bc3db66
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users

@@ -52,11 +52,16 @@ class SocialSecurityFactory implements SecurityFactoryInterface
     {
         $builder->children()
             ->arrayNode('auth_provider_parameters')
+                ->useAttributeAsKey('id')
                 ->prototype('array')
+                    ->useAttributeAsKey('id')
                     ->prototype('array')
+                        ->useAttributeAsKey('id')
                         ->prototype('scalar')
                         ->end()
                 ->end()
             ->end();
+
+
     }
 }

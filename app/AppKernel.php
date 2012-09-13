@@ -56,6 +56,7 @@ class AppKernel extends Kernel
             new Armd\MediaHelperBundle\ArmdMediaHelperBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\SocialAuthBundle\ArmdSocialAuthBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

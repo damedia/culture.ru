@@ -32,18 +32,14 @@ class DefaultController extends Controller
         $request = $this->getRequest();
         $host = $request->getHost();
 
-        $authProvidersParams = $this->container->getParameter('armd_social_auth_auth_providers');
-        if(empty($authProvidersParams[$host]['vkontakte'])) {
-            throw new InvalidConfigurationException('Vkontakte authentication provider options for host ' . $host . ' was not found');
-        }
-        $authProvidersParams = $authProvidersParams[$host]['vkontakte'];
+        $authProviderParams = $this->get('armd_social_auth.provider_parameters_reader')->getParameters('vkontakte');
 
         $redirectUrl = $this->generateUrl('armd_social_auth_auth_result', array(
             'armd_social_auth_provider' => 'vkontakte'
         ), true);
 
         $loginFormUrl = 'http://oauth.vk.com/authorize?';
-        $loginFormUrl .= 'client_id=' . $authProvidersParams['app_id'];
+        $loginFormUrl .= 'client_id=' . $authProviderParams['app_id'];
         $loginFormUrl .= '&scope=notify,offline';
         $loginFormUrl .= '&redirect_uri=' . urlencode($redirectUrl);
         $loginFormUrl .= '&response_type=code';
@@ -60,11 +56,7 @@ class DefaultController extends Controller
         $request = $this->getRequest();
         $host = $request->getHost();
 
-        $authProvidersParams = $this->container->getParameter('armd_social_auth_auth_providers');
-        if(empty($authProvidersParams[$host]['facebook'])) {
-            throw new InvalidConfigurationException('Facebook authentication provider options for host ' . $host . ' was not found');
-        }
-        $authProvidersParams = $authProvidersParams[$host]['facebook'];
+        $authProviderParams = $this->get('armd_social_auth.provider_parameters_reader')->getParameters('facebook');
 
         $redirectUrl = $this->generateUrl('armd_social_auth_auth_result', array(
             'armd_social_auth_provider' => 'facebook'
@@ -74,7 +66,7 @@ class DefaultController extends Controller
         $request->getSession()->set('armd_social_auth.facebook_state', $facebookState);
 
         $loginFormUrl = 'https://www.facebook.com/dialog/oauth?';
-        $loginFormUrl .= 'client_id=' . $authProvidersParams['app_id'];
+        $loginFormUrl .= 'client_id=' . $authProviderParams['app_id'];
         $loginFormUrl .= '&redirect_uri=' . urlencode($redirectUrl);
         $loginFormUrl .= '&scope=user_about_me,user_birthday,user_location,email';
         $loginFormUrl .= '&state=' . $facebookState;

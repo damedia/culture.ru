@@ -28,6 +28,7 @@
         "friendsofsymfony/comment-bundle": "*",
         "stof/doctrine-extensions-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
+        "hwi/oauth-bundle": "*",
 
         "sonata-project/media-bundle": "master",
         "sonata-project/doctrine-orm-admin-bundle": "*",

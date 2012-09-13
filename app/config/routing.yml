@@ -1,3 +1,11 @@
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+facebook_login:
+    pattern: /login/check-facebook
+
 armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
     prefix:   /
@@ -104,8 +112,6 @@ armd_social_auth:
     resource: "@ArmdSocialAuthBundle/Controller/"
     type:     annotation
     prefix:   /social-auth
-
-
 
 # Internal routing configuration to handle ESI
 #_internal:

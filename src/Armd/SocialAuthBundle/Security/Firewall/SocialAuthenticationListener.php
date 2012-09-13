@@ -51,6 +51,9 @@ class SocialAuthenticationListener implements ListenerInterface //extends Abstra
                 case 'facebook':
                     return  $this->authenticateFacebook($event);
                     break;
+                case 'twitter':
+                    return  $this->authenticateTwitter($event);
+                    break;
                 default:
                     throw new \InvalidArgumentException('Unknown auth_provider');
             }
@@ -99,6 +102,11 @@ class SocialAuthenticationListener implements ListenerInterface //extends Abstra
                 $this->logger->err($e->getMessage());
             }
         }
+    }
+
+    public function authenticateTwitter(GetResponseEvent $event)
+    {
+
     }
 
 }
