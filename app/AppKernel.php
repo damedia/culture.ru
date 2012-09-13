@@ -54,6 +54,7 @@ class AppKernel extends Kernel
             new Armd\SphinxSearchBundle\ArmdSphinxSearchBundle(),
             new Armd\LectureBundle\ArmdLectureBundle(),
             new Armd\MediaHelperBundle\ArmdMediaHelperBundle(),
+            new Armd\EventBundle\ArmdEventBundle(),
             new Armd\SocialAuthBundle\ArmdSocialAuthBundle(),
         );
 

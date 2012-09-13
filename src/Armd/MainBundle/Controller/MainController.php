@@ -28,8 +28,7 @@ class MainController extends Controller
     {
         return $this->renderTemplate('services');
     }
-    
-
+	
     public function indexAction()
     {
         $categories = $this->get('armd_news.controller.news')->getCategoriesList();
