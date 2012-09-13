@@ -3,7 +3,7 @@
 namespace Armd\SocialAuthBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Armd\SocialAuthBundle\Security\Factory\SocialSecurityFactory;
+use Armd\SocialAuthBundle\DependencyInjection\Security\Factory\SocialSecurityFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ArmdSocialAuthBundle extends Bundle

@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\SocialAuthBundle\Security\Factory;
+namespace Armd\SocialAuthBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
