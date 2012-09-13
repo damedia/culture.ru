@@ -578,40 +578,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	border-color:#fff;
 } 
 
-.title {
 
-}
-	
-	.title:before {
-		content:'';
-		display:inline-block;
-		float:left;
-		width:11px;
-		height:25px;
-		vertical-align:top;
-		border-bottom:5px solid #606060;
-		background:url('../img/title-icon.gif') no-repeat 0 4px;
-		
-	}
-	.title h1, .title h2, .title h3  {
-		font-weight: normal;
-		font-size: 17px;
-		margin:0 0 10px 13px;
-		padding:0 0 5px 8px;
-		line-height:20px;
-		border-bottom:5px solid #606060;
-		position:relative;
-		
-	}
-		.title h1:after, .title h2:after, .title h3:after {
-			content:'';
-			position:absolute;
-			height:9px;
-			width:100%;
-			top:31px;
-			left:0;
-			background:#f0f0f0;
-		}
 		
 	
 .green-title h1, .green-title h2, .green-title h3,  .green-title:before {
