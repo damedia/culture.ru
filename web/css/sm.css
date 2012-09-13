@@ -4300,7 +4300,6 @@ white-space:nowrap;
 	.login-page p {
 		margin-bottom: 10px;
 	}
-
 	
 	/*borodino*/
 	.text-indent {
@@ -4317,6 +4316,7 @@ white-space:nowrap;
 		font-size:12px;
 		margin:0 0 4px;
 	}	
+	
 	.video-three {
 	margin-top:20px;
 }
@@ -4519,3 +4519,37 @@ white-space:nowrap;
 					height:auto;
 					
 				}
+
+.social-auth .social-auth-links a {
+    background: url("../img/sprite-social-ico.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    float: none;
+    height: 20px;
+    margin: 0 10px 0 0;
+    padding: 0;
+    width: 20px;
+}
+
+    .social-auth .social-auth-links li {
+        width: auto;
+    }
+
+    .social-auth .social-auth-links a.vkontakte {
+        background-position: 0 -40px;
+    }
+
+    .social-auth .social-auth-links a.twitter {
+        background-position: 0 -60px;
+    }
+
+    .social-auth .social-auth-links a.facebook {
+        background-position: 0 0;
+    }
+
+    .social-auth .social-auth-links a.odnoklassniki {
+        background-position: 0 -80px;
+    }
+
+    .social-auth .social-auth-links a.google {
+        background-position: 0 -20px;
+    }

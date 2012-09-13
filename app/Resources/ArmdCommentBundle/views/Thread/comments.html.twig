@@ -45,3 +45,9 @@
     {% endif %}
 
 {% endif %}
+
+{% if not is_granted('ROLE_USER') %}
+    <div>
+        <p>Чтобы оставлять комментарии необходимо <a href="{{ path('/login') }}">авторизоваться</a> на сайте.</p>
+    </div>
+{% endif %}
