@@ -5,16 +5,17 @@
 {% block stylesheets %}
 
 {{ parent() }}
-
-
-
-
+<link rel="stylesheet" href="/bundles/armdatlas/css/chosen.css">
+<style type="text/css">
+	.chzn-container-single .chzn-single {border-color:#fff; color:#000;}
+	.chzn-container-active .chzn-single-with-drop {border:1px solid #AAA;}
+</style>
 {% endblock %}
 
 
 {% block javascripts %}
 {{ parent() }}
-
+<script type="text/javascript" src="/bundles/armdatlas/js/chosen.jquery.js"></script>
 <script src="{{ asset('/main/common/js/function.js') }}"></script>
 <script src="{{ asset('/swf/swfobject/swfkrpano.js') }}"></script>
 
@@ -45,7 +46,9 @@
 					
 					});
 
-					
+				$('.table-selector select').chosen();
+				
+
 				 })  
 			</script>
 {% endblock %}
@@ -54,130 +57,8 @@
 
 
  {% block body%}
- <div class="filter">
-    <div class="title">
-        <h2>Фильтрация</h2>
-    </div>
-    <form action="" class="simple-filter-form video-filter">
-
-
-        <div class="simple-filter-block video-theme">
-                            <div class="simple-filter-header clearfix">
-                    <span>Регионы</span>
-                                            <p class="check_all checked"><span>все</span></p>
-                                    </div>
-                <div class="simple-filter-options">
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="3" checked="checked">
-                            <span>Театр</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="7" checked="checked">
-                            <span>Кино</span>
-                        </label>
-                    
-                                    
-                        <label class="">
-                            <input type="checkbox" data-lecture-category-id="8">
-                            <span>Опера</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="9" checked="checked">
-                            <span>История</span>
-                        </label>
-                    
-                                    
-                        <label class="">
-                            <input type="checkbox" data-lecture-category-id="10">
-                            <span>Декоративно-прикладное искусство</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="13" checked="checked">
-                            <span>Мастер-класс</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="14" checked="checked">
-                            <span>Живопись</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="22" checked="checked">
-                            <span>Музыка</span>
-                        </label>
-                    
-                                </div>
-                    </div>
-					
-		<div class="simple-filter-block video-theme">
-                            <div class="simple-filter-header clearfix">
-                    <span>Города</span>
-                                            <p class="check_all checked"><span>все</span></p>
-                                    </div>
-                <div class="simple-filter-options">
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="3" checked="checked">
-                            <span>Театр</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="7" checked="checked">
-                            <span>Кино</span>
-                        </label>
-                    
-                                    
-                        <label class="">
-                            <input type="checkbox" data-lecture-category-id="8">
-                            <span>Опера</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="9" checked="checked">
-                            <span>История</span>
-                        </label>
-                    
-                                    
-                        <label class="">
-                            <input type="checkbox" data-lecture-category-id="10">
-                            <span>Декоративно-прикладное искусство</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="13" checked="checked">
-                            <span>Мастер-класс</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="14" checked="checked">
-                            <span>Живопись</span>
-                        </label>
-                    
-                                    
-                        <label class="checked">
-                            <input type="checkbox" data-lecture-category-id="22" checked="checked">
-                            <span>Музыка</span>
-                        </label>
-                    
-                                </div>
-                    </div>			
-    </form>
-
-</div>
-<div class="center-column">
+ 
+<div class="left-column type-2">
 		<div class="title yellow-title star-title">
 			<h2>Бородинскому сражению 200 лет</h2>
 		</div>
@@ -289,14 +170,42 @@
 			</div>
 			
 		
-
+				
 			<table class="stripy sortable table">
 				<caption>Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</caption>
 				<tr>
-					<th><a href="#" class="sort_down">Регион</a></th>
-					<th><a href="#" class="sort_down">Город</a></th>
+					<th>
+						<div id="regions-selector" class="table-selector">
+							<select data-placeholder="Регион" class="chzn-select">
+								<option value=""></option>
+								<option value="1">Регион 1</option>
+								<option value="2">Регион200</option>
+								<option value="3">Регион 3</option>
+							</select>
+						</div>
+						<div id="ajax-loading" class="ajax-loading"></div>
+					</th>
+					<th>
+						<div id="regions-selector" class="table-selector">
+							<select data-placeholder="Город" class="chzn-select">
+								<option value=""></option>
+								<option value="1">Москва</option>
+								<option value="2">Петербург</option>
+								<option value="3">Город 312</option>
+							</select>
+						</div>
+					</th>
 					<th>Учреждение</th>
-					<th><a href="#" class="sort_down">Дата</a></th>
+					<th>
+						<div id="regions-selector" class="table-selector">
+							<select data-placeholder="Дата" class="chzn-select">
+								<option value=""></option>
+								<option value="1">Сентябрь</option>
+								<option value="2">Октябрь</option>
+								<option value="3">Ноябрь</option>
+							</select>
+						</div>
+					</th>
 					<th>Название мероприятия</th>
 				</tr>
 				<tr>
