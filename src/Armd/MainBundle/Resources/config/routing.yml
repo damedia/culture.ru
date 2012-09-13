@@ -17,7 +17,10 @@ armd_main_about:
 armd_main_services:
     pattern:  /services
     defaults: { _controller: ArmdMainBundle:Main:services }    
-        
+   
+armd_main_services:
+    pattern:  /borodino
+    defaults: { _controller: ArmdMainBundle:Main:borodino }   
 
 armd_main_random_russia_images:
     pattern: /main/random-russia-images

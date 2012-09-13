@@ -1,0 +1,478 @@
+{% extends '::base.html.twig' %}
+
+
+
+{% block stylesheets %}
+
+{{ parent() }}
+
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('/main/common/js/function.js') }}"></script>
+<script src="{{ asset('/swf/swfobject/swfkrpano.js') }}"></script>
+
+<script type="text/javascript">
+				$(function(){
+					var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+					
+					if ($('.vob').length){    
+						$('.vob').fancybox({
+							'autoScale'  : false,
+							'autoDimensions' : false,
+							'padding':0,
+							'margin':0,
+							'fitToView':true
+						});
+					}
+					
+					$('.panoDIV').css({'width':x-18, 'height':y});
+					
+					
+					$(".iframe").fancybox({
+					'width' : '100%',
+					'height' : '100%',
+					'autoScale' : true,
+					'transitionIn' : 'none',
+					'transitionOut' : 'none',
+					'type' : 'iframe',
+					
+					});
+
+					
+				 })  
+			</script>
+{% endblock %}
+
+{% block title %} — Государственные услуги{% endblock %}
+
+
+ {% block body%}
+ <div class="filter">
+    <div class="title">
+        <h2>Фильтрация</h2>
+    </div>
+    <form action="" class="simple-filter-form video-filter">
+
+
+        <div class="simple-filter-block video-theme">
+                            <div class="simple-filter-header clearfix">
+                    <span>Регионы</span>
+                                            <p class="check_all checked"><span>все</span></p>
+                                    </div>
+                <div class="simple-filter-options">
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="3" checked="checked">
+                            <span>Театр</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="7" checked="checked">
+                            <span>Кино</span>
+                        </label>
+                    
+                                    
+                        <label class="">
+                            <input type="checkbox" data-lecture-category-id="8">
+                            <span>Опера</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="9" checked="checked">
+                            <span>История</span>
+                        </label>
+                    
+                                    
+                        <label class="">
+                            <input type="checkbox" data-lecture-category-id="10">
+                            <span>Декоративно-прикладное искусство</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="13" checked="checked">
+                            <span>Мастер-класс</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="14" checked="checked">
+                            <span>Живопись</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="22" checked="checked">
+                            <span>Музыка</span>
+                        </label>
+                    
+                                </div>
+                    </div>
+					
+		<div class="simple-filter-block video-theme">
+                            <div class="simple-filter-header clearfix">
+                    <span>Города</span>
+                                            <p class="check_all checked"><span>все</span></p>
+                                    </div>
+                <div class="simple-filter-options">
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="3" checked="checked">
+                            <span>Театр</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="7" checked="checked">
+                            <span>Кино</span>
+                        </label>
+                    
+                                    
+                        <label class="">
+                            <input type="checkbox" data-lecture-category-id="8">
+                            <span>Опера</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="9" checked="checked">
+                            <span>История</span>
+                        </label>
+                    
+                                    
+                        <label class="">
+                            <input type="checkbox" data-lecture-category-id="10">
+                            <span>Декоративно-прикладное искусство</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="13" checked="checked">
+                            <span>Мастер-класс</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="14" checked="checked">
+                            <span>Живопись</span>
+                        </label>
+                    
+                                    
+                        <label class="checked">
+                            <input type="checkbox" data-lecture-category-id="22" checked="checked">
+                            <span>Музыка</span>
+                        </label>
+                    
+                                </div>
+                    </div>			
+    </form>
+
+</div>
+<div class="center-column">
+		<div class="title yellow-title star-title">
+			<h2>Бородинскому сражению 200 лет</h2>
+		</div>
+		<div class="text-indent">
+			<img src="/img/borodino/borodino-dates.png" alt="" class="borodino-dates" />
+			<p class="uppercase-gray">
+				Этот раздел посвящен готовщине 200 летия Бородинского сражения.
+			</p>
+			<p>Министерство культуры ведет работы по оцифровке культурного наследия, в том числе объектов, связанныех культуры ведет работы по оцифровке культурного наследия, в том числе объектов, связанных.</p>
+			<div class="video-anons video-three">
+				<ul>
+					<li>
+						<a href="/lecture/lecture">
+							<img src="/img/borodino/kutuzov.jpg" alt="" />
+							<span class="play"></span>
+						</a>
+						<div class="ppa-anons">
+							<a href="/lecture/lecture">
+								Кутузов.<br /> 
+								Гений войны 1812 года
+							</a>
+						</div>
+					</li> 
+					<li>
+						<a href="/lecture/lecture">
+							<img src="/img/borodino/video_2.jpg" alt="" />
+							<span class="play"></span>
+						</a>
+						<div class="ppa-anons">
+							<a href="/lecture/lecture">
+								Багратион
+							</a>
+						</div>
+					</li> 
+					<li>
+						<a href="/lecture/view/15">
+							<img src="/img/borodino/video_3.jpg" alt="" />
+							<span class="play"></span>
+						</a>
+						<div class="ppa-anons">
+							<a href="/lecture/view/15">
+								1812 год в истории России
+							</a>
+						</div>
+					</li> 
+				</ul>
+			</div>
+			<div class="yellow-border-block">
+				<p class="yellow-border-header">
+					<span>Лента времени</span>
+				</p>
+				<div class="video-anons video-three">
+					<ul>
+						<li>
+							<a href="/chronicle/#event_34">
+								<img src="/img/borodino/ch1.jpg" alt="" />
+							</a>
+							<a href="/chronicle/#event_34" class="bor-lenta-name">НАПАДЕНИЕ НАПОЛЕОНА НА РОССИЮ. НАЧАЛО ОТЕЧЕСТВЕННОЙ ВОЙНЫ 1812 ГОДА </a>
+							<p class="bor-lenta-date">1812 год</p>
+						</li> 
+						<li>
+							<a href="/chronicle/#event_287">
+								<img src="/img/borodino/ch2.jpg" alt="" />
+							</a>
+							<a href="/chronicle/#event_287" class="bor-lenta-name">БОРОДИНСКОЕ СРАЖЕНИЕ</a>
+							<p class="bor-lenta-date">1812 год</p>
+						</li> 
+						<li>
+							<a href="/chronicle/#event_288">
+								<img src="/img/borodino/ch3.jpg" alt="" />
+							</a>
+							<a href="/chronicle/#event_288" class="bor-lenta-name">ОСТАВЛЕНИЕ МОСКВЫ</a>
+							<p class="bor-lenta-date">1812 год</p>
+						</li>
+						<li class="clear" style="width:100%; float:none; height:1px;"></li>
+						<li>
+							<a href="/chronicle/#event_37">
+								<img src="/img/borodino/ch4.jpg" alt="" />
+							</a>
+							<a href="/chronicle/#" class="bor-lenta-name">ПЕРЕПРАВА ФРАНЦУЗОВ ЧЕРЕЗ РЕКУ БЕРЕЗИНУ</a>
+							<p class="bor-lenta-date">1812 год</p>
+						</li> 
+						<li>
+							<a href="/chronicle/#event_35">
+								<img src="/img/borodino/ch5.jpg" alt="" />
+							</a>
+							<a href="/chronicle/#event_35" class="bor-lenta-name">СРАЖЕНИЕ ПОД СМОЛЕНСКОМ</a>
+							<p class="bor-lenta-date">1812 год</p>
+						</li> 
+						<li>
+							<a href="/chronicle/#event_379">
+								<img src="/img/borodino/ch6.jpg" alt="" />
+							</a>
+							<a href="/chronicle/#event_379" class="bor-lenta-name">КАРИКАТУРЫ И.И. ТЕРЕБЕНЕВА</a>
+							<p class="bor-lenta-date">1812 год</p>
+						</li> 						
+					</ul>
+				</div>
+				
+			</div>
+			<div class="borodino-panorama">
+				<p class="borodino-panorama-header">
+					<span>Музей-панорама <b>«Бородинская битва»</b></span>
+				</p>
+				
+				<a href="http://eyera.dev.armd.ru/borodino/borodino_museum.html" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
+					<img src="/img/borodino/panorama.jpg" alt="" />
+				</a>
+			</div>
+			
+		
+
+			<table class="stripy sortable table">
+				<caption>Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</caption>
+				<tr>
+					<th><a href="#" class="sort_down">Регион</a></th>
+					<th><a href="#" class="sort_down">Город</a></th>
+					<th>Учреждение</th>
+					<th><a href="#" class="sort_down">Дата</a></th>
+					<th>Название мероприятия</th>
+				</tr>
+				<tr>
+					<td>Республика Татарстан</td>
+					<td>Елабуга</td>
+					<td>Городской Дворец детского творчества им. А.Алиша </td>
+					<td class="nowrap">1 сентября</td>
+					<td>Торжественные мероприятия в честь 200-летия состоявшегося здесь крупнейшего сражения Отечественной войны 1812 года</td>
+				</tr>
+				<tr class="even">
+					<td>Москва</td>
+					<td>Москва</td>
+					<td>Архангельская лаборатория судебной экспертизы Министерства юстиции Российской Федерации</td>
+					<td class="nowrap">1 сентября</td>
+					<td>Генеральная репетиция реконструкции эпизодов Бородинского сражения на плац-театре у села Бородино</td>
+				</tr>
+				<tr>
+					<td>Брянская область</td>
+					<td>Брянск</td>
+					<td>Муниципальное образовательное учреждение образования детей Центр творчества «Витязь»</td>
+					<td class="nowrap">2 сентября</td>
+					<td>Репетиция церемониалов на командном пункте Наполеона в деревне Шевардино</td>
+				</tr>
+				<tr class="even">
+					<td>Калужская область</td>
+					<td>Малоярославец</td>
+					<td>Муниципальное образовательное учреждение дополнительного образования детей Центр внешкольной работы «Приоритет»</td>
+					<td class="nowrap">4 сентября</td>
+					<td>Торжественным прохождением войск перед памятником под звуки Марсельезы</td>
+				</tr>
+				<tr>
+					<td>Республика Татарстан</td>
+					<td>Елабуга</td>
+					<td>Городской Дворец детского творчества им. А.Алиша </td>
+					<td class="nowrap">1 сентября</td>
+					<td>Торжественные мероприятия в честь 200-летия состоявшегося здесь крупнейшего сражения Отечественной войны 1812 года</td>
+				</tr>
+				<tr class="even">
+					<td>Смоленская область</td>
+					<td>Смоленск</td>
+					<td>Государственное бюджетное образовательное учреждение Центр развития творчества детей и юношества им.А.В.Косарев</td>
+					<td class="nowrap">15 сентября</td>
+					<td>ГМинута молчания. Ружейный залп. Выступление представителя правительства России и правительства Франции</td>
+				</tr>
+			</table>
+		</div>
+		
+		
+	</div>
+	<div class="right-column">
+		<div class="title">
+			<h2>Анонсы</h2>
+		</div>
+		<ul class="right-list">
+			<li>
+				<a href="#">
+					<img src="/img/borodino/anons.jpg" alt="" />
+				</a>
+				<div class="text-overflow">
+					<a href="#" class="rl-name rl-name-big">
+						Национальный ансамбль народного танца «Жок» Республики Молдова
+					</a>
+				</div>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/img/borodino/anons.jpg" alt="" />
+				</a>
+				<div class="text-overflow">
+					<a href="#" class="rl-name rl-name-big">
+						Национальный ансамбль народного танца «Жок» Республики Молдова
+					</a>
+				</div>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/img/borodino/anons.jpg" alt="" />
+				</a>
+				<div class="text-overflow">
+					<a href="#" class="rl-name rl-name-big">
+						Национальный ансамбль народного танца «Жок» Республики Молдова
+					</a>
+				</div>
+			</li>
+		</ul>
+		
+		<div class="title">
+			<h2>Новости</h2>
+		</div>
+		
+		<ul class="right-list">
+			<li>
+				<a href="#">
+					<img src="/img/borodino/anons.jpg" alt="" />
+				</a>
+				<div class="text-overflow">
+					<span class="rl-type rl-type-red">Новости</span>
+					<a href="#" class="rl-name">
+						Проект «Пермский сувенир» готовится к Новому году летом
+					</a>	
+				</div>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/img/borodino/anons.jpg" alt="" />
+				</a>
+				<div class="text-overflow">
+					<span class="rl-type rl-type-red">События</span>
+					<a href="#" class="rl-name">
+						Проект «Пермский сувенир» готовится к Новому году летом
+					</a>	
+				</div>
+			</li>
+			<li>
+				<a href="#">
+					<img src="/img/borodino/anons.jpg" alt="" />
+				</a>
+				<div class="text-overflow">
+					<span class="rl-type rl-type-red">Новости</span>
+					<a href="#" class="rl-name">
+						Проект «Пермский сувенир» готовится к Новому году летом
+					</a>	
+				</div>
+			</li>
+		</ul>
+		
+		<div class="yellow-border-block">
+			<p class="yellow-border-header">
+				<span>Издания</span>
+			</p>
+			<ul class="press-list">
+				<li>
+					<a href="#">
+						<img src="/img/borodino/press.jpg" alt="" />
+					</a>
+					<div class="text-overflow">
+						<a href="#" class="press-list-name">Английский офицер Роберт Вильсон о русских солдатах и офицерах</a>
+						<p class="press-list-anons">В своих кратких записках "о свойстве и составе русского войска" англичанин Роберт..</p>
+					</div>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/img/borodino/press.jpg" alt="" />
+					</a>
+					<div class="text-overflow">
+						<a href="#" class="press-list-name">Английский офицер Роберт Вильсон о русских солдатах и офицерах</a>
+						<p class="press-list-anons">В своих кратких записках "о свойстве и составе русского войска" англичанин Роберт..</p>
+					</div>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/img/borodino/press.jpg" alt="" />
+					</a>
+					<div class="text-overflow">
+						<a href="#" class="press-list-name">Английский офицер Роберт Вильсон о русских солдатах и офицерах</a>
+						<p class="press-list-anons">В своих кратких записках "о свойстве и составе русского войска" англичанин Роберт..</p>
+					</div>
+				</li>
+			</ul>	
+		</div>		
+		
+		
+		<div class="title">
+			<h2>Медиапроекты</h2>
+		</div>
+		<ul class="media-projects">
+			<li>
+				<a href="#" class="media-projects-image">
+					<img src="/img/borodino/media-project.jpg" alt="" />
+				</a>
+				<a href="#" class="press-list-name">1812. Война и Мир. Новый взгляд.</a>
+				<p class="press-list-anons">Ссылки на трансляции или передачи государственных телеканалов</p>
+			</li>
+		</ul>
+		
+		
+	</div>
+
+{% endblock %}
