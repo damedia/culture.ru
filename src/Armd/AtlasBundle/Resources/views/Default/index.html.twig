@@ -104,10 +104,13 @@
         </div>
     </div>
 
-    <!-- popups -->
+    <!-- popups -------------------------------------------- -->
+
+    <!-- object form popup -->
     <div class="add-object-form draggable" id="add-object-form">
         <a href="#" class="exit" title="Закрыть"></a>
         <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
+            <input id="object-id" type="text" name="id" value="">
             <h2>Добавление объекта</h2>
             <ul class="add-object-form-fields">
                 <li>
@@ -182,6 +185,9 @@
             </fieldset>
         </form>
     </div>
+    <!-- /object form popup -->
+
+    <!-- success popup -->
     <div class="add-object-form success-object-form draggable" id="success-object-form" >
         <a href="#" class="exit" title="Закрыть"></a>
         <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
@@ -195,7 +201,9 @@
             </fieldset>
         </form>
     </div>
-    <!-- /popups -->
+    <!-- /success popup -->
+
+    <!-- /popups -------------------------------------------- -->
 
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
@@ -235,19 +243,18 @@
     {# <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script> #}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
-        var fetchMarkersUri       = '{{ path('armd_atlas_default_filter') }}',
-            fetchMarkerDetailUri  = '{{ path('armd_atlas_default_objectballoon') }}',
-            fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
-            fetchMyObjectsUri     = '{{ path('armd_atlas_default_objectsmy') }}',
-            deleteMyObjectsUri    = '{{ path('armd_atlas_default_objectsmydelete') }}',
-            bundleImagesUri       = '{{ asset('bundles/armdatlas/images') }}',
-            imageUploadUri        = '{{ path('armd_atlas_default_objectsmyupload') }}';
-
         $(function(){
             AT.init({
                 map: 'map',
                 center: [84.967319,60.329728],
-                zoom: 3
+                zoom: 3,
+                fetchMarkersUri:       '{{ path('armd_atlas_default_filter') }}',
+                fetchMarkerDetailUri:  '{{ path('armd_atlas_default_objectballoon') }}',
+                fetchClusterDetailUri: '{{ path('armd_atlas_default_clusterballoon') }}',
+                fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
+                deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
+                imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
+                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}'
             });
         });
     </script>

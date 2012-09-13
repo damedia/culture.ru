@@ -4,6 +4,7 @@
 var AT = {};
 
 AT.version = '0.3';
+AT.params = {};
 AT.map = null;
 AT.filterTags = [];
 AT.clusterPoints = null;
@@ -11,6 +12,8 @@ AT.regions = [];
 
 AT.init = function(params) {
     console.info('Init Atlas');
+
+    this.params = params;
 
     AT.initMap(params);
     AT.initGeocoder();
@@ -150,7 +153,7 @@ AT.initUI = function() {
                     AT.clusterPoints = new PGmap.GeometryLayer({
                         points: points,
                         clusterSize: 100,
-                        clusterImage: bundleImagesUri + "/klaster_1.1.png"
+                        clusterImage: AT.params.bundleImagesUri + "/klaster_1.1.png"
                     });
                     AT.clusterPoints.setClusterImageByCount = function(count) {
                         return "0px 0px";
@@ -179,7 +182,7 @@ AT.initUI = function() {
 
                                             $('#ajax-loading').show();
                                             $.ajax({
-                                                url: fetchClusterDetailUri,
+                                                url: AT.params.fetchClusterDetailUri,
                                                 data: { ids: ids },
                                                 success: function(res){
                                                     $('#ajax-loading').hide();
@@ -213,7 +216,7 @@ AT.initUI = function() {
     });
 
     // Инициализируем список регионов
-    var regionsJsonPath = bundleImagesUri + '/../js/regions.json',
+    var regionsJsonPath = AT.params.bundleImagesUri + '/../js/regions.json',
         regionsSelector = $('#regions-selector select');
     $.getJSON(regionsJsonPath, function(res){
         AT.regions = res;
@@ -338,13 +341,14 @@ AT.placePoint = function(object) {
     return point;
 };
 
+// Инициирует клик по точке. Появляется балун
 AT.triggerPointClick = function(point) {
     console.log('triggerPointClick');
     var uid = $(point.container).data('uid');
 
     $('#ajax-loading').show();
     $.ajax({
-        url: fetchMarkerDetailUri,
+        url: AT.params.fetchMarkerDetailUri,
         data: { id: uid },
         success: function(res) {
             console.log('click on point');
@@ -389,7 +393,7 @@ AT.initMyObjects = function() {
     // Построение списка моих объектов
     $('#ajax-loading').show();
     $.ajax({
-        url: fetchMyObjectsUri, // /atlas/objects/my
+        url: AT.params.fetchMyObjectsUri, // /atlas/objects/my
         dataType: 'json',
         success: function(res) {
             $('#ajax-loading').hide();
@@ -418,12 +422,29 @@ AT.initMyObjects = function() {
 
     // Мои карты -> Мои объекты. Редактирование точки из списка.
     $('#myobj_list li .edit').live('click', function(){
-        console.log('xxx');
-        $('#add-object-form').show();
+        var jLi = $(this).closest('li'),
+            objectId = jLi.data('id'),
+            point = jLi.data('point'),
+            coord = point.coord;
 
-
-
-
+        // Делаем запрос к бэкенду - получаем данные объекта
+        $.ajax({
+            url: AT.params.fetchMyObjectsUri,
+            data: { id:objectId },
+            dataType: 'json',
+            success: function(res){
+                if (res.success) {
+                    // И показываем попап с формой
+                    AT.showObjectForm({
+                        entity: res.result,
+                        coord: coord,
+                        point: point
+                    });
+                } else {
+                    alert(res.message);
+                }
+            }
+        });
     });
 
     // Мои карты -> Мои объекты. Удаление точки из списка, с карты и вообще.
@@ -435,7 +456,7 @@ AT.initMyObjects = function() {
             $('#ajax-loading').show();
             $.ajax({
                 dataType: 'json',
-                url: deleteMyObjectsUri,
+                url: AT.params.deleteMyObjectsUri,
                 data: { id: id },
                 success: function(json){
                     $('#ajax-loading').hide();
@@ -570,12 +591,6 @@ AT.showObjectForm = function(params) {
     // Открываем попап
     jPopup.show();
 
-    var lon = PGmap.Utils.fromMercX(params.coord.lon),
-        lat = PGmap.Utils.fromMercY(params.coord.lat);
-    console.info(lon.toFixed(6), lat.toFixed(6));
-    $('#lon').val(lon);
-    $('#lat').val(lat);
-
     // Список категорий в диалоге
     $('#primary-category, #category').chosen();
     $('#primary-category').change(function(){
@@ -587,6 +602,23 @@ AT.showObjectForm = function(params) {
         //myPoint.url = 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b';
         //myPoint.update();
     });
+
+    // Заполняем форму
+    if (params.entity) {
+        $('#object-id').val(params.entity.id);
+        $('#name').val(params.entity.title);
+        $('#address').val(params.entity.address);
+        $('#descr').val(params.entity.announce);
+        $('#lon').val(params.entity.lon);
+        $('#lat').val(params.entity.lat);
+        $('#primary-category')
+            .chosen()
+            .val(params.entity.primaryCategory)
+            .trigger("liszt:updated");
+    } else {
+        $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
+        $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
+    }
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     jPopup.find('.rst-btn, .exit').click(function(){
@@ -700,7 +732,7 @@ AT.showObjectForm = function(params) {
     // Ajax file uploader
     var uploader = new qq.FileUploader({
         element: document.getElementById('file-uploader'),
-        action: imageUploadUri, // /objects/my/upload
+        action: AT.params.imageUploadUri, // /objects/my/upload
         template: '<div class="qq-uploader">'
                 + '  <div class="qq-upload-drop-area" style="display:none;"><span>Перетяните сюда фото для загрузки</span></div>'
                 + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'

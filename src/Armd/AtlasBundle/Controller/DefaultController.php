@@ -694,6 +694,7 @@ class DefaultController extends Controller
 
     /**
      * Мои объекты. Список моих объектов
+     * Если указан id, возвращаем одну запись
      *
      * @Route("/objects/my")
      */
@@ -702,23 +703,36 @@ class DefaultController extends Controller
         try {
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
-
             $currentUser = $this->get('security.context')->getToken()->getUser();
-
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
-            $entities = $repo->findBy(array('createdBy' => $currentUser));
-
-            $result = array();
-            foreach ($entities as $obj) {
-                $result[] = array(
+            $objectId = (int) $request->get('id');
+            if ($objectId) {
+                $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId));
+                $primaryCategory = $obj->getPrimaryCategory();
+                $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
+                $result = array(
                     'id' => $obj->getId(),
                     'title' => $obj->getTitle(),
+                    'announce' => $obj->getAnnounce(),
+                    'address' => $obj->getAddress(),
+                    'primaryCategory' => $primaryCategoryId,
                     'lon' => $obj->getLon(),
                     'lat' => $obj->getLat(),
                     'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
                 );
+            } else {
+                $result = array();
+                $entities = $repo->findBy(array('createdBy' => $currentUser));
+                foreach ($entities as $obj) {
+                    $result[] = array(
+                        'id' => $obj->getId(),
+                        'title' => $obj->getTitle(),
+                        'lon' => $obj->getLon(),
+                        'lat' => $obj->getLat(),
+                        'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
+                    );
+                }
             }
-
             $res = array(
                 'success' => true,
                 'result' => $result,
