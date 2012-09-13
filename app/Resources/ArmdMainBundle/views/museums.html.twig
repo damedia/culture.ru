@@ -72,7 +72,7 @@
 											{{ description|raw }}
 										</a>
 										
-									</div>
+								</div>
 								</div>
 							</div>
 						</li>
@@ -82,73 +82,116 @@
 {% endmacro %}
 
 
-{% set museums = [	{		'link': '/glinka_museum/glinka_museum.html',
-							'img': '/03.jpg',
-							'description':'Всероссийское музейное объединение музыкальной культуры имени М.И. Глинки'
+{% set museums = [	
+					{		'link': '/tretyakov_gallery/tretyakov_gallery.html',
+							'img': '/tretyakovka.jpg',
+							'description':'Государственная Третьяковская галерея'
 					},
-					 	{	'link': '/bahrushina/bahrushina_museum.html',
-					 		'img': '/01.jpg',
-					 		'description':'Театральный музей имени А.А. Бахрушина'
-					 },
-					 	{	'link': '/vostok_museum/vostok_museum.html',
+					 {	'link': '/vostok_museum/vostok_museum.html',
 					 		'img': '/vostoka.jpg',
 					 		'description':'Государственный музей искусства народов Востока'
 					 },
-					 	{	'link': '/sklif2/sheremetieva-media-trest.html',
-					 		'img': '/sklif.jpg',
-					 		'description':'Странноприимный дом<br>Н.П. Шереметьева'
+					 
+					 {	'link': '/bahrushina/bahrushina_museum.html',
+					 		'img': '/01.jpg',
+					 		'description':'Театральный музей имени А.А. Бахрушина'
 					 },
-					 	{	'link': '/borodino/borodino_museum.html',
+
+					 {	'link': '/borodino/borodino_museum.html',
 					 		'img': '/borodinskaya.jpg',
 					 		'description':'Музей-панорама &laquo;Бородинская битва&raquo;'
 					 },
-					 	{	'link': '/pushkin/pushkin.html',
-					 		'img': '/pushkin.jpg',
-					 		'description':'Мемориальный Музей-квартира А.С.Пушкина'
-					 },
-					 	{	'link': '/kulikovo/kulikovo_pole.html',
+
+					 {	'link': '/kulikovo/kulikovo_pole.html',
 					 		'img': '/kulikovo.jpg',
 					 		'description':'Государственный военно-исторический и природный<br>музей-заповедник &laquo;Куликово поле&raquo;'
 					 },
-					 	{	'link': '/polyana/iasnaya_polyana.html',
-					 		'img': '/yasnaya_polyana.jpg',
-					 		'description':'Музей-усадьба Л.Н. Толстого<br> «Ясная Поляна»'
-					 },
-					 	{	'link': '/radisheva/radisheva.html',
+
+
+					{		'link': '/glinka_museum/glinka_museum.html',
+							'img': '/03.jpg',
+							'description':'Всероссийское музейное объединение музыкальной культуры имени М.И. Глинки'
+					},
+					{	'link': '/radisheva/radisheva.html',
 					 		'img': '/radisheva.jpg',
 					 		'description':'Саратовский государственный художественный музей <br>имени А.Н. Радищева'
 					 },
-					 	{	'link': '/monastyr_suzdal/monastery_suzdal.html',
-					 		'img': '/suzdal.jpg',
-					 		'description':'Владимиро-Суздальский музей-заповедник'
+
+					 
+					 {	'link': '/mordovia/mordovia_museum.html',
+					 		'img': '/saransk.jpg',
+					 		'description':'Саранский музей'
 					 },
-					 	{	'link': '/schusev/schusev.html',
-					 		'img': '/schuseva.jpg',
-					 		'description':'Государственный музей архитектуры <br>имени А.В. Щусева'
+					
+					
+					 {	'link': '/sklif2/sheremetieva-media-trest.html',
+					 		'img': '/sklif.jpg',
+					 		'description':'Странноприимный дом<br>Н.П. Шереметьева'
 					 },
-					 	{	'link': '/ryazan/ryazan.html',
-					 		'img': '/ryazan.jpg',
-					 		'description':'Рязанский историко-архитектурный музей-заповедник'
+					 
+					 {	'link': '/sholohov/sholohov.html',
+					 		'img': '/sholohov.jpg',
+					 		'description':'Музей Шолохова'
 					 },
+					
+					 {	'link': '/polyana/iasnaya_polyana.html',
+					 		'img': '/yasnaya_polyana.jpg',
+					 		'description':'Музей-усадьба Л.Н. Толстого<br> «Ясная Поляна»'
+					 },
+					 
+					 {	'link': '/kalashnikova/kalashnikova.html',
+					 		'img': '/kalash.jpg',
+					 		'description':'Музей стрелкового оружия им. Михаила Калашникова'
+					 },
+
+					 
+					 {	'link': '/pushkin/pushkin.html',
+					 		'img': '/pushkin1.jpg',
+					 		'description':'Мемориальный Музей-квартира А.С.Пушкина'
+					 },
+					 
 					 {	'link': '/dekabristy/dekabristy.html',
 					 		'img': '/dekabristy.jpg',
 					 		'description':'Музей  Памяти декабристов'
 					 },
+
+					 {	'link': '/monastyr_suzdal/monastery_suzdal.html',
+					 		'img': '/suzdal.jpg',
+					 		'description':'Владимиро-Суздальский музей-заповедник'
+					 },
+
+					 {	'link': '/ryazan/ryazan.html',
+					 		'img': '/ryazan.jpg',
+					 		'description':'Рязанский историко-архитектурный музей-заповедник'
+					 },
+					 
+					 
 					 {	'link': '/korely/malye_korely.html',
 					 		'img': '/malye_korely.jpg',
 					 		'description':'Архангельский государственный музей деревянного зодчества<br>
  и народного искусства «Малые Корелы»'
 					 },
-					 {	'link': '/kalashnikova/kalashnikova.html',
-					 		'img': '/kalash.jpg',
-					 		'description':'Музей стрелкового оружия им. Михаила Калашникова'
-					 },
+					 
 					 {	'link': '/tsarskoe_selo/tsarskoe_selo.html',
 					 		'img': '/tzarskoe_selo.jpg',
 					 		'description':'Государственный музей-заповедник «Царское Село»'
-					 }
-
-					 ] %}
+					 },
+					 {	'link': '/schusev/schusev.html',
+					 		'img': '/schuseva.jpg',
+					 		'description':'Государственный музей архитектуры <br>имени А.В. Щусева'
+					 },
+				
+					  	{	'link': '/etnomuseum/ethnomuseum.html',
+					 		'img': '/etnomuseum.jpg',
+					 		'description':'Российский этнографический музей'
+					 },
+					 
+					 {	'link': '/novgorod/novgorod.html',
+					 		'img': '/novgorod.jpg',
+					 		'description':'Новгород'
+					 },
+			
+									 ] %}
 
 
 
