@@ -49,6 +49,10 @@
 .ui-autocomplete .ui-menu-item a{ cursor:pointer; color:#000; }
 
 .chzn-container{ font-size:11px; }
+.select2-container, .select2-drop{ font-size:11px; }
+.select2-drop.select2-drop-above,
+.select2-container .select2-choice,
+.select2-container.select2-drop-above .select2-choice{ border-radius:0; }
 
 .add-object-form{ top:220px; right:50px; left:inherit; }
 .add-object-form .qq-upload-button{ width:100px; padding:7px 13px; font-size:12px; cursor:pointer; color:#FFFFFF; background:-moz-linear-gradient(center top , #E4E3DE 0%, #CBC5B3 4%, #CBC5B3 48%, #C0B9A4 56%, #C1B8A3 100%) repeat scroll 0 0 transparent; }

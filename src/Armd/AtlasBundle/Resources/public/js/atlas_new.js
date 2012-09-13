@@ -592,8 +592,8 @@ AT.showObjectForm = function(params) {
     jPopup.show();
 
     // Список категорий в диалоге
-    $('#primary-category, #category').chosen();
-    $('#primary-category').change(function(){
+    $('#primary-category, #category').select2();
+    /* $('#primary-category').change(function(){
         console.log('Change primary category for', $(myPoint.container));
         $(myPoint.container).css({
             'background-position': '0 0',
@@ -601,7 +601,7 @@ AT.showObjectForm = function(params) {
         });
         //myPoint.url = 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b';
         //myPoint.update();
-    });
+    }); */
 
     // Заполняем форму
     if (params.entity) {
@@ -611,10 +611,8 @@ AT.showObjectForm = function(params) {
         $('#descr').val(params.entity.announce);
         $('#lon').val(params.entity.lon);
         $('#lat').val(params.entity.lat);
-        $('#primary-category')
-            .chosen()
-            .val(params.entity.primaryCategory)
-            .trigger("liszt:updated");
+        $('#primary-category').select2('val', params.entity.primaryCategory);
+        $('#category').select2('val', params.entity.secondaryCategory);
     } else {
         $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
         $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
@@ -755,3 +753,42 @@ AT.showObjectForm = function(params) {
     });
 
 };
+
+/* ----------------------------------------------------------------------------------------------------- */
+// jquery data selector
+// usage: $('a:data(category==music,artist.name==Madonna)');
+(function(){
+    var matcher = /\s*(?:((?:(?:\\\.|[^.,])+\.?)+)\s*([!~><=]=|[><])\s*("|')?((?:\\\3|.)*?)\3|(.+?))\s*(?:,|$)/g;
+    function resolve(element, data) {
+        data = data.match(/(?:\\\.|[^.])+(?=\.|$)/g);
+        var cur = jQuery.data(element)[data.shift()];
+        while (cur && data[0]) {
+            cur = cur[data.shift()];
+        }
+        return cur || undefined;
+    }
+    jQuery.expr[':'].data = function(el, i, match) {
+        matcher.lastIndex = 0;
+        var expr = match[3],
+            m,
+            check, val,
+            allMatch = null,
+            foundMatch = false;
+        while (m = matcher.exec(expr)) {
+            check = m[4];
+            val = resolve(el, m[1] || m[5]);
+            switch (m[2]) {
+                case '==': foundMatch = val == check; break;
+                case '!=': foundMatch = val != check; break;
+                case '<=': foundMatch = val <= check; break;
+                case '>=': foundMatch = val >= check; break;
+                case '~=': foundMatch = RegExp(check).test(val); break;
+                case '>': foundMatch = val > check; break;
+                case '<': foundMatch = val < check; break;
+                default: if (m[5]) foundMatch = !!val;
+            }
+            allMatch = allMatch === null ? foundMatch : allMatch && foundMatch;
+        }
+        return allMatch;
+    };
+}());

@@ -580,6 +580,7 @@ class DefaultController extends Controller
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
+            $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
 
             // Название объекта
             $title = trim($request->get('title'));
@@ -596,8 +597,16 @@ class DefaultController extends Controller
             if (! $currentUser)
                 throw new \Exception('Пользователь не найден');
 
-            // Создаем объект
-            $entity = new Object();
+            // Создаем или редактируем объект
+            $objectId = (int) $request->get('id');
+            if ($objectId) {
+                $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
+                if (! $entity)
+                    throw new \Exception('Объект редактирования не найден');
+            } else {
+                $entity = new Object();
+            }
+
             $entity->setTitle($title);
             $entity->setAnnounce($announce);
             $entity->setAddress($request->get('address'));
@@ -616,6 +625,12 @@ class DefaultController extends Controller
                 throw new \Exception('Укажите главную категорию');
 
             // Второстепенные категории
+            if ($objectId) {
+                $secondaryCategories = $entity->getSecondaryCategories();
+                foreach ($secondaryCategories as $category) {
+                    $entity->removeSecondaryCategory($category);
+                }
+            }
             $categoryIds = $request->get('category');
             if (is_array($categoryIds) && sizeof($categoryIds)) {
                 foreach ($categoryIds as $id) {
@@ -710,12 +725,19 @@ class DefaultController extends Controller
                 $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId));
                 $primaryCategory = $obj->getPrimaryCategory();
                 $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
+                $secondaryCategoryIds = array();
+                if ($secondaryCategories = $obj->getSecondaryCategories()) {
+                    foreach ($secondaryCategories as $tag) {
+                        $secondaryCategoryIds[] = $tag->getId();
+                    }
+                }
                 $result = array(
                     'id' => $obj->getId(),
                     'title' => $obj->getTitle(),
                     'announce' => $obj->getAnnounce(),
                     'address' => $obj->getAddress(),
                     'primaryCategory' => $primaryCategoryId,
+                    'secondaryCategory' => $secondaryCategoryIds,
                     'lon' => $obj->getLon(),
                     'lat' => $obj->getLat(),
                     'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
