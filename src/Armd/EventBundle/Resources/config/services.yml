@@ -1,0 +1,6 @@
+services:
+    armd.content.event.admin.event:
+        class: Armd\EventBundle\Admin\Event
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Events, label: Events }
+        arguments: [null, Armd\EventBundle\Entity\Event, SonataAdminBundle:CRUD, @service_container]

@@ -108,6 +108,27 @@ class NewsController extends ListController
         return $query->getResult();
     }
     
+/*
+    function getImportantNewsList(array $categories = array(), $limit = 0)
+    {        
+        $repository = $this->getListRepository()
+            ->setImportant(true)
+            ->orderByPriority()
+        ;
+        
+        $categories ? $repository->setCategories($categories) : $repository->setFiltrableCategories();
+
+        $query = $repository->getQuery();
+        
+        if ($limit)
+        {
+            $query->setMaxResults($limit);
+        }
+        
+        return $query->getResult();
+    }
+*/    
+    
     function getCategoriesList(array $categories = array())
     {
         $result = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));

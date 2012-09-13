@@ -29,12 +29,6 @@ class MainController extends Controller
         return $this->renderTemplate('services');
     }
 	
-	public function borodinoAction()
-    {
-        return $this->renderTemplate('borodino');
-    }
-    
-
     public function indexAction()
     {
         $categories = $this->get('armd_news.controller.news')->getCategoriesList();
