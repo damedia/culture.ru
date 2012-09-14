@@ -29,9 +29,10 @@ class EventManager
     public function getList()
     {
         $query = $this->em->getRepository($this->class)->createQueryBuilder('e')
-            ->andWhere('e.published = :published')
+            ->select('e', 'r')
+            ->innerJoin('e.region', 'r')
+            ->andWhere('e.published = true')
             ->orderBy('e.beginDate')
-            ->setParameter('published', 1)
             ->getQuery()
         ;
         

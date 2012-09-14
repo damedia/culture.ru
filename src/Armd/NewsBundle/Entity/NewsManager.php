@@ -50,7 +50,7 @@ class NewsManager
     public function getQueryBuilder(array $criteria)
     {
         $parameters = array();
-        
+
         $query = $this->em->getRepository($this->class)
             ->createQueryBuilder('n')
             ->select('n, c, i')
@@ -62,7 +62,7 @@ class NewsManager
 
         $parameters['slug'] = $criteria['category'];
         
-        if (isset($criteria['tag']) && 'borodino' == $criteria['tag']) {
+        if (isset($criteria['borodino'])) {
             $query->andWhere('n.borodino = true');
         }
                 
