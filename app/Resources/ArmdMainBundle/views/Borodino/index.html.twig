@@ -1,9 +1,6 @@
 {% extends '::base.html.twig' %}
 
-
-
 {% block stylesheets %}
-
 {{ parent() }}
 <link rel="stylesheet" href="/bundles/armdatlas/css/chosen.css">
 <style type="text/css">
@@ -11,7 +8,6 @@
 	.chzn-container-active .chzn-single-with-drop {border:1px solid #AAA;}
 </style>
 {% endblock %}
-
 
 {% block javascripts %}
 {{ parent() }}
@@ -53,7 +49,7 @@
 			</script>
 {% endblock %}
 
-{% block title %} — Государственные услуги{% endblock %}
+{% block title %} — Бородинскому сражению 200 лет{% endblock %}
 
 {% block body%}
  
@@ -161,8 +157,7 @@
 			<div class="borodino-panorama">
 				<p class="borodino-panorama-header">
 					<span>Музей-панорама <b>«Бородинская битва»</b></span>
-				</p>
-				
+				</p>				
 				<a href="http://eyera.dev.armd.ru/borodino/borodino_museum.html" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
 					<img src="/img/borodino/panorama.jpg" alt="" />
 				</a>
@@ -176,7 +171,7 @@
 		<div class="title">
 			<h2>Анонсы</h2>
 		</div>		
-		{% render "ArmdMainBundle:Borodino:news" with {"tag": "borodino", "category": "announce"} %}
+		{% render "ArmdMainBundle:Borodino:news" with {"tag": "borodino", "category": "events"} %}
 		
 		<div class="title">
 			<h2>Новости</h2>
