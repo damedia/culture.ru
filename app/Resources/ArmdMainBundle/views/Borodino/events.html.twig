@@ -1,0 +1,52 @@
+{% if events %}
+{% set regions = {} %}
+{% set months = {} %}    
+{% for e in events %}
+    {% set id = e.region.id %}
+    {% set month = e.beginDate|date('m')|abs %}
+    {% if id not in regions|keys %}
+        {% set regions = regions|merge({ (id): e.region.title }) %}
+    {% endif %}
+    {% if month not in months|keys %}
+        {% set months = months|merge({ (month): ('calendar.month.'~e.beginDate|date('M'))|trans }) %}
+    {% endif %}    
+{% endfor %}
+<table class="stripy sortable table">
+	<caption>Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</caption>
+	<tr>
+		<th>
+			<div id="regions-selector" class="table-selector">
+				<select data-placeholder="Регион" class="chzn-select">
+					<option value=""></option>
+				{% for id, title in regions %}
+					<option value="{{ id }}">{{ title }}</option>
+				{% endfor %}
+				</select>
+			</div>
+			<div id="ajax-loading" class="ajax-loading"></div>
+		</th>
+		<th>Город</th>
+		<th>Учреждение</th>
+		<th>
+			<div id="regions-selector" class="table-selector">
+				<select data-placeholder="Дата" class="chzn-select">
+					<option value=""></option>
+				{% for month, title in months %}
+					<option value="{{ month }}">{{ title }}</option>
+				{% endfor %}					
+				</select>
+			</div>
+		</th>
+		<th>Название мероприятия</th>
+	</tr>
+{% for e in events %}	
+	<tr>
+		<td>{{ e.region.title }}</td>
+		<td>{{ e.city }}</td>
+		<td>{{ e.place }}</td>
+		<td class="nowrap">{{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }}</td> 
+		<td>{{ e.title }}</td>
+	</tr>
+{% endfor %}
+</table>
+{% endif %}
