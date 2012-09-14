@@ -47,7 +47,7 @@ class EventManager
             $parameters['region_id'] = $criteria['region_id'];
         }
         
-        if (isset($criteria['month'])) {
+        if (isset($criteria['month']) && $criteria['month'] > 0) {
             $query->andWhere('e.beginDate between :from and :to');
 //            $query->andWhere('e.beginDate >= :from or e.endDate is null');
             $parameters['from'] = \DateTime::createFromFormat('m.d H:i:s', sprintf("%02d.01 00:00:00", $criteria['month']));
