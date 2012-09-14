@@ -25,5 +25,8 @@
                 {% if entity.address %}{{ entity.address }}{% endif %}
             </div>
         {% endif %}
+        {% if editable %}
+            <a href="#" class="edit" data-id="{{ entity.id }}">Редактировать</div>
+        {% endif %}
     </div>
 </div>

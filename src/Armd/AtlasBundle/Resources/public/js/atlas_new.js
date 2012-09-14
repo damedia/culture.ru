@@ -448,6 +448,34 @@ AT.initMyObjects = function() {
             }
         });
     });
+    $('.bubble_content .edit').live('click', function(){
+        var objectId = $(this).data('id'),
+            point = AT.map.balloon.currEl,
+            coord = point.coord;
+
+        // Делаем запрос к бэкенду - получаем данные объекта
+        $('#ajax-loading').show();
+        $.ajax({
+            url: AT.params.fetchMyObjectsUri,
+            data: { id:objectId },
+            dataType: 'json',
+            success: function(res){
+                $('#ajax-loading').hide();
+                if (res.success) {
+                    // И показываем попап с формой
+                    AT.showObjectForm({
+                        entity: res.result,
+                        coord: coord,
+                        point: point
+                    });
+                    AT.map.balloon.close();
+                } else {
+                    alert(res.message);
+                }
+            }
+        });
+        return false;
+    });
 
     // Мои карты -> Мои объекты. Удаление точки из списка, с карты и вообще.
     $('#myobj_list li .del').live('click', function(){
