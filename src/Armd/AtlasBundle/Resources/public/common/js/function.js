@@ -286,8 +286,9 @@ $(document).ready(function(){
 		$("a.in-fancybox").fancybox({
 			 tpl: {
 			  next: '<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
-			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>'
-			 }
+			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>',
+			 },
+			scrolling: 'no'
 		});
 		
 	$(".iframe").fancybox({
