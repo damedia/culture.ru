@@ -2,37 +2,25 @@
 
 namespace Armd\SocialAuthBundle\Security\Authentication\Provider;
 
-use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Armd\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use Symfony\Component\DependencyInjection\Container;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\NonceExpiredException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Armd\SocialAuthBundle\Security\Authentication\Token\VkontakteToken;
 
-class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
+class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvider
 {
-    protected $router;
-    protected $em;
-    protected $paramsReader;
-
-    public function __construct(Container $container)
-    {
-        $this->router = $container->get('router');
-        $this->em = $container->get('doctrine')->getEntityManager();
-        $this->container = $container;
-        $this->paramsReader = $container->get('armd_social_auth.provider_parameters_reader');
-    }
 
     public function authenticate(TokenInterface $token)
     {
         if (!$this->supports($token)) {
             return null;
+        }
+
+        /** @var $token VkontakteToken */
+        if(empty($token->accessCode)) {
+            return $this->redirectLoginForm($token);
         }
 
         $this->retrieveAccessToken($token);
@@ -51,6 +39,24 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
 
         return false;
     }
+
+    public function redirectLoginForm(VkontakteToken $token)
+    {
+        $providerParams = $this->paramsReader->getParameters($this->getProviderName());
+        $redirectUrl = $this->router->generate('armd_social_auth_auth_result', array(
+            'armd_social_auth_provider' => 'vkontakte'
+        ), true);
+
+        $loginFormUrl = 'http://oauth.vk.com/authorize?';
+        $loginFormUrl .= 'client_id=' . $providerParams['app_id'];
+        $loginFormUrl .= '&scope=notify,offline';
+        $loginFormUrl .= '&redirect_uri=' . urlencode($redirectUrl);
+        $loginFormUrl .= '&response_type=code';
+
+        $token->response = new RedirectResponse($loginFormUrl);
+        return $token;
+    }
+
 
     public function retrieveAccessToken(VkontakteToken $token)
     {
@@ -124,8 +130,6 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
 
     public function createUser(VkontakteToken $token)
     {
-        $userManager = $this->container->get('fos_user.user_manager.default');
-
         $user = new User();
         $user->setEmail($token->vkUserData['uid'] . '@vk.com');
         $user->setPlainPassword(substr(md5(rand(0, 10000) . microtime()), 0, 15));
@@ -140,7 +144,7 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         $user->setLastname($token->vkUserData['last_name']);
         $user->setRoles(array('ROLE_USER'));
 
-        $userManager->updateUser($user, true);
+        $this->userManager->updateUser($user, true);
 
         return $user;
     }
@@ -150,23 +154,6 @@ class VkontakteAuthenticationProvider implements AuthenticationProviderInterface
         return $token instanceof VkontakteToken;
     }
 
-    public function curlRequest($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $result = curl_exec($ch); // run the whole process
-        if ($result === false) {
-            var_dump(curl_error($ch));
-            throw new \Exception('Curl error');
-        }
-        curl_close($ch);
-        return $result;
-    }
 
     public function getProviderName()
     {

@@ -2,6 +2,7 @@
 namespace Armd\SocialAuthBundle\Security\Firewall;
 
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -33,9 +34,13 @@ abstract class AbstractSocialAuthenticationListener implements ListenerInterface
             $returnValue = $this->authenticationManager->authenticate($token);
 
             if ($returnValue instanceof TokenInterface) {
-                return $this->securityContext->setToken($returnValue);
-            } elseif ($returnValue instanceof Response) {
-                return $event->setResponse($returnValue);
+                $this->securityContext->setToken($returnValue);
+
+                if(!empty($returnValue->response)) {
+                    $event->setResponse($returnValue->response);
+                }
+                return $returnValue;
+
             }
         } catch (AuthenticationException $e) {
             $this->logger->err($e->getMessage());

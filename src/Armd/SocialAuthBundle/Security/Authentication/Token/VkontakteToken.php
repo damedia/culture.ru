@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class VkontakteToken extends AbstractToken {
+class VkontakteToken extends AbstractSocialToken {
 
     public $accessCode;
 

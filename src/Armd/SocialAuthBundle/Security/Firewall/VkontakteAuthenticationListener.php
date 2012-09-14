@@ -5,9 +5,9 @@ namespace Armd\SocialAuthBundle\Security\Firewall;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken;
+use Armd\SocialAuthBundle\Security\Authentication\Token\VkontakteToken;
 
-class TwitterAuthenticationListener extends AbstractSocialAuthenticationListener
+class VkontakteAuthenticationListener extends AbstractSocialAuthenticationListener
 {
 
     /**
@@ -18,11 +18,9 @@ class TwitterAuthenticationListener extends AbstractSocialAuthenticationListener
     public function handle(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        if($request->get('armd_social_auth_provider') === 'twitter') {
-            $token = new TwitterToken();
+        if ($request->get('armd_social_auth_provider') === 'vkontakte') {
+            $token = new VkontakteToken(array(), $request->get('code'));
             $this->authenticateToken($event, $token);
-        } else {
-
         }
     }
 

@@ -76,7 +76,7 @@ security:
                     default:
                         twitter:
                             oauth_consumer_key: IVysXnVjx31A9b72xQwg
-                            secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
+                            consumer_secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
 
                     roskult.ru:
                         vkontakte:

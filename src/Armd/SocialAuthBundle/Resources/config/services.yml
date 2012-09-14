@@ -1,19 +1,38 @@
 services:
-    security.authentication.listener.armd_social_auth:
-        class: Armd\SocialAuthBundle\Security\Firewall\SocialAuthenticationListener
+    # auth listeners
+    security.authentication.listener.armd_social_auth_vkontakte:
+        class: Armd\SocialAuthBundle\Security\Firewall\VkontakteAuthenticationListener
         abstract: true
         arguments: [@security.context, @security.authentication.manager, @logger]
 
+    security.authentication.listener.armd_social_auth_facebook:
+        class: Armd\SocialAuthBundle\Security\Firewall\FacebookAuthenticationListener
+        abstract: true
+        arguments: [@security.context, @security.authentication.manager, @logger]
 
+    security.authentication.listener.armd_social_auth_twitter:
+        class: Armd\SocialAuthBundle\Security\Firewall\TwitterAuthenticationListener
+        abstract: true
+        arguments: [@security.context, @security.authentication.manager, @logger]
+
+    # auth providers
     security.authentication.provider.armd_social_auth_vkontakte:
         class: Armd\SocialAuthBundle\Security\Authentication\Provider\VkontakteAuthenticationProvider
-        arguments: [@service_container]
+        arguments: [@router, @armd_social_auth.provider_parameters_reader, @doctrine.orm.entity_manager, @fos_user.user_manager]
         abstract: true
 
     security.authentication.provider.armd_social_auth_facebook:
         class: Armd\SocialAuthBundle\Security\Authentication\Provider\FacebookAuthenticationProvider
-        arguments: [@service_container]
+        arguments: [@router, @armd_social_auth.provider_parameters_reader, @doctrine.orm.entity_manager, @fos_user.user_manager]
         abstract: true
+
+    security.authentication.provider.armd_social_auth_twitter:
+        class: Armd\SocialAuthBundle\Security\Authentication\Provider\TwitterAuthenticationProvider
+        arguments: [@router, @armd_social_auth.provider_parameters_reader, @doctrine.orm.entity_manager, @fos_user.user_manager]
+        abstract: true
+
+
+    # helper
 
     armd_social_auth.provider_parameters_reader:
         class: Armd\SocialAuthBundle\Security\Authentication\Provider\AuthenticationProviderParametersReader

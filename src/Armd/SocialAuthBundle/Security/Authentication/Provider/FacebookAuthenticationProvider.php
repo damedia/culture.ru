@@ -11,23 +11,11 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\NonceExpiredException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Armd\SocialAuthBundle\Security\Authentication\Token\FacebookToken;
 
-class FacebookAuthenticationProvider implements AuthenticationProviderInterface
+class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvider
 {
-    protected $router;
-    protected $em;
-    protected $paramsReader;
-
-    public function __construct(Container $container)
-    {
-        $this->router = $container->get('router');
-        $this->em = $container->get('doctrine')->getEntityManager();
-        $this->container = $container;
-        $this->paramsReader = $container->get('armd_social_auth.provider_parameters_reader');
-    }
 
     public function authenticate(TokenInterface $token)
     {
@@ -35,7 +23,10 @@ class FacebookAuthenticationProvider implements AuthenticationProviderInterface
             return null;
         }
 
-        $this->checkFacebookState($token);
+        if(empty($token->accessCode)) {
+            return $this->redirectLoginForm($token);
+        }
+
         $this->retrieveAccessToken($token);
         $this->retrieveUserData($token);
 
@@ -53,12 +44,22 @@ class FacebookAuthenticationProvider implements AuthenticationProviderInterface
         return false;
     }
 
-    public function checkFacebookState(FacebookToken $token)
+    public function redirectLoginForm(FacebookToken $token)
     {
-        $storedFacebookState = $this->container->get('request')->getSession()->get('armd_social_auth.facebook_state');
-        if(empty($token->accessState) || $storedFacebookState !== $token->accessState) {
-            throw new AuthenticationException('Error during validation of facebook "state" variable');
-        }
+        $providerParams = $this->paramsReader->getParameters($this->getProviderName());
+
+        $redirectUrl = $this->router->generate('armd_social_auth_auth_result', array(
+            'armd_social_auth_provider' => 'facebook'
+        ), true);
+
+        $loginFormUrl = 'https://www.facebook.com/dialog/oauth?';
+        $loginFormUrl .= 'client_id=' . $providerParams['app_id'];
+        $loginFormUrl .= '&redirect_uri=' . urlencode($redirectUrl);
+        $loginFormUrl .= '&scope=user_about_me,user_birthday,user_location,email';
+        $loginFormUrl .= '&state=' . $token->accessState;
+
+        $token->response = new RedirectResponse($loginFormUrl);
+        return $token;
     }
 
     public function retrieveAccessToken(FacebookToken $token)
@@ -127,8 +128,6 @@ class FacebookAuthenticationProvider implements AuthenticationProviderInterface
 
     public function createUser(FacebookToken $token)
     {
-        $userManager = $this->container->get('fos_user.user_manager.default');
-
         $user = new User();
         $user->setEmail($token->facebookUserData['email']);
         $user->setPlainPassword(substr(md5(rand(0, 10000) . microtime()), 0, 15));
@@ -143,7 +142,7 @@ class FacebookAuthenticationProvider implements AuthenticationProviderInterface
         $user->setLastname($token->facebookUserData['last_name']);
         $user->setRoles(array('ROLE_USER'));
 
-        $userManager->updateUser($user, true);
+        $this->userManager->updateUser($user, true);
 
         return $user;
     }
@@ -151,23 +150,6 @@ class FacebookAuthenticationProvider implements AuthenticationProviderInterface
     public function supports(TokenInterface $token)
     {
         return $token instanceof FacebookToken;
-    }
-
-    public function curlRequest($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $result = curl_exec($ch); // run the whole process
-        if ($result === false) {
-            throw new \Exception('Curl error');
-        }
-        curl_close($ch);
-        return $result;
     }
 
     public function getProviderName()

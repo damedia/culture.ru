@@ -10,30 +10,22 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
-class SocialSecurityFactory implements SecurityFactoryInterface
+class FacebookSecurityFactory implements SecurityFactoryInterface
 {
 
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
-        //--- create auth providers
         $container->setParameter('armd_social_auth.firewall_parameters', $config);
 
-        // vkontakte
-        $authProviderId = 'security.authentication.provider.armd_social_auth_vkontakte.' . $id;
-        $container
-            ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.armd_social_auth_vkontakte'));
-
-        // facebook
+        // auth provider
         $authProviderId = 'security.authentication.provider.armd_social_auth_facebook.' . $id;
         $container
             ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.armd_social_auth_facebook'));
 
 
-        //--- /create auth providers
-
-        // create auth listener
-        $listenerId = 'security.authentication.listener.armd_social_auth.' . $id;
-        $container->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.armd_social_auth'));
+        // auth listener
+        $listenerId = 'security.authentication.listener.armd_social_auth_facebook.' . $id;
+        $container->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.armd_social_auth_facebook'));
 
         return array($authProviderId, $listenerId, $defaultEntryPoint);
     }
