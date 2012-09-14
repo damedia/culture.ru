@@ -53,14 +53,18 @@ class NewsManager
         
         $query = $this->em->getRepository($this->class)
             ->createQueryBuilder('n')
-            ->select('n, c')
+            ->select('n, c, i')
             ->innerJoin('n.category', 'c', 'WITH', 'c.slug = :slug')
+            ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true')
 //            ->orderBy('n.date', 'DESC')
         ;
 
-
         $parameters['slug'] = $criteria['category'];
+        
+        if (isset($criteria['tag']) && 'borodino' == $criteria['tag']) {
+            $query->andWhere('n.borodino = true');
+        }
                 
         $query->setParameters($parameters);        
         

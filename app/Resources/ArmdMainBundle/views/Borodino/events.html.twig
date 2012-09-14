@@ -2,8 +2,8 @@
 {% set regions = {} %}
 {% set months = {} %}    
 {% for e in events %}
-    {% set id = e.region.id %}
-    {% set month = e.beginDate|date('m')|abs %}
+    {% set id = 'id-' ~ e.region.id %}
+    {% set month = 'id-' ~ e.beginDate|date('m')|abs %}
     {% if id not in regions|keys %}
         {% set regions = regions|merge({ (id): e.region.title }) %}
     {% endif %}
@@ -19,7 +19,7 @@
 				<select data-placeholder="Регион" class="chzn-select">
 					<option value=""></option>
 				{% for id, title in regions %}
-					<option value="{{ id }}">{{ title }}</option>
+					<option value="{{ id|replace({ 'id-': null }) }}">{{ title }}</option>
 				{% endfor %}
 				</select>
 			</div>
@@ -32,7 +32,7 @@
 				<select data-placeholder="Дата" class="chzn-select">
 					<option value=""></option>
 				{% for month, title in months %}
-					<option value="{{ month }}">{{ title }}</option>
+					<option value="{{ month|replace({ 'id-': null }) }}">{{ title }}</option>
 				{% endfor %}					
 				</select>
 			</div>
@@ -44,7 +44,7 @@
 		<td>{{ e.region.title }}</td>
 		<td>{{ e.city }}</td>
 		<td>{{ e.place }}</td>
-		<td class="nowrap">{{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }}</td> 
+		<td class="nowrap">{{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }} {{ e.beginDate|date('Y') }}</td> 
 		<td>{{ e.title }}</td>
 	</tr>
 {% endfor %}
