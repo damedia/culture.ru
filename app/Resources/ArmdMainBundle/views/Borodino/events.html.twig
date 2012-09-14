@@ -11,15 +11,17 @@
         {% set months = months|merge({ (month): ('calendar.month.'~e.beginDate|date('M'))|trans }) %}
     {% endif %}    
 {% endfor %}
+<form id="events-filter">
 <table class="stripy sortable table">
 	<caption>Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</caption>
 	<tr>
 		<th>
 			<div id="regions-selector" class="table-selector">
-				<select data-placeholder="Регион" class="chzn-select">
+				<select name="region_id" data-placeholder="Регион" class="chzn-select">
 					<option value=""></option>
-				{% for id, title in regions %}
-					<option value="{{ id|replace({ 'id-': null }) }}">{{ title }}</option>
+				{% for region, title in regions %}
+				    {% set id = region|replace({ 'id-': null }) %}
+					<option value="{{ id }}"{% if id == filter.region_id %} selected="selected"{% endif %}>{{ title }}</option>
 				{% endfor %}
 				</select>
 			</div>
@@ -31,10 +33,11 @@
 #}		
 		<th>
 			<div id="regions-selector" class="table-selector">
-				<select data-placeholder="Дата" class="chzn-select">
+				<select name="month" data-placeholder="Дата" class="chzn-select">
 					<option value=""></option>
 				{% for month, title in months %}
-					<option value="{{ month|replace({ 'id-': null }) }}">{{ title }}</option>
+				    {% set id = month|replace({ 'id-': null }) %}
+					<option value="{{ id }}"{% if id == filter.month %} selected="selected"{% endif %}>{{ title }}</option>
 				{% endfor %}					
 				</select>
 			</div>
@@ -58,4 +61,13 @@
 	</tr>
 {% endfor %}
 </table>
+</form>
+
+<script type="text/javascript">
+$(function(){
+    $(".table-selector select").chosen().change(function(){
+        $("#events-filter").submit();
+    })
+})
+</script>
 {% endif %}

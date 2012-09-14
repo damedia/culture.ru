@@ -26,16 +26,21 @@ class EventManager
         $this->class = $class;
     }
     
-    public function getList()
+    public function getPager(array $criteria, $page, $limit = 10)
+    {
+        return $this->qetQueryBuilder($criteria)->getQuery()
+            ->getResult();
+    }
+    
+    public function qetQueryBuilder($criteria)
     {
         $query = $this->em->getRepository($this->class)->createQueryBuilder('e')
             ->select('e', 'r')
             ->innerJoin('e.region', 'r')
             ->andWhere('e.published = true')
             ->orderBy('e.beginDate')
-            ->getQuery()
         ;
         
-        return $query->getResult();
+        return $query;
     }            
 }

@@ -2,7 +2,7 @@
 
 namespace Armd\MainBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BorodinoController extends Controller
@@ -14,16 +14,29 @@ class BorodinoController extends Controller
     }
     
     function eventsAction()
-    {
+    {        
+        $request = Request::createFromGlobals();
+        
+        $criteria = array(
+            'region_id' => $request->query->get('region_id'),
+            'month'     => $request->query->get('month'),
+        );
+
         return $this->render('ArmdMainBundle:Borodino:events.html.twig', array(
-            'events'    =>  $this->getEventManager()->getList(),
+            'events'    => $this->getEventManager()->getPager($criteria, 1),
+            'filter'    => $criteria,
         ));
     }
     
     function newsAction($category, $tag = 'borodino', $limit = 10)
     {
+        $criteria = array(
+            $tag => true, 
+            'category' => $category
+        );
+    
         return $this->render('ArmdMainBundle:Borodino:news.html.twig', array(
-            'news'  =>  $this->getNewsManager()->getPager(array($tag => true, 'category' => $category), 1, $limit),
+            'news'  =>  $this->getNewsManager()->getPager($criteria, 1, $limit),
         ));        
     }
             

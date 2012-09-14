@@ -16,37 +16,32 @@
 <script src="{{ asset('/swf/swfobject/swfkrpano.js') }}"></script>
 
 <script type="text/javascript">
-				$(function(){
-					var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
-					
-					if ($('.vob').length){    
-						$('.vob').fancybox({
-							'autoScale'  : false,
-							'autoDimensions' : false,
-							'padding':0,
-							'margin':0,
-							'fitToView':true
-						});
-					}
-					
-					$('.panoDIV').css({'width':x-18, 'height':y});
-					
-					
-					$(".iframe").fancybox({
-					'width' : '100%',
-					'height' : '100%',
-					'autoScale' : true,
-					'transitionIn' : 'none',
-					'transitionOut' : 'none',
-					'type' : 'iframe',
-					
-					});
-
-				$('.table-selector select').chosen();
-				
-
-				 })  
-			</script>
+	$(function(){
+		var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+		
+		if ($('.vob').length){    
+			$('.vob').fancybox({
+				'autoScale'  : false,
+				'autoDimensions' : false,
+				'padding':0,
+				'margin':0,
+				'fitToView':true
+			});
+		}
+		
+		$('.panoDIV').css({'width':x-18, 'height':y});					
+		
+		$(".iframe").fancybox({
+		'width' : '100%',
+		'height' : '100%',
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'type' : 'iframe',
+		
+		});
+	})  
+</script>
 {% endblock %}
 
 {% block title %} — Бородинскому сражению 200 лет{% endblock %}
@@ -59,31 +54,31 @@
 		</div>
 		<div class="text-indent">
 			<img src="/img/borodino/borodino-dates.png" alt="" class="borodino-dates" />
-			<p class ="uppercase-gray"> <i> &laquo;Сей день пребудет вечным памятником мужества и&nbsp;отличной храбрости российских воинов&raquo;, -
-<br>из&nbsp;донесения М.И. Кутузова императору Александру&nbsp;I.</i></p>
-<br>
-<p>Память об&nbsp;отваге русской армии во&nbsp;время Бородинского сражения сохранилась не&nbsp;только в&nbsp;исторических документах, но&nbsp;и&nbsp;большом количестве произведениях искусства. Многочисленные разнообразные культурные события, посвященные героям Отечественной войны 1812&nbsp;года, проходят этой осенью по&nbsp;всей стране.</p>
+			<p class="uppercase-gray">
+				Этот раздел посвящен готовщине 200 летия Бородинского сражения.
+			</p>
+			<p>Министерство культуры ведет работы по оцифровке культурного наследия, в том числе объектов, связанныех культуры ведет работы по оцифровке культурного наследия, в том числе объектов, связанных.</p>
 			<div class="video-anons video-three">
 				<ul>
 					<li>
-						<a href="/lecture/lecture">
+						<a href="/atlas/object/816">
 							<img src="/img/borodino/kutuzov.jpg" alt="" />
 							<span class="play"></span>
 						</a>
 						<div class="ppa-anons">
-							<a href="/lecture/lecture">
+							<a href="/atlas/object/816">
 								Кутузов.<br /> 
 								Гений войны 1812 года
 							</a>
 						</div>
 					</li> 
 					<li>
-						<a href="/lecture/lecture">
+						<a href="/atlas/object/815">
 							<img src="/img/borodino/video_2.jpg" alt="" />
 							<span class="play"></span>
 						</a>
 						<div class="ppa-anons">
-							<a href="/lecture/lecture">
+							<a href="/atlas/object/815">
 								Багратион
 							</a>
 						</div>
