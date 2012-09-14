@@ -19,14 +19,14 @@ class BorodinoController extends Controller
             'events'    =>  $this->getEventManager()->getList(),
         ));
     }
-        
-    function borodinoNewsAction($category)
-    {
-        $news = $this->get('armd_news.controller.news')->getLatestNewsList(4, 1, array($c->getSlug()));    
-        
-        return $this->render("ArmdMainBundle:Borodino:news.html.twig");
-    }
     
+    function newsAction($category, $tag = 'borodino', $limit = 10)
+    {
+        return $this->render('ArmdMainBundle:Borodino:news.html.twig', array(
+            'news'  =>  $this->getNewsManager()->getPager(array($tag => true, 'category' => $category), 1, $limit),
+        ));        
+    }
+            
     function getEventManager()
     {
         return $this->get('armd_event.manager.event');

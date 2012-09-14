@@ -44,7 +44,7 @@
 		<td>{{ e.region.title }}</td>
 		<td>{{ e.city }}</td>
 		<td>{{ e.place }}</td>
-		<td class="nowrap">{{ e.beginDate|date('d') }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }}</td> 
+		<td class="nowrap">{{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }}</td> 
 		<td>{{ e.title }}</td>
 	</tr>
 {% endfor %}

@@ -1,6 +1,6 @@
 parameters:
-
-    armd_event.manager.event.entity: Armd\EventBundle\Entity\Event
+    armd_event.manager.event.entity:    Armd\EventBundle\Entity\Event
+    armd_event.manager.event.class:     Armd\EventBundle\Entity\EventManager
 
 services:
     armd_event.entity_manager:
@@ -13,5 +13,6 @@ services:
         arguments: [null, %armd_event.manager.event.entity%, SonataAdminBundle:CRUD, @service_container]
 
     armd_event.manager.event:
-        class: Armd\EventBundle\Entity\EventManager
+        class: %armd_event.manager.event.class%
         arguments: [@armd_event.entity_manager, %armd_event.manager.event.entity%]
+        

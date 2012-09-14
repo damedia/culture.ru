@@ -175,81 +175,15 @@
 	<div class="right-column">
 		<div class="title">
 			<h2>Анонсы</h2>
-		</div>
-		<ul class="right-list">
-			<li>
-				<a href="#">
-					<img src="/img/borodino/anons.jpg" alt="" />
-				</a>
-				<div class="text-overflow">
-					<a href="#" class="rl-name rl-name-big">
-						Национальный ансамбль народного танца «Жок» Республики Молдова
-					</a>
-				</div>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/img/borodino/anons2.jpg" alt="" />
-				</a>
-				<div class="text-overflow">
-					<a href="#" class="rl-name rl-name-big">
-						Традиции ремесла. Искусство обработки дерева
-					</a>
-				</div>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/img/borodino/anons3.jpg" alt="" />
-				</a>
-				<div class="text-overflow">
-					<a href="#" class="rl-name rl-name-big">
-						Книжный мультимедийный фестиваль BookMarket
-					</a>
-				</div>
-			</li>
-		</ul>
+		</div>		
+		{% render "ArmdMainBundle:Borodino:news" with {"tag": "borodino", "category": "announce"} %}
 		
 		<div class="title">
 			<h2>Новости</h2>
-		</div>
-		
-		<ul class="right-list">
-			<li>
-				<a href="#">
-					<img src="/img/borodino/anons4.jpg" alt="" />
-				</a>
-				<div class="text-overflow">
-					<span class="rl-type rl-type-red">Новости</span>
-					<a href="#" class="rl-name">
-						Проект «Пермский сувенир» готовится к Новому году летом
-					</a>	
-				</div>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/img/borodino/anons5.jpg" alt="" />
-				</a>
-				<div class="text-overflow">
-					<span class="rl-type rl-type-red">События</span>
-					<a href="#" class="rl-name">
-						На Заячьем острове появились песчаные фигуры мультгероев
-					</a>	
-				</div>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/img/borodino/anons6.jpg" alt="" />
-				</a>
-				<div class="text-overflow">
-					<span class="rl-type rl-type-red">Новости</span>
-					<a href="#" class="rl-name">
-						Представление 1812 года проходит в усадьбе Голицыно
-					</a>	
-				</div>
-			</li>
-		</ul>
-		
-    {% include "ArmdMainBundle:Borodino:publications.html.twig" %}
-    {% include "ArmdMainBundle:Borodino:media.html.twig" %}    		
+		</div>		
+		{% render "ArmdMainBundle:Borodino:news" with {"tag": "borodino", "category": "news"} %}
+    				
+		{% include "ArmdMainBundle:Borodino:publications.html.twig" %}
+		{% include "ArmdMainBundle:Borodino:media.html.twig" %}    		
 	</div>
 {% endblock %}
