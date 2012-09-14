@@ -127,7 +127,7 @@ sonata_media:
                 adminPreview: { width: 314 , height: 187, , quality: 90}            
                 billboard: { width: 366, height: 261}
                 latest: { width: 85, height: 65 }
-                list: { width: 160, height: 124}
+                list: { width: 160, height: 107 }
 
         chronicle:
             download:
