@@ -355,7 +355,7 @@ AT.triggerPointClick = function(point) {
             $('#ajax-loading').hide();
             point.name = res;
             point.balloon = AT.map.balloon;
-            point.toggleBalloon();
+            point.toggleBalloon(); // тут должна быть задержка
         }
     });
 }
@@ -417,7 +417,7 @@ AT.initMyObjects = function() {
         var jLi = $(this).closest('li'),
             point = jLi.data('point');
         AT.map.setCenter(point.coord);
-        AT.triggerPointClick(point);
+        //AT.triggerPointClick(point); // @TODO Глючит во время анимации
     });
 
     // Мои карты -> Мои объекты. Редактирование точки из списка.
@@ -428,11 +428,13 @@ AT.initMyObjects = function() {
             coord = point.coord;
 
         // Делаем запрос к бэкенду - получаем данные объекта
+        $('#ajax-loading').show();
         $.ajax({
             url: AT.params.fetchMyObjectsUri,
             data: { id:objectId },
             dataType: 'json',
             success: function(res){
+                $('#ajax-loading').hide();
                 if (res.success) {
                     // И показываем попап с формой
                     AT.showObjectForm({
@@ -471,9 +473,30 @@ AT.initMyObjects = function() {
         return false;
     });
 
+    // Отправка объекта на модерацию
+    $('#myobj_list .moder').live('click', function(){
+        var el = $(this).closest('li'),
+            id = el.data('id');
+        $('#moderation-object-id').val(id);
+        $('#moderation-object-form').show();
+        $('#moderation-object-form').find('form').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function(){
+                $('#ajax-loading').show();
+            },
+            success: function(response, statusText, xhr, $form){
+                $('#ajax-loading').hide();
+                if (response.success) {
+                    console.log('Смена статуса. Отправлено на модерацию.');
+                }
+                $('#moderation-object-form').hide();
+            }
+        });
+    });
+
     // Кнопка-крестик закрывает попап
-    $('#add-object-form .exit').click(function(){
-        $('#add-object-form').hide();
+    $('.add-object-form .exit, .add-object-form .rst-btn').click(function(){
+        $(this).closest('.add-object-form').hide();
         return false;
     });
 
@@ -605,6 +628,7 @@ AT.showObjectForm = function(params) {
 
     // Заполняем форму
     if (params.entity) {
+        jPopup.removeClass('add').addClass('edit');
         $('#object-id').val(params.entity.id);
         $('#name').val(params.entity.title);
         $('#address').val(params.entity.address);
@@ -614,6 +638,8 @@ AT.showObjectForm = function(params) {
         $('#primary-category').select2('val', params.entity.primaryCategory);
         $('#category').select2('val', params.entity.secondaryCategory);
     } else {
+        jPopup.removeClass('edit').addClass('add');
+        $('#object-id').val('');
         $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
         $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
     }
@@ -630,7 +656,9 @@ AT.showObjectForm = function(params) {
     jSuccess.find('.exit').click(function(){
         $('#atlas-objects-add').removeClass('active');
         jSuccess.hide();
-        myPoint.draggable.kill(); // Отключение перетаскивания точки
+        if (myPoint.draggable) {
+            myPoint.draggable.kill(); // Отключение перетаскивания точки
+        }
         return false;
     });
 
@@ -679,7 +707,7 @@ AT.showObjectForm = function(params) {
             .appendTo(ul);
     }
 
-    // Отправка данных. Добавить объект.
+    // Отправка данных. Добавить/обновить объект.
     jPopupForm.ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
@@ -689,13 +717,24 @@ AT.showObjectForm = function(params) {
             $('#ajax-loading').hide();
             if (response.success) {
                 jPopup.hide(); // Прячем диалог добавления точки
-                myPoint.draggable.kill(); // Отключение перетаскивания точки
+
+                if (myPoint.draggable) {
+                    myPoint.draggable.kill(); // Отключение перетаскивания точки
+                }
 
                 var createdObject = response.result;
                 $(myPoint.container).data('uid', createdObject.id);
+
+                // Показываем второй попап с модерацией (created|updated)
+                if (response.result.mode == 'edit') {
+                    jSuccess.removeClass('add').addClass('edit');
+                } else if (response.result.mode == 'add') {
+                    jSuccess.removeClass('edit').addClass('add');
+                }
+                jSuccess.show();
                 jSuccess.find('.object-id').val(createdObject.id);
                 jSuccess.find('.object-title').val(createdObject.title);
-                jSuccess.show();
+
             } else {
                 alert(response.message);
             }
@@ -714,15 +753,24 @@ AT.showObjectForm = function(params) {
                 $('#atlas-objects-add').removeClass('active');
                 jSuccess.hide();
 
-                // Добавляем в список точку
-                var objectId = response.result.id,
-                    objectTitle = response.result.title,
-                    jLi = $('#myobj_list_template').tmpl({ 'title': objectTitle });
+                console.log('Popup mode', jPopup.hasClass('edit') );
 
-                // Связываем точку с элементом списка
-                jLi.data('id', objectId),
-                jLi.data('point', myPoint);
-                jMyObjectsList.append(jLi);
+                if (jPopup.hasClass('add')) {
+                    // Добавляем в список точку
+                    var objectId = response.result.id,
+                        objectTitle = response.result.title,
+                        jLi = $('#myobj_list_template').tmpl({ 'title': objectTitle });
+
+                    // Связываем точку с элементом списка
+                    jLi.data('id', objectId),
+                    jLi.data('point', myPoint);
+                    jMyObjectsList.append(jLi);
+                } else {
+                    // Обновляем название точки в списке
+                    var objectId = $('#object-id').val(),
+                        jLi = jMyObjectsList.find('li').filter(function(){ return $(this).data('id')==objectId; });
+                    jLi.find('span').text($('#name').val());
+                }
             }
         }
     });
@@ -754,41 +802,3 @@ AT.showObjectForm = function(params) {
 
 };
 
-/* ----------------------------------------------------------------------------------------------------- */
-// jquery data selector
-// usage: $('a:data(category==music,artist.name==Madonna)');
-(function(){
-    var matcher = /\s*(?:((?:(?:\\\.|[^.,])+\.?)+)\s*([!~><=]=|[><])\s*("|')?((?:\\\3|.)*?)\3|(.+?))\s*(?:,|$)/g;
-    function resolve(element, data) {
-        data = data.match(/(?:\\\.|[^.])+(?=\.|$)/g);
-        var cur = jQuery.data(element)[data.shift()];
-        while (cur && data[0]) {
-            cur = cur[data.shift()];
-        }
-        return cur || undefined;
-    }
-    jQuery.expr[':'].data = function(el, i, match) {
-        matcher.lastIndex = 0;
-        var expr = match[3],
-            m,
-            check, val,
-            allMatch = null,
-            foundMatch = false;
-        while (m = matcher.exec(expr)) {
-            check = m[4];
-            val = resolve(el, m[1] || m[5]);
-            switch (m[2]) {
-                case '==': foundMatch = val == check; break;
-                case '!=': foundMatch = val != check; break;
-                case '<=': foundMatch = val <= check; break;
-                case '>=': foundMatch = val >= check; break;
-                case '~=': foundMatch = RegExp(check).test(val); break;
-                case '>': foundMatch = val > check; break;
-                case '<': foundMatch = val < check; break;
-                default: if (m[5]) foundMatch = !!val;
-            }
-            allMatch = allMatch === null ? foundMatch : allMatch && foundMatch;
-        }
-        return allMatch;
-    };
-}());

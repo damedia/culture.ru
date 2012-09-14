@@ -377,7 +377,7 @@ class DefaultController extends Controller
                     if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
                         $obraz = true;
                         $image = $obj->getPrimaryImage();
-                        $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
+                        $imageUrl = $twigExtension->path($image, 'thumbnail');
                     }
                 }
 
@@ -600,10 +600,12 @@ class DefaultController extends Controller
             // Создаем или редактируем объект
             $objectId = (int) $request->get('id');
             if ($objectId) {
+                $mode = 'edit';
                 $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
                 if (! $entity)
-                    throw new \Exception('Объект редактирования не найден');
+                    throw new \Exception('Редакатируемый объект не найден');
             } else {
+                $mode = 'add';
                 $entity = new Object();
             }
 
@@ -665,6 +667,7 @@ class DefaultController extends Controller
                 'result' => array(
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
+                    'mode' => $mode,
                 ),
             );
         }
@@ -746,12 +749,19 @@ class DefaultController extends Controller
                 $result = array();
                 $entities = $repo->findBy(array('createdBy' => $currentUser));
                 foreach ($entities as $obj) {
+
+                    $imageUrl = '';
+                    if ($obj->getPrimaryCategory()) {
+                        $image = $obj->getPrimaryCategory()->getIconMedia();
+                        $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
+                    }
+
                     $result[] = array(
                         'id' => $obj->getId(),
                         'title' => $obj->getTitle(),
                         'lon' => $obj->getLon(),
                         'lat' => $obj->getLat(),
-                        'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
+                        'icon' => $imageUrl,
                     );
                 }
             }
