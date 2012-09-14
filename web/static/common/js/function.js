@@ -405,12 +405,15 @@ $(document).ready(function(){
 			$(this).parent().css({'height':'auto'});
 		})
 		
+		
+		
+		
 		$('.obrazy .rusObr-list-one-wrap').hover(function(){
 			var width = $(this).width(),
 				height = $(this).height(),
 				liMas  = $(this).parents('ul').find('li'),
 				thisli = $(this).closest('li');
-
+			var rusLiHeight = thisli.height();	
 			$(this).addClass('rusHovered');
 					//.css({'width':width*2-1,'height':height});
 			$(this).find('.rusObr-list-one').css({'width':width - 51,'height':height - 50});
@@ -422,6 +425,8 @@ $(document).ready(function(){
 			} else {
 				$(this).find('.rusHovered-contacts').css({'left':width-1});
 			};
+			
+			thisli.css({'height':rusLiHeight});
 			
 		},function(){
 			$(this).removeClass('rusHovered').css({'width':'auto','height':'auto','left':0});
