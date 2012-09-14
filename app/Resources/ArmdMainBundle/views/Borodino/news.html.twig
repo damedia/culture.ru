@@ -5,7 +5,7 @@
 	<li>
 		<a href="{{ url }}">{% thumbnail n.image, 'latest' %}</a>
 		<div class="text-overflow">
-			<a href="{{ url }}" class="rl-name rl-name-big">{{ n.title }}</a>
+			<a href="{{ url }}" class="rl-name rl-name-big">{{ n.title|raw }}</a>
 		</div>
 	</li>
 {% endfor %}

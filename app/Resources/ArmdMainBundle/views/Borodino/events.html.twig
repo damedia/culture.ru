@@ -26,7 +26,9 @@
 			<div id="ajax-loading" class="ajax-loading"></div>
 		</th>
 		<th>Город</th>
+{#
 		<th>Учреждение</th>
+#}		
 		<th>
 			<div id="regions-selector" class="table-selector">
 				<select data-placeholder="Дата" class="chzn-select">
@@ -43,8 +45,15 @@
 	<tr>
 		<td>{{ e.region.title }}</td>
 		<td>{{ e.city }}</td>
+{#
 		<td>{{ e.place }}</td>
-		<td class="nowrap">{{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }} {{ e.beginDate|date('Y') }}</td> 
+#}
+		<td class="nowrap">
+            {{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }} {{ e.beginDate|date('Y') }}
+        {% if e.endDate %}
+            &mdash; {{ e.endDate|date('d')|abs }} {{ ('calendar.full.'~e.endDate|date('M'))|trans }} {{ e.endDate|date('Y') }}
+        {% endif %}
+		</td> 
 		<td>{{ e.title }}</td>
 	</tr>
 {% endfor %}
