@@ -76,7 +76,9 @@ class EventManager
             $result[$date->format('m')] = $date->format('M');
         }
 
-        return ksort($result);
+        ksort($result);
+        
+        return $result;
     }
     
     public function getDistinctRegions()
