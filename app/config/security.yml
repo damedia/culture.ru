@@ -16,8 +16,6 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_manager
-        loginza:
-            id: loginza.user.provider
 
     firewalls:
         # -> custom firewall for the admin area of the URL
@@ -63,13 +61,6 @@ security:
                 target:         armd_news_list_index
                 success_handler: armd_user.security.logout_success_handler
             anonymous:          true
-
-            loginza:
-                login_route: _loginza_login_user
-                token_route: _loginza_social_reg
-                secret_key: %loginza_secret_key%
-                widget_id: %loginza_widget_id%
-                entity: ArmdUserBundle:User
 
             armd_social_auth:
                 auth_provider_parameters:

@@ -29,8 +29,6 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
 //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
-
-            new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),

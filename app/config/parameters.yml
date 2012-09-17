@@ -27,4 +27,4 @@ parameters:
     sphinxsearch_index_all: mk_all
     sphinxsearch_index_lectures: mk_lectures
     sphinxsearch_index_atlas: mk_atlas
-    domain:
+    domain: 
