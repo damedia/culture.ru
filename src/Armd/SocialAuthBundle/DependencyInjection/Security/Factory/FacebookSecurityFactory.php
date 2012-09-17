@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\SocialAuthBundle\Security\Factory;
+namespace Armd\SocialAuthBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -10,29 +10,22 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 
-class SocialSecurityFactory implements SecurityFactoryInterface
+class FacebookSecurityFactory implements SecurityFactoryInterface
 {
 
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
-        //--- create auth providers
+        $container->setParameter('armd_social_auth.firewall_parameters', $config);
 
-        // vkontakte
-        $authProviderId = 'security.authentication.provider.armd_social_auth_vkontakte.' . $id;
-        $container
-            ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.armd_social_auth_vkontakte'));
-
-        // facebook
+        // auth provider
         $authProviderId = 'security.authentication.provider.armd_social_auth_facebook.' . $id;
         $container
             ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.armd_social_auth_facebook'));
 
 
-        //--- /create auth providers
-
-        // create auth listener
-        $listenerId = 'security.authentication.listener.armd_social_auth.' . $id;
-        $container->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.armd_social_auth'));
+        // auth listener
+        $listenerId = 'security.authentication.listener.armd_social_auth_facebook.' . $id;
+        $container->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.armd_social_auth_facebook'));
 
         return array($authProviderId, $listenerId, $defaultEntryPoint);
     }
@@ -50,12 +43,17 @@ class SocialSecurityFactory implements SecurityFactoryInterface
     public function addConfiguration(NodeDefinition $builder)
     {
         $builder->children()
-            ->arrayNode('auth_providers')
+            ->arrayNode('auth_provider_parameters')
+                ->useAttributeAsKey('id')
                 ->prototype('array')
+                    ->useAttributeAsKey('id')
                     ->prototype('array')
+                        ->useAttributeAsKey('id')
                         ->prototype('scalar')
                         ->end()
                 ->end()
             ->end();
+
+
     }
 }

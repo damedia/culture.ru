@@ -105,8 +105,6 @@ armd_social_auth:
     type:     annotation
     prefix:   /social-auth
 
-
-
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
