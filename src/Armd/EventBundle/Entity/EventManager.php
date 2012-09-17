@@ -28,21 +28,21 @@ class EventManager
     
     public function getPager(array $criteria, $page, $limit = 10)
     {
-        return $this->qetQueryBuilder($criteria)->getQuery()
+        return $this->getQueryBuilder($criteria)->getQuery()
             ->getResult();
     }
     
-    public function qetQueryBuilder($criteria)
+    public function getQueryBuilder($criteria)
     {
         $parameters = array();
         $query = $this->em->getRepository($this->class)->createQueryBuilder('e')
-            ->select('e', 'r')
+            ->addSelect('r')
             ->innerJoin('e.region', 'r')
             ->andWhere('e.published = true')
             ->orderBy('e.beginDate')
         ;
         
-        if (isset($criteria['region_id'])) {
+        if (isset($criteria['region_id']) && intval($criteria['region_id'])) {
             $query->andWhere('e.region = :region_id');
             $parameters['region_id'] = $criteria['region_id'];
         }
@@ -57,5 +57,45 @@ class EventManager
         $query->setParameters($parameters);
         
         return $query;
+    }
+    
+    public function getDistinctMonths()
+    {
+        $result = array();
+        $query = $this->em->getRepository($this->class)->createQueryBuilder('e')
+            ->select('e.beginDate')
+            ->distinct()
+            ->andWhere('e.published = true')
+        ;
+        
+        $dates = $query->getQuery()->getArrayResult();
+        
+        foreach($dates as $d)
+        {
+            $date = $d['beginDate'];
+            $result[$date->format('m')] = $date->format('M');
+        }
+
+        return ksort($result);
+    }
+    
+    public function getDistinctRegions()
+    {
+        $result = array();
+        $query = $this->em->getRepository('Armd\AtlasBundle\Entity\Region')->createQueryBuilder('r')
+            ->distinct()
+            ->from($this->class, 'e')
+            ->andWhere('e.region = r.id')
+            ->andWhere('e.published = true')            
+            ->orderBy('r.sortIndex')
+        ;
+        
+        $regions = $query->getQuery()->getResult();
+
+        foreach($regions as $r) {
+            $result[$r->getId()] = $r->getTitle();
+        }
+
+        return $result;                
     }            
 }

@@ -1,15 +1,3 @@
-{% set regions = {} %}
-{% set months = {} %}    
-{% for e in events %}
-    {% set id = 'id-' ~ e.region.id %}
-    {% set month = 'id-' ~ e.beginDate|date('m')|abs %}
-    {% if id not in regions|keys %}
-        {% set regions = regions|merge({ (id): e.region.title }) %}
-    {% endif %}
-    {% if month not in months|keys %}
-        {% set months = months|merge({ (month): ('calendar.month.'~e.beginDate|date('M'))|trans }) %}
-    {% endif %}    
-{% endfor %}
 <form id="events-filter">
 <table class="stripy sortable table">
 	<caption>Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</caption>
@@ -17,9 +5,8 @@
 		<th>
 			<div id="regions-selector" class="table-selector">
 				<select name="region_id" data-placeholder="Регион" class="chzn-select">
-					<option value=""></option>
-				{% for region, title in regions %}
-				    {% set id = region|replace({ 'id-': null }) %}
+					<option value="0"></option>
+				{% for id, title in regions %}
 					<option value="{{ id }}"{% if id == filter.region_id %} selected="selected"{% endif %}>{{ title }}</option>
 				{% endfor %}
 				</select>
@@ -33,10 +20,9 @@
 		<th>
 			<div id="regions-selector" class="table-selector">
 				<select name="month" data-placeholder="Дата" class="chzn-select">
-					<option value=""></option>
-				{% for month, title in months %}
-				    {% set id = month|replace({ 'id-': null }) %}
-					<option value="{{ id }}"{% if id == filter.month %} selected="selected"{% endif %}>{{ title }}</option>
+					<option value="0"></option>
+				{% for id, title in months %}
+					<option value="{{ id|abs }}"{% if id == filter.month %} selected="selected"{% endif %}>{{ ('calendar.month.'~title)|trans }}</option>
 				{% endfor %}					
 				</select>
 			</div>

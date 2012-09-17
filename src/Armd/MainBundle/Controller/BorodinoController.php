@@ -21,9 +21,13 @@ class BorodinoController extends Controller
             'region_id' => $request->query->get('region_id'),
             'month'     => $request->query->get('month'),
         );
+        
+        $manager = $this->getEventManager();
 
         return $this->render('ArmdMainBundle:Borodino:events.html.twig', array(
-            'events'    => $this->getEventManager()->getPager($criteria, 1),
+            'events'    => $manager->getPager($criteria, 1),
+            'regions'   => $manager->getDistinctRegions(),
+            'months'    => $manager->getDistinctMonths(),
             'filter'    => $criteria,
         ));
     }
