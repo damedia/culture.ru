@@ -68,12 +68,12 @@ class DefaultController extends Controller
             'id' => $id,
         ));
 
-        $tokenUrl = $this->generateUrl($this->container->getParameter('security.loginza.token_route'), array(), true);
+//        $tokenUrl = $this->generateUrl($this->container->getParameter('security.loginza.token_route'), array(), true);
 
         if ($entity)
             return array(
                 'entity' => $entity,
-                'tokenUrl' => $tokenUrl
+//                'tokenUrl' => $tokenUrl
             );
         else
             throw new NotFoundHttpException("Page not found");
