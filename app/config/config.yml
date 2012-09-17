@@ -128,6 +128,8 @@ sonata_media:
                 billboard: { width: 366, height: 261}
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 107 }
+                big: { width: 920 }
+                thumbnail: { width: 85, height: 85 }				
 
         chronicle:
             download:
