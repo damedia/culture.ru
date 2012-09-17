@@ -48,7 +48,8 @@ class EventManager
         }
         
         if (isset($criteria['month']) && $criteria['month'] > 0) {
-            $query->andWhere('e.beginDate between :from and :to');
+            $query->andWhere('e.beginDate >= :from and e.beginDate < :to');
+//            $query->andWhere('e.beginDate >= :from and e.beginDate < :to');
 //            $query->andWhere('e.beginDate >= :from or e.endDate is null');
             $parameters['from'] = \DateTime::createFromFormat('m.d H:i:s', sprintf("%02d.01 00:00:00", $criteria['month']));
             $parameters['to'] = \DateTime::createFromFormat('m.d H:i:s', sprintf("%02d.01 00:00:00", $criteria['month'] + 1));            
@@ -90,6 +91,7 @@ class EventManager
             ->andWhere('e.region = r.id')
             ->andWhere('e.published = true')            
             ->orderBy('r.sortIndex')
+            ->addOrderBy('r.title')
         ;
         
         $regions = $query->getQuery()->getResult();
