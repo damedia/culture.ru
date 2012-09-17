@@ -19,31 +19,6 @@ parameters:
     loginza_secret_key: 466606b35b65d7a94a8fe5452e27f8d7
     loginza_widget_id: 32096
 
-    armd_social_auth_auth_providers:
-
-        roskult.ru:
-            vkontakte:
-                app_id: 3118810
-                secret: yTocvcEwl4cv4NHNJJEl
-            facebook:
-                app_id: 182778148514104
-                secret: 19c7d10f46b7e753c81143c27d48357c
-
-        культура.рф:
-            vkontakte:
-                app_id: 3119050
-                secret: niPCbh2ywoUeQOJSVPih
-            facebook:
-                app_id: 302490536525585
-                secret: 5c3ba92cecd1833c6773d085d58b0198
-
-        mk.armd.shams.su:
-            vkontakte:
-                app_id: 3119047
-                secret: d0H7euAEzj12bcxvcmMu
-            facebook:
-                app_id: 482442168446063
-                secret: 4dc17cf63e24d79b6b4a54360bc3db66
 
 
     sphinxsearch_indexer_bin: c:/sphinx/bin/indexer.exe

@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class FacebookToken extends AbstractToken {
+class FacebookToken extends AbstractSocialToken {
 
     public $accessCode;
     public $accessState;
@@ -19,10 +19,9 @@ class FacebookToken extends AbstractToken {
 
     public $facebookUserData;
 
-    public function __construct(array $roles = array(), $accessCode = null, $accessState = null)
+    public function __construct(array $roles = array(), $accessState = null)
     {
         parent::__construct($roles);
-        $this->accessCode = $accessCode;
         $this->accessState = $accessState;
     }
 
@@ -61,6 +60,7 @@ class FacebookToken extends AbstractToken {
     {
         return serialize(array(
             $this->accessToken,
+            $this->accessState,
             $this->accessTokenDateTime,
             $this->accessTokenExpires,
             $this->accessTokenUserId,
@@ -75,6 +75,7 @@ class FacebookToken extends AbstractToken {
     {
         list(
             $this->accessToken,
+            $this->accessState,
             $this->accessTokenDateTime,
             $this->accessTokenExpires,
             $this->accessTokenUserId,
