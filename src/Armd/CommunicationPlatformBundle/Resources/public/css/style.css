@@ -952,7 +952,6 @@ footer { margin-top:50px; }
 .fos_comment_comment_voting .vote.down button { background-position:-8px -547px; }
 .auth-block{ position:absolute; z-index:1000; left:-140px; display:none; padding:15px; font-size:13px; box-shadow:2px 2px 10px #ccc; background:#fff; }
 .private-enter .username{ color:#FFFFFF; font-size:11px; }
-header .main-menu .private-enter .loginza{ color:#f00; }
 .auth-block .row{ margin-bottom:5px; }
 .comment-voting{ border-top:1px solid #DFDFDF; display:inline-block; padding: 5px 0 5px 180px; }
 .comment-voting .vote{ float:left; margin:2px 5px 0 0; }
