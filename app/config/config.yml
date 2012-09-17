@@ -269,8 +269,4 @@ armd_sphinx_search:
 
 
 parameters:
-<<<<<<< HEAD
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-=======
-    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
->>>>>>> Remove HWIOauthBundle. Possibly it is good, but long to tune
