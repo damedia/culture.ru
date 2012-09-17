@@ -34,23 +34,6 @@ class VkontakteToken extends AbstractSocialToken {
         return '';
     }
 
-    public function getRoles()
-    {
-        if($this->getUser() instanceof UserInterface) {
-            $roles = array();
-            foreach($this->getUser()->getRoles() as $role) {
-                if (is_string($role)) {
-                    $role = new Role($role);
-                } elseif (!$role instanceof RoleInterface) {
-                    throw new \InvalidArgumentException(sprintf('$roles must be an array of strings, or RoleInterface instances, but got %s.', gettype($role)));
-                }
-                $roles[] = $role;
-            }
-            return $roles;
-        } else {
-            return parent::getRoles();
-        }
-    }
 
     /**
      * {@inheritdoc}

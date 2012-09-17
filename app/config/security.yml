@@ -73,10 +73,8 @@ security:
 
             armd_social_auth:
                 auth_provider_parameters:
+
                     default:
-                        twitter:
-                            oauth_consumer_key: IVysXnVjx31A9b72xQwg
-                            consumer_secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
 
                     roskult.ru:
                         vkontakte:
@@ -85,6 +83,9 @@ security:
                         facebook:
                             app_id: 182778148514104
                             secret: 19c7d10f46b7e753c81143c27d48357c
+                        twitter:
+                            oauth_consumer_key: IVysXnVjx31A9b72xQwg
+                            consumer_secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
 
                     культура.рф:
                         vkontakte:
@@ -94,6 +95,11 @@ security:
                             app_id: 302490536525585
                             secret: 5c3ba92cecd1833c6773d085d58b0198
 
+                    mk.dev.armd.ru:
+                        twitter:
+                            oauth_consumer_key: edBbssXZxodI6DNxd555w
+                            consumer_secret: qtCdtWxiANPtyiTxpdnQ2PbNdMjtfq3aiKBx1hLHY
+
                     mk.armd.shams.su:
                         vkontakte:
                             app_id: 3119047
@@ -101,6 +107,11 @@ security:
                         facebook:
                             app_id: 482442168446063
                             secret: 4dc17cf63e24d79b6b4a54360bc3db66
+                        twitter:
+                            oauth_consumer_key: F0lzOE5KpZQoR6lgF92g
+                            consumer_secret: x426C9iJJvYOQhX7tK5VKEHfGxFyFFsX7bXkCbI53Tg
+
+
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users

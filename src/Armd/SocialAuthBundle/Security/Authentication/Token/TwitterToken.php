@@ -10,7 +10,9 @@ class TwitterToken extends AbstractSocialToken
 {
     public $oauthToken;
     public $oauthTokenSecret;
-
+    public $oauthVerifier;
+    public $twitterUserId;
+    public $twitterUserData;
 
     public function __construct(array $roles = array())
     {
@@ -25,5 +27,36 @@ class TwitterToken extends AbstractSocialToken
     public function getCredentials()
     {
         return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->oauthToken,
+            $this->oauthTokenSecret,
+            $this->oauthVerifier,
+            $this->twitterUserId,
+            $this->twitterUserData,
+            parent::serialize()
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->oauthToken,
+            $this->oauthTokenSecret,
+            $this->oauthVerifier,
+            $this->twitterUserId,
+            $this->twitterUserData,
+            $parentStr
+        ) = unserialize($serialized);
+        parent::unserialize($parentStr);
     }
 }

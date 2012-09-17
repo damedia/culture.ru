@@ -12,8 +12,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken;
 use Buzz\Browser;
 use Buzz\Message\Request as HttpRequest;
-use Buzz\Message\Response as HttpResponse;
-use Buzz\Message\RequestInterface as HttpRequestInterface;
 
 
 class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
@@ -30,7 +28,25 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
      */
     public function authenticate(TokenInterface $token)
     {
-        $this->obtainRequestToken($token);
+        if(empty($token->oauthVerifier)) {
+            $this->obtainRequestToken($token);
+            return $this->redirectUser($token);
+        } else {
+            $this->obtainAccessToken($token);
+            $this->obtainUserData($token);
+
+            $user = $this->loadUser($token);
+            if (!$user) {
+                $user = $this->createUser($token);
+            }
+
+            if ($user) {
+                $token->setAuthenticated(true);
+                $token->setUser($user);
+                return $token;
+            }
+
+        }
     }
 
 
@@ -38,33 +54,76 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
      * Twitter "Step 1: Obtaining a request token"
      *
      * @param \Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken $token
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
+     * @return void
      */
     public function obtainRequestToken(TwitterToken $token)
     {
-//        $params = array(
-//            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true)
-//        );
-        //$result = $this->twitterHttpRequest($url, array(), $token);
-
-
         $url = 'https://api.twitter.com/oauth/request_token';
-        $oauthParts = array(
-            'oauth_consumer_key' => $providerParams['oauth_consumer_key'],
-            'oauth_nonce' => md5(microtime() . rand(0,1000000)),
-            'oauth_signature_method' => 'HMAC-SHA1',
-            'oauth_timestamp' => time(),
-            'oauth_version' => '1.0',
-            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
-        );
-        if(!empty($token->oauthToken)) {
-            $oauthParts['oauth_token'] = $token->oauthToken;
+        $result = $this->twitterHttpRequest('POST', $url, array(), $token);
+
+        parse_str($result, $parsedResult);
+
+        if(empty($parsedResult['oauth_token'])
+            || empty($parsedResult['oauth_token_secret'])
+            || empty($parsedResult['oauth_callback_confirmed']))
+        {
+            throw new AuthenticationException('Cant get twitters oauth_token');
         }
 
-        $this->myTwitterHttpRequest($url, $oauthParts, true);
-        $this->hwiTwitterHttpRequest($url, $oauthParts, true);
-
+        $token->oauthToken = $parsedResult['oauth_token'];
+        $token->oauthTokenSecret = $parsedResult['oauth_token_secret'];
     }
 
+    /**
+     * Twitter "Step 2: Redirecting the user"
+     * @param \Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken $token
+     * @return \Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken
+     */
+    public function redirectUser(TwitterToken $token)
+    {
+        $url = 'https://api.twitter.com/oauth/authenticate?oauth_token=' . $token->oauthToken;
+        $token->response = new RedirectResponse($url);
+        return $token;
+    }
+
+    /**
+     * Twitter "Step 3: Converting the request token to an access token"
+     * @param \Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken $token
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
+     * @return void
+     */
+    public function obtainAccessToken(TwitterToken $token)
+    {
+        $url = 'https://api.twitter.com/oauth/access_token';
+        $params = array('oauth_verifier' => $token->oauthVerifier);
+        $result = $this->twitterHttpRequest('POST',$url, $params, $token);
+        parse_str($result, $parsedResult);
+        if (empty($parsedResult['oauth_token'])
+            || empty($parsedResult['oauth_token_secret'])
+            || empty($parsedResult['user_id'])
+            || empty($parsedResult['screen_name'])
+
+        ) {
+            throw new AuthenticationException('Cant get access token');
+        }
+
+        $token->oauthToken = $parsedResult['oauth_token'];
+        $token->oauthTokenSecret = $parsedResult['oauth_token_secret'];
+        $token->twitterUserId = $parsedResult['user_id'];
+    }
+
+    public function obtainUserData(TwitterToken $token)
+    {
+        $url = 'https://api.twitter.com/users/show.json';
+        $result = $this->twitterHttpRequest('GET', $url, array('user_id' => $token->twitterUserId), $token);
+        $parsedResult = json_decode($result, true);
+        if(empty($parsedResult['name'])) {
+            throw new AuthenticationException('Cant get twitter user data');
+        }
+        $token->twitterUserData = $parsedResult;
+        \gFuncs::dbgWriteLogVar($token->twitterUserData, false, 'twitterUserData'); // DBG:
+    }
 
     /**
      * Checks whether this provider supports the given token.
@@ -83,9 +142,10 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         return 'twitter';
     }
 
-    protected function twitterHttpRequest($url, array $parameters, TwitterToken $token)
+    protected function twitterHttpRequest($httpMethod, $url, array $parameters, TwitterToken $token)
     {
         $providerParams = $this->paramsReader->getParameters($this->getProviderName());
+        $httpMethod = strtoupper($httpMethod);
 
         //--- SIGN
         // collect oauth params
@@ -95,7 +155,11 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             'oauth_signature_method' => 'HMAC-SHA1',
             'oauth_timestamp' => time(),
             'oauth_version' => '1.0',
-            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
+            'oauth_callback' => $this->router->generate(
+                'armd_social_auth_auth_result',
+                array('armd_social_auth_provider' => 'twitter'),
+                true
+            )
         );
         if(!empty($token->oauthToken)) {
             $oauthParts['oauth_token'] = $token->oauthToken;
@@ -108,7 +172,6 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             $encodedParametersToSign[rawurlencode($key)] = rawurlencode($val);
         }
         uksort($encodedParametersToSign, 'strcmp');
-        \gFuncs::dbgWriteLogVar($encodedParametersToSign, false, '$encodedParametersToSign'); // DBG:
 
         // build parameters string
         $parametersString = '';
@@ -116,17 +179,12 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             $parametersString .= $key . '=' . $val . '&';
         }
         $parametersString = substr($parametersString, 0, -1);
-        \gFuncs::dbgWriteLogVar($parametersString, false, '$parametersString'); // DBG:
 
         // build oauth "signature base string"
-        $baseString = 'POST&' . rawurlencode($url) . '&' . rawurlencode($parametersString);
-        \gFuncs::dbgWriteLogVar($baseString, false, '$baseString'); // DBG:
+        $baseString = $httpMethod . '&' . rawurlencode($url) . '&' . rawurlencode($parametersString);
 
         $signingKey = $providerParams['consumer_secret'];
-        if(!empty($token->oauthTokenSecret)) {
-            $signingKey .= '&' . $token->oauthTokenSecret;
-        }
-        \gFuncs::dbgWriteLogVar($signingKey, false, '$signingKey'); // DBG:
+        $signingKey .= '&' . $token->oauthTokenSecret;
 
         // and finally generate the sign
         $sign = base64_encode(hash_hmac('sha1', $baseString, $signingKey, true));
@@ -142,129 +200,82 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             $oauthHeader .= rawurlencode($key) . '="' . rawurlencode($value) . '", ';
         }
         $oauthHeader = substr($oauthHeader, 0, -2);
-        \gFuncs::dbgWriteLogVar($oauthHeader, false, '$oauthHeader'); // DBG:
 
         $client = new \Buzz\Client\Curl();
         $client->setOption(CURLOPT_SSL_VERIFYPEER, false);
         $browser = new Browser($client);
 
-        $result = $browser->post($url, array($oauthHeader)); //, http_build_query($parameters)
-        \gFuncs::dbgWriteLogVar($result, false, '$result'); // DBG:
+        if($httpMethod === 'POST') {
+//            \gFuncs::dbgWriteLogVar($url, false, 'TWITTER: url'); // DBG:
+            $result = $browser->post($url, array($oauthHeader), http_build_query($parameters));
+        } elseif ($httpMethod === 'GET') {
+
+            $urlWithParams = $url;
+            if (strpos($url, '?') === false) {
+                $urlWithParams .= '?';
+            }
+            foreach($parameters as $key => $val) {
+                $urlWithParams .= rawurlencode($key) . '=' . rawurlencode($val) . '&';
+            }
+            $urlWithParams = substr($urlWithParams, 0, -1);
+//            \gFuncs::dbgWriteLogVar($urlWithParams, false, 'TWITTER: url'); // DBG:
+            $result = $browser->get($urlWithParams, array($oauthHeader));
+        } else {
+            throw new \InvalidArgumentException('Request method must be POST or GET');
+        }
+
+//        \gFuncs::dbgWriteLogVar($result, false, 'TWITTER: result'); // DBG:
+        if($result) {
+            return $result->getContent();
+        } else {
+            throw new AuthenticationException('Error during querying twitter');
+        }
 
         return $result;
     }
 
-
-    protected function myTwitterHttpRequest($url, array $parameters, TwitterToken $token)
+    public function loadUser(TwitterToken $token)
     {
-        $providerParams = $this->paramsReader->getParameters($this->getProviderName());
+        if(strlen(trim($token->twitterUserId)) === 0) {
+            throw new AuthenticationException('Trying to load user by empty twitter uid');
+        }
+        $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        //--- SIGN
-        // collect oauth params
-        $oauthParts = array(
-            'oauth_consumer_key' => $providerParams['oauth_consumer_key'],
-            'oauth_nonce' => md5(microtime() . rand(0,1000000)),
-            'oauth_signature_method' => 'HMAC-SHA1',
-            'oauth_timestamp' => time(),
-            'oauth_version' => '1.0',
-            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
-        );
-        if(!empty($token->oauthToken)) {
-            $oauthParts['oauth_token'] = $token->oauthToken;
+        $user = $repo->findOneByTwUid($token->twitterUserId);
+        if ($user) {
+            return $user;
         }
 
-        // prepare parameters
-        $parametersToSign = array_merge($parameters, $oauthParts);
-        $encodedParametersToSign = array();
-        foreach($parametersToSign as $key => $val) {
-            $encodedParametersToSign[rawurlencode($key)] = rawurlencode($val);
-        }
-        uksort($encodedParametersToSign, 'strcmp');
-        \gFuncs::dbgWriteLogVar($encodedParametersToSign, false, '$encodedParametersToSign'); // DBG:
-
-        // build parameters string
-        $parametersString = '';
-        foreach($encodedParametersToSign as $key => $val) {
-            $parametersString .= $key . '=' . $val . '&';
-        }
-        $parametersString = substr($parametersString, 0, -1);
-        \gFuncs::dbgWriteLogVar($parametersString, false, '$parametersString'); // DBG:
-
-        // build oauth "signature base string"
-        $baseString = 'POST&' . rawurlencode($url) . '&' . rawurlencode($parametersString);
-        \gFuncs::dbgWriteLogVar($baseString, false, '$baseString'); // DBG:
-
-        $signingKey = $providerParams['consumer_secret'];
-        if(!empty($token->oauthTokenSecret)) {
-            $signingKey .= '&' . $token->oauthTokenSecret;
-        }
-        \gFuncs::dbgWriteLogVar($signingKey, false, '$signingKey'); // DBG:
-
-        // and finally generate the sign
-        $sign = base64_encode(hash_hmac('sha1', $baseString, $signingKey, true));
-
-        //--- /SIGN
-
-
-        //--- REQUEST
-        $parametersToSign['oauth_signature'] = $sign;
-        uksort($parametersToSign, 'strcmp');
-        $oauthHeader = 'Authorization: OAuth ';
-        foreach($parametersToSign as $key => $value) {
-            $oauthHeader .= rawurlencode($key) . '="' . rawurlencode($value) . '", ';
-        }
-        $oauthHeader = substr($oauthHeader, 0, -2);
-        \gFuncs::dbgWriteLogVar($oauthHeader, false, '$oauthHeader'); // DBG:
-
-        $client = new \Buzz\Client\Curl();
-        $client->setOption(CURLOPT_SSL_VERIFYPEER, false);
-        $browser = new Browser($client);
-
-        $result = $browser->post($url, array($oauthHeader)); //, http_build_query($parameters)
-        \gFuncs::dbgWriteLogVar($result, false, '$result'); // DBG:
+        return false;
     }
 
-    protected function hwiTwitterHttpRequest($url, array $parameters, TwitterToken $token)
+    public function createUser(TwitterToken $token)
     {
-        $providerParams = $this->paramsReader->getParameters($this->getProviderName());
-
-        $oauthParts = array(
-            'oauth_consumer_key' => $providerParams['oauth_consumer_key'],
-            'oauth_nonce' => md5(microtime() . rand(0,1000000)),
-            'oauth_signature_method' => 'HMAC-SHA1',
-            'oauth_timestamp' => time(),
-            'oauth_version' => '1.0',
-            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
-        );
-        if(!empty($token->oauthToken)) {
-            $oauthParts['oauth_token'] = $token->oauthToken;
+        $nameParts = explode(' ', $token->twitterUserData['name']);
+        if(empty($nameParts[1])) {
+            $nameParts[1] = '';
         }
 
-        $oauthParts['oauth_signature'] = \Armd\SocialAuthBundle\Security\OAuthUtils::signRequest('POST', $url, $oauthParts, $providerParams['consumer_secret']);
-        $authorization = 'Authorization: OAuth';
+        $user = new User();
+        $user->setEmail($token->twitterUserId  . '@twitter.com');
+        $user->setPlainPassword(substr(md5(rand(0, 10000) . microtime()), 0, 15));
+        $user->setUsername('tw' . $token->twitterUserId);
+        $user->setEnabled(true);
+        $user->setSalt(rand(0, 100000));
+        $user->setLocked(false);
+        $user->setExpired(false);
+        $user->setCredentialsExpired(false);
+        $user->setTwUid($token->twitterUserId);
+        $user->setFirstname($nameParts[0]);
+        $user->setLastname($nameParts[1]);
+        $user->setRoles(array('ROLE_USER'));
 
-        foreach ($oauthParts as $key => $value) {
-            $value = rawurlencode($value);
-            $authorization .= ", $key=\"$value\"";
-        }
+        \gFuncs::dbgWriteLogVar($user, false, 'new use  r '); // DBG:
 
-        $headers[] = $authorization;
+        $this->userManager->updateUser($user, true);
 
-        $request  = new HttpRequest(HttpRequestInterface::METHOD_POST, $url);
-        $response = new HttpResponse();
-
-        $request->setHeaders($headers);
-        //$request->setContent($content);
-
-        $client = new \Buzz\Client\Curl();
-        $client->setOption(CURLOPT_SSL_VERIFYPEER, false);
-        $browser = new Browser($client);
-        $browser->send($request, $response);
-
-        \gFuncs::dbgWriteLogVar($request, false, 'request'); // DBG:
-        \gFuncs::dbgWriteLogVar($response, false, 'response'); // DBG:
+        return $user;
     }
-
 
 
 }
