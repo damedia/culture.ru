@@ -11,6 +11,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Armd\SocialAuthBundle\Security\Authentication\Token\TwitterToken;
 use Buzz\Browser;
+use Buzz\Message\Request as HttpRequest;
+use Buzz\Message\Response as HttpResponse;
+use Buzz\Message\RequestInterface as HttpRequestInterface;
+
 
 class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
 {
@@ -37,11 +41,28 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
      */
     public function obtainRequestToken(TwitterToken $token)
     {
+//        $params = array(
+//            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true)
+//        );
+        //$result = $this->twitterHttpRequest($url, array(), $token);
+
+
         $url = 'https://api.twitter.com/oauth/request_token';
-        $params = array(
-            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result')
+        $oauthParts = array(
+            'oauth_consumer_key' => $providerParams['oauth_consumer_key'],
+            'oauth_nonce' => md5(microtime() . rand(0,1000000)),
+            'oauth_signature_method' => 'HMAC-SHA1',
+            'oauth_timestamp' => time(),
+            'oauth_version' => '1.0',
+            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
         );
-        $result = $this->twitterHttpRequest($url, $params, $token);
+        if(!empty($token->oauthToken)) {
+            $oauthParts['oauth_token'] = $token->oauthToken;
+        }
+
+        $this->myTwitterHttpRequest($url, $oauthParts, true);
+        $this->hwiTwitterHttpRequest($url, $oauthParts, true);
+
     }
 
 
@@ -73,7 +94,8 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             'oauth_nonce' => md5(microtime() . rand(0,1000000)),
             'oauth_signature_method' => 'HMAC-SHA1',
             'oauth_timestamp' => time(),
-            'oauth_version' => '1.0'
+            'oauth_version' => '1.0',
+            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
         );
         if(!empty($token->oauthToken)) {
             $oauthParts['oauth_token'] = $token->oauthToken;
@@ -86,6 +108,7 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             $encodedParametersToSign[rawurlencode($key)] = rawurlencode($val);
         }
         uksort($encodedParametersToSign, 'strcmp');
+        \gFuncs::dbgWriteLogVar($encodedParametersToSign, false, '$encodedParametersToSign'); // DBG:
 
         // build parameters string
         $parametersString = '';
@@ -93,14 +116,17 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             $parametersString .= $key . '=' . $val . '&';
         }
         $parametersString = substr($parametersString, 0, -1);
+        \gFuncs::dbgWriteLogVar($parametersString, false, '$parametersString'); // DBG:
 
         // build oauth "signature base string"
         $baseString = 'POST&' . rawurlencode($url) . '&' . rawurlencode($parametersString);
+        \gFuncs::dbgWriteLogVar($baseString, false, '$baseString'); // DBG:
 
-        $signingKey = $providerParams['consumer_secret'] . '&';
+        $signingKey = $providerParams['consumer_secret'];
         if(!empty($token->oauthTokenSecret)) {
             $signingKey .= '&' . $token->oauthTokenSecret;
         }
+        \gFuncs::dbgWriteLogVar($signingKey, false, '$signingKey'); // DBG:
 
         // and finally generate the sign
         $sign = base64_encode(hash_hmac('sha1', $baseString, $signingKey, true));
@@ -109,22 +135,134 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
 
 
         //--- REQUEST
-        $oauthParams['oauth_signature'] = $sign;
-        $oauthHeader = 'OAuth ';
-        foreach($oauthParams as $key => $value) {
+        $parametersToSign['oauth_signature'] = $sign;
+        uksort($parametersToSign, 'strcmp');
+        $oauthHeader = 'Authorization: OAuth ';
+        foreach($parametersToSign as $key => $value) {
             $oauthHeader .= rawurlencode($key) . '="' . rawurlencode($value) . '", ';
         }
         $oauthHeader = substr($oauthHeader, 0, -2);
-
+        \gFuncs::dbgWriteLogVar($oauthHeader, false, '$oauthHeader'); // DBG:
 
         $client = new \Buzz\Client\Curl();
         $client->setOption(CURLOPT_SSL_VERIFYPEER, false);
         $browser = new Browser($client);
 
-        $result = $browser->post($url, array('Authorization: ' . $oauthHeader), http_build_query($parameters));
-        //--- /REQUEST
+        $result = $browser->post($url, array($oauthHeader)); //, http_build_query($parameters)
+        \gFuncs::dbgWriteLogVar($result, false, '$result'); // DBG:
 
         return $result;
+    }
+
+
+    protected function myTwitterHttpRequest($url, array $parameters, TwitterToken $token)
+    {
+        $providerParams = $this->paramsReader->getParameters($this->getProviderName());
+
+        //--- SIGN
+        // collect oauth params
+        $oauthParts = array(
+            'oauth_consumer_key' => $providerParams['oauth_consumer_key'],
+            'oauth_nonce' => md5(microtime() . rand(0,1000000)),
+            'oauth_signature_method' => 'HMAC-SHA1',
+            'oauth_timestamp' => time(),
+            'oauth_version' => '1.0',
+            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
+        );
+        if(!empty($token->oauthToken)) {
+            $oauthParts['oauth_token'] = $token->oauthToken;
+        }
+
+        // prepare parameters
+        $parametersToSign = array_merge($parameters, $oauthParts);
+        $encodedParametersToSign = array();
+        foreach($parametersToSign as $key => $val) {
+            $encodedParametersToSign[rawurlencode($key)] = rawurlencode($val);
+        }
+        uksort($encodedParametersToSign, 'strcmp');
+        \gFuncs::dbgWriteLogVar($encodedParametersToSign, false, '$encodedParametersToSign'); // DBG:
+
+        // build parameters string
+        $parametersString = '';
+        foreach($encodedParametersToSign as $key => $val) {
+            $parametersString .= $key . '=' . $val . '&';
+        }
+        $parametersString = substr($parametersString, 0, -1);
+        \gFuncs::dbgWriteLogVar($parametersString, false, '$parametersString'); // DBG:
+
+        // build oauth "signature base string"
+        $baseString = 'POST&' . rawurlencode($url) . '&' . rawurlencode($parametersString);
+        \gFuncs::dbgWriteLogVar($baseString, false, '$baseString'); // DBG:
+
+        $signingKey = $providerParams['consumer_secret'];
+        if(!empty($token->oauthTokenSecret)) {
+            $signingKey .= '&' . $token->oauthTokenSecret;
+        }
+        \gFuncs::dbgWriteLogVar($signingKey, false, '$signingKey'); // DBG:
+
+        // and finally generate the sign
+        $sign = base64_encode(hash_hmac('sha1', $baseString, $signingKey, true));
+
+        //--- /SIGN
+
+
+        //--- REQUEST
+        $parametersToSign['oauth_signature'] = $sign;
+        uksort($parametersToSign, 'strcmp');
+        $oauthHeader = 'Authorization: OAuth ';
+        foreach($parametersToSign as $key => $value) {
+            $oauthHeader .= rawurlencode($key) . '="' . rawurlencode($value) . '", ';
+        }
+        $oauthHeader = substr($oauthHeader, 0, -2);
+        \gFuncs::dbgWriteLogVar($oauthHeader, false, '$oauthHeader'); // DBG:
+
+        $client = new \Buzz\Client\Curl();
+        $client->setOption(CURLOPT_SSL_VERIFYPEER, false);
+        $browser = new Browser($client);
+
+        $result = $browser->post($url, array($oauthHeader)); //, http_build_query($parameters)
+        \gFuncs::dbgWriteLogVar($result, false, '$result'); // DBG:
+    }
+
+    protected function hwiTwitterHttpRequest($url, array $parameters, TwitterToken $token)
+    {
+        $providerParams = $this->paramsReader->getParameters($this->getProviderName());
+
+        $oauthParts = array(
+            'oauth_consumer_key' => $providerParams['oauth_consumer_key'],
+            'oauth_nonce' => md5(microtime() . rand(0,1000000)),
+            'oauth_signature_method' => 'HMAC-SHA1',
+            'oauth_timestamp' => time(),
+            'oauth_version' => '1.0',
+            'oauth_callback' => $this->router->generate('armd_social_auth_auth_result', array(), true),
+        );
+        if(!empty($token->oauthToken)) {
+            $oauthParts['oauth_token'] = $token->oauthToken;
+        }
+
+        $oauthParts['oauth_signature'] = \Armd\SocialAuthBundle\Security\OAuthUtils::signRequest('POST', $url, $oauthParts, $providerParams['consumer_secret']);
+        $authorization = 'Authorization: OAuth';
+
+        foreach ($oauthParts as $key => $value) {
+            $value = rawurlencode($value);
+            $authorization .= ", $key=\"$value\"";
+        }
+
+        $headers[] = $authorization;
+
+        $request  = new HttpRequest(HttpRequestInterface::METHOD_POST, $url);
+        $response = new HttpResponse();
+
+        $request->setHeaders($headers);
+        //$request->setContent($content);
+
+        $client = new \Buzz\Client\Curl();
+        $client->setOption(CURLOPT_SSL_VERIFYPEER, false);
+        $browser = new Browser($client);
+        $browser->send($request, $response);
+
+        \gFuncs::dbgWriteLogVar($request, false, 'request'); // DBG:
+        \gFuncs::dbgWriteLogVar($response, false, 'response'); // DBG:
     }
 
 
