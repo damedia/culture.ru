@@ -122,7 +122,6 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             throw new AuthenticationException('Cant get twitter user data');
         }
         $token->twitterUserData = $parsedResult;
-        \gFuncs::dbgWriteLogVar($token->twitterUserData, false, 'twitterUserData'); // DBG:
     }
 
     /**
@@ -206,7 +205,6 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         $browser = new Browser($client);
 
         if($httpMethod === 'POST') {
-//            \gFuncs::dbgWriteLogVar($url, false, 'TWITTER: url'); // DBG:
             $result = $browser->post($url, array($oauthHeader), http_build_query($parameters));
         } elseif ($httpMethod === 'GET') {
 
@@ -218,13 +216,11 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
                 $urlWithParams .= rawurlencode($key) . '=' . rawurlencode($val) . '&';
             }
             $urlWithParams = substr($urlWithParams, 0, -1);
-//            \gFuncs::dbgWriteLogVar($urlWithParams, false, 'TWITTER: url'); // DBG:
             $result = $browser->get($urlWithParams, array($oauthHeader));
         } else {
             throw new \InvalidArgumentException('Request method must be POST or GET');
         }
 
-//        \gFuncs::dbgWriteLogVar($result, false, 'TWITTER: result'); // DBG:
         if($result) {
             return $result->getContent();
         } else {
@@ -269,8 +265,6 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         $user->setFirstname($nameParts[0]);
         $user->setLastname($nameParts[1]);
         $user->setRoles(array('ROLE_USER'));
-
-        \gFuncs::dbgWriteLogVar($user, false, 'new use  r '); // DBG:
 
         $this->userManager->updateUser($user, true);
 

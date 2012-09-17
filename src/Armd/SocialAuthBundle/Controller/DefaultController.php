@@ -33,7 +33,6 @@ class DefaultController extends Controller
     {
         $session = $this->getRequest()->getSession();
         if($session->has('armd_social_auth.post_auth_redirect')) {
-            \gFuncs::dbgWriteLogVar($session->get('armd_social_auth.post_auth_redirect'), false, 'authResultAction: redirect to'); // DBG:
             $response = new RedirectResponse($session->get('armd_social_auth.post_auth_redirect'));
             $session->remove('armd_social_auth.post_auth_redirect');
             return $response;
