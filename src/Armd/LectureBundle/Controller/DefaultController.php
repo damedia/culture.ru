@@ -101,10 +101,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/view/{id}", requirements={"id"="\d+"}, name="armd_lecture_view")
+     * View lecture details.
+     * Version can be one of these: full, trailer
+     *
+     * @Route("/view/{id}/{version}", requirements={"id"="\d+"}, name="armd_lecture_view", defaults={"version" = "trailer"})
      * @Template()
      */
-    public function lectureDetailsAction($id)
+    public function lectureDetailsAction($id, $version)
     {
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);
@@ -114,6 +117,7 @@ class DefaultController extends Controller
 
         return array(
             'lecture' => $lecture,
+            'lectureVersion' => $version
         );
     }
 
