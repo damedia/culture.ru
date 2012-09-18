@@ -36,12 +36,13 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         }
 
         if ($user) {
-            $token->setAuthenticated(true);
             $token->setUser($user);
-            return $token;
+            $token->setAuthenticated(true);
+        } else {
+            $token->setAuthenticated(false);
         }
 
-        return false;
+        return $token;
     }
 
     public function redirectLoginForm(FacebookToken $token)
@@ -116,14 +117,23 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         if(strlen(trim($token->facebookUserData['id'])) === 0) {
             throw new AuthenticationException('Trying to load user by empty facebook uid');
         }
-        $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        $user = $repo->findOneByFbUid($token->facebookUserData['id']);
-        if ($user) {
-            return $user;
-        }
+        $user = $this->em->createQueryBuilder()
+            ->select('u')
+            ->from('ArmdUserBundle:User', 'u')
+            ->where('u.facebookUid = :uid')
+            ->orWhere('u.facebookName = :email')
+            ->orWhere('u.facebookName = :login')
+            ->setMaxResults(1)
+            ->setParameters(array(
+                'uid' => $token->facebookUserData['id'],
+                'email' => $token->facebookUserData['email'],
+                'login' => $token->facebookUserData['username'],
+            ))
+            ->getQuery()
+            ->getOneOrNullResult();
 
-        return false;
+        return $user;
     }
 
     public function createUser(FacebookToken $token)
@@ -137,10 +147,11 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
-        $user->setFbUid($token->facebookUserData['id']);
+        $user->setFacebookUid($token->facebookUserData['id']);
         $user->setFirstname($token->facebookUserData['first_name']);
         $user->setLastname($token->facebookUserData['last_name']);
         $user->setRoles(array('ROLE_USER'));
+        $user->setFacebookData($token->facebookUserData);
 
         $this->userManager->updateUser($user, true);
 

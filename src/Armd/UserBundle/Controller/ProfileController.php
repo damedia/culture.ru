@@ -90,7 +90,7 @@ class ProfileController extends Controller
         if ($process) {
             $this->setFlash('fos_user_success', 'profile.flash.updated');
 
-            return new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
+            return new RedirectResponse($this->generateUrl('sonata_user_profile_edit'));
         }
 
         return $this->render('ArmdUserBundle:Profile:edit_profile.html.twig', array(

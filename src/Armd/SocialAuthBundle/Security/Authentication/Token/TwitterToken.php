@@ -12,6 +12,7 @@ class TwitterToken extends AbstractSocialToken
     public $oauthTokenSecret;
     public $oauthVerifier;
     public $twitterUserId;
+    public $twitterScreenName;
     public $twitterUserData;
 
     public function __construct(array $roles = array())
