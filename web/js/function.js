@@ -108,6 +108,15 @@ $(document).ready(function () {
         $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
         $("#calendar").datepicker({showOtherMonths:true});
     }
+	if ($("#news-dates-filter").length > 0) {
+		$.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+        $(".calendar-input").datepicker({
+			showOtherMonths:true,
+			showOn: "button",
+			buttonImage: "/img/calendar-trigger.png",
+			buttonImageOnly: true
+		});
+	}
     /*$('.ppa-block').hover(function(){
      $(this).find('.ppa-over').show();
      },

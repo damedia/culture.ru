@@ -2,6 +2,9 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" type="text/css" media="screen" />
+	<style type="text/css">
+		#ui-datepicker-div {width:200px;}
+	</style>
 {% endblock %}
 {% block body%}
 	<div class="clear" style="height:20px;"></div>
