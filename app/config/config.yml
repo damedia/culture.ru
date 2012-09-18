@@ -177,6 +177,15 @@ sonata_media:
                 medium: { width: 111 }
                 small: { width: 85 }
 
+        gallery:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                big: { width: 920 }
+                thumbnail: { width: 85, height: 85 } 			
 
 
 
