@@ -32,7 +32,7 @@ class FacebookSecurityFactory implements SecurityFactoryInterface
 
     public function getPosition()
     {
-        return 'http';
+        return 'pre_auth';
     }
 
     public function getKey()

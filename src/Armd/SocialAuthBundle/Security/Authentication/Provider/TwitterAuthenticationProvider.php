@@ -40,12 +40,13 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
                 $user = $this->createUser($token);
             }
 
-            if ($user) {
-                $token->setAuthenticated(true);
+            if($user) {
                 $token->setUser($user);
-                return $token;
+                $token->setAuthenticated(true);
+            } else {
+                $token->setAuthenticated(false);
             }
-
+            return $token;
         }
     }
 
@@ -111,6 +112,7 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         $token->oauthToken = $parsedResult['oauth_token'];
         $token->oauthTokenSecret = $parsedResult['oauth_token_secret'];
         $token->twitterUserId = $parsedResult['user_id'];
+        $token->twitterScreenName = $parsedResult['screen_name'];
     }
 
     public function obtainUserData(TwitterToken $token)
@@ -227,7 +229,6 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
             throw new AuthenticationException('Error during querying twitter');
         }
 
-        return $result;
     }
 
     public function loadUser(TwitterToken $token)
@@ -235,14 +236,21 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         if(strlen(trim($token->twitterUserId)) === 0) {
             throw new AuthenticationException('Trying to load user by empty twitter uid');
         }
-        $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        $user = $repo->findOneByTwUid($token->twitterUserId);
-        if ($user) {
-            return $user;
-        }
+        $user = $this->em->createQueryBuilder()
+            ->select('u')
+            ->from('ArmdUserBundle:User', 'u')
+            ->where('u.twitterUid = :uid')
+            ->orWhere('u.twitterName = :screen_name')
+            ->setMaxResults(1)
+            ->setParameters(array(
+                'uid' => $token->twitterUserId,
+                'screen_name' => $token->twitterScreenName,
+            ))
+            ->getQuery()
+            ->getOneOrNullResult();
 
-        return false;
+        return $user;
     }
 
     public function createUser(TwitterToken $token)
@@ -261,10 +269,11 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
-        $user->setTwUid($token->twitterUserId);
+        $user->setTwitterUid($token->twitterUserId);
         $user->setFirstname($nameParts[0]);
         $user->setLastname($nameParts[1]);
         $user->setRoles(array('ROLE_USER'));
+        $user->setTwitterData($token->twitterUserData);
 
         $this->userManager->updateUser($user, true);
 

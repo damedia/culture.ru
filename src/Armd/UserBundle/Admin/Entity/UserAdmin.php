@@ -22,7 +22,20 @@ class UserAdmin extends BaseAdmin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         parent::configureFormFields($formMapper);
-        $formMapper->with('Profile')->add('region')->end();
+        $formMapper
+            ->with('Profile')
+                ->add('region')
+            ->end()
+            ->with('Social')
+                ->add('vkontakteUid')
+            ->end()
+        ;
+
+        $formMapper
+            ->remove('facebookUid')
+            ->remove('twitterUid')
+            ->remove('gplusUid')
+            ->remove('gplusName');
     }
 
 }

@@ -32,7 +32,10 @@ class ProfileType extends BaseType
                         ->orderBy('r.sortIndex', 'ASC')
                         ->addOrderBy('r.title', 'ASC');
                 }
-            ));
+            ))
+            ->add('vkontakteUid')
+            ->add('facebookName')
+            ->add('twitterName');
     }
 
     /**
