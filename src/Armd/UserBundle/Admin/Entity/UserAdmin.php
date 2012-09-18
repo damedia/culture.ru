@@ -32,8 +32,8 @@ class UserAdmin extends BaseAdmin {
         ;
 
         $formMapper
-            ->remove('facebookName')
-            ->remove('twitterName')
+            ->remove('facebookUid')
+            ->remove('twitterUid')
             ->remove('gplusUid')
             ->remove('gplusName');
     }

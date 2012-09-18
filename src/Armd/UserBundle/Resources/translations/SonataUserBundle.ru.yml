@@ -3,7 +3,8 @@ form:
     label_region: Регион
     label_firstname: Имя
     label_lastname: Фамилия
-
+    label_facebook_name: Facebook имя или email
+    label_twitter_name: Twitter имя
 
 field:
     label_roles_editable: Выберите роли

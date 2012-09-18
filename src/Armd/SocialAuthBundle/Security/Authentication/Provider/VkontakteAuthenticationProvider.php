@@ -123,11 +123,7 @@ class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvid
         $repo = $this->em->getRepository('ArmdUserBundle:User');
 
         $user = $repo->findOneByVkontakteUid($token->accessTokenUserId);
-        if ($user) {
-            return $user;
-        }
-
-        return false;
+        return $user;
     }
 
     public function createUser(VkontakteToken $token)
