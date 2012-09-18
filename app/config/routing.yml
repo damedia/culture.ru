@@ -41,10 +41,6 @@ fos_user_routing:
 #fos_js_routing:
 #    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-zim32_loginza:
-    resource: '@Zim32LoginzaBundle/Resources/config/routing.yml'
-    prefix:   /
-
 ArmdCommunicationPlatformBundle_proposals:
     resource: "@ArmdCommunicationPlatformBundle/Resources/config/routing/proposals.yml"
     prefix:   /cp
