@@ -46,6 +46,12 @@ class Lecture
     private $lectureVideo;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="trailer_video_id", referencedColumnName="id")
+     */
+    private $trailerVideo;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
      * @ORM\JoinColumn(name="lecture_file_id", referencedColumnName="id")
      */
@@ -146,6 +152,23 @@ class Lecture
     }
 
     /**
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo
+     */
+    public function getTrailerVideo()
+    {
+        return $this->trailerVideo;
+    }
+
+    /**
+     * @param $trailerVideo
+     */
+    public function setTrailerVideo($trailerVideo)
+    {
+        $this->trailerVideo = $trailerVideo;
+    }
+
+
+    /**
      * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getLectureFile()
@@ -198,7 +221,6 @@ class Lecture
     }
 
 
-
     public function getCategories()
     {
         return $this->categories;
@@ -218,7 +240,6 @@ class Lecture
     {
         $this->categories->removeCategory($category);
     }
-
 
 
 }

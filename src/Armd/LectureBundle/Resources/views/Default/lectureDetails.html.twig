@@ -7,6 +7,7 @@
 {% block body %}
 
 <div class="left-column type-2 text">
+
 					<div class="title blue-title">
 						<h2>
                             {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
@@ -20,19 +21,40 @@
 
 		<div id="videoplayer" style="background: none">
             {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                {{ armd_tvigle_video_player(lecture.lectureVideo, '100%', 506)|raw }}
+                {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
+                    {% set lectureVideo = lecture.trailerVideo %}
+                {% else %}
+                    {% set lectureVideo = lecture.lectureVideo %}
+                {% endif %}
+                {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+
             {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
                 {% if lecture.lectureFile is not empty %}
                     <a href="{{ armd_media_original_url(lecture.lectureFile) }}">Скачать файл</a>
                 {% endif %}
             {% endif %}
 		</div>
+
 		<div class="video-stats">
             {% if lecture.lecturer is not empty %}
 			    <p class="vs-lector">Лектор: <span>{{ lecture.lecturer }}</span></p>
             {% endif %}
 			<p class="vs-date">Дата: <span>{{ lecture.createdAt|date('d.m.Y') }}</span></p>
 		</div>
+
+        {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE'
+            and lecture.trailerVideo is not empty
+            and lecture.lectureVideo is not empty
+        %}
+            <div class="video-version-switch">
+                {% if lectureVersion == 'full' %}
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id, 'version': 'trailer'} ) }}">Смотреть трейлер</a>
+                {% elseif lectureVersion == 'trailer' %}
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id, 'version': 'full'} ) }}">Смотреть полную версию</a>
+                {% endif %}
+            </div>
+        {% endif %}
+
 
 		<div class="video-description">
 			<p>
