@@ -36,12 +36,13 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         }
 
         if ($user) {
-            $token->setAuthenticated(true);
             $token->setUser($user);
-            return $token;
+            $token->setAuthenticated(true);
+        } else {
+            $token->setAuthenticated(false);
         }
 
-        return false;
+        return $token;
     }
 
     public function redirectLoginForm(FacebookToken $token)
@@ -118,7 +119,7 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         }
         $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        $user = $repo->findOneByFbUid($token->facebookUserData['id']);
+        $user = $repo->findOneByFacebookUid($token->facebookUserData['id']);
         if ($user) {
             return $user;
         }
@@ -137,7 +138,7 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
-        $user->setFbUid($token->facebookUserData['id']);
+        $user->setFacebookUid($token->facebookUserData['id']);
         $user->setFirstname($token->facebookUserData['first_name']);
         $user->setLastname($token->facebookUserData['last_name']);
         $user->setRoles(array('ROLE_USER'));

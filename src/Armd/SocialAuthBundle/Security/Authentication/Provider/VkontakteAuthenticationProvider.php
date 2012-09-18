@@ -32,12 +32,14 @@ class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvid
         }
 
         if ($user) {
-            $token->setAuthenticated(true);
             $token->setUser($user);
-            return $token;
+            $token->setAuthenticated(true);
+        }
+        else {
+            $token->setAuthenticated(false);
         }
 
-        return false;
+        return $token;
     }
 
     public function redirectLoginForm(VkontakteToken $token)
@@ -120,7 +122,7 @@ class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvid
         }
         $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        $user = $repo->findOneByVkUid($token->accessTokenUserId);
+        $user = $repo->findOneByVkontakteUid($token->accessTokenUserId);
         if ($user) {
             return $user;
         }
@@ -139,7 +141,7 @@ class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvid
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
-        $user->setVkUid($token->vkUserData['uid']);
+        $user->setVkontakteUid($token->vkUserData['uid']);
         $user->setFirstname($token->vkUserData['first_name']);
         $user->setLastname($token->vkUserData['last_name']);
         $user->setRoles(array('ROLE_USER'));

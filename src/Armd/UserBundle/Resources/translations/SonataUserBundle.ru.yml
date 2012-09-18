@@ -1,0 +1,9 @@
+form:
+    label_vkontakte_uid: Vkontakte UID
+    label_region: Регион
+    label_firstname: Имя
+    label_lastname: Фамилия
+
+
+field:
+    label_roles_editable: Выберите роли

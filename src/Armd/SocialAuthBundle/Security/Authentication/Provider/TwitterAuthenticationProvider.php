@@ -40,12 +40,13 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
                 $user = $this->createUser($token);
             }
 
-            if ($user) {
-                $token->setAuthenticated(true);
+            if($user) {
                 $token->setUser($user);
-                return $token;
+                $token->setAuthenticated(true);
+            } else {
+                $token->setAuthenticated(false);
             }
-
+            return $token;
         }
     }
 
@@ -237,7 +238,7 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         }
         $repo = $this->em->getRepository('ArmdUserBundle:User');
 
-        $user = $repo->findOneByTwUid($token->twitterUserId);
+        $user = $repo->findOneByTwitterUid($token->twitterUserId);
         if ($user) {
             return $user;
         }
@@ -261,7 +262,7 @@ class TwitterAuthenticationProvider extends AbstractSocialAuthenticationProvider
         $user->setLocked(false);
         $user->setExpired(false);
         $user->setCredentialsExpired(false);
-        $user->setTwUid($token->twitterUserId);
+        $user->setTwitterUid($token->twitterUserId);
         $user->setFirstname($nameParts[0]);
         $user->setLastname($nameParts[1]);
         $user->setRoles(array('ROLE_USER'));

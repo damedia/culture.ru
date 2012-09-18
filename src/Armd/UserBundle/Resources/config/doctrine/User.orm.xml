@@ -15,13 +15,9 @@
 
         <field name="city" type="string" nullable="true" />
         
-        <field name="okUid" column="ok_uid" type="string" nullable="true" />
+        <field name="odnoklassnikiUid" column="odnoklassniki_uid" type="string" nullable="true" />
 
-        <field name="vkUid" column="vk_uid" type="string" nullable="true" />
-
-        <field name="fbUid" column="fb_uid" type="string" nullable="true" />
-
-        <field name="twUid" column="tw_uid" type="string" nullable="true" />
+        <field name="vkontakteUid" column="vkontakte_uid" type="string" nullable="true" />
 
         <field name="lastActivity" column="last_activity" type="datetime" nullable="true"/>
 
