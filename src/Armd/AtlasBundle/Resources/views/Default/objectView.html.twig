@@ -165,10 +165,16 @@
 									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
 								</div>
 							</div>#}
-							<form action="" class="comments-form">
-								<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>
-								<input type="submit" value="Отправить" class="button" />
-							</form>
+
+
+							{#<form action="" class="comments-form">#}
+								{#<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>#}
+								{#<input type="submit" value="Отправить" class="button" />#}
+							{#</form>#}
+
+                            {% set comment_thread_id = 'atlas_' ~ entity.id %}
+                            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
 						</div>
 				    </div>
                     {% if not is_granted('ROLE_USER') %}
