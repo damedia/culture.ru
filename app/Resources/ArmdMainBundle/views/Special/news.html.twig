@@ -1,0 +1,4 @@
+{% extends '::special.html.twig' %}
+{% block body%}
+	{% include "ArmdMainBundle:News:blind.html.twig" with {"categories": categories, "news": news} %}
+{% endblock %}

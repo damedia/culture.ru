@@ -5,13 +5,21 @@ namespace Armd\ChronicleBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ChronicleBundle\Util\RomanConverter as Converter;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class EventController extends ListController
 {
-    /**
+    
+	function __construct(ContainerInterface $container = null)
+    {
+        $this->setContainer($container);    
+    }
+	
+	
+	/**
      * @Route("/", name="armd_chronicle_index")     
      */
-    public function indexAction()
+	public function indexAction()
     {
         return $this->render($this->getTemplateName('chronicle'), array(
             'centuries' => $this->getCenturiesList(),

@@ -1,0 +1,50 @@
+/*blind_tabs*/
+.tabs-labels {
+	margin:0.8em 0 1.3em;
+	padding:0;
+}
+	.tabs-labels li {
+		display:inline-block;
+		vertical-align:top;
+		padding:0.2em 0.7em;
+		*display:inline;
+	}
+	.tabs-labels a {
+		text-decoration:none;
+		color:#000;
+		border-bottom:1px dashed #000;
+	}
+	.tabs-labels li.active {
+		outline:1px solid #000;
+	}
+		.tabs-labels li.active  a{
+			border:0;
+		}
+
+.tab {
+	border:solid #000;
+	border-width:3px 0;
+	padding:1.4em 0;
+	margin-bottom:2em;
+}	
+		
+	.event-anons {
+		padding-bottom:2em;
+	}	
+		.event-anons .date {
+			color:#888888;
+			float:left;
+			width:9em;
+			font-size:0.875em;
+			margin-top:0.5em;
+		}
+		.text-overflow {
+			overflow:hidden;
+		}
+			.event-anons h1 {
+				font-size:1.4em;
+				margin:0 0 0.3em;
+			}
+			.event-anons p {
+				margin:0;
+			}

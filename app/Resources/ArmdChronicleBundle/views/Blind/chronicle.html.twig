@@ -1,0 +1,8 @@
+<h1>Лента времени</h1>
+{% include "ArmdChronicleBundle:Blind:centuries.html.twig" with {"centuries": centuries} %}
+<div class="chronicals">
+{% for c in centuries %}
+	{% include "ArmdChronicleBundle:Blind:list.html.twig" with {"events": c.events, "accidents": c.accidents} %}
+{% endfor%}
+</div> 
+   

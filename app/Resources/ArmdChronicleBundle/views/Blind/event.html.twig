@@ -1,0 +1,8 @@
+<article class="chronicles-event" id="event_{{ event.id }}">
+	<span class="chronicles-date" title="Год">{{ event.date|date('Y')|abs }} год</span>
+	<div class="chronicles-event-text">
+		<h1>{{ event.title }}</h1>
+		{{ event.body|raw }}
+	</div>
+</article>
+

@@ -22,6 +22,26 @@ armd_main_brodino:
     pattern:  /borodino
     defaults: { _controller: ArmdMainBundle:Borodino:index }
 
+armd_main_special:
+    pattern:  /special
+    defaults: { _controller: ArmdMainBundle:Special:index }
+
+armd_main_specialnews:
+    pattern:  /special/news
+    defaults: { _controller: ArmdMainBundle:Special:news }
+
+armd_main_specialabout:
+    pattern:  /special/about
+    defaults: { _controller: ArmdMainBundle:Special:about }
+
+armd_main_specialchronicles:
+    pattern:  /special/chronicles
+    defaults: { _controller: ArmdMainBundle:Special:chronicles }
+
+armd_main_specialservices:
+    pattern:  /special/services
+    defaults: { _controller: ArmdMainBundle:Special:services }	
+
 armd_main_random_russia_images:
     pattern: /main/random-russia-images
     defaults: { _controller: ArmdMainBundle:Main:randomRussiaImages }
