@@ -241,12 +241,12 @@ fos_user:
         form:
             type:   armd_user_registration        
 
-#fos_comment:
-#    db_driver: orm
-#    class:
-#        model:
-#            comment: Armd\CommentBundle\Entity\Comment
-#            thread: Armd\CommentBundle\Entity\Thread
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Armd\MkCommentBundle\Entity\Comment
+            thread: Armd\MkCommentBundle\Entity\Thread
 #            vote: Armd\CommentBundle\Entity\Vote
 #    acl: true
 #    service:

@@ -5,7 +5,7 @@ namespace Armd\NewsBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
-use Armd\CommentBundle\Entity\Thread;
+use Armd\MkCommentBundle\Entity\Thread;
 
 class NewsController extends ListController
 {
@@ -112,8 +112,8 @@ class NewsController extends ListController
     }        
     
     /**
-     * @param Armd\CommentBundle\Entity\Thread $thread
-     * @return \Armd\CommentBundle\Entity\Comment
+     * @param \Armd\MkCommentBundle\Entity\Thread $thread
+     * @return \Armd\MkCommentBundle\Entity\Comment
      */
     public function getComments(Thread $thread = null)
     {

@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-//            new FOS\CommentBundle\FOSCommentBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
 //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
@@ -52,6 +52,7 @@ class AppKernel extends Kernel
             new Armd\MediaHelperBundle\ArmdMediaHelperBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\SocialAuthBundle\ArmdSocialAuthBundle(),
+            new Armd\MkCommentBundle\ArmdMkCommentBundle(),
             new Armd\UtilBundle\ArmdUtilBundle(),
             new Armd\MuseumBundle\ArmdMuseumBundle(),
         );
