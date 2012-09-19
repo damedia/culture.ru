@@ -41,6 +41,7 @@ class LectureAdmin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
+            ->add('trailerVideo')
             ->add('lectureVideo')
             ->add('lectureFile');
     }
@@ -62,25 +63,33 @@ class LectureAdmin extends Admin
             ->add('title')
             ->add('lectureType')
             ->add('categories', 'armd_lecture_categories',
-            array(
-                'required' => false,
-                'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                'super_type' => $superType
-            ))
+                array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                    'super_type' => $superType
+                )
+            )
             ->add('lecturer')
             ->add('recommended')
+            ->add('trailerVideo', 'armd_tvigle_video_selector',
+                array(
+                    'required' => false
+                )
+            )
             ->add('lectureVideo', 'armd_tvigle_video_selector',
-            array(
-                'required' => false
-            ))
+                array(
+                    'required' => false
+                )
+            )
             ->add('lectureFile', 'armd_media_file_type',
-            array(
-                'required' => false,
-                'with_remove' => true,
-                'media_context' => 'lecture',
-                'media_provider' => 'sonata.media.provider.file',
-                'media_format' => 'default'
-            ));
+                array(
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'lecture',
+                    'media_provider' => 'sonata.media.provider.file',
+                    'media_format' => 'default'
+                )
+            );
     }
 
 
