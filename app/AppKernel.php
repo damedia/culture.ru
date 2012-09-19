@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new FOS\CommentBundle\FOSCommentBundle(),
+//            new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
 //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
@@ -40,8 +40,6 @@ class AppKernel extends Kernel
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\AtlasBundle\ArmdAtlasBundle(),
-            new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
-            new Armd\CommentBundle\ArmdCommentBundle(),
             new Armd\TvigleVideoBundle\ArmdTvigleVideoBundle(),
             new Armd\MainBundle\ArmdMainBundle(),
             new Armd\ListBundle\ArmdListBundle(),

@@ -241,19 +241,19 @@ fos_user:
         form:
             type:   armd_user_registration        
 
-fos_comment:
-    db_driver: orm
-    class:
-        model:
-            comment: Armd\CommentBundle\Entity\Comment
-            thread: Armd\CommentBundle\Entity\Thread
-            vote: Armd\CommentBundle\Entity\Vote
-    acl: true
-    service:
-        manager:
-            thread: fos_comment.manager.thread.acl
-            comment: fos_comment.manager.comment.acl
-            vote: fos_comment.manager.vote.acl
+#fos_comment:
+#    db_driver: orm
+#    class:
+#        model:
+#            comment: Armd\CommentBundle\Entity\Comment
+#            thread: Armd\CommentBundle\Entity\Thread
+#            vote: Armd\CommentBundle\Entity\Vote
+#    acl: true
+#    service:
+#        manager:
+#            thread: fos_comment.manager.thread.acl
+#            comment: fos_comment.manager.comment.acl
+#            vote: fos_comment.manager.vote.acl
 
 fos_rest:
     view:
