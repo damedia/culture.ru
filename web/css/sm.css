@@ -4383,6 +4383,16 @@ white-space:nowrap;
 					height:auto;
 					
 				}
+			.borodino-banner {
+				margin-top:20px;
+				background:#EAEAEA;
+				padding:13px;
+			}
+				.borodino-banner img {
+					width:100%;
+					height:auto;
+				}
+				
 	.table {
 		width:100%;
 	}
