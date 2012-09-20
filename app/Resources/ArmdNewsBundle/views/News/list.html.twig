@@ -8,7 +8,7 @@
 	{% include "ArmdNewsBundle:News:calendar.html.twig" %}	
 		
     {% if not category %}
-        {% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
+        {% render "ArmdNewsBundle:News:billboard" %}
     {% endif %}
     
 <div class="clear"></div>

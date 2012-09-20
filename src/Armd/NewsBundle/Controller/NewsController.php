@@ -56,7 +56,7 @@ class NewsController extends ListController
         return $this->render($this->getTemplateName('item'), array(
             'entity'        => $entity,
             'category'      => $category,
-//            'comments'    => $this->getComments($entity->getThread()),
+            'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
     }
@@ -75,9 +75,15 @@ class NewsController extends ListController
         ));
     }
     
-    function billboardAction()
+    function billboardAction($limit = 10)
     {
-        
+        $criteria = array(
+            'important'  => true,
+        );        
+    
+        return $this->render($this->getTemplateName('billboard'), array(
+            'entities'          => $this->getPaginator($criteria, 1, $limit),
+        ));
     }
     
     function memorialEventsAction()
@@ -113,6 +119,19 @@ class NewsController extends ListController
         return $this->get('armd_news.manager.news');
     }        
     
+    /**
+     * @param Armd\CommentBundle\Entity\Thread $thread
+     * @return \Armd\CommentBundle\Entity\Comment
+     */
+    public function getComments(Thread $thread = null)
+    {
+        if (empty($thread)) {
+            return null;
+        } else {
+            return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        }
+    }
+
     function getControllerName()
     {
         return 'ArmdNewsBundle:News';

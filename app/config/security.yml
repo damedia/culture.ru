@@ -78,7 +78,8 @@ security:
                             oauth_consumer_key: IVysXnVjx31A9b72xQwg
                             consumer_secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
 
-                    культура.рф:
+                    #культура.рф:
+                    xn--80atdujec4e.xn--p1ai:
                         vkontakte:
                             app_id: 3119050
                             secret: niPCbh2ywoUeQOJSVPih
