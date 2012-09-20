@@ -73,44 +73,47 @@
 	
 	
 	
-	
+    {#<div class="yashare-auto-init" data-yashareType="icon" data-yashareQuickServices="vkontakte,lj,twitter,|,facebook,odnoklassniki"></div>#}
+
 	<div class="share" >
-		<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">
+        <span id="yandex_share"></span>
+		{#<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">#}
 
-            {% set share_url = url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) %}
 
-            {# vkontakte #}
-			<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url={{ share_url }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>
+            {#{% set share_url = url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) %}#}
 
-            {# livejournal #}
-			<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event={{ share_url }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>
+            {#&#123;&#35; vkontakte &#35;&#125;#}
+			{#<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url={{ share_url }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>#}
 
-            {# twitter #}
-			<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url={{ share_url }}" target="_blank"></a>
+            {#&#123;&#35; livejournal &#35;&#125;#}
+			{#<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event={{ share_url }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>#}
 
-			<input type="hidden" name="subject" value="{{ entity.title }}">
-			<textarea name="event" style="display:none">
-				<div style="padding:20px; margin:10px;">
-					<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}
-					<a href="{{ share_url }}">Подробнее</a>
-				</div>
-			</textarea>
+            {#&#123;&#35; twitter &#35;&#125;#}
+			{#<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url={{ share_url }}" target="_blank"></a>#}
 
-			<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ share_url }}&t={{ entity.title }}&src=sp" target="_blank"></a>
+			{#<input type="hidden" name="subject" value="{{ entity.title }}">#}
+			{#<textarea name="event" style="display:none">#}
+				{#<div style="padding:20px; margin:10px;">#}
+					{#<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}#}
+					{#<a href="{{ share_url }}">Подробнее</a>#}
+				{#</div>#}
+			{#</textarea>#}
 
-            {# odnoklassniki #}
-            <a style="background-position:-16px 0;" href='http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st._surl={{ share_url }}' target='_blank'></a>
+			{#<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ share_url }}&t={{ entity.title }}&src=sp" target="_blank"></a>#}
 
-        </form>
-		<!-- AddThis Button BEGIN 
-		<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
-		<a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>
-		<script type="text/javascript">
-		addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});
-		</script>
-		</div>
-		AddThis Button END -->
+            {#&#123;&#35; odnoklassniki &#35;&#125;#}
+            {#<a style="background-position:-16px 0;" href='http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st._surl={{ share_url }}' target='_blank'></a>#}
+
+        {#</form>#}
+		{#<!-- AddThis Button BEGIN #}
+		{#<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">#}
+		{#<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>#}
+		{#<a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>#}
+		{#<script type="text/javascript">#}
+		{#addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});#}
+		{#</script>#}
+		{#</div>#}
+		{#AddThis Button END -->#}
 
 	</div>
 	
@@ -178,4 +181,22 @@
 		});
 	 
     </script>
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex_share',
+                elementStyle:{
+                    'type':'none',
+                    'border':true,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
+                title:'{{ entity.title }}',
+                description:'{{ entity.announce|striptags }}'
+            })
+        });
+    </script>
+
 {% endblock %}
