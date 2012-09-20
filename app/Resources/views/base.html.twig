@@ -86,7 +86,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					<div id="topbar">
 						<div id="auth">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>Личный кабинет</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="/logout"><span>Выйти</span></a>
+							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>Личный кабинет</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_logout') }}"><span>Выйти</span></a>
                             {% else %}
                             <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('fos_user_registration_register') }}"><span>Зарегистрироваться</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_login') }}"><span>Войти</span></a>
                             {% endif %}
