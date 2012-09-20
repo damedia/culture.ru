@@ -18,6 +18,7 @@ class AuthenticationProviderParametersReader
         $host = $this->container->get('request')->getHost();
         $firewallParams = $this->container->getParameter('armd_social_auth.firewall_parameters');
 
+        \gFuncs::dbgWriteLogVar($firewallParams, false, 'firewallParams'); // DBG:
         if(!empty($firewallParams['auth_provider_parameters'][$host][$authProviderName])) {
             $providerParams = $firewallParams['auth_provider_parameters'][$host][$authProviderName];
         } elseif(!empty($firewallParams['auth_provider_parameters']['default'][$authProviderName])) {

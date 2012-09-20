@@ -81,7 +81,6 @@ class NewsController extends ListController
             
     function getLatestNewsList($limit = 10, $page = 1, $category = null)
     {
-        \gFuncs::dbgWriteLogVar($this->getNewsListRepository($category)->getQuery()->getDql(), false, 'dql'); // DBG:
         return $this->getPagination($this->getNewsListRepository($category)->getQuery(), $page, $limit);
     }    
     
