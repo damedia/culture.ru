@@ -28,7 +28,7 @@ class NewsManager
         $this->em = $em;
         $this->class = $class;
     }
-
+    
     public function getPager(array $criteria, $page, $limit = 10)
     {
         return $this->getQueryBuilder($criteria)
@@ -37,28 +37,54 @@ class NewsManager
             ->getResult()
         ;
     }
-    
+        
     public function getQueryBuilder(array $criteria)
     {
-        $parameters = array();
-
-        $query = $this->em->getRepository($this->class)
-            ->createQueryBuilder('n')
+        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n')
             ->select('n, c, i')
-            ->innerJoin('n.category', 'c', 'WITH', 'c.slug = :slug')
+            ->innerJoin('n.category', 'c')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true')
             ->orderBy('n.date', 'DESC')
         ;
-
-        $parameters['slug'] = $criteria['category'];
         
-        if (isset($criteria['borodino'])) {
-            $query->andWhere('n.borodino = true');
+        $this->setCriteria($qb, $criteria);
+        
+        return $qb;        
+    }
+    
+    protected function setCriteria($qb, array $criteria)
+    {   
+        if (!empty($criteria['category'])) {
+            $qb
+                ->andWhere('c.slug in (:slugs)')
+                ->setParameter(':slugs', (array)$criteria['category'])
+            ;
+        } else {
+            $qb
+                ->andWhere('c.filtrable = true')
+            ;
         }
-                
-        $query->setParameters($parameters);        
+
+        if (!empty($criteria['memorial_date'])) {        
+            $qb
+                ->andWhere('n.month = :month')
+                ->andWhere('n.day = :day')            
+                ->setParameter('month', $criteria['memorial_date']->format('m'))
+                ->setParameter('day', $criteria['memorial_date']->format('d'))
+            ;
+        }                 
+            
+        if (!empty($criteria['borodino'])) {
+            $qb
+                ->andWhere('n.borodino = true')
+            ;
+        }
         
-        return $query;        
+        if (!empty($criteria['important'])) {
+            $qb
+                ->andWhere('n.important = true')
+            ;
+        }        
     }        
 }
