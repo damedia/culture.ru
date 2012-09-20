@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Armd\ResourceBundle\Entity\News;
+use Armd\NewsBundle\Entity\News;
 
 class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -48,17 +48,20 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
             'Вики предлагает всем пользователям редактировать любую страницу',
             'Вики не является тщательно изготовленным сайтом для случайных посетителей'
         );
-        $arrayStreamData = array(
-            $this->getReference('stream-news-main'),
-            $this->getReference('stream-news-news')
-        );
+
+        $dateTime = new \DateTime();
+        $dateTime->sub(new \DateInterval('P2D'));
+
         foreach($arrayNewsData as $title) {
             $result[] = array(
                 'title'     => $title,
                 'text'      => $newsText,
-                'stream'    => $arrayStreamData[rand(0,1)],
+                'published' => true,
+                'borodino'  => false,
+                'important' => true,
                 'announce'  => 'Ортзанд охлаждает тензиометр, однозначно свидетельствуя о неустойчивости процесса в целом.',
-                'date'      => new \DateTime(),
+                'date'      => $dateTime,
+                'category'  => $this->getReference('armd_news.category.category1'),
             );
         }
         return $result;
@@ -72,7 +75,10 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
             $news->setAnnounce($newsDesc['announce']);
             $news->setBody($newsDesc['text']);
             $news->setDate($newsDesc['date']);
-            $news->setStream( $newsDesc['stream'] );
+            $news->setPublished($newsDesc['published']);
+            $news->setBorodino($newsDesc['borodino']);
+            $news->setImportant($newsDesc['important']);
+            $news->setCategory($newsDesc['category']);
             $manager->persist($news);
         }
         $manager->flush();
