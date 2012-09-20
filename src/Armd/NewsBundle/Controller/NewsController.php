@@ -81,6 +81,7 @@ class NewsController extends ListController
             
     function getLatestNewsList($limit = 10, $page = 1, $category = null)
     {
+        \gFuncs::dbgWriteLogVar($this->getNewsListRepository($category)->getQuery()->getDql(), false, 'dql'); // DBG:
         return $this->getPagination($this->getNewsListRepository($category)->getQuery(), $page, $limit);
     }    
     
@@ -183,9 +184,13 @@ class NewsController extends ListController
      * @param Armd\CommentBundle\Entity\Thread $thread
      * @return \Armd\CommentBundle\Entity\Comment
      */
-    public function getComments(Thread $thread)
+    public function getComments(Thread $thread = null)
     {
-        return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        if (empty($thread)) {
+            return null;
+        } else {
+            return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        }
     }
 
     function getControllerName()

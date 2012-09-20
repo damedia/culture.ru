@@ -76,18 +76,32 @@
 	
 	<div class="share" >
 		<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">
-			<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>
-			<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>
-			<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}" target="_blank"></a>
+
+            {% set share_url = url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) %}
+
+            {# vkontakte #}
+			<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url={{ share_url }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>
+
+            {# livejournal #}
+			<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event={{ share_url }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>
+
+            {# twitter #}
+			<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url={{ share_url }}" target="_blank"></a>
+
 			<input type="hidden" name="subject" value="{{ entity.title }}">
 			<textarea name="event" style="display:none">
 				<div style="padding:20px; margin:10px;">
 					<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}
-					<a href="http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}">Подробнее</a>
+					<a href="{{ share_url }}">Подробнее</a>
 				</div>
 			</textarea>
-			<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ url('cp_show', { 'id': entity.id }) }}&t={{ entity.title }}&src=sp" target="_blank"></a>
-			</form>
+
+			<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ share_url }}&t={{ entity.title }}&src=sp" target="_blank"></a>
+
+            {# odnoklassniki #}
+            <a style="background-position:-16px 0;" href='http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st._surl={{ share_url }}' target='_blank'></a>
+
+        </form>
 		<!-- AddThis Button BEGIN 
 		<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">
 		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
@@ -97,12 +111,15 @@
 		</script>
 		</div>
 		AddThis Button END -->
+
 	</div>
 	
-	
-   <div class="comments">
-       {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': thread.id} %}
-    </div>
+
+    {% if thread is not empty %}
+       <div class="comments">
+           {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': thread.id} %}
+        </div>
+    {% endif %}
 	<!-- /commetns-list-->
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
