@@ -14,6 +14,9 @@
 		color:#000;
 		border-bottom:1px dashed #000;
 	}
+	.black-color .tabs-labels a {
+		color:#fff;
+	}
 	.tabs-labels li.active {
 		outline:1px solid #000;
 	}

@@ -113,10 +113,9 @@ body {
 }
 
 .wrapper {
-	min-width:61.25em;
-	max-width:80em;
+	padding:0 20px;
 	min-width:960px;
-	max-width:1400px;
+	max-width:1360px;
 	margin:auto;
 	min-height: 100%;
     margin-bottom: -5.4375em;
@@ -131,9 +130,7 @@ body {
 }
 .main-footer {
 	height:5.4375em;
-	min-width:61.25em;
-	min-width:960px;
-	max-width:80em;
+	min-width:1000px;
 	max-width:1400px;
 	margin:auto;
 	background:#000;
