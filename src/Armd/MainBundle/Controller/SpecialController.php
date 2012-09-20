@@ -20,7 +20,6 @@ class SpecialController extends Controller
 	public function aboutAction()
     {
         return $this->render('ArmdMainBundle:Special:about.html.twig', array(
-			
         ));
     }
 	
@@ -35,11 +34,8 @@ class SpecialController extends Controller
 	public function servicesAction()
     {
         return $this->render('ArmdMainBundle:Special:services.html.twig', array(
-			
         ));
     }
-	
-    
     
 	function getNews(array $categories)
     {
@@ -47,7 +43,7 @@ class SpecialController extends Controller
         
         foreach ($categories as $c)
         {
-            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getLatestNewsList(4, 1, array($c->getSlug()));    
+            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(array('category' => $c->getSlug()), 1, 4);    
         }
         
         return $result;

@@ -1,7 +1,3 @@
-armd_main:
-    resource: "@ArmdMainBundle/Resources/config/routing.yml"
-    prefix:   /
-
 index:
     pattern: /main
     defaults:
@@ -50,6 +46,14 @@ fos_comment_api:
    resource: "@FOSCommentBundle/Resources/config/routing.yml"
    prefix: /comment/api
    
+armd_main:
+    resource: "@ArmdMainBundle/Resources/config/routing/routing.yml"
+    prefix:   /
+    
+armd_main_special:
+    resource: "@ArmdMainBundle/Resources/config/routing/special.yml"
+    prefix:   /special   
+   
 armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
@@ -64,12 +68,10 @@ armd_banner:
     type: annotation
     prefix: /banner
 
-
 armd_atlas_bundle:
     resource: "@ArmdAtlasBundle/Controller/"
     type:     annotation
     prefix:   /atlas
-
 
 armd_search_bundle:
     resource: "@ArmdSearchBundle/Controller/"

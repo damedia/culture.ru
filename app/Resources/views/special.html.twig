@@ -64,7 +64,7 @@
 				<div class="settings-handler">Настройка</div>
 			</div>
 			<header class="main-header">
-				<a href="{{ path('armd_main_special') }}" class="logo" title="Культура.рф">Культура.рф</a>
+				<a href="{{ path('armd_main_special_homepage') }}" class="logo" title="Культура.рф">Культура.рф</a>
 				<div class="search">
 					<form action="{{ path('armd_search_results') }}" title="Поиск">
 						<input type="text" value="" class="search-input" />
@@ -79,11 +79,11 @@
 					{% block menu %}
 						<ul class="main-navigation clearfix" title="Основное меню">
 							<li><a href="#">Образы России</a></li>      
-							<li><a href="{{ path('armd_main_specialchronicles') }}">Лента времени</a></li>      
-							<li><a href="#">События</a></li>   
-							<li><a href="#">Общение</a></li>      
-							<li><a href="{{ path('armd_main_specialservices') }}">госуслуги</a></li>      
-							<li><a href="{{ path('armd_main_specialabout') }}">о проекте</a></li>
+							<li><a href="{{ path('armd_main_special_chronicles') }}">Лента времени</a></li>      
+							<li><a href="{{ path('armd_main_special_press') }}">События</a></li>   
+							<li><a href="http://people.roskult.ru/">Общение</a></li>      
+							<li><a href="{{ path('armd_main_special_services') }}">госуслуги</a></li>      
+							<li><a href="{{ path('armd_main_special_about') }}">о проекте</a></li>
 						</ul>
 					{% endblock %}
 				</nav>
@@ -102,7 +102,7 @@
 			</div>
 			<div class="site-info">
 				<p class="site-copyright">© Портал культурного наследия России</p>
-				<p class="site-about"><a href="{{ path('armd_main_specialabout') }}">О проекте</a> / <a href="mailto:info@mkrf.ru">info@mkrf.ru</a></p>
+				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">О проекте</a> / <a href="mailto:info@mkrf.ru">info@mkrf.ru</a></p>
 			</div>
 		</footer>
 		{% block javascripts %}
