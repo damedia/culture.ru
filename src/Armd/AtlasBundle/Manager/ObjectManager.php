@@ -17,10 +17,13 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 class ObjectManager
 {
     private $em;
+    
+    private $search;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, $search)
     {
         $this->em = $em;
+        $this->search = $search;
     }
 
     public function getUserObjects(UserInterface $user)
@@ -99,5 +102,43 @@ class ObjectManager
 
         //return $objects;
     }
+    
+    public function getRussiaImagesList($searchString)
+    {
+        $objectRepo = $this->em->getRepository('ArmdAtlasBundle:Object');
 
+        if (!empty($searchString)) {
+            $searchParams = array(
+                'Atlas' => array(
+                    'filters' => array(
+                        array(
+                            'attribute' => 'show_at_russian_image',
+                            'values' => array(1)
+                        ),
+                        array(
+                            'attribute' => 'published',
+                            'values' => array(1)
+                        )
+                    )
+                )
+            );
+
+            $searchResult = $this->search->search($searchString, $searchParams);
+            $objects = array();
+            if (!empty($searchResult['Atlas']['matches'])) {
+                foreach ($searchResult['Atlas']['matches'] as $id => $data) {
+                    $object = $objectRepo->find($id);
+                    if(!empty($object)) {
+                        $objects[] = $object;
+                    }
+                }
+            }
+
+        }
+        else {
+            $objects = $objectRepo->findRussiaImages();
+        }
+        
+        return $objects;        
+    }
 }
