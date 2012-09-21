@@ -24,6 +24,7 @@ class ProfileType extends BaseType
         parent::buildForm($builder, $options);
         $builder->remove('locale')
             ->remove('timezone')
+            ->remove('biography')
             ->add('region', null, array(
                 'empty_value' => '--- Выберите регион ---',
                 'required' => false,
@@ -33,6 +34,7 @@ class ProfileType extends BaseType
                         ->addOrderBy('r.title', 'ASC');
                 }
             ))
+            ->add('biographyText')
             ->add('vkontakteUid')
             ->add('facebookName')
             ->add('twitterName');
