@@ -21,4 +21,8 @@ armd_main_services:
 armd_main_brodino:
     pattern:  /borodino
     defaults: { _controller: ArmdMainBundle:Borodino:index }
+
+armd_main_project:
+    pattern:  /project
+    defaults: { _controller: ArmdMainBundle:Project:index }
     

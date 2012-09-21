@@ -4310,7 +4310,7 @@ white-space:nowrap;
 		font-weight:bold;
 	}
 	.play {
-		background:url('play.png') no-repeat 0 0;
+		background:url('../img/borodino/play.png') no-repeat 0 0;
 		width:26px;
 		height:31px;
 	}
@@ -4480,15 +4480,20 @@ white-space:nowrap;
 			}
 			
 		.media-projects {
-			background:#eaeaea;
+			
 			margin:20px 0 0 13px;
-			padding:18px 13px 10px;
+			padding:0 0 10px;
 		}	
 			.media-projects li {
-				padding-bottom:5px;
-				list-style-type:disc;
-				margin-left:23px;
+				padding:9px 10px 6px 23px;
+				border-bottom:1px solid #eee;
+				
+				background:url('../img/new-window.gif') no-repeat 0 12px;
+				
 			}
+				.media-projects li a {
+					font-size:14px;
+				}
 			.media-projects-image {
 				display:block;
 				padding:5px;

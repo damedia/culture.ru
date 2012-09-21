@@ -1,0 +1,148 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="/bundles/armdatlas/css/chosen.css">
+<style type="text/css">
+	.chzn-container-single .chzn-single {border-color:#fff; color:#000;}
+	.chzn-container-active .chzn-single-with-drop {border:1px solid #AAA;}
+</style>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="/bundles/armdatlas/js/chosen.jquery.js"></script>
+<script src="{{ asset('/main/common/js/function.js') }}"></script>
+<script src="{{ asset('/swf/swfobject/swfkrpano.js') }}"></script>
+
+<script type="text/javascript">
+	$(function(){
+		var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+		
+		if ($('.vob').length){    
+			$('.vob').fancybox({
+				'autoScale'  : false,
+				'autoDimensions' : false,
+				'padding':0,
+				'margin':0,
+				'fitToView':true
+			});
+		}
+		
+		$('.panoDIV').css({'width':x-18, 'height':y});					
+		
+		$(".iframe").fancybox({
+		'width' : '100%',
+		'height' : '100%',
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'type' : 'iframe',
+		
+		});
+	})  
+</script>
+{% endblock %}
+
+{% block title %} — Бородинскому сражению 200 лет{% endblock %}
+
+{% block body%}
+ 
+<div class="left-column type-2">
+		<div class="title yellow-title star-title">
+			<h2>1150 лет Российской государственности</h2>
+		</div>
+		<div class="text-indent">
+			<img src="/img/project-dates.png" alt="" class="borodino-dates" />
+			<p class="uppercase-gray">В&nbsp;2012&nbsp;г. исполняется 1150 лет со&nbsp;времени события, которое в&nbsp;отечественной историографии XVIII&nbsp;&mdash; XIX&nbsp;вв. получило название &laquo;призвание варягов&raquo;, &laquo;рождение российской государственности&raquo;.</p>  
+			<br>  
+			<p>Традиционно 862 год считается датой зарождения российской государственности, точкой отсчета отечественной истории.</p>  			
+			
+			<div class="video-anons video-three">
+				<ul>
+					<li>
+						<a href="/atlas/object/816">
+							<img src="/img/project/video_1.jpg" alt="" />
+							<span class="play"></span>
+						</a>
+						<div class="ppa-anons">
+							<a href="/atlas/object/816">
+								фестиваль в Костроме <br />
+								«Наши древние столицы»
+							</a>
+						</div>
+					</li> 
+					<li>
+						<a href="/atlas/object/815">
+							<img src="/img/project/video_2.jpg" alt="" />
+							<span class="play"></span>
+						</a>
+						<div class="ppa-anons">
+							<a href="/atlas/object/815">
+								Живое Средневековье на <br />
+								«Волжский пути»
+							</a>
+						</div>
+					</li> 
+					<li>
+						<a href="/lecture/view/15">
+							<img src="/img/project/video_3.jpg" alt="" />
+							<span class="play"></span>
+						</a>
+						<div class="ppa-anons">
+							<a href="/lecture/view/15">
+								1150-летие Изборска
+							</a>
+						</div>
+					</li> 
+				</ul>
+			</div>
+			<div class="yellow-border-block">
+				<p class="yellow-border-header">
+					<span>Лента времени</span>
+				</p>
+				<div class="video-anons video-three">
+					<ul>
+						<li>
+							<a href="{{ asset('chronicle/#event_103') }}">
+								<img src="/img/project/ch1.jpg" alt="" />
+							</a>
+							<a href="{{ asset('chronicle/#event_103') }}" class="bor-lenta-name">Поход русов на Царьград</a>
+							<p class="bor-lenta-date">860 год</p>
+						</li> 
+						<li>
+							<a href="{{ asset('chronicle/#event_8') }}">
+								<img src="/img/project/ch2.jpg" alt="" />
+							</a>
+							<a href="{{ asset('chronicle/#event_8') }}" class="bor-lenta-name">Летописное известие о призвании варягов, прибытие Рюрика в Ладогу</a>
+							<p class="bor-lenta-date">862 год</p>
+						</li> 
+						<li>
+							<a href="{{ asset('chronicle/#event_526') }}">
+								<img src="/img/project/ch3.jpg" alt="" />
+							</a>
+							<a href="{{ asset('chronicle/#event_526') }}" class="bor-lenta-name">Кирилл и Мефодий создают славянскую азбуку</a>
+							<p class="bor-lenta-date">863 год</p>
+						</li>
+												
+					</ul>
+				</div>
+				
+			</div>
+			
+			
+		{% render "ArmdMainBundle:Project:events" %}
+        				
+		</div>		
+	</div>
+	<div class="right-column">
+		<div class="title">
+			<h2>Анонсы</h2>
+		</div>		
+		{% render "ArmdMainBundle:Project:news" with {"tag": "borodino", "category": "events"} %}
+		
+    				
+		{% include "ArmdMainBundle:Project:publications.html.twig" %}
+		{% include "ArmdMainBundle:Project:media.html.twig" %}    		
+	</div>
+{% endblock %}
