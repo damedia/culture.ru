@@ -112,6 +112,7 @@ class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvid
 
         $userData = json_decode($result, true);
         $token->vkUserData = $userData['response'][0];
+        \gFuncs::dbgWriteLogVar($token->vkUserData, false, 'retrieveUserData: vkontakte user data'); // DBG:
 
     }
 

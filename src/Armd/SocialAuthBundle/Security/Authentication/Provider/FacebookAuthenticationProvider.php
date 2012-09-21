@@ -109,6 +109,7 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
 
         $userData = json_decode($result, true);
         $token->facebookUserData = $userData;
+        \gFuncs::dbgWriteLogVar($token->facebookUserData, false, 'retrieveUserData: facebook user data'); // DBG:
 
     }
 
