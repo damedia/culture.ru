@@ -34,9 +34,6 @@ EOT
         $tableName = $this->getContainer()->getParameter('doctrine_migrations.table_name');
         $dir = $this->getContainer()->getParameter('doctrine_migrations.dir_name');
 
-        echo $tableName . "\n";
-        echo $dir . "\n";
-
         $files = scandir($dir);
         foreach ($files as $file) {
             if (preg_match('~Version(\d+)\.php~', $file, $matches)) {
@@ -47,6 +44,7 @@ EOT
                 list($count) = $row[0];
                 if ($count == 0) {
                     $sql = "INSERT INTO " . $tableName . " (version) VALUES(:version)";
+                    $output->writeln('Add migration ' . $matches[1] . ' to table ' . $tableName . ' (without execution)');
                     $stmt = $connection->prepare($sql);
                     $stmt->execute(array('version' => $matches[1]));
 

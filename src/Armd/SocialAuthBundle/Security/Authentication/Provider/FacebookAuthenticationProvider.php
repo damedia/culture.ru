@@ -156,6 +156,8 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         $user->setFacebookData($token->facebookUserData);
 
         $this->userManager->updateUser($user, true);
+        $this->em->clear();
+        $user = $this->em->getRepository('ArmdUserBundle:User')->find($user->getId());
 
         return $user;
     }
