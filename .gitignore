@@ -12,4 +12,5 @@ web/uploads/
 *~
 .idea/
 *.orig
+
 /bin

@@ -55,6 +55,11 @@ class User extends BaseUser
     protected $region;
 
     /**
+     * @var string $socialName
+     */
+    protected $biographyText;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -247,6 +252,24 @@ class User extends BaseUser
     public function setRegion($region)
     {
         $this->region = $region;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBiographyText()
+    {
+        return $this->biographyText;
+    }
+
+    /**
+     * @param string $biographyText
+     * @return \Armd\UserBundle\Entity\User
+     */
+    public function setBiographyText($biographyText)
+    {
+        $this->biographyText = $biographyText;
         return $this;
     }
 

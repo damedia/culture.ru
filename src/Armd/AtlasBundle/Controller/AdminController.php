@@ -17,7 +17,7 @@ class AdminController extends Controller
     /**
      * Some temp or test actions here
      *
-     * @Route("/test")
+     * @Route("/test/")
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
     public function testAction()
