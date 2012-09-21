@@ -140,7 +140,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "b29bad9738fada9486961f60542f2d2d77c7b501"
+                "reference": "cd03a6dee6f5ca1c680f2066b32c92320f3421d7"
             },
             "dist": {
                 "type": "zip",
@@ -151,7 +151,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "1348136794",
+            "time": "1347929044",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -721,8 +721,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSRestBundle/zipball/ee75db5cf924a4fee6c8b5b056c2bc0f81b15964",
-                "reference": "ee75db5cf924a4fee6c8b5b056c2bc0f81b15964",
+                "url": "https://github.com/FriendsOfSymfony/FOSRestBundle/zipball/2cd153030041b3b817193bb8c64e980b9e7143e9",
+                "reference": "2cd153030041b3b817193bb8c64e980b9e7143e9",
                 "shasum": ""
             },
             "require": {
@@ -736,7 +736,6 @@
                 "symfony/form": ">=2.0,<2.3-dev",
                 "symfony/yaml": ">=2.0,<2.3-dev"
             },
-            "time": "1347997381",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -771,7 +770,8 @@
             "homepage": "http://friendsofsymfony.github.com",
             "keywords": [
                 "rest"
-            ]
+            ],
+            "time": "1347997381"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -923,7 +923,7 @@
             "require-dev": {
                 "sami/sami": "dev-master"
             },
-            "time": "2012-07-27 12:35:18",
+            "time": "2012-07-26 16:35:18",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -951,7 +951,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2011-12-20 16:50:26",
+            "time": "2011-12-19 20:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -993,7 +993,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2011-12-20 16:40:52",
+            "time": "2011-12-19 20:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1095,7 +1095,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2011-12-20 17:32:49",
+            "time": "2011-12-19 21:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1194,37 +1194,33 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "488092332376e8390bd5f6417322da46c0426546"
+                "reference": "02328f1e0fc10e03617aa94de60b3a96ce750286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/JMSSerializerBundle/zipball/488092332376e8390bd5f6417322da46c0426546",
-                "reference": "488092332376e8390bd5f6417322da46c0426546",
+                "url": "https://github.com/schmittjoh/JMSSerializerBundle/zipball/02328f1e0fc10e03617aa94de60b3a96ce750286",
+                "reference": "02328f1e0fc10e03617aa94de60b3a96ce750286",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "jms/metadata": ">=1.1.0,<1.3-dev"
             },
-            "conflict": {
-                "symfony/framework-bundle": "<2.1-dev"
-            },
             "require-dev": {
+                "symfony/framework-bundle": ">=2.0,<2.2-dev",
+                "symfony/yaml": ">=2.0,<2.2-dev",
+                "symfony/form": ">=2.0,<2.2-dev",
+                "symfony/validator": ">=2.0,<2.2-dev",
                 "twig/twig": ">=1.8,<2.0-dev",
-                "doctrine/orm": ">=2.1,<2.4-dev",
-                "symfony/framework-bundle": ">=2.1,<2.2-dev",
-                "symfony/yaml": ">=2.1,<2.3-dev",
-                "symfony/form": ">=2.1,<2.3-dev",
-                "symfony/validator": ">=2.1,<2.3-dev"
+                "doctrine/orm": ">=2.1,<2.4-dev"
             },
             "suggest": {
                 "symfony/framework-bundle": "2.*"
             },
-            "time": "1348177927",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "0.9.x-dev"
                 }
             },
             "installation-source": "source",
@@ -1252,7 +1248,8 @@
                 "serialization",
                 "deserialization",
                 "jaxb"
-            ]
+            ],
+            "time": "1348079151"
         },
         {
             "name": "knplabs/gaufrette",
@@ -1458,7 +1455,7 @@
                 "knplabs/knp-menu": "1.1.*",
                 "symfony/framework-bundle": ">=2.0,<2.2-dev"
             },
-            "time": "2012-05-10 07:56:49",
+            "time": "2012-05-09 11:56:49",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -1638,7 +1635,7 @@
             "suggest": {
                 "ext-curl": "*"
             },
-            "time": "2012-06-24 07:01:38",
+            "time": "2012-06-23 11:01:38",
             "type": "library",
             "installation-source": "source",
             "autoload": {
