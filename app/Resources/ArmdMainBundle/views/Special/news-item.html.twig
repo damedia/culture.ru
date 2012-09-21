@@ -1,1 +1,16 @@
 {% extends '::special.html.twig' %}
+
+{% block body%}
+{% set n = entity %}
+{% set f = n.date %}
+{% set t = n.endDate %}
+<article class="event-anons">
+    <h1>{{ n.title|raw }}</h1>
+	<span class="date" title="Дата">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' Y') }}
+	{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' Y') }}{% endif%}</span>
+	<div class="text-overflow">
+		<p>{{ n.announce|raw }}</p>
+		{{ n.body|raw }}
+	</div>
+</article>
+{% endblock %}

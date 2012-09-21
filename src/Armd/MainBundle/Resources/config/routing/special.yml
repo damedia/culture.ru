@@ -25,5 +25,5 @@ armd_main_special_about:
 
 armd_main_special_russian_images:
     pattern: /russian-images/
-    defaults: { _controller: ArmdMainBundle:Main:randomRussiaImages }
+    defaults: { _controller: ArmdMainBundle:Special:russianImages }
     

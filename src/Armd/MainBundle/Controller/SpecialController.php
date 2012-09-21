@@ -17,16 +17,23 @@ class SpecialController extends Controller
         ));
     }
     
+    public function russianImagesAction()
+    {
+        return $this->render('ArmdMainBundle:Special:russian-images.html.twig', array(
+            'objects'   => $this->getObjectManager()->getRussiaImagesList($this->getRequest()->get('searchString')),
+        ));
+    }        
 	
 	public function aboutAction()
     {
         return $this->render('ArmdMainBundle:Special:about.html.twig', array(
         ));
     }
-	
+    	
 	public function chroniclesAction()
     {
         $centuries = $this->get('armd_chronicle.controller.event')->getCenturiesList();
+        
 		return $this->render('ArmdMainBundle:Special:chronicles.html.twig', array(
             'centuries' => $centuries,
         ));
@@ -70,5 +77,10 @@ class SpecialController extends Controller
     function getNewsManager()
     {
         return $this->get('armd_news.manager.news');
+    }
+    
+    function getObjectManager()
+    {
+        return $this->get('armd_atlas.manager.object');
     }    
 }
