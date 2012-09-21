@@ -21,7 +21,6 @@ class DefaultController extends Controller
     protected $username = 'admin';
     protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
 
-
     /**
      * @Route("/objects")
      */
@@ -83,7 +82,7 @@ class DefaultController extends Controller
     public function userObjectsAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $userObjects = $this->get('armd_atlas.manager.object')->getUserObjects($user);
+        $userObjects = $this->getObjectManager()->getUserObjects($user);
 
         return array(
             'user' => $user,
@@ -171,45 +170,9 @@ class DefaultController extends Controller
     public function russiaImagesListAction()
     {
         $searchString = $this->getRequest()->get('searchString');
-        $objectRepo = $this->getDoctrine()->getManager()
-                        ->getRepository('ArmdAtlasBundle:Object');
-
-        if (!empty($searchString)) {
-            $search = $this->get('search.sphinxsearch.search');
-            $searchParams = array(
-                'Atlas' => array(
-                    'filters' => array(
-                        array(
-                            'attribute' => 'show_at_russian_image',
-                            'values' => array(1)
-                        ),
-                        array(
-                            'attribute' => 'published',
-                            'values' => array(1)
-                        )
-                    )
-                )
-            );
-
-            $searchResult = $search->search($searchString, $searchParams);
-            $objects = array();
-            if (!empty($searchResult['Atlas']['matches'])) {
-                foreach ($searchResult['Atlas']['matches'] as $id => $data) {
-                    $object = $objectRepo->find($id);
-                    if(!empty($object)) {
-                        $objects[] = $object;
-                    }
-                }
-            }
-
-        }
-        else {
-            $objects = $objectRepo->findRussiaImages();
-        }
-
 
         return array(
-            'objects' => $objects
+            'objects' => $this->getObjectManager()->getRussiaImagesList($searchString),
         );
     }
 
@@ -464,5 +427,8 @@ class DefaultController extends Controller
         return !empty($res) ? $res[0] : false;
     }
 
-
+    public function getObjectManager()
+    {
+        return $this->get('armd_atlas.manager.object');
+    }
 }
