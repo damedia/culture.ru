@@ -27,3 +27,8 @@ armd_main_special_russian_images:
     pattern: /russian-images/
     defaults: { _controller: ArmdMainBundle:Special:russianImages }
     
+armd_main_special_russian_images_item:
+    pattern: /russian-images/{id}/
+    defaults: { _controller: ArmdMainBundle:Special:russianImagesItem }
+    requirements: { id: \d+ }         
+    

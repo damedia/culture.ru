@@ -22,7 +22,14 @@ class SpecialController extends Controller
         return $this->render('ArmdMainBundle:Special:russian-images.html.twig', array(
             'objects'   => $this->getObjectManager()->getRussiaImagesList($this->getRequest()->get('searchString')),
         ));
-    }        
+    }    
+    
+    public function russianImagesItemAction($id)
+    {
+        return $this->render('ArmdMainBundle:Special:russian-images-item.html.twig', array(
+            'object'    => $this->getObjectManager()->getObject($id),
+        ));        
+    }    
 	
 	public function aboutAction()
     {

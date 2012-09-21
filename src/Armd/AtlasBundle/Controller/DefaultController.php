@@ -61,12 +61,8 @@ class DefaultController extends Controller
      */
     public function objectViewAction($id)
     {
-        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $entity = $repo->findOneBy(array(
-            'published' => true,
-            'id' => $id,
-        ));
-
+        $entity = $this->getObjectManager()->getObject($id);
+        
         if ($entity)
             return array(
                 'entity' => $entity,

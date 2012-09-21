@@ -141,4 +141,15 @@ class ObjectManager
         
         return $objects;        
     }
+    
+    public function getObject($id)
+    {
+        $repo =  $this->em->getRepository('ArmdAtlasBundle:Object');
+        $entity = $repo->findOneBy(array(
+            'published' => true,
+            'id' => $id,
+        ));
+
+        return $entity;       
+    }
 }

@@ -1,1 +1,42 @@
 {% extends '::special.html.twig' %}
+
+{% block body%}
+<div class="rusObr-block">
+    {% if objects|length > 0 %}
+        <ul class="rusObr-list clearfix">
+
+            {% for object in objects %}
+                <li>
+                    <div class="rusObr-list-one-wrap" style="">
+                        <div class="rusObr-list-one">
+                            <a href="{{ path('armd_main_special_russian_images_item', {id: object.id} ) }}">
+                                {% if object.primaryImage is not empty %}
+                                    <img src="{% path object.primaryImage, 'reference' %}" alt="" class="rusObr-list-image"/></a>
+                                {% elseif object.images|length > 0 %}
+                                    <img src="{% path object.images[0], 'imagesOfRussia' %}" alt="" class="rusObr-list-image"/></a>
+                                {% endif %}
+
+                            <div class="rusObr-list-text">
+                                <a href="{{ path('armd_main_special_russian_images_item', {id: object.id} ) }}" class="rusObr-list-header">
+                                    {{ object.title }}
+                                </a>
+
+                                <p class="rusObr-list-place">
+                                    {% for region in object.regions %}
+                                        {{ region.title }}
+                                        {% if not loop.last %}/{% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <strong>По Вашему запросу объектов не найдено</strong>
+    {% endif %}
+</div>
+
+{% endblock %}
