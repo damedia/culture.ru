@@ -9,10 +9,11 @@ class SpecialController extends Controller
 {
     function indexAction()
     {    
-        $categories = $this->get('armd_news.controller.news')->getCategoriesList();
+        $categories = $this->getNewsManager()->getCategories();
+        
 		return $this->render('ArmdMainBundle:Special:index.html.twig', array(
+            'categories'    => $categories,		
 			'news'          => $this->getNews($categories),        
-            'categories'    => $categories
         ));
     }
     
@@ -49,7 +50,7 @@ class SpecialController extends Controller
         return $result;
     }
 	
-    function newsAction($category, $tag = 'Special', $limit = 10)
+    function newsAction($category, $tag = 'important', $limit = 10)
     {
         $criteria = array(
             $tag => true, 

@@ -13,13 +13,15 @@
 			<span class="date" title="Дата">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' Y') }}
 			{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' Y') }}{% endif%}</span>
 			<div class="text-overflow">
-				<h1><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></h1>
+				<h1><a href="{{ path('armd_main_special_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></h1>
 				<p>{{ n.announce|raw }}</p>
 			</div>
 		</article>
+{#		
 		{% if loop.last %}
-			<a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}" class="button-link">Все {{ n.category.title}}</a>
+			<a href="{{ path('armd_main_special_news_list_index_by_category', {'category': slug}) }}" class="button-link">Все {{ n.category.title}}</a>
 		{% endif %}
+#}		
 	{% endfor %}
 		
 </div>
