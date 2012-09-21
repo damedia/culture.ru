@@ -27,7 +27,7 @@ class SpecialController extends Controller
     public function russianImagesItemAction($id)
     {
         return $this->render('ArmdMainBundle:Special:russian-images-item.html.twig', array(
-            'object'    => $this->getObjectManager()->getObject($id),
+            'entity'    => $this->getObjectManager()->getObject($id),
         ));        
     }    
 	

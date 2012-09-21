@@ -1,4 +1,8 @@
 {% extends '::special.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/blind_tabs.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body%}
 	{% include "ArmdMainBundle:News:blind.html.twig" with {"categories": categories, "news": news} %}
 {% endblock %}

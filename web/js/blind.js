@@ -106,4 +106,10 @@ $(function(){
 	})
 
 	
+	$('.btn-more a').click(function(){
+		$("div#" + $(this).attr('rel')).slideToggle();
+		$(this).toggleClass("opened");
+		 return false;
+	});
+	
 })
