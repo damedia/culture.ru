@@ -109,7 +109,6 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
 
         $userData = json_decode($result, true);
         $token->facebookUserData = $userData;
-        \gFuncs::dbgWriteLogVar($token->facebookUserData, false, 'retrieveUserData: facebook user data'); // DBG:
 
     }
 
@@ -119,19 +118,20 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
             throw new AuthenticationException('Trying to load user by empty facebook uid');
         }
 
-        $user = $this->em->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('u')
             ->from('ArmdUserBundle:User', 'u')
-            ->where('u.facebookUid = :uid')
-            ->orWhere('u.facebookName = :email')
-            ->orWhere('u.facebookName = :login')
-            ->setMaxResults(1)
-            ->setParameters(array(
-                'uid' => $token->facebookUserData['id'],
-                'email' => $token->facebookUserData['email'],
-                'login' => $token->facebookUserData['username'],
-            ))
-            ->getQuery()
+            ->where('u.facebookUid = :uid')->setParameter('uid', $token->facebookUserData['id'])
+            ->setMaxResults(1);
+
+        if(!empty($token->facebookUserData['username'])) {
+            $qb->orWhere('u.facebookName = :login')->setParameter('login', $token->facebookUserData['username']);
+        }
+        if(!empty($token->facebookUserData['email'])) {
+            $qb->orWhere('u.facebookName = :email')->setParameter('email', $token->facebookUserData['email']);
+        }
+
+        $user = $qb->getQuery()
             ->getOneOrNullResult();
 
         return $user;
