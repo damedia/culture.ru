@@ -129,6 +129,7 @@ class FacebookAuthenticationProvider extends AbstractSocialAuthenticationProvide
         }
         if(!empty($token->facebookUserData['email'])) {
             $qb->orWhere('u.facebookName = :email')->setParameter('email', $token->facebookUserData['email']);
+            $qb->orWhere('u.email = :email');
         }
 
         $user = $qb->getQuery()
