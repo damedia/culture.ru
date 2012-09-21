@@ -45,7 +45,7 @@ class NewsController extends ListController
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
      */    
-    function newsItemAction($id, $category)
+    function newsItemAction($id, $category, $template = null)
     {
         $entity = $this->getEntityRepository()->find($id);
 
@@ -53,7 +53,9 @@ class NewsController extends ListController
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
 
-        return $this->render($this->getTemplateName('item'), array(
+        $template = $template ? $template : $this->getTemplateName('item');
+        
+        return $this->render($template, array(
             'entity'        => $entity,
             'category'      => $category,
             'comments'    => $this->getComments($entity->getThread()),
@@ -64,32 +66,33 @@ class NewsController extends ListController
     function categoriesAction($category)
     {
         return $this->render($this->getTemplateName('categories'), array(
-            'categories'    => $this->getCategoriesList(array($category)),
+            'category'      => $category,
+            'categories'    => $this->getNewsManager()->getCategories(),
         ));
     }
     
     function latestNewsAction($limit)
     {
         return $this->render($this->getTemplateName('latest-news'), array(
-            'news'          => $this->getPaginator(array(), 1, $limit),
+            'news'  => $this->getPaginator(array(), 1, $limit),
         ));
     }
     
     function billboardAction($limit = 10)
     {
         $criteria = array(
-            'important'  => true,
+            'important' => true,
         );        
     
         return $this->render($this->getTemplateName('billboard'), array(
-            'entities'          => $this->getPaginator($criteria, 1, $limit),
+            'entities'  => $this->getPaginator($criteria, 1, $limit),
         ));
     }
     
     function memorialEventsAction()
     {
         $criteria = array(
-            'category'      => 'memorial',
+            'category'      => 'memorials',
             'memorial_date' => new \DateTime(),
         );    
     
@@ -98,17 +101,6 @@ class NewsController extends ListController
         ));
     }
                 
-    function getCategoriesList(array $categories = array())
-    {
-        $result = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
-        
-        foreach ($result as $category) {
-            $category->setSelected($categories ? in_array($category->getSlug(), $categories) : true);
-        }
-        
-        return $result;
-    }        
-
     function getPaginator($criteria, $page, $limit)
     {
         return $this->getPagination($this->getNewsManager()->getQueryBuilder($criteria)->getQuery(), $page, $limit);

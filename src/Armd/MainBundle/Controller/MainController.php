@@ -31,7 +31,7 @@ class MainController extends Controller
 	
     public function indexAction()
     {
-        $categories = $this->get('armd_news.controller.news')->getCategoriesList();
+        $categories = $this->getNewsManager()->getCategories();
 
         return $this->render('ArmdMainBundle::index.html.twig', array(
             'news'          => $this->getNews($categories),        
@@ -84,6 +84,11 @@ class MainController extends Controller
     {
         return $this->render("ArmdMainBundle::{$template}.html.twig", array());
     }
+    
+    function getNewsManager()
+    {
+        return $this->get('armd_news.manager.news');
+    }        
     
     function getTemplateName($action)
     {

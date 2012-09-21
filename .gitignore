@@ -3,8 +3,7 @@ app/bootstrap.php.cache
 app/cache/*
 app/logs/*
 build/
-vendor/*
-bin
+vendor
 composer.phar
 
 app/config/parameters.yml

@@ -4,9 +4,6 @@ namespace Armd\NewsBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 
-use Sonata\DoctrineORMAdminBundle\Datagrid\Pager;
-use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
-
 class NewsManager
 {
     /**
@@ -86,5 +83,10 @@ class NewsManager
                 ->andWhere('n.important = true')
             ;
         }        
-    }        
+    }
+    
+    public function getCategories()
+    {
+        return $this->em->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
+    }                    
 }
