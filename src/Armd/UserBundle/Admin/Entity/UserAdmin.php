@@ -25,6 +25,7 @@ class UserAdmin extends BaseAdmin {
         $formMapper
             ->with('Profile')
                 ->add('region')
+                ->add('biographyText')
             ->end()
             ->with('Social')
                 ->add('vkontakteUid')
@@ -35,7 +36,9 @@ class UserAdmin extends BaseAdmin {
             ->remove('facebookUid')
             ->remove('twitterUid')
             ->remove('gplusUid')
-            ->remove('gplusName');
+            ->remove('gplusName')
+            ->remove('biography')
+            ;
     }
 
 }

@@ -12,8 +12,12 @@ class Version20120821142034 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->addSql("ALTER TABLE fos_user_user ADD middlename VARCHAR(255) DEFAULT NULL");
-        $this->addSql("ALTER TABLE fos_user_user ADD city VARCHAR(255) DEFAULT NULL");
+        if(!$schema->getTable('fos_user_user')->hasColumn('middlename')) {
+            $this->addSql("ALTER TABLE fos_user_user ADD middlename VARCHAR(255) DEFAULT NULL");
+        }
+        if(!$schema->getTable('fos_user_user')->hasColumn('city')) {
+            $this->addSql("ALTER TABLE fos_user_user ADD city VARCHAR(255) DEFAULT NULL");
+        }
     }
 
     public function down(Schema $schema)

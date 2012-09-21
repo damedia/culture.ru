@@ -12,10 +12,19 @@ class Version20120815194825 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->addSql("update content_chronicle_accident set date = to_date(year || '.01.01', 'YYYY.MM.DD')");
+        if ($schema->getTable('content_chronicle_accident')->hasColumn('year')) {
+            $this->addSql("update content_chronicle_accident set date = to_date(year || '.01.01', 'YYYY.MM.DD')");
+        }
         $this->addSql("ALTER TABLE content_chronicle_accident ALTER date SET NOT NULL");
-        $this->addSql("ALTER TABLE content_chronicle_accident DROP year");
-        $this->addSql("ALTER TABLE content_chronicle_accident ADD century INT DEFAULT NULL");
+
+        if ($schema->getTable('content_chronicle_accident')->hasColumn('year')) {
+            $this->addSql("ALTER TABLE content_chronicle_accident DROP year");
+        }
+
+        if (!$schema->getTable('content_chronicle_accident')->hasColumn('century')) {
+            $this->addSql("ALTER TABLE content_chronicle_accident ADD century INT DEFAULT NULL");
+        }
+
         $this->addSql("update content_chronicle_accident set century = floor(date_part('year', date) / 100) + 1");
         $this->addSql("ALTER TABLE content_chronicle_accident ALTER century SET NOT NULL");
     }
