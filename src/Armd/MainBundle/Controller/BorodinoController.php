@@ -13,11 +13,12 @@ class BorodinoController extends Controller
         ));
     }
     
-    function eventsAction()
+    function eventsAction($category = 'borodino')
     {        
         $request = Request::createFromGlobals();
         
         $criteria = array(
+            'category'  => $category,
             'region_id' => $request->query->get('region_id'),
             'month'     => $request->query->get('month'),
         );
