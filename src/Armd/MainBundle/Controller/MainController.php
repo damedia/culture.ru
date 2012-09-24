@@ -14,9 +14,11 @@ class MainController extends Controller
         return $this->renderTemplate('banner');
     }
     
-    public function museumsAction()
+    public function museumsAction($page = 1, $limit = 100)
     {
-        return $this->renderTemplate('museums');
+        return $this->renderTemplate('museums', array(
+            'museums'   => $this->getMuseumManager()->getPager(array(), $page, $limit),
+        ));
     }
     
     public function aboutAction()
@@ -80,14 +82,19 @@ class MainController extends Controller
         return $result;
     }
     
-    function renderTemplate($template)
+    function renderTemplate($template, $parameters = array())
     {
-        return $this->render("ArmdMainBundle::{$template}.html.twig", array());
+        return $this->render("ArmdMainBundle::{$template}.html.twig", $parameters);
     }
     
     function getNewsManager()
     {
         return $this->get('armd_news.manager.news');
+    }        
+    
+    function getMuseumManager()
+    {
+        return $this->get('armd_museum.manager.museum');
     }        
     
     function getTemplateName($action)

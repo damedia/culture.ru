@@ -55,6 +55,7 @@ class AppKernel extends Kernel
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\SocialAuthBundle\ArmdSocialAuthBundle(),
             new Armd\UtilBundle\ArmdUtilBundle(),
+            new Armd\MuseumBundle\ArmdMuseumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
