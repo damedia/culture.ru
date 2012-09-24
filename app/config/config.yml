@@ -178,6 +178,9 @@ sonata_media:
                 small: { width: 85 }
                 
         museum:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http        
             providers:
                 - sonata.media.provider.image
             formats:
