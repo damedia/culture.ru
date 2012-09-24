@@ -41,6 +41,12 @@ class Event
      * @ORM\Column(name="date_to", type="datetime", nullable=true)
      */
     private $endDate;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\OrderBy({"title" = "ASC"})     
+     **/
+    protected $category;    
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\AtlasBundle\Entity\Region")
@@ -145,6 +151,28 @@ class Event
     {
         return $this->endDate;
     }
+    
+    /**
+     * Set category
+     *
+     * @param Category $category
+     * @return Event
+     */
+    public function setCategory(Category $category = null)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }    
 
     /**
      * Set city

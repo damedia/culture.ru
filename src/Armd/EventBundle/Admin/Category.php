@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 use Sonata\AdminBundle\Admin\Admin;
 
-class Event extends Admin
+class Category extends Admin
 {
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -29,9 +29,6 @@ class Event extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('beginDate')            
-            ->add('region')
-            ->add('published')            
         ;
         
         parent::configureShowField($showMapper);        
@@ -47,13 +44,7 @@ class Event extends Admin
         $formMapper
             ->with('General')
                 ->add('title')
-                ->add('beginDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
-                ->add('endDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
-                ->add('category')                
-                ->add('region')                
-                ->add('city')
-                ->add('place')                                
-                ->add('published', null, array('required' => false))                
+                ->add('slug')                
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -68,20 +59,9 @@ class Event extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('beginDate')            
-            ->add('region')
-            ->add('published')            
+            ->add('slug')
         ;
         
         parent::configureListFields($listMapper);        
-    }
-    
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('category')        
-            ->add('region')
-            ->add('published')
-        ;
     }    
 }
