@@ -176,6 +176,12 @@ sonata_media:
                 big: { width: 335, height: 189 }
                 medium: { width: 111 }
                 small: { width: 85 }
+                
+        museum:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                billboard: { width: 213 }
 
         gallery:
             download:
