@@ -1261,6 +1261,7 @@ html[xmlns] .slides {display: block;}
 	margin-top:-10px;
 	padding-top:7px;
 	position:relative;
+	min-height:41px;
 }
 	.app-block  a {
 		font-size:15px;
