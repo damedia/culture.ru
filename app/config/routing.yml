@@ -1,3 +1,10 @@
+armd_mk_comment:
+    resource: "@ArmdMkCommentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+armd_main:
+    resource: "@ArmdMainBundle/Resources/config/routing.yml"
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"
     type:     annotation
@@ -41,10 +48,6 @@ fos_user_routing:
 
 #fos_js_routing:
 #    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-ArmdCommunicationPlatformBundle_proposals:
-    resource: "@ArmdCommunicationPlatformBundle/Resources/config/routing/proposals.yml"
-    prefix:   /cp
 
 fos_comment_api:
    type: rest

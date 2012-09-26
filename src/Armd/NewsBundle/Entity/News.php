@@ -3,9 +3,10 @@
 namespace Armd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\NewsBundle\Model\News as BaseNews;
-use Armd\CommentBundle\Model\CommentableInterface;
-use Armd\CommentBundle\Entity\Thread;
+use Armd\MkCommentBundle\Model\CommentableInterface;
+use Armd\MkCommentBundle\Entity\Thread;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
@@ -108,8 +109,8 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Thread of this comment
      *
-     * @var \Armd\CommentBundle\Entity\Thread
-     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     * @var \Armd\MkCommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
      */
     protected $thread;
     
@@ -456,7 +457,7 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Set thread
      *
-     * @param \Armd\CommentBundle\Entity\Thread $thread
+     * @param \Armd\MkCommentBundle\Entity\Thread $thread
      * @return News
      */
     public function setThread(Thread $thread = null)
@@ -468,7 +469,7 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Get thread
      *
-     * @return \Armd\CommentBundle\Entity\Thread
+     * @return \Armd\MkCommentBundle\Entity\Thread
      */
     public function getThread()
     {

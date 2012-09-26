@@ -1,8 +1,0 @@
-parameters:
-    armd_cp.model.proposals.class: Armd\CommunicationPlatformBundle\Entity\Proposals
-
-services:
-    armd_cp.acl.proposals.security:
-        class: Armd\CommunicationPlatformBundle\Acl\SecurityProposalsAcl
-        public: false
-        arguments: [@security.context, @security.acl.provider, %armd_cp.model.proposals.class%]

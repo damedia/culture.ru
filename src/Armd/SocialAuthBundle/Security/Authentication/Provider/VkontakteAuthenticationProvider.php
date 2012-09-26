@@ -143,6 +143,8 @@ class VkontakteAuthenticationProvider extends AbstractSocialAuthenticationProvid
         $user->setRoles(array('ROLE_USER'));
 
         $this->userManager->updateUser($user, true);
+        $this->em->clear();
+        $user = $this->em->getRepository('ArmdUserBundle:User')->find($user->getId());
 
         return $user;
     }

@@ -6,7 +6,6 @@
     },
     "repositories":{
         "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
-        "armd/comment":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" },
         "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" }
     },
     "require": {
@@ -36,7 +35,6 @@
         "sonata-project/doctrine-orm-admin-bundle": "*",
         "sonata-project/user-bundle": "*",
         "armd/banner-bundle": "*",
-        "armd/comment": "*",
         "armd/sphinx-search-bundle": "*"
     },
     "scripts": {

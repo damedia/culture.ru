@@ -165,17 +165,28 @@
 									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
 								</div>
 							</div>#}
-							<form action="" class="comments-form">
-								<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>
-								<input type="submit" value="Отправить" class="button" />
-							</form>
+
+
+							{#<form action="" class="comments-form">#}
+								{#<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>#}
+								{#<input type="submit" value="Отправить" class="button" />#}
+							{#</form>#}
+
+                            {% set comment_thread_id = 'atlas_' ~ entity.id %}
+                            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                            {% if not is_granted('ROLE_USER') %}
+                                <div class="comments-auth-block">
+                                    <p>
+                                        Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>
+                                    </p>
+                                    {% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}
+
+                                </div>
+                            {% endif %}
+
 						</div>
 				    </div>
-                    {% if not is_granted('ROLE_USER') %}
-                        <div>
-                            <p>Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>
-                        </div>
-                    {% endif %}
 
                 </div>
 
@@ -532,10 +543,15 @@
 			$(window).resize(function(){
 				$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 		
-			})
+			});
+
 			$('#more-show').click(function(){
 				$(this).next('div').toggle();
-			})
+			});
+
+            $('.comments').on('load', function(){
+                console.log('123');
+            });
 			
         });
     </script>

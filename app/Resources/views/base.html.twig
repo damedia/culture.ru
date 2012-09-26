@@ -15,6 +15,17 @@
         {% block stylesheets %}
             <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
+
+            {%  stylesheets
+                '@FOSCommentBundle/Resources/assets/css/comments.css'
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {%  endstylesheets %}
+
+
+            <link href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}" rel="stylesheet" type="text/css" media="screen" />
+            <link href="{{ asset('bundles/armdmkcomment/css/comments.css') }}" rel="stylesheet" type="text/css" media="screen" />
+
         {% endblock %}
 
         {% block javascripts %}
@@ -212,9 +223,6 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                     </div>
                 </div>
 
-				{#<div class="counters">
-					<img src="/img/footer-counters.png" />
-				</div>#}
                 <div id="socialnetwork">
                     Рассказать о портале
                     <div id="i-socialnetwork">
@@ -223,13 +231,6 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                                 <a class="vk" href="http://vkontakte.ru/share.php?url=http://roskult.ru/&amp;title=Портал культурного наследия&amp;description=" target="_blank"></a>
                                 <a onclick="$(this).parent().submit(); return false;" class="lj" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/&subject=Портал культурного наследия%3C%2Fa%3E" target="_blank"></a>
                                 <a class="tw" href="http://twitter.com/intent/tweet?text=Портал культурного наследия&url=http://roskult.ru/" target="_blank"></a>
-                                <input type="hidden" name="subject" value="Портал культурного наследия">
-                                <textarea name="event" style="display:none">
-                                    <div style="padding:20px; margin:10px;">
-                                        <h3 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">Портал культурного наследия</h3>
-                                        <a href="{{ url('cp') }}">Подробнее</a>
-                                    </div>
-                                </textarea>
                                 <a style="fb" href="http://www.facebook.com/sharer.php?u=http://roskult.ru/&t=Портал культурного наследия&src=sp" target="_blank"></a>
 								<a href="{{ path('armd_news_rss') }}" class="rss-icon" title="События"></a>
 							</form>

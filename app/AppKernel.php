@@ -40,8 +40,6 @@ class AppKernel extends Kernel
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\AtlasBundle\ArmdAtlasBundle(),
-            new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
-            new Armd\CommentBundle\ArmdCommentBundle(),
             new Armd\TvigleVideoBundle\ArmdTvigleVideoBundle(),
             new Armd\MainBundle\ArmdMainBundle(),
             new Armd\ListBundle\ArmdListBundle(),
@@ -54,6 +52,7 @@ class AppKernel extends Kernel
             new Armd\MediaHelperBundle\ArmdMediaHelperBundle(),
             new Armd\EventBundle\ArmdEventBundle(),
             new Armd\SocialAuthBundle\ArmdSocialAuthBundle(),
+            new Armd\MkCommentBundle\ArmdMkCommentBundle(),
             new Armd\UtilBundle\ArmdUtilBundle(),
             new Armd\MuseumBundle\ArmdMuseumBundle(),
         );
