@@ -223,7 +223,17 @@
 						
 					</a>
 				</div> #}
-                    
+				
+                {% if entity.id == 984 or entity.id == 534 %}   
+					<div class="block object-infograph">
+						<p class="obj-o-infograph-header">Мобильное приложение</p>
+						<div class="app-block iphone-app">
+							<a href="http://itunes.apple.com/us/app/muzei-rossii/id553795199?ls=1&mt=8" target="_blank">iPhone</a>
+							<span>Загружено 10 795</span>
+						</div>
+					</div>			
+				{% endif %}	
+				
                   {% if entity.image3d %}
 							<div class="block object-infograph">
                             <P class="obj-o-infograph-header">Инфографика</P>
