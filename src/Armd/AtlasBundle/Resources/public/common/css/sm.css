@@ -1262,16 +1262,18 @@ html[xmlns] .slides {display: block;}
 	padding-top:7px;
 	position:relative;
 	min-height:41px;
-}
-	.app-block  a {
-		font-size:15px;
-		color:#000;
+	display:block;
+	color:#000;
 		text-decoration:none;
+}
+	.app-block  span.app-name{
+		font-size:15px;
+		
 		padding-right:14px;
 		background:url('/img/new-window.gif') no-repeat 100% 0;
 		
 	}
-	.app-block span {
+	.app-block span.app-count {
 		display:block;
 		font-size:12px;
 		margin-top:1px;
