@@ -44,6 +44,7 @@ class Event
     
     /**
      * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(nullable=false)
      * @ORM\OrderBy({"title" = "ASC"})     
      **/
     protected $category;    

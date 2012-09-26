@@ -1,263 +1,71 @@
 {% extends '::base.html.twig' %}
 
+{% block title %} — Виртуальные музеи{% endblock %}
 
 {% block stylesheets %}
-
 <link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
-
 {{ parent() }}
-
 {% endblock %}
 
+{% block body%}
+<div class="title-block timeline-title">
+    <h2>Виртуальные музеи</h2>
+</div>
+<div class="obrazy virt-museums">
+    <form action="" class="obr-form">
+    	<div class="obr-text-input">
+    		<input type="text" name="search" id="search_text" value="Поиск по музеям" />
+    	</div>
+    	<input type="submit" class="obr-submit-input" value="" />
+    </form>
+	<div class="rusObr-block">
+		<ul class="rusObr-list clearfix">	
+		{% for m in museums %}
+			<li>
+				<div class="rusObr-list-one-wrap" style="" >
+					<div  class="rusObr-list-one">
+						<a href="{{ m.url }}" data-fancybox-type="iframe" class="vob iframe">{% thumbnail m.image, 'billboard' %}</a>
+						<div class="rusObr-list-text">
+							<a href="{{ m.url }}" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">{{ m.title|raw }}</a>
+                        </div>
+					</div>
+				</div>
+			</li>
+        {% endfor %}			
+		</ul>
+    </div>
+</div>
+{% endblock %}
 
 {% block javascripts %}
 {{ parent() }}
-
 <script src="{{ asset('/main/common/js/function.js') }}"></script>
-
 <script src="{{ asset('/swf/swfobject/swfkrpano.js') }}"></script>
-			<script type="text/javascript">
-				$(function(){
-					var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
-					
-					if ($('.vob').length){    
-						$('.vob').fancybox({
-							'autoScale'  : false,
-							'autoDimensions' : false,
-							'padding':0,
-							'margin':0,
-							'fitToView':true
-						});
-					}
-					
-					$('.panoDIV').css({'width':x-18, 'height':y});
-					console.log(x,y);
-					
-					$(".iframe").fancybox({
-					'width' : '100%',
-					'height' : '100%',
-					'autoScale' : true,
-					'transitionIn' : 'none',
-					'transitionOut' : 'none',
-					'type' : 'iframe'
-					});
-
-					
-				 })  
-			</script>
-
-
-{% endblock %}
-
-
-{% block title %} — Виртуальные музеи{% endblock %}
-
-
-{% block body%}
-
-	<div class="title-block timeline-title">
-				<h2>Виртуальные музеи</h2>
-			</div>
-
-
-
-{% macro museum_item(link, img, description) %}
-
-						<li>
-							<div class="rusObr-list-one-wrap" style="" >
-								<div  class="rusObr-list-one">
-									<a href="http://eyera.dev.armd.ru{{ asset(link|raw) }}" data-fancybox-type="iframe" class="vob iframe"><img src="/main/common/img/photo/virtual_museums{{ asset(img|raw) }}" alt="" class="rusObr-list-image" /></a>
-									<div class="rusObr-list-text">
-										<a href="http://eyera.dev.armd.ru{{ asset(link|raw) }}" data-fancybox-type="iframe" class="vob iframe rusObr-list-header">
-											{{ description|raw }}
-										</a>
-										
-								</div>
-								</div>
-							</div>
-						</li>
-
-
-    
-{% endmacro %}
-
-
-{% set museums = [	
-					{		'link': '/tretyakov_gallery/tretyakov_museum.html',
-							'img': '/tretyakovka.jpg',
-							'description':'Государственная Третьяковская галерея'
-					},
-					 {	'link': '/vostok_museum/vostok_museum.html',
-					 		'img': '/vostoka.jpg',
-					 		'description':'Государственный музей искусства народов Востока'
-					 },
-					 
-					 {	'link': '/bahrushina/bahrushina_museum.html',
-					 		'img': '/01.jpg',
-					 		'description':'Театральный музей имени А.А. Бахрушина'
-					 },
-
-					 {	'link': '/borodino/borodino_museum.html',
-					 		'img': '/borodinskaya.jpg',
-					 		'description':'Музей-панорама &laquo;Бородинская битва&raquo;'
-					 },
-
-					 {	'link': '/kulikovo/kulikovo_museum.html',
-					 		'img': '/kulikovo.jpg',
-					 		'description':'Государственный военно-исторический и природный<br>музей-заповедник &laquo;Куликово поле&raquo;'
-					 },
-
-
-					{		'link': '/glinka_museum/glinka_museum.html',
-							'img': '/03.jpg',
-							'description':'Всероссийское музейное объединение музыкальной культуры имени М.И. Глинки'
-					},
-					{	'link': '/radishev/radishev_museum.html',
-					 		'img': '/radisheva.jpg',
-					 		'description':'Саратовский государственный художественный музей <br>имени А.Н. Радищева'
-					 },
-
-					 
-					 {	'link': '/mordovia/mordovia_museum.html',
-					 		'img': '/saransk.jpg',
-					 		'description':'Мордовский республиканский музей <br>изобразительных искусств имени С.Д. Эрьзи'
-					 },
-					
-					
-					 {	'link': '/sklif2/sheremetieva-media-trest.html',
-					 		'img': '/sklif.jpg',
-					 		'description':'Странноприимный дом<br>Н.П. Шереметьева'
-					 },
-					 
-					 {	'link': '/sholohov/sholohov.html',
-					 		'img': '/sholohov.jpg',
-					 		'description':'Государственный музей-заповедник М.А. Шолохова'
-					 },
-					
-					 {	'link': '/polyana/iasnaya_polyana.html',
-					 		'img': '/yasnaya_polyana.jpg',
-					 		'description':'Музей-усадьба Л.Н. Толстого<br> «Ясная Поляна»'
-					 },
-					 
-					 {	'link': '/kalashnikova/kalashnikova.html',
-					 		'img': '/kalash.jpg',
-					 		'description':'Музей стрелкового оружия им. Михаила Калашникова'
-					 },
-
-					 
-					 {	'link': '/pushkin/pushkin.html',
-					 		'img': '/pushkin1.jpg',
-					 		'description':'Мемориальный Музей-квартира А.С.Пушкина'
-					 },
-					 
-					 {	'link': '/dekabristy/dekabristy.html',
-					 		'img': '/dekabristy.jpg',
-					 		'description':'Музей  Памяти декабристов'
-					 },
-
-					 {	'link': '/monastyr_suzdal/monastery_suzdal.html',
-					 		'img': '/suzdal.jpg',
-					 		'description':'Владимиро-Суздальский музей-заповедник'
-					 },
-
-					 {	'link': '/ryazan/ryazan.html',
-					 		'img': '/ryazan.jpg',
-					 		'description':'Рязанский историко-архитектурный музей-заповедник'
-					 },
-					 
-					 
-					 {	'link': '/korely/malye_korely.html',
-					 		'img': '/malye_korely.jpg',
-					 		'description':'Архангельский государственный музей деревянного зодчества<br>
- и народного искусства «Малые Корелы»'
-					 },
-					 
-					 {	'link': '/tsarskoe_selo/tsarskoe_selo.html',
-					 		'img': '/tzarskoe_selo.jpg',
-					 		'description':'Государственный музей-заповедник «Царское Село»'
-					 },
-					 {	'link': '/schusev/schusev.html',
-					 		'img': '/schuseva.jpg',
-					 		'description':'Государственный музей архитектуры <br>имени А.В. Щусева'
-					 },
-				
-					  	{	'link': '/etnomuseum/ethnomuseum.html',
-					 		'img': '/etnomuseum.jpg',
-					 		'description':'Российский этнографический музей'
-					 },
-					 
-					 {	'link': '/novgorod/novgorod.html',
-					 		'img': '/novgorod.jpg',
-					 		'description':'Новгородский государственный объединенный<br>музей-заповедник'
-					 },
-					  {	'link': '/tarhany/tarhany.html',
-					 		'img': '/tarhany.jpg',
-					 		'description':'Государственный Лермонтовский музей-заповедник «Тарханы»'
-					 },
-					  {	'link': '/varvarka/varvarka.html',
-					 		'img': '/varvarka.jpg',
-					 		'description':'Старый английский двор на Варварке'
-					 },
-			
-									 ] %}
-
-
-
-
-
-<div class="obrazy virt-museums">
-				<form action="" class="obr-form">
-					<div class="obr-text-input">
-						<input type="text" name="search" id="search_text" value="Поиск по музеям" />
-					</div>
-					<input type="submit" class="obr-submit-input" value="" />
-				</form>
-				<div class="rusObr-block">
-					<ul class="rusObr-list clearfix">
-				
-					{% for museum in museums %}
-					    {{ _self.museum_item(museum.link, asset(museum.img), museum.description) }}
-					  {% endfor %}			
-					</ul>
-							
-			
-			
-			</div>
-			<div class="no-margin-paginates">
-				<!--<div class="virtual-paginates clearfix">
-					<span class="firstPage">первая</span>
-					<ul class="virtual-paginates-list">
-						<li>
-							<span class="prevPage">назад</span>
-						</li>
-						<li>
-							<span class="current">1</span>
-						</li>
-						<li>
-							<a href="#">2</a>
-						</li>
-						<li>
-							<a href="#">3</a>
-						</li>
-						<li>
-							<a href="#">4</a>
-						</li>
-						<li>
-							<a href="#">5</a>
-						</li>
-						<li>
-							<a href="#">6</a>
-						</li>
-						<li>
-							<a href="#" class="nextPage">вперед</a>
-						</li>
-					</ul>
-					<a href="#" class="lastPage">последняя</a>
-				</div>	-->
-			</div>
-		</div>
-
-
-
-
+<script type="text/javascript">
+	$(function(){
+		var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+		
+		if ($('.vob').length){    
+			$('.vob').fancybox({
+				'autoScale'  : false,
+				'autoDimensions' : false,
+				'padding':0,
+				'margin':0,
+				'fitToView':true
+			});
+		}
+		
+		$('.panoDIV').css({'width':x-18, 'height':y});
+		console.log(x,y);
+		
+		$(".iframe").fancybox({
+		'width' : '100%',
+		'height' : '100%',
+		'autoScale' : true,
+		'transitionIn' : 'none',
+		'transitionOut' : 'none',
+		'type' : 'iframe'
+		});		
+	 })  
+</script>
 {% endblock %}
