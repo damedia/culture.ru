@@ -83,6 +83,7 @@ class ObjectRepository extends EntityRepository
                 $objects[] = $this->createQueryBuilder('o')
                     ->select('o')
                     ->where('o.showAtRussianImage = TRUE')
+                    ->andWhere('o.published = TRUE')
                     ->setMaxResults(1)
                     ->setFirstResult($offset)
                     ->getQuery()->getSingleResult();
