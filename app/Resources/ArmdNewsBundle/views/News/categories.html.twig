@@ -5,4 +5,8 @@
 	       {% if c.slug == category %}class="active"{% endif %}>{{ c.title }}</a>
     </li>
 {% endfor %}
+	<li>
+	   <a href="{{ path('armd_main_press_archive') }}"
+	       {% if 'archive' == category %}class="active"{% endif %}>Архив</a>
+    </li>
 </ul>

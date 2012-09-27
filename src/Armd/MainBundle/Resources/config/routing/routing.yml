@@ -3,26 +3,30 @@ armd_main_homepage:
     defaults: { _controller: ArmdMainBundle:Main:index }
 
 armd_main_banner:
-    pattern:  /banner
+    pattern:  /banner/
     defaults: { _controller: ArmdMainBundle:Main:banner }
 
 armd_main_museums:
-    pattern:  /museums
+    pattern:  /museums/
     defaults: { _controller: ArmdMainBundle:Main:museums }
 
 armd_main_about:
-    pattern:  /about
+    pattern:  /about/
     defaults: { _controller: ArmdMainBundle:Main:about }
 
 armd_main_services:
-    pattern:  /services
+    pattern:  /services/
     defaults: { _controller: ArmdMainBundle:Main:services }
 
 armd_main_brodino:
-    pattern:  /borodino
+    pattern:  /borodino/
     defaults: { _controller: ArmdMainBundle:Borodino:index }
 
 armd_main_project:
-    pattern:  /project
+    pattern:  /project/
     defaults: { _controller: ArmdMainBundle:Project:index }
+    
+armd_main_press_archive:
+    pattern:  /press-centre/archive/
+    defaults: { _controller: ArmdMainBundle:Main:pressArchive, gallery_id: 25 }    
     

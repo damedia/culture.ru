@@ -319,7 +319,14 @@ $(document).ready(function () {
     return false;
   });	
 	
-	
+	$('.years-tabs-selector a').click(function(){
+		var tabName = $(this).attr('href');
+		$(this).parent().addClass('active')
+				.siblings().removeClass('active');
+				
+		$(tabName).show().siblings().hide();
+		return false;	
+	})
 
 });
 	

@@ -1,0 +1,83 @@
+{% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
+
+{% block header %}{{ gallery.name }}{% endblock %}
+{% block top_right %} <div style="margin-top:-66px"></div>{% endblock %}
+{% block content %}
+	
+	<ul class="years-tabs-selector">
+		<li>
+			<a href="#year2011">2011</a>
+		</li>
+		<li class="active">
+			<a href="#year2012">2012</a>
+		</li>
+	</ul>
+	<div class="years-tabs">
+		<div class="years-tab" id="year2012">
+			<ul class="archive-list">
+				{% for gal_img in gallery.galleryHasMedias %}
+					<li>
+						<a title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" target="_blank">
+							<img src="{{gal_img.media.description}}" width="98"  alt="" class="arch-image" />
+						</a>
+						<div class="text-overflow">
+							<span class="arch-name">{{gal_img.media.name}}</span>
+							<span class="arch-date">{{gal_img.media.copyright}}</span>
+							<a title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" class="arch-pdf-link"  target="_blank">
+								<span class="arch-pdf-label">Скачать pdf</span>
+								
+								<span class="arch-size">
+								<script type="text/javascript">
+									document.write(bytesToSize({{gal_img.media.size}}, 2));
+								</script>
+								</span>
+							</a>
+						</div>
+					</li>
+				{% endfor %}
+				
+			</ul>
+		</div>
+	
+		<div class="years-tab" id="year2011" style="display:none">
+			
+		</div>
+			
+    </div>
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+	<script type="text/javascript">
+		function bytesToSize(bytes, precision)
+		{	
+			var kilobyte = 1024;
+			var megabyte = kilobyte * 1024;
+			var gigabyte = megabyte * 1024;
+			var terabyte = gigabyte * 1024;
+			
+			if ((bytes >= 0) && (bytes < kilobyte)) {
+				return bytes + ' B';
+
+			} else if ((bytes >= kilobyte) && (bytes < megabyte)) {
+				return (bytes / kilobyte).toFixed(precision) + ' KB';
+
+			} else if ((bytes >= megabyte) && (bytes < gigabyte)) {
+				return (bytes / megabyte).toFixed(precision) + ' MB';
+
+			} else if ((bytes >= gigabyte) && (bytes < terabyte)) {
+				return (bytes / gigabyte).toFixed(precision) + ' GB';
+
+			} else if (bytes >= terabyte) {
+				return (bytes / terabyte).toFixed(precision) + ' TB';
+
+			} else {
+				return bytes + ' B';
+			}
+		}
+	</script>
+{% endblock %}	
+	

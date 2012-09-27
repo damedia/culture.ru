@@ -70,6 +70,18 @@ class MainController extends Controller
         )); 
     }
     
+    public function pressArchiveAction($gallery_id, $category = 'archive')
+    {
+        $criteria = array(
+            'id'    => $gallery_id,
+        );
+    
+        return $this->render('ArmdMainBundle:Archive:index.html.twig', array(
+            'category'  => $category,
+            'gallery'   => $this->getGalleryManager()->findOneBy($criteria)
+        )); 
+    }
+    
     function getNews(array $categories)
     {
         $result = array();
@@ -95,6 +107,11 @@ class MainController extends Controller
     function getMuseumManager()
     {
         return $this->get('armd_museum.manager.museum');
+    }        
+    
+    function getGalleryManager()
+    {
+        return $this->get('sonata.media.manager.gallery');
     }        
     
     function getTemplateName($action)
