@@ -57,9 +57,9 @@ class News extends Admin
                 ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('endDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))                
                 ->add('category')
+                ->add('subject', null, array('required' => false))                
                 ->add('source')                
                 ->add('important', null, array('required' => false))
-                ->add('borodino', null, array('required' => false))                
                 ->add('priority')                                
                 ->add('published', null, array('required' => false))
             ->end()    
@@ -82,8 +82,8 @@ class News extends Admin
             ->addIdentifier('title')
             ->add('date')            
             ->add('category')
-            ->add('important')                
-            ->add('borodino')            
+            ->add('subject')            
+            ->add('important')                  
             ->add('published')                            
         ;
         
@@ -94,9 +94,9 @@ class News extends Admin
     {
         $datagridMapper
             ->add('category')
+            ->add('subject')            
             ->add('published')
             ->add('important')            
-            ->add('borodino')
         ;
     }
 }
