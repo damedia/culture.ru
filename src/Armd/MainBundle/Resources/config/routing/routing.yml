@@ -28,5 +28,5 @@ armd_main_project:
     
 armd_main_press_archive:
     pattern:  /press-centre/archive/
-    defaults: { _controller: ArmdMainBundle:Main:pressArchive, gallery_id: 25 }    
+    defaults: { _controller: ArmdMainBundle:Main:pressArchive }    
     

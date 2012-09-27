@@ -70,10 +70,10 @@ class MainController extends Controller
         )); 
     }
     
-    public function pressArchiveAction($gallery_id, $category = 'archive')
+    public function pressArchiveAction($format = 'gallery_archive', $category = 'archive')
     {
         $criteria = array(
-            'id'    => $gallery_id,
+            'defaultFormat'    => $format,
         );
     
         return $this->render('ArmdMainBundle:Archive:index.html.twig', array(
