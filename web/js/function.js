@@ -296,7 +296,7 @@ $(document).ready(function () {
     $('html').css('font-size', originalFontSize);
   });
   // Increase Font Size
-  $(".spec-vers").click(function(){
+  /*$(".spec-vers").click(function(){
     var currentFontSize = $('.text').css('font-size');
     var currentFontSizeNum = parseFloat(currentFontSize, 10);
     var newFontSize = currentFontSizeNum*1.2;
@@ -305,7 +305,7 @@ $(document).ready(function () {
 	$(this).addClass("decreaseFont")
 	console.log(currentFontSize);
     return false;
-  });
+  });*/
   // Decrease Font Size
   $(".decreaseFont").click(function(){
     var currentFontSize = $('.text').css('font-size');
