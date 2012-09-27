@@ -33,11 +33,11 @@ class BorodinoController extends Controller
         ));
     }
     
-    function newsAction($category, $tag = 'borodino', $limit = 10)
+    function newsAction($category, $subject = 'borodino', $limit = 10)
     {
         $criteria = array(
-            $tag => true, 
-            'category' => $category
+            'subject'   => $subject, 
+            'category'  => $category,
         );
     
         return $this->render('ArmdMainBundle:Borodino:news.html.twig', array(

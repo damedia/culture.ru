@@ -72,9 +72,10 @@ class NewsManager
             ;
         }                 
             
-        if (!empty($criteria['borodino'])) {
+        if (!empty($criteria['subject'])) {
             $qb
-                ->andWhere('n.borodino = true')
+                ->innerJoin('n.subject', 's', 'WITH', 's.slug = :slug')
+                ->setParameter('slug', $criteria['subject'])
             ;
         }
         

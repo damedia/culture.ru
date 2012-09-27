@@ -54,9 +54,16 @@ class News extends BaseNews implements CommentableInterface
     
     /**
      * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\OrderBy({"title" = "ASC"})     
+     * @ORM\OrderBy({"title"="ASC"})
+     * @ORM\JoinColumn(nullable=false)          
      **/
     protected $category;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Subject")
+     * @ORM\OrderBy({"title"="ASC"})
+     **/
+    protected $subject;    
     
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -99,13 +106,7 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
-    
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */        
-    private $borodino;
-    
-
+        
     /**
      * Thread of this comment
      *
@@ -500,25 +501,25 @@ class News extends BaseNews implements CommentableInterface
     }
 
     /**
-     * Set borodino
+     * Set subject
      *
-     * @param boolean $borodino
+     * @param Armd\NewsBundle\Entity\Subject $subject
      * @return News
      */
-    public function setBorodino($borodino)
+    public function setSubject(\Armd\NewsBundle\Entity\Subject $subject = null)
     {
-        $this->borodino = $borodino;
+        $this->subject = $subject;
     
         return $this;
     }
 
     /**
-     * Get borodino
+     * Get subject
      *
-     * @return boolean 
+     * @return Armd\NewsBundle\Entity\Subject 
      */
-    public function getBorodino()
+    public function getSubject()
     {
-        return $this->borodino;
+        return $this->subject;
     }
 }
