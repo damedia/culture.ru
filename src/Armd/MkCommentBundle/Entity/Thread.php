@@ -26,4 +26,5 @@ class Thread extends BaseThread
     {
         return $this->id;
     }
+
 }

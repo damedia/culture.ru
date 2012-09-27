@@ -1,0 +1,19 @@
+Comments: Комментарии
+list.label_thread_id: 'Обсуждение #'
+breadcrumb.link_comment_list: Список комментариев
+list.label_created_at: Дата создания
+list.label_author: Автор
+list.label_body: Текст
+list.label_moderated_by: Модератор
+list.label_moderated_at: Дата модерации
+list.label_state_string: Состояние
+
+state_pending: Ожидает модерации
+state_deleted: Удален
+state_spam: Спам
+state_visible: Показывать
+
+STATE_DELETED: Удален
+STATE_PENDING: Ожидает модерации
+STATE_SPAM: Спам
+STATE_VISIBLE: Показан

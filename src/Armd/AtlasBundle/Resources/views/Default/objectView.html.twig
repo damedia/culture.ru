@@ -172,19 +172,18 @@
 								{#<input type="submit" value="Отправить" class="button" />#}
 							{#</form>#}
 
-                            {# comments hidden until moderation #}
-                            {#{% set comment_thread_id = 'atlas_' ~ entity.id %}#}
-                            {#{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}#}
+                            {% set comment_thread_id = 'atlas_' ~ entity.id %}
+                            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
-                            {#{% if not is_granted('ROLE_USER') %}#}
-                                {#<div class="comments-auth-block">#}
-                                    {#<p>#}
-                                        {#Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>#}
-                                    {#</p>#}
-                                    {#{% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}#}
+                            {% if not is_granted('ROLE_USER') %}
+                                <div class="comments-auth-block">
+                                    <p>
+                                        Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>
+                                    </p>
+                                    {% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}
 
-                                {#</div>#}
-                            {#{% endif %}#}
+                                </div>
+                            {% endif %}
 
 						</div>
 				    </div>

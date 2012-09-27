@@ -12,12 +12,14 @@ use Armd\UserBundle\Entity\User;
  * @ORM\Entity
  * @ORM\Table(name="comment")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment extends BaseComment implements SignedCommentInterface
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -36,6 +38,32 @@ class Comment extends BaseComment implements SignedCommentInterface
      * @var User
      */
     protected $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="moderated_by_user_id", nullable=true)
+     */
+    protected $moderatedBy;
+
+    /**
+     * @ORM\Column(type="datetime", name="moderated_at", nullable=true)
+     */
+    protected $moderatedAt;
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setInitialState()
+    {
+        $roles = $this->author->getRoles();
+
+        if(in_array('ROLE_ADMIN', $roles, true)) {
+            $this->setState(self::STATE_VISIBLE);
+        } else {
+            $this->setState(self::STATE_PENDING);
+        }
+    }
 
     public function getId()
     {
@@ -84,11 +112,52 @@ class Comment extends BaseComment implements SignedCommentInterface
             $authorName = 'Anonymous';
         } else {
             $authorName = $this->getAuthor()->getFullname();
-            if(empty($authorName)) {
+            if(strlen(trim($authorName)) === 0) {
                 $authorName = $this->getAuthor()->getUsername();
             }
         }
-
         return $authorName;
+    }
+
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+    }
+
+    public function getModeratedBy()
+    {
+        return $this->moderatedBy;
+    }
+
+    public function setModeratedBy(UserInterface $moderatedBy)
+    {
+        $this->moderatedBy = $moderatedBy;
+    }
+
+    public function getModeratedAt()
+    {
+        return $this->moderatedAt;
+    }
+
+    public function setModeratedAt(\DateTime $moderatedAt)
+    {
+        $this->moderatedAt = $moderatedAt;
+    }
+
+    public function getStateString()
+    {
+        $states = array(
+            self::STATE_DELETED => 'STATE_DELETED',
+            self::STATE_PENDING => 'STATE_PENDING',
+            self::STATE_SPAM => 'STATE_SPAM',
+            self::STATE_VISIBLE => 'STATE_VISIBLE',
+        );
+
+        return $states[$this->getState()];
     }
 }
