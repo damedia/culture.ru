@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Armd\NewsBundle\Admin;
+namespace Armd\MainBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;

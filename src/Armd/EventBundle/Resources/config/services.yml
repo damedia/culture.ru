@@ -7,12 +7,6 @@ services:
     armd_event.entity_manager:
         alias: doctrine.orm.default_entity_manager
 
-    armd_event.admin.category:
-        class: Armd\EventBundle\Admin\Category
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Events, label: Categories }
-        arguments: [null, %armd_event.manager.category.entity%, SonataAdminBundle:CRUD, @service_container]
-
     armd_event.admin.event:
         class: Armd\EventBundle\Admin\Event
         tags:
