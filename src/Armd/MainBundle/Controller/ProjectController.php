@@ -20,6 +20,7 @@ class ProjectController extends Controller
         $criteria = array(
             'region_id' => $request->query->get('region_id'),
             'month'     => $request->query->get('month'),
+			'category' => 'project'
         );
         
         $manager = $this->getEventManager();
