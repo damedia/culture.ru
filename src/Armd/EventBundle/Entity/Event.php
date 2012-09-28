@@ -43,7 +43,7 @@ class Event
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\MainBundle\Entity\Subject")
+     * @ORM\ManyToOne(targetEntity="\Armd\MainBundle\Entity\Subject")
      * @ORM\JoinColumn(nullable=false)     
      * @ORM\OrderBy({"title"="ASC"})
      **/
@@ -156,10 +156,10 @@ class Event
     /**
      * Set subject
      *
-     * @param Armd\MainBundle\Entity\Subject $subject
+     * @param \Armd\MainBundle\Entity\Subject $subject
      * @return Event
      */
-    public function setSubject(Armd\MainBundle\Entity\Subject $subject = null)
+    public function setSubject(\Armd\MainBundle\Entity\Subject $subject = null)
     {
         $this->subject = $subject;
         return $this;
@@ -168,7 +168,7 @@ class Event
     /**
      * Get subject
      *
-     * @return Armd\MainBundle\Entity\Subject 
+     * @return \Armd\MainBundle\Entity\Subject 
      */
     public function getSubject()
     {
