@@ -22,7 +22,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
     /**
      * Load data fixtures with the passed EntityManager
      *
-     * @param Doctrine\Common\Persistence\ObjectManager $manager
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
     function load(ObjectManager $manager)
     {
@@ -88,7 +88,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
 
         if(!empty($data['videos'])) {
             foreach($data['videos'] as $videoRef) {
-                $video = $this->getReference('armd.atlas.tvigle.' . $videoRef);
+                $video = $this->getReference($videoRef);
                 if(empty($video)) {
                     throw new \InvalidArgumentException('Category reference ' . $videoRef . ' not found');
                 }
@@ -97,7 +97,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         }
 
         if(!empty($data['primaryCategory'])) {
-            $category = $this->getReference('armd.atlas.category.' . $data['primaryCategory']);
+            $category = $this->getReference($data['primaryCategory']);
             if(empty($category)) {
                 throw new \InvalidArgumentException('Category reference ' . $data['primaryCategory'] . ' not found');
             }
@@ -106,7 +106,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
 
         if(!empty($data['secondaryCategories'])) {
             foreach($data['secondaryCategories'] as $categoryRef) {
-                $category = $this->getReference('armd.atlas.category.' . $categoryRef);
+                $category = $this->getReference($categoryRef);
                 if(empty($category)) {
                     throw new \InvalidArgumentException('Category reference ' . $categoryRef . ' not found');
                 }
@@ -116,7 +116,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
 
         if(!empty($data['regions'])) {
             foreach($data['regions'] as $regionRef) {
-                $region = $this->getReference('armd_atlas.region.' . $regionRef);
+                $region = $this->getReference($regionRef);
                 if(!empty($region)) {
                     $object->addRegion($region);
                 }
@@ -124,7 +124,7 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         }
 
         if (!empty($data['ref_code'])) {
-            $this->addReference('armd_atlas.object.' . $data['ref_code'], $object);
+            $this->addReference($data['ref_code'], $object);
         }
 
         return $object;
@@ -186,6 +186,6 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
      */
     function getOrder()
     {
-        return 20;
+        return 130;
     }
 }

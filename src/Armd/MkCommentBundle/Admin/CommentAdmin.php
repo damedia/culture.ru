@@ -2,6 +2,7 @@
 namespace Armd\MkCommentBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -17,20 +18,22 @@ class CommentAdmin extends Admin
         '_sort_by' => 'createdAt' // name of the ordered field (default = the model id field, if any)
     );
 
-//    public function __construct($code, $class, $baseControllerName, $serviceContainer)
-//    {
-//        parent::__construct($code, $class, $baseControllerName);
-//        $this->container = $serviceContainer;
-//    }
+    public function createQuery($context = 'list')
+    {
+        $qb = $this->modelManager->getEntityManager('ArmdMkCommentBundle:Comment')
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('ArmdMkCommentBundle:Comment', 'c');
+
+        return new ProxyQuery($qb);
+    }
 
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
             ->remove('create')
-//            ->remove('delete')
             ->remove('edit')
             ;
-
     }
 
     /**

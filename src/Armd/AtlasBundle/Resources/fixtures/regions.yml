@@ -1,18 +1,18 @@
 regions:
     - title: Москва
       sortIndex: 10
-      ref_code: moscow
+      ref_code: armd_atlas.region.moscow
     - title: Тюменская область
-      ref_code: tumen
+      ref_code: armd_atlas.region.tumen
     - title: Ханты-Мансийский автономный округ
     - title: Московская область
     - title: Санкт-Петербург
-      ref_code: piter
+      ref_code: armd_atlas.region.piter
     - title: KrasnoyarskKray-Красноярский край
     - title: Свердловская область
     - title: Краснодарский край
     - title: Татарстан
-      ref_code: tatarstan
+      ref_code: armd_atlas.region.tatarstan
     - title: Ямало-Ненецкий автономный округ
     - title: Башкортостан
     - title: Самарская область

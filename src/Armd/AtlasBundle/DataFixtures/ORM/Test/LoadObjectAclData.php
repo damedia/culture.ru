@@ -45,11 +45,6 @@ class LoadObjectAclData extends AbstractFixture implements OrderedFixtureInterfa
         $aclProvider->updateAcl($acl);
     }
 
-    function getOrder()
-    {
-        return 30;
-    }
-
     /**
      * Sets the Container.
      *
@@ -61,4 +56,11 @@ class LoadObjectAclData extends AbstractFixture implements OrderedFixtureInterfa
     {
         $this->container = $container;
     }
+
+    function getOrder()
+    {
+        return 140;
+    }
+
+
 }

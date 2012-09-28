@@ -2,6 +2,7 @@
 namespace Armd\AtlasBundle\DataFixtures\ORM\Test;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -10,7 +11,7 @@ use Armd\UserBundle\Entity\User;
 use Armd\UserBundle\Entity\Group;
 use Armd\UserBundle\Entity\UserManager;
 
-class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     private $container;
 
@@ -107,4 +108,13 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
 
     }
 
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    function getOrder()
+    {
+        return 10;
+    }
 }

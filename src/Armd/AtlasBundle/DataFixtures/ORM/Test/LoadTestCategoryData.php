@@ -45,7 +45,7 @@ class LoadTestCategoryData extends AbstractFixture implements OrderedFixtureInte
         }
 
         if (!empty($categoryData['ref_code'])) {
-            $this->addReference('armd.atlas.category.' . $categoryData['ref_code'], $category);
+            $this->addReference($categoryData['ref_code'], $category);
         }
 
         $manager->persist($category);
@@ -90,6 +90,6 @@ class LoadTestCategoryData extends AbstractFixture implements OrderedFixtureInte
      */
     function getOrder()
     {
-        return 10;
+        return 120;
     }
 }

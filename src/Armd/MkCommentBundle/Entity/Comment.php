@@ -9,7 +9,7 @@ use FOS\CommentBundle\Entity\Comment as BaseComment;
 use Armd\UserBundle\Entity\User;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\MkCommentBundle\Repository\CommentRepository")
  * @ORM\Table(name="comment")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @ORM\HasLifecycleCallbacks()

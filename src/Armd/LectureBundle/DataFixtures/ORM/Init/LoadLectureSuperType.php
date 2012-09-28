@@ -12,18 +12,18 @@ class LoadLectureSuperTypeData extends AbstractFixture implements OrderedFixture
 {
     public function load(ObjectManager $manager)
     {
-        $types = array(
-          'LECTURE_SUPER_TYPE_LECTURE' => 'Лекция',
-          'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' => 'Трансляция',
-        );
+        $type = new LectureSuperType();
+        $type->setCode('LECTURE_SUPER_TYPE_LECTURE');
+        $type->setName('Лекция');
+        $manager->persist($type);
+        $this->setReference('armd_lecture.lecture_super_type.lecture', $type);
 
-        foreach($types as $key => $val) {
-            $type = new LectureSuperType();
-            $type->setCode($key);
-            $type->setName($val);
-            $manager->persist($type);
-            $this->setReference('armd_lecture.lecture_super_type.' . strtolower($key), $type);
-        }
+        $type = new LectureSuperType();
+        $type->setCode('LECTURE_SUPER_TYPE_VIDEO_TRANSLATION');
+        $type->setName('Трансляция');
+        $manager->persist($type);
+        $this->setReference('armd_lecture.lecture_super_type.translation', $type);
+
         $manager->flush();
     }
 
@@ -34,6 +34,6 @@ class LoadLectureSuperTypeData extends AbstractFixture implements OrderedFixture
      */
     function getOrder()
     {
-        return 1;
+        return 210;
     }
 }

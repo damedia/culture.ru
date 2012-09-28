@@ -24,7 +24,7 @@ class LoadInitWeekDayData extends AbstractFixture implements OrderedFixtureInter
             $day->setName($dayData);
             $day->setSortIndex($sortIndex);
             $manager->persist($day);
-            $this->addReference('armd.atlas.weekday.day' . $sortIndex,  $day);
+            $this->addReference('armd_atlas.weekday.day' . $sortIndex,  $day);
 
             $sortIndex++;
         }
@@ -38,6 +38,6 @@ class LoadInitWeekDayData extends AbstractFixture implements OrderedFixtureInter
      */
     function getOrder()
     {
-        return 15;
+        return 10;
     }
 }
