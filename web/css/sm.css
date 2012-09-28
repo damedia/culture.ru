@@ -4443,11 +4443,12 @@ white-space:nowrap;
 		}
 		.nowrap {white-space:nowrap;}
 		
-		.table caption {
+		.table caption, h2.table-caption {
 			text-align:left;
 			font-size:18px;
 			margin:34px 0 6px;
 			color:#3b3b3b;
+			font-weight:normal;
 		}
 		
 		.rl-name-big {
