@@ -42,9 +42,9 @@ class EventManager
             ->orderBy('e.beginDate')
         ;
         
-        if (!empty($criteria['category'])) {
-            $query->innerJoin('e.category', 'c', 'WITH', 'c.slug = :slug');
-            $parameters['slug'] = $criteria['category'];
+        if (!empty($criteria['subject'])) {
+            $query->innerJoin('e.subject', 'c', 'WITH', 'c.slug = :slug');
+            $parameters['slug'] = $criteria['subject'];
         }
         
         if (isset($criteria['region_id']) && intval($criteria['region_id'])) {

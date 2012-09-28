@@ -41,14 +41,14 @@ class Event
      * @ORM\Column(name="date_to", type="datetime", nullable=true)
      */
     private $endDate;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(nullable=false)
-     * @ORM\OrderBy({"title" = "ASC"})     
-     **/
-    protected $category;    
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\MainBundle\Entity\Subject")
+     * @ORM\JoinColumn(nullable=false)     
+     * @ORM\OrderBy({"title"="ASC"})
+     **/
+    protected $subject;    
+    
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\AtlasBundle\Entity\Region")
      */
@@ -154,25 +154,25 @@ class Event
     }
     
     /**
-     * Set category
+     * Set subject
      *
-     * @param Category $category
+     * @param Armd\MainBundle\Entity\Subject $subject
      * @return Event
      */
-    public function setCategory(Category $category = null)
+    public function setSubject(Armd\MainBundle\Entity\Subject $subject = null)
     {
-        $this->category = $category;
+        $this->subject = $subject;
         return $this;
     }
 
     /**
-     * Get category
+     * Get subject
      *
-     * @return Category 
+     * @return Armd\MainBundle\Entity\Subject 
      */
-    public function getCategory()
+    public function getSubject()
     {
-        return $this->category;
+        return $this->subject;
     }    
 
     /**

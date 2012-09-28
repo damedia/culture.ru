@@ -6,12 +6,6 @@ services:
     armd_news.entity_manager:
         alias: doctrine.orm.default_entity_manager
 
-    armd_news.admin.subject:
-        class: Armd\NewsBundle\Admin\Subject
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: News, label: Subjects }
-        arguments: [null, Armd\NewsBundle\Entity\Subject, SonataAdminBundle:CRUD, @service_container]
-
     armd_news.admin.category:
         class: Armd\NewsBundle\Admin\Category
         tags:

@@ -49,7 +49,7 @@ class Event extends Admin
                 ->add('title')
                 ->add('beginDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('endDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
-                ->add('category')                
+                ->add('subject')                
                 ->add('region')                
                 ->add('city')
                 ->add('place')                                
@@ -68,7 +68,8 @@ class Event extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('beginDate')            
+            ->add('beginDate')
+            ->add('subject')                        
             ->add('region')
             ->add('published')            
         ;
@@ -79,7 +80,7 @@ class Event extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('category')        
+            ->add('subject')        
             ->add('region')
             ->add('published')
         ;

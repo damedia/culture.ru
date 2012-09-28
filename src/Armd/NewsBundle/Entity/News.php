@@ -60,7 +60,7 @@ class News extends BaseNews implements CommentableInterface
     protected $category;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Subject")
+     * @ORM\ManyToOne(targetEntity="Armd\MainBundle\Entity\Subject")
      * @ORM\OrderBy({"title"="ASC"})
      **/
     protected $subject;    
@@ -503,10 +503,10 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Set subject
      *
-     * @param Armd\NewsBundle\Entity\Subject $subject
+     * @param Armd\MainBundle\Entity\Subject $subject
      * @return News
      */
-    public function setSubject(\Armd\NewsBundle\Entity\Subject $subject = null)
+    public function setSubject(\Armd\MainBundle\Entity\Subject $subject = null)
     {
         $this->subject = $subject;
     
@@ -516,7 +516,7 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Get subject
      *
-     * @return Armd\NewsBundle\Entity\Subject 
+     * @return Armd\MainBundle\Entity\Subject 
      */
     public function getSubject()
     {

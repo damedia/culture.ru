@@ -1,12 +1,12 @@
 <?php
 
-namespace Armd\NewsBundle\Entity;
+namespace Armd\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="content_news_subject") 
+ * @ORM\Table(name="armd_main_subject") 
  */
 class Subject
 {

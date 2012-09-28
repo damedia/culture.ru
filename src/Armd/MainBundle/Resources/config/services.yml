@@ -1,7 +1,11 @@
 parameters:
-#    armd_main.example.class: Armd\MainBundle\Example
+    armd_news.admin.subject.class:  Armd\MainBundle\Admin\Subject
+    armd_news.admin.subject.entity: Armd\MainBundle\Entity\Subject
 
 services:
-#    armd_main.example:
-#        class: %armd_main.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+    armd_news.admin.subject:
+        class: %armd_news.admin.subject.class%
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Directories, label: Subjects }
+        arguments: [null, %armd_news.admin.subject.entity%, SonataAdminBundle:CRUD, @service_container]
