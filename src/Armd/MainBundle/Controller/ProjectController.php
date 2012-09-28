@@ -7,20 +7,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProjectController extends Controller
 {
-    function indexAction()
+    function indexAction($template = 'ArmdMainBundle:Project:index.html.twig')
     {    
-        return $this->render('ArmdMainBundle:Project:index.html.twig', array(
-        ));
+        return $this->render($template);
     }
     
-    function eventsAction()
+    function eventsAction($subject)
     {        
         $request = Request::createFromGlobals();
         
         $criteria = array(
+            'subject'   => $subject,
             'region_id' => $request->query->get('region_id'),
             'month'     => $request->query->get('month'),
-			'category' => 'project'
         );
         
         $manager = $this->getEventManager();
@@ -33,15 +32,15 @@ class ProjectController extends Controller
         ));
     }
     
-    function newsAction($category, $tag = 'Project', $limit = 10)
+    function newsAction($category, $subject, $limit = 10)
     {
         $criteria = array(
-            $tag => true, 
-            'category' => $category
+            'subject'   => $subject, 
+            'category'  => $category,
         );
     
         return $this->render('ArmdMainBundle:Project:news.html.twig', array(
-            'news'  =>  $this->getNewsManager()->getPager($criteria, 1, $limit),
+            'news'      =>  $this->getNewsManager()->getPager($criteria, 1, $limit),
         ));        
     }
             

@@ -18,13 +18,13 @@ armd_main_services:
     pattern:  /services/
     defaults: { _controller: ArmdMainBundle:Main:services }
 
-armd_main_brodino:
+armd_main_project_brodino:
     pattern:  /borodino/
-    defaults: { _controller: ArmdMainBundle:Borodino:index }
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Borodino:index.html.twig }
 
-armd_main_project:
-    pattern:  /project/
-    defaults: { _controller: ArmdMainBundle:Project:index }
+armd_main_project_1150:
+    pattern:  /1150/
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:1150:index.html.twig }
     
 armd_main_press_archive:
     pattern:  /press-centre/archive/

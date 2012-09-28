@@ -1,7 +1,7 @@
 {% extends 'ArmdMainBundle:Project:index.html.twig' %}
 
-{% set subject = "borodino" %}
-{% set title = "Бородинскому сражению 200 лет"%}
+{% set subject = "1150" %}
+{% set title = "1150 лет российской государственности" %}
 
 {% block title %} — {{ title }}{% endblock %}
 
@@ -10,6 +10,7 @@
 		<h2>{{ title }}</h2>
 	</div>
 	<div class="text-indent">
+{#		
 		<img src="/img/borodino/borodino-dates.png" alt="" class="borodino-dates" />
 		<p class="uppercase-gray"><i>&laquo;Сей день пребудет вечным памятником мужества и&nbsp;отличной храбрости российских воинов&raquo;, -  
 		<br>из&nbsp;донесения М.И. Кутузова императору Александру&nbsp;I.</i></p>  
@@ -117,9 +118,9 @@
 				<img src="/img/borodino/panorama.jpg" alt="" />
 			</a>
 		</div>
-		
-		<h2>Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</h2>
-		{% render "ArmdMainBundle:Project:events" with {"subject": subject} %}
+#}		
+		<h2>Мероприятия, посвященные празднованию {{ title }}</h2>
+		{% render "ArmdMainBundle:Project:events" with { "subject": subject } %}
 	</div>	
 {% endblock %}
 
@@ -133,7 +134,4 @@
 		<h2>Новости</h2>
 	</div>		
 	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
-				
-	{% include "ArmdMainBundle:Borodino:publications.html.twig" %}
-	{% include "ArmdMainBundle:Borodino:media.html.twig" %}
 {% endblock %}	    		
