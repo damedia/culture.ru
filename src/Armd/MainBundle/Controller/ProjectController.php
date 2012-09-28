@@ -26,8 +26,8 @@ class ProjectController extends Controller
 
         return $this->render('ArmdMainBundle:Project:events.html.twig', array(
             'events'    => $manager->getPager($criteria, 1),
-            'regions'   => $manager->getDistinctRegions(),
-            'months'    => $manager->getDistinctMonths(),
+            'regions'   => $manager->getDistinctRegions($subject),
+            'months'    => $manager->getDistinctMonths($subject),
             'filter'    => $criteria,
         ));
     }

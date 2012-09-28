@@ -65,13 +65,15 @@ class EventManager
         return $query;
     }
     
-    public function getDistinctMonths()
+    public function getDistinctMonths($subject)
     {
         $result = array();
         $query = $this->em->getRepository($this->class)->createQueryBuilder('e')
             ->select('e.beginDate')
             ->distinct()
+            ->innerJoin('e.subject', 'c', 'WITH', 'c.slug = :slug')
             ->andWhere('e.published = true')
+            ->setParameter('slug', $subject)
         ;
         
         $dates = $query->getQuery()->getArrayResult();
@@ -87,16 +89,18 @@ class EventManager
         return $result;
     }
     
-    public function getDistinctRegions()
+    public function getDistinctRegions($subject)
     {
         $result = array();
         $query = $this->em->getRepository('Armd\AtlasBundle\Entity\Region')->createQueryBuilder('r')
             ->distinct()
             ->from($this->class, 'e')
+            ->innerJoin('e.subject', 'c', 'WITH', 'c.slug = :slug')
             ->andWhere('e.region = r.id')
             ->andWhere('e.published = true')            
             ->orderBy('r.sortIndex')
             ->addOrderBy('r.title')
+            ->setParameter('slug', $subject)            
         ;
         
         $regions = $query->getQuery()->getResult();
