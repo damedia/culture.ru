@@ -767,6 +767,7 @@ class DefaultController extends Controller
                     );
                 }
             }
+
             $res = array(
                 'success' => true,
                 'result' => $result,
