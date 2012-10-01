@@ -523,14 +523,16 @@ AT.initMyObjects = function() {
     });
 
     // Кнопка-крестик закрывает попап
+    /*
     $('.add-object-form .exit, .add-object-form .rst-btn').click(function(){
         $(this).closest('.add-object-form').hide();
         return false;
     });
+    */
 
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
-        console.log('Add new point button clicked');
+        console.log('Click on #atlas-objects-add');
 
         // Если кнопка добавления объекта находится в зажатом состоянии, отжимаем ее и отменяем процесс.
         if ($(this).hasClass('active')) {
@@ -618,6 +620,19 @@ AT.initMyObjects = function() {
             return point;
         }
     });
+
+    // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
+    var jPopup = $('#add-object-form');
+    jPopup.find('.rst-btn, .exit').click(function(){
+        $('#atlas-objects-add').removeClass('active');
+        jPopup.hide();
+        myPoint = jPopup.data('myPoint');
+        if (jPopup.hasClass('add')) {
+            AT.map.geometry.remove(myPoint); // Удаляем точку с карты если диалог в режиме добавления
+        }
+        return false;
+    });
+
 };
 
 /**
@@ -635,6 +650,7 @@ AT.showObjectForm = function(params) {
         jAddedImages = jPopup.find('.added-images');
 
     console.log('Show dialog for point:', myPoint);
+    jPopup.data('myPoint', myPoint);
 
     // Fill form
     jPopupForm.resetForm();
@@ -673,12 +689,17 @@ AT.showObjectForm = function(params) {
     }
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
+    /*
     jPopup.find('.rst-btn, .exit').click(function(){
         $('#atlas-objects-add').removeClass('active');
         jPopup.hide();
-        AT.map.geometry.remove(myPoint); // Удаляем точку с карты
+        console.info('myPoint>>>', myPoint);
+        if (jPopup.hasClass('add')) {
+            AT.map.geometry.remove(myPoint); // Удаляем точку с карты если диалог в режиме добавления
+        }
         return false;
     });
+    */
 
     // Диалог после добавления объекта. Крестик. Скрываем диалог.
     jSuccess.find('.exit').click(function(){
