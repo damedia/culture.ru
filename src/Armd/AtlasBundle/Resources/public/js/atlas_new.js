@@ -49,6 +49,9 @@ AT.initMap = function(params) {
     this.map = new PGmap(map_el, parameters);
     this.map.controls.addControl('slider');
 
+    this.map.layers.LEFTLIMITLON = 2081245.7489734937;
+    this.map.layers.RIGHTLIMITLON = -19736433.1934625;
+
     this.map.balloon.content.parentNode.style.width = '300px';
 };
 
@@ -522,17 +525,12 @@ AT.initMyObjects = function() {
         });
     });
 
-    // Кнопка-крестик закрывает попап
-    /*
-    $('.add-object-form .exit, .add-object-form .rst-btn').click(function(){
-        $(this).closest('.add-object-form').hide();
-        return false;
-    });
-    */
-
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
         console.log('Click on #atlas-objects-add');
+
+        // Иконка для курсора
+        $('.PGmap-layer-container').css('cursor', 'url("/bundles/armdatlas/images/cursor_pin.cur") 10 32, move');
 
         // Если кнопка добавления объекта находится в зажатом состоянии, отжимаем ее и отменяем процесс.
         if ($(this).hasClass('active')) {
@@ -609,10 +607,28 @@ AT.initMyObjects = function() {
                 draggable: draggable,
                 coord: coord
             });
-            /* @TODO: Draggable point handler -> update coords
-            point.draggable.callback = function() {
-                console.log('ondraggable');
-            }*/
+
+            if (draggable) {
+                // Draggable point handler -> update coords
+                point.draggable.callback("dragEnd", function(){
+                    var lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6),
+                        lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
+                    $('#lon').val(lon);
+                    $('#lat').val(lat);
+
+                    // Попытка определить адрес по координатам
+                    console.log('Попытка определить адрес по координатам');
+                    AT.map.search({
+                        lon: point.coord.lon,
+                        lat: point.coord.lat,
+                        type: 'geocode'
+                    }, function (r) {
+                        var data = JSON.parse(r).res[0];
+                        $('#address').val(data.addr);
+                    });
+                });
+            }
+
             if (onClick) {
                 //PGmap.Events.addHandler(point.container, 'click', onClick);
             }
@@ -677,15 +693,15 @@ AT.showObjectForm = function(params) {
         $('#name').val(params.entity.title);
         $('#address').val(params.entity.address);
         $('#descr').val(params.entity.announce);
-        $('#lon').val(params.entity.lon);
-        $('#lat').val(params.entity.lat);
+        $('#lon').val(params.entity.lon.toFixed(6));
+        $('#lat').val(params.entity.lat.toFixed(6));
         $('#primary-category').select2('val', params.entity.primaryCategory);
         $('#category').select2('val', params.entity.secondaryCategory);
     } else {
         jPopup.removeClass('edit').addClass('add');
         $('#object-id').val('');
-        $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon));
-        $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat));
+        $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon).toFixed(6));
+        $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
     }
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
@@ -742,8 +758,8 @@ AT.showObjectForm = function(params) {
         select: function (event, ui) {
             var lon = ui.item.match.x,
                 lat = ui.item.match.y;
-            $('#lon').val(lon);
-            $('#lat').val(lat);
+            $('#lon').val(lon.toFixed(6));
+            $('#lat').val(lat.toFixed(6));
             myPoint.coord.lon = PGmap.Utils.mercX(lon);
             myPoint.coord.lat = PGmap.Utils.mercY(lat);
             myPoint.update();
