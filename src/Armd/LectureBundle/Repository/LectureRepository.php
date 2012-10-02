@@ -107,14 +107,18 @@ class LectureRepository extends EntityRepository
     {
         $rootAliases = $qb->getRootAliases();
         $rootAlias = $rootAliases[0];
-        $qb->addSelect('_categories')
+
+        // categories join removed due to strange behaviour - some records disappear
+        // i thing this is doctrine bug
+        $qb
+//            ->addSelect('_categories')
             ->addSelect('_lecture_video')
             ->addSelect('_lecture_super_type')
             ->addSelect('_lecture_video_image_media')
-            ->leftJoin($rootAlias . '.categories', '_categories')
+//            ->leftJoin($rootAlias . '.categories', '_categories')
             ->leftJoin($rootAlias . '.lectureVideo', '_lecture_video')
             ->leftJoin($rootAlias . '.lectureSuperType', '_lecture_super_type')
-            ->leftJoin('_lecture_video.imageMedia', '_lecture_video_image_media');
-
+            ->leftJoin('_lecture_video.imageMedia', '_lecture_video_image_media')
+        ;
     }
 }
