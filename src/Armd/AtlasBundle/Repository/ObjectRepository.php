@@ -24,9 +24,6 @@ class ObjectRepository extends EntityRepository
                 $qb->expr()->in('c', $categoryIds),
                 $qb->expr()->in('o', $categoryIds)
             ));
-//            'c IN (:categoryIds)')
-//            ->orWhere('o.primaryCategory IN (:categoryIds)')
-//            ->setParameter('categoryIds', $categoryIds);
 
         $rows = $qb->getQuery()->getResult();
         return $rows;

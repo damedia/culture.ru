@@ -378,7 +378,7 @@ class DefaultController extends Controller
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
                         $obraz = true;
-                        $image = $obj->getPrimaryImage();
+                        $image = $obj->getPrimaryImage(); // @TODO Много запросов
                         $imageUrl = $twigExtension->path($image, 'thumbnail');
                     }
                 }
