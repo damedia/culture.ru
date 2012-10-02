@@ -106,7 +106,6 @@ class Object
      */
     private $primaryImage;
 
-
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="atlas_object_image")
@@ -193,12 +192,22 @@ class Object
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
-    protected $updatedAt;
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(name="is_official", type="boolean", nullable=true)
+     */
+    private $isOfficial = true;
+
+    /**
+     * @ORM\Column(name="status", type="integer", nullable=true)
+     */
+    private $status;
 
     public function syncPrimaryAndSecondaryCategories()
     {
@@ -1041,4 +1050,50 @@ class Object
         $this->updatedAt = new \DateTime;
     }
 
+
+    /**
+     * Set isOfficial
+     *
+     * @param boolean $isOfficial
+     * @return Object
+     */
+    public function setIsOfficial($isOfficial)
+    {
+        $this->isOfficial = $isOfficial;
+    
+        return $this;
+    }
+
+    /**
+     * Get isOfficial
+     *
+     * @return boolean 
+     */
+    public function getIsOfficial()
+    {
+        return $this->isOfficial;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Object
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }
