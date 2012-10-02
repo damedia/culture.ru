@@ -9,10 +9,8 @@ use FOS\CommentBundle\Entity\Comment as BaseComment;
 use Armd\UserBundle\Entity\User;
 
 /**
- * @ORM\Entity(repositoryClass="Armd\MkCommentBundle\Repository\CommentRepository")
+ * @ORM\Entity
  * @ORM\Table(name="comment")
- * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
- * @ORM\HasLifecycleCallbacks()
  */
 class Comment extends BaseComment implements SignedCommentInterface
 {
@@ -27,7 +25,7 @@ class Comment extends BaseComment implements SignedCommentInterface
      * Thread of this comment
      *
      * @var Thread
-     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread")
+     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"persist"})
      */
     protected $thread;
 
@@ -50,20 +48,9 @@ class Comment extends BaseComment implements SignedCommentInterface
      */
     protected $moderatedAt;
 
+    // used to load moderated fixtures
+    protected $skipAutoModerate = false;
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setInitialState()
-    {
-        $roles = $this->author->getRoles();
-
-        if(in_array('ROLE_ADMIN', $roles, true)) {
-            $this->setState(self::STATE_VISIBLE);
-        } else {
-            $this->setState(self::STATE_PENDING);
-        }
-    }
 
     public function getId()
     {
@@ -119,16 +106,6 @@ class Comment extends BaseComment implements SignedCommentInterface
         return $authorName;
     }
 
-    public function getVisible()
-    {
-        return $this->visible;
-    }
-
-    public function setVisible($visible)
-    {
-        $this->visible = $visible;
-    }
-
     public function getModeratedBy()
     {
         return $this->moderatedBy;
@@ -160,4 +137,15 @@ class Comment extends BaseComment implements SignedCommentInterface
 
         return $states[$this->getState()];
     }
+
+    public function getSkipAutoModerate()
+    {
+        return $this->skipAutoModerate;
+    }
+
+    public function setSkipAutoModerate($skipAutoModerate)
+    {
+        $this->skipAutoModerate = $skipAutoModerate;
+    }
+
 }

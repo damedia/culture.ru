@@ -10,3 +10,12 @@ services:
                 show_in_dashboard: true
                 label_translator_strategy: sonata.admin.label.strategy.underscore
         arguments: [null, Armd\MkCommentBundle\Entity\Comment, ArmdMkCommentBundle:CRUD]
+
+    armd_mk_comment.listener.comment:
+        class: Armd\MkCommentBundle\EventListener\CommentListener
+#        tags:
+#            - { name: doctrine.event_listener, event: prePersist }
+#            - { name: doctrine.event_listener, event: preUpdate }
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_subscriber }

@@ -39,168 +39,168 @@ objects:
       videos: [armd_tvigle_video.tvigle.video1]
       regions: [armd_atlas.region.moscow, armd_atlas.region.piter]
 
-    - title: Библиотека имени ленина
-      announce: Библиотека имени ленина announce
-      content: Библиотека имени ленина content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.235469
-      lon: 39.904629
-      primaryCategory: armd_atlas.category.library
-      secondaryCategories: []
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
-
-    - title: Библиотека имен Пушкина
-      announce: Библиотека имен Пушкина announce
-      content: Библиотека имен Пушкина content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-
-
-    - title: Образ России 1
-      announce: Образ России announce
-      content: Образ России content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-      primaryImage: primary_image.jpg
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      showAtRussianImage: true
-      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
-
-
-    - title: Образ России 2
-      announce: Образ России announce
-      content: Образ России content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-      primaryImage: primary_image.jpg
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      showAtRussianImage: true
-      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
-
-    - title: Образ России 3
-      announce: Образ России announce
-      content: Образ России content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-      primaryImage: primary_image.jpg
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      showAtRussianImage: true
-      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
-
-    - title: Образ России 4
-      announce: Образ России announce
-      content: Образ России content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-      primaryImage: primary_image.jpg
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      showAtRussianImage: true
-
-    - title: Образ России 5
-      announce: Образ России announce
-      content: Образ России content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-      primaryImage: primary_image.jpg
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      showAtRussianImage: true
-      regions: [armd_atlas.region.moscow, armd_atlas.region.piter]
-
-
-    - title: Образ России 6
-      announce: Образ России announce
-      content: Образ России content
-      siteUrl: http://ya.ru
-      email: test@example.org
-      phone: +7 (495) 123 45678
-      address: Москва, ул. Московская д.5
-      lat: 59.335469
-      lon: 39.804629
-      secondaryCategories: [armd_atlas.category.library]
-      workTime: 12:00-19:00
-      weekends: [armd_atlas.weekday.day7]
-      primaryImage: primary_image.jpg
-#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
-      image3d: 3d.jpg
-      virtualTour: http://ya.ru
-      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
-      showAtRussianImage: true
-      regions: [armd_atlas.region.moscow, armd_atlas.region.piter]
+#    - title: Библиотека имени ленина
+#      announce: Библиотека имени ленина announce
+#      content: Библиотека имени ленина content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.235469
+#      lon: 39.904629
+#      primaryCategory: armd_atlas.category.library
+#      secondaryCategories: []
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
+#
+#    - title: Библиотека имен Пушкина
+#      announce: Библиотека имен Пушкина announce
+#      content: Библиотека имен Пушкина content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#
+#
+#    - title: Образ России 1
+#      announce: Образ России announce
+#      content: Образ России content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+#      primaryImage: primary_image.jpg
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      showAtRussianImage: true
+#      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
+#
+#
+#    - title: Образ России 2
+#      announce: Образ России announce
+#      content: Образ России content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+#      primaryImage: primary_image.jpg
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      showAtRussianImage: true
+#      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
+#
+#    - title: Образ России 3
+#      announce: Образ России announce
+#      content: Образ России content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+#      primaryImage: primary_image.jpg
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      showAtRussianImage: true
+#      regions: [armd_atlas.region.tatarstan, armd_atlas.region.piter]
+#
+#    - title: Образ России 4
+#      announce: Образ России announce
+#      content: Образ России content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+#      primaryImage: primary_image.jpg
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      showAtRussianImage: true
+#
+#    - title: Образ России 5
+#      announce: Образ России announce
+#      content: Образ России content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+#      primaryImage: primary_image.jpg
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      showAtRussianImage: true
+#      regions: [armd_atlas.region.moscow, armd_atlas.region.piter]
+#
+#
+#    - title: Образ России 6
+#      announce: Образ России announce
+#      content: Образ России content
+#      siteUrl: http://ya.ru
+#      email: test@example.org
+#      phone: +7 (495) 123 45678
+#      address: Москва, ул. Московская д.5
+#      lat: 59.335469
+#      lon: 39.804629
+#      secondaryCategories: [armd_atlas.category.library]
+#      workTime: 12:00-19:00
+#      weekends: [armd_atlas.weekday.day7]
+#      primaryImage: primary_image.jpg
+##      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+##      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      image3d: 3d.jpg
+#      virtualTour: http://ya.ru
+#      videos: [armd_tvigle_video.tvigle.video1, armd_tvigle_video.tvigle.video2, armd_tvigle_video.tvigle.video3]
+#      showAtRussianImage: true
+#      regions: [armd_atlas.region.moscow, armd_atlas.region.piter]

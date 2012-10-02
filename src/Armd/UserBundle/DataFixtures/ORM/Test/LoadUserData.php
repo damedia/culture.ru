@@ -55,6 +55,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setCredentialsExpired(false);
         $user->setRoles(array('ROLE_ADMIN', 'ROLE_SONATA_ADMIN'));
         $userManager->updateUser($user, true);
+        $this->addReference('armd_user.user.admin', $user);
 
     }
 
@@ -92,6 +93,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setCredentialsExpired(false);
 //        $user->setRoles(array('ROLE_ADMIN', 'ROLE_SONATA_ADMIN'));
         $userManager->updateUser($user, true);
+        $this->addReference('armd_user.user.expert2', $user);
 
         $user = new User();
         $user->setGroups(array($group));
@@ -105,6 +107,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setCredentialsExpired(false);
 //        $user->setRoles(array('ROLE_ADMIN', 'ROLE_SONATA_ADMIN'));
         $userManager->updateUser($user, true);
+        $this->addReference('armd_user.user.expert3', $user);
 
     }
 

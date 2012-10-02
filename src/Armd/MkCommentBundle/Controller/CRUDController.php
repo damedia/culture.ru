@@ -2,6 +2,8 @@
 namespace Armd\MkCommentBundle\Controller;
 
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use FOS\CommentBundle\Events;
+use FOS\CommentBundle\Event\CommentPersistEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\CommentBundle\Model\CommentInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -52,6 +54,10 @@ class CRUDController extends BaseController
                 $selectedModel->setState($state);
                 $selectedModel->setModeratedAt(new \DateTime());
                 $selectedModel->setModeratedBy($this->getUser());
+
+                $event = new CommentPersistEvent($selectedModel);
+                $this->get('event_dispatcher')->dispatch(Events::COMMENT_PRE_PERSIST, $event);
+
                 $modelManager->update($selectedModel);
             }
 

@@ -146,7 +146,10 @@
 						</ol>
 					</div> #}
 				   
-				   <div class='afisha-list-more' id="more-show">Комментарии</div>
+				   <div class='afisha-list-more' id="more-show">
+                       Комментарии
+                       <div class="loading" style="display: none"></div>
+                   </div>
 				   <div class="more-comments-show" style="display:none;">  
 						<div class="comments comments-gray clearfix">
 							{#<div class="comments-block">
@@ -536,23 +539,50 @@
 	<script src="/swf/swfobject/swfkrpano.js"></script>
 
     <script type="text/javascript">
-        $(function(){
+        (function(){
 
-			$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
-			
-			$(window).resize(function(){
-				$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
-		
-			});
+            var atlasObjectView = {
+                commentsLoaded: false,
 
-			$('#more-show').click(function(){
-				$(this).next('div').toggle();
-			});
+                initUi: function() {
+                    atlasObjectView.initPano();
+                    atlasObjectView.initComments();
 
-            $('.comments').on('load', function(){
-                console.log('123');
+                },
+
+                initPano: function() {
+                    $('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
+
+                    $(window).resize(function(){
+                        $('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
+
+                    });
+                },
+
+                initComments: function() {
+                    $('#more-show').click(function(){
+                        $(this).next('div').toggle();
+                        if(!atlasObjectView.commentsLoaded) {
+                            $('#more-show .loading').show();
+                        }
+                    });
+
+                    $('#fos_comment_thread').bind('comments_loaded', function() {
+                        atlasObjectView.commentsLoaded = true;
+                        $('#more-show .loading').hide();
+                    });
+
+                    $('#fos_comment_thread').bind('comment_appended', function() {
+                        armdMessager.showMessage('Спасибо за комментарий! Ваше сообщение появится после модерации.');
+                    });
+
+                }
+            };
+
+            $(function(){
+                atlasObjectView.initUi();
             });
-			
-        });
+
+        })();
     </script>
 {% endblock %}

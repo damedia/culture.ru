@@ -1,7 +1,0 @@
-threads:
-    -
-        object: armd_atlas.object.object1
-        ref_code: armd_mk_comment.thread.thread1
-    -
-        object: armd_atlas.object.object2
-        ref_code: armd_mk_comment.thread.thread2
