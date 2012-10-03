@@ -708,8 +708,8 @@ AT.showObjectForm = function(params) {
         $('#name').val(params.entity.title);
         $('#address').val(params.entity.address);
         $('#descr').val(params.entity.announce);
-        $('#lon').val(params.entity.lon.toFixed(6));
-        $('#lat').val(params.entity.lat.toFixed(6));
+        $('#lon').val(params.entity.lon);
+        $('#lat').val(params.entity.lat);
         $('#primary-category').select2('val', params.entity.primaryCategory);
         $('#category').select2('val', params.entity.secondaryCategory);
     } else {
