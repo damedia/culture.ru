@@ -1,0 +1,22 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block title %}
+    {{ "CustomObjects"|trans }}
+{% endblock%}
+
+{% block actions %}
+{% endblock%}
+
+{% block list_filters %}
+{% endblock%}
+
+{% block list_table %}
+    <table>
+        {% for obj in objects %}
+            <tr>
+                <td>{{ obj.id }}</td>
+                <td>{{ obj.title }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock%}

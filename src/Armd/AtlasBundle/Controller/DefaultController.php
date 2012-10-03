@@ -584,7 +584,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Мои объекты. Добавить объект
+     * Мои объекты. Добавить/изменить объект
      *
      * @Route("/objects/add")
      */
@@ -617,7 +617,7 @@ class DefaultController extends Controller
                 $mode = 'edit';
                 $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
                 if (! $entity)
-                    throw new \Exception('Редакатируемый объект не найден');
+                    throw new \Exception('Редактируемый объект не найден');
             } else {
                 $mode = 'add';
                 $entity = new Object();

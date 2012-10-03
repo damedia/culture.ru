@@ -287,4 +287,16 @@ class ObjectCustomAdmin extends Admin
         return $themes;
     }
 
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'list':
+                return 'ArmdAtlasBundle:Admin:objectcustom-list.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
+
 }

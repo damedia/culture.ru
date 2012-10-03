@@ -482,10 +482,11 @@ AT.initMyObjects = function() {
                 if (res.success) {
                     // И показываем попап с формой
                     AT.showObjectForm({
-                        entity: res.result,
+                        entity: res.result, // в режиме редактирования
                         coord: coord,
                         point: point
                     });
+                    // Скрываем балун
                     AT.map.balloon.close();
                 } else {
                     alert(res.message);
@@ -712,12 +713,40 @@ AT.showObjectForm = function(params) {
         $('#lat').val(params.entity.lat);
         $('#primary-category').select2('val', params.entity.primaryCategory);
         $('#category').select2('val', params.entity.secondaryCategory);
-    } else {
+
+        // Включим перетаскивание точки
+        var point = myPoint;
+        point.draggable = new PGmap.Events.Draggable(point, {
+            drag: function (pos) {
+                point.coord = point.globals.xyToLonLat(pos.x, pos.y);
+                var lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6),
+                    lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
+                $('#lon').val(lon);
+                $('#lat').val(lat);
+            },
+            dragEnd: function (pos) {
+                // Попытка определить адрес по координатам
+                console.log('Попытка определить адрес по координатам');
+                AT.map.search({
+                    lon: point.coord.lon,
+                    lat: point.coord.lat,
+                    type: 'geocode'
+                }, function (r) {
+                    var data = JSON.parse(r).res[0];
+                    $('#address').val(data.addr);
+                });
+            }
+        });
+
+    }
+    else {
         jPopup.removeClass('edit').addClass('add');
         $('#object-id').val('');
         $('#lon').val(PGmap.Utils.fromMercX(params.coord.lon).toFixed(6));
         $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
     }
+
+    console.log('myPoint', myPoint);
 
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     /*
