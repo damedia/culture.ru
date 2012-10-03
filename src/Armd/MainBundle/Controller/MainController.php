@@ -14,9 +14,11 @@ class MainController extends Controller
         return $this->renderTemplate('banner');
     }
     
-    public function museumsAction()
+    public function museumsAction($page = 1, $limit = 100)
     {
-        return $this->renderTemplate('museums');
+        return $this->renderTemplate('museums', array(
+            'museums'   => $this->getMuseumManager()->getPager(array(), $page, $limit),
+        ));
     }
     
     public function aboutAction()
@@ -28,11 +30,10 @@ class MainController extends Controller
     {
         return $this->renderTemplate('services');
     }
-    
-
+	
     public function indexAction()
     {
-        $categories = $this->get('armd_news.controller.news')->getCategoriesList();
+        $categories = $this->getNewsManager()->getCategories();
 
         return $this->render('ArmdMainBundle::index.html.twig', array(
             'news'          => $this->getNews($categories),        
@@ -69,22 +70,49 @@ class MainController extends Controller
         )); 
     }
     
+    public function pressArchiveAction($format = 'gallery_archive', $category = 'archive')
+    {
+        $criteria = array(
+            'defaultFormat'    => $format,
+        );
+    
+        return $this->render('ArmdMainBundle:Archive:index.html.twig', array(
+            'category'  => $category,
+            'gallery'   => $this->getGalleryManager()->findOneBy($criteria)
+        )); 
+    }
+    
     function getNews(array $categories)
     {
         $result = array();
         
         foreach ($categories as $c)
         {
-            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getLatestNewsList(4, 1, array($c->getSlug()));    
+            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(array('category' => $c->getSlug()), 1, 4);    
         }
-        
+
         return $result;
     }
     
-    function renderTemplate($template)
+    function renderTemplate($template, $parameters = array())
     {
-        return $this->render("ArmdMainBundle::{$template}.html.twig", array());
+        return $this->render("ArmdMainBundle::{$template}.html.twig", $parameters);
     }
+    
+    function getNewsManager()
+    {
+        return $this->get('armd_news.manager.news');
+    }        
+    
+    function getMuseumManager()
+    {
+        return $this->get('armd_museum.manager.museum');
+    }        
+    
+    function getGalleryManager()
+    {
+        return $this->get('sonata.media.manager.gallery');
+    }        
     
     function getTemplateName($action)
     {

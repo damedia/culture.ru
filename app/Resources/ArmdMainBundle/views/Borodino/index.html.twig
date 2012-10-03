@@ -1,0 +1,136 @@
+{% extends 'ArmdMainBundle:Project:index.html.twig' %}
+
+{% set subject = "borodino" %}
+{% set title = "Бородинскому сражению 200 лет"%}
+
+{% set videos = [
+    {
+        'url':      '/atlas/object/816',
+        'img':      '/img/borodino/kutuzov.jpg',
+        'title':    'Кутузов.<br />Гений войны 1812 года',
+    },
+    {
+        'url':      '/atlas/object/815',
+        'img':      '/img/borodino/video_2.jpg',
+        'title':    'Багратион',
+    },
+    {
+        'url':      '/lecture/view/15',
+        'img':      '/img/borodino/video_3.jpg',
+        'title':    '1812 год в истории России',
+    },
+] %}
+
+{% block title %} — {{ title }}{% endblock %}
+
+{% block content %}
+	<div class="title yellow-title star-title">
+		<h2>{{ title }}</h2>
+	</div>
+	<div class="text-indent">
+		<img src="/img/borodino/borodino-dates.png" alt="" class="borodino-dates" />
+		<p class="uppercase-gray"><i>&laquo;Сей день пребудет вечным памятником мужества и&nbsp;отличной храбрости российских воинов&raquo;, -  
+		<br>из&nbsp;донесения М.И. Кутузова императору Александру&nbsp;I.</i></p>  
+		<br>  
+		<p>Память об&nbsp;отваге русской армии во&nbsp;время Бородинского сражения сохранилась не&nbsp;только в&nbsp;исторических документах, но&nbsp;и&nbsp;большом количестве произведений искусства. Многочисленные разнообразные культурные события, посвященные героям Отечественной войны 1812&nbsp;года, проходят этой осенью по&nbsp;всей стране.</p>  			
+		<div class="borodino-banner">
+			<a href="http://russia.tv/video/show/brand_id/18546/video_id/132492/viewtype/picture" target="_blank"><img src="/img/borodino-banner.jpg" alt="К 200-летию Бородинской битвы. Серия специальных фильмов." /></a>
+		</div>
+		{% if videos %}
+		<div class="video-anons video-three">
+			<ul>
+			{% for v in videos %}
+                <li>
+					<a href="{{ v.url }}">
+						<img src="{{ v.img }}" alt="" />
+						<span class="play"></span>
+					</a>
+					<div class="ppa-anons">
+						<a href="v.url">{{ v.title|raw }}</a>
+					</div>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+		<div class="yellow-border-block">
+			<p class="yellow-border-header">
+				<span>Лента времени</span>
+			</p>
+			<div class="video-anons video-three">
+				<ul>
+					<li>
+						<a href="/chronicle/#event_34">
+							<img src="/img/borodino/ch1.jpg" alt="" />
+						</a>
+						<a href="/chronicle/#event_34" class="bor-lenta-name">НАПАДЕНИЕ НАПОЛЕОНА НА РОССИЮ. НАЧАЛО ОТЕЧЕСТВЕННОЙ ВОЙНЫ 1812 ГОДА </a>
+						<p class="bor-lenta-date">1812 год</p>
+					</li> 
+					<li>
+						<a href="/chronicle/#event_287">
+							<img src="/img/borodino/ch2.jpg" alt="" />
+						</a>
+						<a href="/chronicle/#event_287" class="bor-lenta-name">БОРОДИНСКОЕ СРАЖЕНИЕ</a>
+						<p class="bor-lenta-date">1812 год</p>
+					</li> 
+					<li>
+						<a href="/chronicle/#event_288">
+							<img src="/img/borodino/ch3.jpg" alt="" />
+						</a>
+						<a href="/chronicle/#event_288" class="bor-lenta-name">ОСТАВЛЕНИЕ МОСКВЫ</a>
+						<p class="bor-lenta-date">1812 год</p>
+					</li>
+					<li class="clear" style="width:100%; float:none; height:1px;"></li>
+					<li>
+						<a href="/chronicle/#event_37">
+							<img src="/img/borodino/ch4.jpg" alt="" />
+						</a>
+						<a href="/chronicle/#" class="bor-lenta-name">ПЕРЕПРАВА ФРАНЦУЗОВ ЧЕРЕЗ РЕКУ БЕРЕЗИНУ</a>
+						<p class="bor-lenta-date">1812 год</p>
+					</li> 
+					<li>
+						<a href="/chronicle/#event_35">
+							<img src="/img/borodino/ch5.jpg" alt="" />
+						</a>
+						<a href="/chronicle/#event_35" class="bor-lenta-name">СРАЖЕНИЕ ПОД СМОЛЕНСКОМ</a>
+						<p class="bor-lenta-date">1812 год</p>
+					</li> 
+					<li>
+						<a href="/chronicle/#event_379">
+							<img src="/img/borodino/ch6.jpg" alt="" />
+						</a>
+						<a href="/chronicle/#event_379" class="bor-lenta-name">КАРИКАТУРЫ И.И. ТЕРЕБЕНЕВА</a>
+						<p class="bor-lenta-date">1812 год</p>
+					</li> 						
+				</ul>
+			</div>
+			
+		</div>
+		<div class="borodino-panorama">
+			<p class="borodino-panorama-header">
+				<span>Музей-панорама <b>«Бородинская битва»</b></span>
+			</p>				
+			<a href="http://eyera.dev.armd.ru/borodino/borodino_museum.html" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
+				<img src="/img/borodino/panorama.jpg" alt="" />
+			</a>
+		</div>
+		
+		<h2 class="table-caption">Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</h2>
+		{% render "ArmdMainBundle:Project:events" with {"subject": subject} %}
+	</div>	
+{% endblock %}
+
+{% block right %}
+	<div class="title">
+		<h2>Анонсы</h2>
+	</div>		
+	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
+	
+	<div class="title">
+		<h2>Новости</h2>
+	</div>		
+	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
+				
+	{% include "ArmdMainBundle:Borodino:publications.html.twig" %}
+	{% include "ArmdMainBundle:Borodino:media.html.twig" %}
+{% endblock %}	    		

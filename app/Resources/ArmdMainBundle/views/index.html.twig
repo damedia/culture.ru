@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script src="{{ asset('bundles/armdmain/js/news_tabs.js') }}" type="text/javascript"></script>
     {#<script type="text/javascript" src="{{ asset('js/libs/jquery.json2html-3.0.js') }}"></script>#}
-    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    {#<script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>#}
     <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
 	<script>
@@ -427,6 +427,17 @@
         {% endif %}
 	</div>	
 </div>
+
+    <!-- Асинхронная загрузка jsapi -->
+    <div id="script_block" class="script_block"></div>
+    <div id="script_ad" class="script_ad" style="display:none;">
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
+        document.getElementById('script_ad').style.display = 'block';
+    </script>
+    <!-- /Асинхронная загрузка jsapi -->
 						
 
 {% endblock %}

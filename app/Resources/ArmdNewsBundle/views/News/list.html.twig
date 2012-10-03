@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block content%}
+	{% include "ArmdNewsBundle:News:calendar.html.twig" %}	
+		
     {% if not category %}
-        {% include "ArmdNewsBundle:News:billboard.html.twig" with {"entities": billboard} %}
+        {% render "ArmdNewsBundle:News:billboard" %}
     {% endif %}
     
 <div class="clear"></div>
@@ -43,4 +45,9 @@
     </nav>    
 </div>
 	<!-- a class="afisha-list-more" href="#">Показать еще</a -->      
+{% endblock %}	
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/libs/jquery.ui.datepicker-ru.js') }}"></script>
 {% endblock %}	

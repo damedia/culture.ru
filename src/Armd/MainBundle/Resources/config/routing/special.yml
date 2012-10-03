@@ -1,0 +1,34 @@
+armd_main_special_homepage:
+    pattern:  /
+    defaults: { _controller: ArmdMainBundle:Special:index }
+
+armd_main_special_chronicles:
+    pattern:  /chronicles/
+    defaults: { _controller: ArmdMainBundle:Special:chronicles }
+
+armd_main_special_press:
+    pattern:  /press-centre/
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: armd_main_special_homepage }
+    
+armd_main_special_news_item_by_category:
+    pattern:  /press-centre/{category}/{id}/
+    defaults: { _controller: ArmdNewsBundle:News:newsItem, template: ArmdMainBundle:Special:news-item.html.twig  }
+    requirements: { category: "[a-z]+", id: \d+ }    
+
+armd_main_special_services:
+    pattern:  /services/
+    defaults: { _controller: ArmdMainBundle:Special:services }
+    
+armd_main_special_about:
+    pattern:  /about/
+    defaults: { _controller: ArmdMainBundle:Special:about }    	
+
+armd_main_special_russian_images:
+    pattern: /russian-images/
+    defaults: { _controller: ArmdMainBundle:Special:russianImages }
+    
+armd_main_special_russian_images_item:
+    pattern: /russian-images/{id}/
+    defaults: { _controller: ArmdMainBundle:Special:russianImagesItem }
+    requirements: { id: \d+ }         
+    

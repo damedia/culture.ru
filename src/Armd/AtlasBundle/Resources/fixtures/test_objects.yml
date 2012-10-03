@@ -1,5 +1,6 @@
 objects:
     - title: Музей-квартара-дом Островского
+      ref_code: object1
       announce: Объект1 announce
       content: Объект1 content
       siteUrl: http://ya.ru
@@ -20,6 +21,7 @@ objects:
       regions: [moscow, tumen]
 
     - title: Музей-квартира чехова
+      ref_code: object2
       announce: Музей-квартира чехова announce
       content: Музей-квартира чехова content
       siteUrl: http://ya.ru
@@ -50,8 +52,8 @@ objects:
       secondaryCategories: []
       workTime: 12:00-19:00
       weekends: [day7]
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -69,8 +71,8 @@ objects:
       secondaryCategories: [library]
       workTime: 12:00-19:00
       weekends: [day7]
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -89,8 +91,8 @@ objects:
       workTime: 12:00-19:00
       weekends: [day7]
       primaryImage: primary_image.jpg
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -111,8 +113,8 @@ objects:
       workTime: 12:00-19:00
       weekends: [day7]
       primaryImage: primary_image.jpg
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -132,8 +134,8 @@ objects:
       workTime: 12:00-19:00
       weekends: [day7]
       primaryImage: primary_image.jpg
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -153,8 +155,8 @@ objects:
       workTime: 12:00-19:00
       weekends: [day7]
       primaryImage: primary_image.jpg
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -173,8 +175,8 @@ objects:
       workTime: 12:00-19:00
       weekends: [day7]
       primaryImage: primary_image.jpg
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]
@@ -195,8 +197,8 @@ objects:
       workTime: 12:00-19:00
       weekends: [day7]
       primaryImage: primary_image.jpg
-      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
-      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
+#      images: [big_photo.jpg, big_photo2.jpg, big_photo3.jpg, big_photo4.jpg]
+#      archiveImages: [big_photo_bw.jpg, big_photo2_bw.jpg, big_photo3_bw.jpg, big_photo4_bw.jpg]
       image3d: 3d.jpg
       virtualTour: http://ya.ru
       videos: [video1, video2, video3]

@@ -29,8 +29,6 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
 //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
-
-            new Zim32\LoginzaBundle\Zim32LoginzaBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -40,12 +38,10 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+            new Armd\MainBundle\ArmdMainBundle(),            
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\AtlasBundle\ArmdAtlasBundle(),
-            new Armd\CommunicationPlatformBundle\ArmdCommunicationPlatformBundle(),
-            new Armd\CommentBundle\ArmdCommentBundle(),
             new Armd\TvigleVideoBundle\ArmdTvigleVideoBundle(),
-            new Armd\MainBundle\ArmdMainBundle(),
             new Armd\ListBundle\ArmdListBundle(),
             new Armd\NewsBundle\ArmdNewsBundle(),
             new Armd\ChronicleBundle\ArmdChronicleBundle(),
@@ -54,6 +50,11 @@ class AppKernel extends Kernel
             new Armd\SphinxSearchBundle\ArmdSphinxSearchBundle(),
             new Armd\LectureBundle\ArmdLectureBundle(),
             new Armd\MediaHelperBundle\ArmdMediaHelperBundle(),
+            new Armd\EventBundle\ArmdEventBundle(),
+            new Armd\SocialAuthBundle\ArmdSocialAuthBundle(),
+            new Armd\MkCommentBundle\ArmdMkCommentBundle(),
+            new Armd\UtilBundle\ArmdUtilBundle(),
+            new Armd\MuseumBundle\ArmdMuseumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

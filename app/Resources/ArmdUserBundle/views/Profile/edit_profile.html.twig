@@ -1,0 +1,107 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="title">
+        <h2>Личный кабинет</h2>
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	if ($('.uniform').length > 0) {
+			$('.uniform').uniform();
+		}
+    })
+    </script>
+
+
+
+<div class="sonata-user-show">
+    <ul class="lk-menu green-lk-menu">
+        <li class="active"><a href="{{ path('sonata_user_profile_edit') }}">Мой профиль</a></li>
+        <li><a href="{{ path('sonata_user_profile_edit_authentication') }}">Редактировать</a></li>
+        <li><a href="{{ path('armd_atlas_user_objects') }}">Мои объекты</a></li>
+    </ul>
+</div>
+
+
+
+<div class="login-page lk form">
+    <div class="sonata-user-edit-profile">
+        <form action="{{ path('sonata_user_profile_edit') }}" method="POST">
+
+        {{ form_errors(form) }}
+
+        <div>
+        	<label for="sonata_user_profile_form_gender">Пол</label>
+        	{{ form_widget(form.gender, { 'attr': {'placeholder': 'Пол'} } ) }}		
+        </div>
+
+        <div>
+        	<label for="sonata_user_profile_form_firstname">Имя</label>
+			{{ form_widget(form.firstname, { 'attr': {'placeholder': 'Имя'} } ) }}		
+		</div>
+
+		<div>
+        	<label for="sonata_user_profile_form_lastname">Фамилия</label>
+			{{ form_widget(form.lastname, { 'attr': {'placeholder': 'Фамилия'} } ) }}		
+		</div>
+
+
+		<div>
+			<label for="uniform-sonata_user_profile_form_dateOfBirth">Дата рождения</label>
+
+	        {{ form_widget(form.dateOfBirth) }}
+
+        </div>
+
+
+		<div>
+        	<label for="sonata_user_profile_form_website">Сайт</label>
+			{{ form_widget(form.website, { 'attr': {'placeholder': 'Сайт'} } ) }}		
+		</div>
+
+
+		<div>
+        	<label for="sonata_user_profile_form_biographyText">Биография</label>
+			{{ form_widget(form.biographyText, { 'attr': {'placeholder': 'Биография'} } ) }}
+		</div>
+
+		<div>
+			<label for="uniform-sonata_user_profile_form_locale">Регион</label>
+		<ul><li>
+        	{{ form_widget(form.region, { 'attr': {'class': 'uniform'} } ) }}
+		</li></ul>
+        </div>
+
+
+		<div>
+        	<label for="sonata_user_profile_form_phone">Телефон</label>
+			{{ form_widget(form.phone, { 'attr': {'placeholder': 'Телефон'} } ) }}		
+		</div>
+
+
+        <div>
+            <label for="sonata_user_profile_form_vkontakteUid">Vkontakte ID</label>
+            {{ form_widget(form.vkontakteUid, { 'attr': {'placeholder': 'Vkontakte ID'} } ) }}
+        </div>
+
+        <div>
+            <label for="sonata_user_profile_form_facebookName">Facebook логин или email</label>
+            {{ form_widget(form.facebookName, { 'attr': {'placeholder': 'Facebook логин или email'} } ) }}
+        </div>
+
+        <div>
+            <label for="sonata_user_profile_form_twitterName">Twitter логин</label>
+            {{ form_widget(form.twitterName, { 'attr': {'placeholder': 'Twitter логин'} } ) }}
+        </div>
+
+
+            {{ form_rest(form) }}
+
+
+
+            <input type="submit" name="submit" value="Отправить" />
+        </form>
+    </div>
+</div>
+{% endblock %}

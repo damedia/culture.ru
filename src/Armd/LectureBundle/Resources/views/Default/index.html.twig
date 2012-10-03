@@ -8,7 +8,7 @@
     </div>
     <form action="" class="simple-filter-form video-filter">
 
-         {# this block is hidden because problems with ajax post and nginx #}
+         {# this block is hidden because problems with ajax and nginx  #}
         <div class="simple-search" style="display:none">
             <label for="ss_input">Точный поиск</label>
             <input type="text" class="ss-input" id="ss_input"/>
@@ -79,7 +79,7 @@
                         {% endif %}
                     </a>
 
-                    <p class="va-type">{{ lecture.lectureType.name }}</p>
+                    {#<p class="va-type">{{ lecture.lectureType.name }}</p>#}
 
                     <p class="va-theme">
                         {% for category in lecture.categories %}
@@ -89,7 +89,7 @@
                     </p>
                     <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
 
-                    <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                    {#<p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>#}
                 </li>
             {% endfor %}
 

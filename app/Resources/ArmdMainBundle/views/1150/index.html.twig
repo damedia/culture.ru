@@ -1,0 +1,127 @@
+{% extends 'ArmdMainBundle:Project:index.html.twig' %}
+
+{% set subject = "1150" %}
+{% set title = "1150 лет российской государственности" %}
+
+{% block title %} — {{ title }}{% endblock %}
+
+{% block content %}
+	<div class="title yellow-title star-title">
+		<h2>{{ title }}</h2>
+	</div>
+	<div class="text-indent">
+		
+		<img src="/img/project-dates.png" alt="" class="borodino-dates" />
+		<p class="uppercase-gray">В&nbsp;2012&nbsp;г. исполняется 1150 лет со&nbsp;времени события, которое в&nbsp;отечественной историографии XVIII&nbsp;&mdash; XIX&nbsp;вв. получило название &laquo;призвание варягов&raquo;, &laquo;рождение российской государственности&raquo;.</p>  
+			<br>  
+			<p>В 862 году славянские и угро-финские племена объединились и призвали правителя, не относившегося ни к одному из народов нового союза. Приехавший издалека князь Рюрик выполнил их просьбу, и этот год мы считаем началом российской государственности. В 2012 году великой России исполняется 1150 лет. Дата отмечается празднествами и культурными мероприятиями.
+</p>  			
+					
+		
+		<div class="video-anons video-three">
+			<ul>
+				<li>
+					<a href="/atlas/object/697">
+						<img src="/img/project/nov.jpg" alt="" />
+					</a>
+					<div class="ppa-anons">
+						<a href="/atlas/object/697">
+							Исторические памятники Новгорода и окрестностей
+						</a>
+					</div>
+				</li> 
+				<li>
+					<a href="/atlas/object/694">
+						<img src="/img/project/piter.jpg" alt="" />
+					</a>
+					<div class="ppa-anons">
+						<a href="/atlas/object/694">
+							Исторический центр Санкт-Петербурга
+						</a>
+					</div>
+				</li> 
+				<li>
+					<a href="/atlas/object/705">
+						<img src="/img/project/yar.jpg" alt="" />
+					</a>
+					<div class="ppa-anons">
+						<a href="/atlas/object/705">
+							Исторический центр Ярославля
+						</a>
+					</div>
+				</li> 
+			</ul>
+		</div>
+		<div class="yellow-border-block">
+			<p class="yellow-border-header">
+				<span>Лента времени</span>
+			</p>
+			<div class="video-anons video-three project-object-list">
+				<ul>
+					<li>
+						<a href="{{ asset('chronicle/#event_103') }}">
+							<img src="/img/project/ch1.jpg" alt="" />
+						</a>
+						<a href="{{ asset('chronicle/#event_103') }}" class="bor-lenta-name">Поход русов на Царьград</a>
+						<p class="bor-lenta-date">860 год</p>
+					</li> 
+					<li>
+						<a href="{{ asset('chronicle/#event_8') }}">
+							<img src="/img/project/ch2.jpg" alt="" />
+						</a>
+						<a href="{{ asset('chronicle/#event_8') }}" class="bor-lenta-name">Летописное известие о призвании варягов, прибытие Рюрика в Ладогу</a>
+						<p class="bor-lenta-date">862 год</p>
+					</li> 
+					<li>
+						<a href="{{ asset('chronicle/#event_105') }}">
+							<img src="/img/project/3.jpg" alt="" />
+						</a>
+						<a href="{{ asset('chronicle/#event_105') }}" class="bor-lenta-name">Утверждение патриархом фотием первой епархии для славян и варягов</a>
+						<p class="bor-lenta-date">867 год</p>
+					</li> 
+					<li>
+						<a href="{{ asset('chronicle/#event_106') }}">
+							<img src="/img/project/4.jpg" alt="" />
+						</a>
+						<a href="{{ asset('chronicle/#event_106') }}" class="bor-lenta-name">Начало княжения Олега в Киеве</a>
+						<p class="bor-lenta-date">882 год</p>
+					</li>
+					<li>
+						<a href="{{ asset('chronicle/#event_108') }}">
+							<img src="/img/project/5.jpg" alt="" />
+						</a>
+						<a href="{{ asset('chronicle/#event_108') }}" class="bor-lenta-name">Начало княжения Игоря в Киеве</a>
+						<p class="bor-lenta-date">912 год</p>
+					</li>
+					<li>
+						<a href="{{ asset('chronicle/#event_308') }}">
+							<img src="/img/project/6.jpg" alt="" />
+						</a>
+						<a href="{{ asset('chronicle/#event_308') }}" class="bor-lenta-name">Начало правления Александра II</a>
+						<p class="bor-lenta-date">1855 год</p>
+					</li>
+											
+				</ul>
+			</div>
+			
+		</div>
+		
+		
+		<h2 class="table-caption">Мероприятия, посвященные празднованию {{ title }}</h2>
+		{% render "ArmdMainBundle:Project:events" with { "subject": subject } %}
+	</div>	
+{% endblock %}
+
+{% block right %}
+	<div class="title">
+		<h2>Анонсы</h2>
+	</div>		
+	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
+	
+	<div class="title">
+		<h2>Новости</h2>
+	</div>		
+	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
+	
+	{% include "ArmdMainBundle:1150:media.html.twig" %}
+{% endblock %}	    		

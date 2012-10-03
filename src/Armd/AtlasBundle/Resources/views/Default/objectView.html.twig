@@ -12,7 +12,7 @@
     
     
         
-            <div class="title-block with-social"  >
+            <div class="title-block with-social">
                 <h2>{{ entity.title }}</h2>
             </div>
           {#  <div class="title-social-icons">
@@ -165,14 +165,32 @@
 									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
 								</div>
 							</div>#}
-							<form action="" class="comments-form">
-								<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>
-								<input type="submit" value="Отправить" class="button" />
-							</form>
+
+
+							{#<form action="" class="comments-form">#}
+								{#<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>#}
+								{#<input type="submit" value="Отправить" class="button" />#}
+							{#</form>#}
+
+                            {# comments hidden until moderation #}
+                            {#{% set comment_thread_id = 'atlas_' ~ entity.id %}#}
+                            {#{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}#}
+
+                            {#{% if not is_granted('ROLE_USER') %}#}
+                                {#<div class="comments-auth-block">#}
+                                    {#<p>#}
+                                        {#Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>#}
+                                    {#</p>#}
+                                    {#{% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}#}
+
+                                {#</div>#}
+                            {#{% endif %}#}
+
 						</div>
-				   </div>
-				   
+				    </div>
+
                 </div>
+
 
                 <div class="object-one-col3">
                     {% if entity.virtualTour is not empty %}
@@ -217,13 +235,64 @@
 						
 					</a>
 				</div> #}
-                    
+				
+                {% set ids = [984, 534, 280] %}
+				{% if entity.id in ids %}
+					<div class="block object-infograph">
+						<p class="obj-o-infograph-header">Мобильное приложение</p>
+						<a href="http://itunes.apple.com/us/app/muzei-rossii/id553795199?ls=1&mt=8" class="app-block iphone-app">
+							<span class="app-name" target="_blank">Доступно в App Store</span>
+							{#<span class="app-count">Загружено 10 795</span>#}
+						</a>
+					</div>			
+				{% endif %}	
+				
                   {% if entity.image3d %}
 							<div class="block object-infograph">
                             <P class="obj-o-infograph-header">Инфографика</P>
 								{#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
-								<a href="{% path entity.image3d, 'reference' %}" class="in-fancybox"><img src="{% path entity.image3d, 'image3d' %}" alt="" /></a>
+								<a href="{% path entity.image3d, 'reference' %}" class="zoom-fancybox" ><img src="{% path entity.image3d, 'image3d' %}" alt="" width="300"/></a>
 							</div>
+							<script type="text/javascript">
+								$(function(){
+									$('.zoom-fancybox').fancybox({
+										autoResize:true,
+										afterShow: function() {
+												var innerWidth = $('.fancybox-inner').width();
+												var innerHeight = $('.fancybox-inner').height();
+												
+												var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="'+innerHeight+'"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
+												$('.fancybox-inner').html(newContent);
+												$('#zoom').jqzoom({
+													zoomType: 'innerzoom',
+													lens:false,
+													title:false,
+													preloadImages: false,
+													alwaysOn:false
+												})
+												
+												$('#fancy_print').bind("click", function(){
+												  var win=null;
+												  var content = $('#zoom');
+												  win = window.open("width=200,height=200");
+												  self.focus();
+												  win.document.open();
+												  win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
+												  win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+												  win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
+												  win.document.write(content.html());
+												  win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
+												  win.document.close();
+												  win.print();
+												  win.close();
+												  
+												  return false;
+												}); // bind
+												
+										}
+									});
+								})
+							</script>
 						{% endif %}	  
                     
 
@@ -445,6 +514,7 @@
         #nav{
             margin: 0 auto 20px;
         }
+
     </style>
  
    <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
@@ -462,36 +532,27 @@
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     
     <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
 	<script src="/swf/swfobject/swfkrpano.js"></script>
+
     <script type="text/javascript">
         $(function(){
-            {% if entity is not empty %}
-            /*AT.init({
-                map: 'map',
-                center: [{{ entity.lon }}, {{ entity.lat }}],
-                zoom: 10
-            });
 
-            var point = new PGmap.Point({
-                coord: new PGmap.Coord({{ entity.lon }}, {{ entity.lat }}, true)
-            });
-            AT.map.geometry.add(point);*/
-            {% endif %}
-			
-//			if ($('.virtual-overflow-block').length){
-//				$('.virtual-overflow-block').fancybox();
-//			}
-			
 			$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 			
 			$(window).resize(function(){
 				$('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 		
-			})
+			});
+
 			$('#more-show').click(function(){
 				$(this).next('div').toggle();
-			})
+			});
+
+            $('.comments').on('load', function(){
+                console.log('123');
+            });
 			
         });
     </script>

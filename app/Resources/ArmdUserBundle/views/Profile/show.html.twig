@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="sonata-user-show">
+    <ul class="lk-menu green-lk-menu">
+        <li class="active"><a href="{{ path('sonata_user_profile_edit') }}">Мой профиль</a></li>
+        <li><a href="{{ path('sonata_user_profile_edit_authentication') }}">Редактировать</a></li>
+        <li><a href="{{ path('armd_atlas_user_objects') }}">Мои объекты</a></li>
+    </ul>
+</div>
+{% endblock %}

@@ -16,8 +16,6 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_manager
-        loginza:
-            id: loginza.user.provider
 
     firewalls:
         # -> custom firewall for the admin area of the URL
@@ -63,12 +61,48 @@ security:
                 target:         armd_news_list_index
                 success_handler: armd_user.security.logout_success_handler
             anonymous:          true
-            loginza:
-                login_route: _loginza_login_user
-                token_route: _loginza_social_reg
-                secret_key: %loginza_secret_key%
-                widget_id: %loginza_widget_id%
-                entity: ArmdUserBundle:User
+
+            armd_social_auth:
+                auth_provider_parameters:
+
+                    # used by культура.рф
+                    default:
+                        vkontakte:
+                            app_id: 3119050
+                            secret: niPCbh2ywoUeQOJSVPih
+                        facebook:
+                            app_id: 302490536525585
+                            secret: 5c3ba92cecd1833c6773d085d58b0198
+
+                    roskult.ru:
+                        vkontakte:
+                            app_id: 3118810
+                            secret: yTocvcEwl4cv4NHNJJEl
+                        facebook:
+                            app_id: 182778148514104
+                            secret: 19c7d10f46b7e753c81143c27d48357c
+                        twitter:
+                            oauth_consumer_key: IVysXnVjx31A9b72xQwg
+                            consumer_secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
+
+
+                    mk.dev.armd.ru:
+                        twitter:
+                            oauth_consumer_key: edBbssXZxodI6DNxd555w
+                            consumer_secret: qtCdtWxiANPtyiTxpdnQ2PbNdMjtfq3aiKBx1hLHY
+
+                    mk.armd.shams.su:
+                        vkontakte:
+                            app_id: 3119047
+                            secret: d0H7euAEzj12bcxvcmMu
+                        facebook:
+                            app_id: 482442168446063
+                            secret: 4dc17cf63e24d79b6b4a54360bc3db66
+                        twitter:
+                            oauth_consumer_key: F0lzOE5KpZQoR6lgF92g
+                            consumer_secret: x426C9iJJvYOQhX7tK5VKEHfGxFyFFsX7bXkCbI53Tg
+
+
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users

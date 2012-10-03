@@ -57,14 +57,15 @@ class News extends Admin
                 ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
                 ->add('endDate', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))                
                 ->add('category')
+                ->add('subject', null, array('required' => false))                
                 ->add('source')                
-                ->add('important')
+                ->add('important', null, array('required' => false))
                 ->add('priority')                                
-                ->add('published')
+                ->add('published', null, array('required' => false))
             ->end()    
             ->with('Media')                
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
-                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))                                
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'gallery')))                                
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -81,7 +82,8 @@ class News extends Admin
             ->addIdentifier('title')
             ->add('date')            
             ->add('category')
-            ->add('important')                
+            ->add('subject')            
+            ->add('important')                  
             ->add('published')                            
         ;
         
@@ -92,6 +94,7 @@ class News extends Admin
     {
         $datagridMapper
             ->add('category')
+            ->add('subject')            
             ->add('published')
             ->add('important')            
         ;

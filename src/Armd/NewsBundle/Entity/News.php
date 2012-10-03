@@ -3,9 +3,10 @@
 namespace Armd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\NewsBundle\Model\News as BaseNews;
-use Armd\CommentBundle\Model\CommentableInterface;
-use Armd\CommentBundle\Entity\Thread;
+use Armd\MkCommentBundle\Model\CommentableInterface;
+use Armd\MkCommentBundle\Entity\Thread;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
@@ -53,9 +54,16 @@ class News extends BaseNews implements CommentableInterface
     
     /**
      * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\OrderBy({"title" = "ASC"})     
+     * @ORM\OrderBy({"title"="ASC"})
+     * @ORM\JoinColumn(nullable=false)          
      **/
     protected $category;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\MainBundle\Entity\Subject")
+     * @ORM\OrderBy({"title"="ASC"})
+     **/
+    protected $subject;    
     
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -68,9 +76,14 @@ class News extends BaseNews implements CommentableInterface
     protected $priority;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */        
     protected $published;
+
+    /**
+     * @ORM\Column(name="published_at", type="datetime", nullable=true)
+     */            
+    protected $publishedAt;    
     
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -93,24 +106,36 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
-
+        
     /**
      * Thread of this comment
      *
-     * @var \Armd\CommentBundle\Entity\Thread
-     * @ORM\ManyToOne(targetEntity="Armd\CommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     * @var \Armd\MkCommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
      */
     protected $thread;
     
     /** 
      * @ORM\PrePersist
      * @ORM\PreUpdate
-    */
+     */
     public function setDateParts()
     {
         $this->day = $this->getDate()->format('d');
         $this->month = $this->getDate()->format('m');
-    }        
+    }
+
+    /** 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */    
+    public function setPublicationDate() 
+    {
+        if ($this->published)
+        {
+            $this->publishedAt = new \DateTime();
+        }
+    }       
 
     /**
      * Set announce
@@ -433,7 +458,7 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Set thread
      *
-     * @param \Armd\CommentBundle\Entity\Thread $thread
+     * @param \Armd\MkCommentBundle\Entity\Thread $thread
      * @return News
      */
     public function setThread(Thread $thread = null)
@@ -445,10 +470,56 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Get thread
      *
-     * @return \Armd\CommentBundle\Entity\Thread
+     * @return \Armd\MkCommentBundle\Entity\Thread
      */
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Set publishedAt
+     *
+     * @param \DateTime $publishedAt
+     * @return News
+     */
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get publishedAt
+     *
+     * @return \DateTime 
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param Armd\MainBundle\Entity\Subject $subject
+     * @return News
+     */
+    public function setSubject(\Armd\MainBundle\Entity\Subject $subject = null)
+    {
+        $this->subject = $subject;
+    
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return Armd\MainBundle\Entity\Subject 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

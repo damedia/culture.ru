@@ -124,6 +124,15 @@ $(document).ready(function () {
         $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
         $("#calendar").datepicker({showOtherMonths:true});
     }
+	if ($("#news-dates-filter").length > 0) {
+		$.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+        $(".calendar-input").datepicker({
+			showOtherMonths:true,
+			showOn: "button",
+			buttonImage: "/img/calendar-trigger.png",
+			buttonImageOnly: true
+		});
+	}
     /*$('.ppa-block').hover(function(){
      $(this).find('.ppa-over').show();
      },
@@ -303,7 +312,7 @@ $(document).ready(function () {
     $('html').css('font-size', originalFontSize);
   });
   // Increase Font Size
-  $(".spec-vers").click(function(){
+  /*$(".spec-vers").click(function(){
     var currentFontSize = $('.text').css('font-size');
     var currentFontSizeNum = parseFloat(currentFontSize, 10);
     var newFontSize = currentFontSizeNum*1.2;
@@ -312,7 +321,7 @@ $(document).ready(function () {
 	$(this).addClass("decreaseFont")
 	console.log(currentFontSize);
     return false;
-  });
+  });*/
   // Decrease Font Size
   $(".decreaseFont").click(function(){
     var currentFontSize = $('.text').css('font-size');
@@ -326,7 +335,14 @@ $(document).ready(function () {
     return false;
   });	
 	
-	
+	$('.years-tabs-selector a').click(function(){
+		var tabName = $(this).attr('href');
+		$(this).parent().addClass('active')
+				.siblings().removeClass('active');
+				
+		$(tabName).show().siblings().hide();
+		return false;	
+	})
 
 });
 	

@@ -6,7 +6,6 @@
     },
     "repositories":{
         "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
-        "armd/comment":{ "type":"git", "url":"git@git.armd.ru:armdcommentbundle.git" },
         "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" }
     },
     "require": {
@@ -22,25 +21,20 @@
         "sensio/framework-extra-bundle": "2.1.*",
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
-        "jms/serializer-bundle": "*",
         "jms/di-extra-bundle": "1.1.*",
 
         "doctrine/doctrine-fixtures-bundle": "*",
-        "doctrine/doctrine-migrations-bundle": "master",
-        "friendsofsymfony/comment-bundle": "*",
-        "friendsofsymfony/jsrouting-bundle": "master",
+        "doctrine/doctrine-migrations-bundle": "*",
+
         "stof/doctrine-extensions-bundle": "*",
+        "jms/serializer-bundle": "*",
+        "friendsofsymfony/comment-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
 
-        "sonata-project/admin-bundle": "*",
-        "sonata-project/user-bundle": "*",
+        "sonata-project/media-bundle": "*",
         "sonata-project/doctrine-orm-admin-bundle": "*",
-        "sonata-project/easy-extends-bundle": "*",
-        "sonata-project/media-bundle": "master",
-        "kriswallsmith/buzz": "master",
-
+        "sonata-project/user-bundle": "*",
         "armd/banner-bundle": "*",
-        "armd/comment": "*",
         "armd/sphinx-search-bundle": "*"
     },
     "scripts": {
@@ -56,9 +50,6 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
-    },
-    "config": {
-        "bin-dir": "bin"
     },
     "minimum-stability": "dev",
     "extra": {

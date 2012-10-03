@@ -36,27 +36,28 @@ class User extends BaseUser
     /**
      * @var integer $okUid
      */
-    protected $okUid;
+    protected $odnoklassnikiUid;
 
     /**
      * @var integer $vkUid
      */
-    protected $vkUid;
+    protected $vkontakteUid;
 
-    /**
-     * @var integer $fbUid
-     */
-    protected $fbUid;
-
-    /**
-     * @var integer $twUid
-     */
-    protected $twUid;
 
     /**
      * @var string $socialName
      */
     protected $socialName;
+
+    /**
+     * @var \Armd\AtlasBundle\Entity\Region
+     */
+    protected $region;
+
+    /**
+     * @var string $socialName
+     */
+    protected $biographyText;
 
     /**
      * Get id
@@ -70,37 +71,37 @@ class User extends BaseUser
 
 
     /**
-     * Get okUid
+     * Get odnoklassnikiUid
      *
-     * @return integer $okUid
+     * @return integer $odnoklassnikiUid
      */
-    public function getOkUid()
+    public function getOdnoklassnikiUid()
     {
-        return $this->okUid;
+        return $this->odnoklassnikiUid;
     }
 
     /**
-     * Set okUid
+     * Set odnoklassnikiUid
      *
-     * @param integer $okUid
+     * @param integer $odnoklassnikiUid
      *
      * @return User
      */
-    public function setOkUid($okUid)
+    public function setOdnoklassnikiUid($odnoklassnikiUid)
     {
-        $this->okUid = $okUid;
+        $this->odnoklassnikiUid = $odnoklassnikiUid;
 
         return $this;
     }
 
     /**
-     * Get vkUid
+     * Get vkontakteUid
      *
      * @return integer $vkUid
      */
-    public function getVkUid()
+    public function getVkontakteUid()
     {
-        return $this->vkUid;
+        return $this->vkontakteUid;
     }
 
     /**
@@ -110,57 +111,9 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setVkUid($vkUid)
+    public function setVkontakteUid($vkUid)
     {
-        $this->vkUid = $vkUid;
-
-        return $this;
-    }
-
-    /**
-     * Get fbUid
-     *
-     * @return integer $fbUid
-     */
-    public function getFbUid()
-    {
-        return $this->fbUid;
-    }
-
-    /**
-     * Set fbUid
-     *
-     * @param integer $fbUid
-     *
-     * @return User
-     */
-    public function setFbUid($fbUid)
-    {
-        $this->fbUid = $fbUid;
-
-        return $this;
-    }
-
-    /**
-     * Get twUid
-     *
-     * @return integer $twUid
-     */
-    public function getTwUid()
-    {
-        return $this->twUid;
-    }
-
-    /**
-     * Set twUid
-     *
-     * @param integer $twUid
-     *
-     * @return User
-     */
-    public function setTwUid($twUid)
-    {
-        $this->twUid = $twUid;
+        $this->vkontakteUid = $vkUid;
 
         return $this;
     }
@@ -282,6 +235,42 @@ class User extends BaseUser
     public function setSalt($salt)
     {
         $this->salt = $salt;
+    }
+
+    /**
+     * @return \Armd\AtlasBundle\Entity\Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param \Armd\AtlasBundle\Entity\Region $region
+     * @return \Armd\UserBundle\Entity\User
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBiographyText()
+    {
+        return $this->biographyText;
+    }
+
+    /**
+     * @param string $biographyText
+     * @return \Armd\UserBundle\Entity\User
+     */
+    public function setBiographyText($biographyText)
+    {
+        $this->biographyText = $biographyText;
+        return $this;
     }
 
 }

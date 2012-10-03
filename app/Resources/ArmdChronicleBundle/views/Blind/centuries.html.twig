@@ -1,0 +1,21 @@
+<div class="chronicles-nav-wrap">
+	<ul class="chronicles-nav clearfix">
+		{% for c in centuries %}
+		<li id="cen_{{ c.value }}" {% if loop.first %}class="active"{% endif %}>
+			<a href="#{{ c.value }}">{{ c.name }} век</a>
+			<ul>
+				{% set d = null %}
+				{% for e in c.events %}
+					{% set year = e.date|date('Y')|abs %}
+					{% set decade = year - year % 10 %}
+					{% if decade != d and decade % 100 != 0 %}
+						{% set d = decade %}
+						<li {% if loop.first %}class="active"{% endif %}><a href="#{{ d }}">{{ d }} гг.</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+

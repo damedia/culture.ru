@@ -5,7 +5,7 @@ namespace Armd\NewsBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
-use Armd\CommentBundle\Entity\Thread;
+use Armd\MkCommentBundle\Entity\Thread;
 
 class NewsController extends ListController
 {
@@ -15,6 +15,16 @@ class NewsController extends ListController
     }
     
     /**
+     * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
+     */        
+    function rssAction()
+    {
+        return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
+            'news' => $this->getLatestNewsList(),
+        ));
+    }        
+    
+    /**
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category")
@@ -22,17 +32,20 @@ class NewsController extends ListController
      */
     function newsListAction($category = null, $page = 1, $limit = 10)
     {
+        $criteria = array(
+            'category'  => $category,
+        );    
+    
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
-            'news'          => $this->getLatestNewsList($limit, $page, $category),            
-            'billboard'     => $this->getImportantNewsList(),            
+            'news'          => $this->getPaginator($criteria, $page, $limit),
         ));
     }
     
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
      */    
-    function newsItemAction($id, $category)
+    function newsItemAction($id, $category, $template = null)
     {
         $entity = $this->getEntityRepository()->find($id);
 
@@ -40,125 +53,79 @@ class NewsController extends ListController
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
 
-        return $this->render($this->getTemplateName('item'), array(
+        $template = $template ? $template : $this->getTemplateName('item');
+        
+        return $this->render($template, array(
             'entity'        => $entity,
             'category'      => $category,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
-    }    
-    
+    }
+        
     function categoriesAction($category)
     {
         return $this->render($this->getTemplateName('categories'), array(
-            'categories'    => $this->getCategoriesList(array($category)),
+            'category'      => $category,
+            'categories'    => $this->getNewsManager()->getCategories(),
         ));
     }
     
     function latestNewsAction($limit)
     {
         return $this->render($this->getTemplateName('latest-news'), array(
-            'news'          => $this->getLatestNewsList($limit),
+            'news'  => $this->getPaginator(array(), 1, $limit),
+        ));
+    }
+    
+    function billboardAction($limit = 10)
+    {
+        $criteria = array(
+            'important' => true,
+        );        
+    
+        return $this->render($this->getTemplateName('billboard'), array(
+            'entities'  => $this->getPaginator($criteria, 1, $limit),
         ));
     }
     
     function memorialEventsAction()
     {
+        $criteria = array(
+            'category'      => 'memorials',
+            'memorial_date' => new \DateTime(),
+        );    
+    
         return $this->render($this->getTemplateName('memorials'), array(
-            'entities'      => $this->getMemorialEventsList(),
+            'entities'      => $this->getPaginator($criteria, 1, 10),
         ));
     }
-            
-    function getLatestNewsList($limit = 10, $page = 1, $category = null)
+                
+    function getPaginator($criteria, $page, $limit)
     {
-        return $this->getPagination($this->getNewsListRepository($category)->getQuery(), $page, $limit);
-    }    
-    
-    function getMemorialEventsList()
-    {
-        return $this->getMemorialsListRepository()->getQuery()->getResult();
+        return $this->getPagination($this->getNewsManager()->getQueryBuilder($criteria)->getQuery(), $page, $limit);
     }
         
-    function getImportantNewsList(array $categories = array(), $limit = 0)
-    {        
-        $repository = $this->getListRepository()
-            ->setImportant(true)
-            ->orderByPriority()
-        ;
-        
-        $categories ? $repository->setCategories($categories) : $repository->setFiltrableCategories();
-
-        $query = $repository->getQuery();
-        
-        if ($limit)
-        {
-            $query->setMaxResults($limit);
-        }
-        
-        return $query->getResult();
-    }
-    
-    function getCategoriesList(array $categories = array())
+    function getNewsManager()
     {
-        $result = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
-        
-        foreach ($result as $category) {
-            $category->setSelected($categories ? in_array($category->getSlug(), $categories) : true);
-        }
-        
-        return $result;
-    }
-    
-    function getNewsListRepository($category = null, $date = null)
-    {
-        if (null == $date)
-        {
-            $date = new \DateTime();
-        }
-        
-        $repository = $this->getListRepository()
-            ->setImportant(false)
-            ->setEndDate($date);
-        ;            
-        
-        return $category ? $repository->setCategories(array($category)) : $repository->setFiltrableCategories();
-    }
-    
-    function getMemorialsListRepository($date = null)
-    {
-        if (null == $date)
-        {
-            $date = new \DateTime();
-        }    
-    
-        return $this->getListRepository()
-            ->setCategories(array('memorials'))
-            ->setMonthAndDay($date)
-        ;
-    }
+        return $this->get('armd_news.manager.news');
+    }        
     
     /**
-     * {@inheritdoc}
+     * @param \Armd\MkCommentBundle\Entity\Thread $thread
+     * @return \Armd\MkCommentBundle\Entity\Comment
      */
-    function getListRepository()
+    public function getComments(Thread $thread = null)
     {
-        return parent::getListRepository()
-            ->setPublication()
-            ->orderByDate();
-        ;
-    }
-
-    /**
-     * @param Armd\CommentBundle\Entity\Thread $thread
-     * @return \Armd\CommentBundle\Entity\Comment
-     */
-    public function getComments(Thread $thread)
-    {
-        return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        if (empty($thread)) {
+            return null;
+        } else {
+            return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        }
     }
 
     function getControllerName()
     {
         return 'ArmdNewsBundle:News';
-    }
+    }            
 }

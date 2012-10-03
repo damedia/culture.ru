@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<div class="title">
+        <h2>Личный кабинет</h2>
+
+		{#<h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_authentication" | trans({}, 'SonataUserBundle')}}</h2>#}
+
+    </div>
+
+
+
+<div class="sonata-user-show">
+    <ul class="lk-menu green-lk-menu">
+        <li><a href="{{ path('sonata_user_profile_edit') }}">Мой профиль</a></li>
+        <li class="active"><a href="{{ path('sonata_user_profile_edit_authentication') }}">Редактировать</a></li>
+        <li><a href="{{ path('armd_atlas_user_objects') }}">Мои объекты</a></li>
+    </ul>
+</div>
+
+<div class="login-page lk form">
+    <div class="sonata-user-edit-authentication">
+        <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
+            {{ form_rest(form) }}
+            <input type="submit" name="submit" value="Отправить" />
+        </form>
+    </div>
+</div>
+{% endblock %}
+

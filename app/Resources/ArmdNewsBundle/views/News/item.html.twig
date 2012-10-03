@@ -1,6 +1,6 @@
 {% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
-{% block top_right %} <div style="margin-top:-63px"></div>{% endblock %}
+{% block top_right %} <div style="margin-top:-66px"></div>{% endblock %}
 {% block content %}
 <div class="news-one text">
     <span class="news-one-type">Новости</span>
@@ -18,8 +18,8 @@
 			{% if entity.image.copyright or entity.image.authorName %}		
 				<p class="image-source">
 					{% if entity.image.copyright %}
-						{{ entity.image.copyright }}
-						{% if entity.image.authorName %}, {% endif %}
+						{{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
+
 					{% endif %}
 					{% if entity.image.authorName %}
 						{{ entity.image.authorName }}
@@ -35,33 +35,94 @@
 	{% if entity.source %}
     	<div class="source">{{ entity.source|replace({"РИА «Новости»": '<a target="_blank" href="http://ria.ru/">РИА «Новости»</a>'})|raw }}</div>
 	{% endif %}
-	<div class="share" >
-		<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">
-			<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>
-			<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>
-			<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url=http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}" target="_blank"></a>
-			<input type="hidden" name="subject" value="{{ entity.title }}">
-			<textarea name="event" style="display:none">
-				<div style="padding:20px; margin:10px;">
-					<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}
-					<a href="http://roskult.ru/{{ path('cp_show', { 'id': entity.id }) }}">Подробнее</a>
+	
+	
+	{% if entity.gallery|length > 0 %}
+		
+		<div class="photo-gallery">
+            <h3>{{entity.gallery.name}}</h3>    
+            <div id="slider" class="flexslider">
+				<ul class="slides">
+					{% for gal_img in entity.gallery.galleryHasMedias %}
+						<li>
+							<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" data-fancy-image="{% path gal_img.media, 'reference' %}">
+                                <img src="{% path gal_img.media, 'big' %}" />
+								<span>{{gal_img.media.name}}</span>
+							</a>	
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="nav-wrap">
+				<div class="nav">
+					<div id="carousel" class="flexslider ">
+					  <ul class="slides">
+						{% for gal_img in entity.gallery.galleryHasMedias %}
+							<li>
+								<img src="{% path gal_img.media, 'thumbnail' %}" />
+							</li>
+						{% endfor %}
+					  </ul>
+					</div>
 				</div>
-			</textarea>
-			<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ url('cp_show', { 'id': entity.id }) }}&t={{ entity.title }}&src=sp" target="_blank"></a>
-			</form>
-		<!-- AddThis Button BEGIN 
-		<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>
-		<a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>
-		<script type="text/javascript">
-		addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});
-		</script>
-		</div>
-		AddThis Button END -->
+			</div>
+        </div>
+			
+		
+		{% endif %}
+	
+	
+	
+    {#<div class="yashare-auto-init" data-yashareType="icon" data-yashareQuickServices="vkontakte,lj,twitter,|,facebook,odnoklassniki"></div>#}
+
+	<div class="share" >
+        <span id="yandex_share"></span>
+		{#<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">#}
+
+
+            {#{% set share_url = url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) %}#}
+
+            {#&#123;&#35; vkontakte &#35;&#125;#}
+			{#<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url={{ share_url }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>#}
+
+            {#&#123;&#35; livejournal &#35;&#125;#}
+			{#<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event={{ share_url }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>#}
+
+            {#&#123;&#35; twitter &#35;&#125;#}
+			{#<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url={{ share_url }}" target="_blank"></a>#}
+
+			{#<input type="hidden" name="subject" value="{{ entity.title }}">#}
+			{#<textarea name="event" style="display:none">#}
+				{#<div style="padding:20px; margin:10px;">#}
+					{#<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}#}
+					{#<a href="{{ share_url }}">Подробнее</a>#}
+				{#</div>#}
+			{#</textarea>#}
+
+			{#<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ share_url }}&t={{ entity.title }}&src=sp" target="_blank"></a>#}
+
+            {#&#123;&#35; odnoklassniki &#35;&#125;#}
+            {#<a style="background-position:-16px 0;" href='http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st._surl={{ share_url }}' target='_blank'></a>#}
+
+        {#</form>#}
+		{#<!-- AddThis Button BEGIN #}
+		{#<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">#}
+		{#<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>#}
+		{#<a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>#}
+		{#<script type="text/javascript">#}
+		{#addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});#}
+		{#</script>#}
+		{#</div>#}
+		{#AddThis Button END -->#}
+
 	</div>
-   <div class="comments">
-       {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': thread.id} %}
-    </div>
+	
+
+    {% if thread is not empty %}
+       <div class="comments">
+           {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': thread.id} %}
+        </div>
+    {% endif %}
 	<!-- /commetns-list-->
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
@@ -69,4 +130,73 @@
     <p style="font-size:12px; text-align: right; margin: -25px 0 0 0;"> <a style="color:#000;" href="#">Версия для печати</a></p>
 	
 </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
+
+    <script type="text/javascript">
+       $(function(){
+		 $('#carousel').flexslider({
+        animation: "slide",
+        controlNav: true,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 100,
+        itemMargin: 5,
+        asNavFor: '#slider',
+		minItems: 2,   
+		maxItems: 10,
+		prevText: "Предыдущая",           
+		nextText: "Следующая",  
+      });
+      
+      $('#slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        sync: "#carousel",
+		directionNav: false,
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+	   })
+	  $("a.in-fancybox").fancybox({
+			 tpl: {
+			  next: '<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
+			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>',
+			 },
+			scrolling: 'no'
+		});
+	 
+    </script>
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex_share',
+                elementStyle:{
+                    'type':'none',
+                    'border':true,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
+                title:'{{ entity.title }}',
+                description:'{{ entity.announce|striptags }}'
+            })
+        });
+    </script>
+
 {% endblock %}

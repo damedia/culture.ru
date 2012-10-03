@@ -1,0 +1,17 @@
+{% extends '::special.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/blind_chronicles.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('js/blind_chronicles.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+	 {% include "ArmdChronicleBundle:Blind:chronicle.html.twig" %}
+{% endblock %}

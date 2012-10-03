@@ -1,5 +1,13 @@
+armd_mk_comment:
+    resource: "@ArmdMkCommentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
+armd_util:
+    resource: "@ArmdUtilBundle/Controller/"
+    type:     annotation
     prefix:   /
 
 index:
@@ -41,18 +49,18 @@ fos_user_routing:
 #fos_js_routing:
 #    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-zim32_loginza:
-    resource: '@Zim32LoginzaBundle/Resources/config/routing.yml'
-    prefix:   /
-
-ArmdCommunicationPlatformBundle_proposals:
-    resource: "@ArmdCommunicationPlatformBundle/Resources/config/routing/proposals.yml"
-    prefix:   /cp
-
 fos_comment_api:
    type: rest
    resource: "@FOSCommentBundle/Resources/config/routing.yml"
    prefix: /comment/api
+   
+armd_main:
+    resource: "@ArmdMainBundle/Resources/config/routing/routing.yml"
+    prefix:   /
+    
+armd_main_special:
+    resource: "@ArmdMainBundle/Resources/config/routing/special.yml"
+    prefix:   /special   
    
 armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
@@ -68,12 +76,10 @@ armd_banner:
     type: annotation
     prefix: /banner
 
-
 armd_atlas_bundle:
     resource: "@ArmdAtlasBundle/Controller/"
     type:     annotation
     prefix:   /atlas
-
 
 armd_search_bundle:
     resource: "@ArmdSearchBundle/Controller/"
@@ -100,6 +106,10 @@ armd_user_bundle:
     type: annotation
     prefix: /user
     
+armd_social_auth:
+    resource: "@ArmdSocialAuthBundle/Controller/"
+    type:     annotation
+    prefix:   /social-auth
 
 # Internal routing configuration to handle ESI
 #_internal:

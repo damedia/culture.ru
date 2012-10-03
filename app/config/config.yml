@@ -95,6 +95,9 @@ sonata_user:
         user:   Armd\UserBundle\Entity\User
         group:  Armd\UserBundle\Entity\Group
     impersonating_route:    armd_news_list_index
+    profile:
+        form:
+            type: armd_user_profile
 
     
 sonata_media:
@@ -113,6 +116,7 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
+
         news:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -123,7 +127,9 @@ sonata_media:
                 adminPreview: { width: 314 , height: 187, , quality: 90}            
                 billboard: { width: 366, height: 261}
                 latest: { width: 85, height: 65 }
-                list: { width: 160, height: 124}
+                list: { width: 160, height: 107 }
+                big: { width: 920 }
+                thumbnail: { width: 85, height: 85 }				
 
         chronicle:
             download:
@@ -170,7 +176,27 @@ sonata_media:
                 big: { width: 335, height: 189 }
                 medium: { width: 111 }
                 small: { width: 85 }
+                
+        museum:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http        
+            providers:
+                - sonata.media.provider.image
+            formats:
+                billboard: { width: 213 }
 
+        gallery:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.file                
+            formats:
+                big: { width: 920 }
+                thumbnail: { width: 85, height: 85 } 			
+                archive: {}
 
 
 
@@ -221,15 +247,43 @@ fos_comment:
     db_driver: orm
     class:
         model:
-            comment: Armd\CommentBundle\Entity\Comment
-            thread: Armd\CommentBundle\Entity\Thread
-            vote: Armd\CommentBundle\Entity\Vote
+            comment: Armd\MkCommentBundle\Entity\Comment
+            thread: Armd\MkCommentBundle\Entity\Thread
     acl: true
     service:
+        acl:
+            thread:  fos_comment.acl.thread.roles
+            comment: fos_comment.acl.comment.roles
+            vote:    fos_comment.acl.vote.roles
         manager:
-            thread: fos_comment.manager.thread.acl
+            thread:  fos_comment.manager.thread.acl
             comment: fos_comment.manager.comment.acl
-            vote: fos_comment.manager.vote.acl
+            vote:    fos_comment.manager.vote.acl
+
+    acl_roles:
+        comment:
+            create: ROLE_USER
+            view: IS_AUTHENTICATED_ANONYMOUSLY
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
+        thread:
+            create: ROLE_USER
+            view: IS_AUTHENTICATED_ANONYMOUSLY
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
+        vote:
+            create: ROLE_USER
+            view: IS_AUTHENTICATED_ANONYMOUSLY
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
+
+#            vote: Armd\CommentBundle\Entity\Vote
+#    acl: true
+#    service:
+#        manager:
+#            thread: fos_comment.manager.thread.acl
+#            comment: fos_comment.manager.comment.acl
+#            vote: fos_comment.manager.vote.acl
 
 fos_rest:
     view:
@@ -262,3 +316,7 @@ armd_sphinx_search:
         port:   %sphinxsearch_port%
     indexer:
         bin:    %sphinxsearch_indexer_bin%
+
+
+parameters:
+    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin

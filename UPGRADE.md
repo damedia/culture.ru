@@ -184,8 +184,8 @@ Under `security.providers`, the `in_memory` example was updated to the following
 
 The following bundles have been added to the list of default registered bundles:
 
-    `new JMS\AopBundle\JMSAopBundle(),
-    `new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+    new JMS\AopBundle\JMSAopBundle(),
+    new JMS\DiExtraBundle\JMSDiExtraBundle($this),
 
 ### `web/app.php`
 

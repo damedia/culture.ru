@@ -674,5 +674,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 .success-object-form.add .section-edit{ display:none; }
 .success-object-form.add .section-add{ display:block; }
 
-
-
+.simple-filter-options label.disabled span{ color:#999; border:none; }
+.simple-filter-options label.checked.disabled{ background:#ccc; }
+.simple-filter-options label.checked.disabled span{ color:#fff; }

@@ -14,9 +14,7 @@ class ObjectRepository extends EntityRepository
 {
     public function filter($params = array())
     {
-        $term = $params['term'];
         $categoryIds = $params['category'];
-
         $qb = $this->createQueryBuilder('o');
         $qb->innerJoin('o.secondaryCategories', 'c')
             ->where('o.published = TRUE')
@@ -32,21 +30,22 @@ class ObjectRepository extends EntityRepository
     public function getRussiaImagesCount()
     {
         $objectCount = $this->createQueryBuilder('o')
-                    ->select('COUNT(o)')
-                    ->where('o.showAtRussianImage = TRUE')
-                    ->andWhere('o.published = TRUE')
-                    ->getQuery()->getSingleScalarResult();
+            ->select('COUNT(o)')
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+            ->getQuery()
+            ->getSingleScalarResult();
         return $objectCount;
     }
 
     public function findRussiaImages($limit = null)
     {
         $qb = $this->createQueryBuilder('o')
+            ->select('o, pi, r')
             ->leftJoin('o.primaryImage', 'pi')
             ->leftJoin('o.regions', 'r')
             ->where('o.showAtRussianImage = TRUE')
-            ->andWhere('o.published = TRUE')
-        ;
+            ->andWhere('o.published = TRUE');
 
         if (!is_null($limit)) {
             $qb->setMaxResults($limit);
@@ -64,21 +63,23 @@ class ObjectRepository extends EntityRepository
 
         if ($objectCount <= $limit) {
             $objects = $this->findRussiaImages($limit);
-        } else {
+        }
+        else {
             $offsets = array();
-            for($i = 0; $i < $limit; $i++) {
+            for ($i = 0; $i < $limit; $i++) {
                 $j = 0;
                 do {
                     $offset = rand(0, $objectCount - 1);
-                } while($j++ < 10 && in_array($offset, $offsets));
+                } while ($j++ < 10 && in_array($offset, $offsets));
                 $offsets[] = $offset;
             }
 
             $objects = array();
-            foreach($offsets as $offset) {
+            foreach ($offsets as $offset) {
                 $objects[] = $this->createQueryBuilder('o')
                     ->select('o')
                     ->where('o.showAtRussianImage = TRUE')
+                    ->andWhere('o.published = TRUE')
                     ->setMaxResults(1)
                     ->setFirstResult($offset)
                     ->getQuery()->getSingleResult();
@@ -86,6 +87,23 @@ class ObjectRepository extends EntityRepository
         }
 
         return $objects;
+    }
+
+    public function fetchObjectsCategories($objects)
+    {
+        $objectsIds = array();
+        foreach ($objects as $obj)
+            $objectsIds[] = $obj->getId();
+        $qb = $this->createQueryBuilder('o')
+                   ->select('o.id objectId, c.id categoryId , c.title')
+                   ->innerJoin('o.secondaryCategories', 'c')
+                   ->where('o IN (:objectsIds)')
+                   ->setParameter('objectsIds', $objectsIds);
+        $result = $qb->getQuery()->getResult();
+        $res = array();
+        foreach ($result as $row)
+            $res[] = $row['categoryId'];
+        return array_unique($res);
     }
 
 }

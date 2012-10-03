@@ -1,0 +1,56 @@
+<form id="events-filter">
+<table class="stripy sortable table">
+	<tr>
+		<th>
+			<div id="regions-selector" class="table-selector">
+				<select name="region_id" data-placeholder="Регион" class="chzn-select">
+					<option value="0"></option>
+				{% for id, title in regions %}
+					<option value="{{ id }}"{% if id == filter.region_id %} selected="selected"{% endif %}>{{ title }}</option>
+				{% endfor %}
+				</select>
+			</div>
+			<div id="ajax-loading" class="ajax-loading"></div>
+		</th>
+		<th>Город</th>
+{#
+		<th>Учреждение</th>
+#}		
+		<th>
+			<div id="regions-selector" class="table-selector">
+				<select name="month" data-placeholder="Дата" class="chzn-select">
+					<option value="0"></option>
+				{% for id, title in months %}
+					<option value="{{ id|abs }}"{% if id == filter.month %} selected="selected"{% endif %}>{{ ('calendar.month.'~title)|trans }}</option>
+				{% endfor %}					
+				</select>
+			</div>
+		</th>
+		<th>Название мероприятия</th>
+	</tr>
+{% for e in events %}	
+	<tr>
+		<td>{{ e.region.title }}</td>
+		<td>{{ e.city }}</td>
+{#
+		<td>{{ e.place }}</td>
+#}
+		<td class="nowrap">
+            {{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }} {{ e.beginDate|date('Y') }}
+        {% if e.endDate %}
+            &mdash; {{ e.endDate|date('d')|abs }} {{ ('calendar.full.'~e.endDate|date('M'))|trans }} {{ e.endDate|date('Y') }}
+        {% endif %}
+		</td> 
+		<td>{{ e.title }}</td>
+	</tr>
+{% endfor %}
+</table>
+</form>
+
+<script type="text/javascript">
+$(function(){
+    $(".table-selector select").chosen().change(function(){
+        $("#events-filter").submit();
+    })
+})
+</script>

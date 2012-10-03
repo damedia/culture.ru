@@ -11,4 +11,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Chronicle, label: Accidents }
             - { name: armd.content.admin }            
-        arguments: [null, Armd\ChronicleBundle\Entity\Accident, SonataAdminBundle:CRUD, @service_container]        
+        arguments: [null, Armd\ChronicleBundle\Entity\Accident, SonataAdminBundle:CRUD, @service_container]
+        
+    armd_chronicle.controller.event:
+        class: Armd\ChronicleBundle\Controller\EventController
+        arguments:
+            container: "@service_container"		

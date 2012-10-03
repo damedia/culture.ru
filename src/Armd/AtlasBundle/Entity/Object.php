@@ -101,7 +101,7 @@ class Object
     private $weekends;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="primary_image_id", referencedColumnName="id")
      */
     private $primaryImage;
@@ -179,13 +179,13 @@ class Object
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      */
     private $createdBy;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="updatedBy", referencedColumnName="id")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
      */
     private $updatedBy;
 

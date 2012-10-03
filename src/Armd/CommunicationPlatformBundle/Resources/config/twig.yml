@@ -1,6 +1,0 @@
-services:
-    armd_cp.twig.proposals_extension:
-        class: Armd\CommunicationPlatformBundle\Twig\CommunicationPlatformExtension
-        tags:
-            - { name: twig.extension }
-        arguments: [@armd_cp.acl.proposals.security]

@@ -19,7 +19,6 @@
                 <div class="filter-tabs">
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">Объекты</a></li>
-                        <li class=""><a href="#mrsh">Маршруты</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li class=""><a href="#maps">Мои карты</a></li>
                         {% endif %}
@@ -228,6 +227,7 @@
 
     <!-- /popups -------------------------------------------- -->
 
+    <!-- /Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
         <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
@@ -236,6 +236,8 @@
         document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
         document.getElementById('script_ad').style.display = 'block';
     </script>
+    <!-- /Асинхронная загрузка jsapi -->
+
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -252,10 +254,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
-    {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?&version=0.1.8-rc2"></script> #}
-    {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script> #}
-    {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script> #}
-    {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script> #}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.tmpl.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>

@@ -1,0 +1,27 @@
+
+<form>
+    <div class="well">
+        Выберите объекты, которые пользователь сможет изменять в личном кабинете
+    </div>
+    <select class="chzn-select atlas-object-acl-object-select">
+        <option value="">-- Выберите объект --</option>
+        {% for object in otherObjects %}
+            <option value="{{ object.id }}">{{ object.title }}</option>
+        {% endfor %}
+    </select>
+
+    <div>
+        <button type="button" class="atlas-object-acl-add-object">Добавить</button>
+    </div>
+
+</form>
+
+<div class="well">Доступные для <strong>{{ user.username }}</strong> объекты:</div>
+<ul class="atlas-object-list">
+    {% for object in userObjects %}
+        <li>
+            <a href="#" data-id="{{ object.id }}"><img src="{{ asset('bundles/sonataadmin/famfamfam/delete.png') }}" /></a>
+            <span>{{ object.title }}</span>
+        </li>
+    {% endfor %}
+</ul>

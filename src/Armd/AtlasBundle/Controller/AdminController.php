@@ -3,6 +3,10 @@
 namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -11,13 +15,64 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class AdminController extends Controller
 {
     /**
-     * @Route("/test")
+     * Some temp or test actions here
+     *
+     * @Route("/test/")
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
     public function testAction()
     {
+        $testType = $this->getRequest()->get('type');
+
+        switch($testType) {
+            case 'list_without_3d':
+                $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
+                    ->createQueryBuilder('o')
+                    ->where('o.image3d IS NULL')
+                    ->getQuery()
+                    ->getResult();
+
+                $response = '';
+                foreach($objects as $object) {
+                    $response .= $object->getId() . ' ' . $object->getTitle() . '<br>';
+                }
+                return new Response($response);
+                break;
+
+            case 'list_with_virtual_tour_image':
+                $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
+                    ->createQueryBuilder('o')
+                    ->where('o.virtualTourImage IS NOT NULL')
+                    ->getQuery()
+                    ->getResult();
+
+                $response = '';
+                foreach($objects as $object) {
+                    $response .= $object->getId() . ' ' . $object->getTitle() . '<br>';
+                }
+                return new Response($response);
+                break;
+
+            case 'list_with_virtual_tour':
+                $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
+                    ->createQueryBuilder('o')
+                    ->where('o.virtualTour IS NOT NULL')
+                    ->andWhere('LENGTH(TRIM(o.virtualTour)) > 0 ')
+                    ->getQuery()
+                    ->getResult();
+
+                $response = '';
+                foreach($objects as $object) {
+                    $response .= $object->getId() . ' ' . $object->getTitle() . '<br>';
+                }
+                return new Response($response);
+                break;
+
+        }
+
         return new Response('ok');
     }
+
 
     /**
      * @Route("/category_up/{id}", name="armd_atlas_admin_category_tree_up")
@@ -101,5 +156,94 @@ class AdminController extends Controller
         return new Response();
     }
 
+    /**
+     * @Route("/list-user-objects/user/{userId}",
+     * name="armd_atlas_admin_list_user_objects",
+     * options={"expose"=true})
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     * @Template()
+     */
+    public function listUserObjectsAction($userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
+        if(empty($user)) {
+            throw new \InvalidArgumentException('User not found');
+        }
+        $userObjects = $this->get('armd_atlas.manager.object')->getUserObjects($user);
+
+        $qbOtherObjects = $em->getRepository('ArmdAtlasBundle:Object')
+            ->createQueryBuilder('o')
+            ->orderBy('o.title', 'ASC');
+        if(count($userObjects)) {
+            $qbOtherObjects->where('o NOT IN (:objects)')
+            ->setParameter('objects', $userObjects);
+        }
+        $otherObjects = $qbOtherObjects->getQuery()->getResult();
+
+        return array(
+            'user' => $user,
+            'userObjects' => $userObjects,
+            'otherObjects' => $otherObjects,
+        );
+
+    }
+
+    /**
+     * @Route("/grant-user-object/user/{userId}/object/{objectId}",
+     *  name="armd_atlas_admin_grant_user_object",
+     *  options={"expose"=true}
+     * )
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function grantUserObjectAction($userId, $objectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
+        if(empty($user)) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        if(empty($object)) {
+            throw new \InvalidArgumentException('Atlas object not found');
+        }
+
+        $aclManager = $this->get('armd_user.manager.acl');
+        $aclManager->grant($user, $object, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
+
+//        return new Response(json_encode(array('resultCode' => 'OK')));
+        return $this->forward('ArmdAtlasBundle:Admin:listUserObjects', array('userId' => $userId));
+    }
+
+    /**
+     * @Route("/revoke-user-object/user/{userId}/object/{objectId}",
+     *  name="armd_atlas_admin_revoke_user_object",
+     *  options={"expose"=true}
+     * )
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function revokeUserObjectAction($userId, $objectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ArmdUserBundle:User')->find($userId);
+        if(empty($user)) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        if(empty($object)) {
+            throw new \InvalidArgumentException('Atlas object not found');
+        }
+
+        $aclManager = $this->get('armd_user.manager.acl');
+        $aclManager->revoke($user, $object, MaskBuilder::MASK_EDIT | MaskBuilder::MASK_VIEW);
+
+        return $this->forward('ArmdAtlasBundle:Admin:listUserObjects', array('userId' => $userId));
+
+//        return new Response(json_encode(array('resultCode' => 'OK')));
+    }
 
 }
