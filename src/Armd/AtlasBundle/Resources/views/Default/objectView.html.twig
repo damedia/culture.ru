@@ -175,7 +175,7 @@
 								{#<input type="submit" value="Отправить" class="button" />#}
 							{#</form>#}
 
-                            {% set comment_thread_id = 'atlas_' ~ entity.id %}
+                            {% set comment_thread_id = app.request.locale ~ '_atlas_' ~ entity.id %}
                             {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
                             {% if not is_granted('ROLE_USER') %}
