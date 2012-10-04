@@ -102,6 +102,32 @@ security:
                             oauth_consumer_key: F0lzOE5KpZQoR6lgF92g
                             consumer_secret: x426C9iJJvYOQhX7tK5VKEHfGxFyFFsX7bXkCbI53Tg
 
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        oauth_authorize:
+            pattern:    ^/oauth/v2/auth
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    true
+                check_path:     /login_check
+#                default_target_path: armd_news_list_index
+                failure_path:   null
+                use_referer:    true
+                success_handler: armd_user.security.authentication_success_handler
+            logout:
+                path:           /logout
+                target:         armd_news_list_index
+                success_handler: armd_user.security.logout_success_handler
+            anonymous:          true
+
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
+
 
 
     access_control:
@@ -124,3 +150,5 @@ security:
         # Change these rules to adapt them to your needs
         - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }

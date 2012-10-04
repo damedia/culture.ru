@@ -53,6 +53,12 @@ fos_comment_api:
    type: rest
    resource: "@FOSCommentBundle/Resources/config/routing.yml"
    prefix: /comment/api
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
    
 armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing/routing.yml"
@@ -115,3 +121,8 @@ armd_social_auth:
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #    prefix:   /_internal
+
+armd_oauth:
+    resource: "@ArmdOAuthBundle/Controller/"
+    type:     annotation
+    prefix:   /oauth

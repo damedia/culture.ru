@@ -27,7 +27,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
-//            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -55,6 +56,7 @@ class AppKernel extends Kernel
             new Armd\MkCommentBundle\ArmdMkCommentBundle(),
             new Armd\UtilBundle\ArmdUtilBundle(),
             new Armd\MuseumBundle\ArmdMuseumBundle(),
+            new Armd\OAuthBundle\ArmdOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
