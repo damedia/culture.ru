@@ -1,48 +1,63 @@
 lectures:
     - title: Караваджо. Выставка произведений художника в Москве
-      categories: [balet, war, direction1]
-      lectureSuperType: LECTURE_SUPER_TYPE_LECTURE
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.balet
+        - armd_lecture.lecture_category.war
+        - armd_lecture.lecture_category.direction1
+      lectureSuperType: armd_lecture.lecture_super_type.lecture
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Андрей Яновский
       recommended: false
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: 1812 год в истории России
-      categories: [balet, direction1]
-      lectureSuperType: LECTURE_SUPER_TYPE_LECTURE
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.balet
+        - armd_lecture.lecture_category.direction1
+      lectureSuperType: armd_lecture.lecture_super_type.lecture
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Виктория Эммануиловна Маркова
       recommended: false
-      lectureVideo: tvigle_video2
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video2
 
     - title: Фильма «Рада» и творческая встреча с режиссером Всеволодом Судейко
-      categories: [war, painting, direction1]
-      lectureSuperType: LECTURE_SUPER_TYPE_LECTURE
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.war
+        - armd_lecture.lecture_category.painting
+        - armd_lecture.lecture_category.direction1
+      lectureSuperType: armd_lecture.lecture_super_type.lecture
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Всеволод Судейко
       recommended: true
-      lectureVideo: tvigle_video3
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video3
 
     - title: Графическая жестикуляция
-      categories: [painting, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_LECTURE
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.painting
+        - armd_lecture.lecture_category.direction2
+      lectureSuperType: armd_lecture.lecture_super_type.lecture
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: Графическая жестикуляция аудиоверсия
-      categories: [balet, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_LECTURE
-      lectureType: LECTURE_TYPE_AUDIO
+      categories:
+        - armd_lecture.lecture_category.balet
+        - armd_lecture.lecture_category.direction2
+      lectureSuperType: armd_lecture.lecture_super_type.lecture
+      lectureType: armd_lecture.lecture_type.audio
       lecturer: Сергей Скуратов
       recommended: false
       lectureFile: lecture1.mp3
 
     - title: Графическая жестикуляция PDF версия
-      categories: [balet, war, direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_LECTURE
-      lectureType: LECTURE_TYPE_TEXT
+      categories:
+        - armd_lecture.lecture_category.balet
+        - armd_lecture.lecture_category.war
+        - armd_lecture.lecture_category.direction2
+      lectureSuperType: armd_lecture.lecture_super_type.lecture
+      lectureType: armd_lecture.lecture_type.text
       lecturer: Сергей Скуратов
       recommended: false
       lectureFile: lecture2.pdf
@@ -51,51 +66,64 @@ lectures:
 # video translations
 
     - title: Трансляция Графическая жестикуляция1
-      categories: [tranlation_movie, translation_direction1]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.tranlation_movie
+        - armd_lecture.lecture_category.translation_direction1
+      lectureSuperType: armd_lecture.lecture_super_type.translation
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: Трансляция Графическая жестикуляция2
-      categories: [tranlation_movie, tranlation_literature, translation_direction1]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.tranlation_movie
+        - armd_lecture.lecture_category.tranlation_literature
+        - armd_lecture.lecture_category.translation_direction1
+      lectureSuperType: armd_lecture.lecture_super_type.translation
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: Трансляция Графическая жестикуляция3
-      categories: [tranlation_literature, translation_direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.tranlation_literature
+        - armd_lecture.lecture_category.translation_direction2
+      lectureSuperType: armd_lecture.lecture_super_type.translation
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: Трансляция Графическая жестикуляция4
-      categories: [tranlation_theater, translation_direction2]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.tranlation_theater
+        - armd_lecture.lecture_category.translation_direction2
+      lectureSuperType: armd_lecture.lecture_super_type.translation
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: Трансляция Графическая жестикуляция5
-      categories: [tranlation_literature, tranlation_theater]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.tranlation_literature
+        - armd_lecture.lecture_category.tranlation_theater
+      lectureSuperType: armd_lecture.lecture_super_type.translation
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
     - title: Трансляция Графическая жестикуляция6
-      categories: [tranlation_theater, translation_direction1]
-      lectureSuperType: LECTURE_SUPER_TYPE_VIDEO_TRANSLATION
-      lectureType: LECTURE_TYPE_VIDEO
+      categories:
+        - armd_lecture.lecture_category.tranlation_theater
+        - armd_lecture.lecture_category.translation_direction1
+      lectureSuperType: armd_lecture.lecture_super_type.translation
+      lectureType: armd_lecture.lecture_type.video
       lecturer: Сергей Скуратов
       recommended: true
-      lectureVideo: tvigle_video1
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
 

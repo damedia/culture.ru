@@ -54,7 +54,7 @@ class LoadLectureData extends AbstractFixture implements OrderedFixtureInterface
 
         if(!empty($data['categories'])) {
             foreach($data['categories'] as $categoryRef) {
-                $category = $this->getReference('armd_lecture.lecture_category.' . $categoryRef);
+                $category = $this->getReference($categoryRef);
                 if(empty($category)) {
                     throw new \InvalidArgumentException('Category reference ' . $categoryRef . ' not found');
                 }
@@ -64,20 +64,18 @@ class LoadLectureData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         if(!empty($data['lectureSuperType'])) {
-            $lectureSuperTypeRef = 'armd_lecture.lecture_super_type.' . strtolower($data['lectureSuperType']);
-            $lectureSuperType = $this->getReference($lectureSuperTypeRef);
+            $lectureSuperType = $this->getReference($data['lectureSuperType']);
             if(empty($lectureSuperType)) {
-                throw new \InvalidArgumentException('LectureSuperType reference ' . $lectureSuperTypeRef . ' not found');
+                throw new \InvalidArgumentException('LectureSuperType reference ' . $data['lectureSuperType'] . ' not found');
             }
             $lecture->setLectureSuperType($lectureSuperType);
 
         }
 
         if(!empty($data['lectureType'])) {
-            $lectureTypeRef = 'armd_lecture.lecture_type.' . strtolower($data['lectureType']);
-            $lectureType = $this->getReference($lectureTypeRef);
+            $lectureType = $this->getReference($data['lectureType']);
             if(empty($lectureType)) {
-                throw new \InvalidArgumentException('Lecture type reference ' . $lectureTypeRef . ' not found');
+                throw new \InvalidArgumentException('Lecture type reference ' . $data['lectureType'] . ' not found');
             }
             $lecture->setLectureType($lectureType);
         }
@@ -88,7 +86,7 @@ class LoadLectureData extends AbstractFixture implements OrderedFixtureInterface
 
         if(!empty($data['lectureVideo'])) {
 
-            $video = $this->getReference('armd_lecture.tvigle_video.' . $data['lectureVideo']);
+            $video = $this->getReference($data['lectureVideo']);
             if(empty($video)) {
                 throw new \InvalidArgumentException('Category reference ' . $data['lectureVideo'] . ' not found');
             }
@@ -130,6 +128,6 @@ class LoadLectureData extends AbstractFixture implements OrderedFixtureInterface
      */
     function getOrder()
     {
-        return 20;
+        return 230;
     }
 }

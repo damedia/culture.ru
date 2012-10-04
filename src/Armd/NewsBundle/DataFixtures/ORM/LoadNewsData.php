@@ -86,6 +86,6 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 102;
+        return 330;
     }
 }

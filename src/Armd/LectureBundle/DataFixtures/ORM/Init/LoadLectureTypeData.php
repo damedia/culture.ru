@@ -12,19 +12,25 @@ class LoadLectureTypeData extends AbstractFixture implements OrderedFixtureInter
 {
     public function load(ObjectManager $manager)
     {
-        $types = array(
-          'LECTURE_TYPE_VIDEO' => 'Видео',
-          'LECTURE_TYPE_AUDIO' => 'Аудио',
-          'LECTURE_TYPE_TEXT' => 'Текст',
-        );
+        $type = new LectureType();
+        $type->setCode('LECTURE_TYPE_VIDEO');
+        $type->setName('Видео');
+        $manager->persist($type);
+        $this->setReference('armd_lecture.lecture_type.video', $type);
 
-        foreach($types as $key => $val) {
-            $type = new LectureType();
-            $type->setCode($key);
-            $type->setName($val);
-            $manager->persist($type);
-            $this->setReference('armd_lecture.lecture_type.' . strtolower($key), $type);
-        }
+        $type = new LectureType();
+        $type->setCode('LECTURE_TYPE_AUDIO');
+        $type->setName('Аудио');
+        $manager->persist($type);
+        $this->setReference('armd_lecture.lecture_type.audio', $type);
+
+
+        $type = new LectureType();
+        $type->setCode('LECTURE_TYPE_TEXT');
+        $type->setName('Текст');
+        $manager->persist($type);
+        $this->setReference('armd_lecture.lecture_type.text', $type);
+
         $manager->flush();
     }
 
@@ -35,6 +41,6 @@ class LoadLectureTypeData extends AbstractFixture implements OrderedFixtureInter
      */
     function getOrder()
     {
-        return 5;
+        return 210;
     }
 }

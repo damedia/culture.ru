@@ -26,7 +26,7 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
                 $region->setSortIndex($regionData['sortIndex']);
             }
             if(!empty($regionData['ref_code'])) {
-                $this->addReference('armd_atlas.region.' . $regionData['ref_code'], $region);
+                $this->addReference($regionData['ref_code'], $region);
             }
             $manager->persist($region);
         }
@@ -41,6 +41,6 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
      */
     function getOrder()
     {
-        return 15;
+        return 10;
     }
 }

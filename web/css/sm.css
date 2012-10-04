@@ -592,6 +592,21 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 
 
 /*MAIN PAGE*/
+#armd_messages {
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    padding: 15px 30px;
+    margin-left: -300px;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    background-color: #eaec6f;
+    z-index: 100;
+    text-align: center;
+}
+
 #discus {
 	width: 55%;
 	float: left;
@@ -1688,6 +1703,14 @@ white-space:nowrap;
 			text-decoration: none;
 			background: #f0f0f0;
 		}
+            .afisha-list-more .loading {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                background: transparent url(../img/loading_circle_16.gif) scroll no-repeat 0 0;
+                margin-left: 20px;
+                vertical-align: middle;
+            }
 		
 		
 		.virtual-anons-block {
