@@ -84,9 +84,7 @@ class CommentListener implements EventSubscriberInterface
     protected function autoModerate(Comment $comment)
     {
         if(!$comment->getSkipAutoModerate()) {
-            $roles = $comment->getAuthor()->getRoles();
-
-            if (in_array('ROLE_ADMIN', $roles, true)) {
+            if ($comment->getAuthor()->hasRole('ROLE_ADMIN')) {
                 $comment->setState(CommentInterface::STATE_VISIBLE);
             } else {
                 $comment->setState(CommentInterface::STATE_PENDING);
