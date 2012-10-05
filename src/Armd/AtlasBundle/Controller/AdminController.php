@@ -119,8 +119,14 @@ class AdminController extends Controller
      */
     public function exportObjects()
     {
-        $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')->findAll();
-        $categories = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Category')->childrenHierarchy();
+        $objects = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdAtlasBundle:Object')
+            ->createQueryBuilder('o')
+            ->where('o.published = TRUE')
+            ->getQuery()
+            ->getResult();
+        $categories = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdAtlasBundle:Category')->childrenHierarchy();
 
         $content = $this->renderView('ArmdAtlasBundle:Admin:export_objects.xml.twig', array(
             'objects' => $objects,

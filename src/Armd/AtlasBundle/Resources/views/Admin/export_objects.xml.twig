@@ -6,36 +6,38 @@
             <title>{{ object.title }}</title>
             <announce>{{ object.announce }}</announce>
             <content>{{ object.content }}</content>
-            <siteUrl>{{ object.siteUrl }}</siteUrl>
-            <email>{{ object.email }}</email>
-            <phone>{{ object.phone }}</phone>
+            {#<siteUrl>{{ object.siteUrl }}</siteUrl>#}
+            {#<email>{{ object.email }}</email>#}
+            {#<phone>{{ object.phone }}</phone>#}
             <address>{{ object.address }}</address>
-            <lat>{{ object.lat }}</lat>
-            <lon>{{ object.lon }}</lon>
+            {#<lat>{{ object.lat }}</lat>#}
+            {#<lon>{{ object.lon }}</lon>#}
+            <russiaImageAnnounce>{{ object.russiaImageAnnounce }}</russiaImageAnnounce>
 
-            <primaryCategory>
-                {% if object.primaryCategory is not empty %}
-                <atlasCategory id="{{ object.primaryCategory.id }}"/>
-                {% endif %}
-            </primaryCategory>
 
-            <secondaryCategories>
-                {% for category in object.secondaryCategories %}
-                <atlasCategory id="{{ category.id }}"/>
+            {#<primaryCategory>#}
+                {#{% if object.primaryCategory is not empty %}#}
+                {#<atlasCategory id="{{ object.primaryCategory.id }}"/>#}
+                {#{% endif %}#}
+            {#</primaryCategory>#}
 
-                {% endfor %}
-            </secondaryCategories>
+            {#<secondaryCategories>#}
+                {#{% for category in object.secondaryCategories %}#}
+                {#<atlasCategory id="{{ category.id }}"/>#}
+
+                {#{% endfor %}#}
+            {#</secondaryCategories>#}
 
             <workTime>{{ object.workTime }}</workTime>
 
-            <weekends>
-                {% for day in object.weekends%}
-                <day>{{ day.name }}</day>
-                {% endfor %}
-            </weekends>
+            {#<weekends>#}
+                {#{% for day in object.weekends%}#}
+                {#<day>{{ day.name }}</day>#}
+                {#{% endfor %}#}
+            {#</weekends>#}
 
-            <showAtHomepage val="{% if object.showAtHomepage %}1{% else %}0{% endif %}"/>
-            <showAtRussianImage val="{% if object.showAtRussianImage %}1{% else %}0{% endif %}"/>
+            {#<showAtHomepage val="{% if object.showAtHomepage %}1{% else %}0{% endif %}"/>#}
+            {#<showAtRussianImage val="{% if object.showAtRussianImage %}1{% else %}0{% endif %}"/>#}
 
             <literatures>
                 {% for literature in object.literatures %}
