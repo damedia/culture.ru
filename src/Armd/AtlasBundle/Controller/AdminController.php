@@ -144,9 +144,12 @@ class AdminController extends Controller
                 $filePath = $exportDir . '/atlas_object_' . $object->getId() . '.txt';
                 $content = $this->renderView('ArmdAtlasBundle:Admin:export_objects.txt.twig', array('object' => $object));
                 $content = html_entity_decode($content);
-                $content  = str_replace("\r\n", "\n", $content);
-                $content  = str_replace("\r", "\n", $content);
-                $content  = str_replace("\n", "\r\n", $content);
+                $content = preg_replace("~\r\n~u", "\n", $content);
+                $content = preg_replace("~\r~u", "\n", $content);
+                $content = preg_replace("~\n~u", "\r\n", $content);
+//                $content  = str_replace("\r\n", "\n", $content);
+//                $content  = str_replace("\r", "\n", $content);
+//                $content  = str_replace("\n", "\r\n", $content);
 
                 echo $filePath . "<br>";
                 file_put_contents($filePath,  $content);
