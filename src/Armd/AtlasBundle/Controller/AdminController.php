@@ -114,12 +114,21 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/export_objects")
+     * @Route("/export_objects/{format}", defaults={"format" = "xml"})
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */
-    public function exportObjects()
+    public function exportObjects($format)
     {
-        $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')->findAll();
+        $exportDir = realpath(__DIR__ . '/../../../../tmp/atlas_objects');
+
+        $objects = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdAtlasBundle:Object')
+            ->createQueryBuilder('o')
+            ->where('o.published = TRUE')
+            ->andWhere('o.showAtRussianImage = TRUE')
+            ->getQuery()
+            ->getResult();
+
         $categories = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Category')->childrenHierarchy();
 
         $content = $this->renderView('ArmdAtlasBundle:Admin:export_objects.xml.twig', array(
@@ -127,8 +136,23 @@ class AdminController extends Controller
             'categories' => $categories
         ));
 
-        $response = new Response($content, 200, array('content-type' => 'text/xml'));
-//        $response = new Response($content, 200);
+        if ($format === 'xml') {
+            $response = new Response($content, 200, array('content-type' => 'text/xml'));
+        } elseif($format === 'txt') {
+            echo "Count: " . count($objects);
+            foreach($objects as $object) {
+                $filePath = $exportDir . '/atlas_object_' . $object->getId() . '.txt';
+                $content = $this->renderView('ArmdAtlasBundle:Admin:export_objects.txt.twig', array('object' => $object));
+                echo $filePath . "<br>";
+                file_put_contents($filePath,  $content);
+            }
+
+            $response = new Response('Files was written to ' . $exportDir);
+        } else {
+            $response = new Response('Unknown export format');
+        }
+
+
         return $response;
     }
 

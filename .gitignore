@@ -14,3 +14,5 @@ web/uploads/
 *.orig
 
 /bin
+/web/assetic/*
+/tmp
