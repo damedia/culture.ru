@@ -13,16 +13,14 @@
         {% endblock %}
      
         {% block stylesheets %}
-            <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
-            <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
-
             {%  stylesheets
                 '@FOSCommentBundle/Resources/assets/css/comments.css'
             %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {%  endstylesheets %}
 
-
+            <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
             <link href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}" rel="stylesheet" type="text/css" media="screen" />
             <link href="{{ asset('bundles/armdmkcomment/css/comments.css') }}" rel="stylesheet" type="text/css" media="screen" />
 
