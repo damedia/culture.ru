@@ -1,0 +1,114 @@
+{% extends 'SonataAdminBundle:CRUD:show.html.twig' %}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block title %}
+    {{ "Object"|trans({}, "ArmdAtlasBundle") }}
+{% endblock%}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block actions %}
+    <div class="sonata-actions">
+        <ul>
+            {% if admin.hasRoute('edit') and admin.isGranted('EDIT', object)%}
+                <li class="btn"><a href="{{ path('admin_armd_atlas_object_edit', {id:object.id}) }}">Редактировать</a></li>
+            {% endif %}
+            {% if admin.hasroute('list') and admin.isGranted('LIST')%}
+                <li class="btn"><a href="{{ admin.generateUrl('list') }}">{% trans from 'SonataAdminBundle' %}link_action_list{% endtrans %}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block show %}
+    {% if object %}
+        <form method="POST">
+            <table class="table table-bordered">
+                <tr>
+                    <th>{{ "Title"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>{{ object.title }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "Announce"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>{{ object.announce }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "Address"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>{{ object.address }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "Lon"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>{{ object.lon }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "Lat"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>{{ object.lat }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "Primary Category"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>{{ object.primaryCategory.title }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "Secondary Categories"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>
+                        {% for category in object.secondaryCategories %}
+                            {{ category.title }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ "Images"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>
+                        {% for image in object.images %}
+                            <a class="fancybox" href="{% path image, 'big' %}">
+                                <img src="{% path image, 'thumbnail' %}" />
+                            </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ "Status"|trans({}, "ArmdAtlasBundle") }}</th>
+                    <td>
+                        {% for status in statusList %}
+                            <span style="margin-right:20px;">
+                                <input class="status-radio" id="status-id-{{ status.id }}" type="radio" name="status" value="{{ status.id }}" {% if status.id==object.status.id %}checked{% endif %}>
+                                <label style="display:inline;" for="status-id-{{ status.id }}">{{ status.title }}</label>
+                            </span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr id="reason-text" {% if object.status.id==0 or object.status.id==1 %}class="hidden"{% endif %}>
+                    <th>Причина</th>
+                    <td><textarea name="reason" class="span5">{{ object.reason }}</textarea></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><button class="btn btn-primary">Сохранить</button></td>
+                </tr>
+            </table>
+        </form>
+
+        <style type="text/css">
+            #reason-text.hidden{ display:none; }
+        </style>
+        <script type="text/javascript">
+            $(function(){
+
+                // При постановке статусов "Одобрено" и "Отклонено"
+                // модератор заполняет обязательное текстовое поле "Причина"
+                $('.status-radio').click(toggleStatusReason);
+                function toggleStatusReason() {
+                    var statusId = $(this).val();
+                    if (statusId == 2 || statusId == 3) {
+                        $('#reason-text').removeClass('hidden').show();
+                    } else {
+                        $('#reason-text').addClass('hidden').hide();
+                    }
+                }
+
+            });
+        </script>
+
+    {% endif %}
+{% endblock%}
+

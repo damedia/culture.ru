@@ -106,4 +106,29 @@ class ObjectRepository extends EntityRepository
         return array_unique($res);
     }
 
+    public function filterModerating($filter)
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb->where('o.isOfficial = FALSE');
+        if (isset($filter['title']) && !empty($filter['title'])) {
+            $qb->andWhere('o.title LIKE :title')
+               ->setParameter('title', '%'.$filter['title'].'%');
+        }
+        if (isset($filter['status']) && !empty($filter['status'])) {
+            $qb->andWhere('o.status = :status')
+               ->setParameter('status', $filter['status']);
+        }
+        if (isset($filter['createdBy']) && !empty($filter['createdBy'])) {
+            $qb->andWhere('o.createdBy = :createdBy')
+               ->setParameter('createdBy', $filter['createdBy']);
+        }
+        if (isset($filter['updatedBy']) && !empty($filter['updatedBy'])) {
+            $qb->andWhere('o.updatedBy = :updatedBy')
+               ->setParameter('updatedBy', $filter['updatedBy']);
+        }
+        $qb->orderBy('o.createdAt', 'DESC');
+        $result = $qb->getQuery()->getResult();
+        return $result;
+    }
+
 }

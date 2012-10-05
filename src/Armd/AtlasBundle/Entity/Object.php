@@ -205,9 +205,15 @@ class Object
     private $isOfficial = true;
 
     /**
-     * @ORM\Column(name="status", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="\Armd\AtlasBundle\Entity\ObjectStatus")
+     * @ORM\JoinColumn(name="status", referencedColumnName="id")
      */
     private $status;
+
+    /**
+     * @ORM\Column(name="reason", type="text", nullable=true)
+     */
+    private $reason;
 
     public function syncPrimaryAndSecondaryCategories()
     {
@@ -1074,13 +1080,15 @@ class Object
         return $this->isOfficial;
     }
 
+
+
     /**
      * Set status
      *
-     * @param integer $status
+     * @param Armd\AtlasBundle\Entity\ObjectStatus $status
      * @return Object
      */
-    public function setStatus($status)
+    public function setStatus(\Armd\AtlasBundle\Entity\ObjectStatus $status = null)
     {
         $this->status = $status;
     
@@ -1090,10 +1098,33 @@ class Object
     /**
      * Get status
      *
-     * @return integer 
+     * @return Armd\AtlasBundle\Entity\ObjectStatus 
      */
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set reason
+     *
+     * @param string $reason
+     * @return Object
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
+    
+        return $this;
+    }
+
+    /**
+     * Get reason
+     *
+     * @return string 
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 }
