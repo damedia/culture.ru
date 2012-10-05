@@ -313,6 +313,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 
 			#nav .navmenu {
 				margin: 0 0 0 -12px;
+				float:left;
 			}
 
 				#nav .navmenu li {
