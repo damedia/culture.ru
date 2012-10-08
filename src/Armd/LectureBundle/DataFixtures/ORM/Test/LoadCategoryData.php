@@ -22,7 +22,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $data = $parser->parse(file_get_contents(__DIR__ . '/../../../Resources/fixtures/test_categories.yml'));
 
         foreach ($data['categories'] as $rootKey => $rootVal) {
-            $rootCategory = $this->getReference('armd_lecture.lecture_category.' . $rootKey);
+            $rootCategory = $this->getReference($rootKey);
             foreach($rootVal as $categoryData) {
                 $this->saveCategory($manager, $categoryData, $rootCategory);
             }
@@ -36,7 +36,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $category->setParent($parentCategory);
         $category->setTitle($categoryData['title']);
         if (!empty($categoryData['ref_code'])) {
-            $this->addReference('armd_lecture.lecture_category.' . $categoryData['ref_code'], $category);
+            $this->addReference($categoryData['ref_code'], $category);
         }
         $manager->persist($category);
 
@@ -54,6 +54,6 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
      */
     function getOrder()
     {
-        return 15;
+        return 220;
     }
 }

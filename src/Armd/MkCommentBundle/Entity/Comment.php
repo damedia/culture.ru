@@ -11,13 +11,13 @@ use Armd\UserBundle\Entity\User;
 /**
  * @ORM\Entity
  * @ORM\Table(name="comment")
- * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
 class Comment extends BaseComment implements SignedCommentInterface
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -25,7 +25,7 @@ class Comment extends BaseComment implements SignedCommentInterface
      * Thread of this comment
      *
      * @var Thread
-     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread")
+     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"persist"})
      */
     protected $thread;
 
@@ -36,6 +36,21 @@ class Comment extends BaseComment implements SignedCommentInterface
      * @var User
      */
     protected $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="moderated_by_user_id", nullable=true)
+     */
+    protected $moderatedBy;
+
+    /**
+     * @ORM\Column(type="datetime", name="moderated_at", nullable=true)
+     */
+    protected $moderatedAt;
+
+    // used to load moderated fixtures
+    protected $skipAutoModerate = false;
+
 
     public function getId()
     {
@@ -84,11 +99,53 @@ class Comment extends BaseComment implements SignedCommentInterface
             $authorName = 'Anonymous';
         } else {
             $authorName = $this->getAuthor()->getFullname();
-            if(empty($authorName)) {
+            if(strlen(trim($authorName)) === 0) {
                 $authorName = $this->getAuthor()->getUsername();
             }
         }
-
         return $authorName;
     }
+
+    public function getModeratedBy()
+    {
+        return $this->moderatedBy;
+    }
+
+    public function setModeratedBy(UserInterface $moderatedBy)
+    {
+        $this->moderatedBy = $moderatedBy;
+    }
+
+    public function getModeratedAt()
+    {
+        return $this->moderatedAt;
+    }
+
+    public function setModeratedAt(\DateTime $moderatedAt)
+    {
+        $this->moderatedAt = $moderatedAt;
+    }
+
+    public function getStateString()
+    {
+        $states = array(
+            self::STATE_DELETED => 'STATE_DELETED',
+            self::STATE_PENDING => 'STATE_PENDING',
+            self::STATE_SPAM => 'STATE_SPAM',
+            self::STATE_VISIBLE => 'STATE_VISIBLE',
+        );
+
+        return $states[$this->getState()];
+    }
+
+    public function getSkipAutoModerate()
+    {
+        return $this->skipAutoModerate;
+    }
+
+    public function setSkipAutoModerate($skipAutoModerate)
+    {
+        $this->skipAutoModerate = $skipAutoModerate;
+    }
+
 }

@@ -1,13 +1,13 @@
 categories:
-    lecture_root:
+    armd_lecture.lecture_category.lecture_root:
         - title: Тематика
           children:
             - title: Балет
-              ref_code: balet
+              ref_code: armd_lecture.lecture_category.balet
             - title: Война
-              ref_code: war
+              ref_code: armd_lecture.lecture_category.war
             - title: Живопись
-              ref_code: painting
+              ref_code: armd_lecture.lecture_category.painting
             - title: История
             - title: Киноискусство
             - title: Декор и дизайн
@@ -18,27 +18,27 @@ categories:
         - title: Направление
           children:
             - title: Направление1
-              ref_code: direction1
+              ref_code: armd_lecture.lecture_category.direction1
             - title: Направление2
-              ref_code: direction2
+              ref_code: armd_lecture.lecture_category.direction2
             - title: Направление3
             - title: Направление4
 
-    translation_root:
+    armd_lecture.lecture_category.translation_root:
         - title: Тематика
           children:
             - title: Кино
-              ref_code: tranlation_movie
+              ref_code: armd_lecture.lecture_category.tranlation_movie
             - title: Литература
-              ref_code: tranlation_literature
+              ref_code: armd_lecture.lecture_category.tranlation_literature
             - title: Театр
-              ref_code: tranlation_theater
+              ref_code: armd_lecture.lecture_category.tranlation_theater
 
         - title: Направление
           children:
             - title: Направление1
-              ref_code: translation_direction1
+              ref_code: armd_lecture.lecture_category.translation_direction1
             - title: Направление2
-              ref_code: translation_direction2
+              ref_code: armd_lecture.lecture_category.translation_direction2
             - title: Направление3
             - title: Направление4

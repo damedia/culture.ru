@@ -253,7 +253,7 @@ $(document).ready(function(){
             var thisList = $(this).closest('li').find('ul'),
                 thisInputs  = $('li input:checkbox', thisList);
             
-            console.log(thisList);
+            //console.log(thisList);
             if ($(this).attr('checked') == 'checked') {
                 thisInputs.attr('checked', 'checked');
                 if (!thisList.is(":visible")) {
@@ -286,7 +286,7 @@ $(document).ready(function(){
 		$("a.in-fancybox").fancybox({
 			 tpl: {
 			  next: '<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
-			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>',
+			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>'
 			 },
 			scrolling: 'no'
 		});
@@ -332,7 +332,7 @@ $('#carousel').flexslider({
 		minItems: 5,   
 		maxItems: 10,
 		prevText: "Предыдущая",           
-		nextText: "Следующая",  
+		nextText: "Следующая" 
       });
       
       $('#slider').flexslider({

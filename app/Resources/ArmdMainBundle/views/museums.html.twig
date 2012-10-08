@@ -20,8 +20,7 @@
     </form>
 	<div class="rusObr-block">
 		<ul class="rusObr-list clearfix">	
-		{% for m in museums %}
-			<li>
+		{% for m in museums %}{% if loop.first %}{% else %}-->{% endif %}<li>
 				<div class="rusObr-list-one-wrap" style="" >
 					<div  class="rusObr-list-one">
 						<a href="{{ m.url }}" data-fancybox-type="iframe" class="vob iframe">{% thumbnail m.image, 'billboard' %}</a>
@@ -30,8 +29,8 @@
                         </div>
 					</div>
 				</div>
-			</li>
-        {% endfor %}			
+				 
+			</li>{% if loop.last %}{% else %}<!--{% endif %}{% endfor %}
 		</ul>
     </div>
 </div>

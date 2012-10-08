@@ -76,7 +76,6 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
             $news->setBody($newsDesc['text']);
             $news->setDate($newsDesc['date']);
             $news->setPublished($newsDesc['published']);
-            $news->setBorodino($newsDesc['borodino']);
             $news->setImportant($newsDesc['important']);
             $news->setCategory($newsDesc['category']);
             $manager->persist($news);
@@ -86,6 +85,6 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 102;
+        return 330;
     }
 }

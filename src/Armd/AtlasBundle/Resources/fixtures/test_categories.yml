@@ -3,7 +3,7 @@ categories:
       children:
         - title: Достопримечательности
         - title: Кремли
-          ref_code: kremlin
+          ref_code: armd_atlas.category.kremlin
           icon: pin1.png
         - title: Памятники
         - title: Площади
@@ -14,12 +14,12 @@ categories:
         - title: Учреждения
         - title: Архивы
         - title: Библиотеки
-          ref_code: library
+          ref_code: armd_atlas.category.library
           icon: pin14.png
         - title: Выставки
         - title: Заповедники
         - title: Музеи
-          ref_code: museum
+          ref_code: armd_atlas.category.museum
           icon: pin12.png
         - title: Образовательные
         - title: Общества

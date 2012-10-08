@@ -305,6 +305,51 @@ $(document).ready(function () {
     }
 	
 	
+	/*MENU RESIZE*/
+	var navMore = $('.navmenu_more'),
+		navMoreEl = $('li', navMore),
+		navMenu = $('.navmenu'),
+		navMenuEl = $('> li', navMenu),
+		navMenuLength = navMenuEl.length,
+		navMenuGap,
+		i = 0;
+		
+		
+		function menuRecalc(){
+			navMenuEl = $('> li', navMenu),
+			navMenuLength = navMenuEl.length;
+			if ( $('#nav').width() - navMenu.width()  > navMoreEl.eq(i).width() + 28 ) {
+				menuResize();
+			}
+		}
+		
+		function menuResize(){
+			navMore.removeClass('opened');
+			navMore.find('ul').hide();
+			navMenuGap = $('#nav').width() - navMenu.width();	
+			
+			navMore.find('ul').css({'display':'block','visibility':'hidden'});
+
+			if ( navMenuGap  > navMoreEl.eq(i).width() + 28 ) {
+				navMoreEl.eq(i).insertBefore(navMore);
+				i++;
+				menuRecalc();
+			} else if ( navMenuGap < 0 ) {
+				if (i > 0) {
+					navMenuEl.eq(navMenuLength-2).prependTo(navMore.find('ul'));
+					i--;
+				}
+			}
+			navMore.find('ul').css({'display':'none','visibility':'visible'});
+		}
+	
+	$(window).resize(function () {
+		menuRecalc();
+		menuResize();
+		
+	});
+	menuRecalc();
+	menuResize();
 	
 // Reset Font Size
   var originalFontSize = $('.text').css('font-size');

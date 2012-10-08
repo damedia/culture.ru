@@ -1,0 +1,35 @@
+=====title=====
+{{ object.title|raw }}
+
+=====announce=====
+{{ object.announce|raw }}
+
+=====content=====
+{{ object.content|raw }}
+
+=====address=====
+{{ object.address|raw }}
+
+=====russiaImageAnnounce=====
+{{ object.russiaImageAnnounce|raw }}
+
+
+{%  if object.literatures|length %}
+    {% for literature in object.literatures %}
+=====literature_{{ literature.id }}.title =====
+{{ literature.title|raw }}
+    {% endfor %}
+{% endif %}
+
+{%  if object.objectHints|length %}
+    {% for objectHint in object.objectHints %}
+=====objectHint_{{ objectHint.id }}.title =====
+{{ objectHint.title|raw }}
+
+=====objectHint_{{ objectHint.id }}.text =====
+{{ objectHint.text|raw }}
+
+    {% endfor %}
+{% endif %}
+
+
