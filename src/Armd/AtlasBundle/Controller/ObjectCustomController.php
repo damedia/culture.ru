@@ -20,11 +20,18 @@ class ObjectCustomController extends CRUDController
         $statusRepo = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
         $userRepo   = $em->getRepository('ArmdUserBundle:User');
         $filter = $this->getRequest()->get('filter');
+        if (! $filter)
+            $filter = array(
+                'title' => '',
+                'status' => '',
+                'createdBy' => '',
+                'updatedBy' => '',
+            );
 
         $objects = $objectRepo->filterModerating($filter);
 
-        $statusList = $statusRepo->findAll();
-        $userList = $userRepo->findAll();
+        $statusList = $statusRepo->findBy(array(), array('id'=>'ASC'));
+        $userList = $userRepo->findBy(array(), array('username'=>'ASC'));
 
         return $this->render($this->admin->getListTemplate(), array(
             'action'   => 'list',
@@ -66,16 +73,28 @@ class ObjectCustomController extends CRUDController
             $em->persist($object);
             $em->flush();
 
-            /*
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Hello Email')
-                ->setFrom('send@example.com')
-                ->setTo('markiros@gmail.com')
-                ->setBody('xxxxxxxxxxxxxxxxxxxxxxxxxxx')
-                //->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => 'markiros')))
-            ;
-            $this->get('mailer')->send($message);
-            */
+            if ($statusId==2 || $statusId==3) {
+                $emailFrom = 'randolik@gmail.com';
+                $emailTo = $object->getCreatedBy()->getEmail();
+                if ($statusId == 2) {
+                    $subject = 'Заявка одобрена';
+                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusApprove.txt.twig';
+                } elseif ($statusId == 3) {
+                    $subject = 'Заявка отклонена';
+                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusRefuse.txt.twig';
+                }
+                $body = $this->renderView($template, array(
+                    'name' => 'markiros',
+                    'reason' => $reason,
+                ));
+                $message = \Swift_Message::newInstance()
+                    ->setSubject($subject)
+                    ->setFrom($emailFrom)
+                    ->setTo($emailTo)
+                    ->setBody($body)
+                ;
+                $this->get('mailer')->send($message);
+            }
 
             $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
             return new RedirectResponse($this->admin->generateObjectUrl('show', $object));

@@ -234,6 +234,7 @@ class Object
         $this->literatures = new ArrayCollection();
         $this->objectHints = new ArrayCollection();
         $this->regions = new ArrayCollection();
+        $this->createdBy = $this->updatedBy = new \DateTime("now");
     }
 
     public function getIcon()
@@ -1042,7 +1043,7 @@ class Object
      */
     public function prePersist()
     {
-        $this->createdAt = new \DateTime;
+        //$this->createdAt = new \DateTime;
         $this->updatedAt = new \DateTime;
     }
 
@@ -1053,7 +1054,7 @@ class Object
      */
     public function preUpdate()
     {
-        $this->updatedAt = new \DateTime;
+        $this->updatedAt = new \DateTime('now');
     }
 
 

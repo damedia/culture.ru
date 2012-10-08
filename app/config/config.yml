@@ -62,7 +62,7 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
-    spool:     { type: memory }
+    #spool:     { type: memory }
     
 stof_doctrine_extensions:
     orm:
@@ -124,7 +124,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                adminPreview: { width: 314 , height: 187, , quality: 90}            
+                adminPreview: { width: 314 , height: 187, quality: 90}
                 billboard: { width: 366, height: 261}
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 107 }
@@ -138,7 +138,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                adminPreview: { width: 314 , height: 187, , quality: 90}
+                adminPreview: { width: 314, height: 187, quality: 90}
                 list: { width: 592 }
 
         atlas:

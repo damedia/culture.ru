@@ -67,6 +67,20 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Created</th>
+                    <td>
+                        {{ object.createdAt|date('Y-m-d H:i:s') }},
+                        {{ object.createdBy.username }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Updated</th>
+                    <td>
+                        {{ object.updatedAt|date('Y-m-d H:i:s') }},
+                        {{ object.updatedBy.username }}
+                    </td>
+                </tr>
+                <tr>
                     <th>{{ "Status"|trans({}, "ArmdAtlasBundle") }}</th>
                     <td>
                         {% for status in statusList %}

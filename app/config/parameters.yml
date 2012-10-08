@@ -6,10 +6,10 @@ parameters:
     database_user:     mk
     database_password: Fa3Sheer
 
-    mailer_transport:  smtp
+    mailer_transport:  gmail
     mailer_host:       localhost
-    mailer_user:       ~
-    mailer_password:   ~
+    mailer_user:       randolik
+    mailer_password:   annismylove
 
     locale:            ru
     secret:            ThisTokenIsNotSoSecretChangeIt
