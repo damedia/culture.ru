@@ -22,10 +22,10 @@
             </tr>
             <tr valign="top">
                 <td>
-                    <input class="span3" type="text" name="filter[title]" value="{{ filter.title }}">
+                    <input type="text" name="filter[title]" value="{{ filter.title }}">
                 </td>
                 <td>
-                    <select class="span2" name="filter[status]">
+                    <select name="filter[status]">
                         <option value="" {% if filter.status=='' %}selected="selected"{% endif %}>любой</option>
                         {% for status in statusList %}
                             <option value="{{ status.id }}" {% if filter.status==status.id %}selected="selected"{% endif %}>{{ status.title }}</option>
@@ -33,7 +33,7 @@
                     </select>
                 </td>
                 <td>
-                    <select class="span2" name="filter[createdBy]">
+                    <select name="filter[createdBy]">
                         <option value="" {% if filter.createdBy=='' %}selected="selected"{% endif %}>любой</option>
                         {% for user in userList %}
                             <option value="{{ user.id }}" {% if filter.createdBy==user.id %}selected="selected"{% endif %}>{{ user.username }}</option>
@@ -41,7 +41,7 @@
                     </select>
                 </td>
                 <td>
-                    <select class="span2" name="filter[updatedBy]">
+                    <select name="filter[updatedBy]">
                         <option value="" {% if filter.updatedBy=='' %}selected="selected"{% endif %}>любой</option>
                         {% for user in userList %}
                             <option value="{{ user.id }}" {% if filter.updatedBy==user.id %}selected="selected"{% endif %}>{{ user.username }}</option>

@@ -33,7 +33,7 @@ class ObjectCustomController extends CRUDController
         $statusList = $statusRepo->findBy(array(), array('id'=>'ASC'));
         $userList = $userRepo->findBy(array(), array('username'=>'ASC'));
 
-        return $this->render($this->admin->getListTemplate(), array(
+        return $this->render('ArmdAtlasBundle:Admin:objectcustom-list.html.twig', array(
             'action'   => 'list',
             'objects'  => $objects,
             'userList' => $userList,
