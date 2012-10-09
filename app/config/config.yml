@@ -197,7 +197,7 @@ sonata_media:
             formats:
                 big: { width: 920 }
                 thumbnail: { width: 85, height: 85 } 			
-                archive: {}
+                archive: {width: 98}
 
 
 
