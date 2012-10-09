@@ -234,7 +234,7 @@ class Object
         $this->literatures = new ArrayCollection();
         $this->objectHints = new ArrayCollection();
         $this->regions = new ArrayCollection();
-        $this->createdBy = $this->updatedBy = new \DateTime("now");
+        $this->createdAt = $this->updatedAt = new \DateTime("now");
     }
 
     public function getIcon()

@@ -593,6 +593,7 @@ class DefaultController extends Controller
         try {
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
+            $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
 
@@ -629,6 +630,12 @@ class DefaultController extends Controller
             $entity->setLon($request->get('lon'));
             $entity->setLat($request->get('lat'));
             $entity->setCreatedBy($currentUser);
+            $entity->setUpdatedBy($currentUser);
+            $entity->setIsOfficial(false);
+
+            // Устанавливаем статус ожидания - не нужна
+            $status = $repoObjectStatus->find(0);
+            $entity->setStatus($status);
 
             // Главная категория
             $primaryCategoryId = $request->get('primary_category');
@@ -704,9 +711,17 @@ class DefaultController extends Controller
         try {
             $request = $this->getRequest();
             $id = (int) $request->get('id');
+            $isPublic = (int) $request->get('is_public');
             $em = $this->getDoctrine()->getManager();
-            $repo = $em->getRepository('ArmdAtlasBundle:Object');
-            $entity = $repo->find($id);
+            $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+            $entity = $repoObject->find($id);
+            if ($isPublic) {
+                $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
+                $status = $repoObjectStatus->find(1);
+                $entity->setStatus($status);
+                $em->persist($entity);
+                $em->flush();
+            }
             $res = array(
                 'success' => true,
                 'result' => array(
