@@ -193,7 +193,10 @@
 							top:0;
 							width:20px;
 							height:15px;
-							background:url('../images/moder.gif') no-repeat 0 0;
+							background:#83B061; /*url('../images/moder.gif') no-repeat 0 0;*/
+                            color:#FDFF00;
+                            text-decoration:none;
+                            text-align:center;
 							border:0;
 						}
 

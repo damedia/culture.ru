@@ -535,10 +535,18 @@ AT.initMyObjects = function() {
                 $('#ajax-loading').hide();
                 if (response.success) {
                     console.log('Смена статуса. Отправлено на модерацию.');
+                    var objectId = response.result.id;
+                    var status = response.result.status;
+                    var jLi = $('#myobj_list li').filter(function(){ return $(this).data('id')==objectId; })
+                    jLi.find('.moder').text(status);
                 }
                 $('#moderation-object-form').hide();
             }
         });
+    });
+    $('.moderation-object-form .rst-btn, .moderation-object-form .exit').on('click', function(){
+        $(this).closest('.moderation-object-form').hide();
+        return false;
     });
 
     // Добавить объект на карту
@@ -684,8 +692,9 @@ AT.showObjectForm = function(params) {
     console.log('Show dialog for point:', myPoint);
     jPopup.data('myPoint', myPoint);
 
-    // Fill form
+    // Reset form
     jPopupForm.resetForm();
+    jAddedImages.empty();
 
     // Открываем попап
     jPopup.show();

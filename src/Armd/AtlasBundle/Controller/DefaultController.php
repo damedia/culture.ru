@@ -629,9 +629,7 @@ class DefaultController extends Controller
             $entity->setAddress($request->get('address'));
             $entity->setLon($request->get('lon'));
             $entity->setLat($request->get('lat'));
-            $entity->setCreatedBy($currentUser);
-            $entity->setUpdatedBy($currentUser);
-            $entity->setIsOfficial(false);
+            $entity->setIsOfficial(false); // Пользовательский объект
 
             // Устанавливаем статус ожидания - не нужна
             $status = $repoObjectStatus->find(0);
@@ -711,7 +709,7 @@ class DefaultController extends Controller
         try {
             $request = $this->getRequest();
             $id = (int) $request->get('id');
-            $isPublic = (int) $request->get('is_public');
+            $isPublic = $request->get('is_public')=='on';
             $em = $this->getDoctrine()->getManager();
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
             $entity = $repoObject->find($id);
@@ -727,6 +725,7 @@ class DefaultController extends Controller
                 'result' => array(
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
+                    'status' => $entity->getStatus()->getId(),
                 ),
             );
         }
@@ -754,7 +753,7 @@ class DefaultController extends Controller
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
             $objectId = (int) $request->get('id');
             if ($objectId) {
-                $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId));
+                $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId), array('createdBy' => 'ASC'));
                 $primaryCategory = $obj->getPrimaryCategory();
                 $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
                 $secondaryCategoryIds = array();
@@ -785,12 +784,15 @@ class DefaultController extends Controller
                         $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
                     }
 
+                    $status = ($objStatus = $obj->getStatus()) ? $objStatus->getId() : 0;
+
                     $result[] = array(
                         'id' => $obj->getId(),
                         'title' => $obj->getTitle(),
                         'lon' => $obj->getLon(),
                         'lat' => $obj->getLat(),
                         'icon' => $imageUrl,
+                        'status' => $status,
                     );
                 }
             }

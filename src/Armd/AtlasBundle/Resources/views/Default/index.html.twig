@@ -68,7 +68,7 @@
                                         <li data-id="${id}">
                                             <span>${title}</span>
                                             <a class="del" href="#" title="Удалить"></a>
-                                            <ins class="moder"></ins>
+                                            <ins class="moder">${status}</ins>
                                             {#<ins class="edit"></ins>#}
                                         </li>
                                     </script>
@@ -200,7 +200,7 @@
             </div>
             <div class="section-edit">
                 <p>Изменения сохранены.</p>
-                <label class="sof-check"><input name="is_public" type="checkbox" />Отправить измененный объект на карту</label>
+                <label class="sof-check"><input name="is_public" type="checkbox" checked="checked"/>Отправить измененный объект на карту</label>
             </div>
             <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
             <fieldset class="form-buttons">
@@ -215,6 +215,7 @@
         <a href="#" class="exit" title="Закрыть"></a>
         <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
             <input id="moderation-object-id" class="object-id" name="id" type="hidden"/>
+            <input type="hidden" name="is_public" value="on">
             <h2>Хотите отправить объект на карту?</h2>
             <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
             <fieldset class="form-buttons">
