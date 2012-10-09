@@ -30,4 +30,9 @@ class AuthenticationController extends Controller
         
         return $response; 
     }
+
+    function userAuthAction()
+    {
+
+    }
 }
