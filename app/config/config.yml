@@ -318,6 +318,15 @@ armd_sphinx_search:
     indexer:
         bin:    %sphinxsearch_indexer_bin%
 
+fos_oauth_server:
+    db_driver: orm
+    client_class:        Armd\OAuthBundle\Entity\Client
+    access_token_class:  Armd\OAuthBundle\Entity\AccessToken
+    refresh_token_class: Armd\OAuthBundle\Entity\RefreshToken
+    auth_code_class:     Armd\OAuthBundle\Entity\AuthCode
+
+    service:
+        user_provider: fos_user.user_manager
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin

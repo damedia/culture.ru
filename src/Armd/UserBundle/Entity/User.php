@@ -60,6 +60,16 @@ class User extends BaseUser
     protected $biographyText;
 
     /**
+     * @var string
+     */
+    protected $loginToken;
+
+    /**
+     * @var \DateTime
+     */
+    protected $loginTokenExpires;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -271,6 +281,32 @@ class User extends BaseUser
     {
         $this->biographyText = $biographyText;
         return $this;
+    }
+
+    public function getLoginToken()
+    {
+        return $this->loginToken;
+    }
+
+    public function setLoginToken($loginToken)
+    {
+        $this->loginToken = $loginToken;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLoginTokenExpires()
+    {
+        return $this->loginTokenExpires;
+    }
+
+    /**
+     * @param \DateTime $loginTokenExpires
+     */
+    public function setLoginTokenExpires($loginTokenExpires)
+    {
+        $this->loginTokenExpires = $loginTokenExpires;
     }
 
 }
