@@ -29,6 +29,10 @@
 
         <field name="biographyText" column="biography_text" type="text" nullable="true" />
 
+        <field name="loginToken" column="login_token" type="string" nullable="true" />
+
+        <field name="loginTokenExpires" column="login_token_expires" type="datetime" nullable="true"/>
+
     </entity>
 
 </doctrine-mapping>

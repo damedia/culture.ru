@@ -1,0 +1,4 @@
+armd_user_token_login:
+    pattern: /login-token/{loginToken}
+    defaults: { _controller: ArmdUserBundle:Authentication:authenticateByLoginToken}
+
