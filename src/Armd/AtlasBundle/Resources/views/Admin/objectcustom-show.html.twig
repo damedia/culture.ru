@@ -84,7 +84,7 @@
                     <th>{{ "Status"|trans({}, "ArmdAtlasBundle") }}</th>
                     <td>
                         {% for status in statusList %}
-                            <span style="margin-right:20px;">
+                            <span style="margin-right:20px; white-space:nowrap;">
                                 <input class="status-radio" id="status-id-{{ status.id }}" type="radio" name="status" value="{{ status.id }}" {% if status.id==object.status.id %}checked{% endif %}>
                                 <label style="display:inline;" for="status-id-{{ status.id }}">{{ status.title }}</label>
                             </span>
