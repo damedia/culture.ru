@@ -126,7 +126,7 @@ class ObjectRepository extends EntityRepository
             $qb->andWhere('o.updatedBy = :updatedBy')
                ->setParameter('updatedBy', $filter['updatedBy']);
         }
-        $qb->orderBy('o.createdAt', 'DESC');
+        $qb->orderBy('o.updatedAt', 'DESC');
         $result = $qb->getQuery()->getResult();
         return $result;
     }

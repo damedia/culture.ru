@@ -667,6 +667,9 @@ AT.initMyObjects = function() {
         $('#atlas-objects-add').removeClass('active');
         jPopup.hide();
         myPoint = jPopup.data('myPoint');
+        if (myPoint.draggable) {
+            myPoint.draggable.kill(); // Отключение перетаскивания точки
+        }
         if (jPopup.hasClass('add')) {
             AT.map.geometry.remove(myPoint); // Удаляем точку с карты если диалог в режиме добавления
         }

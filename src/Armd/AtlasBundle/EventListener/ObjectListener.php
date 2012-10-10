@@ -56,10 +56,12 @@ class ObjectListener
 
             // sync categories
             $entity->syncPrimaryAndSecondaryCategories();
+            /*
             $uow->computeChangeSet(
                 $em->getClassMetadata('ArmdAtlasBundle:Object'),
                 $entity
             );
+            */
         }
     }
 

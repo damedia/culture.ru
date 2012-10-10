@@ -65,16 +65,22 @@ class ObjectCustomController extends CRUDController
                 throw new NotFoundHttpException(sprintf('Unable to find the object status with id : %s', $statusId));
 
             $object->setStatus($statusEntity);
+
             if ($statusId==2 || $statusId==3) {
                 $object->setReason($reason);
             } else {
                 $object->setReason(''); // очищаем причину модерации
             }
-            $em->persist($object);
-            $em->flush();
+
+            try {
+                $em->persist($object);
+                $em->flush();
+            } catch (\Exception $e) {
+                print $e->getMessage();
+            }
 
             if ($statusId==2 || $statusId==3) {
-                $emailFrom = 'randolik@gmail.com';
+                $emailFrom = 'no-reply@mk.local.armd.ru';
                 $emailTo = $object->getCreatedBy()->getEmail();
                 if ($statusId == 2) {
                     $subject = 'Заявка одобрена';
@@ -84,7 +90,7 @@ class ObjectCustomController extends CRUDController
                     $template = 'ArmdAtlasBundle:Admin:emailObjectStatusRefuse.txt.twig';
                 }
                 $body = $this->renderView($template, array(
-                    'name' => 'markiros',
+                    'username' => $object->getCreatedBy()->getUsername(),
                     'reason' => $reason,
                 ));
                 $message = \Swift_Message::newInstance()
