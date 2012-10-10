@@ -25,7 +25,4 @@ Allow from      127.0.0.1 195.239.66 79.142.100
 
 <IfModule mod_php5.c>
     php_value date.timezone UTC
-    php_value max_file_uploads 25
 </IfModule>
-
-
