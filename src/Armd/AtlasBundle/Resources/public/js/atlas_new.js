@@ -891,6 +891,7 @@ AT.showObjectForm = function(params) {
                     var objectId = $('#object-id').val(),
                         jLi = jMyObjectsList.find('li').filter(function(){ return $(this).data('id')==objectId; });
                     jLi.find('span').text($('#name').val());
+                    jLi.find('.moder').text(response.result.status);
                 }
             }
         }

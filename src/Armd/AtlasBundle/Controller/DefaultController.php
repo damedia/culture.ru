@@ -709,17 +709,15 @@ class DefaultController extends Controller
         try {
             $request = $this->getRequest();
             $id = (int) $request->get('id');
-            $isPublic = $request->get('is_public')=='on';
+            $statusId = $request->get('is_public')=='on' ? 1 : 0;
             $em = $this->getDoctrine()->getManager();
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+            $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
             $entity = $repoObject->find($id);
-            if ($isPublic) {
-                $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
-                $status = $repoObjectStatus->find(1);
-                $entity->setStatus($status);
-                $em->persist($entity);
-                $em->flush();
-            }
+            $status = $repoObjectStatus->find($statusId);
+            $entity->setStatus($status);
+            $em->persist($entity);
+            $em->flush();
             $res = array(
                 'success' => true,
                 'result' => array(
