@@ -18,3 +18,4 @@ web/assetic/
 /bin
 /web/assetic/*
 /tmp
+/web/.htaccess
