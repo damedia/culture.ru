@@ -4,7 +4,13 @@ services:
         arguments: [@security.context, @doctrine]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
-            
+
+    armd_user.listener.post_auth_redirect:
+        class: Armd\UserBundle\Listener\PostAuthRedirectListener
+        arguments: [@security.context, @doctrine]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
     armd_user.security.authentication_success_handler:
         class: Armd\UserBundle\Security\AuthenticationSuccessHandler
         arguments: [@security.http_utils, {}]        

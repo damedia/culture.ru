@@ -6,505 +6,500 @@
         Объект не найден
     {% else %}
 
-    
-    
-   
-    
-    
-        
-            <div class="title-block with-social">
-                <h2>{{ entity.title }}</h2>
-            </div>
-          {#  <div class="title-social-icons">
-                <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
-            </div>#}
-            <div class="object-one clearfix">
-                <div class="object-one-col12">
-                
-                
-              
-               
-                              
-                                    
-                
-              
-                
-{#
-                    {% if entity.images|length > 0 %}
-                    <div class="block obj-o-foto">
-                      <div class="right-icons-block">
-                            <a href="#" class="one-person"></a>
-                            <a href="#" class="three-persons"></a>
-                        </div>
-                        <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
-
-                        <div class="slideshow-container">
-                            <div id="slideshow" class="slideshow"></div>
-                        </div>
-
-                        <div class="navigation-container">
-                            <div id="thumbs" class="navigation">
-                                <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
-
-                                <ul class="thumbs noscript">
-                                    {% for image in entity.images %}
-                                    <li>
-                                        <a class="fancy" href="{% path image, 'reference' %}" title="{{ image.name }}">&nbsp;</a>
-                                        <a class="thumb" name="leaf" href="{% path image, 'big' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
-                                            <img src="{% path image, 'thumbnail' %}" />
-                                        </a>										
-										<a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>                                        
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
-                            </div>
-                        </div>
-                        <p class="all-list"><a href="#">Все фото</a></p>
-                    </div>
-                    {% endif %}
-                    
-                    #}
-
-                   <div class="object-one-text content">
-                   
-                    {% if entity.images|length > 0 %}
-                    <div class="photo-gallery">
-                
-                <div id="slider" class="flexslider">
-          <ul class="slides">
-            {% for image in entity.images %}
-            <li>
-  	    	     <a class="in-fancybox" rel="gallery" name="leaf" href="{% path image, 'reference' %}" data-fancy-image="{% path image, 'reference' %}">
-                                            <img src="{% path image, 'big' %}" />
-                  </a>	
-  	    		</li>
-  			{% endfor %}
-          </ul>
+        <div class="title-block with-social">
+            <h2>{{ entity.title }}</h2>
         </div>
-        
-        <div class="nav">
-        <div id="carousel" class="flexslider ">
-          <ul class="slides">
-            {% for image in entity.images %}
-                                    <li>
-                                        
-                                            <img src="{% path image, 'thumbnail' %}" />
-                                                                           
-                                    </li>
-                                    {% endfor %}
-
-          </ul>
-        </div>
-        </div>
-        
-        </div> <!--// photo-gallery-->
-                
-                
-               {% endif %}
-                   
-                   <div class="text">
-						<h1>{{ entity.title }}</h1>
-						<div class="content-anons">{{ entity.russiaImageAnnounce|raw }}</div>
-						
-                        <div class="content-text" id="full-text">
-							{{ entity.content|raw }}
-						</div>	
-						
-				   </div>
-                   {% if entity.content|length > 0 %}
-                   <div class="btn-more">
-                   <a href="#" rel="full-text" title="Далее" class=""><span class="more">Далее...</span><span class="less">Свернуть</span></a>
-                   </div>
-                   {% endif %}
-                   
-                   </div><!--// content-->
-                   
-					{# <div class="literature">
-						<p class="lit-header">Использованная литература</p>
-						<ol>
-							<li>
-								<span>Бродянский Д.Л. Искусство древнего Приморья (каменный век —палеометалл). 
-								— Владивосток: изд-во Дальневосточного университета, 2002.
-								</span>						
-							</li>
-							<li>
-								<span>Горнова М.И. Рекомендации по сохранению ландшафтов археологического
-							памятника «Петроглифы Сикачи-Аляна». — Хабаровск: 2000.</span>
-							</li>
-							<li>
-								<span>
-									Окладников А.П. Утро искусства. — Л.: Искусство, 1967.
-								</span>
-							</li>
-							<li>
-								<span>
-									Окладников А.П. Лики Древнего Амура. Петроглифы Сикачи-Аляна. —
-Новосибирск: Западно-Сибирское книжное изд-во, 1968.
-								</span>
-							</li>
-						</ol>
-					</div> #}
-				   
-				   <div class='afisha-list-more' id="more-show">
-                       Комментарии
-                       <div class="loading" style="display: none"></div>
-                   </div>
-				   <div class="more-comments-show" style="display:none;">  
-						<div class="comments comments-gray clearfix">
-							{#<div class="comments-block">
-								<div class="comment">
-									Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
-								</div>
-								<div class="comment-author">
-									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
-								</div>
-							</div>
-							<div class="comments-block">
-								<div class="comment">
-									Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
-								</div>
-								<div class="comment-author">
-									<p>Сергей <span class="comment-date">3 мес. назад</span></p>
-								</div>
-							</div>#}
+        {#  <div class="title-social-icons">
+              <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
+          </div>#}
+        <div class="object-one clearfix">
+        <div class="object-one-col12">
 
 
-							{#<form action="" class="comments-form">#}
-								{#<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>#}
-								{#<input type="submit" value="Отправить" class="button" />#}
-							{#</form>#}
-
-                            {% set comment_thread_id = app.request.locale ~ '_atlas_' ~ entity.id %}
-                            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
-
-                            {% if not is_granted('ROLE_USER') %}
-                                <div class="comments-auth-block">
-                                    <p>
-                                        Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>
-                                    </p>
-                                    {% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}
-
-                                </div>
-                            {% endif %}
-
-						</div>
-				    </div>
-
-                </div>
-
-
-                <div class="object-one-col3">
-                    {% if entity.virtualTour is not empty %}
-                    <div class="block virtual-anons-block virtual-anons">
-                    <span class="virtual-anons-header">Виртуальный тур</span>
-                       {# <h1>{{ entity.title }}</h1>
-                        <p>
-                            {{ entity.content|raw }}
-                        </p> #}
-                       
-                        
-                            <a href="{{ entity.virtualTour }}" data-fancybox-type="iframe" class="vob iframe">
-                            <img alt="" src="{% path entity.virtualTourImage, 'reference' %}">
-                            
-                            
-                            </a>
-                            {#<div class="panowrap" style="display:none;">#}
-                                {#<div id="panoDIV" class="panoDIV">#}
-                                    {#<script>#}
-                                        {#embedpano({target:"panoDIV",swf:"/uploads/museum/glinka/virtualtour.swf", xml:"/uploads/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});#}
-                                    {#</script>#}
-                                    {#<noscript>#}
-                                            {#<div id="tour">#}
-                                                    {#<object width="100%" height="100%">#}
-                                                            {#<embed src="/uploads/museum/glinka/virtualtour.swf" width="100%" height="100%" allowFullScreen="true">#}
-                                                            {#</embed>#}
-                                                    {#</object>#}
-                                            {#</div>#}
-                                    {#</noscript>#}
-                                {#</div>#}
-                            {#</div>#}
-                        
-                        {# <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p> #}
-
-                    </div>
-                    {% endif %}
-                    
-                   {# <div class="virtual-anons-block">
-					<a class="virtual-anons block" href="/main/virtual_museums.html">
-						<span class="virtual-anons-header">Виртуальный тур</span>
-						<img alt="" src="/main/common/img/photo/virt_anons.jpg">
-						
-					</a>
-				</div> #}
-				
-                {% set ids = [984, 534, 280] %}
-				{% if entity.id in ids %}
-					<div class="block object-infograph">
-						<p class="obj-o-infograph-header">Мобильное приложение</p>
-						<a href="http://itunes.apple.com/us/app/muzei-rossii/id553795199?ls=1&mt=8" class="app-block iphone-app">
-							<span class="app-name" target="_blank">Доступно в App Store</span>
-							{#<span class="app-count">Загружено 10 795</span>#}
-						</a>
-					</div>			
-				{% endif %}	
-				
-                  {% if entity.image3d %}
-							<div class="block object-infograph">
-                            <P class="obj-o-infograph-header">Инфографика</P>
-								{#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
-								<a href="{% path entity.image3d, 'reference' %}" class="zoom-fancybox" ><img src="{% path entity.image3d, 'image3d' %}" alt="" width="300"/></a>
-							</div>
-							<script type="text/javascript">
-								$(function(){
-									$('.zoom-fancybox').fancybox({
-										autoResize:true,
-										afterShow: function() {
-												var innerWidth = $('.fancybox-inner').width();
-												var innerHeight = $('.fancybox-inner').height();
-												
-												var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="'+innerHeight+'"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
-												$('.fancybox-inner').html(newContent);
-												$('#zoom').jqzoom({
-													zoomType: 'innerzoom',
-													lens:false,
-													title:false,
-													preloadImages: false,
-													alwaysOn:false
-												})
-												
-												$('#fancy_print').bind("click", function(){
-												  var win=null;
-												  var content = $('#zoom');
-												  win = window.open("width=200,height=200");
-												  self.focus();
-												  win.document.open();
-												  win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
-												  win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
-												  win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
-												  win.document.write(content.html());
-												  win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
-												  win.document.close();
-												  win.print();
-												  win.close();
-												  
-												  return false;
-												}); // bind
-												
-										}
-									});
-								})
-							</script>
-						{% endif %}	  
-                    
-
-                    
-					
-					{% if entity.videos is empty %}
-						{% else %}
-						<div class="block object-videos">
-                           {# <div class="right-icons-block">
-                                <a href="#" class="one-person"></a>
-                                <a href="#" class="three-persons"></a>
-                            </div>#}
-
-                            {% if entity.videos|length > 0 %}
-                            <p class="link_header"><a {#href="#"#} style="border:none;">Видео</a><!--<sup>207</sup></p>-->
-                            <ul class="object-video-list">
-                                {% for video in entity.videos %}
-                                <li class="object-video-list-one">
-                                    <div class="object-video-list-image">
-                                    <a class="in-fancybox" href="#data-{{ loop.index }}">
-                                    
-                                    <img src="{{ video.image  }}" alt="" />
-                                    
-                                    <div class="title-video">{{ video.title }}</div>
-                                    
-                                    </a>
-                                      
-                                      
-                                      <div style="display:none;">
-                                      
-                                      <div id="data-{{ loop.index }}">
-                                      <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
-                                      {{ armd_tvigle_video_player(video, 640, 360)|raw }}
-                                      </div>
-                                      </div>
-                                      
-                                      </div>
-
+            {#
+                                {% if entity.images|length > 0 %}
+                                <div class="block obj-o-foto">
+                                  <div class="right-icons-block">
+                                        <a href="#" class="one-person"></a>
+                                        <a href="#" class="three-persons"></a>
                                     </div>
-                                   {# <div class="object-video-list-descr">
-                                        <span class="ovl-date">{{ video.durationString }}</span>
-                                        <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
-                                        <p>
-                                            {{ video.description }}
-                                        </p>
-                                    </div> #}
-                                </li>
+                                    <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
+
+                                    <div class="slideshow-container">
+                                        <div id="slideshow" class="slideshow"></div>
+                                    </div>
+
+                                    <div class="navigation-container">
+                                        <div id="thumbs" class="navigation">
+                                            <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
+
+                                            <ul class="thumbs noscript">
+                                                {% for image in entity.images %}
+                                                <li>
+                                                    <a class="fancy" href="{% path image, 'reference' %}" title="{{ image.name }}">&nbsp;</a>
+                                                    <a class="thumb" name="leaf" href="{% path image, 'big' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
+                                                        <img src="{% path image, 'thumbnail' %}" />
+                                                    </a>
+                                                    <a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
+                                        </div>
+                                    </div>
+                                    <p class="all-list"><a href="#">Все фото</a></p>
+                                </div>
+                                {% endif %}
+
+                                #}
+
+            <div class="object-one-text content">
+
+                {% if entity.images|length > 0 %}
+                    <div class="photo-gallery">
+
+                        <div id="slider" class="flexslider">
+                            <ul class="slides">
+                                {% for image in entity.images %}
+                                    <li>
+                                        <a class="in-fancybox" rel="gallery" name="leaf"
+                                           href="{% path image, 'reference' %}"
+                                           data-fancy-image="{% path image, 'reference' %}">
+                                            <img src="{% path image, 'big' %}"/>
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
-                            {% endif %}
-                           {# <p class="all-list"><a href="#">Все видео</a></p> #}
                         </div>
-						
-						{% endif %}	
+
+                        <div class="nav">
+                            <div id="carousel" class="flexslider ">
+                                <ul class="slides">
+                                    {% for image in entity.images %}
+                                        <li>
+
+                                            <img src="{% path image, 'thumbnail' %}"/>
+
+                                        </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div> <!--// photo-gallery-->
+
+
+                {% endif %}
+
+                <div class="text">
+                    <h1>{{ entity.title }}</h1>
+
+                    <div class="content-anons">{{ entity.russiaImageAnnounce|raw }}</div>
+
+                    <div class="content-text" id="full-text">
+                        {{ entity.content|raw }}
+                    </div>
+
+                </div>
+                {% if entity.content|length > 0 %}
+                    <div class="btn-more">
+                        <a href="#" rel="full-text" title="Далее" class=""><span class="more">Далее...</span><span
+                                class="less">Свернуть</span></a>
+                    </div>
+                {% endif %}
+
+            </div>
+            <!--// content-->
+
+            {# <div class="literature">
+                <p class="lit-header">Использованная литература</p>
+                <ol>
+                    <li>
+                        <span>Бродянский Д.Л. Искусство древнего Приморья (каменный век —палеометалл).
+                        — Владивосток: изд-во Дальневосточного университета, 2002.
+                        </span>
+                    </li>
+                    <li>
+                        <span>Горнова М.И. Рекомендации по сохранению ландшафтов археологического
+                    памятника «Петроглифы Сикачи-Аляна». — Хабаровск: 2000.</span>
+                    </li>
+                    <li>
+                        <span>
+                            Окладников А.П. Утро искусства. — Л.: Искусство, 1967.
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            Окладников А.П. Лики Древнего Амура. Петроглифы Сикачи-Аляна. —
+Новосибирск: Западно-Сибирское книжное изд-во, 1968.
+                        </span>
+                    </li>
+                </ol>
+            </div> #}
+
+            <div class='afisha-list-more' id="more-show">
+                Комментарии
+                <div class="loading" style="display: none"></div>
+            </div>
+            <div class="more-comments-show" style="display:none;">
+                <div class="comments comments-gray clearfix">
+                    {#<div class="comments-block">
+                        <div class="comment">
+                            Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
+                        </div>
+                        <div class="comment-author">
+                            <p>Сергей <span class="comment-date">3 мес. назад</span></p>
+                        </div>
+                    </div>
+                    <div class="comments-block">
+                        <div class="comment">
+                            Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
+                        </div>
+                        <div class="comment-author">
+                            <p>Сергей <span class="comment-date">3 мес. назад</span></p>
+                        </div>
+                    </div>#}
+
+
+                    {#<form action="" class="comments-form">#}
+                    {#<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>#}
+                    {#<input type="submit" value="Отправить" class="button" />#}
+                    {#</form>#}
+
+                    {% set comment_thread_id = app.request.locale ~ '_atlas_' ~ entity.id %}
+                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                    {% if not is_granted('ROLE_USER') %}
+                        <div class="comments-auth-block">
+                            <p>
+                                Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }}">авторизоваться</a>
+                                на сайте.</p>
+                            </p>
+                            {% render 'ArmdSocialAuthBundle:Default:authLinks' with { 'redirectUrl': app.request.uri } %}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="object-one-col3">
+        {% if entity.virtualTour is not empty %}
+            <div class="block virtual-anons-block virtual-anons">
+                <span class="virtual-anons-header">Виртуальный тур</span>
+                {# <h1>{{ entity.title }}</h1>
+                 <p>
+                     {{ entity.content|raw }}
+                 </p> #}
+
+
+                <a href="{{ entity.virtualTour }}" data-fancybox-type="iframe" class="vob iframe">
+                    <img alt="" src="{% path entity.virtualTourImage, 'reference' %}">
+
+
+                </a>
+                {#<div class="panowrap" style="display:none;">#}
+                {#<div id="panoDIV" class="panoDIV">#}
+                {#<script>#}
+                {#embedpano({target:"panoDIV",swf:"/uploads/museum/glinka/virtualtour.swf", xml:"/uploads/museum/glinka/virtualtour.xml", width:"100%",height:"100%",allowFullScreen:"true"});#}
+                {#</script>#}
+                {#<noscript>#}
+                {#<div id="tour">#}
+                {#<object width="100%" height="100%">#}
+                {#<embed src="/uploads/museum/glinka/virtualtour.swf" width="100%" height="100%" allowFullScreen="true">#}
+                {#</embed>#}
+                {#</object>#}
+                {#</div>#}
+                {#</noscript>#}
+                {#</div>#}
+                {#</div>#}
+
+                {# <p class="all-list"><a href="/main/virtual_museums.html">Все виртуальные туры</a></p> #}
+
+            </div>
+        {% endif %}
+
+        {# <div class="virtual-anons-block">
+         <a class="virtual-anons block" href="/main/virtual_museums.html">
+             <span class="virtual-anons-header">Виртуальный тур</span>
+             <img alt="" src="/main/common/img/photo/virt_anons.jpg">
+
+         </a>
+     </div> #}
+
+        {% set ids = [984, 534, 280] %}
+        {% if entity.id in ids %}
+            <div class="block object-infograph">
+                <p class="obj-o-infograph-header">Мобильное приложение</p>
+                <a href="http://itunes.apple.com/us/app/muzei-rossii/id553795199?ls=1&mt=8"
+                   class="app-block iphone-app">
+                    <span class="app-name" target="_blank">Доступно в App Store</span>
+                    {#<span class="app-count">Загружено 10 795</span>#}
+                </a>
+            </div>
+        {% endif %}
+
+        {% if entity.image3d %}
+            <div class="block object-infograph">
+                <P class="obj-o-infograph-header">Инфографика</P>
+                {#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
+                <a href="{% path entity.image3d, 'reference' %}" class="zoom-fancybox"><img
+                        src="{% path entity.image3d, 'image3d' %}" alt="" width="300"/></a>
+            </div>
+            <script type="text/javascript">
+                $(function ()
+                {
+                    $('.zoom-fancybox').fancybox({
+                        autoResize:true,
+                        afterShow:function ()
+                        {
+                            var innerWidth = $('.fancybox-inner').width();
+                            var innerHeight = $('.fancybox-inner').height();
+
+                            var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="' + innerHeight + '"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
+                            $('.fancybox-inner').html(newContent);
+                            $('#zoom').jqzoom({
+                                zoomType:'innerzoom',
+                                lens:false,
+                                title:false,
+                                preloadImages:false,
+                                alwaysOn:false
+                            })
+
+                            $('#fancy_print').bind("click", function ()
+                            {
+                                var win = null;
+                                var content = $('#zoom');
+                                win = window.open("width=200,height=200");
+                                self.focus();
+                                win.document.open();
+                                win.document.write('<' + 'html' + '><' + 'head' + '><' + 'style' + '>');
+                                win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+                                win.document.write('<' + '/' + 'style' + '><' + '/' + 'head' + '><' + 'body' + '>');
+                                win.document.write(content.html());
+                                win.document.write('<' + '/' + 'body' + '><' + '/' + 'html' + '>');
+                                win.document.close();
+                                win.print();
+                                win.close();
+
+                                return false;
+                            }); // bind
+
+                        }
+                    });
+                })
+            </script>
+        {% endif %}
 
 
 
-                        {% if entity.archiveImages|length > 0 %}
-                            <div class="block object-archives">
-                                {#<div class="right-icons-block">
-                                    <a href="#" class="one-person"></a>
-                                    <a href="#" class="three-persons"></a>
-                                </div>#}
 
-                                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
-                                <ul class="object-archive-list">
-                                {% for h in entity.archiveImages %}
-                                    <li>
-                                    <a href="{% path h, 'reference' %}" class="in-fancybox">
-                                        <span class="preview" style="background: url({% path h, 'thumbnail' %}) no-repeat center center">
+        {% if entity.videos is empty %}
+        {% else %}
+            <div class="block object-videos">
+                {# <div class="right-icons-block">
+                     <a href="#" class="one-person"></a>
+                     <a href="#" class="three-persons"></a>
+                 </div>#}
+
+                {% if entity.videos|length > 0 %}
+                    <p class="link_header"><a {#href="#"#} style="border:none;">Видео</a><!--<sup>207</sup></p>-->
+                    <ul class="object-video-list">
+                        {% for video in entity.videos %}
+                            <li class="object-video-list-one">
+                                <div class="object-video-list-image">
+                                    <a class="in-fancybox" href="#data-{{ loop.index }}">
+
+                                        <img src="{{ video.image }}" alt=""/>
+
+                                        <div class="title-video">{{ video.title }}</div>
+
+                                    </a>
+
+
+                                    <div style="display:none;">
+
+                                        <div id="data-{{ loop.index }}">
+                                            <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
+                                                {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                {# <div class="object-video-list-descr">
+                                     <span class="ovl-date">{{ video.durationString }}</span>
+                                     <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
+                                     <p>
+                                         {{ video.description }}
+                                     </p>
+                                 </div> #}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {# <p class="all-list"><a href="#">Все видео</a></p> #}
+            </div>
+
+        {% endif %}
+
+
+
+        {% if entity.archiveImages|length > 0 %}
+            <div class="block object-archives">
+                {#<div class="right-icons-block">
+                    <a href="#" class="one-person"></a>
+                    <a href="#" class="three-persons"></a>
+                </div>#}
+
+                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
+                <ul class="object-archive-list">
+                    {% for h in entity.archiveImages %}
+                        <li>
+                            <a href="{% path h, 'reference' %}" class="in-fancybox">
+                                        <span class="preview"
+                                              style="background: url({% path h, 'thumbnail' %}) no-repeat center center">
                                             <img src="{% path h, 'thumbnail' %}" alt="">
                                         </span>
 
-                                        {{ h.title|default('Архивный документ') }}
-                                    </a>
+                                {{ h.title|default('Архивный документ') }}
+                            </a>
 
                                         <span>
                                             {{ h.description }}
                                         </span>
-                                    </li>
-                                    {% endfor%}
+                        </li>
+                    {% endfor %}
 
-                                </ul>
+                </ul>
 
-                               {# <p class="all-list"><a href="#">Все архивы</a></p> #}
+                {# <p class="all-list"><a href="#">Все архивы</a></p> #}
+            </div>
+        {% endif %}
+
+
+        <div class="block obj-o-contacts">
+            {# <div class="obj-o-map">
+                 <a href="#" class="open-big-green"></a>
+                 <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
+             </div>#}
+            <div class="obj-o-contacts-text" style="margin-top:0">
+                <p class="obj-o-contacts-header">
+                    Контактная информация
+                </p>
+
+                <div class="obj-o-contacts-main">
+                    {% if entity.address %}<p>{{ entity.address }}</p>{% endif %}
+                    {% if entity.siteUrl or entity.email or entity.phone %}<p>{% endif %}
+
+                    {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a>
+                        <br/>{% endif %}
+                    {% if entity.email %}Email: {{ entity.email }}<br/>{% endif %}
+                    {% if entity.phone %}Телефон: {{ entity.phone }}<br/>{% endif %}
+                    {% if entity.siteUrl or entity.email or entity.phone %}</p>{% endif %}
+
+                    <p>
+                        {% if entity.workTime is not empty %}
+                            Музей открыт:
+                            {{ entity.workTime }}
+                        {% endif %}
+
+                        {% if entity.weekends|length > 0 %}
+                            <br/>Выходные:
+                            {% for day in entity.weekends %}
+                                {{ day.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            без выходных дней
+                        {% endif %}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        {% if entity.objectHints|length > 0 %}
+
+            {% for objectHint in entity.objectHints %}
+                <div class="block rules">
+                    <h4>{{ objectHint.title|raw }} <span class="bullet">↓</span></h4>
+
+                    <div class="sliderkit">
+                        <div class="">
+                            <div class="rules-content sliderkit-panels">
+
+                                {% for hintPage in objectHint.pagedHintText %}
+                                    <div class="sliderkit-panel">
+                                        {{ hintPage|raw }}
+                                    </div>
+                                {% endfor %}
+
                             </div>
-                        {% endif %}                        
-                        
-                        
-                    <div class="block obj-o-contacts">
-                       {# <div class="obj-o-map">
-                            <a href="#" class="open-big-green"></a>
-                            <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
-                        </div>#}
-                        <div class="obj-o-contacts-text" style="margin-top:0">
-                            <p class="obj-o-contacts-header">
-                                Контактная информация
-                            </p>
-                            <div class="obj-o-contacts-main">
-                                {% if entity.address %}<p>{{ entity.address }}</p>{% endif %}
-                                {% if entity.siteUrl or entity.email or entity.phone  %}<p>{% endif %}
-                                
-                                {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br />{% endif %}
-                                {% if entity.email %}Email: {{ entity.email }}<br />{% endif %}
-                                {% if entity.phone %}Телефон: {{ entity.phone }}<br />{% endif %}
-                                {% if entity.siteUrl or entity.email or entity.phone  %}</p>{% endif %}
-                           
-                                <p>
-                                {% if entity.workTime is not empty %}
-                                    Музей открыт:
-                                    {{ entity.workTime }}
-                                {% endif %}
+                            <!--rules-content -->
 
-                                {% if entity.weekends|length > 0 %}
-                                    <br />Выходные:
-                                    {% for day in entity.weekends %}
-                                    {{ day.name }}{% if not loop.last %}, {%endif%}
-                                    {% endfor %}
-                                {% else %}
-                                    без выходных дней
-                                {% endif %}
-                                </p>
+
+                            <div class="rules-nav">
+                                <div class="rules-nav-wrapper sliderkit-count sliderkit-count-items">
+
+
+                                    <a href="#" class="prev sliderkit-btn sliderkit-go-btn sliderkit-go-prev">←</a>
+                                    <span class="active sliderkit-count-current">1</span>/<span
+                                        class="total sliderkit-count-total">5</span>
+                                    <a href="#" class="next sliderkit-go-btn sliderkit-go-next">→</a>
+                                </div>
+                                <!-- /rules-nav-wrapper -->
+
                             </div>
+                            <!-- /rules-nav -->
 
                         </div>
-                    </div>                        
+                        <!-- /sliderkit-panels -->
 
-						
-						
-						
-
-                        
-                        
-                        
-                        {% if entity.objectHints|length > 0 %}
-                       
-                        
-                        
-
-                            {% for objectHint in entity.objectHints %}
-                             <div class="block rules">
-                        	<h4>{{ objectHint.title|raw }} <span class="bullet">↓</span></h4>
-                            
-                            <div class="sliderkit">
-                            <div class="">
-                            <div class="rules-content sliderkit-panels">
-                            
-                            {% for hintPage in objectHint.pagedHintText %}
-                            	<div class="sliderkit-panel">
-                                    {{ hintPage|raw }}
-                                </div>
-                            {% endfor%}
-	
-                            </div> <!--rules-content -->
-                            
-                            
-                            <div class="rules-nav">
-                              	<div class="rules-nav-wrapper sliderkit-count sliderkit-count-items">
-                                
-                                 
-                                
-                                <a href="#" class="prev sliderkit-btn sliderkit-go-btn sliderkit-go-prev">←</a>
-                                <span class="active sliderkit-count-current">1</span>/<span class="total sliderkit-count-total">5</span>
-                                <a href="#" class="next sliderkit-go-btn sliderkit-go-next">→</a>
-                                </div><!-- /rules-nav-wrapper -->
-                            
-                            </div>  <!-- /rules-nav -->
-                            
-                             </div>  <!-- /sliderkit-panels -->
-                            
-                            </div>  <!-- /sliderkit -->
-                            </div> <!-- /rules -->
-                            {% endfor %}
-                        
-                        {% endif %}	
-						
-
-                    {#
-                    <div class="block object-news">
-                        <p class="link_header"><a href="#">Новости</a></p>
-                        <ul class="block-news-list">
-                            <li>
-                                <span class="bnl-date">19 Июля / 2012</span>
-                                <p class="bnl-header"><a href="#">Ростовское действо</a></p>
-                                <p>
-                                    II Международный фестиваль монастырской культуры «РОСТОВСКОЕ ДЕЙСТВО» пройдёт в Государственном музее-заповеднике «Ростовский кремль» в год празднования 1150-летия российской государственности и 1150-летнего юбилея Ростова Великого.
-                                </p>
-                            </li>
-                            <li>
-                                <span class="bnl-date">18 Июля / 2012</span>
-                                <p class="bnl-header"><a href="#">«Прикосновение к вечности...»</a></p>
-                                <p>
-                                Выставка копий фресок XVII века Ростовского кремля по итогам практики студентов Московского государственного академического художественного института им. В.И. Сурикова.
-
-                                </p>
-                            </li>
-                            <li>
-                                <span class="bnl-date">17 Июля / 2012</span>
-                                <p class="bnl-header"><a href="#">«Три сословия Ростова Великого»</a></p>
-                                <p>
-                                    Говоря о Ростове 19 века, мы в первую очередь называем его городом купеческим. Однако, судя по документам, купечество составляло в это время 8% его населения. А кто же были остальные 92% жителей Ростова?
-                                </p>
-                            </li>
-                        </ul>
-                        <p class="all-list"><a href="#">Все новости</a></p>
                     </div>
-                    #}
-                </div>
-            </div>
-        
+                    <!-- /sliderkit -->
+                </div> <!-- /rules -->
+            {% endfor %}
+
+        {% endif %}
+
+
+        {#
+        <div class="block object-news">
+            <p class="link_header"><a href="#">Новости</a></p>
+            <ul class="block-news-list">
+                <li>
+                    <span class="bnl-date">19 Июля / 2012</span>
+                    <p class="bnl-header"><a href="#">Ростовское действо</a></p>
+                    <p>
+                        II Международный фестиваль монастырской культуры «РОСТОВСКОЕ ДЕЙСТВО» пройдёт в Государственном музее-заповеднике «Ростовский кремль» в год празднования 1150-летия российской государственности и 1150-летнего юбилея Ростова Великого.
+                    </p>
+                </li>
+                <li>
+                    <span class="bnl-date">18 Июля / 2012</span>
+                    <p class="bnl-header"><a href="#">«Прикосновение к вечности...»</a></p>
+                    <p>
+                    Выставка копий фресок XVII века Ростовского кремля по итогам практики студентов Московского государственного академического художественного института им. В.И. Сурикова.
+
+                    </p>
+                </li>
+                <li>
+                    <span class="bnl-date">17 Июля / 2012</span>
+                    <p class="bnl-header"><a href="#">«Три сословия Ростова Великого»</a></p>
+                    <p>
+                        Говоря о Ростове 19 века, мы в первую очередь называем его городом купеческим. Однако, судя по документам, купечество составляло в это время 8% его населения. А кто же были остальные 92% жителей Ростова?
+                    </p>
+                </li>
+            </ul>
+            <p class="all-list"><a href="#">Все новости</a></p>
+        </div>
+        #}
+        </div>
+        </div>
+
     {% endif %}
 {% endblock %}
 
@@ -513,73 +508,84 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
     <style>
-        #nav{
+        #nav {
             margin: 0 auto 20px;
         }
 
     </style>
- 
-   <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
-   <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
-	
-	
+
+    <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+
+
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
-   
+
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
-    
+
     <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
-	<script src="/swf/swfobject/swfkrpano.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
+    <script src="/swf/swfobject/swfkrpano.js"></script>
 
     <script type="text/javascript">
-        (function(){
+        (function ()
+        {
 
             var atlasObjectView = {
-                commentsLoaded: false,
+                commentsLoaded:false,
 
-                initUi: function() {
+                initUi:function ()
+                {
                     atlasObjectView.initPano();
                     atlasObjectView.initComments();
 
                 },
 
-                initPano: function() {
+                initPano:function ()
+                {
                     $('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 
-                    $(window).resize(function(){
+                    $(window).resize(function ()
+                    {
                         $('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
 
                     });
                 },
 
-                initComments: function() {
-                    $('#more-show').click(function(){
+                initComments:function ()
+                {
+                    $('#more-show').click(function ()
+                    {
                         $(this).next('div').toggle();
-                        if(!atlasObjectView.commentsLoaded) {
+                        if (!atlasObjectView.commentsLoaded)
+                        {
                             $('#more-show .loading').show();
                         }
                     });
 
-                    $('#fos_comment_thread').bind('comments_loaded', function() {
+                    $('#fos_comment_thread').bind('comments_loaded', function ()
+                    {
                         atlasObjectView.commentsLoaded = true;
                         $('#more-show .loading').hide();
                     });
 
-                    $('#fos_comment_thread').bind('comment_appended', function() {
+                    $('#fos_comment_thread').bind('comment_appended', function ()
+                    {
                         armdMessager.showMessage('Спасибо за комментарий! Ваше сообщение появится после модерации.');
                     });
 
                 }
             };
 
-            $(function(){
+            $(function ()
+            {
                 atlasObjectView.initUi();
             });
 
