@@ -353,6 +353,8 @@ AT.placePoint = function(object) {
 
     // клик по точке
     PGmap.Events.addHandler(point.container, 'click', function(){
+        console.log('Click point', point);
+        if (point.draggable) return;
         AT.triggerPointClick(point);
     });
 
@@ -434,8 +436,8 @@ AT.initMyObjects = function() {
     $('#myobj_list li span').live('click', function(){
         var jLi = $(this).closest('li'),
             point = jLi.data('point');
-        AT.map.setCenter(point.coord);
-        //AT.triggerPointClick(point); // @TODO Глючит во время анимации
+        //AT.map.setCenter(point.coord);
+        AT.triggerPointClick(point); // @TODO Глючит во время анимации
     });
 
     // Мои карты -> Мои объекты. Редактирование точки из списка.
@@ -635,6 +637,7 @@ AT.initMyObjects = function() {
             if (draggable) {
                 // Draggable point handler -> update coords
                 point.draggable.callback("dragEnd", function(){
+                    console.log('dragEnd');
                     var lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6),
                         lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
                     $('#lon').val(lon);
@@ -664,11 +667,18 @@ AT.initMyObjects = function() {
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     var jPopup = $('#add-object-form');
     jPopup.find('.rst-btn, .exit').click(function(){
+        console.log('Сancel edit point');
         $('#atlas-objects-add').removeClass('active');
         jPopup.hide();
         myPoint = jPopup.data('myPoint');
         if (myPoint.draggable) {
-            myPoint.draggable.kill(); // Отключение перетаскивания точки
+            // Отключаем перетаскивание точки. Восстанавливаем исходные координаты и скрываем балун
+            console.log('Kill draggable', myPoint);
+            myPoint.draggable.kill();
+            myPoint.draggable = null;
+            myPoint.coord = jPopup.data('myPointCoord');
+            myPoint.update();
+            myPoint.balloon.close();
         }
         if (jPopup.hasClass('add')) {
             AT.map.geometry.remove(myPoint); // Удаляем точку с карты если диалог в режиме добавления
@@ -694,6 +704,7 @@ AT.showObjectForm = function(params) {
 
     console.log('Show dialog for point:', myPoint);
     jPopup.data('myPoint', myPoint);
+    jPopup.data('myPointCoord', myPoint.coord); // Сохраним координаты точки, на случай отмены редактирования
 
     // Reset form
     jPopupForm.resetForm();
@@ -760,19 +771,6 @@ AT.showObjectForm = function(params) {
 
     console.log('myPoint', myPoint);
 
-    // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
-    /*
-    jPopup.find('.rst-btn, .exit').click(function(){
-        $('#atlas-objects-add').removeClass('active');
-        jPopup.hide();
-        console.info('myPoint>>>', myPoint);
-        if (jPopup.hasClass('add')) {
-            AT.map.geometry.remove(myPoint); // Удаляем точку с карты если диалог в режиме добавления
-        }
-        return false;
-    });
-    */
-
     // Диалог после добавления объекта. Крестик. Скрываем диалог.
     jSuccess.find('.exit').click(function(){
         $('#atlas-objects-add').removeClass('active');
@@ -812,8 +810,8 @@ AT.showObjectForm = function(params) {
             });
         },
         select: function (event, ui) {
-            var lon = ui.item.match.x,
-                lat = ui.item.match.y;
+            var lon = parseFloat(ui.item.match.x),
+                lat = parseFloat(ui.item.match.y);
             $('#lon').val(lon.toFixed(6));
             $('#lat').val(lat.toFixed(6));
             myPoint.coord.lon = PGmap.Utils.mercX(lon);
@@ -853,6 +851,7 @@ AT.showObjectForm = function(params) {
                     jSuccess.removeClass('edit').addClass('add');
                 }
                 jSuccess.show();
+                jSuccess.find('input[name=is_public]').removeAttr('checked');
                 jSuccess.find('.object-id').val(createdObject.id);
                 jSuccess.find('.object-title').val(createdObject.title);
 

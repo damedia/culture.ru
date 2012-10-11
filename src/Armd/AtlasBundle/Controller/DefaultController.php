@@ -773,7 +773,7 @@ class DefaultController extends Controller
                 );
             } else {
                 $result = array();
-                $entities = $repo->findBy(array('createdBy' => $currentUser));
+                $entities = $repo->findBy(array('createdBy' => $currentUser), array('updatedAt' => 'DESC'));
                 foreach ($entities as $obj) {
 
                     $imageUrl = '';
