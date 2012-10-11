@@ -16,6 +16,5 @@ web/assetic/
 *.orig
 
 /bin
-/web/assetic/*
 /tmp
 /web/.htaccess
