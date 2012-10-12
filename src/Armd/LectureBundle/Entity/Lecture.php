@@ -24,6 +24,12 @@ class Lecture
      */
     private $title;
 
+
+    /**
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
@@ -75,6 +81,7 @@ class Lecture
      */
     private $categories;
 
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -104,6 +111,17 @@ class Lecture
     {
         $this->title = $title;
     }
+
+    public function getDescription()
+     {
+         return $this->description;
+     }
+
+     public function setDescription($description)
+     {
+         $this->description = $description;
+     }
+
 
     public function getCreatedAt()
     {
@@ -240,6 +258,5 @@ class Lecture
     {
         $this->categories->removeCategory($category);
     }
-
 
 }

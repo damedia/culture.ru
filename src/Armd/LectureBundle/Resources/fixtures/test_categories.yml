@@ -42,3 +42,24 @@ categories:
               ref_code: armd_lecture.lecture_category.translation_direction2
             - title: Направление3
             - title: Направление4
+
+    armd_lecture.lecture_category.cinema_root:
+        - title: Тематика
+          children:
+            - title: Театр
+              ref_code: armd_lecture.lecture_category.cinema_subject_theater
+            - title: Искусство
+              ref_code: armd_lecture.lecture_category.cinema_subject_art
+            - title: История
+              ref_code: armd_lecture.lecture_category.cinema_subject_history
+            - title: Музыка
+              ref_code: armd_lecture.lecture_category.cinema_subject_music
+            - title: Наука
+              ref_code: armd_lecture.lecture_category.cinema_subject_science
+            - title: Изо
+              ref_code: armd_lecture.lecture_category.cinema_subject_visual_art
+            - title: Литература
+              ref_code: armd_lecture.lecture_category.cinema_subject_literature
+            - title: Кино
+              ref_code: armd_lecture.lecture_category.cinema_subject_cinema
+
