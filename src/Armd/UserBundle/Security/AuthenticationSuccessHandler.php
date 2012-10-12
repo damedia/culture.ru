@@ -49,6 +49,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler i
     {
         $redirectUrl = $request->getSession()->get('armd_user.post_auth_redirect');
         if (!empty($redirectUrl)) {
+            $request->getSession()->remove('armd_user.post_auth_redirect');
             $response->headers->set('Location', $redirectUrl);
         }
     }
