@@ -32,6 +32,16 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * @Route("/cinema/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_cinema_index")
+     * @Template()
+     */
+    public function cinemaIndexAction($page)  {
+        return $this->forward('ArmdLectureBundle:Default:index', array(
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
+            'page' => $page
+        ));
+    }
 
     /**
      * @Route("/index/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1})
