@@ -134,6 +134,7 @@
 		display:none;
 	}
 		.filter-sub-tabs-titles {
+            display:none;
 			padding:13px 0 13px 13px;
 			font-size:11px;
 			text-align:center;
@@ -161,7 +162,7 @@
 
 				.filter-sub-tab-list {
 					margin:0 15px 0 15px;
-					padding-bottom:7px;
+					padding:10px 0;
 					border-bottom:1px solid #e3e3e3;
 				}
 					.filter-sub-tab-list li {
