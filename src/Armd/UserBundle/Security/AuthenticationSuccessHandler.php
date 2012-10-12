@@ -28,6 +28,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler i
         
         if ($token->getUser() instanceof UserInterface) {
             $this->setCookies($response, $token->getUser());
+            $this->addRedirect($request, $response);
         }
         
         return $response;
@@ -42,5 +43,13 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler i
         
         $response->headers->setCookie(new Cookie('_USER_ID', $user->getId(), $expire, '/', $domain));
         $response->headers->setCookie(new Cookie('_USER_HASH', $user->getPassword(), $expire, '/', $domain));   
+    }
+
+    function addRedirect(Request $request, Response $response)
+    {
+        $redirectUrl = $request->getSession()->get('armd_user.post_auth_redirect');
+        if (!empty($redirectUrl)) {
+            $response->headers->set('Location', $redirectUrl);
+        }
     }
 }

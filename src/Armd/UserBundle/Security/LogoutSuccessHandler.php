@@ -22,6 +22,7 @@ class LogoutSuccessHandler extends DefaultLogoutSuccessHandler implements Contai
     {
         $response = parent::onLogoutSuccess($request);
         $this->clearCookies($response);
+        $this->addRedirect($request, $response);
         
         return $response;
     }
@@ -33,4 +34,15 @@ class LogoutSuccessHandler extends DefaultLogoutSuccessHandler implements Contai
         $response->headers->clearCookie('_USER_ID', '/', $domain);
         $response->headers->clearCookie('_USER_HASH', '/', $domain);
     }
+
+    function addRedirect(Request $request, Response $response)
+    {
+        $returnUrl = $request->get('return_url');
+        if (!empty($returnUrl)) {
+            $response->headers->set('Location', $returnUrl);
+        }
+    }
+
+
+
 }
