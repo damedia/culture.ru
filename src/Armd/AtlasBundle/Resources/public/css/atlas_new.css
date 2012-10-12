@@ -681,3 +681,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 .simple-filter-options label.disabled span{ color:#999; border:none; }
 .simple-filter-options label.checked.disabled{ background:#ccc; }
 .simple-filter-options label.checked.disabled span{ color:#fff; }
+
+#atlas-objects-add-hint{ display:none; text-align:center; font-size:13px; color:#777; }

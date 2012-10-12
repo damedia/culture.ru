@@ -555,6 +555,8 @@ AT.initMyObjects = function() {
     $('#atlas-objects-add').click(function(e){
         console.log('Click on #atlas-objects-add');
 
+        $('#atlas-objects-add-hint').show();
+
         // Иконка для курсора
         $('.PGmap-layer-container').css('cursor', 'url("/bundles/armdatlas/images/cursor_pin.cur") 10 32, move');
 
@@ -668,7 +670,10 @@ AT.initMyObjects = function() {
     var jPopup = $('#add-object-form');
     jPopup.find('.rst-btn, .exit').click(function(){
         console.log('Сancel edit point');
+
         $('#atlas-objects-add').removeClass('active');
+        $('#atlas-objects-add-hint').hide();
+
         jPopup.hide();
         myPoint = jPopup.data('myPoint');
         if (myPoint.draggable) {
@@ -678,7 +683,9 @@ AT.initMyObjects = function() {
             myPoint.draggable = null;
             myPoint.coord = jPopup.data('myPointCoord');
             myPoint.update();
-            myPoint.balloon.close();
+            if (myPoint.balloon) {
+                myPoint.balloon.close();
+            }
         }
         if (jPopup.hasClass('add')) {
             AT.map.geometry.remove(myPoint); // Удаляем точку с карты если диалог в режиме добавления
