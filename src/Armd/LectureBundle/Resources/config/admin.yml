@@ -1,0 +1,42 @@
+services:
+
+    # lecture
+    armd_lecture.sonata_admin.lecture_category:
+        class: Armd\LectureBundle\Admin\LectureCategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Lecture Categories, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+
+    armd_lecture.sonata_admin.lecture:
+        class: Armd\LectureBundle\Admin\LectureAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Lectures, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+
+    # translation
+    armd_lecture.sonata_admin.lecture_translation_category:
+        class: Armd\LectureBundle\Admin\LectureTranslationCategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Translation Categories, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+
+
+    armd_lecture.sonata_admin.lecture_translation:
+        class: Armd\LectureBundle\Admin\LectureTranslationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Translations, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+
+    # cinema
+    armd_lecture.sonata_admin.lecture_cinema_category:
+        class: Armd\LectureBundle\Admin\LectureCinemaCategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema Categories, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+
+
+    armd_lecture.sonata_admin.lecture_cinema:
+        class: Armd\LectureBundle\Admin\LectureCinemaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]

@@ -41,6 +41,7 @@ class LoadLectureData extends AbstractFixture implements OrderedFixtureInterface
             'title',
             'lecturer',
             'recommended',
+            'description'
         );
 
         foreach ($simpleFields as $simpleField) {

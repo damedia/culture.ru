@@ -127,3 +127,50 @@ lectures:
       lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
 
 
+# cinema
+
+    - title: Кинофильм "Почему нетривиально созерцание"
+      categories:
+        - armd_lecture.lecture_category.cinema_subject_theater
+        - armd_lecture.lecture_category.cinema_subject_history
+      lectureSuperType: armd_lecture.lecture_super_type.cinema
+      lectureType: armd_lecture.lecture_type.video
+      description: Конфликт дискредитирует закон внешнего мира, изменяя привычную реальность. Гештальтпсихология, как принято считать, амбивалентно принимает во внимание напряженный структурализм, tertium nоn datur. Гедонизм, по определению, раскладывает на элементы типичный даосизм, изменяя привычную реальность. Дилемма транспонирует гений, ломая рамки привычных представлений.
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
+
+    - title: Документальное кино "Данный даосизм — актуальная национальная задача"
+      categories:
+        - armd_lecture.lecture_category.cinema_subject_science
+        - armd_lecture.lecture_category.cinema_subject_theater
+      lectureSuperType: armd_lecture.lecture_super_type.cinema
+      lectureType: armd_lecture.lecture_type.video
+      description: Бхутавада рефлектирует смысл жизни, открывая новые горизонты. Диалектика индуцирует знак, учитывая опасность, которую представляли собой писания Дюринга для не окрепшего еще немецкого рабочего движения. Вселенная индуктивно транспонирует интеллект, отрицая очевидное. Адживика, конечно, понимает под собой трагический здравый смысл, открывая новые горизонты.
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video2
+
+    - title: Исповедь Михалкова "Естественный смысл жизни в XXI веке"
+      categories:
+        - armd_lecture.lecture_category.cinema_subject_visual_art
+        - armd_lecture.lecture_category.cinema_subject_cinema
+      lectureSuperType: armd_lecture.lecture_super_type.cinema
+      lectureType: armd_lecture.lecture_type.video
+      description: Генетика, как принято считать, порождает и обеспечивает из ряда вон выходящий дуализм, изменяя привычную реальность. Знак реально преобразует даосизм, не учитывая мнения авторитетов.
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video3
+
+    - title: Трагический предмет деятельности в XXI веке
+      categories:
+        - armd_lecture.lecture_category.cinema_subject_art
+        - armd_lecture.lecture_category.cinema_subject_history
+      lectureSuperType: armd_lecture.lecture_super_type.cinema
+      lectureType: armd_lecture.lecture_type.video
+      description: Ощущение мира представляет собой неоднозначный принцип восприятия, ломая рамки привычных представлений. Интеллект индуктивно представляет собой данный позитивизм, однако Зигварт считал критерием истинности необходимость и общезначимость, для которых нет никакой опоры в объективном мире. Созерцание осмысляет смысл жизни, отрицая очевидное.
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video1
+
+    - title: Почему может быть получен из опыта дедуктивный метод?
+      categories:
+        - armd_lecture.lecture_category.cinema_subject_art
+        - armd_lecture.lecture_category.cinema_subject_theater
+      lectureSuperType: armd_lecture.lecture_super_type.cinema
+      lectureType: armd_lecture.lecture_type.video
+      description: Созерцание подчеркивает интеллект, отрицая очевидное. Гедонизм понимает под собой сложный смысл жизни, однако Зигварт считал критерием истинности необходимость и общезначимость, для которых нет никакой опоры в объективном мире. Интересно отметить, что сомнение создает трагический гений, однако Зигварт считал критерием истинности необходимость и общезначимость.
+      lectureVideo: armd_tvigle_video.tvigle_video.lecture_video2
+

@@ -10,6 +10,7 @@ Lecture Edit: Изменить лекцию
 
 General: Основные
 Title: Название
+Description: Описание
 Parent category: Родительская категория
 Categories: Категории
 Lecturer: Лектор
@@ -18,9 +19,9 @@ Lecture Super Type: Раздел
 Lecture Type: Тип лекций
 Categories: Категории
 Recommended: Рекомендована
-Trailer Video: Трейлер лекции (Tvigle ID)
-Lecture Video: Видео лекции (Tvigle ID)
-Lecture File: Файл лекции
+Trailer Video: Трейлер (Tvigle ID)
+Lecture Video: Видео (Tvigle ID)
+Lecture File: Файл
 
 Translations: Трансляции
 Translation List: Список Трансляций
@@ -33,3 +34,16 @@ Translation Category List: Список Категорий Трансляций
 Translation Category Create: Создать Категорию Трансляции
 Translation Category Edit: Изменить Категорию Трансляции
 Translation Category Delete: Удалить Категорию Трансляции
+
+Cinema: Кино
+Cinema List: Список Кино
+Cinema Create: Создать Кино
+Cinema Edit: Изменить Кино
+Cinema Delete: Удалить Кино
+
+Cinema Categories: Категории Кино
+Cinema Category List: Список Категорий Кино
+Cinema Category Create: Создать Категорию Кино
+Cinema Category Edit: Изменить Категорию Кино
+Cinema Category Delete: Удалить Категорию Кино
+

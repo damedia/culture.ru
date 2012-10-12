@@ -30,6 +30,14 @@ class LoadLectureCategoryData extends AbstractFixture implements OrderedFixtureI
         $rootCategory->setLectureSuperType($this->getReference('armd_lecture.lecture_super_type.translation'));
         $manager->persist($rootCategory);
         $this->addReference('armd_lecture.lecture_category.translation_root', $rootCategory);
+
+        // create root cinema category
+        $rootCategory = new Category();
+        $rootCategory->setTitle('== Корневая категория (Кинозал) ==');
+        $rootCategory->setLectureSuperType($this->getReference('armd_lecture.lecture_super_type.cinema'));
+        $manager->persist($rootCategory);
+        $this->addReference('armd_lecture.lecture_category.cinema_root', $rootCategory);
+
         $manager->flush();
     }
 
