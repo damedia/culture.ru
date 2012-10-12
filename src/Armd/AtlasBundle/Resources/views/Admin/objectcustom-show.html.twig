@@ -69,15 +69,19 @@
                 <tr>
                     <th>Created</th>
                     <td>
-                        {{ object.createdAt|date('Y-m-d H:i:s') }},
-                        {{ object.createdBy.username }}
+                        {% if object.createdAt %}
+                            {{ object.createdAt|date('Y-m-d H:i:s') }},
+                            {{ object.createdBy.username }}
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
                     <th>Updated</th>
                     <td>
-                        {{ object.updatedAt|date('Y-m-d H:i:s') }},
-                        {{ object.updatedBy.username }}
+                        {% if object.updatedBy %}
+                            {{ object.updatedAt|date('Y-m-d H:i:s') }},
+                            {{ object.updatedBy.username }}
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>

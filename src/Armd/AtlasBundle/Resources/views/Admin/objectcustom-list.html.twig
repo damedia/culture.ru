@@ -83,15 +83,19 @@
                     <td>{{ obj.primaryCategory.title }}</td>
                     <td>{{ obj.status.title }}</td>
                     <td>
-                        <a href="{{ path('admin_armd_user_user_show', {'id':obj.createdBy.id}) }}">
-                            {{ obj.createdBy.username }}
-                        </a>
+                        {% if obj.updatedBy %}
+                            <a href="{{ path('admin_armd_user_user_show', {'id':obj.createdBy.id}) }}">
+                                {{ obj.createdBy.username }}
+                            </a>
+                        {% endif %}
                     </td>
                     <td>{{ obj.createdAt|date('Y-m-d H:i:s') }}</td>
                     <td>
-                        <a href="{{ path('admin_armd_user_user_show', {'id':obj.updatedBy.id}) }}">
-                            {{ obj.updatedBy.username }}
-                        </a>
+                        {% if obj.updatedBy %}
+                            <a href="{{ path('admin_armd_user_user_show', {'id':obj.updatedBy.id}) }}">
+                                {{ obj.updatedBy.username }}
+                            </a>
+                        {% endif %}
                     </td>
                     <td>{{ obj.updatedAt|date('Y-m-d H:i:s') }}</td>
                 </tr>
