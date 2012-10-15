@@ -782,7 +782,14 @@ class DefaultController extends Controller
                         $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
                     }
 
-                    $status = ($objStatus = $obj->getStatus()) ? $objStatus->getId() : 0;
+                    if ($objStatus = $obj->getStatus()) {
+                        $status = $objStatus->getId();
+                        $statusTitle = $objStatus->getTitle();
+                    } else {
+                        $status = 0;
+                        $statusTitle = '';
+                    }
+
 
                     $result[] = array(
                         'id' => $obj->getId(),
@@ -791,6 +798,7 @@ class DefaultController extends Controller
                         'lat' => $obj->getLat(),
                         'icon' => $imageUrl,
                         'status' => $status,
+                        'statusTitle' => $statusTitle,
                     );
                 }
             }

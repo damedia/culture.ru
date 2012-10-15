@@ -192,8 +192,8 @@
 							position:absolute;
 							right:-6px;
 							top:0;
-							width:20px;
-							height:15px;
+							width:21px;
+							height:19px;
 							background:#83B061; /*url('../images/moder.gif') no-repeat 0 0;*/
                             color:#FDFF00;
                             text-decoration:none;
@@ -217,7 +217,7 @@
 				}
 
 
-	/*����� ���������� �������*/
+	/*add-object-form*/
 		.add-object-form {
             display:none;
 			position:absolute;
@@ -655,6 +655,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 .select2-container.select2-drop-above .select2-choice{ border-radius:0; }
 
 #myobj .moder{ cursor:pointer; }
+#myobj_list .moder span{ display:none; }
+#myobj .moder.status0{ background:url(../images/moder_status_0.png) 0 0 no-repeat; }
+#myobj .moder.status1{ background:url(../images/moder_status_1.png) 0 0 no-repeat; }
+#myobj .moder.status2{ background:url(../images/moder_status_2.png) 0 0 no-repeat; }
+#myobj .moder.status3{ background:url(../images/moder_status_3.png) 0 0 no-repeat; }
 
 .atlas-filter-form .green-button.active{ background:#f90; box-shadow:0 1px 2px #704309 inset; }
 .filter-sub-tab-list .edit{ cursor:pointer; display:inline-block; width:10px; height:10px; border:none; background:#C0D6BF; }
