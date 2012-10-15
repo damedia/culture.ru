@@ -26,6 +26,7 @@ usagetype.title.armd_news.list: Список новостей
 usagetype.title.armd_news.listitem: Список с карточкой новости
 
 Events: События
+News: Новости
 Archive: Архив
 More: Читайте также
 Onthisday: Этот день в истории
@@ -34,3 +35,8 @@ Period: Период
 from: с
 till: по
 Show: Показать
+
+Printversion: Версия для печати
+Back: Назад
+Prev: Предыдущая
+Next: Следующая

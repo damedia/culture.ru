@@ -3,7 +3,7 @@
 	<tr>
 		<th>
 			<div id="regions-selector" class="table-selector">
-				<select name="region_id" data-placeholder="Регион" class="chzn-select">
+				<select name="region_id" data-placeholder="{{ 'Projects.Region'|trans }}" class="chzn-select">
 					<option value="0"></option>
 				{% for id, title in regions %}
 					<option value="{{ id }}"{% if id == filter.region_id %} selected="selected"{% endif %}>{{ title }}</option>
@@ -12,13 +12,13 @@
 			</div>
 			<div id="ajax-loading" class="ajax-loading"></div>
 		</th>
-		<th>Город</th>
+		<th>{{ 'Projects.City'|trans }}</th>
 {#
 		<th>Учреждение</th>
 #}		
 		<th>
 			<div id="regions-selector" class="table-selector">
-				<select name="month" data-placeholder="Дата" class="chzn-select">
+				<select name="month" data-placeholder="{{ 'Projects.Date'|trans }}" class="chzn-select">
 					<option value="0"></option>
 				{% for id, title in months %}
 					<option value="{{ id|abs }}"{% if id == filter.month %} selected="selected"{% endif %}>{{ ('calendar.month.'~title)|trans }}</option>
@@ -26,7 +26,7 @@
 				</select>
 			</div>
 		</th>
-		<th>Название мероприятия</th>
+		<th>{{ 'Projects.Event Title'|trans }}</th>
 	</tr>
 {% for e in events %}	
 	<tr>

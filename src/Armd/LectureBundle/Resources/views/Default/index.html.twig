@@ -4,21 +4,21 @@
 {% block body %}
 <div class="filter">
     <div class="title dark-blue-title">
-        <h2>Фильтрация</h2>
+        <h2>{{ 'Filtering'|trans }}</h2>
     </div>
     <form action="" class="simple-filter-form video-filter">
 
          {# this block is hidden because problems with ajax and nginx  #}
         <div class="simple-search" style="display:none">
-            <label for="ss_input">Точный поиск</label>
+            <label for="ss_input">{{ 'Find'|trans }}</label>
             <input type="text" class="ss-input" id="ss_input"/>
         </div>
 
         {# this block is hidden because there are only video lectures #}
         <div class="simple-filter-block lecture-type" style="display: none">
             <div class="simple-filter-header clearfix">
-                <span>Типы лекций</span>
-                <p class="check_all checked" ><span>все</span></p>
+                <span>{{ 'Lecture types'|trans }}</span>
+                <p class="check_all checked" ><span>{{ 'All'|trans }}</span></p>
             </div>
             <div class="simple-filter-options">
                 {% for lectureType in lectureTypes %}
@@ -35,7 +35,7 @@
                 <div class="simple-filter-header clearfix">
                     <span>{{ lectureCategory.title }}</span>
                     {% if loop.first %}
-                        <p class="check_all checked"><span>все</span></p>
+                        <p class="check_all checked"><span>{{ 'All'|trans }}</span></p>
                     {% endif %}
                 </div>
                 <div class="simple-filter-options">
@@ -58,9 +58,9 @@
     <div class="title dark-blue-title">
         <h2>
             {% if lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                Лекции
+                {{ 'Lectures'|trans }}
             {% elseif lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-                Трансляции
+                {{ 'Translations'|trans }}
             {% endif %}
         </h2>
     </div>

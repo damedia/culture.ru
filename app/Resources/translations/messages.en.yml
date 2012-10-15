@@ -27,6 +27,13 @@ calendar:
         Dec: December
     short:
         Jul: Jul
+
+Pagination:
+    first: first
+    last: last
+    prev: previous
+    next: next
+
 Lastname: Lastname
 Firstname: Firstname
 Middlename: Middlename
@@ -39,7 +46,3 @@ Timezone: Timezone
 Phone: Phone
 Locale: Locale
 sonata_user_submit: Submit
-first: first page
-last: last page
-prev: prev
-next: next

@@ -193,7 +193,7 @@ $(document).ready(function () {
         }
         else {
             handler.data('text', $(this).html());
-            handler.html('свернуть');
+            handler.html('Close');
         }
 
         handler.toggleClass('expanded_handler');

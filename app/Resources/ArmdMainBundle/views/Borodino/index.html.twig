@@ -1,7 +1,6 @@
 {% extends 'ArmdMainBundle:Project:index.html.twig' %}
 
 {% set subject = "borodino" %}
-{% set title = "Бородинскому сражению 200 лет"%}
 
 {% set videos = [
     {
@@ -21,20 +20,20 @@
     },
 ] %}
 
-{% block title %} — {{ title }}{% endblock %}
+{% block title %} — {{ 'Navigation.Borodino.Header'|trans }}{% endblock %}
 
 {% block content %}
 	<div class="title yellow-title star-title">
-		<h2>{{ title }}</h2>
+		<h2>{{ 'Navigation.Borodino.Header'|trans }}</h2>
 	</div>
 	<div class="text-indent">
 		<img src="/img/borodino/borodino-dates.png" alt="" class="borodino-dates" />
-		<p class="uppercase-gray"><i>&laquo;Сей день пребудет вечным памятником мужества и&nbsp;отличной храбрости российских воинов&raquo;, -  
+		<!--p class="uppercase-gray"><i>&laquo;Сей день пребудет вечным памятником мужества и&nbsp;отличной храбрости российских воинов&raquo;, -
 		<br>из&nbsp;донесения М.И. Кутузова императору Александру&nbsp;I.</i></p>  
 		<br>  
-		<p>Память об&nbsp;отваге русской армии во&nbsp;время Бородинского сражения сохранилась не&nbsp;только в&nbsp;исторических документах, но&nbsp;и&nbsp;большом количестве произведений искусства. Многочисленные разнообразные культурные события, посвященные героям Отечественной войны 1812&nbsp;года, проходят этой осенью по&nbsp;всей стране.</p>  			
+		<p>Память об&nbsp;отваге русской армии во&nbsp;время Бородинского сражения сохранилась не&nbsp;только в&nbsp;исторических документах, но&nbsp;и&nbsp;большом количестве произведений искусства. Многочисленные разнообразные культурные события, посвященные героям Отечественной войны 1812&nbsp;года, проходят этой осенью по&nbsp;всей стране.</p-->
 		<div class="borodino-banner">
-			<a href="http://russia.tv/video/show/brand_id/18546/video_id/132492/viewtype/picture" target="_blank"><img src="/img/borodino-banner.jpg" alt="К 200-летию Бородинской битвы. Серия специальных фильмов." /></a>
+			<a href="http://russia.tv/video/show/brand_id/18546/video_id/132492/viewtype/picture" target="_blank"><img src="/img/borodino-banner.jpg" alt="{{ 'Navigation.Borodino.Banner alt'|trans }}" title="{{ 'Navigation.Borodino.Banner alt'|trans }}"/></a>
 		</div>
 		{% if videos %}
 		<div class="video-anons video-three">
@@ -55,7 +54,7 @@
 		{% endif %}
 		<div class="yellow-border-block">
 			<p class="yellow-border-header">
-				<span>Лента времени</span>
+				<span>{{ 'Navigation.Timeline'|trans }}</span>
 			</p>
 			<div class="video-anons video-three">
 				<ul>
@@ -108,26 +107,26 @@
 		</div>
 		<div class="borodino-panorama">
 			<p class="borodino-panorama-header">
-				<span>Музей-панорама <b>«Бородинская битва»</b></span>
+				<span>{{ 'Navigation.Borodino.Museum block'|trans }}</b></span>
 			</p>				
 			<a href="http://eyera.dev.armd.ru/borodino/borodino_museum.html" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
 				<img src="/img/borodino/panorama.jpg" alt="" />
 			</a>
 		</div>
 		
-		<h2 class="table-caption">Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения</h2>
+		<h2 class="table-caption">{{ 'Navigation.Borodino.Events block'|trans }}</h2>
 		{% render "ArmdMainBundle:Project:events" with {"subject": subject} %}
 	</div>	
 {% endblock %}
 
 {% block right %}
 	<div class="title">
-		<h2>Анонсы</h2>
+		<h2>{{ 'Navigation.Borodino.Announcements'|trans }}</h2>
 	</div>		
 	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
 	
 	<div class="title">
-		<h2>Новости</h2>
+		<h2>{{ 'Navigation.Borodino.News'|trans }}</h2>
 	</div>		
 	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
 				

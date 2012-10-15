@@ -24,9 +24,16 @@ calendar:
         Sep: Сентябрь
         Oct: Октябрь
         Nov: Ноябрь
-        Dec: Декабрь        
+        Dec: Декабрь
     short:
         Jul: Июл
+
+Pagination:
+    first: первая
+    last: последняя
+    prev: назад
+    next: вперед
+
 Lastname: Фамилия
 Firstname: Имя
 Middlename: Отчество
@@ -39,7 +46,3 @@ Timezone: Временная зона
 Phone: Телефон
 Locale: Регион
 sonata_user_submit: Отправить
-first: первая
-last: последняя
-prev: назад
-next: вперед
