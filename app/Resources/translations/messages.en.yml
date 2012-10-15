@@ -1,0 +1,45 @@
+calendar:
+    full:
+        Jan: January
+        Feb: February
+        Mar: March
+        Apr: April
+        May: May
+        Jun: June
+        Jul: July
+        Aug: August
+        Sep: September
+        Oct: October
+        Nov: November
+        Dec: December
+    month:
+        Jan: January
+        Feb: February
+        Mar: March
+        Apr: April
+        May: May
+        Jun: June
+        Jul: July
+        Aug: August
+        Sep: September
+        Oct: October
+        Nov: November
+        Dec: December
+    short:
+        Jul: Jul
+Lastname: Lastname
+Firstname: Firstname
+Middlename: Middlename
+Gender: Gender
+City: City
+Dateofbirth: Date of birth
+Website: Website
+Biography: Biography
+Timezone: Timezone
+Phone: Phone
+Locale: Locale
+sonata_user_submit: Submit
+first: first page
+last: last page
+prev: prev
+next: next

@@ -39,3 +39,7 @@ Timezone: Временная зона
 Phone: Телефон
 Locale: Регион
 sonata_user_submit: Отправить
+first: первая
+last: последняя
+prev: назад
+next: вперед

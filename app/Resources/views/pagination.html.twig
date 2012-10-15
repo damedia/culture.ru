@@ -1,17 +1,17 @@
 {% if pageCount > 1 %}
 <div class="virtual-paginates clearfix">
 	{% if first is defined and current != first %}
-        <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="firstPage" data-page="{{ first }}">первая</a>
+        <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="firstPage" data-page="{{ first }}">{{ 'first'|trans }}</a>
     {% else %}
-		<span class="firstPage">первая</span>
+		<span class="firstPage">{{ 'first'|trans }}</span>
 	{% endif %}
 	<ul class="virtual-paginates-list">
 
 		<li>
 			{% if previous is defined %}
-				<a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="prevPage" data-page="{{ previous }}">назад</a>
+				<a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="prevPage" data-page="{{ previous }}">{{ 'prev'|trans }}</a>
 			{% else %}
-				<span class="prevPage">назад</span>
+				<span class="prevPage">{{ 'prev'|trans }}</span>
 			{% endif %}
 		</li>
 		
@@ -28,19 +28,19 @@
 		{% endfor %}
 		<li>
 		{% if next is defined %}
-			<a href="{{ path(route, query|merge({(pageParameterName): next})) }}"  class="nextPage" data-page="{{ next }}">вперед</a>
+			<a href="{{ path(route, query|merge({(pageParameterName): next})) }}"  class="nextPage" data-page="{{ next }}">{{ 'next'|trans }}</a>
 		{% else %}
-			<span class="nextPage">вперед</span>
+			<span class="nextPage">{{ 'next'|trans }}</span>
 		{% endif %}
 		</li>
 		
 	</ul>
 	
 	{% if last is defined and current != last %}
-		<a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="lastPage" data-page="{{ last }}">последняя</a>
+		<a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="lastPage" data-page="{{ last }}">{{ 'last'|trans }}</a>
 	{% else %}
 		<span class="lastPage">
-			последняя
+			{{ 'last'|trans }}
 		</span>
 	{% endif %}
 </div>
