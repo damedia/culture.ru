@@ -785,9 +785,11 @@ class DefaultController extends Controller
                     if ($objStatus = $obj->getStatus()) {
                         $status = $objStatus->getId();
                         $statusTitle = $objStatus->getTitle();
+                        $reason = $obj->getReason();
                     } else {
                         $status = 0;
                         $statusTitle = '';
+                        $reason = '';
                     }
 
 
@@ -799,6 +801,7 @@ class DefaultController extends Controller
                         'icon' => $imageUrl,
                         'status' => $status,
                         'statusTitle' => $statusTitle,
+                        'reason' => $reason,
                     );
                 }
             }

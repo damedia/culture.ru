@@ -525,9 +525,22 @@ AT.initMyObjects = function() {
     // Отправка объекта на модерацию
     $('#myobj_list .moder').live('click', function(){
         var el = $(this).closest('li'),
-            id = el.data('id');
+            id = el.data('id'),
+            statusId = $(this).text(),
+            reason = $(this).data('reason');
         $('#moderation-object-id').val(id);
-        $('#moderation-object-form').show();
+
+        if (statusId == 1) {
+            $('#moderation-object-form-1').show();
+        } else if (statusId == 2) {
+            $('#moderation-object-form-2').show();
+        } else if (statusId == 3) {
+            $('#moderation-object-form-3').show();
+            $('#moder-reason').text(reason);
+        } else {
+            $('#moderation-object-form').show();
+        }
+
         $('#moderation-object-form').find('form').ajaxForm({
             dataType: 'json',
             beforeSubmit: function(){
@@ -540,7 +553,8 @@ AT.initMyObjects = function() {
                     var objectId = response.result.id;
                     var status = response.result.status;
                     var jLi = $('#myobj_list li').filter(function(){ return $(this).data('id')==objectId; })
-                    jLi.find('.moder').text(status);
+                    jLi.find('.moder').removeClass('status0 status1 status2 status3').addClass('status'+status);
+                    jLi.find('.moder span').text(status);
                 }
                 $('#moderation-object-form').hide();
             }

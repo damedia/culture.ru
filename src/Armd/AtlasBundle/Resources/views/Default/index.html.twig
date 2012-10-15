@@ -68,7 +68,9 @@
                                         <li data-id="${id}">
                                             <span>${title}</span>
                                             <a class="del" href="#" title="Удалить"></a>
-                                            <div class="moder status${status}" title="${statusTitle}"><span>${status}</span></div>
+                                            <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
+                                                <span>${status}</span>
+                                            </div>
                                             {#<ins class="edit"></ins>#}
                                         </li>
                                     </script>
@@ -225,6 +227,36 @@
                 <input type="reset" class="button rst-btn" value="Позже"  />
             </fieldset>
         </form>
+    </div>
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-1">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <div>
+            <h2>Объект ожидает модерацию</h2>
+            <p class="note">Ваш объект появится на карте после прохождения <a href="#">модерации</a>.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button rst-btn" value="Закрыть"  />
+            </fieldset>
+        </div>
+    </div>
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-2">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <div>
+            <h2>Ваш объект успешно добавлен на карту!</h2>
+            <p class="note">Ваш объект прошел модерацию и теперь доступен для просмотра всем пользователям. Обратите внимание, что вы по-прежнему можете его редактировать.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button rst-btn" value="Закрыть"  />
+            </fieldset>
+        </div>
+    </div>
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-3">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <div>
+            <h2>Внимание! Ваш объект был отклонен</h2>
+            <p class="note">Ваш объект был отклонен на стадии <a href="#">модерации</a>. Причина: <span id="moder-reason"></span></p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button rst-btn" value="Закрыть"  />
+            </fieldset>
+        </div>
     </div>
     <!-- /moderation request popup -->
 
