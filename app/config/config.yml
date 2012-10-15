@@ -173,6 +173,7 @@ sonata_media:
                 - sonata.media.provider.file
                 - sonata.media.provider.image
             formats:
+                xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
                 medium: { width: 111 }
                 small: { width: 85 }

@@ -67,7 +67,12 @@ class DefaultController extends Controller
 //        }
 
         // recommended and last lectures
-        $lastLectures = $lectureRepo->findLastAdded($superType);
+        if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
+            $lastCount = 1;
+        } else {
+            $lastCount = 2;
+        }
+        $lastLectures = $lectureRepo->findLastAdded($superType,  $lastCount);
 
         $typeCategories = $lectureRepo->getTypeCategories($superType);
 

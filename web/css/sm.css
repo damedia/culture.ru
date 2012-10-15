@@ -2682,6 +2682,10 @@ white-space:nowrap;
 			float:left;
 			line-height:17px;
 		}
+        .video-anons li.single {
+            width:94%;
+        }
+
 		.video-anons  img {
 			width:100%;
 			height:auto;

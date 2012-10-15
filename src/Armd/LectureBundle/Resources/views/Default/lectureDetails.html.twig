@@ -8,18 +8,18 @@
 
 <div class="left-column type-2 text">
 
-					<div class="title blue-title">
-						<h2>
-                            {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                                Лекция
-                            {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-                                Трансляции
-                            {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-                                Кинозал
-                            {% endif %}
-                        </h2>
-					</div>
-					<div class="media-one-block video-one">
+        <div class="title blue-title">
+            <h2>
+                {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+                    Лекция
+                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+                    Трансляции
+                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                    Кинозал
+                {% endif %}
+            </h2>
+        </div>
+        <div class="media-one-block video-one">
 
 		<div id="videoplayer" style="background: none">
             {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
