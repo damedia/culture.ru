@@ -617,7 +617,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 #map .PGmap-balloon-inner .bubble_image .thumb img{ vertical-align:top; }
 #map .PGmap-balloon-inner .edit{ font-size:11px; color:#777; border-bottom:dashed 1px #777; text-decoration:none; }
 #map .PGmap-balloon-inner .edit:hover{ color:#000; border-bottom:none; }
-
 #map .PGmap-balloon-inner .bubble.cluster{ max-height:250px; overflow-y:auto; }
 #map .PGmap-balloon-inner .bubble.cluster ol{ list-style:decimal; margin:0 0 0 25px; }
 #map .PGmap-balloon-inner .bubble.cluster ol li{ list-style:decimal; margin:0 0 10px 0; }

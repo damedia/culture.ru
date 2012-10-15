@@ -515,7 +515,9 @@ AT.initMyObjects = function() {
                 success: function(json){
                     $('#ajax-loading').hide();
                     if (json.success) {
+                        var point = el.data('point');
                         el.remove();
+                        AT.map.geometry.remove(point);
                     } else {
                         alert(json.message);
                     }
@@ -866,7 +868,10 @@ AT.showObjectForm = function(params) {
                 }
 
                 var createdObject = response.result;
-                $(myPoint.container).data('uid', createdObject.id);
+                AT.map.geometry.remove(myPoint);
+
+                // Объект создан. Сменить иконку и повесить обработчик показа балуна
+                myPoint = AT.placePoint(createdObject);
 
                 // Показываем второй попап с модерацией (created|updated)
                 if (response.result.mode == 'edit') {
@@ -895,6 +900,7 @@ AT.showObjectForm = function(params) {
             $('#ajax-loading').hide();
             if (response.success) {
                 $('#atlas-objects-add').removeClass('active');
+                $('#atlas-objects-add-hint').hide();
                 jSuccess.hide();
 
                 console.log('Popup mode', jPopup.hasClass('edit') );
@@ -903,11 +909,17 @@ AT.showObjectForm = function(params) {
                     // Добавляем в список точку
                     var objectId = response.result.id,
                         objectTitle = response.result.title,
+                        status = response.result.status,
+                        statusTitle = response.result.statusTitle,
                         jLi = $('#myobj_list_template').tmpl({ 'title': objectTitle });
 
                     // Связываем точку с элементом списка
                     jLi.data('id', objectId),
                     jLi.data('point', myPoint);
+                    jLi.find('.moder').removeClass('status0 status1 status2 status3')
+                                      .addClass('status'+status)
+                                      .attr('title', statusTitle);
+                    jLi.find('.moder span').text(status);
                     jMyObjectsList.append(jLi);
                 } else {
                     // Обновляем название точки в списке
@@ -916,6 +928,7 @@ AT.showObjectForm = function(params) {
                     jLi.find('span').text($('#name').val());
                     jLi.find('.moder').text(response.result.status);
                 }
+                console.log('jSuccessForm.ajaxForm.success()');
             }
         }
     });

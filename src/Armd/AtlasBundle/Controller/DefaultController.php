@@ -681,12 +681,36 @@ class DefaultController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            // Возвращаем созданный объект для отрисовки иконки точки
+            $lon = $entity->getLon();
+            $lat = $entity->getLat();
+            $imageUrl = '';
+            if ($entity->getPrimaryCategory()) {
+                $image = $entity->getPrimaryCategory()->getIconMedia();
+                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
+            }
+            if ($objStatus = $entity->getStatus()) {
+                $status = $objStatus->getId();
+                $statusTitle = $objStatus->getTitle();
+                $reason = $entity->getReason();
+            } else {
+                $status = 0;
+                $statusTitle = '';
+                $reason = '';
+            }
+
             $res = array(
                 'success' => true,
                 'result' => array(
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
                     'mode' => $mode,
+                    'lon' => $lon,
+                    'lat' => $lat,
+                    'icon' => $imageUrl,
+                    'status' => $status,
+                    'statusTitle' => $statusTitle,
+                    'reason' => $reason,
                 ),
             );
         }
@@ -724,6 +748,7 @@ class DefaultController extends Controller
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
                     'status' => $entity->getStatus()->getId(),
+                    'statusTitle' => $entity->getStatus()->getTitle(),
                 ),
             );
         }
