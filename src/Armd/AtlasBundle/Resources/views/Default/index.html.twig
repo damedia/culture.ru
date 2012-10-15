@@ -116,8 +116,8 @@
     <div class="add-object-form draggable add" id="add-object-form">
         <a href="#" class="exit" title="Закрыть"></a>
         <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
-            <h2 class="add">Добавление объекта</h2>
-            <h2 class="edit">Редактирование объекта</h2>
+            <h2 class="add">Создать объект</h2>
+            <h2 class="edit">Редактировать</h2>
             <input id="object-id" type="hidden" name="id" value="">
             <ul class="add-object-form-fields">
                 <li>
@@ -143,7 +143,7 @@
                     <textarea name="description" id="descr" cols="30" rows="10"></textarea>
                 </li>
                 <li>
-                    <label for="category">Категория (главная)</label>
+                    <label for="category">Тип объекта</label>
                     <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="Выберите категорию" style="width:298px">
                         <option value=""></option>
                         {% for optgroup in categories %}
@@ -156,7 +156,7 @@
                     </select>
                 </li>
                 <li>
-                    <label for="category">Категория</label>
+                    <label for="category">Дополнительные теги</label>
                     <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="Выберите категории" style="width:298px">
                         <option value=""></option>
                         {% for optgroup in categories %}

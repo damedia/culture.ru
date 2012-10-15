@@ -83,13 +83,14 @@ class ObjectCustomController extends CRUDController
                 $emailFrom = 'no-reply@mk.local.armd.ru';
                 $emailTo = $object->getCreatedBy()->getEmail();
                 if ($statusId == 2) {
-                    $subject = 'Заявка одобрена';
-                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusApprove.txt.twig';
+                    $subject = 'Ваш объект был успешно добавлен на карту портала Культура.рф';
+                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusApprove.html.twig';
                 } elseif ($statusId == 3) {
-                    $subject = 'Заявка отклонена';
-                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusRefuse.txt.twig';
+                    $subject = 'Ваш объект не прошел модерацию портала Культура.рф';
+                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusRefuse.html.twig';
                 }
                 $body = $this->renderView($template, array(
+                    'object' => $object,
                     'username' => $object->getCreatedBy()->getUsername(),
                     'reason' => $reason,
                 ));
@@ -98,6 +99,7 @@ class ObjectCustomController extends CRUDController
                     ->setFrom($emailFrom)
                     ->setTo($emailTo)
                     ->setBody($body)
+                    ->setContentType("text/html")
                 ;
                 $this->get('mailer')->send($message);
             }
