@@ -100,7 +100,7 @@
 		.filter-tabs-titles li {
 			display:table-cell;
 			*display:inline-block;
-			*width:33.33%;
+			width:50%;
 			text-align:center;
 			padding:5px 0;
 			background: #015a08;
