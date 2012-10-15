@@ -109,11 +109,16 @@ AT.initUI = function() {
 
     // Вкладки. Перехват смены вкладок
     $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
+        console.log('Logged in?', $('#f-section').hasClass('logged-in') );
         var href = $(this).attr('href');
         if (href == "#maps") {
             // Переключение на Мои карты. Очистим карту.
             AT.clearMap();
-            AT.initMyObjects();
+            if ($('#f-section').hasClass('logged-in')) {
+                AT.initMyObjects();
+            } else {
+                console.log('Необходима аутентификация.');
+            }
         }
         else if (href == "#obj") {
             // Отображаем объекты с примененным фильтром

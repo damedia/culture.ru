@@ -2,7 +2,7 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
-    <div class="blocksection w" id="f-section">
+    <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="f-section">
         <div class="filter checks-filter" style="width:23.7%">
             <div class="title dark-green-title title-filter">
                 <h2>Фильтрация</h2>
@@ -19,9 +19,7 @@
                 <div class="filter-tabs">
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">Объекты</a></li>
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li class=""><a href="#maps">Мои карты</a></li>
-                        {% endif %}
+                        <li class=""><a href="#maps">Мои карты</a></li>
                     </ul>
                     <div class="filter-tab" id="obj" style="display:block;">
                         <!-- объекты -->
@@ -46,8 +44,8 @@
                     <div class="filter-tab" id="mrsh">
                         <!-- маршруты -->
                     </div>
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <div class="filter-tab" id="maps">
+                    <div class="filter-tab" id="maps">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <!-- мои карты -->
                             <div class="filter-sub-tabs">
                                 <ul class="filter-sub-tabs-titles">
@@ -84,8 +82,13 @@
 
                                 </div>
                             </div>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <div class="auth-required-msg">
+                                Вы не авторизованы. Пожалуйста, <a href="{{ path("fos_user_security_login") }}">авторизуйтесь</a>
+                                или <a href="{{ path("fos_user_registration_register") }}">зарегистрируйтесь</a> для того, чтобы добавлять объекты на карту.
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
 
             </form>
