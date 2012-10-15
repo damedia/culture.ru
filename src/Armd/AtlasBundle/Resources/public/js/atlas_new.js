@@ -924,9 +924,14 @@ AT.showObjectForm = function(params) {
                 } else {
                     // Обновляем название точки в списке
                     var objectId = $('#object-id').val(),
+                        status = 1,
+                        statusTitle = 'ожидает модерации',
                         jLi = jMyObjectsList.find('li').filter(function(){ return $(this).data('id')==objectId; });
                     jLi.find('span').text($('#name').val());
-                    jLi.find('.moder').text(response.result.status);
+                    jLi.find('.moder span').text(response.result.status);
+                    jLi.find('.moder').removeClass('status0 status1 status2 status3')
+                                      .addClass('status'+status)
+                                      .attr('title', statusTitle);
                 }
                 console.log('jSuccessForm.ajaxForm.success()');
             }
