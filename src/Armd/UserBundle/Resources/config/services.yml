@@ -1,15 +1,17 @@
 services:
-    armd_user.activity_listener:
-        class: Armd\UserBundle\Listener\ActivityListener
-        arguments: [@security.context, @doctrine]
-        tags:
-            - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+#    turn off last activity to reduce write queries
+#    armd_user.activity_listener:
+#        class: Armd\UserBundle\Listener\ActivityListener
+#        arguments: [@security.context, @doctrine]
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
 
     armd_user.listener.post_auth_redirect:
         class: Armd\UserBundle\Listener\PostAuthRedirectListener
         arguments: [@security.context, @doctrine]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
 
     armd_user.security.authentication_success_handler:
         class: Armd\UserBundle\Security\AuthenticationSuccessHandler

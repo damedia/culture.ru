@@ -52,14 +52,14 @@ doctrine:
         types:
             json: Sonata\Doctrine\Types\JsonType
 
-        slaves:
-            slave1:
-                host:     %database_host%
-                port:     %database_port%
-                dbname:   mk_slave
-                user:     %database_user%
-                password: %database_password%
-                charset:  UTF8
+#        slaves:
+#            slave1:
+#                host:     %slave_database_host%
+#                port:     %slave_database_port%
+#                dbname:   %slave_database_name%
+#                user:     %slave_database_user%
+#                password: %slave_database_password%
+#                charset:  UTF8
 
 
     orm:
