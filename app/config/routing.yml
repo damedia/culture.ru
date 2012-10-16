@@ -1,8 +1,3 @@
-armd_doctrine_master_slave:
-    resource: "@ArmdDoctrineMasterSlaveBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 armd_mk_comment:
     resource: "@ArmdMkCommentBundle/Controller/"
     type:     annotation

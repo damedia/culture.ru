@@ -28,3 +28,21 @@ sonata_media:
             port:     %sonata_media_ftp_port%
             passive:  false
             create:   false
+
+
+    providers:
+        file:
+            resizer:    false
+            filesystem: sonata.media.filesystem.ftp
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        image:
+            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            filesystem: sonata.media.filesystem.ftp
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        youtube: ~
+
+        dailymotion: ~
