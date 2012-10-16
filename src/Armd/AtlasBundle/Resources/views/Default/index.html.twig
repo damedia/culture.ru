@@ -146,12 +146,10 @@
                     <label for="category">Тип объекта</label>
                     <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="Выберите категорию" style="width:298px">
                         <option value=""></option>
-                        {% for optgroup in categories %}
-                            <optgroup label="{{ optgroup.title }}">
-                                {% for tag in optgroup.tags if tag.hasIcon %}
-                                    <option value="{{ tag.id }}">{{ tag.title }}</option>
-                                {% endfor %}
-                            </optgroup>
+                        {% for optgroup in categories if optgroup.title=='Тип объекта' %}
+                            {% for tag in optgroup.tags if tag.hasIcon %}
+                                <option value="{{ tag.id }}">{{ tag.title }}</option>
+                            {% endfor %}
                         {% endfor %}
                     </select>
                 </li>
