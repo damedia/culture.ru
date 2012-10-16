@@ -5,6 +5,8 @@ Ministry of Culture: Ministry of Culture
 Russian Federation: of the Russian Federation
 Copyright: © Russian Cultural Heritage Web Portal
 Talk: Web-portal Info
+Main menu: Main menu
+No objects: No objects found
 
 Navigation:
     Atlas: Atlas
@@ -54,18 +56,63 @@ Mainpage block:
         Text: ХI Moscow Festival
     Images of Russia:
         Title: Images of Russia
+        Of: of
 
 Projects:
-  Region: Region
-  City: City
-  Date: Date
-  Event Title: Event Title
+    Region: Region
+    City: City
+    Date: Date
+    Event Title: Event Title
 
-Settings: Settings
+Special:
+    Main version: Main version
+    Color: Color
+    Background:
+        Black: Black
+        White: White
+    Font:
+        Size:
+            Title: Font size
+            Huge: Huge font
+            Big: Big font
+            Normal: Normal font
+        Family:
+            Title: Font family
+            Sans Serif : Arial
+            Serif: Times New Roman
+    Settings: Settings
+    Address: Roskult.ru
+    Search: Search
+    Date: Date
+    Images of Russia:
+        More: More
+        Close: Close
+        Comments: Comments
+        Comment: Comment
+        Not auth comment: <a href="%link%">Auth</a> for comment.
+        Virtual tour: Virtual Tour
+        Video: Video
+        Archives: Archives
+        Archive document: Archive document
+        Infographics: Infographics
+        Prev: Previous
+        Next: Next
+        Contacts:
+            Title: Contacts
+            Site: Web site
+            Email: Email
+            Phone: Телефон
+            Open: Open
+            Closed: Closed
+            Seven days: Seven days a week
+
+Account settings: Account
 Register: Register
 Registration: Registration
 Logout: Log out
 Login: Log in
-
 All: All
 Download: Download
+Comments: Comments
+Comment: Comment
+Submit: Submit

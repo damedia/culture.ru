@@ -97,7 +97,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					<div id="topbar">
 						<div id="auth">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Settings'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="/logout"><span>{{ 'Logout'|trans }}</span></a>
+							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Account settings'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="/logout"><span>{{ 'Logout'|trans }}</span></a>
                             {% else %}
                             <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ domain }}{{ path('fos_user_registration_register') }}"><span>{{ 'Register'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ domain }}{{ path('fos_user_security_login') }}"><span>{{ 'Login'|trans }}</span></a>
                             {% endif %}

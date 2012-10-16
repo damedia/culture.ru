@@ -45,4 +45,7 @@ Biography: Biography
 Timezone: Timezone
 Phone: Phone
 Locale: Locale
-sonata_user_submit: Submit
+Submit: Submit
+
+404: Page not found.
+Redirect after: You will be redirected to the main page <strong>after 5 seconds</strong>

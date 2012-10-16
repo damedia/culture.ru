@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<h1>Результаты поиска</h1>
-<p>Запрос: {{ searchQuery }}</p>
+<h1>{{ 'Search results'|trans }}</h1>
+<p>{{ 'Query'|trans }}: {{ searchQuery }}</p>
 
 {% if searchResults|length > 0 %}
     <ul class="news-list">
@@ -20,7 +20,6 @@
                     {{ searchResult.object.date|date('j ')}}
                     {{ ('calendar.full.'~searchResult.object.date|date('M'))|trans }}
                     {{ searchResult.object.date|date(' /Y') }}
-
                     {#{{ searchResult.object.date|date('j') }}#}
                 </span>
                 <a class="news-list-header" href="{{ searchResult.object.url }}">{{ searchResult.object.title }}</a>
@@ -34,7 +33,7 @@
     {{ pagination.render()|raw }}
 </div>
 {% else %}
-    По вашему запросу материалов не найдено
+    {{ 'Not found'|trans }}
 {% endif %}
 
 {% endblock %}
