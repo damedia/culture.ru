@@ -929,8 +929,8 @@ AT.showObjectForm = function(params) {
                 } else {
                     // Обновляем название точки в списке
                     var objectId = $('#object-id').val(),
-                        status = 1,
-                        statusTitle = 'ожидает модерации',
+                        status = response.result.status,
+                        statusTitle = response.result.statusTitle,
                         jLi = jMyObjectsList.find('li').filter(function(){ return $(this).data('id')==objectId; });
                     jLi.find('span').text($('#name').val());
                     jLi.find('.moder span').text(response.result.status);
