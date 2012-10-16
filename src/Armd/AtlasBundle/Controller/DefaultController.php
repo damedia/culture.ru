@@ -691,7 +691,7 @@ class DefaultController extends Controller
             }
             if ($objStatus = $entity->getStatus()) {
                 $status = $objStatus->getId();
-                $statusTitle = $objStatus->getTitle();
+                $statusTitle = $objStatus->getActionTitle();
                 $reason = $entity->getReason();
             } else {
                 $status = 0;
@@ -748,7 +748,7 @@ class DefaultController extends Controller
                     'id' => $entity->getId(),
                     'title' => $entity->getTitle(),
                     'status' => $entity->getStatus()->getId(),
-                    'statusTitle' => $entity->getStatus()->getTitle(),
+                    'statusTitle' => $entity->getStatus()->getActionTitle(),
                 ),
             );
         }
@@ -809,7 +809,7 @@ class DefaultController extends Controller
 
                     if ($objStatus = $obj->getStatus()) {
                         $status = $objStatus->getId();
-                        $statusTitle = $objStatus->getTitle();
+                        $statusTitle = $objStatus->getActionTitle();
                         $reason = $obj->getReason();
                     } else {
                         $status = 0;

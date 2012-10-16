@@ -29,6 +29,11 @@ class ObjectStatus
      */
     private $title;
 
+    /**
+     * @ORM\Column(name="action_title", type="string", length=255, nullable=true)
+     */
+    private $actionTitle;
+
     public function __toString()
     {
         return $this->getTitle();
@@ -65,5 +70,28 @@ class ObjectStatus
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set actionTitle
+     *
+     * @param string $actionTitle
+     * @return ObjectStatus
+     */
+    public function setActionTitle($actionTitle)
+    {
+        $this->actionTitle = $actionTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get actionTitle
+     *
+     * @return string 
+     */
+    public function getActionTitle()
+    {
+        return $this->actionTitle;
     }
 }
