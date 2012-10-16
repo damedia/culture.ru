@@ -111,7 +111,7 @@ AT.initUI = function() {
     $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
         var href = $(this).attr('href');
         if (href == "#maps") {
-            // Переключение на Мои карты. Очистим карту.
+            // Переключение на Мои карты. Очистим карту. Отбить AJAX
             AT.clearMap();
             if ($('#map-section').hasClass('logged-in')) {
                 AT.initMyObjects();
@@ -128,11 +128,16 @@ AT.initUI = function() {
     // Объекты. Фильтр
     $('#atlas-filter-form').ajaxForm({
         beforeSubmit: function(){
-            //console.log('xxx');
+            console.log( $('#atlas-filter-form').data('jqxhr') );
             $('#ajax-loading').show();
         },
         success: function(responseText, statusText, xhr, $form){
             $('#ajax-loading').hide();
+
+            // Если вторая вкладка текущая, не рисуем объекты
+            if ($('.filter-tabs-titles li.active').index())
+                return;
+
             var elems = $('.atlas-filter-form .tag'),
                 json = $.parseJSON(responseText);
 
