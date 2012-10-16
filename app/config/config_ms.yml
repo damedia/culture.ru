@@ -27,7 +27,7 @@ sonata_media:
             password: %sonata_media_ftp_password%
             port:     %sonata_media_ftp_port%
             passive:  false
-            create:   false
+            create:   true
 
 
     providers:

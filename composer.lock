@@ -1,5 +1,5 @@
 {
-    "hash": "73f73502a94c1c3a191fbbe4d8e24998",
+    "hash": "e8ac28406d4dda8924683e563f7f812b",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -708,40 +708,28 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "dev-master",
+            "version": "0.6.0",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle",
-                "reference": "4ca094f3832ce99bce3c42295206fbe361a598f6"
+                "reference": "0.6.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSRestBundle/zipball/4ca094f3832ce99bce3c42295206fbe361a598f6",
-                "reference": "4ca094f3832ce99bce3c42295206fbe361a598f6",
+                "url": "https://github.com/FriendsOfSymfony/FOSRestBundle/zipball/0.6.0",
+                "reference": "0.6.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "jms/serializer-bundle": "0.9.*",
-                "symfony/framework-bundle": ">=2.0,<2.3-dev",
-                "friendsofsymfony/rest": ">=0.7.0,<0.9.0-dev"
+                "friendsofsymfony/rest": "*",
+                "symfony/symfony": ">=2.0,<2.2",
+                "sensio/framework-extra-bundle": "*",
+                "jms/serializer-bundle": "*"
             },
-            "require-dev": {
-                "symfony/form": ">=2.0,<2.3-dev",
-                "symfony/yaml": ">=2.0,<2.3-dev",
-                "sensio/framework-extra-bundle": ">=2.0,<2.3-dev"
-            },
-            "suggest": {
-                "sensio/framework-extra-bundle": "Add support for route annotations"
-            },
-            "time": "1349887290",
+            "time": "2012-04-18 04:59:23",
             "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.10.x-dev"
-                }
-            },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
@@ -904,7 +892,7 @@
         },
         {
             "name": "imagine/Imagine",
-            "version": "dev-master",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine",
@@ -922,7 +910,7 @@
             "require-dev": {
                 "sami/sami": "dev-master"
             },
-            "time": "1343522118",
+            "time": "2012-07-28 17:35:18",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1485,16 +1473,16 @@
         },
         {
             "name": "kriswallsmith/buzz",
-            "version": "dev-master",
+            "version": "v0.7",
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/Buzz.git",
-                "reference": "988bf14201ffbed940f23b42f87302e6adec4c21"
+                "reference": "v0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/Buzz/zipball/988bf14201ffbed940f23b42f87302e6adec4c21",
-                "reference": "988bf14201ffbed940f23b42f87302e6adec4c21",
+                "url": "https://github.com/kriswallsmith/Buzz/zipball/v0.7",
+                "reference": "v0.7",
                 "shasum": ""
             },
             "require": {
@@ -1503,7 +1491,7 @@
             "suggest": {
                 "ext-curl": "*"
             },
-            "time": "1345206213",
+            "time": "2012-06-25 12:01:38",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -1586,27 +1574,27 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioDistributionBundle",
-                "reference": "4e86595e02c6e3d76971f790d7c06ec434e1b513"
+                "reference": "v2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sensio/SensioDistributionBundle/zipball/4e86595e02c6e3d76971f790d7c06ec434e1b513",
-                "reference": "4e86595e02c6e3d76971f790d7c06ec434e1b513",
+                "url": "https://github.com/sensio/SensioDistributionBundle/zipball/v2.1.1",
+                "reference": "v2.1.1",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "2.2.*"
+                "symfony/framework-bundle": "2.1.*"
             },
-            "time": "1347635342",
+            "time": "1347340208",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "installation-source": "source",
@@ -1632,28 +1620,28 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioFrameworkExtraBundle",
-                "reference": "022903ff98f041ea22ec50f2b4744aeae8a72f4d"
+                "reference": "53a2a5e5ba052b2ae281f3b8bd9b530947a328b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sensio/SensioFrameworkExtraBundle/zipball/022903ff98f041ea22ec50f2b4744aeae8a72f4d",
-                "reference": "022903ff98f041ea22ec50f2b4744aeae8a72f4d",
+                "url": "https://github.com/sensio/SensioFrameworkExtraBundle/zipball/53a2a5e5ba052b2ae281f3b8bd9b530947a328b4",
+                "reference": "53a2a5e5ba052b2ae281f3b8bd9b530947a328b4",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">=2.1,<2.4-dev",
-                "symfony/framework-bundle": "2.2.*"
+                "symfony/framework-bundle": "2.1.*",
+                "doctrine/common": ">=2.1,<2.4-dev"
             },
-            "time": "1349354881",
+            "time": "1349786071",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "installation-source": "source",
@@ -1679,36 +1667,33 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioGeneratorBundle",
-                "reference": "f5bda1014f5f124a0fd881644664493e36a09ad0"
+                "reference": "3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sensio/SensioGeneratorBundle/zipball/f5bda1014f5f124a0fd881644664493e36a09ad0",
-                "reference": "f5bda1014f5f124a0fd881644664493e36a09ad0",
+                "url": "https://github.com/sensio/SensioGeneratorBundle/zipball/3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0",
+                "reference": "3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0",
                 "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "2.2.*",
-                "symfony/console": "2.2.*"
+                "symfony/framework-bundle": "2.1.*",
+                "symfony/console": "2.1.*"
             },
             "require-dev": {
+                "symfony/doctrine-bridge": "2.1.*",
                 "doctrine/orm": ">=2.1,<2.4-dev",
-                "twig/twig": ">=1.8,<2.0-dev",
-                "symfony/doctrine-bridge": "2.2.*"
+                "twig/twig": ">=1.8,<2.0-dev"
             },
-            "suggest": {
-                "doctrine/doctrine-bundle": "to generate entities and their crud controller"
-            },
-            "time": "1348070473",
+            "time": "1348030981",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "installation-source": "source",
@@ -2527,21 +2512,21 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "dev-master",
+            "version": "2.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "d8f6021fc1b1a9ed7ab74216323b3f52c68057dc"
+                "reference": "4141afba467fc918c814dfc401b121981aeb5348"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/d8f6021fc1b1a9ed7ab74216323b3f52c68057dc",
-                "reference": "d8f6021fc1b1a9ed7ab74216323b3f52c68057dc",
+                "url": "https://github.com/symfony/symfony/zipball/4141afba467fc918c814dfc401b121981aeb5348",
+                "reference": "4141afba467fc918c814dfc401b121981aeb5348",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">2.2,<2.4-dev",
                 "php": ">=5.3.3",
+                "doctrine/common": ">2.2,<2.4-dev",
                 "twig/twig": ">=1.9.1,<2.0-dev"
             },
             "replace": {
@@ -2579,31 +2564,25 @@
                 "symfony/yaml": "self.version"
             },
             "require-dev": {
+                "doctrine/dbal": ">=2.2,<2.4-dev",
+                "doctrine/orm": ">=2.2.3,<2.4-dev",
                 "doctrine/data-fixtures": "1.0.*",
                 "propel/propel1": "dev-master",
-                "monolog/monolog": "dev-master",
-                "doctrine/dbal": ">=2.2,<2.4-dev",
-                "doctrine/orm": ">=2.2.3,<2.4-dev"
+                "monolog/monolog": "1.*"
             },
-            "suggest": {
-                "doctrine/data-fixtures": "1.0.*"
-            },
-            "time": "1350379165",
+            "time": "1350379655",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "Symfony\\": "src/"
-                },
-                "classmap": [
-                    "src/Symfony/Component/HttpFoundation/Resources/stubs",
-                    "src/Symfony/Component/Locale/Resources/stubs"
-                ]
+                    "Symfony": "src/",
+                    "SessionHandlerInterface": "src/Symfony/Component/HttpFoundation/Resources/stubs"
+                }
             },
             "license": [
                 "MIT"

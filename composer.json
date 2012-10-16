@@ -35,6 +35,7 @@
         "sonata-project/media-bundle": "*",
         "sonata-project/doctrine-orm-admin-bundle": "*",
         "sonata-project/user-bundle": "*",
+        "sonata-project/cache-bundle": "*",
         "armd/banner-bundle": "*",
         "armd/sphinx-search-bundle": "*"
     },

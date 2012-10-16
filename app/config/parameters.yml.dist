@@ -6,13 +6,6 @@ parameters:
     database_user:     mk
     database_password: Fa3Sheer
 
-    slave_database_host:     localhost
-    slave_database_port:     ~
-    slave_database_name:     mk
-    slave_database_user:     mk
-    slave_database_password: Fa3Sheer
-
-
     mailer_transport:  smtp
     mailer_host:       localhost
     mailer_user:       ~
