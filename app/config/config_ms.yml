@@ -1,0 +1,48 @@
+# multi-server (master-slave) config
+imports:
+    - { resource: config_prod.yml }
+
+doctrine:
+    dbal:
+        slaves:
+            slave1:
+                host:     %slave_database_host%
+                port:     %slave_database_port%
+                dbname:   %slave_database_name%
+                user:     %slave_database_user%
+                password: %slave_database_password%
+                charset:  UTF8
+
+
+sonata_media:
+    cdn:
+        server:
+            path: %sonata_media_cdn%
+
+    filesystem:
+        ftp:
+            directory: %sonata_media_ftp_directory%
+            host: %sonata_media_ftp_host%
+            username: %sonata_media_ftp_username%
+            password: %sonata_media_ftp_password%
+            port:     %sonata_media_ftp_port%
+            passive:  false
+            create:   true
+
+
+    providers:
+        file:
+            resizer:    false
+            filesystem: sonata.media.filesystem.ftp
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        image:
+            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            filesystem: sonata.media.filesystem.ftp
+            generator:  sonata.media.generator.default
+            thumbnail:  sonata.media.thumbnail.format
+
+        youtube: ~
+
+        dailymotion: ~

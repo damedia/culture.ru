@@ -22,4 +22,24 @@ parameters:
     sphinxsearch_index_all: mk_all
     sphinxsearch_index_lectures: mk_lectures
     sphinxsearch_index_atlas: mk_atlas
-    domain: 
+    domain:
+
+    ######################################################################
+    ## multi-server config (used only in app_ms.php frontend controller)
+
+    slave_database_host:     localhost
+    slave_database_port:     ~
+    slave_database_name:     mk_slave
+    slave_database_user:     mk
+    slave_database_password: Fa3Sheer
+
+    sonata_media_cdn: http://mk.armd.shams.su/uploads/media/
+
+    sonata_media_ftp_directory: /uploads/media
+    sonata_media_ftp_host: localhost
+    sonata_media_ftp_username: mk
+    sonata_media_ftp_password: 111111
+    sonata_media_ftp_port: 21
+
+    ##   /multi-server config
+    ######################################################################
