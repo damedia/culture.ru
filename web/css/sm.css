@@ -5023,5 +5023,16 @@ white-space:nowrap;
 	
 }	
 
+.archive-main-link {
+	text-align:right;
+	max-width: 1400px;
+	min-width: 980px;
+	padding:5px 0 0;
+	font-size:13px;
 	
+}	
+	.archive-main-link a {
+		color:#de600c;
+		font-weight:bold;
+	}
 			
