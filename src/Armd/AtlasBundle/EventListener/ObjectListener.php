@@ -26,6 +26,19 @@ class ObjectListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Object) {
+            // created by user
+            if (! $entity->getCreatedBy()) {
+                $currentUser = $this->container->get('security.context')->getToken()->getUser();
+                $entity->setCreatedBy($currentUser);
+                // updated by user
+                $entity->setUpdatedBy($currentUser);
+            }
+
+            // created at
+            $entity->setCreatedAt(new \DateTime("now"));
+            // updated at
+            $entity->setUpdatedAt(new \DateTime("now"));
+
             // sync categories
             $entity->syncPrimaryAndSecondaryCategories();
         }
@@ -38,12 +51,21 @@ class ObjectListener
         $uow = $em->getUnitOfWork();
 
         if ($entity instanceof Object) {
+            // updated by user
+            $currentUser = $this->container->get('security.context')->getToken()->getUser();
+            $entity->setUpdatedBy($currentUser);
+
+            // updated at
+            $entity->setUpdatedAt(new \DateTime("now"));
+
             // sync categories
             $entity->syncPrimaryAndSecondaryCategories();
+            /*
             $uow->computeChangeSet(
                 $em->getClassMetadata('ArmdAtlasBundle:Object'),
                 $entity
             );
+            */
         }
     }
 

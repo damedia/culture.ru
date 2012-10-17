@@ -2,7 +2,7 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
-    <div class="blocksection w" id="f-section">
+    <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
         <div class="filter checks-filter" style="width:23.7%">
             <div class="title dark-green-title title-filter">
                 <h2>Фильтрация</h2>
@@ -16,23 +16,80 @@
                     <input type="text" class="ss-input" id="ss_input" />
                 </div>
 
-                {% for category in categories %}
-                    <div class="simple-filter-block">
-                        <div class="simple-filter-header clearfix">
-                            <span>{{ category.title }}</span>
-                            <p class="check_all"><span>все</span></p>
-                        </div>
-                        <div class="simple-filter-options">
-                            {% for tag in category.tags %}
-                                <label class="tag gray-checked disabled">
-                                    <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
-                                </label>
-                            {% endfor %}
-                        </div>
+                <div class="filter-tabs">
+                    <ul class="filter-tabs-titles">
+                        <li class="active"><a href="#obj">Объекты</a></li>
+                        <li class=""><a href="#maps">Мои карты</a></li>
+                    </ul>
+                    <div class="filter-tab" id="obj" style="display:block;">
+                        <!-- объекты -->
+                        {% for category in categories %}
+                            <div class="simple-filter-block">
+                                <div class="simple-filter-header clearfix">
+                                    <span>{{ category.title }}</span>
+                                    <p class="check_all"><span>все</span></p>
+                                </div>
+                                <div class="simple-filter-options">
+                                    {% for tag in category.tags %}
+                                        <label class="gray-checked">
+                                            <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% else %}
+                            No categories found.
+                        {% endfor %}
                     </div>
-                {% else %}
-                    No categories found.
-                {% endfor %}
+                    <div class="filter-tab" id="mrsh">
+                        <!-- маршруты -->
+                    </div>
+                    <div class="filter-tab" id="maps">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <!-- мои карты -->
+                            <div class="filter-sub-tabs">
+                                <ul class="filter-sub-tabs-titles">
+                                    <li class="active"><a href="#myobj">Мои объекты</a></li>
+                                    <li><a href="#mymrsh">Мои маршруты</a></li>
+                                </ul>
+                                <div class="filter-sub-tab" id="myobj" style="display:block;">
+                                    <ol class="filter-sub-tab-list" id="myobj_list">
+                                        {#<li>
+                                            <span>Новый объект</span>
+                                            <a href="#" class="del" title="Удалить"></a>
+                                            <span class="moder"></span>
+                                        </li>#}
+                                    </ol>
+
+                                    <!-- template -->
+                                    <script id="myobj_list_template" type="text/x-jquery-tmpl">
+                                        <li data-id="${id}">
+                                            <span>${title}</span>
+                                            <a class="del" href="#" title="Удалить"></a>
+                                            <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
+                                                <span>${status}</span>
+                                            </div>
+                                            {#<ins class="edit"></ins>#}
+                                        </li>
+                                    </script>
+                                    <!-- /template -->
+
+                                    <input id="atlas-objects-add" type="button" class="button green-button" value="Добавить объект" />
+
+                                    <div id="atlas-objects-add-hint">Укажите точку на карте</div>
+                                </div>
+                                <div class="filter-sub-tab" id="mymrsh">
+
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="auth-required-msg">
+                                Вы не авторизованы. Пожалуйста, <a href="{{ path("fos_user_security_login") }}">авторизуйтесь</a>
+                                или <a href="{{ path("fos_user_registration_register") }}">зарегистрируйтесь</a> для того, чтобы добавлять объекты на карту.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
 
             </form>
         </div>
@@ -53,49 +110,209 @@
         </div>
     </div>
 
-    <!-- Асинхронная загрузка jsapi -->
+    <!-- popups -------------------------------------------- -->
+
+    <!-- object form popup -->
+    <div class="add-object-form draggable add" id="add-object-form">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
+            <h2 class="add">Создать объект</h2>
+            <h2 class="edit">Редактировать</h2>
+            <input id="object-id" type="hidden" name="id" value="">
+            <ul class="add-object-form-fields">
+                <li>
+                    <label for="name">Заголовок</label>
+                    <input name="title" type="text" value="" placeholder="" id="name" />
+                </li>
+                <li>
+                    <label for="address">Адрес</label>
+                    <input name="address" type="text" value="" placeholder="" id="address" />
+                </li>
+                <li class="coords">
+                    <div class="coords-block">
+                        <label for="lat">Широта</label>
+                        <input name="lat" type="text" value="" id="lat" />
+                    </div>
+                    <div class="coords-block last">
+                        <label for="lon">Долгота</label>
+                        <input name="lon" type="text" value="" id="lon" />
+                    </div>
+                </li>
+                <li>
+                    <label for="descr">Описание</label>
+                    <textarea name="description" id="descr" cols="30" rows="10"></textarea>
+                </li>
+                <li>
+                    <label for="category">Тип объекта</label>
+                    <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="Выберите категорию" style="width:298px">
+                        <option value=""></option>
+                        {% for optgroup in categories if optgroup.title=='Тип объекта' %}
+                            {% for tag in optgroup.tags if tag.hasIcon %}
+                                <option value="{{ tag.id }}">{{ tag.title }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </li>
+                <li>
+                    <label for="category">Дополнительные теги</label>
+                    <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="Выберите категории" style="width:298px">
+                        <option value=""></option>
+                        {% for optgroup in categories %}
+                            <optgroup label="{{ optgroup.title }}">
+                                {% for tag in optgroup.tags %}
+                                    <option value="{{ tag.id }}">{{ tag.title }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor %}
+                    </select>
+                </li>
+                <li class="add-photos">
+                    {#
+                    <input type="file" value="Добавить фото" class="add-photos-button uniform" />
+                    <p class="add-photos-note">Или перетянуть с компьютера</p>
+                    #}
+                    <div id="file-uploader"></div>
+                    <div class="added-images">
+                    </div>
+                    <!-- template for .added-images -->
+                    <script id="added-image-template" type="text/x-jquery-tmpl">
+                        <div class="added-image" data-id="${id}">
+                            <div class="image-wrapper"><img src="${imageUrl}" alt=""/></div>
+                            <ins class="del" title="Удалить"></ins>
+                            <input type="hidden" name="media[]" value="${id}">
+                        </div>
+                    </script>
+                    <!-- /template for .added-images -->
+                </li>
+            </ul>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button sbmt-btn" value="Сохранить"  />
+                <input type="reset" class="button rst-btn" value="Отменить"  />
+            </fieldset>
+        </form>
+    </div>
+    <!-- /object form popup -->
+
+    <!-- success add popup -->
+    <div class="add-object-form success-object-form draggable" id="success-object-form" >
+        <a href="#" class="exit" title="Закрыть"></a>
+        <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
+            <input class="object-id" name="id" type="hidden"/>
+            <h2>Все получилось!</h2>
+            <div class="section-add">
+                <p>Объект <b class="object-title"></b> был успешно создан.</p>
+                <label class="sof-check"><input name="is_public" type="checkbox" />Добавить объект на карту</label>
+            </div>
+            <div class="section-edit">
+                <p>Изменения сохранены.</p>
+                <label class="sof-check"><input name="is_public" type="checkbox" checked="checked"/>Отправить измененный объект на карту</label>
+            </div>
+            <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button sbmt-btn" value="Готово"  />
+            </fieldset>
+        </form>
+    </div>
+    <!-- /success add popup -->
+
+    <!-- moderation request popup -->
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
+            <input id="moderation-object-id" class="object-id" name="id" type="hidden"/>
+            <input type="hidden" name="is_public" value="on">
+            <h2>Хотите отправить объект на карту?</h2>
+            <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button sbmt-btn" value="Да"  />
+                <input type="reset" class="button rst-btn" value="Позже"  />
+            </fieldset>
+        </form>
+    </div>
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-1">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <div>
+            <h2>Объект ожидает модерацию</h2>
+            <p class="note">Ваш объект появится на карте после прохождения <a href="#">модерации</a>.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button rst-btn" value="Закрыть"  />
+            </fieldset>
+        </div>
+    </div>
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-2">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <div>
+            <h2>Ваш объект успешно добавлен на карту!</h2>
+            <p class="note">Ваш объект прошел модерацию и теперь доступен для просмотра всем пользователям. Обратите внимание, что вы по-прежнему можете его редактировать.</p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button rst-btn" value="Закрыть"  />
+            </fieldset>
+        </div>
+    </div>
+    <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-3">
+        <a href="#" class="exit" title="Закрыть"></a>
+        <div>
+            <h2>Внимание! Ваш объект был отклонен</h2>
+            <p class="note">Ваш объект был отклонен на стадии <a href="#">модерации</a>. Причина: <span id="moder-reason"></span></p>
+            <fieldset class="form-buttons">
+                <input type="submit" class="button rst-btn" value="Закрыть"  />
+            </fieldset>
+        </div>
+    </div>
+    <!-- /moderation request popup -->
+
+    <!-- /popups -------------------------------------------- -->
+
+    <!-- /Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+        <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
     </div>
     <script type="text/javascript">
         document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
         document.getElementById('script_ad').style.display = 'block';
     </script>
     <!-- /Асинхронная загрузка jsapi -->
+
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
-    <link rel="stylesheet" href="{{ asset('static/common/css/atlas.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/valums-file-uploader/client/fileuploader.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+    <script src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.tmpl.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/valums-file-uploader/client/fileuploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/common/js/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('static/common/js/fancybox/jquery.fancybox.js') }}"></script>
-   {# <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script> #}
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}?v=124"></script>
+    {# <script type="text/javascript" src="{{ asset('static/common/js/function.js') }}"></script> #}
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
     <script type="text/javascript">
-        var fetchMarkersUri      = '{{ path('armd_atlas_default_filter') }}',
-            fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
-            fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
-            bundleImagesUri      = '{{ asset('bundles/armdatlas/images') }}';
-
         $(function(){
             AT.init({
                 map: 'map',
                 center: [84.967319,60.329728],
-                zoom: 3
+                zoom: 3,
+                fetchMarkersUri:       '{{ path('armd_atlas_default_filter') }}',
+                fetchMarkerDetailUri:  '{{ path('armd_atlas_default_objectballoon') }}',
+                fetchClusterDetailUri: '{{ path('armd_atlas_default_clusterballoon') }}',
+                fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
+                deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
+                imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
+                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}'
             });
         });
     </script>

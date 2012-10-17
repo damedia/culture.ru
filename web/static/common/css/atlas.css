@@ -215,6 +215,7 @@
 				
 	/*����� ���������� �������*/			
 		.add-object-form {
+            display:none;
 			position:absolute;
 			top:30px;
 			left:50px;
@@ -406,6 +407,7 @@
 	}
 		
 	.success-object-form {
+        display:none;
 		width:390px;
 		font-size:14px;
 		left:400px;

@@ -12,22 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class ObjectRepository extends EntityRepository
 {
-    // @TODO: вставить проверку на published
     public function filter($params = array())
     {
-        $categoryTree = $params['categoryTree'];
+        $categoryIds = $params['category'];
         $qb = $this->createQueryBuilder('o');
-        foreach ($categoryTree as $i=>$group) {
-            $groupIds = array();
-            foreach ($group['tags'] as $tag) {
-                $groupIds[] = (int) $tag['id'];
-            }
-            $qb->innerJoin('o.secondaryCategories', 't'.$i);
-            $qb->andWhere('t'.$i.' IN ('. implode(',',$groupIds) .')');
-            $qb->andWhere('o.published = TRUE');
-        }
-        $query = $qb->getQuery();
-        $rows = $query->getResult();
+        $qb->innerJoin('o.secondaryCategories', 'c')
+            ->where('o.published = TRUE')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->in('c', $categoryIds),
+                $qb->expr()->in('o', $categoryIds)
+            ));
+
+        $rows = $qb->getQuery()->getResult();
         return $rows;
     }
 
@@ -108,6 +104,31 @@ class ObjectRepository extends EntityRepository
         foreach ($result as $row)
             $res[] = $row['categoryId'];
         return array_unique($res);
+    }
+
+    public function filterModerating($filter)
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb->where('o.isOfficial = FALSE');
+        if (isset($filter['title']) && !empty($filter['title'])) {
+            $qb->andWhere('o.title LIKE :title')
+               ->setParameter('title', '%'.$filter['title'].'%');
+        }
+        if (isset($filter['status']) && !empty($filter['status'])) {
+            $qb->andWhere('o.status = :status')
+               ->setParameter('status', $filter['status']);
+        }
+        if (isset($filter['createdBy']) && !empty($filter['createdBy'])) {
+            $qb->andWhere('o.createdBy = :createdBy')
+               ->setParameter('createdBy', $filter['createdBy']);
+        }
+        if (isset($filter['updatedBy']) && !empty($filter['updatedBy'])) {
+            $qb->andWhere('o.updatedBy = :updatedBy')
+               ->setParameter('updatedBy', $filter['updatedBy']);
+        }
+        $qb->orderBy('o.updatedAt', 'DESC');
+        $result = $qb->getQuery()->getResult();
+        return $result;
     }
 
 }
