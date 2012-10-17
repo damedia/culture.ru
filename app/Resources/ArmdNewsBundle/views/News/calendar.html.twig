@@ -1,18 +1,18 @@
 <div class="news-dates-filter" id="news-dates-filter">
 	<form action="" class="clearfix">
-		<p class="ndf-label">Период</p>
+		<p class="ndf-label">{{ 'Period'|trans }}</p>
 		<div class="ndf-line">
-			<label for="from-date">c</label>
+			<label for="from-date">{{ 'from'|trans }}</label>
 			<input type="text" class="calendar-input" id="from-date" />
 			
 		</div>
 		<div class="ndf-line">
-			<label for="to-date">по</label>
+			<label for="to-date">{{ 'till'|trans }}</label>
 			<input type="text" class="calendar-input" id="to-date" />
 		</div>
-		<input type="submit" class="button choose-news" value="Показать" />
+		<input type="submit" class="button choose-news" value="{{ 'Show'|trans}}" />
 	</form>
 	<div class="news-dates-chosen">
-		12 Сентября /2012 - 16 Сентября /2012
+        12 {{ 'calendar.full.Sep'|trans }} /2012 - 16 {{ 'calendar.full.Sep'|trans }} /2012
 	</div>
 </div>

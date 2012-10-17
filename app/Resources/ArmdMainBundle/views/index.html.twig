@@ -113,15 +113,15 @@
 {% block online%}
 <div class="online-index">
 	<div class="title-block index-title-block">
-		<h2>Трансляции</h2>
+		<h2>{{ 'Mainpage block.Translations.Title'|trans }}</h2>
 	</div>	
 	<div class="online-index-block">
 		<a href="/lecture/view/35"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
 		<div class="online-index-text">
-			<p class="online-index-header"><a href="/lecture/view/35">ХI Московский Пасхальный фестиваль.</a></p>
+			<p class="online-index-header"><a href="/lecture/view/35">{{ 'Mainpage block.Translations.Text'|trans }}</a></p>
 		</div>
 	</div>
-	<p class="all-list"><a href="/lecture/translation">Все трансляции</a></p>
+	<p class="all-list"><a href="/lecture/translation">{{ 'All'|trans }} {{ 'Translations'|trans }}</a></p>
 </div>
 {% endblock %}
 
@@ -155,7 +155,7 @@
 
 {% block atlas_header%}
 <div class="title-block orange">
-	<h2>Образы России</h2>
+	<h2>{{ 'Mainpage block.Images of Russia.Title'|trans }}</h2>
 </div>
 <ul id="atlas_tabs" class="atlas_tabs">
 	<li title="Атлас" id="atlasTab" class="active" ></li>
@@ -445,7 +445,7 @@
 {% block rus_tab%}
 <div id="rusObrTab_tab" class="indextab" style="display:none;">
 					<div class="reload-bar">
-						<a href="#" class="reload_btn"></a> <i>/</i> <span>6 из {{ russiaImages|length }}</span>
+						<a href="#" class="reload_btn"></a> <i>/</i> <span>6 {{ 'Mainpage block.Images of Russia.Of'|trans }} {{ russiaImages|length }}</span>
 					</div>
 
 					<div class="rusObr-block">

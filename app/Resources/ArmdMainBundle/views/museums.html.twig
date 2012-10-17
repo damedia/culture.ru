@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %} — Виртуальные музеи{% endblock %}
+{% block title %} — {{ 'Navigation.Virtual museums.Title'|trans }}{% endblock %}
 
 {% block stylesheets %}
 <link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
@@ -9,17 +9,17 @@
 
 {% block body%}
 <div class="title-block timeline-title">
-    <h2>Виртуальные музеи</h2>
+    <h2>{{ 'Navigation.Virtual museums.Title'|trans }}</h2>
 </div>
 <div class="obrazy virt-museums">
     <form action="" class="obr-form">
-    	<div class="obr-text-input">
-    		<input type="text" name="search" id="search_text" value="Поиск по музеям" />
-    	</div>
-    	<input type="submit" class="obr-submit-input" value="" />
+        <div class="obr-text-input">
+            <input type="text" name="search" id="search_text" value="{{ 'Navigation.Virtual museums.Search'|trans }}" />
+        </div>
+        <input type="submit" class="obr-submit-input" value="" />
     </form>
 	<div class="rusObr-block">
-		<ul class="rusObr-list clearfix">	
+		<ul class="rusObr-list clearfix">
 		{% for m in museums %}{% if loop.first %}{% else %}-->{% endif %}<li>
 				<div class="rusObr-list-one-wrap" style="" >
 					<div  class="rusObr-list-one">

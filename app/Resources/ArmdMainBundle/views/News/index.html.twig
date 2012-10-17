@@ -1,6 +1,6 @@
 <div id="events">
 	<div class="title-block  index-title-block">
-		<h2>События</h2>
+		<h2>{{ 'Mainpage block.Events.Title'|trans }}</h2>
 	</div>
     <div id="events-tabs">
         <ul id="eventsitem-tab">
@@ -49,7 +49,7 @@
                     </li>
                 {% if loop.last %}
                 </ul>
-                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">Все {{ n.category.title}}</a></p>                
+                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ 'Mainpage block.Events.All'|trans }} {{ n.category.title}}</a></p>
                 {% endif%}		      
             {% endif %}
         {% endfor %}

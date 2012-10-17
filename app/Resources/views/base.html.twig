@@ -6,10 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta property="og:image" content="http://roskult.ru/img/logo.png" />
-        <title>Портал культурного наследия России{% block title %}{% endblock %}</title> 
+        <title>{{ 'Portal title'|trans }}{% block title %}{% endblock %}</title>
         
         {% block rss %}
-            <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="События" />
+            <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="{{ 'Events'|trans }}" />
         {% endblock %}
      
         {% block stylesheets %}
@@ -91,15 +91,15 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 						</form>
 					</div>
 					<div class="top-center">
-						<a href="http://people.roskult.ru/opengov/new/" class="open_gov">Открытое правительство</a>
-						<a href="{{ path('armd_main_special_homepage') }}"  class="spec-vers" title="Версия для слабовидящих"></a>
+						<a href="http://people.roskult.ru/opengov/new/" class="open_gov">{{ 'Open Government'|trans }}</a>
+						<a href="{{ path('armd_main_special_homepage') }}"  class="spec-vers" title="{{ 'Special version'|trans }}"></a>
 					</div>
 					<div id="topbar">
 						<div id="auth">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>Личный кабинет</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_logout') }}"><span>Выйти</span></a>
+							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Account settings'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="/logout"><span>{{ 'Logout'|trans }}</span></a>
                             {% else %}
-                            <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('fos_user_registration_register') }}"><span>Зарегистрироваться</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_login') }}"><span>Войти</span></a>
+                            <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ domain }}{{ path('fos_user_registration_register') }}"><span>{{ 'Register'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ domain }}{{ path('fos_user_security_login') }}"><span>{{ 'Login'|trans }}</span></a>
                             {% endif %}
 {#
 							<div class="top_2_reg item_2" style="display:none;">
@@ -141,70 +141,64 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					
 					
                 </div>
-				<div class="top-banner">
-                    {% if armd_has_banner('HEAD_BANNER') %}
-                        {{ armd_banner('HEAD_BANNER')|raw }}
-                    {% else %}
-                        <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
-                    {% endif %}
-
-			</div>
+            <div class="top-banner">
+                {% if armd_has_banner('HEAD_BANNER') %}
+                    {{ armd_banner('HEAD_BANNER')|raw }}
+                {% else %}
+                    <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+                {% endif %}
+            </div>
             </div>
             <div id="nav" class="w">
                 <ul class="navmenu">
-                    <li class="first"><a href="{{ path('armd_atlas_default_index') }}">Атлас</a></li>
-					<li><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></li>
-					<li><a href="{{ path('armd_main_museums') }}">Виртуальные музеи</a></li>
-					<li><a href="{{ path('armd_lecture_cinema_index') }}">Кинозал</a></li>
-					<li><a href="{{ path('armd_lecture_translation_index') }}">Трансляции</a></li>
-					<li><a href="{{ path('armd_lecture_lecture_index') }}">Лекции</a></li>
-					<li><a href="{{ path('armd_chronicle_index') }}">Лента времени</a></li>
-
-					<li><a href="http://people.roskult.ru/forum/best/">Общение</a></li>
-                    <li><a href="{{ path('armd_main_project_brodino') }}">Бородино</a></li>					
-					
-					<li class="navmenu_more">
-						<a href="#" class="navmenu_more_link">Еще</a>
-						<ul>
-                            <li><a href="{{ path('armd_news_news_list') }}">События</a></li>
-                            <li><a href="{{ path('armd_main_project_1150') }}">1150 лет государственности</a></li>                            
-                            <li><a href="http://people.roskult.ru/community_council/">Общественный совет</a></li>
-							<li><a href="{{ path('armd_main_services') }}">Госуслуги</a></li>
-							<li><a href="http://people.roskult.ru/forum_private/">Закрытый форум</a></li>
-							<li><a href="{{ path('armd_main_about') }}">О проекте</a></li>
-						</ul>
-					</li>
-					
+                    <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
+                    <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+                    <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                    <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
+                    <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
+                    <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+                    <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
+                    <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
+                    <li class="navmenu_more">
+                        <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
+                        <ul>
+                            <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
+                            {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
+                            <li><a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
+                            {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
+                            <li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>
+                            <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                
             </div>
 
-            <div style="height: 30px"></div>
+        <div style="height: 30px"></div>
 {#
-            <div id="search" class="w">
-                <form id="formsearch" name="search" method="get">
-                    <table class="formsearch-width-type">
-                        <tr>
+        <div id="search" class="w">
+            <form id="formsearch" name="search" method="get">
+                <table class="formsearch-width-type">
+                    <tr>
 
-                            <td width="1">
-                                <div class="search-type">
-                                    Поиск по новостям и событиям
-                                    <a href="#" class="close-search-type">x</a>
-                                </div>
-                            </td>
-                        
-                            <td>
-                                 <div id="searcher">
-                                    <input type="text" id="i-searcher" />
-                                </div>
-                                <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+                        <td width="1">
+                            <div class="search-type">
+                                Поиск по новостям и событиям
+                                <a href="#" class="close-search-type">x</a>
+                            </div>
+                        </td>
 
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-#}            
+                        <td>
+                             <div id="searcher">
+                                <input type="text" id="i-searcher" />
+                            </div>
+                            <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+#}
             <div class="blocksection w clearfix" id="f-section">
                 {% block body%}&nbsp;{% endblock %}
             </div>
@@ -213,20 +207,20 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
             
             <div class="footer-logo">
                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
-                    Министерство культуры<br />Российской Федерации</a>
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
                     </div>
                     
                 <div id="contacts">
                    	
                  
              <div class="contacts-inner">
-    					<div class="copyright">© Портал культурного наследия России</div>
-    					<a href="{{ path('armd_main_about') }}">О проекте</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a>
+    					<div class="copyright">{{ 'Copyright'|trans }}</div>
+    					<a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a>
                     </div>
                 </div>
 
                 <div id="socialnetwork">
-                    Рассказать о портале
+                    {{ 'Talk'|trans }}
                     <div id="i-socialnetwork">
                             <!-- <img src="{{ asset('/img/socialnetwork.png') }}" /> -->
                             <form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork-links">

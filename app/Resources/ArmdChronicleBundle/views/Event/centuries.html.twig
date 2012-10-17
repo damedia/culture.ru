@@ -1,7 +1,7 @@
 
 <ul class="time-line-nav">
 	{% for c in centuries %}
-		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}" class="smooth-scroll">{{ c.name }} век</a>
+		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}" class="smooth-scroll">{{ c.name }} {{ 'ccc'|trans }}</a>
 		<ul>
 		{% set d = null %}
 		{% for e in c.events %}
@@ -9,7 +9,7 @@
 		    {% set decade = year - year % 10 %}
 		    {% if decade != d and decade % 100 != 0 %}
     		    {% set d = decade %}
-    		    <li><a href="#{{ d }}" class="smooth-scroll">{{ d }} гг.</a></li>
+    		    <li><a href="#{{ d }}" class="smooth-scroll">{{ d }} {{ 'yy'|trans }}</a></li>
             {% endif %}
 		{% endfor %}
 		</ul>

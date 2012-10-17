@@ -1,24 +1,24 @@
 {% extends '::base.html.twig' %}
-{% import _self as self %}
+
 
 {% block body %}
 <div class="filter">
     <div class="title dark-blue-title">
-        <h2>Фильтрация</h2>
+        <h2>{{ 'Filtering'|trans }}</h2>
     </div>
     <form action="" class="simple-filter-form video-filter">
 
          {# this block is hidden because problems with ajax and nginx  #}
         <div class="simple-search" style="display:none">
-            <label for="ss_input">Точный поиск</label>
+            <label for="ss_input">{{ 'Find'|trans }}</label>
             <input type="text" class="ss-input" id="ss_input"/>
         </div>
 
         {# this block is hidden because there are only video lectures #}
         <div class="simple-filter-block lecture-type" style="display: none">
             <div class="simple-filter-header clearfix">
-                <span>Типы лекций</span>
-                <p class="check_all checked" ><span>все</span></p>
+                <span>{{ 'Lecture types'|trans }}</span>
+                <p class="check_all checked" ><span>{{ 'All'|trans }}</span></p>
             </div>
             <div class="simple-filter-options">
                 {% for lectureType in lectureTypes %}
@@ -35,7 +35,7 @@
                 <div class="simple-filter-header clearfix">
                     <span>{{ lectureCategory.title }}</span>
                     {% if loop.first %}
-                        <p class="check_all checked"><span>все</span></p>
+                        <p class="check_all checked"><span>{{ 'All'|trans }}</span></p>
                     {% endif %}
                 </div>
                 <div class="simple-filter-options">
@@ -58,51 +58,38 @@
     <div class="title dark-blue-title">
         <h2>
             {% if lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                Лекции
+                {{ 'Lectures'|trans }}
             {% elseif lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-                Трансляции
-            {% elseif lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_CINEMA' %}
-                Кинозал
+                {{ 'Translations'|trans }}
             {% endif %}
         </h2>
     </div>
 
     <div class="video-anons">
-
         <ul>
             {% for lecture in lastLectures %}
-                {% if lastLectures|length == 1 %}
-                    {% set lecture_announce_format = 'xbig' %}
-                    {% set lecture_li_class = 'single' %}
-                {% else %}
-                    {% set lecture_announce_format = 'big' %}
-                    {% set lecture_li_class = '' %}
-                {% endif %}
-                <li class="{{ lecture_li_class }}">
-                    {{ self.lecture_announce(lecture, lecture_announce_format) }}
+                <li>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                        {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                            <img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
+                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />
+                        {% endif %}
+                    </a>
 
-                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">#}
-                        {#{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}#}
-                            {#<img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>#}
-                        {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}#}
-                            {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />#}
-                        {#{% elseif lecture.le
-                        ctureType.code == 'LECTURE_TYPE_TEXT' %}#}
-                            {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />#}
-                        {#{% endif %}#}
-                    {#</a>#}
+                    {#<p class="va-type">{{ lecture.lectureType.name }}</p>#}
 
-                    {#&#123;&#35;<p class="va-type">{{ lecture.lectureType.name }}</p>&#35;&#125;#}
+                    <p class="va-theme">
+                        {% for category in lecture.categories %}
+                            {{ category.title }}
+                            {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
 
-                    {#<p class="va-theme">#}
-                        {#{% for category in lecture.categories %}#}
-                            {#{{ category.title }}#}
-                            {#{% if not loop.last %},{% endif %}#}
-                        {#{% endfor %}#}
-                    {#</p>#}
-                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>#}
-
-                    {#&#123;&#35;<p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>&#35;&#125;#}
+                    {#<p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>#}
                 </li>
             {% endfor %}
 
@@ -162,27 +149,3 @@
         console.log(armdLecture.lectureSuperType);
     </script>
 {% endblock %}
-
-
-{% macro lecture_announce(lecture, format) %}
-    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-        {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-            <img src="{% path lecture.lectureVideo.imageMedia, format %}" alt="{{ lecture.title }}"/>
-        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
-            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_' ~ format ~ '.jpg') }}" alt="{{ lecture.title }}" />
-        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
-            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_' ~ format ~ '.jpg') }}" alt="{{ lecture.title }}" />
-        {% endif %}
-    </a>
-
-    {#<p class="va-type">{{ lecture.lectureType.name }}</p>#}
-
-    <p class="va-theme">
-        {% for category in lecture.categories %}
-            {{ category.title }}
-            {% if not loop.last %},{% endif %}
-        {% endfor %}
-    </p>
-    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
-
-{% endmacro %}

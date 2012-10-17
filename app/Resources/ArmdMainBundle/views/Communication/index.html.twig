@@ -1,11 +1,11 @@
 <div class="title-block index-title-block">
-    <h2>Коммуникационная площадка</h2>
+    <h2>{{ 'Mainpage block.Communication.Title'|trans }}</h2>
 </div>
 
 <div id="duscus-tabs">
     <ul id="discusitem-tab">
-        <li class="active"><span>Предложения</span></li>
-        <li><span>Открытый Форум</span></li>
+        <li class="active"><span>{{ 'Mainpage block.Communication.Suggestions'|trans }}</span></li>
+        <li><span>{{ 'Mainpage block.Communication.Open forum'|trans }}</span></li>
 {#
         <li><span>Опросы</span></li>
 #}
@@ -22,7 +22,7 @@
                 <span class="voting"><span class="gray">+</span><span class="green">&nbsp;{{ raiting }}</span></span>
                 <div class="username">
                     <img class="userico" src="/static/common/img/twitter.png" /><span class="orange">{{ i.title }}</span>
-                    / <span class="gray">Добавлено {{ i.date_add }}</span>
+                    / <span class="gray">{{ 'Mainpage block.Communication.Added'|trans }} {{ i.date_add }}</span>
                 </div>
                 <div class="useraction"><h3><a href="{{ i.url }}">{{ i.content }}</a></h3>
                 </div>
@@ -34,7 +34,7 @@
                 <li class="item-list-useraction">
                     <div class="username">
                         <span>{{ i.title }}</span>
-                        / <span class="gray">Добавлено {{ i.date_add }}</span>
+                        / <span class="gray">{{ 'Mainpage block.Communication.Added'|trans }} {{ i.date_add }}</span>
                     </div>
                     <div class="useraction">
                         <p><a href="{{ i.url }}">{{ i.content }}</a></p>
@@ -54,11 +54,11 @@
         </div>
 #}        
         <div id="alldiscus">
-            <span class="theheading">Обсуждений в&nbsp;рубрике: <a href="{{ t.list_url }}">{{ t.count }}</a></span>
+            <span class="theheading">{{ 'Mainpage block.Communication.Threads'|trans }}: <a href="{{ t.list_url }}">{{ t.count }}</a></span>
 {#
             Голосов: <span class="orange">114</span>
 #}
-            <a class="thelink" href="{{ t.list_url }}">Посмотреть все</a>
+            <a class="thelink" href="{{ t.list_url }}">{{ 'Mainpage block.Communication.More'|trans }}</a>
         </div>    
     </div>
 {% endfor%}
