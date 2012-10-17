@@ -21,70 +21,70 @@
 		<div class="wrapper">
 			<div class="settings-wrap">
 				<div class="settings-block" id="settings" >
-					<a href="{{ path('armd_main_homepage') }}" class="full-version-link">Полная версия</a>
+					<a href="{{ path('armd_main_homepage') }}" class="full-version-link">{{ 'Special.Main version'|trans }}</a>
 					<ul class="settings-types">
 						<li>
-							<p>Цвет:</p>
+							<p>{{ 'Special.Color'|trans }}:</p>
 							<ul class="color-picker">
 								<li id="white-color">
-									<span title="Белый фон" class="active">В</span> 
+									<span title="{{ 'Special.Background.Black'|trans }}" class="active">В</span>
 								</li>
 								<li id="black-color">
-									<span title="Черный фон">В</span> 
+									<span title="{{ 'Special.Background.Black'|trans }}">В</span>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<p>Размер шрифта:</p>
+							<p>{{ 'Special.Font.Size.Title'|trans }}:</p>
 							<ul class="size-picker">
 								<li id="huge-font">
-									<span  title="Огромный шрифт">А</span>
+									<span title="{{ 'Special.Font.Size.Huge'|trans }}">А</span>
 								</li>
 								<li id="big-font">
-									<span title="Большой шрифт">А</span>
+									<span title="{{ 'Special.Font.Size.Big'|trans }}">А</span>
 								</li>
 								<li id="normal-font">
-									<span  title="Нормальный шрифт" class="active">А</span>
+									<span  title="{{ 'Special.Font.Size.Normal'|trans }}" class="active">А</span>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<p>Вид шрифта:</p>
+							<p>{{ 'Special.Font.Family.Title'|trans }}:</p>
 							<ul class="font-type">
 								<li id="arial-font" >
-									<span  title="шрифт Arial"  class="active">Arial</span>
+									<span  title="{{ 'Special.Font.Family.Sans serif'|trans }}"  class="active">Arial</span>
 								</li>
 								<li id="times-font" >
-									<span title="шрифт Times New Roman">Times New Roman</span>
+									<span title="{{ 'Special.Font.Family.Serif'|trans }}">Times New Roman</span>
 								</li>
 							</ul>
 						</li>
 					</ul>
 				</div>
-				<div class="settings-handler">Настройка</div>
+				<div class="settings-handler">{{ 'Special.Settings'|trans }}</div>
 			</div>
 			<header class="main-header">
-				<a href="{{ path('armd_main_special_homepage') }}" class="logo" title="Культура.рф">Культура.рф</a>
+				<a href="{{ path('armd_main_special_homepage') }}" class="logo" title="{{ 'Special.Address'|trans }}">{{ 'Special.Address'|trans }}</a>
 				<div class="search">
-					<form action="{{ path('armd_search_results') }}" title="Поиск">
+					<form action="{{ path('armd_search_results') }}" title="{{ 'Special.Search'|trans }}">
 						<input type="text" value="" class="search-input" />
-						<input type="submit" value="Найти" class="search-button" />
+						<input type="submit" value="{{ 'Special.Search'|trans }}" class="search-button" />
 					</form>
 				</div>
 				<ul class="quick-links">
-					<li><a href="http://people.roskult.ru/special/opengov/new/">Открытое Правительство</a></li>
-					<li><a href="{{ path('sonata_user_profile_edit') }}">Личный кабинет</a></li>
+					<li><a href="http://people.roskult.ru/special/opengov/new/">{{ 'Open Government'|trans }}</a></li>
+					<li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>
 				</ul>
 				<nav class="clear">
 					{% block menu %}
-						<ul class="main-navigation clearfix" title="Основное меню">
-							<li><a href="{{ path('armd_main_special_russian_images') }}">Образы России</a></li>      
-							<li><a href="{{ path('armd_main_special_chronicles') }}">Лента времени</a></li>      
-							<li><a href="{{ path('armd_main_special_press') }}">События</a></li>   
-							<li><a href="http://people.roskult.ru/special/forum/">Общение</a></li>      
-							<li><a href="http://people.roskult.ru/special/community_council/">Общественный совет</a></li>      
-							<li><a href="{{ path('armd_main_special_services') }}">госуслуги</a></li>      
-							<li><a href="{{ path('armd_main_special_about') }}">о проекте</a></li>
+						<ul class="main-navigation clearfix" title="{{ 'Main menu|trans' }}">
+							<li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+							<li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+							<li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
+							<li><a href="http://people.roskult.ru/special/forum/">{{ 'Navigation.Forum'|trans }}</a></li>
+							<li><a href="http://people.roskult.ru/special/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
+							<li><a href="{{ path('armd_main_special_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>
+							<li><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a></li>
 						</ul>
 					{% endblock %}
 				</nav>
@@ -99,11 +99,11 @@
 		</div>
 		<footer class="main-footer">
 			<div class="site-owner">
-				Министерство культуры Российской Федерации
+				{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}
 			</div>
 			<div class="site-info">
-				<p class="site-copyright">© Портал культурного наследия России</p>
-				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">О проекте</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a></p>
+				<p class="site-copyright">{{ 'Copyright'|trans }}</p>
+				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a></p>
 			</div>
 		</footer>
 		{% block javascripts %}

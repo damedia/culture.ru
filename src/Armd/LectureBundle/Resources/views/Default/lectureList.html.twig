@@ -40,7 +40,7 @@
                         </a>
 
                         {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                            <p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>
+                            <p class="va-author"><span>{{ 'Lecturer'|trans }}:</span>{{ lecture.lecturer }}</p>
                         {% endif %}
                     </div>
                 </li>
@@ -48,7 +48,7 @@
 
         </ul>
     {% else %}
-        <strong>Объектов удовлетворяющих запросу не найдено</strong>
+        <strong>{{ 'No objects'|trans }}</strong>
     {% endif %}
 
 </div>

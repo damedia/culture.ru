@@ -17,16 +17,16 @@
 	{% if accidents %}
 	<div class="time-line-events" id="time-line-events">
 		<div class="time-line-events-header">
-			В мире
+			{{ 'World'|trans }}
 		</div>
 		{% for a in accidents %}
     		{% if loop.index == 3 %}
                 {% set expanded = true %}
-        		<p class="to_expand_handler"><a href="#">все события</a></p>
-        		<div class="to_expand_block" style="display:none">    		
+        		<p class="to_expand_handler"><a href="#">{{ 'All events'|trans }}</a></p>
+        		<div class="to_expand_block" style="display:none">
     		{% endif %}		
     		<div class="time-line-event">
-        		<h3>{{a.date|date('Y')|abs}} год</h3>
+        		<h3>{{a.date|date('Y')|abs}} {{ 'year'|trans }}</h3>
     			<p>{{a.announce|raw}}</p>
     		</div>
     		{% if loop.last and expanded %}
