@@ -3,7 +3,7 @@
 {% block top_right %} <div style="margin-top:-66px"></div>{% endblock %}
 {% block content %}
 <div class="news-one text">
-    <span class="news-one-type">Новости</span>
+    <span class="news-one-type">{{ 'News'|trans }}</span>
 	<span class="news-one-date">
         {% set f = entity.date %}
         {% set t = entity.endDate %}
@@ -126,8 +126,8 @@
 	<!-- /commetns-list-->
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
-    <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">Назад</a><p>
-    <p style="font-size:12px; text-align: right; margin: -25px 0 0 0;"> <a style="color:#000;" href="#">Версия для печати</a></p>
+    <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ 'Back'|trans }}</a><p>
+    <p style="font-size:12px; text-align: right; margin: -25px 0 0 0;"> <a style="color:#000;" href="#">{{ 'Printversion'|trans }}</a></p>
 	
 </div>
 {% endblock %}
@@ -156,8 +156,8 @@
         asNavFor: '#slider',
 		minItems: 2,   
 		maxItems: 10,
-		prevText: "Предыдущая",           
-		nextText: "Следующая",  
+		prevText: "{{ 'Prev'|trans }}",
+		nextText: "{{ 'Next'|trans }}",
       });
       
       $('#slider').flexslider({
@@ -174,8 +174,8 @@
 	   })
 	  $("a.in-fancybox").fancybox({
 			 tpl: {
-			  next: '<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
-			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>',
+			  next: '<a title="{{ 'Prev'|trans }}" class="fancybox-nav fancybox-next"><span></span></a>',
+			  prev: '<a title="{{ 'Next'|trans }}" class="fancybox-nav fancybox-prev"><span></span></a>',
 			 },
 			scrolling: 'no'
 		});

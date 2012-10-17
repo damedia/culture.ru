@@ -1,0 +1,118 @@
+Portal title: Портал культурного наследия России
+Open Government: Открытое правительство
+Special version: Версия для слабовидящих
+Ministry of Culture: Министерство культуры
+Russian Federation: Российской Федерации
+Copyright: © Портал культурного наследия России
+Talk: Рассказать о портале
+Main menu: Основоное меню
+No objects: По Вашему запросу объектов не найдено
+
+Navigation:
+    Atlas: Атлас
+    Images of Russia:
+        Title: Образы России
+        Search: Поиск по объектам
+    Virtual museums:
+        Title: Виртуальные музеи
+        Search: Поиск по музеям
+    Translations: Трансляции
+    Lectures: Лекции
+    Timeline : Лента времени
+    Forum: Общение
+    Borodino:
+        Title: Бородино
+        Header: Бородинскому сражению 200 лет
+        Banner alt: К 200-летию Бородинской битвы. Серия специальных фильмов.
+        Museum block: Музей-панорама «Бородинская битва»
+        Events block: Мероприятия, посвященные празднованию 200 летней годовщины Бородинского сражения
+        Announcements: Анонсы
+        News: Новости
+        Publications: Издания
+        Media: Медиапроекты
+    Events: События
+    1150: 1150 лет государственности
+    Public council: Общественный совет
+    Public services: Госуслуги
+    Closed forum: Закрытый форум
+    About: О проекте
+    Add: Еще
+
+Mainpage block:
+    Communication:
+        Title: Коммуникационная площадка
+        Suggestions: Предложения
+        Open forum: Открытый Форум
+        Added: Добавлено
+        Threads: Обсуждений в рубрике
+        More: Посмотреть все
+    Events:
+        Title: События
+        All: Все
+    Recommended:
+        Title: Рекомендуем
+    Translations:
+        Title: Трансляции
+        Text: ХI Московский Пасхальный фестиваль.
+    Images of Russia:
+        Title: Образы России
+        Of: из
+
+Projects:
+    Region: Регион
+    City: Город
+    Date: Дата
+    Event Title: Название мероприятия
+
+Special:
+    Main version: Полная версия
+    Color: Цвет
+    Background:
+        Black: Черный фон
+        White: Белый фон
+    Font:
+        Size:
+            Title: Размер шрифта
+            Huge: Огромный шрифт
+            Big: Огромный шрифт
+            Normal: Огромный шрифт
+        Family:
+            Title: Вид шрифта
+            Sans Serif : шрифт Arial
+            Serif: шрифт Times New Roman
+    Settings: Настройка
+    Address: Roskult.ru
+    Search: Поиск
+    Date: Дата
+    Images of Russia:
+        More: Далее
+        Close: Закрыть
+        Comments: Комментарии
+        Comment: Оставить комментарий
+        Not auth comment: Чтобы оставлять комментарии необходимо <a href="%link%">авторизоваться</a> на сайте.
+        Virtual tour: Виртуальный тур
+        Video: Видео
+        Archives: Архивы
+        Archive document: Архивный документ
+        Infographics: Инфографика
+        Prev: Предыдущее
+        Next: Следующее
+        Contacts:
+            Title: Контактная информация
+            Site: Сайт
+            Email: Email
+            Phone: Телефон
+            Open: Музей открыт
+            Closed: Выходные
+            Seven days: Без выходных дней
+
+Account settings: Личный кабинет
+Register: Зарегистрироваться
+Registration: Регистрация
+Logout: Выйти
+Login: Войти
+All: Все
+Download: Скачать pdf
+Comments: Комментарии
+Comment: Оставить комментарий
+Submit: Отправить

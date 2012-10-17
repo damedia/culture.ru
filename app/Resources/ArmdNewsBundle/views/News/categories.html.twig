@@ -7,6 +7,6 @@
 {% endfor %}
 	<li>
 	   <a href="{{ path('armd_main_press_archive') }}"
-	       {% if 'archive' == category %}class="active"{% endif %}>Архив</a>
+	       {% if 'archive' == category %}class="active"{% endif %}>{{ 'Archive'|trans }}</a>
     </li>
 </ul>
