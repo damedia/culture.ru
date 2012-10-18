@@ -340,3 +340,9 @@ fos_oauth_server:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+
+
+jms_i18n_routing:
+    default_locale: %locale%
+    locales: [ru, en]
+    strategy: prefix_except_default
