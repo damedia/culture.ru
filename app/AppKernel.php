@@ -28,6 +28,8 @@ class AppKernel extends Kernel
             new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+
             //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Sonata\jQueryBundle\SonatajQueryBundle(),
