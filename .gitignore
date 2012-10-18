@@ -10,7 +10,6 @@ composer.phar
 app/config/parameters.yml
 tmp/
 web/uploads/
-web/assetic/
 *~
 .idea/
 *.orig
