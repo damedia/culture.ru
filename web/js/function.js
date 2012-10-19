@@ -326,14 +326,15 @@ $(document).ready(function () {
 			}
 			navMore.find('ul').css({'display':'none','visibility':'visible'});
 		}
-	
-	$(window).resize(function () {
-		menuRecalc();
-		menuResize();
-		
-	});
-	menuRecalc();
-	menuResize();
+//
+//	commented because it broke atlas
+//	$(window).resize(function () {
+//		menuRecalc();
+//		menuResize();
+//
+//	});
+//	menuRecalc();
+//	menuResize();
 	
 // Reset Font Size
   var originalFontSize = $('.text').css('font-size');
