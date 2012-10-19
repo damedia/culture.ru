@@ -146,12 +146,13 @@
 						</ol>
 					</div> #}
 				   
-				   <div class='afisha-list-more' id="more-show">
+				   {#<div class='afisha-list-more' id="more-show">
                        Комментарии
                        <div class="loading" style="display: none"></div>
-                   </div>
-				   <div class="more-comments-show" style="display:none;">  
-						<div class="comments comments-gray clearfix">
+                   </div>#}
+
+				   {#<div class="more-comments-show" style="display:none;">#}
+						{#<div class="comments comments-gray clearfix">#}
 							{#<div class="comments-block">
 								<div class="comment">
 									Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
@@ -175,21 +176,21 @@
 								{#<input type="submit" value="Отправить" class="button" />#}
 							{#</form>#}
 
-                            {% set comment_thread_id = app.request.locale ~ '_atlas_' ~ entity.id %}
-                            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+                            {#{% set comment_thread_id = app.request.locale ~ '_atlas_' ~ entity.id %}#}
+                            {#{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}#}
 
-                            {% if not is_granted('ROLE_USER') %}
-                                <div class="comments-auth-block">
-                                    <p>
-                                        Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>
-                                    </p>
-                                    {% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}
+                            {#{% if not is_granted('ROLE_USER') %}#}
+                                {#<div class="comments-auth-block">#}
+                                    {#<p>#}
+                                        {#Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login') }}">авторизоваться</a> на сайте.</p>#}
+                                    {#</p>#}
+                                    {#{% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': app.request.uri } %}#}
 
-                                </div>
-                            {% endif %}
+                                {#</div>#}
+                            {#{% endif %}#}
 
-						</div>
-				    </div>
+						{#</div>#}
+				    {#</div>#}
 
                 </div>
 
