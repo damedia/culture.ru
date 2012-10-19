@@ -143,9 +143,9 @@
                 </li>
                 <li>
                     <label for="category">{{ "atlas.object.category"|trans }}</label>
-                    <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="Выберите категорию" style="width:298px">
+                    <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
                         <option value=""></option>
-                        {% for optgroup in categories if optgroup.title=='Тип объекта' %}
+                        {% for optgroup in categories if optgroup.title=='Object Type' %}
                             {% for tag in optgroup.tags if tag.hasIcon %}
                                 <option value="{{ tag.id }}">{{ tag.title }}</option>
                             {% endfor %}
@@ -154,7 +154,7 @@
                 </li>
                 <li>
                     <label for="category">{{ "atlas.object.additional_tags"|trans }}</label>
-                    <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="Выберите категории" style="width:298px">
+                    <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
                         <option value=""></option>
                         {% for optgroup in categories %}
                             <optgroup label="{{ optgroup.title }}">
@@ -190,7 +190,7 @@
 
     <!-- success add popup -->
     <div class="add-object-form success-object-form draggable" id="success-object-form" >
-        <a href="#" class="exit" title="Закрыть"></a>
+        <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
             <input class="object-id" name="id" type="hidden"/>
             <h2>{{ "atlas.alert.successfully_complete"|trans }}</h2>
@@ -225,7 +225,7 @@
         </form>
     </div>
     <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-1">
-        <a href="#" class="exit" title="Закрыть"></a>
+        <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <div>
             <h2>{{ "atlas.alert.waiting_moderation"|trans }}</h2>
             <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
@@ -261,7 +261,7 @@
     <!-- /Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
     </div>
     <script type="text/javascript">
         document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
