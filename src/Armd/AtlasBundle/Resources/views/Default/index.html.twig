@@ -193,18 +193,18 @@
         <a href="#" class="exit" title="Закрыть"></a>
         <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
             <input class="object-id" name="id" type="hidden"/>
-            <h2>Все получилось!</h2>
+            <h2>{{ "atlas.alert.successfully_complete"|trans }}</h2>
             <div class="section-add">
-                <p>Объект <b class="object-title"></b> был успешно создан.</p>
-                <label class="sof-check"><input name="is_public" type="checkbox" />Добавить объект на карту</label>
+                <p>{{ "atlas.alert.object_created"|trans }}</p>
+                <label class="sof-check"><input name="is_public" type="checkbox" />{{ "atlas.alert.add_to_map"|trans }}</label>
             </div>
             <div class="section-edit">
-                <p>Изменения сохранены.</p>
-                <label class="sof-check"><input name="is_public" type="checkbox" checked="checked"/>Отправить измененный объект на карту</label>
+                <p>{{ "atlas.alert.changes_saved"|trans }}</p>
+                <label class="sof-check"><input name="is_public" type="checkbox" checked="checked"/>{{ "atlas.alert.send_to_map"|trans }}</label>
             </div>
-            <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
+            <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
             <fieldset class="form-buttons">
-                <input type="submit" class="button sbmt-btn" value="Готово"  />
+                <input type="submit" class="button sbmt-btn" value="{{ "atlas.alert.complete"|trans }}"  />
             </fieldset>
         </form>
     </div>
@@ -212,45 +212,45 @@
 
     <!-- moderation request popup -->
     <div class="add-object-form moderation-object-form draggable" id="moderation-object-form">
-        <a href="#" class="exit" title="Закрыть"></a>
+        <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <form action="{{ path('armd_atlas_default_objectmakepublic') }}" method="POST">
             <input id="moderation-object-id" class="object-id" name="id" type="hidden"/>
             <input type="hidden" name="is_public" value="on">
-            <h2>Хотите отправить объект на карту?</h2>
-            <p class="note">Ваш объект станет доступным для просмотра всем пользователям после прохождения <a href="#">модерации</a>.</p>
+            <h2>{{ "atlas.alert.want_to_send"|trans }}</h2>
+            <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
             <fieldset class="form-buttons">
-                <input type="submit" class="button sbmt-btn" value="Да"  />
-                <input type="reset" class="button rst-btn" value="Позже"  />
+                <input type="submit" class="button sbmt-btn" value="{{ "atlas.yes"|trans }}"/>
+                <input type="reset" class="button rst-btn" value="{{ "atlas.later"|trans }}"/>
             </fieldset>
         </form>
     </div>
     <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-1">
         <a href="#" class="exit" title="Закрыть"></a>
         <div>
-            <h2>Объект ожидает модерацию</h2>
-            <p class="note">Ваш объект появится на карте после прохождения <a href="#">модерации</a>.</p>
+            <h2>{{ "atlas.alert.waiting_moderation"|trans }}</h2>
+            <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
             <fieldset class="form-buttons">
-                <input type="submit" class="button rst-btn" value="Закрыть"  />
+                <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
             </fieldset>
         </div>
     </div>
     <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-2">
-        <a href="#" class="exit" title="Закрыть"></a>
+        <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <div>
-            <h2>Ваш объект успешно добавлен на карту!</h2>
-            <p class="note">Ваш объект прошел модерацию и теперь доступен для просмотра всем пользователям. Обратите внимание, что вы по-прежнему можете его редактировать.</p>
+            <h2>{{ "atlas.alert.successfully_added"|trans }}</h2>
+            <p class="note">{{ "atlas.alert.approved"|trans }}</p>
             <fieldset class="form-buttons">
-                <input type="submit" class="button rst-btn" value="Закрыть"  />
+                <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
             </fieldset>
         </div>
     </div>
     <div class="add-object-form moderation-object-form draggable" id="moderation-object-form-3">
-        <a href="#" class="exit" title="Закрыть"></a>
+        <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <div>
-            <h2>Внимание! Ваш объект был отклонен</h2>
-            <p class="note">Ваш объект был отклонен на стадии <a href="#">модерации</a>. Причина: <span id="moder-reason"></span></p>
+            <h2>{{ "atlas.alert.rejected_warning"|trans }}</h2>
+            <p class="note">{{ "atlas.alert.rejected_message"|trans }}</p>
             <fieldset class="form-buttons">
-                <input type="submit" class="button rst-btn" value="Закрыть"  />
+                <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
             </fieldset>
         </div>
     </div>
