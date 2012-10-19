@@ -157,7 +157,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                     <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
-                    {% if app.request.culture == 'ru' %}
+                    {% if app.session.culture == 'ru' %}
                         <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
                         <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
                         <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
@@ -172,7 +172,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                                 <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
                             </ul>
                         </li>
-                    {% elseif app.request.culture == 'en' %}
+                    {% elseif app.session.culture == 'en' %}
                         <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
                         <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li
                     {% endif %}
