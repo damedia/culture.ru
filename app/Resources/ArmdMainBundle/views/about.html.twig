@@ -21,14 +21,48 @@
 <div class="object-one-col12">
     <div class="object-one-text content">
         <div class="text">
-            <p>Roskult.ru is a unique web-based portal designed to promote cultural heritage of our country. The portal offers a variety of materials - news, infographics, photos, and videos. Access to the content is simplified, and you may browse its PDA version and version for the visually impaired persons.
-            <p>Here you can watch broadcasts of domestic and foreign artists, take a virtual tour of museums located in different cities of our country, listen to short lectures and take part in master classes of celebrities.
-            <p>The relationship of culture and history is clearly shown in our "Chronicle" section: here you can follow the chronology of key events, see the main cultural events of our country from the IX century to the present.
-            <p>Actual events of cultural life, including the most interesting theater performances, exhibitions, concerts, etc., as well as anniversaries of celebrities and other important events, are described in or "News" section, which is regularly updated.
-            <p>The "Atlas" section allows you to learn about the cultural life of all of 83 subjects of the Russian Federation. The "Atlas" section contains the most complete knowledge base of regional institutions and cultural facilities, which is constantly updated and expanded.
-            <p>You can discuss topics related to the development of culture in our country, as well as all site materials, communicate with famous artists, journalists and critics, using our up-to-date communication platform.
-            <p><em>
-This portal is created by the Ministry of Culture of the Russian Federation in accordance with the instruction of the Government No. VP-P10-6224 dated 8 September, 2010. The development of the project is performed within the framework of the "Information Society (2011-2020)" State Programme.</nobr></em>
+            {% if app.request.locale == 'en' %}
+                <p>Roskult.ru is a unique web-based portal designed to promote cultural heritage of our country. The portal offers a variety of materials - news, infographics, photos, and videos. Access to the content is simplified, and you may browse its PDA version and version for the visually impaired persons.
+                <p>Here you can watch broadcasts of domestic and foreign artists, take a virtual tour of museums located in different cities of our country, listen to short lectures and take part in master classes of celebrities.
+                <p>The relationship of culture and history is clearly shown in our "Chronicle" section: here you can follow the chronology of key events, see the main cultural events of our country from the IX century to the present.
+                <p>Actual events of cultural life, including the most interesting theater performances, exhibitions, concerts, etc., as well as anniversaries of celebrities and other important events, are described in or "News" section, which is regularly updated.
+                <p>The "Atlas" section allows you to learn about the cultural life of all of 83 subjects of the Russian Federation. The "Atlas" section contains the most complete knowledge base of regional institutions and cultural facilities, which is constantly updated and expanded.
+                <p>You can discuss topics related to the development of culture in our country, as well as all site materials, communicate with famous artists, journalists and critics, using our up-to-date communication platform.
+                <p><em>This portal is created by the Ministry of Culture of the Russian Federation in accordance with the instruction of the Government No. VP-P10-6224 dated 8 September, 2010. The development of the project is performed within the framework of the "Information Society (2011-2020)" State Programme.</nobr></em>
+             {% elseif app.request.locale == 'ru' %}
+
+                <p>Портал &laquo;Культура.рф&raquo;&nbsp;&mdash; уникальный веб-ресурс, созданный для популяризации
+                    культурного наследия нашей страны. На&nbsp;портале представлены материалы самых разнообразных форматов&nbsp;&mdash;
+                    новости, инфографика, фотографии, видеозаписи. Доступ к&nbsp;контенту максимально упрощен, разработаны
+                    PDA-сайт и&nbsp;версия для слабовидящих.
+
+                <p>На&nbsp;портале можно посмотреть трансляции выступлений отечественных и&nbsp;зарубежных артистов,
+                    совершить виртуальные экскурсии по&nbsp;музеям в&nbsp;разных городах страны, прослушать краткие лекции и&nbsp;мастер-классы
+                    ведущих деятелей культуры.
+
+                <p>Взаимосвязь развития культуры и&nbsp;истории наглядно отображает раздел &laquo;Лента времени&raquo;:
+                    здесь можно проследить хронологию ключевых событий, увидеть главные культурные явления нашей страны с&nbsp;IX
+                    века по&nbsp;настоящее время.
+
+                <p>Актуальные мероприятия культурной жизни, включая самые интересные театральные премьеры, выставки,
+                    концерты и&nbsp;пр., а&nbsp;также юбилеи деятелей культуры и&nbsp;другие важные события освещаются в&nbsp;регулярно
+                    обновляемом разделе новостей.
+
+                <p>Раздел &laquo;Атлас&raquo; позволяет узнать о&nbsp;культурной жизни всех
+                    <nobr>83-х</nobr>
+                    субъектов Российской Федерации. В&nbsp;&laquo;Атласе&raquo; хранится наиболее полная база знаний по&nbsp;региональным
+                    учреждениям и&nbsp;объектам культуры, которая постоянно обновляется и&nbsp;пополняется.
+
+                <p>Обсудить вопросы, касающиеся развития культуры в&nbsp;стране, а&nbsp;также материалы портала, пообщаться
+                    с&nbsp;известными деятелями культуры, журналистами и&nbsp;критиками можно на&nbsp;базе современной
+                    коммуникационной площадки.
+
+                <p><em>
+                    Портал создан Министерством культуры РФ в соответствии с поручением Президента Российской Федерации от 8
+                    июля 2010 г №Пр-2483 в рамках плана мероприятий Государственной программы Российской Федерации
+                    «Информационное общество (2011-2020 годы)».</nobr></em>
+
+                {% endif %}
         </div>
     </div>
 </div>
