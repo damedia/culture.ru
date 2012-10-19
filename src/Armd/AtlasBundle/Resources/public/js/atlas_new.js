@@ -37,13 +37,16 @@ AT.initMap = function(params) {
         parameters = {
             roundRobin: {
                 tiles: [
-                    'http://h01.tiles.tmcrussia.com/map/', 'http://h02.tiles.tmcrussia.com/map/', 'http://h03.tiles.tmcrussia.com/map/','http://h04.tiles.tmcrussia.com/map/',
-                    'http://h05.tiles.tmcrussia.com/map/', 'http://h06.tiles.tmcrussia.com/map/', 'http://h07.tiles.tmcrussia.com/map/'
+                    'http://h01.tiles.tmcrussia.com/map_en/', 'http://h02.tiles.tmcrussia.com/map_en/',
+                    'http://h03.tiles.tmcrussia.com/map_en/', 'http://h04.tiles.tmcrussia.com/map_en/',
+                    'http://h05.tiles.tmcrussia.com/map_en/', 'http://h06.tiles.tmcrussia.com/map_en/',
+                    'http://h07.tiles.tmcrussia.com/map_en/'
                 ]
             },
             coord: new PGmap.Coord(params.center[0], params.center[1], true),
             zoom: params.zoom,
-            minZoom: 3
+            minZoom: 3,
+            lang: 'EN'
         };
 
     this.map = new PGmap(map_el, parameters);
@@ -948,9 +951,9 @@ AT.showObjectForm = function(params) {
         element: document.getElementById('file-uploader'),
         action: AT.params.imageUploadUri, // /objects/my/upload
         template: '<div class="qq-uploader">'
-                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Перетяните сюда фото для загрузки</span></div>'
-                + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'
-                + '  <ul class="qq-upload-list">Загрузить фото&hellip;</ul>'
+                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Drop files here</span></div>'
+                + '  <div class="qq-upload-button">Upload photos&hellip;</div>'
+                + '  <ul class="qq-upload-list">Upload photos&hellip;</ul>'
                 + '</div>',
         onComplete: function(id, filename, response) {
             if (response.success) {

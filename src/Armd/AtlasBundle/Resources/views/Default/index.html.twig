@@ -5,29 +5,29 @@
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
         <div class="filter checks-filter" style="width:23.7%">
             <div class="title dark-green-title title-filter">
-                <h2>Фильтрация</h2>
+                <h2>{{ "atlas.filter"|trans }}</h2>
             </div>
             <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
 
                 <input id="category-id" type="hidden" name="category" value="">
 
                 <div class="simple-search">
-                    <label for="ss_input">Поиск адреса</label>
+                    <label for="ss_input">{{ "atlas.address"|trans }}</label>
                     <input type="text" class="ss-input" id="ss_input" />
                 </div>
 
                 <div class="filter-tabs">
                     <ul class="filter-tabs-titles">
-                        <li class="active"><a href="#obj">Объекты</a></li>
-                        <li class=""><a href="#maps">Мои карты</a></li>
+                        <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
+                        <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
                     </ul>
                     <div class="filter-tab" id="obj" style="display:block;">
                         <!-- объекты -->
                         {% for category in categories %}
                             <div class="simple-filter-block">
                                 <div class="simple-filter-header clearfix">
-                                    <span>{{ category.title }}</span>
-                                    <p class="check_all"><span>все</span></p>
+                                    <span>{{ category.title|trans }}</span>
+                                    <p class="check_all"><span>{{ "atlas.all"|trans }}</span></p>
                                 </div>
                                 <div class="simple-filter-options">
                                     {% for tag in category.tags %}
@@ -48,10 +48,10 @@
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <!-- мои карты -->
                             <div class="filter-sub-tabs">
-                                <ul class="filter-sub-tabs-titles">
+                                {#<ul class="filter-sub-tabs-titles">
                                     <li class="active"><a href="#myobj">Мои объекты</a></li>
                                     <li><a href="#mymrsh">Мои маршруты</a></li>
-                                </ul>
+                                </ul>#}
                                 <div class="filter-sub-tab" id="myobj" style="display:block;">
                                     <ol class="filter-sub-tab-list" id="myobj_list">
                                         {#<li>
@@ -65,7 +65,7 @@
                                     <script id="myobj_list_template" type="text/x-jquery-tmpl">
                                         <li data-id="${id}">
                                             <span>${title}</span>
-                                            <a class="del" href="#" title="Удалить"></a>
+                                            <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
                                             <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
                                                 <span>${status}</span>
                                             </div>
@@ -74,9 +74,9 @@
                                     </script>
                                     <!-- /template -->
 
-                                    <input id="atlas-objects-add" type="button" class="button green-button" value="Добавить объект" />
+                                    <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
 
-                                    <div id="atlas-objects-add-hint">Укажите точку на карте</div>
+                                    <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
                                 </div>
                                 <div class="filter-sub-tab" id="mymrsh">
 
@@ -84,8 +84,7 @@
                             </div>
                         {% else %}
                             <div class="auth-required-msg">
-                                Вы не авторизованы. Пожалуйста, <a href="{{ path("fos_user_security_login") }}">авторизуйтесь</a>
-                                или <a href="{{ path("fos_user_registration_register") }}">зарегистрируйтесь</a> для того, чтобы добавлять объекты на карту.
+                                {{ "atlas.auth_required"|trans({ '%loginUrl%':path("fos_user_security_login"), '%registerUrl%':path("fos_user_registration_register") })|raw }}
                             </div>
                         {% endif %}
                     </div>
@@ -95,13 +94,13 @@
         </div>
         <div class="atlas-center">
             <div class="title green-title">
-                <h2>Атлас</h2>
+                <h2>{{ "atlas.atlas"|trans }}</h2>
             </div>
             <div class="atlas-map" style="margin-top:-10px;">
                 <div id="map"></div>
                 {# <div class="atlas-menu"></div> #}
                 <div id="regions-selector" class="regions-selector">
-                    <select data-placeholder="Выберите регион..." class="chzn-select">
+                    <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
                         <option></option>
                     </select>
                 </div>
@@ -116,34 +115,34 @@
     <div class="add-object-form draggable add" id="add-object-form">
         <a href="#" class="exit" title="Закрыть"></a>
         <form action="{{ path('armd_atlas_default_objectsadd') }}" method="POST">
-            <h2 class="add">Создать объект</h2>
-            <h2 class="edit">Редактировать</h2>
+            <h2 class="add">{{ "atlas.object.add"|trans }}</h2>
+            <h2 class="edit">{{ "atlas.object.edit"|trans }}</h2>
             <input id="object-id" type="hidden" name="id" value="">
             <ul class="add-object-form-fields">
                 <li>
-                    <label for="name">Заголовок</label>
+                    <label for="name">{{ "atlas.object.title"|trans }}</label>
                     <input name="title" type="text" value="" placeholder="" id="name" />
                 </li>
                 <li>
-                    <label for="address">Адрес</label>
+                    <label for="address">{{ "atlas.object.address"|trans }}</label>
                     <input name="address" type="text" value="" placeholder="" id="address" />
                 </li>
                 <li class="coords">
                     <div class="coords-block">
-                        <label for="lat">Широта</label>
+                        <label for="lat">{{ "atlas.object.latitude"|trans }}</label>
                         <input name="lat" type="text" value="" id="lat" />
                     </div>
                     <div class="coords-block last">
-                        <label for="lon">Долгота</label>
+                        <label for="lon">{{ "atlas.object.longitude"|trans }}</label>
                         <input name="lon" type="text" value="" id="lon" />
                     </div>
                 </li>
                 <li>
-                    <label for="descr">Описание</label>
+                    <label for="descr">{{ "atlas.object.description"|trans }}</label>
                     <textarea name="description" id="descr" cols="30" rows="10"></textarea>
                 </li>
                 <li>
-                    <label for="category">Тип объекта</label>
+                    <label for="category">{{ "atlas.object.category"|trans }}</label>
                     <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="Выберите категорию" style="width:298px">
                         <option value=""></option>
                         {% for optgroup in categories if optgroup.title=='Тип объекта' %}
@@ -154,7 +153,7 @@
                     </select>
                 </li>
                 <li>
-                    <label for="category">Дополнительные теги</label>
+                    <label for="category">{{ "atlas.object.additional_tags"|trans }}</label>
                     <select id="category" name="category[]" class="chzn-select" multiple="multiple" data-placeholder="Выберите категории" style="width:298px">
                         <option value=""></option>
                         {% for optgroup in categories %}
@@ -167,10 +166,6 @@
                     </select>
                 </li>
                 <li class="add-photos">
-                    {#
-                    <input type="file" value="Добавить фото" class="add-photos-button uniform" />
-                    <p class="add-photos-note">Или перетянуть с компьютера</p>
-                    #}
                     <div id="file-uploader"></div>
                     <div class="added-images">
                     </div>
@@ -178,7 +173,7 @@
                     <script id="added-image-template" type="text/x-jquery-tmpl">
                         <div class="added-image" data-id="${id}">
                             <div class="image-wrapper"><img src="${imageUrl}" alt=""/></div>
-                            <ins class="del" title="Удалить"></ins>
+                            <ins class="del" title="{{ "atlas.delete"|trans }}"></ins>
                             <input type="hidden" name="media[]" value="${id}">
                         </div>
                     </script>
@@ -186,8 +181,8 @@
                 </li>
             </ul>
             <fieldset class="form-buttons">
-                <input type="submit" class="button sbmt-btn" value="Сохранить"  />
-                <input type="reset" class="button rst-btn" value="Отменить"  />
+                <input type="submit" class="button sbmt-btn" value="{{ "atlas.save"|trans }}"  />
+                <input type="reset" class="button rst-btn" value="{{ "atlas.cancel"|trans }}"  />
             </fieldset>
         </form>
     </div>
@@ -266,7 +261,7 @@
     <!-- /Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+        <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
     </div>
     <script type="text/javascript">
         document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
