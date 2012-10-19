@@ -69,7 +69,8 @@ AT.initGeocoder = function() {
         source: function(request, response) {
             AT.map.search({
                 q: request.term,
-                type: 'search'
+                type: 'search',
+                lng: 'en'
             }, function(r){
                 var json = $.parseJSON(r);
                 if (json.success) {
@@ -447,7 +448,8 @@ AT.initMyObjects = function() {
     $('#myobj_list li span').live('click', function(){
         var jLi = $(this).closest('li'),
             point = jLi.data('point');
-        //AT.map.setCenter(point.coord);
+        //console.log(point.coord);
+        AT.map.setCenterFast(point.coord);
         AT.triggerPointClick(point); // @TODO Глючит во время анимации
     });
 
@@ -677,7 +679,8 @@ AT.initMyObjects = function() {
                     AT.map.search({
                         lon: point.coord.lon,
                         lat: point.coord.lat,
-                        type: 'geocode'
+                        type: 'geocode',
+                        lng: 'en'
                     }, function (r) {
                         var data = JSON.parse(r).res[0];
                         $('#address').val(data.addr);
@@ -787,7 +790,8 @@ AT.showObjectForm = function(params) {
                 AT.map.search({
                     lon: point.coord.lon,
                     lat: point.coord.lat,
-                    type: 'geocode'
+                    type: 'geocode',
+                    lng: 'en'
                 }, function (r) {
                     var data = JSON.parse(r).res[0];
                     $('#address').val(data.addr);
