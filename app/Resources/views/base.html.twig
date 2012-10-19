@@ -27,7 +27,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
@@ -153,6 +153,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 <ul class="navmenu">
                     <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
                     <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+                    {#<li><a href="{{ path('armd_lecture_cinema_index') }}">Кинозал</a></li>                    #}
                     <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
@@ -166,14 +167,16 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                             {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
                             <li><a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
                             {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
-                            <li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>
+                            {#<li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>#}
                             <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-
-        <div style="height: 30px"></div>
+			<div class="w archive-main-link">
+				<a href="/press-centre/archive/">Архив газеты «Культура»</a>
+			</div>
+            <div style="height: 25px"></div>
 {#
         <div id="search" class="w">
             <form id="formsearch" name="search" method="get">
@@ -251,6 +254,7 @@ alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
               
                              </div> <!-- /footer-counters-->
 			<!-- Yandex.Metrika counter -->
+            {#
 			<script type="text/javascript">
 			(function (d, w, c) {
 				(w[c] = w[c] || []).push(function() {
@@ -258,7 +262,7 @@ alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
 						w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
 					} catch(e) { }
 				});
-				
+
 				var n = d.getElementsByTagName("script")[0],
 					s = d.createElement("script"),
 					f = function () { n.parentNode.insertBefore(s, n); };
@@ -272,6 +276,7 @@ alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
 			})(document, window, "yandex_metrika_callbacks");
 			</script>
 			<noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            #}
 			<!-- /Yandex.Metrika counter -->
         </div>
     </body>

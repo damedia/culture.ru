@@ -31,6 +31,7 @@
         "friendsofsymfony/comment-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
         "friendsofsymfony/oauth-server-bundle": "dev-master",
+        "jms/i18n-routing-bundle": "dev-master",
 
         "sonata-project/media-bundle": "*",
         "sonata-project/doctrine-orm-admin-bundle": "*",

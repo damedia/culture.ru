@@ -14,6 +14,9 @@
                     {{ 'Lecture'|trans }}
                 {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
                     {{ 'Translations'|trans }}
+                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                         Кинозал
+                    
                 {% endif %}
             </h2>
         </div>
@@ -52,16 +55,22 @@
             {% endif %}
         </div>
         {% endif %}
-        <div class="video-description">
-            <p>
-                {{ lecture.title }}
-            </p>
-        </div>
+
+
+		<div class="video-description">
+			<p>
+		        {{ lecture.title }}
+          
+			</p>
+		</div>
+        
         <div class="tags">
               {% for lectureCategory in lecture.categories %}
-               	<a {#href="#"#} style="text-decoration:none;">{{ lectureCategory.title }}</a>
+                <a {#href="#"#} style="text-decoration:none;">{{ lectureCategory.title }}</a>
                {% endfor %}
         </div>
+        
+        
     {#
 		<div class="share">
 			<span>Поделиться ссылкой: </span>

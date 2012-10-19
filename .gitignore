@@ -8,7 +8,6 @@ vendor
 composer.phar
 tmp/
 web/uploads/
-web/assetic/
 *~
 .idea/
 *.orig
