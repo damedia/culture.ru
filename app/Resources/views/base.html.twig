@@ -157,50 +157,57 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                     <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
-                    <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
-                    <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
-                    <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
-                    <li class="navmenu_more">
-                        <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
-                        <ul>
-                            <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
-                            {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
-                            <li><a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
-                            {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
-                            {#<li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>#}
-                            <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
-                        </ul>
-                    </li>
+                    {% if app.request.culture == 'ru' %}
+                        <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+                        <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
+                        <li class="navmenu_more">
+                            <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
+                            <ul>
+                                <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
+                                {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
+                                <li><a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
+                                {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
+                                {#<li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>#}
+                                <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    {% elseif app.request.culture == 'en' %}
+                        <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li
+                    {% endif %}
+
                 </ul>
             </div>
 			<div class="w archive-main-link">
 				<a href="/press-centre/archive/">Архив газеты «Культура»</a>
 			</div>
             <div style="height: 25px"></div>
+
 {#
-        <div id="search" class="w">
-            <form id="formsearch" name="search" method="get">
-                <table class="formsearch-width-type">
-                    <tr>
+       <div id="search" class="w">
+           <form id="formsearch" name="search" method="get">
+               <table class="formsearch-width-type">
+                   <tr>
 
-                        <td width="1">
-                            <div class="search-type">
-                                Поиск по новостям и событиям
-                                <a href="#" class="close-search-type">x</a>
-                            </div>
-                        </td>
+                       <td width="1">
+                           <div class="search-type">
+                               Поиск по новостям и событиям
+                               <a href="#" class="close-search-type">x</a>
+                           </div>
+                       </td>
 
-                        <td>
-                             <div id="searcher">
-                                <input type="text" id="i-searcher" />
-                            </div>
-                            <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+                       <td>
+                            <div id="searcher">
+                               <input type="text" id="i-searcher" />
+                           </div>
+                           <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
 
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+                       </td>
+                   </tr>
+               </table>
+           </form>
+       </div>
 #}
             <div class="blocksection w clearfix" id="f-section">
                 {% block body%}&nbsp;{% endblock %}
