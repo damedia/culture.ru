@@ -3,6 +3,7 @@ parameters:
     database_host:     localhost
     database_port:     ~
     database_name:     mk
+    database_name_en:  mk_en
     database_user:     mk
     database_password: Fa3Sheer
 
@@ -30,6 +31,7 @@ parameters:
     slave_database_host:     localhost
     slave_database_port:     ~
     slave_database_name:     mk_slave
+    slave_database_name_en:  mk_slave_en
     slave_database_user:     mk
     slave_database_password: Fa3Sheer
 

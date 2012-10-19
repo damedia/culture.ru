@@ -294,34 +294,6 @@ class Ftp extends Base
         );
     }
 
-    /**
-     * {@inheritDoc}
-     */
-//    public function createFile($key, Filesystem $filesystem)
-//    {
-//        \gFuncs::dbgWriteLogVar('create file my', false, ''); // DBG:
-//        if (!$this->exists($key)) {
-//            throw new \RuntimeException(sprintf('The \'%s\' file does not exist.', $key));
-//        }
-//
-//        $file = new File($key, $filesystem);
-//
-//        if (!array_key_exists($key, $this->fileData)) {
-//            $directory = dirname($key) == '.' ? '' : dirname($key);
-//            $this->listDirectory($directory);
-//        }
-//
-//        $fileData = $this->fileData[$key];
-//
-//        $created = new \DateTime();
-//        $created->setTimestamp($fileData['time']);
-//
-//        $file->setName($fileData['name']);
-//        $file->setCreated($created);
-//        $file->setSize($fileData['size']);
-//
-//        return $file;
-//    }
 
     /**
      * Fetch all Keys recursive

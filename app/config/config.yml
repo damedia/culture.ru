@@ -52,16 +52,6 @@ doctrine:
         types:
             json: Sonata\Doctrine\Types\JsonType
 
-#        slaves:
-#            slave1:
-#                host:     %slave_database_host%
-#                port:     %slave_database_port%
-#                dbname:   %slave_database_name%
-#                user:     %slave_database_user%
-#                password: %slave_database_password%
-#                charset:  UTF8
-
-
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
