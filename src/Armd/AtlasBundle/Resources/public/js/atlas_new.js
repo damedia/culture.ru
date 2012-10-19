@@ -9,6 +9,7 @@ AT.map = null;
 AT.filterTags = [];
 AT.clusterPoints = null;
 AT.regions = [];
+AT.locale = 'ru';
 
 AT.init = function(params) {
     console.info('Init Atlas');
@@ -33,20 +34,28 @@ AT.init = function(params) {
 };
 
 AT.initMap = function(params) {
+    console.log(AT.locale);
+    var localeTiles = {
+        'en': [
+            'http://h01.tiles.tmcrussia.com/map_en/', 'http://h02.tiles.tmcrussia.com/map_en/',
+            'http://h03.tiles.tmcrussia.com/map_en/', 'http://h04.tiles.tmcrussia.com/map_en/',
+            'http://h05.tiles.tmcrussia.com/map_en/', 'http://h06.tiles.tmcrussia.com/map_en/',
+            'http://h07.tiles.tmcrussia.com/map_en/'
+        ],
+        'ru': [
+            'http://h01.tiles.tmcrussia.com/map/', 'http://h02.tiles.tmcrussia.com/map/', 'http://h03.tiles.tmcrussia.com/map/','http://h04.tiles.tmcrussia.com/map/',
+            'http://h05.tiles.tmcrussia.com/map/', 'http://h06.tiles.tmcrussia.com/map/', 'http://h07.tiles.tmcrussia.com/map/'
+        ]
+    };
     var map_el = document.getElementById(params.map),
         parameters = {
             roundRobin: {
-                tiles: [
-                    'http://h01.tiles.tmcrussia.com/map_en/', 'http://h02.tiles.tmcrussia.com/map_en/',
-                    'http://h03.tiles.tmcrussia.com/map_en/', 'http://h04.tiles.tmcrussia.com/map_en/',
-                    'http://h05.tiles.tmcrussia.com/map_en/', 'http://h06.tiles.tmcrussia.com/map_en/',
-                    'http://h07.tiles.tmcrussia.com/map_en/'
-                ]
+                tiles: localeTiles[AT.locale]
             },
             coord: new PGmap.Coord(params.center[0], params.center[1], true),
             zoom: params.zoom,
             minZoom: 3,
-            lang: 'EN'
+            lang: AT.locale
         };
 
     this.map = new PGmap(map_el, parameters);
@@ -70,7 +79,7 @@ AT.initGeocoder = function() {
             AT.map.search({
                 q: request.term,
                 type: 'search',
-                lng: 'en'
+                lng: AT.locale
             }, function(r){
                 var json = $.parseJSON(r);
                 if (json.success) {
@@ -680,7 +689,7 @@ AT.initMyObjects = function() {
                         lon: point.coord.lon,
                         lat: point.coord.lat,
                         type: 'geocode',
-                        lng: 'en'
+                        lng: AT.locale
                     }, function (r) {
                         var data = JSON.parse(r).res[0];
                         $('#address').val(data.addr);
@@ -791,7 +800,7 @@ AT.showObjectForm = function(params) {
                     lon: point.coord.lon,
                     lat: point.coord.lat,
                     type: 'geocode',
-                    lng: 'en'
+                    lng: AT.locale
                 }, function (r) {
                     var data = JSON.parse(r).res[0];
                     $('#address').val(data.addr);

@@ -307,7 +307,8 @@
                 fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
                 deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
                 imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
-                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}'
+                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}',
+                locale:                '{{ app.request.locale }}'
             });
         });
     </script>
