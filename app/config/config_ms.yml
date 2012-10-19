@@ -1,6 +1,6 @@
 # multi-server (master-slave) config
 imports:
-    - { resource: config_prod.yml }
+    - { resource: config_dev.yml }
 
 doctrine:
     dbal:

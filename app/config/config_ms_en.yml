@@ -1,0 +1,13 @@
+# multi-server (master-slave) config
+imports:
+    - { resource: config_ms.yml }
+
+doctrine:
+    dbal:
+        dbname:   %database_name_en%
+
+        slaves:
+            slave1:
+                dbname:   %slave_database_name_en%
+
+
