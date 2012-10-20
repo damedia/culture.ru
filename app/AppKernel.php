@@ -61,7 +61,7 @@ class AppKernel extends Kernel
             new Armd\OAuthBundle\ArmdOAuthBundle(),
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'test', 'ms', 'ms_en'))) {
+        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles = array_merge($bundles, array(
                 new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
                 new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
