@@ -1,17 +1,17 @@
 # multi-server (master-slave) config
 imports:
-    - { resource: config_dev.yml }
+    - { resource: config_prod.yml }
 
-doctrine:
-    dbal:
-        slaves:
-            slave1:
-                host:     %slave_database_host%
-                port:     %slave_database_port%
-                dbname:   %slave_database_name%
-                user:     %slave_database_user%
-                password: %slave_database_password%
-                charset:  UTF8
+#doctrine:
+#    dbal:
+#        slaves:
+#            slave1:
+#                host:     %slave_database_host%
+#                port:     %slave_database_port%
+#                dbname:   %slave_database_name%
+#                user:     %slave_database_user%
+#                password: %slave_database_password%
+#                charset:  UTF8
 
 
 sonata_media:
