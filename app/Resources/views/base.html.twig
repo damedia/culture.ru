@@ -153,7 +153,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 <ul class="navmenu">
                     <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
                     <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
-                    <li><a href="{{ path('armd_lecture_cinema_index') }}">Кинозал</a></li>
+                    <li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>
                     <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                     <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
@@ -179,9 +179,11 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 
                 </ul>
             </div>
-			<div class="w archive-main-link">
-				<a href="/press-centre/archive/">Газета «Культура»</a>
-			</div>
+            {% if app.request.locale == 'ru' %}}
+                <div class="w archive-main-link">
+                    <a href="/press-centre/archive/">Газета «Культура»</a>
+                </div>
+            {% endif %}
             <div style="height: 25px"></div>
 
 {#
