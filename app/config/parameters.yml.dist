@@ -2,7 +2,7 @@ parameters:
     database_driver:   pdo_pgsql
     database_host:     localhost
     database_port:     ~
-    database_name:     mk
+    database_name:     mk_en
     database_name_en:  mk_en
     database_user:     mk
     database_password: Fa3Sheer
@@ -25,6 +25,8 @@ parameters:
     sphinxsearch_index_atlas: mk_atlas
     domain:
 
+    sonata_media_cdn: /uploads/media
+
     ######################################################################
     ## multi-server config (used only in app_ms.php frontend controller)
 
@@ -34,8 +36,6 @@ parameters:
     slave_database_name_en:  mk_slave_en
     slave_database_user:     mk
     slave_database_password: Fa3Sheer
-
-    sonata_media_cdn: http://mk.armd.shams.su/uploads/media/
 
     sonata_media_ftp_directory: /uploads/media
     sonata_media_ftp_host: localhost

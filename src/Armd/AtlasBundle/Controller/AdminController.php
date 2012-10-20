@@ -212,6 +212,8 @@ class AdminController extends Controller
                     $object->$method(trim($part['data']));
                 }
             }
+
+            $object->setPublished(true);
             $em->persist($object);
             $em->flush();
             echo "File: {$file} imported <br><br>";
