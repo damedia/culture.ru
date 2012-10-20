@@ -57,11 +57,13 @@ class MainController extends Controller
         );
         
         $result = array();
-        
         foreach ($topics as $url)
         {
-            $obj = json_decode(file_get_contents("http://{$domain}{$url}"));
-            $result[] = $obj->{'data'};
+            $content = file_get_contents("http://{$domain}{$url}");
+            if ($content !== false) {
+                $obj = json_decode($content);
+                $result[] = $obj->{'data'};
+            }
         }
         
         return $this->render('ArmdMainBundle:Communication:index.html.twig', array(
