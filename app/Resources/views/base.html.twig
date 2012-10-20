@@ -131,11 +131,17 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 						</div>
 {#						
 						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+						#}
+
 						<ul class="lang-switch">
-							<li class="active"><span title="русский"><img src="{{ asset('/img/rus.png') }}" alt="" /></span></li>
-							<li><a href="#" title="english"><img src="{{ asset('/img/en.jpg') }}" alt="" /></a></li>
+                            {% if app.request.locale == 'ru' %}
+                                <li class="active"><span title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></span></li>
+                                <li><a href="http://roskult.ru/en/" title="english"><img src="{{ asset('img/en.jpg') }}" alt="" /></a></li>
+                            {% elseif app.request.locale == 'en' %}
+                                <li class="active"><span title="русский"><img src="{{ asset('img/en.jpg') }}" alt="" /></span></li>
+                                <li><a href="http://roskult.ru/" title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></a></li>
+                            {% endif %}
 						</ul>
-#}												
                     </div>
 					
 					
@@ -179,7 +185,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 
                 </ul>
             </div>
-            {% if app.request.locale == 'ru' %}}
+            {% if app.request.locale == 'ru' %}
                 <div class="w archive-main-link">
                     <a href="/press-centre/archive/">Газета «Культура»</a>
                 </div>
