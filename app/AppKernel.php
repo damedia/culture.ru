@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
@@ -66,7 +67,6 @@ class AppKernel extends Kernel
                 new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
                 new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
                 new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
-                new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 	    ));
         }
 
