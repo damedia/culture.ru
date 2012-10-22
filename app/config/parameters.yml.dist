@@ -26,6 +26,7 @@ parameters:
     domain:
 
     sonata_media_cdn: /uploads/media
+    sonata_media_cdn_en: /en/uploads/media
 
     ######################################################################
     ## multi-server config (used only in app_ms.php frontend controller)
@@ -37,7 +38,8 @@ parameters:
     slave_database_user:     mk
     slave_database_password: Fa3Sheer
 
-    sonata_media_ftp_directory: /uploads/media
+    sonata_media_ftp_directory: /ru/uploads/media
+    sonata_media_ftp_directory_en: /en/uploads/media
     sonata_media_ftp_host: localhost
     sonata_media_ftp_username: mk
     sonata_media_ftp_password: 111111
