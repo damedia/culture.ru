@@ -195,7 +195,7 @@
             <input class="object-id" name="id" type="hidden"/>
             <h2>{{ "atlas.alert.successfully_complete"|trans }}</h2>
             <div class="section-add">
-                <p>{{ "atlas.alert.object_created"|trans }}</p>
+                <p>{{ "atlas.alert.object_created"|trans|raw }}</p>
                 <label class="sof-check"><input name="is_public" type="checkbox" />{{ "atlas.alert.add_to_map"|trans }}</label>
             </div>
             <div class="section-edit">
@@ -217,7 +217,7 @@
             <input id="moderation-object-id" class="object-id" name="id" type="hidden"/>
             <input type="hidden" name="is_public" value="on">
             <h2>{{ "atlas.alert.want_to_send"|trans }}</h2>
-            <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
+            <p class="note">{{ "atlas.alert.will_available"|trans|raw }}</p>
             <fieldset class="form-buttons">
                 <input type="submit" class="button sbmt-btn" value="{{ "atlas.yes"|trans }}"/>
                 <input type="reset" class="button rst-btn" value="{{ "atlas.later"|trans }}"/>
@@ -228,7 +228,7 @@
         <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <div>
             <h2>{{ "atlas.alert.waiting_moderation"|trans }}</h2>
-            <p class="note">{{ "atlas.alert.will_available"|trans }}</p>
+            <p class="note">{{ "atlas.alert.will_available"|trans|raw }}</p>
             <fieldset class="form-buttons">
                 <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
             </fieldset>
@@ -238,7 +238,7 @@
         <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <div>
             <h2>{{ "atlas.alert.successfully_added"|trans }}</h2>
-            <p class="note">{{ "atlas.alert.approved"|trans }}</p>
+            <p class="note">{{ "atlas.alert.approved"|trans|raw }}</p>
             <fieldset class="form-buttons">
                 <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
             </fieldset>
@@ -248,7 +248,7 @@
         <a href="#" class="exit" title="{{ "atlas.alert.close"|trans }}"></a>
         <div>
             <h2>{{ "atlas.alert.rejected_warning"|trans }}</h2>
-            <p class="note">{{ "atlas.alert.rejected_message"|trans }}</p>
+            <p class="note">{{ "atlas.alert.rejected_message"|trans|raw }}</p>
             <fieldset class="form-buttons">
                 <input type="submit" class="button rst-btn" value="{{ "atlas.alert.close"|trans }}"/>
             </fieldset>
