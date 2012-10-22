@@ -52,7 +52,7 @@ atlas:
 
     alert:
         successfully_complete: Successfully complete!
-        object_created: Объект <b class="object-title"></b> was successfully created
+        object_created: Object <b class="object-title"></b> was successfully created
         add_to_map: Add object to map
         changes_saved: Changes was saved
         send_to_map: Send changed object to map
@@ -68,7 +68,7 @@ atlas:
 
 object_not_found: Object not found
 comments: Comments
-comments_auth_require: Чтобы оставлять комментарии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.</p>
+comments_auth_require: Чтобы оставлять комментарии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.
 virtual_tour: Virtual tour
 mobile_app: Mobile app
 available_appstore: Available in AppStore
