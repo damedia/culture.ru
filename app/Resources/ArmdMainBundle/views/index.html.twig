@@ -104,7 +104,8 @@
                 AT.init({
                     map: 'map',
                     center: [97.759578,63.44936],
-                    zoom: 3
+                    zoom: 3,
+                    locale: '{{ app.request.locale }}'
                 });
             });
         </script>
@@ -431,7 +432,7 @@
     <!-- Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8-rc2"></script>
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8"></script>
     </div>
     <script type="text/javascript">
         document.getElementById('script_block').appendChild(document.getElementById('script_ad'));

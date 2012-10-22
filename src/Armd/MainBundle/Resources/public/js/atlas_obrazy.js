@@ -5,28 +5,44 @@ var AT = {};
 
 AT.version = '0.3';
 AT.map = null;
+AT.params = {};
 
 AT.init = function(params) {
+    this.params = params;
+
     AT.initMap(params);
     AT.initUI();
 };
 
 AT.initMap = function(params) {
+    var localeTiles = {
+        'en': [
+            'http://h01.tiles.tmcrussia.com/map_en/', 'http://h02.tiles.tmcrussia.com/map_en/',
+            'http://h03.tiles.tmcrussia.com/map_en/', 'http://h04.tiles.tmcrussia.com/map_en/',
+            'http://h05.tiles.tmcrussia.com/map_en/', 'http://h06.tiles.tmcrussia.com/map_en/',
+            'http://h07.tiles.tmcrussia.com/map_en/'
+        ],
+        'ru': [
+            'http://h01.tiles.tmcrussia.com/map/', 'http://h02.tiles.tmcrussia.com/map/', 'http://h03.tiles.tmcrussia.com/map/','http://h04.tiles.tmcrussia.com/map/',
+            'http://h05.tiles.tmcrussia.com/map/', 'http://h06.tiles.tmcrussia.com/map/', 'http://h07.tiles.tmcrussia.com/map/'
+        ]
+    };
     var map_el = document.getElementById(params.map),
         parameters = {
             roundRobin: {
-                tiles: [
-                    'http://h01.tiles.tmcrussia.com/map/', 'http://h02.tiles.tmcrussia.com/map/', 'http://h03.tiles.tmcrussia.com/map/','http://h04.tiles.tmcrussia.com/map/',
-                    'http://h05.tiles.tmcrussia.com/map/', 'http://h06.tiles.tmcrussia.com/map/', 'http://h07.tiles.tmcrussia.com/map/'
-                ]
+                tiles: localeTiles[AT.params.locale]
             },
             coord: new PGmap.Coord(params.center[0], params.center[1], true),
             zoom: params.zoom,
-            minZoom: 3
+            minZoom: 3,
+            lang: AT.params.locale.toUpperCase()
         };
 
     this.map = new PGmap(map_el, parameters);
     this.map.controls.addControl('slider');
+
+    this.map.layers.LEFTLIMITLON = 2081245.7489734937;
+    this.map.layers.RIGHTLIMITLON = -19736433.1934625;
 
     this.map.balloon.content.parentNode.style.width = '300px';
 };
@@ -89,3 +105,16 @@ AT.placePoint = function(object) {
         return point;
     }
 };
+
+/*
+new function () {
+    var debug    = true;
+    var original = window.console;
+    window.console = {};
+    ['log', 'dir'].forEach(function (method) {
+        console[method] = function () {
+            return (debug && original) ? original[method].apply(original, arguments);
+        }
+    });
+};
+*/
