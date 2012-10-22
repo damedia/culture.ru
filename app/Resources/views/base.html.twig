@@ -97,9 +97,9 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					<div id="topbar">
 						<div id="auth">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Account settings'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="/logout"><span>{{ 'Logout'|trans }}</span></a>
+							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Account settings'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path(app.request.locale~'__RG__fos_user_security_logout') }}"><span>{{ 'Logout'|trans }}</span></a>
                             {% else %}
-                            <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ domain }}{{ path('fos_user_registration_register') }}"><span>{{ 'Register'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ domain }}{{ path('fos_user_security_login') }}"><span>{{ 'Login'|trans }}</span></a>
+                            <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ domain }}{{ path(app.request.locale~'__RG__fos_user_registration_register') }}"><span>{{ 'Register'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path(app.request.locale~'__RG__fos_user_security_login') }}"><span>{{ 'Login'|trans }}</span></a>
                             {% endif %}
 {#
 							<div class="top_2_reg item_2" style="display:none;">
@@ -136,10 +136,10 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 						<ul class="lang-switch">
                             {% if app.request.locale == 'ru' %}
                                 <li class="active"><span title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></span></li>
-                                <li><a href="http://roskult.ru/en/" title="english"><img src="{{ asset('img/en.jpg') }}" alt="" /></a></li>
+                                <li><a href="{{ path('en__RG__armd_main_homepage') }}" title="english"><img src="{{ asset('img/en.jpg') }}" alt="" /></a></li>
                             {% elseif app.request.locale == 'en' %}
                                 <li class="active"><span title="русский"><img src="{{ asset('img/en.jpg') }}" alt="" /></span></li>
-                                <li><a href="http://roskult.ru/" title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></a></li>
+                                <li><a href="{{ path('ru__RG__armd_main_homepage') }}" title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></a></li>
                             {% endif %}
 						</ul>
                     </div>
