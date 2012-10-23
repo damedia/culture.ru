@@ -59,6 +59,7 @@ Mainpage block:
         Title: Images of Russia
         Of: of
 
+
 Projects:
     Region: Region
     City: City
@@ -82,7 +83,7 @@ Special:
             Sans Serif : Arial
             Serif: Times New Roman
     Settings: Settings
-    Address: Roskult.ru
+    Address: культура.рф
     Search: Search
     Date: Date
     Images of Russia:
@@ -117,3 +118,4 @@ Download: Download
 Comments: Comments
 Comment: Comment
 Submit: Submit
+Events: Events
