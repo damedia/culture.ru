@@ -37,7 +37,8 @@
         "sonata-project/user-bundle": "*",
         "sonata-project/cache-bundle": "*",
         "armd/banner-bundle": "*",
-        "armd/sphinx-search-bundle": "*"
+        "armd/sphinx-search-bundle": "*",
+        "friendsofsymfony/rest-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [
