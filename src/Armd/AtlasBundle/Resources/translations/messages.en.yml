@@ -44,7 +44,7 @@ atlas:
     want_add_main_map: Do you want to add your object to the main map?
     yes: Yes
 
-    auth_required: You are not logged in at the moment. Please, <a href="%loginUrl%">login</a> or make a <a href="%registerUrl%">registration</a> in order to add your own objects to the map.
+    auth_required: You are not logged in at the moment. Please, <a href="%loginUrl%">login</a> or <a href="%registerUrl%">register</a> yourself in order to add your own objects to the map.
     changes_saved: Your changes have been saved.
     now_placed: Your object is now placed on the main map. Please notice that you can still edit it.
     object_will_visible: Your object will become visible for all users after the moderation procedure.
