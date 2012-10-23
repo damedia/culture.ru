@@ -18,12 +18,3 @@ sonata_media:
     filesystem:
         ftp:
             directory: %sonata_media_ftp_directory_en%
-
-security:
-    firewalls:
-        main:
-            form_login:
-                login_path:     /en/login
-                check_path:     /en/login_check
-            logout:
-                path:           /en/logout
