@@ -147,18 +147,21 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 					
 					
                 </div>
-                
-            <div class="top-banner">
-                {% if armd_has_banner('HEAD_BANNER_EN') %}
-                    {{ armd_banner('HEAD_BANNER_EN')|raw }}
-                {% else %}
-                    <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
-                {% endif %}
 
-                {% if armd_has_banner('HEAD_BANNER') %}
-                    {{ armd_banner('HEAD_BANNER')|raw }}
-                {% else %}
-                    <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+            <div class="top-banner">
+
+                {% if app.request.locale == 'en' %}
+                    {% if armd_has_banner('HEAD_BANNER_EN') %}
+                        {{ armd_banner('HEAD_BANNER_EN')|raw }}
+                    {% else %}
+                        <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+                    {% endif %}
+                {% elseif app.request.locale == 'ru' %}
+                    {% if armd_has_banner('HEAD_BANNER') %}
+                        {{ armd_banner('HEAD_BANNER')|raw }}
+                    {% else %}
+                        <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
+                    {% endif %}
                 {% endif %}
             </div>
 
