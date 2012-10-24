@@ -102,6 +102,9 @@
                 <div id="regions-selector" class="regions-selector">
                     <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
                         <option></option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div id="ajax-loading" class="ajax-loading"></div>

@@ -254,31 +254,24 @@ AT.initUI = function() {
     });
 
     // Инициализируем список регионов
-    var regionsJsonPath = AT.params.bundleImagesUri + '/../js/regions.json',
-        regionsSelector = $('#regions-selector select');
-    $.getJSON(regionsJsonPath, function(res){
-        AT.regions = res;
-        for (var i=0; i<res.length; i++) {
-            regionsSelector.append('<option value="'+res[i].name+'">'+res[i].name+'</option>');
-        }
-        // При выборе региона, зумим карту к нему
-        regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
-            AT.map.search({
-                q: $(this).val(),
-                type: 'search'
-            }, function(r){
-                var json = $.parseJSON(r);
-                if (json.success) {
-                    var bbox = json.res[0].bbox;
-                    var addrBbox = {
-                        lon1: PGmap.Utils.mercX(bbox.x1),
-                        lon2: PGmap.Utils.mercX(bbox.x2),
-                        lat1: PGmap.Utils.mercY(bbox.y1),
-                        lat2: PGmap.Utils.mercY(bbox.y2)
-                    };
-                    AT.map.setCenterByBbox(addrBbox);
-                }
-            });
+    var regionsSelector = $('#regions-selector select');
+    // При выборе региона, зумим карту к нему
+    regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
+        AT.map.search({
+            q: $(this).val(),
+            type: 'search'
+        }, function(r){
+            var json = $.parseJSON(r);
+            if (json.success) {
+                var bbox = json.res[0].bbox;
+                var addrBbox = {
+                    lon1: PGmap.Utils.mercX(bbox.x1),
+                    lon2: PGmap.Utils.mercX(bbox.x2),
+                    lat1: PGmap.Utils.mercY(bbox.y1),
+                    lat2: PGmap.Utils.mercY(bbox.y2)
+                };
+                AT.map.setCenterByBbox(addrBbox);
+            }
         });
     });
 

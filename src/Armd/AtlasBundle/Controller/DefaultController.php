@@ -265,8 +265,17 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
         $categories = $repo->getDataForFilter();
+        if (! $categories)
+            throw new NotFoundHttpException("Categories not found");
+
+        $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
+        $regions = $regionsRepo->findBy(array(), array('title'=>'ASC'));
+        if (! $regions)
+            throw new NotFoundHttpException("Regions not found");
+
         return array(
             'categories' => $categories,
+            'regions' => $regions,
         );
     }
 
@@ -930,5 +939,15 @@ class DefaultController extends Controller
     public function getObjectManager()
     {
         return $this->get('armd_atlas.manager.object');
+    }
+
+    /**
+     * Мои объекты. Загрузка изображений для объекта
+     *
+     * @Route("/objects/my/upload")
+     */
+    public function getRegions()
+    {
+
     }
 }
