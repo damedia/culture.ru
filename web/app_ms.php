@@ -19,7 +19,7 @@ $loader->register(true);
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
-$kernel = new AppKernel('ms', true); // DBG: SET DEBUG TO FALSE
+$kernel = new AppKernel('ms', false);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 $request = Request::createFromGlobals();

@@ -81,6 +81,9 @@ class ObjectAdmin extends Admin
                 ->add('showAtHomepage', null,
                     array('required' => false)
                 )
+                ->add('isOfficial', null, array('required' => false))
+                ->add('status')
+                ->add('reason')
             ->end()
             ->with('Russia Image')
                 ->add('showAtRussianImage', null,
