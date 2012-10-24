@@ -111,24 +111,61 @@
         </script>
 {% endblock %}
 
-{% block online%}
-<div class="online-index">
-	<div class="title-block index-title-block">
-		<h2>{{ 'Mainpage block.Translations.Title'|trans }}</h2>
-	</div>	
-	<div class="online-index-block">
-		<a href="/lecture/view/35"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
-		<div class="online-index-text">
-			<p class="online-index-header"><a href="/lecture/view/35">{{ 'Mainpage block.Translations.Text'|trans }}</a></p>
-		</div>
-	</div>
-	<p class="all-list"><a href="/lecture/translation">{{ 'All'|trans }} {{ 'Translations'|trans }}</a></p>
-</div>
+
+{% block online %}
+    {% if app.request.locale == 'en' %}
+        <div class="online-index">
+            <div class="title-block index-title-block">
+                <h2>{{ 'Mainpage block.Translations.Title'|trans }}</h2>
+            </div>
+            <div class="online-index-block">
+                <a href="/lecture/view/35"><img src="/static/common/img/photo/index_online.jpg" alt="" class="online-index-image" /></a>
+                <div class="online-index-text">
+                    <p class="online-index-header"><a href="/lecture/view/35">{{ 'Mainpage block.Translations.Text'|trans }}</a></p>
+                </div>
+            </div>
+            <p class="all-list"><a href="/lecture/translation">{{ 'All'|trans }} {{ 'Translations'|trans }}</a></p>
+        </div>
+    {% endif %}
 {% endblock %}
 
-{% block index_article%}
-	{% include "ArmdMainBundle:News:recommend.html.twig" with {"categories": categories} %}
+{% block index_article %}
+
+    {% if app.request.locale == 'ru' %}
+        {# last event #}
+        {% set event = random(events) %}
+        <div class="online-index">
+            <div class="title-block index-title-block">
+                <h2>{{ 'Mainpage block.Events.Title'|trans }}</h2>
+            </div>
+            <div class="online-index-block">
+                <a href="{{ path('armd_news_news_item', {'id': event.id}) }}">
+                    {% thumbnail event.image, 'billboard' %}
+                </a>
+
+                <div class="online-index-text">
+                    <p class="online-index-header"><a
+                            href="{{ path('armd_news_news_item', {'id': event.id}) }}">{{ event.title|raw }}</a></p>
+
+                    <p>
+                        {{ event.announce|raw }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p class="all-list"><a
+                href="{{ path('armd_news_list_index_by_category', {'category': 'events'} ) }}">{{ 'Mainpage block.Events.All'|trans }}</a>
+        </p>
+        {# /last event #}
+    {% endif %}
+
+    {# last news #}
+    {% include "ArmdMainBundle:News:recommend.html.twig" with {"categories": categories} %}
+    {# /last news #}
+
 {% endblock %}
+
+
 {# 	
 	<div class="index-article">
 		<div class="title-block index-title-block">
