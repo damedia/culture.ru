@@ -1,0 +1,88 @@
+# Переводы для публичной части
+atlas:
+    object:
+        add: Add object
+        edit: Edit object
+        title: Title
+        address: Address
+        latitude: Latitude
+        longitude: Longitude
+        description: Description
+        category: Category
+        additional_tags: Tags
+        choose_category: Choose category...
+    address: Address
+    all: All
+    atlas: Atlas
+    cancel: Cancel
+    save: Save
+    edit: Edit
+    choose_region: Choose a region
+    delete: Delete
+    done: Done
+    filter: Filtering
+    later: Later
+    map: Map
+    more: More
+    more_tags: More tags
+    my_map: My map
+    object_type: Object type
+    objects: Objects
+    other: Other
+    religion: Religion
+    save: Save
+    search_address: Search Address
+    send_main_map: Send your changes to the main map
+    send_moderation: Send to moderation queue
+    status_added: Object was added to the map
+    status_description: Description
+    status_rejected: Object is rejected!
+    status_waiting: Object is waiting for moderation
+    subject: Subject
+    title: Title
+    upload_photo: Upload photos…
+    want_add_main_map: Do you want to add your object to the main map?
+    yes: Yes
+
+    auth_required: You are not logged in at the moment. Please, <a href="%loginUrl%">login</a> or <a href="%registerUrl%">register</a> yourself in order to add your own objects to the map.
+    changes_saved: Your changes have been saved.
+    now_placed: Your object is now placed on the main map. Please notice that you can still edit it.
+    object_will_visible: Your object will become visible for all users after the moderation procedure.
+    click_map: Click to map to set object location
+
+    alert:
+        successfully_complete: Successfully complete!
+        object_created: Object <b class="object-title"></b> was successfully created
+        add_to_map: Add object to map
+        changes_saved: Changes was saved
+        send_to_map: Send changed object to map
+        complete: Complete
+        want_to_send: Do you want to add your object to the main map?
+        waiting_moderation: Object is waiting for moderation
+        close: Close
+        successfully_added: Your object was successfully added to the main map!
+        will_available: Your object will appear on the main map after the moderation procedure.
+        approved: Your object is now placed on the main map. Please notice that you can still edit it.
+        rejected_warning: Object is rejected!
+        rejected_message: Your object was rejected after the moderation procedure. Reason: <span id="moder-reason"></span>
+
+object_not_found: Object not found
+comments: Comments
+comments_auth_require: Чтобы оставлять комментарии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.
+virtual_tour: Virtual tour
+mobile_app: Mobile app
+available_appstore: Available in AppStore
+video: Video
+archives: Archives
+archive_document: Archive document
+contact_info: Contact info
+website: Website
+email: Email
+phone: Phone
+visiting_hours: Visiting hours
+weekends: Weekends
+without_holidays: Without holidays
+thanks_for_comment: Thank you for comment! Your message will appear after moderation.
+#Спасибо за комментарий! Ваше сообщение появится после модерации.
+more: More
+less: Less

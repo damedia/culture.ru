@@ -16,6 +16,7 @@ Navigation:
     Virtual museums:
         Title: Виртуальные музеи
         Search: Поиск по музеям
+    Cinema: Кинозал
     Translations: Трансляции
     Lectures: Лекции
     Timeline : Лента времени
@@ -81,7 +82,7 @@ Special:
             Sans Serif : шрифт Arial
             Serif: шрифт Times New Roman
     Settings: Настройка
-    Address: Roskult.ru
+    Address: культура.рф
     Search: Поиск
     Date: Дата
     Images of Russia:
@@ -116,3 +117,4 @@ Download: Скачать pdf
 Comments: Комментарии
 Comment: Оставить комментарий
 Submit: Отправить
+Events: События

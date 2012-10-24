@@ -1,4 +1,3 @@
-web/bundles/
 app/bootstrap.php.cache
 app/cache/*
 app/logs/*
@@ -6,15 +5,15 @@ app/config/parameters.yml
 build/
 vendor
 composer.phar
-
-app/config/parameters.yml
 tmp/
-web/uploads/
-web/assetic/
 *~
 .idea/
 *.orig
-
 /bin
 /tmp
+
 /web/.htaccess
+/web/utils
+/web/_tmp
+/web/uploads/
+/web/bundles/

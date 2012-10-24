@@ -46,6 +46,12 @@ class Lecture
     private $recommended = false;
 
     /**
+     * @ORM\Column(name="published", type="boolean", nullable=true)
+     */
+    private $published = true;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="lecture_video_id", referencedColumnName="id")
      */
@@ -151,6 +157,16 @@ class Lecture
     public function setRecommended($recommended)
     {
         $this->recommended = $recommended;
+    }
+
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    public function setPublished($published)
+    {
+        $this->published = $published;
     }
 
     /**

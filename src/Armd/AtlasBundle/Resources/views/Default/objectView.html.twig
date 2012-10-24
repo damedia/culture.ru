@@ -3,7 +3,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block body %}
     {% if entity is empty %}
-        Объект не найден
+        {{ "object_not_found"|trans }}
     {% else %}
 
         <div class="title-block with-social">
@@ -104,8 +104,8 @@
                 </div>
                 {% if entity.content|length > 0 %}
                     <div class="btn-more">
-                        <a href="#" rel="full-text" title="Далее" class=""><span class="more">Далее...</span><span
-                                class="less">Свернуть</span></a>
+                        <a href="#" rel="full-text" title="{{"more"|trans}}" class=""><span class="more">{{"more"|trans}}...</span><span
+                                class="less">{{"less"|trans}}</span></a>
                     </div>
                 {% endif %}
 
@@ -139,7 +139,7 @@
             </div> #}
 
             <div class='afisha-list-more' id="more-show">
-                Комментарии
+                {{ "comments"|trans }}
                 <div class="loading" style="display: none"></div>
             </div>
             <div class="more-comments-show" style="display:none;">
@@ -173,8 +173,8 @@
                     {% if not is_granted('ROLE_USER') %}
                         <div class="comments-auth-block">
                             <p>
-                                Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }}">авторизоваться</a>
-                                на сайте.</p>
+                                {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }) }}
+                                {# Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }}">авторизоваться</a> на сайте.</p> #}
                             </p>
                             {% render 'ArmdSocialAuthBundle:Default:authLinks' with { 'redirectUrl': app.request.uri } %}
                         </div>
@@ -189,7 +189,7 @@
         <div class="object-one-col3">
         {% if entity.virtualTour is not empty %}
             <div class="block virtual-anons-block virtual-anons">
-                <span class="virtual-anons-header">Виртуальный тур</span>
+                <span class="virtual-anons-header">{{ "virtual_tour"|trans }}</span>
                 {# <h1>{{ entity.title }}</h1>
                  <p>
                      {{ entity.content|raw }}
@@ -233,10 +233,10 @@
         {% set ids = [984, 534, 280] %}
         {% if entity.id in ids %}
             <div class="block object-infograph">
-                <p class="obj-o-infograph-header">Мобильное приложение</p>
+                <p class="obj-o-infograph-header">{{ "mobile_app"|trans }}</p>
                 <a href="http://itunes.apple.com/us/app/muzei-rossii/id553795199?ls=1&mt=8"
                    class="app-block iphone-app">
-                    <span class="app-name" target="_blank">Доступно в App Store</span>
+                    <span class="app-name" target="_blank">{{"available_appstore"|trans}}</span>
                     {#<span class="app-count">Загружено 10 795</span>#}
                 </a>
             </div>
@@ -306,7 +306,7 @@
                  </div>#}
 
                 {% if entity.videos|length > 0 %}
-                    <p class="link_header"><a {#href="#"#} style="border:none;">Видео</a><!--<sup>207</sup></p>-->
+                    <p class="link_header"><a {#href="#"#} style="border:none;">{{"video"|trans}}</a><!--<sup>207</sup></p>-->
                     <ul class="object-video-list">
                         {% for video in entity.videos %}
                             <li class="object-video-list-one">
@@ -356,7 +356,7 @@
                     <a href="#" class="three-persons"></a>
                 </div>#}
 
-                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">Архивы</a><!--<sup>207</sup>--></p>
+                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">{{"archives"|trans}}</a><!--<sup>207</sup>--></p>
                 <ul class="object-archive-list">
                     {% for h in entity.archiveImages %}
                         <li>
@@ -366,7 +366,7 @@
                                             <img src="{% path h, 'thumbnail' %}" alt="">
                                         </span>
 
-                                {{ h.title|default('Архивный документ') }}
+                                {{ h.title|default('archive_document'|trans) }}
                             </a>
 
                                         <span>
@@ -389,32 +389,32 @@
              </div>#}
             <div class="obj-o-contacts-text" style="margin-top:0">
                 <p class="obj-o-contacts-header">
-                    Контактная информация
+                    {{"contact_info"|trans}}
                 </p>
 
                 <div class="obj-o-contacts-main">
                     {% if entity.address %}<p>{{ entity.address }}</p>{% endif %}
                     {% if entity.siteUrl or entity.email or entity.phone %}<p>{% endif %}
 
-                    {% if entity.siteUrl %}Сайт: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a>
+                    {% if entity.siteUrl %}{{"website"|trans}}: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a>
                         <br/>{% endif %}
-                    {% if entity.email %}Email: {{ entity.email }}<br/>{% endif %}
-                    {% if entity.phone %}Телефон: {{ entity.phone }}<br/>{% endif %}
+                    {% if entity.email %}{{"email"|trans}}: {{ entity.email }}<br/>{% endif %}
+                    {% if entity.phone %}{{"phone"|trans}}: {{ entity.phone }}<br/>{% endif %}
                     {% if entity.siteUrl or entity.email or entity.phone %}</p>{% endif %}
 
                     <p>
                         {% if entity.workTime is not empty %}
-                            Музей открыт:
+                            {{"visiting_hours"|trans}}:
                             {{ entity.workTime }}
                         {% endif %}
 
                         {% if entity.weekends|length > 0 %}
-                            <br/>Выходные:
+                            <br/>{{"weekends"|trans}}:
                             {% for day in entity.weekends %}
                                 {{ day.name }}{% if not loop.last %}, {% endif %}
                             {% endfor %}
                         {% else %}
-                            без выходных дней
+                            {{"without_holidays"|trans}}
                         {% endif %}
                     </p>
                 </div>
@@ -523,12 +523,8 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" charset="utf-8"
-            src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.7"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
@@ -578,7 +574,7 @@
 
                     $('#fos_comment_thread').bind('comment_appended', function ()
                     {
-                        armdMessager.showMessage('Спасибо за комментарий! Ваше сообщение появится после модерации.');
+                        armdMessager.showMessage('{{"thanks_for_comment"|trans}}');
                     });
 
                 }
