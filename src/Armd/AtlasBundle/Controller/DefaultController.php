@@ -13,6 +13,7 @@ use Buzz\Browser;
 use Armd\AtlasBundle\Entity\Category;
 use Armd\AtlasBundle\Entity\Object;
 use Armd\AtlasBundle\Form\ObjectType;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 class DefaultController extends Controller
 {
@@ -180,11 +181,13 @@ class DefaultController extends Controller
     {
         $id = (int)$this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $currentUser = $this->get('security.context')->getToken()->getUser();
         if ($id) {
             $entity = $repo->findOneBy(array('id'=>$id, 'published'=>true));
             if ($entity)
                 return array(
                     'entity' => $entity,
+                    'editable' => ($entity->getCreatedBy() == $currentUser),
                 );
             else
                 throw new NotFoundHttpException("Page not found");
@@ -262,11 +265,177 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
         $categories = $repo->getDataForFilter();
+        if (! $categories)
+            throw new NotFoundHttpException("Categories not found");
+
+        $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
+        $regions = $regionsRepo->findBy(array(), array('title'=>'ASC'));
+        if (! $regions)
+            throw new NotFoundHttpException("Regions not found");
+
         return array(
             'categories' => $categories,
+            'regions' => $regions,
         );
     }
 
+    /**
+     * @Route("/addnode/{parentId}")
+     * Usage: http://local.armd.ru/app_dev.php/atlas/addnode/1?title=%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B%20%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%B8%D1%8F
+     */
+    public function addNodeAction($parentId)
+    {
+        $title = $this->getRequest()->query->get('title');
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Category');
+
+        $entity = new Category();
+        $entity->setTitle($title);
+
+        $parent = $repo->find($parentId);
+        if ($parent) {
+            $entity->setParent($parent);
+        }
+
+        $em->persist($entity);
+        $em->flush();
+
+        $response = '';
+        return new Response($response);
+    }
+
+    /**
+     * @Route("/object/{id}/edit")
+     * @Template("ArmdAtlasBundle:Default:objectEdit.html.twig")
+     */
+    public function editAction($id)
+    {
+        $entity = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->find($id);
+        $form = $this->createForm(new ObjectType(), $entity);
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('armd_atlas_default_list'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'entity' => $entity,
+        );
+    }
+
+    /**
+     * @Route("/objects/create")
+     * @Template("ArmdAtlasBundle:Default:objectCreate.html.twig")
+     */
+    public function createAction()
+    {
+        $entity = new Object();
+        $form = $this->createForm(new ObjectType(), $entity);
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('armd_atlas_default_edit', array('id' => $entity->getId())));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'entity' => $entity,
+        );
+    }
+
+    /**
+     * @Route("/objects/list")
+     * @Template("ArmdAtlasBundle:Default:objectList.html.twig")
+     */
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT o FROM ArmdAtlasBundle:Object o ORDER BY o.id ASC");
+        $entities = $query->getResult();
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
+     * @Route("/objects/{id}/delete", requirements={"id"="\d+"})
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+        $entity = $repo->find($id);
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('armd_atlas_default_list'));
+    }
+
+    /**
+     * @Route("/objects/import")
+     * @Template("ArmdAtlasBundle:Default:objectImport.html.twig")
+     */
+    public function importAction()
+    {
+        if ($this->getRequest()->getMethod() == 'POST') {
+
+            $userfile = $_FILES['userfile'];
+
+            $rows = file($userfile['tmp_name']);
+            $data = array();
+            foreach ($rows as $row) {
+                $row = trim($row);
+                $rowData = str_getcsv($row, ';', '"');
+                $data[] = $rowData;
+            }
+            //var_dump($data);
+
+
+            //------------
+            $em = $this->getDoctrine()->getManager();
+            //$repo = $em->getRepository('ArmdAtlasBundle:Object');
+
+            foreach ($data as $row) {
+
+                $entity = new Object();
+                $entity->setTitle(trim($row[5]));
+                if ($row[11] != '') $entity->setLat($row[11]);
+                if ($row[12] != '') $entity->setLon($row[12]);
+                $entity->setAnnounce(trim($row[6]));
+                $entity->setContent(trim($row[7]));
+                $entity->setSiteUrl(trim($row[8]));
+                $entity->setEmail(trim($row[9]));
+                $entity->setPhone(trim($row[10]));
+                if ($row[13]) $entity->setAddress(trim($row[13]));
+
+                $em->persist($entity);
+                $em->flush();
+            }
+        }
+
+        return array();
+    }
 
     /**
      * @Route("/objects/filter")
@@ -315,10 +484,10 @@ class DefaultController extends Controller
                 $obraz = false;
                 $imageUrl = '';
                 if ($obj->getPrimaryCategory()) {
-                    if ($obj->getPrimaryCategory()->getTitle() == 'Образы России') {
+                    if ($obj->getPrimaryCategory()->getId() == 74) {
                         $obraz = true;
-                        $image = $obj->getPrimaryImage();
-                        $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'thumbnail');
+                        $image = $obj->getPrimaryImage(); // @TODO Много запросов
+                        $imageUrl = $twigExtension->path($image, 'thumbnail');
                     }
                 }
 
@@ -423,8 +592,362 @@ class DefaultController extends Controller
         return !empty($res) ? $res[0] : false;
     }
 
+    /**
+     * Мои объекты. Добавить/изменить объект
+     *
+     * @Route("/objects/add")
+     */
+    public function objectsAddAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
+            $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
+            $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+
+            // Название объекта
+            $title = trim($request->get('title'));
+            if (! $title)
+                throw new \Exception('Заполните название');
+
+            // Анонс
+            $announce = trim($request->get('description'));
+            if (! $announce)
+                throw new \Exception('Заполните анонс');
+
+            // Автор
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+            if (! $currentUser)
+                throw new \Exception('Пользователь не найден');
+
+            // Создаем или редактируем объект
+            $objectId = (int) $request->get('id');
+            if ($objectId) {
+                $mode = 'edit';
+                $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
+                if (! $entity)
+                    throw new \Exception('Редактируемый объект не найден');
+            } else {
+                $mode = 'add';
+                $entity = new Object();
+            }
+
+            $entity->setTitle($title);
+            $entity->setAnnounce($announce);
+            $entity->setAddress($request->get('address'));
+            $entity->setLon($request->get('lon'));
+            $entity->setLat($request->get('lat'));
+            $entity->setIsOfficial(false); // Пользовательский объект
+
+            // Устанавливаем статус ожидания - не нужна
+            $status = $repoObjectStatus->find(0);
+            $entity->setStatus($status);
+
+            // Главная категория
+            $primaryCategoryId = $request->get('primary_category');
+            if ($primaryCategoryId) {
+                $primaryCategory = $repoCategory->find($primaryCategoryId);
+                if ($primaryCategory) {
+                    $entity->setPrimaryCategory($primaryCategory);
+                }
+            } else
+                throw new \Exception('Укажите главную категорию');
+
+            // Второстепенные категории
+            if ($objectId) {
+                $secondaryCategories = $entity->getSecondaryCategories();
+                foreach ($secondaryCategories as $category) {
+                    $entity->removeSecondaryCategory($category);
+                }
+            }
+            $categoryIds = $request->get('category');
+            if (is_array($categoryIds) && sizeof($categoryIds)) {
+                foreach ($categoryIds as $id) {
+                    $id = (int) $id;
+                    $category = $repoCategory->find($id);
+                    if ($category) {
+                        $entity->addSecondaryCategory($category);
+                    }
+                }
+            } else
+                throw new \Exception('Укажите хотя бы одну второстепенную категорию');
+
+            // Изображения
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $mediaIds = $request->get('media');
+            if (is_array($mediaIds) && sizeof($mediaIds)) {
+                foreach ($mediaIds as $id) {
+                    $id = (int) $id;
+                    $media = $mediaManager->findOneBy(array('id' => $id));
+                    if ($media) {
+                        $entity->addImage($media);
+                    }
+                }
+            }
+
+            // Сохраняем объект
+            $em->persist($entity);
+            $em->flush();
+
+            // Возвращаем созданный объект для отрисовки иконки точки
+            $lon = $entity->getLon();
+            $lat = $entity->getLat();
+            $imageUrl = '';
+            if ($entity->getPrimaryCategory()) {
+                $image = $entity->getPrimaryCategory()->getIconMedia();
+                $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
+            }
+            if ($objStatus = $entity->getStatus()) {
+                $status = $objStatus->getId();
+                $statusTitle = $objStatus->getActionTitle();
+                $reason = $entity->getReason();
+            } else {
+                $status = 0;
+                $statusTitle = '';
+                $reason = '';
+            }
+
+            $res = array(
+                'success' => true,
+                'result' => array(
+                    'id' => $entity->getId(),
+                    'title' => $entity->getTitle(),
+                    'mode' => $mode,
+                    'lon' => $lon,
+                    'lat' => $lat,
+                    'icon' => $imageUrl,
+                    'status' => $status,
+                    'statusTitle' => $statusTitle,
+                    'reason' => $reason,
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Добавить объект на народную карту
+     *
+     * @Route("/object/makepublic")
+     */
+    public function objectMakePublicAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $id = (int) $request->get('id');
+            $statusId = $request->get('is_public')=='on' ? 1 : 0;
+            $em = $this->getDoctrine()->getManager();
+            $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+            $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
+            $entity = $repoObject->find($id);
+            $status = $repoObjectStatus->find($statusId);
+            $entity->setStatus($status);
+            $em->persist($entity);
+            $em->flush();
+            $res = array(
+                'success' => true,
+                'result' => array(
+                    'id' => $entity->getId(),
+                    'title' => $entity->getTitle(),
+                    'status' => $entity->getStatus()->getId(),
+                    'statusTitle' => $entity->getStatus()->getActionTitle(),
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Список моих объектов
+     * Если указан id, возвращаем одну запись
+     *
+     * @Route("/objects/my")
+     */
+    public function objectsMyAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+            $repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $objectId = (int) $request->get('id');
+            if ($objectId) {
+                $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId), array('createdBy' => 'ASC'));
+                $primaryCategory = $obj->getPrimaryCategory();
+                $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
+                $secondaryCategoryIds = array();
+                if ($secondaryCategories = $obj->getSecondaryCategories()) {
+                    foreach ($secondaryCategories as $tag) {
+                        $secondaryCategoryIds[] = $tag->getId();
+                    }
+                }
+                $result = array(
+                    'id' => $obj->getId(),
+                    'title' => $obj->getTitle(),
+                    'announce' => $obj->getAnnounce(),
+                    'address' => $obj->getAddress(),
+                    'primaryCategory' => $primaryCategoryId,
+                    'secondaryCategory' => $secondaryCategoryIds,
+                    'lon' => $obj->getLon(),
+                    'lat' => $obj->getLat(),
+                    'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
+                );
+            } else {
+                $result = array();
+                $entities = $repo->findBy(array('createdBy' => $currentUser), array('updatedAt' => 'DESC'));
+                foreach ($entities as $obj) {
+
+                    $imageUrl = '';
+                    if ($obj->getPrimaryCategory()) {
+                        $image = $obj->getPrimaryCategory()->getIconMedia();
+                        $imageUrl = $this->get('sonata.media.twig.extension')->path($image, 'reference');
+                    }
+
+                    if ($objStatus = $obj->getStatus()) {
+                        $status = $objStatus->getId();
+                        $statusTitle = $objStatus->getActionTitle();
+                        $reason = $obj->getReason();
+                    } else {
+                        $status = 0;
+                        $statusTitle = '';
+                        $reason = '';
+                    }
+
+
+                    $result[] = array(
+                        'id' => $obj->getId(),
+                        'title' => $obj->getTitle(),
+                        'lon' => $obj->getLon(),
+                        'lat' => $obj->getLat(),
+                        'icon' => $imageUrl,
+                        'status' => $status,
+                        'statusTitle' => $statusTitle,
+                        'reason' => $reason,
+                    );
+                }
+            }
+
+            $res = array(
+                'success' => true,
+                'result' => $result,
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Удаление объекта
+     *
+     * @Route("/objects/my/delete")
+     */
+    public function objectsMyDeleteAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $entityId = (int) $request->get('id');
+            if (! $entityId)
+                throw new \Exception('Объект не найден');
+            $currentUser = $this->container->get('security.context')->getToken()->getUser();
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('ArmdAtlasBundle:Object');
+            $entity = $repo->findOneBy(array(
+                'id' => $entityId,
+                'createdBy' => $currentUser,
+            ));
+            if (! $entity)
+                throw new \Exception('Объект не найден');
+            $em->remove($entity);
+            $em->flush();
+            $result = $entityId;
+            $res = array(
+                'success' => true,
+                'result' => $result,
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        return new Response(json_encode($res));
+    }
+
+    /**
+     * Мои объекты. Загрузка изображений для объекта
+     *
+     * @Route("/objects/my/upload")
+     */
+    public function objectsMyUploadAction()
+    {
+        try {
+            // Читаем бинарник картинки, пишем во временный файл
+            $input = fopen('php://input', 'r');
+            $tempPath = tempnam(sys_get_temp_dir(), 'media');
+            $tempHandler = fopen($tempPath, 'w');
+            $realSize = stream_copy_to_stream($input, $tempHandler);
+            fclose($input);
+
+            // Создаем сущность Media
+            $media = new Media();
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $binaryContent = new UploadedFile($tempPath, $this->getRequest()->get('qqfile'));
+            $media->setBinaryContent($binaryContent);
+            $media->setContext('atlas');
+            $media->setProviderName('sonata.media.provider.image');
+            $mediaManager->save($media);
+
+            // Возвращаем инфу добавленной картинки
+            $res = array(
+                'success' => true,
+                'result' => array(
+                    'id' => $media->getId(),
+                    'imageUrl' => $this->get('sonata.media.twig.extension')->path($media, 'thumbnail'),
+                    'realSize' => $realSize,
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            $res = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+        fclose($tempHandler);
+        return new Response(json_encode($res));
+    }
+
     public function getObjectManager()
     {
         return $this->get('armd_atlas.manager.object');
+    }
+
+    /**
+     * Мои объекты. Загрузка изображений для объекта
+     *
+     * @Route("/objects/my/upload")
+     */
+    public function getRegions()
+    {
+
     }
 }

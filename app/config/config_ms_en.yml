@@ -1,0 +1,20 @@
+# multi-server (master-slave) config
+imports:
+    - { resource: config_ms.yml }
+
+doctrine:
+    dbal:
+        dbname:   %database_name_en%
+
+#        slaves:
+#            slave1:
+#                dbname:   %slave_database_name_en%
+
+sonata_media:
+    cdn:
+        server:
+            path: %sonata_media_cdn_en%
+
+    filesystem:
+        ftp:
+            directory: %sonata_media_ftp_directory_en%
