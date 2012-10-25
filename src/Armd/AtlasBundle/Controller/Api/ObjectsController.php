@@ -3,8 +3,9 @@
 namespace Armd\AtlasBundle\Controller\Api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
-    Symfony\Component\HttpFoundation\Response;
+    Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Armd\AtlasBundle\Entity\Object;
@@ -107,6 +108,8 @@ class ObjectsController extends Controller
      */
     public function createAction()
     {
+        $mode = 'add';
+
         try {
             $request = $this->getRequest();
             $em = $this->getDoctrine()->getManager();
@@ -117,17 +120,17 @@ class ObjectsController extends Controller
             // Название объекта
             $title = trim($request->get('title'));
             if (! $title)
-                throw new \Exception('Заполните название');
+                throw new \Exception('Title is required');
 
             // Анонс
             $announce = trim($request->get('description'));
             if (! $announce)
-                throw new \Exception('Заполните анонс');
+                throw new \Exception('Announce is required');
 
             // Автор
             $currentUser = $this->get('security.context')->getToken()->getUser();
-            if (! $currentUser)
-                throw new \Exception('Пользователь не авторизован');
+            if (! is_object($currentUser) || ! $currentUser instanceof UserInterface)
+                throw new \Exception('This user does not have access to this section');
 
             // Создаем или редактируем объект
             $objectId = (int) $request->get('id');
@@ -135,10 +138,11 @@ class ObjectsController extends Controller
                 $mode = 'edit';
                 $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
                 if (! $entity)
-                    throw new \Exception('Редактируемый объект не найден');
+                    throw new \Exception('Object not found');
             } else {
                 $mode = 'add';
                 $entity = new Object();
+                $entity->setCreatedBy($currentUser);
             }
 
             $entity->setTitle($title);
@@ -160,7 +164,7 @@ class ObjectsController extends Controller
                     $entity->setPrimaryCategory($primaryCategory);
                 }
             } else
-                throw new \Exception('Укажите главную категорию');
+                throw new \Exception('Category is required');
 
             // Второстепенные категории
             if ($objectId) {
@@ -179,7 +183,7 @@ class ObjectsController extends Controller
                     }
                 }
             } else
-                throw new \Exception('Укажите хотя бы одну второстепенную категорию');
+                throw new \Exception('Secondary tags is required');
 
             // Изображения
             $mediaManager = $this->get('sonata.media.manager.media');
