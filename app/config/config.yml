@@ -175,6 +175,7 @@ sonata_media:
             formats:
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
+                tile: {width: 295, height: 228 }
                 medium: { width: 111 }
                 small: { width: 85 }
                 
@@ -328,11 +329,18 @@ fos_oauth_server:
     service:
         user_provider: fos_user.user_manager
 
-parameters:
-    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-
-
 jms_i18n_routing:
     default_locale: %locale%
     locales: [ru, en]
     strategy: prefix_except_default
+
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+parameters:
+    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+
+
