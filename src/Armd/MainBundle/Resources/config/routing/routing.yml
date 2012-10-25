@@ -28,5 +28,5 @@ armd_main_project_1150:
     
 armd_main_press_archive:
     pattern:  /press-centre/archive/
-    defaults: { _controller: ArmdMainBundle:Main:pressArchive }    
+    defaults: { _controller: ArmdMainBundle:Main:pressArchive }
     

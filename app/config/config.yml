@@ -203,13 +203,21 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
-                - sonata.media.provider.file                
+                - sonata.media.provider.file
             formats:
                 big: { width: 920 }
-                thumbnail: { width: 85, height: 85 } 			
+                thumbnail: { width: 85, height: 85 }
                 archive: {width: 98}
 
-
+        paper_archive:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                big: { width: 98, quality: 90 }
 
     cdn:
         server:
