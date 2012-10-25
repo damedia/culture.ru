@@ -33,12 +33,12 @@
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/libs/jquery.ajaxmanager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
-{#
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-#}
+
         {% endblock %}
     </head>
     <body class="locale_{{ app.request.locale }}">
