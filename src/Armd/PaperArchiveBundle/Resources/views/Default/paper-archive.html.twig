@@ -1,5 +1,6 @@
 {% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
+{% block top_right %} <div style="margin-top:-66px"></div>{% endblock %}
 {% block content %}
     {#<ul class="years-tabs-selector">
         <li>
@@ -13,17 +14,23 @@
         <div class="years-tab" id="year2012">
             <ul class="archive-list">
                 {% for item in items %}
-                    <li>
-                        <img src="{% path item.image, 'big' %}" width="98"  alt="" title="{{ item.title }}" class="arch-image" />
-                        <div class="text-overflow">
-                            <span class="arch-name">{{ item.title }}</span>
-                            <span class="arch-date">{{ item.date|date('d.m.Y') }}</span>
-                            <a title="{{ item.title }}" href="{% path item.file, 'reference' %}" class="arch-pdf-link"  target="_blank">
-                                <span class="arch-pdf-label">{{ 'Download'|trans }}</span>
-                                <span class="arch-size"></span>
-                            </a>
-                        </div>
-                    </li>
+                <li>
+                    <a title="{{ item.title }}" href="{% path item.file, 'reference' %}" target="_blank">
+                        {% if loop.index < 3 %}
+                            <img src="{% path item.image, 'big' %}" alt="" title="{{ item.title }}" class="arch-image" />
+                        {% else %}
+                            <img src="{% path item.image, 'small' %}" alt="" title="{{ item.title }}" class="arch-image" />
+                        {% endif %}
+                    </a>
+                    <div class="text-overflow">
+                        <span class="arch-name">{{ item.title }}</span>
+                        <span class="arch-date">{{ item.date|date('d.m.Y') }}</span>
+                        <a title="{{ item.title }}" href="{% path item.file, 'reference' %}" class="arch-pdf-link"  target="_blank">
+                            <span class="arch-pdf-label">{{ 'Download'|trans }}</span>
+                            <span class="arch-size"></span>
+                        </a>
+                    </div>
+                </li>
                 {% endfor %}
             </ul>
         </div>

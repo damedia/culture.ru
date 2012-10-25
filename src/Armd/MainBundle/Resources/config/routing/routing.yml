@@ -25,8 +25,3 @@ armd_main_project_brodino:
 armd_main_project_1150:
     pattern:  /1150/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:1150:index.html.twig }
-    
-armd_main_press_archive:
-    pattern:  /press-centre/archive/
-    defaults: { _controller: ArmdMainBundle:Main:pressArchive }
-    

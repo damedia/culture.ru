@@ -20,11 +20,6 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class PaperArchive extends Admin
 {
-//    protected $datagridValues = array(
-//        '_sort_by'      => 'date',
-//        '_sort_order'   => 'DESC',
-//    );
-
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
@@ -68,7 +63,7 @@ class PaperArchive extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {        
         $listMapper
-            ->add('title')
+            ->addIdentifier('title')
             ->add('date')
             ->add('image', null, array('template' => 'ArmdPaperArchiveBundle:MediaAdmin:list_custom.html.twig'))
             ->add('file')
