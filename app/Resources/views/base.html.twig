@@ -44,7 +44,7 @@
     <body>
         <div id="armd_messages" style="display: none;"></div>
 {% set domain = 'http://roskult.ru' %}
-{% if app.environment == 'prod' %} 
+{% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
     <!-- Rating@Mail.ru counter -->
 <script type="text/javascript">//<![CDATA[
 var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
@@ -272,42 +272,42 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 
             <div class="footer-counters w">
 
+                {% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
+                    <!-- Rating@Mail.ru counter -->
+                    <a href="http://top.mail.ru/jump?from=2232750">
+                    <img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1"
+                    style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
+                    <!-- //Rating@Mail.ru counter -->
 
-                <!-- Rating@Mail.ru counter -->
-                <a href="http://top.mail.ru/jump?from=2232750">
-                <img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1"
-                style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
-                <!-- //Rating@Mail.ru counter -->
+                    <!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
+                    target="_blank"><img src="//counter.yadro.ru/logo?44.1"
+                    title="LiveInternet"
+                    alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
 
-                <!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
-                target="_blank"><img src="//counter.yadro.ru/logo?44.1"
-                title="LiveInternet"
-                alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
+                    <!-- Yandex.Metrika counter -->
+                    <script type="text/javascript">
+                    (function (d, w, c) {
+                        (w[c] = w[c] || []).push(function() {
+                            try {
+                                w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
+                            } catch(e) { }
+                        });
 
-                <!-- Yandex.Metrika counter -->
-                <script type="text/javascript">
-                (function (d, w, c) {
-                    (w[c] = w[c] || []).push(function() {
-                        try {
-                            w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
-                        } catch(e) { }
-                    });
+                        var n = d.getElementsByTagName("script")[0],
+                            s = d.createElement("script"),
+                            f = function () { n.parentNode.insertBefore(s, n); };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
-                    var n = d.getElementsByTagName("script")[0],
-                        s = d.createElement("script"),
-                        f = function () { n.parentNode.insertBefore(s, n); };
-                    s.type = "text/javascript";
-                    s.async = true;
-                    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                    if (w.opera == "[object Opera]") {
-                        d.addEventListener("DOMContentLoaded", f);
-                    } else { f(); }
-                })(document, window, "yandex_metrika_callbacks");
-                </script>
-                <noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-                <!-- /Yandex.Metrika counter -->
-
+                        if (w.opera == "[object Opera]") {
+                            d.addEventListener("DOMContentLoaded", f);
+                        } else { f(); }
+                    })(document, window, "yandex_metrika_callbacks");
+                    </script>
+                    <noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+                    <!-- /Yandex.Metrika counter -->
+                {% endif %}
             </div>
             <!-- /footer-counters-->
 
