@@ -7,11 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta property="og:image" content="http://roskult.ru/img/logo.png" />
         <title>{{ 'Portal title'|trans }}{% block title %}{% endblock %}</title>
-
+        
         {% block rss %}
             <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="{{ 'Events'|trans }}" />
         {% endblock %}
-
+     
         {% block stylesheets %}
             {%  stylesheets
                 '@FOSCommentBundle/Resources/assets/css/comments.css'
@@ -37,183 +37,164 @@
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
 
         {% endblock %}
     </head>
-    <body class="locale_{{ app.request.locale }}">
+    <body>
         <div id="armd_messages" style="display: none;"></div>
-        {% if app.environment == 'prod' %}
-                <!-- Rating@Mail.ru counter -->
-            <script type="text/javascript">//<![CDATA[
-            var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
-            try{s=screen;a+=';s='+s.width+'*'+s.height;a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;}catch(e){}
-            try{if(typeof((new Array).push('t'))==="number")js=13;}catch(e){}
-            try{(new Image()).src='http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;js='+js+a+';rand='+Math.random();}catch(e){}//]]></script>
-            <noscript><p><a href="http://top.mail.ru/jump?from=2232750"><img src="http://d1.c1.b2.a2.top.mail.ru/counter?js=na;id=2232750"
-            style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" /></a></p></noscript>
-            <!-- //Rating@Mail.ru counter -->
+{% set domain = 'http://roskult.ru' %}
+{% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
+    <!-- Rating@Mail.ru counter -->
+<script type="text/javascript">//<![CDATA[
+var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
+try{s=screen;a+=';s='+s.width+'*'+s.height;a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;}catch(e){}
+try{if(typeof((new Array).push('t'))==="number")js=13;}catch(e){}
+try{(new Image()).src='http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;js='+js+a+';rand='+Math.random();}catch(e){}//]]></script>
+<noscript><p><a href="http://top.mail.ru/jump?from=2232750"><img src="http://d1.c1.b2.a2.top.mail.ru/counter?js=na;id=2232750" 
+style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" /></a></p></noscript>
+<!-- //Rating@Mail.ru counter -->
 
 
-            <script type="text/javascript">
+<script type="text/javascript">
 
-            var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', 'UA-310467-9']);
-              _gaq.push(['_setDomainName', 'культура.рф']);
-              _gaq.push(['_trackPageview']);
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-              })();
-            </script>
+var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-310467-9']);
+  _gaq.push(['_setDomainName', 'культура.рф']);
+  _gaq.push(['_trackPageview']);
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
 
-            <!--LiveInternet counter--><script type="text/javascript"><!--
-            new Image().src = "//counter.yadro.ru/hit?r"+
-            escape(document.referrer)+((typeof(screen)=="undefined")?"":
-            ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-            screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-            ";"+Math.random();//--></script><!--/LiveInternet-->
+<!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet-->
 
-        {% endif %}
+
+{% endif %}
 
         <div id="wrap">
             <div id="header" class="w clearfix">
                 <a href="{{ path('armd_main_homepage') }}" id="logo"></a>
-
                 <div id="top">
                     <div class="search_bar">
-                        <form action="{{ path('armd_search_results') }}">
-                            <input type="text" name="search_query" value=""/>
-                            <input type="image" src="{{ asset('/img/top_search.png') }}"/>
-                        </form>
-                    </div>
-                    <div class="top-center">
-                        <a href="http://people.roskult.ru/opengov/new/" class="open_gov">{{ 'Open Government'|trans }}</a>
-                        <a href="{{ path('armd_main_special_homepage') }}" class="spec-vers"
-                           title="{{ 'Special version'|trans }}"></a>
-                    </div>
-                    <div id="topbar">
-                        <div id="auth">
+						<form action="{{ path('armd_search_results') }}">
+							<input type="text" name="search_query" value="" />
+							<input type="image" src="{{ asset('/img/top_search.png') }}"  />
+						</form>
+					</div>
+					<div class="top-center">
+						<a href="http://people.roskult.ru/opengov/new/" class="open_gov">{{ 'Open Government'|trans }}</a>
+						<a href="{{ path('armd_main_special_homepage') }}"  class="spec-vers" title="{{ 'Special version'|trans }}"></a>
+					</div>
+					<div id="topbar">
+						<div id="auth">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup"
-                                   href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Account settings'|trans }}</span></a>&nbsp;/&nbsp;
-                                <a style="display: inline" class="no-popup"
-                                   href="{{ path('fos_user_security_logout') }}"><span>{{ 'Logout'|trans }}</span></a>
+							<a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('sonata_user_profile_edit') }}"><span>{{ 'Account settings'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_logout') }}"><span>{{ 'Logout'|trans }}</span></a>
                             {% else %}
-                                <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup"
-                                   href="{{ path('fos_user_registration_register') }}"><span>{{ 'Register'|trans }}</span></a>&nbsp;/&nbsp;
-                                <a style="display: inline" class="no-popup"
-                                   href="{{ path('fos_user_security_login') }}"><span>{{ 'Login'|trans }}</span></a>
+                            <a style="display: inline; margin-right: 0px;" id="auth-link" class="no-popup" href="{{ path('fos_user_registration_register') }}"><span>{{ 'Register'|trans }}</span></a>&nbsp;/&nbsp;<a style="display: inline" class="no-popup" href="{{ path('fos_user_security_login') }}"><span>{{ 'Login'|trans }}</span></a>
                             {% endif %}
-                            {#
-                                                        <div class="top_2_reg item_2" style="display:none;">
-                                                            <form method="POST" action="">
-                                                                <table class="auth_tbl">
-                                                                    <tbody><tr>
-                                                                        <td class="td1">Email*:</td>
-                                                                        <td class="td2">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="td3" colspan="2"><input type="text" class="inp tblink" name="email"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="td1">Пароль*:</td>
-                                                                        <td class="td2"><a href="">Забыли пароль?</a>&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="td3" colspan="2"><input type="password" class="inp tblink" name="pass"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="td4"><input type="submit" class="btn_blue" value="Войти"></td>
-                                                                        <td class="td5"><a href="/registration/">Зарегистрироваться</a></td>
-                                                                    </tr>
-                                                                </tbody></table>
-                                                                <input type="hidden" name="auth" value="own">
-                                                            </form>
-                                                        </div>
-                            #}
-                        </div>
-                        {#
-                                                <a href="#"  class="mobile-vers" title="Мобильная версия"></a>
-                                                #}
+{#
+							<div class="top_2_reg item_2" style="display:none;">
+								<form method="POST" action="">
+									<table class="auth_tbl">
+										<tbody><tr>
+											<td class="td1">Email*:</td>
+											<td class="td2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td class="td3" colspan="2"><input type="text" class="inp tblink" name="email"></td>
+										</tr>
+										<tr>
+											<td class="td1">Пароль*:</td>
+											<td class="td2"><a href="">Забыли пароль?</a>&nbsp;</td>
+										</tr>
+										<tr>
+											<td class="td3" colspan="2"><input type="password" class="inp tblink" name="pass"></td>
+										</tr>
+										<tr>
+											<td class="td4"><input type="submit" class="btn_blue" value="Войти"></td>
+											<td class="td5"><a href="/registration/">Зарегистрироваться</a></td>
+										</tr>
+									</tbody></table>
+									<input type="hidden" name="auth" value="own">
+								</form>
+							</div>
+#}							
+						</div>
+{#						
+						<a href="#"  class="mobile-vers" title="Мобильная версия"></a>
+						#}
 
-                        <ul class="lang-switch">
+						<ul class="lang-switch">
                             {% if app.request.locale == 'ru' %}
-                            <li class="active"><span title="русский"><img src="{{ asset('img/rus.png') }}" alt=""/></span>
-                            </li>
-                            <li><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" title="english"><img
-                                    src="{{ asset('img/en.jpg') }}" alt=""/></a></li>
+                                <li class="active"><span title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></span></li>
+                                <li><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" title="english"><img src="{{ asset('img/en.jpg') }}" alt="" /></a></li>
                             {% elseif app.request.locale == 'en' %}
-                                <li class="active"><span title="русский"><img src="{{ asset('img/en.jpg') }}"
-                                                                              alt=""/></span></li>
-                                <li><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" title="русский"><img
-                                        src="{{ asset('img/rus.png') }}" alt=""/></a></li>
+                                <li class="active"><span title="русский"><img src="{{ asset('img/en.jpg') }}" alt="" /></span></li>
+                                <li><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" title="русский"><img src="{{ asset('img/rus.png') }}" alt="" /></a></li>
                             {% endif %}
-                        </ul>
+						</ul>
                     </div>
-
-
+					
+					
+					
                 </div>
 
-                <div class="top-banner">
+            <div class="top-banner">
 
-                    {% if app.request.locale == 'en' %}
+                {% if app.request.locale == 'en' %}
                     {% if armd_has_banner('HEAD_BANNER_EN') %}
                         {{ armd_banner('HEAD_BANNER_EN')|raw }}
                     {% else %}
-                        <img src="{{ asset('/img/header_banner.jpg') }}" alt=""/>
+                        <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
                     {% endif %}
-                    {% elseif app.request.locale == 'ru' %}
-                        {% if armd_has_banner('HEAD_BANNER') %}
-                            {{ armd_banner('HEAD_BANNER')|raw }}
-                        {% else %}
-                            <img src="{{ asset('/img/header_banner.jpg') }}" alt=""/>
-                        {% endif %}
+                {% elseif app.request.locale == 'ru' %}
+                    {% if armd_has_banner('HEAD_BANNER') %}
+                        {{ armd_banner('HEAD_BANNER')|raw }}
+                    {% else %}
+                        <img src="{{ asset('/img/header_banner.jpg') }}" alt="" />
                     {% endif %}
-                </div>
+                {% endif %}
+            </div>
 
             </div>
             <div id="nav" class="w">
                 <ul class="navmenu">
                     {% if app.request.locale == 'ru' %}
-                    <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a>
-                    </li>
-                    <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a>
-                    </li>
-                    <li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>
-                    <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
-                    <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a>
-                    </li>
-                    <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
-                    <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
-                    <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
-                    <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
-                    <li class="navmenu_more">
-                        <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
-                        <ul>
-                            <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
-                            {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
-                            <li>
-                                <a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a>
-                            </li>
-                            {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
-                            {#<li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>#}
-                            <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
-                        </ul>
-                    </li>
+                        <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
+                        <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
+                        <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
+                        <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+                        <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
+                        <li class="navmenu_more">
+                            <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
+                            <ul>
+                                <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
+                                {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
+                                <li><a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
+                                {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
+                                {#<li><a href="http://people.roskult.ru/forum_private/">{{ 'Navigation.Closed forum'|trans }}</a></li>#}
+                                <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+                            </ul>
+                        </li>
                     {% elseif app.request.locale == 'en' %}
-                        <li class="first"><a
-                                href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
-                        <li>
-                            <a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a>
-                        </li>
+                        <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
+                        <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                         {#<li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>#}
-                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a>
-                        </li>
-                        <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a>
-                        </li>
+                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
                         <li><a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a></li
@@ -228,115 +209,105 @@
             {% endif %}
             <div style="height: 25px"></div>
 
-            {#
-                   <div id="search" class="w">
-                       <form id="formsearch" name="search" method="get">
-                           <table class="formsearch-width-type">
-                               <tr>
+{#
+       <div id="search" class="w">
+           <form id="formsearch" name="search" method="get">
+               <table class="formsearch-width-type">
+                   <tr>
 
-                                   <td width="1">
-                                       <div class="search-type">
-                                           Поиск по новостям и событиям
-                                           <a href="#" class="close-search-type">x</a>
-                                       </div>
-                                   </td>
+                       <td width="1">
+                           <div class="search-type">
+                               Поиск по новостям и событиям
+                               <a href="#" class="close-search-type">x</a>
+                           </div>
+                       </td>
 
-                                   <td>
-                                        <div id="searcher">
-                                           <input type="text" id="i-searcher" />
-                                       </div>
-                                       <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
+                       <td>
+                            <div id="searcher">
+                               <input type="text" id="i-searcher" />
+                           </div>
+                           <input type="image" src="{{ asset('/img/search-btn.png') }}" id="i-searchbtn" />
 
-                                   </td>
-                               </tr>
-                           </table>
-                       </form>
-                   </div>
-            #}
+                       </td>
+                   </tr>
+               </table>
+           </form>
+       </div>
+#}
             <div class="blocksection w clearfix" id="f-section">
-                {% block body %}&nbsp;{% endblock %}
+                {% block body%}&nbsp;{% endblock %}
             </div>
-            {% block bottom_blocks %}&nbsp;{% endblock %}
+			{% block bottom_blocks%}&nbsp;{% endblock %}
             <div id="footer" class="w">
-
-                <div class="footer-logo">
-                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo"/>
-                        {{ 'Ministry of Culture'|trans }}<br/>{{ 'Russian Federation'|trans }}</a>
-                </div>
-
+            
+            <div class="footer-logo">
+                   <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+                    </div>
+                    
                 <div id="contacts">
-
-
-                    <div class="contacts-inner">
-                        <div class="copyright">{{ 'Copyright'|trans }}</div>
-                        <a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a>&nbsp;<span
-                            class="gray">|</span>&nbsp;<a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a>
+                   	
+                 
+             <div class="contacts-inner">
+    					<div class="copyright">{{ 'Copyright'|trans }}</div>
+    					<a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a>
                     </div>
                 </div>
 
                 <div id="socialnetwork">
                     {{ 'Talk'|trans }}
                     <div id="i-socialnetwork">
-                        <!-- <img src="{{ asset('/img/socialnetwork.png') }}" /> -->
-                        <form target="_blank" method="post" action="http://www.livejournal.com/update.bml"
-                              id="socialnetwork-links">
-                            <a class="vk"
-                               href="http://vkontakte.ru/share.php?url=http://roskult.ru/&amp;title=Портал культурного наследия&amp;description="
-                               target="_blank"></a>
-                            <a onclick="$(this).parent().submit(); return false;" class="lj"
-                               href="http://www.livejournal.com/update.bml?event=http://roskult.ru/&subject=Портал культурного наследия%3C%2Fa%3E"
-                               target="_blank"></a>
-                            <a class="tw"
-                               href="http://twitter.com/intent/tweet?text=Портал культурного наследия&url=http://roskult.ru/"
-                               target="_blank"></a>
-                            <a style="fb"
-                               href="http://www.facebook.com/sharer.php?u=http://roskult.ru/&t=Портал культурного наследия&src=sp"
-                               target="_blank"></a>
-                            <a href="{{ path('armd_news_rss') }}" class="rss-icon" title="События"></a>
-                        </form>
+                            <!-- <img src="{{ asset('/img/socialnetwork.png') }}" /> -->
+                            <form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork-links">
+                                <a class="vk" href="http://vkontakte.ru/share.php?url=http://roskult.ru/&amp;title=Портал культурного наследия&amp;description=" target="_blank"></a>
+                                <a onclick="$(this).parent().submit(); return false;" class="lj" href="http://www.livejournal.com/update.bml?event=http://roskult.ru/&subject=Портал культурного наследия%3C%2Fa%3E" target="_blank"></a>
+                                <a class="tw" href="http://twitter.com/intent/tweet?text=Портал культурного наследия&url=http://roskult.ru/" target="_blank"></a>
+                                <a style="fb" href="http://www.facebook.com/sharer.php?u=http://roskult.ru/&t=Портал культурного наследия&src=sp" target="_blank"></a>
+								<a href="{{ path('armd_news_rss') }}" class="rss-icon" title="События"></a>
+							</form>
                     </div>
                 </div>
-
+          
             </div>
 
             <div class="footer-counters w">
 
+                {% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
+                    <!-- Rating@Mail.ru counter -->
+                    <a href="http://top.mail.ru/jump?from=2232750">
+                    <img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1"
+                    style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
+                    <!-- //Rating@Mail.ru counter -->
 
-                <!-- Rating@Mail.ru counter -->
-                <a href="http://top.mail.ru/jump?from=2232750">
-                <img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1"
-                style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
-                <!-- //Rating@Mail.ru counter -->
+                    <!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
+                    target="_blank"><img src="//counter.yadro.ru/logo?44.1"
+                    title="LiveInternet"
+                    alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
 
-                <!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
-                target="_blank"><img src="//counter.yadro.ru/logo?44.1"
-                title="LiveInternet"
-                alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
+                    <!-- Yandex.Metrika counter -->
+                    <script type="text/javascript">
+                    (function (d, w, c) {
+                        (w[c] = w[c] || []).push(function() {
+                            try {
+                                w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
+                            } catch(e) { }
+                        });
 
-                <!-- Yandex.Metrika counter -->
-                <script type="text/javascript">
-                (function (d, w, c) {
-                    (w[c] = w[c] || []).push(function() {
-                        try {
-                            w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
-                        } catch(e) { }
-                    });
+                        var n = d.getElementsByTagName("script")[0],
+                            s = d.createElement("script"),
+                            f = function () { n.parentNode.insertBefore(s, n); };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
-                    var n = d.getElementsByTagName("script")[0],
-                        s = d.createElement("script"),
-                        f = function () { n.parentNode.insertBefore(s, n); };
-                    s.type = "text/javascript";
-                    s.async = true;
-                    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                    if (w.opera == "[object Opera]") {
-                        d.addEventListener("DOMContentLoaded", f);
-                    } else { f(); }
-                })(document, window, "yandex_metrika_callbacks");
-                </script>
-                <noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-                <!-- /Yandex.Metrika counter -->
-
+                        if (w.opera == "[object Opera]") {
+                            d.addEventListener("DOMContentLoaded", f);
+                        } else { f(); }
+                    })(document, window, "yandex_metrika_callbacks");
+                    </script>
+                    <noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+                    <!-- /Yandex.Metrika counter -->
+                {% endif %}
             </div>
             <!-- /footer-counters-->
 
