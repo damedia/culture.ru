@@ -1,0 +1,84 @@
+# Переводы для публичной части
+atlas:
+    object:
+        add: Добавить объект
+        edit: Редактировать объект
+        title: Заголовок
+        address: Адрес
+        latitude: Широта
+        longitude: Долгота
+        description: Описание
+        category: Категория
+        additional_tags: Дополнительные категории
+        choose_category: Выберите категорию...
+    address: Адрес
+    all: Все
+    atlas: Атлас
+    cancel: Отменить
+    save: Сохранить
+    edit: Редактировать
+    choose_region: Выберите регион...
+    delete: Удалить
+    done: Готово
+    filter: Фильтр
+    later: Позже
+    map: Карта
+    more: Еще
+    more_tags: Дополнительные теги
+    my_map: Мои карты
+    object_type: Тип объекта
+    objects: Объекты
+    other: Другие
+    religion: Религия
+    save: Сохранить
+    search_address: Поиск адреса
+    send_main_map: Отправить измененный объект на карту
+    send_moderation: Отправить на модерацию
+    status_added: Объект уже на карте!
+    status_description: Описание
+    status_rejected: Объект отклонен!
+    status_waiting: Объект ожидает модерацию
+    subject: Тема
+    title: Заголовок
+    upload_photo: Загрузить фото...
+    want_add_main_map: Хотите добавить ваш объект на основную карту?
+    yes: Да
+    auth_required: Вы не авторизованы. Пожалуйста, <a href="%loginUrl%">авторизуйтесь</a> или <a href="%registerUrl%">зарегистрируйтесь</a> для того, чтобы добавлять объекты на карту.
+    changes_saved: Ваши правки были сохранены
+    now_placed: Ваш объект прошел модерацию и теперь доступен для просмотра всем пользователям. Обратите внимание, что вы по-прежнему можете его редактировать.
+    object_will_visible: Ваш объект станет доступным для просмотра всем пользователям после прохождения модерации
+    click_map: Укажите точку на карте
+    alert:
+        successfully_complete: Все получилось!
+        object_created: Объект <b class="object-title"></b> был успешно создан.
+        add_to_map: Добавить объект на карту
+        changes_saved: Изменения были сохранены
+        send_to_map: Отправить измененный объект на карту
+        complete: Готово
+        want_to_send: Хотите добавить ваш объект на основную карту?
+        waiting_moderation: Объект ожидает модерацию
+        close: Закрыть
+        successfully_added: Ваш объект успешно добавлен на карту!
+        will_available: Ваш объект появится на карте после прохождения модерации.
+        approved: Ваш объект прошел модерацию и теперь доступен для просмотра всем пользователям. Обратите внимание, что вы по-прежнему можете его редактировать.
+        rejected_warning: Объект отклонен!
+        rejected_message: Ваш объект был отклонен на стадии <a href="#">модерации</a>. Причина: <span id="moder-reason"></span>
+object_not_found: Объект не найден
+comments: Комментарии
+comments_auth_require: Чтобы оставлять комментарии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.
+virtual_tour: Виртуальный тур
+mobile_app: Мобильное приложение
+available_appstore: Доступно в AppStore
+video: Видео
+archives: Архивы
+archive_document: Архивный документ
+contact_info: Контактная информация
+website: Вебсайт
+email: Email
+phone: Телефон
+visiting_hours: Часы работы
+weekends: Выходные дни
+without_holidays: Без выходных
+thanks_for_comment: Спасибо за комментарий! Ваше сообщение появится после модерации.
+more: Далее
+less: Свернуть

@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Armd\AtlasBundle\Entity\Object
  *
  * @ORM\Table(name="atlas_object")
  * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Object
 {
@@ -30,11 +32,13 @@ class Object
 
     /**
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(name="announce", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $announce;
 
@@ -101,7 +105,6 @@ class Object
      * @ORM\JoinColumn(name="primary_image_id", referencedColumnName="id")
      */
     private $primaryImage;
-
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
@@ -174,6 +177,43 @@ class Object
      */
     private $regions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
+     */
+    private $updatedBy;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(name="is_official", type="boolean", nullable=true)
+     */
+    private $isOfficial = true;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\AtlasBundle\Entity\ObjectStatus")
+     * @ORM\JoinColumn(name="status", referencedColumnName="id")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(name="reason", type="text", nullable=true)
+     */
+    private $reason;
 
     public function syncPrimaryAndSecondaryCategories()
     {
@@ -194,6 +234,7 @@ class Object
         $this->literatures = new ArrayCollection();
         $this->objectHints = new ArrayCollection();
         $this->regions = new ArrayCollection();
+        $this->createdAt = $this->updatedAt = new \DateTime("now");
     }
 
     public function getIcon()
@@ -361,7 +402,6 @@ class Object
         foreach ($this->getSecondaryCategories() as $secondaryCategory) {
             $categories[] = $secondaryCategory;
         }
-
         return $categories;
     }
 
@@ -632,7 +672,6 @@ class Object
     public function getPrimaryImage()
     {
         return $this->primaryImage;
-
     }
 
     /**
@@ -831,9 +870,7 @@ class Object
             foreach ($objectHints as $objectHint) {
                 $this->addObjectHint($objectHint);
             }
-
-        }
-        else {
+        } else {
             $this->addObjectHint($objectHints);
         }
     }
@@ -883,4 +920,212 @@ class Object
         $this->regions->removeElement($region);
     }
 
+
+    /**
+     * Add secondaryCategories
+     *
+     * @param Armd\AtlasBundle\Entity\Category $secondaryCategories
+     * @return Object
+     */
+    public function addSecondaryCategorie(\Armd\AtlasBundle\Entity\Category $secondaryCategories)
+    {
+        $this->secondaryCategories[] = $secondaryCategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove secondaryCategories
+     *
+     * @param Armd\AtlasBundle\Entity\Category $secondaryCategories
+     */
+    public function removeSecondaryCategorie(\Armd\AtlasBundle\Entity\Category $secondaryCategories)
+    {
+        $this->secondaryCategories->removeElement($secondaryCategories);
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param Armd\UserBundle\Entity\User $createdBy
+     * @return Object
+     */
+    public function setCreatedBy(\Armd\UserBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return Armd\UserBundle\Entity\User 
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Object
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Object
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param Armd\UserBundle\Entity\User $updatedBy
+     * @return Object
+     */
+    public function setUpdatedBy(\Armd\UserBundle\Entity\User $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return Armd\UserBundle\Entity\User 
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * Hook on pre-persist operations
+     *
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        //$this->createdAt = new \DateTime;
+        $this->updatedAt = new \DateTime;
+    }
+
+    /**
+     * Hook on pre-update operations
+
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime('now');
+    }
+
+
+    /**
+     * Set isOfficial
+     *
+     * @param boolean $isOfficial
+     * @return Object
+     */
+    public function setIsOfficial($isOfficial)
+    {
+        $this->isOfficial = $isOfficial;
+    
+        return $this;
+    }
+
+    /**
+     * Get isOfficial
+     *
+     * @return boolean 
+     */
+    public function getIsOfficial()
+    {
+        return $this->isOfficial;
+    }
+
+
+
+    /**
+     * Set status
+     *
+     * @param Armd\AtlasBundle\Entity\ObjectStatus $status
+     * @return Object
+     */
+    public function setStatus(\Armd\AtlasBundle\Entity\ObjectStatus $status = null)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return Armd\AtlasBundle\Entity\ObjectStatus 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set reason
+     *
+     * @param string $reason
+     * @return Object
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
+    
+        return $this;
+    }
+
+    /**
+     * Get reason
+     *
+     * @return string 
+     */
+    public function getReason()
+    {
+        return $this->reason;
+    }
 }

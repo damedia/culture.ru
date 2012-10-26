@@ -807,6 +807,9 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     overflow: hidden;
 	font-size: 13px;
 }
+    .locale_en #events {
+        width: 100%;
+    }
 
 #events-tabs {
     height: 24px;

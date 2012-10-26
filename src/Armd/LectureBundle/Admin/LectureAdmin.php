@@ -35,6 +35,7 @@ class LectureAdmin extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('published')
             ->add('title')
             ->add('lectureType')
             ->add('categories')
@@ -60,6 +61,7 @@ class LectureAdmin extends Admin
         $lecture->setLectureSuperType($superType);
 
         $formMapper
+            ->add('published')
             ->add('title')
             ->add('lectureType')
             ->add('categories', 'armd_lecture_categories',
@@ -99,6 +101,7 @@ class LectureAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('published')
             ->add('title')
             ->add('categories')
             ->add('lecturer');
@@ -114,6 +117,7 @@ class LectureAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('title')
+            ->add('published')
             ->add('createdAt')
             ->add('lectureType')
             ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))

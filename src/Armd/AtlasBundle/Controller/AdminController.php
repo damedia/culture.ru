@@ -162,6 +162,67 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/import_objects_translations")
+     * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
+     */
+    public function importObjectsTranslations()
+    {
+        $dir = realpath(__DIR__ . '/../../../../tmp/atlas_objects_trans_import');
+        if (!is_dir($dir)) {
+            return new Response("Directory doesn't exist");
+        }
+        if (!$dh = opendir($dir)) {
+            return new Response("Can't open directory");
+        }
+
+        while (($file = readdir($dh)) !== false) {
+            if (is_dir($file)) {
+                continue;
+            }
+
+            if(!preg_match("/\d+/i", $file, $matches)){
+                echo "File {$file} must have a digit in name <br>Skipped<br>";
+                continue;
+            }
+            echo "Process file: {$file} <br>";
+            $em = $this->getDoctrine()->getEntityManager();
+            $object = $em->getRepository('ArmdAtlasBundle:Object')->find($matches[0]);
+            echo 'Object: id '.$matches[0].($object ? ' found' : ' not found <br> Skipped<br>').'<br>';
+            if(!$object) {
+                continue;
+            }
+
+            $fileData = file_get_contents($dir.'/'.$file);
+            $parts = preg_split('/={5}(.+?)={5}/', $fileData, null, PREG_SPLIT_DELIM_CAPTURE);
+            array_shift($parts);
+
+            $normalizedParts = array();
+            for($i = 1; $i < count($parts); $i+=2){
+                $normalizedParts[$i] = array(
+                    'pattern' => $parts[$i-1],
+                    'data' => $parts[$i]
+                );
+            }
+
+            $fields = array('title', 'announce', 'content', 'address', 'russiaImageAnnounce');
+            foreach($normalizedParts as $part){
+                if(in_array($part['pattern'], $fields)) {
+                    $method = 'set'.ucfirst($part['pattern']);
+                    echo 'field "'.$part['pattern'].'" updated<br>';
+                    $object->$method(trim($part['data']));
+                }
+            }
+
+            $object->setPublished(true);
+            $em->persist($object);
+            $em->flush();
+            echo "File: {$file} imported <br><br>";
+        }
+        closedir($dh);
+        return new Response('Import finished');
+    }
+
+    /**
      * @Route("/rebuild_tree")
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
      */

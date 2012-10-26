@@ -1,0 +1,107 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block title %}
+    {{ "CustomObjects"|trans({}, "ArmdAtlasBundle") }}
+{% endblock%}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block actions %}
+{% endblock%}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block list_filters %}
+    <form class="well" method="GET" action="">
+        <table>
+            <tr>
+                <td>Название объекта:</td>
+                <td>Статус модерации:</td>
+                <td>Created by:</td>
+                <td>Updated by:</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr valign="top">
+                <td>
+                    <input type="text" name="filter[title]" value="{{ filter.title }}">
+                </td>
+                <td>
+                    <select name="filter[status]">
+                        <option value="" {% if filter.status=='' %}selected="selected"{% endif %}>любой</option>
+                        {% for status in statusList %}
+                            <option value="{{ status.id }}" {% if filter.status==status.id %}selected="selected"{% endif %}>{{ status.title }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="filter[createdBy]">
+                        <option value="" {% if filter.createdBy=='' %}selected="selected"{% endif %}>любой</option>
+                        {% for user in userList %}
+                            <option value="{{ user.id }}" {% if filter.createdBy==user.id %}selected="selected"{% endif %}>{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="filter[updatedBy]">
+                        <option value="" {% if filter.updatedBy=='' %}selected="selected"{% endif %}>любой</option>
+                        {% for user in userList %}
+                            <option value="{{ user.id }}" {% if filter.updatedBy==user.id %}selected="selected"{% endif %}>{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <button class="btn" type="submit">Найти</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock%}
+
+{# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #}
+{% block list_table %}
+    {% if objects|length %}
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>id</th>
+                <th>
+                    <a href="?filter[_sort_by]=title&filter[_sort_order]=ASC">title</a>
+                </th>
+                <th>primaryCategory</th>
+                <th>status</th>
+                <th>createdBy</th>
+                <th>createdAt</th>
+                <th>updatedBy</th>
+                <th>updatedAt</th>
+            </tr>
+            {% for obj in objects %}
+                <tr>
+                    <td>{{ obj.id }}</td>
+                    <td>
+                        <a href="{{ path('admin_armd_atlas_objectcustom_show', {'id':obj.id}) }}">
+                            {{ obj.title }}
+                        </a>
+                    </td>
+                    <td>{{ obj.primaryCategory.title }}</td>
+                    <td>{{ obj.status.title }}</td>
+                    <td>
+                        {% if obj.updatedBy %}
+                            <a href="{{ path('admin_armd_user_user_show', {'id':obj.createdBy.id}) }}">
+                                {{ obj.createdBy.username }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>{{ obj.createdAt|date('Y-m-d H:i:s') }}</td>
+                    <td>
+                        {% if obj.updatedBy %}
+                            <a href="{{ path('admin_armd_user_user_show', {'id':obj.updatedBy.id}) }}">
+                                {{ obj.updatedBy.username }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>{{ obj.updatedAt|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Не найдено</h2>
+    {% endif %}
+{% endblock%}

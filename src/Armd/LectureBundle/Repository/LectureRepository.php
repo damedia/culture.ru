@@ -15,6 +15,7 @@ class LectureRepository extends EntityRepository
         $qb = $this->createQueryBuilder('l')
             ->where('l.recommended = TRUE')
             ->andWhere('l.lectureSuperType = :superType')
+            ->andWhere('l.published = TRUE')
             ->orderBy('l.createdAt', 'DESC')
             ->setMaxResults($limit)
             ->setParameters(array(
@@ -31,6 +32,7 @@ class LectureRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('l')
             ->where('l.lectureSuperType = :superType')
+            ->andWhere('l.published = TRUE')
             ->orderBy('l.createdAt', 'DESC')
             ->setMaxResults($limit)
             ->setParameters(array(
@@ -47,7 +49,8 @@ class LectureRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder($alias)
             ->innerJoin($alias . '.categories', 'c')
-            ->where($alias . '.lectureSuperType = :superType')->setParameter('superType', $superType);
+            ->where($alias . '.lectureSuperType = :superType')->setParameter('superType', $superType)
+            ->andWhere('l.published = TRUE');
 
         // filter by types
         if ($typeIds !== 'all') {
@@ -87,6 +90,7 @@ class LectureRepository extends EntityRepository
                 ->innerJoin('c.lectures', 'l')
                 ->where('l.lectureType = :type')
                 ->andWhere('l.lectureSuperType = :superType')
+                ->andWhere('l.published = TRUE')
                 ->groupBy('c')
                 ->setParameters(array(
                 'type' => $type,

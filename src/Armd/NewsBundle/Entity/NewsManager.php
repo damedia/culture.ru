@@ -83,7 +83,14 @@ class NewsManager
             $qb
                 ->andWhere('n.important = true')
             ;
-        }        
+        }
+
+        if (!empty($criteria['has_image'])) {
+            $qb
+                ->andWhere('i IS NOT NULL')
+            ;
+        }
+
     }
     
     public function getCategories()

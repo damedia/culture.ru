@@ -28,6 +28,9 @@ class AppKernel extends Kernel
             new FOS\CommentBundle\FOSCommentBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+
             //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Sonata\jQueryBundle\SonatajQueryBundle(),
@@ -65,7 +68,6 @@ class AppKernel extends Kernel
                 new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
                 new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
                 new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
-                new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 	    ));
         }
 
