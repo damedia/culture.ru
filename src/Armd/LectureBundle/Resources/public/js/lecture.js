@@ -47,7 +47,7 @@ var armdLecture = {
                 $(this).removeClass('checked');
             }
             armdLecture.page = 1;
-            armdLecture.checkTypeCategories();
+//            armdLecture.checkTypeCategories();
             armdLecture.loadLectureList();
         });
 
