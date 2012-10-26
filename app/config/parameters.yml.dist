@@ -13,7 +13,7 @@ parameters:
     mailer_password:   ~
 
     locale:            ru
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            ThisTokenIsNotSoSecretC
 
     progorod_api_key:  e316fab34585f12b5506493c1c17d41c
 
@@ -21,12 +21,15 @@ parameters:
     sphinxsearch_host: localhost
     sphinxsearch_port: 9312
     sphinxsearch_index_all: mk_all
+    sphinxsearch_index_all_en: mk_all_en
     sphinxsearch_index_lectures: mk_lectures
+    sphinxsearch_index_lectures_en: mk_lectures_en
     sphinxsearch_index_atlas: mk_atlas
+    sphinxsearch_index_atlas_en: mk_atlas_en
     domain:
 
-    sonata_media_cdn: /uploads/media
-    sonata_media_cdn_en: /en/uploads/media
+    sonata_media_cdn: http://roskult.ru/ru/uploads/media
+    sonata_media_cdn_en: http://roskult.ru/en/uploads/media
 
     ######################################################################
     ## multi-server config (used only in app_ms.php frontend controller)
