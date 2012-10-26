@@ -1,5 +1,5 @@
 {
-    "hash": "932546b85abee5bd2b95b0247729a91a",
+    "hash": "78d3489ec5149bea96bd43140e0a29c2",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -354,12 +354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle",
-                "reference": "f1a19530756d9614e5ab58a509587b1dd0f3f826"
+                "reference": "1.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/zipball/1.0.3",
+                "reference": "1.0.3",
                 "shasum": ""
             },
             "require": {
@@ -367,7 +367,7 @@
                 "symfony/framework-bundle": ">=2.0,<2.2-dev",
                 "symfony/serializer": ">=2.0,<2.2-dev"
             },
-            "time": "1346400455",
+            "time": "1350912923",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -379,7 +379,26 @@
                 "psr-0": {
                     "FOS\\JsRoutingBundle": ""
                 }
-            }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+                }
+            ],
+            "description": "Symfony FOSJsRoutingBundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "Js Routing"
+            ]
         },
         {
             "name": "friendsofsymfony/oauth-server-bundle",
@@ -2355,6 +2374,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "friendsofsymfony/oauth-server-bundle": 20,
-        "jms/i18n-routing-bundle": 20
+        "jms/i18n-routing-bundle": 20,
+        "friendsofsymfony/jsrouting-bundle": 20
     }
 }

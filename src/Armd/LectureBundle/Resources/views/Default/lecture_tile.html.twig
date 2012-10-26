@@ -1,0 +1,31 @@
+<div class="lecture-tile-block">
+    {% if pagination|length > 0 %}
+        <ul class="lecture-tile-list clearfix">
+
+            {% for lecture in pagination %}
+                <li>
+                    <div class="lecture-tile-list-one-wrap" style="">
+                        <div class="lecture-tile-list-one">
+                            <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                                {% if lecture.lectureVideo.imageMedia is defined %}
+                                    <img src="{% path lecture.lectureVideo.imageMedia, 'tile' %}" alt="{{ lecture.title }}" />
+                                {% endif %}
+                            </a>
+
+                            <div class="lecture-tile-list-text">
+                                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="lecture-tile-list-header">
+                                    {{ lecture.title }}
+                                </a>
+                                <p>{{ lecture.description|truncate(150) }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <strong>По Вашему запросу объектов не найдено</strong>
+    {% endif %}
+</div>
