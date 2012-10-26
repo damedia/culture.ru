@@ -258,7 +258,7 @@ AT.initUI = function() {
     // При выборе региона, зумим карту к нему
     regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
         AT.map.search({
-            q: $(this).val(),
+            q: $(this).find('option:selected').text(),
             type: 'search'
         }, function(r){
             var json = $.parseJSON(r);
