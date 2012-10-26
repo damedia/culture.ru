@@ -1,15 +1,14 @@
-$(function () {
-    armdLecture.init();
-});
-
 var armdLecture = {
-    sortBy:'date',
-    page:1,
-    typeCategories:{},
-    lectureSuperTypeCode:'',
-    inputTimeout:null,
+    sortBy: 'date',
+    page: 1,
+    typeCategories: {},
+    lectureSuperTypeCode: '',
+    inputTimeout: null,
 
-    init:function () {
+    init: function (typeCategories, lectureSuperTypeCode) {
+        armdLecture.typeCategories = typeCategories;
+        armdLecture.lectureSuperTypeCode = lectureSuperTypeCode;
+
         $.manageAjax.create('lifo', {queue: 'clear', maxRequests: 2, abortOld: true});
 
         armdLecture.checkTypeCategories();
@@ -21,9 +20,9 @@ var armdLecture = {
         // video filter
         $('.video-filter label, .checks-filter label').click(function (e) {
             var targetName = e.target.nodeName.toLowerCase();
-            if (targetName == 'span') {
+            if (targetName === 'span') {
                 $(this).closest('label').toggleClass('checked');
-                if($(this).parents('.lecture-type').length) {
+                if ($(this).parents('.lecture-type').length) {
                     // if this is lecture type selector
                     armdLecture.checkTypeCategories();
                 }
@@ -48,7 +47,7 @@ var armdLecture = {
                 $(this).removeClass('checked');
             }
             armdLecture.page = 1;
-            armdLecture.checkTypeCategories();
+//            armdLecture.checkTypeCategories();
             armdLecture.loadLectureList();
         });
 
@@ -66,35 +65,85 @@ var armdLecture = {
         });
 
         // search
-        armdLecture.afterDelayedEvent('keyup', '#ss_input', 500, function(){
+        armdLecture.afterDelayedEvent('keyup', '#ss_input', 500, function () {
             armdLecture.loadLectureList();
         });
     },
 
-    startLoading:function() {
+    initTileUi: function () {
+        $('#lecture-list-container').on('mouseenter', '.lecture-tile-list-one-wrap', function () {
+            var width = $(this).width(),
+                height = $(this).height(),
+                liMas = $(this).parents('ul').find('li'),
+                thisli = $(this).closest('li');
+
+            $(this).addClass('lecture-tile-hovered');
+            $(this).parent().css('height', height);
+            $(this).find('.lecture-tile-list-one').css({'width': width - 51, 'height': height - 50});
+            //$(this).find('.rusHovered-contacts').css({'width':width -54,'height':height - 50 });
+            if (liMas.index(thisli) % 4 == 3) {
+                $(this).find('.lecture-tile-hovered-contacts').css({'left': -247}).addClass('left-hand');
+                $(this).find('.lecture-tile--list-one').css({'left': 0});
+            }
+            else {
+                $(this).find('.lecture-tile-hovered-contacts').css({'left': width - 1});
+            }
+
+
+        });
+
+        $('#lecture-list-container').on('mouseleave', '.lecture-tile-list-one-wrap', function () {
+            $(this).removeClass('lecture-tile-hovered').css({'width': 'auto', 'height': 'auto', 'left': 0});
+            $(this).find('.lecture-tile-list-one').css({'width': 'auto', 'height': 'auto', 'left': 0});
+            $(this).parent().css({'height': 'auto'});
+        });
+//
+//        $('#search_text').bind('focus', function () {
+//            if ($(this).val() === 'Поиск по объектам') {
+//                $(this).val('');
+//            }
+//        });
+//
+//        $('#search_text').bind('blur', function () {
+//            if ($(this).val().length == 0) {
+//                $(this).val('Поиск по объектам');
+//            }
+//        });
+
+//        $('.obr-submit-input').bind('click', function () {
+//            armdRussiaImages.loadList();
+//        })
+
+    },
+
+    startLoading: function () {
         $('#lecture-list-loading').show();
     },
 
-    stopLoading:function() {
+    stopLoading: function () {
         $('#lecture-list-loading').hide();
     },
 
-    loadLectureList:function () {
+    loadLectureList: function () {
+        var url = Routing.generate('armd_lecture_list', {
+            'lectureSuperTypeCode': armdLecture.lectureSuperTypeCode,
+            'page': armdLecture.page
+        });
         armdLecture.startLoading();
         $.manageAjax.clear('lifo', true);
         $.manageAjax.add('lifo', {
             // route: armd_lecture_list
-            url: '/lecture/list/' + armdLecture.lectureSuperTypeCode + '/' + armdLecture.page,
-            cache:false,
-            dataType:'html',
-            type:'POST',
-            data:{
-                sortBy:armdLecture.sortBy,
-                categories:armdLecture.getSelectedCategories(),
-                types:armdLecture.getSelectedTypes(),
-                searchString:$('#ss_input').val()
+            url: url,
+            cache: false,
+            dataType: 'html',
+            type: 'POST',
+            data: {
+                sortBy: armdLecture.sortBy,
+                categories: armdLecture.getSelectedCategories(),
+                types: armdLecture.getSelectedTypes(),
+                searchString: $('#ss_input').val()
             },
-            success:function (data) {
+            success: function (data) {
                 $('#lecture-list-container').html(data);
                 armdLecture.stopLoading();
             }
@@ -107,22 +156,22 @@ var armdLecture = {
         });
     },
 
-    checkTypeCategories:function () {
+    checkTypeCategories: function () {
         var categories = $('.video-theme');
         categories.find('label').removeClass('checked');
         categories.find('input:checkbox').removeAttr('checked');
 
-        $('.lecture-type label.checked input').each(function(iEl, el) {
+        $('.lecture-type label.checked input').each(function (iEl, el) {
             var typeId = $(el).data('lecture-type-id');
-            for(i in armdLecture.typeCategories[typeId]) {
-                var categoryCheckbox = categories.find('input:checkbox[data-lecture-category-id=' + armdLecture.typeCategories[typeId][i]  + ']');
+            for (i in armdLecture.typeCategories[typeId]) {
+                var categoryCheckbox = categories.find('input:checkbox[data-lecture-category-id=' + armdLecture.typeCategories[typeId][i] + ']');
                 categoryCheckbox.attr('checked', 'checked');
                 categoryCheckbox.closest('label').addClass('checked');
             }
         });
     },
 
-    getSelectedTypes:function () {
+    getSelectedTypes: function () {
         var types = [];
         $('.simple-filter-block.lecture-type label.checked input').each(function (index, el) {
             types.push($(el).data('lecture-type-id'));
@@ -131,7 +180,7 @@ var armdLecture = {
     },
 
 
-    getSelectedCategories:function () {
+    getSelectedCategories: function () {
         var categories = [];
         $('.simple-filter-block.video-theme label.checked input').each(function (index, el) {
             categories.push($(el).data('lecture-category-id'));
@@ -140,9 +189,9 @@ var armdLecture = {
 
     },
 
-    afterDelayedEvent:function afterDelayedEvent(eventtype, selector, delay, action) {
-        $(selector).bind(eventtype, function() {
-            if (typeof(armdLecture.inputTimeout) != "undefined") {
+    afterDelayedEvent: function afterDelayedEvent(eventtype, selector, delay, action) {
+        $(selector).bind(eventtype, function () {
+            if (typeof(armdLecture.inputTimeout) !== "undefined") {
                 clearTimeout(armdLecture.inputTimeout);
             }
             armdLecture.inputTimeout = setTimeout(action, delay);

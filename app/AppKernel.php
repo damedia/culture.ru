@@ -30,8 +30,7 @@ class AppKernel extends Kernel
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-
-            //            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -60,6 +59,7 @@ class AppKernel extends Kernel
             new Armd\UtilBundle\ArmdUtilBundle(),
             new Armd\MuseumBundle\ArmdMuseumBundle(),
             new Armd\OAuthBundle\ArmdOAuthBundle(),
+            new Armd\PaperArchiveBundle\ArmdPaperArchiveBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,9 @@
+parameters:
+    armd_paper_archive.manager.news.entity:  Armd\PaperArchiveBundle\Entity\PaperArchive
+
+services:
+    armd_paper_archive.admin.paper_archive:
+        class: Armd\PaperArchiveBundle\Admin\PaperArchive
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: PaperArchive, label: PaperArchive }
+        arguments: [null, Armd\PaperArchiveBundle\Entity\PaperArchive, SonataAdminBundle:CRUD, @service_container]
