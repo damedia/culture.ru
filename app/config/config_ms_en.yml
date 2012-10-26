@@ -21,9 +21,6 @@ sonata_media:
 
 armd_sphinx_search:
     indexes:
-        All:
-            %sphinxsearch_index_all_en%: ~
-        Lectures:
-            %sphinxsearch_index_lectures_en%: ~
-        Atlas:
-            %sphinxsearch_index_atlas_en%: ~
+        All: { %sphinxsearch_index_all_en%: ~}
+        Lectures: { %sphinxsearch_index_lectures_en%: ~}
+        Atlas: { %sphinxsearch_index_atlas_en%: ~ }
