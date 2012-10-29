@@ -15,7 +15,7 @@
             <ul class="archive-list">
                 {% for item in items %}
                 <li>
-                    <a class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{{ "#{app.request.scheme}://#{app.request.host}" }}{% path item.file, 'reference' %}{% endfilter %}&embedded=true">
+                    <a class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{% path item.file, 'reference' %}{% endfilter %}&embedded=true">
                         {% if loop.index < 3 %}
                             <img src="{% path item.image, 'big' %}" alt="" title="{{ item.title }}" class="arch-image" />
                         {% else %}
