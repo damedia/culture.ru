@@ -5073,14 +5073,17 @@ white-space:nowrap;
 			font-size:18px;
 			border:0;
 		}
-
+		.years-tab{
+			overflow: hidden;
+		}
 		
 		.archive-list {
 			
 		}
 			.archive-list li {
 				width:49%;
-				display:inline-block;
+				display:block;
+				float: left;
 				margin:0 0 25px;
 				vertical-align:top;
 				*display:inline;
