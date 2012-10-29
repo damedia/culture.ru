@@ -41,7 +41,7 @@
 
         {% endblock %}
     </head>
-    <body>
+    <body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
         <div id="armd_messages" style="display: none;"></div>
 {% set domain = 'http://roskult.ru' %}
 {% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
