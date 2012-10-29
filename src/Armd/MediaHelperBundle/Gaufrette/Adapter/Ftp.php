@@ -129,6 +129,7 @@ class Ftp extends Base
     public function exists($key)
     {
         $file  = $this->computePath($key);
+        \gFuncs::dbgWriteLogVar($key, false, 'ftp exists'); // DBG:
         $items = ftp_nlist($this->getConnection(), dirname($file));
 
         foreach ($items as $item) {
