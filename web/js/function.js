@@ -125,11 +125,17 @@ $(document).ready(function () {
         $("#calendar").datepicker({showOtherMonths:true});
     }
 	if ($("#news-dates-filter").length > 0) {
-		$.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+        var calendarTriggerImg;
+        if (mkApp.locale === 'ru') {
+            $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+            calendarTriggerImg = '/img/calendar-trigger.png';
+        } else if (mkApp.locale === 'en') {
+            calendarTriggerImg = '/img/calendar-trigger-en.png';
+        }
         $(".calendar-input").datepicker({
 			showOtherMonths:true,
 			showOn: "button",
-			buttonImage: "/img/calendar-trigger.png",
+			buttonImage: calendarTriggerImg,
 			buttonImageOnly: true
 		});
 	}

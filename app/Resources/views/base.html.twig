@@ -27,9 +27,14 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script type="text/javascript">
+                var mkApp = {
+                    locale: '{{ app.request.locale }}'
+                };
+                console.log(mkApp.locale);
+            </script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
@@ -37,8 +42,11 @@
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
+            {% if app.request.locale == 'ru' %}
+                <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            {% endif %}
         {% endblock %}
     </head>
     <body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
