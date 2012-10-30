@@ -396,6 +396,20 @@ $(document).ready(function () {
 		return false;	
 	})
 
+	function lecImageResize(){
+		$('.lecture-tile-list-image').each(function(){
+			var lecImgHeight = parseInt($(this).height(),10)/2;
+			$(this).css({'marginTop':-lecImgHeight});
+		})
+	}
+	
+	setTimeout(lecImageResize, 100);
+
+	$(window).resize(function(){
+		lecImageResize();
+	})
+	
+	
 });
 	
 	
