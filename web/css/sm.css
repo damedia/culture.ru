@@ -3689,6 +3689,17 @@ white-space:nowrap;
 			.lt-ie8 .lecture-tile-hovered li  {
 				top:0;
 			}
+			.lecture-tile-list-image-wrap {
+				position:relative;
+				display:block;
+				
+			}
+				.lecture-tile-list-image {
+					position:absolute;
+					top:13%;
+					left:0;
+					
+				}
 
 
 
