@@ -71,7 +71,7 @@
         {#<input type="button" class="obr-submit-input" value=""/>#}
     {#</form>#}
     <div id="lecture-list-wrapper">
-        <div id="lecture-list-loading"></div>
+        <div id="lecture-list-loading" class="loading-block"></div>
         <div id="lecture-list-container">
             {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
         </div>
