@@ -129,7 +129,8 @@ sonata_media:
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 107 }
                 big: { width: 920 }
-                thumbnail: { width: 85, height: 85 }				
+                thumbnail: { width: 85, height: 85 }
+                searchAllResult: { width: 160, height: 107 }
 
         chronicle:
             download:
@@ -154,6 +155,7 @@ sonata_media:
                 imagesOfRussia: { width: 242, height: 187}
                 imagesOfRussiaSmall: {width: 85, height: 61}
                 imagesOfRussiaUnderMap: {width: 127, height: 107}
+                searchAllResult: { width: 160, height: 107 }
 
         atlas_icon:
             download:
@@ -178,7 +180,8 @@ sonata_media:
                 tile: {width: 295, height: 228 }
                 medium: { width: 111 }
                 small: { width: 85 }
-                
+                searchAllResult: { width: 160, height: 107 }
+
         museum:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -187,6 +190,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 billboard: { width: 213 }
+                searchAllResult: { width: 160, height: 107 }
 
         gallery:
             download:
