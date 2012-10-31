@@ -1834,7 +1834,9 @@ white-space:nowrap;
 			.news-one-image {
 				float:right;
 				margin:0 0 10px 10px;
-				width:49%;
+				/*width:49%;*/
+                width:366px;
+                clear: both;
 			}
 				.news-one-image img{
 					min-width:270px;
