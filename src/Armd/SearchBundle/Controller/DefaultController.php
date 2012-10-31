@@ -5,12 +5,10 @@ namespace Armd\SearchBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Armd\SearchBundle\Model\SearchEnum;
 
 class DefaultController extends Controller
 {
-    const OBJECT_TYPE_NEWS = 1;
-    const OBJECT_TYPE_LECTURE = 2;
-    const OBJECT_TYPE_ATLAS = 3;
 
     /**
      * @Route("/test")
@@ -33,9 +31,7 @@ class DefaultController extends Controller
      */
     public function searchResultsAction() //$searchQuery, $page
     {
-        $router = $this->container->get('router');
         $perPage = 20;
-
         $page = $this->getRequest()->get('page', 1);
         $words = $this->getRequest()->get('search_query');
 
@@ -58,92 +54,27 @@ class DefaultController extends Controller
                 )
             );
             $res = $search->search($words, $searchParams);
-
             if (!empty($res['All']['matches'])) {
-                $newsRepo = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News');
-                $lectureRepo = $this->getDoctrine()->getManager()->getRepository('ArmdLectureBundle:Lecture');
-                $atlasObjectRepo = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object');
-                $imageProvider = $this->get('sonata.media.provider.image');
-
                 foreach ($res['All']['matches'] as $id => $data) {
                     if (isset($data['attrs']['object_type'])) {
+                        $searchResult = false;
 
-                        if ($data['attrs']['object_type'] == self::OBJECT_TYPE_NEWS) {
-                            $article = $newsRepo->find($id);
-                            if (!empty($article)) {
-                                $searchResult = array(
-                                    'object' => array(
-                                        'url' => $router->generate('armd_news_item_by_category',
-                                            array('category' => 'news', 'id' => $id)),
-                                        'date' => $article->getDate(),
-                                        'title' => $article->getTitle(),
-                                        'announce' => $article->getAnnounce()
-                                    ),
-                                    'section' => array(
-                                        'name' => 'Новости',
-                                    )
-                                );
+                        if ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_NEWS) {
+                            $searchResult = $this->getNewsInfo($id - SearchEnum::START_INDEX_NEWS);
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_LECTURE) {
+                            $searchResult = $this->getLectureInfo($id - SearchEnum::START_INDEX_LECTURE);
 
-                                if ($article->getImage()) {
-                                    $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($article->getImage(), 'news_list');
-                                }
-
-                                $searchResults[] = $searchResult;
-                            }
-
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_ATLAS) {
+                            $searchResult = $this->getAtlasObjectInfo($id - SearchEnum::START_INDEX_ATLAS);
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_VIRTUAL_MUSEUM) {
+                            $searchResult = $this->getVirtualMuseumInfo($id - SearchEnum::START_INDEX_VIRTUAL_MUSEUM);
                         }
-                        elseif ($data['attrs']['object_type'] == self::OBJECT_TYPE_LECTURE) {
 
-                            $lecture = $lectureRepo->find($id);
-                            if (!empty($lecture)) {
-                                $searchResult = array(
-                                    'object' => array(
-                                        'url' => $router->generate('armd_lecture_view',
-                                            array('id' => $id)),
-                                        'date' => $lecture->getCreatedAt(),
-                                        'title' => $lecture->getTitle(),
-                                        'announce' => ''
-                                    ),
-                                    'section' => array(
-                                        'name' => $lecture->getLectureSuperType()->getCode() == 'LECTURE_SUPER_TYPE_LECTURE' ? 'Лекции' : 'Трансляции',
-                                    )
-                                );
-
-                                if ($lecture->getLectureVideo()) {
-                                    $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($lecture->getLectureVideo()->getImageMedia(), 'news_list');
-                                }
-
-                                $searchResults[] = $searchResult;
-                            }
-
-                        }
-                        elseif ($data['attrs']['object_type'] == self::OBJECT_TYPE_ATLAS) {
-
-                            $atlasObject = $atlasObjectRepo->find($id);
-                            if (!empty($atlasObject)) {
-                                $searchResult = array(
-                                    'object' => array(
-                                        'url' => $router->generate('armd_atlas_default_object_view',
-                                            array('id' => $id)),
-                                        'date' => null,
-                                        'title' => $atlasObject->getTitle(),
-                                        'announce' => $atlasObject->getAnnounce()
-                                    ),
-                                    'section' => array(
-                                        'name' => 'Атлас',
-                                    )
-                                );
-
-                                if ($atlasObject->getPrimaryImage()) {
-                                    $searchResult['object']['imageUrl'] = $imageProvider->generatePublicUrl($atlasObject->getPrimaryImage(), 'news_list');
-                                }
-
-                                $searchResults[] = $searchResult;
-                            }
+                        if (!empty($searchResult)) {
+                            $searchResults[] = $searchResult;
                         }
                     }
                 }
-
             }
         }
 
@@ -157,5 +88,141 @@ class DefaultController extends Controller
             'searchQuery' => $words,
             'pagination' => $pagination
         );
+    }
+
+    protected function getAtlasObjectInfo($id)
+    {
+        $atlasObject = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')->find($id);
+        $objectInfo = false;
+        if (!empty($atlasObject)) {
+            $objectInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_atlas_default_object_view',
+                        array('id' => $id)
+                    ),
+                    'date' => null,
+                    'title' => strip_tags($atlasObject->getTitle()),
+                    'announce' => $atlasObject->getAnnounce()
+                ),
+                'section' => array(
+                    'name' => 'Атлас',
+                )
+            );
+
+            if ($atlasObject->getPrimaryImage()) {
+                $image = $atlasObject->getPrimaryImage();
+            } elseif (count($atlasObject->getImages()) > 0) {
+                $images = $atlasObject->getImages();
+                $image = $images[0];
+            } else {
+                $image = false;
+            }
+
+            if (!empty($image)) {
+                $objectInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                    $image,
+                    'atlas_searchAllResult'
+                );
+            }
+        }
+
+        return $objectInfo;
+    }
+
+    protected function getLectureInfo($id)
+    {
+        $lecture = $this->getDoctrine()->getManager()->getRepository('ArmdLectureBundle:Lecture')->find($id);
+        $lectureInfo = false;
+        if (!empty($lecture)) {
+            $lectureInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_lecture_view',
+                        array('id' => $id)
+                    ),
+                    'date' => $lecture->getCreatedAt(),
+                    'title' => strip_tags($lecture->getTitle()),
+                    'announce' => ''
+                ),
+                'section' => array(
+                    'name' => $lecture->getLectureSuperType()->getCode(
+                    ) == 'LECTURE_SUPER_TYPE_LECTURE' ? 'Лекции' : 'Трансляции',
+                )
+            );
+
+            if ($lecture->getLectureVideo()) {
+                $lectureInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                    $lecture->getLectureVideo()->getImageMedia(),
+                    'lecture_searchAllResult'
+                );
+            }
+        }
+
+        return $lectureInfo;
+    }
+
+    protected function getNewsInfo($id)
+    {
+        $article = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
+        $articleInfo = false;
+        if (!empty($article)) {
+            $articleInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_news_item_by_category',
+                        array('category' => 'news', 'id' => $id)
+                    ),
+                    'date' => $article->getDate(),
+                    'title' => strip_tags($article->getTitle()),
+                    'announce' => $article->getAnnounce()
+                ),
+                'section' => array(
+                    'name' => 'Новости',
+                )
+            );
+
+            if ($article->getImage()) {
+                $articleInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                    $article->getImage(),
+                    'news_searchAllResult'
+                );
+            }
+        }
+
+        return $articleInfo;
+    }
+
+
+    protected function getVirtualMuseumInfo($id)
+    {
+        $museum = $this->getDoctrine()->getManager()->getRepository('ArmdMuseumBundle:Museum')->find($id);
+        $museumInfo = false;
+        if (!empty($museum)) {
+            $museumInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_news_item_by_category',
+                        array('category' => 'news', 'id' => $id)
+                    ),
+                    'date' => null,
+                    'title' => strip_tags($museum->getTitle()),
+                    'announce' => '',
+                    'imageUrl' => false
+                ),
+                'section' => array(
+                    'name' => 'Виртуальные музеи',
+                )
+            );
+
+            if ($museum->getImage()) {
+                $museumInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                    $museum->getImage(),
+                    'museum_searchAllResult'
+                );
+            }
+        }
+
+        return $museumInfo;
     }
 }

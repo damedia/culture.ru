@@ -15,7 +15,7 @@
             <ul class="archive-list">
                 {% for item in items %}
                 <li>
-                    <a title="{{ item.title }}" href="{% path item.file, 'reference' %}" target="_blank">
+                    <a title="{{ item.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{{ "#{app.request.scheme}://#{app.request.host}" }}{% path item.file, 'reference' %}{% endfilter %}&embedded=true">
                         {% if loop.index < 3 %}
                             <img src="{% path item.image, 'big' %}" alt="" title="{{ item.title }}" class="arch-image" />
                         {% else %}
@@ -71,5 +71,17 @@
                 return bytes + ' B';
             }
         }
+
+        $(document).ready(function(){
+            $(".pdf-view-trigger").fancybox({
+                fitToView : false,
+                width : '95%',
+                height : '95%',
+                autoSize : false,
+                closeClick : false,
+                openEffect : 'none',
+                closeEffect : 'none'
+            });
+        })
     </script>
 {% endblock %}

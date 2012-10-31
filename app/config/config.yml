@@ -325,6 +325,8 @@ armd_sphinx_search:
             %sphinxsearch_index_lectures%: ~
         Atlas:
             %sphinxsearch_index_atlas%: ~
+        Museums:
+            %sphinxsearch_index_museums%: ~
 
     searchd:
         host:   %sphinxsearch_host%
