@@ -145,6 +145,9 @@ var armdLecture = {
             },
             success: function (data) {
                 $('#lecture-list-container').html(data);
+				$('.lecture-tile-list-image-frame:first').load(function(){
+					imageResize();
+				})
                 armdLecture.stopLoading();
             }
 //            error:function (jqXHR, textStatus, errorThrown) {

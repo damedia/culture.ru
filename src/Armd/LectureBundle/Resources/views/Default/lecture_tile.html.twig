@@ -6,11 +6,20 @@
                 <li>
                     <div class="lecture-tile-list-one-wrap" style="">
                         <div class="lecture-tile-list-one">
-                            <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                                {% if lecture.lectureVideo.imageMedia is defined %}
-                                    <img src="{% path lecture.lectureVideo.imageMedia, 'tile' %}" alt="{{ lecture.title }}" />
-                                {% endif %}
-                            </a>
+                            <div  class="lecture-tile-list-image-container">
+								<img src="/img/black-image.png" alt="" class="lecture-tile-list-image-frame" />
+								<table>
+									<tr>
+										<td>
+											<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="">
+												{% if lecture.lectureVideo.imageMedia is defined %}
+													<img src="{% path lecture.lectureVideo.imageMedia, 'tile' %}" alt="{{ lecture.title }}" class="lecture-tile-list-image" />
+												{% endif %}
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
 
                             <div class="lecture-tile-list-text">
                                 <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="lecture-tile-list-header">

@@ -487,8 +487,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .title-block.timeline-title {
-	background:url('../img/title-block-timeline.png') no-repeat 0 100%;
-	margin-bottom:0;
+	background-position: 0 100%;
+	padding-bottom:18px;
 }
 
 .title-block h1, .title-block h2, .title-block h3, .title-block h4 {
@@ -3661,6 +3661,7 @@ white-space:nowrap;
 				border:1px solid #d9d9d9;
 				border-width:0px 1px 1px 0;
                 padding:25px;
+				min-height:355px;
 			}
 				.lecture-tile-list-one img {
 					width:100%;
@@ -3690,6 +3691,20 @@ white-space:nowrap;
 			.lt-ie8 .lecture-tile-hovered li  {
 				top:0;
 			}
+			.lecture-tile-list-image-container {
+				position:relative;
+			}
+				.lecture-tile-list-image-container  table{
+					position:absolute;
+					top:0;
+					left:0;
+					width:100%;
+					height:100%;
+					
+				}
+					.lecture-tile-list-image-container td {
+						vertical-align:middle;
+					}
 
 
 

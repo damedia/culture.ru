@@ -125,11 +125,17 @@ $(document).ready(function () {
         $("#calendar").datepicker({showOtherMonths:true});
     }
 	if ($("#news-dates-filter").length > 0) {
-		$.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+        var calendarTriggerImg;
+        if (mkApp.locale === 'ru') {
+            $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+            calendarTriggerImg = '/img/calendar-trigger.png';
+        } else if (mkApp.locale === 'en') {
+            calendarTriggerImg = '/img/calendar-trigger-en.png';
+        }
         $(".calendar-input").datepicker({
 			showOtherMonths:true,
 			showOn: "button",
-			buttonImage: "/img/calendar-trigger.png",
+			buttonImage: calendarTriggerImg,
 			buttonImageOnly: true
 		});
 	}
@@ -390,6 +396,21 @@ $(document).ready(function () {
 		return false;	
 	})
 
+	
+	imageResize = function(){
+		var lecContHeight = $('.lecture-tile-list-image-container:first').height();
+		$('.lecture-tile-list-image-container table').css('height', lecContHeight);
+	}
+	
+	$('.lecture-tile-list-image-frame:first').load(function(){
+		imageResize();
+	})
+
+	$(window).resize(function(){
+		imageResize();
+	})
+	
+	
 });
 	
 	
