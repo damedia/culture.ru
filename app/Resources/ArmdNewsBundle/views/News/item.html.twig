@@ -28,6 +28,13 @@
             {% endif %}
 		</div>
     {% endif %}
+
+	{% if entity.video %}
+		<div class="news-one-image">
+            {{ armd_tvigle_video_player(entity.video, 366, 261)|raw }}
+		</div>
+    {% endif %}
+
 	<p class="highlight-text">
 		{{ entity.announce|raw }}
 	</p>
@@ -70,7 +77,8 @@
 			
 		
 		{% endif %}
-	
+
+    <div class="clear"></div>
 	
 	
     {#<div class="yashare-auto-init" data-yashareType="icon" data-yashareQuickServices="vkontakte,lj,twitter,|,facebook,odnoklassniki"></div>#}
