@@ -474,8 +474,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .title-block.timeline-title {
-	background:url('../img/title-block-timeline.png') no-repeat 0 100%;
-	margin-bottom:0;
+	background-position: 0 100%;
+	padding-bottom:18px;
 }
 
 .title-block h1, .title-block h2, .title-block h3, .title-block h4 {
