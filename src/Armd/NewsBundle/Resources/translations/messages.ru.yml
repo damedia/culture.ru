@@ -4,8 +4,12 @@ News List: Список новостей
 News Edit: Редактирование новости
 News Create: Создание новости
 
+General: Основные
+Media: Медиа
+
 Title: Название 
 Category: Категория
+Categories: Категории
 Important: Главная
 Published: Публикация
 Image: Прикрепить изображение
@@ -15,6 +19,11 @@ Body: Текст новости
 Author: Автор
 Enabled: Показывать
 Date: Дата
+End Date: Дата окончания
+Subject: Тема
+Source: Источник
+Priority: Приоритет
+Video: Видео (Tvigle ID)
 
 armd_news: Новости
 list: Список новостей
