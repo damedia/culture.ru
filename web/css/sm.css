@@ -438,6 +438,19 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	padding: 0;
 }
 
+.loading-block {
+    display: none;
+    opacity: 0.9;
+    background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+
 /*titles*/
 .title-block {
 	background: url("../img/title-block.png") 0 100% no-repeat;
@@ -3616,17 +3629,6 @@ white-space:nowrap;
     position: relative;
 }
 
-#images-of-russia-loading {
-    display: none;
-    opacity: 0.9;
-    background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-}
 
 /*--- /russia images and virtual museums---*/
 
@@ -3748,19 +3750,78 @@ white-space:nowrap;
     position: relative;
     min-height: 300px;
 }
-#lecture-list-loading {
-    display: none;
-    opacity: 0.9;
-    background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+/*#lecture-list-loading {*/
+    /*display: none;*/
+    /*opacity: 0.9;*/
+    /*background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*z-index: 1000;*/
 
-}
+/*}*/
 /*--- /lectures tile ---*/
+
+/*--- museums ---*/
+#museums-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+
+
+.museum-block {
+	border:8px solid #e6e6e6;
+}
+	.museum-list {
+		font-size:0;
+	}
+
+		.museum-list li {
+            width:25%;
+			display:inline-block;
+			position:relative;
+			vertical-align:top;
+			font-size:12px;
+		}
+		.lt-ie8 .museum-list li  {
+			display:inline;
+			zoom:1;
+
+			width:33%;
+		}
+			.museum-list-one {
+				border:1px solid #d9d9d9;
+				border-width:0px 1px 1px 0;
+                padding:25px;
+			}
+				.museum-list-one img {
+					width:100%;
+				}
+
+			.museum-list-text {
+				height:120px;
+			}
+				.museum-list-header {
+					color:#000;
+					text-decoration:none;
+					font-size:20px;
+					display:block;
+					padding:9px 0 13px;
+					line-height:21px;
+				}
+
+
+
+	.museum-list-one-wrap {
+		box-shadow:none;
+	}
+
+
+/*--- /museums ---*/
+
+
 
 .scroll-pane { overflow: auto; width: 100%; float:left; }
 	.scroll-content { float: left; }
@@ -5088,14 +5149,17 @@ white-space:nowrap;
 			font-size:18px;
 			border:0;
 		}
-
+		.years-tab{
+			overflow: hidden;
+		}
 		
 		.archive-list {
 			
 		}
 			.archive-list li {
 				width:49%;
-				display:inline-block;
+				display:block;
+				float: left;
 				margin:0 0 25px;
 				vertical-align:top;
 				*display:inline;

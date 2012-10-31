@@ -3,6 +3,12 @@ armd_paper_archive:
     type:     annotation
     prefix:   /
 
+armd_museums:
+    resource: "@ArmdMuseumBundle/Controller/"
+    type:     annotation
+    prefix:   /museums
+
+
 armd_mk_comment:
     resource: "@ArmdMkCommentBundle/Controller/"
     type:     annotation

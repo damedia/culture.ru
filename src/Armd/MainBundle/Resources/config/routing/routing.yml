@@ -6,10 +6,6 @@ armd_main_banner:
     pattern:  /banner/
     defaults: { _controller: ArmdMainBundle:Main:banner }
 
-armd_main_museums:
-    pattern:  /museums/
-    defaults: { _controller: ArmdMainBundle:Main:museums }
-
 armd_main_about:
     pattern:  /about/
     defaults: { _controller: ArmdMainBundle:Main:about }
