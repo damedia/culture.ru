@@ -41,8 +41,8 @@ AT.initMap = function(params) {
     this.map = new PGmap(map_el, parameters);
     this.map.controls.addControl('slider');
 
-    this.map.layers.LEFTLIMITLON = 2081245.7489734937;
-    this.map.layers.RIGHTLIMITLON = -19736433.1934625;
+    this.map.layers.LEFTLIMITLON  = PGmap.Utils.mercX(params.leftLon);
+    this.map.layers.RIGHTLIMITLON = PGmap.Utils.mercX(params.rightLon);
 
     this.map.balloon.content.parentNode.style.width = '300px';
 };
