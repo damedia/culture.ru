@@ -199,7 +199,9 @@ AT.initUI = function() {
                     AT.clusterPoints.setClusters.callback = function() {
                         for (var n = AT.clusterPoints.clusters.length; n--; ) {
                             (function(cluster){
-                                PGmap.Events.addHandlerByName(cluster.element, 'click', function(e){
+
+                                var eventT = PGmap.EventFactory.eventsType;
+                                PGmap.Events.addHandlerByName(cluster.element, eventT.click, function(e){
 
                                     console.log('click on cluster');
 
@@ -365,7 +367,8 @@ AT.placePoint = function(object) {
     AT.map.geometry.add(point);
 
     // клик по точке
-    PGmap.Events.addHandler(point.container, 'click', function(){
+    var eventT = PGmap.EventFactory.eventsType;
+    PGmap.Events.addHandler(point.container, eventT.click, function(){
         console.log('Click point', point);
         if (point.draggable) return;
         AT.triggerPointClick(point);
