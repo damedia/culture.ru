@@ -396,17 +396,18 @@ $(document).ready(function () {
 		return false;	
 	})
 
-	function lecImageResize(){
-		$('.lecture-tile-list-image').each(function(){
-			var lecImgHeight = parseInt($(this).height(),10)/2;
-			$(this).css({'marginTop':-lecImgHeight});
-		})
+	
+	imageResize = function(){
+		var lecContHeight = $('.lecture-tile-list-image-container:first').height();
+		$('.lecture-tile-list-image-container table').css('height', lecContHeight);
 	}
 	
-	setTimeout(lecImageResize, 100);
+	$('.lecture-tile-list-image-frame:first').load(function(){
+		imageResize();
+	})
 
 	$(window).resize(function(){
-		lecImageResize();
+		imageResize();
 	})
 	
 	
