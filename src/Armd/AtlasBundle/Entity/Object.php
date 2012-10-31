@@ -145,6 +145,12 @@ class Object
     private $virtualTourImage;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Armd\MuseumBundle\Entity\Museum")
+     * @ORM\JoinTable(name="atlas_object_virtual_tour")
+     */
+    private $virtualTours;
+
+    /**
      * @ORM\Column(name="show_at_homepage", type="boolean", nullable=true)
      */
     private $showAtHomepage = false;
@@ -235,6 +241,7 @@ class Object
         $this->objectHints = new ArrayCollection();
         $this->regions = new ArrayCollection();
         $this->createdAt = $this->updatedAt = new \DateTime("now");
+        $this->virtualTours = new ArrayCollection();
     }
 
     public function getIcon()
@@ -622,6 +629,16 @@ class Object
     public function getVirtualTourImage()
     {
         return $this->virtualTourImage;
+    }
+
+    public function setVirtualTours($virtualTours)
+    {
+        $this->virtualTours = $virtualTours;
+    }
+
+    public function getVirtualTours()
+    {
+        return $this->virtualTours;
     }
 
     /**
@@ -1128,4 +1145,5 @@ class Object
     {
         return $this->reason;
     }
+
 }
