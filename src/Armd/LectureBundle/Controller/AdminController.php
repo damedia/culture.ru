@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function rebuildTreeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $repairer = new \Armd\AtlasBundle\Util\TreeRepairer();
+        $repairer = new \Armd\UtilBundle\NestedSet\TreeRepairer();
         $repairer->rebuildTree($em, $em->getRepository('ArmdLectureBundle:LectureCategory'));
         return new Response('ok');
     }
