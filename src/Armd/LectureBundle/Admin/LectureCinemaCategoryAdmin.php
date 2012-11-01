@@ -105,5 +105,9 @@ class LectureCinemaCategoryAdmin extends Admin
             ));
     }
 
+    public function getBatchActions()
+    {
+        return array();
+    }
 
 }
