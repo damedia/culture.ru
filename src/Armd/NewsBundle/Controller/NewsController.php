@@ -3,7 +3,9 @@
 namespace Armd\NewsBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 
@@ -23,7 +25,41 @@ class NewsController extends ListController
             'news' => $this->getLatestNewsList(),
         ));
     }        
-    
+
+    /**
+     * @Route("/map/", name="armd_news_map")
+     * @Template()
+     */
+    public function mapAction()
+    {
+        return array(
+            'xxxxxxxx' => 'xxxxxxxxxx',
+        );
+    }
+
+    /**
+     * @Route("/filter", name="armd_news_filter")
+     */
+    public function filterAction()
+    {
+        $filter = $this->getRequest()->get('f');
+
+        $newsManager = $this->container->get('armd_news.manager.news');
+
+        $data = $newsManager->filterBy($filter);
+
+        $statusCode = 200;
+        $json = json_encode(array(
+            'success' => true,
+            'message' => 'OK',
+            'result' => array(
+                'filter' => $filter,
+                'data' => $data,
+            ),
+        ));
+        return new Response($json, $statusCode, array('Content-Type'=>'application/json'));
+    }
+
     /**
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")

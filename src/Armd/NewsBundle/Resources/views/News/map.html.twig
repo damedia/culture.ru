@@ -1,0 +1,91 @@
+{% extends '::base.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block body %}
+    <div class="container">
+        <div class="col-left">
+            <form id="news-map-filter" class="filter-form" action="{{ path('armd_news_filter') }}">
+                <fieldset>
+                    <legend>Тип события</legend>
+                    <ul>
+                        <li><label><input type="checkbox" name="f[category][]" value="1"/><span>Концерт</span></label></li>
+                        <li><label><input type="checkbox" name="f[category][]" value="2"/><span>Спектакль</span></label></li>
+                        <li><label><input type="checkbox" name="f[category][]" value="3"/><span>Выставка</span></label></li>
+                        <li><label><input type="checkbox" name="f[category][]" value="4"/><span>История</span></label></li>
+                    </ul>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Диапазон дат</legend>
+                    <div class="date-range">
+                        <label>с <input id="date-from" type="text" name="f[date_from]"/></label>
+                        <label>по <input id="date-to" type="text" name="f[date_to]"/></label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Прошедшие события</legend>
+                    <div>
+                        <label>
+                            <input type="hidden" name="f[show_expired]" value="0"/>
+                            <input type="checkbox" name="f[show_expired]" value="1"/>
+                            <span>Отобразить</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div><button type="submit">Показать</button></div>
+            </form>
+        </div>
+        <div class="col-right">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- /Асинхронная загрузка jsapi -->
+    <div id="script_block" class="script_block"></div>
+    <div id="script_ad" class="script_ad" style="display:none;">
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
+        {#<script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>#}
+    </div>
+    <script type="text/javascript">
+        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
+        document.getElementById('script_ad').style.display = 'block';
+    </script>
+    <!-- /Асинхронная загрузка jsapi -->
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdnews/css/news_map.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            AT.init({
+                map: 'map',
+                center: [84.967319,60.329728],
+                zoom: 3,
+                {#
+                fetchMarkersUri:       '{{ path('armd_atlas_default_filter') }}',
+                fetchMarkerDetailUri:  '{{ path('armd_atlas_default_objectballoon') }}',
+                fetchClusterDetailUri: '{{ path('armd_atlas_default_clusterballoon') }}',
+                fetchMyObjectsUri:     '{{ path('armd_atlas_default_objectsmy') }}',
+                deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
+                imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
+                bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}',
+                #}
+                locale:                '{{ app.request.locale }}'
+            });
+        });
+    </script>
+{% endblock %}

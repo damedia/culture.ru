@@ -114,6 +114,21 @@ class News extends BaseNews implements CommentableInterface
     private $video;
 
     /**
+     * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
+     */
+    private $isOnMap = false;
+
+    /**
+     * @ORM\Column(name="lat", type="decimal", precision=15, scale=10, nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(name="lon", type="decimal", precision=15, scale=10, nullable=true)
+     */
+    private $lon;
+
+    /**
      * Thread of this comment
      *
      * @var \Armd\MkCommentBundle\Entity\Thread
@@ -562,5 +577,72 @@ class News extends BaseNews implements CommentableInterface
         return $this->subject;
     }
 
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return News
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    
+        return $this;
+    }
 
+    /**
+     * Get lat
+     *
+     * @return float 
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lon
+     *
+     * @param float $lon
+     * @return News
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+    
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return float 
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * Set isOnMap
+     *
+     * @param boolean $isOnMap
+     * @return News
+     */
+    public function setIsOnMap($isOnMap)
+    {
+        $this->isOnMap = $isOnMap;
+    
+        return $this;
+    }
+
+    /**
+     * Get isOnMap
+     *
+     * @return boolean 
+     */
+    public function getIsOnMap()
+    {
+        return $this->isOnMap;
+    }
 }

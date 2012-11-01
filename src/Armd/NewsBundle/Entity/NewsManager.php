@@ -2,6 +2,7 @@
 
 namespace Armd\NewsBundle\Entity;
 
+use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\EntityManager;
 
 class NewsManager
@@ -17,13 +18,19 @@ class NewsManager
     protected $em;
 
     /**
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
+    protected $container;
+
+    /**
      * @param \Doctrine\ORM\EntityManager $em
      * @param string                      $class
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EntityManager $em, $class, $container)
     {
         $this->em = $em;
         $this->class = $class;
+        $this->container = $container;
     }
     
     public function getPager(array $criteria, $page, $limit = 10)
@@ -105,5 +112,37 @@ class NewsManager
     public function getCategories()
     {
         return $this->em->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
-    }                    
+    }
+
+    public function filterBy($filter=array())
+    {
+        $rows = $this->em->getRepository('ArmdNewsBundle:News')->findAll();
+        $data = array();
+        foreach ($rows as $row) {
+            $data[] = array(
+                'id' => $row->getId(),
+                'title' => $row->getTitle(),
+            );
+        }
+        /*
+        $data = array(
+            array(
+                'id' => 123,
+                'title' => 'Point 1',
+                'announce' => 'Point 1 announce',
+                'lon' => 60,
+                'lat' => 55,
+            ),
+            array(
+                'id' => 124,
+                'title' => 'Point 2',
+                'announce' => 'Point 2 announce',
+                'lon' => 62,
+                'lat' => 55,
+            ),
+        );
+        */
+        return $data;
+    }
+
 }
