@@ -53,7 +53,7 @@ EOT
             }
         }
         $em->flush();
-//        $output->writeln(count($objects));
+        $output->writeln(sprintf('Created virtual tours: %s. Found virtual tours: %s',  $museumsCreatedCount, $museumsFoundCount));
     }
 
     protected function getMuseumByLink($url) {
@@ -73,11 +73,16 @@ EOT
     {
         $em = $this->getEntityManager('default');
 
+        $image = $object->getVirtualTourImage();
+
         $museum = new Museum();
-        $museum->setImage($object->getVirtualTourImage());
+        if($image) {
+            $image->setContext('museum');
+            $museum->setImage($image);
+        }
         $museum->setPublished(true);
         $museum->setUrl($object->getVirtualTour());
-        $museum->setTitle('Виртуальный тур: ' . $object->getTitle());
+        $museum->setTitle($object->getTitle());
         $em->persist($museum);
         $em->flush();
 
