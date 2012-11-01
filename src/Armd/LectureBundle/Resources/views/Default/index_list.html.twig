@@ -57,12 +57,12 @@
 <div class="center-column">
     <div class="title dark-blue-title">
         <h2>
-            {% if lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_LECTURE' %}
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
                 {{ 'Lectures'|trans }}
-            {% elseif lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+            {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
                 {{ 'Translations'|trans }}
-            {% elseif lectureSuperTypeCode == 'LECTURE_SUPER_TYPE_CINEMA' %}
-                    Кинозал                
+            {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                {{ 'Cinema Hall'|trans }}
             {% endif %}
         </h2>
     </div>
@@ -110,7 +110,7 @@
     </div>
 
     <div id="lecture-list-wrapper">
-        <div id="lecture-list-loading"></div>
+        <div id="lecture-list-loading" class="loading-block"></div>
         <div id="lecture-list-container">
             {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
         </div>
@@ -149,17 +149,16 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/libs/jquery-1.7.2.min.js') }}"></script>
+    {{ parent() }}
+
     <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/libs/jquery.ajaxmanager.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/function.js') }}"></script>
-    {#<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>#}
-    {#<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>#}
     <script type="text/javascript">
-        armdLecture.typeCategories = {{ typeCategories|json_encode|raw }};
-        armdLecture.lectureSuperTypeCode = '{{ lectureSuperTypeCode }}';
-        console.log(armdLecture.lectureSuperType);
+        $(function() {
+            armdLecture.init(
+                    {{ typeCategories|json_encode|raw }},
+                    '{{ lectureSuperType.code }}'
+            );
+        });
     </script>
 {% endblock %}
 

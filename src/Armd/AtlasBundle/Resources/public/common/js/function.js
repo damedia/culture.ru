@@ -283,15 +283,19 @@ $(document).ready(function(){
 		
 		
 		/*fancybox img video etc */
-		$("a.in-fancybox").fancybox({
-			 tpl: {
-			  next: '<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
-			  prev: '<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>'
-			 },
-			scrolling: 'no'
-		});
-		
-	$(".iframe").fancybox({
+        $("a.in-fancybox").fancybox({
+            tpl:{
+                next:'<a title="Предыдущее" class="fancybox-nav fancybox-next"><span></span></a>',
+                prev:'<a title="Следующее" class="fancybox-nav fancybox-prev"><span></span></a>'
+            },
+            scrolling:'no',
+            openEffect:'none',
+            closeEffect:'none',
+            nextEffect:'none',
+            prevEffect:'none'
+        });
+
+    $(".iframe").fancybox({
 		'width' : '100%',
 		'height' : '100%',
 		'autoScale' : true,

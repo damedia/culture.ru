@@ -27,24 +27,32 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script type="text/javascript">
+                var mkApp = {
+                    locale: '{{ app.request.locale }}'
+                };
+                console.log(mkApp.locale);
+            </script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/libs/jquery.ajaxmanager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
-{#
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
-#}            
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+            {% if app.request.locale == 'ru' %}
+                <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            {% endif %}
         {% endblock %}
     </head>
-    <body>
+    <body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
         <div id="armd_messages" style="display: none;"></div>
 {% set domain = 'http://roskult.ru' %}
-{% if app.environment == 'prod' %} 
+{% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
     <!-- Rating@Mail.ru counter -->
 <script type="text/javascript">//<![CDATA[
 var a='',js=10;try{a+=';r='+escape(document.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}
@@ -172,7 +180,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
                         <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>
-                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_museum_index') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
@@ -193,7 +201,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
                         <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                         {#<li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>#}
-                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_museum_index') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
@@ -269,47 +277,48 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 </div>
           
             </div>
-            
-                  <div class="footer-counters w">
-              
-      
-<!-- Rating@Mail.ru counter -->
-<a href="http://top.mail.ru/jump?from=2232750">
-<img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1" 
-style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
-<!-- //Rating@Mail.ru counter -->
 
-<!--LiveInternet logo--><a href="http://www.liveinternet.ru/click" 
-target="_blank"><img src="//counter.yadro.ru/logo?44.1" 
-title="LiveInternet" 
-alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
-              
-                             </div> <!-- /footer-counters-->
-			<!-- Yandex.Metrika counter -->
-            {#
-			<script type="text/javascript">
-			(function (d, w, c) {
-				(w[c] = w[c] || []).push(function() {
-					try {
-						w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
-					} catch(e) { }
-				});
+            <div class="footer-counters w">
 
-				var n = d.getElementsByTagName("script")[0],
-					s = d.createElement("script"),
-					f = function () { n.parentNode.insertBefore(s, n); };
-				s.type = "text/javascript";
-				s.async = true;
-				s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+                {% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
+                    <!-- Rating@Mail.ru counter -->
+                    <a href="http://top.mail.ru/jump?from=2232750">
+                    <img src="http://d1.c1.b2.a2.top.mail.ru/counter?id=2232750;t=55;l=1"
+                    style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" /></a>
+                    <!-- //Rating@Mail.ru counter -->
 
-				if (w.opera == "[object Opera]") {
-					d.addEventListener("DOMContentLoaded", f);
-				} else { f(); }
-			})(document, window, "yandex_metrika_callbacks");
-			</script>
-			<noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-            #}
-			<!-- /Yandex.Metrika counter -->
+                    <!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
+                    target="_blank"><img src="//counter.yadro.ru/logo?44.1"
+                    title="LiveInternet"
+                    alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
+
+                    <!-- Yandex.Metrika counter -->
+                    <script type="text/javascript">
+                    (function (d, w, c) {
+                        (w[c] = w[c] || []).push(function() {
+                            try {
+                                w.yaCounter17425498 = new Ya.Metrika({id:17425498, enableAll: true, webvisor:true});
+                            } catch(e) { }
+                        });
+
+                        var n = d.getElementsByTagName("script")[0],
+                            s = d.createElement("script"),
+                            f = function () { n.parentNode.insertBefore(s, n); };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                        if (w.opera == "[object Opera]") {
+                            d.addEventListener("DOMContentLoaded", f);
+                        } else { f(); }
+                    })(document, window, "yandex_metrika_callbacks");
+                    </script>
+                    <noscript><div><img src="//mc.yandex.ru/watch/17425498" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+                    <!-- /Yandex.Metrika counter -->
+                {% endif %}
+            </div>
+            <!-- /footer-counters-->
+
         </div>
     </body>
 </html>

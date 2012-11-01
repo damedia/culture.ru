@@ -438,6 +438,19 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	padding: 0;
 }
 
+.loading-block {
+    display: none;
+    opacity: 0.9;
+    background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+
 /*titles*/
 .title-block {
 	background: url("../img/title-block.png") 0 100% no-repeat;
@@ -474,8 +487,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .title-block.timeline-title {
-	background:url('../img/title-block-timeline.png') no-repeat 0 100%;
-	margin-bottom:0;
+	background-position: 0 100%;
+	padding-bottom:18px;
 }
 
 .title-block h1, .title-block h2, .title-block h3, .title-block h4 {
@@ -807,6 +820,9 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     overflow: hidden;
 	font-size: 13px;
 }
+    .locale_en #events {
+        width: 100%;
+    }
 
 #events-tabs {
     height: 24px;
@@ -1818,7 +1834,9 @@ white-space:nowrap;
 			.news-one-image {
 				float:right;
 				margin:0 0 10px 10px;
-				width:49%;
+				/*width:49%;*/
+                width:366px;
+                clear: both;
 			}
 				.news-one-image img{
 					min-width:270px;
@@ -2717,21 +2735,6 @@ white-space:nowrap;
 					margin:-1px 3px 2px 0px;
 				}
 
-#lecture-list-wrapper {
-    position: relative;
-    min-height: 300px;
-}
-#lecture-list-loading {
-    display: none;
-    opacity: 0.9;
-    background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-}
 
 .video-similar {
 	margin-top:50px;
@@ -3428,6 +3431,8 @@ white-space:nowrap;
 		top:2px;
 	}
 
+/*--- russia images and virtual museums ---*/
+
 .rusObr-block {
 	border:8px solid #e6e6e6;
 }
@@ -3496,8 +3501,6 @@ white-space:nowrap;
 				top:0;
 			}
 
-
-
 .virt-museums {
 	margin-top:-10px;
 }
@@ -3530,7 +3533,7 @@ white-space:nowrap;
 		}
 
 	.obrazy .rusObr-list li {
-		width:24%;
+		width:25%;
 		
 	}
 	
@@ -3627,17 +3630,199 @@ white-space:nowrap;
 #images-of-russia-wrapper {
     position: relative;
 }
-    #images-of-russia-loading {
-        display: none;
-        opacity: 0.9;
-        background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 100;
-    }
+
+
+/*--- /russia images and virtual museums---*/
+
+
+/*--- lectures tile ---*/
+
+.lecture-tile-block {
+	border:8px solid #e6e6e6;
+}
+	.lecture-tile-list {
+		font-size:0;
+	}
+
+	.lecture-tile-list.type-2 li { float:left; }
+
+		.lecture-tile-list li {
+            width:25%;
+			display:inline-block;
+			position:relative;
+			vertical-align:top;
+			font-size:12px;
+		}
+		.lt-ie8 .lecture-tile-list li  {
+			display:inline;
+			zoom:1;
+
+			width:33%;
+		}
+			.lecture-tile-list-one {
+				border:1px solid #d9d9d9;
+				border-width:0px 1px 1px 0;
+                padding:25px;
+				min-height:355px;
+			}
+				.lecture-tile-list-one img {
+					width:100%;
+				}
+
+			.lecture-tile-list-text {
+				height:120px;
+			}
+				.lecture-tile-list-header {
+					color:#000;
+					text-decoration:none;
+					font-size:20px;
+					display:block;
+					padding:9px 0 13px;
+					line-height:21px;
+				}
+
+
+			.lecture-tile-hovered {
+				position: absolute;
+				top: 0;
+				left: 0;
+				box-shadow:0 0 25px #000;
+				z-index:5;
+
+			}
+			.lt-ie8 .lecture-tile-hovered li  {
+				top:0;
+			}
+			.lecture-tile-list-image-container {
+				position:relative;
+			}
+				.lecture-tile-list-image-container  table{
+					position:absolute;
+					top:0;
+					left:0;
+					width:100%;
+					height:100%;
+					
+				}
+					.lecture-tile-list-image-container td {
+						vertical-align:middle;
+					}
+
+
+
+	.lecture-tile-hovered .lecture-tile-list-one {
+		width:192px;
+		height:266px;
+		padding:25px;
+		position:absolute;
+		top:0;
+		left:0;
+		border:0;
+		background:#ffaa00 url('../img/obraz_bg.jpg') no-repeat 0 0;
+
+	}
+		.lecture-tile-hovered .lecture-tile-list-one .lecture-tile-list-place a {
+			color:#000;
+		}
+
+
+	.lecture-tile-list-one-wrap {
+		box-shadow:none;
+	}
+	.lecture-tile-list-one-wrap.lecture-tile-hovered .lecture-tile-list-one {
+		box-shadow:0 0 50px -7px black;
+		z-index:5;
+	}
+
+
+.lecture-index-tile .title-block {
+    margin: 0;
+}
+
+.lecture-index-tile .horizontal-filter .simple-filter-header {
+    margin-top: 7px;
+
+}
+
+.lecture-index-tile .horizontal-filter .simple-filter-form {
+    margin-left: 0;
+}
+
+#lecture-list-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+/*#lecture-list-loading {*/
+    /*display: none;*/
+    /*opacity: 0.9;*/
+    /*background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*z-index: 1000;*/
+
+/*}*/
+/*--- /lectures tile ---*/
+
+/*--- museums ---*/
+#museums-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+
+
+.museum-block {
+	border:8px solid #e6e6e6;
+}
+	.museum-list {
+		font-size:0;
+	}
+
+		.museum-list li {
+            width:25%;
+			display:inline-block;
+			position:relative;
+			vertical-align:top;
+			font-size:12px;
+		}
+		.lt-ie8 .museum-list li  {
+			display:inline;
+			zoom:1;
+
+			width:33%;
+		}
+			.museum-list-one {
+				border:1px solid #d9d9d9;
+				border-width:0px 1px 1px 0;
+                padding:25px;
+			}
+				.museum-list-one img {
+					width:100%;
+				}
+
+			.museum-list-text {
+				height:120px;
+			}
+				.museum-list-header {
+					color:#000;
+					text-decoration:none;
+					font-size:20px;
+					display:block;
+					padding:9px 0 13px;
+					line-height:21px;
+				}
+
+
+
+	.museum-list-one-wrap {
+		box-shadow:none;
+	}
+
+
+/*--- /museums ---*/
+
 
 
 .scroll-pane { overflow: auto; width: 100%; float:left; }
@@ -4966,14 +5151,17 @@ white-space:nowrap;
 			font-size:18px;
 			border:0;
 		}
-
+		.years-tab{
+			overflow: hidden;
+		}
 		
 		.archive-list {
 			
 		}
 			.archive-list li {
 				width:49%;
-				display:inline-block;
+				display:block;
+				float: left;
 				margin:0 0 25px;
 				vertical-align:top;
 				*display:inline;

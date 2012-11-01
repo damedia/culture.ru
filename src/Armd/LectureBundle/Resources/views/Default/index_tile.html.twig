@@ -1,0 +1,97 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="blocksection index-blocksection w clearfix lecture-index-tile" id="f-section">
+    <div class="title-block">
+        {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+            {{ 'Lectures'|trans }}
+        {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+            {{ 'Translations'|trans }}
+        {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+            {{ 'Cinema Hall'|trans }}
+        {% endif %}
+    </div>
+
+    {# filter #}
+    <div class="horizontal-filter">
+        <form action="" class="simple-filter-form video-filter">
+             {# this block is hidden because problems with ajax and nginx  #}
+            <div class="simple-search" style="display:none">
+                <label for="ss_input">{{ 'Find'|trans }}</label>
+                <input type="text" class="ss-input" id="ss_input"/>
+            </div>
+
+            {# this block is hidden because there are only video lectures #}
+            <div class="simple-filter-block lecture-type" style="display: none">
+                <div class="simple-filter-header clearfix">
+                    <span>{{ 'Lecture types'|trans }}</span>
+                    <p class="check_all checked" ><span>{{ 'All'|trans }}</span></p>
+                </div>
+                <div class="simple-filter-options">
+                    {% for lectureType in lectureTypes %}
+                        <label class="checked">
+                            <input type="checkbox" checked="checked" data-lecture-type-id="{{ lectureType.id }}" />
+                            <span>{{ lectureType.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="simple-filter-block video-theme">
+                {% for lectureCategory in lectureCategories %}
+                    <div class="simple-filter-header clearfix">
+                        <span>{{ lectureCategory.title }}</span>
+                        {% if loop.first %}
+                            <p class="check_all checked"><span>{{ 'All'|trans }}</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="simple-filter-options">
+                    {% for lectureTag in lectureCategory.__children %}
+
+                            <label class="checked">
+                                <input type="checkbox" data-lecture-category-id="{{ lectureTag.id }}" checked="checked" />
+                                <span>{{ lectureTag.title }}</span>
+                            </label>
+
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+    {# /filter #}
+
+
+
+    {#<form action="" class="obr-form">#}
+        {#<div class="obr-text-input">#}
+            {#<input type="text" name="search" id="search_text" value="{{ 'Navigation.Images of Russia.Title'|trans }}"/>#}
+        {#</div>#}
+        {#<input type="button" class="obr-submit-input" value=""/>#}
+    {#</form>#}
+    <div id="lecture-list-wrapper">
+        <div id="lecture-list-loading" class="loading-block"></div>
+        <div id="lecture-list-container">
+            {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            armdLecture.init(
+                    {{ typeCategories|json_encode|raw }},
+                    '{{ lectureSuperType.code }}'
+            );
+            armdLecture.initTileUi();
+        });
+    </script>
+{% endblock %}

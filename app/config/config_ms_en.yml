@@ -2,10 +2,9 @@
 imports:
     - { resource: config_ms.yml }
 
-doctrine:
-    dbal:
-        dbname:   %database_name_en%
-
+#doctrine:
+#    dbal:
+#        dbname:   %database_name_en%
 #        slaves:
 #            slave1:
 #                dbname:   %slave_database_name_en%

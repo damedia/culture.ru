@@ -2,8 +2,8 @@ parameters:
     database_driver:   pdo_pgsql
     database_host:     localhost
     database_port:     ~
-    database_name:     mk_en
-    database_name_en:  mk_en
+    database_name:     mk
+    database_name_en:  mk
     database_user:     mk
     database_password: Fa3Sheer
 
@@ -13,7 +13,7 @@ parameters:
     mailer_password:   ~
 
     locale:            ru
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            ThisTokenIsNotSoSecretC
 
     progorod_api_key:  e316fab34585f12b5506493c1c17d41c
 
@@ -23,10 +23,12 @@ parameters:
     sphinxsearch_index_all: mk_all
     sphinxsearch_index_lectures: mk_lectures
     sphinxsearch_index_atlas: mk_atlas
+    sphinxsearch_index_museums: mk_virtual_museums
+
     domain:
 
-    sonata_media_cdn: /uploads/media
-    sonata_media_cdn_en: /en/uploads/media
+    sonata_media_cdn: http://roskult.ru/ru/uploads/media
+    sonata_media_cdn_en: http://roskult.ru/en/uploads/media
 
     ######################################################################
     ## multi-server config (used only in app_ms.php frontend controller)

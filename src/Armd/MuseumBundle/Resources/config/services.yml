@@ -1,17 +1,10 @@
-parameters:
-    armd_museum.manager.museum.entity:    Armd\MuseumBundle\Entity\Museum
-    armd_museum.manager.museum.class:     Armd\MuseumBundle\Entity\MuseumManager
-
 services:
-    armd_museum.entity_manager:
-        alias: doctrine.orm.default_entity_manager
-
     armd_museum.admin.museum:
         class: Armd\MuseumBundle\Admin\Museum
         tags:
             - { name: sonata.admin, manager_type: orm, group: Museums, label: Museums }
-        arguments: [null, %armd_museum.manager.museum.entity%, SonataAdminBundle:CRUD, @service_container]
+        arguments: [null, Armd\MuseumBundle\Entity\Museum, SonataAdminBundle:CRUD, @service_container]
 
     armd_museum.manager.museum:
-        class: %armd_museum.manager.museum.class%
-        arguments: [@armd_museum.entity_manager, %armd_museum.manager.museum.entity%]
+        class: Armd\MuseumBundle\Entity\MuseumManager
+        arguments: [@doctrine.orm.default_entity_manager, @knp_paginator, @search.sphinxsearch.search]
