@@ -636,6 +636,13 @@ class Object
         $this->virtualTours = $virtualTours;
     }
 
+    public function addVirtualTour(\Armd\MuseumBundle\Entity\Museum $museum)
+    {
+        $this->virtualTours[] = $museum;
+
+        return $this;
+    }
+
     public function getVirtualTours()
     {
         return $this->virtualTours;
