@@ -19,8 +19,12 @@ class NewsController extends ListController
      */        
     function rssAction()
     {
+        $criteria = array(
+            
+        );
+
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
-            'news' => $this->getLatestNewsList(),
+            'news' => $this->getPaginator($criteria, 1, 20),
         ));
     }        
     
