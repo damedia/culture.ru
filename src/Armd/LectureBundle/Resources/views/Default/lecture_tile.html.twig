@@ -2,7 +2,11 @@
     {% if pagination|length > 0 %}
         <ul class="lecture-tile-list clearfix">
             {#--- mosfilm ---#}
-            {% if pagination[0].lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+            {% if pagination[0].lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA'
+                and (categories == 'all' or 36 in categories)
+
+            %}
+                {# категоория 36 - Кинофильмы, показываем мосфильм только там #}
                 <li>
                     <div class="lecture-tile-list-one-wrap" style="">
                         <div class="lecture-tile-list-one">
