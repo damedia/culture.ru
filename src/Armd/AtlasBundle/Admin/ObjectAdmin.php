@@ -100,6 +100,13 @@ class ObjectAdmin extends Admin
                     'media_provider' => 'sonata.media.provider.image',
                     'media_format' => 'thumbnail'
                 ))
+                ->add(
+                    'virtualTours',
+                    null,
+                    array(
+                        'attr' => array('class' => 'chzn-select atlas-object-virtual-tours-select')
+                    )
+                )
             ->end()
             ->with('Contacts')
                 ->add('siteUrl')

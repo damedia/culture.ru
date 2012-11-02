@@ -55,12 +55,6 @@
 }
 
 
-.sonata-bc .form-horizontal .atlas-object-categories-select,
-.sonata-bc .form-horizontal .atlas-object-region-select {
-    width: 470px;
-}
-
-
 /*--- user list ---*/
 
 
@@ -91,3 +85,17 @@
 }
 
 /*--- /user list ---*/
+
+/*--- atlas object ---*/
+.atlas-object-virtual-tours-select {
+    width: 470px;
+}
+
+.sonata-bc .form-horizontal .atlas-object-categories-select,
+.sonata-bc .form-horizontal .atlas-object-region-select,
+.sonata-bc .form-horizontal .atlas-object-virtual-tours-select {
+    width: 470px;
+}
+
+
+/*--- /atlas object ---*/

@@ -187,6 +187,23 @@
 
 
         <div class="object-one-col3">
+        {% if entity.virtualTours|length > 0 %}
+            {% for virtualTour in entity.virtualTours %}
+                <div class="block virtual-anons-block virtual-anons">
+                    <span class="virtual-anons-header">{{ "virtual_tour"|trans }}</span>
+                    {# <h1>{{ entity.title }}</h1>
+                     <p>
+                         {{ entity.content|raw }}
+                     </p> #}
+
+                    <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="vob iframe">
+                        <img alt="" src="{% path virtualTour.image, 'reference' %}">
+                    </a>
+
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% if entity.virtualTour is not empty %}
             <div class="block virtual-anons-block virtual-anons">
                 <span class="virtual-anons-header">{{ "virtual_tour"|trans }}</span>
