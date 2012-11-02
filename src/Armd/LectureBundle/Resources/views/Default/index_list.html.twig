@@ -76,6 +76,13 @@
 					{% if not loop.last %},{% endif %}
 				{% endfor %}
 			</p>
+            {% if lastLectures[0].lecturer is not empty %}
+                <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lastLectures[0].lecturer }}</span></p>
+            {% endif %}
+            <p>
+                {{ lastLectures[0].description }}
+            </p>
+
 			
 		</div> 
 		<div class="van-image">
@@ -95,36 +102,36 @@
             {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
         </div>
     </div>
-<!--
-<div class="right-column">
-    {% render 'ArmdLectureBundle:Default:rightColumn' %}
-    {#&#123;&#35;</ul>&#35;&#125;    #}
 
-    {#<ul class="right-list">#}
-        {#{% for lecture in recommendedLectures %}#}
-            {#<li>#}
-                {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">#}
-                    {#{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}#}
-                        {#<img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>#}
-                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}#}
-                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />#}
-                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}#}
-                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />#}
-                    {#{% endif %}#}
-                {#</a>#}
+{#<div class="right-column">#}
+    {#{% render 'ArmdLectureBundle:Default:rightColumn' %}#}
+    {#&#123;&#35;&#123;&#35;</ul>&#35;&#125;    &#35;&#125;#}
 
-                {#<div class="text-overflow">#}
-                    {#<span class="rl-type">{{ lecture.lectureType.name }}</span>#}
-                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">#}
-                        {#{{ lecture.title }}#}
-                    {#</a>#}
-                {#</div>#}
-            {#</li>#}
-        {#{% endfor %}#}
-    {#</ul>#}
+    {#&#123;&#35;<ul class="right-list">&#35;&#125;#}
+        {#&#123;&#35;{% for lecture in recommendedLectures %}&#35;&#125;#}
+            {#&#123;&#35;<li>&#35;&#125;#}
+                {#&#123;&#35;<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">&#35;&#125;#}
+                    {#&#123;&#35;{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}&#35;&#125;#}
+                        {#&#123;&#35;<img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>&#35;&#125;#}
+                    {#&#123;&#35;{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}&#35;&#125;#}
+                        {#&#123;&#35;<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />&#35;&#125;#}
+                    {#&#123;&#35;{% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}&#35;&#125;#}
+                        {#&#123;&#35;<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />&#35;&#125;#}
+                    {#&#123;&#35;{% endif %}&#35;&#125;#}
+                {#&#123;&#35;</a>&#35;&#125;#}
 
-</div>
--->
+                {#&#123;&#35;<div class="text-overflow">&#35;&#125;#}
+                    {#&#123;&#35;<span class="rl-type">{{ lecture.lectureType.name }}</span>&#35;&#125;#}
+                    {#&#123;&#35;<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">&#35;&#125;#}
+                        {#&#123;&#35;{{ lecture.title }}&#35;&#125;#}
+                    {#&#123;&#35;</a>&#35;&#125;#}
+                {#&#123;&#35;</div>&#35;&#125;#}
+            {#&#123;&#35;</li>&#35;&#125;#}
+        {#&#123;&#35;{% endfor %}&#35;&#125;#}
+    {#&#123;&#35;</ul>&#35;&#125;#}
+
+{#</div>#}
+
 {% endblock %}
 
 {% block javascripts %}
