@@ -7,3 +7,15 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: PaperArchive, label: PaperArchive }
         arguments: [null, Armd\PaperArchiveBundle\Entity\PaperArchive, SonataAdminBundle:CRUD, @service_container]
+
+    armd_paper_archive.listener.paper_archive:
+        class: Armd\PaperArchiveBundle\EventListener\PaperArchiveListener
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@service_container]
+
+    armd_paper_archive.manager.paper_archive:
+        class: Armd\PaperArchiveBundle\Manager\PaperArchiveManager
+        arguments:  [@doctrine.orm.entity_manager, @service_container]

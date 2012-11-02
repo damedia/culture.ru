@@ -45,14 +45,15 @@ class PaperArchive extends Admin
         $formMapper
             ->with('General')
                 ->add('title')
-                ->add('date', null, array('date_widget' => 'single_text', 'time_widget' => 'single_text'))
+                ->add('date')
             ->end()
             ->with('Media')
-                ->add('image', 'sonata_type_model_list', array('required' => true), array('link_parameters'=>array('context'=>'paper_archive')))
                 ->add('file', 'sonata_type_model_list', array('required' => true), array('link_parameters'=>array('context'=>'paper_archive', 'provider' => 'sonata.media.provider.file')))
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'paper_archive')))
             ->end();
 
         parent::configureFormFields($formMapper);
+
     }
 
     /**
@@ -79,4 +80,5 @@ class PaperArchive extends Admin
             ->add('date')
         ;
     }
+
 }

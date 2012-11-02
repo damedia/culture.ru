@@ -208,8 +208,8 @@ sonata_media:
                 - sonata.media.provider.image
                 - sonata.media.provider.file
             formats:
-                big: { width: 200, quality: 90 }
-                small: { width: 98, quality: 90 }
+                big: { width: 200 }
+                small: { width: 97 }
 
     cdn:
         server:
