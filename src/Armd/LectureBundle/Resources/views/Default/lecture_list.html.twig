@@ -25,9 +25,10 @@
                                 <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="lecture-tile-list-header">
                                     {{ lecture.title }}
                                 </a>
-                                <p>{% for category in lecture.categories %}
+                                <p class="va-theme">{% for category in lecture.categories %}
                                     {{ category.title }}{% if not loop.last %},{% endif %}
                                 {% endfor %}</p>
+                                <p>{{ lecture.description|truncate(200) }}</p>
                             </div>
                         </div>
 

@@ -79,8 +79,8 @@
             {% if lastLectures[0].lecturer is not empty %}
                 <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lastLectures[0].lecturer }}</span></p>
             {% endif %}
-            <p>
-                {{ lastLectures[0].description }}
+            <p class="van-description">
+                {{ lastLectures[0].description|truncate(250) }}
             </p>
 
 			

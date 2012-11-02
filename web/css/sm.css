@@ -3669,6 +3669,11 @@ white-space:nowrap;
 					width:100%;
 				}
 
+                .lecture-tile-list-one .va-theme {
+                    margin-top: -7px;
+                    margin-bottom: 15px;
+                }
+
 			.lecture-tile-list-text {
 				height:120px;
 			}
@@ -3770,10 +3775,6 @@ white-space:nowrap;
 	margin:31px 0 0 0;
 	padding:13px;
 }
-    .video-anons-new .va-theme {
-        margin-bottom: 15px;
-    }
-
 .van-text {
 	float:left;
 	width:250px;
@@ -3782,6 +3783,15 @@ white-space:nowrap;
 		font-size:18px;
 		margin:0 0 7px;
 	}
+
+    .van-text .va-theme {
+        margin-bottom: 15px;
+    }
+
+    .van-text .vs-lector {
+        margin-bottom: 15px;
+    }
+
 .van-image {
 	padding-left:300px;
 }
