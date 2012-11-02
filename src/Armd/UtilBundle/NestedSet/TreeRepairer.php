@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\AtlasBundle\Util;
+namespace Armd\UtilBundle\NestedSet;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;

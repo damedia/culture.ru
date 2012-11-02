@@ -40,6 +40,7 @@ class LectureTranslationAdmin extends Admin
         $showMapper
             ->add('published')
             ->add('title')
+            ->add('description')
             ->add('categories')
             ->add('createdAt')
             ->add('lecturer')

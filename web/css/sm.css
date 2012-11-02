@@ -3669,6 +3669,11 @@ white-space:nowrap;
 					width:100%;
 				}
 
+                .lecture-tile-list-one .va-theme {
+                    margin-top: -7px;
+                    margin-bottom: 15px;
+                }
+
 			.lecture-tile-list-text {
 				height:120px;
 			}
@@ -3764,6 +3769,38 @@ white-space:nowrap;
     /*z-index: 1000;*/
 
 /*}*/
+
+.video-anons-new {
+	border:1px solid #e3e3e3;
+	margin:31px 0 0 0;
+	padding:13px;
+}
+.van-text {
+	float:left;
+	width:250px;
+}
+	.van-text .va-name {
+		font-size:18px;
+		margin:0 0 7px;
+	}
+
+    .van-text .va-theme {
+        margin-bottom: 15px;
+    }
+
+    .van-text .vs-lector {
+        margin-bottom: 15px;
+    }
+
+.van-image {
+	padding-left:300px;
+}
+	.van-image img {
+		width:100%;
+		height:auto;
+	}
+
+
 /*--- /lectures tile ---*/
 
 /*--- museums ---*/
@@ -5227,4 +5264,4 @@ white-space:nowrap;
 		color:#de600c;
 		font-weight:bold;
 	}
-			
+	

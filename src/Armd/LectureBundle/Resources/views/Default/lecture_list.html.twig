@@ -1,56 +1,43 @@
-<div class="video-list-block">
-    {% if pagination|length %}
+<div class="lecture-tile-block">
+    {% if pagination|length > 0 %}
+        <ul class="lecture-tile-list clearfix">
 
-        {#<div class="video-list-sort">#}
-            {#<p class="video-sort-header">Сортировать:</p>#}
-            {#<ul id="video_sort">#}
-                {#<li {% if sortBy == 'date' %} class="active" {% endif %}><span class="video-list-sort-by" data-sort-by="date">по дате добавления</span></li>#}
-                {#<li {% if sortBy == 'comment' %} class="active" {% endif %}><span class="video-list-sort-by" data-sort-by="comment">самые обсуждаемые</span></li>#}
-            {#</ul>#}
-        {#</div>#}
-
-        <ul class="video-list">
             {% for lecture in pagination %}
                 <li>
+                    <div class="lecture-tile-list-one-wrap" style="">
+                        <div class="lecture-tile-list-one">
+                            <div  class="lecture-tile-list-image-container">
+								<img src="/img/black-image.png" alt="" class="lecture-tile-list-image-frame" />
+								<table>
+									<tr>
+										<td>
+											<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="">
+												{% if lecture.lectureVideo.imageMedia is defined %}
+													<img src="{% path lecture.lectureVideo.imageMedia, 'tile' %}" alt="{{ lecture.title }}" class="lecture-tile-list-image" />
+												{% endif %}
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
 
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                        {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                            {% if lecture.lectureVideo.imageMedia is defined %}
-                                <img src="{% path lecture.lectureVideo.imageMedia, 'medium' %}" alt="{{ lecture.title }}" width="111"/>
-                            {% endif %}
-                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
-                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" width="111" />
-                        {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
-                            <img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" width="111" />
-                        {% endif %}
-                    </a>
-
-                    <div class="text-overflow">
-                        <div class="video-list-header">
-                            {#<span class="vl-type">{{ lecture.lectureType.name }}</span>#}
-                            <span class="vl-theme">
-                                {% for category in lecture.categories %}
+                            <div class="lecture-tile-list-text">
+                                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="lecture-tile-list-header">
+                                    {{ lecture.title }}
+                                </a>
+                                <p class="va-theme">{% for category in lecture.categories %}
                                     {{ category.title }}{% if not loop.last %},{% endif %}
-                                {% endfor %}
-                            </span>
+                                {% endfor %}</p>
+                                <p>{{ lecture.description|truncate(200) }}</p>
+                            </div>
                         </div>
 
-                        <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">
-                            {{ lecture.title }}
-                        </a>
-
-                        {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                            <p class="va-author"><span>{{ 'Lecturer'|trans }}:</span>{{ lecture.lecturer }}</p>
-                        {% endif %}
                     </div>
                 </li>
             {% endfor %}
 
         </ul>
     {% else %}
-        <strong>{{ 'No objects'|trans }}</strong>
+        <strong>По Вашему запросу объектов не найдено</strong>
     {% endif %}
-
 </div>
-
-{{ pagination.render()|raw }}

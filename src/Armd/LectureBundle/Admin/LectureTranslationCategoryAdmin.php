@@ -105,6 +105,11 @@ class LectureTranslationCategoryAdmin extends Admin
             ));
     }
 
+    public function getBatchActions()
+    {
+        return array();
+    }
+
 //    public function postPersist($object)
 //    {
 //        $this->checkAndRepairTree();
