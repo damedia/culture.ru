@@ -173,7 +173,7 @@
                     {% if not is_granted('ROLE_USER') %}
                         <div class="comments-auth-block">
                             <p>
-                                {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }) }}
+                                {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
                                 {# Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }}">авторизоваться</a> на сайте.</p> #}
                             </p>
                             {% render 'ArmdSocialAuthBundle:Default:authLinks' with { 'redirectUrl': app.request.uri } %}
