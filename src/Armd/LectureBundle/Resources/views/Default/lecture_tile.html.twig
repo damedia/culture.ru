@@ -1,6 +1,38 @@
 <div class="lecture-tile-block">
     {% if pagination|length > 0 %}
         <ul class="lecture-tile-list clearfix">
+            {#--- mosfilm ---#}
+            {% if pagination[0].lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                <li>
+                    <div class="lecture-tile-list-one-wrap" style="">
+                        <div class="lecture-tile-list-one">
+                            <div  class="lecture-tile-list-image-container">
+								<img src="/img/black-image.png" alt="" class="lecture-tile-list-image-frame" />
+								<table>
+									<tr>
+										<td>
+											<a href="http://cinema.mosfilm.ru/" target="_blank" class="">
+                                                <img src="{{ asset('img/mosfilm.png') }}" alt="Мосфильм" class="lecture-tile-list-image" />
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+
+                            <div class="lecture-tile-list-text">
+                                <a href="http://cinema.mosfilm.ru/" target="_blank" class="lecture-tile-list-header">
+                                    Мосфильм
+                                </a>
+                                <p>
+                                    Более 500 кинокартин доступны для свободного он-лайн просмотра в Кинотеатре Мосфильм
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+            {% endif %}
+            {#--- /mosfilm ---#}
 
             {% for lecture in pagination %}
                 <li>

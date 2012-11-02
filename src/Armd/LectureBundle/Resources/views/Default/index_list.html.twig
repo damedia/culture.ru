@@ -54,7 +54,7 @@
 
 </div>
 
-<div class="center-column">
+<div class="center-column" style="float:right; width:75%;">
     <div class="title dark-blue-title">
         <h2>
             {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
@@ -67,84 +67,70 @@
         </h2>
     </div>
 
-    <div class="video-anons">
+    <div class="video-anons-new">
+		<div class="van-text">
+			<a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}" class="va-name">{{ lastLectures[0].title }}</a>
+			<p class="va-theme">
+				{% for category in lastLectures[0].categories %}
+					{{ category.title }}
+					{% if not loop.last %},{% endif %}
+				{% endfor %}
+			</p>
+            {% if lastLectures[0].lecturer is not empty %}
+                <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lastLectures[0].lecturer }}</span></p>
+            {% endif %}
+            <p class="van-description">
+                {{ lastLectures[0].description|truncate(250) }}
+            </p>
 
-        <ul>
-            {% for lecture in lastLectures %}
-                {% if lastLectures|length == 1 %}
-                    {% set lecture_announce_format = 'xbig' %}
-                    {% set lecture_li_class = 'single' %}
-                {% else %}
-                    {% set lecture_announce_format = 'big' %}
-                    {% set lecture_li_class = '' %}
-                {% endif %}
-                <li class="{{ lecture_li_class }}">
-                    {{ self.lecture_announce(lecture, lecture_announce_format) }}
-
-                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">#}
-                        {#{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}#}
-                            {#<img src="{% path lecture.lectureVideo.imageMedia, 'big' %}" alt="{{ lecture.title }}"/>#}
-                        {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}#}
-                            {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_big.jpg') }}" alt="{{ lecture.title }}" />#}
-                        {#{% elseif lecture.le
-                        ctureType.code == 'LECTURE_TYPE_TEXT' %}#}
-                            {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_big.jpg') }}" alt="{{ lecture.title }}" />#}
-                        {#{% endif %}#}
-                    {#</a>#}
-
-                    {#&#123;&#35;<p class="va-type">{{ lecture.lectureType.name }}</p>&#35;&#125;#}
-
-                    {#<p class="va-theme">#}
-                        {#{% for category in lecture.categories %}#}
-                            {#{{ category.title }}#}
-                            {#{% if not loop.last %},{% endif %}#}
-                        {#{% endfor %}#}
-                    {#</p>#}
-                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>#}
-
-                    {#&#123;&#35;<p class="va-author"><span>Лектор:</span>{{ lecture.lecturer }}</p>&#35;&#125;#}
-                </li>
-            {% endfor %}
-
-        </ul>
+			
+		</div> 
+		<div class="van-image">
+		<a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}">
+			<img src="{% path lastLectures[0].lectureVideo.imageMedia, 'reference' %}" alt="{{ lastLectures[0].title }}"/>
+		</a>
+		</div>
     </div>
 
-    <div id="lecture-list-wrapper">
+    
+
+</div>
+<div class="clear"></div>
+<div id="lecture-list-wrapper">
         <div id="lecture-list-loading" class="loading-block"></div>
         <div id="lecture-list-container">
             {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
         </div>
     </div>
 
-</div>
-<div class="right-column">
-    {% render 'ArmdLectureBundle:Default:rightColumn' %}
-    {#&#123;&#35;</ul>&#35;&#125;    #}
+{#<div class="right-column">#}
+    {#{% render 'ArmdLectureBundle:Default:rightColumn' %}#}
+    {#&#123;&#35;&#123;&#35;</ul>&#35;&#125;    &#35;&#125;#}
 
-    {#<ul class="right-list">#}
-        {#{% for lecture in recommendedLectures %}#}
-            {#<li>#}
-                {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">#}
-                    {#{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}#}
-                        {#<img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>#}
-                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}#}
-                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />#}
-                    {#{% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}#}
-                        {#<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />#}
-                    {#{% endif %}#}
-                {#</a>#}
+    {#&#123;&#35;<ul class="right-list">&#35;&#125;#}
+        {#&#123;&#35;{% for lecture in recommendedLectures %}&#35;&#125;#}
+            {#&#123;&#35;<li>&#35;&#125;#}
+                {#&#123;&#35;<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">&#35;&#125;#}
+                    {#&#123;&#35;{% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}&#35;&#125;#}
+                        {#&#123;&#35;<img src="{% path lecture.lectureVideo.imageMedia, 'small' %}" alt="{{ lecture.title }}"/>&#35;&#125;#}
+                    {#&#123;&#35;{% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}&#35;&#125;#}
+                        {#&#123;&#35;<img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_small.jpg') }}" alt="{{ lecture.title }}" />&#35;&#125;#}
+                    {#&#123;&#35;{% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}&#35;&#125;#}
+                        {#&#123;&#35;<img src="{{ asset('bundles/armdlecture/images/lecture_type_text_small.jpg') }}" alt="{{ lecture.title }}" />&#35;&#125;#}
+                    {#&#123;&#35;{% endif %}&#35;&#125;#}
+                {#&#123;&#35;</a>&#35;&#125;#}
 
-                {#<div class="text-overflow">#}
-                    {#<span class="rl-type">{{ lecture.lectureType.name }}</span>#}
-                    {#<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">#}
-                        {#{{ lecture.title }}#}
-                    {#</a>#}
-                {#</div>#}
-            {#</li>#}
-        {#{% endfor %}#}
-    {#</ul>#}
+                {#&#123;&#35;<div class="text-overflow">&#35;&#125;#}
+                    {#&#123;&#35;<span class="rl-type">{{ lecture.lectureType.name }}</span>&#35;&#125;#}
+                    {#&#123;&#35;<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="rl-name">&#35;&#125;#}
+                        {#&#123;&#35;{{ lecture.title }}&#35;&#125;#}
+                    {#&#123;&#35;</a>&#35;&#125;#}
+                {#&#123;&#35;</div>&#35;&#125;#}
+            {#&#123;&#35;</li>&#35;&#125;#}
+        {#&#123;&#35;{% endfor %}&#35;&#125;#}
+    {#&#123;&#35;</ul>&#35;&#125;#}
 
-</div>
+{#</div>#}
 
 {% endblock %}
 
@@ -158,6 +144,8 @@
                     {{ typeCategories|json_encode|raw }},
                     '{{ lectureSuperType.code }}'
             );
+			
+            armdLecture.initTileUi();
         });
     </script>
 {% endblock %}
@@ -165,8 +153,9 @@
 
 {% macro lecture_announce(lecture, format) %}
     <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+		
         {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-            <img src="{% path lecture.lectureVideo.imageMedia, format %}" alt="{{ lecture.title }}"/>
+            <img src="{% path lecture.lectureVideo.imageMedia, 'reference' %}" alt="{{ lecture.title }}"/>
         {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' %}
             <img src="{{ asset('bundles/armdlecture/images/lecture_type_audio_' ~ format ~ '.jpg') }}" alt="{{ lecture.title }}" />
         {% elseif lecture.lectureType.code == 'LECTURE_TYPE_TEXT' %}
@@ -185,3 +174,4 @@
     <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
 
 {% endmacro %}
+
