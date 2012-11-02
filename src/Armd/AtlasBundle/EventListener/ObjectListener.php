@@ -48,12 +48,18 @@ class ObjectListener
     {
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
-        $uow = $em->getUnitOfWork();
+//        $uow = $em->getUnitOfWork();
 
         if ($entity instanceof Object) {
             // updated by user
-            $currentUser = $this->container->get('security.context')->getToken()->getUser();
-            $entity->setUpdatedBy($currentUser);
+            $securityContext = $this->container->get('security.context');
+            $securityToken = $securityContext->getToken();
+            if($securityToken) {
+                $currentUser = $securityToken->getUser();
+                if($currentUser) {
+                    $entity->setUpdatedBy($currentUser);
+                }
+            }
 
             // updated at
             $entity->setUpdatedAt(new \DateTime("now"));

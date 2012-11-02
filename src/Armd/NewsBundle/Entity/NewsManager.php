@@ -37,12 +37,21 @@ class NewsManager
         
     public function getQueryBuilder(array $criteria)
     {
-        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n')
-            ->select('n, c, i')
+        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
+        $qb->select('n, c, i')
             ->innerJoin('n.category', 'c')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->isNull('n.date'),
+                $qb->expr()->lte('n.date', ':now')
+            ))
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->isNull('n.endDate'),
+                $qb->expr()->gt('n.endDate', ':now')
+            ))
             ->orderBy('n.date', 'DESC')
+            ->setParameter('now', new \DateTime())
         ;
         
         $this->setCriteria($qb, $criteria);

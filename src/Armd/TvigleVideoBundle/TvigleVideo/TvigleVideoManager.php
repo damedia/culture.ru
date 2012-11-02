@@ -64,6 +64,7 @@ class TvigleVideoManager
         $originalName = $fileParts['basename'];
 
         $tempFile = tempnam(sys_get_temp_dir(), 'ArmdTvigleVideoImage');
+        // MYTODO: unlnik this file?
         file_put_contents($tempFile, file_get_contents($imageUrl));
         $file = new UploadedFile($tempFile, $originalName);
 

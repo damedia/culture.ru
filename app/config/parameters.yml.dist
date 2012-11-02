@@ -2,8 +2,8 @@ parameters:
     database_driver:   pdo_pgsql
     database_host:     localhost
     database_port:     ~
-    database_name:     mk_en
-    database_name_en:  mk_en
+    database_name:     mk
+    database_name_en:  mk
     database_user:     mk
     database_password: Fa3Sheer
 
@@ -21,11 +21,10 @@ parameters:
     sphinxsearch_host: localhost
     sphinxsearch_port: 9312
     sphinxsearch_index_all: mk_all
-    sphinxsearch_index_all_en: mk_all_en
     sphinxsearch_index_lectures: mk_lectures
-    sphinxsearch_index_lectures_en: mk_lectures_en
     sphinxsearch_index_atlas: mk_atlas
-    sphinxsearch_index_atlas_en: mk_atlas_en
+    sphinxsearch_index_museums: mk_virtual_museums
+
     domain:
 
     sonata_media_cdn: http://roskult.ru/ru/uploads/media

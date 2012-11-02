@@ -27,9 +27,14 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script type="text/javascript">
+                var mkApp = {
+                    locale: '{{ app.request.locale }}'
+                };
+                console.log(mkApp.locale);
+            </script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
@@ -37,11 +42,14 @@
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>        
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
+            {% if app.request.locale == 'ru' %}
+                <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            {% endif %}
         {% endblock %}
     </head>
-    <body>
+    <body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
         <div id="armd_messages" style="display: none;"></div>
 {% set domain = 'http://roskult.ru' %}
 {% if app.environment == 'prod' or app.environment == 'ms' or app.environment == 'ms_en' %}
@@ -172,7 +180,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
                         <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>
-                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_museum_index') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
@@ -193,7 +201,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li class="first"><a href="{{ path('armd_atlas_default_index') }}">{{ 'Navigation.Atlas'|trans }}</a></li>
                         <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                         {#<li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>#}
-                        <li><a href="{{ path('armd_main_museums') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
+                        <li><a href="{{ path('armd_museum_index') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>

@@ -25,6 +25,8 @@ class Museum extends Admin
         '_sort_order'   => 'ASC',
     );
 
+    protected $translationDomain = 'ArmdMuseumBundle';
+
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *

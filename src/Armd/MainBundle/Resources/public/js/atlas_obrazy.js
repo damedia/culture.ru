@@ -90,7 +90,8 @@ AT.placePoint = function(object) {
         AT.map.geometry.add(point);
 
         // клик по точке
-        PGmap.Events.addHandler(point.container, 'click', function(e) {
+        var eventT = PGmap.EventFactory.eventsType;
+        PGmap.Events.addHandler(point.container, eventT.click, function(e) {
             var uid = $(point.container).data('uid');
             $.ajax({
                 url: fetchMarkerDetailUri,

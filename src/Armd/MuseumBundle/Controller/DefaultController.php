@@ -9,11 +9,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/", name="armd_museum_index")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array(
+        );
+    }
+
+    /**
+     * @Route("/museums-list", name="armd_museum_list", options={"expose"=true})
+     * @Template()
+     */
+    public function listAction($page = 1, $perPage = 1000)
+    {
+        $criteria = array(
+            'search_string' => $this->getRequest()->get('searchString')
+        );
+        return array(
+            'museums' => $this->get('armd_museum.manager.museum')->getPager($criteria, $page, $perPage),
+        );
     }
 }
