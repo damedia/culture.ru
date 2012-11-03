@@ -20,7 +20,7 @@ class NewsController extends ListController
     function rssAction()
     {
         $criteria = array(
-            
+
         );
 
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
