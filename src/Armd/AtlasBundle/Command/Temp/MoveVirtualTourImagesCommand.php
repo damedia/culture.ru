@@ -40,9 +40,11 @@ EOT
                 $provider = $mediaPool->getProvider($image->getProviderName());
                 $path = $provider->getReferenceImage($image);
                 if(!$provider->getFilesystem()->has($path)) {
-                    $output->writeln('Exists ' . $path);
+                    $newPath = str_replace('museum', 'atlas', $path);
+                    $output->writeln('mv ' . $path . ', ' . $newPath);
+                    //$provider->getFilesystem()->rename($path, $newPath);
                 } else {
-                    $output->writeln('Not exists ' . $path);
+                    $output->writeln('Exists ' . $path);
 
                 }
             }
