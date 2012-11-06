@@ -16,13 +16,13 @@
                     <legend>Тип события</legend>
                     <ul>
                         {% for category in categories %}
-                            <li><label><input type="checkbox" name="f[category][]" value="{{ category.id }}"/><span>{{ category.title }}</span></label></li>
+                            <li><label><input type="checkbox" name="f[category][]" value="{{ category.id }}" checked="checked"/><span>{{ category.title }}</span></label></li>
                         {% endfor %}
                     </ul>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Диапазон дат</legend>
+                    <legend>Дата</legend>
                     <div class="date-range">
                         <label>с <input id="date-from" type="text" name="f[date_from]" value="{{ dateFrom }}"/></label>
                         <label>по <input id="date-to" type="text" name="f[date_to]" value="{{ dateTo }}"/></label>
@@ -30,12 +30,12 @@
                 </fieldset>
 
                 <fieldset>
-                    <legend>Показать картинками</legend>
+                    <legend>Визуализация</legend>
                     <div>
                         <label for="show-images">
                             <input type="hidden" name="f[show_images]" value="0"/>
                             <input id="show-images" type="checkbox" name="f[show_images]" value="1"/>
-                            <span>Отобразить</span>
+                            <span>Показывать фото</span>
                         </label>
                     </div>
                 </fieldset>

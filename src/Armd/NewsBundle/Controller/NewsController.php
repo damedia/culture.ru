@@ -33,14 +33,15 @@ class NewsController extends ListController
     public function mapAction()
     {
         $lastNews = $this->getNewsManager()->getLastNews();
-        $now = new \DateTime('now');
-        $dateFrom = $now->format('d.m.Y');
-        $dateTo = '';
+        $dateFrom = new \DateTime('-1 month');
+        $dateTo   = new \DateTime('+1 month');
+        $dateFromStr = $dateFrom->format('d.m.Y');
+        $dateToStr   = $dateTo->format('d.m.Y');
         return array(
             'categories' => $this->getNewsManager()->getCategories(),
             'lastNews' => $lastNews,
-            'dateFrom' => $dateFrom,
-            'dateTo' => $dateTo,
+            'dateFrom' => $dateFromStr,
+            'dateTo' => $dateToStr,
         );
     }
 

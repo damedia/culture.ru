@@ -94,6 +94,8 @@ AT.initFilter = function(){
                         })
                     });
                 }
+            } else {
+                alert(response.message);
             }
         }
     });
@@ -101,7 +103,7 @@ AT.initFilter = function(){
     // Range Datepickers
     $("#date-from").datepicker({
         defaultDate: "+1w",
-        changeMonth: true,
+        changeMonth: false,
         numberOfMonths: 1,
         onClose: function(selectedDate) {
             $("#date-to").datepicker("option", "minDate", selectedDate);
@@ -109,7 +111,7 @@ AT.initFilter = function(){
     });
     $("#date-to").datepicker({
         defaultDate: "+1w",
-        changeMonth: true,
+        changeMonth: false,
         numberOfMonths: 1,
         onClose: function( selectedDate ) {
             $("#date-from").datepicker("option", "maxDate", selectedDate);
