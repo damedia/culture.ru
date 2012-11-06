@@ -57,11 +57,11 @@ AT.initFilter = function(){
     $('#news-map-filter').ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
-            console.log('beforeSubmit');
+            //console.log('beforeSubmit');
         },
         success: function(response, statusText, xhr, $form){
             if (response.success) {
-                console.log(response.result.data);
+                //console.log(response.result.data);
 
                 // Очищаем карту
                 AT.clearMap();
@@ -70,8 +70,22 @@ AT.initFilter = function(){
                 for (var i in response.result.data) {
                     var point = response.result.data[i];
                     AT.placePoint(point, function(e){
-                        var uid = $(e.target).data('uid');
-                        console.log('click', uid);
+                        var uid = $(e.target).data('uid')
+                            point = $(e.target).data('point');
+
+                        //console.log('click', uid, e);
+
+                        // Show balloon
+                        $.ajax({
+                            url: AT.params.fetchMarkerDetailUri,
+                            data: { id: uid },
+                            success: function(res){
+                                point.name = res; // контент балуна
+                                point.balloon = AT.map.balloon;
+                                point.toggleBalloon();
+                            }
+                        })
+                        //console.log('ajax:', AT.params.fetchMarkerDetailUri);
                     });
                 }
             }
@@ -82,7 +96,7 @@ AT.initFilter = function(){
     $("#date-from").datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 2,
+        numberOfMonths: 1,
         onClose: function(selectedDate) {
             $("#date-to").datepicker("option", "minDate", selectedDate);
         }
@@ -90,7 +104,7 @@ AT.initFilter = function(){
     $("#date-to").datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 2,
+        numberOfMonths: 1,
         onClose: function( selectedDate ) {
             $("#date-from").datepicker("option", "maxDate", selectedDate);
         }
@@ -125,7 +139,9 @@ AT.placePoint = function(object, onClick) {
     var point = new PGmap.Point({
         coord: new PGmap.Coord(object.lon, object.lat, true)
     });
-    $(point.container).data('uid', object.id);
+    $(point.container).data('uid', object.id)
+                      .data('point', point)
+                      .attr('title', object.title);
     AT.map.geometry.add(point);
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, onClick);
     return point;

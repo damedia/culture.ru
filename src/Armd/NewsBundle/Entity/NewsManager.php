@@ -116,33 +116,64 @@ class NewsManager
 
     public function filterBy($filter=array())
     {
-        $rows = $this->em->getRepository('ArmdNewsBundle:News')->findAll();
+        $qb = $this->getQueryBuilder(array());
+        /*
+        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
+        $qb->select('n, c, i')
+           ->innerJoin('n.category', 'c')
+           ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = TRUE')
+           ->andWhere('n.published = TRUE');
+        */
+
+        // имеющие геопривязку
+        if (isset($filter['is_on_map'])) {
+            $qb->andWhere('n.isOnMap = TRUE');
+        }
+
+        // фильтр по выбранным категориям
+        if (isset($filter['category'])) {
+            $categoryIds = (array) $filter['category'];
+            $this->container->get('logger')->debug(json_encode($categoryIds));
+            $qb->andWhere('c.id IN (:categoryIds)')
+               ->setParameter(':categoryIds', $categoryIds);
+        }
+
+        // фильтр по датам
+        $dateFrom = isset($filter['date_from']) ? new \DateTime($filter['date_from']) : new \DateTime('now');
+        $dateTo   = isset($filter['date_to'])   ? new \DateTime($filter['date_to'])   : new \DateTime('now');
+        $qb->andWhere('(n.date >= (:dateFrom) AND n.date <= (:dateTo)) OR (n.endDate >= (:dateFrom) AND n.endDate <= (:dateTo))')
+           ->setParameter(':dateFrom', $dateFrom)
+           ->setParameter(':dateTo', $dateTo);
+
+        $this->container->get('logger')->debug($qb->getQuery()->getDQL());
+
+        $rows = $qb->getQuery()->getResult();
+
+        // result
         $data = array();
         foreach ($rows as $row) {
+            $imageUrl = $this->container->get('sonata.media.twig.extension')->path($row->getImage(), 'thumbnail');
             $data[] = array(
                 'id' => $row->getId(),
                 'title' => $row->getTitle(),
+                //'dateFrom' => $row->getDate(),
+                //'dateTo' => $row->getEndDate(),
+                'lon' => $row->getLon(),
+                'lat' => $row->getLat(),
+                'imageUrl' => $imageUrl,
+                'categoryId' => $row->getCategory()->getId(),
             );
         }
-        /*
-        $data = array(
-            array(
-                'id' => 123,
-                'title' => 'Point 1',
-                'announce' => 'Point 1 announce',
-                'lon' => 60,
-                'lat' => 55,
-            ),
-            array(
-                'id' => 124,
-                'title' => 'Point 2',
-                'announce' => 'Point 2 announce',
-                'lon' => 62,
-                'lat' => 55,
-            ),
-        );
-        */
         return $data;
+    }
+
+    public function getLastNews($limit=5)
+    {
+        $qb = $this->getQueryBuilder(array());
+        $qb->orderBy('n.date', 'DESC');
+        return $qb->getQuery()
+                  ->setMaxResults($limit)
+                  ->getResult();
     }
 
 }

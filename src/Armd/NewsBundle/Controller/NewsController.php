@@ -32,32 +32,53 @@ class NewsController extends ListController
      */
     public function mapAction()
     {
+        $lastNews = $this->getNewsManager()->getLastNews();
         return array(
-            'xxxxxxxx' => 'xxxxxxxxxx',
+            'categories' => $this->getNewsManager()->getCategories(),
+            'lastNews' => $lastNews,
         );
     }
 
     /**
-     * @Route("/filter", name="armd_news_filter")
+     * @Route("/map/filter", name="armd_news_filter", defaults={"_format"="json"})
      */
     public function filterAction()
     {
-        $filter = $this->getRequest()->get('f');
+        try {
+            $filter = $this->getRequest()->get('f');
+            $filter['is_on_map'] = true;
+            $data = $this->getNewsManager()->filterBy($filter);
+            return array(
+                'success' => true,
+                'message' => 'OK',
+                'result' => array(
+                    'filter' => $filter,
+                    'data' => $data,
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            return array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+    }
 
-        $newsManager = $this->container->get('armd_news.manager.news');
-
-        $data = $newsManager->filterBy($filter);
-
-        $statusCode = 200;
-        $json = json_encode(array(
-            'success' => true,
-            'message' => 'OK',
-            'result' => array(
-                'filter' => $filter,
-                'data' => $data,
-            ),
-        ));
-        return new Response($json, $statusCode, array('Content-Type'=>'application/json'));
+    /**
+     * @Route("/map/balloon", name="armd_news_map_balloon")
+     * @Template()
+     */
+    public function balloonAction()
+    {
+        try {
+            $id = (int) $this->getRequest()->get('id');
+            $entity = $this->getEntityRepository()->find($id);
+            return array('entity' => $entity);
+        }
+        catch (\Exception $e) {
+            print $e->getMessage();
+        }
     }
 
     /**
