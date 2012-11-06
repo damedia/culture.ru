@@ -21,3 +21,8 @@ armd_main_project_brodino:
 armd_main_project_1150:
     pattern:  /1150/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:1150:index.html.twig }
+
+armd_main_random_russia_images:
+    pattern: /random-russia-images/
+    defaults: { _controller: ArmdMainBundle:Main:randomRussiaImages }
+    options: {expose: true}

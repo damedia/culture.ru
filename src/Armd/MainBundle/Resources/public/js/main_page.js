@@ -8,8 +8,7 @@ var armdMainPage = {
 
     loadRandomRussiaImages:function() {
         $.ajax({
-//            url: Routing.generate('armd_main_random_russia_images'),
-            url: '/main/random-russia-images',
+            url: Routing.generate('armd_main_random_russia_images'),
             cache: false,
             dataType:'html',
             type:'POST',
