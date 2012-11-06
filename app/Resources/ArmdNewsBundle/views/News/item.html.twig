@@ -8,14 +8,14 @@
         {% set f = entity.date %}
         {% set t = entity.endDate %}
         {{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
-        {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}        
+        {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
     </span>
     <h1>{{ entity.title|raw }}</h1>
-    
+
 	{% if entity.image %}
 		<div class="news-one-image">
-			{% thumbnail entity.image, 'billboard' %}	
-			{% if entity.image.copyright or entity.image.authorName %}		
+			{% thumbnail entity.image, 'billboard' %}
+			{% if entity.image.copyright or entity.image.authorName %}
 				<p class="image-source">
 					{% if entity.image.copyright %}
 						{{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
@@ -24,7 +24,7 @@
 					{% if entity.image.authorName %}
 						{{ entity.image.authorName }}
 					{% endif %}
-				</p> 
+				</p>
             {% endif %}
 		</div>
     {% endif %}
@@ -42,12 +42,12 @@
 	{% if entity.source %}
     	<div class="source">{{ entity.source|replace({"РИА «Новости»": '<a target="_blank" href="http://ria.ru/">РИА «Новости»</a>'})|raw }}</div>
 	{% endif %}
-	
-	
+
+
 	{% if entity.gallery|length > 0 %}
-		
+
 		<div class="photo-gallery">
-            <h3>{{entity.gallery.name}}</h3>    
+            <h3>{{entity.gallery.name}}</h3>
             <div id="slider" class="flexslider">
 				<ul class="slides">
 					{% for gal_img in entity.gallery.galleryHasMedias %}
@@ -55,7 +55,7 @@
 							<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" data-fancy-image="{% path gal_img.media, 'reference' %}">
                                 <img src="{% path gal_img.media, 'big' %}" />
 								<span>{{gal_img.media.name}}</span>
-							</a>	
+							</a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -74,13 +74,13 @@
 				</div>
 			</div>
         </div>
-			
-		
+
+
 		{% endif %}
 
     <div class="clear"></div>
-	
-	
+
+
     {#<div class="yashare-auto-init" data-yashareType="icon" data-yashareQuickServices="vkontakte,lj,twitter,|,facebook,odnoklassniki"></div>#}
 
 	<div class="share" >
@@ -124,7 +124,7 @@
 		{#AddThis Button END -->#}
 
 	</div>
-	
+
 
     {% if thread is not empty %}
        <div class="comments">
@@ -136,7 +136,7 @@
 	<p>&nbsp;</p>
     <p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ 'Back'|trans }}</a><p>
     <p style="font-size:12px; text-align: right; margin: -25px 0 0 0;"> <a style="color:#000;" href="#">{{ 'Printversion'|trans }}</a></p>
-	
+
 </div>
 {% endblock %}
 
@@ -148,6 +148,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+
     <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
@@ -162,12 +163,12 @@
         itemWidth: 100,
         itemMargin: 5,
         asNavFor: '#slider',
-		minItems: 2,   
+		minItems: 2,
 		maxItems: 10,
 		prevText: "{{ 'Prev'|trans }}",
 		nextText: "{{ 'Next'|trans }}",
       });
-      
+
       $('#slider').flexslider({
         animation: "slide",
         controlNav: false,
@@ -187,7 +188,7 @@
 			 },
 			scrolling: 'no'
 		});
-	 
+
     </script>
 
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
