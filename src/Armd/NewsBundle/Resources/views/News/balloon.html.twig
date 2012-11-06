@@ -1,0 +1,26 @@
+<div class="bubble">
+    {% if entity.image %}
+        <div class="bubble_image">
+            <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
+                <img src="{% path entity.image, 'thumbnail' %}" />
+            </a>
+        </div>
+    {% endif %}
+    <div class="bubble_content">
+        <div class="caption">
+            <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
+                {{ entity.title|raw }}
+            </a>
+        </div>
+        <div class="text">{{ entity.announce|raw }}</div>
+        <div class="date">
+            Дата:
+            {{ entity.date|date('d.m.Y') }}
+            {% if entity.endDate %}&mdash;&nbsp;{{ entity.endDate|date('d.m.Y') }}{% endif %}
+        </div>
+        <div class="category">
+            Категория:
+            {{ entity.category.title }}
+        </div>
+    </div>
+</div>

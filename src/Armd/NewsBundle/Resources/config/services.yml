@@ -20,7 +20,7 @@ services:
         
     armd_news.manager.news:
         class: %armd_news.manager.news.class%
-        arguments: [@armd_event.entity_manager, %armd_news.manager.news.entity%]        
+        arguments: [@armd_event.entity_manager, %armd_news.manager.news.entity%, @service_container]
         
     armd_news.controller.news:
         class: Armd\NewsBundle\Controller\NewsController

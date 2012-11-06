@@ -3,7 +3,9 @@
 namespace Armd\NewsBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 
@@ -27,7 +29,62 @@ class NewsController extends ListController
             'news' => $this->getPaginator($criteria, 1, 20),
         ));
     }        
-    
+
+    /**
+     * @Route("/map/", name="armd_news_map")
+     * @Template()
+     */
+    public function mapAction()
+    {
+        $lastNews = $this->getNewsManager()->getLastNews();
+        return array(
+            'categories' => $this->getNewsManager()->getCategories(),
+            'lastNews' => $lastNews,
+        );
+    }
+
+    /**
+     * @Route("/map/filter", name="armd_news_filter", defaults={"_format"="json"})
+     */
+    public function filterAction()
+    {
+        try {
+            $filter = $this->getRequest()->get('f');
+            $filter['is_on_map'] = true;
+            $data = $this->getNewsManager()->filterBy($filter);
+            return array(
+                'success' => true,
+                'message' => 'OK',
+                'result' => array(
+                    'filter' => $filter,
+                    'data' => $data,
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            return array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+    }
+
+    /**
+     * @Route("/map/balloon", name="armd_news_map_balloon")
+     * @Template()
+     */
+    public function balloonAction()
+    {
+        try {
+            $id = (int) $this->getRequest()->get('id');
+            $entity = $this->getEntityRepository()->find($id);
+            return array('entity' => $entity);
+        }
+        catch (\Exception $e) {
+            print $e->getMessage();
+        }
+    }
+
     /**
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")

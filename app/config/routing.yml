@@ -103,6 +103,11 @@ armd_atlas_bundle:
     type:     annotation
     prefix:   /atlas
 
+armd_atlas_api:
+    resource: "@ArmdAtlasBundle/Controller/Api"
+    type:     annotation
+    prefix:   /atlas/api
+
 armd_search_bundle:
     resource: "@ArmdSearchBundle/Controller/"
     type:     annotation
