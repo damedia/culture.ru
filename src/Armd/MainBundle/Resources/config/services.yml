@@ -9,3 +9,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Directories, label: Subjects }
         arguments: [null, %armd_news.admin.subject.entity%, SonataAdminBundle:CRUD, @service_container]
+
+    armd_main.listener.master_slave:
+        class: Armd\MainBundle\EventListener\MasterSlaveListener
+        arguments: [@database_connection]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
