@@ -6,6 +6,13 @@
         <div class="col-left">
             <form id="news-map-filter" class="filter-form" action="{{ path('armd_news_filter') }}">
                 <fieldset>
+                    <legend>Найти адрес</legend>
+                    <div class="geocoder-search">
+                        <input type="text" class="ss-input" id="ss_input" />
+                    </div>
+                </fieldset>
+
+                <fieldset>
                     <legend>Тип события</legend>
                     <ul>
                         {% for category in categories %}
@@ -17,17 +24,17 @@
                 <fieldset>
                     <legend>Диапазон дат</legend>
                     <div class="date-range">
-                        <label>с <input id="date-from" type="text" name="f[date_from]"/></label>
-                        <label>по <input id="date-to" type="text" name="f[date_to]"/></label>
+                        <label>с <input id="date-from" type="text" name="f[date_from]" value="{{ dateFrom }}"/></label>
+                        <label>по <input id="date-to" type="text" name="f[date_to]" value="{{ dateTo }}"/></label>
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Прошедшие события</legend>
+                    <legend>Показать картинками</legend>
                     <div>
-                        <label for="show-expired">
-                            <input type="hidden" name="f[show_expired]" value="0"/>
-                            <input id="show-expired" type="checkbox" name="f[show_expired]" value="1"/>
+                        <label for="show-images">
+                            <input type="hidden" name="f[show_images]" value="0"/>
+                            <input id="show-images" type="checkbox" name="f[show_images]" value="1"/>
                             <span>Отобразить</span>
                         </label>
                     </div>
@@ -100,6 +107,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>

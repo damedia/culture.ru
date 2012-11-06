@@ -26,6 +26,7 @@ AT.init = function(params) {
     this.params = params;
     AT.initFilter();
     AT.initMap(params);
+    AT.initGeocoder();
 };
 
 //------------------------------------------
@@ -61,19 +62,25 @@ AT.initFilter = function(){
         },
         success: function(response, statusText, xhr, $form){
             if (response.success) {
-                //console.log(response.result.data);
+                if (! response.result.data.length) {
+                    alert('Not items');
+                    return;
+                }
 
                 // Очищаем карту
                 AT.clearMap();
 
+                // Рисовать точки или фоточки
+                var showAsImages = response.result.filter.show_images > 0 ? true : false;
+
                 // Наносим точки
                 for (var i in response.result.data) {
-                    var point = response.result.data[i];
-                    AT.placePoint(point, function(e){
-                        var uid = $(e.target).data('uid')
-                            point = $(e.target).data('point');
 
-                        //console.log('click', uid, e);
+                    var point = response.result.data[i];
+
+                    AT.placePoint(point, showAsImages, function(e){
+                        var uid = $(e.currentTarget).data('uid')
+                            point = $(e.currentTarget).data('point');
 
                         // Show balloon
                         $.ajax({
@@ -85,7 +92,6 @@ AT.initFilter = function(){
                                 point.toggleBalloon();
                             }
                         })
-                        //console.log('ajax:', AT.params.fetchMarkerDetailUri);
                     });
                 }
             }
@@ -133,16 +139,83 @@ AT.clearMap = function() {
 };
 
 //------------------------------------------
-AT.placePoint = function(object, onClick) {
+AT.placePoint = function(object, showAsImages, onClick) {
     if (! (object.lon || object.lat))
         return false;
-    var point = new PGmap.Point({
-        coord: new PGmap.Coord(object.lon, object.lat, true)
-    });
+
+    var point;
+    if (showAsImages) {
+        point = new PGmap.Point({
+            coord: new PGmap.Coord(object.lon, object.lat, true),
+            width: 42,
+            height: 39,
+            backpos: '0 0',
+            innerImage: {
+                src: object.imageUrl,
+                width: 50
+            }
+        });
+    } else {
+        point = new PGmap.Point({
+            coord: new PGmap.Coord(object.lon, object.lat, true)
+        });
+    }
     $(point.container).data('uid', object.id)
                       .data('point', point)
                       .attr('title', object.title);
     AT.map.geometry.add(point);
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, onClick);
     return point;
+};
+
+//------------------------------------------
+AT.initGeocoder = function() {
+    var geocoder = $('.geocoder-search'),
+        resultBox = geocoder.find('.result-box'),
+        searchInput = $('#ss_input'),
+        searchSubmit = geocoder.find('.submit'),
+        searchTerm = searchInput.val();
+    searchInput.val('');
+    searchInput.autocomplete({
+        source: function(request, response) {
+            AT.map.search({
+                q: request.term,
+                type: 'search',
+                lng: AT.params.locale
+            }, function(r){
+                var json = $.parseJSON(r);
+                if (json.success) {
+                    var results = [];
+                    for (var i in json.res) {
+                        var el = json.res[i];
+                        if (el.type == "addr") {
+                            for (var j in el.matches) {
+                                var match = el.matches[j];
+                                var obj = {
+                                    label: match.addr,
+                                    value: match.addr,
+                                    match: match
+                                };
+                                results.push(obj);
+                            }
+                        }
+                    }
+                    response(results);
+                }
+            });
+        },
+        select: function (event, ui) {
+            //console.log(ui.item.match);
+            var lon = ui.item.match.x,
+                lat = ui.item.match.y,
+                zoom = ui.item.match.zoom;
+            AT.map.setCenter(new PGmap.Coord(lon, lat, true), zoom);
+        }
+    }).data('autocomplete')._renderItem = function(ul, item) {
+        return $("<li></li>")
+            .data("item.autocomplete", item)
+            .append('<a>' + item.label + '</a>')
+            .appendTo(ul);
+    }
+
 };
