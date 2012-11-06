@@ -117,13 +117,6 @@ class NewsManager
     public function filterBy($filter=array())
     {
         $qb = $this->getQueryBuilder(array());
-        /*
-        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
-        $qb->select('n, c, i')
-           ->innerJoin('n.category', 'c')
-           ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = TRUE')
-           ->andWhere('n.published = TRUE');
-        */
 
         // имеющие геопривязку
         if (isset($filter['is_on_map'])) {
@@ -133,9 +126,10 @@ class NewsManager
         // фильтр по выбранным категориям
         if (isset($filter['category'])) {
             $categoryIds = (array) $filter['category'];
-            $this->container->get('logger')->debug(json_encode($categoryIds));
             $qb->andWhere('c.id IN (:categoryIds)')
                ->setParameter(':categoryIds', $categoryIds);
+        } else {
+            throw new \Exception('Выберите хотя бы один тип события.');
         }
 
         // фильтр по датам
@@ -145,11 +139,9 @@ class NewsManager
            ->setParameter(':dateFrom', $dateFrom)
            ->setParameter(':dateTo', $dateTo);
 
-        $this->container->get('logger')->debug($qb->getQuery()->getDQL());
-
+        // result
         $rows = $qb->getQuery()->getResult();
 
-        // result
         $data = array();
         foreach ($rows as $row) {
             $imageUrl = $this->container->get('sonata.media.twig.extension')->path($row->getImage(), 'thumbnail');
