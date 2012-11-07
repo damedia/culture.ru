@@ -15,3 +15,13 @@ Prev: Prev
 Next: Next
 
 Culture Magazine: '"Culture" Magazine'
+
+newsmap:
+    find_address: Find address
+    event_type: Event type
+    date_range: Date range
+    date_from: from
+    date_to: to
+    visualization: Visualization
+    show_as_photos: Show photos
+    events_on_map: Events on map

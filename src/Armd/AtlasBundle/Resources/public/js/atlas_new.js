@@ -401,22 +401,22 @@ AT.initHacks = function() {
     });
 };
 
-AT.collectTagsValue = function() {
-    var filterTags = [];
-    $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
-        filterTags.push( $(this).data('tag') );
-    });
-    $('#category-id').val(filterTags);
-    return filterTags;
-};
+    AT.collectTagsValue = function() {
+        var filterTags = [];
+        $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
+            filterTags.push( $(this).data('tag') );
+        });
+        $('#category-id').val(filterTags);
+        return filterTags;
+    };
 
-AT.submitFiltersForm = function() {
-    console.info('AT.submitFiltersForm');
-    // Собираем отмеченные категории
-    AT.collectTagsValue();
-    // Сабмитим форму
-    $('#atlas-filter-form').submit();
-};
+    AT.submitFiltersForm = function() {
+        console.info('AT.submitFiltersForm');
+        // Собираем отмеченные категории
+        AT.collectTagsValue();
+        // Сабмитим форму
+        $('#atlas-filter-form').submit();
+    };
 
 /**
  * Работа с пользовательскими объектами
