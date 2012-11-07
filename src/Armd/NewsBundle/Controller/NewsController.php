@@ -4,6 +4,7 @@ namespace Armd\NewsBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
@@ -36,13 +37,24 @@ class NewsController extends ListController
      */
     public function mapAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
+        $regions = $regionsRepo->findBy(array(), array('title'=>'ASC'));
+        if (! $regions)
+            throw new NotFoundHttpException("Regions not found");
+
+        $categories = $this->getNewsManager()->getCategories();
+        if (! $categories)
+            throw new NotFoundHttpException("Categories not found");
+
         $lastNews = $this->getNewsManager()->getLastNews();
         $dateFrom = new \DateTime('-1 month');
         $dateTo   = new \DateTime('+1 month');
         $dateFromStr = $dateFrom->format('d.m.Y');
         $dateToStr   = $dateTo->format('d.m.Y');
         return array(
-            'categories' => $this->getNewsManager()->getCategories(),
+            'regions' => $regions,
+            'categories' => $categories,
             'lastNews' => $lastNews,
             'dateFrom' => $dateFromStr,
             'dateTo' => $dateToStr,

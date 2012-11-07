@@ -2,49 +2,77 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block body %}
-    <div class="container">
-        <div class="col-left">
+
+    <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
+        <div class="filter checks-filter" style="width:23.7%">
+            <div class="title dark-green-title title-filter">
+                <h2>{{ "newsmap.filter"|trans }}</h2>
+            </div>
+
             <form id="news-map-filter" class="filter-form" action="{{ path('armd_news_filter') }}">
-                <fieldset>
-                    <legend>Найти адрес</legend>
-                    <div class="geocoder-search">
-                        <input type="text" class="ss-input" id="ss_input" />
+                <div class="simple-search">
+                    <label for="ss_input">{{ "newsmap.find_address"|trans }}</label>
+                    <input type="text" class="ss-input" id="ss_input" />
+                </div>
+                <div class="filter-tabs">
+                    <div class="filter-tab" id="obj" style="display:block;">
+                        <div class="simple-filter-block">
+                            <div class="simple-filter-header clearfix">
+                                <span>{{ "newsmap.event_type"|trans }}</span>
+                                <p class="check_all"><span>{{ "atlas.all"|trans }}</span></p>
+                            </div>
+                            <div class="simple-filter-options">
+                                {% for category in categories %}
+                                    <label class="gray-checked checked">
+                                        <input class="category-value" type="hidden" name="f[category][]" value="{{ category.id }}"/>
+                                        <span data-tag="{{ category.id }}">{{ category.title }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="simple-filter-block">
+                            <div class="simple-filter-header clearfix">
+                                <span>{{ "newsmap.date_range"|trans }}</span>
+                            </div>
+                            <div class="simple-filter-options">
+                                <div class="date-range">
+                                    <label>{{ "newsmap.date_from"|trans }}&nbsp;<input id="date-from" class="datepicker" type="text" name="f[date_from]" value="{{ dateFrom }}"/></label>
+                                    <label>{{ "newsmap.date_to"|trans }}&nbsp;<input id="date-to" class="datepicker" type="text" name="f[date_to]" value="{{ dateTo }}"/></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="simple-filter-block visualization">
+                            <div class="simple-filter-header clearfix">
+                                <span>{{ "newsmap.visualization"|trans }}</span>
+                            </div>
+                            <div class="simple-filter-options">
+                                <label for="show-images">
+                                    <input type="hidden" name="f[show_images]" value="0"/>
+                                    <input id="show-images-checkbox" type="checkbox" name="f[show_images]" value="1"/>
+                                    <span id="show-images-span">{{ "newsmap.show_as_photos"|trans }}</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Тип события</legend>
-                    <ul>
-                        {% for category in categories %}
-                            <li><label><input type="checkbox" name="f[category][]" value="{{ category.id }}" checked="checked"/><span>{{ category.title }}</span></label></li>
-                        {% endfor %}
-                    </ul>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Дата</legend>
-                    <div class="date-range">
-                        <label>с <input id="date-from" type="text" name="f[date_from]" value="{{ dateFrom }}"/></label>
-                        <label>по <input id="date-to" type="text" name="f[date_to]" value="{{ dateTo }}"/></label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Визуализация</legend>
-                    <div>
-                        <label for="show-images">
-                            <input type="hidden" name="f[show_images]" value="0"/>
-                            <input id="show-images" type="checkbox" name="f[show_images]" value="1"/>
-                            <span>Показывать фото</span>
-                        </label>
-                    </div>
-                </fieldset>
-
-                <div><button type="submit">Показать</button></div>
+                </div>
             </form>
         </div>
-        <div class="col-right">
-            <div id="map" class="map-outer"></div>
+        <div class="atlas-center">
+            <div class="title green-title">
+                <h2>{{ "newsmap.events_on_map"|trans }}</h2>
+            </div>
+            <div class="atlas-map" style="margin-top:-10px;">
+                <div id="map"></div>
+                <div id="regions-selector" class="regions-selector">
+                    <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
+                        <option></option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="ajax-loading" class="ajax-loading"></div>
+            </div>
 
             {% if lastNews %}
                 <div class="last-news">
@@ -100,6 +128,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdnews/css/news_map.css') }}">
 {% endblock %}
@@ -109,6 +138,7 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>
     <script type="text/javascript">

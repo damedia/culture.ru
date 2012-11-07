@@ -51,7 +51,7 @@ AT.initMap = function(params) {
 };
 
 //------------------------------------------
-// Init Filter
+// Init Filter and UI
 AT.initFilter = function(){
 
     // Ajax Form init
@@ -108,6 +108,8 @@ AT.initFilter = function(){
         onClose: function(selectedDate) {
             $("#date-to").datepicker("option", "minDate", selectedDate);
         }
+    }).change(function(){
+        AT.submitFiltersForm();
     });
     $("#date-to").datepicker({
         defaultDate: "+1w",
@@ -116,6 +118,61 @@ AT.initFilter = function(){
         onClose: function( selectedDate ) {
             $("#date-from").datepicker("option", "maxDate", selectedDate);
         }
+    }).change(function(){
+        AT.submitFiltersForm();
+    });
+
+    $('#news-map-filter .check_all').click(function(){
+        var parentDiv = $(this).closest('.simple-filter-block');
+        if (!$(this).data('checked')) {
+            parentDiv.find('input:checkbox').attr('checked','checked');
+            parentDiv.find('label').addClass('checked');
+            $(this).data('checked', true).addClass('checked');
+        } else {
+            parentDiv.find('input:checkbox').removeAttr('checked');
+            parentDiv.find('label').removeClass('checked');
+            $(this).data('checked', false).removeClass('checked');
+        }
+    });
+
+    $('#news-map-filter').find('.simple-filter-options > label > span').click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).closest('label').toggleClass('checked');
+        if (this.id == 'show-images-span') {
+            if ($(this).closest('label').hasClass('checked')) {
+                $('#show-images-checkbox').attr('checked','checked');
+            } else {
+                $('#show-images-checkbox').removeAttr('checked');
+            }
+        }
+        AT.submitFiltersForm();
+    });
+
+    $('#news-map-filter').find('.check_all').click(function(e){
+        AT.submitFiltersForm();
+    });
+
+    // Инициализируем список регионов
+    // При выборе региона, зумим карту к нему
+    var regionsSelector = $('#regions-selector select');
+    regionsSelector.chosen({ no_results_text:"Не найдено" }).change(function(){
+        AT.map.search({
+            q: $(this).find('option:selected').text(),
+            type: 'search'
+        }, function(r){
+            var json = $.parseJSON(r);
+            if (json.success) {
+                var bbox = json.res[0].bbox;
+                var addrBbox = {
+                    lon1: PGmap.Utils.mercX(bbox.x1),
+                    lon2: PGmap.Utils.mercX(bbox.x2),
+                    lat1: PGmap.Utils.mercY(bbox.y1),
+                    lat2: PGmap.Utils.mercY(bbox.y2)
+                };
+                AT.map.setCenterByBbox(addrBbox);
+            }
+        });
     });
 
 };
@@ -220,4 +277,18 @@ AT.initGeocoder = function() {
             .appendTo(ul);
     }
 
+};
+
+//------------------------------------------
+AT.collectTagsValue = function() {
+    $('#news-map-filter .category-value').attr('disabled','disabled');
+    $('#news-map-filter').find('.simple-filter-options > label.checked > span').each(function(i,el){
+        $(this).siblings('.category-value').removeAttr('disabled');
+    });
+};
+
+//------------------------------------------
+AT.submitFiltersForm = function() {
+    AT.collectTagsValue();
+    $('#news-map-filter').submit();
 };

@@ -51,3 +51,13 @@ Prev: Предыдущая
 Next: Следующая
 
 Culture Magazine: Газета "Культура"
+
+newsmap:
+    find_address: Найти адрес
+    event_type: Тип события
+    date_range: Диапазон дат
+    date_from: с
+    date_to: по
+    visualization: Визуализация
+    show_as_photos: Показывать фото
+    events_on_map: События на карте
