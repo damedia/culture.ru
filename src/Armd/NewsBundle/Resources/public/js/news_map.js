@@ -58,9 +58,10 @@ AT.initFilter = function(){
     $('#news-map-filter').ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
-            //console.log('beforeSubmit');
+            $('#ajax-loading').show();
         },
         success: function(response, statusText, xhr, $form){
+            $('#ajax-loading').hide();
             if (response.success) {
                 if (! response.result.data.length) {
                     alert('Not items');
@@ -79,14 +80,17 @@ AT.initFilter = function(){
                     var point = response.result.data[i];
 
                     AT.placePoint(point, showAsImages, function(e){
+                        // onClick here
                         var uid = $(e.currentTarget).data('uid')
                             point = $(e.currentTarget).data('point');
 
                         // Show balloon
+                        $('#ajax-loading').show();
                         $.ajax({
                             url: AT.params.fetchMarkerDetailUri,
                             data: { id: uid },
                             success: function(res){
+                                $('#ajax-loading').hide();
                                 point.name = res; // контент балуна
                                 point.balloon = AT.map.balloon;
                                 point.toggleBalloon();

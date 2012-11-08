@@ -26,3 +26,5 @@ newsmap:
     show_as_photos: Show photos
     events_on_map: Events on map
     filter: Filter
+    date: Date
+    category: Category

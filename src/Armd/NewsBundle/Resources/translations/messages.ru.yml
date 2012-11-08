@@ -62,3 +62,5 @@ newsmap:
     show_as_photos: Показывать фото
     events_on_map: События на карте
     filter: Фильтр
+    date: Дата
+    category: Категория
