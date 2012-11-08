@@ -184,12 +184,14 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
-                        <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
-                        <li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
+                        
+                        
                         <li class="navmenu_more">
                             <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
                             <ul>
-                                <li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
+                                <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
+								<li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
+								<li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
                                 {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
                                 <li><a href="http://people.roskult.ru/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
                                 {#<li><a href="{{ path('armd_main_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>#}
