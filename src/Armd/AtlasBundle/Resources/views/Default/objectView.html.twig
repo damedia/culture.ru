@@ -1,17 +1,38 @@
 {% extends '::base.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ parent() }} &mdash;
+    {{ entity.title }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.russiaImageAnnounce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.primaryImage is not empty %}
+        <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length > 0 %}
+        <meta property="og:image" content="{% path entity.images[0], 'imagesOfRussia' %}" />
+    {% endif %}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
 {% block body %}
     {% if entity is empty %}
         {{ "object_not_found"|trans }}
     {% else %}
 
         <div class="title-block with-social">
+            <div class="social-share-buttons">
+                <a class="vk" href="http://vkontakte.ru/share.php?url={{ url('armd_main_homepage') }}&amp;title={{ entity.title }}&amp;description={{ entity.russiaImageAnnounce }}" target="_blank"></a>
+                <a class="tw" href="http://twitter.com/intent/tweet?text={{ entity.title }}&amp;url={{ url('armd_main_homepage') }}" target="_blank"></a>
+                <a style="fb" href="http://www.facebook.com/sharer.php?u={{ url('armd_main_homepage') }}&amp;t={{ entity.title }}&amp;src=sp" target="_blank"></a>
+            </div>
             <h2>{{ entity.title }}</h2>
         </div>
-        {#  <div class="title-social-icons">
-              <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
-          </div>#}
         <div class="object-one clearfix">
         <div class="object-one-col12">
 

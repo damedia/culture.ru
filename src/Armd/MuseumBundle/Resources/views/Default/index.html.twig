@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %} — {{ 'Navigation.Virtual museums.Title'|trans }}{% endblock %}
+{% block title %}{{ parent() }} — {{ 'Navigation.Virtual museums.Title'|trans }}{% endblock %}
 
 {#{% block stylesheets %}#}
 {#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}

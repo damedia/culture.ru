@@ -9,7 +9,7 @@
 {#{% endblock %}#}
 
 
-{% block title %} — {{ 'Navigation.About'|trans }}{% endblock %}
+{% block title %}{{ parent() }} — {{ 'Navigation.About'|trans }}{% endblock %}
 
 
 {% block body%}
