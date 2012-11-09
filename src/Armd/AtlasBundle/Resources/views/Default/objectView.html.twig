@@ -259,7 +259,7 @@
 
         {% if entity.image3d %}
             <div class="block object-infograph">
-                <P class="obj-o-infograph-header">Инфографика</P>
+                <P class="obj-o-infograph-header">{{ "infographics"|trans }}</P>
                 {#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
                 <a href="{% path entity.image3d, 'reference' %}" class="zoom-fancybox"><img
                         src="{% path entity.image3d, 'image3d' %}" alt="" width="300"/></a>
