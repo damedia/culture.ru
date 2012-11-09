@@ -20,6 +20,8 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class News extends Admin
 {
+    protected $translationDomain = 'ArmdNewsBundle';
+
     protected $datagridValues = array(
         '_sort_by'      => 'date',    
         '_sort_order'   => 'DESC',
@@ -67,6 +69,11 @@ class News extends Admin
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
                 ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'gallery')))
                 ->add('video', 'armd_tvigle_video_selector', array('required' => false))
+            ->end()
+            ->with('Map')
+                ->add('isOnMap', null, array('required' => false))
+                ->add('lat')
+                ->add('lon')
             ->end();
 
         parent::configureFormFields($formMapper);
