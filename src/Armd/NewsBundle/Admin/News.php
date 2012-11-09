@@ -72,8 +72,8 @@ class News extends Admin
             ->end()
             ->with('Map')
                 ->add('isOnMap', null, array('required' => false))
-                ->add('lat')
-                ->add('lon')
+                ->add('lat', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
+                ->add('lon', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -106,5 +106,17 @@ class News extends Admin
             ->add('published')
             ->add('important')            
         ;
+    }
+
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'ArmdNewsBundle:Form:edit_container.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
     }
 }
