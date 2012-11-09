@@ -41,7 +41,7 @@ class ObjectsController extends Controller
     }
 
     /**
-     * @Route("/objects/{id}", requirements={"id"="\d+"})
+     * @Route("/objects/{id}", requirements={"id"="\d+"}, defaults={"_format"="json"})
      * @Method("GET")
      */
     public function getAction($id)
@@ -55,22 +55,22 @@ class ObjectsController extends Controller
 
             $result = $this->assembleObjectArray($object);
 
-            return new Response(json_encode(array(
+            return array(
                 'success' => true,
                 'message' => 'OK',
                 'result' => $result,
-            )), 200, array('Content-Type'=>'application/json'));
+            );
         }
         catch (\Exception $e) {
-            return new Response(json_encode(array(
+            return array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            )), 200, array('Content-Type'=>'application/json'));
+            );
         }
     }
 
     /**
-     * @Route("/objects")
+     * @Route("/objects", defaults={"_format"="json"})
      * @Method("GET")
      */
     public function indexAction()
@@ -88,17 +88,17 @@ class ObjectsController extends Controller
                 $result[] = $this->assembleObjectArray($obj);
             }
 
-            return new Response(json_encode(array(
+            return array(
                 'success' => true,
                 'message' => 'OK',
                 'result' => $result,
-            )), 200, array('Content-Type'=>'application/json'));
+            );
         }
         catch (\Exception $e) {
-            return new Response(json_encode(array(
+            return array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            )), 200, array('Content-Type'=>'application/json'));
+            );
         }
     }
 
