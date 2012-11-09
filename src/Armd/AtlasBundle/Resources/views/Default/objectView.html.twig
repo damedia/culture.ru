@@ -9,7 +9,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block opengraph %}
     <meta property="og:title" content="{{ entity.title }}" />
-    <meta property="og:description" content="{{ entity.russiaImageAnnounce }}" />
+    <meta property="og:description" content="{{ entity.russiaImageAnnounce|striptags }}" />
     <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
     <meta property="og:url" content="{{ app.request.uri }}" />
     {% if entity.primaryImage is not empty %}
@@ -27,7 +27,7 @@
 
         <div class="title-block with-social">
             <div class="social-share-buttons">
-                <a class="vk" href="http://vkontakte.ru/share.php?url={{ url('armd_main_homepage') }}&amp;title={{ entity.title }}&amp;description={{ entity.russiaImageAnnounce }}" target="_blank"></a>
+                <a class="vk" href="http://vkontakte.ru/share.php?url={{ url('armd_main_homepage') }}&amp;title={{ entity.title }}&amp;description={{ entity.russiaImageAnnounce|striptags }}" target="_blank"></a>
                 <a class="tw" href="http://twitter.com/intent/tweet?text={{ entity.title }}&amp;url={{ url('armd_main_homepage') }}" target="_blank"></a>
                 <a style="fb" href="http://www.facebook.com/sharer.php?u={{ url('armd_main_homepage') }}&amp;t={{ entity.title }}&amp;src=sp" target="_blank"></a>
             </div>
