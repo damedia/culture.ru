@@ -7,6 +7,19 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.russiaImageAnnounce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.primaryImage is not empty %}
+        <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length > 0 %}
+        <meta property="og:image" content="{% path entity.images[0], 'imagesOfRussia' %}" />
+    {% endif %}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
 {% block body %}
     {% if entity is empty %}
         {{ "object_not_found"|trans }}
