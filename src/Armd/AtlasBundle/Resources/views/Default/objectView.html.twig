@@ -27,9 +27,9 @@
 
         <div class="title-block with-social">
             <div class="social-share-buttons">
-                <a class="vk" href="http://vkontakte.ru/share.php?url={{ url('armd_main_homepage') }}" target="_blank"></a>
-                <a class="tw" href="http://twitter.com/home?status={{ entity.title~' '~url('armd_main_homepage') }}" target="_blank"></a>
-                <a style="fb" href="http://www.facebook.com/share.php?u={{ url('armd_main_homepage') }}" target="_blank"></a>
+                <a class="vk" href="http://vkontakte.ru/share.php?url={{ app.request.uri }}" target="_blank"></a>
+                <a class="tw" href="http://twitter.com/home?status={{ entity.title~' '~app.request.uri }}" target="_blank"></a>
+                <a style="fb" href="http://www.facebook.com/share.php?u={{ app.request.uri }}" target="_blank"></a>
             </div>
             <h2>{{ entity.title }}</h2>
         </div>
