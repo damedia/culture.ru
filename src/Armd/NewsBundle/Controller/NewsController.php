@@ -3,7 +3,10 @@
 namespace Armd\NewsBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 
@@ -27,7 +30,79 @@ class NewsController extends ListController
             'news' => $this->getPaginator($criteria, 1, 20),
         ));
     }        
-    
+
+    /**
+     * @Route("/map/", name="armd_news_map")
+     * @Template()
+     */
+    public function mapAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
+        $regions = $regionsRepo->findBy(array(), array('title'=>'ASC'));
+        if (! $regions)
+            throw new NotFoundHttpException("Regions not found");
+
+        $categories = $this->getNewsManager()->getCategories();
+        if (! $categories)
+            throw new NotFoundHttpException("Categories not found");
+
+        $lastNews = $this->getNewsManager()->getLastNews();
+        $dateFrom = new \DateTime('-1 month');
+        $dateTo   = new \DateTime('+1 month');
+        $dateFromStr = $dateFrom->format('d.m.Y');
+        $dateToStr   = $dateTo->format('d.m.Y');
+        return array(
+            'regions' => $regions,
+            'categories' => $categories,
+            'lastNews' => $lastNews,
+            'dateFrom' => $dateFromStr,
+            'dateTo' => $dateToStr,
+        );
+    }
+
+    /**
+     * @Route("/map/filter", name="armd_news_filter", defaults={"_format"="json"})
+     */
+    public function filterAction()
+    {
+        try {
+            $filter = $this->getRequest()->get('f');
+            $filter['is_on_map'] = true;
+            $data = $this->getNewsManager()->filterBy($filter);
+            return array(
+                'success' => true,
+                'message' => 'OK',
+                'result' => array(
+                    'filter' => $filter,
+                    'data' => $data,
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            return array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+    }
+
+    /**
+     * @Route("/map/balloon", name="armd_news_map_balloon")
+     * @Template()
+     */
+    public function balloonAction()
+    {
+        try {
+            $id = (int) $this->getRequest()->get('id');
+            $entity = $this->getEntityRepository()->find($id);
+            return array('entity' => $entity);
+        }
+        catch (\Exception $e) {
+            print $e->getMessage();
+        }
+    }
+
     /**
      * @Route("/", name="armd_news_list_index")     
      * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
