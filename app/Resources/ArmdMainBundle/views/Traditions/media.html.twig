@@ -1,0 +1,65 @@
+{% set medias = [	
+		{		'link': 'http://www.1812.rsl.ru/',
+				'title': 'Отечественная война 1812 года',
+				'description':''
+		},
+		{		'link': 'http://ria.ru/1812/',
+				'title': '1812. Война и Мир. Новый взгляд',
+				'description':''
+		},
+		{		'link': 'http://www.museum.ru/1812/index.html',
+				'title': 'Музеи России. Проект "1812"',
+				'description':''
+		},
+		{		'link': 'http://banopart-napoleon.com/stat/pohodi/52.html',
+				'title': 'Наполеон Бонапарт в войне 1812 года',
+				'description':''
+		},
+		{		'link': 'http://www.borodino.ru/index.php',
+				'title': 'Музей-заповедник "Бородинское поле"',
+				'description':''
+		},
+		{		'link': 'http://www.gazeta.ru/science/infographics/1812/',
+				'title': 'Хроники Отечественной войны 1812 года. Газета.ру',
+				'description':''
+		},
+		{		'link': 'http://1812.technicum.ru/',
+				'title': 'Отечественная война 1812 года на Смоленщине',
+				'description':''
+		},
+		{		'link': 'http://1812.nsad.ru/96',
+				'title': 'Война 1812 года: Хроника',
+				'description':''
+		},
+		{		'link': 'http://vv1812.shpl.ru/',
+				'title': 'Цифровой образовательные ресурс: Отечественная война 1812 года',
+				'description':''
+		},
+		{		'link': 'http://www.runivers.ru/doc/patriotic_war/?day=1&month=9',
+				'title': 'Хроники Отечественной войны 1812 года',
+				'description':''
+		}
+	]%}
+
+{% macro media_item(link, title, description) %}	
+	<li><a href="{{ link|raw }}"  class="press-list-name" target="_blank">{{ title|raw }}</a></li>
+{% endmacro %}
+
+<div class="title">
+	<h2>{{ 'Navigation.Borodino.Media'|trans }}</h2>
+</div>
+<ul class="media-projects">
+	
+		{#<a href="#" class="media-projects-image">
+			<img src="/img/borodino/media-project.jpg" alt="" />
+		</a>
+		<a href="#" class="press-list-name">1812. Война и Мир. Новый взгляд.</a>
+		<p class="press-list-anons">Ссылки на трансляции или передачи государственных телеканалов</p> #}
+		
+			{% for media in medias %}
+				{{ _self.media_item(media.link, media.title , media.description) }}
+			{% endfor %} 
+		
+		
+	
+</ul>

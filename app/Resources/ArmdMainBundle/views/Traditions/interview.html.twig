@@ -1,0 +1,30 @@
+{% macro interview_item(link, img, title, description) %}
+		<li>
+			<a href="{{link}}"><img src="{{ asset(img|raw) }}" alt="" /></a>
+			<div class="text-overflow">
+				<a class="press-list-name" href="{{link}}">{{ title|raw }}</a>
+				<p class="interview-list-anons">{{ description|raw }}</p>
+			</div>
+		</li>
+{% endmacro %}
+
+{% set interviews = [	
+					{		'link': '/press-centre/interviews/760/',
+							'img': '/img/religion_objects/interview.jpg',
+							'title' : 'Александр Корноухов',
+							'description':'«Камень… я просто за него держусь»'
+					},
+					 
+				]%}
+				
+
+<div class="yellow-border-block purple-border-block">
+	<p class="yellow-border-header">
+		<span>{{ 'Interview'|trans }}</span>
+	</p>
+	<ul class="press-list">
+		{% for interview in interviews %}
+			{{ _self.interview_item(interview.link, asset(interview.img), interview.title , interview.description) }}
+		 {% endfor %}	
+	</ul>	
+</div>
