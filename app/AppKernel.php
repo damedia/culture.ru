@@ -62,7 +62,7 @@ class AppKernel extends Kernel
             new Armd\PaperArchiveBundle\ArmdPaperArchiveBundle(),
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {
             $bundles = array_merge($bundles, array(
                 new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
                 new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
