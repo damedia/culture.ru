@@ -1,6 +1,12 @@
 {% extends '::base.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ parent() }} &mdash;
+    {{ entity.title }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
 {% block body %}
     {% if entity is empty %}
         {{ "object_not_found"|trans }}

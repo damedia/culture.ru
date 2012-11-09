@@ -20,7 +20,7 @@
     },
 ] %}
 
-{% block title %} — {{ 'Navigation.Borodino.Header'|trans }}{% endblock %}
+{% block title %}{{ parent() }} — {{ 'Navigation.Borodino.Header'|trans }}{% endblock %}
 
 {% block content %}
 	<div class="title yellow-title star-title">

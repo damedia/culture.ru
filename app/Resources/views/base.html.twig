@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta property="og:image" content="http://roskult.ru/img/logo.png" />
-        <title>{{ 'Portal title'|trans }}{% block title %}{% endblock %}</title>
+        <title>{% block title %}{{ 'Portal title'|trans }}{% endblock %}</title>
         
         {% block rss %}
             <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="{{ 'Events'|trans }}" />
