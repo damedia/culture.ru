@@ -57,12 +57,6 @@ class DefaultController extends Controller
         $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
         $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy($rootCategory);
 
-//        if(isset($lectureCategories[0]['__children'])) {
-//            $lectureCategories = $lectureCategories[0]['__children'];
-//        } else {
-//            $lectureCategories = array();
-//        }
-
         // recommended and last lectures
         if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
             $template = 'ArmdLectureBundle:Default:index_tile.html.twig';
@@ -113,6 +107,7 @@ class DefaultController extends Controller
         $lectures = $manager->findFiltered($superType, $page, $perPage, $types, $categories, $sortBy, $searchString);
 
         return $this->render($template, array(
+            'categories' => $categories,
             'pagination' => $lectures,
             'sortBy' => $sortBy
         ));

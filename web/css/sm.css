@@ -314,6 +314,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			#nav .navmenu {
 				margin: 0 0 0 -12px;
 				float:left;
+				height: 30px;
 			}
 
 				#nav .navmenu li {
@@ -5202,10 +5203,16 @@ white-space:nowrap;
 				vertical-align:top;
 			}
 			.archive-list li.big{
-				height: 300px;
+				margin-bottom:25px;
 			}
 			.archive-list li.small{
 				height: 160px;
+			}
+			.archive-list li.archive-separator {
+				width:100%;
+				float:none;
+				height:1px;
+				clear:both;
 			}
 				.arch-one {
 					
@@ -5214,6 +5221,10 @@ white-space:nowrap;
 						float:left;
 						margin:0 15px 0 0;
 					}
+						.archive-list li.big .arch-image {
+							width:52%;
+							height:auto;
+						}
 					.arch-name {
 						display:block;
 						font-size:15px;

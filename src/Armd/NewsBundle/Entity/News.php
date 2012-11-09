@@ -108,7 +108,7 @@ class News extends BaseNews implements CommentableInterface
     private $gallery;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo")
+     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"})
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
      */
     private $video;

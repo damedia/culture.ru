@@ -80,7 +80,7 @@ EOT
             $image->setContext('museum');
             $museum->setImage($image);
         }
-        $museum->setPublished(true);
+        $museum->setPublished(false);
         $museum->setUrl($object->getVirtualTour());
         $museum->setTitle($object->getTitle());
         $em->persist($museum);

@@ -318,45 +318,51 @@ $(document).ready(function () {
 		navMenuEl = $('> li', navMenu),
 		navMenuLength = navMenuEl.length,
 		navMenuGap,
-		i = 0;
+		navNumber = 0;
 		
 		
 		function menuRecalc(){
-			navMenuEl = $('> li', navMenu),
+			navMenuEl = $('> li', navMenu);
 			navMenuLength = navMenuEl.length;
-			if ( $('#nav').width() - navMenu.width()  > navMoreEl.eq(i).width() + 28 ) {
+			if ( $('#nav').width() - navMenu.width()  > navMoreEl.eq(navNumber).width() + 28 ) {
 				menuResize();
 			}
 		}
 		
-		function menuResize(){
+		function menuResize() {
 			navMore.removeClass('opened');
 			navMore.find('ul').hide();
 			navMenuGap = $('#nav').width() - navMenu.width();	
 			
 			navMore.find('ul').css({'display':'block','visibility':'hidden'});
 
-			if ( navMenuGap  > navMoreEl.eq(i).width() + 28 ) {
-				navMoreEl.eq(i).insertBefore(navMore);
-				i++;
+			if ( navMenuGap  > navMoreEl.eq(navNumber).width() + 28 ) {
+				navMoreEl.eq(navNumber).insertBefore(navMore);
+				navNumber++;
 				menuRecalc();
-			} else if ( navMenuGap < 0 ) {
-				if (i > 0) {
-					navMenuEl.eq(navMenuLength-2).prependTo(navMore.find('ul'));
-					i--;
+			} else {
+				if ( navMenuGap < 0 ) {
+					if (navNumber > 0) {
+						navMenuEl.eq(navMenuLength-2).prependTo(navMore.find('ul'));
+						navNumber--;
+					}
 				}
 			}
 			navMore.find('ul').css({'display':'none','visibility':'visible'});
 		}
-//
+		
+		function menuRe() {
+			if ( navMore.length > 0) {
+				menuRecalc();
+				menuResize();
+			}
+		}
+		
 //	commented because it broke atlas
-//	$(window).resize(function () {
-//		menuRecalc();
-//		menuResize();
-//
-//	});
-//	menuRecalc();
-//	menuResize();
+	$(window).resize(function () {
+		menuRe();
+	});
+	menuRe();
 	
 // Reset Font Size
   var originalFontSize = $('.text').css('font-size');
@@ -409,6 +415,8 @@ $(document).ready(function () {
 	$(window).resize(function(){
 		imageResize();
 	})
+	
+	
 	
 	
 });

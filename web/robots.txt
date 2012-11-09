@@ -1,5 +1,6 @@
 User-agent: Yandex
-Host: roskult.ru
+Host: culture.ru
 
 User-agent: *
-Host: roskult.ru
+Host: culture.ru
+
