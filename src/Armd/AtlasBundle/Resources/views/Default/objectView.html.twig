@@ -26,11 +26,13 @@
     {% else %}
 
         <div class="title-block with-social">
+            <div class="social-share-buttons">
+                <a class="vk" href="http://vkontakte.ru/share.php?url={{ url('armd_main_homepage') }}&amp;title={{ entity.title }}&amp;description={{ entity.russiaImageAnnounce }}" target="_blank"></a>
+                <a class="tw" href="http://twitter.com/intent/tweet?text={{ entity.title }}&amp;url={{ url('armd_main_homepage') }}" target="_blank"></a>
+                <a style="fb" href="http://www.facebook.com/sharer.php?u={{ url('armd_main_homepage') }}&amp;t={{ entity.title }}&amp;src=sp" target="_blank"></a>
+            </div>
             <h2>{{ entity.title }}</h2>
         </div>
-        {#  <div class="title-social-icons">
-              <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
-          </div>#}
         <div class="object-one clearfix">
         <div class="object-one-col12">
 
