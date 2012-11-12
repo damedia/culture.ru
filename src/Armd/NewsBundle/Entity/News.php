@@ -7,6 +7,7 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\NewsBundle\Model\News as BaseNews;
 use Armd\MkCommentBundle\Model\CommentableInterface;
 use Armd\MkCommentBundle\Entity\Thread;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
@@ -112,6 +113,27 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
      */
     private $video;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="media_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $mediaVideo;
+
+    /**
+     * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
+     */
+    private $isOnMap = false;
+
+    /**
+     * @ORM\Column(name="lat", type="decimal", precision=15, scale=10, nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(name="lon", type="decimal", precision=15, scale=10, nullable=true)
+     */
+    private $lon;
 
     /**
      * Thread of this comment
@@ -337,6 +359,15 @@ class News extends BaseNews implements CommentableInterface
     }
 
     /**
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo|null
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+
+    /**
      * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
      * @return News
      */
@@ -348,12 +379,24 @@ class News extends BaseNews implements CommentableInterface
     }
 
     /**
-     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo|null
+     * @return Media|null
      */
-    public function getVideo()
+    public function getMediaVideo()
     {
-        return $this->video;
+        return $this->mediaVideo;
     }
+
+    /**
+     * @param $mediaVideo Media
+     * @return News
+     */
+    public function setMediaVideo(Media $mediaVideo = null)
+    {
+        $this->mediaVideo = $mediaVideo;
+
+        return $this;
+    }
+
 
     /**
      * Set gallery
@@ -560,6 +603,75 @@ class News extends BaseNews implements CommentableInterface
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return News
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float 
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lon
+     *
+     * @param float $lon
+     * @return News
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+    
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return float 
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * Set isOnMap
+     *
+     * @param boolean $isOnMap
+     * @return News
+     */
+    public function setIsOnMap($isOnMap)
+    {
+        $this->isOnMap = $isOnMap;
+    
+        return $this;
+    }
+
+    /**
+     * Get isOnMap
+     *
+     * @return boolean 
+     */
+    public function getIsOnMap()
+    {
+        return $this->isOnMap;
     }
 
 

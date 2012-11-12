@@ -3,7 +3,7 @@
 {% set subject = "1150" %}
 {% set title = "1150 лет российской государственности" %}
 
-{% block title %} — {{ title }}{% endblock %}
+{% block title %}{{ parent() }} — {{ title }}{% endblock %}
 
 {% block content %}
 	<div class="title yellow-title star-title">

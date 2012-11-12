@@ -416,6 +416,12 @@ $(document).ready(function () {
 		imageResize();
 	})
 	
+	$('.trad-line-nav > li > a').click(function(){
+		var tradLink = $(this).attr('href');
+		$(tradLink).show().siblings('.trad-line-content').hide();
+		$(this).parent().addClass('active').siblings().removeClass('active');
+		
+	})
 	
 	
 	

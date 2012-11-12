@@ -1,17 +1,43 @@
 {% extends '::base.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ parent() }} &mdash;
+    {{ entity.title }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.russiaImageAnnounce|striptags }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.primaryImage is not empty %}
+        <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length > 0 %}
+        <meta property="og:image" content="{% path entity.images[0], 'imagesOfRussia' %}" />
+    {% endif %}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
 {% block body %}
     {% if entity is empty %}
         {{ "object_not_found"|trans }}
     {% else %}
 
         <div class="title-block with-social">
+            <div class="social-share-buttons">
+                <a class="vk" href="http://vkontakte.ru/share.php?url={{ app.request.uri }}" target="_blank"></a>
+                <a class="tw" href="http://twitter.com/home?status={{ entity.title~' '~app.request.uri }}" target="_blank"></a>
+                <a class="fb" href="http://www.facebook.com/share.php?u={{ app.request.uri }}" target="_blank"></a>
+                <a class="lj" href="http://www.livejournal.com/update.bml?subject={{ entity.title }}&event={{ entity.russiaImageAnnounce|striptags|url_encode }}%20{{ app.request.uri }}" target="_blank"></a>
+
+                <link href="http://stg.odnoklassniki.ru/share/odkl_share.css" rel="stylesheet">
+                <script src="http://stg.odnoklassniki.ru/share/odkl_share.js" type="text/javascript" ></script>
+                <a class="od" href="{{ app.request.uri }}" onclick="ODKL.Share(this);return false;"></a>
+            </div>
             <h2>{{ entity.title }}</h2>
         </div>
-        {#  <div class="title-social-icons">
-              <img src="{{ asset('bundles/armdatlas/common/img/social_icons.jpg') }}" alt="" />
-          </div>#}
         <div class="object-one clearfix">
         <div class="object-one-col12">
 
@@ -238,7 +264,7 @@
 
         {% if entity.image3d %}
             <div class="block object-infograph">
-                <P class="obj-o-infograph-header">Инфографика</P>
+                <P class="obj-o-infograph-header">{{ "infographics"|trans }}</P>
                 {#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
                 <a href="{% path entity.image3d, 'reference' %}" class="zoom-fancybox"><img
                         src="{% path entity.image3d, 'image3d' %}" alt="" width="300"/></a>

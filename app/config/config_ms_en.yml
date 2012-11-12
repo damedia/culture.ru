@@ -5,9 +5,9 @@ imports:
 doctrine:
     dbal:
         dbname:   %database_name_en%
-#        slaves:
-#            slave1:
-#                dbname:   %slave_database_name_en%
+        slaves:
+            slave1:
+                dbname:   %slave_database_name_en%
 
 sonata_media:
     cdn:

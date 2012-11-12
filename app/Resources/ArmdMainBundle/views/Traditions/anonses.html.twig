@@ -1,0 +1,33 @@
+{% set anonses = [
+    {
+        'url':      '/press-centre/events/1240/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/06/thumb_5466_news_latest.jpeg',
+        'title':    'Русская литая икона',
+        
+    },
+	{
+        'url':      '/press-centre/events/1180',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/06/thumb_5314_news_latest.jpeg',
+        'title':    'Русская икона в канун войны 1812 года. В воспоминание избавления от нашествия галлов…',
+        
+    }
+    
+] %}
+
+{% macro anons_item(url, title, img) %}	
+	<li>
+		<a href="{{ url|raw }}"><img src="{{ img }}" alt="" /></a>
+		<div class="text-overflow">
+			<a href="{{ url }}" class="rl-name rl-name-big">{{ title|raw }}</a>
+		</div>
+	</li>
+{% endmacro %}
+
+
+<ul class="right-list">
+{% for a in anonses %}
+    
+	{{ _self.anons_item(a.url, a.title, a.img) }}
+	
+{% endfor %}
+</ul>

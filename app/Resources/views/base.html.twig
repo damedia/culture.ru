@@ -4,10 +4,13 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
+        <title>{% block title %}{{ 'Portal title'|trans }}{% endblock %}</title>
+
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <meta property="og:image" content="http://roskult.ru/img/logo.png" />
-        <title>{{ 'Portal title'|trans }}{% block title %}{% endblock %}</title>
-        
+        {% block opengraph %}
+            <meta property="og:image" content="http://roskult.ru/img/logo.png" />
+        {% endblock %}
+
         {% block rss %}
             <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="{{ 'Events'|trans }}" />
         {% endblock %}
@@ -180,7 +183,8 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li><a href="{{ path('armd_atlas_russia_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_cinema_index') }}">{{ 'Navigation.Cinema'|trans }}</a></li>
                         <li><a href="{{ path('armd_museum_index') }}">{{ 'Navigation.Virtual museums.Title'|trans }}</a></li>
-                        <li><a href="http://www.gosuslugi.ru/pgu/service/10000572466_49.html#_description" target="_blank">{{ 'Navigation.Library'|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_library') }}">{{ 'Navigation.Library'|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_project_traditions') }}">{{ 'Navigation.Traditions'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
                         <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>

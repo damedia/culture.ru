@@ -113,6 +113,7 @@ sonata_media:
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
                 - sonata.media.provider.file
+                - sonata.media.provider.culturetv
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
@@ -123,6 +124,9 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
+
             formats:
                 adminPreview: { width: 314 , height: 187, quality: 90}
                 billboard: { width: 366, height: 261}
@@ -244,7 +248,8 @@ sonata_media:
 
         youtube: ~
 
-        dailymotion: ~    
+        dailymotion: ~
+
 
 fos_user:
     db_driver:      orm

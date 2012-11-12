@@ -1,0 +1,135 @@
+{% set objects = [
+    {
+        'url':      '/atlas/object/816',
+        'img':      '/img/religion_objects/1.jpg',
+        'title':    'Церковь Вознесения в Коломенском',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+	{
+        'url':      '/atlas/object/538',
+        'img':      '/img/religion_objects/2.jpg',
+        'title':    'Ансамбль Ферапонтова монастыря',
+		'type':     'Православие',
+        'type_icon':     'orth',
+    },
+	{
+        'url':      '/atlas/object/713',
+        'img':      '/img/religion_objects/3.jpg',
+        'title':    'Храм Христа Спасителя',
+		'type':     'Православие',
+        'type_icon':     'orth',
+    },
+	{
+        'url':      '/atlas/object/715',
+        'img':      '/img/religion_objects/4.jpg',
+        'title':    'Церковь Димитрия на крови',
+		'type':     'Православие',
+        'type_icon':     'orth',
+    },
+	{
+        'url':      '/atlas/object/738	',
+        'img':      '/img/religion_objects/5.jpg',
+        'title':    'Раифский Богородицкий монастырь',
+		'type':     'Православие',
+        'type_icon':     'orth',
+    },
+	
+	{
+        'url':      '/atlas/object/817',
+        'img':      '/img/religion_objects/7.jpg',
+        'title':    'Вознесенский войсковой кафедральный собор в Новочеркасске',
+		'type':     'Православие',
+        'type_icon':     'orth',
+    },
+	{
+        'url':      '/atlas/object/728',
+        'img':      '/img/religion_objects/8.jpg',
+        'title':    'Мечеть имени Кадырова',
+		'type':     'Ислам',
+        'type_icon':     'islam',
+    },
+	{
+        'url':      '',
+        'img':      '/img/religion_objects/9.jpg',
+        'title':    'Мечеть Кул-Шариф',
+		'type':     'Ислам',
+        'type_icon':     'islam',
+    },
+	{
+        'url':      '/atlas/object/727	',
+        'img':      '/img/religion_objects/10.jpg',
+        'title':    'Московская хоральная синагога',
+		'type':     'Иудаизм',
+        'type_icon':     'jud',
+    },
+	{
+        'url':      '/atlas/object/726',
+        'img':      '/img/religion_objects/11.jpg',
+        'title':    'Иволгинский дацан',
+		'type':     'Буддизм',
+        'type_icon':     'budd',
+    },
+	{
+        'url':      '/atlas/object/807',
+        'img':      '/img/religion_objects/12.jpg',
+        'title':    'Калмыцкий хурул',
+		'type':     'Буддизм',
+        'type_icon':     'budd',
+    },
+	{
+        'url':      '/atlas/object/729',
+        'img':      '/img/religion_objects/13.jpg',
+        'title':    'Католический собор Св. Екатерины',
+		'type':     'Католицизм',
+        'type_icon':     'cath',
+    },
+	{
+        'url':      '/atlas/object/576',
+        'img':      '/img/religion_objects/14.jpg',
+        'title':    'Кафедральный собор Кенигсберга',
+		'type':     'Лютеранство',
+        'type_icon':     'luth',
+    },
+	{
+        'url':      '/atlas/object/810',
+        'img':      '/img/religion_objects/15.jpg',
+        'title':    'Англиканская церковь Святого Андрея',
+		'type':     'Англиканство',
+        'type_icon':     'angl',
+    },
+	
+    
+] %}
+
+{% macro object_item(url, title, img, type, type_icon) %}	
+	<li>
+		<div class="rusObr-list-one-wrap">
+			<div class="rusObr-list-one">
+				<div class="religion-type {{ type_icon }}">
+					<i></i>
+					{{ type|raw }}
+				</div>
+				<a href="{{ url|raw }}">
+					<img src="{{ img }}" alt="" class="rusObr-list-image"></a>
+					
+				<div class="rusObr-list-text">
+					<a href="{{ url|raw }}" class="rusObr-list-header">
+						{{ title|raw }}
+					</a>
+				</div>
+			</div>
+			
+		</div>
+	</li>
+{% endmacro %}
+
+
+<div class="rusObr-block traditions-list">
+	<div class="trad-list-header">{{ 'Navigation.Images of Russia.Title'|trans }}</div>
+	<ul class="rusObr-list clearfix">
+		{% for o in objects %}
+			{{ _self.object_item(o.url, o.title, o.img, o.type, o.type_icon) }}
+		{% endfor %}
+	</ul>
+</div>

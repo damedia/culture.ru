@@ -2,6 +2,7 @@
 
 namespace Armd\NewsBundle\Entity;
 
+use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\EntityManager;
 
 class NewsManager
@@ -17,13 +18,19 @@ class NewsManager
     protected $em;
 
     /**
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
+    protected $container;
+
+    /**
      * @param \Doctrine\ORM\EntityManager $em
      * @param string                      $class
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EntityManager $em, $class, $container)
     {
         $this->em = $em;
         $this->class = $class;
+        $this->container = $container;
     }
     
     public function getPager(array $criteria, $page, $limit = 10)
@@ -105,5 +112,64 @@ class NewsManager
     public function getCategories()
     {
         return $this->em->getRepository('ArmdNewsBundle:Category')->findBy(array('filtrable' => '1'), array('priority' => 'ASC'));
-    }                    
+    }
+
+    public function filterBy($filter=array())
+    {
+        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
+        $qb->select('n, c, i')
+           ->innerJoin('n.category', 'c')
+           ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
+           ->andWhere('n.published = true');
+
+        // имеющие геопривязку
+        if (isset($filter['is_on_map'])) {
+            $qb->andWhere('n.isOnMap = TRUE');
+        }
+
+        // фильтр по выбранным категориям
+        if (isset($filter['category'])) {
+            $categoryIds = (array) $filter['category'];
+            $qb->andWhere('c.id IN (:categoryIds)')
+               ->setParameter(':categoryIds', $categoryIds);
+        } else {
+            throw new \Exception('Выберите хотя бы один тип события.');
+        }
+
+        // фильтр по датам
+        $dateFrom = isset($filter['date_from']) ? new \DateTime($filter['date_from']) : new \DateTime('now');
+        $dateTo   = isset($filter['date_to'])   ? new \DateTime($filter['date_to'])   : new \DateTime('now');
+        $qb->andWhere('(n.date >= (:dateFrom) AND n.date <= (:dateTo)) OR (n.endDate >= (:dateFrom) AND n.endDate <= (:dateTo))')
+           ->setParameter(':dateFrom', $dateFrom)
+           ->setParameter(':dateTo', $dateTo);
+
+        // result
+        $rows = $qb->getQuery()->getResult();
+
+        $data = array();
+        foreach ($rows as $row) {
+            $imageUrl = $this->container->get('sonata.media.twig.extension')->path($row->getImage(), 'thumbnail');
+            $data[] = array(
+                'id' => $row->getId(),
+                'title' => $row->getTitle(),
+                //'dateFrom' => $row->getDate(),
+                //'dateTo' => $row->getEndDate(),
+                'lon' => $row->getLon(),
+                'lat' => $row->getLat(),
+                'imageUrl' => $imageUrl,
+                'categoryId' => $row->getCategory()->getId(),
+            );
+        }
+        return $data;
+    }
+
+    public function getLastNews($limit=5)
+    {
+        $qb = $this->getQueryBuilder(array());
+        $qb->orderBy('n.date', 'DESC');
+        return $qb->getQuery()
+                  ->setMaxResults($limit)
+                  ->getResult();
+    }
+
 }

@@ -70,6 +70,7 @@ object_not_found: Object not found
 comments: Comments
 comments_auth_require: Чтобы оставлять комментарии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.
 virtual_tour: Virtual tour
+infographics: Infographics
 mobile_app: Mobile app
 available_appstore: Available in AppStore
 video: Video

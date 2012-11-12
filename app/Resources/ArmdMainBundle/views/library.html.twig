@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %} {{ 'Portal title'|trans }} — {{ 'Navigation.Library'|trans }}{% endblock %}
+
+
+{% block body%}
+
+
+<div class="title-block timeline-title">
+    <h2>{{ 'Navigation.Library'|trans }}</h2>
+</div>
+<div class="object-one-col12">
+    <div class="object-one-text content">
+        <div class="text">
+            <ul class="gos-list">
+			<li id="lib_block" style="display:block;">
+					<ul>
+						<li>Предоставление библиографической информации из государственных библиотечных фондов
+							<div class="gos-links">
+								<p>
+									<a href="http://epgu.gosuslugi.ru/pgu/service/10000562924_48.html#_description" target="_blank" title="На Портале государственных и муниципальных услуг" class="gosuslugi-link" ></a><br />
+									<a href="http://mkrf.ru/gosuslugi/detail.php?ID=204311" target="_blank" title="На официальном сайте Министерства Культуры Российской Федерации" class="mincult-link"></a>
+								</p>
+							</div>
+						</li>
+						<li>Предоставление информации из государственных библиотечных фондов в части, не касающейся авторских прав
+							<div class="gos-links">
+								<p>
+									<a href="http://epgu.gosuslugi.ru/pgu/service/10000572466_49.html#_description" target="_blank" title="На Портале государственных и муниципальных услуг" class="gosuslugi-link" ></a><br />
+									<a href="http://mkrf.ru/gosuslugi/detail.php?ID=204313" target="_blank" title="На официальном сайте Министерства Культуры Российской Федерации" class="mincult-link"></a>
+								</p>
+							</div>
+						</li>
+					</ul>
+				</li>	
+			</ul>
+                
+        </div>
+    </div>
+</div>
+{% endblock %}
