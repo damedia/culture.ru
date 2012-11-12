@@ -116,7 +116,11 @@ class NewsManager
 
     public function filterBy($filter=array())
     {
-        $qb = $this->getQueryBuilder(array());
+        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
+        $qb->select('n, c, i')
+           ->innerJoin('n.category', 'c')
+           ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
+           ->andWhere('n.published = true');
 
         // имеющие геопривязку
         if (isset($filter['is_on_map'])) {
