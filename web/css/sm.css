@@ -3449,7 +3449,7 @@ white-space:nowrap;
 }
 	.rusObr-list {
 		font-size:0;
-		
+		background:#e6e6e6;
 	}
 	
 	.rusObr-list.type-2 li { float:left; }
@@ -3457,7 +3457,7 @@ white-space:nowrap;
 		.rusObr-list li {
 			width:33.33%;
 			display:inline-block;
-			
+			background:#fff;
 			position:relative;
 			vertical-align:top;
 			
@@ -3544,11 +3544,11 @@ white-space:nowrap;
 		}
 
 	.obrazy .rusObr-list li {
-		width:25%;
+		width:24.9%;
 		
 	}
 	
-	.obrazy.virt-museums .rusObr-list li { width: 25%; }
+	.obrazy.virt-museums .rusObr-list li { width:24.9%; }
 
 	.obrazy .rusObr-list-one {
 		padding:25px;
