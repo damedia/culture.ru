@@ -64,7 +64,7 @@ AT.initFilter = function(){
             $('#ajax-loading').hide();
             if (response.success) {
                 if (! response.result.data.length) {
-                    alert('Not items');
+                    alert('По заданным параметрам мероприятий не найдено. Пожалуйста, измените настройки поиска.');
                     return;
                 }
 

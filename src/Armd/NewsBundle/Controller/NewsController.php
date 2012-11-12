@@ -49,7 +49,7 @@ class NewsController extends ListController
 
         $lastNews = $this->getNewsManager()->getLastNews();
         $dateFrom = new \DateTime('-1 month');
-        $dateTo   = new \DateTime('+1 month');
+        $dateTo   = new \DateTime('+13 month');
         $dateFromStr = $dateFrom->format('d.m.Y');
         $dateToStr   = $dateTo->format('d.m.Y');
         return array(
