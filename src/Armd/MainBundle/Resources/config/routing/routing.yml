@@ -6,10 +6,6 @@ armd_main_banner:
     pattern:  /banner/
     defaults: { _controller: ArmdMainBundle:Main:banner }
 
-armd_main_museums:
-    pattern:  /museums/
-    defaults: { _controller: ArmdMainBundle:Main:museums }
-
 armd_main_about:
     pattern:  /about/
     defaults: { _controller: ArmdMainBundle:Main:about }
@@ -18,6 +14,10 @@ armd_main_services:
     pattern:  /services/
     defaults: { _controller: ArmdMainBundle:Main:services }
 
+armd_main_library:
+    pattern:  /library/
+    defaults: { _controller: ArmdMainBundle:Main:library }
+
 armd_main_project_brodino:
     pattern:  /borodino/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Borodino:index.html.twig }
@@ -25,8 +25,12 @@ armd_main_project_brodino:
 armd_main_project_1150:
     pattern:  /1150/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:1150:index.html.twig }
-    
-armd_main_press_archive:
-    pattern:  /press-centre/archive/
-    defaults: { _controller: ArmdMainBundle:Main:pressArchive }    
-    
+
+armd_main_project_traditions:
+    pattern:  /traditions/
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Traditions:index.html.twig }
+
+armd_main_random_russia_images:
+    pattern: /random-russia-images/
+    defaults: { _controller: ArmdMainBundle:Main:randomRussiaImages }
+    options: {expose: true}

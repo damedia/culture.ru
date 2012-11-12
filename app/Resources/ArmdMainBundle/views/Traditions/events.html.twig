@@ -1,0 +1,44 @@
+<div class="time-line-left">
+					{% set d = null %}	
+					{% for e in events %}
+						{% if loop.index is odd %}
+							{% set year = e.year %}
+							{% set decade = year - year % 10 %}
+							{% if decade != d and decade % 100 != 0 %}
+								{% set d = decade %}
+								<a name="{{ d }}" id="{{ d }}" class="decade-sector"></a>
+							{% endif %}
+							<div class="time-line-block">
+								{% if e.img != '' %}
+									<img class="time-line-image" src="{{ e.img }}"  alt="" />
+								{% endif %}								
+								<div class="time-line-block-header">
+									<span class="time-line-header-name">{{ e.title }}</span>
+									<span class="trad-line-year">{{ e.year }} год</span>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="time-line-right">
+					{% for e in events %}
+						{% if loop.index is even %}
+							{% set year = e.year %}
+							{% set decade = year - year % 10 %}
+							{% if decade != d and decade % 100 != 0 %}
+								{% set d = decade %}		    
+								<a name="{{ d }}" id="{{ d }}" class="decade-sector"></a>
+							{% endif %}		
+							<div class="time-line-block">
+								{% if e.img != '' %}
+									<img class="time-line-image" src="{{ e.img }}"  alt="" />
+								{% endif %}	
+								<div class="time-line-block-header">
+									<span class="time-line-header-name">{{ e.title }}</span>
+									<span class="trad-line-year">{{ e.year }} год</span>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+					
+				</div>

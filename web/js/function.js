@@ -125,11 +125,17 @@ $(document).ready(function () {
         $("#calendar").datepicker({showOtherMonths:true});
     }
 	if ($("#news-dates-filter").length > 0) {
-		$.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+        var calendarTriggerImg;
+        if (mkApp.locale === 'ru') {
+            $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+            calendarTriggerImg = '/img/calendar-trigger.png';
+        } else if (mkApp.locale === 'en') {
+            calendarTriggerImg = '/img/calendar-trigger-en.png';
+        }
         $(".calendar-input").datepicker({
 			showOtherMonths:true,
 			showOn: "button",
-			buttonImage: "/img/calendar-trigger.png",
+			buttonImage: calendarTriggerImg,
 			buttonImageOnly: true
 		});
 	}
@@ -312,45 +318,51 @@ $(document).ready(function () {
 		navMenuEl = $('> li', navMenu),
 		navMenuLength = navMenuEl.length,
 		navMenuGap,
-		i = 0;
+		navNumber = 0;
 		
 		
 		function menuRecalc(){
-			navMenuEl = $('> li', navMenu),
+			navMenuEl = $('> li', navMenu);
 			navMenuLength = navMenuEl.length;
-			if ( $('#nav').width() - navMenu.width()  > navMoreEl.eq(i).width() + 28 ) {
+			if ( $('#nav').width() - navMenu.width()  > navMoreEl.eq(navNumber).width() + 28 ) {
 				menuResize();
 			}
 		}
 		
-		function menuResize(){
+		function menuResize() {
 			navMore.removeClass('opened');
 			navMore.find('ul').hide();
 			navMenuGap = $('#nav').width() - navMenu.width();	
 			
 			navMore.find('ul').css({'display':'block','visibility':'hidden'});
 
-			if ( navMenuGap  > navMoreEl.eq(i).width() + 28 ) {
-				navMoreEl.eq(i).insertBefore(navMore);
-				i++;
+			if ( navMenuGap  > navMoreEl.eq(navNumber).width() + 28 ) {
+				navMoreEl.eq(navNumber).insertBefore(navMore);
+				navNumber++;
 				menuRecalc();
-			} else if ( navMenuGap < 0 ) {
-				if (i > 0) {
-					navMenuEl.eq(navMenuLength-2).prependTo(navMore.find('ul'));
-					i--;
+			} else {
+				if ( navMenuGap < 0 ) {
+					if (navNumber > 0) {
+						navMenuEl.eq(navMenuLength-2).prependTo(navMore.find('ul'));
+						navNumber--;
+					}
 				}
 			}
 			navMore.find('ul').css({'display':'none','visibility':'visible'});
 		}
-//
+		
+		function menuRe() {
+			if ( navMore.length > 0) {
+				menuRecalc();
+				menuResize();
+			}
+		}
+		
 //	commented because it broke atlas
-//	$(window).resize(function () {
-//		menuRecalc();
-//		menuResize();
-//
-//	});
-//	menuRecalc();
-//	menuResize();
+	$(window).resize(function () {
+		menuRe();
+	});
+	menuRe();
 	
 // Reset Font Size
   var originalFontSize = $('.text').css('font-size');
@@ -390,6 +402,29 @@ $(document).ready(function () {
 		return false;	
 	})
 
+	
+	imageResize = function(){
+		var lecContHeight = $('.lecture-tile-list-image-container:first').height();
+		$('.lecture-tile-list-image-container table').css('height', lecContHeight);
+	}
+	
+	$('.lecture-tile-list-image-frame:first').load(function(){
+		imageResize();
+	})
+
+	$(window).resize(function(){
+		imageResize();
+	})
+	
+	$('.trad-line-nav > li > a').click(function(){
+		var tradLink = $(this).attr('href');
+		$(tradLink).show().siblings('.trad-line-content').hide();
+		$(this).parent().addClass('active').siblings().removeClass('active');
+		
+	})
+	
+	
+	
 });
 	
 	

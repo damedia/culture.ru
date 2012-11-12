@@ -92,14 +92,22 @@ class ObjectAdmin extends Admin
                 ->add('russiaImageAnnounce')
             ->end()
             ->with('Virtual Tour')
-                ->add('virtualTour')
-                ->add('virtualTourImage', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'atlas',
-                    'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'thumbnail'
-                ))
+//                ->add('virtualTour')
+//                ->add('virtualTourImage', 'armd_media_file_type', array(
+//                    'required' => false,
+//                    'with_remove' => true,
+//                    'media_context' => 'atlas',
+//                    'media_provider' => 'sonata.media.provider.image',
+//                    'media_format' => 'thumbnail'
+//                ))
+                ->add(
+                    'virtualTours',
+                    null,
+                    array(
+                        'required' => false,
+                        'attr' => array('class' => 'chzn-select atlas-object-virtual-tours-select')
+                    )
+                )
             ->end()
             ->with('Contacts')
                 ->add('siteUrl')

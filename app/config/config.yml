@@ -129,7 +129,8 @@ sonata_media:
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 107 }
                 big: { width: 920 }
-                thumbnail: { width: 85, height: 85 }				
+                thumbnail: { width: 85, height: 85 }
+                searchAllResult: { width: 160, height: 107 }
 
         chronicle:
             download:
@@ -154,6 +155,7 @@ sonata_media:
                 imagesOfRussia: { width: 242, height: 187}
                 imagesOfRussiaSmall: {width: 85, height: 61}
                 imagesOfRussiaUnderMap: {width: 127, height: 107}
+                searchAllResult: { width: 160, height: 107 }
 
         atlas_icon:
             download:
@@ -175,9 +177,11 @@ sonata_media:
             formats:
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
+                tile: {width: 295, height: 228 }
                 medium: { width: 111 }
                 small: { width: 85 }
-                
+                searchAllResult: { width: 160, height: 107 }
+
         museum:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -186,6 +190,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 billboard: { width: 213 }
+                searchAllResult: { width: 160, height: 107 }
 
         gallery:
             download:
@@ -193,13 +198,22 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
-                - sonata.media.provider.file                
+                - sonata.media.provider.file
             formats:
                 big: { width: 920 }
-                thumbnail: { width: 85, height: 85 } 			
+                thumbnail: { width: 85, height: 85 }
                 archive: {width: 98}
 
-
+        paper_archive:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                big: { width: 200 }
+                small: { width: 97 }
 
     cdn:
         server:
@@ -311,6 +325,8 @@ armd_sphinx_search:
             %sphinxsearch_index_lectures%: ~
         Atlas:
             %sphinxsearch_index_atlas%: ~
+        Museums:
+            %sphinxsearch_index_museums%: ~
 
     searchd:
         host:   %sphinxsearch_host%
@@ -328,11 +344,18 @@ fos_oauth_server:
     service:
         user_provider: fos_user.user_manager
 
-parameters:
-    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-
-
 jms_i18n_routing:
     default_locale: %locale%
     locales: [ru, en]
     strategy: prefix_except_default
+
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+parameters:
+    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+
+

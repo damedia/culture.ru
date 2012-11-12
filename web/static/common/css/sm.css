@@ -553,12 +553,12 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .title-block.blue-no-icon {
 	 background: url("../img/title-blue-noicon.png") 0 100% no-repeat;
 }
-
+/*
 .title-block.timeline-title {
 	background:url('../img/title-block-timeline.png') no-repeat 0 100%;
 	margin-bottom:0;
 }
-
+*/
 .title-block h1, .title-block h2, .title-block h3, .title-block h4 {
 	font-weight: normal;
     font-size: 17px;
@@ -4343,3 +4343,4 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	.rusObr-list-text { height:160px; }
  
 }		
+

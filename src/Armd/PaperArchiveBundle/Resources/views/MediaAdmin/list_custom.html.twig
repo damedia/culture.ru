@@ -1,0 +1,6 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% block field %}
+<div>
+    <a href="{{ admin.generateUrl('edit', {'id' : object.id}) }}" style="float: left; margin-right: 6px;">{% thumbnail object.image, 'small' %}</a>
+</div>
+{% endblock %}

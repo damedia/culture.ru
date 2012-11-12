@@ -1,15 +1,15 @@
 {% extends '::base.html.twig' %}
 
-{% block stylesheets %}
+{#{% block stylesheets %}#}
 
-<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+{#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
 
-{{ parent() }}
+{#{{ parent() }}#}
 
-{% endblock %}
+{#{% endblock %}#}
 
 
-{% block title %} — {{ 'Navigation.About'|trans }}{% endblock %}
+{% block title %}{{ parent() }} — {{ 'Navigation.About'|trans }}{% endblock %}
 
 
 {% block body%}

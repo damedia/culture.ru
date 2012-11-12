@@ -14,16 +14,6 @@ class MainController extends Controller
         return $this->renderTemplate('banner');
     }
 
-    public function museumsAction($page = 1, $limit = 100)
-    {
-        return $this->renderTemplate(
-            'museums',
-            array(
-                'museums' => $this->getMuseumManager()->getPager(array(), $page, $limit),
-            )
-        );
-    }
-
     public function aboutAction()
     {
         return $this->renderTemplate('about');
@@ -32,6 +22,10 @@ class MainController extends Controller
     public function servicesAction()
     {
         return $this->renderTemplate('services');
+    }
+    public function libraryAction()
+    {
+        return $this->renderTemplate('library');
     }
 
     public function indexAction()
@@ -140,10 +134,6 @@ class MainController extends Controller
         return $this->get('armd_news.manager.news');
     }
 
-    function getMuseumManager()
-    {
-        return $this->get('armd_museum.manager.museum');
-    }
 
     function getGalleryManager()
     {

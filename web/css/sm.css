@@ -314,6 +314,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 			#nav .navmenu {
 				margin: 0 0 0 -12px;
 				float:left;
+				height: 30px;
 			}
 
 				#nav .navmenu li {
@@ -438,6 +439,19 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	padding: 0;
 }
 
+.loading-block {
+    display: none;
+    opacity: 0.9;
+    background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+
 /*titles*/
 .title-block {
 	background: url("../img/title-block.png") 0 100% no-repeat;
@@ -474,8 +488,8 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 .title-block.timeline-title {
-	background:url('../img/title-block-timeline.png') no-repeat 0 100%;
-	margin-bottom:0;
+	background-position: 0 100%;
+	padding-bottom:18px;
 }
 
 .title-block h1, .title-block h2, .title-block h3, .title-block h4 {
@@ -555,10 +569,16 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .yellow-title h1, .yellow-title h2, .yellow-title h3,  .yellow-title:before {
 	border-color:#ddbb44;
 }
+.purple-title h1, .purple-title h2, .purple-title h3,  .purple-title:before {
+	border-color:#945c81;
+}
 
 
 .star-title:before {
 		background:url('../img/borodino/title-star.png') no-repeat 0 3px;
+	}
+.crest-title:before {
+		background:url('../img/crest-title.gif') no-repeat 1px 3px;
 	}
 
 /*.title-filter:before {
@@ -807,6 +827,9 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     overflow: hidden;
 	font-size: 13px;
 }
+    .locale_en #events {
+        width: 100%;
+    }
 
 #events-tabs {
     height: 24px;
@@ -1818,7 +1841,9 @@ white-space:nowrap;
 			.news-one-image {
 				float:right;
 				margin:0 0 10px 10px;
-				width:49%;
+				/*width:49%;*/
+                width:366px;
+                clear: both;
 			}
 				.news-one-image img{
 					min-width:270px;
@@ -2111,6 +2136,10 @@ white-space:nowrap;
 	font-weight: normal;
 	margin: 0 0 24px 0;
 }
+.title-block .social-share-buttons{
+	float: right;
+}
+
 .all-list {
 				text-align:right;
 				margin-top:15px;
@@ -2717,21 +2746,6 @@ white-space:nowrap;
 					margin:-1px 3px 2px 0px;
 				}
 
-#lecture-list-wrapper {
-    position: relative;
-    min-height: 300px;
-}
-#lecture-list-loading {
-    display: none;
-    opacity: 0.9;
-    background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-}
 
 .video-similar {
 	margin-top:50px;
@@ -3428,6 +3442,8 @@ white-space:nowrap;
 		top:2px;
 	}
 
+/*--- russia images and virtual museums ---*/
+
 .rusObr-block {
 	border:8px solid #e6e6e6;
 }
@@ -3496,8 +3512,6 @@ white-space:nowrap;
 				top:0;
 			}
 
-
-
 .virt-museums {
 	margin-top:-10px;
 }
@@ -3530,7 +3544,7 @@ white-space:nowrap;
 		}
 
 	.obrazy .rusObr-list li {
-		width:24%;
+		width:25%;
 		
 	}
 	
@@ -3627,17 +3641,236 @@ white-space:nowrap;
 #images-of-russia-wrapper {
     position: relative;
 }
-    #images-of-russia-loading {
-        display: none;
-        opacity: 0.9;
-        background: #cccccc url('../img/loading_block.gif') no-repeat scroll 50% 100px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 100;
+
+
+/*--- /russia images and virtual museums---*/
+
+
+/*--- lectures tile ---*/
+
+.lecture-tile-block {
+	border:8px solid #e6e6e6;
+}
+	.lecture-tile-list {
+		font-size:0;
+	}
+
+	.lecture-tile-list.type-2 li { float:left; }
+
+		.lecture-tile-list li {
+            width:25%;
+			display:inline-block;
+			position:relative;
+			vertical-align:top;
+			font-size:12px;
+		}
+		.lt-ie8 .lecture-tile-list li  {
+			display:inline;
+			zoom:1;
+
+			width:33%;
+		}
+			.lecture-tile-list-one {
+				border:1px solid #d9d9d9;
+				border-width:0px 1px 1px 0;
+                padding:25px;
+				min-height:355px;
+			}
+				.lecture-tile-list-one img {
+					width:100%;
+				}
+
+                .lecture-tile-list-one .va-theme {
+                    margin-top: -7px;
+                    margin-bottom: 15px;
+                }
+
+			.lecture-tile-list-text {
+				height:120px;
+			}
+				.lecture-tile-list-header {
+					color:#000;
+					text-decoration:none;
+					font-size:20px;
+					display:block;
+					padding:9px 0 13px;
+					line-height:21px;
+				}
+
+
+			.lecture-tile-hovered {
+				position: absolute;
+				top: 0;
+				left: 0;
+				box-shadow:0 0 25px #000;
+				z-index:5;
+
+			}
+			.lt-ie8 .lecture-tile-hovered li  {
+				top:0;
+			}
+			.lecture-tile-list-image-container {
+				position:relative;
+			}
+				.lecture-tile-list-image-container  table{
+					position:absolute;
+					top:0;
+					left:0;
+					width:100%;
+					height:100%;
+					
+				}
+					.lecture-tile-list-image-container td {
+						vertical-align:middle;
+					}
+
+
+
+	.lecture-tile-hovered .lecture-tile-list-one {
+		width:192px;
+		height:266px;
+		padding:25px;
+		position:absolute;
+		top:0;
+		left:0;
+		border:0;
+		background:#ffaa00 url('../img/obraz_bg.jpg') no-repeat 0 0;
+
+	}
+		.lecture-tile-hovered .lecture-tile-list-one .lecture-tile-list-place a {
+			color:#000;
+		}
+
+
+	.lecture-tile-list-one-wrap {
+		box-shadow:none;
+	}
+	.lecture-tile-list-one-wrap.lecture-tile-hovered .lecture-tile-list-one {
+		box-shadow:0 0 50px -7px black;
+		z-index:5;
+	}
+
+
+.lecture-index-tile .title-block {
+    margin: 0;
+}
+
+.lecture-index-tile .horizontal-filter .simple-filter-header {
+    margin-top: 7px;
+
+}
+
+.lecture-index-tile .horizontal-filter .simple-filter-form {
+    margin-left: 0;
+}
+
+#lecture-list-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+/*#lecture-list-loading {*/
+    /*display: none;*/
+    /*opacity: 0.9;*/
+    /*background: #eeeeee url('../img/loading_block.gif') no-repeat scroll 50% 100px;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*z-index: 1000;*/
+
+/*}*/
+
+.video-anons-new {
+	border:1px solid #e3e3e3;
+	margin:31px 0 0 0;
+	padding:13px;
+}
+.van-text {
+	float:left;
+	width:250px;
+}
+	.van-text .va-name {
+		font-size:18px;
+		margin:0 0 7px;
+	}
+
+    .van-text .va-theme {
+        margin-bottom: 15px;
     }
+
+    .van-text .vs-lector {
+        margin-bottom: 15px;
+    }
+
+.van-image {
+	padding-left:300px;
+}
+	.van-image img {
+		width:100%;
+		height:auto;
+	}
+
+
+/*--- /lectures tile ---*/
+
+/*--- museums ---*/
+#museums-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+
+
+.museum-block {
+	border:8px solid #e6e6e6;
+}
+	.museum-list {
+		font-size:0;
+	}
+
+		.museum-list li {
+            width:25%;
+			display:inline-block;
+			position:relative;
+			vertical-align:top;
+			font-size:12px;
+		}
+		.lt-ie8 .museum-list li  {
+			display:inline;
+			zoom:1;
+
+			width:33%;
+		}
+			.museum-list-one {
+				border:1px solid #d9d9d9;
+				border-width:0px 1px 1px 0;
+                padding:25px;
+			}
+				.museum-list-one img {
+					width:100%;
+				}
+
+			.museum-list-text {
+				height:120px;
+			}
+				.museum-list-header {
+					color:#000;
+					text-decoration:none;
+					font-size:20px;
+					display:block;
+					padding:9px 0 13px;
+					line-height:21px;
+				}
+
+
+
+	.museum-list-one-wrap {
+		box-shadow:none;
+	}
+
+
+/*--- /museums ---*/
+
 
 
 .scroll-pane { overflow: auto; width: 100%; float:left; }
@@ -4315,7 +4548,7 @@ white-space:nowrap;
 		
 #socialnetwork-links {}	
 
-	#socialnetwork-links a {
+	#socialnetwork-links a, .social-share-buttons a {
 		display:inline-block;
 		width:20px;
 		height:20px;
@@ -4327,10 +4560,10 @@ white-space:nowrap;
 		*float:left;
 	}	
 	
-	#socialnetwork-links .vk {	background-position:0 -40px;}	
-	#socialnetwork-links .lj { display:none;}
-	#socialnetwork-links .tw { background-position:0 -60px;}	
-	#socialnetwork-links .fb { background-position:0 -0px;}			
+	#socialnetwork-links .vk, .social-share-buttons .vk { background-position:0 -40px;}	
+	#socialnetwork-links .lj, .social-share-buttons .lj { display:none;}
+	#socialnetwork-links .tw, .social-share-buttons .tw { background-position:0 -60px;}	
+	#socialnetwork-links .fb, .social-share-buttons .fb { background-position:0 -0px;}			
 	#socialnetwork-links .rss-icon {background:url('../img/rss.png') no-repeat 0 0;	}
 	
 	
@@ -4409,6 +4642,9 @@ white-space:nowrap;
 		margin-top:35px;
 		
 	}
+	.purple-border-block {
+		border-color:#bdaeb8;
+	}
 	.right-column .yellow-border-block {
 		margin-bottom:20px;
 	}
@@ -4427,6 +4663,9 @@ white-space:nowrap;
 			font-family:'Cambria','Times new Roman', sans;
 			background:#fff;
 			*display:inline;
+		}
+		.yellow-border-header span {
+			color:#5a354d;
 		}
 		.yellow-border-block  .video-three {
 			border:0;
@@ -4966,17 +5205,30 @@ white-space:nowrap;
 			font-size:18px;
 			border:0;
 		}
+		.years-tab{
+			overflow: hidden;
+		}
 
-		
 		.archive-list {
 			
 		}
 			.archive-list li {
 				width:49%;
-				display:inline-block;
-				margin:0 0 25px;
+				display:block;
+				float: left;
 				vertical-align:top;
-				*display:inline;
+			}
+			.archive-list li.big{
+				margin-bottom:25px;
+			}
+			.archive-list li.small{
+				height: 160px;
+			}
+			.archive-list li.archive-separator {
+				width:100%;
+				float:none;
+				height:1px;
+				clear:both;
 			}
 				.arch-one {
 					
@@ -4985,6 +5237,10 @@ white-space:nowrap;
 						float:left;
 						margin:0 15px 0 0;
 					}
+						.archive-list li.big .arch-image {
+							width:52%;
+							height:auto;
+						}
 					.arch-name {
 						display:block;
 						font-size:15px;
@@ -5035,4 +5291,260 @@ white-space:nowrap;
 		color:#de600c;
 		font-weight:bold;
 	}
+	
+	
+.traditions-list {
+	margin-top:30px;
+
+}	
+	.trad-list-header {
+		background:#e6e6e6;
+		color:#5a354d;
+		font:18px Cambria, "Times New Roman", serif;
+		text-align:center;
+		padding:7px 0 9px;
+	}
+	.traditions-list li {
+	
+	}
+	.traditions-list .rusObr-list-one{
+		padding:0 20px 20px 20px;
+	}
+		.traditions-list  .rusObr-list-one img {
+			margin-top:18px;
+		}
+		.traditions-list .rusObr-list-header {
+			font-size:15px;
+			font-weight:bold;
+		}
+		.traditions-list  .rusObr-list-text {
+			height:64px;
+		}
+	.religion-type {
+		font:12px Cambria, "Times New Roman", serif;
+		padding-top:8px;
+	}
+		.religion-type i {
+			float: left;
+			width: 20px;
+			height: 20px;
+			margin: -8px 9px 0 0;
+			background: url('../img/religion-icons.png') no-repeat -9px -10px;
+		}
+			
+		
+		.orth {
+			color:#539eff;
+		}
+			.orth  i {
+				
+			}
+		.islam {
+			color:#008723;
+		}
+			.islam  i {
+				background-position:-49px -10px;
+			}
+		.jud {
+			color:#014da3;
+		}
+			.jud  i {
+				background-position:-89px -10px;
+			}
+		.budd {
+			color:#ef5e05;
+		}
+			.budd  i {
+				background-position:-129px -10px;
+			}
+		.cath {
+			color:#bd0002;
+		}
+			.cath  i {
+				background-position:-9px -49px;
+			}
+		.luth {
+			color:#ca8f00;
+		}
+			.luth  i {
+				background-position:-49px -49px;
+			}
+		.angl {
+			color:#941f86;
+		}
+			.angl  i {
+				background-position:-89px -49px;
+			}
+			
+		.rel-type {
+			
+			display:block;
+			margin:-3px 0 2px;
+			font-size:11px;
+		}	
+		.interview-list-anons {
+			font-size:13px;
+			line-height:15px;
+		}
+
+		
+	.trad-line-nav {
+		width:75px;
+		float:left;
+		border:1px solid #e3e3e3;
+		padding:10px 0;
+		margin:20px 0 27px 27px;
+	}
+		.trad-line-nav li {
+			
+		}
+		.trad-line-nav li a {
+			display:block;
+			padding:5px 0;
+			font-size:12px;
+			text-align:center;
+			color:#000;
+			text-decoration:none;
+			font-weight:bold;
+		}
+			.trad-line-nav li.active > a{
+				background:#5a354d;
+				color:#fff;
+			}
+			.trad-line-nav li.inactive a {
+				color:#d4d4d4;
+			}
+			.trad-line-nav li ul {
+				display:none;
+			}
+			.trad-line-nav li.active ul {
+				display:block;
+			}
+		
+		.trad-line-content {
+			background:none;
+			margin-left:133px;
+			margin-right:27px;
+			padding-top:34px;
+			margin-bottom:0;
+			padding-bottom:0;
+		}
+		
+		.trad-line-header {
+			border-top:1px solid #ded6db;
+			position:relative;
+			margin-bottom:26px;
+		}
+			.trad-line-header span {
+				position:absolute;
+				top:-10px;
+				left:50%;
+				display:block;
+				margin-left:-20px;
+				width:40px;
+				color:#5a354d;
+				font:16px Cambria, "Times New Roman", serif;
+				text-align:center;
+				background:#fff;
+				line-height:11px;
+			}
+				.trad-line-header span small {
+					font-size:11px;
+				}
+		
+		.trad-line-content  .time-line-left, .trad-line-content  .time-line-right {
+			width:47%;
+			margin-bottom:27px;
+		}
+		.trad-line-content .time-line-block {
+			border:0;
+			padding:0;
+			margin-bottom:25px;
+		}
+			.trad-line-content .time-line-image {
+				margin-bottom:8px;
+			}
+		.trad-line-year {
+
+			display:block;
+			color:#7f4f6e;
+			font:13px Cambria, "Times New Roman", serif;
+			text-transform:none;
+		}
+		
+		
+	.small-block {
+		border:1px solid #dfdfdf;
+		padding:12px;
+		position:relative;
+		margin-bottom:17px;
+	}
+		.small_link_header{
+			font-size: 18px;
+		}
+		
+	.small-video-list {
+		margin-top:10px;
+	}	
+		.small-video-list-one {
+			margin-top:10px;
+			padding-top:10px;
+			overflow:hidden;
+			border-top:1px solid #eee;
+		}
+		.small-video-list-one.first {
+			margin-top:0;
+			border-top:0;
+			padding-top:0;
+		}
+		
+		.small-video-list-one:first-child { margin-top:0; }
+		
+		.small-video-list-image {
+			position:relative;
+		}
+		
+			.small-video-list-image img {
+				width:100%;
+			}
+			
+			.small-video-list-image a {
+				display:block;
+				position:relative;
+			}
+			
+			.small-video-list-image a,
+			.small-video-list-image a:hover {
+				text-decoration:none;
+			}
+			
+			.small-video-list-image .title-video {
+				position:absolute;
+				width:100%;
+				color:#FFF;
+				font-size:14px;
+				bottom:0;
+				left:0;
+				background:rgba(0, 0, 0, 0.7);
+				z-index:5;
+			}
+			.lt-ie8 .small-video-list-image .title-video {
+				background:#000;
+			}
+				.small-video-list-image .title-video p {
+					padding:12px 10px;
+				}
+				
+
+		
+		.anons-video-btn {
+			background:url('../img/anons-video-btn.png') no-repeat 0 0;
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin:-28px 0 0 -28px;
+			width:57px;
+			height:57px;
+			display:block;
+		}			
 			

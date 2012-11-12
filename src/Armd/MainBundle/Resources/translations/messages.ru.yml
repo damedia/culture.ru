@@ -33,11 +33,15 @@ Navigation:
         Media: Медиапроекты
     Events: События
     1150: 1150 лет государственности
+    Traditions: Духовные традиции
     Public council: Общественный совет
     Public services: Госуслуги
     Closed forum: Закрытый форум
+    goverment_services: Госуслуги
     About: О проекте
     Add: Еще
+    Library: Библиотека
+    Reports: Репортажи
 
 Mainpage block:
     Communication:
@@ -113,8 +117,9 @@ Registration: Регистрация
 Logout: Выйти
 Login: Войти
 All: Все
-Download: Скачать pdf
+Download: Скачать
 Comments: Комментарии
 Comment: Оставить комментарий
 Submit: Отправить
 Events: События
+Interview: Интервью

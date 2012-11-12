@@ -36,6 +36,7 @@ class TvigleVideoListener
                 $tvigleManager = $this->container->get('armd_tvigle_video.manager.tvigle_video');
                 $tvigleManager->updateVideoDataFromTvigle($entity);
 
+                // MYTODO: this doesn't work, because of inability to change associations in preUpdate
                 $uow->computeChangeSet(
                     $em->getClassMetadata('TvigleVideoBundle:TvigleVideo'),
                     $entity

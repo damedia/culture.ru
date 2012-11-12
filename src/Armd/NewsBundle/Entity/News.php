@@ -10,7 +10,7 @@ use Armd\MkCommentBundle\Entity\Thread;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
- * @ORM\Table(name="content_news") 
+ * @ORM\Table(name="content_news")
  * @ORM\HasLifecycleCallbacks
  */
 class News extends BaseNews implements CommentableInterface
@@ -26,75 +26,75 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\Column(type="string")
      */
     protected $title;
-    
+
     /**
      * @ORM\Column(type="datetime", name="date_from")
      */
     protected $date;
-    
+
     /**
      * @ORM\Column(type="datetime", name="date_to", nullable=true)
      */
-    protected $endDate;    
+    protected $endDate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     */    
+     */
     protected $announce;
 
     /**
      * @ORM\Column(type="text")
-     */    
+     */
     protected $body;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
-     */    
-    protected $source;    
-    
+     */
+    protected $source;
+
     /**
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\OrderBy({"title"="ASC"})
-     * @ORM\JoinColumn(nullable=false)          
+     * @ORM\JoinColumn(nullable=false)
      **/
     protected $category;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Armd\MainBundle\Entity\Subject")
      * @ORM\OrderBy({"title"="ASC"})
      **/
-    protected $subject;    
-    
+    protected $subject;
+
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     */        
+     */
     protected $important;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
-     */        
+     */
     protected $priority;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
-     */        
+     */
     protected $published;
 
     /**
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
-     */            
-    protected $publishedAt;    
-    
+     */
+    protected $publishedAt;
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $month;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $day;    
-    
+    protected $day;
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
@@ -106,7 +106,28 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
-        
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"})
+     * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
+     */
+    private $video;
+
+    /**
+     * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
+     */
+    private $isOnMap = false;
+
+    /**
+     * @ORM\Column(name="lat", type="decimal", precision=15, scale=10, nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(name="lon", type="decimal", precision=15, scale=10, nullable=true)
+     */
+    private $lon;
+
     /**
      * Thread of this comment
      *
@@ -114,8 +135,8 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
      */
     protected $thread;
-    
-    /** 
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -125,17 +146,16 @@ class News extends BaseNews implements CommentableInterface
         $this->month = $this->getDate()->format('m');
     }
 
-    /** 
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
-     */    
-    public function setPublicationDate() 
+     */
+    public function setPublicationDate()
     {
-        if ($this->published)
-        {
+        if ($this->published) {
             $this->publishedAt = new \DateTime();
         }
-    }       
+    }
 
     /**
      * Set announce
@@ -146,13 +166,14 @@ class News extends BaseNews implements CommentableInterface
     public function setAnnounce($announce)
     {
         $this->announce = $announce;
+
         return $this;
     }
 
     /**
      * Get announce
      *
-     * @return text 
+     * @return text
      */
     public function getAnnounce()
     {
@@ -168,13 +189,14 @@ class News extends BaseNews implements CommentableInterface
     public function setBody($body)
     {
         $this->body = $body;
+
         return $this;
     }
 
     /**
      * Get body
      *
-     * @return text 
+     * @return text
      */
     public function getBody()
     {
@@ -190,13 +212,14 @@ class News extends BaseNews implements CommentableInterface
     public function setCategory(\Armd\NewsBundle\Entity\Category $category = null)
     {
         $this->category = $category;
+
         return $this;
     }
 
     /**
      * Get category
      *
-     * @return Armd\NewsBundle\Entity\Categoty 
+     * @return Armd\NewsBundle\Entity\Categoty
      */
     public function getCategory()
     {
@@ -206,7 +229,7 @@ class News extends BaseNews implements CommentableInterface
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -222,13 +245,14 @@ class News extends BaseNews implements CommentableInterface
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -244,13 +268,14 @@ class News extends BaseNews implements CommentableInterface
     public function setImportant($important)
     {
         $this->important = $important;
+
         return $this;
     }
 
     /**
      * Get important
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getImportant()
     {
@@ -266,13 +291,14 @@ class News extends BaseNews implements CommentableInterface
     public function setPublished($published)
     {
         $this->published = $published;
+
         return $this;
     }
 
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
@@ -288,13 +314,14 @@ class News extends BaseNews implements CommentableInterface
     public function setSource($source)
     {
         $this->source = $source;
+
         return $this;
     }
 
     /**
      * Get source
      *
-     * @return string 
+     * @return string
      */
     public function getSource()
     {
@@ -310,17 +337,37 @@ class News extends BaseNews implements CommentableInterface
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
+
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
+     * @return News
+     */
+    public function setVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video = null)
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    /**
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo|null
+     */
+    public function getVideo()
+    {
+        return $this->video;
     }
 
     /**
@@ -332,13 +379,14 @@ class News extends BaseNews implements CommentableInterface
     public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
     {
         $this->gallery = $gallery;
+
         return $this;
     }
 
     /**
      * Get gallery
      *
-     * @return Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return Application\Sonata\MediaBundle\Entity\Gallery
      */
     public function getGallery()
     {
@@ -354,13 +402,14 @@ class News extends BaseNews implements CommentableInterface
     public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
+
         return $this;
     }
 
     /**
      * Get endDate
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getEndDate()
     {
@@ -376,13 +425,14 @@ class News extends BaseNews implements CommentableInterface
     public function setPriority($priority)
     {
         $this->priority = $priority;
+
         return $this;
     }
 
     /**
      * Get priority
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriority()
     {
@@ -398,13 +448,14 @@ class News extends BaseNews implements CommentableInterface
     public function setDate($date)
     {
         $this->date = $date;
+
         return $this;
     }
 
     /**
      * Get date
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getDate()
     {
@@ -420,13 +471,14 @@ class News extends BaseNews implements CommentableInterface
     public function setMonth($month)
     {
         $this->month = $month;
+
         return $this;
     }
 
     /**
      * Get month
      *
-     * @return integer 
+     * @return integer
      */
     public function getMonth()
     {
@@ -442,13 +494,14 @@ class News extends BaseNews implements CommentableInterface
     public function setDay($day)
     {
         $this->day = $day;
+
         return $this;
     }
 
     /**
      * Get day
      *
-     * @return integer 
+     * @return integer
      */
     public function getDay()
     {
@@ -464,6 +517,7 @@ class News extends BaseNews implements CommentableInterface
     public function setThread(Thread $thread = null)
     {
         $this->thread = $thread;
+
         return $this;
     }
 
@@ -486,14 +540,14 @@ class News extends BaseNews implements CommentableInterface
     public function setPublishedAt($publishedAt)
     {
         $this->publishedAt = $publishedAt;
-    
+
         return $this;
     }
 
     /**
      * Get publishedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPublishedAt()
     {
@@ -509,17 +563,86 @@ class News extends BaseNews implements CommentableInterface
     public function setSubject(\Armd\MainBundle\Entity\Subject $subject = null)
     {
         $this->subject = $subject;
-    
+
         return $this;
     }
 
     /**
      * Get subject
      *
-     * @return Armd\MainBundle\Entity\Subject 
+     * @return Armd\MainBundle\Entity\Subject
      */
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param float $lat
+     * @return News
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return float 
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lon
+     *
+     * @param float $lon
+     * @return News
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+    
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return float 
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * Set isOnMap
+     *
+     * @param boolean $isOnMap
+     * @return News
+     */
+    public function setIsOnMap($isOnMap)
+    {
+        $this->isOnMap = $isOnMap;
+    
+        return $this;
+    }
+
+    /**
+     * Get isOnMap
+     *
+     * @return boolean 
+     */
+    public function getIsOnMap()
+    {
+        return $this->isOnMap;
     }
 }

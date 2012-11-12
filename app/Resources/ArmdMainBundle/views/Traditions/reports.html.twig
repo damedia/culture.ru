@@ -1,0 +1,72 @@
+{% set news = [
+    {
+        'url':      '/press-centre/news/1696/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/05/thumb_4966_news_latest.jpeg',
+        'title':    'Выставка-презентация промыслов и ремесел народов России',
+        
+    },
+	{
+        'url':      '/press-centre/reportages/1142/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/08/thumb_7167_news_latest.jpeg',
+        'title':    'Россия отпраздновала 1000-летие единения мордовского народа с народами Российского государства',
+         
+    },
+	{
+        'url':      '/press-centre/reportages/1146/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/05/thumb_4964_news_latest.jpeg',
+        'title':    '«Живой истории страницы»',
+        
+    },
+	{
+        'url':      '/press-centre/reportages/1143/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/05/thumb_4956_news_latest.jpeg',
+        'title':    '«Россия — Родина моя»',
+        
+    },
+	{
+        'url':      '/press-centre/reportages/721/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/05/thumb_4802_news_latest.jpeg',
+        'title':    'Сквозь очистительный огонь',
+        
+    },
+	{
+        'url':      '/press-centre/reportages/740/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/03/thumb_2142_news_latest.jpeg',
+        'title':    'Монументальный диалог с классикой',
+        
+    },
+	{
+        'url':      '/press-centre/reportages/695/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/05/thumb_4919_news_latest.jpeg',
+        'title':    'В ладу с природой',
+        
+    },
+	{
+        'url':      '/press-centre/reportages/696/',
+        'img':      'http://culture.ru/ru/uploads/media/news/0001/01/thumb_402_news_latest.jpg',
+        'title':    'Заповедная Россия Вадима Гиппенрейтера',
+        
+    },
+	
+	
+] %}
+
+{% macro news_item(url, title, img) %}	
+	<li >
+		<a href="{{ url|raw }}">
+			<img width="85" height="65" src="{{ img }}">
+		</a>
+		<div class="text-overflow">
+			<p>
+				<a href="{{ url }}" class="rl-name rl-name-big">{{ title|raw }}</a>
+			</p>
+		</div>	
+	</li>
+{% endmacro %}
+
+
+<ul class="right-list">
+	{% for n in news %}
+		{{ _self.news_item(n.url, n.title, n.img) }}
+	{% endfor %}
+</ul>

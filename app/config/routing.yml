@@ -1,3 +1,14 @@
+armd_paper_archive:
+    resource: "@ArmdPaperArchiveBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+armd_museums:
+    resource: "@ArmdMuseumBundle/Controller/"
+    type:     annotation
+    prefix:   /museums
+
+
 armd_mk_comment:
     resource: "@ArmdMkCommentBundle/Controller/"
     type:     annotation
@@ -51,8 +62,8 @@ armd_user_routing:
     resource: '@ArmdUserBundle/Resources/config/routing/armd_user_routing.yml'
     prefix:   /
 
-#fos_js_routing:
-#    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 fos_comment_api:
    type: rest

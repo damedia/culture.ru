@@ -20,6 +20,8 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class News extends Admin
 {
+    protected $translationDomain = 'ArmdNewsBundle';
+
     protected $datagridValues = array(
         '_sort_by'      => 'date',    
         '_sort_order'   => 'DESC',
@@ -65,7 +67,13 @@ class News extends Admin
             ->end()    
             ->with('Media')                
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
-                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'gallery')))                                
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'gallery')))
+                ->add('video', 'armd_tvigle_video_selector', array('required' => false))
+            ->end()
+            ->with('Map')
+                ->add('isOnMap', null, array('required' => false))
+                ->add('lat', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
+                ->add('lon', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -98,5 +106,17 @@ class News extends Admin
             ->add('published')
             ->add('important')            
         ;
+    }
+
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'ArmdNewsBundle:Form:edit_container.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
     }
 }

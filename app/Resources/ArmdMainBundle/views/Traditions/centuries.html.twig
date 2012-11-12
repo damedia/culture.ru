@@ -1,0 +1,556 @@
+{% set centuries = [
+	
+						
+		{
+			name : 'XX',
+			value : '20',
+			events :[
+					{
+						'year':      '1966',
+						'img':      '/img/tradition-line/11.jpg',
+						'title':    'А.А. ТАРКОВСКИЙ, «АНДРЕЙ РУБЛЕВ»',
+					},
+					{
+						'year':      '1965',
+						'img':      '/img/tradition-line/10.jpg',
+						'title':    'М.И. РОММ, «ОБЫКНОВЕННЫЙ ФАШИЗМ»',
+					},
+					{
+						'year':      '1959',
+						'img':      '/img/tradition-line/12.jpg',
+						'title':    'Г.Н. ЧУХРАЙ, «БАЛЛАДА О СОЛДАТЕ»',
+					},
+					{
+						'year':      '1954',
+						'img':      '',
+						'title':    'Д.Д. ШОСТАКОВИЧ ПОЛУЧАЕТ МЕЖДУНАРОДНУЮ ПРЕМИЮ МИР',
+					},
+					{
+						'year':      '1939',
+						'img':      '',
+						'title':    'С.С. ПРОКОФЬЕВ, КАНТАТА «АЛЕКСАНДР НЕВСКИЙ»',
+					},
+					{
+						'year':      '1938',
+						'img':      '/img/tradition-line/9.jpg',
+						'title':    'ФИЛЬМ С.М. ЭЙЗЕНШТЕЙНА «АЛЕКСАНДР НЕВСКИЙ»',
+					},
+					
+					
+					
+					
+					
+					]
+		},
+		{
+			name : 'XIX',
+			value : '19',
+			events :[
+					{
+						'year':      '1887',
+						'img':      '/img/tradition-line/19/9.jpg',
+						'title':    'В.И. СУРИКОВ, «БОЯРЫНЯ МОРОЗОВА»',
+					},
+					{
+						'year':      '1883',
+						'img':      '/img/tradition-line/19/7.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА СОБОРА СПАСА НА КРОВИ В САНКТ-ПЕТЕРБУРГЕ',
+					},
+					{
+						'year':      '1876',
+						'img':      '',
+						'title':    'ПЕРВОЕ ИЗДАНИЕ БИБЛИИ НА РУССКОМ ЯЗЫКЕ',
+					},
+					{
+						'year':      '1866',
+						'img':      '/img/tradition-line/19/6.jpg',
+						'title':    'Ф.М. ДОСТОЕВСКИЙ, «ПРЕСТУПЛЕНИЕ И НАКАЗАНИЕ»',
+					},
+					{
+						'year':      '1861',
+						'img':      '',
+						'title':    'МАНИФЕСТ ОБ ОСВОБОЖДЕНИИ КРЕПОСТНЫХ',
+					},
+					{
+						'year':      '1858',
+						'img':      '',
+						'title':    'ИСАаКИЕВСКИЙ СОБОР В САНКТ-ПЕТЕРБУРГЕ',
+					},
+					{
+						'year':      '1857',
+						'img':      '/img/tradition-line/19/5.jpg',
+						'title':    'А. ИВАНОВ, «ЯВЛЕНИЕ ХРИСТА НАРОДУ»',
+					},
+					{
+						'year':      '1855',
+						'img':      '',
+						'title':    'А.Н. АФАНАСЬЕВ, «НАРОДНЫЕ РУССКИЕ СКАЗКИ»',
+					},
+					{
+						'year':      '1848',
+						'img':      '/img/tradition-line/19/8.jpg',
+						'title':    'ПЕРВАЯ ПУБЛИКАЦИЯ ТЕКСТА ОЛОНХО',
+					},
+					{
+						'year':      '1837',
+						'img':      '',
+						'title':    'ОТКРЫТИЕ ПАМЯТНИКОВ М.И. КУТУЗОВУ И М.Б. БАРКЛАЮ-ДЕ-ТОЛЛИ ПЕРЕД КАЗАНСКИМ СОБОРОМ',
+					},
+					{
+						'year':      '1837',
+						'img':      '/img/tradition-line/19/3.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА ХРАМА ХРИСТА СПАСИТЕЛЯ',
+					},
+					{
+						'year':      '1836',
+						'img':      '/img/tradition-line/19/4.jpg',
+						'title':    'М.И. ГЛИНКА, «ЖИЗНЬ ЗА ЦАРЯ» («ИВАН СУСАНИН»)',
+					},
+					{
+						'year':      '1836',
+						'img':      '',
+						'title':    'П.Я. ЧААДАЕВ, «ФИЛОСОФИЧЕСКИЕ ПИСЬМА»',
+					},
+					{
+						'year':      '1834',
+						'img':      '/img/tradition-line/19/2.jpg',
+						'title':    'ЗАВЕРШЕНО СТРОИТЕЛЬСТВО ЗДАНИЙ СЕНАТА И СИНОДА',
+					},
+					{
+						'year':      '1812',
+						'img':      '',
+						'title':    'РОССИЙСКОЕ БИБЛЕЙСКОЕ ОБЩЕСТВО',
+					},
+					{
+						'year':      '1811',
+						'img':      '/img/tradition-line/19/1.jpg',
+						'title':    'КАЗАНСКИЙ СОБОР В САНКТ-ПЕТЕРБУРГЕ',
+					},
+					]
+		},
+		{
+			name : 'XVIII',
+			value : '18',
+			events :[
+					{
+						'year':      '1778',
+						'img':      '/img/tradition-line/18/4.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА ТРОИЦКОГО СОБОРА АЛЕКСАНДРО-НЕВСКОЙ ЛАВРЫ',
+					},
+					{
+						'year':      '1748',
+						'img':      '/img/tradition-line/18/3.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА СМОЛЬНОГО СОБОРА В САНКТ-ПЕТЕРБУРГЕ',
+					},
+					{
+						'year':      '1721',
+						'img':      '/img/tradition-line/18/2.jpg',
+						'title':    'ЛИКВИДАЦИЯ ПАТРИАРШЕСТВА, УЧРЕЖДЕНИЕ СВЯТЕЙШЕГО СИНОДА',
+					},
+					{
+						'year':      '1712',
+						'img':      '/img/tradition-line/18/1.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА ПЕТРОПАВЛОВСКОГО СОБОРА В САНКТ-ПЕТЕРБУРГЕ',
+					},
+					
+					
+					
+					]
+		},
+		{
+			name : 'XVII',
+			value : '17',
+			events :[
+					{
+						'year':      '1674',
+						'img':      '/img/tradition-line/17/4.jpg',
+						'title':    'ИЗДАН «КИЕВСКИЙ СИНОПСИС»',
+					},
+					{
+						'year':      '1654',
+						'img':      '/img/tradition-line/17/3.jpg',
+						'title':    'НАЧАЛО РАСКОЛА В ЦЕРКВИ',
+					},
+					{
+						'year':      '1633',
+						'img':      '/img/tradition-line/17/2.jpg',
+						'title':    'ГРЕКО-ЛАТИНСКОЕ УЧИЛИЩЕ В ЧУДОВОМ МОНАСТЫРЕ В КРЕМЛЕ',
+					},
+					{
+						'year':      '1613',
+						'img':      '/img/tradition-line/17/1.jpg',
+						'title':    'ПОДВИГ ИВАНА СУСАНИНА',
+					},
+					
+					
+					
+					]
+		},	
+		{
+			name : 'XVI',
+			value : '16',
+			events :[
+					{
+						'year':      '1589',
+						'img':      '/img/tradition-line/16/3.jpg',
+						'title':    'УЧРЕЖДЕНИЕ ПАТРИАРШЕСТВА',
+					},
+					{
+						'year':      '1581',
+						'img':      '',
+						'title':    'ОСТРОЖСКАЯ БИБЛИЯ',
+					},
+					{
+						'year':      '1547',
+						'img':      '/img/tradition-line/16/1.jpg',
+						'title':    'ПОЯВЛЕНИЕ «ДОМОСТРОЯ»',
+					},
+					
+					
+					]
+		},
+		{
+			name : 'XV',
+			value : '15',
+			events :[
+					{
+						'year':      '1475',
+						'img':      '/img/tradition-line/15/7.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА УСПЕНСКОГО СОБОРА МОСКОВСКОГО КРЕМЛЯ',
+					},
+					{
+						'year':      '1428',
+						'img':      '/img/tradition-line/15/5.jpg',
+						'title':    'УКРАШЕНИЕ СПАССКОГО СОБОРА АНДРОНИКОВА МОНАСТЫРЯ',
+					},
+					{
+						'year':      '1428',
+						'img':      '/img/tradition-line/15/3.jpg',
+						'title':    'УКРАШЕНИЕ ТРОИЦКОГО СОБОРА ТРОИЦЕ-СЕРГИЕВА МОНАСТЫРЯ',
+					},
+					{
+						'year':      '1411',
+						'img':      '/img/tradition-line/15/4.jpg',
+						'title':    'НАЧАЛО РАБОТЫ АНДРЕЯ РУБЛЁВА НАД «ТРОИЦЕЙ»',
+					},
+					{
+						'year':      '1408',
+						'img':      '/img/tradition-line/15/1.jpg',
+						'title':    'УКРАШЕНИЕ УСПЕНСКОГО СОБОРА ВО ВЛАДИМИРЕ',
+					},
+					{
+						'year':      '1405',
+						'img':      '',
+						'title':    'УКРАШЕНИЕ БЛАГОВЕЩЕНСКОГО СОБОРА МОСКОВСКОГО КРЕМЛЯ',
+					},
+					
+					
+					
+					
+					
+					]
+		},
+		{
+			name : 'XIV',
+			value : '14',
+			events :[
+					{
+						'year':      '1399',
+						'img':      '/img/tradition-line/14/10.jpg',
+						'title':    'УКРАШЕНИЕ АРХАНГЕЛЬСКОГО СОБОРА МОСКОВСКОГО КРЕМЛЯ',
+					},
+					{
+						'year':      '1395',
+						'img':      '/img/tradition-line/14/9.jpg',
+						'title':    'РОСПИСЬ ЦЕРКВИ РОЖДЕСТВА БОГОРОДИЦЫ МОСКОВСКОГО КРЕМЛЯ',
+					},
+					{
+						'year':      '1374',
+						'img':      '/img/tradition-line/14/8.jpg',
+						'title':    'ЦЕРКОВЬ СПАСА ПРЕОБРАЖЕНИЯ НА ИЛЬИНЕ УЛИЦЕ В НОВГОРОДЕ',
+					},
+					{
+						'year':      '1360',
+						'img':      '/img/tradition-line/14/7.jpg',
+						'title':    'ЦЕРКОВЬ ФЕДОРА СТРАТИЛАТА НА РУЧЬЮ',
+					},
+					{
+						'year':      '1352',
+						'img':      '/img/tradition-line/14/6.jpg',
+						'title':    'ЦЕРКОВЬ УСПЕНИЯ НА ВОЛОТОВОМ ПОЛЕ',
+					},
+					{
+						'year':      '1345',
+						'img':      '/img/tradition-line/14/5.jpg',
+						'title':    'ЦЕРКОВЬ СПАСА НА КОВАЛЕВЕ',
+					},
+					{
+						'year':      '1337',
+						'img':      '/img/tradition-line/14/4.jpg',
+						'title':    'ОСНОВАНИЕ ТРОИЦКОГО МОНАСТЫРЯ',
+					},
+					{
+						'year':      '1326',
+						'img':      '/img/tradition-line/14/3.jpg',
+						'title':    'ПЕРЕНОС МИТРОПОЛИЧЬЕЙ КАФЕДРЫ ИЗ ВЛАДИМИРА В МОСКВУ',
+					},
+					{
+						'year':      '1314',
+						'img':      '/img/tradition-line/14/2.jpg',
+						'title':    'РОЖДЕНИЕ СЕРГИЯ РАДОНЕЖСКОГО',
+					},
+					{
+						'year':      '1311',
+						'img':      '/img/tradition-line/14/1.jpg',
+						'title':    'СОБОР РОЖДЕСТВА ПРЕСВЯТОЙ БОГОРОДИЦЫ СНЕТОГОРСКОГО МОНАСТЫРЯ',
+					},
+					
+					
+					
+					
+					
+					
+					
+					
+					]
+		},	
+		{
+			name : 'XIII',
+			value : '13',
+			events :[
+					{
+						'year':      '1299',
+						'img':      '/img/tradition-line/13/5.jpg',
+						'title':    'ПЕРЕНОС МИТРОПОЛИЧЬЕЙ КАФЕДРЫ ИЗ КИЕВА ВО ВЛАДИМИР',
+					},
+					{
+						'year':      '1272',
+						'img':      '/img/tradition-line/13/4.jpg',
+						'title':    'КРУТИЦКОЕ ПОДВОРЬЕ',
+					},
+					{
+						'year':      '1233',
+						'img':      '/img/tradition-line/13/3.jpg',
+						'title':    'ИЗГНАНИЕ ИЗ КИЕВА МИССИОНЕРОВ-ДОМИНИКАНЦЕВ',
+					},
+					{
+						'year':      '1222',
+						'img':      '/img/tradition-line/13/2.jpg',
+						'title':    'СОБОР РОЖДЕСТВА БОГОРОДИЦЫ В СУЗДАЛЕ',
+					},
+					{
+						'year':      '1202',
+						'img':      '/img/tradition-line/13/1.jpg',
+						'title':    'СТРОИТЕЛЬСТВО МОНАСТЫРЯ РОЖДЕСТВА БОГОРОДИЦЫ ВО ВЛАДИМИРЕ',
+					},
+					
+					
+					
+					]
+		},
+{
+			name : 'XII',
+			value : '12',
+			events :[
+					{
+						'year':      '1198',
+						'img':      '/img/tradition-line/12/12.jpg',
+						'title':    'ЦЕРКОВЬ СПАСА НА НЕРЕДИЦЕ',
+					},
+					{
+						'year':      '1194',
+						'img':      '/img/tradition-line/12/11.jpg',
+						'title':    'СТРОИТЕЛЬСТВО ДМИТРИЕВСКОГО СОБОРА ВО ВЛАДИМИРЕ',
+					},
+					{
+						'year':      '1165',
+						'img':      '/img/tradition-line/12/10.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА ХРАМА ПОКРОВА БОГОРОДИЦЫ НА НЕРЛИ',
+					},
+					{
+						'year':      '1164',
+						'img':      '/img/tradition-line/12/9.jpg',
+						'title':    'ПЕРВОЕ УПОМИНАНИЕ В ЛЕТОПИСИ ВЛАДИМИРСКОЙ ИКОНЫ БОГОМАТЕРИ',
+					},
+					{
+						'year':      '1158',
+						'img':      '/img/tradition-line/12/8.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА УСПЕНСКОГО СОБОРА ВО ВЛАДИМИРЕ',
+					},
+					{
+						'year':      '1157',
+						'img':      '/img/tradition-line/12/7.jpg',
+						'title':    'НАЧАЛО ПРАВЛЕНИЯ ВО ВЛАДИМИРЕ АНДРЕЯ БОГОЛЮБСКОГО',
+					},
+					{
+						'year':      '1152',
+						'img':      '/img/tradition-line/12/6.jpg',
+						'title':    'ЦЕРКОВЬ БОРИСА И ГЛЕБА В КИДЕКШ',
+					},
+					{
+						'year':      '1140',
+						'img':      '/img/tradition-line/12/5.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА КИРИЛЛОВСКОГО МОНАСТЫРЯ ПОД КИЕВО',
+					},
+					{
+						'year':      '1119',
+						'img':      '/img/tradition-line/12/4.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА ГЕОРГИЕВСКОГО СОБОРА ЮРЬЕВА МОНАСТЫРЯ В НОВГОРОДЕ',
+					},
+					{
+						'year':      '1117',
+						'img':      '/img/tradition-line/12/3.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА В НОВГОРОДЕ БОГОРОДИЦЕ-РОЖДЕСТВЕНСКОГО СОБОРА АНТОНИЕВА МОНАСТЫРЯ',
+					},
+					{
+						'year':      '1113',
+						'img':      '/img/tradition-line/12/2.jpg',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА НИКОЛО-ДВОРИЩЕНСКОГО СОБОРА В НОВГОРОДЕ',
+					},
+					{
+						'year':      '1108',
+						'img':      '/img/tradition-line/12/1.jpg',
+						'title':    'МИХАЙЛОВСКИЙ ЗЛАТОВЕРХИЙ МОНАСТЫРЬ В КИЕВЕ',
+					},
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					]
+		},
+		{
+			name : 'XI',
+			value : '11',
+			events :[
+					{
+						'year':      '1088',
+						'img':      '/img/tradition-line/6.jpg',
+						'title':    'СОЗДАНИЕ «ЧТЕНИЯ О ЖИТИИ И ПОГУБЛЕНИИ… БОРИСА И ГЛЕБА» ПЕЧЕРСКИМ МОНАХОМ НЕСТОРОМ',
+					},
+					{
+						'year':      '1079',
+						'img':      '/img/tradition-line/7.jpg',
+						'title':    'ОКОНЧАНИЕ СТРОИТЕЛЬСТВА УСПЕНСКОГО СОБОРА ПЕЧЕРСКОГО МОНАСТЫРЯ В КИЕВЕ',
+					},
+					{
+						'year':      '1070',
+						'img':      '',
+						'title':    'ОСНОВАНИЕ МИХАЙЛОВСКОГО ВЫДУБИЦКОГО МОНАСТЫРЯ',
+					},
+					{
+						'year':      '1056',
+						'img':      '/img/tradition-line/5.jpg',
+						'title':    'ОСТРОМИРОВО ЕВАНГЕЛИЕ',
+					},
+					{
+						'year':      '1054',
+						'img':      '',
+						'title':    'годРАСКОЛ МЕЖДУ ПРАВОСЛАВНОЙ И КАТОЛИЧЕСКИМИ ЦЕРКВЯМи',
+					},
+					{
+						'year':      '1049',
+						'img':      '',
+						'title':    '«СЛОВО О ЗАКОНЕ И БЛАГОДАТИ» МИТРОПОЛИТА ИЛАРИОНА',
+					},
+					{
+						'year':      '1045',
+						'img':      '',
+						'title':    'В НОВГОРОДЕ СТРОЯТ СОФИЙСКИЙ СОБОР',
+					},
+					{
+						'year':      '1041',
+						'img':      '',
+						'title':    'В КИЕВЕ СТРОЯТ СОФИЙСКИЙ СОБОР (СОФИЯ КИЕВСКАЯ)',
+					},
+					{
+						'year':      '1030',
+						'img':      '',
+						'title':    'НАЧАЛО СТРОИТЕЛЬСТВА СПАСО-ПРЕОБРАЖЕНСКОГО СОБОРА В ЧЕРНИГОВ',
+					},
+					
+					
+					
+					
+					
+					]
+		},	
+		{
+			name : 'X',
+			value : '10',
+			events :[
+					{
+						'year':      '996',
+						'img':      '',
+						'title':    'ПОСТРОЕНА ЦЕРКОВЬ УСПЕНИЯ БОГОРОДИЦЫ (ДЕСЯТИННАЯ ЦЕРКОВЬ',
+					},
+					{
+						'year':      '988',
+						'img':      '/img/tradition-line/3.jpg',
+						'title':    'КРЕЩЕНИЕ РУСИ',
+					},
+					{
+						'year':      '969',
+						'img':      '/img/tradition-line/4.jpg',
+						'title':    'СМЕРТЬ КНЯГИНИ ОЛЬГИ',
+					},
+					{
+						'year':      '957',
+						'img':      '/img/tradition-line/2.jpg',
+						'title':    'ПРИНЯТИЕ ОЛЬГОЙ ХРИСТИАНСТВА',
+					},
+					
+					
+					]
+		},		
+		{
+			name : 'IX',
+			value : '9',
+			events :[{
+						'year':      '867',
+						'img':      '/img/tradition-line/1.jpg',
+						'title':    'УТВЕРЖДЕНИЕ ПАТРИАРХОМ ФОТИЕМ ПЕРВОЙ ЕПАРХИИ ДЛЯ СЛАВЯН И ВАРЯГОВ',
+					}]
+		},
+		
+		
+		
+	] %}
+<div class="yellow-border-block purple-border-block clearfix">
+	<p class="yellow-border-header">
+		<span>{{ 'Navigation.Timeline'|trans }}</span>
+	</p>
+	<ul class="trad-line-nav">
+	{% for c in centuries %}
+		<li id="cen_{{ c.value }}" {% if loop.index == 1 %}class="active" {% endif %} ><a href="#{{ c.name }}">{{ c.name }} {{ 'ccc'|trans }}</a>
+		<ul>
+		{% set d = null %}
+		{% for e in c.events %}
+            {% set year = e.year %}
+		    {% set decade = year - year % 10 %}
+		    {% if decade != d and decade % 100 != 0 %}
+    		    {% set d = decade %}
+    		    <li><a href="#{{ d }}" class="smooth-scroll">{{ d }} {{ 'yy'|trans }}</a></li>
+            {% endif %}
+		{% endfor %}
+		</ul>
+		</li>
+	{% endfor %}
+	</ul>
+	
+	
+	
+	
+	{% for c in centuries %}
+	<div class="time-line-content trad-line-content clearfix section-active" id="{{c.name}}" {% if loop.index != 1 %}style="display:none;" {% endif %}>
+		<div class="trad-line-header"><span>{{c.name}}<br /><small>век</small></span></div>
+		{% include "ArmdMainBundle:Traditions:events.html.twig" with {"events": c.events} %}
+	</div>
+	{% endfor %}
+	
+</div> 

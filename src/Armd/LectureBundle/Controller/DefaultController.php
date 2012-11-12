@@ -12,7 +12,6 @@ class DefaultController extends Controller
 
     /**
      * @Route("/lecture/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_lecture_index")
-     * @Template()
      */
     public function lectureIndexAction($page)  {
         return $this->forward('ArmdLectureBundle:Default:index', array(
@@ -23,7 +22,6 @@ class DefaultController extends Controller
 
     /**
      * @Route("/translation/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_translation_index")
-     * @Template()
      */
     public function translationIndexAction($page)  {
         return $this->forward('ArmdLectureBundle:Default:index', array(
@@ -34,7 +32,6 @@ class DefaultController extends Controller
 
     /**
      * @Route("/cinema/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_cinema_index")
-     * @Template()
      */
     public function cinemaIndexAction($page)  {
         return $this->forward('ArmdLectureBundle:Default:index', array(
@@ -60,31 +57,24 @@ class DefaultController extends Controller
         $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
         $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy($rootCategory);
 
-//        if(isset($lectureCategories[0]['__children'])) {
-//            $lectureCategories = $lectureCategories[0]['__children'];
-//        } else {
-//            $lectureCategories = array();
-//        }
-
         // recommended and last lectures
         if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
-            $lastCount = 1;
+            $template = 'ArmdLectureBundle:Default:index_tile.html.twig';
         } else {
-            $lastCount = 2;
+            $template = 'ArmdLectureBundle:Default:index_list.html.twig';
         }
-        $lastLectures = $lectureRepo->findLastAdded($superType,  $lastCount);
+        $lastLectures = $lectureRepo->findLastAdded($superType,  2);
 
         $typeCategories = $lectureRepo->getTypeCategories($superType);
 
-        return array(
-            'lectureSuperTypeCode' => $superType->getCode(),
+        return $this->render($template, array(
             'lectureSuperType' => $superType,
             'lectureTypes' => $lectureTypes,
             'lectureCategories' => $lectureCategories,
             'lastLectures' => $lastLectures,
             'page' => $page,
             'typeCategories' => $typeCategories
-        );
+        ));
     }
 
 
@@ -107,12 +97,20 @@ class DefaultController extends Controller
 
         $manager = $this->get('armd_lecture.manager.lecture');
 
-        $lectures = $manager->findFiltered($superType, $page, 20, $types, $categories, $sortBy, $searchString);
+        if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
+            $template = 'ArmdLectureBundle:Default:lecture_tile.html.twig';
+            $perPage = 20;
+        } else {
+            $template = 'ArmdLectureBundle:Default:lecture_list.html.twig';
+            $perPage = 1000;
+        }
+        $lectures = $manager->findFiltered($superType, $page, $perPage, $types, $categories, $sortBy, $searchString);
 
-        return array(
+        return $this->render($template, array(
+            'categories' => $categories,
             'pagination' => $lectures,
             'sortBy' => $sortBy
-        );
+        ));
     }
 
     /**
@@ -120,7 +118,7 @@ class DefaultController extends Controller
      * Version can be one of these: full, trailer
      *
      * @Route("/view/{id}/{version}", requirements={"id"="\d+"}, name="armd_lecture_view", defaults={"version" = "trailer"})
-     * @Template()
+     *
      */
     public function lectureDetailsAction($id, $version)
     {
@@ -130,10 +128,10 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Lecture not found');
         }
 
-        return array(
+        return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'lecture' => $lecture,
             'lectureVersion' => $version
-        );
+        ));
     }
 
 
@@ -145,9 +143,9 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $russiaImages = $em->getRepository('ArmdAtlasBundle:Object')->findRussiaImages(6);
-        return array(
+        return $this->render('ArmdLectureBundle:Default:right_column.html.twig', array(
             'russiaImages' => $russiaImages
-        );
+        ));
     }
 
 }

@@ -33,11 +33,15 @@ Navigation:
         Media: Media Projects
     Events: Events
     1150: 1150 Years of Statehood
+    Traditions: Духовные традиции
     Public council: Public Council
     Public services: Public Services
     Closed forum: Closed Forum
+    goverment_services: Goverment services
     About: Project Info
     Add: Add
+    Library: Library
+    Reports: Reports
 
 Mainpage block:
     Communication:
@@ -119,3 +123,4 @@ Comments: Comments
 Comment: Comment
 Submit: Submit
 Events: Events
+Interview: Interview

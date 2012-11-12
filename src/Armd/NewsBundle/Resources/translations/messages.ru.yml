@@ -4,8 +4,12 @@ News List: Список новостей
 News Edit: Редактирование новости
 News Create: Создание новости
 
+General: Основные
+Media: Медиа
+
 Title: Название 
 Category: Категория
+Categories: Категории
 Important: Главная
 Published: Публикация
 Image: Прикрепить изображение
@@ -15,6 +19,11 @@ Body: Текст новости
 Author: Автор
 Enabled: Показывать
 Date: Дата
+End Date: Дата окончания
+Subject: Тема
+Source: Источник
+Priority: Приоритет
+Video: Видео (Tvigle ID)
 
 armd_news: Новости
 list: Список новостей
@@ -40,3 +49,18 @@ Printversion: Версия для печати
 Back: Назад
 Prev: Предыдущая
 Next: Следующая
+
+Culture Magazine: Газета «Культура»
+
+newsmap:
+    find_address: Найти адрес
+    event_type: Тип события
+    date_range: Диапазон дат
+    date_from: с
+    date_to: по
+    visualization: Визуализация
+    show_as_photos: Показывать фото
+    events_on_map: События на карте
+    filter: Фильтр
+    date: Дата
+    category: Категория

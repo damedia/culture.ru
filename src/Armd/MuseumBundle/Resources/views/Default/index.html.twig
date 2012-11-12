@@ -1,1 +1,43 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} — {{ 'Navigation.Virtual museums.Title'|trans }}{% endblock %}
+
+{#{% block stylesheets %}#}
+{#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
+{#{{ parent() }}#}
+{#{% endblock %}#}
+
+{% block body %}
+    <div class="title-block timeline-title">
+        <h2>{{ 'Navigation.Virtual museums.Title'|trans }}</h2>
+    </div>
+
+    <div class="virt-museums">
+        <form action="" class="obr-form">
+            <div class="obr-text-input">
+                <input type="text" name="search" id="search_text"
+                       value="{{ 'Navigation.Virtual museums.Search'|trans }}"/>
+            </div>
+            <input type="submit" class="obr-submit-input" value=""/>
+        </form>
+        <div id="museums-wrapper">
+            <div id="museums-loading" class="loading-block"></div>
+            <div id="museums-container">
+                {% render 'ArmdMuseumBundle:Default:list' %}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script type="text/javascript" src="{{ asset('swf/swfobject/swfkrpano.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museums.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseums.init();
+        });
+    </script>
+{% endblock %}
