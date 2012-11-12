@@ -4561,9 +4561,10 @@ white-space:nowrap;
 	}	
 	
 	#socialnetwork-links .vk, .social-share-buttons .vk { background-position:0 -40px;}	
-	#socialnetwork-links .lj, .social-share-buttons .lj { display:none;}
+	#socialnetwork-links .lj, .social-share-buttons .lj { background-position:0 -100px;}
 	#socialnetwork-links .tw, .social-share-buttons .tw { background-position:0 -60px;}	
 	#socialnetwork-links .fb, .social-share-buttons .fb { background-position:0 -0px;}			
+	#socialnetwork-links .od, .social-share-buttons .od { background-position:0 -80px;}
 	#socialnetwork-links .rss-icon {background:url('../img/rss.png') no-repeat 0 0;	}
 	
 	
