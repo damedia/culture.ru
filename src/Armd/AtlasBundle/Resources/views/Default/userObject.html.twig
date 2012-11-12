@@ -54,6 +54,11 @@
         $(function() {
             $('.sonata-bc form').attr('action', '{{ path('armd_atlas_user_object', {'objectId': object.id, 'uniqid': admin.uniqid } ) }}');
             $('.chzn-select').chosen();
+
+            // Anticache
+            $('.armd-sonata-media-file img').each(function(){
+                $(this).attr('src', $(this).attr('src')+'?'+Math.random());
+            });
         });
     </script>
 {% endblock %}
