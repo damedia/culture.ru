@@ -3826,14 +3826,16 @@ white-space:nowrap;
 }
 	.museum-list {
 		font-size:0;
+		background:#e6e6e6;
 	}
 
 		.museum-list li {
-            width:25%;
+            width:24.9%;
 			display:inline-block;
 			position:relative;
 			vertical-align:top;
 			font-size:12px;
+			background:#fff;
 		}
 		.lt-ie8 .museum-list li  {
 			display:inline;
