@@ -13,7 +13,6 @@
 /tmp
 
 /web/.htaccess
-/web/utils
 /web/_tmp
 /web/uploads
 /web/bundles

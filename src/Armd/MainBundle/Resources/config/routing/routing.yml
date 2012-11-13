@@ -30,6 +30,11 @@ armd_main_project_traditions:
     pattern:  /traditions/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Traditions:index.html.twig }
 
+armd_main_online_translation:
+    pattern:  /online-translation/
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle::online_translation.html.twig }
+
+
 armd_main_random_russia_images:
     pattern: /random-russia-images/
     defaults: { _controller: ArmdMainBundle:Main:randomRussiaImages }
