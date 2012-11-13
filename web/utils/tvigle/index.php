@@ -17,7 +17,7 @@ $title = isset($_REQUEST['title']) ? $_REQUEST['title'] : '';
 $desc = isset($_REQUEST['description']) ? $_REQUEST['description'] : '';
 $url = isset($_REQUEST['video_url']) ? $_REQUEST['video_url'] : '';
 $tvigleId = isset($_REQUEST['tvigleid']) ? $_REQUEST['tvigleid'] : '';
-
+$hd = isset($_REQUEST['hd']) ? $_REQUEST['hd'] : '9000';
 
 $serviceUrl = 'http://pub.tvigle.ru/soap/index.php?wsdl';
 $Login = 'Stella_l';
@@ -52,15 +52,15 @@ switch($action) {
 
         $result = $soap->AddTask
         (
-            (int)$ownId,
-            $title,
-            $url,
-            'http://zilot.mmc-galant.com/tvigle/tvigle.php',
-            $desc,
-            '',
-            0,
-            1,
-            9000
+            (int)$ownId,                                            // id
+            $title,                                                 // name
+            $url,                                                   // url_download
+            'http://zilot.mmc-galant.com/tvigle/tvigle.php',        // url_response
+            $desc,                                                  // text
+            '',                                                     // tags
+            0,                                                      // cat_id
+            1,                                                      // rs
+            $hd                                                     // hd
         );
         break;
 
@@ -118,6 +118,9 @@ switch($action) {
 
         <label>Direct link:</label>
         <input type="text" name="video_url" value="<?=$url?>" /><br />
+
+        <label>HD:</label>
+        <input type="text" name="hd" value="<?=$hd?>" /><br />
 
         <label>&nbsp;</label>
         <input type="submit" value="Add video" />
