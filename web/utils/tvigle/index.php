@@ -5,7 +5,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW'])) {
     header('HTTP/1.0 401 Unauthorized');
     echo 'access denied';
     exit;
-} elseif ($_SERVER['PHP_AUTH_USER'] !== 'visitor' || $_SERVER['PHP_AUTH_PW'] !== 'qazwsx') {
+} elseif ($_SERVER['PHP_AUTH_USER'] !== 'visitor' || $_SERVER['PHP_AUTH_PW'] !== 'ldop789kar') {
     echo 'access denied';
     exit;
 }
