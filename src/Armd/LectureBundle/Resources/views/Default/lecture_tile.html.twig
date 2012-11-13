@@ -50,7 +50,7 @@
 											<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="">
 												{% if lecture.lectureVideo.imageMedia is defined %}
 													<img src="{% path lecture.lectureVideo.imageMedia, 'tile' %}" alt="{{ lecture.title }}" class="lecture-tile-list-image" />
-                                                {% elseif %}
+                                                {% elseif lecture.mediaLectureVideo is not empty %}
                                                     {% media lecture.mediaLectureVideo, 'noformat' with { 'width': '100%', 'height': 156 } %}
 												{% endif %}
 											</a>
