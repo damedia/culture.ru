@@ -98,7 +98,7 @@ switch($action) {
     <form method="post">
         <input type="hidden" name="action" value="getvideo" />
         <label>Tvigle ID:</label>
-        <input type="text" name="tvigleid" value="<?=$tvigleId?>" />
+        <input type="text" name="tvigleid" value="<?php echo $tvigleId ?>" />
         <input type="submit" value="Show video data" />
     </form>
 </div>
@@ -108,19 +108,19 @@ switch($action) {
         <input type="hidden" name="action" value="addvideo" />
 
         <label>Own ID (<b>Unique!</b>):</label>
-        <input type="text" name="ownid" value="<?=$ownId?>" /><br />
+        <input type="text" name="ownid" value="<?php echo $ownId ?>" /><br />
 
         <label>Title:</label>
-        <input type="text" name="title" value="<?=$title?>" /><br />
+        <input type="text" name="title" value="<?php echo $title ?>" /><br />
 
         <label>Descrption:</label>
-        <input type="text" name="description" value="<?=$desc?>" /><br />
+        <input type="text" name="description" value="<?php echo $desc ?>" /><br />
 
         <label>Direct link:</label>
-        <input type="text" name="video_url" value="<?=$url?>" /><br />
+        <input type="text" name="video_url" value="<?php echo $url ?>" /><br />
 
         <label>HD:</label>
-        <input type="text" name="hd" value="<?=$hd?>" /><br />
+        <input type="text" name="hd" value="<?php echo $hd ?>" /><br />
 
         <label>&nbsp;</label>
         <input type="submit" value="Add video" />
