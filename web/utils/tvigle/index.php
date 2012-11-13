@@ -134,7 +134,7 @@ if('' !== $result) {
 ?>
     <h3>Result:</h3>
     <pre>
-    <?=var_dump($result)?>
+    <?php var_dump($result) ?>
     </pre>
 <?php
 }
