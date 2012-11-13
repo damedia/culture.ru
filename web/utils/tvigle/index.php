@@ -1,13 +1,20 @@
 <?php
+session_start();
 
-if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'access denied';
-    exit;
-} elseif ($_SERVER['PHP_AUTH_USER'] !== 'visitor' || $_SERVER['PHP_AUTH_PW'] !== 'ldop789kar') {
-    echo 'access denied';
-    exit;
+if (empty($_SESSION['culture_util_tvigle_logged_in'])) {
+    if (!isset($_POST['password'])) {
+        echo '
+            <form method="post">
+                <input type="password" name="password" value="">
+                <input type="submit" value="Login">
+            </form>
+        ';
+        exit();
+    } elseif (isset($_POST['password']) && $_POST['password'] === 'ldop789kar') {
+        $_SESSION['culture_util_tvigle_logged_in'] = 1;
+    } else {
+        exit('Access denied');
+    }
 }
 
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'default';
