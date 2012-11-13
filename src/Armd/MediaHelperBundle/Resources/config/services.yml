@@ -16,3 +16,20 @@ services:
         arguments: [@sonata.media.pool]
         tags:
           - { name: twig.extension }
+
+
+    sonata.media.provider.culturetv:
+        class: Armd\MediaHelperBundle\Provider\CultureTvProvider
+        tags:
+            - { name: sonata.media.provider }
+        arguments:
+            - sonata.media.provider.culturetv
+            - @sonata.media.filesystem.local
+            - @sonata.media.cdn.server
+            - @sonata.media.generator.default
+            - @sonata.media.thumbnail.format
+            - @sonata.media.buzz.browser
+        calls:
+            - [ setTemplates, [ { helper_thumbnail: ArmdMediaHelperBundle:Provider:thumbnail_culturetv.html.twig, helper_view: ArmdMediaHelperBundle:Provider:view_culturetv.html.twig } ] ]
+
+

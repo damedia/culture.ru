@@ -3,6 +3,7 @@
 namespace Armd\LectureBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -59,9 +60,21 @@ class Lecture
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="trailer_video_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="trailer_video_id", referencedColumnName="id", nullable=true)
      */
     private $trailerVideo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="media_lecture_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $mediaLectureVideo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="media_trailer_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $mediaTrailerVideo;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
@@ -201,6 +214,37 @@ class Lecture
         $this->trailerVideo = $trailerVideo;
     }
 
+    /**
+     * @return Media|null
+     */
+    public function getMediaLectureVideo()
+    {
+        return $this->mediaLectureVideo;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $mediaLectureVideo
+     */
+    public function setMediaLectureVideo(Media $mediaLectureVideo = null)
+    {
+        $this->mediaLectureVideo = $mediaLectureVideo;
+    }
+
+    /**
+     * @return Media|null
+     */
+    public function getMediaTrailerVideo()
+    {
+        return $this->mediaTrailerVideo;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $mediaTrailerVideo
+     */
+    public function setMediaTrailerVideo(Media $mediaTrailerVideo)
+    {
+        $this->mediaTrailerVideo = $mediaTrailerVideo;
+    }
 
     /**
      * @return \Application\Sonata\MediaBundle\Entity\Media

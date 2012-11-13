@@ -82,14 +82,18 @@
             <p class="van-description">
                 {{ lastLectures[0].description|truncate(250) }}
             </p>
-
-			
-		</div> 
-		<div class="van-image">
-		<a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}">
-			<img src="{% path lastLectures[0].lectureVideo.imageMedia, 'reference' %}" alt="{{ lastLectures[0].title }}"/>
-		</a>
 		</div>
+
+		<div class="van-image">
+            <a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}">
+                {% if lastLectures[0].lectureVideo is not empty %}
+                    <img src="{% path lastLectures[0].lectureVideo.imageMedia, 'reference' %}" alt="{{ lastLectures[0].title }}"/>
+                {% elseif lastLectures[0].mediaLectureVideo %}
+                    {% media lastLectures[0].mediaLectureVideo, 'noformat' with { 'width': '100%', 'height': 400 } %}
+                {% endif %}
+            </a>
+		</div>
+
     </div>
 
     
