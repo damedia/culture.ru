@@ -178,6 +178,8 @@ sonata_media:
             providers:
                 - sonata.media.provider.file
                 - sonata.media.provider.image
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
             formats:
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }

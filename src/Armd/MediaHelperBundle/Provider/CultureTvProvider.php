@@ -106,11 +106,12 @@ class CultureTvProvider extends BaseVideoProvider
             throw new \RuntimeException('Unable to retrieve culture tv video information for :' . $url);
         }
 
-        if (preg_match('~/brand_id/(\d+)/video_cid/(\d+)~', $url, $matches)) {
+        if (preg_match('~/brand_id/(\d+)/video_\w?id/(\d+)~', $url, $matches)) {
             $metadata['brand_id'] = $matches[1];
             $metadata['video_cid'] = $matches[2];
         }
-
+        \gFuncs::dbgWriteLogVar($url, false, 'url'); // DBG:
+        \gFuncs::dbgWriteLogVar($metadata, false, 'metadata'); // DBG:
         return $metadata;
     }
 
