@@ -23,12 +23,26 @@
 
         <div id="videoplayer" style="background: none">
             {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-                {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
-                    {% set lectureVideo = lecture.trailerVideo %}
-                {% else %}
-                    {% set lectureVideo = lecture.lectureVideo %}
+
+                {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
+                    {# tvigle video #}
+                    {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
+                        {% set lectureVideo = lecture.trailerVideo %}
+                    {% else %}
+                        {% set lectureVideo = lecture.lectureVideo %}
+                    {% endif %}
+                    {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+
+                {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
+                    {# media video #}
+                    {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
+                        {% set lectureVideo = lecture.mediaTrailerVideo %}
+                    {% else %}
+                        {% set lectureVideo = lecture.mediaLectureVideo %}
+                    {% endif %}
+                    {% media lectureVideo, 'noformat' with { 'width': '100%', 'height': 506 } %}
+
                 {% endif %}
-                {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
 
             {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
                 {% if lecture.lectureFile is not empty %}
@@ -43,8 +57,12 @@
             <p class="vs-date">{{ 'Date'|trans }}: <span>{{ lecture.createdAt|date('d.m.Y') }}</span></p>
         </div>
         {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE'
-            and lecture.trailerVideo is not empty
+            and
+            (lecture.trailerVideo is not empty
             and lecture.lectureVideo is not empty
+            or
+            lecture.mediaTrailerVideo is not empty
+            and lecture.mediaLectureVideo is not empty)
         %}
         <div class="video-version-switch">
             {% if lectureVersion == 'full' %}

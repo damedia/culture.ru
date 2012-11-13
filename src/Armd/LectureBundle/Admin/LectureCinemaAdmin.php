@@ -80,10 +80,13 @@ class LectureCinemaAdmin extends Admin
                 'super_type' => $superType
             ))
             ->add('recommended')
-            ->add('lectureVideo', 'armd_tvigle_video_selector',
-            array(
-                'required' => false
-            ));
+            ->with('Tvigle Video')
+                ->add('lectureVideo', 'armd_tvigle_video_selector', array( 'required' => false))
+            ->end()
+            ->with('Other video')
+                ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+            ->end()
+        ;
     }
 
 

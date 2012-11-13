@@ -7,6 +7,7 @@ use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\NewsBundle\Model\News as BaseNews;
 use Armd\MkCommentBundle\Model\CommentableInterface;
 use Armd\MkCommentBundle\Entity\Thread;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
@@ -112,6 +113,12 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
      */
     private $video;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="media_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $mediaVideo;
 
     /**
      * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
@@ -352,6 +359,15 @@ class News extends BaseNews implements CommentableInterface
     }
 
     /**
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo|null
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+
+    /**
      * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
      * @return News
      */
@@ -363,12 +379,24 @@ class News extends BaseNews implements CommentableInterface
     }
 
     /**
-     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo|null
+     * @return Media|null
      */
-    public function getVideo()
+    public function getMediaVideo()
     {
-        return $this->video;
+        return $this->mediaVideo;
     }
+
+    /**
+     * @param $mediaVideo Media
+     * @return News
+     */
+    public function setMediaVideo(Media $mediaVideo = null)
+    {
+        $this->mediaVideo = $mediaVideo;
+
+        return $this;
+    }
+
 
     /**
      * Set gallery
@@ -645,4 +673,6 @@ class News extends BaseNews implements CommentableInterface
     {
         return $this->isOnMap;
     }
+
+
 }
