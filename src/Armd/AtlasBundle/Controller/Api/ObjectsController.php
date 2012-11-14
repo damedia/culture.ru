@@ -4,10 +4,12 @@ namespace Armd\AtlasBundle\Controller\Api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Response,
+    Symfony\Component\HttpFoundation\File\UploadedFile,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Application\Sonata\MediaBundle\Entity\Media;
 use Armd\AtlasBundle\Entity\Object;
 
 class ObjectsController extends Controller
@@ -103,7 +105,7 @@ class ObjectsController extends Controller
     }
 
     /**
-     * @Route("/objects/create")
+     * @Route("/objects/create", defaults={"_format"="json"})
      * @Method("POST")
      */
     public function createAction()
@@ -123,13 +125,13 @@ class ObjectsController extends Controller
                 throw new \Exception('Title is required');
 
             // Анонс
-            $announce = trim($request->get('description'));
+            $announce = trim($request->get('announce'));
             if (! $announce)
                 throw new \Exception('Announce is required');
 
             // Автор
             $currentUser = $this->get('security.context')->getToken()->getUser();
-            if (! is_object($currentUser) || ! $currentUser instanceof UserInterface)
+            if (! (is_object($currentUser) || $currentUser instanceof UserInterface))
                 throw new \Exception('This user does not have access to this section');
 
             // Создаем или редактируем объект
@@ -143,6 +145,7 @@ class ObjectsController extends Controller
                 $mode = 'add';
                 $entity = new Object();
                 $entity->setCreatedBy($currentUser);
+                $entity->setUpdatedBy($currentUser);
             }
 
             $entity->setTitle($title);
@@ -220,38 +223,64 @@ class ObjectsController extends Controller
                 $reason = '';
             }
 
-            $res = array(
-                'success' => true,
-                'result' => array(
-                    'id' => $entity->getId(),
-                    'title' => $entity->getTitle(),
-                    'mode' => $mode,
-                    'lon' => $lon,
-                    'lat' => $lat,
-                    'icon' => $imageUrl,
-                    'status' => $status,
-                    'statusTitle' => $statusTitle,
-                    'reason' => $reason,
-                ),
-            );
-
-            $id = 10;
-
             $result = array(
-                'id' => $id,
+                'id' => $entity->getId(),
+                'title' => $entity->getTitle(),
+                'mode' => $mode,
+                'lon' => $lon,
+                'lat' => $lat,
+                'icon' => $imageUrl,
+                'status' => $status,
+                'statusTitle' => $statusTitle,
+                'reason' => $reason,
             );
 
-            return new Response(json_encode(array(
+            return array(
                 'success' => true,
                 'message' => 'Object successfully created',
                 'result' => $result,
-            )), 200, array('Content-Type'=>'application/json'));
+            );
         }
         catch (\Exception $e) {
-            return new Response(json_encode(array(
+            return array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            )), 200, array('Content-Type'=>'application/json'));
+            );
         }
     }
+
+    /**
+     * @Route("/objects/upload-image", defaults={"_format"="json"})
+     * @Method("POST")
+     */
+    public function uploadImageAction()
+    {
+        try {
+            $uploadedFile = $this->getRequest()->files->get('file');
+            if (null === $uploadedFile)
+                throw new \Exception('Error uploading file');
+
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $media = new Media();
+            $binaryContent = new UploadedFile($uploadedFile->getPathname(), $uploadedFile->getClientOriginalName());
+            $media->setBinaryContent($binaryContent);
+            $media->setContext('atlas');
+            $media->setProviderName('sonata.media.provider.image');
+            $mediaManager->save($media);
+
+            return array(
+                'success' => true,
+                'result' => array(
+                    'id' => $media->getId(),
+                ),
+            );
+        }
+        catch (\Exception $e) {
+            return array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+    }
+
 }
