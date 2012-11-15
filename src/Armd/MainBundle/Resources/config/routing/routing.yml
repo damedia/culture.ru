@@ -18,6 +18,10 @@ armd_main_library:
     pattern:  /library/
     defaults: { _controller: ArmdMainBundle:Main:library }
 
+armd_main_print:
+    pattern:  /print/
+    defaults: { _controller: ArmdMainBundle:Main:print }
+
 armd_main_project_brodino:
     pattern:  /borodino/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Borodino:index.html.twig }
