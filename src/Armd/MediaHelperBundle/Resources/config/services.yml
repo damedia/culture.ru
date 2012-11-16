@@ -31,5 +31,6 @@ services:
             - @sonata.media.buzz.browser
         calls:
             - [ setTemplates, [ { helper_thumbnail: ArmdMediaHelperBundle:Provider:thumbnail_culturetv.html.twig, helper_view: ArmdMediaHelperBundle:Provider:view_culturetv.html.twig } ] ]
+            - [ setResizer, [@sonata.media.resizer.simple] ]
 
 

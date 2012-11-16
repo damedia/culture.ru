@@ -68,30 +68,46 @@
     </div>
 
     <div class="video-anons-new">
+        {% set lecture = lastLectures[0] %}
 		<div class="van-text">
-			<a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}" class="va-name">{{ lastLectures[0].title }}</a>
+			<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
 			<p class="va-theme">
-				{% for category in lastLectures[0].categories %}
+				{% for category in lecture.categories %}
 					{{ category.title }}
 					{% if not loop.last %},{% endif %}
 				{% endfor %}
 			</p>
-            {% if lastLectures[0].lecturer is not empty %}
-                <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lastLectures[0].lecturer }}</span></p>
+            {% if lecture.lecturer is not empty %}
+                <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lecture.lecturer }}</span></p>
             {% endif %}
             <p class="van-description">
-                {{ lastLectures[0].description|truncate(250) }}
+                {{ lecture.description|truncate(250) }}
             </p>
 		</div>
 
 		<div class="van-image">
-            <a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}">
-                {% if lastLectures[0].lectureVideo is not empty %}
-                    <img src="{% path lastLectures[0].lectureVideo.imageMedia, 'reference' %}" alt="{{ lastLectures[0].title }}"/>
-                {% elseif lastLectures[0].mediaLectureVideo %}
-                    {% media lastLectures[0].mediaLectureVideo, 'noformat' with { 'width': '100%', 'height': 400 } %}
-                {% endif %}
-            </a>
+            
+            {% if lecture.lectureVideo is not empty %}
+                {{ armd_tvigle_video_player(lecture.lectureVideo, 500, 375)|raw }}
+            {% elseif lecture.mediaLectureVideo is not empty %}
+                {% media lecture.mediaLectureVideo, 'noformat' with {'width': 500, 'height': 375} %}
+            {% endif %}
+            
+
+            {#<a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}">#}
+                {#{% if lastLectures[0].lectureVideo.imageMedia is defined %}#}
+                    {#{% set thumbnailMedia = lastLectures[0].lectureVideo.imageMedia %}#}
+                {#{% elseif lastLectures[0].mediaLectureVideo is not empty %}#}
+                    {#{% set thumbnailMedia = lastLectures[0].mediaLectureVideo %}#}
+                {#{% else %}#}
+                    {#{% set thumbnailMedia = null %}#}
+                {#{% endif %}#}
+
+                {#{% if thumbnailMedia is not empty %}#}
+                    {#<img src="{% path thumbnailMedia, 'reference' %}" alt="{{ lastLectures[0].title }}"/>#}
+                {#{% endif %}#}
+            {#</a>#}
+
 		</div>
 
     </div>

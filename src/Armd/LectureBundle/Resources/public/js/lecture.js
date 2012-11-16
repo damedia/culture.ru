@@ -68,6 +68,8 @@ var armdLecture = {
         armdLecture.afterDelayedEvent('keyup', '#ss_input', 500, function () {
             armdLecture.loadLectureList();
         });
+
+        armdLecture.resizeMainVideo();
     },
 
     initTileUi: function () {
@@ -97,6 +99,12 @@ var armdLecture = {
             $(this).find('.lecture-tile-list-one').css({'width': 'auto', 'height': 'auto', 'left': 0});
             $(this).parent().css({'height': 'auto'});
         });
+
+
+        $(window).resize(function(){
+            armdLecture.resizeMainVideo();
+        });
+
 //
 //        $('#search_text').bind('focus', function () {
 //            if ($(this).val() === 'Поиск по объектам') {
@@ -114,6 +122,21 @@ var armdLecture = {
 //            armdRussiaImages.loadList();
 //        })
 
+    },
+
+    resizeMainVideo: function() {
+        var container = $('.video-anons-new .van-image');
+        var containerWidth = container.innerWidth() - parseInt(container.css('padding-left'));
+        var videoHeight = containerWidth * 3 / 4;
+
+        console.log(containerWidth);
+        console.log(videoHeight);
+
+//        containerWidth += 'px';
+//        videoHeight += 'px';
+
+        $('.video-anons-new .van-image iframe').css('height', videoHeight).css('width', containerWidth);
+        $('.video-anons-new .van-image object, .video-anons-new .van-image embed').prop('height', videoHeight).prop('width', containerWidth);
     },
 
     startLoading: function () {
