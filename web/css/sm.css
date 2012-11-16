@@ -3449,7 +3449,7 @@ white-space:nowrap;
 }
 	.rusObr-list {
 		font-size:0;
-		
+		background:#e6e6e6;
 	}
 	
 	.rusObr-list.type-2 li { float:left; }
@@ -3457,7 +3457,7 @@ white-space:nowrap;
 		.rusObr-list li {
 			width:33.33%;
 			display:inline-block;
-			
+			background:#fff;
 			position:relative;
 			vertical-align:top;
 			
@@ -3544,11 +3544,11 @@ white-space:nowrap;
 		}
 
 	.obrazy .rusObr-list li {
-		width:25%;
+		width:24.9%;
 		
 	}
 	
-	.obrazy.virt-museums .rusObr-list li { width: 25%; }
+	.obrazy.virt-museums .rusObr-list li { width:24.9%; }
 
 	.obrazy .rusObr-list-one {
 		padding:25px;
@@ -3826,14 +3826,16 @@ white-space:nowrap;
 }
 	.museum-list {
 		font-size:0;
+		background:#e6e6e6;
 	}
 
 		.museum-list li {
-            width:25%;
+            width:24.9%;
 			display:inline-block;
 			position:relative;
 			vertical-align:top;
 			font-size:12px;
+			background:#fff;
 		}
 		.lt-ie8 .museum-list li  {
 			display:inline;
@@ -4561,9 +4563,10 @@ white-space:nowrap;
 	}	
 	
 	#socialnetwork-links .vk, .social-share-buttons .vk { background-position:0 -40px;}	
-	#socialnetwork-links .lj, .social-share-buttons .lj { display:none;}
+	#socialnetwork-links .lj, .social-share-buttons .lj { background-position:0 -100px;}
 	#socialnetwork-links .tw, .social-share-buttons .tw { background-position:0 -60px;}	
 	#socialnetwork-links .fb, .social-share-buttons .fb { background-position:0 -0px;}			
+	#socialnetwork-links .od, .social-share-buttons .od { background-position:0 -80px;}
 	#socialnetwork-links .rss-icon {background:url('../img/rss.png') no-repeat 0 0;	}
 	
 	
@@ -5021,9 +5024,9 @@ white-space:nowrap;
 					left:0;
 				}
 				.mincult-link {
-					background-position:0 -40px;
+					background-position:0 -39px;
 					width:53px;
-					height:25px;
+					height:44px;
 					top:10px;
 					right:5px;
 				}

@@ -148,7 +148,7 @@
                     <label for="category">{{ "atlas.object.category"|trans }}</label>
                     <select id="primary-category" name="primary_category" class="chzn-select" data-placeholder="{{ "atlas.object.choose_category"|trans }}" style="width:298px">
                         <option value=""></option>
-                        {% for optgroup in categories if optgroup.title=='Object Type' %}
+                        {% for optgroup in categories if optgroup.title=='Object Type' or optgroup.title=='Тип объекта' %}
                             {% for tag in optgroup.tags if tag.hasIcon %}
                                 <option value="{{ tag.id }}">{{ tag.title }}</option>
                             {% endfor %}

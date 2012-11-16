@@ -35,6 +35,12 @@
 		</div>
     {% endif %}
 
+    {% if entity.mediaVideo %}
+        <div class="news-one-image">
+            {% media entity.mediaVideo, 'noformat' with {'width': '366', 'height': '261'} %}
+        </div>
+    {% endif %}
+
 	<p class="highlight-text">
 		{{ entity.announce|raw }}
 	</p>
