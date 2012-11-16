@@ -107,6 +107,16 @@ class NewsManager
             ;
         }
 
+        if (!empty($criteria['from_date'])) {
+            $qb->andWhere($qb->expr()->gt('n.date', ':from_date'))
+               ->setParameter('from_date', new \DateTime($criteria['from_date'] . '00:00:00'));
+        }
+
+        if (!empty($criteria['to_date'])) {
+            $qb->andWhere($qb->expr()->lt('n.date', ':to_date'))
+               ->setParameter('to_date', new \DateTime($criteria['to_date'] . ' 23:59:59'));
+        }
+
     }
     
     public function getCategories()
