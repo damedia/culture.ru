@@ -37,8 +37,8 @@ class CultureTvProvider extends BaseVideoProvider
 
         // store provider information
         $media->setProviderName($this->name);
-        $media->setProviderReference($media->getBinaryContent());
         $media->setProviderStatus(MediaInterface::STATUS_OK);
+        $media->setProviderReference($media->getBinaryContent());
 
         $this->updateMetadata($media, true);
     }
@@ -66,9 +66,8 @@ class CultureTvProvider extends BaseVideoProvider
      */
     function updateMetadata(MediaInterface $media, $force = false)
     {
-        $url = $media->getProviderReference();
-
         try {
+            $url = $media->getProviderReference();
             $metadata = $this->getMetadata($media, $url);
         } catch (\RuntimeException $e) {
             $media->setEnabled(false);
@@ -78,6 +77,7 @@ class CultureTvProvider extends BaseVideoProvider
         }
 
         // store provider information
+        $media->setProviderReference($metadata['thumbnail_url']); // not very logical but needed to create thumbnails
         $media->setProviderMetadata($metadata);
 
         // update Media common fields from metadata
@@ -87,8 +87,10 @@ class CultureTvProvider extends BaseVideoProvider
             $media->setAuthorName('TV Culture');
         }
 
-//        $media->setHeight($metadata['height']);
-//        $media->setWidth($metadata['width']);
+        list($thumbWidth, $thumbHeight) = getimagesize($metadata['thumbnail_url']);
+
+        $media->setHeight($thumbHeight);
+        $media->setWidth($thumbWidth);
 //        $media->setLength($metadata['duration']);
         $media->setContentType('video/x-flv');
     }
@@ -100,24 +102,29 @@ class CultureTvProvider extends BaseVideoProvider
         $content = @file_get_contents($url);
 
         $metadata = array();
+
+        // get player url
         if(preg_match('~<div class="p-pvideo-player">\s+<iframe src="(.+)"~U', $content, $matches)) {
             $metadata['player_url'] = $matches[1];
         } else {
             throw new \RuntimeException('Unable to retrieve culture tv video information for :' . $url);
         }
 
+        // get video id, brand id
         if (preg_match('~/brand_id/(\d+)/video_\w?id/(\d+)~', $url, $matches)) {
             $metadata['brand_id'] = $matches[1];
             $metadata['video_cid'] = $matches[2];
         }
-        \gFuncs::dbgWriteLogVar($url, false, 'url'); // DBG:
-        \gFuncs::dbgWriteLogVar($metadata, false, 'metadata'); // DBG:
-        return $metadata;
-    }
 
-    public function requireThumbnails()
-    {
-        return false;
+        // get thumbnail url
+        $contentIframe = file_get_contents($metadata['player_url']);
+        if (preg_match('~var html5 = \{\"picture\":\"(.+)\"~U', $contentIframe, $matches)) {
+            $metadata['thumbnail_url'] = stripslashes($matches[1]);
+        } else {
+            throw new \RuntimeException('Unable to retrieve picture url');
+        }
+
+        return $metadata;
     }
 
 }
