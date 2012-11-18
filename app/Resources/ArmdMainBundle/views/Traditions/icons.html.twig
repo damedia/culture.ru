@@ -1,0 +1,111 @@
+{% set icons = [
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=3288',
+        'img':      '/img/religion_icons/icon-1.jpg',
+        'title':    'Христос Вседержитель на престоле, XVII в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=3406',
+        'img':      '/img/religion_icons/icon-2.jpg',
+        'title':    'Богоматерь Ахтырская–Ачаирская, 2003 г.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=2522',
+        'img':      '/img/religion_icons/icon-3.jpg',
+        'title':    'Святой Георгий Победоносец, XIX в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=3537',
+        'img':      '/img/religion_icons/icon-4.jpg',
+        'title':    'Александр Ярославич Невский, святой благоверный князь, XIX в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=12157',
+        'img':      '/img/religion_icons/icon-5.jpg',
+        'title':    'Святой исцелитель Пантелеймон, конец XIX века.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=3085',
+        'img':      '/img/religion_icons/icon-6.jpg',
+        'title':    'София Премудрость Божия, XVII в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=5994',
+        'img':      '/img/religion_icons/icon-7.jpg',
+        'title':    'Поцелуй Иуды, XIX в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=993',
+        'img':      '/img/religion_icons/icon-8.jpg',
+        'title':    'Жены-мироносицы, XVI в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+    {
+        'url':      'http://www.iconrussia.ru/icon/detail.php?ID=2063',
+        'img':      '/img/religion_icons/icon-9.jpg',
+        'title':    'Всевидящее Око Божие, XVIII в.',
+        'type':     'Православие',
+        'type_icon':     'orth',
+    },
+
+] %}
+
+
+{% macro object_item(url, title, img, type, type_icon) %}
+	<li>
+		<div class="rusObr-list-one-wrap">
+			<div class="rusObr-list-one">
+				<div class="religion-type {{ type_icon }}">
+					<i></i>
+					{{ type|raw }}
+				</div>
+				<a href="{{ url|raw }}">
+					<img src="{{ img }}" alt="" class="rusObr-list-image"></a>
+
+				<div class="rusObr-list-text">
+					<a href="{{ url|raw }}" class="rusObr-list-header">
+						{{ title|raw }}
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</li>
+{% endmacro %}
+
+
+<div class="rusObr-block traditions-list">
+	<div class="trad-list-header">{{ 'icons'|trans }}</div>
+    <div class="trad-list-links">
+        <ul>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat345/" target="_blank">Иисус Христос и другие лица Святой Троицы</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat346/" target="_blank">Богоматерь</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat349/" target="_blank">Святые</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat348/" target="_blank">Ангельские чины</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat350/" target="_blank">Праздники</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat2077/" target="_blank">Кресты</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat2096/" target="_blank">Царские врата</a></li>
+            <li><a href="http://www.iconrussia.ru/icon/by_subject/cat351/" target="_blank">Другие сюжеты</a></li>
+        </ul>
+    </div>
+	<ul class="rusObr-list clearfix">
+		{% for o in icons %}
+			{{ _self.object_item(o.url, o.title, o.img, o.type, o.type_icon) }}
+		{% endfor %}
+	</ul>
+</div>
