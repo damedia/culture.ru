@@ -21,6 +21,7 @@
 	<div class="title purple-title">
 		<h2>{{ 'Navigation.Traditions'|trans }}</h2>
 	</div>
+
 	<div class="text-indent">
         {% include "ArmdMainBundle:Traditions:icons.html.twig" %}
 		{% include "ArmdMainBundle:Traditions:objects.html.twig" %}
@@ -71,3 +72,33 @@
 	{% include "ArmdMainBundle:Traditions:interview.html.twig" %}
 	
 {% endblock %}	    		
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        (function(){
+            var armdMain = {
+                initIcons: function() {
+                    console.log('here');
+                    $('#search_text').bind('focus', function () {
+                        if ($(this).val() === 'Поиск...') {
+                            $(this).val('');
+                        }
+                    });
+
+                    $('#search_text').bind('blur', function () {
+                        if ($(this).val().length == 0) {
+                            $(this).val('Поиск...');
+                        }
+                    });
+                }
+            };
+
+            $(function(){
+                armdMain.initIcons();
+            });
+        })();
+    </script>
+
+{% endblock %}
