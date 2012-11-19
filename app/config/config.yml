@@ -366,4 +366,11 @@ services:
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
 
+armd_media_helper:
+    providers:
+        culturetv:
+            filesystem: sonata.media.filesystem.local
+            resizer: sonata.media.resizer.simple
+            generator: sonata.media.generator.default
+            thumbnail: sonata.media.thumbnail.format
 
