@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content%}
-	{% include "ArmdNewsBundle:News:calendar.html.twig" %}	
+	{% include "ArmdNewsBundle:News:calendar.html.twig" with { 'from_date':from_date, 'to_date':to_date } %}
 		
     {% if not category %}
         {% render "ArmdNewsBundle:News:billboard" %}

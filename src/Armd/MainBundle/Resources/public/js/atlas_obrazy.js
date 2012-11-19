@@ -53,11 +53,11 @@ AT.initUI = function() {
         data: { category: obrazCategoryId },
         dataType: 'json',
         success: function(json) {
-            console.log(json);
+            //console.log(json);
             if (json.success) {
                 var objects = json.result;
             } else {
-                console.error(json.message);
+                //console.error(json.message);
             }
             if (objects && objects.length) {
                 var points = [];

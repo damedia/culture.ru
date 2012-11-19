@@ -113,10 +113,18 @@ class NewsController extends ListController
     {
         $criteria = array(
             'category'  => $category,
-        );    
-    
+        );
+        if ($fromDate = $this->getRequest()->get('from_date')) {
+            $criteria['from_date'] = $fromDate;
+        }
+        if ($toDate = $this->getRequest()->get('to_date')) {
+            $criteria['to_date'] = $toDate;
+        }
+
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
+            'from_date'     => $fromDate,
+            'to_date'       => $toDate,
             'news'          => $this->getPaginator($criteria, $page, $limit),
         ));
     }

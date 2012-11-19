@@ -11,7 +11,7 @@ AT.clusterPoints = null;
 AT.regions = [];
 
 AT.init = function(params) {
-    console.info('Init Atlas');
+    //console.info('Init Atlas');
 
     this.params = params;
 
@@ -33,7 +33,7 @@ AT.init = function(params) {
 };
 
 AT.initMap = function(params) {
-    console.log(AT.params.locale);
+    //console.log(AT.params.locale);
     var localeTiles = {
         'en': [
             'http://h01.tiles.tmcrussia.com/map_en/', 'http://h02.tiles.tmcrussia.com/map_en/',
@@ -140,7 +140,7 @@ AT.initUI = function() {
     // Объекты. Фильтр
     $('#atlas-filter-form').ajaxForm({
         beforeSubmit: function(){
-            console.log( $('#atlas-filter-form').data('jqxhr') );
+            //console.log( $('#atlas-filter-form').data('jqxhr') );
             $('#ajax-loading').show();
         },
         success: function(responseText, statusText, xhr, $form){
@@ -158,7 +158,7 @@ AT.initUI = function() {
                 elems.addClass('disabled');
             } else {
                 elems.removeClass('disabled');
-                console.error(json.message);
+                //console.error(json.message);
             }
 
             AT.clearMap();
@@ -201,7 +201,7 @@ AT.initUI = function() {
                             (function(cluster){
                                 PGmap.Events.addHandlerByName(cluster.element, PGmap.EventFactory.eventsType.click, function(e){
 
-                                    console.log('click on cluster');
+                                    //console.log('click on cluster');
 
                                     // Балун для кластера
                                     cluster.balloon = AT.map.balloon;
@@ -212,7 +212,7 @@ AT.initUI = function() {
                                     }
                                     // Содержимое балуна
                                     //cluster.name = ids.join(',');
-                                    console.log('cluster points ids:', cluster.name);
+                                    //console.log('cluster points ids:', cluster.name);
 
                                     // Если достигнут последний уровень зума, показываем бабл
                                     if ((AT.map.globals.maxZoom() - AT.map.globals.getZoom()) == 1) {
@@ -310,7 +310,7 @@ AT.initFilters = function(){
 };
 
 AT.clearMap = function() {
-    console.info('AT.clearMap');
+    //console.info('AT.clearMap');
     var points = AT.map.geometry.get({ type:'points' });
     if (points.length > 0) {
         for (var i=points.length; i--; ) {
@@ -366,7 +366,7 @@ AT.placePoint = function(object) {
 
     // клик по точке
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, function(){
-        console.log('Click point', point);
+        //console.log('Click point', point);
         if (point.draggable) return;
         AT.triggerPointClick(point);
     });
@@ -376,7 +376,7 @@ AT.placePoint = function(object) {
 
 // Инициирует клик по точке. Появляется балун
 AT.triggerPointClick = function(point) {
-    console.log('triggerPointClick');
+    //console.log('triggerPointClick');
     var uid = $(point.container).data('uid');
 
     $('#ajax-loading').show();
@@ -384,7 +384,7 @@ AT.triggerPointClick = function(point) {
         url: AT.params.fetchMarkerDetailUri,
         data: { id: uid },
         success: function(res) {
-            console.log('click on point');
+            //console.log('click on point');
             $('#ajax-loading').hide();
             point.name = res;
             point.balloon = AT.map.balloon;
@@ -395,7 +395,7 @@ AT.triggerPointClick = function(point) {
 
 AT.initHacks = function() {
     $('.g-closer').live('click', function(){
-        console.log('try to close bubble');
+        //console.log('try to close bubble');
         $(this).closest('.b-balloon').data('point').hideBalloon();
         return false;
     });
@@ -411,7 +411,7 @@ AT.collectTagsValue = function() {
 };
 
 AT.submitFiltersForm = function() {
-    console.info('AT.submitFiltersForm');
+    //console.info('AT.submitFiltersForm');
     // Собираем отмеченные категории
     AT.collectTagsValue();
     // Сабмитим форму
@@ -565,7 +565,7 @@ AT.initMyObjects = function() {
             success: function(response, statusText, xhr, $form){
                 $('#ajax-loading').hide();
                 if (response.success) {
-                    console.log('Смена статуса. Отправлено на модерацию.');
+                    //console.log('Смена статуса. Отправлено на модерацию.');
                     var objectId = response.result.id;
                     var status = response.result.status;
                     var jLi = $('#myobj_list li').filter(function(){ return $(this).data('id')==objectId; })
@@ -583,7 +583,7 @@ AT.initMyObjects = function() {
 
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
-        console.log('Click on #atlas-objects-add');
+        //console.log('Click on #atlas-objects-add');
 
         $('#atlas-objects-add-hint').show();
 
@@ -592,7 +592,7 @@ AT.initMyObjects = function() {
 
         // Если кнопка добавления объекта находится в зажатом состоянии, отжимаем ее и отменяем процесс.
         if ($(this).hasClass('active')) {
-            console.log('Discard add point');
+            //console.log('Discard add point');
 
             $(this).removeClass('active');
             $('#add-object-form').hide();
@@ -600,7 +600,7 @@ AT.initMyObjects = function() {
 
             var droppedPoint = $('#atlas-objects-add').data('droppedPoint');
             if (droppedPoint) {
-                console.log('Remove droppedPoint', droppedPoint);
+                //console.log('Remove droppedPoint', droppedPoint);
                 AT.map.geometry.remove(droppedPoint);
             }
 
@@ -612,14 +612,14 @@ AT.initMyObjects = function() {
         else {
             $(this).addClass('active');
 
-            console.log('Activate drop point');
+            //console.log('Activate drop point');
 
             // При клике на карте запускаем сложный механизм отслеживания событий
             PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousedown', onMouseDown);
         }
 
         function onMouseDown(e) {
-            console.log('onMouseDown');
+            //console.log('onMouseDown');
             // Если нажали кнопку мышки
             PGmap.Events.stopEvent(e);
             PGmap.Events.addHandler(AT.map.globals.mainElement(), 'mousemove', onMouseMove);
@@ -631,7 +631,7 @@ AT.initMyObjects = function() {
         }
 
         function onMouseUp(e) {
-            console.log('onMouseUp');
+            //console.log('onMouseUp');
             var diff = AT.map.globals.getPosition(),
                 e = e || window.event,
                 off = PGmap.Utils.getOffset(document.getElementById('map')),
@@ -659,7 +659,7 @@ AT.initMyObjects = function() {
         }
 
         function placePoint(coord, draggable, onClick) {
-            console.log('placePoint');
+            //console.log('placePoint');
             // установка точки
             var point = new PGmap.Point({
                 draggable: draggable,
@@ -669,14 +669,14 @@ AT.initMyObjects = function() {
             if (draggable) {
                 // Draggable point handler -> update coords
                 point.draggable.callback("dragEnd", function(){
-                    console.log('dragEnd');
+                    //console.log('dragEnd');
                     var lon = PGmap.Utils.fromMercX(point.coord.lon).toFixed(6),
                         lat = PGmap.Utils.fromMercY(point.coord.lat).toFixed(6);
                     $('#lon').val(lon);
                     $('#lat').val(lat);
 
                     // Попытка определить адрес по координатам
-                    console.log('Попытка определить адрес по координатам');
+                    //console.log('Попытка определить адрес по координатам');
                     AT.map.search({
                         lon: point.coord.lon,
                         lat: point.coord.lat,
@@ -700,7 +700,7 @@ AT.initMyObjects = function() {
     // Диалог добавления объекта. Кнопка отменить. Скрываем диалог
     var jPopup = $('#add-object-form');
     jPopup.find('.rst-btn, .exit').click(function(){
-        console.log('Сancel edit point');
+        //console.log('Сancel edit point');
 
         $('#atlas-objects-add').removeClass('active');
         $('#atlas-objects-add-hint').hide();
@@ -709,7 +709,7 @@ AT.initMyObjects = function() {
         myPoint = jPopup.data('myPoint');
         if (myPoint.draggable) {
             // Отключаем перетаскивание точки. Восстанавливаем исходные координаты и скрываем балун
-            console.log('Kill draggable', myPoint);
+            //console.log('Kill draggable', myPoint);
             myPoint.draggable.kill();
             myPoint.draggable = null;
             myPoint.coord = jPopup.data('myPointCoord');
@@ -730,7 +730,7 @@ AT.initMyObjects = function() {
  * Открывает попап с информацией о точке
  */
 AT.showObjectForm = function(params) {
-    console.log('showObjectForm', params);
+    //console.log('showObjectForm', params);
     var
         myPoint = params.point,
         jPopup = $('#add-object-form'),
@@ -740,7 +740,7 @@ AT.showObjectForm = function(params) {
         jMyObjectsList = $('#myobj_list'),
         jAddedImages = jPopup.find('.added-images');
 
-    console.log('Show dialog for point:', myPoint);
+    //console.log('Show dialog for point:', myPoint);
     jPopup.data('myPoint', myPoint);
     jPopup.data('myPointCoord', myPoint.coord); // Сохраним координаты точки, на случай отмены редактирования
 
@@ -787,7 +787,7 @@ AT.showObjectForm = function(params) {
             },
             dragEnd: function (pos) {
                 // Попытка определить адрес по координатам
-                console.log('Попытка определить адрес по координатам');
+                //console.log('Попытка определить адрес по координатам');
                 AT.map.search({
                     lon: point.coord.lon,
                     lat: point.coord.lat,
@@ -808,7 +808,7 @@ AT.showObjectForm = function(params) {
         $('#lat').val(PGmap.Utils.fromMercY(params.coord.lat).toFixed(6));
     }
 
-    console.log('myPoint', myPoint);
+    //console.log('myPoint', myPoint);
 
     // Диалог после добавления объекта. Крестик. Скрываем диалог.
     jSuccess.find('.exit').click(function(){
@@ -916,7 +916,7 @@ AT.showObjectForm = function(params) {
                 $('#atlas-objects-add-hint').hide();
                 jSuccess.hide();
 
-                console.log('Popup mode', jPopup.hasClass('edit') );
+                //console.log('Popup mode', jPopup.hasClass('edit') );
 
                 if (jPopup.hasClass('add')) {
                     // Добавляем в список точку
@@ -946,7 +946,7 @@ AT.showObjectForm = function(params) {
                                       .addClass('status'+status)
                                       .attr('title', statusTitle);
                 }
-                console.log('jSuccessForm.ajaxForm.success()');
+                //console.log('jSuccessForm.ajaxForm.success()');
             }
         }
     });
