@@ -27,6 +27,10 @@ class MainController extends Controller
     {
         return $this->renderTemplate('library');
     }
+    public function bannersAction()
+    {
+        return $this->renderTemplate('banners');
+    }
 
     public function indexAction()
     {

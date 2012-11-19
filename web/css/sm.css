@@ -5549,5 +5549,29 @@ white-space:nowrap;
 			width:57px;
 			height:57px;
 			display:block;
-		}			
+		}	
+
+.banners-list {
+	WIDTH:100%;
+}
+	.banners-list td {
+		vertical-align:top;
+		padding:20px 15px 20px 0;
+		border-bottom:1px solid #ddd;
+	}
+		.banners-list td.banners-list-image {
+			text-align:center;
+			width:150px;
+			vertical-align:middle;
+		}
+		.banners-list-code {
+		
+		}
+		.banners-list-code p {
+			margin-bottom:5px;
+		}
+		.banners-list-code textarea {
+			width:100%;
+		}
+		
 			

@@ -42,6 +42,7 @@ Navigation:
     Add: Еще
     Library: Библиотека
     Reports: Репортажи
+    Banners: Баннеры
 
 Mainpage block:
     Communication:
@@ -123,3 +124,4 @@ Comment: Оставить комментарий
 Submit: Отправить
 Events: События
 Interview: Интервью
+Banners header: Официальные баннеры

@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %} {{ 'Portal title'|trans }} — {{ 'Navigation.Library'|trans }}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script type="text/javascript">
+		$(function(){
+			$(".banners-list-code textarea").on("focus keyup", function(e){
+
+				var keycode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+				if(keycode === 9 || !keycode){
+					
+					var $this = $(this);
+					$this.select();
+
+					$this.on("mouseup", function() {
+						$this.off("mouseup");
+						return false;
+					});
+				}
+			});
+		})
+	</script>		
+{% endblock %}	
+{% block body%}
+
+
+<div class="title-block timeline-title">
+    <h2>{{ 'Banners header'|trans }}</h2>
+</div>
+
+    
+        <div class="text">
+           <p>Баннеры портала Культура.рф  могут быть воспроизведены на серверах сети Интернет без каких-либо ограничений по объёму и срокам публикации.</p>
+		   <table class="banners-list">
+			<tr>
+				<td class="banners-list-image">
+					<img src="{{ asset('img/banners/100x100.png')}}" alt="" />
+				</td>
+				<td class="banners-list-code">
+					<p>Код баннера для вставки на сайт или блог: </p>
+					<textarea name="" id="" cols="30" rows="3" readonly><a href="http://www.culture.ru/"><img src="http://www.culture.ru/img/banners/100x100.png" alt="Портал Культура.рф"></a></textarea>
+					
+				</td>
+			</tr>
+			<tr>
+				<td class="banners-list-image">
+					<img src="{{ asset('img/banners/130x59.png')}}" alt="" />
+				</td>
+				<td class="banners-list-code">
+					<p>Код баннера для вставки на сайт или блог: </p>
+					<textarea name="" id="" cols="30" rows="3" readonly><a href="http://www.culture.ru/"><img src="http://www.culture.ru/img/banners/130x59.png" alt="Портал Культура.рф"></a></textarea>
+					
+				</td>
+			</tr>
+			<tr>
+				<td class="banners-list-image">
+					<img src="{{ asset('img/banners/88x31.png')}}" alt="" />
+				</td>
+				<td class="banners-list-code">
+					<p>Код баннера для вставки на сайт или блог: </p>
+					<textarea name="" id="" cols="30" rows="3" readonly><a href="http://www.culture.ru/"><img src="http://www.culture.ru/img/banners/88x31.png" alt="Портал Культура.рф"></a></textarea>
+					
+				</td>
+			</tr>
+		   </table>
+        </div>
+   
+{% endblock %}
