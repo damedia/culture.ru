@@ -221,6 +221,22 @@ class Object
      */
     private $reason;
 
+    /**
+     * @ORM\Column(name="seo_title", type="string", nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @ORM\Column(name="seo_description", type="text", nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @ORM\Column(name="seo_keywords", type="text", nullable=true)
+     */
+    private $seoKeywords;
+
+
     public function syncPrimaryAndSecondaryCategories()
     {
         if (!empty($this->primaryCategory)
@@ -1105,8 +1121,6 @@ class Object
         return $this->isOfficial;
     }
 
-
-
     /**
      * Set status
      *
@@ -1151,6 +1165,60 @@ class Object
     public function getReason()
     {
         return $this->reason;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * @param string $seoTitle
+     * @return Object
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * @param string $seoDescription
+     * @return Object
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
+    }
+
+    /**
+     * @param string $seoKeywords
+     * @return Object
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+        return $this;
     }
 
 }

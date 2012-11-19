@@ -4,7 +4,9 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
-        <title>{{ 'Portal title'|trans }}{% block title %}{% endblock %}</title>
+        <title>{% spaceless %}{% block title %}{{ 'Portal title'|trans }}{% endblock %}{% endspaceless %}</title>
+        <meta name="keywords" content="{% spaceless %}{% block meta_keywords %}{% endblock %}{% endspaceless %}">
+        <meta name="description" content="{% spaceless %}{% block meta_description %}{% endblock %}{% endspaceless %}">
 
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         {% block opengraph %}
