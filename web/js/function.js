@@ -245,20 +245,18 @@ $(document).ready(function () {
             .siblings('.events_tabs').hide();
     });
 
-    $('#rusObrTab_tab .rusObr-list-one').hover(
-        function () {
-            var width = $(this).width(),
-                height = $(this).height();
+    $('#rusObrTab_tab').on('mouseenter', '.rusObr-list-one', function () {
+        console.log('here');
+        var width = $(this).width(),
+            height = $(this).height();
 
-            $(this).addClass('rusHovered').css({'width': width, 'height': height});
+        $(this).addClass('rusHovered').css({'width': width, 'height': height});
 
-        },
-
-        function () {
-            $(this).removeClass('rusHovered').css({'width': 'auto', 'height': 'auto'});
-            $(this).parent().css({'height': 'auto'});
-        }
-    );
+    });
+    $('#rusObrTab_tab').on('mouseleave', '.rusObr-list-one', function () {
+        $(this).removeClass('rusHovered').css({'width': 'auto', 'height': 'auto'});
+        $(this).parent().css({'height': 'auto'});
+    });
 
     /*
      $('#auth-link').click(function(){

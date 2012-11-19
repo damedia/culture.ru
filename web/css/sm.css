@@ -3455,8 +3455,10 @@ white-space:nowrap;
 	.rusObr-list.type-2 li { float:left; }
 	
 		.rusObr-list li {
-			width:33.33%;
+			/*width:33.33%;*/
+			width:33%;
 			display:inline-block;
+            /*float: left;*/
 			background:#fff;
 			position:relative;
 			vertical-align:top;
