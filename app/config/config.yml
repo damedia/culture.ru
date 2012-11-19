@@ -253,6 +253,7 @@ sonata_media:
         dailymotion: ~
 
 
+
 fos_user:
     db_driver:      orm
     firewall_name:  main

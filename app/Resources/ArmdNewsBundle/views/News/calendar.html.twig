@@ -1,18 +1,7 @@
-<div class="news-dates-filter" id="news-dates-filter">
-	<form action="" class="clearfix">
-		<p class="ndf-label">{{ 'Period'|trans }}</p>
-		<div class="ndf-line">
-			<label for="from-date">{{ 'from'|trans }}</label>
-			<input type="text" class="calendar-input" id="from-date" name="from_date" value="{{ from_date|default('') }}"/>
-			
-		</div>
-		<div class="ndf-line">
-			<label for="to-date">{{ 'till'|trans }}</label>
-			<input type="text" class="calendar-input" id="to-date" name="to_date" value="{{ to_date|default('') }}"/>
-		</div>
-		<input type="submit" class="button choose-news" value="{{ 'Show'|trans}}" />
-	</form>
-	<div class="news-dates-chosen" style="display:none;">
-        12 {{ 'calendar.full.Sep'|trans }} /2012 - 16 {{ 'calendar.full.Sep'|trans }} /2012
-	</div>
-</div>
+<div id="calendar"></div>
+
+<script type="text/javascript">
+    $(function(){
+        $("#calendar").datepicker("setDate", "{{ calendarDate|date('d.m.Y') }}");
+    });
+</script>
