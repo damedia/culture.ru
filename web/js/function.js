@@ -246,7 +246,6 @@ $(document).ready(function () {
     });
 
     $('#rusObrTab_tab').on('mouseenter', '.rusObr-list-one', function () {
-        console.log('here');
         var width = $(this).width(),
             height = $(this).height();
 
