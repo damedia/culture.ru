@@ -396,21 +396,21 @@ $(document).ready(function () {
 
         $(tabName).show().siblings().hide();
         return false;
-    })
+    });
 
 
-    imageResize = function () {
+    var imageResize = function () {
         var lecContHeight = $('.lecture-tile-list-image-container:first').height();
         $('.lecture-tile-list-image-container table').css('height', lecContHeight);
-    }
+    };
 
     $('.lecture-tile-list-image-frame:first').load(function () {
         imageResize();
-    })
+    });
 
     $(window).resize(function () {
         imageResize();
-    })
+    });
 
     $('.trad-line-nav > li > a').click(function () {
         var tradLink = $(this).attr('href');

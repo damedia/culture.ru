@@ -3658,8 +3658,9 @@ white-space:nowrap;
 	.lecture-tile-list.type-2 li { float:left; }
 
 		.lecture-tile-list li {
+            float: left;
             width:25%;
-			display:inline-block;
+			/*display:inline-block;*/
 			position:relative;
 			vertical-align:top;
 			font-size:12px;
