@@ -23,15 +23,9 @@ class MainController extends Controller
     {
         return $this->renderTemplate('services');
     }
-    
-	public function libraryAction()
+    public function libraryAction()
     {
         return $this->renderTemplate('library');
-    }
-    
-	public function printAction()
-    {
-        return $this->renderTemplate('print');
     }
 
     public function indexAction()

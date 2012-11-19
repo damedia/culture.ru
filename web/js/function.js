@@ -122,26 +122,7 @@ $(document).ready(function () {
         })
 
         $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
-		$.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
-		$.datepicker._updateDatepicker = function(inst) {
-			$.datepicker._updateDatepicker_original(inst);
-			var afterShow = this._get(inst, 'afterShow');
-			if (afterShow)
-				afterShow.apply((inst.input ? inst.input[0] : null));  
-		}
-		
-        $("#calendar").datepicker({
-			showOtherMonths:false,
-			afterShow:function(){
-				var todayDay = $('.ui-datepicker-today');
-				if(todayDay.length > 0) {
-					todayDay.parent().addClass('.ui-datepicker-today-week');
-					$("td:first", todayDay.parent()).nextUntil($('.ui-datepicker-today')).andSelf().addClass('previous-days');
-					$("tbody tr:first", $('.ui-datepicker-calendar')).nextUntil(todayDay.parent()).andSelf().find('td').addClass('previous-days');
-					console.log($("td:first", todayDay.parent()));
-				}
-			}
-			});
+        $("#calendar").datepicker({showOtherMonths:true});
     }
 	if ($("#news-dates-filter").length > 0) {
         var calendarTriggerImg;
@@ -441,9 +422,9 @@ $(document).ready(function () {
 		$(this).parent().addClass('active').siblings().removeClass('active');
 		
 	})
-	if($("#featured").length > 0) {
-		$("#featured").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 50000, true);
-	}
+	
+	
+	
 });
 	
 	

@@ -45,14 +45,12 @@ from: с
 till: по
 Show: Показать
 
-Printversion: Распечатать материал
+Printversion: Версия для печати
 Back: Назад
 Prev: Предыдущая
 Next: Следующая
 
 Culture Magazine: Газета «Культура»
-
-Recommend: Рекомендуем
 
 newsmap:
     find_address: Найти адрес

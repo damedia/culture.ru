@@ -1,33 +1,4 @@
 {% if entities %}	
-
-<div id="featured" >
-	<ul class="ui-tabs-nav">
-		{% set length = entities|length is even ? entities|length : entities|length - 1 %}
-			{% for n in entities|slice(0, length) %}
-			<li class="ui-tabs-nav-item" id="nav-fragment-{{loop.index}}">
-				<a href="#fragment-{{loop.index}}">
-					<i>{{ n.category|raw }}</i>
-					<span>{{ n.title|raw }}</span>
-				</a>
-			</li>
-		{% endfor %}	
-	</ul>
-
-	{% set length = entities|length is even ? entities|length : entities|length - 1 %}
-	{% for n in entities|slice(0, length) %}
-    	{% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
-	<div id="fragment-{{loop.index}}" class="ui-tabs-panel" style="">
-		{% thumbnail n.image, 'billboard' %}
-		 <div class="info" >
-			<h2><a href="{{ href }}" >{{ n.title|raw }}</a></h2>
-			<p>{{ n.announce|raw }} </p>
-		 </div>
-	</div>
-	{% endfor %}	
-</div>
-{% endif %}
-
-{#
 <div class="pictures-press-anons clearfix">
 	<ul>
 	{% set length = entities|length is even ? entities|length : entities|length - 1 %}
@@ -54,6 +25,4 @@
 	{% endfor %}	
 	</ul>
 </div>	
-
-#}
-
+{% endif %}
