@@ -162,8 +162,6 @@ class NewsManager
             $data[] = array(
                 'id' => $row->getId(),
                 'title' => $row->getTitle(),
-                //'dateFrom' => $row->getDate(),
-                //'dateTo' => $row->getEndDate(),
                 'lon' => $row->getLon(),
                 'lat' => $row->getLat(),
                 'imageUrl' => $imageUrl,
@@ -180,6 +178,17 @@ class NewsManager
         return $qb->getQuery()
                   ->setMaxResults($limit)
                   ->getResult();
+    }
+
+    public function getBillboardNews()
+    {
+        $entities = array();
+        foreach ($this->getCategories() as $category)
+            $entities[] = $this->em->getRepository('ArmdNewsBundle:News')->findOneBy(
+                array('category' => $category),
+                array('date' => 'DESC')
+            );
+        return $entities;
     }
 
 }

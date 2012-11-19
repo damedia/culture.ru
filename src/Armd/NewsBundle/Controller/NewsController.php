@@ -169,10 +169,12 @@ class NewsController extends ListController
     {
         $criteria = array(
             'important' => true,
-        );        
+        );
+
+        $entities = $this->getNewsManager()->getBillboardNews();
     
         return $this->render($this->getTemplateName('billboard'), array(
-            'entities'  => $this->getPaginator($criteria, 1, $limit),
+            'entities' => $entities,
         ));
     }
     
