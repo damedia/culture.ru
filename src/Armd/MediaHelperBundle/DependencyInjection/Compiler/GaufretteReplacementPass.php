@@ -20,6 +20,6 @@ class GaufretteReplacementPass implements CompilerPassInterface
             $container->getDefinition('sonata.media.adapter.filesystem.ftp')
                 ->setClass('Armd\MediaHelperBundle\Gaufrette\Adapter\Ftp');
         }
-
     }
+
 }
