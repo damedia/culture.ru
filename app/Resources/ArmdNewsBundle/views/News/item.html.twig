@@ -146,7 +146,7 @@
 
 	
 	<div class="print-link">
-		<a href="#" target="_blank">{{ 'Printversion'|trans }}</a>
+		<a href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}" target="_blank">{{ 'Printversion'|trans }}</a>
 		<p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ 'Back'|trans }}</a><p>
 	</div>
 </div>

@@ -131,8 +131,9 @@ class NewsController extends ListController
     
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
-     */    
-    function newsItemAction($id, $category, $template = null)
+     * @Route("/{category}/{id}/print", requirements={"category" = "[a-z]+", "id" = "\d+"}, defaults={"isPrint"=true}, name="armd_news_item_by_category_print")
+     */
+    function newsItemAction($id, $category, $template = null, $isPrint = false)
     {
         $entity = $this->getEntityRepository()->find($id);
 
@@ -141,10 +142,16 @@ class NewsController extends ListController
         }
 
         $template = $template ? $template : $this->getTemplateName('item');
-        
+        $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
+
+        $categories = $this->getNewsManager()->getCategories();
+        //var_dump($categories);
+        //var_dump($category);
+
         return $this->render($template, array(
-            'entity'        => $entity,
-            'category'      => $category,
+            'entity'      => $entity,
+            'category'    => $category,
+            'categories'  => $categories,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
