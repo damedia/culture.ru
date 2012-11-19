@@ -30,3 +30,5 @@ newsmap:
     filter: Filter
     date: Date
     category: Category
+
+date.list.empty: There aren't events at %date%

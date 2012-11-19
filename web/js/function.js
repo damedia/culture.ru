@@ -140,8 +140,12 @@ $(document).ready(function () {
 					$("tbody tr:first", $('.ui-datepicker-calendar')).nextUntil(todayDay.parent()).andSelf().find('td').addClass('previous-days');
 					console.log($("td:first", todayDay.parent()));
 				}
-			}
-			});
+			},
+            onSelect: function(dateText, inst){
+                console.log('onSelect', dateText, inst);
+                location.href = '?date='+dateText;
+            }
+		});
     }
 	if ($("#news-dates-filter").length > 0) {
         var calendarTriggerImg;

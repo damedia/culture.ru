@@ -1,53 +1,60 @@
 {% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
+{# ------------------------- #}
 {% block top_right %}
     {#% render "ArmdNewsBundle:News:memorialEvents" %#}
 {% endblock %}
 
+{# ------------------------- #}
 {% block content%}
-	
-		
+
     {% if not category %}
         {% render "ArmdNewsBundle:News:billboard" %}
     {% endif %}
     
-<div class="clear"></div>
+    <div class="clear"></div>
 
-<div class="news-list-main">
-	<ul class="news-list news-list-new ">
-	{% for n in news %}
-		{% set f = n.date %}
-		{% set t = n.endDate %}
-		{% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
-		<li>
-			<a href="{{ href }}" class="news-list-image">
-				{% thumbnail n.image, 'list' %}
-			</a>
-			<div class="news-list-text">
-				<span class="news-list-date">
-					{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' /Y') }}
-			    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
-				</span>
-				<a href="{{ href }}" class="news-list-header">{{ n.title|raw }}</a>
-				<p>{{ n.announce|raw }} </p>
-				<a href="{{ path('armd_news_list_index_by_category', {'category': n.category.slug }) }}" class="news-list-type">{{ n.category.title }}</a>
-			</div>
-		</li>
-    {% endfor %}
-	</ul>
-</div>
-{% if category %}
-<div class="news-nav-block">
-    <nav class="navigation">
-        {{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}
-        {{ news.render()|raw}}
-        <br />        
-    </nav>    
-</div>
-{% endif %}
-	<!-- a class="afisha-list-more" href="#">Показать еще</a -->      
-{% endblock %}	
+    {% if news|length %}
+        <div class="news-list-main">
+            <ul class="news-list news-list-new ">
+                {% for n in news %}
+                    {% set f = n.date %}
+                    {% set t = n.endDate %}
+                    {% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
+                    <li>
+                        <a href="{{ href }}" class="news-list-image">
+                            {% thumbnail n.image, 'list' %}
+                        </a>
+                        <div class="news-list-text">
+                            <span class="news-list-date">
+                                {{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' /Y') }}
+                            {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
+                            </span>
+                            <a href="{{ href }}" class="news-list-header">{{ n.title|raw }}</a>
+                            <p>{{ n.announce|raw }} </p>
+                            <a href="{{ path('armd_news_list_index_by_category', {'category': n.category.slug }) }}" class="news-list-type">{{ n.category.title }}</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <h2>{{ "date.list.empty"|trans({ '%date%':calendarDate|date('d.m.Y') }) }}</h2>
+    {% endif %}
 
+    {% if category %}
+        <div class="news-nav-block">
+            <nav class="navigation">
+                {{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}
+                {{ news.render()|raw}}
+                <br />
+            </nav>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{# ------------------------- #}
 {#{% block javascripts %}#}
 	{#{{ parent() }}#}
 	{#<script type="text/javascript" src="{{ asset('js/libs/jquery.ui.datepicker-ru-GB.js') }}"></script>#}

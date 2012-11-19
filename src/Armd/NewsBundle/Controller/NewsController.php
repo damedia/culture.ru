@@ -114,17 +114,16 @@ class NewsController extends ListController
         $criteria = array(
             'category'  => $category,
         );
-        if ($fromDate = $this->getRequest()->get('from_date')) {
-            $criteria['from_date'] = $fromDate;
-        }
-        if ($toDate = $this->getRequest()->get('to_date')) {
-            $criteria['to_date'] = $toDate;
+
+        $calendarDate = $this->getRequest()->get('date');
+        if ($calendarDate) {
+            $calendarDate = new \DateTime($calendarDate);
+            $criteria['target_date'] = $calendarDate;
         }
 
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
-            'from_date'     => $fromDate,
-            'to_date'       => $toDate,
+            'calendarDate'  => $calendarDate,
             'news'          => $this->getPaginator($criteria, $page, $limit),
         ));
     }
@@ -145,13 +144,14 @@ class NewsController extends ListController
         $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
 
         $categories = $this->getNewsManager()->getCategories();
-        //var_dump($categories);
-        //var_dump($category);
+
+        $calendarDate = $entity->getDate();
 
         return $this->render($template, array(
             'entity'      => $entity,
             'category'    => $category,
             'categories'  => $categories,
+            'calendarDate'  => $calendarDate,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
