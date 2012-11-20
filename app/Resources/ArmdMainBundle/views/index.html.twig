@@ -1,5 +1,7 @@
 {% extends '::index-layout.html.twig' %}
 
+{% block title %}{{ 'culture'|trans }}{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">

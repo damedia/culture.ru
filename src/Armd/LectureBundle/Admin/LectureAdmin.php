@@ -74,6 +74,11 @@ class LectureAdmin extends Admin
             )
             ->add('lecturer')
             ->add('recommended')
+            ->with('SEO')
+                ->add('seoTitle')
+                ->add('seoKeywords')
+                ->add('seoDescription')
+            ->end()
             ->with('Tvigle Video')
                 ->add('trailerVideo', 'armd_tvigle_video_selector',
                     array(

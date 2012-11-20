@@ -106,7 +106,7 @@ Special:
         Contacts:
             Title: Контактная информация
             Site: Сайт
-            Email: Email
+            Email: Emails
             Phone: Телефон
             Open: Музей открыт
             Closed: Выходные
@@ -128,3 +128,4 @@ Banners header: Официальные баннеры
 icons: Иконы России
 search: Поиск
 search__: Поиск...
+culture: Культура

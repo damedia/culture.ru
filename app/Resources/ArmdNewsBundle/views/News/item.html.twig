@@ -1,5 +1,10 @@
 {% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
+{% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription }}{% endblock %}
+
+
 {% block top_right %} <div style="margin-top:-66px"></div>{% endblock %}
 {% block content %}
 <div class="news-one text">

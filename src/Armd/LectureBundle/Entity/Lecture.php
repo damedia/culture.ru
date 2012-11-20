@@ -100,6 +100,20 @@ class Lecture
      */
     private $categories;
 
+    /**
+     * @ORM\Column(name="seo_title", type="string", nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @ORM\Column(name="seo_description", type="text", nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @ORM\Column(name="seo_keywords", type="text", nullable=true)
+     */
+    private $seoKeywords;
 
     public function __construct()
     {
@@ -319,4 +333,54 @@ class Lecture
         $this->categories->removeCategory($category);
     }
 
+    /**
+     * @return string|null
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * @param string $seoTitle
+     * @return void
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * @param string $seoDescription
+     * @return void
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
+    }
+
+    /**
+     * @param string $seoKeywords
+     * @return void
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+    }
 }
