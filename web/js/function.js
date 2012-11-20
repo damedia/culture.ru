@@ -138,11 +138,11 @@ $(document).ready(function () {
 					todayDay.parent().addClass('.ui-datepicker-today-week');
 					$("td:first", todayDay.parent()).nextUntil($('.ui-datepicker-today')).andSelf().addClass('previous-days');
 					$("tbody tr:first", $('.ui-datepicker-calendar')).nextUntil(todayDay.parent()).andSelf().find('td').addClass('previous-days');
-					console.log($("td:first", todayDay.parent()));
+					//console.log($("td:first", todayDay.parent()));
 				}
 			},
             onSelect: function(dateText, inst){
-                console.log('onSelect', dateText, inst);
+                //console.log('onSelect', dateText, inst);
                 location.href = '?date='+dateText;
             }
 		});
@@ -445,9 +445,109 @@ $(document).ready(function () {
 		$(this).parent().addClass('active').siblings().removeClass('active');
 		
 	})
+	
+	
+	/*NEWS SLIDER*/
 	if($("#featured").length > 0) {
-		$("#featured").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 50000, true);
+	
+		var imgArray = [];
+		var tabsCount = $('.ui-tabs-panel').length;
+		var startTabs = false; // Don't Init Tabs until Panel Heights are set.
+		var firstPanel = $('.ui-tabs-panel:first');
+		
+		$('#featured').css({'height' : $('img',firstPanel).height()});
+		
+		/*Find Max Image Height*/
+		$(window).load(function() { 
+			$('.ui-tabs-panel img').each(function(index) {
+				thisImage = $(this);
+				imgArray.push(thisImage.height());
+				if(imgArray.length == tabsCount) {
+					
+					var maxHeight = -1;
+					for(var im = 0; im < imgArray.length; im++){				
+						maxHeight = imgArray[im] > maxHeight ? imgArray[im] : maxHeight;
+					};
+					$('.ui-tabs-panel').height(maxHeight);
+					$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+					$('#featured').css('height', 'auto');
+					
+					startTabs = true;
+				}
+			});
+		})
+		/*Tabs*/
+		var tabsInt = setInterval(function(){
+			if(startTabs) {
+				clearInterval(tabsInt);
+				
+				$("#featured").tabs({
+				  show: function(event, ui) {
+					var lastOpenedPanel = $(this).data("lastOpenedPanel");
+					if (!$(this).data("topPositionTab")) {
+						$(this).data("topPositionTab", $(ui.panel).position().top)
+					}
+
+					if (lastOpenedPanel) 
+					{
+						lastOpenedPanel.css({
+							'position':'absolute',
+							'top' : 0
+						}).show();
+						
+						$(ui.panel)
+						.hide()
+						.css({
+							'z-index': 2
+						})
+						.fadeIn(1000, function() {
+							$(this).css('z-index', '');
+							
+							lastOpenedPanel
+							  .toggleClass("ui-tabs-hide")
+							  .css({'position': ''})
+							  .hide();
+					  
+						});
+					}
+						
+					$(this).data("lastOpenedPanel", $(ui.panel));
+				  }
+				}
+				
+				).tabs('rotate', 3000);
+			}
+		},100);
+		
+		
+		
 	}
+	/*Resize tabs*/
+	$(window).resize(function(){
+		var imgNewArray = [], 
+			maxHeight = 0, 
+			visiblePanel = $('.ui-tabs-panel:visible');
+		
+		$('.ui-tabs-panel').css({'height':'auto', 'width':'auto'});
+		$('#featured').css({'height' : $('img',visiblePanel).height()});
+		visiblePanel.siblings('.ui-tabs-panel').css('opacity',0).show();
+		
+		/*Find Max image height*/
+		$('.ui-tabs-panel img').each(function(index) {
+			thisImage = $(this);
+			imgNewArray.push(thisImage.height());
+			
+		})	
+		for(var im = 0; im < imgNewArray.length; im++){				
+			maxHeight = imgNewArray[im] > maxHeight ? imgNewArray[im] : maxHeight;
+		};
+		
+		$('.ui-tabs-panel').height(maxHeight);
+		$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+		
+		visiblePanel.siblings('.ui-tabs-panel').css('opacity',1).hide();
+		$('#featured').css({'height' : 'auto'});
+	})
 });
 	
 	

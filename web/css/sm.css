@@ -5742,7 +5742,7 @@ white-space:nowrap;
 	}
 
 #featured .ui-tabs-panel{ 
-	background:#f4f4f4;
+	background:#000;
 	position:relative;
 }
 	#featured .ui-tabs-panel img {
@@ -5756,6 +5756,7 @@ white-space:nowrap;
 	left:0; 
 	padding-bottom:10px;
 	background:rgba(68,68,68,0.8);
+	width:100%;
 }
 
 	#featured .info h2{ 
@@ -5786,3 +5787,4 @@ white-space:nowrap;
 #calendar {
 	margin-bottom:40px;
 }
+
