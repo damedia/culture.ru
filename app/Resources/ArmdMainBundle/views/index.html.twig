@@ -147,14 +147,15 @@
                 <h2>{{ 'Mainpage block.Events.Title'|trans }}</h2>
             </div>
             <div class="online-index-block">
-                <a href="{{ path('armd_news_item_by_category', { 'id': event.id, 'category': event.category.slug }) }}">
-                    {% thumbnail event.image, 'billboard' %}
-                </a>
+                {% if event.image is not empty %}
+                    <a href="{{ path('armd_news_item_by_category', { 'id': event.id, 'category': event.category.slug }) }}">
+                        {% thumbnail event.image, 'billboard' with {'alt': event.image.description} %}
+                    </a>
+                {% endif %}
 
                 <div class="online-index-text">
                     <p class="online-index-header"><a
                             href="{{ path('armd_news_news_item', {'id': event.id}) }}">{{ event.title|raw }}</a></p>
-
                     <p>
                         {{ event.announce|raw }}
                     </p>

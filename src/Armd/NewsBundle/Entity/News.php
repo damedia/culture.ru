@@ -98,7 +98,8 @@ class News extends BaseNews implements CommentableInterface
     protected $day;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @var Media
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
@@ -179,6 +180,7 @@ class News extends BaseNews implements CommentableInterface
             $this->publishedAt = new \DateTime();
         }
     }
+
 
     /**
      * Set announce
