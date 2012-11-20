@@ -15,5 +15,6 @@ state_visible: Показывать
 
 STATE_DELETED: Удален
 STATE_PENDING: Ожидает модерации
+STATE_PROCESSING: На модерации
 STATE_SPAM: Спам
 STATE_VISIBLE: Показан

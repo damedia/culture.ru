@@ -40,4 +40,10 @@ class UserManager extends BaseUserManager
     {
         return $this->repository->findUserRoles();
     }
+
+    public function getModerators()
+    {
+        return $this->repository->findUserRoles('ROLE_MODERATOR');
+    }
+
 }
