@@ -21,7 +21,9 @@ class ObjectRepository extends EntityRepository
             ->andWhere($qb->expr()->orX(
                 $qb->expr()->in('c', $categoryIds),
                 $qb->expr()->in('o', $categoryIds)
-            ));
+            ))
+            ->orderBy('o.createdAt', 'ASC')
+        ;
 
         $rows = $qb->getQuery()->getResult();
         return $rows;
