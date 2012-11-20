@@ -114,25 +114,25 @@ class NewsController extends ListController
         $criteria = array(
             'category'  => $category,
         );
-        if ($fromDate = $this->getRequest()->get('from_date')) {
-            $criteria['from_date'] = $fromDate;
-        }
-        if ($toDate = $this->getRequest()->get('to_date')) {
-            $criteria['to_date'] = $toDate;
+
+        $calendarDate = $this->getRequest()->get('date');
+        if ($calendarDate) {
+            $calendarDate = new \DateTime($calendarDate);
+            $criteria['target_date'] = $calendarDate;
         }
 
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
-            'from_date'     => $fromDate,
-            'to_date'       => $toDate,
+            'calendarDate'  => $calendarDate,
             'news'          => $this->getPaginator($criteria, $page, $limit),
         ));
     }
     
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
-     */    
-    function newsItemAction($id, $category, $template = null)
+     * @Route("/{category}/{id}/print", requirements={"category" = "[a-z]+", "id" = "\d+"}, defaults={"isPrint"=true}, name="armd_news_item_by_category_print")
+     */
+    function newsItemAction($id, $category, $template = null, $isPrint = false)
     {
         $entity = $this->getEntityRepository()->find($id);
 
@@ -141,10 +141,17 @@ class NewsController extends ListController
         }
 
         $template = $template ? $template : $this->getTemplateName('item');
-        
+        $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
+
+        $categories = $this->getNewsManager()->getCategories();
+
+        $calendarDate = $entity->getDate();
+
         return $this->render($template, array(
-            'entity'        => $entity,
-            'category'      => $category,
+            'entity'      => $entity,
+            'category'    => $category,
+            'categories'  => $categories,
+            'calendarDate'  => $calendarDate,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
@@ -169,10 +176,12 @@ class NewsController extends ListController
     {
         $criteria = array(
             'important' => true,
-        );        
+        );
+
+        $entities = $this->getNewsManager()->getBillboardNews();
     
         return $this->render($this->getTemplateName('billboard'), array(
-            'entities'  => $this->getPaginator($criteria, 1, $limit),
+            'entities' => $entities,
         ));
     }
     

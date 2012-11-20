@@ -144,22 +144,6 @@ class News extends BaseNews implements CommentableInterface
     protected $thread;
 
     /**
-     * @ORM\Column(name="seo_title", type="string", nullable=true)
-     */
-    private $seoTitle;
-
-    /**
-     * @ORM\Column(name="seo_description", type="text", nullable=true)
-     */
-    private $seoDescription;
-
-    /**
-     * @ORM\Column(name="seo_keywords", type="text", nullable=true)
-     */
-    private $seoKeywords;
-
-
-    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -690,58 +674,5 @@ class News extends BaseNews implements CommentableInterface
         return $this->isOnMap;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSeoTitle()
-    {
-        return $this->seoTitle;
-    }
-
-    /**
-     * @param string $seoTitle
-     * @return Object
-     */
-    public function setSeoTitle($seoTitle)
-    {
-        $this->seoTitle = $seoTitle;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSeoDescription()
-    {
-        return $this->seoDescription;
-    }
-
-    /**
-     * @param string $seoDescription
-     * @return Object
-     */
-    public function setSeoDescription($seoDescription)
-    {
-        $this->seoDescription = $seoDescription;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSeoKeywords()
-    {
-        return $this->seoKeywords;
-    }
-
-    /**
-     * @param string $seoKeywords
-     * @return Object
-     */
-    public function setSeoKeywords($seoKeywords)
-    {
-        $this->seoKeywords = $seoKeywords;
-        return $this;
-    }
 
 }

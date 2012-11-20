@@ -1,0 +1,92 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+	<link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+{% endblock %}
+
+{% block main_header %}
+	<div class="w clearfix" id="header">
+		<img src="{{ asset('/img/logo.png') }}" alt="" class="logo" />
+	</div>
+{% endblock %}
+
+{% block body%}
+    <div class="title-block gray-press">
+        <h2>События</h2>
+    </div>
+
+    <div class="news-press clearfix">
+        <div class="news-press-center">
+            <ul class="news-press-filter">
+                {% for cat in categories %}
+                    <li>
+                        <a href="{{ path('armd_news_item_by_category', { 'category':entity.category.slug, 'id':entity.id }) }}" class="{% if cat.slug == category %}active{% endif %}">
+                            {{ cat.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="news-one text">
+                <span class="news-one-date">
+                    {% set f = entity.date %}
+                    {% set t = entity.endDate %}
+                    {{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
+                    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
+                </span>
+
+                <h1>{{ entity.title|raw }}</h1>
+
+                {% if entity.image %}
+                    <div class="news-one-image">
+                        {% thumbnail entity.image, 'billboard' %}
+                        {% if entity.image.copyright or entity.image.authorName %}
+                            <p class="image-source">
+                                {% if entity.image.copyright %}
+                                    {{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
+
+                                {% endif %}
+                                {% if entity.image.authorName %}
+                                    {{ entity.image.authorName }}
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <p class="highlight-text">
+                    {{ entity.announce|raw }}
+                </p>
+
+                {{ entity.body|raw }}
+
+                {% if entity.source %}
+                    <div class="source">{{ entity.source|replace({"РИА «Новости»": '<a target="_blank" href="http://ria.ru/">РИА «Новости»</a>'})|raw }}</div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom_blocks%}
+    &nbsp;
+{% endblock %}
+
+{% block main_footer%}
+    <div class="w" id="footer">
+        <div class="footer-logo">
+            <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
+            {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+

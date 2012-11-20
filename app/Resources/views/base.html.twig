@@ -43,14 +43,15 @@
             <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/jquery.ajaxmanager.js') }}"></script>
+			{% if app.request.locale == 'ru' %}
+                <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
+            {% endif %}
             <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-            {% if app.request.locale == 'ru' %}
-                <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
-            {% endif %}
+            
         {% endblock %}
     </head>
     <body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
@@ -93,7 +94,8 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 {% endif %}
 
         <div id="wrap">
-            <div id="header" class="w clearfix">
+            {% block main_header %}
+			<div id="header" class="w clearfix">
                 <a href="{{ path('armd_main_homepage') }}" id="logo"></a>
                 <div id="top">
                     <div class="search_bar">
@@ -178,6 +180,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
             </div>
 
             </div>
+			
             <div id="nav" class="w">
                 <ul class="navmenu">
                     {% if app.request.locale == 'ru' %}
@@ -188,14 +191,13 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                         <li><a href="{{ path('armd_main_library') }}">{{ 'Navigation.Library'|trans }}</a></li>
                         <li><a href="{{ path('armd_main_project_traditions') }}">{{ 'Navigation.Traditions'|trans }}</a></li>
                         <li><a href="{{ path('armd_lecture_translation_index') }}">{{ 'Navigation.Translations'|trans }}</a></li>
-                        <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
-                        <li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
-                        
-                        
+
                         <li class="navmenu_more">
                             <a href="#" class="navmenu_more_link">{{ 'Navigation.Add'|trans }}</a>
                             <ul>
-                                <li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
+                                <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'Navigation.Lectures'|trans }}</a></li>
+								<li><a href="{{ path('armd_chronicle_index') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+								<li><a href="http://people.roskult.ru/forum/best/">{{ 'Navigation.Forum'|trans }}</a></li>
 								<li><a href="{{ path('armd_main_project_brodino') }}">{{ 'Navigation.Borodino.Title'|trans }}</a></li>
 								<li><a href="{{ path('armd_news_news_list') }}">{{ 'Navigation.Events'|trans }}</a></li>
                                 {#<li><a href="{{ path('armd_main_project_1150') }}">{{ 'Navigation.1150'|trans }}</a></li>#}
@@ -225,7 +227,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 </div>
             {% endif %}
             <div style="height: 25px"></div>
-
+		{% endblock %}
 {#
        <div id="search" class="w">
            <form id="formsearch" name="search" method="get">
@@ -255,8 +257,9 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 {% block body%}&nbsp;{% endblock %}
             </div>
 			{% block bottom_blocks%}&nbsp;{% endblock %}
-            <div id="footer" class="w">
-            
+           
+		   {% block main_footer%}
+			<div id="footer" class="w">
             <div class="footer-logo">
                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
                     {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
@@ -267,7 +270,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                  
              <div class="contacts-inner">
     					<div class="copyright">{{ 'Copyright'|trans }}</div>
-    					<a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="{{ path('armd_main_banners') }}">{{ 'Navigation.Banners'|trans }}</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a>
+    					<a href="{{ path('armd_main_about') }}">{{ 'Navigation.About'|trans }}</a>&nbsp;<span class="gray">|</span>&nbsp;<a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a>
                     </div>
                 </div>
 
@@ -327,7 +330,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
                 {% endif %}
             </div>
             <!-- /footer-counters-->
-
+			{% endblock %}
         </div>
     </body>
 </html>

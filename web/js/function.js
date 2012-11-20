@@ -11,7 +11,7 @@ $(document).ready(function () {
         if (direction === "up") {
             $active = $active.prev();
 
-            //  console.log("up");
+          //  console.log("up");
         }
         /*if (!$active.length) $active = $active.end();*/
 
@@ -21,12 +21,18 @@ $(document).ready(function () {
         $('.active').removeClass('active');
         $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
 
-        // console.log($('a[href=#' + $active.attr('id') + ']'));
+       // console.log($('a[href=#' + $active.attr('id') + ']'));
     });
-
+	
+	
+	
+	
+ 
+	
+	
 
     // Register each section as a waypoint.
-    $('.wayponits-area > .time-line-content').waypoint({offset: '50%'});
+    $('.wayponits-area > .time-line-content').waypoint({offset:'50%'});
 
 
     // Wicked credit to
@@ -52,7 +58,7 @@ $(document).ready(function () {
             $target = $(target);
 
         $(scrollElement).stop().animate({
-            'scrollTop': $target.offset().top
+            'scrollTop':$target.offset().top
         }, 500, 'swing', function () {
             window.location.hash = target;
         });
@@ -89,10 +95,10 @@ $(document).ready(function () {
     }).eq(0)
 
     /*Atlas tabs*/
-    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function () {
+    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
         var href = $(this).attr('href');
         $(this).parent().addClass('active')
-            .siblings().removeClass('active');
+                        .siblings().removeClass('active');
         $(href).show().siblings('div').hide();
         return false;
     })
@@ -116,24 +122,46 @@ $(document).ready(function () {
         })
 
         $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
-        $("#calendar").datepicker({showOtherMonths: true});
+		$.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
+		$.datepicker._updateDatepicker = function(inst) {
+			$.datepicker._updateDatepicker_original(inst);
+			var afterShow = this._get(inst, 'afterShow');
+			if (afterShow)
+				afterShow.apply((inst.input ? inst.input[0] : null));  
+		}
+		
+        $("#calendar").datepicker({
+			showOtherMonths:false,
+			afterShow:function(){
+				var todayDay = $('.ui-datepicker-today');
+				if(todayDay.length > 0) {
+					todayDay.parent().addClass('.ui-datepicker-today-week');
+					$("td:first", todayDay.parent()).nextUntil($('.ui-datepicker-today')).andSelf().addClass('previous-days');
+					$("tbody tr:first", $('.ui-datepicker-calendar')).nextUntil(todayDay.parent()).andSelf().find('td').addClass('previous-days');
+					//console.log($("td:first", todayDay.parent()));
+				}
+			},
+            onSelect: function(dateText, inst){
+                //console.log('onSelect', dateText, inst);
+                location.href = '?date='+dateText;
+            }
+		});
     }
-    if ($("#news-dates-filter").length > 0) {
+	if ($("#news-dates-filter").length > 0) {
         var calendarTriggerImg;
         if (mkApp.locale === 'ru') {
             $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
             calendarTriggerImg = '/img/calendar-trigger.png';
-        }
-        else if (mkApp.locale === 'en') {
+        } else if (mkApp.locale === 'en') {
             calendarTriggerImg = '/img/calendar-trigger-en.png';
         }
         $(".calendar-input").datepicker({
-            showOtherMonths: true,
-            showOn: "button",
-            buttonImage: calendarTriggerImg,
-            buttonImageOnly: true
-        });
-    }
+			showOtherMonths:true,
+			showOn: "button",
+			buttonImage: calendarTriggerImg,
+			buttonImageOnly: true
+		});
+	}
     /*$('.ppa-block').hover(function(){
      $(this).find('.ppa-over').show();
      },
@@ -267,12 +295,12 @@ $(document).ready(function () {
     /*top scroll*/
 
     var eventScroller = {
-        eventsBlock: $('.time-line-nav'),
-        timeLinePos: function () {
+        eventsBlock:$('.time-line-nav'),
+        timeLinePos:function () {
             return this.eventsBlock.position();
         },
-        eventScroll: function () {
-            this.eventsBlock.css({'position': 'static', 'visibility': 'hidden', 'width': 75 });
+        eventScroll:function () {
+            this.eventsBlock.css({'position':'static', 'visibility':'hidden', 'width':75 });
             //this.eventsBlock.parent().css({'paddingTop':0 });
 
             var pos = this.eventsBlock.position(),
@@ -282,13 +310,13 @@ $(document).ready(function () {
                 evBlockHeight = this.eventsBlock.height();
 
             if (this.timeLinePos().top < windowTop) {
-                this.eventsBlock.css({'left': pos.left - windowLeft, 'top': 0, 'position': 'fixed', 'width': evBlockWidth});
+                this.eventsBlock.css({'left':pos.left - windowLeft, 'top':0, 'position':'fixed', 'width':evBlockWidth});
             }
             else {
-                this.eventsBlock.css({'position': 'static', 'width': 75});
+                this.eventsBlock.css({'position':'static', 'width':75});
             }
 
-            this.eventsBlock.css({'visibility': 'visible'});
+            this.eventsBlock.css({'visibility':'visible'});
         }
     };
 
@@ -301,122 +329,222 @@ $(document).ready(function () {
             eventScroller.eventScroll();
         });
     }
+	
+	
+	/*MENU RESIZE*/
+	var navMore = $('.navmenu_more'),
+		navMoreEl = $('li', navMore),
+		navMenu = $('.navmenu'),
+		navMenuEl = $('> li', navMenu),
+		navMenuLength = navMenuEl.length,
+		navMenuGap,
+		navNumber = 0;
+		
+		
+		function menuRecalc(){
+			navMenuEl = $('> li', navMenu);
+			navMenuLength = navMenuEl.length;
+			if ( $('#nav').width() - navMenu.width()  > navMoreEl.eq(navNumber).width() + 28 ) {
+				menuResize();
+			}
+		}
+		
+		function menuResize() {
+			navMore.removeClass('opened');
+			navMore.find('ul').hide();
+			navMenuGap = $('#nav').width() - navMenu.width();	
+			
+			navMore.find('ul').css({'display':'block','visibility':'hidden'});
 
-
-    /*MENU RESIZE*/
-    var navMore = $('.navmenu_more'),
-        navMoreEl = $('li', navMore),
-        navMenu = $('.navmenu'),
-        navMenuEl = $('> li', navMenu),
-        navMenuLength = navMenuEl.length,
-        navMenuGap,
-        navNumber = 0;
-
-
-    function menuRecalc() {
-        navMenuEl = $('> li', navMenu);
-        navMenuLength = navMenuEl.length;
-        if ($('#nav').width() - navMenu.width() > navMoreEl.eq(navNumber).width() + 28) {
-            menuResize();
-        }
-    }
-
-    function menuResize() {
-        navMore.removeClass('opened');
-        navMore.find('ul').hide();
-        navMenuGap = $('#nav').width() - navMenu.width();
-
-        navMore.find('ul').css({'display': 'block', 'visibility': 'hidden'});
-
-        if (navMenuGap > navMoreEl.eq(navNumber).width() + 28) {
-            navMoreEl.eq(navNumber).insertBefore(navMore);
-            navNumber++;
-            menuRecalc();
-        }
-        else {
-            if (navMenuGap < 0) {
-                if (navNumber > 0) {
-                    navMenuEl.eq(navMenuLength - 2).prependTo(navMore.find('ul'));
-                    navNumber--;
-                }
-            }
-        }
-        navMore.find('ul').css({'display': 'none', 'visibility': 'visible'});
-    }
-
-    function menuRe() {
-        if (navMore.length > 0) {
-            menuRecalc();
-            menuResize();
-        }
-    }
-
+			if ( navMenuGap  > navMoreEl.eq(navNumber).width() + 28 ) {
+				navMoreEl.eq(navNumber).insertBefore(navMore);
+				navNumber++;
+				menuRecalc();
+			} else {
+				if ( navMenuGap < 0 ) {
+					if (navNumber > 0) {
+						navMenuEl.eq(navMenuLength-2).prependTo(navMore.find('ul'));
+						navNumber--;
+					}
+				}
+			}
+			navMore.find('ul').css({'display':'none','visibility':'visible'});
+		}
+		
+		function menuRe() {
+			if ( navMore.length > 0) {
+				menuRecalc();
+				menuResize();
+			}
+		}
+		
 //	commented because it broke atlas
-    $(window).resize(function () {
-        menuRe();
-    });
-    menuRe();
-
+	$(window).resize(function () {
+		menuRe();
+	});
+	menuRe();
+	
 // Reset Font Size
-    var originalFontSize = $('.text').css('font-size');
-    $(".resetFont").click(function () {
-        $('html').css('font-size', originalFontSize);
-    });
-    // Increase Font Size
-    /*$(".spec-vers").click(function(){
-     var currentFontSize = $('.text').css('font-size');
-     var currentFontSizeNum = parseFloat(currentFontSize, 10);
-     var newFontSize = currentFontSizeNum*1.2;
-     $('.text').css('font-size', newFontSize);
-     $(this).removeClass("spec-vers")
-     $(this).addClass("decreaseFont")
-     console.log(currentFontSize);
-     return false;
-     });*/
-    // Decrease Font Size
-    $(".decreaseFont").click(function () {
-        var currentFontSize = $('.text').css('font-size');
-        var currentFontSizeNum = parseFloat(currentFontSize, 10);
-        var newFontSize = currentFontSizeNum * 0.8;
-        $('.text').css('font-size', newFontSize);
-        $(this).removeClass("decreaseFont")
-        $(this).addClass("spec-vers")
+  var originalFontSize = $('.text').css('font-size');
+    $(".resetFont").click(function(){
+    $('html').css('font-size', originalFontSize);
+  });
+  // Increase Font Size
+  /*$(".spec-vers").click(function(){
+    var currentFontSize = $('.text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*1.2;
+    $('.text').css('font-size', newFontSize);
+	$(this).removeClass("spec-vers")
+	$(this).addClass("decreaseFont")
+	console.log(currentFontSize);
+    return false;
+  });*/
+  // Decrease Font Size
+  $(".decreaseFont").click(function(){
+    var currentFontSize = $('.text').css('font-size');
+    var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*0.8;
+    $('.text').css('font-size', newFontSize);
+	$(this).removeClass("decreaseFont")
+	$(this).addClass("spec-vers")
+	
+	
+    return false;
+  });	
+	
+	$('.years-tabs-selector a').click(function(){
+		var tabName = $(this).attr('href');
+		$(this).parent().addClass('active')
+				.siblings().removeClass('active');
+				
+		$(tabName).show().siblings().hide();
+		return false;	
+	})
 
+	
+	var imageResize = function(){
+		var lecContHeight = $('.lecture-tile-list-image-container:first').height();
+		$('.lecture-tile-list-image-container table').css('height', lecContHeight);
+	}
+	
+	$('.lecture-tile-list-image-frame:first').load(function(){
+		imageResize();
+	})
 
-        return false;
-    });
+	$(window).resize(function(){
+		imageResize();
+	})
+	
+	$('.trad-line-nav > li > a').click(function(){
+		var tradLink = $(this).attr('href');
+		$(tradLink).show().siblings('.trad-line-content').hide();
+		$(this).parent().addClass('active').siblings().removeClass('active');
+		
+	})
+	
+	
+	/*NEWS SLIDER*/
+	if($("#featured").length > 0) {
+	
+		var imgArray = [];
+		var tabsCount = $('.ui-tabs-panel').length;
+		var startTabs = false; // Don't Init Tabs until Panel Heights are set.
+		var firstPanel = $('.ui-tabs-panel:first');
+		
+		$('#featured').css({'height' : $('img',firstPanel).height()});
+		
+		/*Find Max Image Height*/
+		$(window).load(function() { 
+			$('.ui-tabs-panel img').each(function(index) {
+				thisImage = $(this);
+				imgArray.push(thisImage.height());
+				if(imgArray.length == tabsCount) {
+					
+					var maxHeight = -1;
+					for(var im = 0; im < imgArray.length; im++){				
+						maxHeight = imgArray[im] > maxHeight ? imgArray[im] : maxHeight;
+					};
+					$('.ui-tabs-panel').height(maxHeight);
+					$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+					$('#featured').css('height', 'auto');
+					
+					startTabs = true;
+				}
+			});
+		})
+		/*Tabs*/
+		var tabsInt = setInterval(function(){
+			if(startTabs) {
+				clearInterval(tabsInt);
+				
+				$("#featured").tabs({
+				  show: function(event, ui) {
+					var lastOpenedPanel = $(this).data("lastOpenedPanel");
+					if (!$(this).data("topPositionTab")) {
+						$(this).data("topPositionTab", $(ui.panel).position().top)
+					}
 
-    $('.years-tabs-selector a').click(function () {
-        var tabName = $(this).attr('href');
-        $(this).parent().addClass('active')
-            .siblings().removeClass('active');
-
-        $(tabName).show().siblings().hide();
-        return false;
-    });
-
-
-    var imageResize = function () {
-        var lecContHeight = $('.lecture-tile-list-image-container:first').height();
-        $('.lecture-tile-list-image-container table').css('height', lecContHeight);
-    };
-
-    $('.lecture-tile-list-image-frame:first').load(function () {
-        imageResize();
-    });
-
-    $(window).resize(function () {
-        imageResize();
-    });
-
-    $('.trad-line-nav > li > a').click(function () {
-        var tradLink = $(this).attr('href');
-        $(tradLink).show().siblings('.trad-line-content').hide();
-        $(this).parent().addClass('active').siblings().removeClass('active');
-
-    })
-
-
+					if (lastOpenedPanel) 
+					{
+						lastOpenedPanel.css({
+							'position':'absolute',
+							'top' : 0
+						}).show();
+						
+						$(ui.panel)
+						.hide()
+						.css({
+							'z-index': 2
+						})
+						.fadeIn(1000, function() {
+							$(this).css('z-index', '');
+							
+							lastOpenedPanel
+							  .toggleClass("ui-tabs-hide")
+							  .css({'position': ''})
+							  .hide();
+					  
+						});
+					}
+						
+					$(this).data("lastOpenedPanel", $(ui.panel));
+				  }
+				}
+				
+				).tabs('rotate', 3000);
+			}
+		},100);
+		
+		
+		
+	}
+	/*Resize tabs*/
+	$(window).resize(function(){
+		var imgNewArray = [], 
+			maxHeight = 0, 
+			visiblePanel = $('.ui-tabs-panel:visible');
+		
+		$('.ui-tabs-panel').css({'height':'auto', 'width':'auto'});
+		$('#featured').css({'height' : $('img',visiblePanel).height()});
+		visiblePanel.siblings('.ui-tabs-panel').css('opacity',0).show();
+		
+		/*Find Max image height*/
+		$('.ui-tabs-panel img').each(function(index) {
+			thisImage = $(this);
+			imgNewArray.push(thisImage.height());
+			
+		})	
+		for(var im = 0; im < imgNewArray.length; im++){				
+			maxHeight = imgNewArray[im] > maxHeight ? imgNewArray[im] : maxHeight;
+		};
+		
+		$('.ui-tabs-panel').height(maxHeight);
+		$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+		
+		visiblePanel.siblings('.ui-tabs-panel').css('opacity',1).hide();
+		$('#featured').css({'height' : 'auto'});
+	})
 });
 	
 	
