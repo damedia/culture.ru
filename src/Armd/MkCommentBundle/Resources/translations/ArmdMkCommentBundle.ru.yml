@@ -12,6 +12,7 @@ state_pending: Ожидает модерации
 state_deleted: Удален
 state_spam: Спам
 state_visible: Показывать
+state_processing: На модерации
 
 STATE_DELETED: Удален
 STATE_PENDING: Ожидает модерации
