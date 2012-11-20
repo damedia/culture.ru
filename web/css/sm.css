@@ -3655,17 +3655,18 @@ white-space:nowrap;
 }
 	.lecture-tile-list {
 		font-size:0;
+		background:#e6e6e6;
 	}
 
 	.lecture-tile-list.type-2 li { float:left; }
 
 		.lecture-tile-list li {
-            float: left;
-            width:25%;
-			/*display:inline-block;*/
+            width:24.9%;
+			display:inline-block;
 			position:relative;
 			vertical-align:top;
 			font-size:12px;
+			background:#fff;
 		}
 		.lt-ie8 .lecture-tile-list li  {
 			display:inline;
