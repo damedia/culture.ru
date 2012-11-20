@@ -100,8 +100,7 @@ class NewsManager
 
         if (!empty($criteria['from_date'])) {
             $qb->andWhere($qb->expr()->gt('n.date', ':from_date'))
-               ->setParameter('from_date', new \DateTime($criteria['from_date'] . '00:00:00'))
-            ;
+               ->setParameter('from_date', new \DateTime($criteria['from_date'] . '00:00:00'));
         }
 
         if (!empty($criteria['to_date'])) {
@@ -166,6 +165,8 @@ class NewsManager
             $data[] = array(
                 'id' => $row->getId(),
                 'title' => $row->getTitle(),
+                //'dateFrom' => $row->getDate(),
+                //'dateTo' => $row->getEndDate(),
                 'lon' => $row->getLon(),
                 'lat' => $row->getLat(),
                 'imageUrl' => $imageUrl,
@@ -220,6 +221,13 @@ class NewsManager
         }
         $res = array_slice($res, 0, $limit);
         return $res;
+    }
+
+    public function updateImageDescription($news)
+    {
+        if ($news->getImage() && !$news->getImage()->getDescription()) {
+            $news->getImage()->setDescription($news->getTitle());
+        }
     }
 
 }

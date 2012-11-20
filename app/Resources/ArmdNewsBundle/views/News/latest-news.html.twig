@@ -6,9 +6,11 @@
 	{% for n in news %}
 	   {% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
 		<li class="press-more-list-one">
-			<a href="{{ href }}">
-			    {% thumbnail n.image, 'latest' %}
-			</a>
+            {% if n.image %}
+                <a href="{{ href }}">
+                    {% thumbnail n.image, 'latest' with {'alt': n.image.description} %}
+                </a>
+            {% endif %}
 			<div class="pml-text">
 				<span class="pml-type">{{ n.category.title }}</span>
 				<p>
