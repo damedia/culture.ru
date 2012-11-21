@@ -14,6 +14,8 @@ use Armd\UserBundle\Entity\User;
  */
 class Comment extends BaseComment implements SignedCommentInterface
 {
+    const STATE_PROCESSING = 4;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -131,6 +133,7 @@ class Comment extends BaseComment implements SignedCommentInterface
         $states = array(
             self::STATE_DELETED => 'STATE_DELETED',
             self::STATE_PENDING => 'STATE_PENDING',
+            self::STATE_PROCESSING => 'STATE_PROCESSING',
             self::STATE_SPAM => 'STATE_SPAM',
             self::STATE_VISIBLE => 'STATE_VISIBLE',
         );

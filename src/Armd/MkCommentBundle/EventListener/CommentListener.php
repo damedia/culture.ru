@@ -67,6 +67,7 @@ class CommentListener implements EventSubscriberInterface
         {
             $this->blame($comment, $securityContext, $logger);
             $this->autoModerate($comment);
+            $this->notifyModerators($comment);
         }
         $this->calcThreadComments($comment, $commentManager, $entityManager);
     }
@@ -117,10 +118,37 @@ class CommentListener implements EventSubscriberInterface
         $entityManager->persist($thread);
     }
 
-
     public static function getSubscribedEvents()
     {
         return array(Events::COMMENT_PRE_PERSIST => 'onCommentPersist');
+    }
+
+    protected function notifyModerators($comment)
+    {
+        // Получить список модераторов
+        $userManager = $this->container->get('fos_user.user_manager.default');
+        $moderators = $userManager->getModerators();
+        if ($moderators) {
+            // Посылаем email модераторам
+            foreach ($moderators as $moderator) {
+                $emailFrom = 'noreply@culture.ru';
+                $emailTo   = $moderator->getEmail();
+                $subject   = 'Новый комментарий';
+                $template  = 'ArmdMkCommentBundle:Email:notifyModeratorMessage.html.twig';
+                $body = $this->container->get('templating')->render($template, array(
+                    'comment' => $comment,
+                ));
+                $message = \Swift_Message::newInstance()
+                    ->setSubject($subject)
+                    ->setFrom($emailFrom)
+                    ->setTo($emailTo)
+                    ->setBody($body)
+                    ->setContentType("text/html")
+                ;
+                $this->container->get('mailer')->send($message);
+            }
+        }
+        return true;
     }
 
 }

@@ -15,13 +15,17 @@ class UserRepository extends EntityRepository
             ->getQuery()->getSingleScalarResult();
     }
 
-    public function findUserRoles()
+    public function findUserRoles($role=false)
     {
-        return $this->getEntityManager()->createQueryBuilder('u')
+        $qb = $this->getEntityManager()->createQueryBuilder('u')
             ->select('u, g')
             ->from('ArmdUserBundle:User', 'u')
-            ->leftJoin('u.groups', 'g')
-            ->getQuery()->execute();
+            ->leftJoin('u.groups', 'g');
+        if ($role) {
+            $qb->where("g.roles LIKE :role")
+               ->setParameter('role', '%'.$role.'%');
+        }
+        return $qb->getQuery()->execute();
     }
 
 }
