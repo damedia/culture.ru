@@ -1,7 +1,9 @@
 <div id="calendar"></div>
 
-<script type="text/javascript">
-    $(function(){
-        $("#calendar").datepicker("setDate", "{{ calendarDate|date('d.m.Y') }}");
-    });
-</script>
+{% if calendarDate is defined %}
+    <script type="text/javascript">
+        $(function(){
+            $("#calendar").datepicker("setDate", "{{ calendarDate|date('d.m.Y') }}");
+        });
+    </script>
+{% endif %}
