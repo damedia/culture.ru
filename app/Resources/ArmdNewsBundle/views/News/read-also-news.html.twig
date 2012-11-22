@@ -1,52 +1,22 @@
-<div class="news-reccomended">
-    <p class="news-reccomended-header">{{ 'Read also'|trans }}</p>
-    <ul class="news-list news-list-new ">
-        <li>
-            <div class="news-rec-block">
-                <a href="/app_dev.php/press-centre/news/1622/" class="news-list-image">
-                    <img width="160" height="107" src="http://roskult.ru/ru/uploads/media/news/0001/08/thumb_7450_news_list.jpeg">			</a>
-                <div class="news-list-text">
-
-                    <a href="/app_dev.php/press-centre/news/1622/" class="news-list-header">Выставка, посвященная русскому князю, проходит в&nbsp;Индии</a>
-
-                    <a href="#" class="news-list-type">Новости</a>
-                </div>
-            </div>
-        </li><li>
-        <div class="news-rec-block">
-            <a href="/app_dev.php/press-centre/events/1617/" class="news-list-image">
-                <img width="160" height="107" src="http://roskult.ru/ru/uploads/media/news/0001/08/thumb_7432_news_list.jpeg">			</a>
-            <div class="news-list-text">
-
-                <a href="/app_dev.php/press-centre/events/1617/" class="news-list-header">Базельский симфонический оркестр и Дэннис Рассел Дэвис</a>
-
-                <a href="#" class="news-list-type">Анонсы</a>
-            </div>
-        </div>
-    </li><li>
-        <div class="news-rec-block">
-            <a href="/app_dev.php/press-centre/news/1623/" class="news-list-image">
-                <img width="160" height="107" src="http://roskult.ru/ru/uploads/media/news/0001/08/thumb_7452_news_list.jpeg">			</a>
-            <div class="news-list-text">
-
-                <a href="/app_dev.php/press-centre/news/1623/" class="news-list-header">Овощной оркестр путешествует по России</a>
-
-                <a href="#" class="news-list-type">Новости</a>
-            </div>
-        </div>
-    </li><li>
-        <div class="news-rec-block">
-            <a href="/app_dev.php/press-centre/news/1622/" class="news-list-image">
-                <img width="160" height="107" src="http://roskult.ru/ru/uploads/media/news/0001/08/thumb_7450_news_list.jpeg">			</a>
-            <div class="news-list-text">
-
-                <a href="/app_dev.php/press-centre/news/1622/" class="news-list-header">Выставка, посвященная русскому князю, проходит в&nbsp;Индии</a>
-
-                <a href="#" class="news-list-type">Новости</a>
-            </div>
-        </div>
-    </li>
-
-    </ul>
-</div>
-
+{% if entities is defined %}
+    <div class="news-reccomended">
+        <p class="news-reccomended-header">{{ 'Read also'|trans }}</p>
+        <ul class="news-list news-list-new">
+            {% spaceless %}
+                {% for entity in entities %}
+                    <li>
+                        <div class="news-rec-block">
+                            <a class="news-list-image" href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">
+                                {% thumbnail entity.image, 'list' %}
+                            </a>
+                            <div class="news-list-text">
+                                <a class="news-list-header" href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">{{ entity.title }}</a>
+                                <a class="news-list-type" href="{{ path('armd_news_list_index_by_category', {'category':entity.category.slug }) }}">{{ entity.category.title }}</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% endspaceless %}
+        </ul>
+    </div>
+{% endif %}

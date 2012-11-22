@@ -196,7 +196,7 @@ class NewsController extends ListController
 
     public function readAlsoNewsAction($entity, $limit = 10)
     {
-        $entities = array();
+        $entities = $this->getNewsManager()->getSiblingNews($entity, $limit);
         return $this->render($this->getTemplateName('read-also-news'), array(
             'entities' => $entities,
         ));

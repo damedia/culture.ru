@@ -213,4 +213,20 @@ class NewsManager
         return $entities;
     }
 
+    public function getSiblingNews($entity, $limit=10)
+    {
+        $criteria = array('category'=>$entity->getCategory()->getSlug());
+        $qb = $this->getQueryBuilder($criteria);
+        $qb->orderBy('n.date', 'DESC');
+        $rows = $qb->getQuery()
+            ->setMaxResults($limit+1)
+            ->getResult();
+
+        $res = array();
+        foreach ($rows as $row)
+            if ($row->getId() != $entity->getId())
+                $res[] = $row;
+        return $res;
+    }
+
 }
