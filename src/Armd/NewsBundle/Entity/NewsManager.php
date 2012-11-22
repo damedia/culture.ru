@@ -224,11 +224,10 @@ class NewsManager
 
         $res = array();
         foreach ($rows as $i=>$row) {
-            if ($i > $limit)
-                break;
             if ($row->getId() != $entity->getId())
                 $res[] = $row;
         }
+        $res = array_slice($res, 0, $limit);
         return $res;
     }
 
