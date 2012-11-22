@@ -10,7 +10,7 @@
                                 {% thumbnail entity.image, 'list' %}
                             </a>
                             <div class="news-list-text">
-                                <a class="news-list-header" href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">{{ entity.title }}</a>
+                                <a class="news-list-header" href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">{{ entity.title|raw }}</a>
                                 <a class="news-list-type" href="{{ path('armd_news_list_index_by_category', {'category':entity.category.slug }) }}">{{ entity.category.title }}</a>
                             </div>
                         </div>

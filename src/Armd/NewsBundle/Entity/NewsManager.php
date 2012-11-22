@@ -223,9 +223,12 @@ class NewsManager
             ->getResult();
 
         $res = array();
-        foreach ($rows as $row)
+        foreach ($rows as $i=>$row) {
+            if ($i > $limit)
+                break;
             if ($row->getId() != $entity->getId())
                 $res[] = $row;
+        }
         return $res;
     }
 
