@@ -159,11 +159,6 @@ class News extends BaseNews implements CommentableInterface
     private $seoKeywords;
 
     /**
-     * @ORM\Column(name="is_promoted", type="boolean", nullable=false, options={"default"=false})
-     */
-    private $isPromoted;
-
-    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
