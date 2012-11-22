@@ -158,6 +158,10 @@ class News extends BaseNews implements CommentableInterface
      */
     private $seoKeywords;
 
+    /**
+     * @ORM\Column(name="is_promoted", type="boolean", nullable=false, options={"default"=false})
+     */
+    private $isPromoted;
 
     /**
      * @ORM\PrePersist
@@ -744,4 +748,27 @@ class News extends BaseNews implements CommentableInterface
         return $this;
     }
 
+
+    /**
+     * Set isPromoted
+     *
+     * @param boolean $isPromoted
+     * @return News
+     */
+    public function setIsPromoted($isPromoted)
+    {
+        $this->isPromoted = $isPromoted;
+    
+        return $this;
+    }
+
+    /**
+     * Get isPromoted
+     *
+     * @return boolean 
+     */
+    public function getIsPromoted()
+    {
+        return $this->isPromoted;
+    }
 }

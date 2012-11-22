@@ -13,7 +13,7 @@
 {# ------------------------- #}
 {% block center_right %}
     {% include "ArmdNewsBundle:News:calendar.html.twig" %}	
-	{% render "ArmdNewsBundle:News:latestNews" with {"limit": 3} %}
+    {% render "ArmdNewsBundle:News:recommendedNews" with {"limit": 3} %}
 {% endblock %}
 
 {# ------------------------- #}

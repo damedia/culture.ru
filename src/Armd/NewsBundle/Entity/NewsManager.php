@@ -196,11 +196,20 @@ class NewsManager
     public function getBillboardNews()
     {
         $entities = array();
-        foreach ($this->getCategories() as $category)
-            $entities[] = $this->em->getRepository('ArmdNewsBundle:News')->findOneBy(
-                array('category' => $category),
+        foreach ($this->getCategories() as $category) {
+            //var_dump($category);
+            $entity = $this->em->getRepository('ArmdNewsBundle:News')->findOneBy(
+                array('category' => $category, 'important' => true),
                 array('date' => 'DESC')
             );
+            if (! $entity) {
+                $entity = $this->em->getRepository('ArmdNewsBundle:News')->findOneBy(
+                    array('category' => $category),
+                    array('date' => 'DESC')
+                );
+            }
+            $entities[] = $entity;
+        }
         return $entities;
     }
 

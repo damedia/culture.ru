@@ -3,7 +3,7 @@
 <div id="featured" >
 	<ul class="ui-tabs-nav">
 		{% set length = entities|length is even ? entities|length : entities|length - 1 %}
-			{% for n in entities|slice(0, length) %}
+        {% for n in entities|slice(0, length) %}
 			<li class="ui-tabs-nav-item" id="nav-fragment-{{loop.index}}">
 				<a href="#fragment-{{loop.index}}">
 					<i>{{ n.category|raw }}</i>
