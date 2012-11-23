@@ -185,6 +185,23 @@ class NewsController extends ListController
         ));
     }
     
+    public function recommendedNewsAction($limit = 10)
+    {
+        $criteria = array('important' => true);
+        $entities = $this->getNewsManager()->getBillboardNews();
+        return $this->render($this->getTemplateName('latest-news'), array(
+            'news' => $entities,
+        ));
+    }
+
+    public function readAlsoNewsAction($entity, $limit = 10)
+    {
+        $entities = $this->getNewsManager()->getSiblingNews($entity, $limit);
+        return $this->render($this->getTemplateName('read-also-news'), array(
+            'entities' => $entities,
+        ));
+    }
+
     function memorialEventsAction()
     {
         $criteria = array(

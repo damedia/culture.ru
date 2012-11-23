@@ -42,15 +42,15 @@
         <h2>{{ "date.list.empty"|trans({ '%date%':calendarDate|date('d.m.Y') }) }}</h2>
     {% endif %}
 
-    {% if category %}
-        <div class="news-nav-block">
-            <nav class="navigation">
-                {{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}
-                {{ news.render()|raw}}
-                <br />
-            </nav>
-        </div>
-    {% endif %}
+    <!-- Pagination -->
+    <div class="news-nav-block">
+        <nav class="navigation">
+            {{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}
+            {{ news.render()|raw}}
+            <br />
+        </nav>
+    </div>
+    <!-- /Pagination -->
 
 {% endblock %}
 

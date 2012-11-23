@@ -510,7 +510,14 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .title-block span.active {
 	color:#000;
 	border-color:#fff;
-} 
+}
+.title-block a{
+    color: #000;
+    text-decoration: none;
+}
+.title-block a:hover{
+    text-decoration: underline;
+}
 
 /*new title*/
 .title {

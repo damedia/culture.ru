@@ -110,7 +110,7 @@ class News extends Admin
             ->add('category')
             ->add('subject')            
             ->add('published')
-            ->add('important')            
+            ->add('important')
         ;
     }
 
