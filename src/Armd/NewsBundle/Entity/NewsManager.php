@@ -49,16 +49,7 @@ class NewsManager
             ->innerJoin('n.category', 'c')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true')
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->isNull('n.date'),
-                $qb->expr()->lte('n.date', ':now')
-            ))
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->isNull('n.endDate'),
-                $qb->expr()->gt('n.endDate', ':now')
-            ))
             ->orderBy('n.date', 'DESC')
-            ->setParameter('now', new \DateTime())
         ;
         
         $this->setCriteria($qb, $criteria);
@@ -123,9 +114,9 @@ class NewsManager
             $targetDateFrom = $criteria['target_date'];
             $targetDateTo   = clone $criteria['target_date'];
             $targetDateTo->modify('+1 day');
-            $qb->andWhere($qb->expr()->gte('n.date', ':target_date_from'))
+
+            $qb->andWhere("(n.date <= :target_date_to) AND (:target_date_from <= n.endDate)")
                ->setParameter('target_date_from', $targetDateFrom)
-               ->andWhere($qb->expr()->lte('n.date', ':target_date_to'))
                ->setParameter('target_date_to', $targetDateTo)
             ;
         }

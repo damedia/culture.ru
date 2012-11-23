@@ -3,6 +3,8 @@
 {% if calendarDate is defined %}
     <script type="text/javascript">
         $(function(){
+            window.currentRoute = '{{ app.request.attributes.get('_route') }}';
+            window.categorySlug = '{{ category }}';
             $("#calendar").datepicker("setDate", "{{ calendarDate|date('d.m.Y') }}");
         });
     </script>
