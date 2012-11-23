@@ -142,8 +142,13 @@ $(document).ready(function () {
 				}
 			},
             onSelect: function(dateText, inst){
-                //console.log('onSelect', dateText, inst);
-                location.href = '?date='+dateText;
+                var routeParams = { "date":dateText };
+                if (window.currentRoute == 'armd_news_item_by_category')
+                    window.currentRoute = 'armd_news_list_index_by_category';
+                if (window.categorySlug)
+                    routeParams.category = window.categorySlug;
+                location.href = Routing.generate(window.currentRoute, routeParams);
+                return false;
             }
 		});
     }

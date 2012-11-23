@@ -104,10 +104,10 @@ class NewsController extends ListController
     }
 
     /**
-     * @Route("/", name="armd_news_list_index")     
-     * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
-     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category")
-     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, name="armd_news_list_index_by_category_and_page")                    
+     * @Route("/", name="armd_news_list_index", options={"expose"=true})
+     * @Route("/page/{page}/", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_page", options={"expose"=true})
+     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
+     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_category_and_page", options={"expose"=true})
      */
     function newsListAction($category = null, $page = 1, $limit = 10)
     {
@@ -129,7 +129,7 @@ class NewsController extends ListController
     }
     
     /**
-     * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
+     * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
      * @Route("/{category}/{id}/print", requirements={"category" = "[a-z]+", "id" = "\d+"}, defaults={"isPrint"=true}, name="armd_news_item_by_category_print")
      */
     function newsItemAction($id, $category, $template = null, $isPrint = false)
