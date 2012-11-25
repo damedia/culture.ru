@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 {% set title = "Портал культурного наследия России" %}
 {% set link = url('armd_news_list_index') %}
+{% set description = "Новости портала культурного наследия" %}
 {% set pubDate = null %}
+
 {% for i in news %}
     {% if i.publishedAt > pubDate %}
         {% set pubDate = i.publishedAt %}
     {% endif %}
 {% endfor %}
-<rss version="2.0">
+
+<rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>
         <title>{{ title }}</title>
         <link>{{ link }}</link>
+        <description>{{ description }}</description>
         <image>
-            <url>{{ app.request.uriForPath('/img/logo.png') }}</url>
+            <url>{{ app.request.schemeAndHttpHost ~ asset('/img/logo.png') }}</url>
             <title>{{ title }}</title>
             <link>{{ link }}</link>        
         </image>
@@ -26,6 +30,9 @@
             <link>{{ url }}</link>
             <guid>{{ url }}</guid>
             <pubDate>{{ i.publishedAt|date('r')}}</pubDate>
+            <yandex:full-text>{{ i.body }}</yandex:full-text>
+            <yandex:genre>article</yandex:genre>
+            {#<author></author>#}
             {#% if i.image %}
                 <enclosure url="{% path i.image, 'latest' %}" type="{{ i.image.contentType }}" />
             {% endif %#}
