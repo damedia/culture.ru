@@ -27,7 +27,7 @@ class NewsController extends ListController
         );
 
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
-            'news' => $this->getPaginator($criteria, 1, 20),
+            'news' => $this->getPaginator($criteria, 1, 30),
         ));
     }        
 
