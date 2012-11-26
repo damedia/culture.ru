@@ -472,7 +472,7 @@ $(document).ready(function () {
 					};
 					$('.ui-tabs-panel').height(maxHeight);
 					$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
-					$('#featured').css('height', 'auto');
+					$('#featured').css('height', maxHeight);
 					
 					startTabs = true;
 				}
@@ -525,30 +525,39 @@ $(document).ready(function () {
 		
 	}
 	/*Resize tabs*/
+	var endResize;
 	$(window).resize(function(){
-		var imgNewArray = [], 
+		clearTimeout(endResize);
+		
+		endResize = setTimeout(function(){
+			var imgNewArray = [], 
 			maxHeight = 0, 
 			visiblePanel = $('.ui-tabs-panel:visible');
 		
-		$('.ui-tabs-panel').css({'height':'auto', 'width':'auto'});
-		$('#featured').css({'height' : $('img',visiblePanel).height()});
-		visiblePanel.siblings('.ui-tabs-panel').css('opacity',0).show();
-		
-		/*Find Max image height*/
-		$('.ui-tabs-panel img').each(function(index) {
-			thisImage = $(this);
-			imgNewArray.push(thisImage.height());
+			$('.ui-tabs-panel').css({'height':'auto', 'width':'auto'});
+			$('#featured').css({'height' : $('img',visiblePanel).height()});
+			visiblePanel.siblings('.ui-tabs-panel').css('opacity',0).show();
 			
-		})	
-		for(var im = 0; im < imgNewArray.length; im++){				
-			maxHeight = imgNewArray[im] > maxHeight ? imgNewArray[im] : maxHeight;
-		};
+			/*Find Max image height*/
+			$('.ui-tabs-panel img').each(function(index) {
+				thisImage = $(this);
+				imgNewArray.push(thisImage.height());
+				
+			})	
+			for(var im = 0; im < imgNewArray.length; im++){				
+				maxHeight = imgNewArray[im] > maxHeight ? imgNewArray[im] : maxHeight;
+			};
+			
+			$('.ui-tabs-panel').height(maxHeight);
+			$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+			
+			visiblePanel.siblings('.ui-tabs-panel').css('opacity',1).hide();
+			$('#featured').css({'height' : maxHeight});
+			
 		
-		$('.ui-tabs-panel').height(maxHeight);
-		$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+		},200);
 		
-		visiblePanel.siblings('.ui-tabs-panel').css('opacity',1).hide();
-		$('#featured').css({'height' : 'auto'});
+		
 	})
 });
 	
