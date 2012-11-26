@@ -16,6 +16,7 @@ class Version20121126184553 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql");
         
         $this->addSql("CREATE TABLE content_press_edition (id INT NOT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, PRIMARY KEY(id))");
+        $this->addSql("CREATE SEQUENCE content_press_edition_id_seq INCREMENT BY 1 MINVALUE 1 START 1;");
         $this->addSql("ALTER TABLE content_press_archive ADD edition_id INT DEFAULT NULL");
         $this->addSql("ALTER TABLE content_press_archive ADD CONSTRAINT FK_176E9B0574281A5E FOREIGN KEY (edition_id) REFERENCES content_press_edition (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
         $this->addSql("CREATE INDEX IDX_176E9B0574281A5E ON content_press_archive (edition_id)");
@@ -27,6 +28,7 @@ class Version20121126184553 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql");
         
         $this->addSql("ALTER TABLE content_press_archive DROP CONSTRAINT FK_176E9B0574281A5E");
+        $this->addSql("DROP SEQUENCE content_press_edition_id_seq");
         $this->addSql("DROP TABLE content_press_edition");
         $this->addSql("ALTER TABLE content_press_archive DROP edition_id");
     }
