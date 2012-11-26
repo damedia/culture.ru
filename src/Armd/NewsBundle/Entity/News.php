@@ -10,6 +10,7 @@ use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
+ *
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
  * @ORM\Table(name="content_news")
  * @ORM\HasLifecycleCallbacks

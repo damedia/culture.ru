@@ -22,8 +22,10 @@ class NewsController extends ListController
      */        
     function rssAction()
     {
+        $now = new \DateTime();
         $criteria = array(
-
+            'to_date' => $now->format('Y-m-d'),
+            'category' => array('news', 'interviews', 'reportages')
         );
 
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
