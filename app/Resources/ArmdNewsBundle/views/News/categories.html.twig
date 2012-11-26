@@ -6,7 +6,13 @@
     </li>
 {% endfor %}
 	<li>
-	   <a href="{{ path('armd_paper_archive') }}"
-	       {% if 'archive' == category %}class="active"{% endif %}>{{ 'Culture Magazine'|trans }}</a>
+	   <a href="{{ path('armd_paper_edition', { 'slug':'archive' }) }}" {% if 'archive' == category %}class="active"{% endif %}>
+           {{ 'Culture Magazine'|trans }}
+       </a>
+    </li>
+	<li>
+	   <a href="{{ path('armd_paper_edition', { 'slug':'litnews' }) }}" {% if 'litnews' == category %}class="active"{% endif %}>
+           {{ 'Literary Newspaper'|trans }}
+       </a>
     </li>
 </ul>
