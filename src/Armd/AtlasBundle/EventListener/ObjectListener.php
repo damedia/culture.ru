@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Armd\AtlasBundle\Entity\Object;
@@ -85,9 +86,36 @@ class ObjectListener
             $objectIdentity = ObjectIdentity::fromDomainObject($entity);
             try {
                 $aclProvider->deleteAcl($objectIdentity);
-            } catch (Exception $ex) {}
+            } catch (\Exception $ex) {}
         }
 
+    }
+
+    public function onFlush(OnFlushEventArgs $args)
+    {
+        $em = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
+        $objectsChanged = array();
+        foreach ($uow->getScheduledEntityInsertions() AS $entity) {
+            if ($entity instanceof Object) {
+                $objectsChanged[] = $entity;
+            }
+        }
+
+        foreach ($uow->getScheduledEntityUpdates() AS $entity) {
+            if ($entity instanceof Object) {
+                $objectsChanged[] = $entity;
+            }
+        }
+
+        $objectManager = $this->container->get('armd_atlas.manager.object');
+
+        foreach($objectsChanged as $object) {
+            $objectManager->updateImageDescription($object);
+            $image = $object->getPrimaryImage();
+            $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
+        }
     }
 
 }
