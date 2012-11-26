@@ -114,6 +114,11 @@ class NewsController extends ListController
         $criteria = array(
             'category'  => $category,
         );
+        if (! $category) {
+            $criteria = array(
+                'category'  => array('news', 'interviews', 'reportages'),
+            );
+        }
 
         $calendarDate = $this->getRequest()->get('date');
         if ($calendarDate) {
