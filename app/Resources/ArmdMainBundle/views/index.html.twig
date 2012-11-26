@@ -227,9 +227,11 @@
             <li class="map-grid-point-li first">
                 <div class="item-grid-point">
                     <div class="preview-img-point">
-                        <a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">
-                            <img src="{% path object.primaryImage, 'imagesOfRussiaUnderMap' %}"/>
-                        </a>
+                        {% if object.primaryImage %}
+                            <a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">
+                                {% thumbnail object.primaryImage, 'imagesOfRussiaUnderMap' with {'alt': object.primaryImage.description } %}
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="description-point">
                         <p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">
