@@ -12,10 +12,10 @@ class DefaultController extends Controller
      * @Route("/press-centre/archive/", name="armd_paper_archive")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($category=null)
     {
         $items = $this->getDoctrine()->getRepository('ArmdPaperArchiveBundle:PaperArchive')->findBy(
-            array(),
+            array('category' => $category),
             array('date' => 'DESC')
         );
         return $this->render('ArmdPaperArchiveBundle:Default:paper-archive.html.twig', array(

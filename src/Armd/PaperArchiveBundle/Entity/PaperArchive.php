@@ -40,6 +40,12 @@ class PaperArchive
      */
     private $file;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\PaperArchiveBundle\Entity\PaperEdition", cascade={"all"})
+     * @ORM\JoinColumn(name="edition_id", referencedColumnName="id")
+     */
+    private $edition;
+
     private $previewFlag;
 
     /**
@@ -154,5 +160,28 @@ class PaperArchive
     public function getPreviewFlag()
     {
         return $this->previewFlag;
+    }
+
+    /**
+     * Set edition
+     *
+     * @param Armd\PaperArchiveBundle\Entity\PaperEdition $edition
+     * @return PaperArchive
+     */
+    public function setEdition(\Armd\PaperArchiveBundle\Entity\PaperEdition $edition = null)
+    {
+        $this->edition = $edition;
+    
+        return $this;
+    }
+
+    /**
+     * Get edition
+     *
+     * @return Armd\PaperArchiveBundle\Entity\PaperEdition 
+     */
+    public function getEdition()
+    {
+        return $this->edition;
     }
 }
