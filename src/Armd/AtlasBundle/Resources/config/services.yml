@@ -19,4 +19,4 @@ services:
 
     armd_atlas.manager.object:
         class: Armd\AtlasBundle\Manager\ObjectManager
-        arguments: [@doctrine.orm.entity_manager, @search.sphinxsearch.search]
+        arguments: [@doctrine.orm.entity_manager, @search.sphinxsearch.search, @service_container]

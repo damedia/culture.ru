@@ -43,8 +43,8 @@ class ObjectsController extends Controller
     }
 
     /**
-     * @Route("/objects/{id}", requirements={"id"="\d+"}, defaults={"_format"="json"})
-     * @Method("GET")
+     * Route("/objects/{id}", requirements={"id"="\d+"}, defaults={"_format"="json"})
+     * Method("GET")
      */
     public function getAction($id)
     {
@@ -72,22 +72,34 @@ class ObjectsController extends Controller
     }
 
     /**
-     * @Route("/objects", defaults={"_format"="json"})
+     * @Route("/objects/", defaults={"_format"="json"})
+     * @Route("/objects/{id}", requirements={"id"="\d+"}, defaults={"_format"="json"})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($id=null)
     {
         try {
-            $objectRepo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-            $objects = $objectRepo->findAll();
+            $request = $this->getRequest();
+
+            $params = array();
+
+            if ($ids = $request->get('id')) {
+                $params['id'] = array_map("trim", explode(',', $ids));
+            }
+
+            if ($fields = $request->get('fields')) {
+                $params['fields'] = array_map("trim", explode(',', $fields));
+            }
+
+            $objects = $this->get('armd_atlas.manager.object')->filterForApi($params);
 
             if (! $objects)
                 throw new \Exception('Objects not found');
 
-            $result = array();
-
-            foreach ($objects as $obj) {
-                $result[] = $this->assembleObjectArray($obj);
+            if ($id) {
+                $result = $objects[0];
+            } else {
+                $result = $objects;
             }
 
             return array(

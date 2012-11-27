@@ -16,14 +16,29 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 class ObjectManager
 {
+    // mapping field name to field getter
+    public static $allowedFields = array(
+        'id'       => 'getId',
+        'title'    => 'getTitle',
+        'announce' => 'getAnnounce',
+        'lat'      => 'getLat',
+        'lon'      => 'getLon',
+        'icon'     => 'extractIconUrl', // this method
+        'image'    => 'extractImageUrl', // this method
+        'images'   => 'extractImagesUrls', // this method
+    );
+
     private $em;
     
     private $search;
 
-    public function __construct(EntityManager $em, $search)
+    private $container;
+
+    public function __construct(EntityManager $em, $search, $container)
     {
         $this->em = $em;
         $this->search = $search;
+        $this->container = $container;
     }
 
     public function getUserObjects(UserInterface $user)
@@ -152,4 +167,77 @@ class ObjectManager
 
         return $entity;       
     }
+
+    public function filterForApi($params=array())
+    {
+        $repo = $this->em->getRepository('ArmdAtlasBundle:Object');
+
+        $qb = $repo->createQueryBuilder('o');
+        $qb->where('o.published = TRUE');
+
+        if (isset($params['id']) && is_array($params['id'])) {
+            $ids = array_map('intval', $params['id']);
+            $qb->andWhere('o.id IN (:ids)')
+               ->setParameter('ids', $ids);
+        }
+
+        $rows = $qb->getQuery()->getResult();
+        if (! $rows)
+            throw new \Exception('Objects not found');
+
+        if (isset($params['fields']) && is_array($params['fields'])) {
+            $fields = $params['fields'];
+        } else {
+            $fields = array_keys(self::$allowedFields);
+        }
+
+        $res = array();
+        foreach ($rows as $row) {
+            $obj = array();
+            foreach ($fields as $field) {
+                if (in_array($field, $fields) && !empty($field)) {
+                    $getterMethod = self::$allowedFields[$field];
+                    $value = false;
+                    if (method_exists($row, $getterMethod)) {
+                        $value = $row->$getterMethod();
+                    } elseif (method_exists($this, $getterMethod)) {
+                        $value = $this->$getterMethod($row);
+                    }
+                    $obj[$field] = $value;
+                }
+            }
+            $res[] = $obj;
+        }
+
+        return $res;
+    }
+
+    protected function extractIconUrl($entity)
+    {
+        $imageUrl = '';
+        if ($entity->getPrimaryCategory()) {
+            $image = $entity->getPrimaryCategory()->getIconMedia();
+            $imageUrl = $this->container->get('sonata.media.twig.extension')->path($image, 'reference');
+        }
+        return $imageUrl;
+    }
+
+    protected function extractImageUrl($entity)
+    {
+        $imageUrl = $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail');
+        return $imageUrl;
+    }
+
+    protected function extractImagesUrls($entity)
+    {
+        $imagesUrls = array();
+        $images = $entity->getImages();
+        if ($images) {
+            foreach ($images as $image) {
+                $imagesUrls[] = $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail');
+            }
+        }
+        return $imagesUrls;
+    }
+
 }
