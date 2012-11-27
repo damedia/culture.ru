@@ -89,6 +89,34 @@ class ObjectRepository extends EntityRepository
         return $objects;
     }
 
+    /**
+     * Get russia images in the very specific way:
+     * - first 3 are last added
+     * - all others in random order
+     */
+    public function findRussiaImagesForSlider()
+    {
+        $lastObjects = $this->createQueryBuilder('o')
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+            ->orderBy('o.createdAt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+
+        $randomObjects = $this->createQueryBuilder('o')
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+            ->orderBy('o.createdAt', 'DESC')
+            ->setFirstResult(3)
+            ->getQuery()
+            ->getResult();
+
+        shuffle($randomObjects);
+
+        return array_merge($lastObjects, $randomObjects);
+    }
+
     public function fetchObjectsCategories($objects)
     {
         $objectsIds = array();
