@@ -20,7 +20,11 @@
             <title>{{ title }}</title>
             <link>{{ link }}</link>        
         </image>
-        <pubDate>{{ pubDate|date('r', 'Europe/Moscow') }}</pubDate>
+        {#
+            This timezone replace hack is needed because yandex requires +0400 but we use UTC.
+            At the same time yandex requires datetime at the site (without timezone) to be the same as in rss
+        #}
+        <pubDate>{{ pubDate|date('r')|replace({'+0000': '+0400'}) }}</pubDate>
 
         {% for i in news %}
         <item>
@@ -29,8 +33,8 @@
             <description>{{ i.announce }}</description>
             <link>{{ url }}</link>
             <guid>{{ url }}</guid>
-            <pubDate>{{ i.publishedAt|date('r', 'Europe/Moscow')}}</pubDate>
-            <yandex:full-text>{{ i.body }}</yandex:full-text>
+            <pubDate>{{ i.date|date('r')|replace({'+0000': '+0400'}) }}</pubDate>
+            <yandex:full-text>{{ i.announce }} {{ i.body }}</yandex:full-text>
             <yandex:genre>article</yandex:genre>
             {#<author></author>#}
             {#% if i.image %}

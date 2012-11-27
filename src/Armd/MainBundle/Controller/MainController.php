@@ -46,7 +46,7 @@ class MainController extends Controller
                 'news' => $this->getNews($categories),
                 'events' => $this->getEvents(4),
                 'categories' => $categories,
-                'russiaImages' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRussiaImages(),
+                'russiaImages' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRussiaImagesForSlider(),
             )
         );
     }
