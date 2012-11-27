@@ -223,7 +223,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
             </div>
             {% if app.request.locale == 'ru' %}
                 <div class="w archive-main-link">
-                    <a href="/press-centre/archive/">Газета «Культура»</a>
+                    <a href="{{ path('armd_paper_edition', { 'slug':'archive' }) }}">Газета «Культура»</a>
                 </div>
             {% endif %}
             <div style="height: 25px"></div>

@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 use Sonata\AdminBundle\Admin\Admin;
 
-class PaperArchive extends Admin
+class PaperEdition extends Admin
 {
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -28,8 +28,8 @@ class PaperArchive extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('slug')
             ->add('title')
-            ->add('date')
         ;
 
         parent::configureShowField($showMapper);
@@ -44,17 +44,12 @@ class PaperArchive extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('edition')
+                ->add('slug')
                 ->add('title')
-                ->add('date')
             ->end()
-            ->with('Media')
-                ->add('file', 'sonata_type_model_list', array('required' => true), array('link_parameters'=>array('context'=>'paper_archive', 'provider' => 'sonata.media.provider.file')))
-                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'paper_archive')))
-            ->end();
+        ;
 
         parent::configureFormFields($formMapper);
-
     }
 
     /**
@@ -65,11 +60,8 @@ class PaperArchive extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {        
         $listMapper
-            ->add('edition')
+            ->addIdentifier('slug')
             ->addIdentifier('title')
-            ->add('date')
-            ->add('image', null, array('template' => 'ArmdPaperArchiveBundle:MediaAdmin:list_custom.html.twig'))
-            ->add('file')
         ;
 
         parent::configureListFields($listMapper);        
@@ -78,9 +70,8 @@ class PaperArchive extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('edition')
+            ->add('slug')
             ->add('title')
-            ->add('date')
         ;
     }
 
