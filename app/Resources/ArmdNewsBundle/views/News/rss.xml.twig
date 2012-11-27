@@ -5,8 +5,8 @@
 {% set pubDate = null %}
 
 {% for i in news %}
-    {% if i.date > pubDate %}
-        {% set pubDate = i.date %}
+    {% if i.publishedAt > pubDate %}
+        {% set pubDate = i.publishedAt %}
     {% endif %}
 {% endfor %}
 
