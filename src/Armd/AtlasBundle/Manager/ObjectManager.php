@@ -17,7 +17,7 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 class ObjectManager
 {
     private $em;
-    
+
     private $search;
 
     public function __construct(EntityManager $em, $search)
@@ -102,7 +102,7 @@ class ObjectManager
 
         //return $objects;
     }
-    
+
     public function getRussiaImagesList($searchString)
     {
         $objectRepo = $this->em->getRepository('ArmdAtlasBundle:Object');
@@ -128,28 +128,36 @@ class ObjectManager
             if (!empty($searchResult['Atlas']['matches'])) {
                 foreach ($searchResult['Atlas']['matches'] as $id => $data) {
                     $object = $objectRepo->find($id);
-                    if(!empty($object)) {
+                    if (!empty($object)) {
                         $objects[] = $object;
                     }
                 }
             }
 
-        }
-        else {
+        } else {
             $objects = $objectRepo->findRussiaImages();
         }
-        
-        return $objects;        
+
+        return $objects;
     }
-    
+
     public function getObject($id)
     {
-        $repo =  $this->em->getRepository('ArmdAtlasBundle:Object');
-        $entity = $repo->findOneBy(array(
-            'published' => true,
-            'id' => $id,
-        ));
+        $repo = $this->em->getRepository('ArmdAtlasBundle:Object');
+        $entity = $repo->findOneBy(
+            array(
+                'published' => true,
+                'id' => $id,
+            )
+        );
 
-        return $entity;       
+        return $entity;
+    }
+
+    public function updateImageDescription($atlasObject)
+    {
+        if ($atlasObject->getPrimaryImage() && !$atlasObject->getPrimaryImage()->getDescription()) {
+            $atlasObject->getPrimaryImage()->setDescription($atlasObject->getTitle());
+        }
     }
 }

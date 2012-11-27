@@ -26,4 +26,9 @@ services:
         class: Armd\NewsBundle\Controller\NewsController
         arguments:
             container: "@service_container"
-        
+
+    armd_news.listener.news:
+        class: Armd\NewsBundle\EventListener\NewsListener
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }

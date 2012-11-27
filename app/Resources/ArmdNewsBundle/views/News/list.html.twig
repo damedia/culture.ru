@@ -22,9 +22,11 @@
                     {% set t = n.endDate %}
                     {% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
                     <li>
-                        <a href="{{ href }}" class="news-list-image">
-                            {% thumbnail n.image, 'list' %}
-                        </a>
+                        {% if n.image is not empty %}
+                            <a href="{{ href }}" class="news-list-image">
+                                {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
+                            </a>
+                        {% endif %}
                         <div class="news-list-text">
                             <span class="news-list-date">
                                 {{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' /Y') }}

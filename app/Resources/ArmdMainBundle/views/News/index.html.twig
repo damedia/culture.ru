@@ -20,7 +20,7 @@
             {% if loop.first %}
                 <div class="event-image">
                 {% if n.image %}
-                    {% thumbnail n.image, 'billboard' %}
+                    {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
                 {% else %}
                     <style>#{{ slug }}tab_tab .first-eventsaction .theevent {margin-left:0px;}</style>
                 {% endif %}                    

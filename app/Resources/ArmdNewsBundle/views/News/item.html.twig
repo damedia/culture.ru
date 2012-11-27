@@ -20,7 +20,7 @@
 
 	{% if entity.image %}
 		<div class="news-one-image">
-			{% thumbnail entity.image, 'billboard' %}
+			{% thumbnail entity.image, 'billboard' with {'alt': entity.image.description } %}
 			{% if entity.image.copyright or entity.image.authorName %}
 				<p class="image-source">
 					{% if entity.image.copyright %}
