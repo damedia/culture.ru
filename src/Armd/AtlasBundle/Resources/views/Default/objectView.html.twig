@@ -2,8 +2,15 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block title %}
-    {{ parent() }} &mdash;
-    {{ entity.title }}
+    {{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ entity.seoKeywords|default('') }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ entity.seoDescription|default('') }}
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}

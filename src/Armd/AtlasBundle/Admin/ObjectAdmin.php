@@ -85,6 +85,11 @@ class ObjectAdmin extends Admin
                 ->add('status')
                 ->add('reason')
             ->end()
+            ->with('SEO')
+                ->add('seoTitle')
+                ->add('seoKeywords')
+                ->add('seoDescription')
+            ->end()
             ->with('Russia Image')
                 ->add('showAtRussianImage', null,
                     array('required' => false)

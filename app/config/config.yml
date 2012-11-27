@@ -129,7 +129,7 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314 , height: 187, quality: 90}
-                billboard: { width: 366, height: 261}
+                billboard: { width: 761, height: 507 }
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 107 }
                 big: { width: 920 }
@@ -253,6 +253,7 @@ sonata_media:
         dailymotion: ~
 
 
+
 fos_user:
     db_driver:      orm
     firewall_name:  main
@@ -365,4 +366,11 @@ services:
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
 
+armd_media_helper:
+    providers:
+        culturetv:
+            filesystem: sonata.media.filesystem.local
+            resizer: sonata.media.resizer.simple
+            generator: sonata.media.generator.default
+            thumbnail: sonata.media.thumbnail.format
 

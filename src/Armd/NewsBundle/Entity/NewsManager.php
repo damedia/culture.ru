@@ -49,16 +49,7 @@ class NewsManager
             ->innerJoin('n.category', 'c')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true')
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->isNull('n.date'),
-                $qb->expr()->lte('n.date', ':now')
-            ))
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->isNull('n.endDate'),
-                $qb->expr()->gt('n.endDate', ':now')
-            ))
             ->orderBy('n.date', 'DESC')
-            ->setParameter('now', new \DateTime())
         ;
         
         $this->setCriteria($qb, $criteria);
@@ -107,6 +98,29 @@ class NewsManager
             ;
         }
 
+        if (!empty($criteria['from_date'])) {
+            $qb->andWhere($qb->expr()->gt('n.date', ':from_date'))
+               ->setParameter('from_date', new \DateTime($criteria['from_date'] . '00:00:00'))
+            ;
+        }
+
+        if (!empty($criteria['to_date'])) {
+            $qb->andWhere($qb->expr()->lt('n.date', ':to_date'))
+               ->setParameter('to_date', new \DateTime($criteria['to_date'] . ' 23:59:59'))
+            ;
+        }
+
+        if (!empty($criteria['target_date'])) {
+            $targetDateFrom = $criteria['target_date'];
+            $targetDateTo   = clone $criteria['target_date'];
+            $targetDateTo->modify('+1 day');
+
+            $qb->andWhere("(n.date <= :target_date_to) AND (:target_date_from <= n.endDate)")
+               ->setParameter('target_date_from', $targetDateFrom)
+               ->setParameter('target_date_to', $targetDateTo)
+            ;
+        }
+
     }
     
     public function getCategories()
@@ -152,8 +166,6 @@ class NewsManager
             $data[] = array(
                 'id' => $row->getId(),
                 'title' => $row->getTitle(),
-                //'dateFrom' => $row->getDate(),
-                //'dateTo' => $row->getEndDate(),
                 'lon' => $row->getLon(),
                 'lat' => $row->getLat(),
                 'imageUrl' => $imageUrl,
@@ -170,6 +182,44 @@ class NewsManager
         return $qb->getQuery()
                   ->setMaxResults($limit)
                   ->getResult();
+    }
+
+    public function getBillboardNews()
+    {
+        $entities = array();
+        foreach ($this->getCategories() as $category) {
+            //var_dump($category);
+            $entity = $this->em->getRepository('ArmdNewsBundle:News')->findOneBy(
+                array('category' => $category, 'important' => true),
+                array('date' => 'DESC')
+            );
+            if (! $entity) {
+                $entity = $this->em->getRepository('ArmdNewsBundle:News')->findOneBy(
+                    array('category' => $category),
+                    array('date' => 'DESC')
+                );
+            }
+            $entities[] = $entity;
+        }
+        return $entities;
+    }
+
+    public function getSiblingNews($entity, $limit=10)
+    {
+        $criteria = array('category'=>$entity->getCategory()->getSlug());
+        $qb = $this->getQueryBuilder($criteria);
+        $qb->orderBy('n.date', 'DESC');
+        $rows = $qb->getQuery()
+            ->setMaxResults($limit+1)
+            ->getResult();
+
+        $res = array();
+        foreach ($rows as $i=>$row) {
+            if ($row->getId() != $entity->getId())
+                $res[] = $row;
+        }
+        $res = array_slice($res, 0, $limit);
+        return $res;
     }
 
 }

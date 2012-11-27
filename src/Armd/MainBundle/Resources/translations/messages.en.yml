@@ -42,6 +42,7 @@ Navigation:
     Add: Add
     Library: Library
     Reports: Reports
+    Banners: Banners
 
 Mainpage block:
     Communication:
@@ -124,3 +125,8 @@ Comment: Comment
 Submit: Submit
 Events: Events
 Interview: Interview
+Banners header: Official banners
+icons: Russian Icons
+search: Search
+search__: Search...
+culture: Culture

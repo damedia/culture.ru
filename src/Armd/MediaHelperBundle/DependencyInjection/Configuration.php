@@ -20,9 +20,21 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('armd_media_helper');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('providers')
+                    ->children()
+                        ->arrayNode('culturetv')
+                            ->children()
+                                ->scalarNode('resizer')->defaultValue('sonata.media.resizer.simple')->end()
+                                ->scalarNode('filesystem')->defaultValue('sonata.media.filesystem.local')->end()
+                                ->scalarNode('generator')->defaultValue('sonata.media.generator.default')->end()
+                                ->scalarNode('thumbnail')->defaultValue('sonata.media.thumbnail.format')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

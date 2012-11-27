@@ -10,6 +10,7 @@ use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
+ *
  * @ORM\Entity(repositoryClass="Armd\NewsBundle\Repository\NewsRepository")
  * @ORM\Table(name="content_news")
  * @ORM\HasLifecycleCallbacks
@@ -142,6 +143,21 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
      */
     protected $thread;
+
+    /**
+     * @ORM\Column(name="seo_title", type="string", nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @ORM\Column(name="seo_description", type="text", nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @ORM\Column(name="seo_keywords", type="text", nullable=true)
+     */
+    private $seoKeywords;
 
     /**
      * @ORM\PrePersist
@@ -674,5 +690,81 @@ class News extends BaseNews implements CommentableInterface
         return $this->isOnMap;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
 
+    /**
+     * @param string $seoTitle
+     * @return Object
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * @param string $seoDescription
+     * @return Object
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
+    }
+
+    /**
+     * @param string $seoKeywords
+     * @return Object
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+        return $this;
+    }
+
+
+    /**
+     * Set isPromoted
+     *
+     * @param boolean $isPromoted
+     * @return News
+     */
+    public function setIsPromoted($isPromoted)
+    {
+        $this->isPromoted = $isPromoted;
+    
+        return $this;
+    }
+
+    /**
+     * Get isPromoted
+     *
+     * @return boolean 
+     */
+    public function getIsPromoted()
+    {
+        return $this->isPromoted;
+    }
 }

@@ -1,5 +1,17 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    {{ lecture.seoTitle|default(lecture.title) }} &mdash; {{ parent() }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ lecture.seoKeywords }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ lecture.seoDescription }}
+{% endblock %}
+
 {#{% block stylesheets %}#}
 {#{{ parent() }}#}
 {#<link rel="stylesheet" href="{{ asset('common/css/sm.css') }}">#}

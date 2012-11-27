@@ -22,12 +22,14 @@ class NewsController extends ListController
      */        
     function rssAction()
     {
+        $now = new \DateTime();
         $criteria = array(
-
+            'to_date' => $now->format('Y-m-d'),
+            'category' => array('news', 'interviews', 'reportages')
         );
 
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
-            'news' => $this->getPaginator($criteria, 1, 20),
+            'news' => $this->getPaginator($criteria, 1, 30),
         ));
     }        
 
@@ -104,27 +106,40 @@ class NewsController extends ListController
     }
 
     /**
-     * @Route("/", name="armd_news_list_index")     
-     * @Route("/page/{page}/", requirements={"page" = "\d+"}, name="armd_news_list_index_by_page")
-     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category")
-     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, name="armd_news_list_index_by_category_and_page")                    
+     * @Route("/", name="armd_news_list_index", options={"expose"=true})
+     * @Route("/page/{page}/", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_page", options={"expose"=true})
+     * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
+     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_category_and_page", options={"expose"=true})
      */
     function newsListAction($category = null, $page = 1, $limit = 10)
     {
         $criteria = array(
             'category'  => $category,
-        );    
-    
+        );
+        if (! $category) {
+            $criteria = array(
+                'category'  => array('news', 'interviews', 'reportages'),
+            );
+        }
+
+        $calendarDate = $this->getRequest()->get('date');
+        if ($calendarDate) {
+            $calendarDate = new \DateTime($calendarDate);
+            $criteria['target_date'] = $calendarDate;
+        }
+
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
+            'calendarDate'  => $calendarDate,
             'news'          => $this->getPaginator($criteria, $page, $limit),
         ));
     }
     
     /**
-     * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category")     
-     */    
-    function newsItemAction($id, $category, $template = null)
+     * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
+     * @Route("/{category}/{id}/print", requirements={"category" = "[a-z]+", "id" = "\d+"}, defaults={"isPrint"=true}, name="armd_news_item_by_category_print")
+     */
+    function newsItemAction($id, $category, $template = null, $isPrint = false)
     {
         $entity = $this->getEntityRepository()->find($id);
 
@@ -133,10 +148,17 @@ class NewsController extends ListController
         }
 
         $template = $template ? $template : $this->getTemplateName('item');
-        
+        $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
+
+        $categories = $this->getNewsManager()->getCategories();
+
+        $calendarDate = $entity->getDate();
+
         return $this->render($template, array(
-            'entity'        => $entity,
-            'category'      => $category,
+            'entity'      => $entity,
+            'category'    => $category,
+            'categories'  => $categories,
+            'calendarDate'  => $calendarDate,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
         ));
@@ -161,13 +183,32 @@ class NewsController extends ListController
     {
         $criteria = array(
             'important' => true,
-        );        
+        );
+
+        $entities = $this->getNewsManager()->getBillboardNews();
     
         return $this->render($this->getTemplateName('billboard'), array(
-            'entities'  => $this->getPaginator($criteria, 1, $limit),
+            'entities' => $entities,
         ));
     }
     
+    public function recommendedNewsAction($limit = 10)
+    {
+        $criteria = array('important' => true);
+        $entities = $this->getNewsManager()->getBillboardNews();
+        return $this->render($this->getTemplateName('latest-news'), array(
+            'news' => $entities,
+        ));
+    }
+
+    public function readAlsoNewsAction($entity, $limit = 10)
+    {
+        $entities = $this->getNewsManager()->getSiblingNews($entity, $limit);
+        return $this->render($this->getTemplateName('read-also-news'), array(
+            'entities' => $entities,
+        ));
+    }
+
     function memorialEventsAction()
     {
         $criteria = array(

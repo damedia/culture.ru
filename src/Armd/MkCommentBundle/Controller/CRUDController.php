@@ -6,6 +6,7 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentPersistEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\CommentBundle\Model\CommentInterface;
+use Armd\MkCommentBundle\Entity\Comment;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Controller\CRUDController as BaseController;
 
@@ -24,6 +25,11 @@ class CRUDController extends BaseController
     public function batchActionStateSpam(ProxyQueryInterface $selectedModelQuery)
     {
         return $this->batchChangeState($selectedModelQuery, CommentInterface::STATE_SPAM);
+    }
+
+    public function batchActionStateProcessing(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->batchChangeState($selectedModelQuery, Comment::STATE_PROCESSING);
     }
 
     public function batchActionStateVisible(ProxyQueryInterface $selectedModelQuery)

@@ -31,6 +31,12 @@ sonata_media:
     providers:
         file:
             filesystem: sonata.media.filesystem.ftp
-
         image:
+            filesystem: sonata.media.filesystem.ftp
+        youtube:
+            filesystem: sonata.media.filesystem.ftp
+
+armd_media_helper:
+    providers:
+        culturetv:
             filesystem: sonata.media.filesystem.ftp

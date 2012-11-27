@@ -1,31 +1,26 @@
 {% extends '::three-column-layout.html.twig' %}
 
-{#% stylesheets '@ArmdNewsBundle/Resources/public/css/*' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %#}
-
-{% block left %}
-    {% render "ArmdNewsBundle:News:categories" with {"category": category } %}
+{# ------------------------- #}
+{% block caterories %}
+   {% render "ArmdNewsBundle:News:categories" with {"category": category } %}
 {% endblock %}
 
-{% block header %}{{ 'Events'|trans }}{% endblock %}
+{# ------------------------- #}
+{% block header %}
+    <a href="{{ path('armd_news_news_list') }}">{{ 'Events'|trans }}</a>
+{% endblock %}
 
+{# ------------------------- #}
 {% block center_right %}
-    {% render "ArmdNewsBundle:News:latestNews" with {"limit": 3} %}
+    {% include "ArmdNewsBundle:News:calendar.html.twig" %}	
+    {% render "ArmdNewsBundle:News:recommendedNews" with {"limit": 3} %}
 {% endblock %}
 
+{# ------------------------- #}
 {% block bottom_right %}
-{#
-    <div class="virtual-anons-block">
-		<a href="#" class="virtual-anons">
-			<span class="virtual-anons-header">Виртуальный тур</span>
-			<img src="/static/common/img/photo/virt_anons.jpg" alt="" />
-			<span class="virtual-anons-descr">Государственный центральный музей музыкальной культуры имени М.И. Глинки</span>
-		</a>
-	</div>
-#}
 {% endblock %}
 
+{# ------------------------- #}
 {% block top %}
     {% render "ArmdNewsBundle:News:billboard" %}
 {% endblock %}

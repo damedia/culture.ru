@@ -24,5 +24,9 @@ class ArmdMediaHelperExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->getDefinition('armd_media_helper.configuration_pool')
+            ->addMethodCall('setOptions', array($config))
+        ;
     }
 }

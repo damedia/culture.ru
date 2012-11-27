@@ -81,6 +81,10 @@ class CommentAdmin extends Admin
 //            'label' => $this->trans('state_spam', array(), $this->translationDomain),
 //            'ask_confirmation' => false
 //        );
+        $actions['stateProcessing'] = array(
+            'label' => $this->trans('state_processing', array(), $this->translationDomain),
+            'ask_confirmation' => false
+        );
 
         $actions['stateVisible'] = array(
             'label' => $this->trans('state_visible', array(), $this->translationDomain),

@@ -42,6 +42,7 @@ Navigation:
     Add: Еще
     Library: Библиотека
     Reports: Репортажи
+    Banners: Баннеры
 
 Mainpage block:
     Communication:
@@ -105,7 +106,7 @@ Special:
         Contacts:
             Title: Контактная информация
             Site: Сайт
-            Email: Email
+            Email: Emails
             Phone: Телефон
             Open: Музей открыт
             Closed: Выходные
@@ -123,3 +124,8 @@ Comment: Оставить комментарий
 Submit: Отправить
 Events: События
 Interview: Интервью
+Banners header: Официальные баннеры
+icons: Иконы России
+search: Поиск
+search__: Поиск...
+culture: Культура

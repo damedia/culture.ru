@@ -122,7 +122,35 @@ $(document).ready(function () {
         })
 
         $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
-        $("#calendar").datepicker({showOtherMonths:true});
+		$.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
+		$.datepicker._updateDatepicker = function(inst) {
+			$.datepicker._updateDatepicker_original(inst);
+			var afterShow = this._get(inst, 'afterShow');
+			if (afterShow)
+				afterShow.apply((inst.input ? inst.input[0] : null));  
+		}
+		
+        $("#calendar").datepicker({
+			showOtherMonths:false,
+			afterShow:function(){
+				var todayDay = $('.ui-datepicker-today');
+				if(todayDay.length > 0) {
+					todayDay.parent().addClass('.ui-datepicker-today-week');
+					$("td:first", todayDay.parent()).nextUntil($('.ui-datepicker-today')).andSelf().addClass('previous-days');
+					$("tbody tr:first", $('.ui-datepicker-calendar')).nextUntil(todayDay.parent()).andSelf().find('td').addClass('previous-days');
+					//console.log($("td:first", todayDay.parent()));
+				}
+			},
+            onSelect: function(dateText, inst){
+                var routeParams = { "date":dateText };
+                if (window.currentRoute == 'armd_news_item_by_category')
+                    window.currentRoute = 'armd_news_list_index_by_category';
+                if (window.categorySlug)
+                    routeParams.category = window.categorySlug;
+                location.href = Routing.generate(window.currentRoute, routeParams);
+                return false;
+            }
+		});
     }
 	if ($("#news-dates-filter").length > 0) {
         var calendarTriggerImg;
@@ -250,20 +278,17 @@ $(document).ready(function () {
             .siblings('.events_tabs').hide();
     });
 
-    $('#rusObrTab_tab .rusObr-list-one').hover(
-        function () {
-            var width = $(this).width(),
-                height = $(this).height();
+    $('#rusObrTab_tab').on('mouseenter', '.rusObr-list-one', function () {
+        var width = $(this).width(),
+            height = $(this).height();
 
-            $(this).addClass('rusHovered').css({'width':width, 'height':height});
+        $(this).addClass('rusHovered').css({'width': width, 'height': height});
 
-        },
-
-        function () {
-            $(this).removeClass('rusHovered').css({'width':'auto', 'height':'auto'});
-            $(this).parent().css({'height':'auto'});
-        }
-    );
+    });
+    $('#rusObrTab_tab').on('mouseleave', '.rusObr-list-one', function () {
+        $(this).removeClass('rusHovered').css({'width': 'auto', 'height': 'auto'});
+        $(this).parent().css({'height': 'auto'});
+    });
 
     /*
      $('#auth-link').click(function(){
@@ -403,7 +428,7 @@ $(document).ready(function () {
 	})
 
 	
-	imageResize = function(){
+	var imageResize = function(){
 		var lecContHeight = $('.lecture-tile-list-image-container:first').height();
 		$('.lecture-tile-list-image-container table').css('height', lecContHeight);
 	}
@@ -424,7 +449,116 @@ $(document).ready(function () {
 	})
 	
 	
+	/*NEWS SLIDER*/
+	if($("#featured").length > 0) {
 	
+		var imgArray = [];
+		var tabsCount = $('.ui-tabs-panel').length;
+		var startTabs = false; // Don't Init Tabs until Panel Heights are set.
+		var firstPanel = $('.ui-tabs-panel:first');
+		
+		$('#featured').css({'height' : $('img',firstPanel).height()});
+		
+		/*Find Max Image Height*/
+		$(window).load(function() { 
+			$('.ui-tabs-panel img').each(function(index) {
+				thisImage = $(this);
+				imgArray.push(thisImage.height());
+				if(imgArray.length == tabsCount) {
+					
+					var maxHeight = -1;
+					for(var im = 0; im < imgArray.length; im++){				
+						maxHeight = imgArray[im] > maxHeight ? imgArray[im] : maxHeight;
+					};
+					$('.ui-tabs-panel').height(maxHeight);
+					$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+					$('#featured').css('height', maxHeight);
+					
+					startTabs = true;
+				}
+			});
+		})
+		/*Tabs*/
+		var tabsInt = setInterval(function(){
+			if(startTabs) {
+				clearInterval(tabsInt);
+				
+				$("#featured").tabs({
+				  show: function(event, ui) {
+					var lastOpenedPanel = $(this).data("lastOpenedPanel");
+					if (!$(this).data("topPositionTab")) {
+						$(this).data("topPositionTab", $(ui.panel).position().top)
+					}
+
+					if (lastOpenedPanel) 
+					{
+						lastOpenedPanel.css({
+							'position':'absolute',
+							'top' : 0
+						}).show();
+						
+						$(ui.panel)
+						.hide()
+						.css({
+							'z-index': 2
+						})
+						.fadeIn(1000, function() {
+							$(this).css('z-index', '');
+							
+							lastOpenedPanel
+							  .toggleClass("ui-tabs-hide")
+							  .css({'position': ''})
+							  .hide();
+					  
+						});
+					}
+						
+					$(this).data("lastOpenedPanel", $(ui.panel));
+				  }
+				}
+				
+				).tabs('rotate', 3000);
+			}
+		},100);
+		
+		
+		
+	}
+	/*Resize tabs*/
+	var endResize;
+	$(window).resize(function(){
+		clearTimeout(endResize);
+		
+		endResize = setTimeout(function(){
+			var imgNewArray = [], 
+			maxHeight = 0, 
+			visiblePanel = $('.ui-tabs-panel:visible');
+		
+			$('.ui-tabs-panel').css({'height':'auto', 'width':'auto'});
+			$('#featured').css({'height' : $('img',visiblePanel).height()});
+			visiblePanel.siblings('.ui-tabs-panel').css('opacity',0).show();
+			
+			/*Find Max image height*/
+			$('.ui-tabs-panel img').each(function(index) {
+				thisImage = $(this);
+				imgNewArray.push(thisImage.height());
+				
+			})	
+			for(var im = 0; im < imgNewArray.length; im++){				
+				maxHeight = imgNewArray[im] > maxHeight ? imgNewArray[im] : maxHeight;
+			};
+			
+			$('.ui-tabs-panel').height(maxHeight);
+			$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+			
+			visiblePanel.siblings('.ui-tabs-panel').css('opacity',1).hide();
+			$('#featured').css({'height' : maxHeight});
+			
+		
+		},200);
+		
+		
+	})
 });
 	
 	

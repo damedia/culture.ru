@@ -64,7 +64,12 @@ class News extends Admin
                 ->add('important', null, array('required' => false))
                 ->add('priority')                                
                 ->add('published', null, array('required' => false))
-            ->end()    
+            ->end()
+            ->with('SEO')
+                ->add('seoTitle')
+                ->add('seoKeywords')
+                ->add('seoDescription')
+            ->end()
             ->with('Media')                
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
                 ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'gallery')))
@@ -105,7 +110,7 @@ class News extends Admin
             ->add('category')
             ->add('subject')            
             ->add('published')
-            ->add('important')            
+            ->add('important')
         ;
     }
 
