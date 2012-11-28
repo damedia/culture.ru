@@ -38,7 +38,9 @@ class NewsListener
         foreach($newsChanged as $news) {
             $newsManager->updateImageDescription($news);
             $image = $news->getImage();
-            $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
+            if ($image) {
+                $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
+            }
         }
     }
 
