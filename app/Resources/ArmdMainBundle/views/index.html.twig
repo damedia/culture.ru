@@ -17,7 +17,7 @@
     {#<script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>#}
     <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
-    <script>
+    <script type="text/javascript">
         $(function () {
             armdMainPage.init();
 
@@ -96,7 +96,7 @@
         });
     </script>
 
-    <script>
+    <script type="text/javascript">
         // Атлас. Образы России
         var fetchMarkersUri = '{{ path('armd_atlas_default_filter') }}',
                 fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
