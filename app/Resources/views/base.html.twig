@@ -223,10 +223,13 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
             </div>
             {% if app.request.locale == 'ru' %}
                 <div class="w archive-main-link">
-                    <a href="{{ path('armd_paper_edition', { 'slug':'archive' }) }}">Газета «Культура»</a>
+                    <a href="{{ path('armd_paper_edition', { 'slug':'archive' }) }}" {% if 'archive' == category %}class="active"{% endif %}>{{ 'Culture Magazine'|trans }}</a>
+                    &nbsp;&nbsp;
+                    <a href="{{ path('armd_paper_edition', { 'slug':'litnews' }) }}" {% if 'litnews' == category %}class="active"{% endif %}>{{ 'Literary Newspaper'|trans }}</a>
+                    &nbsp;&nbsp;
                 </div>
             {% endif %}
-            <div style="height: 25px"></div>
+            {#<div style="height: 25px"></div>#}
 		{% endblock %}
 {#
        <div id="search" class="w">
