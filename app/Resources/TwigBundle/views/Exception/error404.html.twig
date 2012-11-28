@@ -7,7 +7,8 @@
 
 <script>
 window.setTimeout(function() {
-    window.location.href = '/';
+    var url = '{% if app.request.locale == 'ru' %}/{% else %}/{{ app.request.locale }}/{% endif %}';
+    window.location.href = url;
 }, 5000);
 </script>
 
