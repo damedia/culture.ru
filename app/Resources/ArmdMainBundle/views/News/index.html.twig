@@ -47,12 +47,12 @@
                             </div>
                         </div>
                     </li>
-                {% if loop.last %}
                 </ul>
-                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ 'Mainpage block.Events.All'|trans }} {{ n.category.title}}</a></p>
-                {% endif%}		      
+                {% if loop.last %}
+                    <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ 'Mainpage block.Events.All'|trans }} {{ n.category.title}}</a></p>
+                {% endif %}
             {% endif %}
         {% endfor %}
-    </div>        
-    {% endfor%}
+    </div>
+    {% endfor %}
 </div>
