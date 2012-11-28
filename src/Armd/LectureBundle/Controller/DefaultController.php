@@ -102,8 +102,9 @@ class DefaultController extends Controller
             $perPage = 20;
         } else {
             $template = 'ArmdLectureBundle:Default:lecture_list.html.twig';
-            $perPage = 1000;
+            $perPage = 8;
         }
+        //$this->get('knp_paginator')->paginate($query, $page, $limit);
         $lectures = $manager->findFiltered($superType, $page, $perPage, $types, $categories, $sortBy, $searchString);
 
         return $this->render($template, array(

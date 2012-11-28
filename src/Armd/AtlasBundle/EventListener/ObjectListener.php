@@ -114,7 +114,9 @@ class ObjectListener
         foreach($objectsChanged as $object) {
             $objectManager->updateImageDescription($object);
             $image = $object->getPrimaryImage();
-            $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
+            if ($image) {
+                $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
+            }
         }
     }
 
