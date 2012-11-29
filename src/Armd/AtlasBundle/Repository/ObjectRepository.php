@@ -20,9 +20,8 @@ class ObjectRepository extends EntityRepository
             ->where('o.published = TRUE')
             ->andWhere($qb->expr()->orX(
                 $qb->expr()->in('c', $categoryIds),
-                $qb->expr()->in('o', $categoryIds)
+                $qb->expr()->in('o.primaryCategory', $categoryIds)
             ));
-
         $rows = $qb->getQuery()->getResult();
         return $rows;
     }
