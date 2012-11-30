@@ -1,6 +1,6 @@
 <div id="events">
 	<div class="title-block  index-title-block">
-		<h2>{{ 'Mainpage block.news'|trans }}</h2>
+		<h2>{{ 'mainpage.news'|trans }}</h2>
 	</div>
 
     {% set prevDate = null %}
@@ -47,7 +47,7 @@
                 </li>
             </ul>
             {% if loop.last %}
-                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': 'news'}) }}">{{ 'Mainpage block.show_all'|trans }}</a></p>
+                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': 'news'}) }}">{{ 'mainpage.read_more'|trans }}</a></p>
             {% endif %}
             {% set prevDate = n.publishedAt|date('d') %}
         {% endif %}
