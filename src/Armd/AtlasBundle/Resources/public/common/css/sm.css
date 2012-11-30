@@ -492,8 +492,8 @@
 	
 /*Atlas*/		
 .atlas-center {
-	float:right;
-	width:75%;
+	/*float:right;*/
+	/*width:75%;*/
 	position:relative;
 }	
 	.atlas-center .title-block {

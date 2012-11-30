@@ -64,6 +64,10 @@ Mainpage block:
         Title: Images of Russia
         Of: of
 
+mainpage.read_mode: Read More
+mainpage.show_all: Show All
+mainpage.news: News
+
 
 Projects:
     Region: Region

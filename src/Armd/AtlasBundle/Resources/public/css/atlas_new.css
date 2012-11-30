@@ -1,8 +1,15 @@
 /*Atlas*/
 .atlas-center {
+	/*float:right;*/
+	/*width:75%;*/
+	position:relative;
+}
+
+#map-section .atlas-center {
 	float:right;
 	width:75%;
 	position:relative;
+
 }
 	.atlas-center .title-block {
 		color:#000;
@@ -23,7 +30,7 @@
 
 			.atlas_tabs {
 				position:absolute;
-				right:8px;
+				right:0;
 				top:29px;
 				width:124px;
 				z-index:100;
