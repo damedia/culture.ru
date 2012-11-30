@@ -392,7 +392,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 								list-style:none;
 								margin:0;
 								line-height:20px;
-								
+								float:none;
 								
 							}
 								#nav .navmenu li li a {
