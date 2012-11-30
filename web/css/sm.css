@@ -652,6 +652,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 #new-on-site {
     margin-top: 30px;
 }
+    #new-on-site h3 {
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
 
 #last-russia-images {
     margin-bottom: 20px;
