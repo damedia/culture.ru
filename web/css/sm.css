@@ -940,6 +940,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	font-size: 17px;
     float: left;
 }
+.date-events-block .date-events {
+    margin-top: 15px;
+}
+
 
 .theevents {
 	font-size: 13px;
@@ -970,6 +974,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     margin-bottom: 20px;
     overflow: hidden;
 }
+    .first-eventsaction .theevents {
+        padding: 0;
+    }
+
     .first-eventsaction .date-events {
         float: none;
     }

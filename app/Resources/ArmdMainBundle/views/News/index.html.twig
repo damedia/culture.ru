@@ -9,20 +9,21 @@
         {% set t = n.endDate %}
         {% if loop.first %}
             <div class="first-eventsaction">
-                <div class="event-image">
                 {% if n.image %}
-                    {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
-                {#{% else %}#}
-                    {#<style>#{{ slug }}tab_tab .first-eventsaction .theevent {margin-left:0px;}</style>#}
+                    <div class="event-image">
+                        {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
+                    </div>
+                {% else %}
+                    <style>.first-eventsaction .theevent {margin-left:0;}</style>
                 {% endif %}
-                </div>
                 <div class="theevent">
-                    <span class="date-events">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}
+                    <span class="date-events">{{ n.publishedAt|date('j ')}}{{ ('calendar.full.'~n.publishedAt|date('M'))|trans|slice(0,3) }}{{ n.publishedAt|date(' /Y') }}
                     {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
                     <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
                     <p>{{ n.announce|raw }}</p>
                 </div>
             </div>
+            {% set prevDate = n.publishedAt|date('d') %}
         {% else %}
             {% if n.publishedAt|date('d') != prevDate or prevDate is empty %}
                 <div class="date-events-block clearfix">
