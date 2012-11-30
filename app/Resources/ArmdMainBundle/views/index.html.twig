@@ -17,7 +17,7 @@
     {#<script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8-rc2"></script>#}
     <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
-    <script>
+    <script type="text/javascript">
         $(function () {
             armdMainPage.init();
 
@@ -96,7 +96,7 @@
         });
     </script>
 
-    <script>
+    <script type="text/javascript">
         // Атлас. Образы России
         var fetchMarkersUri = '{{ path('armd_atlas_default_filter') }}',
                 fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
@@ -217,33 +217,36 @@
         <div id="map"></div>
     </div>
 
-    <div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
-        <div class="scroll-bar"></div>
-    </div>
-    <div class="map-grid-points scroll-pane ui-widget ui-widget-header ui-corner-all">
-    {% if russiaImages|length > 0 %}
-        <ul class="map-grid-point scroll-content">
-        {% for object in russiaImages %}
-            <li class="map-grid-point-li first">
-                <div class="item-grid-point">
-                    <div class="preview-img-point">
-                        {% if object.primaryImage %}
-                            <a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">
-                                {% thumbnail object.primaryImage, 'imagesOfRussiaUnderMap' with {'alt': object.primaryImage.description } %}
-                            </a>
-                        {% endif %}
-                    </div>
-                    <div class="description-point">
-                        <p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">
-                            {{ object.title }}</a></p>
-                        <!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    </div>
+    {#--- random russia images slider ---#}
+    {#<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">#}
+        {#<div class="scroll-bar"></div>#}
+    {#</div>#}
+    {#<div class="map-grid-points scroll-pane ui-widget ui-widget-header ui-corner-all">#}
+    {#{% if russiaImages|length > 0 %}#}
+        {#<ul class="map-grid-point scroll-content">#}
+        {#{% for object in russiaImages %}#}
+            {#<li class="map-grid-point-li first">#}
+                {#<div class="item-grid-point">#}
+                    {#<div class="preview-img-point">#}
+                        {#{% if object.primaryImage %}#}
+                            {#<a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">#}
+                                {#{% thumbnail object.primaryImage, 'imagesOfRussiaUnderMap' with {'alt': object.primaryImage.description } %}#}
+                            {#</a>#}
+                        {#{% endif %}#}
+                    {#</div>#}
+                    {#<div class="description-point">#}
+                        {#<p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">#}
+                            {#{{ object.title }}</a></p>#}
+                        {#<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->#}
+                    {#</div>#}
+                {#</div>#}
+            {#</li>#}
+        {#{% endfor %}#}
+        {#</ul>#}
+    {#{% endif %}#}
+    {#</div>#}
+    {#--- /random russia images slider ---#}
+    {#--- random russia images slider ---#}
     </div>
 
     <!-- Асинхронная загрузка jsapi -->
@@ -258,6 +261,30 @@
     </script>
     <!-- /Асинхронная загрузка jsapi -->
 
+
+{% endblock %}
+
+{% block new_on_site %}
+    <div id="last-russia-images">
+        <div class="title-block">
+            <h2>Образы России</h2>
+        </div>
+        {% render 'ArmdAtlasBundle:Default:lastRussiaImages' with {'limit': 3} %}
+    </div>
+
+    <div id="last-lectures">
+        <div class="title-block">
+            <h2>Фильмы</h2>
+        </div>
+        {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'limit': 3} %}
+    </div>
+
+    <div id="last-lectures">
+        <div class="title-block">
+            <h2>Лекции</h2>
+        </div>
+        {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'limit': 3} %}
+    </div>
 
 {% endblock %}
 

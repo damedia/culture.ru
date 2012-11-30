@@ -102,8 +102,9 @@ class DefaultController extends Controller
             $perPage = 20;
         } else {
             $template = 'ArmdLectureBundle:Default:lecture_list.html.twig';
-            $perPage = 1000;
+            $perPage = 8;
         }
+        //$this->get('knp_paginator')->paginate($query, $page, $limit);
         $lectures = $manager->findFiltered($superType, $page, $perPage, $types, $categories, $sortBy, $searchString);
 
         return $this->render($template, array(
@@ -132,6 +133,23 @@ class DefaultController extends Controller
             'lecture' => $lecture,
             'lectureVersion' => $version
         ));
+    }
+
+
+    /**
+     * @Route("/last-lectures/{lectureSuperTypeCode}/{limit}")
+     */
+    public function lastLecturesAction($lectureSuperTypeCode, $limit)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneBy(array('code' => $lectureSuperTypeCode));
+        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
+            ->findLastAdded($lectureSuperType, $limit);
+
+        return $this->render('ArmdLectureBundle:Default:last_lectures.html.twig', array(
+                'lectures' => $lectures
+            ));
     }
 
 

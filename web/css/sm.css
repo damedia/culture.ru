@@ -474,7 +474,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 .title-block.orange {
 	background: url("../img/title-block-orange.png") 0 100% no-repeat;
     margin: 0 0 -11px;
-	width: 30%;
+	/*width: 30%;*/
 }
 .title-block.gray-filter {
     background: url("../img/title-block-gray-filter.png") 0 100% no-repeat;
@@ -635,12 +635,64 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     text-align: center;
 }
 
-#discus {
-	width: 55%;
-	float: left;
-	font-size: 13px;
-	margin: 0 1.5% 0 0;
+.main-left {
+    width: 55%;
+   	float: left;
+   	font-size: 13px;
+   	margin: 0 1.5% 0 0;
 }
+
+.main-right {
+    float: left;
+    width: 43%;
+    overflow: hidden;
+	font-size: 13px;
+}
+
+#new-on-site {
+    margin-top: 30px;
+}
+
+#last-russia-images {
+    margin-bottom: 20px;
+}
+    #last-russia-images .rusObr-list {
+        background: transparent;
+        border: 0 solid #D9D9D9;
+        border-left-width: 1px;
+    }
+
+    #last-russia-images .rusObr-list-one {
+        border-width: 1px 1px 1px 0;
+    }
+
+
+#last-lectures {
+    margin-bottom: 20px;
+}
+    #last-lectures .lecture-tile-list {
+        background: transparent;
+        border: 0 solid #D9D9D9;
+        border-left-width: 1px;
+
+    }
+
+    #last-lectures li {
+        width: 33%;
+    }
+
+    #last-lectures .lecture-tile-list-one {
+        border-width: 1px 1px 1px 0;
+    }
+
+
+
+/*#discus {*/
+	/*width: 55%;*/
+	/*float: left;*/
+	/*font-size: 13px;*/
+	/*margin: 0 1.5% 0 0;*/
+/*}*/
 
 	#duscus-tabs {
 		height: 24px;
@@ -828,15 +880,15 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 }
 
 
-#events {
-    float: left;
-    width: 43%;
-    overflow: hidden;
-	font-size: 13px;
-}
-    .locale_en #events {
-        width: 100%;
-    }
+/*#events {*/
+    /*float: left;*/
+    /*width: 43%;*/
+    /*overflow: hidden;*/
+	/*font-size: 13px;*/
+/*}*/
+    /*.locale_en #events {*/
+        /*width: 100%;*/
+    /*}*/
 
 #events-tabs {
     height: 24px;
@@ -875,18 +927,20 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 
 .theeventsitem-list {
 	padding: 0px 10px;
-	margin: 10px 0 22px 0;
+	margin: 10px 0 0 0;
 }
 
 .date-events {
 	color: #7791a4;
-    margin: 0px;
+    margin: 0;
 	font-size: 17px;
+    float: left;
 }
 
 .theevents {
 	font-size: 13px;
     margin: 12px 0 0px 0px;
+    padding-left: 60px;
 }
 
 .theevents h3 {
@@ -909,36 +963,40 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     position: relative;
 	border: 1px #e4e4e4 solid;
 	padding: 10px;
+    margin-bottom: 20px;
     overflow: hidden;
 }
+    .first-eventsaction .date-events {
+        float: none;
+    }
 
-.first-eventsaction .i-comments {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-}
+    .first-eventsaction .i-comments {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
 
-.first-eventsaction .event-image {
-	float: left;
-	width:140px;
-	margin:0 20px 10px 0;
-}
-.event-image img {width:140px; height:auto;}
+    .first-eventsaction .event-image {
+        float: left;
+        width:140px;
+        margin:0 20px 10px 0;
+    }
+    .event-image img {width:140px; height:auto;}
 
-.first-eventsaction .theevent {
-	/*margin-left: 160px;*/
-    position: relative;
-}
+    .first-eventsaction .theevent {
+        /*margin-left: 160px;*/
+        position: relative;
+    }
 
-	.theevent h3 {
-		font-size: 20px;
-		font-weight: normal;
-		margin: 0 0 4px 0;
-	}
+        .theevent h3 {
+            font-size: 20px;
+            font-weight: normal;
+            margin: 0 0 4px 0;
+        }
 
-	.theevent p {
-		margin: 0 0 10px 0;
-	}
+        .theevent p {
+            margin: 0 0 10px 0;
+        }
 
 /* FOOTER */
 
@@ -3370,9 +3428,9 @@ white-space:nowrap;
 	.index-blocksection .filter {
 		width:32%;
 	}
-	.index-blocksection .atlas-center {
-		width:66%;
-	}
+	/*.index-blocksection .atlas-center {*/
+		/*width:66%;*/
+	/*}*/
 	
 	.index-blocksection .filter .title-block, .index-title-block {
 		background:url('../img/title-block-gray-main.png') no-repeat 0 100%;
@@ -3489,9 +3547,9 @@ white-space:nowrap;
 
 					
 	.atlas-center {
-	float:right;
-	width:75%;
-	position:relative;
+        /*float:right;*/
+        /*width:75%;*/
+        position:relative;
 }	
 	.atlas-center-index {
 		padding-top:19px;
@@ -5396,9 +5454,10 @@ white-space:nowrap;
 	text-align:right;
 	max-width: 1400px;
 	min-width: 980px;
-	padding:5px 0 0;
+	padding:10px 0px 0;
 	font-size:13px;
-	
+	position:relative;
+    z-index:10;
 }	
 	.archive-main-link a {
 		color:#de600c;

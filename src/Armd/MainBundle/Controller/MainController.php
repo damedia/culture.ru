@@ -105,17 +105,22 @@ class MainController extends Controller
 
     function getNews(array $categories)
     {
-        $result = array();
-
-        foreach ($categories as $c) {
-            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(
-                array('category' => $c->getSlug()),
-                1,
-                4
-            );
-        }
-
-        return $result;
+//        $result = array();
+//
+//        foreach ($categories as $c) {
+//            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(
+//                array('category' => $c->getSlug()),
+//                1,
+//                4
+//            );
+//        }
+//
+//        return $result;
+        return $this->get('armd_news.controller.news')->getPaginator(
+                        array('order_by_publish_date' => true),
+                        1,
+                        20
+                    );
     }
 
     function getEvents($limit)

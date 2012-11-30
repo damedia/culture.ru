@@ -40,6 +40,18 @@
             {% endfor %}
 
         </ul>
+
+        <!-- Pagination -->
+        <div class="news-nav-block no-bottom-margin">
+            <nav class="navigation">
+                {{ pagination.render()|raw }}
+            </nav>
+        </div>
+        <style>
+            .no-bottom-margin .virtual-paginates{ margin-bottom:0; }
+        </style>
+        <!-- /Pagination -->
+
     {% else %}
         <strong>По Вашему запросу объектов не найдено</strong>
     {% endif %}
