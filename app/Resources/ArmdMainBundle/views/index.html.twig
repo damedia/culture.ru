@@ -274,16 +274,19 @@
     <div id="last-russia-images">
         <h3>Образы России</h3>
         {% render 'ArmdAtlasBundle:Default:lastRussiaImages' with {'limit': 3} %}
+        <p class="all-list"><a class="blue-link" href="{{ path('armd_atlas_russia_images') }}">{{ 'mainpage.show_all'|trans }}</a></p>
     </div>
 
     <div id="last-lectures">
         <h3>Лекции</h3>
         {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'limit': 3} %}
+        <p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_lecture_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>
     </div>
 
     <div id="last-lectures">
         <h3>Кинозал</h3>
         {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'limit': 3} %}
+        <p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_cinema_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>
     </div>
 
 {% endblock %}
