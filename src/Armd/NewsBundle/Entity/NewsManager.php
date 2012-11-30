@@ -120,6 +120,10 @@ class NewsManager
             ;
         }
 
+        if (!empty($criteria['order_by_publish_date'])) {
+            $qb->orderBy('n.publishedAt', 'DESC');
+        }
+
     }
     
     public function getCategories()
