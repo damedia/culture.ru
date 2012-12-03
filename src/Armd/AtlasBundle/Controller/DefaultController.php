@@ -19,7 +19,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/objects")
+     * @Route("/objects", defaults={"_format"="json"})
      */
     public function objectsAction()
     {
@@ -49,10 +49,7 @@ class DefaultController extends Controller
             );
         }
 
-        $response = new Response(json_encode($entities));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $entities;
     }
 
     /**
@@ -161,7 +158,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/objects/filter")
+     * @Route("/objects/filter", defaults={"_format"="json"})
      */
     public function filterAction()
     {
@@ -226,31 +223,26 @@ class DefaultController extends Controller
                 );
             }
 
-            $response = json_encode(
-                array(
-                    'success' => true,
-                    'result' => $rows,
-                    'allCategoriesIds' => array_unique($allCategoriesIds),
-                )
+            $response = array(
+                'success' => true,
+                'result' => $rows,
+                'allCategoriesIds' => array_unique($allCategoriesIds),
             );
-
-            return new Response($response);
-        } catch (\Exception $e) {
-            $response = json_encode(
-                array(
-                    'success' => false,
-                    'message' => $e->getMessage(),
-                )
-            );
-
-            return new Response($response);
         }
+        catch (\Exception $e) {
+            $response = array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            );
+        }
+
+        return $response;
     }
 
     /**
      * Мои объекты. Добавить/изменить объект
      *
-     * @Route("/objects/add")
+     * @Route("/objects/add", defaults={"_format"="json"})
      */
     public function objectsAddAction()
     {
@@ -389,13 +381,13 @@ class DefaultController extends Controller
             );
         }
 
-        return new Response(json_encode($res));
+        return $res;
     }
 
     /**
      * Мои объекты. Добавить объект на народную карту
      *
-     * @Route("/object/makepublic")
+     * @Route("/object/makepublic", defaults={"_format"="json"})
      */
     public function objectMakePublicAction()
     {
@@ -428,14 +420,14 @@ class DefaultController extends Controller
             );
         }
 
-        return new Response(json_encode($res));
+        return new $res;
     }
 
     /**
      * Мои объекты. Список моих объектов
      * Если указан id, возвращаем одну запись
      *
-     * @Route("/objects/my")
+     * @Route("/objects/my", defaults={"_format"="json"})
      */
     public function objectsMyAction()
     {
@@ -516,13 +508,13 @@ class DefaultController extends Controller
             );
         }
 
-        return new Response(json_encode($res));
+        return new $res;
     }
 
     /**
      * Мои объекты. Удаление объекта
      *
-     * @Route("/objects/my/delete")
+     * @Route("/objects/my/delete", defaults={"_format"="json"})
      */
     public function objectsMyDeleteAction()
     {
@@ -557,13 +549,13 @@ class DefaultController extends Controller
             );
         }
 
-        return new Response(json_encode($res));
+        return $res;
     }
 
     /**
      * Мои объекты. Загрузка изображений для объекта
      *
-     * @Route("/objects/my/upload")
+     * @Route("/objects/my/upload", defaults={"_format"="json"})
      */
     public function objectsMyUploadAction()
     {
@@ -602,7 +594,7 @@ class DefaultController extends Controller
         }
         fclose($tempHandler);
 
-        return new Response(json_encode($res));
+        return $res;
     }
 
     /**
