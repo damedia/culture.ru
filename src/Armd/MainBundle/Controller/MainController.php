@@ -119,7 +119,7 @@ class MainController extends Controller
         return $this->get('armd_news.controller.news')->getPaginator(
                         array('order_by_publish_date' => true),
                         1,
-                        20
+                        45
                     );
     }
 

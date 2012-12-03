@@ -265,28 +265,25 @@
 {% endblock %}
 
 {% block new_on_site %}
-    <div id="last-russia-images">
-        <div class="title-block">
-            <h2>Новое на портале</h2>
-        </div>
+    <div class="title-block">
+        <h2>Новое на портале</h2>
     </div>
-
     <div id="last-russia-images">
-        <h3>Образы России</h3>
+        <h3><a href="{{ path('armd_atlas_russia_images') }}" title="{{ 'mainpage.show_all_russia_images'|trans }}">{{ 'mainpage.russia_images'|trans }}</a></h3>
         {% render 'ArmdAtlasBundle:Default:lastRussiaImages' with {'limit': 3} %}
-        <p class="all-list"><a class="blue-link" href="{{ path('armd_atlas_russia_images') }}">{{ 'mainpage.show_all'|trans }}</a></p>
+        {#<p class="all-list"><a class="blue-link" href="{{ path('armd_atlas_russia_images') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
     </div>
 
     <div id="last-lectures">
-        <h3>Лекции</h3>
+        <h3><a href="{{ path('armd_lecture_lecture_index') }}" title="{{ 'mainpage.show_all_lectures'|trans }}">{{ 'mainpage.lectures'|trans }}</a></h3>
         {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'limit': 3} %}
-        <p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_lecture_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>
+        {#<p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_lecture_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
     </div>
 
     <div id="last-lectures">
-        <h3>Кинозал</h3>
+        <h3><a href="{{ path('armd_lecture_cinema_index') }}" title="{{ 'mainpage.show_all_cinema'|trans }}">{{ 'mainpage.cinema'|trans }}</a></h3>
         {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'limit': 3} %}
-        <p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_cinema_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>
+        {#<p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_cinema_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
     </div>
 
 {% endblock %}
@@ -295,7 +292,7 @@
     <div id="rusObrTab_tab" class="indextab" style="display:none;">
         <div class="reload-bar">
             <a href="#" class="reload_btn"></a> <i>/</i>
-            <span>6 {{ 'Mainpage block.Images of Russia.Of'|trans }} {{ russiaImages|length }}</span>
+            <span>{{ 'Mainpage block.Images of Russia.Of'|trans }} {{ russiaImages|length }}</span>
         </div>
 
         <div class="rusObr-block">
