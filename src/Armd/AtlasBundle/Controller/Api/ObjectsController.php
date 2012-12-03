@@ -262,10 +262,11 @@ class ObjectsController extends Controller
     }
 
     /**
+     * @Route("/objects/upload-image/{id}", defaults={"_format"="json"})
      * @Route("/objects/upload-image", defaults={"_format"="json"})
      * @Method("POST")
      */
-    public function uploadImageAction()
+    public function uploadImageAction($id=null)
     {
         try {
             $uploadedFile = $this->getRequest()->files->get('file');
@@ -279,6 +280,24 @@ class ObjectsController extends Controller
             $media->setContext('atlas');
             $media->setProviderName('sonata.media.provider.image');
             $mediaManager->save($media);
+
+            if ($id) {
+                $em = $this->getDoctrine()->getManager();
+                $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+                $entity = $repoObject->find($id);
+
+                // Права только у владельца или администратора
+                $currentUser = $this->get('security.context')->getToken()->getUser();
+                if (! ($entity->getCreatedBy() == $currentUser || $this->get('security.context')->isGranted('ROLE_ADMIN')))
+                    throw new \Exception('This user does not have access to this section');
+
+                // Аттачим картинку к объекту
+                if ($entity) {
+                    $entity->addMedia($media->getId());
+                    $em->persist($entity);
+                    $em->flush();
+                }
+            }
 
             return array(
                 'success' => true,
