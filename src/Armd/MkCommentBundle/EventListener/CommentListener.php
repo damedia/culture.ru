@@ -26,33 +26,17 @@ class CommentListener implements EventSubscriberInterface
         $this->container = $container;
     }
 
-//    public function preUpdate(PreUpdateEventArgs $args)
-//    {
-//        $comment = $args->getEntity();
-//        if ($comment instanceof Comment) {
-//            $commentManager = $this->container->get('fos_comment.manager.comment');
-//            $entityManager = $this->container->get('doctrine')->getManager();
-//
-//            $this->calcThreadComments($comment, $commentManager, $entityManager);
-//        }
-//    }
-//
-//    public function prePersist(LifecycleEventArgs $args)
-//    {
-//        $comment = $args->getEntity();
-//        if ($comment instanceof Comment) {
-//
-//            $logger = $this->container->get('logger');
-//            $securityContext = $this->container->get('security.context');
-//            $commentManager = $this->container->get('fos_comment.manager.comment');
-//            $entityManager = $this->container->get('doctrine')->getManager();
-//
-//            $this->blame($comment, $securityContext, $logger);
-//            $this->autoModerate($comment);
-//            $this->calcThreadComments($comment, $commentManager, $entityManager);
-//        }
-//    }
-//
+    public function postRemove(LifecycleEventArgs $eventArgs)
+    {
+        $entity = $eventArgs->getEntity();
+        if($entity instanceof Comment) {
+            $commentManager = $this->container->get('fos_comment.manager.comment.default'); // fos_comment.manager.comment.default
+            $thread = $entity->getThread();
+            $commentManager->recalculateThreadCommentCount($thread);
+            $commentManager->recalculateThreadLastComment($thread);
+            $eventArgs->getEntityManager()->flush();
+        }
+    }
 
     public function onCommentPersist(CommentEvent $event)
     {
@@ -92,7 +76,6 @@ class CommentListener implements EventSubscriberInterface
             }
         }
     }
-
 
     protected function calcThreadComments(
         Comment $comment,

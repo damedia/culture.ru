@@ -14,6 +14,8 @@ class CommentManager extends BaseCommentManager
     /**
      * Returns a flat array of comments of a specific thread.
      *
+     * This method is overridden to change literally only one line.
+     *
      * @param  ThreadInterface $thread
      * @param  integer         $depth
      * @return array           of ThreadInterface
@@ -55,6 +57,7 @@ class CommentManager extends BaseCommentManager
 
     /**
      * Returns the requested comment tree branch
+     * This method is overridden to change literally only one line.
      *
      * @param  integer $commentId
      * @param  string  $sorter
@@ -84,6 +87,33 @@ class CommentManager extends BaseCommentManager
         return $this->organiseComments($comments, $sorter, $trimParents);
     }
 
+
+    public function recalculateThreadCommentCount(Thread $thread)
+    {
+        $comments = $this->findCommentsByThread($thread);
+        $thread->setNumComments(count($comments));
+    }
+
+    public function recalculateThreadLastComment(Thread $thread)
+    {
+        $lastCommentDate = $this->em->createQueryBuilder()
+            ->select('MAX(c.createdAt)')
+            ->from('ArmdMkCommentBundle:Comment', 'c')
+            ->where('c.thread = :thread')->setParameter('thread', $thread)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        if($lastCommentDate) {
+            $lastCommentDate = new \DateTime($lastCommentDate);
+        }
+        $thread->setLastCommentAt($lastCommentDate);
+    }
+
+
+    /**
+     * Orphan comments are comments that are visible but their ancestor is not (for example not moderated)
+     * @param $comments
+     */
     protected function removeOrphanComments(&$comments)
     {
         $ids = array();
@@ -112,15 +142,6 @@ class CommentManager extends BaseCommentManager
         } while($needAnotherPass);
     }
 
-//    public function autoModerate(CommentInterface $comment)
-//    {
-//        $roles = $comment->getAuthor()->getRoles();
-//
-//        if (in_array('ROLE_ADMIN', $roles, true)) {
-//            $comment->setState(CommentInterface::STATE_VISIBLE);
-//        } else {
-//            $comment->setState(CommentInterface::STATE_PENDING);
-//        }
-//    }
+
 
 }
