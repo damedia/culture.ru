@@ -43,6 +43,7 @@ Navigation:
     Library: Library
     Reports: Reports
     Banners: Banners
+    ForumGos: Forum on state supervision
 
 Mainpage block:
     Communication:
@@ -63,6 +64,10 @@ Mainpage block:
     Images of Russia:
         Title: Images of Russia
         Of: of
+
+mainpage.read_mode: Read More
+mainpage.show_all: Show All
+mainpage.news: News
 
 
 Projects:

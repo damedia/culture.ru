@@ -30,10 +30,12 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Object');
 
-        $res = $repo->search(array(
-            'term' => $searchTerm,
-            'category' => $categoryIds,
-        ));
+        $res = $repo->search(
+            array(
+                'term' => $searchTerm,
+                'category' => $categoryIds,
+            )
+        );
 
         $entities = array();
         foreach ($res as $entity) {
@@ -49,6 +51,7 @@ class DefaultController extends Controller
 
         $response = new Response(json_encode($entities));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -59,7 +62,7 @@ class DefaultController extends Controller
     public function objectViewAction($id)
     {
         $entity = $this->getObjectManager()->getObject($id);
-        
+
         if ($entity)
             return array(
                 'entity' => $entity,
@@ -101,7 +104,7 @@ class DefaultController extends Controller
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         $currentUser = $this->get('security.context')->getToken()->getUser();
         if ($id) {
-            $entity = $repo->findOneBy(array('id'=>$id, 'published'=>true));
+            $entity = $repo->findOneBy(array('id' => $id, 'published' => true));
             if ($entity)
                 return array(
                     'entity' => $entity,
@@ -121,10 +124,13 @@ class DefaultController extends Controller
         $ids = $this->getRequest()->query->get('ids');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
         if ($ids) {
-            $entities = $repo->findBy(array(
-                'published' => true,
-                'id' => $ids,
-            ));
+            $entities = $repo->findBy(
+                array(
+                    'published' => true,
+                    'id' => $ids,
+                )
+            );
+
             return array(
                 'entities' => $entities,
             );
@@ -140,12 +146,12 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
         $categories = $repo->getDataForFilter();
-        if (! $categories)
+        if (!$categories)
             throw new NotFoundHttpException("Categories not found");
 
         $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
-        $regions = $regionsRepo->findBy(array(), array('title'=>'ASC'));
-        if (! $regions)
+        $regions = $regionsRepo->findBy(array(), array('title' => 'ASC'));
+        if (!$regions)
             throw new NotFoundHttpException("Regions not found");
 
         return array(
@@ -184,7 +190,7 @@ class DefaultController extends Controller
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
             $objects = $repo->filter($filterParams);
 
-            if (! $objects)
+            if (!$objects)
                 throw new \Exception('Not found');
 
             $allCategoriesIds = $repo->fetchObjectsCategories($objects);
@@ -220,18 +226,23 @@ class DefaultController extends Controller
                 );
             }
 
-            $response = json_encode(array(
-                'success' => true,
-                'result' => $rows,
-                'allCategoriesIds' => array_unique($allCategoriesIds),
-            ));
+            $response = json_encode(
+                array(
+                    'success' => true,
+                    'result' => $rows,
+                    'allCategoriesIds' => array_unique($allCategoriesIds),
+                )
+            );
+
             return new Response($response);
-        }
-        catch (\Exception $e) {
-            $response = json_encode(array(
-                'success' => false,
-                'message' => $e->getMessage(),
-            ));
+        } catch (\Exception $e) {
+            $response = json_encode(
+                array(
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                )
+            );
+
             return new Response($response);
         }
     }
@@ -252,25 +263,25 @@ class DefaultController extends Controller
 
             // Название объекта
             $title = trim($request->get('title'));
-            if (! $title)
+            if (!$title)
                 throw new \Exception('Заполните название');
 
             // Анонс
             $announce = trim($request->get('description'));
-            if (! $announce)
+            if (!$announce)
                 throw new \Exception('Заполните анонс');
 
             // Автор
             $currentUser = $this->get('security.context')->getToken()->getUser();
-            if (! $currentUser)
+            if (!$currentUser)
                 throw new \Exception('Пользователь не найден');
 
             // Создаем или редактируем объект
-            $objectId = (int) $request->get('id');
+            $objectId = (int)$request->get('id');
             if ($objectId) {
                 $mode = 'edit';
                 $entity = $repoObject->findOneBy(array('id' => $objectId, 'createdBy' => $currentUser));
-                if (! $entity)
+                if (!$entity)
                     throw new \Exception('Редактируемый объект не найден');
             } else {
                 $mode = 'add';
@@ -377,6 +388,7 @@ class DefaultController extends Controller
                 'message' => $e->getMessage(),
             );
         }
+
         return new Response(json_encode($res));
     }
 
@@ -415,6 +427,7 @@ class DefaultController extends Controller
                 'message' => $e->getMessage(),
             );
         }
+
         return new Response(json_encode($res));
     }
 
@@ -433,7 +446,10 @@ class DefaultController extends Controller
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
             $objectId = (int) $request->get('id');
             if ($objectId) {
-                $obj = $repo->findOneBy(array('createdBy' => $currentUser, 'id' => $objectId), array('createdBy' => 'ASC'));
+                $obj = $repo->findOneBy(
+                    array('createdBy' => $currentUser, 'id' => $objectId),
+                    array('createdBy' => 'ASC')
+                );
                 $primaryCategory = $obj->getPrimaryCategory();
                 $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
                 $secondaryCategoryIds = array();
@@ -499,6 +515,7 @@ class DefaultController extends Controller
                 'message' => $e->getMessage(),
             );
         }
+
         return new Response(json_encode($res));
     }
 
@@ -517,11 +534,13 @@ class DefaultController extends Controller
             $currentUser = $this->container->get('security.context')->getToken()->getUser();
             $em = $this->getDoctrine()->getManager();
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
-            $entity = $repo->findOneBy(array(
-                'id' => $entityId,
-                'createdBy' => $currentUser,
-            ));
-            if (! $entity)
+            $entity = $repo->findOneBy(
+                array(
+                    'id' => $entityId,
+                    'createdBy' => $currentUser,
+                )
+            );
+            if (!$entity)
                 throw new \Exception('Объект не найден');
             $em->remove($entity);
             $em->flush();
@@ -537,6 +556,7 @@ class DefaultController extends Controller
                 'message' => $e->getMessage(),
             );
         }
+
         return new Response(json_encode($res));
     }
 
@@ -581,7 +601,20 @@ class DefaultController extends Controller
             );
         }
         fclose($tempHandler);
+
         return new Response(json_encode($res));
+    }
+
+    /**
+     * @Route("/last-russia-images/{limit}")
+     * @Template()
+     */
+    public function lastRussiaImagesAction($limit = 3)
+    {
+        $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
+            ->findRussiaImages($limit);
+
+        return array('objects' => $objects);
     }
 
     public function getObjectManager()

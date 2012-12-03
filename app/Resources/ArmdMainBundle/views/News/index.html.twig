@@ -1,8 +1,61 @@
 <div id="events">
 	<div class="title-block  index-title-block">
-		<h2>{{ 'Mainpage block.Events.Title'|trans }}</h2>
+		<h2>{{ 'mainpage.news'|trans }}</h2>
 	</div>
 
+    {% set prevDate = null %}
+    {% for n in news %}
+        {% set f = n.date %}
+        {% set t = n.endDate %}
+        {% if loop.first %}
+            <div class="first-eventsaction">
+                {% if n.image %}
+                    <div class="event-image">
+                        {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
+                    </div>
+                {% else %}
+                    <style>.first-eventsaction .theevent {margin-left:0;}</style>
+                {% endif %}
+                <div class="theevent">
+                    <span class="date-events">{{ n.publishedAt|date('j ')}}{{ ('calendar.full.'~n.publishedAt|date('M'))|trans|slice(0,3) }}{{ n.publishedAt|date(' /Y') }}
+                    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
+                    <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
+                    <p>{{ n.announce|raw }}</p>
+                </div>
+            </div>
+            {% set prevDate = n.publishedAt|date('d') %}
+        {% else %}
+            {% if n.publishedAt|date('d') != prevDate or prevDate is empty %}
+                <div class="date-events-block clearfix">
+                    <span class="date-events">
+                        {{ n.publishedAt|date('j ')}}{{ ('calendar.full.'~n.publishedAt|date('M'))|trans|slice(0,3) }}{{ n.publishedAt|date(' /Y') }}
+                    </span>
+                </div>
+            {% endif %}
+            <ul class="events-list">
+                <li class="eventsitem-list">
+                    <div class="theeventsitem-list">
+                        <span class="date-events">
+                            {#{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}#}
+                            {#{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}#}
+                            {{ n.publishedAt|date('H:i') }}
+                        </span>
+                        <div class="theevents">
+                            <p><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
+                            <p>{{ n.announce|raw }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            {% if loop.last %}
+                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': 'news'}) }}">{{ 'mainpage.read_more'|trans }}</a></p>
+            {% endif %}
+            {% set prevDate = n.publishedAt|date('d') %}
+        {% endif %}
+    {% endfor %}
+
+
+    {#
     <div id="events-tabs">
         <ul id="eventsitem-tab">
     	{% for c in categories %}        
@@ -33,8 +86,7 @@
                             <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
                             <p>{{ n.announce|raw }}</p>
                         </div>
-                        {# <a class="i-comments" href="#">2</a> #}
-                    </div>
+\                    </div>
                 {% else %}
                     <ul class="events-list">
                         <li class="eventsitem-list">
@@ -44,7 +96,6 @@
                                 <div class="theevents">
                                     <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
                                     <p>{{ n.announce|raw }}
-                                    {# <a class="i-comments" href="#">2</a> #}
                                     </p>
                                 </div>
                             </div>
@@ -57,4 +108,5 @@
             {% endfor %}
         </div>
     {% endfor %}
+    #}
 </div>

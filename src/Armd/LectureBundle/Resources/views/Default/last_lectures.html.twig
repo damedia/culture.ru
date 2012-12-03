@@ -1,0 +1,41 @@
+<ul class="lecture-tile-list clearfix">
+    {% for lecture in lectures %}
+    <li>
+        <div class="lecture-tile-list-one-wrap" style="">
+            <div class="lecture-tile-list-one">
+                <div class="lecture-tile-list-image-container">
+                    <img src="/img/black-image.png" alt="" class="lecture-tile-list-image-frame"/>
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="">
+                                    {% if lecture.lectureVideo.imageMedia is defined %}
+                                        {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
+                                    {% elseif lecture.mediaLectureVideo is not empty %}
+                                        {% set thumbnailMedia = lecture.mediaLectureVideo %}
+                                    {% endif %}
+                                    <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ lecture.title }}"
+                                         class="lecture-tile-list-image"/>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="lecture-tile-list-text">
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="lecture-tile-list-header">
+                        {{ lecture.title }}
+                    </a>
+
+                    <p class="va-theme">{% for category in lecture.categories %}
+                        {{ category.title }}{% if not loop.last %},{% endif %}
+                    {% endfor %}</p>
+
+                    <p>{{ lecture.description|truncate(200) }}</p>
+                </div>
+            </div>
+
+        </div>
+    </li>
+    {% endfor %}
+</ul>
