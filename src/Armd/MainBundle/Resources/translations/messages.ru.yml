@@ -68,7 +68,12 @@ Mainpage block:
 mainpage.show_all: Посмотреть все
 mainpage.read_more: Посмотреть все
 mainpage.news: Новости
-
+mainpage.russia_images: Образы России
+mainpage.show_all_russia_images: Посмотреть все Образы России
+mainpage.lectures: Лекции
+mainpage.show_all_lectures: Посмотреть все лекции
+mainpage.cinema: Кинозал
+mainpage.show_all_cinema: Посмотреть все фильмы
 
 Projects:
     Region: Регион

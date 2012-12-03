@@ -649,16 +649,24 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	font-size: 13px;
 }
 
+/*--- new on site ---*/
 #new-on-site {
     margin-top: 30px;
 }
     #new-on-site h3 {
-        margin-bottom: 15px;
+        margin-bottom: 7px;
         font-size: 15px;
+    }
+        #new-on-site h3 a {
+            color: #000000;
+        }
+
+    #new-on-site .title-block {
+        margin-bottom: 10px;
     }
 
 #last-russia-images {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
     #last-russia-images .rusObr-list {
         background: transparent;
@@ -672,7 +680,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 
 
 #last-lectures {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
     #last-lectures .lecture-tile-list {
         background: transparent;
@@ -689,6 +697,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
         border-width: 1px 1px 1px 0;
     }
 
+/*--- /new on site ---*/
 
 
 /*#discus {*/
