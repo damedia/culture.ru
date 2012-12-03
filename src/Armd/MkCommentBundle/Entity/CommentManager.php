@@ -98,11 +98,14 @@ class CommentManager extends BaseCommentManager
     {
         $lastCommentDate = $this->em->createQueryBuilder()
             ->select('MAX(c.createdAt)')
-            ->from('ArmdCommentBundle:Comment', 'c')
+            ->from('ArmdMkCommentBundle:Comment', 'c')
             ->where('c.thread = :thread')->setParameter('thread', $thread)
             ->getQuery()
             ->getSingleScalarResult();
 
+        if($lastCommentDate) {
+            $lastCommentDate = new \DateTime($lastCommentDate);
+        }
         $thread->setLastCommentAt($lastCommentDate);
     }
 

@@ -30,12 +30,11 @@ class CommentListener implements EventSubscriberInterface
     {
         $entity = $eventArgs->getEntity();
         if($entity instanceof Comment) {
-            $commentManager = $this->container('fos_comment.manager.comment');
-            $commentManager->recalculateThreadCommentCount($thread);
-            $commentManager->recalculate
+            $commentManager = $this->container->get('fos_comment.manager.comment.default'); // fos_comment.manager.comment.default
             $thread = $entity->getThread();
-
-            \gFuncs::dbgWriteLogVar($entity->getThread()->getId(), false, 'remove fired, thread'); // DBG:
+            $commentManager->recalculateThreadCommentCount($thread);
+            $commentManager->recalculateThreadLastComment($thread);
+            $eventArgs->getEntityManager()->flush();
         }
     }
 
