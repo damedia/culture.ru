@@ -392,7 +392,7 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 								list-style:none;
 								margin:0;
 								line-height:20px;
-								
+								float:none;
 								
 							}
 								#nav .navmenu li li a {
@@ -940,6 +940,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
 	font-size: 17px;
     float: left;
 }
+.date-events-block .date-events {
+    margin-top: 15px;
+}
+
 
 .theevents {
 	font-size: 13px;
@@ -970,6 +974,10 @@ content: "\0020"; display: block; height: 0; visibility: hidden;
     margin-bottom: 20px;
     overflow: hidden;
 }
+    .first-eventsaction .theevents {
+        padding: 0;
+    }
+
     .first-eventsaction .date-events {
         float: none;
     }
@@ -3846,7 +3854,7 @@ white-space:nowrap;
 				border:1px solid #d9d9d9;
 				border-width:0px 1px 1px 0;
                 padding:25px;
-				min-height:355px;
+				min-height:270px;
 			}
 				.lecture-tile-list-one img {
 					width:100%;
@@ -3863,10 +3871,10 @@ white-space:nowrap;
 				.lecture-tile-list-header {
 					color:#000;
 					text-decoration:none;
-					font-size:20px;
+					font-size:16px;
 					display:block;
 					padding:9px 0 13px;
-					line-height:21px;
+					line-height:20px;
 				}
 
 
