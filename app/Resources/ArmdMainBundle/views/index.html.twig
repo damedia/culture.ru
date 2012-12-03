@@ -269,7 +269,7 @@
         <h2>Новое на портале</h2>
     </div>
     <div id="last-russia-images">
-        <h3><a href="{{ path('armd_atlas_russia_images') }}" title="{{ 'mainpage.show_all_russia_images'|trans }}">{{ 'mainpage.cinema'|trans }}</a></h3>
+        <h3><a href="{{ path('armd_atlas_russia_images') }}" title="{{ 'mainpage.show_all_russia_images'|trans }}">{{ 'mainpage.russia_images'|trans }}</a></h3>
         {% render 'ArmdAtlasBundle:Default:lastRussiaImages' with {'limit': 3} %}
         {#<p class="all-list"><a class="blue-link" href="{{ path('armd_atlas_russia_images') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
     </div>
@@ -292,7 +292,7 @@
     <div id="rusObrTab_tab" class="indextab" style="display:none;">
         <div class="reload-bar">
             <a href="#" class="reload_btn"></a> <i>/</i>
-            <span>6 {{ 'Mainpage block.Images of Russia.Of'|trans }} {{ russiaImages|length }}</span>
+            <span>{{ 'Mainpage block.Images of Russia.Of'|trans }} {{ russiaImages|length }}</span>
         </div>
 
         <div class="rusObr-block">

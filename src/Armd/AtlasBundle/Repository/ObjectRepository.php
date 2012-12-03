@@ -44,7 +44,8 @@ class ObjectRepository extends EntityRepository
             ->leftJoin('o.primaryImage', 'pi')
             ->leftJoin('o.regions', 'r')
             ->where('o.showAtRussianImage = TRUE')
-            ->andWhere('o.published = TRUE');
+            ->andWhere('o.published = TRUE')
+            ->orderBy('o.createdAt', 'DESC');
 
         if (!is_null($limit)) {
             $qb->setMaxResults($limit);

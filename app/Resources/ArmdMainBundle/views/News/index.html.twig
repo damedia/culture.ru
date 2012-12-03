@@ -42,7 +42,7 @@
                         </span>
                         <div class="theevents">
                             <p><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
-                            <p>{{ n.announce|raw }}</p>
+                            {#<p>{{ n.announce|raw }}</p>#}
                         </div>
                     </div>
                 </li>
