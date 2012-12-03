@@ -68,6 +68,12 @@ Mainpage block:
 mainpage.read_mode: Read More
 mainpage.show_all: Show All
 mainpage.news: News
+mainpage.russia_images: Russia Images
+mainpage.show_all_russia_images: Show All Russia Images
+mainpage.lectures: Lectures
+mainpage.show_all_lectures: Show All Lectures
+mainpage.cinema: Cinema
+mainpage.show_all_cinema: Show All Cinema
 
 
 Projects:
