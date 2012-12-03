@@ -18,13 +18,8 @@ use Application\Sonata\MediaBundle\Entity\Media;
 
 class DefaultController extends Controller
 {
-    protected $testmarkersUrl = 'http://mkprom.dev.armd.ru/_sys/map/testmarkers';
-    protected $detailsUrl = 'http://mkprom.dev.armd.ru/_sys/map/testmarkerdetail';
-    protected $username = 'admin';
-    protected $password = '6fbff2d72a7aa45a0cb50913094b9bdc';
-
     /**
-     * @Route("/objects")
+     * @Route("/objects", defaults={"_format"="json"})
      */
     public function objectsAction()
     {
@@ -54,10 +49,7 @@ class DefaultController extends Controller
             );
         }
 
-        $response = new Response(json_encode($entities));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $entities;
     }
 
     /**
@@ -73,9 +65,7 @@ class DefaultController extends Controller
                 'entity' => $entity,
             );
         else
-                {
-                    throw new NotFoundHttpException("Page not found");
-                }
+            throw new NotFoundHttpException("Page not found");
     }
 
 
@@ -145,49 +135,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/calcroute")
-     */
-    public function calcRouteAction()
-    {
-        $progorodApiKey = $this->container->getParameter('progorod_api_key');
-        $params = array(
-            'n' => 3,
-            'type' => 'route,plan,indexes',
-            'method' => 'optimal',
-            'p0x' => 37.42362404792954,
-            'p0y' => 54.94441026601353,
-            'p1x' => 39.741739282328965,
-            'p1y' => 54.61419589978249,
-            'p2x' => 39.511026391701535,
-            'p2y' => 55.55940194740992,
-        );
-        $url = 'http://route.tmcrussia.com/cgi/getroute?' . http_build_query($params) . '&' . $progorodApiKey;
-
-        $browser = new Browser();
-        $response = $browser->get($url);
-
-        return new Response($response->getContent());
-    }
-
-    /**
-     * @Route("/routes")
-     * @Template()
-     */
-    public function routesAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Route("/gmaps")
-     * @Template()
-     */
-    public function gmapsAction()
-    {
-        return array();
-    }
-
-    /**
      * @Route("/")
      * @Template()
      */
@@ -211,166 +158,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/addnode/{parentId}")
-     * Usage: http://local.armd.ru/app_dev.php/atlas/addnode/1?title=%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%8B%20%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BD%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%B8%D1%8F
-     */
-    public function addNodeAction($parentId)
-    {
-        $title = $this->getRequest()->query->get('title');
-
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Category');
-
-        $entity = new Category();
-        $entity->setTitle($title);
-
-        $parent = $repo->find($parentId);
-        if ($parent) {
-            $entity->setParent($parent);
-        }
-
-        $em->persist($entity);
-        $em->flush();
-
-        $response = '';
-
-        return new Response($response);
-    }
-
-    /**
-     * @Route("/object/{id}/edit")
-     * @Template("ArmdAtlasBundle:Default:objectEdit.html.twig")
-     */
-    public function editAction($id)
-    {
-        $entity = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->find($id);
-        $form = $this->createForm(new ObjectType(), $entity);
-        $request = $this->getRequest();
-
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('armd_atlas_default_list'));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'entity' => $entity,
-        );
-    }
-
-    /**
-     * @Route("/objects/create")
-     * @Template("ArmdAtlasBundle:Default:objectCreate.html.twig")
-     */
-    public function createAction()
-    {
-        $entity = new Object();
-        $form = $this->createForm(new ObjectType(), $entity);
-        $request = $this->getRequest();
-
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('armd_atlas_default_edit', array('id' => $entity->getId())));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'entity' => $entity,
-        );
-    }
-
-    /**
-     * @Route("/objects/list")
-     * @Template("ArmdAtlasBundle:Default:objectList.html.twig")
-     */
-    public function listAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT o FROM ArmdAtlasBundle:Object o ORDER BY o.id ASC");
-        $entities = $query->getResult();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-
-    /**
-     * @Route("/objects/{id}/delete", requirements={"id"="\d+"})
-     */
-    public function deleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Object');
-
-        $entity = $repo->find($id);
-
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('armd_atlas_default_list'));
-    }
-
-    /**
-     * @Route("/objects/import")
-     * @Template("ArmdAtlasBundle:Default:objectImport.html.twig")
-     */
-    public function importAction()
-    {
-        if ($this->getRequest()->getMethod() == 'POST') {
-
-            $userfile = $_FILES['userfile'];
-
-            $rows = file($userfile['tmp_name']);
-            $data = array();
-            foreach ($rows as $row) {
-                $row = trim($row);
-                $rowData = str_getcsv($row, ';', '"');
-                $data[] = $rowData;
-            }
-            //var_dump($data);
-
-
-            //------------
-            $em = $this->getDoctrine()->getManager();
-            //$repo = $em->getRepository('ArmdAtlasBundle:Object');
-
-            foreach ($data as $row) {
-
-                $entity = new Object();
-                $entity->setTitle(trim($row[5]));
-                if ($row[11] != '') $entity->setLat($row[11]);
-                if ($row[12] != '') $entity->setLon($row[12]);
-                $entity->setAnnounce(trim($row[6]));
-                $entity->setContent(trim($row[7]));
-                $entity->setSiteUrl(trim($row[8]));
-                $entity->setEmail(trim($row[9]));
-                $entity->setPhone(trim($row[10]));
-                if ($row[13]) $entity->setAddress(trim($row[13]));
-
-                $em->persist($entity);
-                $em->flush();
-            }
-        }
-
-        return array();
-    }
-
-    /**
-     * @Route("/objects/filter")
+     * @Route("/objects/filter", defaults={"_format"="json"})
      */
     public function filterAction()
     {
@@ -435,106 +223,26 @@ class DefaultController extends Controller
                 );
             }
 
-            $response = json_encode(
-                array(
-                    'success' => true,
-                    'result' => $rows,
-                    'allCategoriesIds' => array_unique($allCategoriesIds),
-                )
+            $response = array(
+                'success' => true,
+                'result' => $rows,
+                'allCategoriesIds' => array_unique($allCategoriesIds),
             );
-
-            return new Response($response);
-        } catch (\Exception $e) {
-            $response = json_encode(
-                array(
-                    'success' => false,
-                    'message' => $e->getMessage(),
-                )
+        }
+        catch (\Exception $e) {
+            $response = array(
+                'success' => false,
+                'message' => $e->getMessage(),
             );
-
-            return new Response($response);
-        }
-    }
-
-    /**
-     * @Route("/objects/geocoder")
-     */
-    public function geocoderAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('ArmdAtlasBundle:Object');
-
-        $objects = $repo->findAll();
-        foreach ($objects as $object) {
-            if ($object->getAddress() && !$object->getLat()) {
-                $point = $this->resolveAddress($object->getAddress());
-
-                if ($point) {
-                    $object->setLat($point['lat']);
-                    $object->setLon($point['lon']);
-
-                    $em->persist($object);
-                    //$em->flush();
-                }
-            }
         }
 
-        $response = 'OK';
-
-        return new Response($response);
-    }
-
-    protected function getUrl($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        return $res;
-    }
-
-    protected function resolveAddress($geocode)
-    {
-        $url = "http://geocode-maps.yandex.ru/1.x/?geocode=" . urlencode($geocode);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-        curl_setopt($ch, CURLOPT_TIMEOUT, 3); // times out after 4s
-
-        $result = curl_exec($ch); // run the whole process
-        if ($result === false) {
-            var_dump($url);
-            var_dump(curl_error($ch));
-        }
-
-        curl_close($ch);
-
-        $xml = simplexml_load_string($result);
-
-        $res = array();
-        foreach ($xml->GeoObjectCollection->featureMember as $featureMember) {
-            $latLng = (string)$featureMember->GeoObject->Point->pos;
-            list($lat, $lon) = explode(' ', $latLng);
-            $point = array(
-                'name' => (string)$featureMember->GeoObject->name,
-                'description' => (string)$featureMember->GeoObject->description,
-                'lat' => $lat,
-                'lon' => $lon,
-            );
-            $res[] = $point;
-        }
-
-        return !empty($res) ? $res[0] : false;
+        return $response;
     }
 
     /**
      * Мои объекты. Добавить/изменить объект
      *
-     * @Route("/objects/add")
+     * @Route("/objects/add", defaults={"_format"="json"})
      */
     public function objectsAddAction()
     {
@@ -603,7 +311,7 @@ class DefaultController extends Controller
             $categoryIds = $request->get('category');
             if (is_array($categoryIds) && sizeof($categoryIds)) {
                 foreach ($categoryIds as $id) {
-                    $id = (int)$id;
+                    $id = (int) $id;
                     $category = $repoCategory->find($id);
                     if ($category) {
                         $entity->addSecondaryCategory($category);
@@ -617,7 +325,7 @@ class DefaultController extends Controller
             $mediaIds = $request->get('media');
             if (is_array($mediaIds) && sizeof($mediaIds)) {
                 foreach ($mediaIds as $id) {
-                    $id = (int)$id;
+                    $id = (int) $id;
                     $media = $mediaManager->findOneBy(array('id' => $id));
                     if ($media) {
                         $entity->addImage($media);
@@ -665,27 +373,28 @@ class DefaultController extends Controller
                     'reason' => $reason,
                 ),
             );
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $res = array(
                 'success' => false,
                 'message' => $e->getMessage(),
             );
         }
 
-        return new Response(json_encode($res));
+        return $res;
     }
 
     /**
      * Мои объекты. Добавить объект на народную карту
      *
-     * @Route("/object/makepublic")
+     * @Route("/object/makepublic", defaults={"_format"="json"})
      */
     public function objectMakePublicAction()
     {
         try {
             $request = $this->getRequest();
-            $id = (int)$request->get('id');
-            $statusId = $request->get('is_public') == 'on' ? 1 : 0;
+            $id = (int) $request->get('id');
+            $statusId = $request->get('is_public')=='on' ? 1 : 0;
             $em = $this->getDoctrine()->getManager();
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
             $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
@@ -703,21 +412,22 @@ class DefaultController extends Controller
                     'statusTitle' => $entity->getStatus()->getActionTitle(),
                 ),
             );
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $res = array(
                 'success' => false,
                 'message' => $e->getMessage(),
             );
         }
 
-        return new Response(json_encode($res));
+        return new $res;
     }
 
     /**
      * Мои объекты. Список моих объектов
      * Если указан id, возвращаем одну запись
      *
-     * @Route("/objects/my")
+     * @Route("/objects/my", defaults={"_format"="json"})
      */
     public function objectsMyAction()
     {
@@ -726,7 +436,7 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $currentUser = $this->get('security.context')->getToken()->getUser();
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
-            $objectId = (int)$request->get('id');
+            $objectId = (int) $request->get('id');
             if ($objectId) {
                 $obj = $repo->findOneBy(
                     array('createdBy' => $currentUser, 'id' => $objectId),
@@ -790,27 +500,28 @@ class DefaultController extends Controller
                 'success' => true,
                 'result' => $result,
             );
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $res = array(
                 'success' => false,
                 'message' => $e->getMessage(),
             );
         }
 
-        return new Response(json_encode($res));
+        return new $res;
     }
 
     /**
      * Мои объекты. Удаление объекта
      *
-     * @Route("/objects/my/delete")
+     * @Route("/objects/my/delete", defaults={"_format"="json"})
      */
     public function objectsMyDeleteAction()
     {
         try {
             $request = $this->getRequest();
-            $entityId = (int)$request->get('id');
-            if (!$entityId)
+            $entityId = (int) $request->get('id');
+            if (! $entityId)
                 throw new \Exception('Объект не найден');
             $currentUser = $this->container->get('security.context')->getToken()->getUser();
             $em = $this->getDoctrine()->getManager();
@@ -830,20 +541,21 @@ class DefaultController extends Controller
                 'success' => true,
                 'result' => $result,
             );
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $res = array(
                 'success' => false,
                 'message' => $e->getMessage(),
             );
         }
 
-        return new Response(json_encode($res));
+        return $res;
     }
 
     /**
      * Мои объекты. Загрузка изображений для объекта
      *
-     * @Route("/objects/my/upload")
+     * @Route("/objects/my/upload", defaults={"_format"="json"})
      */
     public function objectsMyUploadAction()
     {
@@ -873,7 +585,8 @@ class DefaultController extends Controller
                     'realSize' => $realSize,
                 ),
             );
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $res = array(
                 'success' => false,
                 'message' => $e->getMessage(),
@@ -881,7 +594,7 @@ class DefaultController extends Controller
         }
         fclose($tempHandler);
 
-        return new Response(json_encode($res));
+        return $res;
     }
 
     /**
