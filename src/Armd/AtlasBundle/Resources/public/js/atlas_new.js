@@ -151,7 +151,7 @@ AT.initUI = function() {
                 return;
 
             var elems = $('.atlas-filter-form .tag'),
-                json = $.parseJSON(responseText);
+                json = responseText; //$.parseJSON(responseText);
 
             if (json.success) {
                 var objects = json.result;
