@@ -8,6 +8,9 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    {{ tinymce_init() }}
+
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
 
     <script type="text/javascript">
@@ -16,5 +19,4 @@
         });
     </script>
 
-    {{ tinymce_init() }}
 {% endblock %}
