@@ -78,5 +78,26 @@ class CRUDController extends BaseController
         return new RedirectResponse($this->admin->generateUrl('list',$this->admin->getFilterParameters()));
     }
 
+    public function batchActionDelete(ProxyQueryInterface $query)
+    {
+        if (false === $this->admin->isGranted('DELETE')) {
+            throw new AccessDeniedException();
+        }
+
+        $modelManager = $this->admin->getModelManager();
+
+        $selectedModels = $query->execute();
+
+        try {
+            foreach ($selectedModels as $selectedModel) {
+                $modelManager->delete($selectedModel);
+            }
+            $this->get('session')->setFlash('sonata_flash_success', 'flash_batch_delete_success');
+        } catch ( ModelManagerException $e ) {
+            $this->get('session')->setFlash('sonata_flash_error', 'flash_batch_delete_error');
+        }
+
+        return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
+    }
 
 }

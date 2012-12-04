@@ -66,7 +66,7 @@ switch($action) {
             $desc,                                                  // text
             '',                                                     // tags
             0,                                                      // cat_id
-            1,                                                      // rs
+            0,                                                      // rs
             $hd                                                     // hd
         );
         break;
