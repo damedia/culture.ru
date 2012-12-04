@@ -101,6 +101,17 @@ security:
                             app_id: 302490536525585
                             secret: 5c3ba92cecd1833c6773d085d58b0198
 
+                    culture.ru:
+                        twitter:
+                            oauth_consumer_key: oHZwTxIjcC8A6ScPhcUaMA
+                            consumer_secret: YtWVcqQ4kU1yZ0FfyrG6V28w0XvWyIZDI9YQP4M
+                        vkontakte:
+                            app_id: 3276497
+                            secret: 2L2fi5wkrYoVfJCKWQOn
+                        facebook:
+                            app_id: 311159245666039
+                            secret: 83031657f94992d513406cb66f4165c6
+
                     roskult.ru:
                         vkontakte:
                             app_id: 3118810
