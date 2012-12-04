@@ -374,3 +374,12 @@ armd_media_helper:
             generator: sonata.media.generator.default
             thumbnail: sonata.media.thumbnail.format
 
+stfalcon_tinymce:
+    include_jquery: true
+    tinymce_jquery: true
+    textarea_class: "tinymce"
+    language: %locale%
+    theme:
+        simple:
+            mode: "textareas"
+            theme: "advanced"

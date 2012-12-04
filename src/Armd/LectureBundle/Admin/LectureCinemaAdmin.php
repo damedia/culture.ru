@@ -72,9 +72,10 @@ class LectureCinemaAdmin extends Admin
         $formMapper
             ->add('published')
             ->add('title')
-            ->add('description')
-            ->add('categories', 'armd_lecture_categories',
-            array(
+            ->add('description', null, array(
+                'attr' => array('class' => 'tinymce'),
+            ))
+            ->add('categories', 'armd_lecture_categories', array(
                 'required' => false,
                 'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
                 'super_type' => $superType
