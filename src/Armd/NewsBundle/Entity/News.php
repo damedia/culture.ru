@@ -190,8 +190,8 @@ class News extends BaseNews implements CommentableInterface
      */
     public function setDateParts()
     {
-        $this->day = $this->getDate()->format('d');
-        $this->month = $this->getDate()->format('m');
+        $this->day = $this->getNewsDate()->format('d');
+        $this->month = $this->getNewsDate()->format('m');
     }
 
     /**
