@@ -49,7 +49,18 @@ class NewsManager
             ->innerJoin('n.category', 'c')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true')
-            ->orderBy('n.date', 'DESC')
+            ->andWhere($qb->expr()->orX(
+                    $qb->expr()->isNull('n.publishToDate'),
+                    $qb->expr()->gte('n.publishToDate', ':now')
+                )
+            )
+            ->andWhere($qb->expr()->orX(
+                    $qb->expr()->isNull('n.publishFromDate'),
+                    $qb->expr()->lte('n.publishFromDate', ':now')
+                )
+            )
+            ->orderBy('n.newsDate', 'DESC')
+            ->setParameter('now', new \DateTime())
         ;
         
         $this->setCriteria($qb, $criteria);

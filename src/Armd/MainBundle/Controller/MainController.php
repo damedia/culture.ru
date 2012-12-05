@@ -72,7 +72,7 @@ class MainController extends Controller
 
         $result = array();
         foreach ($topics as $url) {
-            $content = file_get_contents("http://{$domain}{$url}");
+            $content = @file_get_contents("http://{$domain}{$url}");
             if ($content !== false) {
                 $obj = json_decode($content);
                 $result[] = $obj->{'data'};
@@ -105,22 +105,27 @@ class MainController extends Controller
 
     function getNews(array $categories)
     {
-//        $result = array();
-//
-//        foreach ($categories as $c) {
-//            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(
-//                array('category' => $c->getSlug()),
-//                1,
-//                4
-//            );
+        $result = array();
+
+        foreach ($categories as $c) {
+            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(
+                array('category' => $c->getSlug()),
+                1,
+                45
+            );
+        }
+
+        return $result;
+//        $categorySlugs = array();
+//        foreach($categories as $category) {
+//            $categorySlugs[] = $category->getSlug();
 //        }
 //
-//        return $result;
-        return $this->get('armd_news.controller.news')->getPaginator(
-                        array('order_by_publish_date' => true),
-                        1,
-                        45
-                    );
+//        return $this->get('armd_news.controller.news')->getPaginator(
+//                        array('category' => $categorySlugs),
+//                        1,
+//                        45
+//                    );
     }
 
     function getEvents($limit)

@@ -30,14 +30,33 @@ class News extends BaseNews implements CommentableInterface
     protected $title;
 
     /**
-     * @ORM\Column(type="datetime", name="date_from")
+     * Date of article
+     *
+     * @ORM\Column(type="datetime", name="news_date", nullable=false)
+     */
+    protected $newsDate;
+
+    /**
+     * Start date of event
+     * @ORM\Column(type="datetime", name="date_from", nullable=true)
      */
     protected $date;
 
     /**
+     * End date of event
      * @ORM\Column(type="datetime", name="date_to", nullable=true)
      */
     protected $endDate;
+
+    /**
+     * @ORM\Column(type="datetime", name="publish_from_date", nullable=true)
+     */
+    protected $publishFromDate;
+
+    /**
+     * @ORM\Column(type="datetime", name="publish_to_date", nullable=true)
+     */
+    protected $publishToDate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -159,6 +178,11 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\Column(name="seo_keywords", type="text", nullable=true)
      */
     private $seoKeywords;
+
+    public function __construct()
+    {
+        $this->newsDate = new \DateTime();
+    }
 
     /**
      * @ORM\PrePersist
@@ -282,6 +306,18 @@ class News extends BaseNews implements CommentableInterface
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getNewsDate()
+    {
+        return $this->newsDate;
+    }
+
+    public function setNewsDate($newsDate)
+    {
+        $this->newsDate = $newsDate;
+
+        return $this;
     }
 
     /**
@@ -462,6 +498,31 @@ class News extends BaseNews implements CommentableInterface
         return $this->endDate;
     }
 
+    public function getPublishToDate()
+    {
+        return $this->publishToDate;
+    }
+
+    public function setPublishToDate($publishToDate)
+    {
+        $this->publishToDate = $publishToDate;
+
+        return $this;
+    }
+
+    public function getPublishFromDate()
+    {
+        return $this->publishFromDate;
+    }
+
+    public function setPublishFromDate($publishFromDate)
+    {
+        $this->publishFromDate = $publishFromDate;
+
+        return $this;
+    }
+
+
     /**
      * Set priority
      *
@@ -632,14 +693,14 @@ class News extends BaseNews implements CommentableInterface
     public function setLat($lat)
     {
         $this->lat = $lat;
-    
+
         return $this;
     }
 
     /**
      * Get lat
      *
-     * @return float 
+     * @return float
      */
     public function getLat()
     {
@@ -655,14 +716,14 @@ class News extends BaseNews implements CommentableInterface
     public function setLon($lon)
     {
         $this->lon = $lon;
-    
+
         return $this;
     }
 
     /**
      * Get lon
      *
-     * @return float 
+     * @return float
      */
     public function getLon()
     {
@@ -678,14 +739,14 @@ class News extends BaseNews implements CommentableInterface
     public function setIsOnMap($isOnMap)
     {
         $this->isOnMap = $isOnMap;
-    
+
         return $this;
     }
 
     /**
      * Get isOnMap
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsOnMap()
     {
@@ -707,6 +768,7 @@ class News extends BaseNews implements CommentableInterface
     public function setSeoTitle($seoTitle)
     {
         $this->seoTitle = $seoTitle;
+
         return $this;
     }
 
@@ -725,6 +787,7 @@ class News extends BaseNews implements CommentableInterface
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
+
         return $this;
     }
 
@@ -743,6 +806,7 @@ class News extends BaseNews implements CommentableInterface
     public function setSeoKeywords($seoKeywords)
     {
         $this->seoKeywords = $seoKeywords;
+
         return $this;
     }
 
@@ -756,17 +820,18 @@ class News extends BaseNews implements CommentableInterface
     public function setIsPromoted($isPromoted)
     {
         $this->isPromoted = $isPromoted;
-    
+
         return $this;
     }
 
     /**
      * Get isPromoted
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsPromoted()
     {
         return $this->isPromoted;
     }
+
 }
