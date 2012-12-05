@@ -24,6 +24,19 @@ class Version20121205090741 extends AbstractMigration
 
         $this->addSql("ALTER TABLE content_news ALTER news_date SET NOT NULL");
 
+        $this->addSql("
+            UPDATE content_news n SET
+                date_from = NULL,
+                date_to = NULL
+            FROM content_news_category c
+            WHERE
+                c.id = n.category_id
+                AND
+                (c.slug = 'reportages'
+                OR c.slug = 'interviews'
+                OR c.slug = 'news')
+        ");
+
     }
 
     public function down(Schema $schema)
