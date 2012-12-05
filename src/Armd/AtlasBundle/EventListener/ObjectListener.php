@@ -111,13 +111,13 @@ class ObjectListener
 
         $objectManager = $this->container->get('armd_atlas.manager.object');
 
-        foreach($objectsChanged as $object) {
-            $objectManager->updateImageDescription($object);
-            $image = $object->getPrimaryImage();
-            if ($image) {
-                $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
-            }
-        }
+//        foreach($objectsChanged as $object) {
+//            $objectManager->updateImageDescription($object);
+//            $image = $object->getPrimaryImage();
+//            if ($image) {
+//                $uow->computeChangeSet($em->getClassMetadata(get_class($image)), $image);
+//            }
+//        }
     }
 
 }
