@@ -375,7 +375,7 @@ armd_media_helper:
             thumbnail: sonata.media.thumbnail.format
 
 stfalcon_tinymce:
-    include_jquery: true
+    include_jquery: false
     tinymce_jquery: true
     textarea_class: "tinymce"
     language: %locale%
