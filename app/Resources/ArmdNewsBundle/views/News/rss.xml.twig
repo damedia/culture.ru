@@ -5,8 +5,8 @@
 {% set pubDate = null %}
 
 {% for i in news %}
-    {% if i.publishedAt > pubDate %}
-        {% set pubDate = i.publishedAt %}
+    {% if i.newsDate > pubDate %}
+        {% set pubDate = i.newsDate %}
     {% endif %}
 {% endfor %}
 
@@ -33,7 +33,7 @@
             <description>{{ i.announce }}</description>
             <link>{{ url }}</link>
             <guid>{{ url }}</guid>
-            <pubDate>{{ i.date|date('r')|replace({'+0000': '+0400'}) }}</pubDate>
+            <pubDate>{{ i.newsDate|date('r')|replace({'+0000': '+0400'}) }}</pubDate>
             <yandex:full-text>{{ i.announce }} {{ i.body }}</yandex:full-text>
             <yandex:genre>article</yandex:genre>
             {#<author></author>#}

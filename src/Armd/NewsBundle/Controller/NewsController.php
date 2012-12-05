@@ -24,7 +24,6 @@ class NewsController extends ListController
     {
         $now = new \DateTime();
         $criteria = array(
-            'to_date' => $now->format('Y-m-d'),
             'category' => array('news', 'interviews', 'reportages')
         );
 
