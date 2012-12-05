@@ -224,7 +224,10 @@ class ObjectManager
 
     protected function extractImageUrl($entity)
     {
-        $imageUrl = $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail');
+        $imageUrl = array(
+            'small' => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail'),
+            'big'   => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'big'),
+        );
         return $imageUrl;
     }
 
@@ -234,7 +237,10 @@ class ObjectManager
         $images = $entity->getImages();
         if ($images) {
             foreach ($images as $image) {
-                $imagesUrls[] = $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail');
+                $imagesUrls[] = array(
+                    'small' => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail'),
+                    'big'   => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail'),
+                );
             }
         }
         return $imagesUrls;
