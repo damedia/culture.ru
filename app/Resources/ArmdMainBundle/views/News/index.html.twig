@@ -1,59 +1,93 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 <div id="events">
-	<div class="title-block  index-title-block">
-		<h2>{{ 'mainpage.news'|trans }}</h2>
-	</div>
 
-    {% set prevDate = null %}
-    {% for n in news %}
-        {% set f = n.date %}
-        {% set t = n.endDate %}
-        {% if loop.first %}
-            <div class="first-eventsaction">
-                {% if n.image %}
-                    <div class="event-image">
-                        {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
-                    </div>
-                {% else %}
-                    <style>.first-eventsaction .theevent {margin-left:0;}</style>
-                {% endif %}
-                <div class="theevent">
-                    <span class="date-events">{{ n.publishedAt|date('j ')}}{{ ('calendar.full.'~n.publishedAt|date('M'))|trans|slice(0,3) }}{{ n.publishedAt|date(' /Y') }}
-                    {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}</span>
-                    <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
-                    <p>{{ n.announce|raw }}</p>
-                </div>
-            </div>
-            {% set prevDate = n.publishedAt|date('d') %}
-        {% else %}
-            {% if n.publishedAt|date('d') != prevDate or prevDate is empty %}
-                <div class="date-events-block clearfix">
-                    <span class="date-events">
-                        {{ n.publishedAt|date('j ')}}{{ ('calendar.full.'~n.publishedAt|date('M'))|trans|slice(0,3) }}{{ n.publishedAt|date(' /Y') }}
-                    </span>
-                </div>
-            {% endif %}
-            <ul class="events-list">
-                <li class="eventsitem-list">
-                    <div class="theeventsitem-list">
-                        <span class="date-events">
-                            {#{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans|slice(0,3) }}{{ f|date(' /Y') }}#}
-                            {#{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans|slice(0,3) }}{{ t|date(' /Y') }}{% endif%}#}
-                            {{ n.publishedAt|date('H:i') }}
-                        </span>
-                        <div class="theevents">
-                            <p><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
-                            {#<p>{{ n.announce|raw }}</p>#}
+    <div class="title-block  index-title-block">
+   		<h2>{{ 'mainpage.news'|trans }}</h2>
+   	</div>
+
+    <div id="events-tabs">
+        <ul id="eventsitem-tab">
+    	{% for c in categories %}
+            <li id="{{ c.slug }}tab" {% if loop.first %}class="active"{% endif %}>
+                <span>{{ c.title }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    {% set maxNewsHeight = 1470 %}
+    {% set oneArticleHeight = 41 %}
+    {% set oneDateHeight = 38 %}
+    {% for slug, entities in news %}
+        <div id="{{ slug }}tab_tab" class="events_tabs" {% if not loop.first %}style = "display:none;" {% endif %}>
+            {% set prevDate = null %}
+            {% set curHeight = 0 %}
+            {% for n in entities %}
+                {% if curHeight < maxNewsHeight %}
+                    {% if loop.first %}
+                        <div class="first-eventsaction">
+                            {% if n.image %}
+                                <div class="event-image">
+                                    {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
+                                </div>
+                            {% else %}
+                                <style>.first-eventsaction .theevent {margin-left:0;}</style>
+                            {% endif %}
+                            <div class="theevent">
+                                <span class="date-events">
+                                    {{ armd_news.news_date(n.newsDate) }}
+                                </span>
+                                <p class="theevents">
+                                    <a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">
+                                        {% if n.date %}
+                                            {{ n.date|date('d.m.Y') }}
+                                            {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                        {% endif %}
+                                        {{ n.title|raw }}
+                                    </a>
+                                </p>
+                                <p>{{ n.announce|raw }}</p>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
-            {% if loop.last %}
-                <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': 'news'}) }}">{{ 'mainpage.read_more'|trans }}</a></p>
-            {% endif %}
-            {% set prevDate = n.publishedAt|date('d') %}
-        {% endif %}
+                        {% set prevDate = n.newsDate|date('d') %}
+                    {% else %}
+                        {% if n.newsDate|date('d') != prevDate or prevDate is empty %}
+                            <div class="date-events-block clearfix">
+                                <span class="date-events">
+                                    {{ armd_news.news_date(n.newsDate) }}
+                                </span>
+                            </div>
+                            {% set curHeight = curHeight + oneDateHeight %}
+                        {% endif %}
+                        <ul class="events-list clearfix">
+                            <li class="eventsitem-list">
+                                <div class="theeventsitem-list">
+                                    <span class="date-events">
+                                        {{ n.newsDate|date('H:i') }}
+                                    </span>
+                                    <div class="theevents">
+                                        <p>
+                                            <a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">
+                                                {% if n.date %}
+                                                    {{ n.date|date('d.m.Y') }}
+                                                    {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                                {% endif %}
+                                                {{ n.title|raw }}
+                                            </a>
+                                        </p>
+                                        {#<p>{{ n.announce|raw }}</p>#}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        {% set prevDate = n.newsDate|date('d') %}
+                        {% set curHeight = curHeight + oneArticleHeight %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <p class="all-list"><a class="blue-link" href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ 'mainpage.read_more'|trans }}</a></p>
+        </div>
     {% endfor %}
-
 
     {#
     <div id="events-tabs">
@@ -86,7 +120,7 @@
                             <p class="theevents"><a href="{{ path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></p>
                             <p>{{ n.announce|raw }}</p>
                         </div>
-\                    </div>
+                    </div>
                 {% else %}
                     <ul class="events-list">
                         <li class="eventsitem-list">
