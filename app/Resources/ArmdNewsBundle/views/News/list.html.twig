@@ -1,5 +1,7 @@
 {% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
 
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
 {# ------------------------- #}
 {% block top_right %}
     {#% render "ArmdNewsBundle:News:memorialEvents" %#}
@@ -18,8 +20,8 @@
         <div class="news-list-main">
             <ul class="news-list news-list-new ">
                 {% for n in news %}
-                    {% set f = n.date %}
-                    {% set t = n.endDate %}
+                    {#{% set f = n.date %}#}
+                    {#{% set t = n.endDate %}#}
                     {% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
                     <li>
                         {% if n.image is not empty %}
@@ -29,10 +31,15 @@
                         {% endif %}
                         <div class="news-list-text">
                             <span class="news-list-date">
-                                {{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' /Y') }}
-                            {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
+                                {{ armd_news.news_date(n.newsDate) }}
                             </span>
-                            <a href="{{ href }}" class="news-list-header">{{ n.title|raw }}</a>
+                            <a href="{{ href }}" class="news-list-header">
+                                {% if n.date %}
+                                    {{ n.date|date('d.m.Y') }}
+                                    {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                {% endif %}
+                                {{ n.title|raw }}
+                            </a>
                             <p>{{ n.announce|raw }} </p>
                             <a href="{{ path('armd_news_list_index_by_category', {'category': n.category.slug }) }}" class="news-list-type">{{ n.category.title }}</a>
                         </div>

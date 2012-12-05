@@ -4,6 +4,7 @@
 {% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
 {% block meta_description %}{{ entity.seoDescription }}{% endblock %}
 
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
 {% block top_right %}{% endblock %}
 
@@ -11,12 +12,15 @@
 <div class="news-one text">
     {#<span class="news-one-type">{{ 'News'|trans }}</span> #}
 	<span class="news-one-date">
-        {% set f = entity.date %}
-        {% set t = entity.endDate %}
-        {{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}
-        {% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' /Y') }}{% endif%}
+        {{ armd_news.news_date(entity.newsDate) }}
     </span>
-    <h1>{{ entity.title|raw }}</h1>
+    <h1>
+        {% if entity.date %}
+            {{ entity.date|date('d.m.Y') }}
+            {% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
+        {% endif %}
+        {{ entity.title|raw }}
+    </h1>
 
 	{% if entity.image %}
 		<div class="news-one-image">
