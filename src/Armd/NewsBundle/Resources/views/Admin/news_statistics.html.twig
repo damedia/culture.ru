@@ -1,0 +1,36 @@
+{% extends base_template %}
+
+{% block content %}
+    <div class="custom_admin_page">
+        <h1>Статистика публикации новостей</h1>
+
+        <table class="news-stats-table table table-bordered table-hover">
+            <tr class="info">
+                <td colspan="2">Предыдущая неделя</td>
+            </tr>
+            <tr>
+                <td>Новостей</td>
+                <td>{{ previous_week_count }}</td>
+            </tr>
+            <tr class="info">
+                <td colspan="2">Текущая неделя</td>
+            </tr>
+            <tr>
+                <th>Дата</th>
+                <th>Кол-во новостей</th>
+            </tr>
+            {% set total = 0 %}
+            {% for stats_row in this_week_stats %}
+                <tr>
+                    <td>{{ stats_row.stat_date|date('Y-m-d') }}</td>
+                    <td>{{ stats_row.stat_count }}</td>
+                </tr>
+                {% set total = total + stats_row.stat_count %}
+            {% endfor %}
+            <tr>
+                <td>Всего за текущую неделю</td>
+                <td>{{ total }}</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

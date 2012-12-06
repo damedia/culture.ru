@@ -245,4 +245,5 @@ class NewsManager
         }
     }
 
+
 }
