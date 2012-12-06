@@ -38,6 +38,8 @@
 #map .PGmap-copyright{ display:none; }
 #map .PGmap-geometry-point img{ border:solid 1px #fff; box-shadow:1px 1px 5px #777; }
 
+.atlas-center{ float:right; width:75%; position:static; }
+
 .atlas-map{ margin-bottom:20px; }
 .atlas-map .regions-selector{ z-index:100; position:absolute; top:-25px; right:0; }
 .atlas-map .regions-selector select{ width:270px; }
