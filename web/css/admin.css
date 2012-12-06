@@ -1,3 +1,11 @@
+.custom_admin_page {
+    padding-top: 80px;
+}
+
+.custom_admin_page .news-stats-table {
+    width: auto;
+}
+
 /*--- media file ---*/
 .armd-sonata-media-file {
     padding-left: 160px;

@@ -89,6 +89,11 @@ armd_news:
     type: annotation
     prefix: /press-centre
 
+armd_news_admin:
+    resource: "@ArmdNewsBundle/Controller/AdminController.php"
+    type: annotation
+    prefix: /admin/news
+
 armd_chronicle:
     resource: '@ArmdChronicleBundle/Resources/config/routing.yml'
     prefix:   /chronicle
