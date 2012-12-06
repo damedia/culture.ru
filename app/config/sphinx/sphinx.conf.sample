@@ -2,30 +2,33 @@ source mk_news_source_all
 {
     type       = pgsql
 
-    sql_host   = 10.1.1.5
+    sql_host   = dbro
     sql_port   = 5432
     sql_db     = w3mk
     sql_user   = w3mk
     sql_pass   = ohch8aiB
     
-    sql_query  = SELECT \
+    sql_query       = \
+        SELECT \
         cn.id, \
         cn.title ftsrch1, \
         cn.announce ftsrch2, \
         cn.body ftsrch3, \
         '' ftsrch4, \
         '' ftsrch5, \
-        1 AS object_type, \
-        date_part('epoch', cn.date_from)::int4 AS date_from \
+        'news' AS object_type, \
+         date_part('epoch', cn.news_date)::int8 AS date_from, \
+         CASE WHEN published THEN 1 ELSE 0 END AS published \
     FROM \
         content_news cn, \
         content_news_category cnc \
     WHERE \
         cn.category_id = cnc.id \
-        and cnc.filtrable = 't' \
+         and cnc.filtrable = 't'
 
-    sql_attr_uint     = object_type
-    sql_attr_timestamp  = date_from
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM content_news WHERE id=$id
 }
@@ -34,26 +37,28 @@ source mk_lectures_source_all
 {
     type       = pgsql
 
-    sql_host   = 10.1.1.5
+    sql_host   = dbro
     sql_port   = 5432
     sql_db     = w3mk
     sql_user   = w3mk
     sql_pass   = ohch8aiB
     
-    sql_query  = SELECT \
-        l.id, \
+    sql_query       = \
+        SELECT \
+        l.id + 1000000000, \
         l.title ftsrch1, \
         l.lecturer ftsrch2, \
         '' ftsrch3, \
         '' ftsrch4, \
         '' ftsrch5, \
-        2 AS object_type, \
-        date_part('epoch', l.created_at)::int4 AS date_from \
-    FROM \
-        lecture l \
+        'lecture' AS object_type, \
+        date_part('epoch', l.created_at)::int8 AS date_from, \
+        1 AS published \
+        FROM lecture l \
 
-    sql_attr_uint     = object_type
-    sql_attr_timestamp  = date_from
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM lecture WHERE id=$id
 }
@@ -62,94 +67,158 @@ source mk_atlas_source_all
 {
     type       = pgsql
 
-    sql_host   = 10.1.1.5
+    sql_host   = dbro
     sql_port   = 5432
     sql_db     = w3mk
     sql_user   = w3mk
     sql_pass   = ohch8aiB
     
-    sql_query  = SELECT \
-        o.id, \
+    sql_query       = \
+        SELECT \
+        o.id + 2000000000, \
         o.title ftsrch1, \
         o.announce ftsrch2, \
         o.content ftsrch3, \
         o.phone ftsrch4, \
         o.address ftsrch5, \
-        3 AS object_type, \
-        NOW() AS date_from \
-    FROM \
-        atlas_object o \
+        'atlas_object' AS object_type, \
+        NOW() AS date_from, \
+        CASE WHEN published THEN 1 ELSE 0 END AS published \
+        FROM atlas_object o \
 
-    sql_attr_uint     = object_type
-    sql_attr_timestamp  = date_from
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM atlas_object WHERE id=$id
+}
+
+source mk_virtual_museums_source_all
+{
+    type       = pgsql
+
+    sql_host   = dbro
+    sql_port   = 5432
+    sql_db     = w3mk
+    sql_user   = w3mk
+    sql_pass   = ohch8aiB
+    
+    sql_query       = \
+        SELECT \
+        m.id + 3000000000, \
+        m.title ftsrch1, \
+        m.body ftsrch2, \
+        '' ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'virtual_museum' AS object_type, \
+        NOW() AS date_from, \
+        CASE WHEN published THEN 1 ELSE 0 END AS published \
+        FROM armd_museum m \
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
 }
 
 source mk_lectures_source
 {
     type       = pgsql
 
-    sql_host   = 10.1.1.5
+    sql_host   = dbro
     sql_port   = 5432
     sql_db     = w3mk
     sql_user   = w3mk
     sql_pass   = ohch8aiB
 
-    sql_query  = SELECT \
+    sql_query       = \
+        SELECT \
         l.id, \
         l.title, \
         l.lecturer, \
         'lecture' AS object_type, \
-        date_part('epoch', l.created_at)::int4 AS date_from, \
+        date_part('epoch', l.created_at)::int8 AS date_from, \
         lt.id lecture_type_id, \
         lst.id lecture_super_type_id \
-    FROM \
-        lecture l \
+        FROM lecture l \
     INNER JOIN lecture_type lt ON lt.id = l.lecture_type_id \
-    INNER JOIN lecture_super_type lst ON lst.id = l.lecture_super_type_id \
+        INNER JOIN lecture_super_type lst ON lst.id = l.lecture_super_type_id
 
     sql_attr_string     = object_type
-    sql_attr_timestamp  = date_from
+    sql_attr_bigint     = date_from
     sql_attr_bigint     = lecture_type_id
     sql_attr_bigint     = lecture_super_type_id
     sql_attr_multi      = bigint lecturecategory_id from query; \
-    SELECT \
-        lecture_id, \
-        lecturecategory_id \
-    FROM lecture_category_lecture \
+        SELECT lecture_id, lecturecategory_id \
+            FROM lecture_category_lecture
 
     sql_query_info      = SELECT * FROM lecture WHERE id=$id
 }
+
 
 source mk_atlas_source
 {
     type       = pgsql
 
-    sql_host   = 10.1.1.5
+    sql_host   = dbro
     sql_port   = 5432
     sql_db     = w3mk
     sql_user   = w3mk
     sql_pass   = ohch8aiB
 
-    sql_query  = SELECT \
+    sql_query       = \
+        SELECT \
         o.id, \
         o.title, \
         o.announce, \
         o.content, \
         o.phone, \
         o.address, \
-        CASE WHEN o.show_at_russian_image THEN 1 ELSE 0 END show_at_russian_image, \
         'atlas_object' AS object_type, \
-        NOW() date_from \
-    FROM \
-        atlas_object o \
+        NOW() date_from, \
+        CASE WHEN o.show_at_russian_image THEN 1 ELSE 0 END show_at_russian_image, \
+            CASE WHEN published THEN 1 ELSE 0 END AS published \
+        FROM atlas_object o \
 
     sql_attr_string     = object_type
     sql_attr_timestamp  = date_from
     sql_attr_uint       = show_at_russian_image
+    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM lecture WHERE id=$id
+}
+
+
+source mk_virtual_museums_source
+{
+    type       = pgsql
+
+    sql_host   = dbro
+    sql_port   = 5432
+    sql_db     = w3mk
+    sql_user   = w3mk
+    sql_pass   = ohch8aiB
+    
+    sql_query       = \
+        SELECT \
+        m.id, \
+        m.title ftsrch1, \
+        m.body ftsrch2, \
+        '' ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'virtual_museum' AS object_type, \
+        NOW() AS date_from, \
+        CASE WHEN published THEN 1 ELSE 0 END AS published \
+        FROM armd_museum m \
+
+    sql_attr_string = object_type
+    sql_attr_timestamp  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
 }
 
 index mk_all
@@ -157,6 +226,7 @@ index mk_all
     source          = mk_news_source_all
     source          = mk_atlas_source_all
     source          = mk_lectures_source_all
+    source          = mk_virtual_museums_source_all
     path            = /var/lib/sphinxsearch/data/mk_all
     docinfo         = extern
     charset_type    = utf-8
@@ -164,15 +234,17 @@ index mk_all
     min_stemming_len = 4
 }
 
+
 index mk_lectures
 {
     source          = mk_lectures_source
     path            = /var/lib/sphinxsearch/data/mk_lectures
     docinfo         = extern
     charset_type    = utf-8
-    morphology      = stem_ru, stem_en
+    morphology      = stem_ru, stem_en  
     min_stemming_len = 4
 }
+
 
 index mk_atlas
 {
@@ -180,13 +252,18 @@ index mk_atlas
     path            = /var/lib/sphinxsearch/data/mk_atlas
     docinfo         = extern
     charset_type    = utf-8
-    morphology      = stem_ru, stem_en
+    morphology      = stem_ru, stem_en  
     min_stemming_len = 4
 }
 
-#############################################################################
-## indexer settings
-#############################################################################
+index mk_virtual_museums {
+    source          = mk_virtual_museums_source
+    path            = /var/lib/sphinxsearch/data/mk_virtual_museum
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
 
 indexer
 {
@@ -455,3 +532,4 @@ searchd
 	#
 	# compat_sphinxql_magics	= 1
 }
+
