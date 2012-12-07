@@ -6,6 +6,7 @@ use \Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Armd\LectureBundle\Entity\LectureSuperType;
 use Knp\Component\Pager\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
 class LectureRepository extends EntityRepository
 {
@@ -18,12 +19,14 @@ class LectureRepository extends EntityRepository
             ->andWhere('l.published = TRUE')
             ->orderBy('l.createdAt', 'DESC')
             ->setMaxResults($limit)
-            ->setParameters(array(
-            'superType' => $superType
-        ));
+            ->setParameters(
+            array(
+                'superType' => $superType
+            )
+        );
 
         $this->makeQueryBuilderEager($qb);
-        $recommendedLectures = $qb->getQuery()->getResult();
+        $recommendedLectures = new DoctrinePaginator($qb->getQuery(), true);
 
         return $recommendedLectures;
     }
@@ -31,17 +34,17 @@ class LectureRepository extends EntityRepository
     public function findLastAdded(LectureSuperType $superType, $limit = 2)
     {
         $qb = $this->createQueryBuilder('l')
+            ->select('l')
             ->where('l.lectureSuperType = :superType')
             ->andWhere('l.published = TRUE')
             ->orderBy('l.createdAt', 'DESC')
             ->setMaxResults($limit)
-            ->setParameters(array(
-            'superType' => $superType
-        ));
+            ->setParameters(array('superType' => $superType));
 
         $this->makeQueryBuilderEager($qb);
 
-        $lastAdded = $qb->getQuery()->getResult();
+        $lastAdded = new DoctrinePaginator($qb->getQuery(), true);
+
         return $lastAdded;
     }
 
@@ -67,8 +70,7 @@ class LectureRepository extends EntityRepository
         // sort
         if ($sortBy === 'date') {
             $qb->orderBy('l.createdAt', 'DESC');
-        }
-        elseif ($sortBy === 'comments') {
+        } elseif ($sortBy === 'comments') {
 
         }
 
@@ -92,10 +94,12 @@ class LectureRepository extends EntityRepository
                 ->andWhere('l.lectureSuperType = :superType')
                 ->andWhere('l.published = TRUE')
                 ->groupBy('c')
-                ->setParameters(array(
-                'type' => $type,
-                'superType' => $superType
-            ))
+                ->setParameters(
+                array(
+                    'type' => $type,
+                    'superType' => $superType
+                )
+            )
                 ->getQuery()->getResult();
 
             $result[$type->getId()] = array();
@@ -112,8 +116,7 @@ class LectureRepository extends EntityRepository
         $rootAliases = $qb->getRootAliases();
         $rootAlias = $rootAliases[0];
 
-        // categories join removed due to strange behaviour - some records disappear
-        // i thing this is doctrine bug
+        // categories are removed because
         $qb
             ->addSelect('_categories')
             ->addSelect('_lecture_video')
@@ -126,7 +129,6 @@ class LectureRepository extends EntityRepository
             ->leftJoin($rootAlias . '.lectureSuperType', '_lecture_super_type')
             ->leftJoin('_lecture_video.imageMedia', '_lecture_video_image_media')
             ->leftJoin($rootAlias . '.mediaLectureVideo', '_lecture_media_lecture_video')
-            ->leftJoin($rootAlias . '.mediaTrailerVideo', '_lecture_media_trailer_video')
-        ;
+            ->leftJoin($rootAlias . '.mediaTrailerVideo', '_lecture_media_trailer_video');
     }
 }

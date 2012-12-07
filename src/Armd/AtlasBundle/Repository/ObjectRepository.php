@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
 /**
  * ObjectRepository
@@ -51,8 +52,7 @@ class ObjectRepository extends EntityRepository
             $qb->setMaxResults($limit);
         }
 
-        $objects = $qb->getQuery()
-            ->getResult();
+        $objects = new DoctrinePaginator($qb->getQuery());
 
         return $objects;
     }
