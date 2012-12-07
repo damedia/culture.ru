@@ -52,7 +52,8 @@ class ObjectRepository extends EntityRepository
             $qb->setMaxResults($limit);
         }
 
-        $objects = new DoctrinePaginator($qb->getQuery());
+        $paginator = new DoctrinePaginator($qb->getQuery());
+        $objects = $paginator->getIterator();
 
         return $objects;
     }
