@@ -154,10 +154,10 @@ $(document).ready(function () {
     }
 	if ($("#news-dates-filter").length > 0) {
         var calendarTriggerImg;
-        if (mkApp.locale === 'ru') {
+        if (mkArmd.locale === 'ru') {
             $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
             calendarTriggerImg = '/img/calendar-trigger.png';
-        } else if (mkApp.locale === 'en') {
+        } else if (mkArmd.locale === 'en') {
             calendarTriggerImg = '/img/calendar-trigger-en.png';
         }
         $(".calendar-input").datepicker({

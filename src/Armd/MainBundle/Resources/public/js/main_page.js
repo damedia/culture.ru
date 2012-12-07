@@ -1,22 +1,23 @@
+var fetchMarkersUri = Routing.generate('armd_atlas_default_filter');
+        fetchMarkerDetailUri = Routing.generate('armd_atlas_default_objectballoon'),
+        fetchClusterDetailUri = Routing.generate('armd_atlas_default_clusterballoon'),
+        bundleImagesUri = armdMk.asset('bundles/armdatlas/images'),
+        obrazCategoryId = 74;
+
 var armdMainPage = {
     init:function() {
         armdMainPage.initRandomRussiaImages();
+        armdMainPage.initAtlas();
     },
 
     initAtlas: function() {
-        var fetchMarkersUri = Routing.generate('armd_atlas_default_filter')'{{ path('armd_atlas_default_filter') }}',
-                fetchMarkerDetailUri = '{{ path('armd_atlas_default_objectballoon') }}',
-                fetchClusterDetailUri = '{{ path('armd_atlas_default_clusterballoon') }}',
-                bundleImagesUri = '{{ asset('bundles/armdatlas/images') }}',
-                obrazCategoryId = 74;
-
         AT.init({
             map:'map',
             center: [45,56],
             zoom: 4,
             leftLon: 10,
             rightLon: -190,
-            locale:'{{ app.request.locale }}'
+            locale: armdMk.locale
         });
 
     },
