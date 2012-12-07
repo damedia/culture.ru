@@ -26,9 +26,9 @@ class LectureRepository extends EntityRepository
         );
 
         $this->makeQueryBuilderEager($qb);
-        $recommendedLectures = new DoctrinePaginator($qb->getQuery(), true);
+        $paginator = new DoctrinePaginator($qb->getQuery(), true);
 
-        return $recommendedLectures;
+        return $paginator->getIterator();
     }
 
     public function findLastAdded(LectureSuperType $superType, $limit = 2)
@@ -43,9 +43,8 @@ class LectureRepository extends EntityRepository
 
         $this->makeQueryBuilderEager($qb);
 
-        $lastAdded = new DoctrinePaginator($qb->getQuery(), true);
-
-        return $lastAdded;
+        $paginator = new DoctrinePaginator($qb->getQuery(), true);
+        return $paginator->getIterator();
     }
 
     public function getFilterQueryBuilder($alias, $superType, $typeIds = null, $categoryIds = null, $sortBy = 'date')

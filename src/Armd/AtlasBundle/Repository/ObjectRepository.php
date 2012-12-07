@@ -52,9 +52,9 @@ class ObjectRepository extends EntityRepository
             $qb->setMaxResults($limit);
         }
 
-        $objects = new DoctrinePaginator($qb->getQuery());
+        $paginator = new DoctrinePaginator($qb->getQuery());
 
-        return $objects;
+        return $paginator->getIterator();
     }
 
     public function findRandomRussiaImages($limit)
