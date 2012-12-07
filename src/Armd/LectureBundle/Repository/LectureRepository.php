@@ -26,7 +26,8 @@ class LectureRepository extends EntityRepository
         );
 
         $this->makeQueryBuilderEager($qb);
-        $recommendedLectures = new DoctrinePaginator($qb->getQuery(), true);
+        $paginator = new DoctrinePaginator($qb->getQuery(), true);
+        $recommendedLectures = $paginator->getIterator();
 
         return $recommendedLectures;
     }
@@ -43,7 +44,8 @@ class LectureRepository extends EntityRepository
 
         $this->makeQueryBuilderEager($qb);
 
-        $lastAdded = new DoctrinePaginator($qb->getQuery(), true);
+        $paginator = new DoctrinePaginator($qb->getQuery(), true);
+        $lastAdded = $paginator->getIterator();
 
         return $lastAdded;
     }
