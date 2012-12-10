@@ -70,12 +70,14 @@ var armdMainPage = {
                 data = $.trim(data);
                 if(data === '1') {
                     armdMessager.showMessage('Ваш голос учтен');
-                    armdMainPage.reloadCommunicationPlatform();
                 } else if(data === 'archiv') {
                     armdMessager.showMessage('Голосование за данное сообщение закрыто')
                 } else {
                     armdMessager.showMessage('При голосовании возникла ошибка');
                 }
+            },
+            complete: function() {
+                armdMainPage.reloadCommunicationPlatform();
             }
 
         });
