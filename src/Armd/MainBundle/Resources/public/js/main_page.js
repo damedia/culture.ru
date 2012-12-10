@@ -1,20 +1,20 @@
 var fetchMarkersUri = Routing.generate('armd_atlas_default_filter');
-        fetchMarkerDetailUri = Routing.generate('armd_atlas_default_objectballoon'),
-        fetchClusterDetailUri = Routing.generate('armd_atlas_default_clusterballoon'),
-        bundleImagesUri = armdMk.asset('bundles/armdatlas/images'),
-        obrazCategoryId = 74;
+fetchMarkerDetailUri = Routing.generate('armd_atlas_default_objectballoon'),
+    fetchClusterDetailUri = Routing.generate('armd_atlas_default_clusterballoon'),
+    bundleImagesUri = armdMk.asset('bundles/armdatlas/images'),
+    obrazCategoryId = 74;
 
 var armdMainPage = {
-    init:function() {
+    init: function () {
         armdMainPage.initRandomRussiaImages();
         armdMainPage.initAtlas();
         armdMainPage.initCommunicationPlatform();
     },
 
-    initAtlas: function() {
+    initAtlas: function () {
         AT.init({
-            map:'map',
-            center: [45,56],
+            map: 'map',
+            center: [45, 56],
             zoom: 4,
             leftLon: 10,
             rightLon: -190,
@@ -23,31 +23,31 @@ var armdMainPage = {
 
     },
 
-    initRandomRussiaImages: function() {
-        $('#rusObrTab_tab .reload_btn').bind('click', function(event){
+    initRandomRussiaImages: function () {
+        $('#rusObrTab_tab .reload_btn').bind('click', function (event) {
             event.preventDefault();
             armdMainPage.loadRandomRussiaImages();
         })
 
     },
 
-    loadRandomRussiaImages:function() {
+    loadRandomRussiaImages: function () {
         $.ajax({
             url: Routing.generate('armd_main_random_russia_images'),
             cache: false,
-            dataType:'html',
-            type:'POST',
-            data:{
-                searchString:$('#search_text').val()
+            dataType: 'html',
+            type: 'POST',
+            data: {
+                searchString: $('#search_text').val()
             },
-            success:function (data) {
+            success: function (data) {
                 $('#rusObrTab_tab .rusObr-block').html(data);
             }
         });
     },
 
-    initCommunicationPlatform: function() {
-        $('#discus-content .red, #discus-content .gray').bind('click', function(event) {
+    initCommunicationPlatform: function () {
+        $('#discus').on('click', '.red, .gray', function (event) {
             event.preventDefault();
             var id = $(this).closest('.item-list-useraction').data('item-id');
             var vote = $(this).hasClass('red') ? -1 : 1;
@@ -55,7 +55,7 @@ var armdMainPage = {
         });
     },
 
-    communicationPlatformVote: function(id, vote) {
+    communicationPlatformVote: function (id, vote) {
         $.ajax({
             url: 'http://people.culture.ru/propostal_ajax/',
             type: 'post',
@@ -66,32 +66,34 @@ var armdMainPage = {
             },
             xhrFields: {withCredentials: true},
             dataType: 'html',
-            success: function(data) {
+            success: function (data) {
                 data = $.trim(data);
-                if(data === '1') {
+                if (data === '1') {
                     armdMessager.showMessage('Ваш голос учтен');
-                } else if(data === 'archiv') {
+                }
+                else if (data === 'archiv') {
                     armdMessager.showMessage('Голосование за данное сообщение закрыто')
-                } else {
+                }
+                else {
                     armdMessager.showMessage('При голосовании возникла ошибка');
                 }
             },
-            complete: function() {
+            complete: function () {
                 armdMainPage.reloadCommunicationPlatform();
             }
 
         });
     },
 
-    reloadCommunicationPlatform: function() {
+    reloadCommunicationPlatform: function () {
         $.ajax({
-           url: Routing.generate('armd_main_latest_topics'),
-           type: 'get',
-           xhrFields: {withCredentials: true},
-           dataType: 'html',
-           success: function(data) {
-               $('#discus').html(data);
-           }
+            url: Routing.generate('armd_main_latest_topics'),
+            type: 'get',
+            xhrFields: {withCredentials: true},
+            dataType: 'html',
+            success: function (data) {
+                $('#discus').html(data);
+            }
         });
     }
 

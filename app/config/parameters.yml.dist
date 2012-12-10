@@ -25,7 +25,8 @@ parameters:
     sphinxsearch_index_atlas: mk_atlas
     sphinxsearch_index_museums: mk_virtual_museums
 
-    domain:
+    communication_platform_domain: people.culture.ru
+    domain: .culture.ru
 
     sonata_media_cdn: http://roskult.ru/ru/uploads/media
     sonata_media_cdn_en: http://roskult.ru/en/uploads/media
