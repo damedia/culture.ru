@@ -86,13 +86,16 @@ var armdMainPage = {
     },
 
     reloadCommunicationPlatform: function () {
+        armdMk.startLoadingBlock('#discus');
         $.ajax({
             url: Routing.generate('armd_main_latest_topics'),
             type: 'get',
-            xhrFields: {withCredentials: true},
             dataType: 'html',
             success: function (data) {
                 $('#discus').html(data);
+            },
+            complete: function () {
+                armdMk.stopLoadingBlock('#discus');
             }
         });
     }
