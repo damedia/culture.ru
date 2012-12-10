@@ -63,8 +63,9 @@ class MainController extends Controller
         );
     }
 
-    public function latestTopicsAction($domain)
+    public function latestTopicsAction()
     {
+        $domain = $this->container->getParameter('communication_platform_domain');
         $topics = array(
             '/export/?module=m_ep_propostal',
             '/export/?module=m_ep_forum',
