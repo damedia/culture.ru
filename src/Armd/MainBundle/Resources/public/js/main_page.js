@@ -8,6 +8,7 @@ var armdMainPage = {
     init:function() {
         armdMainPage.initRandomRussiaImages();
         armdMainPage.initAtlas();
+        armdMainPage.initCommunicationPlatform();
     },
 
     initAtlas: function() {
@@ -44,6 +45,42 @@ var armdMainPage = {
             }
         });
     },
+
+    initCommunicationPlatform: function() {
+        $('#discus-content .red, #discus-content .gray').bind('click', function(event) {
+            event.preventDefault();
+            var id = $(this).closest('.item-list-useraction').data('item-id');
+            var vote = $(this).hasClass('red') ? -1 : 1;
+            armdMainPage.communicationPlatformVote(id, vote);
+        });
+    },
+
+    communicationPlatformVote: function(id, vote) {
+        $.ajax({
+            url: 'http://people.culture.ru/propostal_ajax/',
+            type: 'post',
+            data: {
+                pid: id,
+                type: vote,
+                action: 'count_like'
+            },
+            dataType: 'html',
+            success: function(data) {
+                data = $.trim(data);
+                if(data === '1') {
+                    armdMessager.showMessage('Ваш голос учтен')
+                } else if(data === 'archiv') {
+                    armdMessager.showMessage('Голосование за данное сообщение закрыто')
+                } else {
+                    armdMessager.showMessage('При голосовании возникла ошибка');
+                }
+            },
+
+        });
+        console.log(id);
+        console.log(vote);
+    }
+
 
     // This code was copied from index page and moved to function.
     // Don't sure it will work inside function but now it is not used.
