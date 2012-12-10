@@ -53,9 +53,8 @@ class ObjectRepository extends EntityRepository
         }
 
         $paginator = new DoctrinePaginator($qb->getQuery());
-        $objects = $paginator->getIterator();
 
-        return $objects;
+        return $paginator->getIterator();
     }
 
     public function findRandomRussiaImages($limit)

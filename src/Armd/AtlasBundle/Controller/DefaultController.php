@@ -92,7 +92,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/object/balloon")
+     * @Route("/object/balloon", name="armd_atlas_default_objectballoon", options={"expose"=true})
      * @Template()
      */
     public function objectBalloonAction()
@@ -113,7 +113,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/object/cluster")
+     * @Route("/object/cluster", name="armd_atlas_default_clusterballoon", options={"expose"=true})
      * @Template()
      */
     public function clusterBalloonAction()
@@ -158,7 +158,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/objects/filter", defaults={"_format"="json"})
+     * @Route("/objects/filter", defaults={"_format"="json"}, name="armd_atlas_default_filter", options={"expose"=true})
      */
     public function filterAction()
     {

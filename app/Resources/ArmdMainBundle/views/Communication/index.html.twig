@@ -22,7 +22,7 @@
                 <span class="voting"><span class="gray">+</span><span class="green">&nbsp;{{ raiting }}</span></span>
                 <div class="username">
                     <img class="userico" src="/static/common/img/twitter.png" /><span class="orange">{{ i.title }}</span>
-                    / <span class="gray">{{ 'Mainpage block.Communication.Added'|trans }} {{ i.date_add }}</span>
+                    / <span class="gray">{{ 'mainpage.updated'|trans }} {{ i.date_add }}</span>
                 </div>
                 <div class="useraction"><h3><a href="{{ i.url }}">{{ i.content }}</a></h3>
                 </div>
@@ -31,10 +31,10 @@
             {% if loop.index == 2 %}
                 <ul class="list-useraction">
             {%endif%}
-                <li class="item-list-useraction">
+                <li class="item-list-useraction" data-item-id="{{ i.id }}">
                     <div class="username">
                         <span>{{ i.title }}</span>
-                        / <span class="gray">{{ 'Mainpage block.Communication.Added'|trans }} {{ i.date_add }}</span>
+                        / <span class="gray">{{ 'mainpage.updated'|trans }} {{ i.date_add }}</span>
                     </div>
                     <div class="useraction">
                         <p><a href="{{ i.url }}">{{ i.content }}</a></p>

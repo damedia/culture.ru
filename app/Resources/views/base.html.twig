@@ -24,7 +24,7 @@
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {%  endstylesheets %}
 
-            <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
+            <link href="{{ asset('css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" media="screen" />
             <link href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}" rel="stylesheet" type="text/css" media="screen" />
             <link href="{{ asset('bundles/armdmkcomment/css/comments.css') }}" rel="stylesheet" type="text/css" media="screen" />
@@ -32,25 +32,28 @@
         {% endblock %}
 
         {% block javascripts %}
-            <script type="text/javascript">
-                var mkApp = {
-                    locale: '{{ app.request.locale }}'
-                };
-            </script>
-            <script type="text/javascript" src="{{ asset('/js/libs/jquery-1.7.2.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/libs/jquery-1.7.2.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/libs/jquery-ui-1.8.21.custom.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/plugins.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/jquery.uniform.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/jquery.uniform.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/libs/jquery.ajaxmanager.js') }}"></script>
 			{% if app.request.locale == 'ru' %}
                 <script type="text/javascript" src="{{ asset('/js/libs/jquery.ui.datepicker-ru.js') }}"></script>
             {% endif %}
-            <script type="text/javascript" src="{{ asset('/js/function.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/js/messager.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/function.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
+            <script type="text/javascript">
+                $(function(){
+                    armdMk.locale = '{{ app.request.locale }}';
+                    armdMk.baseUrl = '/';
+                    armdMk.init();
+                });
+            </script>
 
         {% endblock %}
     </head>

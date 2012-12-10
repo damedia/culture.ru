@@ -68,6 +68,7 @@ Mainpage block:
 mainpage.read_mode: Read More
 mainpage.show_all: Show All
 mainpage.news: News
+mainpage.updated: Updated
 mainpage.russia_images: Russia Images
 mainpage.show_all_russia_images: Show All Russia Images
 mainpage.lectures: Lectures
