@@ -26,5 +26,14 @@ var armdMk = {
 
     asset: function(path) {
         return armdMk.baseUrl + path;
+    },
+
+    startLoadingBlock: function(blockSelector) {
+        $(blockSelector).css('position', 'relative')
+            .append($('<div class="loading-block"></div>').css('display', 'block'));
+    },
+
+    stopLoadingBlock: function(blockSelector) {
+        $(blockSelector).remove('.loading-block');
     }
 };
