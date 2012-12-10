@@ -79,7 +79,6 @@ class MainController extends Controller
             }
         }
 
-        \gFuncs::dbgWriteLogVar($result, false, 'latestTopics'); // DBG:
         return $this->render(
             'ArmdMainBundle:Communication:index.html.twig',
             array(

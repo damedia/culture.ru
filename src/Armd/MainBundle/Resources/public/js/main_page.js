@@ -64,21 +64,33 @@ var armdMainPage = {
                 type: vote,
                 action: 'count_like'
             },
+            xhrFields: {withCredentials: true},
             dataType: 'html',
             success: function(data) {
                 data = $.trim(data);
                 if(data === '1') {
-                    armdMessager.showMessage('Ваш голос учтен')
+                    armdMessager.showMessage('Ваш голос учтен');
+                    armdMainPage.reloadCommunicationPlatform();
                 } else if(data === 'archiv') {
                     armdMessager.showMessage('Голосование за данное сообщение закрыто')
                 } else {
                     armdMessager.showMessage('При голосовании возникла ошибка');
                 }
-            },
+            }
 
         });
-        console.log(id);
-        console.log(vote);
+    },
+
+    reloadCommunicationPlatform: function() {
+        $.ajax({
+           url: Routing.generate('armd_main_latest_topics'),
+           type: 'get',
+           xhrFields: {withCredentials: true},
+           dataType: 'html',
+           success: function(data) {
+               $('#discus').html(data);
+           }
+        });
     }
 
 
