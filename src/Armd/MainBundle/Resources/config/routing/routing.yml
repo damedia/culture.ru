@@ -46,4 +46,10 @@ armd_main_online_translation:
 armd_main_random_russia_images:
     pattern: /random-russia-images/
     defaults: { _controller: ArmdMainBundle:Main:randomRussiaImages }
-    options: {expose: true}
+    options: { expose: true }
+
+armd_main_latest_topics:
+    pattern: /latest-topics
+    defaults: { _controller: ArmdMainBundle:Main:latestTopics }
+    options: { expose: true }
+
