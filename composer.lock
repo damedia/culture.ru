@@ -1,5 +1,5 @@
 {
-    "hash": "217fc72f408de8380bbb31876e90be72",
+    "hash": "2c2237b2abdc41e37cfa2680efa72572",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -42,6 +42,25 @@
                 }
             },
             "description": "Sphinx search bundle"
+        },
+        {
+            "name": "armd/twig-bundle",
+            "version": "dev-master",
+            "target-dir": "Armd/TwigBundle",
+            "source": {
+                "type": "git",
+                "url": "git@git.armd.ru:armdtwigbundle.git",
+                "reference": "7e7f5ee3d6fb7c71cdad9b9583671596f94fa8e4"
+            },
+            "time": "2012-12-11 10:33:00",
+            "type": "armd-twig-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Armd\\TwigBundle": ""
+                }
+            },
+            "description": "Armd Twig Extension Bundle"
         },
         {
             "name": "doctrine/common",
