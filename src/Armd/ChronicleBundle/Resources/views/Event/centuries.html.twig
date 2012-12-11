@@ -1,7 +1,0 @@
-<ul>
-{% for c in centuries %}
-    <li {% if c.selected %}class="selected"{% endif%}>
-        <a href="{{ path('armd_chronicle_index_by_century', {'century': c.value}) }}">{{ c.value }}</a>
-    </li>
-{% endfor %}
-</ul>
