@@ -1,7 +1,18 @@
-<ul>
-{% for c in centuries %}
-    <li {% if c.selected %}class="selected"{% endif%}>
-        <a href="{{ path('armd_chronicle_index_by_century', {'century': c.value}) }}">{{ c.value }}</a>
-    </li>
-{% endfor %}
-</ul>
+
+<ul class="time-line-nav">
+	{% for c in centuries %}
+		<li id="cen_{{ c.value }}"><a href="#{{ c.name }}" class="smooth-scroll">{{ c.name }} {{ 'ccc'|trans }}</a>
+		<ul>
+		{% set d = null %}
+		{% for e in c.events %}
+            {% set year = e.date|date('Y')|abs %}
+		    {% set decade = year - year % 10 %}
+		    {% if decade != d and decade % 100 != 0 %}
+    		    {% set d = decade %}
+    		    <li><a href="#{{ d }}" class="smooth-scroll">{{ d }} {{ 'yy'|trans }}</a></li>
+            {% endif %}
+		{% endfor %}
+		</ul>
+		</li>
+	{% endfor %}
+	</ul>

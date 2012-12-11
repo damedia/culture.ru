@@ -1,31 +1,39 @@
-<div id="auth-block" class="auth-block">
+{% extends "::base.html.twig" %}
 
-    {% if error %}
-        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-    {% endif %}
+{% block press_header %}
+{% endblock %}
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-        <div class="row">
-            <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-        </div>
-        <div class="row">
-            <input type="text" id="username" name="_username" value="{{ last_username }}" />
-        </div>
-        <div class="row">
-            <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-        </div>
-        <div class="row">
-            <input type="password" id="password" name="_password" />
-        </div>
-        <div class="row">
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-            <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
-        </div>
-        <div class="row">
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-        </div>
-    </form>
+
+{% block body %}
+
+<div class="login-page lk form">
+
+{% if error %}
+    <p class="error">{{ error|trans({}, 'FOSUserBundle') }}</p>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <div>
+    <p><label for="fos_user_registration_form_username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+    <input type="text" id="fos_user_registration_form_username" name="_username" value="{{ last_username }}" />
+    </div>
+    <div>
+    <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+    <input type="password" id="password" name="_password" />
+    </div>
+  </p>
+
+   <p> <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label></p>
+
+   <p> <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+   </p>
+
+   {% render 'ArmdSocialAuthBundle:Default:authLinks' with {'redirectUrl': path('sonata_user_profile_edit') } %}
+</form>
 
 </div>
+
+{% endblock %}
