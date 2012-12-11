@@ -6,7 +6,8 @@
     },
     "repositories":{
         "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
-        "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" }
+        "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" },
+        "armd/twig-bundle": {"type":"git", "url":"git@git.armd.ru:armdtwigbundle.git"}
     },
     "require": {
         "php": ">=5.3.3",
@@ -41,7 +42,8 @@
         "sonata-project/cache-bundle": "*",
         "armd/banner-bundle": "dev-master#1f3a34bc8b7d5fb3c68a7fa6c42a91a89f4c86de",
         "armd/sphinx-search-bundle": "*",
-        "friendsofsymfony/rest-bundle": "*"
+        "friendsofsymfony/rest-bundle": "*",
+        "armd/twig-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

@@ -61,6 +61,7 @@ class AppKernel extends Kernel
             new Armd\MuseumBundle\ArmdMuseumBundle(),
             new Armd\OAuthBundle\ArmdOAuthBundle(),
             new Armd\PaperArchiveBundle\ArmdPaperArchiveBundle(),
+            new Armd\TwigBundle\ArmdTwigBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {
