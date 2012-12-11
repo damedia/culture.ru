@@ -204,28 +204,22 @@ class NewsManager
     {
         $entities = array();
         foreach ($this->getCategories() as $category) {
-            //var_dump($category);
-            $entity = $this->em->getRepository('ArmdNewsBundle:News')
+            $qb = $this->em->getRepository('ArmdNewsBundle:News')
                 ->createQueryBuilder('n')
                 ->innerJoin('n.image', 'i')
                 ->where('n.category = :category')
-                ->andWhere('n.important = TRUE')
                 ->andWhere('i.enabled = TRUE')
                 ->orderBy('n.date', 'DESC')
                 ->setMaxResults(1)
-                ->setParameter('category', $category)
+                ->setParameter('category', $category);
+
+            $entity = $qb->andWhere('n.important = TRUE')
                 ->getQuery()->getOneOrNullResult();
-            if (! $entity) {
-                $entity = $this->em->getRepository('ArmdNewsBundle:News')
-                    ->createQueryBuilder('n')
-                    ->innerJoin('n.image', 'i')
-                    ->where('n.category = :category')
-                    ->andWhere('i.enabled = TRUE')
-                    ->orderBy('n.date', 'DESC')
-                    ->setMaxResults(1)
-                    ->setParameter('category', $category)
-                    ->getQuery()->getOneOrNullResult();
+
+            if (!$entity) {
+                $entity = $qb->getQuery()->getOneOrNullResult();
             }
+            
             $entities[] = $entity;
         }
         return $entities;
