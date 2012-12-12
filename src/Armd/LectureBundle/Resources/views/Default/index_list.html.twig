@@ -70,30 +70,38 @@
     <div class="video-anons-new">
         {% set lecture = lastLectures[0] %}
 		<div class="van-text">
-			<a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
-			<p class="va-theme">
-				{% for category in lecture.categories %}
-					{{ category.title }}
-					{% if not loop.last %},{% endif %}
-				{% endfor %}
-			</p>
-            {% if lecture.lecturer is not empty %}
-                <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lecture.lecturer }}</span></p>
+            {% if  lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+                <span class="va-name">Торжественная церемония вручения Премии Правительства Российской Федерации «Душа России»</span>
+                <p class="va-theme">Для просмотра трансляции необходим браузер Internet Explorer</p>
+            {% else %}
+                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="va-name">{{ lecture.title }}</a>
+                <p class="va-theme">
+                    {% for category in lecture.categories %}
+                        {{ category.title }}
+                        {% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </p>
+                {% if lecture.lecturer is not empty %}
+                    <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lecture.lecturer }}</span></p>
+                {% endif %}
+                <p class="van-description">
+                    {{ lecture.description|truncate(250) }}
+                </p>
             {% endif %}
-            <p class="van-description">
-                {{ lecture.description|truncate(250) }}
-            </p>
 		</div>
 
 		<div class="van-image">
-            
-            {% if lecture.lectureVideo is not empty %}
-                {{ armd_tvigle_video_player(lecture.lectureVideo, 500, 375)|raw }}
-            {% elseif lecture.mediaLectureVideo is not empty %}
-                {% media lecture.mediaLectureVideo, 'noformat' with {'width': 500, 'height': 375} %}
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+                <object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="WMP7" width="640" height="480"><param name="URL" value="mms://195.178.211.10:8888/presa3" /></object>
+            {% else %}
+                {% if lecture.lectureVideo is not empty %}
+                    {{ armd_tvigle_video_player(lecture.lectureVideo, 500, 375)|raw }}
+                {% elseif lecture.mediaLectureVideo is not empty %}
+                    {% media lecture.mediaLectureVideo, 'noformat' with {'width': 500, 'height': 375} %}
+                {% endif %}
             {% endif %}
-            
 
+            {# last lecture image #}
             {#<a href="{{ path('armd_lecture_view', {'id': lastLectures[0].id}) }}">#}
                 {#{% if lastLectures[0].lectureVideo.imageMedia is defined %}#}
                     {#{% set thumbnailMedia = lastLectures[0].lectureVideo.imageMedia %}#}
@@ -107,8 +115,10 @@
                     {#<img src="{% path thumbnailMedia, 'reference' %}" alt="{{ lastLectures[0].title }}"/>#}
                 {#{% endif %}#}
             {#</a>#}
+            {# /last lecture image #}
 
 		</div>
+        <div class="clear"></div>
 
     </div>
 
