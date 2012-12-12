@@ -65,9 +65,6 @@ $(document).ready(function () {
 
     });
 
-
-
-
     var
         $EventsitemTab = $('#eventsitem-tab'),
         $EventsitemTabs = $EventsitemTab.find('li'),

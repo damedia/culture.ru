@@ -55,13 +55,19 @@ var armdMainPage = {
         });
 
         $('#discus').on('click', '#discusitem-tab li', function() {
-            var indexElem = $(this).index();
-            $('.discusitem-content').hide().eq(indexElem).fadeIn();
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active');
+            armdMainPage.communicationPlatformSelectTab($(this).index());
+//            var indexElem = $(this).index();
+//            $('.discusitem-content').hide().eq(indexElem).fadeIn();
+//            $(this).siblings().removeClass('active');
+//            $(this).addClass('active');
             return false;
-
         });
+
+    },
+
+    communicationPlatformSelectTab: function(index) {
+        $('.discusitem-content').hide().eq(index).fadeIn();
+        $('#discusitem-tab li').removeClass('active').eq(index).addClass('active');
 
     },
 
@@ -100,6 +106,7 @@ var armdMainPage = {
     },
 
     reloadCommunicationPlatform: function () {
+        var currentTabIndex = $('#discusitem-tab li.active').index();
         armdMk.startLoadingBlock('#discus');
         $.ajax({
             url: Routing.generate('armd_main_latest_topics'),
@@ -109,6 +116,7 @@ var armdMainPage = {
                 $('#discus').html(data);
             },
             complete: function () {
+                armdMainPage.communicationPlatformSelectTab(currentTabIndex);
                 armdMk.stopLoadingBlock('#discus');
             }
         });
