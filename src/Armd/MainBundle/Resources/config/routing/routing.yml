@@ -53,3 +53,7 @@ armd_main_latest_topics:
     defaults: { _controller: ArmdMainBundle:Main:latestTopics }
     options: { expose: true }
 
+armd_main_communication_platform_request:
+    pattern: /complatform-request
+    defaults: { _controller: ArmdMainBundle:Main:communicationPlatformRequest }
+    options: { expose: true }

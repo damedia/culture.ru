@@ -16,6 +16,8 @@ armd_mk_comment:
 
 armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"
     type:     annotation

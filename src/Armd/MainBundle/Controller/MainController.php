@@ -104,6 +104,14 @@ class MainController extends Controller
         );
     }
 
+    public function communicationPlatformRequestAction()
+    {
+        return $this->container->get('armd_main.ajax_proxy')->ajaxRequest(
+            $this->container->getParameter('communication_platform_domain'),
+            $this->getRequest()
+        );
+    }
+
     function getNews(array $categories)
     {
         $result = array();
@@ -169,4 +177,6 @@ class MainController extends Controller
     {
         return 'ArmdMainBundle:Main';
     }
+
+
 }
