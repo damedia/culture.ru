@@ -53,6 +53,16 @@ var armdMainPage = {
             var vote = $(this).hasClass('red') ? -1 : 1;
             armdMainPage.communicationPlatformVote(id, vote);
         });
+
+        $('#discus').on('click', '#discusitem-tab li', function() {
+            var indexElem = $(this).index();
+            $('.discusitem-content').hide().eq(indexElem).fadeIn();
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            return false;
+
+        });
+
     },
 
     communicationPlatformVote: function (id, vote) {

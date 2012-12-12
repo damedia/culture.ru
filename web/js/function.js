@@ -65,19 +65,7 @@ $(document).ready(function () {
 
     });
 
-    var
-        $discusitemTab = $('#discusitem-tab'),
-        $discusitemTabs = $discusitemTab.find('li'),
-        $discusitemContent = $('.discusitem-content');
 
-    $discusitemTabs.click(function () {
-        var indexElem = $(this).index();
-        $discusitemContent.hide();
-        $discusitemContent.eq(indexElem).fadeIn();
-        $discusitemTabs.removeClass('active');
-        $(this).addClass('active');
-        return false;
-    }).eq(0)
 
 
     var
