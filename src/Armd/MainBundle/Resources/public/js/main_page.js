@@ -57,14 +57,18 @@ var armdMainPage = {
 
     communicationPlatformVote: function (id, vote) {
         $.ajax({
-            url: 'http://people.culture.ru/propostal_ajax/',
+            url: Routing.generate('armd_main_communication_platform_request'),
             type: 'post',
             data: {
-                pid: id,
-                type: vote,
-                action: 'count_like'
+                restUrl: '/propostal_ajax/',
+                method: 'post',
+                contentType: 'text/html',
+                params: {
+                    pid: id,
+                    type: vote,
+                    action: 'count_like'
+                }
             },
-            xhrFields: {withCredentials: true},
             dataType: 'html',
             success: function (data) {
                 data = $.trim(data);
