@@ -53,6 +53,22 @@ var armdMainPage = {
             var vote = $(this).hasClass('red') ? -1 : 1;
             armdMainPage.communicationPlatformVote(id, vote);
         });
+
+        $('#discus').on('click', '#discusitem-tab li', function() {
+            armdMainPage.communicationPlatformSelectTab($(this).index());
+//            var indexElem = $(this).index();
+//            $('.discusitem-content').hide().eq(indexElem).fadeIn();
+//            $(this).siblings().removeClass('active');
+//            $(this).addClass('active');
+            return false;
+        });
+
+    },
+
+    communicationPlatformSelectTab: function(index) {
+        $('.discusitem-content').hide().eq(index).fadeIn();
+        $('#discusitem-tab li').removeClass('active').eq(index).addClass('active');
+
     },
 
     communicationPlatformVote: function (id, vote) {
@@ -90,6 +106,7 @@ var armdMainPage = {
     },
 
     reloadCommunicationPlatform: function () {
+        var currentTabIndex = $('#discusitem-tab li.active').index();
         armdMk.startLoadingBlock('#discus');
         $.ajax({
             url: Routing.generate('armd_main_latest_topics'),
@@ -99,6 +116,7 @@ var armdMainPage = {
                 $('#discus').html(data);
             },
             complete: function () {
+                armdMainPage.communicationPlatformSelectTab(currentTabIndex);
                 armdMk.stopLoadingBlock('#discus');
             }
         });
