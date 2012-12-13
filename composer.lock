@@ -50,9 +50,9 @@
             "source": {
                 "type": "git",
                 "url": "git@git.armd.ru:armdtwigbundle.git",
-                "reference": "7e7f5ee3d6fb7c71cdad9b9583671596f94fa8e4"
+                "reference": "6993b5b6f2e90b68b9a81fa48819df643de2d03b"
             },
-            "time": "2012-12-11 10:33:00",
+            "time": "2012-12-11 12:35:16",
             "type": "armd-twig-bundle",
             "installation-source": "source",
             "autoload": {
