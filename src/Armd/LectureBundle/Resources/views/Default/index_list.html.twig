@@ -145,7 +145,7 @@
                 {% endif %}
 
 
-                <object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="WMP7" width="640" height="480"><param name="URL" value="mms://195.178.211.10:8888/presa3" /></object>
+                {#<object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="WMP7" width="640" height="480"><param name="URL" value="mms://195.178.211.10:8888/presa3" /></object>#}
             {% else %}
                 {% if lecture.lectureVideo is not empty %}
                     {{ armd_tvigle_video_player(lecture.lectureVideo, 500, 375)|raw }}
