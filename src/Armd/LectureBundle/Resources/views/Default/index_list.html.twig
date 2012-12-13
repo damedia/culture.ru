@@ -101,7 +101,7 @@
                     <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lecture.lecturer }}</span></p>
                 {% endif %}
                 <p class="van-description">
-                    {{ lecture.description|truncate(250) }}
+                    {{ lecture.description|armd_truncate_html_chars(250)|raw }}
                 </p>
             {% endif %}
 		</div>
