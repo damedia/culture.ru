@@ -16,4 +16,4 @@ services:
     armd_chronicle.controller.event:
         class: Armd\ChronicleBundle\Controller\EventController
         arguments:
-            container: "@service_container"		
+            container: "@service_container"
