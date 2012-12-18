@@ -493,6 +493,9 @@
 
         {% endif %}
 
+        <!-- Список близлежащих объектов -->
+        {% render 'ArmdAtlasBundle:Default:getNearest' with { id:entity.id, limit:5 } %}
+        <!-- /Список близлежащих объектов -->
 
         {#
         <div class="block object-news">

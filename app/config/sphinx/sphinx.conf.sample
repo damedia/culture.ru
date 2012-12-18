@@ -168,24 +168,30 @@ source mk_atlas_source
     sql_user   = w3mk
     sql_pass   = ohch8aiB
 
-    sql_query       = \
-        SELECT \
+    sql_query  = SELECT \
         o.id, \
         o.title, \
         o.announce, \
         o.content, \
         o.phone, \
+        o.published, \
         o.address, \
-        'atlas_object' AS object_type, \
-        NOW() date_from, \
+        RADIANS(o.lon) as rad_lon, \
+        RADIANS(o.lat) as rad_lat, \
         CASE WHEN o.show_at_russian_image THEN 1 ELSE 0 END show_at_russian_image, \
-            CASE WHEN published THEN 1 ELSE 0 END AS published \
-        FROM atlas_object o \
+        'atlas_object' AS object_type, \
+        NOW() date_from \
+    FROM \
+        atlas_object o \
 
+    sql_attr_bool       = published
     sql_attr_string     = object_type
     sql_attr_timestamp  = date_from
     sql_attr_uint       = show_at_russian_image
-    sql_attr_uint = published
+    sql_attr_float      = rad_lon
+    sql_attr_float      = rad_lat
+
+    sql_ranged_throttle  = 0
 
     sql_query_info      = SELECT * FROM lecture WHERE id=$id
 }

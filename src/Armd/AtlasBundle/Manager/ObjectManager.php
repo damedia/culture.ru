@@ -2,6 +2,7 @@
 
 namespace Armd\AtlasBundle\Manager;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
@@ -20,10 +21,13 @@ class ObjectManager
 
     private $search;
 
-    public function __construct(EntityManager $em, $search)
+    private $container;
+
+    public function __construct(EntityManager $em, $search, $container)
     {
         $this->em = $em;
         $this->search = $search;
+        $this->container = $container;
     }
 
     public function getUserObjects(UserInterface $user)
@@ -154,10 +158,73 @@ class ObjectManager
         return $entity;
     }
 
+    public function getPublishedObjects($ids, $limit=10)
+    {
+        $repo = $this->em->getRepository('ArmdAtlasBundle:Object');
+        $entities = $repo->findBy(
+            array(
+                'published' => true,
+                'id' => $ids,
+            ),
+            array('id' => 'ASC'),
+            $limit
+        );
+
+        return $entities;
+    }
+
     public function updateImageDescription($atlasObject)
     {
         if ($atlasObject->getPrimaryImage() && !$atlasObject->getPrimaryImage()->getDescription()) {
             $atlasObject->getPrimaryImage()->setDescription($atlasObject->getTitle());
         }
     }
+
+    /**
+     * Возвращает список id объектов и удаленность от заданной точки
+     */
+    public function findNearestRussianImages($object, $limit=100, $radius=10000000)
+    {
+        $latitude  = $object->getLat();
+        $longitude = $object->getLon();
+        $circle = (float) $radius * 1.61;
+        $limit++; // потому что исключаем исходный объект
+
+        $search = $this->container->get('search.sphinxsearch.search');
+        $cl = $search->getSphinx();
+        $cl->setGeoAnchor('rad_lat', 'rad_lon', (float) deg2rad($latitude), (float) deg2rad($longitude));
+        $cl->setFilterFloatRange('@geodist', 0.0, $circle);
+        $cl->setFilter('show_at_russian_image', array(1));
+        $cl->setFilter('published', array(1));
+        $cl->setSortMode(SPH_SORT_EXTENDED, '@geodist ASC');
+        $cl->setArrayResult(true);
+        $cl->setLimits(0, $limit);
+
+        // ищем в индексе объекты в радиусе от точки. сортировка по удаленности
+        $result = $cl->query('', 'mk_atlas');
+
+        // обработка результатов запроса
+        if ($result === false)
+            throw new \Exception("Sphinx query failed: " . $cl->getLastError());
+
+        if ($cl->getLastWarning())
+            throw new \Exception("Sphinx query warning: " . $cl->getLastWarning());
+
+        // если есть результаты поиска - обрабатываем их
+        if (! empty($result["matches"])) {
+            $objectIds = array();
+            foreach ($result['matches'] as $i => $m) {
+                if ($i) {
+                    $objectIds[] = array(
+                        'id' => $m['id'],
+                        'distance' => $m['attrs']['@geodist'],
+                    );
+                }
+            }
+
+            return $objectIds;
+        } else
+            return false;
+    }
+
 }
