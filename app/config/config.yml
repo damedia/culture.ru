@@ -364,9 +364,6 @@ services:
         tags:
             - { name: twig.extension }
 
-parameters:
-    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-
 armd_media_helper:
     providers:
         culturetv:
@@ -384,3 +381,12 @@ stfalcon_tinymce:
         simple:
             mode: "textareas"
             theme: "advanced"
+
+fpn_tag:
+    model:
+        tag_class:     Armd\TagBundle\Entity\Tag
+        tagging_class: Armd\TagBundle\Entity\Tagging
+
+parameters:
+    sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+
