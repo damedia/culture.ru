@@ -4,6 +4,7 @@ namespace Armd\TagBundle\Entity;
 use \FPN\TagBundle\Entity\Tagging as BaseTagging;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use DoctrineExtensions\Taggable\Entity\Tag as BaseTag;
 
 /**
  * Acme\TagBundle\Entity\Tagging
@@ -45,7 +46,7 @@ class Tagging extends BaseTagging
      * @param \Armd\TagBundle\Entity\Tag $tag
      * @return Tagging
      */
-    public function setTag(\Armd\TagBundle\Entity\Tag $tag = null)
+    public function setTag(BaseTag $tag = null)
     {
         $this->tag = $tag;
     

@@ -1,0 +1,6 @@
+services:
+    armd_tag.form.type.gender:
+        class: Armd\TagBundle\Form\Type\TagType
+        arguments: [@doctrine]
+        tags:
+            - { name: form.type, alias: armd_tag_selector }

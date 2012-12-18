@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -15,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Object
+class Object implements Taggable
 {
 
     /**
@@ -236,6 +237,7 @@ class Object
      */
     private $seoKeywords;
 
+    private $tags;
 
     public function syncPrimaryAndSecondaryCategories()
     {
@@ -1219,6 +1221,32 @@ class Object
     {
         $this->seoKeywords = $seoKeywords;
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaggableType()
+    {
+        return 'armd_tag_global';
+    }
+
+    /**
+     * @return int
+     */
+    public function getTaggableId()
+    {
+        return $this->getId();
     }
 
 }

@@ -150,30 +150,6 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
         return $file;
     }
 
-//    function createGallery(array $fileNames)
-//    {
-//        $gallery = new Gallery();
-//        $gallery->setContext($this->getContext());
-//        $gallery->setEnabled(true);
-//        $gallery->setName('gallery' . $this->galleryNum++);
-//
-//        $galleryHasMedias = array();
-//        foreach($fileNames as $fileName) {
-//            $media = $this->createMediaImage($fileName);
-//            $this->om->persist($media);
-//
-//            $galleryHasMedia = new GalleryHasMedia();
-//            $galleryHasMedia->setEnabled(true);
-//            $galleryHasMedia->setMedia($media);
-//            $this->om->persist($galleryHasMedia);
-//
-//            $galleryHasMedias[] = $galleryHasMedia;
-//        }
-//        $gallery->setGalleryHasMedias($galleryHasMedias);
-//        $gallery->setDefaultFormat('small');
-//        $this->om->persist($gallery);
-//        return $gallery;
-//    }
 
     public static function getContext() {
         return 'atlas';
