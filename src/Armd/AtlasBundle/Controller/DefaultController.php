@@ -58,13 +58,14 @@ class DefaultController extends Controller
      */
     public function objectViewAction($id)
     {
-        $entity = $this->getObjectManager()->getObject($id);
+        $om = $this->getObjectManager();
+        $entity = $om->getObject($id);
 
-        if ($entity)
+        if ($entity) {
             return array(
                 'entity' => $entity,
             );
-        else
+        } else
             throw new NotFoundHttpException("Page not found");
     }
 
@@ -609,6 +610,47 @@ class DefaultController extends Controller
         return array('objects' => $objects);
     }
 
+    /**
+     * @Route("/nearest/{id}", requirements={"id"="\d+"})
+     * @Route("/nearest/{id}/limit/{limit}", requirements={"id"="\d+", "limit"="\d+"})
+     * @Template()
+     */
+    public function getNearestAction($id, $limit=10)
+    {
+        $om = $this->getObjectManager();
+        $object = $om->getObject($id);
+        $objectsDistance = $om->findNearestRussianImages($object, (int) $limit);
+
+        $ids = array();
+        foreach ($objectsDistance as $item) {
+            $ids[] = $item['id'];
+        }
+
+        $objectsByIds = array();
+        $entities = $om->getPublishedObjects($ids, $limit);
+        foreach ($entities as $entity) {
+            $objectsByIds[$entity->getId()] = $entity;
+        }
+
+        $resultObjects = array();
+        foreach ($objectsDistance as $object) {
+            $resultObjects[] = array(
+                'id' => $object['id'],
+                'distance' => $object['distance'],
+                'entity' => $objectsByIds[$object['id']],
+            );
+        }
+
+        //var_dump($resultObjects);
+
+        return array(
+            'objects' => $resultObjects,
+        );
+    }
+
+    /**
+     * @return \Armd\AtlasBundle\Manager\ObjectManager
+     */
     public function getObjectManager()
     {
         return $this->get('armd_atlas.manager.object');
@@ -623,4 +665,5 @@ class DefaultController extends Controller
     {
 
     }
+
 }
