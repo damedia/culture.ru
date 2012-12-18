@@ -1,24 +1,26 @@
-<div class="block object-archives">
-    <p class="link_header"><a style="border-bottom:none;">Поблизости</a></p>
-    <ul class="object-archive-list">
-    {% for object in objects %}
-        <li>
-            <a href="{{ path('armd_atlas_default_object_view', { id:object.entity.id }) }}">
-                <span class="preview">
-                    <img style="display:block;" src="{% path object.entity.primaryImage, 'thumbnail' %}"/>
+{% if objects %}
+    <div class="block object-archives">
+        <p class="link_header"><a style="border-bottom:none;">Поблизости</a></p>
+        <ul class="object-archive-list">
+        {% for object in objects %}
+            <li>
+                <a href="{{ path('armd_atlas_default_object_view', { id:object.entity.id }) }}">
+                    <span class="preview">
+                        <img style="display:block;" src="{% path object.entity.primaryImage, 'thumbnail' %}"/>
+                    </span>
+                    {{ object.entity.title }}
+                </a>
+                <span>
+                    {% if object.distance > 1 and object.distance < 1000 %}
+                        {{ '%d м'|format(object.distance) }}
+                    {% elseif object.distance > 1000 and object.distance < 10000 %}
+                        {{ '%0.1f км'|format(object.distance/1000) }}
+                    {% else %}
+                        {{ '%d км'|format(object.distance/1000) }}
+                    {% endif %}
                 </span>
-                {{ object.entity.title }}
-            </a>
-            <span>
-                {% if object.distance > 1 and object.distance < 1000 %}
-                    {{ '%d м'|format(object.distance) }}
-                {% elseif object.distance > 1000 and object.distance < 10000 %}
-                    {{ '%0.1f км'|format(object.distance/1000) }}
-                {% else %}
-                    {{ '%d км'|format(object.distance/1000) }}
-                {% endif %}
-            </span>
-        </li>
-    {% endfor %}
-    </ul>
-</div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}
