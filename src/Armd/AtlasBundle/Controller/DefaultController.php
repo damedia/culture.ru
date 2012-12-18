@@ -617,35 +617,40 @@ class DefaultController extends Controller
      */
     public function getNearestAction($id, $limit=10)
     {
-        $om = $this->getObjectManager();
-        $object = $om->getObject($id);
-        $objectsDistance = $om->findNearestRussianImages($object, (int) $limit);
+        try {
+            $om = $this->getObjectManager();
+            $object = $om->getObject($id);
+            $objectsDistance = $om->findNearestRussianImages($object, (int) $limit);
 
-        $ids = array();
-        foreach ($objectsDistance as $item) {
-            $ids[] = $item['id'];
-        }
+            $ids = array();
+            foreach ($objectsDistance as $item) {
+                $ids[] = $item['id'];
+            }
 
-        $objectsByIds = array();
-        $entities = $om->getPublishedObjects($ids, $limit);
-        foreach ($entities as $entity) {
-            $objectsByIds[$entity->getId()] = $entity;
-        }
+            $objectsByIds = array();
+            $entities = $om->getPublishedObjects($ids, $limit);
+            foreach ($entities as $entity) {
+                $objectsByIds[$entity->getId()] = $entity;
+            }
 
-        $resultObjects = array();
-        foreach ($objectsDistance as $object) {
-            $resultObjects[] = array(
-                'id' => $object['id'],
-                'distance' => $object['distance'],
-                'entity' => $objectsByIds[$object['id']],
+            $resultObjects = array();
+            foreach ($objectsDistance as $object) {
+                $resultObjects[] = array(
+                    'id' => $object['id'],
+                    'distance' => $object['distance'],
+                    'entity' => $objectsByIds[$object['id']],
+                );
+            }
+
+            return array(
+                'objects' => $resultObjects,
+            );
+
+        } catch (\Exception $e) {
+            return array(
+                'objects' => false,
             );
         }
-
-        //var_dump($resultObjects);
-
-        return array(
-            'objects' => $resultObjects,
-        );
     }
 
     /**
