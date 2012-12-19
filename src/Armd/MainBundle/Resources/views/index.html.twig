@@ -52,7 +52,7 @@
 
 {% block index_article %}
 
-    {% if app.request.locale == 'ru' %}
+    {% if app.request.locale == 'ru' and events is not empty%}
         {# last event #}
         {% set event = random(events) %}
         <div class="online-index">

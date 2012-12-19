@@ -39,7 +39,7 @@ class TagLoader implements EntityLoaderInterface
      */
     public function getEntitiesByIds($identifier, array $values)
     {
-        $tags = $this->getQueryBuilder()->andWhere('t.tags in :tags')
+        $tags = $this->getQueryBuilder()->andWhere('t in (:tags)')
             ->setParameter('tags', $values)
             ->getQuery()->getResult();
         return $tags;
@@ -57,4 +57,5 @@ class TagLoader implements EntityLoaderInterface
 
         return $qb;
     }
+
 }

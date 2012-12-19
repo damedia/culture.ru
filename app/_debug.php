@@ -65,6 +65,12 @@ class gFuncs
         self::dbgWriteLog($prefix . "\r\n" . $mes, $logFile);
     }
 
+    public static function dbgWriteLogDoctrine($var, $level, $clearLog = false, $prefix = "", $logFile = LOG_FILE)
+    {
+        $var = \Doctrine\Common\Util\Debug::export($var, $level);
+        self::dbgWriteLogVar($var, $clearLog, $prefix, $logFile);
+    }
+
     public static function dbgPrint($var)
     {
         echo "<pre>***\n", htmlspecialchars(print_r($var, true)), "\n***\n</pre>";

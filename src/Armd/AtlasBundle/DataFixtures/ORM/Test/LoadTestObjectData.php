@@ -123,6 +123,10 @@ class LoadTestObjectData extends AbstractFixture implements OrderedFixtureInterf
             }
         }
 
+        if (!empty($data['createdBy'])) {
+            $object->setCreatedBy($this->getReference($data['createdBy']));
+        }
+
         if (!empty($data['ref_code'])) {
             $this->addReference($data['ref_code'], $object);
         }

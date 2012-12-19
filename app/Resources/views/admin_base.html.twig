@@ -3,6 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('js/libs/select2/select2.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}" type="text/css" media="all" />
 {% endblock%}
 
@@ -23,10 +24,15 @@
     {{ tinymce_init() }}
 
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/libs/select2/select2.js') }}"></script>
 
     <script type="text/javascript">
         $(function(){
             $('.chzn-select').chosen();
+            $('.select2-tags').select2({
+                tags: ['123', '324'],
+                tokenSeparators: [',', ' ']
+            });
         });
     </script>
 

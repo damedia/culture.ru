@@ -1,0 +1,19 @@
+tags:
+  - object: armd_atlas.object.object1
+    tag: tag1
+
+  - object: armd_atlas.object.object1
+    tag: tag2
+
+  - object: armd_atlas.object.object1
+    tag: tag3
+
+  - object: armd_atlas.object.object2
+    tag: tag1
+
+  - object: armd_atlas.object.object2
+    tag: tag2
+
+  - object: armd_atlas.object.object2
+    tag: tag3
+

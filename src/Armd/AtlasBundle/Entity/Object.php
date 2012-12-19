@@ -1233,6 +1233,13 @@ class Object implements Taggable
         return $this->tags;
     }
 
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
     /**
      * @return string
      */

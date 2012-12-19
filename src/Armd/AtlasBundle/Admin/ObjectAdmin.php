@@ -81,7 +81,10 @@ class ObjectAdmin extends Admin
                 ->add('showAtHomepage', null,
                     array('required' => false)
                 )
-                ->add('tags', 'armd_tag_selector', array('taggable_type' => 'armd_tag_global'))
+                ->add('tags', 'armd_tag_selector', array(
+                    'taggable_type' => 'armd_tag_global',
+                    'attr' => array('class' => 'select2-tags'),
+                ))
                 ->add('isOfficial', null, array('required' => false))
                 ->add('status')
                 ->add('reason')
