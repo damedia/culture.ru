@@ -18,19 +18,19 @@ class LectureRolePerson
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\LectureBundle\Entity\Lecture", inversedBy="roles_persons")
+     * @ORM\ManyToOne(targetEntity="\Armd\LectureBundle\Entity\Lecture", cascade={"persist"}, inversedBy="rolesPersons")
      * @ORM\JoinColumn(name="lecture_id", referencedColumnName="id")
      */
     private $lecture;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\LectureBundle\Entity\LectureRole", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="\Armd\LectureBundle\Entity\LectureRole", cascade={"persist"})
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\LectureBundle\Entity\LecturePerson", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="\Armd\LectureBundle\Entity\LecturePerson", cascade={"persist"})
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Table(name="lecture")
  * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class Lecture
 {
@@ -116,7 +116,7 @@ class Lecture
     private $seoKeywords;
 
     /**
-     * @ORM\OneToMany(targetEntity="LectureRolePerson", mappedBy="lecture")
+     * @ORM\OneToMany(targetEntity="\Armd\LectureBundle\Entity\LectureRolePerson", mappedBy="lecture")
      */
     private $rolesPersons;
 
@@ -450,5 +450,22 @@ class Lecture
     public function getRolesPersons()
     {
         return $this->rolesPersons;
+    }
+
+    /**
+     * Add rolesPersons
+     *
+     * @param \Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons
+     * @return Lecture
+     */
+    public function addRolesPersons($rolesPersons)
+    {
+        if (is_array($rolesPersons) || ($rolesPersons instanceof ArrayCollection)) {
+            foreach ($rolesPersons as $obj) {
+                $this->addRolesPerson($obj);
+            }
+        } else {
+            $this->addRolesPerson($rolesPersons);
+        }
     }
 }

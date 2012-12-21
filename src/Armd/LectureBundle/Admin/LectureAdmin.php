@@ -111,15 +111,24 @@ class LectureAdmin extends Admin
                 )
             ->end()
             ->with('Roles and persons')
-                //->add('rolesPersons', 'sonata_type_admin', array(), array('required' => false, 'edit' => 'inline'))
-                ///*
+                /*
                 ->add('rolesPersons', 'sonata_type_model', array(
                     'label' => 'Roles',
                     'by_reference' => false,
                     'multiple' => true,
                     'expanded' => true,
                 ))
-                //*/
+                */
+                ->add('rolesPersons', 'sonata_type_collection',
+                    array(
+                        'by_reference' => false,
+                        'required' => true,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    )
+                )
             ->end()
         ;
     }

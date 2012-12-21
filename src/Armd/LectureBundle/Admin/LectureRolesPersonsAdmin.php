@@ -20,27 +20,25 @@ class LectureRolesPersonsAdmin extends Admin
      */
     protected function configureShowField(ShowMapper $showMapper)
     {
-
         $showMapper
-            ->add('name');
+            ->add('name')
+        ;
     }
 
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-           ->add('lecture')
-           ->add('role')
-           ->add('person')
+            ->add('lecture')
+            ->add('role')
+            ->add('person')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-           ->add('role')
-           ->add('person')
+            ->add('role')
+            ->add('person')
         ;
     }
-
-
 }
