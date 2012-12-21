@@ -74,6 +74,7 @@ class LectureAdmin extends Admin
                     'super_type' => $superType
                 )
             )
+            ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('lecturer')
             ->add('recommended')
             ->with('SEO')
@@ -142,8 +143,24 @@ class LectureAdmin extends Admin
     {
         $themes = parent::getFormTheme();
         $themes[] = 'ArmdLectureBundle:Form:fields.html.twig';
-        $themes[] = 'ArmdMediaHelperBundle:Form:fields.html.twig';
         return $themes;
+    }
+
+    public function postPersist($object)
+    {
+        parent::postPersist($object);
+        $this->saveTagging($object);
+    }
+
+    public function postUpdate($object)
+    {
+        parent::postUpdate($object);
+        $this->saveTagging($object);
+    }
+
+    protected function saveTagging($object)
+    {
+        $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
     }
 
 }

@@ -78,6 +78,10 @@ class ObjectAdmin extends Admin
                     'required' => true,
                     'attr' => array('class' => 'chzn-select atlas-object-categories-select')
                 ))
+                ->add('tags', 'armd_tag', array(
+                    'required' => false,
+                    'attr' => array('class' => 'select2-tags'),
+                ))
                 ->add('showAtHomepage', null,
                     array('required' => false)
                 )
@@ -213,7 +217,6 @@ class ObjectAdmin extends Admin
                 )
             ->end()
         ;
-//        echo get_class($this->container->get('armd_tvigle.admin.tvigle'));
         parent::configureFormFields($formMapper);
     }
 
@@ -295,8 +298,24 @@ class ObjectAdmin extends Admin
     public function getFormTheme() {
         $themes = parent::getFormTheme();
         $themes[] = 'ArmdAtlasBundle:Form:fields.html.twig';
-        $themes[] = 'ArmdMediaHelperBundle:Form:fields.html.twig';
         return $themes;
+    }
+
+    public function postPersist($object)
+    {
+        parent::postPersist($object);
+        $this->saveTagging($object);
+    }
+
+    public function postUpdate($object)
+    {
+        parent::postUpdate($object);
+        $this->saveTagging($object);
+    }
+
+    protected function saveTagging($object)
+    {
+        $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
     }
 
 }

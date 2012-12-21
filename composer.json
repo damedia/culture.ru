@@ -43,7 +43,8 @@
         "armd/banner-bundle": "dev-master#1f3a34bc8b7d5fb3c68a7fa6c42a91a89f4c86de",
         "armd/sphinx-search-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
-        "armd/twig-bundle": "*"
+        "armd/twig-bundle": "*",
+        "fpn/tag-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
