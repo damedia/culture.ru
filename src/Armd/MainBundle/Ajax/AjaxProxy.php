@@ -92,11 +92,6 @@ class AjaxProxy
 
         $response = curl_exec($ch);
 
-        \gFuncs::dbgWriteLogVar(curl_getinfo($ch, CURLINFO_HEADER_OUT), false, 'header sent'); // DBG:
-        \gFuncs::dbgWriteLogVar($params, false, 'data sent'); // DBG:
-        \gFuncs::dbgWriteLogVar($cookieArray, false, 'cookies sent'); // DBG:
-        \gFuncs::dbgWriteLogVar($response, false, 'response got'); // DBG:
-
         curl_close($ch);
 
         list($headers, $response) = explode("\r\n\r\n", $response, 2);

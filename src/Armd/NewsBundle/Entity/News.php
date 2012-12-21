@@ -3,11 +3,13 @@
 namespace Armd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Taggable\Taggable;
 use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\NewsBundle\Model\News as BaseNews;
 use Armd\MkCommentBundle\Model\CommentableInterface;
 use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  *
@@ -15,7 +17,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
  * @ORM\Table(name="content_news")
  * @ORM\HasLifecycleCallbacks
  */
-class News extends BaseNews implements CommentableInterface
+class News extends BaseNews implements CommentableInterface, Taggable
 {
     /**
      * @ORM\Id
@@ -178,6 +180,8 @@ class News extends BaseNews implements CommentableInterface
      * @ORM\Column(name="seo_keywords", type="text", nullable=true)
      */
     private $seoKeywords;
+
+    private $tags;
 
     public function __construct()
     {
@@ -834,4 +838,36 @@ class News extends BaseNews implements CommentableInterface
         return $this->isPromoted;
     }
 
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaggableType()
+    {
+        return 'armd_tag_global';
+    }
+
+    /**
+     * @return int
+     */
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
 }

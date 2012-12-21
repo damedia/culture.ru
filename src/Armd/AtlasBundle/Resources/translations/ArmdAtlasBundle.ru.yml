@@ -45,12 +45,15 @@ Archive Images: Архивные изображения
 Icon Media: Иконка
 Description: Описание
 Primary Category: Иконка на карте
-Secondary Categories: Теги
+Secondary Categories: Категории
+Tags: Теги
 Literature: Список литературы
 Literatures: Список литературы
 Hints: Подсказки
 Object Hints: Подсказки
 Hint Text: Текст (резделитель страниц "---")
+Classification: Классификация
+Moderation: Модерация
 
 Coordinates Are Empty: Не заданы координаты
 Category: Теги

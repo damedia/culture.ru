@@ -3,6 +3,7 @@
 namespace Armd\LectureBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Lecture
+class Lecture implements Taggable
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -114,6 +115,8 @@ class Lecture
      * @ORM\Column(name="seo_keywords", type="text", nullable=true)
      */
     private $seoKeywords;
+
+    private $tags;
 
     public function __construct()
     {
@@ -383,4 +386,38 @@ class Lecture
     {
         $this->seoKeywords = $seoKeywords;
     }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaggableType()
+    {
+        return 'armd_tag_global';
+    }
+
+    /**
+     * @return int
+     */
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
+
 }

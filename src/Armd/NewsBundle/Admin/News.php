@@ -57,11 +57,14 @@ class News extends Admin
                 ->add('title')
                 ->add('announce')
                 ->add('body')
+                ->add('source')
+            ->end()
+            ->with('Classification')
                 ->add('category')
-                ->add('subject', null, array('required' => false))                
-                ->add('source')                
+                ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
+                ->add('subject', null, array('required' => false))
                 ->add('important', null, array('required' => false))
-                ->add('priority')                                
+                ->add('priority')
             ->end()
             ->with('Publish')
                 ->add('published', null, array('required' => false))
@@ -118,6 +121,7 @@ class News extends Admin
             ->add('subject')            
             ->add('published')
             ->add('important')
+            ->add('isOnMap')
         ;
     }
 
@@ -132,4 +136,23 @@ class News extends Admin
                 break;
         }
     }
+
+
+    public function postPersist($object)
+    {
+        parent::postPersist($object);
+        $this->saveTagging($object);
+    }
+
+    public function postUpdate($object)
+    {
+        parent::postUpdate($object);
+        $this->saveTagging($object);
+    }
+
+    protected function saveTagging($object)
+    {
+        $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
+    }
+
 }
