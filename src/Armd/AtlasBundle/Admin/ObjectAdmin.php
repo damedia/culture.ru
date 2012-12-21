@@ -67,6 +67,7 @@ class ObjectAdmin extends Admin
 //                ->add('categories', 'sonata_type_model',
 //                    array('multiple' => true, 'expanded' => true)
 //                )
+            ->with('Classification')
                 ->add('primaryCategory', 'armd_atlas_object_categories',
                 array(
                     'multiple' => false,
@@ -85,7 +86,9 @@ class ObjectAdmin extends Admin
                 ->add('showAtHomepage', null,
                     array('required' => false)
                 )
-                ->add('isOfficial', null, array('required' => false))
+            ->add('isOfficial', null, array('required' => false))
+            ->end()
+            ->with('Moderation')
                 ->add('status')
                 ->add('reason')
             ->end()
