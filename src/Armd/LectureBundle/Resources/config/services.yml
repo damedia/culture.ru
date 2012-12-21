@@ -6,6 +6,11 @@ services:
         tags:
             - { name: form.type, alias: armd_lecture_categories }
 
+    armd_lecture.type.armd_lecture_roles_persons:
+        class: Armd\LectureBundle\Form\Type\LectureRolesPersonsType
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: form.type, alias: armd_lecture_roles_persons }
 
     armd_lecture.listener.media:
         class: Armd\LectureBundle\EventListener\MediaListener
