@@ -2,75 +2,60 @@
 namespace Armd\TagBundle\Form\Type;
 
 use Armd\TagBundle\Form\EventListener\TagSubscriber;
+use Doctrine\ORM\EntityManager;
+use FPN\TagBundle\Entity\TagManager;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Armd\TagBundle\Form\DataTransformer\TagTransformer;
 use DoctrineExtensions\Taggable\Taggable;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\OptionsResolver\Options;
-use Armd\TagBundle\Form\Loader\TagLoader;
-use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class TagType extends DoctrineType
+class TagType extends AbstractType
 {
     private $tagManager;
+    private $em;
 
-    public function __construct(ManagerRegistry $registry, \FPN\TagBundle\Entity\TagManager $tagManager)
+    public function __construct(EntityManager $em, TagManager $tagManager)
     {
-        parent::__construct($registry);
-
         $this->tagManager = $tagManager;
+        $this->em = $em;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $subscriber = new TagSubscriber($this->tagManager);
-        $builder->addEventSubscriber($subscriber);
+        $builder->addEventSubscriber(new TagSubscriber($this->tagManager))
+            ->addModelTransformer(new TagTransformer($this->tagManager));
 
-        parent::buildForm($builder, $options);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        parent::setDefaultOptions($resolver);
+    public function buildView(FormView $view, FormInterface $form, array $options) {
+        $data = $form->getParent()->getData();
+        if ($data instanceof Taggable) {
+            $tags = $this->em->getRepository('ArmdTagBundle:Tag')->findAll();
+            $allTags = array();
+            foreach($tags as $tag) {
+                $allTags[] = $tag->getName();
+            }
 
-        $type = $this;
-
-        $loader = function (Options $options) use ($type) {
-            return new TagLoader($options['taggable_type'], $options['em']);
-        };
-
-        $resolver->setDefaults(
-            array(
-//                'taggable_type' => null,
-                'class' => 'ArmdTagBundle:Tag',
-                'loader' => $loader,
-                'multiple' => true,
-            )
-        );
-        $resolver->setRequired(array('taggable_type'));
+        } else {
+            $allTags = array();
+        }
+        $view->vars['all_tags'] = $allTags;
     }
-
 
     public function getName()
     {
-        return 'armd_tag_selector';
+        return 'armd_tag';
     }
 
-    /**
-     * Return the default loader object.
-     *
-     * @param ObjectManager $manager
-     * @param mixed         $queryBuilder
-     * @param string        $class
-     *
-     * @throws \LogicException
-     * @return EntityLoaderInterface
-     */
-    public function getLoader(ObjectManager $manager, $queryBuilder, $class)
+    public function getParent()
     {
-        // this method is not used
-        throw new \LogicException('TagType::getLoader must not be called');
+        return 'text';
     }
+
+
+
 }

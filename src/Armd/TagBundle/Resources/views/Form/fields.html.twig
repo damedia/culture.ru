@@ -1,0 +1,6 @@
+{% block armd_tag_widget %}
+    {% spaceless %}
+        {% set type = type|default('text') %}
+        <input type="{{ type }}" {{ block('widget_attributes') }} data-tags="{{ all_tags|json_encode }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endspaceless %}
+{% endblock %}

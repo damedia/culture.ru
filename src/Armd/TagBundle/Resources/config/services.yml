@@ -1,12 +1,6 @@
 services:
-    armd_tag.form.type.gender:
+    armd_tag.form.type.tag:
         class: Armd\TagBundle\Form\Type\TagType
-        arguments: [@doctrine, @fpn_tag.tag_manager]
+        arguments: [@doctrine.orm.entity_manager, @fpn_tag.tag_manager]
         tags:
-            - { name: form.type, alias: armd_tag_selector }
-
-    armd_tag.listener.taggable:
-        class: Armd\TagBundle\EventListener\TaggableListener
-        arguments: [@service_container]
-        tags:
-            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: form.type, alias: armd_tag }

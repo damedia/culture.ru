@@ -29,9 +29,14 @@
     <script type="text/javascript">
         $(function(){
             $('.chzn-select').chosen();
+
+            // Init tags.
+            // This is quick and dirty solution to extract available tags
+            var tags = $('.select2-tags').data('tags');
             $('.select2-tags').select2({
-                tags: ['123', '324'],
-                tokenSeparators: [',', ' ']
+                tags: tags,
+                tokenSeparators: [','],
+                width: '450px'
             });
         });
     </script>

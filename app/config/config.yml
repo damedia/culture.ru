@@ -25,6 +25,10 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         progorod_api_key: %progorod_api_key%
+    form:
+        resources:
+             - 'ArmdMediaHelperBundle:Form:fields.html.twig'
+             - 'ArmdTagBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
