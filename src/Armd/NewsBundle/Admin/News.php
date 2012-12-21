@@ -121,6 +121,7 @@ class News extends Admin
             ->add('subject')            
             ->add('published')
             ->add('important')
+            ->add('isOnMap')
         ;
     }
 
