@@ -61,22 +61,24 @@ class LectureAdmin extends Admin
         $lecture->setLectureSuperType($superType);
 
         $formMapper
-            ->add('published')
-            ->add('title')
-            ->add('description', null, array(
-                'attr' => array('class' => 'tinymce'),
-            ))
-            ->add('lectureType')
-            ->add('categories', 'armd_lecture_categories',
-                array(
-                    'required' => false,
-                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                    'super_type' => $superType
+            ->with('General')
+                ->add('published')
+                ->add('title')
+                ->add('description', null, array(
+                    'attr' => array('class' => 'tinymce'),
+                ))
+                ->add('lectureType')
+                ->add('categories', 'armd_lecture_categories',
+                    array(
+                        'required' => false,
+                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                        'super_type' => $superType
+                    )
                 )
-            )
-            ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
-            ->add('lecturer')
-            ->add('recommended')
+                ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
+                ->add('lecturer')
+                ->add('recommended')
+            ->end()
             ->with('SEO')
                 ->add('seoTitle')
                 ->add('seoKeywords')
@@ -98,15 +100,38 @@ class LectureAdmin extends Admin
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
                 ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
-            ->add('lectureFile', 'armd_media_file_type',
-                array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'lecture',
-                    'media_provider' => 'sonata.media.provider.file',
-                    'media_format' => 'default'
+            ->with('Lecture file')
+                ->add('lectureFile', 'armd_media_file_type',
+                    array(
+                        'required' => false,
+                        'with_remove' => true,
+                        'media_context' => 'lecture',
+                        'media_provider' => 'sonata.media.provider.file',
+                        'media_format' => 'default'
+                    )
                 )
-            );
+            ->end()
+            ->with('Roles and persons')
+                /*
+                ->add('rolesPersons', 'sonata_type_model', array(
+                    'label' => 'Roles',
+                    'by_reference' => false,
+                    'multiple' => true,
+                    'expanded' => true,
+                ))
+                */
+                ->add('rolesPersons', 'sonata_type_collection',
+                    array(
+                        'by_reference' => false,
+                        'required' => true,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    )
+                )
+            ->end()
+        ;
     }
 
 

@@ -73,4 +73,15 @@ class LectureManager
 
         return $pagination;
     }
+
+    public function getStructuredRolesPersons(\Armd\LectureBundle\Entity\Lecture $lecture)
+    {
+        $res = array();
+        foreach ($lecture->getRolesPersons() as $rp) {
+            $res[$rp->getRole()->getName()][] = $rp->getPerson();
+        }
+
+        return $res;
+    }
+
 }

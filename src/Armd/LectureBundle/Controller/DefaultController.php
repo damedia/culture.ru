@@ -129,9 +129,13 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Lecture not found');
         }
 
+        $manager = $this->get('armd_lecture.manager.lecture');
+        $rolesPersons = $manager->getStructuredRolesPersons($lecture);
+
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'lecture' => $lecture,
-            'lectureVersion' => $version
+            'lectureVersion' => $version,
+            'lectureRolesPersons' => $rolesPersons,
         ));
     }
 

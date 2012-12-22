@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Table(name="lecture")
  * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class Lecture implements Taggable
 {
@@ -118,9 +118,20 @@ class Lecture implements Taggable
 
     private $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Armd\LectureBundle\Entity\LectureRolePerson", mappedBy="lecture")
+     */
+    private $rolesPersons;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->rolesPersons = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 
     /**
@@ -149,15 +160,14 @@ class Lecture implements Taggable
     }
 
     public function getDescription()
-     {
-         return $this->description;
-     }
+    {
+        return $this->description;
+    }
 
-     public function setDescription($description)
-     {
-         $this->description = $description;
-     }
-
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
     public function getCreatedAt()
     {
@@ -400,7 +410,42 @@ class Lecture implements Taggable
     public function setTags($tags)
     {
         $this->tags = $tags;
+    }
 
+    /*
+     * Add categories
+     *
+     * @param \Armd\LectureBundle\Entity\LectureCategory $categories
+     * @return Lecture
+     */
+    public function addCategorie(\Armd\LectureBundle\Entity\LectureCategory $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Armd\LectureBundle\Entity\LectureCategory $categories
+     */
+    public function removeCategorie(\Armd\LectureBundle\Entity\LectureCategory $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+
+    /**
+     * Add rolesPersons
+     *
+     * @param \Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons
+     * @return Lecture
+     */
+    public function addRolesPerson(\Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons)
+    {
+        $this->rolesPersons[] = $rolesPersons;
+    
         return $this;
     }
 
@@ -420,4 +465,40 @@ class Lecture implements Taggable
         return $this->getId();
     }
 
+    /*
+     * Remove rolesPersons
+     *
+     * @param \Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons
+     */
+    public function removeRolesPerson(\Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons)
+    {
+        $this->rolesPersons->removeElement($rolesPersons);
+    }
+
+    /**
+     * Get rolesPersons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRolesPersons()
+    {
+        return $this->rolesPersons;
+    }
+
+    /**
+     * Add rolesPersons
+     *
+     * @param \Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons
+     * @return Lecture
+     */
+    public function addRolesPersons($rolesPersons)
+    {
+        if (is_array($rolesPersons) || ($rolesPersons instanceof ArrayCollection)) {
+            foreach ($rolesPersons as $obj) {
+                $this->addRolesPerson($obj);
+            }
+        } else {
+            $this->addRolesPerson($rolesPersons);
+        }
+    }
 }

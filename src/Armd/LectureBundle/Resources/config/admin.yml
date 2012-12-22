@@ -13,6 +13,12 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Lectures, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
 
+    armd_lecture.sonata_admin.lecture_roles_persons:
+        class: Armd\LectureBundle\Admin\LectureRolesPersonsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Roles persons, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\LectureRolePerson, SonataAdminBundle:CRUD]
+
     # translation
     armd_lecture.sonata_admin.lecture_translation_category:
         class: Armd\LectureBundle\Admin\LectureTranslationCategoryAdmin
