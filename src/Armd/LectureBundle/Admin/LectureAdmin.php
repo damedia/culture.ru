@@ -112,14 +112,13 @@ class LectureAdmin extends Admin
                 )
             ->end()
             ->with('Roles and persons')
-                /*
                 ->add('rolesPersons', 'sonata_type_model', array(
                     'label' => 'Roles',
                     'by_reference' => false,
                     'multiple' => true,
                     'expanded' => true,
                 ))
-                */
+                /*
                 ->add('rolesPersons', 'sonata_type_collection',
                     array(
                         'by_reference' => false,
@@ -130,6 +129,7 @@ class LectureAdmin extends Admin
                         'inline' => 'table',
                     )
                 )
+                */
             ->end()
         ;
     }

@@ -9,11 +9,23 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 
-class LectureRolesPersonsAdmin extends Admin
+class LectureRoleAdmin extends Admin
 {
     protected $translationDomain = 'ArmdLectureBundle';
 
     /**
+     * List view
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('name')
+        ;
+    }
+
+    /**
+     * Show view
+     *
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
      * @return void
@@ -21,28 +33,20 @@ class LectureRolesPersonsAdmin extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('lecture')
-            ->add('role')
-            ->add('person')
+            ->add('name')
         ;
     }
 
+    /**
+     * Edit view
+     *
+     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('lecture')
-            ->add('role')
-            ->add('person')
+            ->add('name')
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper
-            ->addIdentifier('id')
-            ->add('lecture')
-            ->add('role')
-            ->add('person')
-        ;
-    }
 }
