@@ -24,10 +24,8 @@
     {% endblock %}
 
     {% block stylesheets %}
-        {% stylesheets
-            '@FOSCommentBundle/Resources/assets/css/comments.css'
-        %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
 
         <link href='http://fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -44,134 +42,135 @@
     <div id="armd_messages" style="display: none;"></div>
     {% include ':Frontend:counters_top.html.twig' %}
 
+    <div class="container">
+        <header class="main-header clearfix">
+            <a class="logo" title="Культура.рф"></a>
 
-<div class="container">
-<header class="main-header clearfix">
-    <a class="logo" title="Культура.рф"></a>
-
-    <div class="header-top-right clearfix">
-        <div class="lk-top">
-            <a href="#">Регистрация</a> /
-            <a href="#">Вход</a>
-        </div>
-        <a href="#" class="lang-chooser"></a>
-        <a href="#" class="aa"></a>
-    </div>
-    <nav class="main-menu">
-        <ul class="main-menu-level1">
-            <li><a href="#">Главная</a></li>
-            <li class="active"><a href="#">События</a></li>
-            <li><a href="#">Информация</a></li>
-            <li><a href="#">Общение</a></li>
-            <li><a href="#">Спецпроекты</a></li>
-        </ul>
-        <ul class="main-menu-submenu">
-            <li><a href="#"><span>Атлас</span></a></li>
-            <li><a href="#"><span>Образы России</span></a></li>
-            <li><a href="#"><span>Мероприятия</span></a></li>
-            <li><a href="#"><span>Виртуальные музеи</span></a></li>
-            <li class="active"><a href="#"><span>Кинозал</span></a></li>
-            <li><a href="#"><span>Лента времени</span></a></li>
-            <li><a href="#"><span>Духовные традиции</span></a></li>
-
-        </ul>
-    </nav>
-
-</header>
-<div class="nav-header">
-    <h1>События</h1>
-
-    <div class="search-panel">
-        <div class="search-dates">
-            <span class="search-dates-label">Период:</span>
-
-            <div class="dates-chooser">
-                <a href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#">01.01.2012</a>
-
-                <div id="datapicker"></div>
+            <div class="header-top-right clearfix">
+                <div class="lk-top">
+                    <a href="#">Регистрация</a> /
+                    <a href="#">Вход</a>
+                </div>
+                <a href="#" class="lang-chooser"></a>
+                <a href="#" class="aa"></a>
             </div>
-            <a href="#" class="button search-dates-button">Показать</a>
-        </div>
-        <div class="search-top clearfix">
-            <form action="">
-                <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
-                <input type="submit" value="Поиск" class="button search-btn"/>
-            </form>
-            <div class="search-checkboxes">
-                <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
-                <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
+            <nav class="main-menu">
+                <ul class="main-menu-level1">
+                    <li><a href="#">Главная</a></li>
+                    <li class="active"><a href="#">События</a></li>
+                    <li><a href="#">Информация</a></li>
+                    <li><a href="#">Общение</a></li>
+                    <li><a href="#">Спецпроекты</a></li>
+                </ul>
+                <ul class="main-menu-submenu">
+                    <li><a href="#"><span>Атлас</span></a></li>
+                    <li><a href="#"><span>Образы России</span></a></li>
+                    <li><a href="#"><span>Мероприятия</span></a></li>
+                    <li><a href="#"><span>Виртуальные музеи</span></a></li>
+                    <li class="active"><a href="#"><span>Кинозал</span></a></li>
+                    <li><a href="#"><span>Лента времени</span></a></li>
+                    <li><a href="#"><span>Духовные традиции</span></a></li>
+
+                </ul>
+            </nav>
+        </header>
+
+        {% block nav_header %}
+            <div class="nav-header">
+                <h1>События</h1>
+
+                <div class="search-panel">
+                    <div class="search-dates">
+                        <span class="search-dates-label">Период:</span>
+
+                        <div class="dates-chooser">
+                            <a href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#">01.01.2012</a>
+
+                            <div id="datapicker"></div>
+                        </div>
+                        <a href="#" class="button search-dates-button">Показать</a>
+                    </div>
+                    <div class="search-top clearfix">
+                        <form action="">
+                            <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
+                            <input type="submit" value="Поиск" class="button search-btn"/>
+                        </form>
+                        <div class="search-checkboxes">
+                            <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
+                            <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
+                        </div>
+                    </div>
+                </div>
             </div>
+        {% endblock %}
+
+        <div class="main clearfix">
+            {% block body %}{% endblock %}
         </div>
-    </div>
-</div>
 
-<div class="main clearfix">
-    {% block body %}{% endblock %}
-</div>
-
-<footer class="main-footer clearfix">
-    <div class="footer-copyright">
-        <p>
-            Министерство культуры<br/>Российской Федерации.
-        </p>
-    </div>
-
-    <div class="footer-social">
-        <div class="footer-banners">
-            {% include ':Frontend:counters_bottom.html.twig' %}
-        </div>
-        <div class="footer-share">
-            <p>
-                Рассказать о портале
-            </p>
-
-            <div class="social-links">
-                <a href="#"></a>
+        <footer class="main-footer clearfix">
+            <div class="footer-copyright">
+                <p>
+                    Министерство культуры<br/>Российской Федерации.
+                </p>
             </div>
-        </div>
+
+            <div class="footer-social">
+                <div class="footer-banners">
+                    {% include ':Frontend:counters_bottom.html.twig' %}
+                </div>
+                <div class="footer-share">
+                    <p>
+                        Рассказать о портале
+                    </p>
+
+                    <div class="social-links">
+                        <a href="#"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <p>© Портал культурного наследия России</p>
+                <ul>
+                    <li><a href="#">О проекте</a></li>
+                    <li><a href="#">Баннеры</a></li>
+                    <li><a href="#">portal@mkrf.ru</a></li>
+                </ul>
+            </div>
+
+        </footer>
     </div>
 
-    <div class="footer-center">
-        <p>© Портал культурного наследия России</p>
-        <ul>
-            <li><a href="#">О проекте</a></li>
-            <li><a href="#">Баннеры</a></li>
-            <li><a href="#">portal@mkrf.ru</a></li>
-        </ul>
-    </div>
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('js/vendor/modernizr-2.6.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/jquery.flexslider-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/jquery.ui.datepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/jquery.uniform.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/vendor/jquery.ajaxmanager.js') }}"></script>
+        {% if app.request.locale == 'ru' %}
+            <script type="text/javascript" src="{{ asset('js/vendor/jquery.ui.datepicker-ru.js') }}"></script>
+        {% endif %}
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-</footer>
-</div>
+        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
 
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/vendor/modernizr-2.6.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/jquery-1.8.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/jquery.flexslider-min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/jquery.ui.datepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/jquery.uniform.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/vendor/jquery.ajaxmanager.js') }}"></script>
-    {% if app.request.locale == 'ru' %}
-        <script type="text/javascript" src="{{ asset('js/vendors/jquery.ui.datepicker-ru.js') }}"></script>
-    {% endif %}
-    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
-
-    <script type="text/javascript">
-        $(function(){
-            armdMk.locale = '{{ app.request.locale }}';
-            armdMk.baseUrl = '/';
-            armdMk.init();
-        });
-    </script>
-{% endblock %}
+        <script type="text/javascript">
+            $(function(){
+                armdMk.locale = '{{ app.request.locale }}';
+                armdMk.baseUrl = '/';
+                armdMk.init();
+            });
+        </script>
+    {% endblock %}
 
 </body>
 </html>
