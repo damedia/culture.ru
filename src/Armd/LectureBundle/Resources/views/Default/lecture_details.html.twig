@@ -1,5 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends ':Frontend:layout_two_column.html.twig' %}
 
+{#--------------------------------------------------------------------------------------------------------------------#}
 {% block title %}
     {{ lecture.seoTitle|default(lecture.title) }} &mdash; {{ parent() }}
 {% endblock %}
@@ -12,7 +13,451 @@
     {{ lecture.seoDescription }}
 {% endblock %}
 
-{% block body %}
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('new_design/css/jquery.ui.selectgroup.css') }}">
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('new_design/js/jquery.ui.selectgroup.js') }}"></script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block nav_header %}
+    <div class="nav-header">
+        <h1>
+            {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+                {{ 'Lecture'|trans }}
+            {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+                {{ 'Translations'|trans }}
+            {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                Кинозал
+            {% endif %}
+        </h1>
+        <div class="search-panel">
+            <div class="search-category">
+                <span class="search-dates-label">Выбрать</span>
+                <div class="search-category-selects">
+                    <select name="select1" id="select1" class="uni">
+                        <option value="1">Категория</option>
+                        <option value="2">100 лучших фильмов</option>
+                        <option value="3">Исторические</option>
+                        <option value="3">Военные</option>
+                        <option value="3">Драмы</option>
+                        <option value="3">Трагедии</option>
+                        <option value="3">Комедии</option>
+                    </select>
+                    <select name="select2" id="select2" class="uni">
+                        <option value="1">Жанр</option>
+                        <option value="2">Жанр</option>
+                        <option value="3">Жанр</option>
+                    </select>
+                    <select name="select3" id="select3" class="uni">
+                        <option value="1">Тематика</option>
+                        <option value="2">Тематика</option>
+                        <option value="3">Тематика</option>
+                    </select>
+                </div>
+                <a href="#" class="button search-dates-button">Показать</a>
+            </div>
+            <div class="search-top clearfix">
+                <form action="">
+                    <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt" />
+                    <input type="submit" value="Поиск" class="button search-btn" />
+                </form>
+                <div class="search-checkboxes">
+                    <label><input type="checkbox" name="check1" id="check1" /><span>Искать в текущем разделе</span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block left_column %}
+    <div class="left-column-content">
+        <section class="video-one">
+            <div class="video-one_container">
+                {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+
+                    {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
+                        {# tvigle video #}
+                        {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
+                            {% set lectureVideo = lecture.trailerVideo %}
+                        {% else %}
+                            {% set lectureVideo = lecture.lectureVideo %}
+                        {% endif %}
+                        {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+
+                    {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
+                        {# media video #}
+                        {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
+                            {% set lectureVideo = lecture.mediaTrailerVideo %}
+                        {% else %}
+                            {% set lectureVideo = lecture.mediaLectureVideo %}
+                        {% endif %}
+                        {% media lectureVideo, 'noformat' with { 'width': '100%', 'height': 506 } %}
+
+                    {% endif %}
+
+                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
+                    {% if lecture.lectureFile is not empty %}
+                        <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="video-one-description">
+                <div class="video-one-stars">
+                    <span class="star star-active"></span>
+                    <span class="star star-active"></span>
+                    <span class="star star-active"></span>
+                    <span class="star star-active"></span>
+                    <span class="star"></span>
+                    <div class="star-mark best-mark">
+                        <span>4</span>
+                    </div>
+                </div>
+
+                <h2 class="video-one-name">{{ lecture.title }}</h2>
+
+                <span class="video-one-stats">
+                    1969 / 81 мин. /
+                    {% for lectureCategory in lecture.categories %}
+                        <a href="#">{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
+                     {% endfor %}
+                </span>
+
+                <div class="video-one-anons">
+                    <div>{{ lecture.description|raw }}</div>
+                </div>
+            </div>
+            <div class="video-one-crew clearfix">
+                <div class="video-one-crew-block video-one-crew-block-first">
+
+                    <h3 class="crew-block-header">Создатели</h3>
+                    <dl class="crew-dl-list">
+                        {% for key in lectureRolesPersons|keys %}
+                            <dt>{{ key|capitalize }}:</dt>
+                            <dd>
+                                {% for person in lectureRolesPersons[key] %}
+                                    <a href="#"><nobr>{{ person.name }}</nobr></a>{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            </dd>
+                        {% endfor %}
+                    </dl>
+                </div>
+                <div class="video-one-crew-block">
+                    <h3 class="crew-block-header">В ролях</h3>
+                    <div class="crew-2column-list">
+                        <ul class="crew-2column-list-one">
+                            <li>Мишулин Спартак</li>
+                            <li>Кавсадзе Кахи</li>
+                            <li>Куркина Раиса</li>
+                            <li>Годовиков Николай</li>
+                        </ul>
+                        <ul class="crew-2column-list-one">
+                            <li>Федотова Галина</li>
+                            <li>Дудаев Муса</li>
+                            <li>Луспекаев Павел</li>
+                            <li>Кузнецов Анатолий</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="back-link">
+            <p><a href="#">Назад</a></p>
+        </div>
+
+        <div class="event-one_footer clearfix">
+            <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях:</div>
+        </div>
+
+        <section class="comments ">
+            <div class="comments-header clearfix">
+                <p class="add-comment">
+                    <a href="#">Добавить комментарий</a>
+                </p>
+                <p class="comments-total">
+                    <span>Комментарии:</span> <a href="#">15</a>
+                </p>
+            </div>
+            <div class="comments-block">
+                <ul class="comments-list">
+                    <li>
+                        <img src="/new_design/images/comment.jpg" alt="" class="comment-list_photo" />
+                        <div class="comment-list_text">
+                            <span class="comment-list_date">14 Ноября / 2012 г. / 12:06</span>
+                            <a href="#" class="comment-list_name">Михаил Брашинский</a>
+                            <div class="comment-list_comment">
+                                <p>Из заграничного круиза старший экономист "Гипрорыбы" Семен Семеныч Горбунков (Никулин) возвращается в гипсе с ошибочно замурованными в нем драгоценностями.</p>
+                            </div>
+                            <div class="comment-list_footer">
+                                <a href="#" class="comment-answer">Ответить</a>
+                                <a href="#" class="comment-link">Ссылка</a>
+                                <a href="#" class="comment-complain">Пожаловаться</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <img src="/new_design/images/comment.jpg" alt="" class="comment-list_photo" />
+                        <div class="comment-list_text">
+                            <span class="comment-list_date">14 Ноября / 2012 г. / 12:06</span>
+                            <a href="#" class="comment-list_name">Михаил Брашинский</a>
+                            <div class="comment-list_comment">
+                                <p>Из заграничного круиза старший экономист "Гипрорыбы"<br /> Семен Семеныч Горбунков (Никулин) возвращается в гипсе с ошибочно</p>
+                            </div>
+                            <div class="comment-list_footer">
+                                <a href="#" class="comment-answer">Ответить</a>
+                                <a href="#" class="comment-link">Ссылка</a>
+                                <a href="#" class="comment-complain">Пожаловаться</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <img src="/new_design/images/comment.jpg" alt="" class="comment-list_photo" />
+                        <div class="comment-list_text">
+                            <span class="comment-list_date">14 Ноября / 2012 г. / 12:06</span>
+                            <a href="#" class="comment-list_name">Михаил Брашинский</a>
+                            <div class="comment-list_comment">
+                                <p>Из заграничного круиза старший экономист "Гипрорыбы" Семен Семеныч Горбунков (Никулин) возвращается в гипсе с ошибочно замурованными в нем драгоценностями.</p>
+                            </div>
+                            <div class="comment-list_footer">
+                                <a href="#" class="comment-answer">Ответить</a>
+                                <a href="#" class="comment-link">Ссылка</a>
+                                <a href="#" class="comment-complain">Пожаловаться</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="all-link">
+                <a href="#">Все комментарии</a>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block right_column %}
+    <section class="block">
+        <h2><span>Рекомендуем</span></h2>
+        <div class="recommend-block">
+            <img src="/new_design/images/recommend2.jpg" alt="" />
+            <div class="recommend-over">
+                <div class="recommend_name">
+                    <p>Госфильмофонд<br />
+                    России</p>
+                </div>
+                <p class="recommend-type"><a href="#">Образы России</a></p>
+            </div>
+        </div>
+    </section>
+
+    <div class="right-video-block">
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <article class="period-block">
+                        <h2>Бриллиантовая рука (1968)</h2>
+                        <a href="#" class="period-block_image">
+                            <img src="/new_design/images/period_1.jpg" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                Режиссер: Леонид Гайдай <br />
+                                Жанр: Комедия / Режиссер: Леонид Гайдай
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Кинозал</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block">
+                        <h2>Бриллиантовая рука (1968)</h2>
+                        <a href="#" class="period-block_image">
+                            <img src="/new_design/images/period_1.jpg" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                Режиссер: Леонид Гайдай <br />
+                                Жанр: Комедия / Режиссер: Леонид Гайдай
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Кинозал</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block">
+                        <h2>Бриллиантовая рука (1968)</h2>
+                        <a href="#" class="period-block_image">
+                            <img src="/new_design/images/period_1.jpg" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                Режиссер: Леонид Гайдай <br />
+                                Жанр: Комедия / Режиссер: Леонид Гайдай
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Кинозал</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+            </ul>
+        </div>
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <article class="period-block">
+                        <h2>«Русский XIX век» 1-я лекция</h2>
+                        <a href="#" class="period-block_image">
+                            <img src="/new_design/images/period_4.jpg" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                Лектор: Юрий Пивоваров
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Лекции</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block">
+                        <h2>«Русский XIX век» 1-я лекция</h2>
+                        <a href="#" class="period-block_image">
+                            <img src="/new_design/images/period_4.jpg" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                Лектор: Юрий Пивоваров
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Лекции</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block">
+                        <h2>«Русский XIX век» 1-я лекция</h2>
+                        <a href="#" class="period-block_image">
+                            <img src="/new_design/images/period_4.jpg" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                Лектор: Юрий Пивоваров
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Лекции</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="block">
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <article class="period-block period-event-block ">
+                        <h2>События</h2>
+                        <a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>
+                        <div class="period-block_text">
+                            <p>
+                                <b>79 детей Юрия Башмета</b>
+                                Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Репортажи</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block period-event-block ">
+                        <h2>События</h2>
+                        <a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>
+                        <div class="period-block_text">
+                            <p>
+                                <b>79 детей Юрия Башмета</b>
+                                Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Репортажи</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block period-event-block ">
+                        <h2>События</h2>
+                        <a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>
+                        <div class="period-block_text">
+                            <p>
+                                <b>79 детей Юрия Башмета</b>
+                                Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="#">Репортажи</a>
+                            </div>
+                        </footer>
+
+                    </article>
+                </li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block body_old %}
     <div class="left-column type-2 text">
 
         <div class="title blue-title">
@@ -111,5 +556,4 @@
         {#% include 'ArmdNewsBundle:News:latest-news.html.twig' with {'news': linkedNews} only %#}
         {% render 'ArmdLectureBundle:Default:rightColumn' %}
     </div>
-
 {% endblock %}

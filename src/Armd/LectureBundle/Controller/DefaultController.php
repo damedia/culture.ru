@@ -13,7 +13,8 @@ class DefaultController extends Controller
     /**
      * @Route("/lecture/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_lecture_index")
      */
-    public function lectureIndexAction($page)  {
+    public function lectureIndexAction($page)
+    {
         return $this->forward('ArmdLectureBundle:Default:index', array(
             'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE',
             'page' => $page
@@ -23,7 +24,8 @@ class DefaultController extends Controller
     /**
      * @Route("/translation/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_translation_index")
      */
-    public function translationIndexAction($page)  {
+    public function translationIndexAction($page)
+    {
         return $this->forward('ArmdLectureBundle:Default:index', array(
             'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION',
             'page' => $page
@@ -33,7 +35,8 @@ class DefaultController extends Controller
     /**
      * @Route("/cinema/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_cinema_index")
      */
-    public function cinemaIndexAction($page)  {
+    public function cinemaIndexAction($page)
+    {
         return $this->forward('ArmdLectureBundle:Default:index', array(
             'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
             'page' => $page

@@ -27,7 +27,6 @@
         {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
-
         <link href='http://fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
         <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.css') }}">
@@ -35,7 +34,6 @@
         <link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
         <link href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}" rel="stylesheet" type="text/css" media="screen" />
         <link href="{{ asset('bundles/armdmkcomment/css/comments.css') }}" rel="stylesheet" type="text/css" media="screen" />
-
     {% endblock %}
 </head>
 <body  {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>

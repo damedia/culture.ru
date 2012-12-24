@@ -1,3 +1,41 @@
+{% if pagination|length > 0 %}
+    {% for lecture in pagination %}
+        <div class="plitka">
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                        {% if lecture.lectureVideo.imageMedia is defined %}
+                            {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
+                        {% elseif lecture.mediaLectureVideo is not empty %}
+                            {% set thumbnailMedia = lecture.mediaLectureVideo %}
+                        {% else %}
+                            {% set thumbnailMedia = null %}
+                        {% endif %}
+
+                        {% if thumbnailMedia is not null %}
+                            <img class="plitka-image" alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'tile' %}"/>
+                        {% endif %}
+                    </a>
+                    <div class="plitka-text">
+                        <span class="plitka-name">{{ lecture.title }}</span>
+                        1969 / 81 мин. / <a href="#">Приключения</a><br />
+                        Режиссер: Мотыль Владимир
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a>
+                    </div>
+                </div>
+                <span class="star-mark">7,5</span>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <strong>По Вашему запросу объектов не найдено</strong>
+{% endif %}
+
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block old %}
 <div class="lecture-tile-block">
     {% if pagination|length > 0 %}
         <ul class="lecture-tile-list clearfix">
@@ -81,3 +119,4 @@
         <strong>По Вашему запросу объектов не найдено</strong>
     {% endif %}
 </div>
+{% endblock old %}
