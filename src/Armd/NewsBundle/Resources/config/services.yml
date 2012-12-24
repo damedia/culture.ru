@@ -17,11 +17,13 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: News, label: News }
         arguments: [null, %armd_news.manager.news.entity%, SonataAdminBundle:CRUD, @service_container]
-        
+        calls:
+            - [ setContainer, [ @service_container ] ]
+
     armd_news.manager.news:
         class: %armd_news.manager.news.class%
         arguments: [@armd_event.entity_manager, %armd_news.manager.news.entity%, @service_container]
-        
+
     armd_news.controller.news:
         class: Armd\NewsBundle\Controller\NewsController
         arguments:
