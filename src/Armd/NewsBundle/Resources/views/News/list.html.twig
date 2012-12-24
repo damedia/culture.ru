@@ -1,70 +1,78 @@
-{% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
+{% extends ':Frontend:layout_two_column.html.twig' %}
 
-{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
-
-{# ------------------------- #}
-{% block top_right %}
-    {#% render "ArmdNewsBundle:News:memorialEvents" %#}
+{% block left_column %}
+    left column
 {% endblock %}
 
-{# ------------------------- #}
-{% block content%}
-
-    {% if not category %}
-        {% render "ArmdNewsBundle:News:billboard" %}
-    {% endif %}
-    
-    <div class="clear"></div>
-
-    {% if news|length %}
-        <div class="news-list-main">
-            <ul class="news-list news-list-new ">
-                {% for n in news %}
-                    {#{% set f = n.date %}#}
-                    {#{% set t = n.endDate %}#}
-                    {% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
-                    <li>
-                        {% if n.image is not empty %}
-                            <a href="{{ href }}" class="news-list-image">
-                                {% thumbnail n.image, 'list' with {'alt': n.image.description} %}
-                            </a>
-                        {% endif %}
-                        <div class="news-list-text">
-                            <span class="news-list-date">
-                                {{ armd_news.news_date(n.newsDate) }}
-                            </span>
-                            <a href="{{ href }}" class="news-list-header">
-                                {% if n.date %}
-                                    {{ n.date|date('d.m.Y') }}
-                                    {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
-                                {% endif %}
-                                {{ n.title|raw }}
-                            </a>
-                            <p>{{ n.announce|raw }} </p>
-                            <a href="{{ path('armd_news_list_index_by_category', {'category': n.category.slug }) }}" class="news-list-type">{{ n.category.title }}</a>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% else %}
-        <h2>{{ "date.list.empty"|trans({ '%date%':calendarDate|date('d.m.Y') }) }}</h2>
-    {% endif %}
-
-    <!-- Pagination -->
-    <div class="news-nav-block">
-        <nav class="navigation">
-            {{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}
-            {{ news.render()|raw}}
-            <br />
-        </nav>
-    </div>
-    <!-- /Pagination -->
-
+{% block right_column %}
+    right column
 {% endblock %}
 
-{# ------------------------- #}
-{#{% block javascripts %}#}
-	{#{{ parent() }}#}
-	{#<script type="text/javascript" src="{{ asset('js/libs/jquery.ui.datepicker-ru-GB.js') }}"></script>#}
-{# {% endblock %} #}
+{#{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}#}
+
+{#&#123;&#35; ------------------------- &#35;&#125;#}
+{#{% block top_right %}#}
+    {#&#123;&#35;% render "ArmdNewsBundle:News:memorialEvents" %&#35;&#125;#}
+{#{% endblock %}#}
+
+{#&#123;&#35; ------------------------- &#35;&#125;#}
+{#{% block content%}#}
+
+    {#{% if not category %}#}
+        {#{% render "ArmdNewsBundle:News:billboard" %}#}
+    {#{% endif %}#}
+    {##}
+    {#<div class="clear"></div>#}
+
+    {#{% if news|length %}#}
+        {#<div class="news-list-main">#}
+            {#<ul class="news-list news-list-new ">#}
+                {#{% for n in news %}#}
+                    {#&#123;&#35;{% set f = n.date %}&#35;&#125;#}
+                    {#&#123;&#35;{% set t = n.endDate %}&#35;&#125;#}
+                    {#{% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}#}
+                    {#<li>#}
+                        {#{% if n.image is not empty %}#}
+                            {#<a href="{{ href }}" class="news-list-image">#}
+                                {#{% thumbnail n.image, 'list' with {'alt': n.image.description} %}#}
+                            {#</a>#}
+                        {#{% endif %}#}
+                        {#<div class="news-list-text">#}
+                            {#<span class="news-list-date">#}
+                                {#{{ armd_news.news_date(n.newsDate) }}#}
+                            {#</span>#}
+                            {#<a href="{{ href }}" class="news-list-header">#}
+                                {#{% if n.date %}#}
+                                    {#{{ n.date|date('d.m.Y') }}#}
+                                    {#{% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}#}
+                                {#{% endif %}#}
+                                {#{{ n.title|raw }}#}
+                            {#</a>#}
+                            {#<p>{{ n.announce|raw }} </p>#}
+                            {#<a href="{{ path('armd_news_list_index_by_category', {'category': n.category.slug }) }}" class="news-list-type">{{ n.category.title }}</a>#}
+                        {#</div>#}
+                    {#</li>#}
+                {#{% endfor %}#}
+            {#</ul>#}
+        {#</div>#}
+    {#{% else %}#}
+        {#<h2>{{ "date.list.empty"|trans({ '%date%':calendarDate|date('d.m.Y') }) }}</h2>#}
+    {#{% endif %}#}
+
+    {#<!-- Pagination -->#}
+    {#<div class="news-nav-block">#}
+        {#<nav class="navigation">#}
+            {#{{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}#}
+            {#{{ news.render()|raw}}#}
+            {#<br />#}
+        {#</nav>#}
+    {#</div>#}
+    {#<!-- /Pagination -->#}
+
+{#{% endblock %}#}
+
+{#&#123;&#35; ------------------------- &#35;&#125;#}
+{#&#123;&#35;{% block javascripts %}&#35;&#125;#}
+	{#&#123;&#35;{{ parent() }}&#35;&#125;#}
+	{#&#123;&#35;<script type="text/javascript" src="{{ asset('js/libs/jquery.ui.datepicker-ru-GB.js') }}"></script>&#35;&#125;#}
+{#&#123;&#35; {% endblock %} &#35;&#125;#}
