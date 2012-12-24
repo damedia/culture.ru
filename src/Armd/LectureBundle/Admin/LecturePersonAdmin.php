@@ -13,6 +13,11 @@ class LecturePersonAdmin extends Admin
 {
     protected $translationDomain = 'ArmdLectureBundle';
 
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_by' => 'name',
+    );
+
     /**
      * List view
      */

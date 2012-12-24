@@ -134,6 +134,13 @@ class LectureAdmin extends Admin
                         'inline' => 'table',
                     )
                 )
+                ->add('rolesPersons', 'armd_lecture_roles_persons',
+                    array(
+                        'class' => 'Armd\LectureBundle\Entity\LectureRolePerson',
+                        'required' => false,
+                        'attr' => array('class' => 'chzn-select atlas-lectures-roles-persons-select'),
+                    )
+                )
                 */
             ->end()
         ;

@@ -450,6 +450,23 @@ class Lecture implements Taggable
     }
 
     /**
+     * Set rolesPersons
+     *
+     * @param mixed $rolesPersons
+     * @return Lecture
+     */
+    public function setRolesPersons($rolesPersons)
+    {
+        if (is_array($rolesPersons) || ($rolesPersons instanceof ArrayCollection)) {
+            $this->rolesPersons = $rolesPersons;
+        } else {
+            $this->addRolesPerson($rolesPersons);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getTaggableType()

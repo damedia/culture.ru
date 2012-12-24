@@ -30,7 +30,7 @@ services:
     armd_lecture.sonata_admin.lecture_role:
         class: Armd\LectureBundle\Admin\LectureRoleAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Video, label: Role, show_in_dashboard: true }
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Roles, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\LectureRole, SonataAdminBundle:CRUD]
 
     # translation
