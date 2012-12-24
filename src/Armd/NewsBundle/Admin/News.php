@@ -22,6 +22,11 @@ class News extends Admin
 {
     protected $translationDomain = 'ArmdNewsBundle';
 
+    /**
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
+    protected $container;
+
     protected $datagridValues = array(
         '_sort_by'      => 'date',    
         '_sort_order'   => 'DESC',
@@ -148,6 +153,14 @@ class News extends Admin
     {
         parent::postUpdate($object);
         $this->saveTagging($object);
+    }
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\Container $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
     }
 
     protected function saveTagging($object)
