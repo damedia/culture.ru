@@ -121,15 +121,15 @@ class NewsController extends ListController
             );
         }
 
-        $calendarDate = $this->getRequest()->get('date');
-        if ($calendarDate) {
-            $calendarDate = new \DateTime($calendarDate);
-            $criteria['target_date'] = $calendarDate;
-        }
+//        $calendarDate = $this->getRequest()->get('date');
+//        if ($calendarDate) {
+//            $calendarDate = new \DateTime($calendarDate);
+//            $criteria['target_date'] = $calendarDate;
+//        }
 
         return $this->render($this->getTemplateName('list'), array(
             'category'      => $category,
-            'calendarDate'  => $calendarDate,
+//            'calendarDate'  => $calendarDate,
             'news'          => $this->getPaginator($criteria, $page, $limit),
         ));
     }
