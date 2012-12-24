@@ -12,6 +12,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Lectures, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+        calls:
+            - [ setContainer, [ @service_container ] ]
 
     armd_lecture.sonata_admin.lecture_roles_persons:
         class: Armd\LectureBundle\Admin\LectureRolesPersonsAdmin

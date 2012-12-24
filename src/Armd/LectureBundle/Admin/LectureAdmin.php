@@ -16,6 +16,11 @@ class LectureAdmin extends Admin
     protected $baseRouteName = 'lecture';
     protected $baseRoutePattern = 'lecture';
 
+    /**
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
+    protected $container;
+
     public function createQuery($context = 'list')
     {
         $qb = $this->modelManager->getEntityManager('ArmdLectureBundle:Lecture')
@@ -181,6 +186,11 @@ class LectureAdmin extends Admin
     {
         parent::postUpdate($object);
         $this->saveTagging($object);
+    }
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
     }
 
     protected function saveTagging($object)

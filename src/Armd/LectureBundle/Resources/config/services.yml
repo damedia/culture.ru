@@ -22,8 +22,8 @@ services:
         arguments:  [@doctrine.orm.entity_manager, @knp_paginator, @search.sphinxsearch.search]
 
 #    armd_lecture.sonata_admin.lecture:
-#        class: Armd\AtlasBundle\Admin\ObjectAdmin
+#        class: Armd\LectureBundle\Admin\LectureAdmin
 #        tags:
-#            - { name: sonata.admin, manager_type: orm, group: Atlas, label: Objects, show_in_dashboard: true }
-#        arguments: [null, Armd\AtlasBundle\Entity\Object, SonataAdminBundle:CRUD, @service_container]
+#            - { name: sonata.admin, manager_type: orm, group: video, label: Lectures, show_in_dashboard: true }
+#        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD, @service_container]
 
