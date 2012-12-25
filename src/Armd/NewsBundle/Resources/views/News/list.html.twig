@@ -1,7 +1,29 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
-    left column
+    {% if not category %}
+        {% render "ArmdNewsBundle:News:billboard" %}
+    {% endif %}
+
+
+<section class="block">
+    <h1 class="long-border"><span>17 Декабря</span></h1>
+    <div class="theme-news-block search-news-block clearfix">
+        <ul class="theme-news-list ">
+            <li>
+                <span class="date">15:15 / <a href="#">Анонс</a></span>
+                <a href="#">В Ельце открыли самую технически современную библиотеку в Центральном Черноземье</a>
+            </li>
+        </ul>
+        <ul class="theme-news-list search-news-list">
+            <li>
+                <span class="date">12:44 / <a href="#">Анонс</a></span>
+                <a href="#">Владимир Мединский посетил Иран</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
 {% endblock %}
 
 {% block right_column %}

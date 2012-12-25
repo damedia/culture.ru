@@ -42,17 +42,52 @@
     <div id="armd_messages" style="display: none;"></div>
     {% include ':Frontend:counters_top.html.twig' %}
 
-    <div class="container">
-        <header class="main-header clearfix">
-            <a class="logo" title="Культура.рф"></a>
 
-            <div class="header-top-right clearfix">
-                <div class="lk-top">
-                    <a href="#">Регистрация</a> /
-                    <a href="#">Вход</a>
-                </div>
-                <a href="#" class="lang-chooser"></a>
-                <a href="#" class="aa"></a>
+<div class="container">
+<header class="main-header clearfix">
+    <a class="logo" title="Культура.рф"></a>
+
+    <div class="header-top-right clearfix">
+        <div class="lk-top">
+            <a href="#">Регистрация</a> /
+            <a href="#">Вход</a>
+        </div>
+        <a href="#" class="lang-chooser"></a>
+        <a href="#" class="aa"></a>
+    </div>
+    <nav class="main-menu">
+        {{ knp_menu_render('ArmdMainBundle:Builder:mainMenu', {'template': ':Frontend:menu.html.twig', 'currentClass': 'active', 'ancestorClass': 'active'}) }}
+
+        {#<ul class="main-menu-level1">#}
+            {#<li><a href="#">Главная</a></li>#}
+            {#<li class="active"><a href="#">События</a></li>#}
+            {#<li><a href="#">Информация</a></li>#}
+            {#<li><a href="#">Общение</a></li>#}
+            {#<li><a href="#">Спецпроекты</a></li>#}
+        {#</ul>#}
+        {#<ul class="main-menu-submenu">#}
+            {#<li><a href="#"><span>Атлас</span></a></li>#}
+            {#<li><a href="#"><span>Образы России</span></a></li>#}
+            {#<li><a href="#"><span>Мероприятия</span></a></li>#}
+            {#<li><a href="#"><span>Виртуальные музеи</span></a></li>#}
+            {#<li class="active"><a href="#"><span>Кинозал</span></a></li>#}
+            {#<li><a href="#"><span>Лента времени</span></a></li>#}
+            {#<li><a href="#"><span>Духовные традиции</span></a></li>#}
+        {#</ul>#}
+    </nav>
+
+</header>
+<div class="nav-header">
+    <h1>События</h1>
+
+    <div class="search-panel">
+        <div class="search-dates">
+            <span class="search-dates-label">Период:</span>
+
+            <div class="dates-chooser">
+                <a href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#">01.01.2012</a>
+
+                <div id="datapicker"></div>
             </div>
             <nav class="main-menu">
                 <ul class="main-menu-level1">

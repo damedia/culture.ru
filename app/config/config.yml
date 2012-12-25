@@ -86,7 +86,7 @@ sonata_admin:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
     templates:
-        layout:  ::admin_base.html.twig
+        layout:  :Backend:base.html.twig
 
 sonata_block:
     default_contexts: [cms]
@@ -135,6 +135,7 @@ sonata_media:
             formats:
                 adminPreview: { width: 314 , height: 187, quality: 90}
                 billboard: { width: 761, height: 507 }
+                eventsBillboard: { width: 358, height: 319 }
                 latest: { width: 85, height: 65 }
                 list: { width: 160, height: 107 }
                 big: { width: 920 }
@@ -324,6 +325,10 @@ sensio_framework_extra:
 knp_paginator:
     template: 
         pagination: "::pagination.html.twig"
+
+knp_menu:
+    twig:
+        template: :Frontend:menu.html.twig
 
 armd_tvigle_video:
     api_service_url: http://pub.tvigle.ru/soap/index.php?wsdl

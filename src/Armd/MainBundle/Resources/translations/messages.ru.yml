@@ -65,6 +65,25 @@ Mainpage block:
         Title: Образы России
         Of: из
 
+
+menu.homepage: Главная
+menu.cinema: Кинозал
+menu.chronicle: Лента времени
+menu.spiritual_traditions: Духовные традиции
+menu.information: Информация
+menu.communication: Общение
+menu.special_projects: Спецпроекты
+menu.russia_images: Образы России
+
+menu.atlas: Атлас
+
+menu.news_index: События
+menu.news: Новости
+menu.events: События
+menu.reportage: Репортажи
+menu.interview: Интервью
+
+
 mainpage.show_all: Посмотреть все
 mainpage.read_more: Посмотреть все
 mainpage.news: Новости
@@ -138,7 +157,10 @@ Submit: Отправить
 Events: События
 Interview: Интервью
 Banners header: Официальные баннеры
+
 icons: Иконы России
 search: Поиск
 search__: Поиск...
 culture: Культура
+
+
