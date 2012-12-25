@@ -242,7 +242,7 @@ class DefaultController extends Controller
                 $perPage   = $filter['perPage'];
                 $sort      = $filter['sort'];
                 $typeIds   = null;
-                $categoryIds = array($filter['genre']->getId());
+                $categoryIds = isset($filter['genre']) ? array($filter['genre']->getId()) : null;
                 $searchString = $filter['search'];
             }
 
