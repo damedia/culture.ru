@@ -3,12 +3,11 @@
 namespace Armd\LectureBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
-* @ORM\Table(name="lecture_super_type")
-* @ORM\Entity
-*/
+ * @ORM\Table(name="lecture_super_type")
+ * @ORM\Entity
+ */
 class LectureSuperType
 {
     /**

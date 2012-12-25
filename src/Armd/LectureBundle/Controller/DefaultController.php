@@ -142,7 +142,6 @@ class DefaultController extends Controller
         ));
     }
 
-
     /**
      * @Route("/last-lectures/{lectureSuperTypeCode}/{limit}")
      */
@@ -155,13 +154,12 @@ class DefaultController extends Controller
             ->findLastAdded($lectureSuperType, $limit);
 
         return $this->render('ArmdLectureBundle:Default:last_lectures.html.twig', array(
-                'lectures' => $lectures
-            ));
+            'lectures' => $lectures
+        ));
     }
 
-
     /**
-     * @Route()
+     * @Route("/right-column")
      * @Template()
      */
     public function rightColumnAction()
@@ -171,6 +169,88 @@ class DefaultController extends Controller
         return $this->render('ArmdLectureBundle:Default:right_column.html.twig', array(
             'russiaImages' => $russiaImages
         ));
+    }
+
+    /**
+     * Experimental video index
+     *
+     * @Route()
+     * @Template()
+     */
+    public function listAction()
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        // Форма фильтра
+        $defaultValues = array(
+            'sort'      => $request->get('id', 'date'),
+            'supertype' => $request->get('supertype', null),
+            'page'      => $request->get('page', 1),
+            'perPage'   => $request->get('perPage', 20),
+        );
+        $form = $this->createFormBuilder($defaultValues)
+            ->add('search',   'text', array(
+                'required' => false
+            ))
+            ->add('supertype', 'entity', array(
+                'class' => 'ArmdLectureBundle:LectureSuperType',
+                'property' => 'name',
+                'empty_value' => 'Категория',
+                'required' => false,
+            ))
+            ->add('genre',  'entity', array(
+                'class' => 'ArmdLectureBundle:LectureCategory',
+                'property' => 'title',
+                'empty_value' => 'Жанр',
+                'required' => false,
+                'query_builder' => function(\Doctrine\ORM\EntityRepository $repo) {
+                    return $repo->createQueryBuilder('c')
+                                ->where('c.lectureSuperType IS NULL')
+                                ->orderBy('c.lft', 'ASC');
+                }
+            ))
+            ->add('theme',  'entity', array(
+                'class' => 'ArmdLectureBundle:LectureSuperType',
+                'property' => 'name',
+                'empty_value' => 'Тематика',
+                'required' => false
+            ))
+            ->add('sort',   'choice', array(
+                'choices' => array('id' => 'by Id', 'title' => 'by Title', 'date' => 'by Date'),
+                'required' => true
+            ))
+            ->add('page',    'text', array('required' => false))
+            ->add('perPage', 'text', array('required' => false))
+            ->getForm();
+
+        $lectures = array();
+
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->bind($this->getRequest());
+
+            if ($form->isValid()) {
+                $filter = $form->getData();
+                //var_dump($filter);
+
+                $manager = $this->get('armd_lecture.manager.lecture');
+
+                $superType = $filter['supertype'];
+                $page = $filter['page'];
+                $perPage = $filter['perPage'];
+                $searchString = $filter['search'];
+                $sort = $filter['sort'];
+                $typeIds = null;
+                $categoryIds = null;
+
+                $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'lectures' => $lectures,
+        );
     }
 
 }

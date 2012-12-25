@@ -18,29 +18,20 @@
         <h1>Кинозал</h1>
         <div class="search-panel">
             <div class="search-category">
-                <span class="search-dates-label">Выбрать</span>
-                <div class="search-category-selects">
-                    <select name="select1" id="select1" class="uni">
-                        <option value="1">Категория</option>
-                        <option value="2">100 лучших фильмов</option>
-                        <option value="3">Исторические</option>
-                        <option value="3">Военные</option>
-                        <option value="3">Драмы</option>
-                        <option value="3">Трагедии</option>
-                        <option value="3">Комедии</option>
-                    </select>
-                    <select name="select2" id="select2" class="uni">
-                        <option value="1">Жанр</option>
-                        <option value="2">Жанр</option>
-                        <option value="3">Жанр</option>
-                    </select>
-                    <select name="select3" id="select3" class="uni">
-                        <option value="1">Тематика</option>
-                        <option value="2">Тематика</option>
-                        <option value="3">Тематика</option>
-                    </select>
-                </div>
-                <a href="#" class="button search-dates-button">Показать</a>
+
+                <form action="" method="post" {{ form_enctype(form) }}>
+                    <span class="search-dates-label">Выбрать</span>
+                    <div class="search-category-selects">
+                        {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}
+                        {{ form_widget(form.genre, { 'attr': {'class': 'uni'} }) }}
+                        {{ form_widget(form.theme, { 'attr': {'class': 'uni'} }) }}
+                        <div style="display: none;">
+                            {{ form_rest(form) }}
+                        </div>
+                    </div>
+                    <button type="submit" class="button search-dates-button">Показать</button>
+                </form>
+
             </div>
             <div class="search-top clearfix">
                 <form action="">
@@ -58,7 +49,58 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
     <div class="left-column-content">
-        {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
+
+        {% if lectures|length > 0 %}
+            {% for lecture in lectures %}
+                <div class="plitka">
+                    <div class="plitka-one-wrap">
+                        <div class="plitka-one">
+                            <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                                {% if lecture.lectureVideo.imageMedia is defined %}
+                                    {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
+                                {% elseif lecture.mediaLectureVideo is not empty %}
+                                    {% set thumbnailMedia = lecture.mediaLectureVideo %}
+                                {% else %}
+                                    {% set thumbnailMedia = null %}
+                                {% endif %}
+
+                                {% if thumbnailMedia is not null %}
+                                    <img class="plitka-image" alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'tile' %}"/>
+                                {% endif %}
+                            </a>
+                            <div class="plitka-text">
+                                <span class="plitka-name">{{ lecture.title }}</span>
+
+                                {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                                {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
+
+                                {% for lectureCategory in lecture.categories %}
+                                    <a href="#"><nobr>{{ lectureCategory.title }}</nobr></a>{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                                <br />
+
+                                Режиссер: Мотыль Владимир
+                            </div>
+                            <div class="plitka-footer">
+                                <a href="#">
+                                    {{ lecture.lectureSuperType.name }}
+                                </a>
+                            </div>
+                        </div>
+                        {# Пока отключим рейтинг
+                        <span class="star-mark">7,5</span>
+                        #}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="more more2">
+                <p><a href="#">Показать еще фильмы</a></p>
+            </div>
+        {% else %}
+            <strong>По Вашему запросу объектов не найдено</strong>
+        {% endif %}
+
+        {# render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} #}
     </div>
 {% endblock %}
 

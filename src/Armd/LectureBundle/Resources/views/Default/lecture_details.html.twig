@@ -110,6 +110,8 @@
                 {% endif %}
             </div>
             <div class="video-one-description">
+
+                {# Пока отключим рейтинг
                 <div class="video-one-stars">
                     <span class="star star-active"></span>
                     <span class="star star-active"></span>
@@ -120,11 +122,13 @@
                         <span>4</span>
                     </div>
                 </div>
+                #}
 
                 <h2 class="video-one-name">{{ lecture.title }}</h2>
 
                 <span class="video-one-stats">
-                    1969 / 81 мин. /
+                    {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                    {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
                     {% for lectureCategory in lecture.categories %}
                         <a href="#">{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
                     {% endfor %}

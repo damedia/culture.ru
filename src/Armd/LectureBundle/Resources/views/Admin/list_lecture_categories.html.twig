@@ -2,6 +2,6 @@
 
 {% block field %}
     {% for category in value %}
-    {{ category.title }}{% if not loop.last%}, {% endif %}
-    {% endfor%}
+        {{ category.title }}{% if not loop.last%}, {% endif %}
+    {% endfor %}
 {% endblock %}

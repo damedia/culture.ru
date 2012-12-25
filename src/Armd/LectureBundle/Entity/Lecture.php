@@ -26,7 +26,6 @@ class Lecture implements Taggable
      */
     private $title;
 
-
     /**
      * @ORM\Column(name="description", type="text", nullable=true)
      */
@@ -51,7 +50,6 @@ class Lecture implements Taggable
      * @ORM\Column(name="published", type="boolean", nullable=true)
      */
     private $published = true;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
@@ -96,7 +94,7 @@ class Lecture implements Taggable
     private $lectureType;
 
     /**
-     * @ORM\ManyToMany(targetEntity="LectureCategory", inversedBy="lectures", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="LectureCategory", inversedBy="lectures")
      * @ORM\JoinTable(name="lecture_category_lecture")
      */
     private $categories;
@@ -117,6 +115,20 @@ class Lecture implements Taggable
     private $seoKeywords;
 
     private $tags;
+
+    /**
+     * Длительность фильма в минутах, например 120
+     *
+     * @ORM\Column(name="time_length", type="integer", nullable=true)
+     */
+    private $timeLength;
+
+    /**
+     * Год выхода фильма, например 1969
+     *
+     * @ORM\Column(name="production_year", type="integer", nullable=true)
+     */
+    private $productionYear;
 
     /**
      * @ORM\OneToMany(targetEntity="\Armd\LectureBundle\Entity\LectureRolePerson", mappedBy="lecture")
@@ -517,5 +529,51 @@ class Lecture implements Taggable
         } else {
             $this->addRolesPerson($rolesPersons);
         }
+    }
+
+    /**
+     * Set timeLength
+     *
+     * @param integer $timeLength
+     * @return Lecture
+     */
+    public function setTimeLength($timeLength)
+    {
+        $this->timeLength = $timeLength;
+    
+        return $this;
+    }
+
+    /**
+     * Get timeLength
+     *
+     * @return integer 
+     */
+    public function getTimeLength()
+    {
+        return $this->timeLength;
+    }
+
+    /**
+     * Set productionYear
+     *
+     * @param integer $productionYear
+     * @return Lecture
+     */
+    public function setProductionYear($productionYear)
+    {
+        $this->productionYear = $productionYear;
+    
+        return $this;
+    }
+
+    /**
+     * Get productionYear
+     *
+     * @return integer 
+     */
+    public function getProductionYear()
+    {
+        return $this->productionYear;
     }
 }
