@@ -13,34 +13,32 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block nav_header %}
-    <div class="nav-header">
-        <h1>Кинозал</h1>
-        <div class="search-panel">
-            <div class="search-category">
+{% block page_header %}
+    <h1>Кинозал</h1>
+    <div class="search-panel">
+        <div class="search-category">
 
-                <form action="" method="post" {{ form_enctype(form) }}>
-                    <span class="search-dates-label">Выбрать</span>
-                    <div class="search-category-selects">
-                        {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}
-                        {{ form_widget(form.genre, { 'attr': {'class': 'uni'} }) }}
-                        {{ form_widget(form.theme, { 'attr': {'class': 'uni'} }) }}
-                        <div style="display: none;">
-                            {{ form_rest(form) }}
-                        </div>
+            <form action="" method="post" {{ form_enctype(form) }}>
+                <span class="search-dates-label">Выбрать</span>
+                <div class="search-category-selects">
+                    {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}
+                    {{ form_widget(form.genre, { 'attr': {'class': 'uni'} }) }}
+                    {{ form_widget(form.theme, { 'attr': {'class': 'uni'} }) }}
+                    <div style="display: none;">
+                        {{ form_rest(form) }}
                     </div>
-                    <button type="submit" class="button search-dates-button">Показать</button>
-                </form>
-
-            </div>
-            <div class="search-top clearfix">
-                <form action="">
-                    <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt" />
-                    <input type="submit" value="Поиск" class="button search-btn" />
-                </form>
-                <div class="search-checkboxes">
-                    <label><input type="checkbox" name="check1" id="check1" /><span>Искать в текущем разделе</span></label>
                 </div>
+                <button type="submit" class="button search-dates-button">Показать</button>
+            </form>
+
+        </div>
+        <div class="search-top clearfix">
+            <form action="">
+                <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt" />
+                <input type="submit" value="Поиск" class="button search-btn" />
+            </form>
+            <div class="search-checkboxes">
+                <label><input type="checkbox" name="check1" id="check1" /><span>Искать в текущем разделе</span></label>
             </div>
         </div>
     </div>
