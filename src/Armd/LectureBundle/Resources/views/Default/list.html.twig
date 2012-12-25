@@ -10,6 +10,15 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('new_design/js/jquery.ui.selectgroup.js') }}"></script>
+    <script>
+        $(function(){
+            // При выборе типа видосов, подгружаем список категорий
+            // НЕ РАБОТАЕТ!
+            $('#form_supertype').on('change', function(){
+                console.log('xxx', $(this).val());
+            });
+        });
+    </script>
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
@@ -18,7 +27,7 @@
     <div class="search-panel">
         <div class="search-category">
 
-            <form action="" method="post" {{ form_enctype(form) }}>
+            <form id="lectures-filter" action="" method="post" {{ form_enctype(form) }}>
                 <span class="search-dates-label">Выбрать</span>
                 <div class="search-category-selects">
                     {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}

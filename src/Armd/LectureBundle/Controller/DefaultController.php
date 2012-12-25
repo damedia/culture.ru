@@ -180,7 +180,6 @@ class DefaultController extends Controller
     public function listAction()
     {
         $request = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
 
         // Форма фильтра
         $defaultValues = array(
@@ -224,28 +223,34 @@ class DefaultController extends Controller
             ->add('perPage', 'text', array('required' => false))
             ->getForm();
 
-        $lectures = array();
+        $superType = null;
+        $page      = 1;
+        $perPage   = 20;
+        $sort      = 'date';
+        $typeIds   = null;
+        $categoryIds = null;
+        $searchString = '';
 
         if ($this->getRequest()->isMethod('POST')) {
             $form->bind($this->getRequest());
 
             if ($form->isValid()) {
                 $filter = $form->getData();
-                //var_dump($filter);
-
-                $manager = $this->get('armd_lecture.manager.lecture');
 
                 $superType = $filter['supertype'];
-                $page = $filter['page'];
-                $perPage = $filter['perPage'];
+                $page      = $filter['page'];
+                $perPage   = $filter['perPage'];
+                $sort      = $filter['sort'];
+                $typeIds   = null;
+                $categoryIds = array($filter['genre']->getId());
                 $searchString = $filter['search'];
-                $sort = $filter['sort'];
-                $typeIds = null;
-                $categoryIds = null;
-
-                $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
             }
+
         }
+
+        $manager = $this->get('armd_lecture.manager.lecture');
+
+        $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
 
         return array(
             'form' => $form->createView(),
