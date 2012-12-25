@@ -1,0 +1,127 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block page_header %}
+    <h1>События</h1>
+
+    <div class="search-panel">
+        <div class="search-dates">
+            <span class="search-dates-label">Период:</span>
+
+            <div class="dates-chooser">
+                <a href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#">01.01.2012</a>
+
+                <div id="datapicker"></div>
+            </div>
+            <a href="#" class="button search-dates-button">Показать</a>
+        </div>
+        <div class="search-top clearfix">
+            <form action="">
+                <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
+                <input type="submit" value="Поиск" class="button search-btn"/>
+            </form>
+            <div class="search-checkboxes">
+                <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
+                <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block left_column %}
+    {% if not category %}
+        {% render "ArmdNewsBundle:News:billboard" %}
+    {% endif %}
+
+
+<section class="block">
+    <h1 class="long-border"><span>17 Декабря</span></h1>
+    <div class="theme-news-block search-news-block clearfix">
+        <ul class="theme-news-list ">
+            <li>
+                <span class="date">15:15 / <a href="#">Анонс</a></span>
+                <a href="#">В Ельце открыли самую технически современную библиотеку в Центральном Черноземье</a>
+            </li>
+        </ul>
+        <ul class="theme-news-list search-news-list">
+            <li>
+                <span class="date">12:44 / <a href="#">Анонс</a></span>
+                <a href="#">Владимир Мединский посетил Иран</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block right_column %}
+    right column
+{% endblock %}
+
+{#{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}#}
+
+{#&#123;&#35; ------------------------- &#35;&#125;#}
+{#{% block top_right %}#}
+    {#&#123;&#35;% render "ArmdNewsBundle:News:memorialEvents" %&#35;&#125;#}
+{#{% endblock %}#}
+
+{#&#123;&#35; ------------------------- &#35;&#125;#}
+{#{% block content%}#}
+
+    {#{% if not category %}#}
+        {#{% render "ArmdNewsBundle:News:billboard" %}#}
+    {#{% endif %}#}
+    {##}
+    {#<div class="clear"></div>#}
+
+    {#{% if news|length %}#}
+        {#<div class="news-list-main">#}
+            {#<ul class="news-list news-list-new ">#}
+                {#{% for n in news %}#}
+                    {#&#123;&#35;{% set f = n.date %}&#35;&#125;#}
+                    {#&#123;&#35;{% set t = n.endDate %}&#35;&#125;#}
+                    {#{% set href = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}#}
+                    {#<li>#}
+                        {#{% if n.image is not empty %}#}
+                            {#<a href="{{ href }}" class="news-list-image">#}
+                                {#{% thumbnail n.image, 'list' with {'alt': n.image.description} %}#}
+                            {#</a>#}
+                        {#{% endif %}#}
+                        {#<div class="news-list-text">#}
+                            {#<span class="news-list-date">#}
+                                {#{{ armd_news.news_date(n.newsDate) }}#}
+                            {#</span>#}
+                            {#<a href="{{ href }}" class="news-list-header">#}
+                                {#{% if n.date %}#}
+                                    {#{{ n.date|date('d.m.Y') }}#}
+                                    {#{% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}#}
+                                {#{% endif %}#}
+                                {#{{ n.title|raw }}#}
+                            {#</a>#}
+                            {#<p>{{ n.announce|raw }} </p>#}
+                            {#<a href="{{ path('armd_news_list_index_by_category', {'category': n.category.slug }) }}" class="news-list-type">{{ n.category.title }}</a>#}
+                        {#</div>#}
+                    {#</li>#}
+                {#{% endfor %}#}
+            {#</ul>#}
+        {#</div>#}
+    {#{% else %}#}
+        {#<h2>{{ "date.list.empty"|trans({ '%date%':calendarDate|date('d.m.Y') }) }}</h2>#}
+    {#{% endif %}#}
+
+    {#<!-- Pagination -->#}
+    {#<div class="news-nav-block">#}
+        {#<nav class="navigation">#}
+            {#{{ news.setUsedRoute(category ? 'armd_news_list_index_by_category_and_page' : 'armd_news_list_index_by_page') }}#}
+            {#{{ news.render()|raw}}#}
+            {#<br />#}
+        {#</nav>#}
+    {#</div>#}
+    {#<!-- /Pagination -->#}
+
+{#{% endblock %}#}
+
+{#&#123;&#35; ------------------------- &#35;&#125;#}
+{#&#123;&#35;{% block javascripts %}&#35;&#125;#}
+	{#&#123;&#35;{{ parent() }}&#35;&#125;#}
+	{#&#123;&#35;<script type="text/javascript" src="{{ asset('js/libs/jquery.ui.datepicker-ru-GB.js') }}"></script>&#35;&#125;#}
+{#&#123;&#35; {% endblock %} &#35;&#125;#}

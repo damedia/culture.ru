@@ -80,30 +80,7 @@
 
 </header>
 <div class="nav-header">
-    <h1>События</h1>
-
-    <div class="search-panel">
-        <div class="search-dates">
-            <span class="search-dates-label">Период:</span>
-
-            <div class="dates-chooser">
-                <a href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#">01.01.2012</a>
-
-                <div id="datapicker"></div>
-            </div>
-            <a href="#" class="button search-dates-button">Показать</a>
-        </div>
-        <div class="search-top clearfix">
-            <form action="">
-                <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
-                <input type="submit" value="Поиск" class="button search-btn"/>
-            </form>
-            <div class="search-checkboxes">
-                <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
-                <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
-            </div>
-        </div>
-    </div>
+    {% block page_header %}{% endblock %}
 </div>
 
 <div class="main clearfix">
