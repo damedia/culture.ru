@@ -184,7 +184,7 @@ body {
 				}
 			
 					
-					
+			/*
 			.main-menu {
 				float:left;
 				margin-left:22px;
@@ -192,7 +192,7 @@ body {
 			}
 				.main-menu-level1 {
 					list-style:none;
-					
+
 				}
 					.main-menu-level1 li {
 						display:inline;
@@ -202,12 +202,12 @@ body {
 						font: 21px Tahoma, Arial, sans-serif;
 						text-decoration:none;
 						text-transform:uppercase;
-						color:#000;
+						color:#000;2
 					}
 					.main-menu-level1 li.active a {
 						border-bottom:3px solid #f79016;
 					}
-				
+
 				.main-menu-submenu {
 					list-style:none;
 					margin-top:7px;
@@ -225,8 +225,60 @@ body {
 					.main-menu-submenu  li.active a {
 						border-bottom:2px solid #3f3f3f;
 					}
-						
-  
+
+    */
+            .main-menu {
+                float:left;
+                margin-left:22px;
+                margin-top:51px;
+                position: relative;
+            }
+                .main-menu ul {
+                    list-style:none;
+
+                }
+                .main-menu li {
+                    display:inline;
+                    margin-right:8px;
+                }
+                .main-menu a {
+                    font: 21px Tahoma, Arial, sans-serif;
+                    text-decoration:none;
+                    text-transform:uppercase;
+                    color:#000;
+                }
+                .main-menu li.active a {
+                    border-bottom:3px solid #f79016;
+                }
+
+            .main-menu .menu_level_1 {
+                position: absolute;
+                display: none;
+                list-style:none;
+                margin-top:7px;
+            }
+
+                .main-menu li.active .menu_level_1 {
+                    position: absolute;
+                    display: none;
+                    list-style:none;
+                    margin-top:7px;
+                }
+
+                .main-menu .menu_level_1 li {
+                    display:inline;
+                    margin-right:8px;
+                }
+                .main-menu .menu_level_1  a {
+                    font: 14px Tahoma, Arial, sans-serif;
+                    text-decoration:none;
+                    text-transform:uppercase;
+                    color:#3f3f3f;
+                }
+                .main-menu .menu_level_1  li.active a {
+                    border-bottom:2px solid #3f3f3f;
+                }
+
 		.nav-header {
 			background:#f79016;
 			position:relative;

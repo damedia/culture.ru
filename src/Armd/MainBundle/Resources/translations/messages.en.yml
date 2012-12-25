@@ -65,6 +65,18 @@ Mainpage block:
         Title: Images of Russia
         Of: of
 
+menu.homepage: Main
+menu.atlas: Atlas
+menu.russia_images: Russia Images
+menu.events: Events
+menu.cinema: Cinema
+menu.chronicle: Chronicle
+menu.spiritual_traditions: Spiritual traditions
+menu.information: Info
+menu.communication: Communication
+menu.special_projects: Special Projects
+
+
 mainpage.read_mode: Read More
 mainpage.show_all: Show All
 mainpage.news: News
