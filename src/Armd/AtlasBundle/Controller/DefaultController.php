@@ -136,7 +136,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/")
+     * @Route("/", name="armd_atlas_index")
      * @Template()
      */
     public function indexAction()

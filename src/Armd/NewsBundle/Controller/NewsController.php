@@ -3,6 +3,7 @@
 namespace Armd\NewsBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -10,25 +11,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
 use Armd\MkCommentBundle\Entity\Thread;
 
-class NewsController extends ListController
+class NewsController extends Controller
 {
-    function __construct(ContainerInterface $container = null)
-    {
-        $this->setContainer($container);    
-    }
-    
+//    function __construct(ContainerInterface $container = null)
+//    {
+//        $this->setContainer($container);
+//    }
+//
     /**
      * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
      */        
     function rssAction()
     {
-        $now = new \DateTime();
         $criteria = array(
             'category' => array('news', 'interviews', 'reportages')
         );
 
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
-            'news' => $this->getPaginator($criteria, 1, 30),
+            'news' => $this->getPagination($criteria, 1, 30),
         ));
     }        
 
@@ -106,11 +106,27 @@ class NewsController extends ListController
 
     /**
      * @Route("/", name="armd_news_list_index", options={"expose"=true})
-     * @Route("/page/{page}/", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_page", options={"expose"=true})
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
-     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_category_and_page", options={"expose"=true})
+     * @Template("ArmdNewsBundle:News:index.html.twig")
      */
-    function newsListAction($category = null, $page = 1, $limit = 10)
+    function newsIndexAction($category = null)
+    {
+        return array('category' => $category);
+    }
+
+
+    /**
+     * @Route("/list-by-date/{category}", name="armd_news_list_by_date")
+     */
+    function newsListByDateAction($category = null)
+    {
+
+    }
+
+    /**
+     * @Route("/list/{category}")
+     */
+    function newsListAction($category = null)
     {
         $criteria = array(
             'category'  => $category,
@@ -121,17 +137,13 @@ class NewsController extends ListController
             );
         }
 
-//        $calendarDate = $this->getRequest()->get('date');
-//        if ($calendarDate) {
-//            $calendarDate = new \DateTime($calendarDate);
-//            $criteria['target_date'] = $calendarDate;
-//        }
+//        $request->get
+//
+//        return $this->render('ArmdNewsBundle:News:list.html.twig', array(
+//            'category'      => $category,
+//            'news'          => $this->getNewsManager()-$criteria, $page, $limit),
+//        ));
 
-        return $this->render($this->getTemplateName('list'), array(
-            'category'      => $category,
-//            'calendarDate'  => $calendarDate,
-            'news'          => $this->getPaginator($criteria, $page, $limit),
-        ));
     }
     
     /**
@@ -140,13 +152,13 @@ class NewsController extends ListController
      */
     function newsItemAction($id, $category, $template = null, $isPrint = false)
     {
-        $entity = $this->getEntityRepository()->find($id);
+        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
 
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
 
-        $template = $template ? $template : $this->getTemplateName('item');
+        $template = $template ? $template : 'ArmdNewsBundle:News:item.html.twig';
         $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
 
         $categories = $this->getNewsManager()->getCategories();
@@ -165,7 +177,7 @@ class NewsController extends ListController
         
     function categoriesAction($category)
     {
-        return $this->render($this->getTemplateName('categories'), array(
+        return $this->render('ArmdNewsBundle:News:categories.html.twig', array(
             'category'      => $category,
             'categories'    => $this->getNewsManager()->getCategories(),
         ));
@@ -173,8 +185,8 @@ class NewsController extends ListController
     
     function latestNewsAction($limit)
     {
-        return $this->render($this->getTemplateName('latest-news'), array(
-            'news'  => $this->getPaginator(array(), 1, $limit),
+        return $this->render('ArmdNewsBundle:News:latest-news.html.twig', array(
+            'news'  => $this->getPagination(array(), 1, $limit),
         ));
     }
     
@@ -186,7 +198,7 @@ class NewsController extends ListController
 
         $entities = $this->getNewsManager()->getBillboardNews();
     
-        return $this->render($this->getTemplateName('billboard'), array(
+        return $this->render('ArmdNewsBundle:News:billboard.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -195,7 +207,7 @@ class NewsController extends ListController
     {
         $criteria = array('important' => true);
         $entities = $this->getNewsManager()->getBillboardNews();
-        return $this->render($this->getTemplateName('latest-news'), array(
+        return $this->render('ArmdNewsBundle:News:latest-news.html.twig', array(
             'news' => $entities,
         ));
     }
@@ -203,7 +215,7 @@ class NewsController extends ListController
     public function readAlsoNewsAction($entity, $limit = 10)
     {
         $entities = $this->getNewsManager()->getSiblingNews($entity, $limit);
-        return $this->render($this->getTemplateName('read-also-news'), array(
+        return $this->render('ArmdNewsBundle:News:read-also-news.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -215,14 +227,15 @@ class NewsController extends ListController
             'memorial_date' => new \DateTime(),
         );    
     
-        return $this->render($this->getTemplateName('memorials'), array(
-            'entities'      => $this->getPaginator($criteria, 1, 10),
+        return $this->render('ArmdNewsBundle:News:memorials.html.twig', array(
+            'entities'      => $this->getPagination($criteria, 1, 10),
         ));
     }
                 
-    function getPaginator($criteria, $page, $limit)
+    function getPagination($criteria, $page, $limit)
     {
-        return $this->getPagination($this->getNewsManager()->getQueryBuilder($criteria)->getQuery(), $page, $limit);
+        $query = $this->getNewsManager()->getQueryBuilder($criteria)->getQuery();
+        return $this->get('knp_paginator')->paginate($query, $page, $limit);
     }
         
     function getNewsManager()

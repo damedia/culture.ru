@@ -8,86 +8,122 @@ class Builder extends ContainerAware
 {
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        $t = $this->container->get('translator');
+        //$t = $this->container->get('translator');
 
         $menu = $factory->createItem('root');
 
-        $aboutMenu = $menu->addChild(
-            'menu.about',
+        $mainMenu = $menu->addChild(
+                'menu.homepage',
             array(
                 'route' => 'armd_main_homepage'
-            ),
-            array('label' => $t->trans('menu.about'))
-        );
-
-        $aboutMenu->addChild(
-            'menu.about_history',
-            array(
-                'route' => 'armd_main_page',
-                'routeParameters' => array('page' => 'about_history')
             )
         );
 
-        $aboutMenu->addChild(
-            'menu.about_structure',
+        $mainMenu->addChild(
+            'menu.atlas',
             array(
-                'route' => 'armd_main_page',
-                'routeParameters' => array('page' => 'about_structure')
-            )
-        );
-        $aboutMenu->addChild(
-            'menu.about_lottery',
-            array(
-                'route' => 'armd_main_page',
-                'routeParameters' => array('page' => 'about_lottery')
-            )
-        );
-//        $aboutMenu->addChild(
-//            'menu.about_programs',
-//            array(
-//                'uri' => '#',
-////                'route' => 'armd_main_page',
-////                'routeParameters' => array('page' => 'about_programs')
-//            )
-//        );
-//        $aboutMenu->addChild(
-//            'menu.about_partners',
-//            array(
-//                'uri' => '#',
-////                'route' => 'armd_main_page',
-////                'routeParameters' => array('page' => 'about_partners')
-//            )
-//        );
-        $aboutMenu->addChild(
-            'menu.about_contacts',
-            array(
-                'uri' => '#',
-                'route' => 'armd_main_page',
-                'routeParameters' => array('page' => 'about_contacts')
+                'route' => 'armd_atlas_index'
             )
         );
 
-        $eventsMenu = $menu->addChild(
+        $mainMenu->addChild(
+            'menu.russia_images',
+            array(
+                'route' => 'armd_atlas_index'
+            )
+        );
+
+        $mainMenu->addChild(
             'menu.events',
             array(
-                'uri' => '#',
-//                'route' => 'armd_main_page',
-//                'routeParameters' => array('page' => 'events')
+                'uri' => '#'
             )
         );
 
-//        $eventsMenu->addChild('events.news', array('route' => 'armd_main_page', 'routeParameters' => array('page' => 'events_news')));
-
-        $depoMenu = $menu->addChild(
-            'menu.depo',
+        $mainMenu->addChild(
+            'menu.cinema',
             array(
-                'uri' => '#',
-//                'route' => 'armd_main_page',
-//                'routeParameters' => array('page' => 'depo')
+                'route' => 'armd_lecture_lecture_index'
+            )
+        );
+
+        $mainMenu->addChild(
+            'menu.chronicle',
+            array(
+                'route' => 'armd_chronicle_index'
+            )
+        );
+
+        $mainMenu->addChild(
+            'menu.spiritual_traditions',
+            array(
+                'route' => 'armd_main_project_traditions'
+            )
+        );
+
+
+        $eventsMenu = $menu->addChild(
+            'menu.news_index',
+            array(
+                'route' => 'armd_news_list_index',
+            )
+        );
+
+        $eventsMenu->addChild(
+            'menu.news',
+            array(
+                'route' => 'armd_news_list_index_by_category',
+                'routeParameters' => array('category' => 'news')
+            )
+        );
+
+        $eventsMenu->addChild(
+            'menu.events',
+            array(
+                'route' => 'armd_news_list_index_by_category',
+                'routeParameters' => array('category' => 'events')
+            )
+        );
+
+        $eventsMenu->addChild(
+            'menu.reportage',
+            array(
+                'route' => 'armd_news_list_index_by_category',
+                'routeParameters' => array('category' => 'reportages')
+            )
+        );
+
+        $eventsMenu->addChild(
+            'menu.interview',
+            array(
+                'route' => 'armd_news_list_index_by_category',
+                'routeParameters' => array('category' => 'interviews')
+            )
+        );
+
+        $menu->addChild(
+            'menu.information',
+            array(
+                'uri' => '#'
+            )
+        );
+
+        $menu->addChild(
+            'menu.communication',
+            array(
+                'uri' => '#'
+            )
+        );
+
+        $menu->addChild(
+            'menu.special_projects',
+            array(
+                'uri' => '#'
             )
         );
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
+        \gFuncs::dbgWriteLogVar($this->container->get('request')->getRequestUri(), false, 'request uri'); // DBG:
 
         return $menu;
     }
