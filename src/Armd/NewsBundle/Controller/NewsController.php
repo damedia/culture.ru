@@ -110,7 +110,7 @@ class NewsController extends Controller
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
      * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_category_and_page", options={"expose"=true})
      */
-    function newsListAction($category = null, $page = 1, $limit = 10)
+    function newsListIndexAction($category = null, $page = 1, $limit = 10)
     {
         $criteria = array(
             'category'  => $category,
@@ -132,6 +132,11 @@ class NewsController extends Controller
 //            'calendarDate'  => $calendarDate,
             'news'          => $this->getPagination($criteria, $page, $limit),
         ));
+    }
+
+    function newsListAction($category = null, $page = 1, $limit = 50)
+    {
+
     }
     
     /**
