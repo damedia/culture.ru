@@ -106,11 +106,27 @@ class NewsController extends Controller
 
     /**
      * @Route("/", name="armd_news_list_index", options={"expose"=true})
-     * @Route("/page/{page}/", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_page", options={"expose"=true})
      * @Route("/{category}/", requirements={"category" = "[a-z]+"}, name="armd_news_list_index_by_category", options={"expose"=true})
-     * @Route("/{category}/page/{page}/", requirements={"category" = "[a-z]+", "page" = "\d+"}, defaults={"page" = 1}, name="armd_news_list_index_by_category_and_page", options={"expose"=true})
+     * @Template("ArmdNewsBundle:News:index.html.twig")
      */
-    function newsListAction($category = null, $page = 1, $limit = 10)
+    function newsIndexAction($category = null)
+    {
+        return array('category' => $category);
+    }
+
+
+    /**
+     * @Route("/list-by-date/{category}", name="armd_news_list_by_date")
+     */
+    function newsListByDateAction($category = null)
+    {
+
+    }
+
+    /**
+     * @Route("/list/{category}")
+     */
+    function newsListAction($category = null)
     {
         $criteria = array(
             'category'  => $category,
@@ -121,17 +137,13 @@ class NewsController extends Controller
             );
         }
 
-//        $calendarDate = $this->getRequest()->get('date');
-//        if ($calendarDate) {
-//            $calendarDate = new \DateTime($calendarDate);
-//            $criteria['target_date'] = $calendarDate;
-//        }
+//        $request->get
+//
+//        return $this->render('ArmdNewsBundle:News:list.html.twig', array(
+//            'category'      => $category,
+//            'news'          => $this->getNewsManager()-$criteria, $page, $limit),
+//        ));
 
-        return $this->render('ArmdNewsBundle:News:list.html.twig', array(
-            'category'      => $category,
-//            'calendarDate'  => $calendarDate,
-            'news'          => $this->getPagination($criteria, $page, $limit),
-        ));
     }
     
     /**

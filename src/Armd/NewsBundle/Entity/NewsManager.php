@@ -110,14 +110,17 @@ class NewsManager
         }
 
         if (!empty($criteria['from_date'])) {
-            $qb->andWhere($qb->expr()->gt('n.date', ':from_date'))
-               ->setParameter('from_date', new \DateTime($criteria['from_date'] . '00:00:00'));
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->gte('n.date', ':from_date'),
+                $qb->expr()->gte('n.newsDate', ':from_date')
+            ))->setParameter('from_date', new \DateTime($criteria['from_date'] . '00:00:00'));
         }
 
         if (!empty($criteria['to_date'])) {
-            $qb->andWhere($qb->expr()->lt('n.date', ':to_date'))
-               ->setParameter('to_date', new \DateTime($criteria['to_date'] . ' 23:59:59'))
-            ;
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->lte('n.date', ':to_date'),
+                $qb->expr()->lte('n.newsDate', ':to_date')
+            ))->setParameter('to_date', new \DateTime($criteria['to_date'] . ' 23:59:59'));
         }
 
         if (!empty($criteria['target_date'])) {
@@ -204,14 +207,12 @@ class NewsManager
     {
         $entities = array();
         foreach ($this->getCategories() as $category) {
-            $qb = $this->em->getRepository('ArmdNewsBundle:News')
-                ->createQueryBuilder('n')
-                ->innerJoin('n.image', 'i')
-                ->where('n.category = :category')
-                ->andWhere('i.enabled = TRUE')
+            $qb = $this->getQueryBuilder(array(
+                    'has_image' => true,
+                    'category' => array($category->getSlug()),
+                ))
                 ->orderBy('n.date', 'DESC')
-                ->setMaxResults(1)
-                ->setParameter('category', $category);
+                ->setMaxResults(1);
 
             $entity = $qb->andWhere('n.important = TRUE')
                 ->getQuery()->getOneOrNullResult();
