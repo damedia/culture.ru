@@ -1,59 +1,34 @@
-{% if entities %}	
+{% if entities %}
 
-<div id="featured" >
-	<ul class="ui-tabs-nav">
-		{% set length = entities|length is even ? entities|length : entities|length - 1 %}
+    <div id="featured" class="featured">
+        <ul class="ui-tabs-nav">
+            {% set length = entities|length is even ? entities|length : entities|length - 1 %}
+            {% for n in entities|slice(0, length) %}
+                <li class="ui-tabs-nav-item" id="nav-fragment-{{ loop.index }}">
+                    <a href="#fragment-{{ loop.index }}">
+                        <i>{{ n.category|raw }}</i>
+                        <span>{{ n.title|raw }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% set length = entities|length is even ? entities|length : entities|length - 1 %}
         {% for n in entities|slice(0, length) %}
-			<li class="ui-tabs-nav-item" id="nav-fragment-{{loop.index}}">
-				<a href="#fragment-{{loop.index}}">
-					<i>{{ n.category|raw }}</i>
-					<span>{{ n.title|raw }}</span>
-				</a>
-			</li>
-		{% endfor %}	
-	</ul>
-
-	{% set length = entities|length is even ? entities|length : entities|length - 1 %}
-	{% for n in entities|slice(0, length) %}
-    	{% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
-	<div id="fragment-{{loop.index}}" class="ui-tabs-panel" style="">
-		{% thumbnail n.image, 'billboard' %}
-		 <div class="info" >
-			<h2><a href="{{ href }}" >{{ n.title|raw }}</a></h2>
-			<p>{{ n.announce|raw }} </p>
-		 </div>
-	</div>
-	{% endfor %}	
-</div>
+            {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
+            <div id="fragment-{{ loop.index }}" class="ui-tabs-panel" style="">
+                {#<img src="{% path n.image, 'eventsBillboard' %}">#}
+                {% thumbnail n.image, 'eventsBillboard' %}
+                <div class="info">
+                    <div class="info-text">
+                        <h2><a href="{{ href }}">{{ n.title|raw }}</a></h2>
+                        <p>{{ n.announce|raw }} </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
 
-{#
-<div class="pictures-press-anons clearfix">
-	<ul>
-	{% set length = entities|length is even ? entities|length : entities|length - 1 %}
-	{% for n in entities|slice(0, length) %}
-    	{% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
-    	<li>
-    		<div class="ppa-block">
-    			<a href="{{ href }}">{% thumbnail n.image, 'billboard' with {'class': 'ppa-image'} %}</a>
-    			<img src="/img/image_frame.gif" alt="" class="news-image-frame" />
-    			<div class="ppa-anons">
-    				<span class="ppa-date">{{ n.date|date("j.m.Y") }}{% if n.endDate %} - {{ n.endDate|date("j.m.Y") }}{% endif%}</span>
-    				<p>
-    					<a href="{{ href }}">{{ n.title|raw }}</a>
-    				</p>
-    			</div>
-    			<div class="ppa-over" style="display:none;">
-    				<p><a href="{{ href }}">
-    					{{ n.announce|raw }}
-    				<span class="ppa-arrow">&rarr;</span>
-    				</a></p>				
-    			</div>
-    		</div>
-    	</li>
-	{% endfor %}	
-	</ul>
-</div>	
 
-#}
 

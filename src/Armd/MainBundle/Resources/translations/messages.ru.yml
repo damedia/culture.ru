@@ -67,15 +67,21 @@ Mainpage block:
 
 
 menu.homepage: Главная
-menu.atlas: Атлас
-menu.russia_images: Образы России
-menu.events: События
 menu.cinema: Кинозал
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
 menu.information: Информация
 menu.communication: Общение
 menu.special_projects: Спецпроекты
+menu.russia_images: Образы России
+
+menu.atlas: Атлас
+
+menu.news_index: События
+menu.news: Новости
+menu.events: События
+menu.reportage: Репортажи
+menu.interview: Интервью
 
 
 mainpage.show_all: Посмотреть все

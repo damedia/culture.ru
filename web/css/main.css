@@ -259,23 +259,21 @@ body {
             }
 
                 .main-menu li.active .menu_level_1 {
-                    position: absolute;
-                    display: none;
-                    list-style:none;
-                    margin-top:7px;
+                    display: block;
                 }
 
                 .main-menu .menu_level_1 li {
                     display:inline;
                     margin-right:8px;
                 }
-                .main-menu .menu_level_1  a {
+                .main-menu .menu_level_1 li a {
                     font: 14px Tahoma, Arial, sans-serif;
                     text-decoration:none;
                     text-transform:uppercase;
                     color:#3f3f3f;
+                    border: 0;
                 }
-                .main-menu .menu_level_1  li.active a {
+                .main-menu .menu_level_1 li.active a {
                     border-bottom:2px solid #3f3f3f;
                 }
 

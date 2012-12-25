@@ -66,15 +66,22 @@ Mainpage block:
         Of: of
 
 menu.homepage: Main
-menu.atlas: Atlas
-menu.russia_images: Russia Images
-menu.events: Events
 menu.cinema: Cinema
 menu.chronicle: Chronicle
 menu.spiritual_traditions: Spiritual traditions
 menu.information: Info
 menu.communication: Communication
 menu.special_projects: Special Projects
+menu.russia_images: Russia Images
+
+menu.atlas: Atlas
+
+menu.news_index: Events
+menu.news: News
+menu.events: Events
+menu.reportage: Reportage
+menu.interview: Interview
+
 
 
 mainpage.read_mode: Read More
