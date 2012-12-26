@@ -21,11 +21,18 @@ use Sonata\AdminBundle\Admin\Admin;
 class News extends Admin
 {
     protected $translationDomain = 'ArmdNewsBundle';
+    protected $container;
 
     protected $datagridValues = array(
         '_sort_by'      => 'date',    
         '_sort_order'   => 'DESC',
     );
+
+    public function __construct($code, $class, $baseControllerName, $container)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $container;
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper

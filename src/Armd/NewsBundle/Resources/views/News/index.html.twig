@@ -15,6 +15,7 @@
 </div>
 {% endblock %}
 
+
 {% block page_header_search_scope %}
     <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
     <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
@@ -27,7 +28,7 @@
     {% endif %}
 
     <div id="news-container">
-        {% render 'ArmdNewsBundle:News:twoColumnNewsList' with {'limit': 50} %}
+        {% render 'ArmdNewsBundle:News:twoColumnNewsList' with {'limit': 50, 'category': category} %}
     </div>
 
     <div class="more">
@@ -38,9 +39,11 @@
 
 {% endblock %}
 
+
 {% block right_column %}
-    right column
+    {% render 'ArmdNewsBundle:News:memorialEvents' %}
 {% endblock %}
+
 
 {% block javascripts %}
     {{ parent() }}
@@ -48,6 +51,7 @@
     <script type="text/javascript">
         $(function(){
             armdMkNews.init();
+            armdMkNews.categorySlug = '{{ category }}';
         });
     </script>
 {% endblock %}

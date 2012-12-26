@@ -1,20 +1,14 @@
-<div class="today-block">
-    <div class="today-block-header">
-		 {{ "now"|date('d') }} {{ ('calendar.full.'~"now"|date('M'))|trans }} / {{ "now"|date('Y') }} 
-	</div>
-
-	{% if entities %}
-    <span class="today-block-sub">{{ 'Onthisday'|trans }}</span>
-	<ul class="today-list">
-		{% for entity in entities %}
-		<li class="today-list-one">
-			<p class="tlo-year">{{ entity.date|date("Y") }}</p>
-			<p class="tlo-header">{{ entity.title }}</p>
-			<p>
-				{{ entity.announce|raw }}
-			</p>
-		</li>
-		{% endfor %}
-	</ul>
-	{% endif %}
-</div>
+{% import 'ArmdNewsBundle::date_macro.html.twig' as news_date %}
+{% if entities is not empty %}
+    <section class="block">
+        <h1><span>Памятные даты</span></h1>
+    </section>
+    {% for entity in entities %}
+        <div class="important-dates">
+            <h2>{{ news_date.news_date(entity.newsDate) }}</h2>
+            <ul>
+                <li>{{ entity.title }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+{% endif %}

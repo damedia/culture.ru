@@ -128,9 +128,13 @@ class NewsController extends Controller
             $limit = $limit ? $limit : 100;
             $criteria = array(
                 'category' => $category,
-                'to_date' => $this->getRequest()->get('to_date'),
-                'from_date' => $this->getRequest()->get('from_date')
             );
+            if ($request->query->has('to_date')) {
+                $criteria['to_date'] = new \DateTime($this->getRequest()->get('to_date'));
+            }
+            if ($request->query->has('from_date')) {
+                $criteria['from_date'] = new \DateTime($this->getRequest()->get('from_date'));
+            }
             $newsByDate = $this->getNewsManager()->getNewsGroupedByDate($criteria, $limit);
         } else {
             $limit = $limit ? $limit : 25;

@@ -2,8 +2,8 @@
 {% import _self as self %}
 
 {% macro article(article) %}
-    <span class="date">{{ article.newsDate|date('H:i') }} / <a href="#">{{ article.category.title }}</a></span>
-    <a href="#">{{ article.title}}</a>
+    <span class="date">{{ article.newsDate|date('H:i') }} / <a href="{{ path('armd_news_list_index_by_category', {'category': article.category.slug}) }}">{{ article.category.title }}</a></span>
+    <a href="{{ path('armd_news_item_by_category', {'id': article.id, 'category': article.category.slug }) }}">{{ article.title}}</a>
 {% endmacro %}
 
 {% for date, news in newsByDate %}
@@ -13,14 +13,14 @@
         <div class="theme-news-block search-news-block clearfix">
             <ul class="theme-news-list">
                 {% set lasti = 0 %}
-                {% for i in 0..(news|length-1)//2+1 %}
+                {% for i in 0..(news|length-1)//2 if (i < news|length) %}
                     <li>{{ self.article(news[i]) }}</li>
                     {% set lasti = i %}
                 {% endfor %}
             </ul>
 
             <ul class="theme-news-list search-news-list">
-                {% for i in lasti+1..(news|length-1) %}
+                {% for i in lasti+1..(news|length-1) if (i < news|length) %}
                     <li>{{ self.article(news[i]) }}</li>
                 {% endfor %}
             </ul>
@@ -30,8 +30,13 @@
 {% endfor %}
 
 <script type="text/javascript">
-    var firstLoadedDate = '{{ newsByDate|keys[newsByDate|keys|length - 1] }}';
-    var lastLoadedDate = '{{ newsByDate|keys[0] }}';
+    {% if newsByDate is not empty %}
+        var firstLoadedDate = '{{ newsByDate|keys[newsByDate|keys|length - 1] }}';
+        var lastLoadedDate = '{{ newsByDate|keys[0] }}';
+    {% else %}
+        var firstLoadedDate = momentum().format('YYYY-MM-DD');
+        var lastLoadedDate = momentum().format('YYYY-MM-DD');
+    {% endif %}
 </script>
 
 

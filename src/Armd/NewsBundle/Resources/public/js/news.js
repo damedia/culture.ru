@@ -12,9 +12,14 @@ var armdMkNews = {
             event.preventDefault();
             armdMkNews.loadNewsByDates();
         });
+
+        $('#first-date').html(armdMkNews.dateFromIso8601(firstLoadedDate));
+        $('#last-date').html(moment().format('DD.MM.YYYY'));
     },
 
-
+    /**
+     * uses global var firstLoadedDate
+     */
     loadMoreNews: function() {
         $.ajax({
             url: Routing.generate('armd_news_two_column_list', {
@@ -28,7 +33,7 @@ var armdMkNews = {
 
             success: function(data) {
                 $('#news-container').append(data);
-                $('#first-date').html(firstLoadedDate);
+                $('#first-date').html(armdMkNews.dateFromIso8601(firstLoadedDate));
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error loading news: ' + errorThrown);
@@ -36,9 +41,12 @@ var armdMkNews = {
         })
     },
 
+    /**
+     *  uses global var firstLoadedDate
+     */
     loadNewsByDates: function() {
-        var firstDate = $('#first-date').html();
-        var lastDate = $('#last-date').html();
+        var firstDate = armdMkNews.dateToIso8601($('#first-date').html());
+        var lastDate = armdMkNews.dateToIso8601($('#last-date').html());
         $.ajax({
             url: Routing.generate('armd_news_two_column_list', {
                 category: armdMkNews.categorySlug
@@ -52,7 +60,7 @@ var armdMkNews = {
 
             success: function(data) {
                 $('#news-container').html(data);
-                $('#first-date').html(firstLoadedDate);
+//                $('#first-date').html(armdMkNews.dateFromIso8601(firstLoadedDate));
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error loading news: ' + errorThrown);
@@ -61,11 +69,11 @@ var armdMkNews = {
     },
 
     dateToIso8601: function(dateString) {
-        return moment(dateString, 'MM.DD.YYYY').format('YYYY-MM-DD');
+        return moment(dateString, 'DD.MM.YYYY').format('YYYY-MM-DD');
     },
 
     dateFromIso8601: function(dateString) {
-        return moment(dateString, 'YYYY-MM-DD').format('MM.DD.YYYY');
+        return moment(dateString, 'YYYY-MM-DD').format('DD.MM.YYYY');
     }
 
 };
