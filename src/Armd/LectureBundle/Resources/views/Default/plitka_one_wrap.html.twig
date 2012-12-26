@@ -1,0 +1,40 @@
+{% for lecture in lectures %}
+    <div class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                {% if lecture.lectureVideo.imageMedia is defined %}
+                    {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
+                {% elseif lecture.mediaLectureVideo is not empty %}
+                    {% set thumbnailMedia = lecture.mediaLectureVideo %}
+                {% else %}
+                    {% set thumbnailMedia = null %}
+                {% endif %}
+
+                {% if thumbnailMedia is not null %}
+                    <img class="plitka-image" alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'tile' %}"/>
+                {% endif %}
+            </a>
+            <div class="plitka-text">
+                <span class="plitka-name">{{ lecture.title }}</span>
+
+                {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
+
+                {% for lectureCategory in lecture.categories %}
+                    <a href="#"><nobr>{{ lectureCategory.title }}</nobr></a>{% if not loop.last %},{% endif %}
+                {% endfor %}
+                <br />
+
+                Режиссер: Мотыль Владимир
+            </div>
+            <div class="plitka-footer">
+                <a href="{{ path('armd_lecture_default_list', { 'category':lecture.lectureSuperType.id }) }}">
+                    {{ lecture.lectureSuperType.name }}
+                </a>
+            </div>
+        </div>
+        {# Пока отключим рейтинг
+        <span class="star-mark">7,5</span>
+        #}
+    </div>
+{% endfor %}

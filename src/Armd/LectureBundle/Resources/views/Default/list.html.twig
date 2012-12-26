@@ -3,19 +3,38 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('new_design/css/jquery.ui.selectgroup.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/css/jquery.ui.selectgroup.css') }}">
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('new_design/js/jquery.ui.selectgroup.js') }}"></script>
+    <script src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
+    <script src="{{ asset('vendor/jquery.form.js') }}"></script>
     <script>
         $(function(){
             // При выборе типа видосов, подгружаем список категорий
             // НЕ РАБОТАЕТ!
             $('#form_supertype').on('change', function(){
                 console.log('xxx', $(this).val());
+            });
+
+            // Кнопка "ПОКАЗАТЬ ЕЩЕ ФИЛЬМЫ"
+            $('#lecture-more-button').click(function(){
+                console.log('#lecture-more-button click');
+
+                console.log($('#lectures-filter').serialize());
+
+                $.ajax({
+                    url: Routing.generate('armd_lecture_default_list', { format:'ajax', page: 1 }),
+                    success: function(res) {
+                        //console.log( $('#lecture-container').find('.plitka-one-wrap') );
+                        $(res).insertBefore($('#lecture-more-container'));
+                        // проверка, если объектов больше нет, скрыть кнопку
+                    }
+                });
+
+                return false;
             });
         });
     </script>
@@ -27,7 +46,7 @@
     <div class="search-panel">
         <div class="search-category">
 
-            <form id="lectures-filter" action="" method="post" {{ form_enctype(form) }}>
+            <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="post" {{ form_enctype(form) }}>
                 <span class="search-dates-label">Выбрать</span>
                 <div class="search-category-selects">
                     {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}
@@ -58,50 +77,11 @@
     <div class="left-column-content">
 
         {% if lectures|length > 0 %}
-            {% for lecture in lectures %}
-                <div class="plitka">
-                    <div class="plitka-one-wrap">
-                        <div class="plitka-one">
-                            <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                                {% if lecture.lectureVideo.imageMedia is defined %}
-                                    {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
-                                {% elseif lecture.mediaLectureVideo is not empty %}
-                                    {% set thumbnailMedia = lecture.mediaLectureVideo %}
-                                {% else %}
-                                    {% set thumbnailMedia = null %}
-                                {% endif %}
-
-                                {% if thumbnailMedia is not null %}
-                                    <img class="plitka-image" alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'tile' %}"/>
-                                {% endif %}
-                            </a>
-                            <div class="plitka-text">
-                                <span class="plitka-name">{{ lecture.title }}</span>
-
-                                {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
-                                {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
-
-                                {% for lectureCategory in lecture.categories %}
-                                    <a href="#"><nobr>{{ lectureCategory.title }}</nobr></a>{% if not loop.last %},{% endif %}
-                                {% endfor %}
-                                <br />
-
-                                Режиссер: Мотыль Владимир
-                            </div>
-                            <div class="plitka-footer">
-                                <a href="#">
-                                    {{ lecture.lectureSuperType.name }}
-                                </a>
-                            </div>
-                        </div>
-                        {# Пока отключим рейтинг
-                        <span class="star-mark">7,5</span>
-                        #}
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="more more2">
-                <p><a href="#">Показать еще фильмы</a></p>
+            <div id="lecture-container" class="plitka">
+                {% include "ArmdLectureBundle:Default:plitka_one_wrap.html.twig" %}
+            </div>
+            <div id="lecture-more-container" class="more more2">
+                <p><a id="lecture-more-button" href="{{ path('armd_lecture_default_list', { 'page':2 }) }}">Показать еще фильмы</a></p>
             </div>
         {% else %}
             <strong>По Вашему запросу объектов не найдено</strong>

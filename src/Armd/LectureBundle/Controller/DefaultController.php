@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
-
     /**
      * @Route("/lecture/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_lecture_index")
      */
@@ -79,8 +78,6 @@ class DefaultController extends Controller
             'typeCategories' => $typeCategories
         ));
     }
-
-
 
     /**
      * @Route("/list/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_list", options={"expose"=true})
@@ -174,19 +171,39 @@ class DefaultController extends Controller
     /**
      * Experimental video index
      *
-     * @Route()
+     * @Route("/", options={"expose"=true})
      * @Template()
      */
     public function listAction()
     {
         $request = $this->getRequest();
 
+        /**
+         * @var \Armd\LectureBundle\Manager\LectureManager $manager
+         */
+        $manager = $this->get('armd_lecture.manager.lecture');
+
+        $em = $this->getDoctrine()->getManager();
+
         // Форма фильтра
+        $page      = $request->get('page', 1);
+        $perPage   = $request->get('perPage', 8);
+        $sort      = 'date';
+        $typeIds   = null;
+        $categoryIds = null;
+        $searchString = '';
+        $superTypeId = $request->get('category', null);
+        if ($superTypeId) {
+            $superType = $em->getRepository('ArmdLectureBundle:LectureSuperType')->find($superTypeId);
+        } else {
+            $superType = null;
+        }
+
         $defaultValues = array(
             'sort'      => $request->get('id', 'date'),
-            'supertype' => $request->get('supertype', null),
-            'page'      => $request->get('page', 1),
-            'perPage'   => $request->get('perPage', 20),
+            'supertype' => $superType,
+            'page'      => $page,
+            'perPage'   => $perPage,
         );
         $form = $this->createFormBuilder($defaultValues)
             ->add('search',   'text', array(
@@ -223,14 +240,6 @@ class DefaultController extends Controller
             ->add('perPage', 'text', array('required' => false))
             ->getForm();
 
-        $superType = null;
-        $page      = 1;
-        $perPage   = 20;
-        $sort      = 'date';
-        $typeIds   = null;
-        $categoryIds = null;
-        $searchString = '';
-
         if ($this->getRequest()->isMethod('POST')) {
             $form->bind($this->getRequest());
 
@@ -245,17 +254,20 @@ class DefaultController extends Controller
                 $categoryIds = isset($filter['genre']) ? array($filter['genre']->getId()) : null;
                 $searchString = $filter['search'];
             }
-
         }
-
-        $manager = $this->get('armd_lecture.manager.lecture');
 
         $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
 
-        return array(
-            'form' => $form->createView(),
-            'lectures' => $lectures,
-        );
+        if ($request->get('format') == 'ajax') {
+            return $this->render('ArmdLectureBundle:Default:plitka_one_wrap.html.twig', array(
+                'lectures' => $lectures,
+            ));
+        } else {
+            return array(
+                'form' => $form->createView(),
+                'lectures' => $lectures,
+            );
+        }
     }
 
 }
