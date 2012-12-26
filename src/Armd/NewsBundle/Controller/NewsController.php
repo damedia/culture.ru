@@ -257,13 +257,13 @@ class NewsController extends Controller
         ));
     }
                 
-    function getPagination($criteria, $page, $limit)
+    protected function getPagination($criteria, $page, $limit)
     {
         $query = $this->getNewsManager()->getQueryBuilder($criteria)->getQuery();
         return $this->get('knp_paginator')->paginate($query, $page, $limit);
     }
         
-    function getNewsManager()
+    protected function getNewsManager()
     {
         return $this->get('armd_news.manager.news');
     }        
@@ -272,7 +272,7 @@ class NewsController extends Controller
      * @param \Armd\MkCommentBundle\Entity\Thread $thread
      * @return \Armd\MkCommentBundle\Entity\Comment
      */
-    public function getComments(Thread $thread = null)
+    protected function getComments(Thread $thread = null)
     {
         if (empty($thread)) {
             return null;
@@ -281,8 +281,8 @@ class NewsController extends Controller
         }
     }
 
-    function getControllerName()
+    protected function getControllerName()
     {
         return 'ArmdNewsBundle:News';
-    }            
+    }
 }

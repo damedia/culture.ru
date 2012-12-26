@@ -166,6 +166,7 @@ sonata_media:
                 imagesOfRussiaSmall: {width: 85, height: 61}
                 imagesOfRussiaUnderMap: {width: 127, height: 107}
                 searchAllResult: { width: 160, height: 107 }
+                sideBanner: {width: 308 }
 
         atlas_icon:
             download:
