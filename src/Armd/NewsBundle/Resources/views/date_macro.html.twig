@@ -1,3 +1,8 @@
 {% macro news_date(value) %}
     {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' /Y') }}
 {% endmacro %}
+
+{% macro news_date_short(value) %}
+    {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}
+{% endmacro %}
+

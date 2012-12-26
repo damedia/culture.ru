@@ -57,28 +57,26 @@
     </div>
     <nav class="main-menu">
         {{ knp_menu_render('ArmdMainBundle:Builder:mainMenu', {'template': ':Frontend:menu.html.twig', 'currentClass': 'active', 'ancestorClass': 'active'}) }}
-
-        {#<ul class="main-menu-level1">#}
-            {#<li><a href="#">Главная</a></li>#}
-            {#<li class="active"><a href="#">События</a></li>#}
-            {#<li><a href="#">Информация</a></li>#}
-            {#<li><a href="#">Общение</a></li>#}
-            {#<li><a href="#">Спецпроекты</a></li>#}
-        {#</ul>#}
-        {#<ul class="main-menu-submenu">#}
-            {#<li><a href="#"><span>Атлас</span></a></li>#}
-            {#<li><a href="#"><span>Образы России</span></a></li>#}
-            {#<li><a href="#"><span>Мероприятия</span></a></li>#}
-            {#<li><a href="#"><span>Виртуальные музеи</span></a></li>#}
-            {#<li class="active"><a href="#"><span>Кинозал</span></a></li>#}
-            {#<li><a href="#"><span>Лента времени</span></a></li>#}
-            {#<li><a href="#"><span>Духовные традиции</span></a></li>#}
-        {#</ul>#}
     </nav>
 
 </header>
 <div class="nav-header">
-    {% block page_header %}{% endblock %}
+    {% block page_header %}
+        <h1>{% block page_header_title %}{% endblock %}</h1>
+
+        <div class="search-panel">
+            {% block page_header_search %}{% endblock %}
+            <div class="search-top clearfix">
+                <form action="">
+                    <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
+                    <input type="submit" value="Поиск" class="button search-btn"/>
+                </form>
+                <div class="search-checkboxes">
+                    {% block page_header_search_scope %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 </div>
 
 <div class="main clearfix">
@@ -128,8 +126,10 @@
     <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
     {% if app.request.locale == 'ru' %}
-        <script type="text/javascript" src="{{ asset('vendors/jquery.ui.datepicker-ru.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker-ru.js') }}"></script>
     {% endif %}
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>

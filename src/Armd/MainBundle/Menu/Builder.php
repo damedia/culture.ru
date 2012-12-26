@@ -123,7 +123,6 @@ class Builder extends ContainerAware
         );
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
-        \gFuncs::dbgWriteLogVar($this->container->get('request')->getRequestUri(), false, 'request uri'); // DBG:
 
         return $menu;
     }

@@ -1,60 +1,59 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
-{% block page_header %}
-    <h1>События</h1>
+{% block page_header_title %}События{% endblock %}
 
-    <div class="search-panel">
-        <div class="search-dates">
-            <span class="search-dates-label">Период:</span>
+{% block page_header_search %}
+<div class="search-dates">
+    <span class="search-dates-label">Период:</span>
 
-            <div class="dates-chooser">
-                <a href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#">01.01.2012</a>
+    <div class="dates-chooser">
+        <a id="first-date" href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#" id="last-date">01.01.2012</a>
 
-                <div id="datapicker"></div>
-            </div>
-            <a href="#" class="button search-dates-button">Показать</a>
-        </div>
-        <div class="search-top clearfix">
-            <form action="">
-                <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
-                <input type="submit" value="Поиск" class="button search-btn"/>
-            </form>
-            <div class="search-checkboxes">
-                <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
-                <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
-            </div>
-        </div>
+        <div id="datapicker"></div>
     </div>
+    <a href="#" class="button search-dates-button">Показать</a>
+</div>
 {% endblock %}
+
+
+{% block page_header_search_scope %}
+    <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
+    <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
+{% endblock %}
+
 
 {% block left_column %}
     {% if not category %}
-        {% render "ArmdNewsBundle:News:billboard" %}
+        {% render 'ArmdNewsBundle:News:billboard' %}
     {% endif %}
 
-
-<section class="block">
-    <h1 class="long-border"><span>17 Декабря</span></h1>
-    <div class="theme-news-block search-news-block clearfix">
-        <ul class="theme-news-list ">
-            <li>
-                <span class="date">15:15 / <a href="#">Анонс</a></span>
-                <a href="#">В Ельце открыли самую технически современную библиотеку в Центральном Черноземье</a>
-            </li>
-        </ul>
-        <ul class="theme-news-list search-news-list">
-            <li>
-                <span class="date">12:44 / <a href="#">Анонс</a></span>
-                <a href="#">Владимир Мединский посетил Иран</a>
-            </li>
-        </ul>
+    <div id="news-container">
+        {% render 'ArmdNewsBundle:News:twoColumnNewsList' with {'limit': 50, 'category': category} %}
     </div>
-</section>
+
+    <div class="more">
+        <p>
+            <a href="#" id="more-news">Еще события</a>
+        </p>
+    </div>
 
 {% endblock %}
 
+
 {% block right_column %}
-    right column
+    {% render 'ArmdNewsBundle:News:memorialEvents' %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            armdMkNews.init();
+            armdMkNews.categorySlug = '{{ category }}';
+        });
+    </script>
 {% endblock %}
 
 {#{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}#}

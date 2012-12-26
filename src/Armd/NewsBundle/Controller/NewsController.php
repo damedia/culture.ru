@@ -116,35 +116,60 @@ class NewsController extends Controller
 
 
     /**
-     * @Route("/list-by-date/{category}", name="armd_news_list_by_date")
+     * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
+     * @Template("ArmdNewsBundle:News:two-column-list.html.twig")
      */
-    function newsListByDateAction($category = null)
+    function twoColumnNewsListAction($category = null, $limit = null)
     {
+        $category = $category ? array($category) : array('news', 'interviews', 'reportages');
+        $request = $this->getRequest();
 
-    }
-
-    /**
-     * @Route("/list/{category}")
-     */
-    function newsListAction($category = null)
-    {
-        $criteria = array(
-            'category'  => $category,
-        );
-        if (! $category) {
+        if ($request->query->has('to_date') || $request->query->has('from_date')) {
+            $limit = $limit ? $limit : 100;
             $criteria = array(
-                'category'  => array('news', 'interviews', 'reportages'),
+                'category' => $category,
             );
+            if ($request->query->has('to_date')) {
+                $criteria['to_date'] = new \DateTime($this->getRequest()->get('to_date'));
+            }
+            if ($request->query->has('from_date')) {
+                $criteria['from_date'] = new \DateTime($this->getRequest()->get('from_date'));
+            }
+            $newsByDate = $this->getNewsManager()->getNewsGroupedByDate($criteria, $limit);
+        } else {
+            $limit = $limit ? $limit : 25;
+            $firstLoadedDate = new \DateTime($request->get('first_loaded_date'));
+            $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
+            $newsByDate = $this->getNewsManager()->getNewsBeforeDate($category, $firstLoadedDate, $limit);
         }
 
+        return array(
+            'newsByDate' => $newsByDate
+        );
+    }
+
+//    /**
+//     * @Route("/list/{category}")
+//     */
+//    function newsListAction($category = null)
+//    {
+//        $criteria = array(
+//            'category'  => $category,
+//        );
+//        if (! $category) {
+//            $criteria = array(
+//                'category'  => array('news', 'interviews', 'reportages'),
+//            );
+//        }
+//
 //        $request->get
 //
 //        return $this->render('ArmdNewsBundle:News:list.html.twig', array(
 //            'category'      => $category,
 //            'news'          => $this->getNewsManager()-$criteria, $page, $limit),
 //        ));
-
-    }
+//
+//    }
     
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})

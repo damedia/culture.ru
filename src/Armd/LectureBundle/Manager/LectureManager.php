@@ -58,17 +58,16 @@ class LectureManager
 
         $searchResult = $this->search->search($searchString, $searchParams);
 
-        $lectures = array();
+        $result = array();
         if (!empty($searchResult['Lectures']['matches'])) {
-            $lectures = $lectureRepo->findBy(array('id' => array_keys($searchResult['Lectures']['matches'])));
+            $items = $lectureRepo->findBy(array('id' => array_keys($searchResult['Lectures']['matches'])));
+            $result = array(
+                'total' => $searchResult['Lectures']['total'],
+                'items' => $items,
+            );
         }
 
-        return $lectures;
-
-        $pagination = $this->paginator->paginate($lectures, $page, $perPage);
-        $pagination->setTotalItemCount($searchResult['Lectures']['total']);
-
-        return $pagination;
+        return $result;
     }
 
     public function getStructuredRolesPersons(\Armd\LectureBundle\Entity\Lecture $lecture)

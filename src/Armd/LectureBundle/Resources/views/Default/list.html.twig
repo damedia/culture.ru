@@ -3,7 +3,7 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('vendor/css/jquery.ui.selectgroup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.ui.selectgroup.css') }}">
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
@@ -19,21 +19,41 @@
                 console.log('xxx', $(this).val());
             });
 
+            // Ajax Form handler
+            $('#lectures-filter').ajaxForm({
+                success: function(responseText, statusText, xhr, $form) {
+                    var jsonData = $.parseJSON(responseText);
+
+                    if ($('#lectures-filter').data('mode') == 'append') {
+                        $('#lecture-container').append( jsonData.html );
+                    } else {
+                        $('#lecture-container').html( jsonData.html );
+                    }
+
+                    var loadedCount = $('#lecture-container .plitka-one-wrap').length;
+
+                    if (loadedCount >= jsonData.total) {
+                        $('#lecture-more-container').hide();
+                    } else {
+                        $('#lecture-more-container').show();
+                    }
+                }
+            });
+
+            // Form submit
+            $('#lectures-filter-submit').click(function(){
+                $('#lectures-filter').data('mode', 'replace');
+                $('#form_page').val(1);
+                $('#lectures-filter').submit();
+                return false;
+            });
+
             // Кнопка "ПОКАЗАТЬ ЕЩЕ ФИЛЬМЫ"
             $('#lecture-more-button').click(function(){
-                console.log('#lecture-more-button click');
-
-                console.log($('#lectures-filter').serialize());
-
-                $.ajax({
-                    url: Routing.generate('armd_lecture_default_list', { format:'ajax', page: 1 }),
-                    success: function(res) {
-                        //console.log( $('#lecture-container').find('.plitka-one-wrap') );
-                        $(res).insertBefore($('#lecture-more-container'));
-                        // проверка, если объектов больше нет, скрыть кнопку
-                    }
-                });
-
+                var nextPage = parseInt($('#form_page').val()) + 1;
+                $('#form_page').val(nextPage);
+                $('#lectures-filter').data('mode', 'append');
+                $('#lectures-filter').submit();
                 return false;
             });
         });
@@ -56,7 +76,7 @@
                         {{ form_rest(form) }}
                     </div>
                 </div>
-                <button type="submit" class="button search-dates-button">Показать</button>
+                <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
             </form>
 
         </div>

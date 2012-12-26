@@ -258,14 +258,19 @@ class DefaultController extends Controller
 
         $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
 
-        if ($request->get('format') == 'ajax') {
-            return $this->render('ArmdLectureBundle:Default:plitka_one_wrap.html.twig', array(
-                'lectures' => $lectures,
+        if ($request->isXmlHttpRequest()) {
+            $html = $this->render('ArmdLectureBundle:Default:plitka_one_wrap.html.twig', array(
+                'lectures' => $lectures['items'],
             ));
+            return new Response(json_encode(array(
+                'html' => $html->getContent(),
+                'total' => $lectures['total'],
+            )));
         } else {
             return array(
                 'form' => $form->createView(),
-                'lectures' => $lectures,
+                'lectures' => $lectures['items'],
+                'lecturesTotal' => $lectures['total'],
             );
         }
     }
