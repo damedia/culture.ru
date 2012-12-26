@@ -42,6 +42,24 @@
 
 {% block right_column %}
     {% render 'ArmdNewsBundle:News:memorialEvents' %}
+
+    {% if relatedAtlasObject is not empty %}
+        <section class="block">
+            <h1><span>Рекомендуем</span></h1>
+
+            <div class="recommend-block">
+                {% thumbnail relatedAtlasObject, 'sideBanner' %}
+
+                <div class="recommend-over">
+                    <div class="recommend_name">
+                        <p>{{ relatedAtlasObject.title }}</p>
+                    </div>
+                    <p class="recommend-type"><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></p>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
 {% endblock %}
 
 

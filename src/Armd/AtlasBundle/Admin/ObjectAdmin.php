@@ -150,34 +150,41 @@ class ObjectAdmin extends Admin
                     'media_provider' => 'sonata.media.provider.image',
                     'media_format' => 'thumbnail'
                 ))
-                  ->add('images', 'collection', array(
-                        'type' => 'armd_media_file_type',
-                        'options' => array(
-                            'media_context' => 'atlas',
-                            'media_provider' => 'sonata.media.provider.image',
-                            'media_format' => 'thumbnail'
-                        ),
-                        'by_reference' => false,
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'required' => false,
-                        'attr' => array('class' => 'armd-sonata-images-collection'),
-                  ))
-                  ->add('archiveImages', 'collection', array(
-                        'type' => 'armd_media_file_type',
-                        'options' => array(
-                            'media_context' => 'atlas',
-                            'media_provider' => 'sonata.media.provider.image',
-                            'media_format' => 'thumbnail',
-                            'with_title' => true,
-                            'with_description' => true
-                        ),
-                        'by_reference' => false,
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'required' => false,
-                        'attr' => array('class' => 'armd-sonata-images-collection'),
-                  ))
+                ->add('sideBannerImage', 'armd_media_file_type', array(
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'atlas',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'thumbnail'
+                ))
+                ->add('images', 'collection', array(
+                    'type' => 'armd_media_file_type',
+                    'options' => array(
+                        'media_context' => 'atlas',
+                        'media_provider' => 'sonata.media.provider.image',
+                        'media_format' => 'thumbnail'
+                    ),
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required' => false,
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                ))
+                ->add('archiveImages', 'collection', array(
+                    'type' => 'armd_media_file_type',
+                    'options' => array(
+                        'media_context' => 'atlas',
+                        'media_provider' => 'sonata.media.provider.image',
+                        'media_format' => 'thumbnail',
+                        'with_title' => true,
+                        'with_description' => true
+                    ),
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required' => false,
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                ))
                 ->add('image3d', 'armd_media_file_type', array(
                     'required' => false,
                     'with_remove' => true,

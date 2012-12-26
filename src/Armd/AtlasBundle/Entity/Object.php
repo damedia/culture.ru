@@ -108,6 +108,12 @@ class Object implements Taggable
     private $primaryImage;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="side_banner_image_id", referencedColumnName="id", nullable=true)
+     */
+    private $sideBannerImage;
+
+    /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="atlas_object_image")
      * @ORM\OrderBy({"id" = "ASC"})
@@ -242,8 +248,8 @@ class Object implements Taggable
     public function syncPrimaryAndSecondaryCategories()
     {
         if (!empty($this->primaryCategory)
-            && !$this->secondaryCategories->contains($this->primaryCategory))
-        {
+            && !$this->secondaryCategories->contains($this->primaryCategory)
+        ) {
             $this->secondaryCategories->add($this->primaryCategory);
         }
     }
@@ -284,15 +290,16 @@ class Object implements Taggable
     }
 
     public function getPublished()
-     {
-         return $this->published;
-     }
+    {
+        return $this->published;
+    }
 
-     public function setPublished($published)
-     {
-         $this->published = $published;
-         return $this;
-     }
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
 
     /**
      * Set title
@@ -411,6 +418,7 @@ class Object implements Taggable
     public function setPrimaryCategory(\Armd\AtlasBundle\Entity\Category $primaryCategory = null)
     {
         $this->primaryCategory = $primaryCategory;
+
         return $this;
     }
 
@@ -427,6 +435,7 @@ class Object implements Taggable
         foreach ($this->getSecondaryCategories() as $secondaryCategory) {
             $categories[] = $secondaryCategory;
         }
+
         return $categories;
     }
 
@@ -577,6 +586,7 @@ class Object implements Taggable
     public function setWorkTime($workTime)
     {
         $this->workTime = $workTime;
+
         return $this;
     }
 
@@ -599,6 +609,7 @@ class Object implements Taggable
     public function setVirtualTour($virtualTour)
     {
         $this->virtualTour = $virtualTour;
+
         return $this;
     }
 
@@ -621,6 +632,7 @@ class Object implements Taggable
     public function setShowAtHomepage($showAtHomepage)
     {
         $this->showAtHomepage = $showAtHomepage;
+
         return $this;
     }
 
@@ -636,6 +648,7 @@ class Object implements Taggable
         if (is_null($virtualTourImage) || $virtualTourImage->isUploaded()) {
             $this->virtualTourImage = $virtualTourImage;
         }
+
         return $this;
     }
 
@@ -685,6 +698,7 @@ class Object implements Taggable
     public function addWeekend(\Armd\AtlasBundle\Entity\WeekDay $weekend)
     {
         $this->weekends[] = $weekend;
+
         return $this;
     }
 
@@ -725,6 +739,26 @@ class Object implements Taggable
         if (is_null($primaryImage) || $primaryImage->isUploaded()) {
             $this->primaryImage = $primaryImage;
         }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSideBannerImage()
+    {
+        return $this->sideBannerImage;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $bannerImage
+     * @return Object
+     */
+    public function setSideBannerImage(\Application\Sonata\MediaBundle\Entity\Media $bannerImage = null)
+    {
+        $this->sideBannerImage = $bannerImage;
+
         return $this;
     }
 
@@ -739,6 +773,7 @@ class Object implements Taggable
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
         }
+
         return $this;
     }
 
@@ -780,6 +815,7 @@ class Object implements Taggable
         if (is_null($image3d) || $image3d->isUploaded()) {
             $this->image3d = $image3d;
         }
+
         return $this;
     }
 
@@ -875,8 +911,7 @@ class Object implements Taggable
                 $this->addLiterature($literature);
             }
 
-        }
-        else {
+        } else {
             $this->addLiterature($literatures);
         }
     }
@@ -972,7 +1007,7 @@ class Object implements Taggable
     public function addSecondaryCategorie(\Armd\AtlasBundle\Entity\Category $secondaryCategories)
     {
         $this->secondaryCategories[] = $secondaryCategories;
-    
+
         return $this;
     }
 
@@ -995,14 +1030,14 @@ class Object implements Taggable
     public function setCreatedBy(\Armd\UserBundle\Entity\User $createdBy = null)
     {
         $this->createdBy = $createdBy;
-    
+
         return $this;
     }
 
     /**
      * Get createdBy
      *
-     * @return Armd\UserBundle\Entity\User 
+     * @return Armd\UserBundle\Entity\User
      */
     public function getCreatedBy()
     {
@@ -1018,14 +1053,14 @@ class Object implements Taggable
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -1041,14 +1076,14 @@ class Object implements Taggable
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -1064,14 +1099,14 @@ class Object implements Taggable
     public function setUpdatedBy(\Armd\UserBundle\Entity\User $updatedBy = null)
     {
         $this->updatedBy = $updatedBy;
-    
+
         return $this;
     }
 
     /**
      * Get updatedBy
      *
-     * @return Armd\UserBundle\Entity\User 
+     * @return Armd\UserBundle\Entity\User
      */
     public function getUpdatedBy()
     {
@@ -1091,7 +1126,6 @@ class Object implements Taggable
 
     /**
      * Hook on pre-update operations
-
      * @ORM\PreUpdate
      */
     public function preUpdate()
@@ -1109,14 +1143,14 @@ class Object implements Taggable
     public function setIsOfficial($isOfficial)
     {
         $this->isOfficial = $isOfficial;
-    
+
         return $this;
     }
 
     /**
      * Get isOfficial
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsOfficial()
     {
@@ -1132,14 +1166,14 @@ class Object implements Taggable
     public function setStatus(\Armd\AtlasBundle\Entity\ObjectStatus $status = null)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return Armd\AtlasBundle\Entity\ObjectStatus 
+     * @return Armd\AtlasBundle\Entity\ObjectStatus
      */
     public function getStatus()
     {
@@ -1155,14 +1189,14 @@ class Object implements Taggable
     public function setReason($reason)
     {
         $this->reason = $reason;
-    
+
         return $this;
     }
 
     /**
      * Get reason
      *
-     * @return string 
+     * @return string
      */
     public function getReason()
     {
@@ -1184,6 +1218,7 @@ class Object implements Taggable
     public function setSeoTitle($seoTitle)
     {
         $this->seoTitle = $seoTitle;
+
         return $this;
     }
 
@@ -1202,6 +1237,7 @@ class Object implements Taggable
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
+
         return $this;
     }
 
@@ -1220,6 +1256,7 @@ class Object implements Taggable
     public function setSeoKeywords($seoKeywords)
     {
         $this->seoKeywords = $seoKeywords;
+
         return $this;
     }
 
@@ -1228,7 +1265,7 @@ class Object implements Taggable
      */
     public function getTags()
     {
-        $this->tags = $this->tags ?: new ArrayCollection();
+        $this->tags = $this->tags ? : new ArrayCollection();
 
         return $this->tags;
     }
@@ -1255,5 +1292,6 @@ class Object implements Taggable
     {
         return $this->getId();
     }
+
 
 }
