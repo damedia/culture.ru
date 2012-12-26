@@ -187,7 +187,7 @@ class DefaultController extends Controller
 
         // Форма фильтра
         $page      = $request->get('page', 1);
-        $perPage   = $request->get('perPage', 8);
+        $perPage   = $request->get('perPage', 16);
         $sort      = 'date';
         $typeIds   = null;
         $categoryIds = null;
