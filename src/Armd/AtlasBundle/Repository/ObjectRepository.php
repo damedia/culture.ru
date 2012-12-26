@@ -118,7 +118,7 @@ class ObjectRepository extends EntityRepository
     }
 
 
-    public function getRelatedObjects(array $tags, $limit = 1)
+    public function findRelated(array $tags, $limit)
     {
         // now they are just random
         $relatedObjects = $this->createQueryBuilder('o')

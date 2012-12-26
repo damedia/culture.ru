@@ -1,0 +1,18 @@
+{% if objects is not empty %}
+    <section class="block">
+        <h2><span>Рекомендуем</span></h2>
+
+        {% for object in objects %}
+            <div class="recommend-block">
+                {% thumbnail object.sideBannerImage, 'sideBanner' %}
+
+                <div class="recommend-over">
+                    <div class="recommend_name">
+                        <p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">{{ object.title }}</a></p>
+                    </div>
+                    <p class="recommend-type"><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}

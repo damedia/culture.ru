@@ -17,8 +17,8 @@
 
 
 {% block page_header_search_scope %}
-    <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
-    <label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>
+    {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
+    {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
 {% endblock %}
 
 
@@ -43,29 +43,13 @@
 {% block right_column %}
     {% render 'ArmdNewsBundle:News:memorialEvents' %}
 
-    {#--- related atlas objects ---#}
-    {% if relatedAtlasObjects is not empty %}
-        <section class="block">
-            <h2><span>Рекомендуем</span></h2>
+    {% render 'ArmdAtlasBundle:Default:relatedObjects' with {'tags': {}, 'limit': 1} %}
 
-            {% for object in relatedAtlasObjects %}
-                <div class="recommend-block">
-                    {% thumbnail object.sideBannerImage, 'sideBanner' %}
+    <div class="right-video-block">
+        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' } %}
 
-                    <div class="recommend-over">
-                        <div class="recommend_name">
-                            <p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">{{ object.title }}</a></p>
-                        </div>
-                        <p class="recommend-type"><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></p>
-                    </div>
-                </div>
-            {% endfor %}
-        </section>
-    {% endif %}
-    {#--- /related atlas objects ---#}
-
-
-
+        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' } %}
+    </div>
 {% endblock %}
 
 

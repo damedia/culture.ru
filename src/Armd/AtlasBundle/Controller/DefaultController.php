@@ -654,6 +654,20 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Template()
+     */
+    public function relatedObjectsAction(array $tags, $limit)
+    {
+        $objects = $this->getDoctrine()
+            ->getRepository('ArmdAtlasBundle:Object')
+            ->findRelated($tags, $limit);
+
+        return array(
+            'objects' => $objects
+        );
+    }
+
+    /**
      * @return \Armd\AtlasBundle\Manager\ObjectManager
      */
     public function getObjectManager()

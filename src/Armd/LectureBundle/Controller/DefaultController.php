@@ -43,7 +43,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/index/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1})
+     * @Route("/index/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_default_index")
      * @Template()
      */
     public function indexAction($lectureSuperTypeCode, $page)
@@ -273,6 +273,20 @@ class DefaultController extends Controller
                 'lecturesTotal' => $lectures['total'],
             );
         }
+    }
+
+    /**
+     * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
+     */
+    public function relatedLecturesAction(array $tags, $limit, $superTypeCode)
+    {
+        $superType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneByCode($superTypeCode);
+
+        $lectures = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')
+            ->findRelated($tags, $limit, $superType);
+
+        return array('lectures' => $lectures);
     }
 
 }

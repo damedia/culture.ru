@@ -47,6 +47,34 @@ class LectureRepository extends EntityRepository
         return $paginator->getIterator();
     }
 
+
+    public function findRelated(array $tags, $limit, LectureSuperType $superType)
+    {
+        // now they are just random
+        $qb = $this->getFilterQueryBuilder('l', $superType, 'all', 'all', null);
+        $qbCount = clone($qb);
+        $count = $qbCount->select('COUNT(l)')->getQuery()->getSingleScalarResult();
+
+        $offsets = array();
+        for ($i = 0; $i < $limit; $i++) {
+            $j = 0;
+            do {
+                $offset = rand(0, $count - 1);
+            } while ($j++ < 10 && in_array($offset, $offsets));
+            $offsets[] = $offset;
+        }
+
+        $lectures = array();
+        foreach ($offsets as $offset) {
+            $lectures[] = $qb->setMaxResults(1)
+                ->setFirstResult($offset)
+                ->getQuery()
+                ->getSingleResult();
+        }
+
+        return $lectures;
+    }
+
     public function getFilterQueryBuilder($alias, $superType, $typeIds = null, $categoryIds = null, $sortBy = 'date')
     {
         $qb = $this->createQueryBuilder($alias)
