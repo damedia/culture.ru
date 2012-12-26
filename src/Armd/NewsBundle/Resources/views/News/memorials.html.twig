@@ -1,8 +1,7 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as news_date %}
 {% if entities is not empty %}
     <section class="block">
-        <h1><span>Памятные даты</span></h1>
-    </section>
+        <h2><span>Памятные даты</span></h2>
     {% for entity in entities %}
         <div class="important-dates">
             <h2>{{ news_date.news_date(entity.newsDate) }}</h2>
@@ -11,4 +10,6 @@
             </ul>
         </div>
     {% endfor %}
+    </section>
+
 {% endif %}

@@ -117,6 +117,23 @@ class ObjectRepository extends EntityRepository
         return array_merge($lastObjects, $randomObjects);
     }
 
+
+    public function getRelatedObjects(array $tags, $limit = 1)
+    {
+        // now they are just random
+        $relatedObjects = $this->createQueryBuilder('o')
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+            ->andWhere('o.sideBannerImage IS NOT NULL')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        shuffle($relatedObjects);
+
+        return $relatedObjects;
+    }
+
     public function fetchObjectsCategories($objects)
     {
         $objectsIds = array();

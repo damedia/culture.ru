@@ -21,13 +21,10 @@ class ObjectManager
 
     private $search;
 
-    private $container;
-
-    public function __construct(EntityManager $em, $search, $container)
+    public function __construct(EntityManager $em, $search)
     {
         $this->em = $em;
         $this->search = $search;
-        $this->container = $container;
     }
 
     public function getUserObjects(UserInterface $user)
@@ -190,8 +187,7 @@ class ObjectManager
         $circle = (float) $radius * 1.61;
         $limit++; // потому что исключаем исходный объект
 
-        $search = $this->container->get('search.sphinxsearch.search');
-        $cl = $search->getSphinx();
+        $cl = $this->search->getSphinx();
         $cl->setGeoAnchor('rad_lat', 'rad_lon', (float) deg2rad($latitude), (float) deg2rad($longitude));
         $cl->setFilterFloatRange('@geodist', 0.0, $circle);
         $cl->setFilter('show_at_russian_image', array(1));
@@ -226,5 +222,7 @@ class ObjectManager
         } else
             return false;
     }
+
+
 
 }

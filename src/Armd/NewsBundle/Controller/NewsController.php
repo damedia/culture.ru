@@ -111,7 +111,10 @@ class NewsController extends Controller
      */
     function newsIndexAction($category = null)
     {
-        return array('category' => $category);
+        return array(
+            'category' => $category,
+            'relatedAtlasObjects' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->getRelatedObjects(array(), 1)
+        );
     }
 
 
