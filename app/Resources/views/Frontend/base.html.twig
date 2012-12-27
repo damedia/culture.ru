@@ -67,8 +67,8 @@
         <div class="search-panel">
             {% block page_header_search %}{% endblock %}
             <div class="search-top clearfix">
-                <form action="">
-                    <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
+                <form action="{{ path('armd_search_results') }}">
+                    <input type="text" name="search_query" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
                     <input type="submit" value="Поиск" class="button search-btn"/>
                 </form>
                 {% block page_header_search_scope %}{% endblock %}
