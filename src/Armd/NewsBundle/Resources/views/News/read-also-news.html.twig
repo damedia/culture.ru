@@ -6,7 +6,7 @@
     {% for entity in entities %}
         <ul class="theme-news-list">
             <li>
-                <span class="date">{{ armd_date.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }}12:06</span>
+                <span class="date">{{ armd_date.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }}</span>
                 <a href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">{{ entity.title|raw }}</a>
             </li>
         </ul>
