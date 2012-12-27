@@ -1,12 +1,27 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{% block page_header_title %}
+    {{ "atlas.atlas"|trans }}
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category">
+        <div id="regions-selector" class="regions-selector">
+            <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
+                <option></option>
+                {% for region in regions %}
+                    <option value="{{ region.id }}">{{ region.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+{% endblock %}
 
 {# ------------------------------------------------------------------------ #}
-{% block body %}
+{% block one_column %}
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
-        <div class="filter checks-filter" style="width:23.7%">
-            <div class="title dark-green-title title-filter">
-                <h2>{{ "atlas.filter"|trans }}</h2>
-            </div>
+        <div class="filter checks-filter" style="width:23.7%; float:left;">
+
             <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
 
                 <input id="category-id" type="hidden" name="category" value="">
@@ -17,10 +32,12 @@
                 </div>
 
                 <div class="filter-tabs">
+                    {#
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
                         <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
                     </ul>
+                    #}
                     <div class="filter-tab" id="obj" style="display:block;">
                         <!-- объекты -->
                         {% for category in categories %}
@@ -93,20 +110,8 @@
             </form>
         </div>
         <div class="atlas-center">
-            <div class="title green-title">
-                <h2>{{ "atlas.atlas"|trans }}</h2>
-            </div>
-            <div class="atlas-map" style="margin-top:-10px;">
+            <div class="atlas-map">
                 <div id="map"></div>
-                {# <div class="atlas-menu"></div> #}
-                <div id="regions-selector" class="regions-selector">
-                    <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
-                        <option></option>
-                        {% for region in regions %}
-                            <option value="{{ region.id }}">{{ region.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
                 <div id="ajax-loading" class="ajax-loading"></div>
             </div>
         </div>
@@ -278,7 +283,6 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/valums-file-uploader/client/fileuploader.css') }}">
@@ -288,7 +292,6 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.tmpl.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.cookie.js') }}"></script>

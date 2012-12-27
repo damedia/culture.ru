@@ -1256,6 +1256,7 @@ body {
 					}
 					.plitka-image {
 						margin:15px 0 5px;
+                        max-width: 100%;
 					}
 					.plitka-text {
 						font-size:11px;
