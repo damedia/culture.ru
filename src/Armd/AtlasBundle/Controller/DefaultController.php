@@ -605,7 +605,7 @@ class DefaultController extends Controller
     public function lastRussiaImagesAction($limit = 3)
     {
         $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
-            ->findRussiaImages($limit);
+            ->findRussiaImages($limit, array('has_video' => true, 'has_infographics' => true));
 
         return array('objects' => $objects);
     }

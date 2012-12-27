@@ -38,7 +38,7 @@ class ObjectRepository extends EntityRepository
         return $objectCount;
     }
 
-    public function findRussiaImages($limit = null)
+    public function findRussiaImages($limit = null, $criteria = array())
     {
         $qb = $this->createQueryBuilder('o')
             ->select('o, pi, r')
@@ -47,6 +47,15 @@ class ObjectRepository extends EntityRepository
             ->where('o.showAtRussianImage = TRUE')
             ->andWhere('o.published = TRUE')
             ->orderBy('o.createdAt', 'DESC');
+
+        if ($criteria['has_infographics']) {
+            $qb->andWhere('o.image3d IS NOT NULL');
+        }
+
+        if ($criteria['has_video']) {
+            $qb->leftJoin('o.videos', 'v')
+                ->andWhere('v IS NOT NULL');
+        }
 
         if (!is_null($limit)) {
             $qb->setMaxResults($limit);
