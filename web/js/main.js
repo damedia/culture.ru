@@ -5,6 +5,25 @@ $(function(){
 		controlNav: false,
 		slideshow: false
 	  });
+	  
+	  
+		$('#thumbs-slider').flexslider({
+			animation: "slide",
+			
+			slideshow: false,
+			itemWidth: 75,
+			itemMargin: 5,
+			asNavFor: '#image-slider'
+		  });
+		   
+		  $('#image-slider').flexslider({
+			animation: "slide",
+			
+			slideshow: false,
+			sync: "#thumbs-slider"
+		  });
+		 
+	  
 	});
 	
 	
@@ -101,5 +120,32 @@ $(function(){
 		
 		return false;
 	})
+	
+	
+	$('.museum-image, .plitka-name').on('click', $(this), function(){
+		$(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
+	})
+	
+	if($(".iframe").length > 0) {
+		console.log('iframes');
+		$(".iframe").fancybox({
+			'width': '100%',
+			'height': '100%',
+			'autoScale': true,
+			'transitionIn': 'none',
+			'transitionOut': 'none',
+			'type': 'iframe'
+		});
+	}
+	
+	$('.trad-line-nav > li > a').click(function(){
+		var tradLink = $(this).attr('href');
+		$(tradLink).show().siblings('.trad-line-content').hide();
+		$(this).parent().addClass('active').siblings().removeClass('active');
+		
+	})
+	
+	
+	
 	
 })

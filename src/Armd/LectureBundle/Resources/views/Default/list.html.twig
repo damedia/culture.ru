@@ -19,6 +19,12 @@
                 console.log('xxx', $(this).val());
             });
 
+            $('.ui-selectgroup-list li a').live('click', function(){
+
+                console.log( $(this).closest('.ui-selectgroup-list').attr('aria-labelledby') );
+                console.log( $(this).data('value') );
+            });
+
             // Ajax Form handler
             $('#lectures-filter').ajaxForm({
                 success: function(responseText, statusText, xhr, $form) {

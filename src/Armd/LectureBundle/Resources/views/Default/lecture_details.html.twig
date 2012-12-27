@@ -13,6 +13,20 @@
     {{ lecture.seoDescription }}
 {% endblock %}
 
+{% block opengraph %}
+    <meta property="og:title" content="{{ lecture.title }}" />
+    <meta property="og:description" content="{{ lecture.description|striptags }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {#
+    {% if lecture.primaryImage is not empty %}
+        <meta property="og:image" content="{% path lecture.primaryImage, 'reference' %}" />
+    {% elseif lecture.images|length > 0 %}
+        <meta property="og:image" content="{% path lecture.images[0], 'imagesOfRussia' %}" />
+    {% endif %}
+    #}
+{% endblock %}
+
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block stylesheets %}
     {{ parent() }}
@@ -179,6 +193,7 @@
             <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях:</div>
         </div>
 
+        {#
         <section class="comments ">
             <div class="comments-header clearfix">
                 <p class="add-comment">
@@ -243,7 +258,7 @@
                 <a href="#">Все комментарии</a>
             </div>
         </section>
-
+        #}
 
         <div class="more-comments-show">
             <div class="comments comments-gray clearfix">
