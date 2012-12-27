@@ -1,3 +1,34 @@
+#---------------- menu -------------------------
+menu.homepage: Main
+menu.atlas: Atlas
+menu.russia_images: Russia Images
+menu.virtual_museums: Museums
+menu.cinema: Cinema
+menu.chronicle: Chronicle
+menu.spiritual_traditions: Spiritual traditions
+
+menu.news_index: Events
+menu.news: News
+menu.events: Events
+menu.reportage: Reportage
+menu.interview: Interview
+menu.events_on_map: Events on map
+
+menu.information: Info
+menu.culture_magazine: '"Culture" magazine'
+menu.literature_magazine: '"Literature magazine"'
+menu.government_services: Government services
+menu.library: Library
+
+menu.communication: Communication
+
+menu.special_projects: Projects
+menu.borodino: Borodino
+menu.special_projects_romanov450: The Romanovs
+menu.special_projects_stanislavski: Stanislavski
+#---------------- /menu -------------------------
+
+
 Portal title: Russian Cultural Heritage Web Portal
 Open Government: Open Government
 Special version: Contrast version
@@ -64,25 +95,6 @@ Mainpage block:
     Images of Russia:
         Title: Images of Russia
         Of: of
-
-menu.homepage: Main
-menu.cinema: Cinema
-menu.chronicle: Chronicle
-menu.spiritual_traditions: Spiritual traditions
-menu.information: Info
-menu.communication: Communication
-menu.special_projects: Special Projects
-menu.russia_images: Russia Images
-
-menu.atlas: Atlas
-
-menu.news_index: Events
-menu.news: News
-menu.events: Events
-menu.reportage: Reportage
-menu.interview: Interview
-
-
 
 mainpage.read_mode: Read More
 mainpage.show_all: Show All

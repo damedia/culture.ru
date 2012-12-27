@@ -1,3 +1,34 @@
+#---------------- menu -------------------------
+menu.homepage: Главная
+menu.atlas: Атлас
+menu.russia_images: Образы России
+menu.virtual_museums: Музеи
+menu.cinema: Кинозал
+menu.chronicle: Лента времени
+menu.spiritual_traditions: Духовные традиции
+
+menu.news_index: События
+menu.news: Новости
+menu.events: Анонсы
+menu.reportage: Репортажи
+menu.interview: Интервью
+menu.events_on_map: Мероприятия
+
+menu.information: Информация
+menu.culture_magazine: Газета "Культура"
+menu.literature_magazine: '"Литературная газета"'
+menu.government_services: Госуслуги
+menu.library: Библиотека
+
+menu.communication: Общение
+
+menu.special_projects: Спецпроекты
+menu.borodino: Бородино
+menu.special_projects_romanov450: Романовы
+menu.special_projects_stanislavski: Станиславский
+#---------------- /menu -------------------------
+
+
 Portal title: Портал культурного наследия России
 Open Government: Открытое правительство
 Special version: Версия для слабовидящих
@@ -66,22 +97,6 @@ Mainpage block:
         Of: из
 
 
-menu.homepage: Главная
-menu.cinema: Кинозал
-menu.chronicle: Лента времени
-menu.spiritual_traditions: Духовные традиции
-menu.information: Информация
-menu.communication: Общение
-menu.special_projects: Спецпроекты
-menu.russia_images: Образы России
-
-menu.atlas: Атлас
-
-menu.news_index: События
-menu.news: Новости
-menu.events: Анонсы
-menu.reportage: Репортажи
-menu.interview: Интервью
 
 
 mainpage.show_all: Посмотреть все

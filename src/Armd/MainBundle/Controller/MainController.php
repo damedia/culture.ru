@@ -117,7 +117,7 @@ class MainController extends Controller
         $result = array();
 
         foreach ($categories as $c) {
-            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPaginator(
+            $result[$c->getSlug()] = $this->get('armd_news.manager.news')->getPager(
                 array('category' => $c->getSlug()),
                 1,
                 45

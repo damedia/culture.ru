@@ -1,6 +1,12 @@
-{% extends '::index-layout.html.twig' %}
+{% extends ':Frontend:base.html.twig' %}
 
 {% block title %}{{ 'culture'|trans }}{% endblock %}
+
+{% block page_header_title %}Портал культурного наследия России{% endblock %}
+
+{% block body %}
+    main page
+{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
