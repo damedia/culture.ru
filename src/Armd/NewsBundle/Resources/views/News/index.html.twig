@@ -1,6 +1,12 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
-{% block page_header_title %}События{% endblock %}
+{% block page_header_title %}
+    {% if categoryEntity is not empty %}
+        {{ categoryEntity.title }}
+    {% else %}
+        События
+    {% endif %}
+{% endblock %}
 
 {% block page_header_search %}
 <div class="search-dates">
@@ -17,8 +23,10 @@
 
 
 {% block page_header_search_scope %}
-    {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
-    {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
+    {#<div class="search-checkboxes">#}
+        {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
+        {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
+    {#</div>#}
 {% endblock %}
 
 

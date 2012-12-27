@@ -111,8 +111,16 @@ class NewsController extends Controller
      */
     function newsIndexAction($category = null)
     {
+        if ($category) {
+            $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
+                ->findOneBySlug($category);
+        } else {
+            $categoryEntity = null;
+        }
+
         return array(
-            'category' => $category
+            'category' => $category,
+            'categoryEntity' => $categoryEntity
         );
     }
 

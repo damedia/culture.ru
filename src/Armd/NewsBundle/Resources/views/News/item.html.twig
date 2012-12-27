@@ -1,4 +1,4 @@
-{% extends 'ArmdNewsBundle:News:press-centre.html.twig' %}
+{% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
 {% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
@@ -6,9 +6,125 @@
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
-{% block top_right %}{% endblock %}
+{% block page_header_title %}Новости{% endblock %}
 
-{% block content %}
+{% block page_header_search %}
+    <div class="search-dates">
+        {#<span class="search-dates-label">Период:</span>#}
+
+        {#<div class="dates-chooser">#}
+            {#<a id="first-date" href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#" id="last-date">01.01.2012</a>#}
+
+            {#<div id="datapicker"></div>#}
+        {#</div>#}
+        {#<a href="#" class="button search-dates-button">Показать</a>#}
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    {#<div class="search-checkboxes">#}
+        {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
+        {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
+    {#</div>#}
+{% endblock %}
+
+{% block left_column %}
+<article class="event-one clearfix">
+    <div class="event-one_top">
+        <span class="date">{{ armd_news.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }} </span>
+        {% if entity.source is not empty %}| {{ entity.source }}{% endif %}
+    </div>
+    <h2>
+        {% if entity.date %}
+            {{ entity.date|date('d.m.Y') }}
+            {% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
+        {% endif %}
+
+        {{ entity.title|raw }}
+    </h2>
+
+    {% if entity.image %}
+        <figure class="event-one_image image-left">
+            {% thumbnail entity.image, 'billboard' with {'alt': entity.image.description } %}
+            {% if entity.image.copyright or entity.image.authorName %}
+                <figcaption>
+                    <p>
+                        {% if entity.image.copyright %}
+                            {{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
+                        {% endif %}
+                        {% if entity.image.authorName %}
+                            {{ entity.image.authorName }}
+                        {% endif %}
+                    </p>
+                </figcaption>
+            {% endif %}
+        </figure>
+    {% endif %}
+
+    <div class="event-one_anons">
+        <p>
+            {{ entity.announce|raw }}
+        </p>
+    </div>
+
+    <div class="clear"></div>
+    {{ entity.body|raw }}
+
+
+</article>
+
+
+<section class="block">
+    {% render "ArmdNewsBundle:News:readAlsoNews" with { "entity":entity, "limit":2 } %}
+</section>
+
+
+<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">Назад</a></p></div>
+<div class="event-one_footer clearfix">
+    <div href="#" class="print-link"><a target="_blank" href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}"></a> Распечатать материал: </div>
+    <div href="#" class="publish-links">Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
+</div>
+
+
+{% endblock %}
+
+{% block right_column %}
+    {% render 'ArmdNewsBundle:News:memorialEvents' %}
+
+    {% render 'ArmdAtlasBundle:Default:relatedObjects' with {'tags': {}, 'limit': 1} %}
+
+    <div class="right-video-block">
+        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' } %}
+
+        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' } %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex-share',
+                elementStyle:{
+                    'type':'none',
+                    'border':false,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
+                title:'{{ entity.title }}',
+                description:'{{ entity.announce|striptags }}'
+            })
+        });
+    </script>
+
+{% endblock %}
+
+{#----- this is from old design ------#}
+{% block nonexistant %}
 <div class="news-one text">
     {#<span class="news-one-type">{{ 'News'|trans }}</span> #}
 	<span class="news-one-date">
@@ -29,7 +145,6 @@
 				<p class="image-source">
 					{% if entity.image.copyright %}
 						{{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
-
 					{% endif %}
 					{% if entity.image.authorName %}
 						{{ entity.image.authorName }}
@@ -168,72 +283,4 @@
 
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-	<link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
-{% endblock %}
-
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
-
-    <script type="text/javascript">
-       $(function(){
-		 $('#carousel').flexslider({
-        animation: "slide",
-        controlNav: true,
-        animationLoop: false,
-        slideshow: false,
-        itemWidth: 100,
-        itemMargin: 5,
-        asNavFor: '#slider',
-		minItems: 2,
-		maxItems: 10,
-		prevText: "{{ 'Prev'|trans }}",
-		nextText: "{{ 'Next'|trans }}",
-      });
-
-      $('#slider').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        sync: "#carousel",
-		directionNav: false,
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-      });
-	   })
-	  $("a.in-fancybox").fancybox({
-			 tpl: {
-			  next: '<a title="{{ 'Prev'|trans }}" class="fancybox-nav fancybox-next"><span></span></a>',
-			  prev: '<a title="{{ 'Next'|trans }}" class="fancybox-nav fancybox-prev"><span></span></a>',
-			 },
-			scrolling: 'no'
-		});
-
-    </script>
-
-    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        $(function () {
-            new Ya.share({
-                element:'yandex_share',
-                elementStyle:{
-                    'type':'none',
-                    'border':false,
-                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
-                },
-                link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
-                title:'{{ entity.title }}',
-                description:'{{ entity.announce|striptags }}'
-            })
-        });
-    </script>
-
-{% endblock %}
+{#----- /this is from old design ------#}
