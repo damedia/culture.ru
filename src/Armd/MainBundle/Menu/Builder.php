@@ -206,12 +206,7 @@ class Builder extends ContainerAware
         );
         //--- /Special
 
-        //var_dump($request);
-
-        //var_dump($request->getUri());
-        //$menu->setCurrent($currentMenuItem);
         $menu->setCurrentUri($request->getRequestUri());
-        //$menu->setCurrentUri($this->container->get('request')->getRequestUri());
 
         return $menu;
     }

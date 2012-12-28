@@ -20,7 +20,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block one_column %}
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
-        <div class="filter checks-filter" style="width:23.7%; float:left;">
+        <div class="filter checks-filter sidebar">
 
             <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
 
