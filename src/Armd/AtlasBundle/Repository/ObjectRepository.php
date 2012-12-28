@@ -13,6 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
  */
 class ObjectRepository extends EntityRepository
 {
+
     public function filter($params = array())
     {
         $categoryIds = $params['category'];

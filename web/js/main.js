@@ -127,7 +127,6 @@ $(function(){
 	})
 	
 	if($(".iframe").length > 0) {
-		console.log('iframes');
 		$(".iframe").fancybox({
 			'width': '100%',
 			'height': '100%',
@@ -144,8 +143,6 @@ $(function(){
 		$(this).parent().addClass('active').siblings().removeClass('active');
 		
 	})
-	
-	
 	
 	
 })

@@ -325,7 +325,7 @@
 .ui-datepicker .ui-datepicker-prev { left:2px; }
 .ui-datepicker .ui-datepicker-next { right:2px; }
 
-.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute;  top: 5px; width:5px; height:10px; background:url('../img/cal_prev_next.png') no-repeat 0 0;
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute;  top: 5px; width:5px; height:10px; background:url('../../img/cal_prev_next.png') no-repeat 0 0;
  }
  .ui-datepicker .ui-datepicker-prev span {
  background-position:0 -40px;

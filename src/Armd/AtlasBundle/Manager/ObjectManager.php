@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Manager;
 
 use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
@@ -21,11 +22,64 @@ class ObjectManager
 
     private $search;
 
+    /** example: 10 */
+    const CRITERIA_LIMIT = 'CRITERIA_LIMIT';
+
+    /** example: 100  */
+    const CRITERIA_OFFSET = 'CRITERIA_OFFSET';
+
+    /** example: true */
+    const CRITERIA_RUSSIA_IMAGES = 'CRITERIA_RUSSIA_IMAGES';
+
+    /** example: array(1, 89) */
+    const CRITERIA_CATEGORY_IDS_AND = 'CRITERIA_CATEGORY_IDS_AND';
+
+    /** example: array(1, 89) */
+    const CRITERIA_REGION_IDS_AND = 'CRITERIA_REGION_IDS_AND'; // array(4, 77)
+
+    /** example: array('title', 'ASC', 'createdAt', 'DESC') */
+    const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
+
+    /** example: true */
+    const CRITERIA_LAST_CREATED = 'CRITERIA_LAST_CREATED';
+
+    /** example: 5 */
+    const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
+
     public function __construct(EntityManager $em, $search)
     {
         $this->em = $em;
         $this->search = $search;
     }
+
+    public function findObjects(array $criteria)
+    {
+        $objects = $this->getQueryBuilder($criteria)
+            ->getQuery()
+            ->getResult();
+
+        return $objects;
+    }
+
+
+    public function getQueryBuilder(array $criteria)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.published = TRUE');
+
+        $this->setCriteria($qb, $criteria);
+    }
+
+    public function setCriteria(QueryBuilder $qb, $criteria)
+    {
+        $o = $qb->getRootAliases()[0];
+
+        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
+            $qb->andWhere("$o.secondaryCategories IN (:categoryIds)")
+                ->setParameter('categoryIds', $criteria[self::CRITERIA_CATEGORY_IDS_AND]);
+        }
+    }
+
 
     public function getUserObjects(UserInterface $user)
     {
@@ -155,7 +209,7 @@ class ObjectManager
         return $entity;
     }
 
-    public function getPublishedObjects($ids, $limit=10)
+    public function getPublishedObjects($ids, $limit = 10)
     {
         $repo = $this->em->getRepository('ArmdAtlasBundle:Object');
         $entities = $repo->findBy(
@@ -180,15 +234,15 @@ class ObjectManager
     /**
      * Возвращает список id объектов и удаленность от заданной точки
      */
-    public function findNearestRussianImages($object, $limit=100, $radius=10000000)
+    public function findNearestRussianImages($object, $limit = 100, $radius = 10000000)
     {
-        $latitude  = $object->getLat();
+        $latitude = $object->getLat();
         $longitude = $object->getLon();
-        $circle = (float) $radius * 1.61;
+        $circle = (float)$radius * 1.61;
         $limit++; // потому что исключаем исходный объект
 
         $cl = $this->search->getSphinx();
-        $cl->setGeoAnchor('rad_lat', 'rad_lon', (float) deg2rad($latitude), (float) deg2rad($longitude));
+        $cl->setGeoAnchor('rad_lat', 'rad_lon', (float)deg2rad($latitude), (float)deg2rad($longitude));
         $cl->setFilterFloatRange('@geodist', 0.0, $circle);
         $cl->setFilter('show_at_russian_image', array(1));
         $cl->setFilter('published', array(1));
@@ -200,14 +254,16 @@ class ObjectManager
         $result = $cl->query('', 'mk_atlas');
 
         // обработка результатов запроса
-        if ($result === false)
+        if ($result === false) {
             throw new \Exception("Sphinx query failed: " . $cl->getLastError());
+        }
 
-        if ($cl->getLastWarning())
+        if ($cl->getLastWarning()) {
             throw new \Exception("Sphinx query warning: " . $cl->getLastWarning());
+        }
 
         // если есть результаты поиска - обрабатываем их
-        if (! empty($result["matches"])) {
+        if (!empty($result["matches"])) {
             $objectIds = array();
             foreach ($result['matches'] as $i => $m) {
                 if ($i) {
@@ -219,10 +275,10 @@ class ObjectManager
             }
 
             return $objectIds;
-        } else
+        } else {
             return false;
+        }
     }
-
 
 
 }

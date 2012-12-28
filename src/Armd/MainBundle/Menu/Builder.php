@@ -19,8 +19,6 @@ class Builder extends ContainerAware
 
     public function createMainMenu(Request $request)
     {
-        //$t = $this->container->get('translator');
-
         $menu = $this->factory->createItem('root');
 
         //--- Main
@@ -41,7 +39,7 @@ class Builder extends ContainerAware
         $mainMenu->addChild(
             'menu.russia_images',
             array(
-                'route' => 'armd_atlas_index'
+                'route' => 'armd_atlas_russia_images'
             )
         );
 
