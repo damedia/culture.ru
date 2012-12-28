@@ -1,0 +1,70 @@
+/*
+ * jQuery UI Selectgroup @VERSION
+ *
+ * Copyright 2011, George Paterson
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ */
+
+.ui-selectgroup {width: 104px;
+				line-height: 21px;
+				height: 19px;
+				position:relative;
+				background:#fff;
+				float:left;
+				text-decoration:none;	
+				border:0;			
+				  }
+				  
+.ui-selectgroup:after {
+					content:'';
+					position:absolute;
+					right:0;
+					top:2px;
+					width:1px;
+					height:14px;
+					background:#ddd;
+				}				  
+				  
+.ui-selectgroup-copy {
+					font-size:12px;
+				  height: 19px;
+				  line-height: 19px;
+				  padding: 0px 0 0px 9px;
+				  cursor: pointer;
+				  display:block;
+				  color:#5b5b5b;
+				  text-overflow: ellipsis;
+				  width:73px;
+				  overflow:hidden;
+}
+.ui-selectgroup-icon {
+	position: absolute; 
+	top: 7px; 
+	right: 10px;
+	display:block;
+	width:7px;
+	height:10px;
+	background:url(../img/select-arrow.gif) no-repeat 0 0;
+}
+.ui-selectgroup-group {width: 200px; }
+.ui-selectgroup-group {position: absolute;}
+.ui-selectgroup-list {list-style: none; padding: 0; margin:0 0 0 -1px; background:#fff; width:168px;
+font-size:12px;  color:#5b5b5b; border:1px solid #d7d7d7; box-shadow:0 3px 4px #ddd inset;
+}}
+.ui-selectgroup-list li {border:0;}
+.ui-selectgroup-list .ui-state-hover {background:#7d7d7d;  color:#fff;}
+.ui-selectgroup-list .ui-state-active {background:#7d7d7d;}
+.ui-state-active a, .ui-state-hover a {
+	 color:#fff !important;
+ }
+.ui-selectgroup-list a {display: block; padding: 5px; text-decoration: none;}
+.ui-selectgroup-optgroup {padding: 0 0 0 5px;}
+.ui-selectgroup-optgroup span {display: block; padding: 5px 0;}
+.ui-selectgroup-optgroup ul {list-style: none; padding: 0;margin: 0; }
+.ui-selectgroup-optgroup li {padding: 0 0 0 10px; margin: 0 0 0 -5px;}
+
+.ui-selectgroup-list .ui-state-disabled {
+	display:none;
+}

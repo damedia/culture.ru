@@ -82,6 +82,11 @@ class Category implements Node
      */
     private $children;
 
+    /**
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    private $slug;
+
 //    /**
 //     * @ORM\ManyToMany(targetEntity="Object", mappedBy="categories", cascade={"persist"})
 //     */
@@ -373,6 +378,24 @@ class Category implements Node
         if(is_null($iconMedia) || $iconMedia->isUploaded()) {
             $this->iconMedia = $iconMedia;
         }
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
         return $this;
     }
 

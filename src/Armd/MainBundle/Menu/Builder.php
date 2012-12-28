@@ -8,8 +8,6 @@ class Builder extends ContainerAware
 {
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        //$t = $this->container->get('translator');
-
         $menu = $factory->createItem('root');
 
         //--- Main
@@ -30,7 +28,7 @@ class Builder extends ContainerAware
         $mainMenu->addChild(
             'menu.russia_images',
             array(
-                'route' => 'armd_atlas_index'
+                'route' => 'armd_atlas_russia_images'
             )
         );
 
@@ -194,7 +192,6 @@ class Builder extends ContainerAware
                 'routeParameters' => array('category' => 'news', 'id' => 954)
             )
         );
-
 
         //--- /Special
 

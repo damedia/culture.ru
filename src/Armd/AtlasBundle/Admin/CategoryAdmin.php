@@ -50,7 +50,8 @@ class CategoryAdmin extends Admin
     {
         $showMapper
             ->add('title')
-            ->add('description');
+            ->add('description')
+            ->add('slug');
     }
 
 

@@ -35,6 +35,7 @@
         <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/armdmkcomment/css/comments.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}">
     {% endblock %}
     <!-- /Stylesheets block -->
 </head>
@@ -67,7 +68,9 @@
                 <h1>{% block page_header_title %}{% endblock %}</h1>
 
                 <div class="search-panel">
-                    {% block page_header_search %}{% endblock %}
+                    {% block page_header_search %}
+                        <div class="search-category"></div>
+                    {% endblock %}
                     <div class="search-top clearfix">
                         <form action="{{ path('armd_search_results') }}">
                             <input type="text" name="search_query" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
@@ -119,36 +122,40 @@
         <!-- /Footer block -->
     </div>
 
-    <!-- Javascripts block -->
-    {% block javascripts %}
-        <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery.flexslider-min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
-        {% if app.request.locale == 'ru' %}
-            <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker-ru.js') }}"></script>
-        {% endif %}
-        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
-        <script type="text/javascript">
-            $(function(){
-                armdMk.locale = '{{ app.request.locale }}';
-                armdMk.baseUrl = '/';
-                armdMk.init();
-            });
-        </script>
-    {% endblock %}
-    <!-- /Javascripts block -->
+
+</footer>
+</div>
+
+<!-- Javascripts block -->
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.flexslider-min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
+    {% if app.request.locale == 'ru' %}
+        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker-ru.js') }}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            armdMk.locale = '{{ app.request.locale }}';
+            armdMk.baseUrl = '/';
+            armdMk.init();
+        });
+    </script>
+{% endblock %}
+<!-- /Javascripts block -->
 
 </body>
 </html>

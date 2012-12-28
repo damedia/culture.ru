@@ -76,15 +76,47 @@ class DefaultController extends Controller
      */
     public function russiaImagesAction()
     {
-        return array();
+        $em = $this->getDoctrine()->getManager();
+        $thematicsRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('thematic');
+        if (empty($thematicsRoot)) {
+            throw new \LogicException('Cant find atlas object category slug "thematic"');
+        }
+        $typesRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('type');
+        if (empty($typesRoot)) {
+            throw new \LogicException('Cant find atlas object category slug "type"');
+        }
+        return array(
+            'thematics' => $thematicsRoot->getChildren(),
+            'types' => $typesRoot->getChildren()
+        );
     }
 
     /**
-     * @Route("russia-images-list", name="armd_atlas_russia_images_list", options={"expose"=true})
+     * @Route("/russia-images-list/{templateName}", name="armd_atlas_russia_images_list", options={"expose"=true})
      * @Template()
      */
-    public function russiaImagesListAction()
+    public function russiaImagesListAction($templateName)
     {
+        $templates = array(
+            'tile' => 'ArmdAtlasBundle:Default:russiaImagesListTile.html.twig',
+            'full-list' => 'ArmdAtlasBundle:Default:russiaImagesListFull.html.twig',
+            'short-list' => 'ArmdAtlasBundle:Default:russiaImagesListShort.html.twig'
+        );
+
+        if (in_array($templateName, $templates)) {
+            throw new \InvalidArgumentException('Unknow template name ' . $templateName);
+        }
+
+        $request = $this->getRequest();
+        $criteria = array();
+        if ($request->query->has('categoryIds')) {
+            $criteria['categoryIdsAnd'] = $request->get('categoryIds');
+        }
+
+        if ($request->query->has('regionId')) {
+            $criteria['regionIdsAnd'] = array($request->get('regionId'));
+        }
+
         $searchString = $this->getRequest()->get('searchString');
 
         return array(
