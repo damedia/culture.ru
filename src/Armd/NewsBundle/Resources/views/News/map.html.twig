@@ -1,8 +1,16 @@
-{% extends '::base.html.twig' %}
+{% extends ':Frontend:layout_one_column.html.twig' %}
 
 {# ------------------------------------------------------------------------ #}
-{% block body %}
+{% block page_header_title %}
+    {{ "newsmap.events_on_map"|trans }}
+{% endblock %}
 
+{% block page_header_search %}
+    <div class="search-dates"></div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block one_column %}
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
         <div class="filter checks-filter" style="width:23.7%">
             <div class="title dark-green-title title-filter">
@@ -58,9 +66,6 @@
             </form>
         </div>
         <div class="atlas-center">
-            <div class="title green-title">
-                <h2>{{ "newsmap.events_on_map"|trans }}</h2>
-            </div>
             <div class="atlas-map" style="margin-top:-10px;">
                 <div id="map"></div>
                 <div id="regions-selector" class="regions-selector">
@@ -127,7 +132,6 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.custom.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdnews/css/news_map.css') }}">
@@ -136,11 +140,10 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('js/libs/jquery-ui-1.8.22.custom.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>#}
     <script type="text/javascript">
         $(function(){
             AT.init({

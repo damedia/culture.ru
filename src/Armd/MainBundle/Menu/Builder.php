@@ -2,19 +2,30 @@
 namespace Armd\MainBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Builder extends ContainerAware
 {
-    public function mainMenu(FactoryInterface $factory, array $options)
+    private $factory;
+
+    /**
+     * @param FactoryInterface $factory
+     */
+    public function __construct(FactoryInterface $factory)
+    {
+        $this->factory = $factory;
+    }
+
+    public function createMainMenu(Request $request)
     {
         //$t = $this->container->get('translator');
 
-        $menu = $factory->createItem('root');
+        $menu = $this->factory->createItem('root');
 
         //--- Main
         $mainMenu = $menu->addChild(
-                'menu.homepage',
+            'menu.homepage',
             array(
                 'route' => 'armd_main_homepage'
             )
@@ -37,14 +48,14 @@ class Builder extends ContainerAware
         $mainMenu->addChild(
             'menu.virtual_museums',
             array(
-                'route' => 'armd_lecture_lecture_index'
+                'route' => 'armd_museum_index'
             )
         );
 
         $mainMenu->addChild(
             'menu.cinema',
             array(
-                'route' => 'armd_lecture_lecture_index'
+                'route' => 'armd_lecture_default_list'
             )
         );
 
@@ -110,7 +121,6 @@ class Builder extends ContainerAware
                 'route' => 'armd_news_map',
             )
         );
-
         //--- /Events
 
 
@@ -179,7 +189,7 @@ class Builder extends ContainerAware
             )
         );
 
-        $specialMenu->addChild(
+        $currentMenuItem = $specialMenu->addChild(
             'menu.special_projects_romanov450',
             array(
                 'route' => 'armd_news_item_by_category',
@@ -194,12 +204,16 @@ class Builder extends ContainerAware
                 'routeParameters' => array('category' => 'news', 'id' => 954)
             )
         );
-
-
         //--- /Special
 
-        $menu->setCurrentUri($this->container->get('request')->getRequestUri());
+        //var_dump($request);
+
+        //var_dump($request->getUri());
+        //$menu->setCurrent($currentMenuItem);
+        $menu->setCurrentUri($request->getRequestUri());
+        //$menu->setCurrentUri($this->container->get('request')->getRequestUri());
 
         return $menu;
     }
+
 }

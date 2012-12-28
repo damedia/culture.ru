@@ -1,24 +1,31 @@
-{% extends '::two-column-layout.html.twig' %}
+{% extends ':Frontend:layout_one_column.html.twig' %}
 
-{% block body%}
+{# ------------------------------------------------------------------------ #}
+{% block page_header_title %}
+    {{ "newsmap.events_on_map"|trans }}
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-dates"></div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block one_column %}
 	<div class="title-block timeline-title">
 		<h2>{{ 'Chronicle'|trans }}</h2>
 	</div>
 
     {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries} %}
+
     <div class="wayponits-area">
-    {% for c in centuries %}
-   
-   
-    {# <a name="{{ c.name }}"></a> #}
-    <div class="time-line-content clearfix" id="{{ c.name }}">
-    	<div class="time-line-header">{{ c.name }}<br />
-    		<span>{{ 'Century'|trans }}</span>
-    	</div>    
-   
-        
-        {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": c.events, "accidents": c.accidents} %}
-    </div>    
-    {% endfor%}
-    </div> <!-- //wayponits-area-->
+        {% for c in centuries %}
+            <div class="time-line-content clearfix" id="{{ c.name }}">
+                <div class="time-line-header">{{ c.name }}<br />
+                    <span>{{ 'Century'|trans }}</span>
+                </div>
+
+                {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": c.events, "accidents": c.accidents} %}
+            </div>
+        {% endfor%}
+    </div><!-- //wayponits-area-->
 {% endblock %}    

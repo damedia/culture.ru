@@ -57,7 +57,11 @@
                 <a href="#" class="aa"></a>
             </div>
             <nav class="main-menu">
-                {{ knp_menu_render('ArmdMainBundle:Builder:mainMenu', {'template': ':Frontend:menu.html.twig', 'currentClass': 'active', 'ancestorClass': 'active'}) }}
+                {{ knp_menu_render('main', {
+                    'template':      ':Frontend:menu.html.twig',
+                    'currentClass':  'active',
+                    'ancestorClass': 'active',
+                    'depth':          3 }) }}
             </nav>
         </header>
 
