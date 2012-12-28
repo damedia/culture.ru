@@ -1,152 +1,154 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>
-<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>
-<html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"> <!--<![endif]-->
 <head>
+    <title>{% spaceless %}{% block title %}{{ 'Portal title'|trans }}{% endblock %}{% endspaceless %}</title>
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% spaceless %}{% block title %}{{ 'Portal title'|trans }}{% endblock %}{% endspaceless %}</title>
     <meta name="keywords" content="{% spaceless %}{% block meta_keywords %}{% endblock %}{% endspaceless %}">
     <meta name="description" content="{% spaceless %}{% block meta_description %}{% endblock %}{% endspaceless %}">
     <meta name="viewport" content="width=device-width">
 
+    <!-- Opengraph block -->
     {% block opengraph %}
         <meta property="og:image" content="{{ asset('img/logo.png') }}" />
     {% endblock %}
+    <!-- /Opengraph block -->
 
     {% block rss %}
         <link rel="alternate" type="application/rss+xml" href="{{ path('armd_news_rss') }}"  title="{{ 'Events'|trans }}" />
     {% endblock %}
 
+    <!-- Stylesheets block -->
     {% block stylesheets %}
-        {% stylesheets
-            '@FOSCommentBundle/Resources/assets/css/comments.css'
-        %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
-        <link href='http://fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic'>
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
         <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}">
-        <link href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}" rel="stylesheet" type="text/css" media="screen" />
-        <link href="{{ asset('bundles/armdmkcomment/css/comments.css') }}" rel="stylesheet" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/armdmkcomment/css/comments.css') }}">
     {% endblock %}
+    <!-- /Stylesheets block -->
 </head>
-<body  {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
+<body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
+
     <div id="armd_messages" style="display: none;"></div>
+
     {% include ':Frontend:counters_top.html.twig' %}
 
+    <div class="container">
+        <header class="main-header clearfix">
+            <a class="logo" title="Культура.рф"></a>
 
-<div class="container">
-<header class="main-header clearfix">
-    <a class="logo" title="Культура.рф"></a>
-
-    <div class="header-top-right clearfix">
-        <div class="lk-top">
-            <a href="#">Регистрация</a> /
-            <a href="#">Вход</a>
-        </div>
-        <a href="#" class="lang-chooser"></a>
-        <a href="#" class="aa"></a>
-    </div>
-    <nav class="main-menu">
-        {{ knp_menu_render('ArmdMainBundle:Builder:mainMenu', {'template': ':Frontend:menu.html.twig', 'currentClass': 'active', 'ancestorClass': 'active'}) }}
-    </nav>
-
-</header>
-<div class="nav-header">
-    {% block page_header %}
-        <h1>{% block page_header_title %}{% endblock %}</h1>
-
-        <div class="search-panel">
-            {% block page_header_search %}{% endblock %}
-            <div class="search-top clearfix">
-                <form action="{{ path('armd_search_results') }}">
-                    <input type="text" name="search_query" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
-                    <input type="submit" value="Поиск" class="button search-btn"/>
-                </form>
-                {% block page_header_search_scope %}{% endblock %}
+            <div class="header-top-right clearfix">
+                <div class="lk-top">
+                    <a href="#">Регистрация</a> /
+                    <a href="#">Вход</a>
+                </div>
+                <a href="#" class="lang-chooser"></a>
+                <a href="#" class="aa"></a>
             </div>
+            <nav class="main-menu">
+                {{ knp_menu_render('ArmdMainBundle:Builder:mainMenu', {'template': ':Frontend:menu.html.twig', 'currentClass': 'active', 'ancestorClass': 'active'}) }}
+            </nav>
+        </header>
+
+        <!-- Navigation header -->
+        <div class="nav-header">
+            {% block page_header %}
+                <h1>{% block page_header_title %}{% endblock %}</h1>
+
+                <div class="search-panel">
+                    {% block page_header_search %}{% endblock %}
+                    <div class="search-top clearfix">
+                        <form action="{{ path('armd_search_results') }}">
+                            <input type="text" name="search_query" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
+                            <input type="submit" value="Поиск" class="button search-btn"/>
+                        </form>
+                        {% block page_header_search_scope %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
         </div>
+        <!-- /Navigation header -->
+
+        <!-- Main block -->
+        <div class="main clearfix">
+            {% block body %}{% endblock %}
+        </div>
+        <!-- /Main block -->
+
+        <!-- Footer block -->
+        <footer class="main-footer clearfix">
+            <div class="footer-copyright">
+                <p>Министерство культуры<br/>Российской Федерации.</p>
+            </div>
+
+            <div class="footer-social">
+                <div class="footer-banners">
+                    {% include ':Frontend:counters_bottom.html.twig' %}
+                </div>
+                <div class="footer-share">
+                    <p>
+                        Рассказать о портале
+                    </p>
+
+                    <div class="social-links">
+                        <a href="#"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <p>© Портал культурного наследия России</p>
+                <ul>
+                    <li><a href="#">О проекте</a></li>
+                    <li><a href="#">Баннеры</a></li>
+                    <li><a href="#">portal@mkrf.ru</a></li>
+                </ul>
+            </div>
+        </footer>
+        <!-- /Footer block -->
+    </div>
+
+    <!-- Javascripts block -->
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.flexslider-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
+        {% if app.request.locale == 'ru' %}
+            <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker-ru.js') }}"></script>
+        {% endif %}
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+        <script type="text/javascript">
+            $(function(){
+                armdMk.locale = '{{ app.request.locale }}';
+                armdMk.baseUrl = '/';
+                armdMk.init();
+            });
+        </script>
     {% endblock %}
-</div>
-
-<div class="main clearfix">
-    {% block body %}{% endblock %}
-</div>
-
-<footer class="main-footer clearfix">
-    <div class="footer-copyright">
-        <p>
-            Министерство культуры<br/>Российской Федерации.
-        </p>
-    </div>
-
-    <div class="footer-social">
-        <div class="footer-banners">
-            {% include ':Frontend:counters_bottom.html.twig' %}
-        </div>
-        <div class="footer-share">
-            <p>
-                Рассказать о портале
-            </p>
-
-            <div class="social-links">
-                <a href="#"></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-center">
-        <p>© Портал культурного наследия России</p>
-        <ul>
-            <li><a href="#">О проекте</a></li>
-            <li><a href="#">Баннеры</a></li>
-            <li><a href="#">portal@mkrf.ru</a></li>
-        </ul>
-    </div>
-
-</footer>
-</div>
-
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.flexslider-min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
-    {% if app.request.locale == 'ru' %}
-        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker-ru.js') }}"></script>
-    {% endif %}
-    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-
-    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
-
-    <script type="text/javascript">
-        $(function(){
-            armdMk.locale = '{{ app.request.locale }}';
-            armdMk.baseUrl = '/';
-            armdMk.init();
-        });
-    </script>
-{% endblock %}
+    <!-- /Javascripts block -->
 
 </body>
 </html>
