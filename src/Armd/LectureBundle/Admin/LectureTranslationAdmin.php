@@ -18,6 +18,12 @@ class LectureTranslationAdmin extends Admin
     protected $baseRouteName = 'lecture_translation';
     protected $baseRoutePattern = 'lecture_translation';
 
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, Container $container) {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $container;
+    }
 
     public function createQuery($context = 'list')
     {
