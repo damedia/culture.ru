@@ -18,6 +18,12 @@ class LectureCinemaAdmin extends Admin
     protected $baseRouteName = 'lecture_cinema';
     protected $baseRoutePattern = 'lecture_cinema';
 
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, Container $container) {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $container;
+    }
 
     public function createQuery($context = 'list')
     {

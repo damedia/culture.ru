@@ -3,6 +3,7 @@
 namespace Armd\LectureBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\EntityRepository;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -15,6 +16,13 @@ class LectureAdmin extends Admin
     protected $translationDomain = 'ArmdLectureBundle';
     protected $baseRouteName = 'lecture';
     protected $baseRoutePattern = 'lecture';
+
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, Container $container) {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $container;
+    }
 
     public function createQuery($context = 'list')
     {

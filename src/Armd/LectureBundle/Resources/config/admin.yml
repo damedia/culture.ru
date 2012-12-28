@@ -11,7 +11,7 @@ services:
         class: Armd\LectureBundle\Admin\LectureAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Lectures, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD, @service_container]
 
     # translation
     armd_lecture.sonata_admin.lecture_translation_category:
@@ -25,7 +25,7 @@ services:
         class: Armd\LectureBundle\Admin\LectureTranslationAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Translations, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD, @service_container]
 
     # cinema
     armd_lecture.sonata_admin.lecture_cinema_category:
@@ -39,4 +39,4 @@ services:
         class: Armd\LectureBundle\Admin\LectureCinemaAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD, @service_container]
