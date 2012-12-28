@@ -77,17 +77,23 @@ class DefaultController extends Controller
     public function russiaImagesAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         $thematicsRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('thematic');
         if (empty($thematicsRoot)) {
             throw new \LogicException('Cant find atlas object category slug "thematic"');
         }
+
         $typesRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('type');
         if (empty($typesRoot)) {
             throw new \LogicException('Cant find atlas object category slug "type"');
         }
+
+        $regions = $em->getRepository('ArmdAtlasBundle:Region')->findBy(array(), array('title' => 'ASC'));
+
         return array(
             'thematics' => $thematicsRoot->getChildren(),
-            'types' => $typesRoot->getChildren()
+            'types' => $typesRoot->getChildren(),
+            'regions' => $regions
         );
     }
 

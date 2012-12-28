@@ -29,15 +29,47 @@
         {% endstylesheets %}
         <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic'>
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.21.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui-1.8.21.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/flexslider/flexslider.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/armdmkcomment/css/comments.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {% endblock %}
     <!-- /Stylesheets block -->
+
+    <!-- Javascripts block -->
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
+        {% if app.request.locale == 'ru' %}
+         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker-ru.js') }}"></script>
+        {% endif %}
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+        <script type="text/javascript">
+         $(function(){
+             armdMk.locale = '{{ app.request.locale }}';
+             armdMk.baseUrl = '/';
+             armdMk.init();
+         });
+        </script>
+    {% endblock %}
+    <!-- /Javascripts block -->
+
 </head>
 <body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
 
@@ -122,40 +154,6 @@
         <!-- /Footer block -->
     </div>
 
-
-</footer>
-</div>
-
-<!-- Javascripts block -->
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.flexslider-min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery-ui-1.8.24.custom.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
-    {% if app.request.locale == 'ru' %}
-        <script type="text/javascript" src="{{ asset('vendor/jquery.ui.datepicker-ru.js') }}"></script>
-    {% endif %}
-    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
-    <script type="text/javascript">
-        $(function(){
-            armdMk.locale = '{{ app.request.locale }}';
-            armdMk.baseUrl = '/';
-            armdMk.init();
-        });
-    </script>
-{% endblock %}
-<!-- /Javascripts block -->
 
 </body>
 </html>
