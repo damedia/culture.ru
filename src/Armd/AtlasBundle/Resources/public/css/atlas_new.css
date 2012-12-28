@@ -693,7 +693,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 
 .geocoder .search-box .search{ font-size:15px; width:90%; }
 
-.simple-search input{ border:solid 1px #ddd; padding:5px 10px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
+.simple-search input{ border:solid 1px #ddd; font:13px Arial,"Trebuchet MS",sans-serif; padding:5px 10px; color:#777; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
 .simple-search input:focus{ border:solid 1px #f90; }
 
 /* Кастомизация карты */
@@ -727,9 +727,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ae0d94', end
 #ajax-loading{ display:none; height:32px; left:50%; position:absolute; top:50%; width:32px; z-index:10000; padding:10px; margin:-26px 0 0 -26px; background:rgba(255,255,255,0.7) url(../images/ajax-loading.gif) 10px 10px no-repeat; }
 .atlas-map img{ width:auto; }
 
-.atlas-map .regions-selector{ z-index:100; position:absolute; top:-25px; right:0; }
+.regions-selector{ margin-top:5px; }
+.regions-selector .chzn-container-single .chzn-single{ font-size:12px; font-family:sans-serif; line-height:21px; height:21px; border-color:#c00; }
 .atlas-map .regions-selector select{ width:270px; }
-.atlas-map .regions-selector .chzn-container-single .chzn-single{ height:25px; border:none; box-shadow:none; background:#00A02D; color:#fff; }
 .atlas-map .regions-selector .chzn-container-single .chzn-drop{ border-radius:0; }
 .atlas-map .regions-selector .chzn-container .chzn-results .highlighted{ background:#00A02D; }
 .atlas-map .regions-selector .chzn-container .chzn-results li{ padding:4px 6px; }
