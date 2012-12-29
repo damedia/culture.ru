@@ -28,7 +28,6 @@ var armdMainPage = {
             event.preventDefault();
             armdMainPage.loadRandomRussiaImages();
         })
-
     },
 
     loadRandomRussiaImages: function () {

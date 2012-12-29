@@ -2,7 +2,7 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block page_header_title %}
-    {{ "newsmap.events_on_map"|trans }}
+    {{ 'Chronicle'|trans }}
 {% endblock %}
 
 {% block page_header_search %}
@@ -11,10 +11,6 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block one_column %}
-	<div class="block">
-		<h2><span>{{ 'Chronicle'|trans }}</span></h2>
-	</div>
-
     {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries} %}
 
     <div class="wayponits-area">
