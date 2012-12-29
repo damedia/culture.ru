@@ -1396,38 +1396,38 @@ body {
 						vertical-align:top;
 						width:21px;
 						height:21px;
-						background-image:url(../img/types-icons.png);
-						background-repeat:no-repeat;
+						/*background-image:url(../img/types-icons.png);*/
+						/*background-repeat:no-repeat;*/
 					}
 					.ti-video {
-						background-position:0 0;
+						background-image:url(../img/russia_images_icons/video_.png);
 					}
 						.ti-video.active {
-							background-position:-24px 0;
+                            background-image:url(../img/russia_images_icons/video_1.png);
 						}
 					.ti-360 {
-						background-position:-49px 0;
+                        background-image:url(../img/russia_images_icons/360_.png);
 					}
 						.ti-360.active {
-							background-position:-74px 0;
+                            background-image:url(../img/russia_images_icons/360_1.png);
 						}
 					.ti-info {
-						background-position:-99px 0;
+                        background-image:url(../img/russia_images_icons/i_.png);
 					}
 						.ti-info.active {
-							background-position:-125px 0;
+                            background-image:url(../img/russia_images_icons/i_1.png);
 						}
 					.ti-photo {
-						background-position:-150px 0;
+                        background-image:url(../img/russia_images_icons/foto_.png);
 					}
 						.ti-photo.active {
-							background-position:-174px 0;
+                            background-image:url(../img/russia_images_icons/foto_1.png);
 						}
 					.ti-list {
-						background-position:-199px 0;	
+                        background-image:url(../img/russia_images_icons/arch_.png);
 					}
 						.ti-list.active {
-							background-position:-225px 0;
+                            background-image:url(../img/russia_images_icons/arch_1.png);
 						}
 			
 			.full-list {
