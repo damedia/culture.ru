@@ -11,7 +11,8 @@
                 {% endif %}
 
                 {% if thumbnailMedia is not null %}
-                    <img class="plitka-image" alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'tile' %}"/>
+                    {% thumbnail thumbnailMedia, 'searchAllResult' with { 'alt': lecture.title } %}
+                    {#<img class="plitka-image" alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'tile' %}"/>#}
                 {% endif %}
             </a>
             <div class="plitka-text">
