@@ -27,7 +27,297 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
-{% block body %}
+{% block page_header_title %}
+    {{ "atlas.atlas"|trans }}
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category">
+        <div id="regions-selector" class="regions-selector">
+        </div>
+    </div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block left_column %}
+    <div class="left-column-content">
+
+        <h1>{{ entity.title }}</h1>
+
+        <!-- Photo gallery -->
+        {% if entity.images|length > 0 %}
+            <div class="gallery">
+                <div id="image-slider">
+                    <ul class="slides image-slider">
+                        {% for h in entity.images %}
+                            <li>
+                                <img src="{% path h, 'big' %}" alt="" />
+                                <div class="image-stats">
+                                    <a href="#" class="image-code-link">Код для вставки</a>
+                                    <p>
+                                        <span><b>{{ loop.index }}</b> из {{ entity.images|length }}</span>  /
+                                        <a href="#">Сохранить оригинальное фото <i>(784 мб.)</i></a>
+                                    </p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="thumbs-slider">
+                    <ul class="slides thumbs-slider">
+                        {% for h in entity.images %}
+                            <li>
+                                <div class="thumb-image-wrap" style="background-image:url({% path h, 'thumbnail' %});">
+                                    <img src="{% path h, 'thumbnail' %}" alt="" />
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        <!-- /Photo gallery -->
+
+        <!-- Content -->
+        <div id="content-collapsed" class="content collapsed">
+            {{ entity.content|raw }}
+        </div>
+        <div class="more more3">
+            <p><a href="#">Читать дальше</a></p>
+        </div>
+        {% block stylesheets %}
+            {{ parent() }}
+            <style>
+                .content.collapsed{ height:200px; overflow:hidden; }
+            </style>
+        {% endblock %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script type="text/javascript">
+                $(function(){
+                    $('.more3').click(function(){
+                        $('#content-collapsed').removeClass('collapsed');
+                        $(this).hide();
+                        return false;
+                    });
+                });
+            </script>
+        {% endblock %}
+        <!-- /Content -->
+
+        <div class="block small-block clearfix">
+            <h2><span>Рекомендуем</span></h2>
+            {{ block('rec_plitka') }}
+        </div>
+
+        <!-- Page service -->
+        <div class="back-link"><p><a href="{{ path('armd_atlas_index') }}">Назад</a></p></div>
+        <div class="event-one_footer clearfix">
+            <div class="print-link" href="#"><a href="#"></a> Распечатать материал: </div>
+            <div class="publish-links" href="#"> <a href="#"></a> Опубликовать в социальных сетях:</div>
+        </div>
+        <!-- /Page service -->
+
+    </div><!-- /left-column-content -->
+
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block right_column %}
+    <div class="block">
+        <section class="static-block first-obraz-block">
+            <h2>виртуальный тур</h2>
+            <a href="#" class="virt-tour-anons">
+                <img src="/images/virt-tour.jpg" alt="" />
+                <span class="virt-tour-anons-over"></span>
+            </a>
+        </section>
+    </div><!-- /block -->
+
+    <div class="block">
+        <section class="static-block">
+            <h2>Инфографика</h2>
+            <a href="#" class="inf-anons">
+                <img src="/images/inf.jpg" alt="" />
+            </a>
+        </section>
+    </div><!-- /block -->
+
+    <div class="block">
+        <article class="static-block video-block">
+            <h2>Видео</h2>
+            <a href="#" class="block-image">
+                <img src="/images/video.jpg" alt=""  />
+                <span class="play"></span>
+            </a>
+            <div class="block-text">
+                <p>
+                    Народное творчество
+                </p>
+            </div>
+        </article>
+    </div><!-- /block -->
+
+    <section class="block">
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <article class="period-block  archive-block ">
+                        <h2>Архивы</h2>
+                        <a href="#"><img src="/images/period_3.jpg" alt="" class="period-block_image" /></a>
+                        <div class="period-block_text">
+                            <p>
+                                <b>Кенигсбергский университет и собор на острове Кнайпхоф, конец XIX в.</b>
+                                Старейший университет Пруссии (Альбертина) построен в 1544 г. рядом с кафедральным собором. Они составляют архитектурный ансамбль острова Кнайпхоф. Здесь учился Э.Т.А. Гофман и преподавал И. Кант.
+                            </p>
+                        </div>
+                        <div class="period-block_footer"></div>
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block  archive-block ">
+                        <h2>Архивы</h2>
+                        <a href="#"><img src="/images/period_3.jpg" alt="" class="period-block_image" /></a>
+                        <div class="period-block_text">
+                            <p>
+                                <b>Кенигсбергский университет и собор на острове Кнайпхоф, конец XIX в.</b>
+                                Старейший университет Пруссии (Альбертина) построен в 1544 г. рядом с кафедральным собором. Они составляют архитектурный ансамбль острова Кнайпхоф. Здесь учился Э.Т.А. Гофман и преподавал И. Кант.
+                            </p>
+                        </div>
+                        <div class="period-block_footer"></div>
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block  archive-block ">
+                        <h2>Архивы</h2>
+                        <a href="#"><img src="/images/period_3.jpg" alt="" class="period-block_image" /></a>
+                        <div class="period-block_text">
+                            <p>
+                                <b>Кенигсбергский университет и собор на острове Кнайпхоф, конец XIX в.</b>
+                                Старейший университет Пруссии (Альбертина) построен в 1544 г. рядом с кафедральным собором. Они составляют архитектурный ансамбль острова Кнайпхоф. Здесь учился Э.Т.А. Гофман и преподавал И. Кант.
+                            </p>
+                        </div>
+                        <div class="period-block_footer"></div>
+                    </article>
+                </li>
+            </ul>
+        </div>
+    </section><!-- /block -->
+
+    <div class="block">
+        <article class="static-block contacts-block">
+
+            <h2>{{"contact_info"|trans}}</h2>
+
+            <!-- map -->
+            <img src="/images/contacts.jpg" alt="" class="block-image" />
+            <!-- /map -->
+
+            <div class="block-text">
+                <p><b>{{ entity.title|raw }}</b></p>
+                {% if entity.address %}<p>{{"atlas.address"|trans}}: {{ entity.address }}</p>{% endif %}
+                {% if entity.siteUrl or entity.email or entity.phone %}<p>{% endif %}
+                {% if entity.siteUrl %}{{"website"|trans}}: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br/>{% endif %}
+                {% if entity.email %}{{"email"|trans}}: {{ entity.email }}<br/>{% endif %}
+                {% if entity.phone %}{{"phone"|trans}}: {{ entity.phone }}<br/>{% endif %}
+                {% if entity.siteUrl or entity.email or entity.phone %}</p>{% endif %}
+                <p>
+                    {% if entity.workTime is not empty %}
+                        {{"visiting_hours"|trans}}:
+                        {{ entity.workTime }}
+                    {% endif %}
+                    {% if entity.weekends|length > 0 %}
+                        <br/>{{"weekends"|trans}}:
+                        {% for day in entity.weekends %}
+                            {{ day.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {{"without_holidays"|trans}}
+                    {% endif %}
+                </p>
+            </div>
+
+        </article>
+    </div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block rec_plitka %}
+    <ul class="plitka rec-plitka">
+        <li class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-type" href="#">Ростовская область</a>
+                <a href="#">
+                    <img alt="" class="plitka-image" src="/images/rec1.jpg">
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                    Новочеркасский Свято-
+                    Вознесенский
+                    кафедральный собор</span>
+                </div>
+            </div>
+        </li><li class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-type" href="#">Томская область</a>
+                <a href="#">
+                    <img alt="" class="plitka-image" src="/images/rec2.jpg">
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                    Богоявленский
+                    кафедральный собор
+                    города Томска</span>
+                </div>
+            </div>
+        </li><li class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-type" href="#">Владимирская область</a>
+                <a href="#">
+                    <img alt="" class="plitka-image" src="/images/rec3.jpg">
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                    Владимиро-
+                    Суздальский музей-
+                    заповедник</span>
+                </div>
+            </div>
+        </li><li class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-type" href="#">Ростовская область</a>
+                <a href="#">
+                    <img alt="" class="plitka-image" src="/images/rec1.jpg">
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                    Новочеркасский Свято-
+                    Вознесенский
+                    кафедральный собор</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# ------------------------------------------------------------------------ #}
+{% block body_____old %}
     {% if entity is empty %}
         {{ "object_not_found"|trans }}
     {% else %}
@@ -534,7 +824,7 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
-{% block stylesheets %}
+{% block stylesheets__old %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
     <style>
@@ -553,7 +843,7 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
-{% block javascripts %}
+{% block javascripts__old %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
