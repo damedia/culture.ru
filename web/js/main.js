@@ -145,4 +145,22 @@ $(function(){
 	})
 	
 	
+		$('#video-list').flexslider({
+			animation: "slide",
+			
+			slideshow: false,
+			itemWidth: 281,
+			itemMargin: 37
+		  });
+		  
+		  
+	$('.tabs-headers').on('click', 'a', function(){
+		var tabId = $(this).attr('href');
+		$(this).addClass('active')
+				.parent().siblings().find('a').removeClass('active');
+		$(tabId).show().siblings('.tab').hide();
+		return false;
+	})	
+	
+	
 })

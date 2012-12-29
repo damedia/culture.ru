@@ -1,0 +1,74 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+<div class="tabs events-tabs">
+    <h2>События культуры России</h2>
+
+    <ul class="tabs-headers events-tabs-headers">
+        {% spaceless %}
+            {% for c in categories %}
+                <li>
+                    <a href="#{{ c.slug }}_tab" {% if loop.first %}class="active"{% endif %}>{{ c.title }}</a>
+                </li>
+            {% endfor %}
+        {% endspaceless %}
+    </ul>
+
+    {% for slug, entities in news %}
+        <div id="{{ slug }}_tab" class="tab event-tab" {% if not loop.first %}style = "display:none;" {% endif %}>
+            <ul class="event-tab-news">
+                {% set prevDate = null %}
+                {% for n in entities %}
+                    {% set articleHref = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
+                    {% if loop.first %}
+                        <li class="event-tab-news-one">
+                            {% if n.image %}
+                                <a href="{{ articleHref }}">
+                                    {% thumbnail n.image, 'latest' with {'alt': n.image.description, 'height': 'auto' } %}
+                                </a>
+                            {% endif %}
+                            <div class="event-tab-text">
+                                <span class="event-tab-text">
+                                    {{ n.newsDate|date('H:i') }} /
+                                    <a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ n.category.title }}</a>
+                                </span>
+
+                                <p>
+                                    {% if n.date %}
+                                        {{ n.date|date('d.m.Y') }}
+                                        {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                    {% endif %}
+                                    {{ n.title|raw }}
+                                </p>
+                            </div>
+                        </li>
+                    {% else %}
+                        {% if n.newsDate|date('d') != prevDate or prevDate is empty %}
+                            </ul>
+                            <h3>{{ armd_news.news_date(n.newsDate) }}</h3>
+                            <ul class="event-tab-news">
+                        {% endif %}
+                        <li class="event-tab-news-one">
+                             <div class="event-tab-text">
+                                 <span class="event-tab-text">
+                                     {{ n.newsDate|date('H:i') }} /
+                                     <a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ n.category.title }}</a>
+                                 </span>
+
+                                 <p>
+                                     {% if n.date %}
+                                         {{ n.date|date('d.m.Y') }}
+                                         {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                     {% endif %}
+                                     {{ n.title|raw }}
+                                 </p>
+                             </div>
+                         </li>
+                    {% endif %}
+                    {% set prevDate = n.newsDate|date('d') %}
+                {% endfor %}
+            </ul>
+            <p class="all">
+                <a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ 'mainpage.read_more'|trans }}</a>
+            </p>
+        </div>
+    {% endfor %}
+</div>

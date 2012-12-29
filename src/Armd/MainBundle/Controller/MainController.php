@@ -6,9 +6,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
+use Armd\AtlasBundle\Manager\ObjectManager;
+
 
 class MainController extends Controller
 {
+    public function homepageAction()
+    {
+        $categories = $this->getNewsManager()->getCategories();
+
+        $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
+            array(
+                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+                ObjectManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC'),
+                ObjectManager::CRITERIA_LIMIT => 7
+            )
+        );
+
+
+        return $this->render(
+            'ArmdMainBundle:Homepage:homepage.html.twig',
+            array(
+                'news' => $this->getNews($categories),
+                'categories' => $categories,
+                'newRussiaImages' => $newRussiaImages
+            )
+        );
+    }
+
     public function bannerAction()
     {
         return $this->renderTemplate('banner');
@@ -34,21 +59,6 @@ class MainController extends Controller
 	public function printAction()
     {
         return $this->renderTemplate('print');
-    }
-
-    public function indexAction()
-    {
-        $categories = $this->getNewsManager()->getCategories();
-
-        return $this->render(
-            'ArmdMainBundle::index.html.twig',
-            array(
-                'news' => $this->getNews($categories),
-                'events' => $this->getEvents(4),
-                'categories' => $categories,
-                'russiaImages' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRussiaImagesForSlider(),
-            )
-        );
     }
 
     public function randomRussiaImagesAction()

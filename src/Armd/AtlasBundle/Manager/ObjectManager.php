@@ -102,7 +102,7 @@ class ObjectManager
 
         if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
             foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
-                $qb->addOrderBy($k, $v);
+                $qb->addOrderBy("$o.$k", $v);
             }
         }
 

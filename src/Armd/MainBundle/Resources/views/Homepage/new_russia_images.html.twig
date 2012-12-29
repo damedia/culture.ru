@@ -1,0 +1,40 @@
+{% set object = objects[0] %}
+<ul class="plitka obrazy-plitka obraz-index">
+	<li class="plitka-one-wrap">
+		<div class="plitka-one">
+			<a href="#" class="plitka-type">{{ object.regions[0].title }}</a>
+			<a href="#">
+                {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
+			</a>
+			<div class="plitka-text">
+				<span class="plitka-name">
+                    {{ object.title }}
+                </span>
+			</div>
+			<div class="plitka-footer">
+				<div class="types-icons">
+                    <span class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
+                    <span class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
+                    <span class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
+                    <span class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
+                    <span class="ti-list"></span>
+				</div>
+			</div>
+		</div>
+	</li>
+</ul>
+<ul class="obraz-index-list">
+    {% for i in 1..objects|length - 1 %}
+        {% set object = objects[i] %}
+        <li>
+            <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
+                {% thumbnail object.primaryImage, 'imagesOfRussiaSmall' %}
+            </a>
+            <div class="index-obraz-list-text">
+                <a href="#" class="index-obraz-name">{{ object.regions[0].title }}</a>
+                <p>{{ object.title }}</p>
+            </div>
+        </li>
+    {% endfor %}
+
+</ul>

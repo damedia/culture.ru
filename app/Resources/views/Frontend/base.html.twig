@@ -71,7 +71,7 @@
     <!-- /Javascripts block -->
 
 </head>
-<body {% if app.request.locale == 'en' %}class="locale_en"{% endif %}>
+<body class="locale_{{ app.request.locale }}">
 
     <div id="armd_messages" style="display: none;"></div>
 
@@ -119,8 +119,10 @@
         </div>
         <!-- /Navigation header -->
 
+        {% block sub_header %}{% endblock %}
+
         <!-- Main block -->
-        <div class="main clearfix">
+        <div class="main clearfix {% block body_class %}{% endblock %}">
             {% block body %}{% endblock %}
         </div>
         <!-- /Main block -->

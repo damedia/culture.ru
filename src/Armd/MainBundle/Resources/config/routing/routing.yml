@@ -1,6 +1,6 @@
 armd_main_homepage:
     pattern:  /
-    defaults: { _controller: ArmdMainBundle:Main:index }
+    defaults: { _controller: ArmdMainBundle:Main:homepage }
 
 armd_main_banner:
     pattern:  /banner/
