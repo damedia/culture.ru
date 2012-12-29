@@ -56,6 +56,7 @@ class Museum extends Admin
                 ->add('published', null, array('required' => false))
             ->with('Media')
                 ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
+                ->add('bannerImage', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
             ->end();
 
         parent::configureFormFields($formMapper);

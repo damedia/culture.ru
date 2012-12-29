@@ -43,7 +43,7 @@
                     {% else %}
                         {% if n.newsDate|date('d') != prevDate or prevDate is empty %}
                             </ul>
-                            <h3>{{ armd_news.news_date(n.newsDate) }}</h3>
+                            <h3>{{ armd_news.news_date_short(n.newsDate) }}</h3>
                             <ul class="event-tab-news">
                         {% endif %}
                         <li class="event-tab-news-one">

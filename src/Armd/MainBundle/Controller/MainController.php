@@ -13,6 +13,8 @@ class MainController extends Controller
 {
     public function homepageAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
         $categories = $this->getNewsManager()->getCategories();
 
         $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
@@ -23,13 +25,18 @@ class MainController extends Controller
             )
         );
 
+        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneBy(array('code' => 'LECTURE_SUPER_TYPE_CINEMA'));
+        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
+            ->findLastAdded($lectureSuperType, 6);
 
         return $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
                 'news' => $this->getNews($categories),
                 'categories' => $categories,
-                'newRussiaImages' => $newRussiaImages
+                'newRussiaImages' => $newRussiaImages,
+                'newVideos' => $lectures
             )
         );
     }
@@ -89,7 +96,6 @@ class MainController extends Controller
                 $result[] = $obj->{'data'};
             }
         }
-
         return $this->render(
             'ArmdMainBundle:Communication:index.html.twig',
             array(
@@ -130,7 +136,7 @@ class MainController extends Controller
             $result[$c->getSlug()] = $this->get('armd_news.manager.news')->getPager(
                 array('category' => $c->getSlug()),
                 1,
-                45
+                25
             );
         }
 

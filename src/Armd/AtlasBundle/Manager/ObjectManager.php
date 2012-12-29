@@ -76,7 +76,6 @@ class ObjectManager
 
     public function setCriteria(QueryBuilder $qb, $criteria)
     {
-        \gFuncs::dbgWriteLogVar($criteria, false, 'criteria'); // DBG:
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
 

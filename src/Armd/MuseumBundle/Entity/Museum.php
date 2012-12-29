@@ -3,6 +3,7 @@
 namespace Armd\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * @ORM\Entity()
@@ -41,7 +42,14 @@ class Museum
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
-    private $image;    
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="banner_image_id", referencedColumnName="id")
+     */
+    private $bannerImage;
+
 
     public function __toString()
     {
@@ -169,5 +177,21 @@ class Museum
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBannerImage()
+    {
+        return $this->bannerImage;
+    }
+
+    /**
+     * @param $bannerImage
+     */
+    public function setBannerImage(Media $bannerImage = null)
+    {
+        $this->bannerImage = $bannerImage;
     }
 }

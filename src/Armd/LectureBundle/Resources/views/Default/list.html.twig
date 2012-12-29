@@ -119,208 +119,219 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-    <section class="block">
-        <h2><span>Рекомендуем</span></h2>
-        <div class="recommend-block">
-            <img src="/new_design/images/recommend2.jpg" alt="" />
-            <div class="recommend-over">
-                <div class="recommend_name">
-                    <p>Госфильмофонд<br />
-                    России</p>
-                </div>
-                <p class="recommend-type"><a href="#">Образы России</a></p>
-            </div>
-        </div>
-    </section>
+
+    {% render 'ArmdNewsBundle:News:memorialEvents' %}
+
+    {% render 'ArmdAtlasBundle:Default:relatedObjects' with {'tags': {}, 'limit': 1} %}
+
     <div class="right-video-block">
-        <div class="flexslider">
-            <ul class="slides">
-                <li>
-                    <article class="period-block">
-                        <h2>Бриллиантовая рука (1968)</h2>
-                        <a href="#" class="period-block_image">
-                            <img src="/new_design/images/period_1.jpg" alt=""  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>
-                                Режиссер: Леонид Гайдай <br />
-                                Жанр: Комедия / Режиссер: Леонид Гайдай
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Кинозал</a>
-                            </div>
-                        </footer>
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block">
-                        <h2>Бриллиантовая рука (1968)</h2>
-                        <a href="#" class="period-block_image">
-                            <img src="/new_design/images/period_1.jpg" alt=""  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>
-                                Режиссер: Леонид Гайдай <br />
-                                Жанр: Комедия / Режиссер: Леонид Гайдай
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Кинозал</a>
-                            </div>
-                        </footer>
+        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' } %}
 
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block">
-                        <h2>Бриллиантовая рука (1968)</h2>
-                        <a href="#" class="period-block_image">
-                            <img src="/new_design/images/period_1.jpg" alt=""  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>
-                                Режиссер: Леонид Гайдай <br />
-                                Жанр: Комедия / Режиссер: Леонид Гайдай
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Кинозал</a>
-                            </div>
-                        </footer>
-
-                    </article>
-                </li>
-            </ul>
-        </div>
-        <div class="flexslider">
-            <ul class="slides">
-                <li>
-                    <article class="period-block">
-                        <h2>«Русский XIX век» 1-я лекция</h2>
-                        <a href="#" class="period-block_image">
-                            <img src="/new_design/images/period_4.jpg" alt=""  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>
-                                Лектор: Юрий Пивоваров
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Лекции</a>
-                            </div>
-                        </footer>
-
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block">
-                        <h2>«Русский XIX век» 1-я лекция</h2>
-                        <a href="#" class="period-block_image">
-                            <img src="/new_design/images/period_4.jpg" alt=""  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>
-                                Лектор: Юрий Пивоваров
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Лекции</a>
-                            </div>
-                        </footer>
-
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block">
-                        <h2>«Русский XIX век» 1-я лекцияh2>
-                        <a href="#" class="period-block_image">
-                            <img src="/new_design/images/period_4.jpg" alt=""  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>
-                                Лектор: Юрий Пивоваров
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Лекции</a>
-                            </div>
-                        </footer>
-
-                    </article>
-                </li>
-            </ul>
-        </div>
+        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' } %}
     </div>
-    <section class="block">
-        <div class="flexslider">
-            <ul class="slides">
-                <li>
-                    <article class="period-block period-event-block ">
-                        <h2>События</h2>
-                        <a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>
-                        <div class="period-block_text">
-                            <p>
-                                <b>79 детей Юрия Башмета</b>
-                                Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Репортажи</a>
-                            </div>
-                        </footer>
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block period-event-block ">
-                        <h2>События</h2>
-                        <a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>
-                        <div class="period-block_text">
-                            <p>
-                                <b>79 детей Юрия Башмета</b>
-                                Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Репортажи</a>
-                            </div>
-                        </footer>
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block period-event-block ">
-                        <h2>События</h2>
-                        <a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>
-                        <div class="period-block_text">
-                            <p>
-                                <b>79 детей Юрия Башмета</b>
-                                Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.
-                            </p>
-                        </div>
-                        <footer class="period-block_footer">
-                            <div class="tags">
-                                <a href="#">Репортажи</a>
-                            </div>
-                        </footer>
-                    </article>
-                </li>
-            </ul>
-        </div>
-    </section>
+    {##}
+    {#<section class="block">#}
+        {#<h2><span>Рекомендуем</span></h2>#}
+        {#<div class="recommend-block">#}
+            {#<img src="/new_design/images/recommend2.jpg" alt="" />#}
+            {#<div class="recommend-over">#}
+                {#<div class="recommend_name">#}
+                    {#<p>Госфильмофонд<br />#}
+                    {#России</p>#}
+                {#</div>#}
+                {#<p class="recommend-type"><a href="#">Образы России</a></p>#}
+            {#</div>#}
+        {#</div>#}
+    {#</section>#}
+    {#<div class="right-video-block">#}
+        {#<div class="flexslider">#}
+            {#<ul class="slides">#}
+                {#<li>#}
+                    {#<article class="period-block">#}
+                        {#<h2>Бриллиантовая рука (1968)</h2>#}
+                        {#<a href="#" class="period-block_image">#}
+                            {#<img src="/new_design/images/period_1.jpg" alt=""  />#}
+                            {#<span class="play"></span>#}
+                        {#</a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Режиссер: Леонид Гайдай <br />#}
+                                {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Кинозал</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+                    {#</article>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<article class="period-block">#}
+                        {#<h2>Бриллиантовая рука (1968)</h2>#}
+                        {#<a href="#" class="period-block_image">#}
+                            {#<img src="/new_design/images/period_1.jpg" alt=""  />#}
+                            {#<span class="play"></span>#}
+                        {#</a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Режиссер: Леонид Гайдай <br />#}
+                                {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Кинозал</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+
+                    {#</article>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<article class="period-block">#}
+                        {#<h2>Бриллиантовая рука (1968)</h2>#}
+                        {#<a href="#" class="period-block_image">#}
+                            {#<img src="/new_design/images/period_1.jpg" alt=""  />#}
+                            {#<span class="play"></span>#}
+                        {#</a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Режиссер: Леонид Гайдай <br />#}
+                                {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Кинозал</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+
+                    {#</article>#}
+                {#</li>#}
+            {#</ul>#}
+        {#</div>#}
+        {#<div class="flexslider">#}
+            {#<ul class="slides">#}
+                {#<li>#}
+                    {#<article class="period-block">#}
+                        {#<h2>«Русский XIX век» 1-я лекция</h2>#}
+                        {#<a href="#" class="period-block_image">#}
+                            {#<img src="/new_design/images/period_4.jpg" alt=""  />#}
+                            {#<span class="play"></span>#}
+                        {#</a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Лектор: Юрий Пивоваров#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Лекции</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+
+                    {#</article>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<article class="period-block">#}
+                        {#<h2>«Русский XIX век» 1-я лекция</h2>#}
+                        {#<a href="#" class="period-block_image">#}
+                            {#<img src="/new_design/images/period_4.jpg" alt=""  />#}
+                            {#<span class="play"></span>#}
+                        {#</a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Лектор: Юрий Пивоваров#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Лекции</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+
+                    {#</article>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<article class="period-block">#}
+                        {#<h2>«Русский XIX век» 1-я лекцияh2>#}
+                        {#<a href="#" class="period-block_image">#}
+                            {#<img src="/new_design/images/period_4.jpg" alt=""  />#}
+                            {#<span class="play"></span>#}
+                        {#</a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Лектор: Юрий Пивоваров#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Лекции</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+
+                    {#</article>#}
+                {#</li>#}
+            {#</ul>#}
+        {#</div>#}
+    {#</div>#}
+    {#<section class="block">#}
+        {#<div class="flexslider">#}
+            {#<ul class="slides">#}
+                {#<li>#}
+                    {#<article class="period-block period-event-block ">#}
+                        {#<h2>События</h2>#}
+                        {#<a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#<b>79 детей Юрия Башмета</b>#}
+                                {#Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Репортажи</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+                    {#</article>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<article class="period-block period-event-block ">#}
+                        {#<h2>События</h2>#}
+                        {#<a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#<b>79 детей Юрия Башмета</b>#}
+                                {#Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Репортажи</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+                    {#</article>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<article class="period-block period-event-block ">#}
+                        {#<h2>События</h2>#}
+                        {#<a href="#"><img src="/new_design/images/period_3.jpg" alt="" class="period-block_image" /></a>#}
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#<b>79 детей Юрия Башмета</b>#}
+                                {#Зимний театр с трудом вместил всех желающих. 79 детей из 28 городов России совершили невозможное.#}
+                            {#</p>#}
+                        {#</div>#}
+                        {#<footer class="period-block_footer">#}
+                            {#<div class="tags">#}
+                                {#<a href="#">Репортажи</a>#}
+                            {#</div>#}
+                        {#</footer>#}
+                    {#</article>#}
+                {#</li>#}
+            {#</ul>#}
+        {#</div>#}
+    {#</section>#}
 {% endblock %}
 
 
@@ -400,7 +411,7 @@
         <div id="lecture-list-wrapper">
             <div id="lecture-list-loading" class="loading-block"></div>
             <div id="lecture-list-container">
-                {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
+               {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
             </div>
         </div>
     </div>

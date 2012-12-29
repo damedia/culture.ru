@@ -31,15 +31,20 @@ class LectureRepository extends EntityRepository
         return $paginator->getIterator();
     }
 
-    public function findLastAdded(LectureSuperType $superType, $limit = 2)
+    public function findLastAdded(LectureSuperType $superType = null, $limit = 2)
     {
         $qb = $this->createQueryBuilder('l')
             ->select('l')
-            ->where('l.lectureSuperType = :superType')
             ->andWhere('l.published = TRUE')
             ->orderBy('l.createdAt', 'DESC')
-            ->setMaxResults($limit)
-            ->setParameters(array('superType' => $superType));
+            ->setMaxResults($limit);
+
+        if(!empty($superType)) {
+            $qb->where('l.lectureSuperType = :superType')
+                ->setParameters(array('superType' => $superType));
+
+        }
+
 
         $this->makeQueryBuilderEager($qb);
 
