@@ -19,59 +19,62 @@
             <span class="search-dates-label">Выбрать</span>
 
             <div class="search-category-selects">
-                <select name="region" id="region" class="uni">
+                <select name="object-region" id="object-region" class="uni">
                     <option value="">Регион</option>
                     {% for region in regions %}
                         <option value="{{ region.id }}">{{ region.title }}</option>
                     {% endfor %}
                 </select>
-                <select name="object-type" id="select2" class="uni">
+                <select name="object-type" id="object-type" class="uni">
                     <option value="">Тип</option>
                     {% for type in types %}
                         <option value="{{ type.id }}">{{ type.title }}</option>
                     {% endfor %}
 \               </select>
-                <select name="select3" id="select3" class="uni">
+                <select name="object-thematic" id="object-thematic" class="uni">
                     <option value="">Тематика</option>
                     {% for thematic in thematics %}
                         <option value="{{ thematic.id }}">{{ thematic.title }}</option>
                     {% endfor %}
 \                </select>
             </div>
-            <a href="#" class="button search-dates-button">Показать</a>
+            <a href="#" id="search-russia-images-button" class="button search-dates-button">Показать</a>
         </div>
     {% endspaceless %}
 {% endblock %}
 
 {% block page_header_search_scope %}
-    <div class="search-checkboxes">
-        <label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>
-    </div>
+    {#<div class="search-checkboxes">#}
+        {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
+    {#</div>#}
 {% endblock %}
 
 {% block body %}
+    <p class="search-found">Выбрано образов: <span id="found-objects-count"></span></p>
 
-    {#<div class="blocksection index-blocksection w clearfix" id="f-section">#}
-        {#<div class="title-block">#}
-            {#<h2>{{ 'Navigation.Images of Russia.Title'|trans }}</h2>#}
-        {#</div>#}
+    <div id="plitka" class="tab plitka-list">
+        <ul class="plitka obrazy-plitka">
+            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'tile', 'limit': 24 } %}
+        </ul>
+    </div>
 
-        {#<div class="obrazy">#}
-            {#<form action="" class="obr-form">#}
-                {#<div class="obr-text-input">#}
-                    {#<input type="text" name="search" id="search_text" value="{{ 'russia_images.search'|trans }}"/>#}
-                {#</div>#}
-                {#<input type="button" class="obr-submit-input" value=""/>#}
-            {#</form>#}
-            {#<div id="images-of-russia-wrapper">#}
-                {#<div id="images-of-russia-loading" class="loading-block"></div>#}
-                {#<div id="images-of-russia-container">#}
-                    {#{% render 'ArmdAtlasBundle:Default:russiaImagesList' %}#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
+    <div id="full-list" class="tab" style="display:none">
+        <ul class="full-list">
+            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'full-list', 'limit': 24 } %}
+        </ul>
+    </div>
 
+    <div id="short-list" class="tab"  style="display:none">
+        <ul class="short-list">
+            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'short-list', 'limit': 24 } %}
+        </ul>
+    </div>
+
+    <div class="more more2">
+        <p>
+            <a href="#" id="show-more">Еще образы России</a>
+        </p>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -80,8 +83,7 @@
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/russia_images.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            {#armdRussiaImages.init();#}
-            {#armdRussiaImages.listUrl = '{{ path('armd_atlas_russia_images_list') }}';#}
+            armdMkRussiaImages.init();
         });
     </script>
 {% endblock %}

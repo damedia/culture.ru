@@ -37,14 +37,17 @@ class ObjectManager
     /** example: array(1, 89) */
     const CRITERIA_REGION_IDS_AND = 'CRITERIA_REGION_IDS_AND'; // array(4, 77)
 
-    /** example: array('title', 'ASC', 'createdAt', 'DESC') */
+    /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
     const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
 
-    /** example: true */
-    const CRITERIA_LAST_CREATED = 'CRITERIA_LAST_CREATED';
+//    /** example: true */
+//    const CRITERIA_LAST_CREATED = 'CRITERIA_LAST_CREATED';
 
     /** example: 5 */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
+
+    /** example: 'the rolling stones' */
+    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
     public function __construct(EntityManager $em, $search)
     {
@@ -54,9 +57,8 @@ class ObjectManager
 
     public function findObjects(array $criteria)
     {
-        $objects = $this->getQueryBuilder($criteria)
-            ->getQuery()
-            ->getResult();
+        $qb = $this->getQueryBuilder($criteria);
+        $objects = $qb->getQuery()->getResult();
 
         return $objects;
     }
@@ -64,20 +66,50 @@ class ObjectManager
 
     public function getQueryBuilder(array $criteria)
     {
-        $qb = $this->createQueryBuilder('o')
+        $qb = $this->em->getRepository('ArmdAtlasBundle:Object')->createQueryBuilder('o')
             ->where('o.published = TRUE');
 
         $this->setCriteria($qb, $criteria);
+
+        return $qb;
     }
 
     public function setCriteria(QueryBuilder $qb, $criteria)
     {
-        $o = $qb->getRootAliases()[0];
+        \gFuncs::dbgWriteLogVar($criteria, false, 'criteria'); // DBG:
+        $aliases = $qb->getRootAliases();
+        $o = $aliases[0];
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
-            $qb->andWhere("$o.secondaryCategories IN (:categoryIds)")
+            $qb->innerJoin("$o.secondaryCategories", 'sc')
+                ->andWhere("sc IN (:categoryIds)")
                 ->setParameter('categoryIds', $criteria[self::CRITERIA_CATEGORY_IDS_AND]);
         }
+
+        if (!empty($criteria[self::CRITERIA_REGION_IDS_AND])) {
+            $qb->innerJoin("$o.regions", 'r')
+                ->andWhere("r IN (:regionIds)")
+                ->setParameter('regionIds', $criteria[self::CRITERIA_REGION_IDS_AND]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_OFFSET])) {
+            $qb->setFirstResult($criteria[self::CRITERIA_OFFSET]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_LIMIT])) {
+            $qb->setMaxResults($criteria[self::CRITERIA_LIMIT]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
+            foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
+                $qb->addOrderBy($k, $v);
+            }
+        }
+
+        if (!empty($criteria[self::CRITERIA_RUSSIA_IMAGES])) {
+            $qb->andWhere("$o.showAtRussianImage = TRUE");
+        }
+
     }
 
 

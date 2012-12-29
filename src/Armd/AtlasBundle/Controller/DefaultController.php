@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Armd\AtlasBundle\Manager\ObjectManager;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,10 +99,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/russia-images-list/{templateName}", name="armd_atlas_russia_images_list", options={"expose"=true})
-     * @Template()
+     * @Route("/russia-images-list/{templateName}/{offset}/{limit}", name="armd_atlas_russia_images_list", options={"expose"=true})
      */
-    public function russiaImagesListAction($templateName)
+    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
     {
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russiaImagesListTile.html.twig',
@@ -115,18 +115,32 @@ class DefaultController extends Controller
 
         $request = $this->getRequest();
         $criteria = array();
-        if ($request->query->has('categoryIds')) {
-            $criteria['categoryIdsAnd'] = $request->get('categoryIds');
+
+        $categoryIds = $request->get('category_ids');
+        if (!empty($categoryIds)) {
+            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
         }
 
-        if ($request->query->has('regionId')) {
-            $criteria['regionIdsAnd'] = array($request->get('regionId'));
+        $regionId = $request->get('region_id');
+        if (!empty($regionId)) {
+            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
         }
 
-        $searchString = $this->getRequest()->get('searchString');
+        $searchQuery = $request->get('search_query');
+        if ($request->query->has('search_query')) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchQuery;
+        }
 
-        return array(
-            'objects' => $this->getObjectManager()->getRussiaImagesList($searchString),
+        $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
+        $criteria[ObjectManager::CRITERIA_LIMIT] = $limit;
+        $criteria[ObjectManager::CRITERIA_OFFSET] = $offset;
+
+
+        return $this->render(
+            $templates[$templateName],
+            array(
+                'objects' => $this->getObjectManager()->findObjects($criteria),
+            )
         );
     }
 

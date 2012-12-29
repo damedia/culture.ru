@@ -1,0 +1,36 @@
+{% for object in objects %}
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type">
+                {% if object.regions is not empty %}
+                    {{ object.regions[0].title }}
+                    {#{% for region in object.regions %}#}
+                        {#{{ region.title }}#}
+                        {#{% if not loop.last %}/{% endif %}#}
+                    {#{% endfor %}#}
+                {% endif %}
+            </a>
+            <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
+                {% thumbnail object.primaryImage, 'searchAllResult' with {'alt': object.primaryImage.description, 'class': 'plitka-image'} %}
+            </a>
+            <div class="plitka-text">
+                <span class="plitka-name">
+                    {{ object.title }}
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="types-icons">
+                    <span class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
+                    <span class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
+                    <span class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
+                    <span class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
+                    <span class="ti-list"></span>
+                </div>
+            </div>
+        </div>
+
+    </li>
+{% else %}
+    <strong>По Вашему запросу объектов не найдено</strong>
+{% endfor %}
