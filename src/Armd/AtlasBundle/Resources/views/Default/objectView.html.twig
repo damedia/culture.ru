@@ -31,6 +31,7 @@
     {{ "atlas.atlas"|trans }}
 {% endblock %}
 
+{# ------------------------------------------------------------------------ #}
 {% block page_header_search %}
     <div class="search-category">
         <div id="regions-selector" class="regions-selector">
@@ -39,178 +40,274 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
-{% block left_column %}
-    <div class="left-column-content">
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .content.collapsed{ height:200px; overflow:hidden; }
+    </style>
+{% endblock %}
 
-        <h1>{{ entity.title }}</h1>
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function(){
 
-        <!-- Photo gallery -->
-        {% if entity.images|length > 0 %}
-            <div class="gallery">
-                <div id="image-slider">
-                    <ul class="slides image-slider">
-                        {% for h in entity.images %}
-                            <li>
-                                <img src="{% path h, 'big' %}" alt="" />
-                                <div class="image-stats">
-                                    <a href="#" class="image-code-link">Код для вставки</a>
-                                    <p>
-                                        <span><b>{{ loop.index }}</b> из {{ entity.images|length }}</span>  /
-                                        <a href="#">Сохранить оригинальное фото <i>(784 мб.)</i></a>
-                                    </p>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div id="thumbs-slider">
-                    <ul class="slides thumbs-slider">
-                        {% for h in entity.images %}
-                            <li>
-                                <div class="thumb-image-wrap" style="background-image:url({% path h, 'thumbnail' %});">
-                                    <img src="{% path h, 'thumbnail' %}" alt="" />
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        {% endif %}
-        <!-- /Photo gallery -->
+            $('.fancybox').fancybox({
 
-        <!-- Content -->
-        <div id="content-collapsed" class="content collapsed">
-            {{ entity.content|raw }}
-        </div>
-        <div class="more more3">
-            <p><a href="#">Читать дальше</a></p>
-        </div>
-        {% block stylesheets %}
-            {{ parent() }}
-            <style>
-                .content.collapsed{ height:200px; overflow:hidden; }
-            </style>
-        {% endblock %}
-        {% block javascripts %}
-            {{ parent() }}
-            <script type="text/javascript">
-                $(function(){
-                    $('.more3').click(function(){
-                        $('#content-collapsed').removeClass('collapsed');
-                        $(this).hide();
+            });
+
+            $('.more3').click(function(){
+                $('#content-collapsed').removeClass('collapsed');
+                $(this).hide();
+                return false;
+            });
+
+            $('.zoom-fancybox').fancybox({
+                autoResize:true,
+                afterShow:function ()
+                {
+                    var innerWidth = $('.fancybox-inner').width();
+                    var innerHeight = $('.fancybox-inner').height();
+
+                    var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="' + innerHeight + '"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
+                    $('.fancybox-inner').html(newContent);
+                    $('#zoom').jqzoom({
+                        zoomType:'innerzoom',
+                        lens:false,
+                        title:false,
+                        preloadImages:false,
+                        alwaysOn:false
+                    })
+
+                    $('#fancy_print').bind("click", function ()
+                    {
+                        var win = null;
+                        var content = $('#zoom');
+                        win = window.open("width=200,height=200");
+                        self.focus();
+                        win.document.open();
+                        win.document.write('<' + 'html' + '><' + 'head' + '><' + 'style' + '>');
+                        win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+                        win.document.write('<' + '/' + 'style' + '><' + '/' + 'head' + '><' + 'body' + '>');
+                        win.document.write(content.html());
+                        win.document.write('<' + '/' + 'body' + '><' + '/' + 'html' + '>');
+                        win.document.close();
+                        win.print();
+                        win.close();
+
                         return false;
-                    });
-                });
-            </script>
-        {% endblock %}
-        <!-- /Content -->
+                    }); // bind
 
-        <div class="block small-block clearfix">
-            <h2><span>Рекомендуем</span></h2>
-            {{ block('rec_plitka') }}
+                }
+            });
+        })
+    </script>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block left_column %}
+
+    <h1>{{ entity.title }}</h1>
+
+    <!-- Photo gallery -->
+    {% if entity.images|length > 0 %}
+        <div class="gallery">
+            <div id="image-slider">
+                <ul class="slides image-slider">
+                    {% for h in entity.images %}
+                        <li>
+                            <img src="{% path h, 'big' %}" alt="" />
+                            <div class="image-stats">
+                                <a href="#" class="image-code-link">Код для вставки</a>
+                                <p>
+                                    <span><b>{{ loop.index }}</b> из {{ entity.images|length }}</span>  /
+                                    <a href="#">Сохранить оригинальное фото <i>(784 мб.)</i></a>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="thumbs-slider">
+                <ul class="slides thumbs-slider">
+                    {% for h in entity.images %}
+                        <li>
+                            <div class="thumb-image-wrap" style="background-image:url({% path h, 'thumbnail' %});">
+                                <img src="{% path h, 'thumbnail' %}" alt="" />
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
+    {% endif %}
+    <!-- /Photo gallery -->
 
-        <!-- Page service -->
-        <div class="back-link"><p><a href="{{ path('armd_atlas_index') }}">Назад</a></p></div>
-        <div class="event-one_footer clearfix">
-            <div class="print-link" href="#"><a href="#"></a> Распечатать материал: </div>
-            <div class="publish-links" href="#"> <a href="#"></a> Опубликовать в социальных сетях:</div>
-        </div>
-        <!-- /Page service -->
+    <!-- Content -->
+    <div class="content-anons">
+        {{ entity.russiaImageAnnounce|raw }}
+    </div>
+    <div id="content-collapsed" class="content collapsed">
+        {{ entity.content|raw }}
+    </div>
+    <div class="more more3">
+        <p><a href="#">Читать дальше</a></p>
+    </div>
+    <!-- /Content -->
 
-    </div><!-- /left-column-content -->
+    <div class="block small-block clearfix">
+        <h2><span>Рекомендуем</span></h2>
+        {{ block('rec_plitka') }}
+    </div>
+
+    <!-- Page service -->
+    <div class="back-link"><p><a href="{{ path('armd_atlas_index') }}">Назад</a></p></div>
+    <div class="event-one_footer clearfix">
+        <div class="print-link" href="#"><a href="#"></a> Распечатать материал: </div>
+        <div class="publish-links" href="#"> <a href="#"></a> Опубликовать в социальных сетях:</div>
+    </div>
+    <!-- /Page service -->
 
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block right_column %}
+
+    <!-- Virtual tour -->
     <div class="block">
         <section class="static-block first-obraz-block">
-            <h2>виртуальный тур</h2>
-            <a href="#" class="virt-tour-anons">
-                <img src="/images/virt-tour.jpg" alt="" />
-                <span class="virt-tour-anons-over"></span>
-            </a>
+            <h2>{{ "virtual_tour"|trans }}</h2>
+
+            {% if entity.virtualTours|length > 0 %}
+                {% for virtualTour in entity.virtualTours if loop.first %}
+                    <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                        {#<img src="/images/virt-tour.jpg" alt="" />#}
+                        <img src="{% path virtualTour.image, 'reference' %}" alt="" />
+                        <span class="virt-tour-anons-over"></span>
+                    </a>
+                {% endfor %}
+            {% endif %}
+
         </section>
-    </div><!-- /block -->
+    </div>
+    <!-- /Virtual tour -->
 
-    <div class="block">
-        <section class="static-block">
-            <h2>Инфографика</h2>
-            <a href="#" class="inf-anons">
-                <img src="/images/inf.jpg" alt="" />
-            </a>
-        </section>
-    </div><!-- /block -->
-
-    <div class="block">
-        <article class="static-block video-block">
-            <h2>Видео</h2>
-            <a href="#" class="block-image">
-                <img src="/images/video.jpg" alt=""  />
-                <span class="play"></span>
-            </a>
-            <div class="block-text">
-                <p>
-                    Народное творчество
-                </p>
-            </div>
-        </article>
-    </div><!-- /block -->
-
-    <section class="block">
-        <div class="flexslider">
-            <ul class="slides">
-                <li>
-                    <article class="period-block  archive-block ">
-                        <h2>Архивы</h2>
-                        <a href="#"><img src="/images/period_3.jpg" alt="" class="period-block_image" /></a>
-                        <div class="period-block_text">
-                            <p>
-                                <b>Кенигсбергский университет и собор на острове Кнайпхоф, конец XIX в.</b>
-                                Старейший университет Пруссии (Альбертина) построен в 1544 г. рядом с кафедральным собором. Они составляют архитектурный ансамбль острова Кнайпхоф. Здесь учился Э.Т.А. Гофман и преподавал И. Кант.
-                            </p>
-                        </div>
-                        <div class="period-block_footer"></div>
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block  archive-block ">
-                        <h2>Архивы</h2>
-                        <a href="#"><img src="/images/period_3.jpg" alt="" class="period-block_image" /></a>
-                        <div class="period-block_text">
-                            <p>
-                                <b>Кенигсбергский университет и собор на острове Кнайпхоф, конец XIX в.</b>
-                                Старейший университет Пруссии (Альбертина) построен в 1544 г. рядом с кафедральным собором. Они составляют архитектурный ансамбль острова Кнайпхоф. Здесь учился Э.Т.А. Гофман и преподавал И. Кант.
-                            </p>
-                        </div>
-                        <div class="period-block_footer"></div>
-                    </article>
-                </li>
-                <li>
-                    <article class="period-block  archive-block ">
-                        <h2>Архивы</h2>
-                        <a href="#"><img src="/images/period_3.jpg" alt="" class="period-block_image" /></a>
-                        <div class="period-block_text">
-                            <p>
-                                <b>Кенигсбергский университет и собор на острове Кнайпхоф, конец XIX в.</b>
-                                Старейший университет Пруссии (Альбертина) построен в 1544 г. рядом с кафедральным собором. Они составляют архитектурный ансамбль острова Кнайпхоф. Здесь учился Э.Т.А. Гофман и преподавал И. Кант.
-                            </p>
-                        </div>
-                        <div class="period-block_footer"></div>
-                    </article>
-                </li>
-            </ul>
+    <!-- Infographics -->
+    {% if entity.image3d %}
+        <div class="block">
+            <section class="static-block">
+                <h2>Инфографика</h2>
+                <a href="{% path entity.image3d, 'reference' %}" class="inf-anons zoom-fancybox">
+                    <img width="300" src="{% path entity.image3d, 'image3d' %}" alt=""/>
+                </a>
+            </section>
         </div>
-    </section><!-- /block -->
+    {% endif %}
+    <!-- /Infographics -->
 
+    <!-- Video -->
+    {% if entity.videos|length > 0 %}
+        <div class="block object-videos">
+
+            {% for video in entity.videos if loop.first %}
+                <div class="block">
+                    <article class="static-block video-block">
+                        <h2>Видео</h2>
+                        <a class="block-image iframe" href="#data-{{ loop.index }}">
+                            <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="block-text">
+                            <p>
+                                Народное творчество
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div id="data-{{ loop.index }}" style="display: none;">
+                    <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
+                        {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if false %}
+                <p class="link_header"><a {#href="#"#} style="border:none;">{{"video"|trans}}</a><!--<sup>207</sup></p>-->
+                <ul class="object-video-list">
+                    {% for video in entity.videos %}
+                        <li class="object-video-list-one">
+                            <div class="object-video-list-image">
+                                <a class="in-fancybox" href="#data-{{ loop.index }}">
+
+                                    <img src="{{ video.image }}" alt=""/>
+
+                                    <div class="title-video">{{ video.title }}</div>
+
+                                </a>
+
+
+                                <div style="display:none;">
+
+                                    <div id="data-{{ loop.index }}">
+                                        <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
+                                            {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            {# <div class="object-video-list-descr">
+                                 <span class="ovl-date">{{ video.durationString }}</span>
+                                 <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
+                                 <p>
+                                     {{ video.description }}
+                                 </p>
+                             </div> #}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+    {% endif %}
+    <!-- /Video -->
+
+    <!-- Archives -->
+    {% if entity.archiveImages|length > 0 %}
+        <section class="block">
+            <div class="flexslider">
+                <ul class="slides">
+                    {% for h in entity.archiveImages %}
+                        <li>
+                            <article class="period-block  archive-block ">
+                                <h2>Архивы</h2>
+                                <a class="in-fancybox" href="{% path h, 'reference' %}">
+                                    <img src="{% path h, 'reference' %}" alt="" class="period-block_image" />
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>{{ h.title|default('archive_document'|trans) }}</b></p>
+                                    <p>{{ h.description }}</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    {% endif %}
+    <!-- /Archives -->
+
+    <!-- Contacts -->
     <div class="block">
         <article class="static-block contacts-block">
 
             <h2>{{"contact_info"|trans}}</h2>
 
             <!-- map -->
-            <img src="/images/contacts.jpg" alt="" class="block-image" />
+            <img src="/images/contacts.jpg" alt="" class="block-image">
             <!-- /map -->
 
             <div class="block-text">
@@ -239,6 +336,8 @@
 
         </article>
     </div>
+    <!-- /Contacts -->
+
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -298,615 +397,4 @@
             </div>
         </li>
     </ul>
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{# ------------------------------------------------------------------------ #}
-{% block body_____old %}
-    {% if entity is empty %}
-        {{ "object_not_found"|trans }}
-    {% else %}
-
-        <div class="title-block with-social">
-            <div class="social-share-buttons">
-                <a class="vk" href="http://vkontakte.ru/share.php?url={{ app.request.uri }}" target="_blank"></a>
-                <a class="tw" href="http://twitter.com/home?status={{ entity.title~' '~app.request.uri }}" target="_blank"></a>
-                <a class="fb" href="http://www.facebook.com/share.php?u={{ app.request.uri }}" target="_blank"></a>
-                <a class="lj" href="http://www.livejournal.com/update.bml?subject={{ entity.title }}&event={{ entity.russiaImageAnnounce|striptags|url_encode }}%20{{ app.request.uri }}" target="_blank"></a>
-
-                <link href="http://stg.odnoklassniki.ru/share/odkl_share.css" rel="stylesheet">
-                <script src="http://stg.odnoklassniki.ru/share/odkl_share.js" type="text/javascript" ></script>
-                <a class="od" href="{{ app.request.uri }}" onclick="ODKL.Share(this);return false;"></a>
-            </div>
-            <h2>{{ entity.title }}</h2>
-        </div>
-        <div class="object-one clearfix">
-        <div class="object-one-col12">
-
-
-            {#
-                                {% if entity.images|length > 0 %}
-                                <div class="block obj-o-foto">
-                                  <div class="right-icons-block">
-                                        <a href="#" class="one-person"></a>
-                                        <a href="#" class="three-persons"></a>
-                                    </div>
-                                    <p class="link_header"><a href="#">Фото</a><!--<sup>234</sup></p>-->
-
-                                    <div class="slideshow-container">
-                                        <div id="slideshow" class="slideshow"></div>
-                                    </div>
-
-                                    <div class="navigation-container">
-                                        <div id="thumbs" class="navigation">
-                                            <a class="pageLink prev"  href="#" title="Previous Page"><span></span></a>
-
-                                            <ul class="thumbs noscript">
-                                                {% for image in entity.images %}
-                                                <li>
-                                                    <a class="fancy" href="{% path image, 'reference' %}" title="{{ image.name }}">&nbsp;</a>
-                                                    <a class="thumb" name="leaf" href="{% path image, 'big' %}" data-fancy-image="{% path image, 'reference' %}" title="{{ image.name }}">
-                                                        <img src="{% path image, 'thumbnail' %}" />
-                                                    </a>
-                                                    <a class="fancy" href="{{ path('sonata_media_download', {'id': image.id}) }}/{{ image }}">&nbsp;</a>
-                                                </li>
-                                                {% endfor %}
-                                            </ul>
-                                            <a class="pageLink next"  href="#" title="Previous Page"><span></span></a>
-                                        </div>
-                                    </div>
-                                    <p class="all-list"><a href="#">Все фото</a></p>
-                                </div>
-                                {% endif %}
-
-                                #}
-
-            <div class="object-one-text content">
-
-                {% if entity.images|length > 0 %}
-                    <div class="photo-gallery">
-
-                        <div id="slider" class="flexslider">
-                            <ul class="slides">
-                                {% for image in entity.images %}
-                                    <li>
-                                        <a class="in-fancybox" rel="gallery" name="leaf"
-                                           href="{% path image, 'reference' %}"
-                                           data-fancy-image="{% path image, 'reference' %}">
-                                            <img src="{% path image, 'big' %}"/>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-
-                        <div class="nav">
-                            <div id="carousel" class="flexslider ">
-                                <ul class="slides">
-                                    {% for image in entity.images %}
-                                        <li>
-
-                                            <img src="{% path image, 'thumbnail' %}"/>
-
-                                        </li>
-                                    {% endfor %}
-
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div> <!--// photo-gallery-->
-
-
-                {% endif %}
-
-                <div class="text">
-                    <h1>{{ entity.title }}</h1>
-
-                    <div class="content-anons">{{ entity.russiaImageAnnounce|raw }}</div>
-
-                    <div class="content-text" id="full-text">
-                        {{ entity.content|raw }}
-                    </div>
-
-                </div>
-                {% if entity.content|length > 0 %}
-                    <div class="btn-more">
-                        <a href="#" rel="full-text" title="{{"more"|trans}}" class=""><span class="more">{{"more"|trans}}...</span><span
-                                class="less">{{"less"|trans}}</span></a>
-                    </div>
-                {% endif %}
-
-            </div>
-            <!--// content-->
-
-            {# <div class="literature">
-                <p class="lit-header">Использованная литература</p>
-                <ol>
-                    <li>
-                        <span>Бродянский Д.Л. Искусство древнего Приморья (каменный век —палеометалл).
-                        — Владивосток: изд-во Дальневосточного университета, 2002.
-                        </span>
-                    </li>
-                    <li>
-                        <span>Горнова М.И. Рекомендации по сохранению ландшафтов археологического
-                    памятника «Петроглифы Сикачи-Аляна». — Хабаровск: 2000.</span>
-                    </li>
-                    <li>
-                        <span>
-                            Окладников А.П. Утро искусства. — Л.: Искусство, 1967.
-                        </span>
-                    </li>
-                    <li>
-                        <span>
-                            Окладников А.П. Лики Древнего Амура. Петроглифы Сикачи-Аляна. —
-Новосибирск: Западно-Сибирское книжное изд-во, 1968.
-                        </span>
-                    </li>
-                </ol>
-            </div> #}
-
-            <div class='afisha-list-more' id="more-show">
-                {{ "comments"|trans }}
-                <div class="loading" style="display: none"></div>
-            </div>
-            <div class="more-comments-show" style="display:none;">
-                <div class="comments comments-gray clearfix">
-                    {#<div class="comments-block">
-                        <div class="comment">
-                            Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
-                        </div>
-                        <div class="comment-author">
-                            <p>Сергей <span class="comment-date">3 мес. назад</span></p>
-                        </div>
-                    </div>
-                    <div class="comments-block">
-                        <div class="comment">
-                            Описание лекции вступление  Уже в апреле 1896 года, через 4 месяца после первых парижских кинематографических сеансов, в России появляются первые кинематографические аппараты.
-                        </div>
-                        <div class="comment-author">
-                            <p>Сергей <span class="comment-date">3 мес. назад</span></p>
-                        </div>
-                    </div>#}
-
-
-                    {#<form action="" class="comments-form">#}
-                    {#<textarea name="" id="" cols="30" rows="10" placeholder="Оставить комментарий"></textarea>#}
-                    {#<input type="submit" value="Отправить" class="button" />#}
-                    {#</form>#}
-
-                    {% set comment_thread_id = app.request.locale ~ '_atlas_' ~ entity.id %}
-                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
-
-                    {% if not is_granted('ROLE_USER') %}
-                        <div class="comments-auth-block">
-                            <p>
-                                {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
-                                {# Чтобы оставлять комментарии необходимо <a href="{{ path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) }}">авторизоваться</a> на сайте.</p> #}
-                            </p>
-                            {% render 'ArmdSocialAuthBundle:Default:authLinks' with { 'redirectUrl': app.request.uri } %}
-                        </div>
-                    {% endif %}
-
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="object-one-col3">
-        {% if entity.virtualTours|length > 0 %}
-            {% for virtualTour in entity.virtualTours %}
-                <div class="block virtual-anons-block virtual-anons">
-                    <span class="virtual-anons-header">{{ "virtual_tour"|trans }}</span>
-                    {# <h1>{{ entity.title }}</h1>
-                     <p>
-                         {{ entity.content|raw }}
-                     </p> #}
-
-                    <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="vob iframe">
-                        <img alt="" src="{% path virtualTour.image, 'reference' %}">
-                    </a>
-
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        {# old single virtual tour #}
-        {#{% if entity.virtualTour is not empty %}#}
-            {#<div class="block virtual-anons-block virtual-anons">#}
-                {#<span class="virtual-anons-header">{{ "virtual_tour"|trans }}</span>#}
-
-                {#<a href="{{ entity.virtualTour }}" data-fancybox-type="iframe" class="vob iframe">#}
-                    {#<img alt="" src="{% path entity.virtualTourImage, 'reference' %}">#}
-                {#</a>#}
-            {#</div>#}
-        {#{% endif %}#}
-        {# /old single virtual tour #}
-
-        {# <div class="virtual-anons-block">
-         <a class="virtual-anons block" href="/main/virtual_museums.html">
-             <span class="virtual-anons-header">Виртуальный тур</span>
-             <img alt="" src="/main/common/img/photo/virt_anons.jpg">
-
-         </a>
-     </div> #}
-
-        {% set ids = [984, 534, 280] %}
-        {% if entity.id in ids %}
-            <div class="block object-infograph">
-                <p class="obj-o-infograph-header">{{ "mobile_app"|trans }}</p>
-                <a href="http://itunes.apple.com/us/app/muzei-rossii/id553795199?ls=1&mt=8"
-                   class="app-block iphone-app">
-                    <span class="app-name" target="_blank">{{"available_appstore"|trans}}</span>
-                    {#<span class="app-count">Загружено 10 795</span>#}
-                </a>
-            </div>
-        {% endif %}
-
-        {% if entity.image3d %}
-            <div class="block object-infograph">
-                <P class="obj-o-infograph-header">{{ "infographics"|trans }}</P>
-                {#<a href="{% path entity.image3d, 'reference' %}" class="open-big-orange" target="_blank" title="Открыть в новом окне"></a>#}
-                <a href="{% path entity.image3d, 'reference' %}" class="zoom-fancybox"><img
-                        src="{% path entity.image3d, 'image3d' %}" alt="" width="300"/></a>
-            </div>
-            <script type="text/javascript">
-                $(function ()
-                {
-                    $('.zoom-fancybox').fancybox({
-                        autoResize:true,
-                        afterShow:function ()
-                        {
-                            var innerWidth = $('.fancybox-inner').width();
-                            var innerHeight = $('.fancybox-inner').height();
-
-                            var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="' + innerHeight + '"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
-                            $('.fancybox-inner').html(newContent);
-                            $('#zoom').jqzoom({
-                                zoomType:'innerzoom',
-                                lens:false,
-                                title:false,
-                                preloadImages:false,
-                                alwaysOn:false
-                            })
-
-                            $('#fancy_print').bind("click", function ()
-                            {
-                                var win = null;
-                                var content = $('#zoom');
-                                win = window.open("width=200,height=200");
-                                self.focus();
-                                win.document.open();
-                                win.document.write('<' + 'html' + '><' + 'head' + '><' + 'style' + '>');
-                                win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
-                                win.document.write('<' + '/' + 'style' + '><' + '/' + 'head' + '><' + 'body' + '>');
-                                win.document.write(content.html());
-                                win.document.write('<' + '/' + 'body' + '><' + '/' + 'html' + '>');
-                                win.document.close();
-                                win.print();
-                                win.close();
-
-                                return false;
-                            }); // bind
-
-                        }
-                    });
-                })
-            </script>
-        {% endif %}
-
-
-
-
-        {% if entity.videos is empty %}
-        {% else %}
-            <div class="block object-videos">
-                {# <div class="right-icons-block">
-                     <a href="#" class="one-person"></a>
-                     <a href="#" class="three-persons"></a>
-                 </div>#}
-
-                {% if entity.videos|length > 0 %}
-                    <p class="link_header"><a {#href="#"#} style="border:none;">{{"video"|trans}}</a><!--<sup>207</sup></p>-->
-                    <ul class="object-video-list">
-                        {% for video in entity.videos %}
-                            <li class="object-video-list-one">
-                                <div class="object-video-list-image">
-                                    <a class="in-fancybox" href="#data-{{ loop.index }}">
-
-                                        <img src="{{ video.image }}" alt=""/>
-
-                                        <div class="title-video">{{ video.title }}</div>
-
-                                    </a>
-
-
-                                    <div style="display:none;">
-
-                                        <div id="data-{{ loop.index }}">
-                                            <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
-                                                {{ armd_tvigle_video_player(video, 640, 360)|raw }}
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                {# <div class="object-video-list-descr">
-                                     <span class="ovl-date">{{ video.durationString }}</span>
-                                     <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
-                                     <p>
-                                         {{ video.description }}
-                                     </p>
-                                 </div> #}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {# <p class="all-list"><a href="#">Все видео</a></p> #}
-            </div>
-
-        {% endif %}
-
-
-
-        {% if entity.archiveImages|length > 0 %}
-            <div class="block object-archives">
-                {#<div class="right-icons-block">
-                    <a href="#" class="one-person"></a>
-                    <a href="#" class="three-persons"></a>
-                </div>#}
-
-                <p class="link_header"><a {#href="#"#} style="border-bottom:none;">{{"archives"|trans}}</a><!--<sup>207</sup>--></p>
-                <ul class="object-archive-list">
-                    {% for h in entity.archiveImages %}
-                        <li>
-                            <a href="{% path h, 'reference' %}" class="in-fancybox">
-                                        <span class="preview"
-                                              style="background: url({% path h, 'thumbnail' %}) no-repeat center center">
-                                            <img src="{% path h, 'thumbnail' %}" alt="">
-                                        </span>
-
-                                {{ h.title|default('archive_document'|trans) }}
-                            </a>
-
-                                        <span>
-                                            {{ h.description }}
-                                        </span>
-                        </li>
-                    {% endfor %}
-
-                </ul>
-
-                {# <p class="all-list"><a href="#">Все архивы</a></p> #}
-            </div>
-        {% endif %}
-
-
-        <div class="block obj-o-contacts">
-            {# <div class="obj-o-map">
-                 <a href="#" class="open-big-green"></a>
-                 <img src="{{ asset('bundles/armdatlas/common/img/photo/obj-map.jpg') }}" alt="" />
-             </div>#}
-            <div class="obj-o-contacts-text" style="margin-top:0">
-                <p class="obj-o-contacts-header">
-                    {{"contact_info"|trans}}
-                </p>
-
-                <div class="obj-o-contacts-main">
-                    {% if entity.address %}<p>{{ entity.address }}</p>{% endif %}
-                    {% if entity.siteUrl or entity.email or entity.phone %}<p>{% endif %}
-
-                    {% if entity.siteUrl %}{{"website"|trans}}: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a>
-                        <br/>{% endif %}
-                    {% if entity.email %}{{"email"|trans}}: {{ entity.email }}<br/>{% endif %}
-                    {% if entity.phone %}{{"phone"|trans}}: {{ entity.phone }}<br/>{% endif %}
-                    {% if entity.siteUrl or entity.email or entity.phone %}</p>{% endif %}
-
-                    <p>
-                        {% if entity.workTime is not empty %}
-                            {{"visiting_hours"|trans}}:
-                            {{ entity.workTime }}
-                        {% endif %}
-
-                        {% if entity.weekends|length > 0 %}
-                            <br/>{{"weekends"|trans}}:
-                            {% for day in entity.weekends %}
-                                {{ day.name }}{% if not loop.last %}, {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            {{"without_holidays"|trans}}
-                        {% endif %}
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        {% if entity.objectHints|length > 0 %}
-
-            {% for objectHint in entity.objectHints %}
-                <div class="block rules">
-                    <h4>{{ objectHint.title|raw }} <span class="bullet">↓</span></h4>
-
-                    <div class="sliderkit">
-                        <div class="">
-                            <div class="rules-content sliderkit-panels">
-
-                                {% for hintPage in objectHint.pagedHintText %}
-                                    <div class="sliderkit-panel">
-                                        {{ hintPage|raw }}
-                                    </div>
-                                {% endfor %}
-
-                            </div>
-                            <!--rules-content -->
-
-
-                            <div class="rules-nav">
-                                <div class="rules-nav-wrapper sliderkit-count sliderkit-count-items">
-
-
-                                    <a href="#" class="prev sliderkit-btn sliderkit-go-btn sliderkit-go-prev">←</a>
-                                    <span class="active sliderkit-count-current">1</span>/<span
-                                        class="total sliderkit-count-total">5</span>
-                                    <a href="#" class="next sliderkit-go-btn sliderkit-go-next">→</a>
-                                </div>
-                                <!-- /rules-nav-wrapper -->
-
-                            </div>
-                            <!-- /rules-nav -->
-
-                        </div>
-                        <!-- /sliderkit-panels -->
-
-                    </div>
-                    <!-- /sliderkit -->
-                </div> <!-- /rules -->
-            {% endfor %}
-
-        {% endif %}
-
-        <!-- Список близлежащих объектов -->
-        {% render 'ArmdAtlasBundle:Default:getNearest' with { id:entity.id, limit:5 } %}
-        <!-- /Список близлежащих объектов -->
-
-        {#
-        <div class="block object-news">
-            <p class="link_header"><a href="#">Новости</a></p>
-            <ul class="block-news-list">
-                <li>
-                    <span class="bnl-date">19 Июля / 2012</span>
-                    <p class="bnl-header"><a href="#">Ростовское действо</a></p>
-                    <p>
-                        II Международный фестиваль монастырской культуры «РОСТОВСКОЕ ДЕЙСТВО» пройдёт в Государственном музее-заповеднике «Ростовский кремль» в год празднования 1150-летия российской государственности и 1150-летнего юбилея Ростова Великого.
-                    </p>
-                </li>
-                <li>
-                    <span class="bnl-date">18 Июля / 2012</span>
-                    <p class="bnl-header"><a href="#">«Прикосновение к вечности...»</a></p>
-                    <p>
-                    Выставка копий фресок XVII века Ростовского кремля по итогам практики студентов Московского государственного академического художественного института им. В.И. Сурикова.
-
-                    </p>
-                </li>
-                <li>
-                    <span class="bnl-date">17 Июля / 2012</span>
-                    <p class="bnl-header"><a href="#">«Три сословия Ростова Великого»</a></p>
-                    <p>
-                        Говоря о Ростове 19 века, мы в первую очередь называем его городом купеческим. Однако, судя по документам, купечество составляло в это время 8% его населения. А кто же были остальные 92% жителей Ростова?
-                    </p>
-                </li>
-            </ul>
-            <p class="all-list"><a href="#">Все новости</a></p>
-        </div>
-        #}
-        </div>
-        </div>
-
-    {% endif %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------ #}
-{% block stylesheets__old %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">
-    <style>
-        #nav {
-            margin: 0 auto 0px;
-        }
-        .w.archive-main-link{
-            padding-bottom: 10px;
-        }
-    </style>
-
-    <link href="{{ asset('/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
-
-
-{% endblock %}
-
-{# ------------------------------------------------------------------------ #}
-{% block javascripts__old %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.galleriffic.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/atlas_new.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/libs/jquery.flexslider-min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/function.js') }}"></script>
-    <script src="/swf/swfobject/swfkrpano.js"></script>
-
-    <script type="text/javascript">
-        (function ()
-        {
-
-            var atlasObjectView = {
-                commentsLoaded:false,
-
-                initUi:function ()
-                {
-                    atlasObjectView.initPano();
-                    atlasObjectView.initComments();
-
-                },
-
-                initPano:function ()
-                {
-                    $('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
-
-                    $(window).resize(function ()
-                    {
-                        $('.panoDIV').css({'width':$(window).width() - 100, 'height':$(window).height() - 200});
-
-                    });
-                },
-
-                initComments:function ()
-                {
-                    $('#more-show').click(function ()
-                    {
-                        $(this).next('div').toggle();
-                        if (!atlasObjectView.commentsLoaded)
-                        {
-                            $('#more-show .loading').show();
-                        }
-                    });
-
-                    $('#fos_comment_thread').bind('comments_loaded', function ()
-                    {
-                        atlasObjectView.commentsLoaded = true;
-                        $('#more-show .loading').hide();
-                    });
-
-                    $('#fos_comment_thread').bind('comment_appended', function ()
-                    {
-                        armdMessager.showMessage('{{"thanks_for_comment"|trans}}');
-                    });
-
-                }
-            };
-
-            $(function ()
-            {
-                atlasObjectView.initUi();
-            });
-
-        })();
-    </script>
 {% endblock %}
