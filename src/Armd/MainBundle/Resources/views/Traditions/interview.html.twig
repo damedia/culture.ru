@@ -1,16 +1,17 @@
 {% macro interview_item(link, img, title, description) %}
-		<li>
-			<a href="{{link}}"><img src="{{ asset(img|raw) }}" alt="" /></a>
-			<div class="text-overflow">
-				<a class="press-list-name" href="{{link}}">{{ title|raw }}</a>
-				<p class="interview-list-anons">{{ description|raw }}</p>
-			</div>
-		</li>
+		<a href="{{link}}"><img src="{{ asset(img|raw) }}" alt="" class="period-block_image" /></a>
+		<div class="period-block_text">
+			<p>
+				<a href="{{link}}" class="period-block_name"><b>{{ title|raw }}</b></a>
+				{{ description|raw }}
+			</p>
+		</div>
+		
 {% endmacro %}
 
 {% set interviews = [	
 					{		'link': '/press-centre/interviews/760/',
-							'img': '/img/religion_objects/interview.jpg',
+							'img': '/img/religion_objects/period_3.jpg',
 							'title' : 'Александр Корноухов',
 							'description':'«Камень… я просто за него держусь»'
 					},
@@ -18,13 +19,15 @@
 				]%}
 				
 
-<div class="yellow-border-block purple-border-block">
-	<p class="yellow-border-header">
-		<span>{{ 'Interview'|trans }}</span>
-	</p>
-	<ul class="press-list">
+
+
+<section class="block">
+						
+	<article class="period-block period-interview-block ">
+		<h2>{{ 'Interview'|trans }}</h2>
 		{% for interview in interviews %}
 			{{ _self.interview_item(interview.link, asset(interview.img), interview.title , interview.description) }}
-		 {% endfor %}	
-	</ul>	
-</div>
+		{% endfor %}	
+		
+	</article>
+</section>	

@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends ':Frontend:base.html.twig' %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('/css/jquery-ui-1.8.21.custom.css') }}" rel="stylesheet" type="text/css" media="screen" />
@@ -6,10 +6,9 @@
 		#ui-datepicker-div {width:200px;}
 	</style>
 {% endblock %}
+{% block page_header_title %}{% block header %}{% endblock %}{% endblock %}
 {% block body%}
-	<div class="title-block gray-press">
-		<h2>{% block header %}{% endblock %}</h2>
-	</div>
+	
 	<div class="news-press clearfix">	
 		
 		<div class="news-press-center">

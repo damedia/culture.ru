@@ -103,33 +103,34 @@
 ] %}
 
 {% macro object_item(url, title, img, type, type_icon) %}	
-	<li>
-		<div class="rusObr-list-one-wrap">
-			<div class="rusObr-list-one">
-				<div class="religion-type {{ type_icon }}">
-					<i></i>
-					{{ type|raw }}
-				</div>
+	
+	<div class="plitka-one-wrap">
+			<div class="plitka-one">
+				<div class="religion-type {{ type_icon }}"><span>{{ type|raw }}</span></div>
+				{#<a href="{{ url|raw }}" class="obraz-type">Ростовская область</a>#}
 				<a href="{{ url|raw }}">
-					<img src="{{ img }}" alt="" class="rusObr-list-image"></a>
-					
-				<div class="rusObr-list-text">
-					<a href="{{ url|raw }}" class="rusObr-list-header">
+					<img src="{{ img }}" class="plitka-image" alt="" />
+				</a>	
+				<div class="plitka-text">
+					<a href="{{ url|raw }}" class="plitka-name">
 						{{ title|raw }}
 					</a>
 				</div>
 			</div>
-			
 		</div>
-	</li>
+	
 {% endmacro %}
 
 
-<div class="rusObr-block traditions-list">
-	<div class="trad-list-header">{{ 'Navigation.Images of Russia.Title'|trans }}</div>
-	<ul class="rusObr-list clearfix">
+
+
+<section class="block clearfix">
+	<h2><span>{{ 'Navigation.Images of Russia.Title'|trans }}</span></h2>
+	<div class="plitka plitka-religion plitka-obrazy">
 		{% for o in objects %}
 			{{ _self.object_item(o.url, o.title, o.img, o.type, o.type_icon) }}
 		{% endfor %}
-	</ul>
-</div>
+	
+		
+	</div>	
+</section>

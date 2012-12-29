@@ -15,19 +15,24 @@
 ] %}
 
 {% macro anons_item(url, title, img) %}	
-	<li>
+	<li class="clearfix">
 		<a href="{{ url|raw }}"><img src="{{ img }}" alt="" /></a>
-		<div class="text-overflow">
-			<a href="{{ url }}" class="rl-name rl-name-big">{{ title|raw }}</a>
+		<div class="right-news-list-text">
+			<a href="{{ url }}" class="right-news-name">{{ title|raw }}</a>
+			<p>
+				{{ title|raw }}
+			</p>
 		</div>
 	</li>
 {% endmacro %}
 
 
-<ul class="right-list">
+
+<ul class="right-news-list">
 {% for a in anonses %}
     
 	{{ _self.anons_item(a.url, a.title, a.img) }}
 	
 {% endfor %}
+	
 </ul>

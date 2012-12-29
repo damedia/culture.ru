@@ -52,21 +52,22 @@
 ] %}
 
 {% macro news_item(url, title, img) %}	
-	<li >
-		<a href="{{ url|raw }}">
-			<img width="85" height="65" src="{{ img }}">
-		</a>
-		<div class="text-overflow">
+	<li class="clearfix">
+		<a href="{{ url|raw }}"><img src="{{ img }}" alt="" /></a>
+		<div class="right-news-list-text">
+			<a href="{{ url }}" class="right-news-name">{{ title|raw }}</a>
 			<p>
-				<a href="{{ url }}" class="rl-name rl-name-big">{{ title|raw }}</a>
+				{{ title|raw }}
 			</p>
-		</div>	
+		</div>
 	</li>
 {% endmacro %}
 
 
-<ul class="right-list">
-	{% for n in news %}
+
+<ul class="right-news-list">
+{% for n in news %}
 		{{ _self.news_item(n.url, n.title, n.img) }}
 	{% endfor %}
+
 </ul>

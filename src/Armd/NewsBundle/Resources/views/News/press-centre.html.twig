@@ -7,7 +7,8 @@
 
 {# ------------------------- #}
 {% block header %}
-    <a href="{{ path('armd_news_news_list') }}">{{ 'Events'|trans }}</a>
+   {#<a href="{{ path('armd_news_news_list') }}">{{ 'Events'|trans }}</a> #}
+   {{ 'Events'|trans }}
 {% endblock %}
 
 {# ------------------------- #}
@@ -25,3 +26,7 @@
     {% render "ArmdNewsBundle:News:billboard" %}
 {% endblock %}
 
+{% block body %}
+	{% block content %}
+	{% endblock %}
+{% endblock %}
