@@ -3,7 +3,7 @@
 	<li class="plitka-one-wrap">
 		<div class="plitka-one">
 			<a href="#" class="plitka-type">{{ object.regions[0].title }}</a>
-			<a href="#">
+			<a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
                 {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
 			</a>
 			<div class="plitka-text">

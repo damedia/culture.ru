@@ -32,10 +32,24 @@
 <section class="block">
 	<h1><span>Новое на портале</span></h1>
 	<section class="index-block clearfix">
-		<h2><a href="#">Образы России</a></h2>
+		<h2><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></h2>
         {% include 'ArmdMainBundle:Homepage:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
-
+        <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">Все образы</a></p>
     </section>
+
+    <section class="index-block index-video-block clearfix">
+        <h2><a href="{{ path('armd_lecture_default_list') }}">Кинозал</a></h2>
+        <div id="video-list">
+            {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+        </div>
+        <p class="all"><a href="{{ path('armd_lecture_default_list') }}">Все видео</a></p>
+    </section>
+
+    <section class="block">
+        {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
+    </section>
+
+</section>
 {% endblock %}
 
 
@@ -62,201 +76,4 @@
     </script>
 {% endblock %}
 
-
-{% block online %}
-    {% if app.request.locale == 'en' %}
-        <div class="online-index">
-            <div class="title-block index-title-block">
-                <h2>{{ 'Mainpage block.Translations.Title'|trans }}</h2>
-            </div>
-            <div class="online-index-block">
-                <a href="/lecture/view/35"><img src="/static/common/img/photo/index_online.jpg" alt=""
-                                                class="online-index-image"/></a>
-
-                <div class="online-index-text">
-                    <p class="online-index-header"><a
-                            href="/lecture/view/35">{{ 'Mainpage block.Translations.Text'|trans }}</a></p>
-                </div>
-            </div>
-            <p class="all-list"><a href="/lecture/translation">{{ 'All'|trans }} {{ 'Translations'|trans }}</a></p>
-        </div>
-    {% endif %}
-{% endblock %}
-
-{% block index_article %}
-
-    {% if app.request.locale == 'ru' and events is not empty%}
-        {# last event #}
-        {% set event = random(events) %}
-        <div class="online-index">
-            <div class="title-block index-title-block">
-                <h2>{{ 'Mainpage block.Events.Title'|trans }}</h2>
-            </div>
-            <div class="online-index-block">
-                {% if event.image is not empty %}
-                    <a href="{{ path('armd_news_item_by_category', { 'id': event.id, 'category': event.category.slug }) }}">
-                        {% thumbnail event.image, 'billboard' with {'alt': event.image.description} %}
-                    </a>
-                {% endif %}
-
-                <div class="online-index-text">
-                    <p class="online-index-header"><a
-                            href="{{ path('armd_news_news_item', {'id': event.id}) }}">{{ event.title|raw }}</a></p>
-                    <p>
-                        {{ event.announce|raw }}
-                    </p>
-                </div>
-            </div>
-        </div>
-        <p class="all-list"><a
-                href="{{ path('armd_news_list_index_by_category', {'category': 'events'} ) }}">{{ 'Mainpage block.Events.All'|trans }}</a>
-        </p>
-        {# /last event #}
-    {% endif %}
-
-    {# last news #}
-    {#{% include "ArmdMainBundle:News:recommend.html.twig" %}#}
-    {# /last news #}
-
-{% endblock %}
-
-
-{#  
-    <div class="index-article">
-        <div class="title-block index-title-block">
-            <h2>Избранная статья</h2>
-        </div>
-        <div class="index-article-block">
-            {% set revents = random(news_entities) %}
-            {% set f = revents.date %}
-            {% set t = revents.endDate %}
-
-            <a href="{{ path('armd_news_news_item', {'id': revents.id}) }}" >
-                {% thumbnail revents.image, 'billboard' %}
-            </a>
-            <p class="index-article-header">
-                <a href="{{ path('armd_news_news_item', {'id': revents.id}) }}">{{ revents.title|raw }}</a>
-            </p>
-            <p>
-                {{ revents.announce|raw }}
-            </p>
-            <span class="i-comments">16</span>
-        </div>
-
-    </div>
-#}
-
-{% block atlas_header %}
-    <div class="title-block orange">
-        <h2>{{ 'Mainpage block.Images of Russia.Title'|trans }}</h2>
-    </div>
-    <ul id="atlas_tabs" class="atlas_tabs">
-        <li title="Атлас" id="atlasTab" class="active"></li>
-        <li title="Образы России" id="rusObrTab"></li>
-    </ul>
-
-{% endblock %}
-
-{% block atlas_tab %}
-    <div id="atlasTab_tab" class="indextab" style="display:block;">
-    <div class="atlas-map">
-        <div id="map"></div>
-    </div>
-
-    {#--- random russia images slider ---#}
-    {#<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">#}
-        {#<div class="scroll-bar"></div>#}
-    {#</div>#}
-    {#<div class="map-grid-points scroll-pane ui-widget ui-widget-header ui-corner-all">#}
-    {#{% if russiaImages|length > 0 %}#}
-        {#<ul class="map-grid-point scroll-content">#}
-        {#{% for object in russiaImages %}#}
-            {#<li class="map-grid-point-li first">#}
-                {#<div class="item-grid-point">#}
-                    {#<div class="preview-img-point">#}
-                        {#{% if object.primaryImage %}#}
-                            {#<a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">#}
-                                {#{% thumbnail object.primaryImage, 'imagesOfRussiaUnderMap' with {'alt': object.primaryImage.description } %}#}
-                            {#</a>#}
-                        {#{% endif %}#}
-                    {#</div>#}
-                    {#<div class="description-point">#}
-                        {#<p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id} ) }}">#}
-                            {#{{ object.title }}</a></p>#}
-                        {#<!--<a href="/atlas/object/280"><img class="type-point" src="/static/common/img/typepoint1.png" /></a>-->#}
-                    {#</div>#}
-                {#</div>#}
-            {#</li>#}
-        {#{% endfor %}#}
-        {#</ul>#}
-    {#{% endif %}#}
-    {#</div>#}
-    {#--- /random russia images slider ---#}
-    {#--- random russia images slider ---#}
-    </div>
-
-    <!-- Асинхронная загрузка jsapi -->
-    <div id="script_block" class="script_block"></div>
-    <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8"></script>
-        {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script> #}
-    </div>
-    <script type="text/javascript">
-        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
-        document.getElementById('script_ad').style.display = 'block';
-    </script>
-    <!-- /Асинхронная загрузка jsapi -->
-
-
-{% endblock %}
-
-{% block new_on_site %}
-    <div class="title-block">
-        <h2>Новое на портале</h2>
-    </div>
-    <div id="last-russia-images">
-        <h3><a href="{{ path('armd_atlas_russia_images') }}" title="{{ 'mainpage.show_all_russia_images'|trans }}">{{ 'mainpage.russia_images'|trans }}</a></h3>
-        {% render 'ArmdAtlasBundle:Default:lastRussiaImages' with {'limit': 3} %}
-        {#<p class="all-list"><a class="blue-link" href="{{ path('armd_atlas_russia_images') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
-    </div>
-
-    <div id="last-lectures">
-        <h3><a href="{{ path('armd_lecture_lecture_index') }}" title="{{ 'mainpage.show_all_lectures'|trans }}">{{ 'mainpage.lectures'|trans }}</a></h3>
-        {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'limit': 3} %}
-        {#<p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_lecture_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
-    </div>
-
-    <div id="last-lectures">
-        <h3><a href="{{ path('armd_lecture_cinema_index') }}" title="{{ 'mainpage.show_all_cinema'|trans }}">{{ 'mainpage.cinema'|trans }}</a></h3>
-        {% render 'ArmdLectureBundle:Default:lastLectures' with {'lectureSuperTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'limit': 3} %}
-        {#<p class="all-list"><a class="blue-link" href="{{ path('armd_lecture_cinema_index') }}">{{ 'mainpage.show_all'|trans }}</a></p>#}
-    </div>
-
-{% endblock %}
-
-{% block rus_tab %}
-    <div id="rusObrTab_tab" class="indextab" style="display:none;">
-        <div class="reload-bar">
-            <a href="#" class="reload_btn"></a> <i>/</i>
-            <span>{{ 'Mainpage block.Images of Russia.Of'|trans }} {{ russiaImages|length }}</span>
-        </div>
-
-        <div class="rusObr-block">
-            {% render 'ArmdMainBundle:Main:randomRussiaImages' %}
-
-        </div>
-    </div>
-{% endblock %}
-
-{% block community %}
-    {% if app.request.locale == 'ru' %}
-        <div id="discus">
-            {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
-        </div>
-    {% endif %}
-{% endblock %}
-
-{% block afisha %}
-    {% include "ArmdMainBundle:News:index.html.twig" with {"categories": categories} %}
-{% endblock %}
 
