@@ -96,7 +96,6 @@ class MainController extends Controller
                 $result[] = $obj->{'data'};
             }
         }
-        \gFuncs::dbgWriteLogVar($result, false, ''); // DBG:
         return $this->render(
             'ArmdMainBundle:Communication:index.html.twig',
             array(
