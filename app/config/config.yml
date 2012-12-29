@@ -204,6 +204,7 @@ sonata_media:
             formats:
                 billboard: { width: 213 }
                 searchAllResult: { width: 160, height: 107 }
+                banner: { width: 922 }
 
         gallery:
             download:

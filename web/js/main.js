@@ -163,4 +163,84 @@ $(function(){
 	})	
 	
 	
+	/*TIMELINE*/
+	
+    //waypoints scroll
+
+    // The same for all waypoints
+    $('body').delegate('.wayponits-area > .time-line-content', 'waypoint.reached', function (event, direction) {
+
+        var $active = $(this);
+
+        if (direction === "up") {
+            $active = $active.prev();
+
+          //  console.log("up");
+        }
+        /*if (!$active.length) $active = $active.end();*/
+
+        $('.section-active').removeClass('section-active');
+        $active.addClass('section-active');
+
+        $('.active').removeClass('active');
+        $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
+
+       // console.log($('a[href=#' + $active.attr('id') + ']'));
+    });
+	
+	
+	
+	
+ 
+	
+	
+
+    // Register each section as a waypoint.
+    $('.wayponits-area > .time-line-content').waypoint({offset:'50%'});
+
+
+    // Wicked credit to
+    // http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
+    var scrollElement = 'html, body';
+    $('html, body').each(function () {
+        var initScrollTop = $(this).attr('scrollTop');
+        $(this).attr('scrollTop', initScrollTop + 1);
+        if ($(this).attr('scrollTop') == initScrollTop + 1) {
+            scrollElement = this.nodeName.toLowerCase();
+            $(this).attr('scrollTop', initScrollTop);
+            return false;
+        }
+    });
+
+    // Smooth scrolling for internal links
+    /*$("a[href^='#']").click(function(event) {*/
+    $(".smooth-scroll").click(function (event) {
+        event.preventDefault();
+
+        var $this = $(this),
+            target = this.hash,
+            $target = $(target);
+
+        $(scrollElement).stop().animate({
+            'scrollTop':$target.offset().top
+        }, 500, 'swing', function () {
+            window.location.hash = target;
+        });
+
+    });
+
+    var
+        $EventsitemTab = $('#eventsitem-tab'),
+        $EventsitemTabs = $EventsitemTab.find('li'),
+        $EventsitemContent = $('.eventsitem-content');
+
+    $EventsitemTabs.click(function () {
+        var indexElem = $(this).index();
+        $EventsitemContent.hide();
+        $EventsitemContent.eq(indexElem).fadeIn();
+        $EventsitemTabs.removeClass('active');
+        $(this).addClass('active');
+        return false;
+    }).eq(0)
+	
 })

@@ -17,59 +17,86 @@
 
 {% block title %} — {{ 'Navigation.Traditions'|trans }}{% endblock %}
 
-{% block content %}
-	<div class="title purple-title">
-		<h2>{{ 'Navigation.Traditions'|trans }}</h2>
-	</div>
+{% block page_header_title %}{{ 'Navigation.Traditions'|trans }}{% endblock %}
 
-	<div class="text-indent">
+{% block content %}
+
+
+	
         {% include "ArmdMainBundle:Traditions:icons.html.twig" %}
 		{% include "ArmdMainBundle:Traditions:objects.html.twig" %}
         {% include "ArmdMainBundle:Traditions:centuries.html.twig" %}   
-	</div>	
+	
 {% endblock %}
 
 {% block right %}
-	<div class="title">
-		<h2>{{ 'Navigation.Borodino.Announcements'|trans }}</h2>
-	</div>		
-	{% include "ArmdMainBundle:Traditions:anonses.html.twig" %}
+	<section class="block">
+		<section class="right-news-list-block">
+			<h2>{{ 'Navigation.Borodino.Announcements'|trans }}</h2>
+			{% include "ArmdMainBundle:Traditions:anonses.html.twig" %}
+		</section>
+	</section>		
+	
 	
 	
 	
 	{% if videos %}
-		<div class="small-block  small-videos">
-			<p class="small_link_header">Видео</p>
-			<ul class="small-video-list">
-			{% for v in videos %}
-                <li class="small-video-list-one {% if loop.index == '1' %}first{% endif %}">
-					<div class="small-video-list-image">
-						<a href="{{ v.url }}">
-							<img alt="" src="{{ v.img }}">
-							<div class="title-video">
-								<p>{{ v.title|raw }}</p>
+		
+		
+		<div class="right-video-block translations-block">
+			<div class="flexslider">
+				<ul class="slides">
+					{% for v in videos %}
+					<li>
+						<article class="period-block">
+							<h2>{{ v.title|raw }}</h2>
+							<a href="{{ v.url }}" class="period-block_image">
+								<img src="{{ v.img }}" alt=""  />
+								<span class="play"></span>
+							</a>
+							<div class="period-block_text">
+								<p>
+									{{ v.title|raw }}
+								</p>
 							</div>
-							<span class="anons-video-btn "></span>
-						</a>
-					</div>
-				</li>
-			{% endfor %}
-			</ul>
+							<footer class="period-block_footer">
+								<div class="tags">
+									<a href="{{ v.url }}">Трансляции</a>
+								</div>
+							</footer>
+							
+						</article>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
 		</div>
+
+		
 	{% endif %}
 	
 	
 	<div class="title">
 		<h2>{{ 'Navigation.Borodino.News'|trans }}</h2>
 	</div>		
-	{% include "ArmdMainBundle:Traditions:news.html.twig" %}
-	
-	<div class="title">
-		<h2>{{ 'Navigation.Reports'|trans }}</h2>
-	</div>		
-	{% include "ArmdMainBundle:Traditions:reports.html.twig" %}
+	<section class="block">
+		<section class="right-news-list-block">
+			<h2>{{ 'Navigation.Borodino.News'|trans }}</h2>
+			{% include "ArmdMainBundle:Traditions:news.html.twig" %}
+		</section>
+	</section>		
 	
 	{% include "ArmdMainBundle:Traditions:interview.html.twig" %}
+	
+
+	<section class="block">
+		<section class="right-news-list-block">
+			<h2>{{ 'Navigation.Reports'|trans }}</h2>
+	
+	{% include "ArmdMainBundle:Traditions:reports.html.twig" %}
+
+		</section>
+	</section>	
 	
 {% endblock %}	    		
 

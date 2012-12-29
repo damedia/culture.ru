@@ -1,0 +1,21 @@
+<ul class="slides index-video-list">
+    {% for v in videos %}
+        <li>
+            <div class="index-video-one">
+                <a href="{{ path('armd_lecture_view', {'id': v.id}) }}">
+                    {% if v.lectureVideo.imageMedia is defined %}
+                        {% set thumbnailMedia = v.lectureVideo.imageMedia %}
+                    {% elseif lecture.mediaLectureVideo is not empty %}
+                        {% set thumbnailMedia = v.mediaLectureVideo %}
+                    {% endif %}
+                    <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ v.title }}"
+                         class="lecture-tile-list-image"/>
+                </a>
+                <a href="{{ path('armd_lecture_view', {'id': v.id}) }}" class="index-video-name">{{ v.title }}</a>
+                {#<p>#}
+                    {#{{ v.description|raw }}#}
+                {#</p>#}
+            </div>
+        </li>
+    {% endfor %}
+</ul>

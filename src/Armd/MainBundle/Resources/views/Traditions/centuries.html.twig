@@ -516,10 +516,8 @@
 		
 		
 	] %}
-<div class="yellow-border-block purple-border-block clearfix">
-	<p class="yellow-border-header">
-		<span>{{ 'Navigation.Timeline'|trans }}</span>
-	</p>
+ <div class="purple-border-block clearfix">
+    <p class="purple-border-header"><span>Лента времени</span></p>
 	<ul class="trad-line-nav">
 	{% for c in centuries %}
 		<li id="cen_{{ c.value }}" {% if loop.index == 1 %}class="active" {% endif %} ><a href="#{{ c.name }}">{{ c.name }} {{ 'ccc'|trans }}</a>

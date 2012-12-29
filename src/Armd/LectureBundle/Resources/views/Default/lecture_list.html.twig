@@ -17,7 +17,8 @@
                                                 {% elseif lecture.mediaLectureVideo is not empty %}
                                                     {% set thumbnailMedia = lecture.mediaLectureVideo %}
                                                 {% endif %}
-                                                <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ lecture.title }}" class="lecture-tile-list-image" />
+                                                {% thumbnail thumbnailMedia, 'searchAllResult' with { 'alt': lecture.title, 'class': 'lecture-tile-list-image' } %}
+                                                {#<img src="{% path thumbnailMedia, 'tile' %}" alt="{{ lecture.title }}" class="lecture-tile-list-image" />#}
                                             </a>
 										</td>
 									</tr>

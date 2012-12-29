@@ -174,7 +174,7 @@ class DefaultController extends Controller
     /**
      * Experimental video index
      *
-     * @Route("/", options={"expose"=true})
+     * @Route("/", options={"expose"=true}, name="armd_lecture_default_list")
      * @Template()
      */
     public function listAction()
@@ -279,6 +279,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/related")
      * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
      */
     public function relatedLecturesAction(array $tags, $limit, $superTypeCode)
