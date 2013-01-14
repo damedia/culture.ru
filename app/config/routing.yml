@@ -1,8 +1,3 @@
-armd_tag:
-    resource: "@ArmdTagBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 armd_paper_archive:
     resource: "@ArmdPaperArchiveBundle/Controller/"
     type:     annotation

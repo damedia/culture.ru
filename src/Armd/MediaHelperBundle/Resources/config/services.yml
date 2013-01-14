@@ -20,6 +20,9 @@ services:
     armd_media_helper.configuration_pool:
         class: Armd\MediaHelperBundle\Pool\ConfigurationPool
 
+    armd_media_helper.media_helper:
+        class: Armd\MediaHelperBundle\Helper\MediaHelper
+
     sonata.media.provider.culturetv:
         class: Armd\MediaHelperBundle\Provider\CultureTvProvider
         tags:

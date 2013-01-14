@@ -46,8 +46,15 @@ class ObjectManager
     /** example: 5 */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
 
+    /** example: true */
+    const CRITERIA_HAS_SIDE_BANNER_IMAGE = 'CRITERIA_HAS_SIDE_BANNER_IMAGE';
+
     /** example: 'the rolling stones' */
-    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
+//    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
+
+
+    /** example: array('museum', 'world war') */
+//    const CRITERIA_TAGS = 'CRITERIA_TAGS';
 
     public function __construct(EntityManager $em, $search)
     {
@@ -58,7 +65,12 @@ class ObjectManager
     public function findObjects(array $criteria)
     {
         $qb = $this->getQueryBuilder($criteria);
-        $objects = $qb->getQuery()->getResult();
+
+        if(!empty($criteria[self::CRITERIA_RANDOM])) {
+            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
+        } else {
+            $objects = $qb->getQuery()->getResult();
+        }
 
         return $objects;
     }
@@ -79,17 +91,6 @@ class ObjectManager
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
 
-        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
-            $qb->innerJoin("$o.secondaryCategories", 'sc')
-                ->andWhere("sc IN (:categoryIds)")
-                ->setParameter('categoryIds', $criteria[self::CRITERIA_CATEGORY_IDS_AND]);
-        }
-
-        if (!empty($criteria[self::CRITERIA_REGION_IDS_AND])) {
-            $qb->innerJoin("$o.regions", 'r')
-                ->andWhere("r IN (:regionIds)")
-                ->setParameter('regionIds', $criteria[self::CRITERIA_REGION_IDS_AND]);
-        }
 
         if (!empty($criteria[self::CRITERIA_OFFSET])) {
             $qb->setFirstResult($criteria[self::CRITERIA_OFFSET]);
@@ -105,12 +106,57 @@ class ObjectManager
             }
         }
 
+        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
+            $qb->innerJoin("$o.secondaryCategories", 'sc')
+                ->andWhere("sc IN (:categoryIds)")
+                ->setParameter('categoryIds', $criteria[self::CRITERIA_CATEGORY_IDS_AND]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_REGION_IDS_AND])) {
+            $qb->innerJoin("$o.regions", 'r')
+                ->andWhere("r IN (:regionIds)")
+                ->setParameter('regionIds', $criteria[self::CRITERIA_REGION_IDS_AND]);
+        }
+
         if (!empty($criteria[self::CRITERIA_RUSSIA_IMAGES])) {
             $qb->andWhere("$o.showAtRussianImage = TRUE");
         }
 
+        if (!empty($criteria[self::CRITERIA_HAS_SIDE_BANNER_IMAGE])) {
+            $qb->andWhere("$o.sideBannerImage IS NOT NULL");
+        }
+
     }
 
+    public function getRandomObjectsFromQueryBuilder(QueryBuilder $qb, $limit) {
+        $qbCount = clone($qb);
+        $aliases = $qbCount->getRootAliases();
+        $o = $aliases[0];
+        $objectCount = $qbCount->select("COUNT($o)")->getQuery()->getSingleScalarResult();
+
+        if ($objectCount <= $limit) {
+            $objects = $qb->getQuery()->getResult();
+        }
+        else {
+            $offsets = array();
+            for ($i = 0; $i < $limit; $i++) {
+                $j = 0;
+                do {
+                    $offset = rand(0, $objectCount - 1);
+                } while ($j++ < 10 && in_array($offset, $offsets));
+                $offsets[] = $offset;
+            }
+
+            $objects = array();
+            foreach ($offsets as $offset) {
+                $objects[] = $qb->setMaxResults(1)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getSingleResult();
+            }
+        }
+        return $objects;
+    }
 
     public function getUserObjects(UserInterface $user)
     {

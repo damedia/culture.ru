@@ -714,9 +714,13 @@ class DefaultController extends Controller
      */
     public function relatedObjectsAction(array $tags, $limit)
     {
-        $objects = $this->getDoctrine()
-            ->getRepository('ArmdAtlasBundle:Object')
-            ->findRelated($tags, $limit);
+        $objects = $this->get('armd_atlas.manager.object')->findObjects
+        (
+            array(
+                ObjectManager::CRITERIA_RANDOM => $limit,
+                ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true
+            )
+        );
 
         return array(
             'objects' => $objects
