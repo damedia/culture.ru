@@ -32,3 +32,6 @@ services:
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: main } # The alias {{ knp_menu_render('main') }}
+
+    armd_main.menu_finder:
+        class: Armd\MainBundle\Menu\MenuFinder

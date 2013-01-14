@@ -13,6 +13,10 @@ class MainController extends Controller
 {
     public function homepageAction()
     {
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_homepage')
+        );
+
         $em = $this->getDoctrine()->getManager();
 
         $categories = $this->getNewsManager()->getCategories();

@@ -187,6 +187,15 @@ class NewsController extends Controller
      */
     function newsItemAction($id, $category, $template = null, $isPrint = false)
     {
+        // menu fix
+        $menu = $this->get('armd_main.menu.main');
+        $menuFinder = $this->get('armd_main.menu_finder');
+        if(!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
+            $menu->setCurrentUri(
+                $this->get('router')->generate('armd_news_list_index')
+            );
+        }
+
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
 
         if (null === $entity) {

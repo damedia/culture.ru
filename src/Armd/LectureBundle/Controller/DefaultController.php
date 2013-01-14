@@ -123,8 +123,9 @@ class DefaultController extends Controller
      */
     public function lectureDetailsAction($id, $version)
     {
-        $mainMenu = $this->get('armd_main.menu_builder');
-        //$mainMenu->setCurrentUri('/app_dev.php/press-centre/');
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_lecture_default_list')
+        );
 
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);

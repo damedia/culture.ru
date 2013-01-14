@@ -59,11 +59,9 @@ class DefaultController extends Controller
      */
     public function objectViewAction($id)
     {
-        /**
-         * @var \Armd\MainBundle\Menu\Builder $menuBuilder
-         */
-        $mainMenu = $this->get('armd_main.menu.main');
-        $mainMenu->setCurrentUri('/app_dev.php/atlas/');
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_atlas_russia_images')
+        );
 
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
