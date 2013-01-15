@@ -1,11 +1,15 @@
 {% if news %}
-<ul class="right-list">
+<ul class="right-news-list">
 {% for n in news %}
-    {% set url = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
-	<li>
-		<a href="{{ url }}">{% thumbnail n.image, 'latest' %}</a>
-		<div class="text-overflow">
-			<a href="{{ url }}" class="rl-name rl-name-big">{{ n.title|raw }}</a>
+   
+	{% set url = path('armd_news_item_by_category', { 'id': n.id, 'category': n.category.slug }) %}
+	<li class="clearfix">
+		<a href="{{ url|raw }}">{% thumbnail n.image, 'latest' %}</a>
+		<div class="right-news-list-text">
+			<a href="{{ url }}" class="right-news-name">{{ n.title|raw}}</a>
+			<p>
+				{{ n.title|raw }}
+			</p>
 		</div>
 	</li>
 {% endfor %}

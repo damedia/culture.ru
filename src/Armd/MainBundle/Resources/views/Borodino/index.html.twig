@@ -36,11 +36,10 @@
 ] %}
 
 {% block title %}{{ parent() }} — {{ 'Navigation.Borodino.Header'|trans }}{% endblock %}
+{% block page_header_title %}{{ 'Navigation.Borodino.Header'|trans }}{% endblock %}
 
 {% block content %}
-	<div class="title yellow-title star-title">
-		<h2>{{ 'Navigation.Borodino.Header'|trans }}</h2>
-	</div>
+
 	<div class="text-indent">
 		<img src="/img/borodino/borodino-dates.png" alt="" class="borodino-dates" />
 		<!--p class="uppercase-gray"><i>&laquo;Сей день пребудет вечным памятником мужества и&nbsp;отличной храбрости российских воинов&raquo;, -
@@ -67,10 +66,12 @@
 			</ul>
 		</div>
 		{% endif %}
+		<br /><br />
+		<div class="block" >
+				<h2><span>{{ 'Navigation.Timeline'|trans }}</span></h2>
+		</div>	
 		<div class="yellow-border-block">
-			<p class="yellow-border-header">
-				<span>{{ 'Navigation.Timeline'|trans }}</span>
-			</p>
+			
 			<div class="video-anons video-three">
 				<ul>
 					<li>
@@ -120,10 +121,12 @@
 			</div>
 			
 		</div>
-		<div class="borodino-panorama">
-			<p class="borodino-panorama-header">
+		<br /><br />
+		<div class="block">
+			<h2 class="borodino-panorama-header">
 				<span>{{ 'Navigation.Borodino.Museum block'|trans }}</b></span>
-			</p>				
+			</h2>	
+			<br />	
 			<a href="http://eyera.dev.armd.ru/borodino/borodino_museum.html" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
 				<img src="/img/borodino/panorama.jpg" alt="" />
 			</a>
@@ -135,16 +138,20 @@
 {% endblock %}
 
 {% block right %}
-	<div class="title">
-		<h2>{{ 'Navigation.Borodino.Announcements'|trans }}</h2>
-	</div>		
-	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
-	
-	<div class="title">
-		<h2>{{ 'Navigation.Borodino.News'|trans }}</h2>
-	</div>		
-	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
-				
+	<section class="block">
+		<section class="right-news-list-block">
+			<h2>{{ 'Navigation.Borodino.Announcements'|trans }}</h2>
+		
+			{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
+		</section>
+	</section>
+	<section class="block">
+		<section class="right-news-list-block">
+			<h2>{{ 'Navigation.Borodino.News'|trans }}</h2>	
+			{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
+		</section>
+	</section>	
+			
 	{% include "ArmdMainBundle:Borodino:publications.html.twig" %}
 	{% include "ArmdMainBundle:Borodino:media.html.twig" %}
 {% endblock %}	    		

@@ -35,10 +35,10 @@
 {#
 		<td>{{ e.place }}</td>
 #}
-		<td class="nowrap">
-            {{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }} {{ e.beginDate|date('Y') }}
+		<td>
+            <span  class="nowrap">{{ e.beginDate|date('d')|abs }} {{ ('calendar.full.'~e.beginDate|date('M'))|trans }} {{ e.beginDate|date('Y') }}</span>
         {% if e.endDate %}
-            &mdash; {{ e.endDate|date('d')|abs }} {{ ('calendar.full.'~e.endDate|date('M'))|trans }} {{ e.endDate|date('Y') }}
+            &mdash; <span  class="nowrap">{{ e.endDate|date('d')|abs }} {{ ('calendar.full.'~e.endDate|date('M'))|trans }} {{ e.endDate|date('Y') }}</span>
         {% endif %}
 		</td> 
 		<td>{{ e.title }}</td>
@@ -52,5 +52,7 @@ $(function(){
     $(".table-selector select").chosen().change(function(){
         $("#events-filter").submit();
     })
+	
+	$('#events-filter #regions-selector:first .chzn-container').width('auto');
 })
 </script>
