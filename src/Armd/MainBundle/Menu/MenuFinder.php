@@ -12,7 +12,10 @@ class MenuFinder
             if($child->getUri() === $uri) {
                 return $child;
             }
-            $this->findByUri($child, $uri);
+            $childResult = $this->findByUri($child, $uri);
+            if ($childResult) {
+                return $childResult;
+            }
         }
         return false;
     }
