@@ -72,18 +72,6 @@ class MainController extends Controller
         return $this->renderTemplate('print');
     }
 
-    public function randomRussiaImagesAction()
-    {
-        return $this->render(
-            'ArmdMainBundle:Main:randomRussiaImages.html.twig',
-            array(
-                'russiaImages' => $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRandomRussiaImages(
-                    6
-                )
-            )
-        );
-    }
-
     public function latestTopicsAction()
     {
         $domain = $this->container->getParameter('communication_platform_domain');
@@ -109,21 +97,6 @@ class MainController extends Controller
         );
     }
 
-    public function pressArchiveAction($format = 'gallery_archive', $category = 'archive')
-    {
-        $criteria = array(
-            'defaultFormat' => $format,
-        );
-
-        return $this->render(
-            'ArmdMainBundle:Archive:index.html.twig',
-            array(
-                'category' => $category,
-                'gallery' => $this->getGalleryManager()->findOneBy($criteria)
-            )
-        );
-    }
-
     public function communicationPlatformRequestAction()
     {
         return $this->container->get('armd_main.ajax_proxy')->ajaxRequest(
@@ -145,31 +118,7 @@ class MainController extends Controller
         }
 
         return $result;
-//        $categorySlugs = array();
-//        foreach($categories as $category) {
-//            $categorySlugs[] = $category->getSlug();
-//        }
-//
-//        return $this->get('armd_news.controller.news')->getPaginator(
-//                        array('category' => $categorySlugs),
-//                        1,
-//                        45
-//                    );
     }
-
-    function getEvents($limit)
-    {
-        $events = $this->getNewsManager()->getPager(
-            array(
-                'category' => 'events',
-                'has_image' => true,
-            ),
-            1,
-            $limit
-        );
-        return $events;
-    }
-
 
     function renderTemplate($template, $parameters = array())
     {
