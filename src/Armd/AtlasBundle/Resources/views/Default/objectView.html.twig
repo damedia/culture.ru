@@ -175,22 +175,22 @@
 {% block right_column %}
 
     <!-- Virtual tour -->
+    {% if entity.virtualTours|length > 0 %}
     <div class="block">
         <section class="static-block first-obraz-block">
             <h2>{{ "virtual_tour"|trans }}</h2>
 
-            {% if entity.virtualTours|length > 0 %}
-                {% for virtualTour in entity.virtualTours if loop.first %}
-                    <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
-                        {#<img src="/images/virt-tour.jpg" alt="" />#}
-                        <img src="{% path virtualTour.image, 'reference' %}" alt="" />
-                        <span class="virt-tour-anons-over"></span>
-                    </a>
-                {% endfor %}
-            {% endif %}
+            {% for virtualTour in entity.virtualTours if loop.first %}
+                <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                    {#<img src="/images/virt-tour.jpg" alt="" />#}
+                    <img src="{% path virtualTour.image, 'reference' %}" alt="" />
+                    <span class="virt-tour-anons-over"></span>
+                </a>
+            {% endfor %}
 
         </section>
     </div>
+    {% endif %}
     <!-- /Virtual tour -->
 
     <!-- Infographics -->
@@ -342,59 +342,25 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block rec_plitka %}
-    <ul class="plitka rec-plitka">
-        <li class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-type" href="#">Ростовская область</a>
-                <a href="#">
-                    <img alt="" class="plitka-image" src="/images/rec1.jpg">
-                </a>
-                <div class="plitka-text">
-                    <span class="plitka-name">
-                    Новочеркасский Свято-
-                    Вознесенский
-                    кафедральный собор</span>
-                </div>
-            </div>
-        </li><li class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-type" href="#">Томская область</a>
-                <a href="#">
-                    <img alt="" class="plitka-image" src="/images/rec2.jpg">
-                </a>
-                <div class="plitka-text">
-                    <span class="plitka-name">
-                    Богоявленский
-                    кафедральный собор
-                    города Томска</span>
-                </div>
-            </div>
-        </li><li class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-type" href="#">Владимирская область</a>
-                <a href="#">
-                    <img alt="" class="plitka-image" src="/images/rec3.jpg">
-                </a>
-                <div class="plitka-text">
-                    <span class="plitka-name">
-                    Владимиро-
-                    Суздальский музей-
-                    заповедник</span>
-                </div>
-            </div>
-        </li><li class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-type" href="#">Ростовская область</a>
-                <a href="#">
-                    <img alt="" class="plitka-image" src="/images/rec1.jpg">
-                </a>
-                <div class="plitka-text">
-                    <span class="plitka-name">
-                    Новочеркасский Свято-
-                    Вознесенский
-                    кафедральный собор</span>
-                </div>
-            </div>
-        </li>
-    </ul>
+    {% if relatedObjects is not empty %}
+        <ul class="plitka rec-plitka">
+            {% for object in relatedObjects %}
+                <li class="plitka-one-wrap">
+                    <div class="plitka-one">
+                        {% if object.regions is not empty %}
+                            <a class="plitka-type" href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">{{ object.regions[0].title }}</a>
+                        {% endif %}
+                        <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">
+                            {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
+                            {#<img alt="" class="plitka-image" src="">#}
+                        </a>
+                        <div class="plitka-text">
+                            <span class="plitka-name"> {{ object.title }} </span>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 {% endblock %}

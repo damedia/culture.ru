@@ -66,12 +66,23 @@ class DefaultController extends Controller
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
 
-        if ($entity) {
-            return array(
-                'entity' => $entity,
-            );
-        } else
+        if (!$entity) {
             throw new NotFoundHttpException("Page not found");
+        }
+
+        $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects
+        (
+            array(
+                ObjectManager::CRITERIA_RANDOM => 5,
+                ObjectManager::CRITERIA_RUSSIA_IMAGES => true
+            )
+        );
+
+
+        return array(
+            'entity' => $entity,
+            'relatedObjects' => $relatedObjects
+        );
     }
 
 

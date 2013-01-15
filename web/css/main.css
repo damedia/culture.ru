@@ -114,7 +114,14 @@ body {
 	background:url(../img/bg.jpg) no-repeat 50% 0;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	min-width:1017px;
-}  
+}
+    .header-banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        /*height: 145px;*/
+    }
 
 	
 	.container {
