@@ -24,9 +24,6 @@
                 {% for lectureCategory in lecture.categories %}
                     <a href="#"><nobr>{{ lectureCategory.title }}</nobr></a>{% if not loop.last %},{% endif %}
                 {% endfor %}
-                <br />
-
-                Режиссер: Мотыль Владимир
             </div>
             <div class="plitka-footer">
                 <a href="{{ path('armd_lecture_default_list', { 'category':lecture.lectureSuperType.id }) }}">
