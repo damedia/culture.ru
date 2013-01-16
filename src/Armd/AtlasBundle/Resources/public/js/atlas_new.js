@@ -147,8 +147,8 @@ AT.initUI = function() {
             $('#ajax-loading').hide();
 
             // Если вторая вкладка текущая, не рисуем объекты
-            if ($('.filter-tabs-titles li.active').index())
-                return;
+            //if ($('.filter-tabs-titles li.active').index())
+            //    return;
 
             var elems = $('.atlas-filter-form .tag'),
                 json = responseText; //$.parseJSON(responseText);
