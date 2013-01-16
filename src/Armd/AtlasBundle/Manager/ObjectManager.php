@@ -35,13 +35,16 @@ class ObjectManager
     const CRITERIA_CATEGORY_IDS_AND = 'CRITERIA_CATEGORY_IDS_AND';
 
     /** example: array(1, 89) */
-    const CRITERIA_REGION_IDS_AND = 'CRITERIA_REGION_IDS_AND'; // array(4, 77)
+    const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_OR';
+
+    /** example: array(1, 89) */
+    const CRITERIA_REGION_IDS_AND = 'CRITERIA_REGION_IDS_AND';
+
+    /** example: array(1, 89) */
+    const CRITERIA_REGION_IDS_OR = 'CRITERIA_REGION_IDS_OR';
 
     /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
     const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
-
-//    /** example: true */
-//    const CRITERIA_LAST_CREATED = 'CRITERIA_LAST_CREATED';
 
     /** example: 5 */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
@@ -50,7 +53,7 @@ class ObjectManager
     const CRITERIA_HAS_SIDE_BANNER_IMAGE = 'CRITERIA_HAS_SIDE_BANNER_IMAGE';
 
     /** example: 'the rolling stones' */
-//    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
+    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
 
     /** example: array('museum', 'world war') */
@@ -106,16 +109,36 @@ class ObjectManager
             }
         }
 
-        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
+        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $qb->innerJoin("$o.secondaryCategories", 'sc')
                 ->andWhere("sc IN (:categoryIds)")
-                ->setParameter('categoryIds', $criteria[self::CRITERIA_CATEGORY_IDS_AND]);
+                ->setParameter('categoryIds', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
+            $qb->innerJoin("$o.secondaryCategories", 'sc');
+            $i = 0;
+            foreach($criteria[self::CRITERIA_CATEGORY_IDS_AND] as $categoryId) {
+                $parameterName = 'categoryId' . $i;
+                $qb->andWhere("sc = :$parameterName")->setParameter($parameterName, $categoryId);
+                $i++;
+            }
+        }
+
+        if (!empty($criteria[self::CRITERIA_REGION_IDS_OR])) {
+            $qb->innerJoin("$o.regions", 'r')
+                ->andWhere("r IN (:regionIds)")
+                ->setParameter('regionIds', $criteria[self::CRITERIA_REGION_IDS_OR]);
         }
 
         if (!empty($criteria[self::CRITERIA_REGION_IDS_AND])) {
-            $qb->innerJoin("$o.regions", 'r')
-                ->andWhere("r IN (:regionIds)")
-                ->setParameter('regionIds', $criteria[self::CRITERIA_REGION_IDS_AND]);
+            $qb->innerJoin("$o.regions", 'r');
+            $i = 0;
+            foreach($criteria[self::CRITERIA_REGION_IDS_AND] as $regionId) {
+                $parameterName = 'regionId' . $i;
+                $qb->andWhere("r = :$parameterName")->setParameter($parameterName, $regionId);
+                $i++;
+            }
         }
 
         if (!empty($criteria[self::CRITERIA_RUSSIA_IMAGES])) {

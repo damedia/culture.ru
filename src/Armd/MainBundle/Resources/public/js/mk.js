@@ -30,10 +30,10 @@ var armdMk = {
 
     startLoadingBlock: function(blockSelector) {
         $(blockSelector).css('position', 'relative')
-            .append($('<div class="loading-block"></div>').css('display', 'block'));
+            .append($('<div class="loading-block"></div>'));
     },
 
     stopLoadingBlock: function(blockSelector) {
-        $(blockSelector).remove('.loading-block');
+        $(blockSelector).children('.loading-block').remove();
     }
 };

@@ -5,11 +5,10 @@
     </a>
 
 	<div class="full-list-text">
-		<a href="#" class="full-list-type">
-            {% if object.regions is not empty %}
-                {{ object.regions[0].title }}
-            {% endif %}
-        </a>
+        {% if object.regions is not empty %}
+            {% set region = object.regions[0] %}
+            <a href="#" class="full-list-type object-region" data-region-id="{{ region.id }}"> {{ region.title }} </a>
+        {% endif %}
 		<span class="full-list-name">
             {{ object.title }}
 		</span>

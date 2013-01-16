@@ -107,14 +107,33 @@ ul, p, div {
    Author's custom styles
    ========================================================================== */
 
-   html {
-	min-width:1017px;
-   }
+html {
+    min-width:1017px;
+}
+
 body {
 	background:url(../img/bg.jpg) no-repeat 50% 0;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	min-width:1017px;
 }
+
+.loading-block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    background: #ffffff url(../img/loading/loading_page.png) scroll no-repeat 50% 50%;
+    opacity: 0.9;
+    border-radius: 9px;
+    border: 1px solid #aaaaaa;
+    z-index: 1000;
+    margin: -40px 0 0 -40px;
+}
+    body > .loading-block {
+        position: fixed;
+    }
+
     .header-banner {
         position: absolute;
         top: 0;
@@ -397,6 +416,14 @@ body {
 							text-decoration:none;
 							border:0;
 						}
+                            .button.loading {
+                                color: transparent;
+                                background: url(../img/loading/loading_button.png) no-repeat scroll 50% 50%;
+                            }
+                            .button.loading * {
+                                display: none;
+                                visibility: hidden;
+                            }
 						.search-dates-button {
 							margin-top:5px;
 							display:inline-block;

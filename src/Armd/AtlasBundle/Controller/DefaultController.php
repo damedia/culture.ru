@@ -55,7 +55,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view")
-     * @Template()
+     * @Template("ArmdAtlasBundle:Default:object_view.html.twig")
      */
     public function objectViewAction($id)
     {
@@ -88,7 +88,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("russia-images", name="armd_atlas_russia_images")
-     * @Template()
+     * @Template("ArmdAtlasBundle:Default:russia_images.html.twig")
      */
     public function russiaImagesAction()
     {
@@ -104,7 +104,15 @@ class DefaultController extends Controller
             throw new \LogicException('Cant find atlas object category slug "type"');
         }
 
-        $regions = $em->getRepository('ArmdAtlasBundle:Region')->findBy(array(), array('title' => 'ASC'));
+        $regions = $em->createQueryBuilder()
+            ->select('r')
+            ->from('ArmdAtlasBundle:Object', 'o')
+            ->innerJoin('ArmdAtlasBundle:Region', 'r')
+            ->where('o.showAtRussianImage = TRUE')
+            ->andWhere('o.published = TRUE')
+            ->orderBy('r.title', 'ASC')
+            ->getQuery()->getResult();
+
 
         return array(
             'thematics' => $thematicsRoot->getChildren(),
@@ -119,9 +127,9 @@ class DefaultController extends Controller
     public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
     {
         $templates = array(
-            'tile' => 'ArmdAtlasBundle:Default:russiaImagesListTile.html.twig',
-            'full-list' => 'ArmdAtlasBundle:Default:russiaImagesListFull.html.twig',
-            'short-list' => 'ArmdAtlasBundle:Default:russiaImagesListShort.html.twig'
+            'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
+            'full-list' => 'ArmdAtlasBundle:Default:russia_images_list_full.html.twig',
+            'short-list' => 'ArmdAtlasBundle:Default:russia_images_list_short.html.twig'
         );
 
         if (in_array($templateName, $templates)) {
@@ -141,10 +149,10 @@ class DefaultController extends Controller
             $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
         }
 
-        $searchQuery = $request->get('search_query');
-        if ($request->query->has('search_query')) {
-            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchQuery;
-        }
+//        $searchQuery = $request->get('search_query');
+//        if ($request->query->has('search_query')) {
+//            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchQuery;
+//        }
 
         $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
         $criteria[ObjectManager::CRITERIA_LIMIT] = $limit;
@@ -161,7 +169,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/object/balloon", name="armd_atlas_default_objectballoon", options={"expose"=true})
-     * @Template()
+     * @Template("ArmdAtlasBundle:Default:object_balloon.html.twig")
      */
     public function objectBalloonAction()
     {
@@ -182,7 +190,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/object/cluster", name="armd_atlas_default_clusterballoon", options={"expose"=true})
-     * @Template()
+     * @Template("ArmdAtlasBundle:Default:cluster_balloon.html.twig")
      */
     public function clusterBalloonAction()
     {
@@ -666,21 +674,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/last-russia-images/{limit}")
-     * @Template()
-     */
-    public function lastRussiaImagesAction($limit = 3)
-    {
-        $objects = $this->getDoctrine()->getManager()->getRepository('ArmdAtlasBundle:Object')
-            ->findRussiaImages($limit);
-
-        return array('objects' => $objects);
-    }
-
-    /**
      * @Route("/nearest/{id}", requirements={"id"="\d+"})
      * @Route("/nearest/{id}/limit/{limit}", requirements={"id"="\d+", "limit"="\d+"})
-     * @Template()
+     * @Template("ArmdAtlasBundle:Default:get_nearest.html.twig")
      */
     public function getNearestAction($id, $limit=10)
     {
@@ -721,7 +717,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Template()
+     * @Template("ArmdAtlasBundle:Default:related_objects.html.twig")
      */
     public function relatedObjectsAction(array $tags, $limit)
     {

@@ -6,45 +6,67 @@ var armdMkRussiaImages = {
     visibleCount: 0,
     loadByCount: 24,
 
+
     init: function () {
         armdMkRussiaImages.refreshVisibleCount();
+
+        // init "more" click
         $('#show-more').bind('click', function(event) {
             event.preventDefault();
             armdMkRussiaImages.loadList(true);
         });
 
+        // russia images search button
         $('#search-russia-images-button').bind('click', function(event) {
             event.preventDefault();
 
-            var regionId = $('#object-region').val();
-            armdMkRussiaImages.regionId = regionId ? regionId : null;
+            armdMkRussiaImages.readFilter();
+            armdMkRussiaImages.loadList(false);
+        });
 
-            var categoryId;
-            var categoryIds = [];
+        // object region click
+        $('.object-region').bind('click', function (event) {
+            event.preventDefault();
+            var regionId = $(this).data('region-id');
 
-            categoryId = $('#object-thematic').val();
-            if (categoryId) {
-                categoryIds.push(categoryId);
-            }
+            $('#object-region').val(regionId).selectgroup('refresh');
+            $('#object-type').val('').selectgroup('refresh');
+            $('#object-thematic').val('').selectgroup('refresh');
 
-            categoryId = $('#object-type').val();
-            if (categoryId) {
-                categoryIds.push(categoryId);
-            }
-
-            armdMkRussiaImages.categoryIds = categoryIds;
-
+            armdMkRussiaImages.readFilter();
             armdMkRussiaImages.loadList(false);
         });
     },
 
-//    startLoading: function () {
-//        $('#images-of-russia-loading').show();
-//    },
-//
-//    stopLoading: function () {
-//        $('#images-of-russia-loading').hide();
-//    },
+    readFilter: function () {
+        var regionId = $('#object-region').val();
+        armdMkRussiaImages.regionId = regionId ? regionId : null;
+
+        var categoryId;
+        var categoryIds = [];
+
+        categoryId = $('#object-thematic').val();
+        if (categoryId) {
+            categoryIds.push(categoryId);
+        }
+
+        categoryId = $('#object-type').val();
+        if (categoryId) {
+            categoryIds.push(categoryId);
+        }
+
+        armdMkRussiaImages.categoryIds = categoryIds;
+    },
+
+    startLoading: function () {
+        armdMk.startLoadingBlock('body');
+        $('#search-russia-images-button').addClass('loading');
+    },
+
+    stopLoading: function () {
+        armdMk.stopLoadingBlock('body');
+        $('#search-russia-images-button').removeClass('loading');
+    },
 
     refreshVisibleCount: function() {
         armdMkRussiaImages.visibleCount = $('.plitka-one-wrap').length;
@@ -61,7 +83,7 @@ var armdMkRussiaImages = {
         var offset = append ? armdMkRussiaImages.visibleCount : 0;
 
         // tile append
-        $.ajax({
+        var tileParams = {
             url: Routing.generate('armd_atlas_russia_images_list', {
                 'templateName': 'tile',
                 'offset': offset,
@@ -78,7 +100,8 @@ var armdMkRussiaImages = {
                     if (count) {
                         $('.obrazy-plitka').append(data);
                     }
-                } else {
+                }
+                else {
                     $('.obrazy-plitka').html(data);
                 }
                 if (!count) {
@@ -86,10 +109,10 @@ var armdMkRussiaImages = {
                 }
                 armdMkRussiaImages.refreshVisibleCount();
             }
-        });
+        };
 
         // full list append
-        $.ajax({
+        var fullList = {
             url: Routing.generate('armd_atlas_russia_images_list', {
                 'templateName': 'full-list',
                 'offset': offset,
@@ -105,14 +128,15 @@ var armdMkRussiaImages = {
                     if (count) {
                         $('.full-list').append(data);
                     }
-                } else {
+                }
+                else {
                     $('.full-list').html(data);
                 }
             }
-        });
+        };
 
         // short list append
-        $.ajax({
+        var shortListParams = {
             url: Routing.generate('armd_atlas_russia_images_list', {
                 'templateName': 'short-list',
                 'offset': offset,
@@ -128,11 +152,21 @@ var armdMkRussiaImages = {
                     if (count) {
                         $('.short-list').append(data);
                     }
-                } else {
+                }
+                else {
                     $('.short-list').html(data);
                 }
             }
-        });
+        };
 
+
+        armdMkRussiaImages.startLoading();
+        $.when($.ajax(tileParams), $.ajax(fullList), $.ajax(shortListParams))
+            .done(function () {
+                armdMkRussiaImages.stopLoading();
+            })
+            .fail(function () {
+                armdMkRussiaImages.stopLoading();
+            });
     }
 };

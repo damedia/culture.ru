@@ -74,10 +74,10 @@ class ObjectCustomAdmin extends Admin
     {
         switch ($name) {
             case 'list':
-                return 'ArmdAtlasBundle:Admin:objectcustom-list.html.twig';
+                return 'ArmdAtlasBundle:Admin:objectcustom_list.html.twig';
                 break;
             case 'edit':
-                return 'ArmdAtlasBundle:Admin:objectcustom-edit.html.twig';
+                return 'ArmdAtlasBundle:Admin:objectcustom_edit.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

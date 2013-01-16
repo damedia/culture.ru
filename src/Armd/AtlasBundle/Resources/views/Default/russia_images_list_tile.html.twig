@@ -1,15 +1,10 @@
 {% for object in objects %}
     <li class="plitka-one-wrap">
         <div class="plitka-one">
-            <a href="#" class="plitka-type">
-                {% if object.regions is not empty %}
-                    {{ object.regions[0].title }}
-                    {#{% for region in object.regions %}#}
-                        {#{{ region.title }}#}
-                        {#{% if not loop.last %}/{% endif %}#}
-                    {#{% endfor %}#}
-                {% endif %}
-            </a>
+            {% if object.regions is not empty %}
+                {% set region = object.regions[0] %}
+                <a href="#" class="plitka-type object-region" data-region-id="{{ region.id }}"> {{ region.title }} </a>
+            {% endif %}
             <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
                 {% thumbnail object.primaryImage, 'searchAllResult' with {'alt': object.primaryImage.description, 'class': 'plitka-image'} %}
             </a>

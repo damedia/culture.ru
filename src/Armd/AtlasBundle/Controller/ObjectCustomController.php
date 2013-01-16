@@ -33,7 +33,7 @@ class ObjectCustomController extends CRUDController
         $statusList = $statusRepo->findBy(array(), array('id'=>'ASC'));
         $userList = $userRepo->findBy(array(), array('username'=>'ASC'));
 
-        return $this->render('ArmdAtlasBundle:Admin:objectcustom-list.html.twig', array(
+        return $this->render('ArmdAtlasBundle:Admin:objectcustom_list.html.twig', array(
             'action'   => 'list',
             'objects'  => $objects,
             'userList' => $userList,
@@ -84,10 +84,10 @@ class ObjectCustomController extends CRUDController
                 $emailTo = $object->getCreatedBy()->getEmail();
                 if ($statusId == 2) {
                     $subject = 'Ваш объект был успешно добавлен на карту портала Культура.рф';
-                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusApprove.html.twig';
+                    $template = 'ArmdAtlasBundle:Admin:email_object_status_approve.html.twig';
                 } elseif ($statusId == 3) {
                     $subject = 'Ваш объект не прошел модерацию портала Культура.рф';
-                    $template = 'ArmdAtlasBundle:Admin:emailObjectStatusRefuse.html.twig';
+                    $template = 'ArmdAtlasBundle:Admin:email_object_status_refuse.html.twig';
                 }
                 $body = $this->renderView($template, array(
                     'object' => $object,
@@ -110,7 +110,7 @@ class ObjectCustomController extends CRUDController
 
         $statusList = $statusRepo->findAll();
 
-        return $this->render('ArmdAtlasBundle:Admin:objectcustom-show.html.twig', array(
+        return $this->render('ArmdAtlasBundle:Admin:objectcustom_show.html.twig', array(
             'action'   => 'show',
             'object'   => $object,
             'statusList' => $statusList,

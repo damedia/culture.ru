@@ -112,6 +112,7 @@ $(function(){
 	})
 	
 	$('select.uni').selectgroup();
+//    $('select.uni').select2();
 	
 	$('#category-chooser').on('click', 'a', function(){
 		var id = $(this).attr('href');

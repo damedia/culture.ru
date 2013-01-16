@@ -35,6 +35,7 @@
         <link rel="stylesheet" href="{{ asset('bundles/armdsocialauth/css/social_auth.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/armdmkcomment/css/comments.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}">
+        {#<link rel="stylesheet" href="{{ asset('vendor/select2/select2.css') }}">#}
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {% endblock %}
     <!-- /Stylesheets block -->
@@ -50,6 +51,7 @@
         <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('vendor/select2/select2.min.js') }}"></script>#}
         <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
         {% if app.request.locale == 'ru' %}
          <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker-ru.js') }}"></script>
@@ -159,7 +161,5 @@
         </footer>
         <!-- /Footer block -->
     </div>
-
-
 </body>
 </html>

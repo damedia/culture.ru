@@ -251,7 +251,7 @@ class AdminController extends Controller
      * name="armd_atlas_admin_list_user_objects",
      * options={"expose"=true})
      * @Secure(roles="ROLE_SUPER_ADMIN,ROLE_SONATA_ADMIN")
-     * @Template()
+     * @Template("ArmdAtlasBundle:Admin:list_user_objects.html.twig")
      */
     public function listUserObjectsAction($userId)
     {

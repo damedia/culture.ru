@@ -36,6 +36,7 @@ class DefaultController extends Controller
         $words = $this->getRequest()->get('search_query');
 
         $searchResults = array();
+        $pagination = false;
         if (!empty($words)) {
 
             $search = $this->container->get('search.sphinxsearch.search');
@@ -75,13 +76,12 @@ class DefaultController extends Controller
                         }
                     }
                 }
+                // use $pagination only to display page navigation bar because data is already cut
+                $paginator = $this->container->get('knp_paginator');
+                $pagination = $paginator->paginate($searchResults, $page, $perPage);
+                $pagination->setTotalItemCount($res['All']['total']);
             }
         }
-
-        // use $pagination only to display page navigation bar because data is already cut
-        $paginator = $this->container->get('knp_paginator');
-        $pagination = $paginator->paginate($searchResults, $page, $perPage);
-        $pagination->setTotalItemCount($res['All']['total']);
 
         return array(
             'searchResults' => $searchResults,
