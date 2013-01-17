@@ -117,7 +117,7 @@
                 <ul class="slides image-slider">
                     {% for h in entity.images %}
                         <li>
-                            <img src="{% path h, 'big' %}" alt="" />
+                            <img src="{% path h, 'atlasW613' %}" alt="" />
                             <div class="image-stats">
                                 <a href="#" class="image-code-link">Код для вставки</a>
                                 <p>
@@ -133,8 +133,8 @@
                 <ul class="slides thumbs-slider">
                     {% for h in entity.images %}
                         <li>
-                            <div class="thumb-image-wrap" style="background-image:url({% path h, 'thumbnail' %});">
-                                <img src="{% path h, 'thumbnail' %}" alt="" />
+                            <div class="thumb-image-wrap" style="background-image:url({% path h, 'atlasW63H56' %});">
+                                {% thumbnail h, 'atlasW63H56' %}
                             </div>
                         </li>
                     {% endfor %}

@@ -162,12 +162,13 @@ sonata_media:
                 image3d: { width: 405 }
                 big: { width: 920 }
                 thumbnail: { width: 85, height: 85 }
-                imagesOfRussia: { width: 242, height: 187}
-                imagesOfRussiaSmall: {width: 85, height: 61}
-                imagesOfRussiaUnderMap: {width: 127, height: 107}
+                imagesOfRussia: { width: 242, height: 187 }
+                imagesOfRussiaSmall: { width: 85, height: 61 }
+                imagesOfRussiaUnderMap: { width: 127, height: 107 }
                 searchAllResult: { width: 160, height: 107 }
-                sideBanner: {width: 308 }
-                atlasW613: {width: 613 }
+                sideBanner: { width: 308 }
+                atlasW613: { width: 613 }
+                atlasW63H56: { width: 63, height: 56 }
 
         atlas_icon:
             download:
