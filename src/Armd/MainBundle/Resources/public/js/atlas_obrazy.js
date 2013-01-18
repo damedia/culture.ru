@@ -35,7 +35,8 @@ AT.initMap = function(params) {
             coord: new PGmap.Coord(params.center[0], params.center[1], true),
             zoom: params.zoom,
             minZoom: 3,
-            lang: AT.params.locale.toUpperCase()
+            lang: AT.params.locale.toUpperCase(),
+            noWheelZoom: 1
         };
 
     this.map = new PGmap(map_el, parameters);

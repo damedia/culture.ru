@@ -14,8 +14,8 @@ var armdMainPage = {
     initAtlas: function () {
         AT.init({
             map: 'map',
-            center: [45, 56],
-            zoom: 4,
+            center: [100, 56],
+            zoom: 3,
             leftLon: 10,
             rightLon: -190,
             locale: armdMk.locale
