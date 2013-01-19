@@ -16,6 +16,7 @@ use Armd\AtlasBundle\Entity\Category;
 use Armd\AtlasBundle\Entity\Object;
 use Armd\AtlasBundle\Form\ObjectType;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -78,8 +79,13 @@ class DefaultController extends Controller
             )
         );
 
+        /** @var Request $request  */
+//        $request = $this->get('request');
+//        $request->get;
+
 
         return array(
+            'referer' => $this->getRequest()->headers->get('referer'),
             'entity' => $entity,
             'relatedObjects' => $relatedObjects
         );

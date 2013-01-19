@@ -2154,7 +2154,8 @@ body {
 					cursor: pointer;
 					text-indent: -9999px;
 					-webkit-transition: all .3s ease;
-					}
+                    outline: none;
+                }
 					
 					#thumbs-slider .flex-prev {
 						left:-24px;
@@ -2184,13 +2185,11 @@ body {
 					padding-right:62px;
 				}
 		
+        #content-collapsed {
+            margin-bottom: 30px;
+        }
 			
-			
-			
-			
-			
-		
-	/*RIGHT*/		
+	/*RIGHT*/
 			
 			.right-column {
 				
@@ -2250,7 +2249,7 @@ body {
 						padding:14px;
 						position:relative;
 					}	
-						.period-block h1, .period-block h2,  .static-block h2 {
+						.period-block h1, .period-block h2, .static-block h2 {
 							text-transform:uppercase;
 							font:15px Tahoma, Arial, Helvetica, sans-serif;
 							margin:1px 0 12px;
@@ -2307,13 +2306,12 @@ body {
 								width:45px;
 								height:22px;
 							}
-   
+
 					.period-event-block {
 						background:#edf2e2;
 					}
 					
-					
-					
+
 					.recommend-block {
 						position:relative;
 					}
