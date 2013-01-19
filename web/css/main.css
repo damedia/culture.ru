@@ -3551,6 +3551,48 @@ body {
 		width:100%;
 	}	
    
+   /*POPup Instruction*/
+	
+	.window {
+		background:#fff;
+	}
+		.window-content {
+			padding:15px;
+			margin:0;
+		}
+			.window-content h2 {
+				margin-bottom:20px;
+			}
+			.window-content p {
+				margin-bottom:20px;
+			}
+			.center-image {
+				text-align:center;
+				margin:25px 0 20px;
+				
+			}
+				.center-image img {
+				
+				}
+				.center-image figcaption {
+					font-weight:bold;
+					margin:10px 0;
+					font-size:13px;
+				}
+				
+			.inline-image {
+				margin:0 5px;
+			}
+			
+		.window-content .back-link {
+			border:0;
+			margin-top:40px;
+		}	
+			.window-content .back-link p {
+				
+				margin-bottom:0;
+			}
+   
 
 	.main-footer {
 		border-top:1px solid #e7e7e7;

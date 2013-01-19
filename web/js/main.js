@@ -201,62 +201,71 @@ $(function () {
     })
 
     $('select.uni').selectgroup();
-//    $('select.uni').select2();
-
-    $('#category-chooser').on('click', 'a', function () {
-        var id = $(this).attr('href');
-        $(this).addClass('active').siblings().removeClass('active');
-        $(id).show().siblings('.tab').hide();
-
-        return false;
-    })
-
-
-    $('.museum-image, .plitka-name').on('click', $(this), function () {
-        $(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
-    })
-
-    if ($(".iframe").length > 0) {
-        $(".iframe").fancybox({
-            'width': '100%',
-            'height': '100%',
-            'autoScale': true,
-            'transitionIn': 'none',
-            'transitionOut': 'none',
-            'type': 'iframe'
-        });
-    }
+	
+	$('#category-chooser').on('click', 'a', function(){
+		var id = $(this).attr('href');
+		$(this).addClass('active').siblings().removeClass('active');
+		$(id).show().siblings('.tab').hide();
+		
+		return false;
+	})
+	
+	
+	$('.museum-image, .plitka-name').on('click', $(this), function(){
+		$(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
+	})
+	
+	if($(".iframe").length > 0) {
+		$(".iframe").fancybox({
+			'width': '100%',
+			'height': '100%',
+			'autoScale': true,
+			'transitionIn': 'none',
+			'transitionOut': 'none',
+			'type': 'iframe'
+		});
+	}
 
     $('.in-fancybox').fancybox();
-
-    $('.trad-line-nav > li > a').click(function () {
-        var tradLink = $(this).attr('href');
-        $(tradLink).show().siblings('.trad-line-content').hide();
-        $(this).parent().addClass('active').siblings().removeClass('active');
-
-    })
-
-
-    $('#video-list').flexslider({
-        animation: "slide",
-
-        slideshow: false,
-        itemWidth: 281,
-        itemMargin: 37
-    });
-
-
-    $('.tabs-headers').on('click', 'a', function () {
-        var tabId = $(this).attr('href');
-        $(this).addClass('active')
-            .parent().siblings().find('a').removeClass('active');
-        $(tabId).show().siblings('.tab').hide();
-        return false;
-    })
-
-
-    /*TIMELINE*/
-
+	
+	if($('.museum-instr-link').length > 0) {
+		$('.museum-instr-link').fancybox({
+			'width':900,
+			'height':900,
+			'autoSize':false,
+			'transitionIn': 'none',
+			'transitionOut': 'none'
+		})
+	}
+	
+	$('.trad-line-nav > li > a').click(function(){
+		var tradLink = $(this).attr('href');
+		$(tradLink).show().siblings('.trad-line-content').hide();
+		$(this).parent().addClass('active').siblings().removeClass('active');
+		
+	})
+	
+	
+		$('#video-list').flexslider({
+			animation: "slide",
+			
+			slideshow: false,
+			itemWidth: 281,
+			itemMargin: 37
+		  });
+		  
+		  
+	$('.tabs-headers').on('click', 'a', function(){
+		var tabId = $(this).attr('href');
+		$(this).addClass('active')
+				.parent().siblings().find('a').removeClass('active');
+		$(tabId).show().siblings('.tab').hide();
+		return false;
+	})	
+	
+	
+	/*TIMELINE*/
+	
     //waypoints scroll
 
     // The same for all waypoints
