@@ -10,7 +10,7 @@
             <a href="#" class="full-list-type object-region" data-region-id="{{ region.id }}"> {{ region.title }} </a>
         {% endif %}
 		<span class="full-list-name">
-            {{ object.title }}
+            {{ object.title|truncate(50) }}
 		</span>
 		<div class="plitka-footer">
 			<div class="types-icons">

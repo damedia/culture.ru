@@ -1318,6 +1318,9 @@ body {
 						color:#000;
 						
 					}
+                        .plitka-name a {
+                            color: #000;
+                        }
 					.plitka-image {
 						margin:15px 0 5px;
                         max-width: 100%;

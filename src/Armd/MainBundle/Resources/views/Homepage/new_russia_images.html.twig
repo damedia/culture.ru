@@ -2,7 +2,7 @@
 <ul class="plitka obrazy-plitka obraz-index">
 	<li class="plitka-one-wrap">
 		<div class="plitka-one">
-			<a href="#" class="plitka-type">{{ object.regions[0].title }}</a>
+			<a href="{{ path('armd_atlas_russia_images', {region_id: object.regions[0].id }) }}" class="plitka-type">{{ object.regions[0].title }}</a>
 			<a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
                 {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
 			</a>
@@ -31,7 +31,7 @@
                 {% thumbnail object.primaryImage, 'imagesOfRussiaSmall' %}
             </a>
             <div class="index-obraz-list-text">
-                <a href="#" class="index-obraz-name">{{ object.regions[0].title }}</a>
+                <a href="{{ path('armd_atlas_russia_images', {region_id: object.regions[0].id }) }}" class="index-obraz-name">{{ object.regions[0].title }}</a>
                 <p>{{ object.title }}</p>
             </div>
         </li>

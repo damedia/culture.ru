@@ -37,6 +37,25 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('new_design/js/jquery.ui.selectgroup.js') }}"></script>
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+           initSocialShare();
+        });
+        function initSocialShare() {
+            new Ya.share({
+                element: 'yandex-share',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_lecture_view', { 'id': lecture.id }) }}',
+                title: '{{ lecture.title }}'
+                {#description: '{{ lecture.description|escape }}'#}
+            });
+        }
+    </script>
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
@@ -111,7 +130,7 @@
                         {% else %}
                             {% set lectureVideo = lecture.mediaLectureVideo %}
                         {% endif %}
-                        {% media lectureVideo, 'noformat' with { 'width': '100%', 'height': 506 } %}
+                        {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
 
                     {% endif %}
 
@@ -188,11 +207,11 @@
         </section>
 
         <div class="back-link">
-            <p><a href="{{ path('armd_lecture_default_list') }}">Назад</a></p>
+            <p><a href="{{ referer }}">Назад</a></p>
         </div>
 
         <div class="event-one_footer clearfix">
-            <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях:</div>
+            <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
         </div>
 
         {#
@@ -393,3 +412,4 @@
         {% render 'ArmdLectureBundle:Default:rightColumn' %}
     </div>
 {% endblock %}
+

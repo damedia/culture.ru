@@ -16,7 +16,11 @@
                 {% endif %}
             </a>
             <div class="plitka-text">
-                <span class="plitka-name">{{ lecture.title }}</span>
+                <span class="plitka-name">
+                    <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                        {{ lecture.title|truncate(50) }}
+                    </a>
+                </span>
 
                 {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
                 {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}

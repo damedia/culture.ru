@@ -22,7 +22,12 @@
                 <select name="object-region" id="object-region" class="uni">
                     <option value="">Регион</option>
                     {% for region in regions %}
-                        <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% if regionId == region.id %}
+                            {% set selected = 'selected' %}
+                        {% else %}
+                            {% set selected = '' %}
+                        {% endif %}
+                        <option value="{{ region.id }}" {{ selected }}>{{ region.title }}</option>
                     {% endfor %}
                 </select>
                 <select name="object-type" id="object-type" class="uni">
@@ -54,19 +59,19 @@
 
     <div id="plitka" class="tab plitka-list">
         <ul class="plitka obrazy-plitka">
-            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'tile', 'limit': 24 } %}
+            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'tile', 'limit': 24, 'region_id': regionId } %}
         </ul>
     </div>
 
     <div id="full-list" class="tab" style="display:none">
         <ul class="full-list">
-            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'full-list', 'limit': 24 } %}
+            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'full-list', 'limit': 24, 'region_id': regionId } %}
         </ul>
     </div>
 
     <div id="short-list" class="tab"  style="display:none">
         <ul class="short-list">
-            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'short-list', 'limit': 24 } %}
+            {% render 'ArmdAtlasBundle:Default:russiaImagesList' with { 'templateName': 'short-list', 'limit': 24, 'region_id': regionId } %}
         </ul>
     </div>
 

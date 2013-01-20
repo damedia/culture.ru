@@ -1,4 +1,27 @@
 $(function () {
+    $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        slideshow: false
+    });
+
+
+    $('#thumbs-slider').flexslider({
+        animation: "slide",
+
+        slideshow: false,
+        itemWidth: 75,
+        itemMargin: 5,
+        asNavFor: '#image-slider'
+    });
+
+    $('#image-slider').flexslider({
+        animation: "slide",
+
+        slideshow: false,
+        sync: "#thumbs-slider"
+    });
+
 
     $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
     $("#datapicker").datepicker({
@@ -243,17 +266,17 @@ $(function () {
 		$(tradLink).show().siblings('.trad-line-content').hide();
 		$(this).parent().addClass('active').siblings().removeClass('active');
 		
-	})
+	});
 	
 	
 		$('#video-list').flexslider({
 			animation: "slide",
-			
 			slideshow: false,
 			itemWidth: 281,
 			itemMargin: 37
 		  });
-		  
+
+
 		  
 	$('.tabs-headers').on('click', 'a', function(){
 		var tabId = $(this).attr('href');

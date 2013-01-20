@@ -98,6 +98,10 @@ class DefaultController extends Controller
      */
     public function russiaImagesAction()
     {
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_atlas_russia_images')
+        );
+
         $em = $this->getDoctrine()->getManager();
 
         $thematicsRoot = $em->getRepository('ArmdAtlasBundle:Category')->findOneBySlug('thematic');
@@ -123,7 +127,8 @@ class DefaultController extends Controller
         return array(
             'thematics' => $thematicsRoot->getChildren(),
             'types' => $typesRoot->getChildren(),
-            'regions' => $regions
+            'regions' => $regions,
+            'regionId' => $this->getRequest()->get('region_id')
         );
     }
 

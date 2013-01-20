@@ -137,6 +137,7 @@ class DefaultController extends Controller
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
 
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
+            'referer' => $this->getRequest()->headers->get('referer'),
             'lecture' => $lecture,
             'lectureVersion' => $version,
             'lectureRolesPersons' => $rolesPersons,
@@ -180,6 +181,10 @@ class DefaultController extends Controller
      */
     public function listAction()
     {
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_lecture_default_list')
+        );
+
         $request = $this->getRequest();
 
         /**
