@@ -166,7 +166,7 @@ class Builder extends ContainerAware
         $communicationMenu = $menu->addChild(
             'menu.communication',
             array(
-                'uri' => '#'
+                'uri' => 'http://people.culture.ru/opengov/new/'
             )
         );
         //--- /Communication

@@ -62,12 +62,27 @@
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+        <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
         <script type="text/javascript">
          $(function(){
              armdMk.locale = '{{ app.request.locale }}';
              armdMk.baseUrl = '/';
              armdMk.init();
+
+             new Ya.share({
+                 element: 'yandex-share-global',
+                 elementStyle: {
+                     'type': 'none',
+                     'border': false,
+                     'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                 },
+                 link: '{{ url('armd_main_homepage') }}',
+                 title: 'Портал культурного наследия России',
+                 description: 'Портал культурного наследия России'
+             });
          });
+
+
         </script>
     {% endblock %}
     <!-- /Javascripts block -->
@@ -142,21 +157,21 @@
                 </div>
                 <div class="footer-share">
                     <p>
-                        Рассказать о портале
+                        Рассказать о портале <span id="yandex-share-global"></span>
                     </p>
 
-                    <div class="social-links">
-                        <a href="#"></a>
-                    </div>
+                    {#<div class="social-links">#}
+
+                    {#</div>#}
                 </div>
             </div>
 
             <div class="footer-center">
                 <p>© Портал культурного наследия России</p>
                 <ul>
-                    <li><a href="#">О проекте</a></li>
-                    <li><a href="#">Баннеры</a></li>
-                    <li><a href="#">portal@mkrf.ru</a></li>
+                    <li><a href="{{ path('armd_main_about') }}">О проекте</a></li>
+                    <li><a href="{{ path('armd_main_banners') }}">Баннеры</a></li>
+                    <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
                 </ul>
             </div>
         </footer>

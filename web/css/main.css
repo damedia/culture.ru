@@ -3618,7 +3618,9 @@ body {
 				font-size:15px;
 				display:block;
 			}
-			
+        .footer-share {
+            float: right;
+        }
 		
 		.footer-social {
 			float:right;
@@ -3639,7 +3641,7 @@ body {
 			.social-links {
 				display:inline-block;
 				vertical-align:top;
-				background:url(../img/social-footer.jpg) no-repeat 0 0;
+				/*background:url(../img/social-footer.jpg) no-repeat 0 0;*/
 				width:156px;
 				height:20px;
 			}

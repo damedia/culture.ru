@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends ':Frontend:base.html.twig' %}
 
 
 {% block title %} {{ 'Portal title'|trans }} — {{ 'Navigation.Library'|trans }}{% endblock %}
@@ -23,13 +23,15 @@
 			});
 		})
 	</script>		
-{% endblock %}	
+{% endblock %}
+
+{% block page_header_title %}
+    {{ 'Banners header'|trans }}
+{% endblock %}
+
 {% block body%}
 
 
-<div class="title-block timeline-title">
-    <h2>{{ 'Banners header'|trans }}</h2>
-</div>
 
     
         <div class="text">
