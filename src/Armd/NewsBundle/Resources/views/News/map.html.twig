@@ -11,12 +11,64 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block one_column %}
-    <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
-        <div class="filter checks-filter" style="width:23.7%">
-            <div class="title dark-green-title title-filter">
-                <h2>{{ "newsmap.filter"|trans }}</h2>
+    <div class="col-left">
+        <div class="atlas-map">
+            <div class="bar bar-top"></div>
+            <div class="bar bar-right"></div>
+            <div class="bar bar-bottom"></div>
+            <div class="bar bar-left"></div>
+            <div id="map"></div>
+            <div id="regions-selector" class="regions-selector">
+                <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
+                    <option></option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}">{{ region.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
+            <div id="ajax-loading" class="ajax-loading"></div>
+        </div>
 
+        {# отключено#}
+        {% if false and lastNews %}
+            <div class="last-news">
+                <ul>
+                    {% for entity in lastNews %}
+                        <li>
+                            {% if entity.image %}
+                                <div class="image">
+                                    <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
+                                        <img src="{% path entity.image, 'thumbnail' %}" />
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div class="content">
+                                <div class="caption">
+                                    <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
+                                        {{ entity.title|raw }}
+                                    </a>
+                                </div>
+                                <div class="text">{{ entity.announce|raw }}</div>
+                                <div class="date">
+                                    {{ "newsmap.date"|trans }}:
+                                    {{ entity.date|date('d.m.Y') }}
+                                    {% if entity.endDate %}&mdash;&nbsp;{{ entity.endDate|date('d.m.Y') }}{% endif %}
+                                </div>
+                                <div class="category">
+                                    {{ "newsmap.category"|trans }}:
+                                    {{ entity.category.title }}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {# /отключено#}
+
+    </div>
+    <div class="col-right">
+        <div class="filter checks-filter">
             <form id="news-map-filter" class="filter-form" action="{{ path('armd_news_filter') }}">
                 <div class="simple-search">
                     <label for="ss_input">{{ "newsmap.find_address"|trans }}</label>
@@ -65,55 +117,6 @@
                 </div>
             </form>
         </div>
-        <div class="atlas-center">
-            <div class="atlas-map" style="margin-top:-10px;">
-                <div id="map"></div>
-                <div id="regions-selector" class="regions-selector">
-                    <select data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
-                        <option></option>
-                        {% for region in regions %}
-                            <option value="{{ region.id }}">{{ region.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div id="ajax-loading" class="ajax-loading"></div>
-            </div>
-
-            {% if lastNews %}
-                <div class="last-news">
-                    <ul>
-                        {% for entity in lastNews %}
-                            <li>
-                                {% if entity.image %}
-                                    <div class="image">
-                                        <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
-                                            <img src="{% path entity.image, 'thumbnail' %}" />
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                <div class="content">
-                                    <div class="caption">
-                                        <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
-                                            {{ entity.title|raw }}
-                                        </a>
-                                    </div>
-                                    <div class="text">{{ entity.announce|raw }}</div>
-                                    <div class="date">
-                                        {{ "newsmap.date"|trans }}:
-                                        {{ entity.date|date('d.m.Y') }}
-                                        {% if entity.endDate %}&mdash;&nbsp;{{ entity.endDate|date('d.m.Y') }}{% endif %}
-                                    </div>
-                                    <div class="category">
-                                        {{ "newsmap.category"|trans }}:
-                                        {{ entity.category.title }}
-                                    </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        </div>
     </div>
 
     <!-- /Асинхронная загрузка jsapi -->
@@ -132,18 +135,18 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/chosen.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/chosen/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdnews/css/news_map.css') }}">
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/jquery.form.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/chosen.jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/ivaynberg-select2/select2.min.js') }}"></script>
-    {#<script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_map.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             AT.init({

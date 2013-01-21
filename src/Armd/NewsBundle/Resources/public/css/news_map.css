@@ -1,6 +1,5 @@
-.container{ width:100%; overflow:hidden; background:#eee; }
-.container .col-left{ float:left; width:25%; background:#eee; }
-.container .col-right{ float:right; width:75%; background:#eee; }
+.container .col-left{ float:left; width:75%; }
+.container .col-right{ float:right; width:25%; }
 
 .filter-form{ }
 .filter-form .date-range .datepicker{ width:80px; padding:2px 5px; border:solid 1px #ddd; }
@@ -40,13 +39,19 @@
 
 .atlas-center{ float:right; width:75%; position:static; }
 
-.atlas-map{ margin-bottom:20px; }
+.atlas-map{ width:860px; margin-bottom:20px; overflow:hidden; position:relative; }
 .atlas-map .regions-selector{ z-index:100; position:absolute; top:-25px; right:0; }
 .atlas-map .regions-selector select{ width:270px; }
 .atlas-map .regions-selector .chzn-container-single .chzn-single{ height:25px; border:none; box-shadow:none; background:#00A02D; color:#fff; }
 .atlas-map .regions-selector .chzn-container-single .chzn-drop{ border-radius:0; }
 .atlas-map .regions-selector .chzn-container .chzn-results .highlighted{ background:#00A02D; }
 .atlas-map .regions-selector .chzn-container .chzn-results li{ padding:4px 6px; }
+
+.bar { background: none repeat scroll 0 0 #FF0000; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); position: absolute; z-index: 2; }
+.bar.bar-top { left: 0; top: -10px; width: 100%; height: 10px; }
+.bar.bar-right { right: -10px; top: 0; width: 10px; height: 100%; }
+.bar.bar-bottom { left: 0; bottom: -10px; width: 100%; height: 10px; }
+.bar.bar-left { left: -10px; top: 0; width: 10px; height: 100%; }
 
 .ui-autocomplete{ width:300px; max-height:400px; overflow-y:auto; padding:0; font-size:13px; background:#eee; box-shadow:1px 1px 5px #aaa; }
 .ui-autocomplete .ui-menu-item{ padding:0; }
@@ -58,3 +63,92 @@
 .last-news ul li{ margin-bottom:10px; overflow:hidden; }
 .last-news ul li .image{ float:left; margin:0 10px 10px 0; }
 .last-news ul li .content{ overflow:hidden; }
+
+
+.simple-search {
+    margin:0 0 20px;
+}
+.simple-search label {
+    font-size:11px;
+    display:block;
+    margin-bottom:2px;
+    font-size:13px;
+    color:#717171;
+}
+.simple-search input {
+    background:#f0f0f0;
+    padding:5px 0;
+    width:100%;
+
+}
+.simple-filter-block {
+    margin-bottom:20px;
+}
+.simple-filter-block input[type="checkbox"] {
+    display:none;
+}
+.simple-filter-header {
+    margin-top:20px;
+
+}
+.simple-filter-header span {
+    float:left;
+    color:#000;
+    font-size:14px;
+    margin-top:3px;
+}
+.simple-filter-header .check_all  {
+    float:right;
+    cursor:pointer;
+    padding:0px 7px 7px;
+}
+.simple-filter-header .checked {
+    background: #d1d1d1;
+    background: -moz-linear-gradient(top,  #d1d1d1 0%, #d4d4d4 8%, #e1e1e1 28%, #eaeaea 60%, #e9e9e9 64%, #efefef 88%, #efefef 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d1d1d1), color-stop(8%,#d4d4d4), color-stop(28%,#e1e1e1), color-stop(60%,#eaeaea), color-stop(64%,#e9e9e9), color-stop(88%,#efefef), color-stop(100%,#efefef));
+    background: -webkit-linear-gradient(top,  #d1d1d1 0%,#d4d4d4 8%,#e1e1e1 28%,#eaeaea 60%,#e9e9e9 64%,#efefef 88%,#efefef 100%);
+    background: -o-linear-gradient(top,  #d1d1d1 0%,#d4d4d4 8%,#e1e1e1 28%,#eaeaea 60%,#e9e9e9 64%,#efefef 88%,#efefef 100%);
+    background: -ms-linear-gradient(top,  #d1d1d1 0%,#d4d4d4 8%,#e1e1e1 28%,#eaeaea 60%,#e9e9e9 64%,#efefef 88%,#efefef 100%);
+    background: linear-gradient(to bottom,  #d1d1d1 0%,#d4d4d4 8%,#e1e1e1 28%,#eaeaea 60%,#e9e9e9 64%,#efefef 88%,#efefef 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#efefef',GradientType=0 );
+
+}
+.simple-filter-header .check_all span {
+    float:none;
+    font-size:11px;
+    border-bottom:1px dotted;
+    margin:0;
+}
+.simple-filter-options {
+    padding:3px 5px 2px;
+    line-height:20px;
+}
+.simple-filter-options label {
+    display:inline-block;
+    padding:0 7px;
+    margin:0 3px 3px 0;
+    font-size:11px;
+    cursor:pointer;
+    *display:inline;
+
+}
+.simple-filter-options label span {
+    border-bottom:1px dashed;
+}
+.simple-filter-options label.checked {
+    background: #008dc1;
+    background: -moz-linear-gradient(top,  #008dc1 0%, #0290c5 17%, #0094cb 28%, #0495cd 33%, #0098d0 39%, #069ad4 44%, #009cd6 50%, #07a1de 61%, #00a7e4 72%, #00acec 89%, #0aaeee 94%, #00b0f0 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#008dc1), color-stop(17%,#0290c5), color-stop(28%,#0094cb), color-stop(33%,#0495cd), color-stop(39%,#0098d0), color-stop(44%,#069ad4), color-stop(50%,#009cd6), color-stop(61%,#07a1de), color-stop(72%,#00a7e4), color-stop(89%,#00acec), color-stop(94%,#0aaeee), color-stop(100%,#00b0f0));
+    background: -webkit-linear-gradient(top,  #008dc1 0%,#0290c5 17%,#0094cb 28%,#0495cd 33%,#0098d0 39%,#069ad4 44%,#009cd6 50%,#07a1de 61%,#00a7e4 72%,#00acec 89%,#0aaeee 94%,#00b0f0 100%);
+    background: -o-linear-gradient(top,  #008dc1 0%,#0290c5 17%,#0094cb 28%,#0495cd 33%,#0098d0 39%,#069ad4 44%,#009cd6 50%,#07a1de 61%,#00a7e4 72%,#00acec 89%,#0aaeee 94%,#00b0f0 100%);
+    background: -ms-linear-gradient(top,  #008dc1 0%,#0290c5 17%,#0094cb 28%,#0495cd 33%,#0098d0 39%,#069ad4 44%,#009cd6 50%,#07a1de 61%,#00a7e4 72%,#00acec 89%,#0aaeee 94%,#00b0f0 100%);
+    background: linear-gradient(to bottom,  #008dc1 0%,#0290c5 17%,#0094cb 28%,#0495cd 33%,#0098d0 39%,#069ad4 44%,#009cd6 50%,#07a1de 61%,#00a7e4 72%,#00acec 89%,#0aaeee 94%,#00b0f0 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008dc1', endColorstr='#00b0f0',GradientType=0 );
+    color:#fff;
+}
+.simple-filter-options label.checked  span {
+    border:0;
+}
+.simple-filter-options label.checked.gray-checked, .all-gray-checked  label.checked {
+    background: #F79016;
+}

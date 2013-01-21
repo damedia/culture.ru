@@ -170,7 +170,7 @@
                 <ul class="slides image-slider">
                     {% for h in entity.images %}
                         <li>
-                            <img src="{% path h, 'atlasW613' %}" alt="" />
+                            <a class="fancybox" href="{% path h, 'reference' %}"><img src="{% path h, 'atlasW613' %}" alt="" /></a>
                             <div class="image-stats">
                                 {#<a href="#" class="image-code-link">Код для вставки</a>#}
                                 <p>
@@ -267,7 +267,7 @@
                 <div class="block">
                     <article class="static-block video-block">
                         <h2>Видео</h2>
-                        <a class="block-image iframe" href="#data-{{ loop.index }}">
+                        <a class="block-image fancybox" href="#data-{{ loop.index }}">
                             <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
                             <span class="play"></span>
                         </a>

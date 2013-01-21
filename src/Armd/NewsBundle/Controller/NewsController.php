@@ -96,7 +96,7 @@ class NewsController extends Controller
     {
         try {
             $id = (int) $this->getRequest()->get('id');
-            $entity = $this->getEntityRepository()->find($id);
+            $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
             return array('entity' => $entity);
         }
         catch (\Exception $e) {
