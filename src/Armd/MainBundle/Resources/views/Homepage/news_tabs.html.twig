@@ -54,11 +54,13 @@
                                  </span>
 
                                  <p>
-                                     {% if n.date %}
-                                         {{ n.date|date('d.m.Y') }}
-                                         {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
-                                     {% endif %}
-                                     {{ n.title|raw }}
+                                     <a href="{{ path('armd_news_item_by_category', {'category': n.category.slug, 'id': n.id} ) }}">
+                                         {% if n.date %}
+                                             {{ n.date|date('d.m.Y') }}
+                                             {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                         {% endif %}
+                                         {{ n.title|raw }}
+                                     </a>
                                  </p>
                              </div>
                          </li>

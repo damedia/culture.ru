@@ -121,12 +121,12 @@ class Builder extends ContainerAware
             )
         );
 
-        $eventsMenu->addChild(
-            'menu.events_on_map',
-            array(
-                'route' => 'armd_news_map',
-            )
-        );
+//        $eventsMenu->addChild(
+//            'menu.events_on_map',
+//            array(
+//                'route' => 'armd_news_map',
+//            )
+//        );
         //--- /Events
 
 
