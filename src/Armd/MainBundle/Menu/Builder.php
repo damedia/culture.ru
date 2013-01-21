@@ -70,6 +70,14 @@ class Builder extends ContainerAware
                 'route' => 'armd_main_project_traditions'
             )
         );
+
+        $mainMenu->addChild(
+            'menu.kids',
+            array(
+                'uri' => '/kids/children.html'
+            )
+        );
+
         //--- /Main
 
 
