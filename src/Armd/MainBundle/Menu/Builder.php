@@ -167,6 +167,14 @@ class Builder extends ContainerAware
                 'route' => 'armd_main_library'
             )
         );
+
+        $infoMenu->addChild(
+            'menu.banners',
+            array(
+                'route' => 'armd_main_banners'
+            )
+        );
+
         //--- /Information
 
 
