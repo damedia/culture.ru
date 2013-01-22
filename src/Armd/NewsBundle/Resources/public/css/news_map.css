@@ -39,7 +39,7 @@
 
 .atlas-center{ float:right; width:75%; position:static; }
 
-.atlas-map{ width:860px; margin-bottom:20px; overflow:hidden; position:relative; }
+.atlas-map{ margin-right:20px; margin-bottom:20px; overflow:hidden; position:relative; }
 .atlas-map .regions-selector{ z-index:100; position:absolute; top:-25px; right:0; }
 .atlas-map .regions-selector select{ width:270px; }
 .atlas-map .regions-selector .chzn-container-single .chzn-single{ height:25px; border:none; box-shadow:none; background:#00A02D; color:#fff; }
