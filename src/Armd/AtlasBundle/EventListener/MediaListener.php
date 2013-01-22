@@ -23,6 +23,13 @@ class MediaListener
                 }
             }
 
+            $objects = $em->getRepository('ArmdAtlasBundle:Object')->findBySideBannerImage($entity);
+            if($objects) {
+                foreach($objects as $object) {
+                    $object->setSideBannerImage(null);
+                }
+            }
+
             // unlink referenced atlas objects (image3d)
             $objects = $em->getRepository('ArmdAtlasBundle:Object')->findByPrimaryImage($entity);
             if($objects) {

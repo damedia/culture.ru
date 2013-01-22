@@ -109,7 +109,7 @@ class Object implements Taggable
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="side_banner_image_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="side_banner_image_id", referencedColumnName="id")
      */
     private $sideBannerImage;
 
@@ -757,7 +757,9 @@ class Object implements Taggable
      */
     public function setSideBannerImage(\Application\Sonata\MediaBundle\Entity\Media $bannerImage = null)
     {
-        $this->sideBannerImage = $bannerImage;
+        if (is_null($bannerImage) || $bannerImage->isUploaded()) {
+            $this->sideBannerImage = $bannerImage;
+        }
 
         return $this;
     }

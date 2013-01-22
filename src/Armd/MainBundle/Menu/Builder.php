@@ -167,6 +167,14 @@ class Builder extends ContainerAware
                 'route' => 'armd_main_library'
             )
         );
+
+        $infoMenu->addChild(
+            'menu.banners',
+            array(
+                'route' => 'armd_main_banners'
+            )
+        );
+
         //--- /Information
 
 
@@ -195,7 +203,7 @@ class Builder extends ContainerAware
             )
         );
 
-        $currentMenuItem = $specialMenu->addChild(
+        $specialMenu->addChild(
             'menu.special_projects_romanov450',
             array(
                 'route' => 'armd_news_item_by_category',
@@ -207,9 +215,17 @@ class Builder extends ContainerAware
             'menu.special_projects_stanislavski',
             array(
                 'route' => 'armd_news_item_by_category',
-                'routeParameters' => array('category' => 'news', 'id' => 954)
+                'routeParameters' => array('category' => 'news', 'id' => 3724)
             )
         );
+
+        $specialMenu->addChild(
+            'menu.special_projects_1150',
+            array(
+                'route' => 'armd_main_project_1150'
+            )
+        );
+
         //--- /Special
 
         $menu->setCurrentUri($request->getRequestUri());

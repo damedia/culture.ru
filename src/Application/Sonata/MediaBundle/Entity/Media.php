@@ -105,14 +105,13 @@ class Media extends BaseMedia
 
     public function isUploaded()
     {
-        if(($this->getProviderStatus() == Media::STATUS_OK) || !empty($this->formFile)) {
+        if (($this->getProviderStatus() == Media::STATUS_OK)
+            || !empty($this->formFile)
+            || $this->getBinaryContent()
+        ) {
             return true;
-        } else {
-            $content = $this->getBinaryContent();
-            if(!empty($content)) {
-                return true;
-            }
         }
+
         return false;
     }
 

@@ -20,6 +20,7 @@ menu.culture_magazine: '"Culture" magazine'
 menu.literature_magazine: '"Literature magazine"'
 menu.government_services: Government services
 menu.library: Library
+menu.banners: Banners
 
 menu.communication: Communication
 
@@ -27,6 +28,8 @@ menu.special_projects: Projects
 menu.borodino: Borodino
 menu.special_projects_romanov450: The Romanovs
 menu.special_projects_stanislavski: Stanislavski
+menu.special_projects_1150: 1150 years of statehood
+
 #---------------- /menu -------------------------
 
 

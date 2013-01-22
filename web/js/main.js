@@ -306,7 +306,7 @@ $(function () {
         $('.section-active').removeClass('section-active');
         $active.addClass('section-active');
 
-        $('.active').removeClass('active');
+        $('.time-line-nav .active').removeClass('active');
         $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
 
         // console.log($('a[href=#' + $active.attr('id') + ']'));
@@ -361,4 +361,10 @@ $(function () {
         return false;
     }).eq(0)
 
+    $(window).load(function(){
+        $('.event-one_image').each(function(){
+            $(this).find('figcaption').width($(this).find('img').width());
+        })
+    })
+    
 })

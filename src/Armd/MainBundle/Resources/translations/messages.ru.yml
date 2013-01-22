@@ -20,6 +20,7 @@ menu.culture_magazine: Газета "Культура"
 menu.literature_magazine: '"Литературная газета"'
 menu.government_services: Госуслуги
 menu.library: Библиотека
+menu.banners: Баннеры
 
 menu.communication: Общение
 
@@ -27,6 +28,9 @@ menu.special_projects: Спецпроекты
 menu.borodino: Бородино
 menu.special_projects_romanov450: Романовы
 menu.special_projects_stanislavski: Станиславский
+menu.special_projects_1150: 1150 лет государственности
+
+
 #---------------- /menu -------------------------
 
 

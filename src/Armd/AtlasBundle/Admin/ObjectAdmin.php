@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -309,6 +310,18 @@ class ObjectAdmin extends Admin
         $themes = parent::getFormTheme();
         $themes[] = 'ArmdAtlasBundle:Form:fields.html.twig';
         return $themes;
+    }
+
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        if ($this->getSubject()->getShowAtRussianImage() && !$this->getSubject()->getSideBannerImage()) {
+            $errorElement->addViolation('Для Образа России должен быть задан Боковой баннер');
+//            $errorElement
+//                ->with('sideBannerImage')
+//                    ->assertNotNull()
+//                    ->addViolation('Для Образа России должен быть задан Боковой баннер')
+//                ->end();
+        }
     }
 
     public function postPersist($object)

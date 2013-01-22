@@ -20,9 +20,11 @@
             </ul>
 
             <ul class="theme-news-list search-news-list">
-                {% for i in lasti+1..(news|length-1) if (i < news|length) %}
-                    <li>{{ self.article(news[i]) }}</li>
-                {% endfor %}
+                {% if lasti + 1 <=  news|length - 1 %}
+                    {% for i in lasti+1..(news|length-1) if (i < news|length) %}
+                        <li>{{ self.article(news[i]) }}</li>
+                    {% endfor %}
+                {% endif %}
             </ul>
 
         </div>
