@@ -36,7 +36,7 @@
                                         {{ n.date|date('d.m.Y') }}
                                         {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
                                     {% endif %}
-                                    {{ n.title|raw }}
+                                    <a href="{{ articleHref }}" class="no-decoration">{{ n.title|raw }}</a>
                                 </p>
                             </div>
                         </li>

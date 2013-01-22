@@ -94,7 +94,10 @@
 </head>
 <body class="locale_{{ app.request.locale }}">
     <div id="armd_messages" style="display: none;"></div>
-    <a href="{{ path('armd_main_project_brodino') }}" class="header-banner"></a>
+    <div class="header-banner">
+        <a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;">
+        </a>
+    </div>
 
     {% include ':Frontend:counters_top.html.twig' %}
 
@@ -162,6 +165,7 @@
                 <div class="footer-share">
                     <p>
                         Рассказать о портале <span id="yandex-share-global"></span>
+                        <a href="/press-centre/rss/" class="rss-icon" title="События"></a>
                     </p>
 
                     {#<div class="social-links">#}

@@ -361,4 +361,10 @@ $(function () {
         return false;
     }).eq(0)
 
+    $(window).load(function(){
+        $('.event-one_image').each(function(){
+            $(this).find('figcaption').width($(this).find('img').width());
+        })
+    })
+    
 })
