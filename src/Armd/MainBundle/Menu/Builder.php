@@ -210,6 +210,14 @@ class Builder extends ContainerAware
                 'routeParameters' => array('category' => 'news', 'id' => 3724)
             )
         );
+
+        $specialMenu->addChild(
+            'menu.special_projects_1150',
+            array(
+                'route' => 'armd_main_project_1150'
+            )
+        );
+
         //--- /Special
 
         $menu->setCurrentUri($request->getRequestUri());

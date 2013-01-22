@@ -8,7 +8,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ProjectController extends Controller
 {
     function indexAction($template = 'ArmdMainBundle:Project:index.html.twig')
-    {    
+    {
+        // fix current menu item
+        $routeName = $this->getRequest()->get('_route');
+        if ($routeName === 'armd_main_project_1150') {
+            $this->get('armd_main.menu.main')->setCurrentUri(
+                $this->get('router')->generate('armd_main_project_1150')
+            );
+        }
+
+
         return $this->render($template);
     }
     

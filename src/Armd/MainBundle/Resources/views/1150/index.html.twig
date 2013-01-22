@@ -5,10 +5,9 @@
 
 {% block title %}{{ parent() }} — {{ title }}{% endblock %}
 
+{% block page_header_title %}{{ title }}{% endblock %}
+
 {% block content %}
-	<div class="title yellow-title star-title">
-		<h2>{{ title }}</h2>
-	</div>
 	<div class="text-indent">
 		
 		<img src="/img/project-dates.png" alt="" class="borodino-dates" />
@@ -21,31 +20,31 @@
 		<div class="video-anons video-three">
 			<ul>
 				<li>
-					<a href="/atlas/object/697">
+					<a href="{{ path('armd_atlas_default_object_view', {'id': 697} ) }}">
 						<img src="/img/project/nov.jpg" alt="" />
 					</a>
 					<div class="ppa-anons">
-						<a href="/atlas/object/697">
+						<a href="{{ path('armd_atlas_default_object_view', {'id': 697} ) }}">
 							Исторические памятники Новгорода и окрестностей
 						</a>
 					</div>
 				</li> 
 				<li>
-					<a href="/atlas/object/694">
+					<a href="{{ path('armd_atlas_default_object_view', {'id': 694} ) }}">
 						<img src="/img/project/piter.jpg" alt="" />
 					</a>
 					<div class="ppa-anons">
-						<a href="/atlas/object/694">
+						<a href="{{ path('armd_atlas_default_object_view', {'id': 694} ) }}">
 							Исторический центр Санкт-Петербурга
 						</a>
 					</div>
 				</li> 
 				<li>
-					<a href="/atlas/object/705">
+					<a href="{{ path('armd_atlas_default_object_view', {'id': 705} ) }}">
 						<img src="/img/project/yar.jpg" alt="" />
 					</a>
 					<div class="ppa-anons">
-						<a href="/atlas/object/705">
+						<a href="{{ path('armd_atlas_default_object_view', {'id': 705} ) }}">
 							Исторический центр Ярославля
 						</a>
 					</div>
@@ -53,9 +52,7 @@
 			</ul>
 		</div>
 		<div class="yellow-border-block">
-			<p class="yellow-border-header">
-				<span>Лента времени</span>
-			</p>
+            <h2>Лента времени</h2>
 			<div class="video-anons video-three project-object-list">
 				<ul>
 					<li>
