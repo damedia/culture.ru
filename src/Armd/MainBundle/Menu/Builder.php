@@ -195,7 +195,7 @@ class Builder extends ContainerAware
             )
         );
 
-        $currentMenuItem = $specialMenu->addChild(
+        $specialMenu->addChild(
             'menu.special_projects_romanov450',
             array(
                 'route' => 'armd_news_item_by_category',
@@ -207,7 +207,7 @@ class Builder extends ContainerAware
             'menu.special_projects_stanislavski',
             array(
                 'route' => 'armd_news_item_by_category',
-                'routeParameters' => array('category' => 'news', 'id' => 954)
+                'routeParameters' => array('category' => 'news', 'id' => 3724)
             )
         );
         //--- /Special
