@@ -161,7 +161,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block left_column %}
 
-    <h1>{{ entity.title }}</h1>
+    <h1 class="obraz-header">{{ entity.title }}</h1>
 
     <!-- Photo gallery -->
     {% if entity.images|length > 0 %}
@@ -236,7 +236,7 @@
             {% for virtualTour in entity.virtualTours if loop.first %}
                 <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
                     {#<img src="/images/virt-tour.jpg" alt="" />#}
-                    <img src="{% path virtualTour.image, 'reference' %}" alt="" />
+                    <img src="{% path virtualTour.image, 'reference' %}" alt="" width="280" />
                     <span class="virt-tour-anons-over"></span>
                 </a>
             {% endfor %}
@@ -252,7 +252,7 @@
             <section class="static-block">
                 <h2>Инфографика</h2>
                 <a href="{% path entity.image3d, 'reference' %}" class="inf-anons zoom-fancybox">
-                    <img width="300" src="{% path entity.image3d, 'image3d' %}" alt=""/>
+                    <img width="280" src="{% path entity.image3d, 'image3d' %}" alt=""/>
                 </a>
             </section>
         </div>
@@ -410,7 +410,7 @@
                             {#<img alt="" class="plitka-image" src="">#}
                         </a>
                         <div class="plitka-text">
-                            <span class="plitka-name"> {{ object.title }} </span>
+                            <span class="plitka-name"> <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}" class="no-decoration">{{ object.title }}</a> </span>
                         </div>
                     </div>
                 </li>

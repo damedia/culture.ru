@@ -68,16 +68,14 @@
         </p>
     </div>
 
-    <div class="clear"></div>
+    
     {{ entity.body|raw }}
 
 
 </article>
 
 
-<section class="block">
-    {% render "ArmdNewsBundle:News:readAlsoNews" with { "entity":entity, "limit":2 } %}
-</section>
+
 
 
 <div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">Назад</a></p></div>
@@ -86,6 +84,9 @@
     <div href="#" class="publish-links">Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
 </div>
 
+<section class="block">
+    {% render "ArmdNewsBundle:News:readAlsoNews" with { "entity":entity, "limit":2 } %}
+</section>
 
 {% endblock %}
 
