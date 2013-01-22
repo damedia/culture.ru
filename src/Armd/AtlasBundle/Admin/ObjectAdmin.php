@@ -312,10 +312,17 @@ class ObjectAdmin extends Admin
         return $themes;
     }
 
-//    public function validate(ErrorElement $errorElement, $object)
-//    {
-//        throw new \Exception(__METHOD__);
-//    }
+    public function validate(ErrorElement $errorElement, $object)
+    {
+        if ($this->getSubject()->getShowAtRussianImage() && !$this->getSubject()->getSideBannerImage()) {
+            $errorElement->addViolation('Для Образа России должен быть задан Боковой баннер');
+//            $errorElement
+//                ->with('sideBannerImage')
+//                    ->assertNotNull()
+//                    ->addViolation('Для Образа России должен быть задан Боковой баннер')
+//                ->end();
+        }
+    }
 
     public function postPersist($object)
     {
