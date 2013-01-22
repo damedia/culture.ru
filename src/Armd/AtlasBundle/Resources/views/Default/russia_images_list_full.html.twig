@@ -10,15 +10,15 @@
             <a href="#" class="full-list-type object-region" data-region-id="{{ region.id }}"> {{ region.title }} </a>
         {% endif %}
 		<span class="full-list-name">
-            {{ object.title|truncate(50) }}
+            <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="no-decoration">{{ object.title|truncate(50) }}</a>
 		</span>
 		<div class="plitka-footer">
 			<div class="types-icons">
-                <span class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
-                <span class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
-                <span class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
-                <span class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
-                <span class="ti-list"></span>
+                <span title="Видео" class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
+                <span title="Виртуальный тур" class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
+                <span title="Инфографика" class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
+                <span title="Фотогалерея" class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
+                <span title="Архивы" class="ti-list"></span>
 			</div>
 		</div>
 	</div>

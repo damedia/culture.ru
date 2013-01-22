@@ -4,7 +4,7 @@
 
         {% for object in objects %}
             <div class="recommend-block">
-                {% thumbnail object.sideBannerImage, 'sideBanner' %}
+                <a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">{% thumbnail object.sideBannerImage, 'sideBanner' %}</a>
 
                 <div class="recommend-over">
                     <div class="recommend_name">

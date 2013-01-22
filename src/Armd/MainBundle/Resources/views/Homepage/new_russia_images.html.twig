@@ -8,10 +8,10 @@
 			</a>
 			<div class="plitka-text">
 				<span class="plitka-name">
-                    {{ object.title }}
+                    <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="no-decoration">{{ object.title }}</a>
                 </span>
 			</div>
-			<div class="plitka-footer">
+			{#<div class="plitka-footer">
 				<div class="types-icons">
                     <span class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
                     <span class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
@@ -19,7 +19,7 @@
                     <span class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
                     <span class="ti-list"></span>
 				</div>
-			</div>
+			</div> #}
 		</div>
 	</li>
 </ul>
@@ -31,8 +31,8 @@
                 {% thumbnail object.primaryImage, 'imagesOfRussiaSmall' %}
             </a>
             <div class="index-obraz-list-text">
-                <a href="{{ path('armd_atlas_russia_images', {region_id: object.regions[0].id }) }}" class="index-obraz-name">{{ object.regions[0].title }}</a>
-                <p>{{ object.title }}</p>
+                <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="index-obraz-name">{{ object.title }}</a>
+                <p><a href="{{ path('armd_atlas_russia_images', {region_id: object.regions[0].id }) }}" class="no-decoration">{{ object.regions[0].title }}</a></p>
             </div>
         </li>
     {% endfor %}

@@ -146,10 +146,11 @@
         <!-- /Main block -->
 
         <!-- Footer block -->
+		{% block main_footer%}
         <footer class="main-footer clearfix">
-            <div class="footer-copyright">
+            <a href="http://mkrf.ru/" target="_blank" class="footer-copyright">
                 <p>Министерство культуры<br/>Российской Федерации.</p>
-            </div>
+            </a>
 
             <div class="footer-social">
                 <div class="footer-banners">
@@ -175,6 +176,7 @@
                 </ul>
             </div>
         </footer>
+		{% endblock %}
         <!-- /Footer block -->
     </div>
 </body>

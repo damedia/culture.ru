@@ -169,21 +169,22 @@
                     <div>{{ lecture.description|raw }}</div>
                 </div>
             </div>
-            <div class="video-one-crew clearfix">
-                <div class="video-one-crew-block video-one-crew-block-first">
-
-                    <h3 class="crew-block-header">Создатели</h3>
-                    <dl class="crew-dl-list">
-                        {% for key in lectureRolesPersons|keys %}
-                            <dt>{{ key|capitalize }}:</dt>
-                            <dd>
-                                {% for person in lectureRolesPersons[key] %}
-                                    <a href="#"><nobr>{{ person.name }}</nobr></a>{% if not loop.last %},{% endif %}
-                                {% endfor %}
-                            </dd>
-                        {% endfor %}
-                    </dl>
-                </div>
+            {% if lectureRolesPersons|length > 0 %}
+			<div class="video-one-crew clearfix">
+					<div class="video-one-crew-block video-one-crew-block-first">
+						<h3 class="crew-block-header">Создатели</h3>
+						<dl class="crew-dl-list">
+							{% for key in lectureRolesPersons|keys %}
+								<dt>{{ key|capitalize }}:</dt>
+								<dd>
+									{% for person in lectureRolesPersons[key] %}
+										<a href="#"><nobr>{{ person.name }}</nobr></a>{% if not loop.last %},{% endif %}
+									{% endfor %}
+								</dd>
+							{% endfor %}
+						</dl>
+					</div>
+				
                 {#
                 <div class="video-one-crew-block">
                     <h3 class="crew-block-header">В ролях</h3>
@@ -204,6 +205,7 @@
                 </div>
                 #}
             </div>
+			{% endif %}
         </section>
 
         <div class="back-link">
