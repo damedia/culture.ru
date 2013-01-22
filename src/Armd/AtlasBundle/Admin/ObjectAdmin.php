@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -310,6 +311,11 @@ class ObjectAdmin extends Admin
         $themes[] = 'ArmdAtlasBundle:Form:fields.html.twig';
         return $themes;
     }
+
+//    public function validate(ErrorElement $errorElement, $object)
+//    {
+//        throw new \Exception(__METHOD__);
+//    }
 
     public function postPersist($object)
     {

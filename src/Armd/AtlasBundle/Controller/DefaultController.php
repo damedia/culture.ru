@@ -93,7 +93,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("russia-images", name="armd_atlas_russia_images")
+     * @Route("russia-images/", name="armd_atlas_russia_images")
      * @Template("ArmdAtlasBundle:Default:russia_images.html.twig")
      */
     public function russiaImagesAction()
