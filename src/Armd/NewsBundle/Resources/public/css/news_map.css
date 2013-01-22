@@ -47,7 +47,7 @@
 .atlas-map .regions-selector .chzn-container .chzn-results .highlighted{ background:#00A02D; }
 .atlas-map .regions-selector .chzn-container .chzn-results li{ padding:4px 6px; }
 
-.bar { background: none repeat scroll 0 0 #FF0000; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); position: absolute; z-index: 2; }
+.bar { box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); position: absolute; z-index: 2; }
 .bar.bar-top { left: 0; top: -10px; width: 100%; height: 10px; }
 .bar.bar-right { right: -10px; top: 0; width: 10px; height: 100%; }
 .bar.bar-bottom { left: 0; bottom: -10px; width: 100%; height: 10px; }
