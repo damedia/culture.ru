@@ -1,28 +1,35 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/jquery.ui.selectgroup.css') }}">
-{% endblock %}
-
-{#--------------------------------------------------------------------------------------------------------------------#}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
     <script src="{{ asset('vendor/jquery.form.js') }}"></script>
     <script>
         $(function(){
             // При выборе типа видосов, подгружаем список категорий
-            // НЕ РАБОТАЕТ!
-            $('#form_supertype').on('change', function(){
-                console.log('xxx', $(this).val());
-            });
-
             $('.ui-selectgroup-list li a').live('click', function(){
+                var combo = $(this).closest('.ui-selectgroup-list').attr('aria-labelledby');
+                var superTypeId = $(this).data('value');
 
-                console.log( $(this).closest('.ui-selectgroup-list').attr('aria-labelledby') );
-                console.log( $(this).data('value') );
+                if (combo == 'ui-form_supertype') {
+                    // ajax-загрузка genre by supertype
+                    var url = Routing.generate('armd_lecture_default_fetchgenresbysupertype', { superTypeId: superTypeId });
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        success: function(json){
+                            // создаем комбобокс с жанрами
+                            var optionsHtml = '';
+                            $(json).each(function(i, el){
+                                optionsHtml += '<option value="'+ el.value +'">' + el.title + '</option>';
+                            });
+                            $('#form_genre').html(optionsHtml);
+                            $('#form_genre option:first').attr('selected', 'selected');
+                            $('#form_genre').selectgroup('refresh');
+                        }
+                    });
+                }
+                return false;
             });
 
             // Ajax Form handler

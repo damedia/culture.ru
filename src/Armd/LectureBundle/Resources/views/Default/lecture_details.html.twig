@@ -31,16 +31,45 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('new_design/css/jquery.ui.selectgroup.css') }}">
+    <style>
+        #lectures-filter { display: inline; }
+    </style>
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('new_design/js/jquery.ui.selectgroup.js') }}"></script>
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
-           initSocialShare();
+            initSocialShare();
+
+            // При выборе типа видосов, подгружаем список категорий
+            $('.ui-selectgroup-list li a').live('click', function(){
+                var combo = $(this).closest('.ui-selectgroup-list').attr('aria-labelledby');
+                var superTypeId = $(this).data('value');
+
+                if (combo == 'ui-form_supertype') {
+                    // ajax-загрузка genre by supertype
+                    var url = Routing.generate('armd_lecture_default_fetchgenresbysupertype', { superTypeId: superTypeId });
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        success: function(json){
+                            // создаем комбобокс с жанрами
+                            var optionsHtml = '';
+                            $(json).each(function(i, el){
+                                optionsHtml += '<option value="'+ el.value +'">' + el.title + '</option>';
+                            });
+                            $('#form_genre').html(optionsHtml);
+                            $('#form_genre option:first').attr('selected', 'selected');
+                            $('#form_genre').selectgroup('refresh');
+                        }
+                    });
+                }
+                return false;
+            });
+
         });
         function initSocialShare() {
             new Ya.share({
@@ -72,28 +101,17 @@
     <div class="search-panel">
         <div class="search-category">
             <span class="search-dates-label">Выбрать</span>
-            <div class="search-category-selects">
-                <select name="select1" id="select1" class="uni">
-                    <option value="1">Категория</option>
-                    <option value="2">100 лучших фильмов</option>
-                    <option value="3">Исторические</option>
-                    <option value="3">Военные</option>
-                    <option value="3">Драмы</option>
-                    <option value="3">Трагедии</option>
-                    <option value="3">Комедии</option>
-                </select>
-                <select name="select2" id="select2" class="uni">
-                    <option value="1">Жанр</option>
-                    <option value="2">Жанр</option>
-                    <option value="3">Жанр</option>
-                </select>
-                <select name="select3" id="select3" class="uni">
-                    <option value="1">Тематика</option>
-                    <option value="2">Тематика</option>
-                    <option value="3">Тематика</option>
-                </select>
-            </div>
-            <a href="#" class="button search-dates-button">Показать</a>
+            <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="post" {{ form_enctype(form) }}>
+                <div class="search-category-selects">
+                    {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}
+                    {{ form_widget(form.genre, { 'attr': {'class': 'uni'} }) }}
+                    <div style="display: none;">
+                        {{ form_widget(form.theme, { 'attr': {'class': 'uni'} }) }}
+                        {{ form_rest(form) }}
+                    </div>
+                </div>
+                <button type="submit" class="button search-dates-button">Показать</button>
+            </form>
         </div>
         <div class="search-top clearfix">
             <form action="">

@@ -189,7 +189,7 @@
 			var that = this;
 			$.each(this.selectors, function(index) {
 				var self = this;
-				var list = $('<li role="presentation"><a role="option" href="#">'+ this.text +'</a></li>')
+                var list = $('<li role="presentation"><a role="option" href="#" data-value="'+this.value+'">'+ this.text +'</a></li>')
 					.bind('click.selectgroup', function(event) {
 						event.preventDefault();
 						if (!(self.disabled === 'disabled' || self.optDisabled === 'disabled')) {

@@ -136,7 +136,28 @@ class DefaultController extends Controller
         $manager = $this->get('armd_lecture.manager.lecture');
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
 
+        // Форма фильтра по категориям и тематике
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $page      = $request->get('page', 1);
+        $perPage   = $request->get('perPage', 16);
+        $superTypeId = $request->get('category', null);
+        if ($superTypeId) {
+            $superType = $em->getRepository('ArmdLectureBundle:LectureSuperType')->find($superTypeId);
+        } else {
+            $superType = null;
+        }
+
+        $defaultValues = array(
+            'sort'      => $request->get('id', 'date'),
+            'supertype' => $superType,
+            'page'      => $page,
+            'perPage'   => $perPage,
+        );
+        $form = $this->getFilterForm($defaultValues);
+
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
+            'form' => $form->createView(),
             'referer' => $this->getRequest()->headers->get('referer'),
             'lecture' => $lecture,
             'lectureVersion' => $version,
@@ -214,40 +235,8 @@ class DefaultController extends Controller
             'page'      => $page,
             'perPage'   => $perPage,
         );
-        $form = $this->createFormBuilder($defaultValues)
-            ->add('search',   'text', array(
-                'required' => false
-            ))
-            ->add('supertype', 'entity', array(
-                'class' => 'ArmdLectureBundle:LectureSuperType',
-                'property' => 'name',
-                'empty_value' => 'Категория',
-                'required' => false,
-            ))
-            ->add('genre',  'entity', array(
-                'class' => 'ArmdLectureBundle:LectureCategory',
-                'property' => 'title',
-                'empty_value' => 'Жанр',
-                'required' => false,
-                'query_builder' => function(\Doctrine\ORM\EntityRepository $repo) {
-                    return $repo->createQueryBuilder('c')
-                                ->where('c.lectureSuperType IS NULL')
-                                ->orderBy('c.lft', 'ASC');
-                }
-            ))
-            ->add('theme',  'entity', array(
-                'class' => 'ArmdLectureBundle:LectureSuperType',
-                'property' => 'name',
-                'empty_value' => 'Тематика',
-                'required' => false
-            ))
-            ->add('sort',   'choice', array(
-                'choices' => array('id' => 'by Id', 'title' => 'by Title', 'date' => 'by Date'),
-                'required' => true
-            ))
-            ->add('page',    'text', array('required' => false))
-            ->add('perPage', 'text', array('required' => false))
-            ->getForm();
+
+        $form = $this->getFilterForm($defaultValues);
 
         if ($this->getRequest()->isMethod('POST')) {
             $form->bind($this->getRequest());
@@ -266,22 +255,66 @@ class DefaultController extends Controller
         }
 
         $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
+        if ($lectures) {
+            $lecturesItems = isset($lectures['items']) ? $lectures['items'] : false;
+            $lecturesTotal = $lectures['total'];
+        } else {
+            $lecturesItems = false;
+            $lecturesTotal = false;
+        }
 
         if ($request->isXmlHttpRequest()) {
             $html = $this->render('ArmdLectureBundle:Default:plitka_one_wrap.html.twig', array(
-                'lectures' => $lectures['items'],
+                'lectures' => $lecturesItems,
             ));
-            return new Response(json_encode(array(
+
+            $response = new Response(json_encode(array(
                 'html' => $html->getContent(),
-                'total' => $lectures['total'],
+                'total' => $lecturesTotal,
             )));
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
         } else {
             return array(
                 'form' => $form->createView(),
-                'lectures' => $lectures['items'],
-                'lecturesTotal' => $lectures['total'],
+                'lectures' => $lecturesItems,
+                'lecturesTotal' => $lecturesTotal,
             );
         }
+    }
+
+    protected function getFilterForm($defaultValues)
+    {
+        $form = $this->createFormBuilder($defaultValues)
+            ->add('search',   'text', array(
+                'required' => false
+            ))
+            ->add('supertype', 'entity', array(
+                'class' => 'ArmdLectureBundle:LectureSuperType',
+                'property' => 'name',
+                'empty_value' => 'Категория',
+                'required' => false,
+            ))
+            ->add('genre',  'choice', array(
+                'empty_value' => 'Жанр',
+                'required' => false,
+            ))
+            ->add('theme',  'entity', array(
+                'class' => 'ArmdLectureBundle:LectureSuperType',
+                'property' => 'name',
+                'empty_value' => 'Тематика',
+                'required' => false
+            ))
+            ->add('sort',   'choice', array(
+                'choices' => array('id' => 'by Id', 'title' => 'by Title', 'date' => 'by Date'),
+                'required' => true
+            ))
+            ->add('page',    'text', array('required' => false))
+            ->add('perPage', 'text', array('required' => false))
+            ->getForm();
+
+        return $form;
     }
 
     /**
@@ -297,6 +330,29 @@ class DefaultController extends Controller
             ->findRelated($tags, $limit, $superType);
 
         return array('lectures' => $lectures);
+    }
+
+    /**
+     * @Route("/fetch-genres/{superTypeId}", requirements={"superTypeId"="\d+"}, options={"expose"=true}, defaults={"_format"="json"}, name="armd_lecture_default_fetchgenresbysupertype")
+     */
+    public function fetchGenresBySupertypeAction($superTypeId)
+    {
+        $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureCategory');
+        $rows = $repo->findBy(
+            array('root' => $superTypeId, 'lvl' => 2),
+            array('lft' => 'ASC')
+        );
+
+        $res = array();
+
+        foreach ($rows as $row) {
+            $res[] = array(
+                'title' => $row->getTitle(),
+                'value' => $row->getId(),
+            );
+        }
+
+        return $res;
     }
 
 }

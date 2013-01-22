@@ -1175,6 +1175,9 @@ body {
 			border:1px solid #ededed;
 			position:relative;
 		}	
+            .video-one_container iframe {
+                display: block;
+            }
 			.play  {
 				position:absolute;
 				top:50%;
