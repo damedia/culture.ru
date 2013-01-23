@@ -1,5 +1,5 @@
 {% if banner %}
-    <a href="{{ banner.href }}" style="background:url({{ banner.webPath }}) no-repeat 50% 0;"></a>
+    <a href="{{ banner.href }}" style="background:url(http://{{ app.request.host }}{{ banner.webPath }}) no-repeat 50% 0;"></a>
 {% else %}
     <a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;"></a>
 {% endif %}
