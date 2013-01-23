@@ -52,11 +52,7 @@ class MainController extends Controller
             ->getRepository('ArmdBannerBundle:Banner')
             ->getBanner('HEAD_BANNER');
 
-        if ($banner) {
-            return new Response('<a href="' . $banner->getHref() . '" style="background:url(' . $banner->getWebPath() . ') no-repeat 50% 0;"></a>');
-        } else {
-            return new Response('<a href="/borodino/" style="background:url(/img/bg.jpg)) no-repeat 50% 0;"></a>');
-        }
+        return $this->render('ArmdMainBundle:Main:background_banner.html.twig', array('banner' => $banner));
     }
 
     public function bannerAction()
