@@ -58,7 +58,8 @@ class SpecialController extends Controller
         
         foreach ($categories as $c)
         {
-            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPagination(array('category' => $c->getSlug()), 1, 4);
+//            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPagination(array('category' => $c->getSlug()), 1, 4);
+            $result[$c->getSlug()] = $this->getNewsManager()->getPager(array('category' => $c->getSlug()), 1, 4);
         }
         
         return $result;

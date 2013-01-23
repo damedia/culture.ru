@@ -15,7 +15,7 @@
 			<link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
 			<link rel="stylesheet" href="{{ asset('css/blind.css') }}">
 		{% endblock %}
-        <script src="{{ asset('js/js_vendor/modernizr-2.6.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
     </head>
 	<body>
 		<div class="wrapper">
@@ -107,9 +107,9 @@
 			</div>
 		</footer>
 		{% block javascripts %}
-			<script src="{{ asset('js/js_vendor/jquery-1.8.0.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
 			<script src="{{ asset('js/plugins.js') }}"></script>
-			<script src="{{ asset('js/jquery.cookie.js') }}"></script>
 			<script src="{{ asset('js/blind.js') }}"></script>
        {% endblock %}
     </body>
