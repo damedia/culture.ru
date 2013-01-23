@@ -95,8 +95,14 @@
 <body class="locale_{{ app.request.locale }}">
     <div id="armd_messages" style="display: none;"></div>
     <div class="header-banner">
-        <a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;">
-        </a>
+        {#{% if armd_has_banner('HEAD_BANNER') %}#}
+            {#{{ armd_banner('HEAD_BANNER')|raw }}#}
+        {#{% else %}#}
+            {#<img src="{{ asset('/img/bg.jpg') }}" alt="" />#}
+        {#{% endif %}#}
+
+        {#<a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;"></a>#}
+        {% render 'ArmdMainBundle:Main:backgroundBanner' %}
     </div>
 
     {% include ':Frontend:counters_top.html.twig' %}

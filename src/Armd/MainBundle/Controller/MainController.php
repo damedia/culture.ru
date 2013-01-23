@@ -3,6 +3,7 @@
 namespace Armd\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
@@ -43,6 +44,19 @@ class MainController extends Controller
                 'newVideos' => $lectures
             )
         );
+    }
+
+    public function backgroundBannerAction()
+    {
+        $banner = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdBannerBundle:Banner')
+            ->getBanner('HEAD_BANNER');
+
+        if ($banner) {
+            return new Response('<a href="' . $banner->getHref() . '" style="background:url(' . $banner->getWebPath() . ') no-repeat 50% 0;"></a>');
+        } else {
+            return new Response('<a href="/borodino/" style="background:url(/img/bg1.jpg)) no-repeat 50% 0;"></a>');
+        }
     }
 
     public function bannerAction()
