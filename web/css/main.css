@@ -3828,7 +3828,6 @@ body {
 }
 .lk.form label {
     font-weight: bold;
-    display: block;
 }
 .lk.form div {
     margin-bottom: 10px;
@@ -3860,7 +3859,7 @@ body {
     margin-right: 5px;
 }
 .lk.form .social-auth .social-auth-links {
-    padding-top: 3px;
+    /*padding-top: 3px;*/
     display: block;
 }
 .social-auth-links a {
