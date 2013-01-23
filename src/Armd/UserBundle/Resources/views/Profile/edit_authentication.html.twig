@@ -1,26 +1,26 @@
-{% extends "::base.html.twig" %}
+{% extends ":Frontend:base.html.twig" %}
+
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
 
 {% block body %}
-
-<div class="title">
-    <h2>{{ 'Account'|trans }}</h2>
-    {#<h2>{{ "title_user_account" | trans({}, 'SonataUserBundle')}} - {{ "title_user_edit_authentication" | trans({}, 'SonataUserBundle')}}</h2>#}
-</div>
+    {% spaceless %}
 
     <div class="sonata-user-show">
-    <ul class="lk-menu green-lk-menu">
-        <li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a></li>
-        <li class="active"><a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Edit'|trans }}</a></li>
-    </ul>
-</div>
-
-<div class="login-page lk form">
-    <div class="sonata-user-edit-authentication">
-        <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
-            {{ form_rest(form) }}
-            <input type="submit" name="submit" value="{{ 'Submit'|trans }}" />
-        </form>
+        <ul class="lk-menu green-lk-menu">
+            <li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a></li>
+            <li class="active"><a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Edit'|trans }}</a>
+            </li>
+        </ul>
     </div>
-</div>
+
+    <div class="login-page lk form">
+        <div class="sonata-user-edit-authentication">
+            <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
+                {{ form_rest(form) }}
+                <input type="submit" name="submit" value="{{ 'Submit'|trans }}"/>
+            </form>
+        </div>
+    </div>
+    {% endspaceless %}
 {% endblock %}
 

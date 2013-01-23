@@ -3820,6 +3820,77 @@ body {
 
 
 
+/*--- login form ---*/
+.lk.form {
+    width: 320px;
+    margin: 40px auto;
+    font-size: 12px;
+}
+.lk.form label {
+    font-weight: bold;
+    display: block;
+}
+.lk.form div {
+    margin-bottom: 10px;
+}
+
+.lk.form div input[type="text"],
+.lk.form div input[type="date"],
+.lk.form div input[type="password"],
+.lk.form div input[type="email"],
+.lk.form div textarea {
+    display: block;
+    width: 320px;
+}
+.lk input[type="text"],
+.lk input[type="date"],
+.lk input[type="password"],
+.lk input[type="email"],
+.lk textarea {
+    padding: 3px 5px;
+    width: 89%;
+}
+
+.lk.form #remember_me {
+    margin-bottom: 15px;
+}
+
+.lk.form .social-auth p {
+    float: left;
+    margin-right: 5px;
+}
+.lk.form .social-auth .social-auth-links {
+    padding-top: 3px;
+    display: block;
+}
+.social-auth-links a {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: transparent url('../img/b-share-icon.png') no-repeat scroll 0 0;
+}
+
+.social-auth-links .facebook {
+    background-position: 0 -69px;
+}
+
+.sonata-user-show ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+.sonata-user-show li {
+    display: inline-block;
+    padding: 0 10px;
+    margin: 0;
+}
+
+.sonata-user-show li:first-child {
+    border-right: 1px solid #666666;
+}
+
+/*--- /login form ---*/
+
 
 
 
@@ -4018,3 +4089,5 @@ body {
         page-break-after: avoid;
     }
 }
+
+

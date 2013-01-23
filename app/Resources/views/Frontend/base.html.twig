@@ -107,8 +107,13 @@
 
             <div class="header-top-right clearfix">
                 <div class="lk-top">
-                    <a href="#">Регистрация</a> /
-                    <a href="#">Вход</a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('sonata_user_profile_edit') }}">Личный кабинет</a> /
+                        <a href="{{ path('fos_user_security_logout') }}">Выход</a>
+                    {% else %}
+                        <a href="{{ path('fos_user_registration_register') }}">Регистрация</a> /
+                        <a href="{{ path('fos_user_security_login') }}">Вход</a>
+                    {% endif %}
                 </div>
                 <a href="#" class="lang-chooser"></a>
                 {#<a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>#}

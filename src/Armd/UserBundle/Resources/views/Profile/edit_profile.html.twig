@@ -1,9 +1,8 @@
-{% extends "::base.html.twig" %}
+{% extends ":Frontend:base.html.twig" %}
+
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="title">
-        <h2>{{ 'Account'|trans }}</h2>
-    </div>
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -55,9 +54,8 @@
         </div>
         <div>
             <label for="uniform-sonata_user_profile_form_locale">{{ 'Region'|trans }}</label>
-        <ul><li>
-            {{ form_widget(form.region, { 'attr': {'class': 'uniform'} } ) }}
-        </li></ul>
+            {{ form_widget(form.region ) }}
+            {#, { 'attr': {'class': 'uniform'} }#}
         </div>
         <div>
             <label for="sonata_user_profile_form_phone">{{ 'Phone'|trans }}</label>
