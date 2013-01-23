@@ -118,8 +118,8 @@
         <div id="lecture-container" class="plitka">
             {% include "ArmdLectureBundle:Default:plitka_one_wrap.html.twig" %}
         </div>
-        <div id="lecture-more-container" class="more more2">
-            <p><a id="lecture-more-button" href="{{ path('armd_lecture_default_list', { 'page':2 }) }}">Показать еще фильмы</a></p>
+        <div id="lecture-more-container" class="more more2" {% if lecturesTotal < 16 %}style="display:none;"{% endif %}>
+            <p><a id="lecture-more-button" href="{{ path('armd_lecture_default_list', { 'page':2 }) }}">Показать еще</a></p>
         </div>
     {% else %}
         <strong>По Вашему запросу объектов не найдено</strong>
