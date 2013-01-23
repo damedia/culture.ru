@@ -19,10 +19,8 @@ class LectureManager
         $this->search = $search;
     }
 
-    public function findFiltered($superType = null, $page = 1, $perPage = 20, $typeIds = null, $categoryIds = null, $sortBy = 'date', $searchString = '')
+    public function findFiltered($superTypeId = null, $page = 1, $perPage = 20, $typeIds = null, $categoryIds = null, $sortBy = 'date', $searchString = '')
     {
-        $lectureRepo = $this->em->getRepository('ArmdLectureBundle:Lecture');
-
         $searchParams = array(
             'Lectures' => array(
                 'result_offset' => ($page - 1) * $perPage,
@@ -32,11 +30,11 @@ class LectureManager
         );
 
         // add filters
-        if (isset($superType)) {
+        if (isset($superTypeId)) {
             $searchParams['Lectures']['filters'] = array(
                 array(
                     'attribute' => 'lecture_super_type_id',
-                    'values' => array($superType->getId())
+                    'values' => array($superTypeId),
                 )
             );
         }
@@ -60,6 +58,7 @@ class LectureManager
 
         $result = array();
         if (!empty($searchResult['Lectures']['matches'])) {
+            $lectureRepo = $this->em->getRepository('ArmdLectureBundle:Lecture');
             $items = $lectureRepo->findBy(array('id' => array_keys($searchResult['Lectures']['matches'])));
             $result = array(
                 'total' => $searchResult['Lectures']['total'],
@@ -75,6 +74,27 @@ class LectureManager
         $res = array();
         foreach ($lecture->getRolesPersons() as $rp) {
             $res[$rp->getRole()->getName()][] = $rp->getPerson();
+        }
+
+        return $res;
+    }
+
+    public function getGenresBySupertype($superTypeId)
+    {
+        $qb = $this->em->getRepository('ArmdLectureBundle:LectureCategory')->createQueryBuilder('t');
+        $qb->where('t.root = :superTypeId')
+            ->setParameter('superTypeId', $superTypeId)
+            ->andWhere('t.lvl > 1')
+            ->orderBy('t.lft', 'ASC');
+
+        $rows = $qb->getQuery()->getResult();
+
+        $res = array();
+        foreach ($rows as $row) {
+            $res[] = array(
+                'title' => $row->getTitle(),
+                'value' => $row->getId(),
+            );
         }
 
         return $res;

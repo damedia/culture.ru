@@ -137,27 +137,12 @@ class DefaultController extends Controller
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
 
         // Форма фильтра по категориям и тематике
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-        $page      = $request->get('page', 1);
-        $perPage   = $request->get('perPage', 16);
-        $superTypeId = $request->get('category', null);
-        if ($superTypeId) {
-            $superType = $em->getRepository('ArmdLectureBundle:LectureSuperType')->find($superTypeId);
-        } else {
-            $superType = null;
-        }
-
-        $defaultValues = array(
-            'sort'      => $request->get('id', 'date'),
-            'supertype' => $superType,
-            'page'      => $page,
-            'perPage'   => $perPage,
-        );
-        $form = $this->getFilterForm($defaultValues);
+        $superTypeList = $this->getDoctrine()->getManager()
+            ->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findAll();
 
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
-            'form' => $form->createView(),
+            'superTypeList' => $superTypeList,
             'referer' => $this->getRequest()->headers->get('referer'),
             'lecture' => $lecture,
             'lectureVersion' => $version,
@@ -206,14 +191,8 @@ class DefaultController extends Controller
             $this->get('router')->generate('armd_lecture_default_list')
         );
 
-        $request = $this->getRequest();
-
-        /**
-         * @var \Armd\LectureBundle\Manager\LectureManager $manager
-         */
         $manager = $this->get('armd_lecture.manager.lecture');
-
-        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
 
         // Форма фильтра
         $page      = $request->get('page', 1);
@@ -222,45 +201,21 @@ class DefaultController extends Controller
         $typeIds   = null;
         $categoryIds = null;
         $searchString = '';
-        $superTypeId = $request->get('category', null);
-        if ($superTypeId) {
-            $superType = $em->getRepository('ArmdLectureBundle:LectureSuperType')->find($superTypeId);
-        } else {
-            $superType = null;
+        $superTypeId = $request->get('supertype') ? $request->get('supertype') : null;
+
+        $genreId = (int) $request->get('genre');
+        if ($genreId) {
+            $categoryIds = array($genreId);
         }
 
-        $defaultValues = array(
-            'sort'      => $request->get('id', 'date'),
-            'supertype' => $superType,
-            'page'      => $page,
-            'perPage'   => $perPage,
-        );
+        $lectures = $manager->findFiltered($superTypeId, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
 
-        $form = $this->getFilterForm($defaultValues);
-
-        if ($this->getRequest()->isMethod('POST')) {
-            $form->bind($this->getRequest());
-
-            if ($form->isValid()) {
-                $filter = $form->getData();
-
-                $superType = $filter['supertype'];
-                $page      = $filter['page'];
-                $perPage   = $filter['perPage'];
-                $sort      = $filter['sort'];
-                $typeIds   = null;
-                $categoryIds = isset($filter['genre']) ? array($filter['genre']->getId()) : null;
-                $searchString = $filter['search'];
-            }
-        }
-
-        $lectures = $manager->findFiltered($superType, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
         if ($lectures) {
             $lecturesItems = isset($lectures['items']) ? $lectures['items'] : false;
             $lecturesTotal = $lectures['total'];
         } else {
             $lecturesItems = false;
-            $lecturesTotal = false;
+            $lecturesTotal = 0;
         }
 
         if ($request->isXmlHttpRequest()) {
@@ -275,46 +230,23 @@ class DefaultController extends Controller
             $response->headers->set('Content-Type', 'application/json');
 
             return $response;
+
         } else {
+            $superTypeList = $this->getDoctrine()->getManager()
+                ->getRepository('ArmdLectureBundle:LectureSuperType')
+                ->findAll();
+
+            $genresList = $manager->getGenresBySupertype($superTypeId);
+
             return array(
-                'form' => $form->createView(),
-                'lectures' => $lecturesItems,
+                'superTypeId' => $superTypeId,
+                'superTypeList' => $superTypeList,
+                'genreId' => $genreId,
+                'genresList' => $genresList,
                 'lecturesTotal' => $lecturesTotal,
+                'lectures' => $lecturesItems,
             );
         }
-    }
-
-    protected function getFilterForm($defaultValues)
-    {
-        $form = $this->createFormBuilder($defaultValues)
-            ->add('search',   'text', array(
-                'required' => false
-            ))
-            ->add('supertype', 'entity', array(
-                'class' => 'ArmdLectureBundle:LectureSuperType',
-                'property' => 'name',
-                'empty_value' => 'Категория',
-                'required' => false,
-            ))
-            ->add('genre',  'choice', array(
-                'empty_value' => 'Жанр',
-                'required' => false,
-            ))
-            ->add('theme',  'entity', array(
-                'class' => 'ArmdLectureBundle:LectureSuperType',
-                'property' => 'name',
-                'empty_value' => 'Тематика',
-                'required' => false
-            ))
-            ->add('sort',   'choice', array(
-                'choices' => array('id' => 'by Id', 'title' => 'by Title', 'date' => 'by Date'),
-                'required' => true
-            ))
-            ->add('page',    'text', array('required' => false))
-            ->add('perPage', 'text', array('required' => false))
-            ->getForm();
-
-        return $form;
     }
 
     /**
@@ -335,22 +267,10 @@ class DefaultController extends Controller
     /**
      * @Route("/fetch-genres/{superTypeId}", requirements={"superTypeId"="\d+"}, options={"expose"=true}, defaults={"_format"="json"}, name="armd_lecture_default_fetchgenresbysupertype")
      */
-    public function fetchGenresBySupertypeAction($superTypeId)
+    public function fetchGenresBySupertypeAction($superTypeId = null)
     {
-        $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureCategory');
-        $rows = $repo->findBy(
-            array('root' => $superTypeId, 'lvl' => 2),
-            array('lft' => 'ASC')
-        );
-
-        $res = array();
-
-        foreach ($rows as $row) {
-            $res[] = array(
-                'title' => $row->getTitle(),
-                'value' => $row->getId(),
-            );
-        }
+        $manager = $this->get('armd_lecture.manager.lecture');
+        $res = $manager->getGenresBySupertype($superTypeId);
 
         return $res;
     }

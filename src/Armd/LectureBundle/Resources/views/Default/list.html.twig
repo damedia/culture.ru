@@ -19,7 +19,7 @@
                         dataType: 'json',
                         success: function(json){
                             // создаем комбобокс с жанрами
-                            var optionsHtml = '';
+                            var optionsHtml = '<option>Все жанры</option>';
                             $(json).each(function(i, el){
                                 optionsHtml += '<option value="'+ el.value +'">' + el.title + '</option>';
                             });
@@ -34,8 +34,8 @@
 
             // Ajax Form handler
             $('#lectures-filter').ajaxForm({
-                success: function(responseText, statusText, xhr, $form) {
-                    var jsonData = $.parseJSON(responseText);
+                dataType: 'json',
+                success: function(jsonData, statusText, xhr, $form) {
 
                     if ($('#lectures-filter').data('mode') == 'append') {
                         $('#lecture-container').append( jsonData.html );
@@ -79,15 +79,22 @@
     <div class="search-panel">
         <div class="search-category">
 
-            <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="post" {{ form_enctype(form) }}>
+            <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="post">
                 <span class="search-dates-label">Выбрать</span>
                 <div class="search-category-selects">
-                    {{ form_widget(form.supertype, { 'attr': {'class': 'uni'} }) }}
-                    {{ form_widget(form.genre, { 'attr': {'class': 'uni'} }) }}
-                    <div style="display: none;">
-                        {{ form_widget(form.theme, { 'attr': {'class': 'uni'} }) }}
-                        {{ form_rest(form) }}
-                    </div>
+                    <select id="form_supertype" name="supertype" class="uni">
+                        <option value="0">Категория</option>
+                        {% for supertype in superTypeList %}
+                            <option value="{{ supertype.id }}" {% if supertype.id == superTypeId %}selected="selected"{% endif %}>{{ supertype.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="form_genre" name="genre" class="uni">
+                        <option value="0">Все жанры</option>
+                        {% for genre in genresList %}
+                            <option value="{{ genre.value }}" {% if genre.value == genreId %}selected="selected"{% endif %}>{{ genre.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <input id="form_page" type="hidden" name="page" value="1"/>
                 </div>
                 <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
             </form>

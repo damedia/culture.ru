@@ -1,4 +1,4 @@
-{% for lecture in lectures %}
+{% for lecture in lectures if lectures|length %}
     <div class="plitka-one-wrap">
         <div class="plitka-one">
             <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
@@ -39,4 +39,6 @@
         <span class="star-mark">7,5</span>
         #}
     </div>
+{% else %}
+    <h2>Не найдено</h2>
 {% endfor %}
