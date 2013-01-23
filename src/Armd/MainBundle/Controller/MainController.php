@@ -55,7 +55,7 @@ class MainController extends Controller
         if ($banner) {
             return new Response('<a href="' . $banner->getHref() . '" style="background:url(' . $banner->getWebPath() . ') no-repeat 50% 0;"></a>');
         } else {
-            return new Response('<a href="/borodino/" style="background:url(/img/bg1.jpg)) no-repeat 50% 0;"></a>');
+            return new Response('<a href="/borodino/" style="background:url(/img/bg.jpg)) no-repeat 50% 0;"></a>');
         }
     }
 
