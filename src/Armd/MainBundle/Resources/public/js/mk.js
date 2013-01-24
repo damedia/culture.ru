@@ -29,11 +29,17 @@ var armdMk = {
     },
 
     startLoadingBlock: function(blockSelector) {
+        if (typeof(blockSelector) === 'undefined') {
+            blockSelector = 'body';
+        }
         $(blockSelector).css('position', 'relative')
             .append($('<div class="loading-block"></div>'));
     },
 
     stopLoadingBlock: function(blockSelector) {
+        if (typeof(blockSelector) === 'undefined') {
+            blockSelector = 'body';
+        }
         $(blockSelector).children('.loading-block').remove();
     }
 };

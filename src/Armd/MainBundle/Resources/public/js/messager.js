@@ -1,12 +1,39 @@
 var armdMessager = {
-    messageContainer:'#armd_messages',
+    messageContainer: '#armd_messages',
+    messageTypes:
+        {
+            'ERROR': 'error',
+            'INFO': 'info',
+            'WARNING': 'warning'
+        }
+    ,
 
-    showMessage:function (message)
-    {
+    init: function (messageContainerSelector) {
+        armdMessager.messageContainer = messageContainerSelector;
+        $(armdMessager.messageContainer).find('.armd_messages_close')
+            .bind('click', function(event) {
+                event.preventDefault();
+                armdMessager.closeMessage();
+            })
+    },
+
+    showMessage: function (message, messageType) {
+        if (typeof(messageType) === 'undefined' ) {
+            messageType = armdMessager.messageTypes.INFO;
+        }
+
         $(armdMessager.messageContainer)
-            .html(message)
+            .removeClass()
+            .addClass(messageType)
+            .find('span').html(message).end()
             .show()
-            .fadeOut(8000, 'swing');
+            .delay(10000)
+            .fadeOut(5000, 'easeInOutExpo');
+    },
+
+    closeMessage: function () {
+        $(armdMessager.messageContainer)
+            .hide();
     }
 };
 

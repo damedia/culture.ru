@@ -135,6 +135,39 @@ body {
     min-width:1017px;
 }
 
+#armd_messages {
+    position: fixed;
+    right: 0;
+    top: 0;
+    /*right: 20px;*/
+    /*top: 20px;*/
+    z-index: 1000;
+    background-color: #31ff55;
+    border: 1px solid #888888;
+    opacity: 0.8;
+    padding: 15px 20px 15px 15px;
+    border-bottom-left-radius: 8px;
+    /*font-weight: bold;\\*/
+}
+    #armd_messages .armd_messages_close {
+        display: block;
+        width: 18px;
+        height: 18px;
+        background: transparent url('../img/icons/close.png') no-repeat scroll 0 0;
+        right: 0;
+        top: 0;
+        position: absolute;
+        outline: none;
+    }
+
+    #armd_messages.error {
+        background-color: #ffa08a;
+    }
+
+    #armd_messages.warning {
+        background-color: #fff341;
+    }
+
 .loading-block {
     position: absolute;
     top: 50%;

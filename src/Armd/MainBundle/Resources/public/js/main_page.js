@@ -43,6 +43,7 @@ var armdMainPage = {
     },
 
     communicationPlatformVote: function (id, vote) {
+        armdMk.startLoadingBlock();
         $.ajax({
             url: Routing.generate('armd_main_communication_platform_request'),
             type: 'post',
@@ -63,14 +64,15 @@ var armdMainPage = {
                     armdMessager.showMessage('Ваш голос учтен');
                 }
                 else if (data === 'archiv') {
-                    armdMessager.showMessage('Голосование за данное сообщение закрыто')
+                    armdMessager.showMessage('Голосование за данное сообщение закрыто', armdMessager.messageTypes.ERROR)
                 }
                 else {
-                    armdMessager.showMessage('При голосовании возникла ошибка');
+                    armdMessager.showMessage('При голосовании возникла ошибка', armdMessager.messageTypes.ERROR);
                 }
             },
             complete: function () {
                 armdMainPage.reloadCommunicationPlatform();
+                armdMk.stopLoadingBlock();
             }
 
         });

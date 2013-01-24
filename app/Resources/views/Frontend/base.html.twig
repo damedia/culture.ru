@@ -72,6 +72,8 @@
              armdMk.baseUrl = '/';
              armdMk.init();
 
+             armdMessager.init('#armd_messages');
+
              new Ya.share({
                  element: 'yandex-share-global',
                  elementStyle: {
@@ -93,7 +95,7 @@
 
 </head>
 <body class="locale_{{ app.request.locale }}">
-    <div id="armd_messages" style="display: none;"></div>
+    <div id="armd_messages" style="display: none;"><a class="armd_messages_close" href="#"></a><span></span></div>
     <div class="header-banner">
         {#{% if armd_has_banner('HEAD_BANNER') %}#}
             {#{{ armd_banner('HEAD_BANNER')|raw }}#}
