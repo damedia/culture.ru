@@ -483,7 +483,7 @@ class Lecture implements Taggable
      */
     public function getTaggableType()
     {
-        return 'armd_tag_global';
+        return 'armd_lecture';
     }
 
     /**

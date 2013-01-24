@@ -1284,7 +1284,7 @@ class Object implements Taggable
      */
     public function getTaggableType()
     {
-        return 'armd_tag_global';
+        return 'armd_atlas_object';
     }
 
     /**
