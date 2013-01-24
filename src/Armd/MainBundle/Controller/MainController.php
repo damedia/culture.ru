@@ -99,7 +99,7 @@ class MainController extends Controller
             }
         }
         return $this->render(
-            'ArmdMainBundle:Communication:index.html.twig',
+            'ArmdMainBundle:Homepage:latest_communication_topics.html.twig',
             array(
                 'topics' => $result,
                 'domain' => $domain,
