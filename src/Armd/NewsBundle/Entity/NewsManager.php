@@ -267,7 +267,7 @@ class NewsManager
                     'category' => array($category->getSlug()),
                 )
             )
-                ->orderBy('n.date', 'DESC')
+                ->orderBy('n.newsDate', 'DESC')
                 ->setMaxResults(1);
 
             $entity = $qb->andWhere('n.important = TRUE')
