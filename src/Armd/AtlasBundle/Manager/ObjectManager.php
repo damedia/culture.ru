@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Manager;
 
 use Symfony\Component\DependencyInjection\Container;
+use Armd\AtlasBundle\Entity\Object;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
@@ -57,7 +58,7 @@ class ObjectManager
 
 
     /** example: array('museum', 'world war') */
-//    const CRITERIA_TAGS = 'CRITERIA_TAGS';
+    const CRITERIA_TAGS = 'CRITERIA_TAGS';
 
     public function __construct(EntityManager $em, $search)
     {
@@ -147,6 +148,14 @@ class ObjectManager
 
         if (!empty($criteria[self::CRITERIA_HAS_SIDE_BANNER_IMAGE])) {
             $qb->andWhere("$o.sideBannerImage IS NOT NULL");
+        }
+
+        if (!empty($criteria[self::CRITERIA_TAGS])) {
+            \gFuncs::dbgWriteLogVar('tags', false, ''); // DBG:
+            $tagQb = $this->em->getRepository('ArmdTagBundle:Tag')
+                ->getTagsQueryBuilder('armd_atlas_object')
+                ->where('tag.name IN (:tags)')->setParameter('tags', $criteria[self::CRITERIA_TAGS])
+            ;
         }
 
     }
