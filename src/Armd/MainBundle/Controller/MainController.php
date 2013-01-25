@@ -48,9 +48,11 @@ class MainController extends Controller
 
     public function loginLinksAction()
     {
-        return $this->render(
+        $response = $this->render(
             'ArmdMainBundle:Main:login_links.html.twig'
         );
+        $response->setSharedMaxAge(0);
+        return $response;
     }
 
     public function backgroundBannerAction()
