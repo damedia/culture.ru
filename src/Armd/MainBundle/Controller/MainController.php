@@ -51,7 +51,7 @@ class MainController extends Controller
         $response = $this->render(
             'ArmdMainBundle:Main:login_links.html.twig'
         );
-        $response->setSharedMaxAge(0);
+//        $response->setSharedMaxAge(0);
         return $response;
     }
 
