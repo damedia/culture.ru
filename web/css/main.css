@@ -2844,6 +2844,7 @@ body {
 						width:30px;
 						height:100px;
 						background:url(../img/index-video-slider.png) no-repeat 0 0;
+                        outline: none;
 					}
 					.index-main #video-list .flex-next, 
 					.index-main #video-list .flex-prev  {

@@ -53,7 +53,10 @@ class TagTransformer implements DataTransformerInterface
         $tagNames = explode(',', $value);
         if (is_array($tagNames)) {
             foreach ($tagNames as $tagName) {
-                $tags[] = $this->tagManager->loadOrCreateTag($tagName);
+                $tagName = trim($tagName);
+                if (!empty($tagName)) {
+                    $tags[] = $this->tagManager->loadOrCreateTag($tagName);
+                }
             }
         }
         return $tags;
