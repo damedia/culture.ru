@@ -25,41 +25,8 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block page_header %}
-    <h1>Виртуальные музеи</h1>
-    <div class="search-panel wide-panel">
-        {#
-        <div class="search-category">
-            <span class="search-dates-label">Выбрать</span>
-            <div class="search-category-selects">
-                <select name="select1" id="select1" class="uni">
-                    <option value="1">Категория</option>
-                    <option value="2">100 лучших фильмов</option>
-                    <option value="3">Исторические</option>
-                    <option value="3">Военные</option>
-                    <option value="3">Драмы</option>
-                    <option value="3">Трагедии</option>
-                    <option value="3">Комедии</option>
-                </select>
-                <select name="select3" id="select3" class="uni">
-                    <option value="1">Тематика</option>
-                    <option value="2">Тематика</option>
-                    <option value="3">Тематика</option>
-                </select>
-            </div>
-            <a href="#" class="button search-dates-button">Показать</a>
-        </div>
-        #}
-        <div class="search-top clearfix">
-            <form action="">
-                <input type="text" name="search-txt" placeholder="Поиск по сайту" value="Царская Россия" class="search-txt" id="search-txt" />
-                <input type="submit" value="Поиск" class="button search-btn" />
-            </form>
-            <div class="search-checkboxes">
-                <label><input type="checkbox" name="check1" id="check1" /><span>Искать в текущем разделе</span></label>
-            </div>
-        </div>
-    </div>
+{% block page_header_title %}
+    {{ "Museums"|trans }}
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}

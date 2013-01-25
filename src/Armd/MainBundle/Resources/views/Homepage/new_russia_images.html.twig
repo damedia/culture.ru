@@ -2,15 +2,15 @@
 <ul class="plitka obrazy-plitka obraz-index">
 	<li class="plitka-one-wrap">
 		<div class="plitka-one">
-			<a href="{{ path('armd_atlas_russia_images', {region_id: object.regions[0].id }) }}" class="plitka-type">{{ object.regions[0].title }}</a>
-			<a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
-                {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
-			</a>
 			<div class="plitka-text">
 				<span class="plitka-name">
                     <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="no-decoration">{{ object.title }}</a>
                 </span>
 			</div>
+			<a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
+                {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
+			</a>
+			<a href="{{ path('armd_atlas_russia_images', {region_id: object.regions[0].id }) }}" class="plitka-type">{{ object.regions[0].title }}</a>
 			{#<div class="plitka-footer">
 				<div class="types-icons">
                     <span class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>

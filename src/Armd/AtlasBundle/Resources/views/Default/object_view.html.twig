@@ -201,12 +201,14 @@
     <div class="content-anons">
         {{ entity.russiaImageAnnounce|raw }}
     </div>
-    <div id="content-collapsed" class="content collapsed">
+    <div id="content-collapsed" class="content {% if entity.content is not empty %}collapsed{% endif %}">
         {{ entity.content|raw }}
     </div>
-    <div class="more more3">
-        <p><a href="#">Читать дальше</a></p>
-    </div>
+    {% if entity.content is not empty %}
+        <div class="more more3">
+            <p><a href="#">Читать дальше</a></p>
+        </div>
+    {% endif %}
     <!-- /Content -->
 
     <div class="block small-block clearfix">

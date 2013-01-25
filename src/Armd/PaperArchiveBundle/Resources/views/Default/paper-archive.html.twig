@@ -1,5 +1,8 @@
 {% extends ':Frontend:layout_one_column.html.twig' %}
 
+{% block page_header_title %}
+    {{ ('paper.'~category)|trans }}
+{% endblock %}
 
 {% block one_column %}
     <div class="years-tabs">
