@@ -46,6 +46,13 @@ class MainController extends Controller
         );
     }
 
+    public function loginLinksAction()
+    {
+        return $this->render(
+            'ArmdMainBundle:Main:login_links.html.twig'
+        );
+    }
+
     public function backgroundBannerAction()
     {
         $banner = $this->getDoctrine()->getManager()
