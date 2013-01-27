@@ -7,90 +7,49 @@
     </ul>
 </div>
 
-{% for t in topics %}
-    <div class="tab community-tab" id="community-tab{{ loop.index }}" {% if loop.index == 2 %}style="display:none;"{% endif %}>
-        {% for i in t.items %}
-            {% set raiting = i.count_like - i.count_dislike %}
-            {% if loop.first %}
-                <div class="community-first-item">
-                    <div class="com-votes">
-                        + <b>{{ raiting }}</b>
+{% if topics is not empty %}
+    {% for t in topics %}
+        <div class="tab community-tab" id="community-tab{{ loop.index }}" {% if loop.index == 2 %}style="display:none;"{% endif %}>
+            {% for i in t.items %}
+                {% set raiting = i.count_like - i.count_dislike %}
+                {% if loop.first %}
+                    <div class="community-first-item">
+                        <div class="com-votes">
+                            + <b>{{ raiting }}</b>
+                        </div>
+                        <div class="com-item-one">
+                            <div class="com-one-header">
+                                <a href="{{ i.url }}">{{ i.title }}</a> / <span class="com-one-date">Обновлено {{ i.date_add }}</span>
+                            </div>
+                            <p class="com-one-text"><a href="">{{ i.content }}</a></p>
+                        </div>
                     </div>
-                    <div class="com-item-one">
+                {% else %}
+                    {% if loop.index == 2 %}
+                        <ul class="community-items">
+                    {% endif %}
+                    <li class="com-item-one" data-item-id="{{ i.id }}">
+                        <div class="com-item-vote">
+                            <a href="#" class="vote-minus">−</a>
+                            <a href="#" class="vote-plus">+</a>/
+                            <span class="total-vote">{{ raiting }}</span>
+                        </div>
                         <div class="com-one-header">
                             <a href="{{ i.url }}">{{ i.title }}</a> / <span class="com-one-date">Обновлено {{ i.date_add }}</span>
                         </div>
-                        <p class="com-one-text"><a href="">{{ i.content }}</a></p>
-                    </div>
-                </div>
-            {% else %}
-                {% if loop.index == 2 %}
-                    <ul class="community-items">
-                {% endif %}
-                <li class="com-item-one" data-item-id="{{ i.id }}">
-                    <div class="com-item-vote">
-                        <a href="#" class="vote-minus">−</a>
-                        <a href="#" class="vote-plus">+</a>/
-                        <span class="total-vote">{{ raiting }}</span>
-                    </div>
-                    <div class="com-one-header">
-                        <a href="{{ i.url }}">{{ i.title }}</a> / <span class="com-one-date">Обновлено {{ i.date_add }}</span>
-                    </div>
-                    <p class="com-one-text"><a href="#">{{ i.content }}</a></p>
-                </li>
-                {% if loop.last %}
-                    </ul>
-                {% endif %}
-           {% endif %}
-        {% endfor %}
-        <div class="com-footer">
-            <p class="com-total">
-                ОБСУЖДЕНИЙ В РУБРИКЕ: <a href="{{ t.list_url }}">{{ t.count }}</a>
-            </p>
-            <p class="all"><a href="{{ t.list_url }}">ПОСМОТРЕТЬ ВСЕ</a></p>
+                        <p class="com-one-text"><a href="#">{{ i.content }}</a></p>
+                    </li>
+                    {% if loop.last %}
+                        </ul>
+                    {% endif %}
+               {% endif %}
+            {% endfor %}
+            <div class="com-footer">
+                <p class="com-total">
+                    ОБСУЖДЕНИЙ В РУБРИКЕ: <a href="{{ t.list_url }}">{{ t.count }}</a>
+                </p>
+                <p class="all"><a href="{{ t.list_url }}">ПОСМОТРЕТЬ ВСЕ</a></p>
+            </div>
         </div>
-    </div>
-{% endfor%}
-
-{#{% for t in topics %}#}
-    {#<div class="discusitem-content {% if loop.first %}active{% endif %}">#}
-        {#{% for i in t.items %}#}
-            {#{% set raiting = i.count_like - i.count_dislike %}#}
-            {#{% if loop.first %}#}
-                {#<div class="first-useraction">#}
-                    {#<span class="voting"><span class="gray">+</span><span class="green">&nbsp;{{ raiting }}</span></span>#}
-                    {#<div class="username">#}
-                        {#<span class="orange">{{ i.title }}</span>#}
-                        {#/ <span class="gray">{{ 'mainpage.updated'|trans }} {{ i.date_add }}</span>#}
-                    {#</div>#}
-                    {#<div class="useraction"><h3><a href="{{ i.url }}">{{ i.content }}</a></h3>#}
-                    {#</div>#}
-                {#</div>#}
-            {#{% else %}#}
-                {#{% if loop.index == 2 %}#}
-                    {#<ul class="list-useraction">#}
-                {#{%endif%}#}
-                    {#<li class="item-list-useraction" data-item-id="{{ i.id }}">#}
-                        {#<div class="username">#}
-                            {#<span>{{ i.title }}</span>#}
-                            {#/ <span class="gray">{{ 'mainpage.updated'|trans }} {{ i.date_add }}</span>#}
-                        {#</div>#}
-                        {#<div class="useraction">#}
-                            {#<p><a href="{{ i.url }}">{{ i.content }}</a></p>#}
-                        {#</div>#}
-                        {#<div class="voteblock">#}
-                            {#<a href="#" class="red">&minus;</a>&nbsp;<a href="#" class="gray">&#43;</a>&nbsp;/&nbsp;<span class="allvote">{{ raiting }}</span>#}
-                        {#</div>#}
-                    {#</li>#}
-                {#{% if loop.index == 2 %}#}
-                    {#</ul>#}
-                {#{%endif%}#}
-            {#{% endif %}#}
-        {#{% endfor %}#}
-
-        {#<div id="alldiscus">#}
-            {#<span class="theheading">{{ 'Mainpage block.Communication.Threads'|trans }}: <a href="{{ t.list_url }}">{{ t.count }}</a></span>#}
-            {#<a class="thelink" href="{{ t.list_url }}">{{ 'Mainpage block.Communication.More'|trans }}</a>#}
-        {#</div>    #}
-    {#</div>#}
-{#{% endfor%}#}
+    {% endfor%}
+{% endif %}
