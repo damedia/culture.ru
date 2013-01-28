@@ -3,18 +3,12 @@ namespace Armd\ListBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-<<<<<<< HEAD
 use Armd\TagBundle\Entity\TagManager;
-=======
->>>>>>> [+] atlast objects: search by tags
 
 abstract class ListManager
 {
     protected $em;
-<<<<<<< HEAD
     protected $tagManager;
-=======
->>>>>>> [+] atlast objects: search by tags
 
     /** example: 10 */
     const CRITERIA_LIMIT = 'CRITERIA_LIMIT';
@@ -28,7 +22,6 @@ abstract class ListManager
     /** example: 5 */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
 
-<<<<<<< HEAD
     /** example: array('museum', 'world war') */
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
 
@@ -36,17 +29,10 @@ abstract class ListManager
     {
         $this->em = $em;
         $this->tagManager = $tagManager;
-=======
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
->>>>>>> [+] atlast objects: search by tags
     }
 
     public function findObjects(array $criteria)
     {
-<<<<<<< HEAD
-
         if (!empty($criteria[self::CRITERIA_RANDOM])) {
             $qb = $this->getQueryBuilder();
             $criteriaMod = $criteria;
@@ -79,24 +65,12 @@ abstract class ListManager
         } else {
             $qb = $this->getQueryBuilder();
             $this->setCriteria($qb, $criteria);
-=======
-        $qb = $this->getQueryBuilder();
-        $this->setCriteria($qb, $criteria);
-
-        if(!empty($criteria[self::CRITERIA_RANDOM])) {
-            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
-        } else {
->>>>>>> [+] atlast objects: search by tags
             $objects = $qb->getQuery()->getResult();
         }
 
         return $objects;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> [+] atlast objects: search by tags
     abstract public function getQueryBuilder();
 
 
@@ -122,7 +96,6 @@ abstract class ListManager
 
     }
 
-<<<<<<< HEAD
     public function getTaggedObjectsFromQueryBuilder(QueryBuilder $qb, array $tags, $limit)
     {
         if (empty($tags)) {
@@ -153,9 +126,6 @@ abstract class ListManager
         return $objects;
     }
 
-
-=======
->>>>>>> [+] atlast objects: search by tags
     public function getRandomObjectsFromQueryBuilder(QueryBuilder $qb, $limit) {
         $qbCount = clone($qb);
         $aliases = $qbCount->getRootAliases();
@@ -186,10 +156,7 @@ abstract class ListManager
         return $objects;
     }
 
-<<<<<<< HEAD
     abstract public function getClassName();
     abstract public function getTaggableType();
 
-=======
->>>>>>> [+] atlast objects: search by tags
 }

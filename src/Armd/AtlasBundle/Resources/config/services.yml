@@ -20,4 +20,4 @@ services:
 
     armd_atlas.manager.object:
         class: Armd\AtlasBundle\Manager\ObjectManager
-        arguments: [@doctrine.orm.entity_manager, @search.sphinxsearch.search, @fpn_tag.tag_manager]
+        arguments: [@doctrine.orm.entity_manager, @fpn_tag.tag_manager, @search.sphinxsearch.search]

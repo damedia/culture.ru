@@ -23,14 +23,6 @@ class ObjectManager extends ListManager
 {
     private $search;
 
-    private $tagManager;
-
-    /** example: 10 */
-    const CRITERIA_LIMIT = 'CRITERIA_LIMIT';
-
-    /** example: 100  */
-    const CRITERIA_OFFSET = 'CRITERIA_OFFSET';
-
     /** example: true */
     const CRITERIA_RUSSIA_IMAGES = 'CRITERIA_RUSSIA_IMAGES';
 
@@ -46,12 +38,6 @@ class ObjectManager extends ListManager
     /** example: array(1, 89) */
     const CRITERIA_REGION_IDS_OR = 'CRITERIA_REGION_IDS_OR';
 
-    /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
-    const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
-
-    /** example: 5 */
-    const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
-
     /** example: true */
     const CRITERIA_HAS_SIDE_BANNER_IMAGE = 'CRITERIA_HAS_SIDE_BANNER_IMAGE';
 
@@ -59,51 +45,16 @@ class ObjectManager extends ListManager
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
 
-    /** example: array('museum', 'world war') */
-    const CRITERIA_TAGS = 'CRITERIA_TAGS';
-
-    public function __construct(EntityManager $em, $search, TagManager $tagManager)
+    public function __construct(EntityManager $em, TagManager $tagManager, $search)
     {
-        $this->em = $em;
+        parent::__construct($em, $tagManager);
         $this->search = $search;
-        $this->tagManager = $tagManager;
     }
 
-    public function findObjects(array $criteria)
-    {
-
-        if (!empty($criteria[self::CRITERIA_RANDOM])) {
-            $criteriaMod = $criteria;
-            unset($criteriaMod[self::CRITERIA_LIMIT]);
-            $qb = $this->getQueryBuilder($criteriaMod);
-            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
-
-        } elseif (!empty($criteria[self::CRITERIA_TAGS])) {
-            if (empty($criteria[self::CRITERIA_LIMIT])) {
-                throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
-            }
-            $objects = $this->getTaggedObjects($criteria[self::CRITERIA_TAGS], $criteria[self::CRITERIA_LIMIT]);
-            if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
-                $criteria[self::CRITERIA_RANDOM] = $criteria[self::CRITERIA_LIMIT] - count($objects);
-                $paddingObjects = $this->findObjects($criteria);
-                $objects = array_merge($objects, $paddingObjects);
-            }
-
-        } else {
-            $qb = $this->getQueryBuilder($criteria);
-            $objects = $qb->getQuery()->getResult();
-        }
-
-        return $objects;
-    }
-
-
-    public function getQueryBuilder(array $criteria)
+    public function getQueryBuilder()
     {
         $qb = $this->em->getRepository('ArmdAtlasBundle:Object')->createQueryBuilder('o')
             ->where('o.published = TRUE');
-
-        $this->setCriteria($qb, $criteria);
 
         return $qb;
     }
@@ -112,21 +63,6 @@ class ObjectManager extends ListManager
     {
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
-
-
-        if (!empty($criteria[self::CRITERIA_OFFSET])) {
-            $qb->setFirstResult($criteria[self::CRITERIA_OFFSET]);
-        }
-
-        if (!empty($criteria[self::CRITERIA_LIMIT])) {
-            $qb->setMaxResults($criteria[self::CRITERIA_LIMIT]);
-        }
-
-        if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
-            foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
-                $qb->addOrderBy("$o.$k", $v);
-            }
-        }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $qb->innerJoin("$o.secondaryCategories", 'sc')
@@ -167,51 +103,6 @@ class ObjectManager extends ListManager
         if (!empty($criteria[self::CRITERIA_HAS_SIDE_BANNER_IMAGE])) {
             $qb->andWhere("$o.sideBannerImage IS NOT NULL");
         }
-
-
-    }
-
-    public function getRandomObjectsFromQueryBuilder(QueryBuilder $qb, $limit) {
-        $qbCount = clone($qb);
-        $aliases = $qbCount->getRootAliases();
-        $o = $aliases[0];
-        $objectCount = $qbCount->select("COUNT($o)")->getQuery()->getSingleScalarResult();
-
-        if ($objectCount <= $limit) {
-            $objects = $qb->getQuery()->getResult();
-        }
-        else {
-            $offsets = array();
-            for ($i = 0; $i < $limit; $i++) {
-                $j = 0;
-                do {
-                    $offset = rand(0, $objectCount - 1);
-                } while ($j++ < 10 && in_array($offset, $offsets));
-                $offsets[] = $offset;
-            }
-
-            $objects = array();
-            foreach ($offsets as $offset) {
-                $objects[] = $qb->setMaxResults(1)
-                    ->setFirstResult($offset)
-                    ->getQuery()
-                    ->getSingleResult();
-            }
-        }
-        return $objects;
-    }
-
-    public function getTaggedObjects($tags, $limit) {
-        $resourceIds = $this->tagManager->getResourceIdsByTags('armd_atlas_object', $tags, $limit);
-        $resourceIds = array_slice($resourceIds, 0, $limit);
-        $objects = $this->em->createQueryBuilder()
-            ->select('o')
-            ->from('ArmdAtlasBundle:Object', 'o')
-            ->where('o.id IN (:ids)')->setParameter('ids', $resourceIds)
-            ->getQuery()
-            ->getResult();
-
-        return $objects;
     }
 
     public function getUserObjects(UserInterface $user)
@@ -384,5 +275,13 @@ class ObjectManager extends ListManager
         }
     }
 
+    public function getClassName()
+    {
+        return 'Armd\AtlasBundle\Entity\Object';
+    }
 
+    public function getTaggableType()
+    {
+        return 'armd_atlas_object';
+    }
 }

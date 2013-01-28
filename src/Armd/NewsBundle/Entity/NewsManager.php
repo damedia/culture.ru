@@ -4,8 +4,9 @@ namespace Armd\NewsBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\EntityManager;
+use Armd\ListBundle\Entity\ListManager;
 
-class NewsManager
+class NewsManager //extends ListManager
 {
     /**
      * @var string
@@ -313,4 +314,13 @@ class NewsManager
     }
 
 
+    public function getClassName()
+    {
+        return 'Armd\NewsBundle\Entity\News';
+    }
+
+    public function getTaggableType()
+    {
+        return 'armd_news';
+    }
 }

@@ -734,12 +734,6 @@ class DefaultController extends Controller
      */
     public function relatedObjectsAction(array $tags, $limit)
     {
-        // DBG:
-        if (empty($tags)) {
-            $tags = array('санкт-петербург');
-        }
-        // DBG
-
         $objects = $this->get('armd_atlas.manager.object')->findObjects
         (
             array(
