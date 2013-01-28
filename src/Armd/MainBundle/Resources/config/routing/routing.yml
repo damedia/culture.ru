@@ -51,3 +51,7 @@ armd_main_communication_platform_request:
     pattern: /complatform-request
     defaults: { _controller: ArmdMainBundle:Main:communicationPlatformRequest }
     options: { expose: true }
+
+armd_test:
+    pattern: /main/test-cache
+    defaults: { _controller: ArmdMainBundle:Test:testCache }
