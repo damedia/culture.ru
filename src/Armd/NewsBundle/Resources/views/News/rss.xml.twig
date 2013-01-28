@@ -36,6 +36,9 @@
             <pubDate>{{ i.newsDate|date('r')|replace({'+0000': '+0400'}) }}</pubDate>
             <yandex:full-text>{{ i.announce }} {{ i.body }}</yandex:full-text>
             <yandex:genre>article</yandex:genre>
+            {% if i.image is not empty %}
+                <enclosure url="{% path i.image, 'eventBillboard' %}" />
+            {% endif %}
             {% if i.gallery|length > 0 %}
                 {% for image in i.gallery.galleryHasMedias %}
                     <enclosure url="{% path image.media, 'eventsBillboard' %}" type="{{ image.media.contentType }}" />
