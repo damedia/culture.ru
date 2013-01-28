@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\AtlasBundle\Manager;
+namespace Armd\AtlasBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container;
 use Armd\AtlasBundle\Entity\Object;
