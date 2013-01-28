@@ -767,6 +767,7 @@ class DefaultController extends Controller
      * Atlas object from QRcodes
      *
      * @Route("/qrobject/{id}", requirements={"id"="\d+"})
+     * @Template()
      */
     public function qrobjectAction($id)
     {
@@ -775,7 +776,9 @@ class DefaultController extends Controller
         if (file_exists($docPath)) {
             $content = file_get_contents($docPath);
             $content = str_replace("/images/", "/qrcodes/images/", $content);
-            return new Response($content);
+            return array(
+                'content' => $content
+            );
         } else {
             throw new NotFoundHttpException('Not found.');
         }
