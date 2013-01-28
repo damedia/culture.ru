@@ -739,10 +739,11 @@ class DefaultController extends Controller
             $tags = array('санкт-петербург');
         }
         // DBG
+
         $objects = $this->get('armd_atlas.manager.object')->findObjects
         (
             array(
-                ObjectManager::CRITERIA_RANDOM => $limit,
+                ObjectManager::CRITERIA_LIMIT => $limit,
                 ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true,
                 ObjectManager::CRITERIA_TAGS => $tags
             )

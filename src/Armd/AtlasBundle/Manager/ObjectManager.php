@@ -15,13 +15,15 @@ use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Armd\TagBundle\Entity\TagManager;
+use Armd\ListBundle\Entity\ListManager;
 
 
-class ObjectManager
+class ObjectManager extends ListManager
 {
-    private $em;
-
     private $search;
+
+    private $tagManager;
 
     /** example: 10 */
     const CRITERIA_LIMIT = 'CRITERIA_LIMIT';
@@ -60,19 +62,35 @@ class ObjectManager
     /** example: array('museum', 'world war') */
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
 
-    public function __construct(EntityManager $em, $search)
+    public function __construct(EntityManager $em, $search, TagManager $tagManager)
     {
         $this->em = $em;
         $this->search = $search;
+        $this->tagManager = $tagManager;
     }
 
     public function findObjects(array $criteria)
     {
-        $qb = $this->getQueryBuilder($criteria);
 
-        if(!empty($criteria[self::CRITERIA_RANDOM])) {
+        if (!empty($criteria[self::CRITERIA_RANDOM])) {
+            $criteriaMod = $criteria;
+            unset($criteriaMod[self::CRITERIA_LIMIT]);
+            $qb = $this->getQueryBuilder($criteriaMod);
             $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
+
+        } elseif (!empty($criteria[self::CRITERIA_TAGS])) {
+            if (empty($criteria[self::CRITERIA_LIMIT])) {
+                throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
+            }
+            $objects = $this->getTaggedObjects($criteria[self::CRITERIA_TAGS], $criteria[self::CRITERIA_LIMIT]);
+            if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
+                $criteria[self::CRITERIA_RANDOM] = $criteria[self::CRITERIA_LIMIT] - count($objects);
+                $paddingObjects = $this->findObjects($criteria);
+                $objects = array_merge($objects, $paddingObjects);
+            }
+
         } else {
+            $qb = $this->getQueryBuilder($criteria);
             $objects = $qb->getQuery()->getResult();
         }
 
@@ -150,13 +168,6 @@ class ObjectManager
             $qb->andWhere("$o.sideBannerImage IS NOT NULL");
         }
 
-        if (!empty($criteria[self::CRITERIA_TAGS])) {
-            \gFuncs::dbgWriteLogVar('tags', false, ''); // DBG:
-            $tagQb = $this->em->getRepository('ArmdTagBundle:Tag')
-                ->getTagsQueryBuilder('armd_atlas_object')
-                ->where('tag.name IN (:tags)')->setParameter('tags', $criteria[self::CRITERIA_TAGS])
-            ;
-        }
 
     }
 
@@ -187,6 +198,19 @@ class ObjectManager
                     ->getSingleResult();
             }
         }
+        return $objects;
+    }
+
+    public function getTaggedObjects($tags, $limit) {
+        $resourceIds = $this->tagManager->getResourceIdsByTags('armd_atlas_object', $tags, $limit);
+        $resourceIds = array_slice($resourceIds, 0, $limit);
+        $objects = $this->em->createQueryBuilder()
+            ->select('o')
+            ->from('ArmdAtlasBundle:Object', 'o')
+            ->where('o.id IN (:ids)')->setParameter('ids', $resourceIds)
+            ->getQuery()
+            ->getResult();
+
         return $objects;
     }
 
@@ -236,35 +260,6 @@ class ObjectManager
         }
 
         return $objects;
-
-        //--- following block may be used later if we'll decide to use objects for ACL read instead of raw SQL
-
-        /*
-        $objects = $this->om->getRepository('ArmdAtlasBundle:Object')->findAll();
-        $oids = array();
-        $oidToObject = array();
-        foreach($objects as $key => $object) {
-            $oid = ObjectIdentity::fromDomainObject($object);
-            $oids[$key] = $oid;
-            $oidToObject[$oid->getIdentifier()] = $key;
-        }
-
-        var_dump($oidToObject);
-
-
-        $acls = $this->aclProvider->findAcls($oids, array($sid));
-        foreach($acls as $oid) {
-            if(!$acls->offsetGet($oid)->isGranted(array(MaskBuilder::CODE_EDIT), array($sid))) {
-                unset($objects[$oidToObject[$oid->getIdentifier()]]);
-            }
-        }
-
-        echo count($object);
-        */
-
-        //---
-
-        //return $objects;
     }
 
     public function getRussiaImagesList($searchString)
