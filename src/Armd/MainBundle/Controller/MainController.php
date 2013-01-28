@@ -30,10 +30,18 @@ class MainController extends Controller
             )
         );
 
+        /*
         $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneBy(array('code' => 'LECTURE_SUPER_TYPE_CINEMA'));
         $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
             ->findLastAdded($lectureSuperType, 6);
+        */
+
+        // NewFeature #53983
+        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
+            ->findBy(array(
+                'id' => array(435,432,444,433,437,438),
+            ));
 
         return $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
