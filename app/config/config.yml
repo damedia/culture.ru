@@ -368,7 +368,7 @@ fos_oauth_server:
 
 jms_i18n_routing:
     default_locale: %locale%
-    locales: [ru, en]
+    locales: [ru, en, fr]
     strategy: prefix_except_default
 
 services:

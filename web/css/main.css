@@ -2208,13 +2208,16 @@ body {
 				border:1px solid #e5e5e5;
 				background-position:1px 1px;
 				background-repeat:no-repeat;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
 			}
 				.thumb-image-wrap img {
-					border:1px solid #fff;
-					display:none;
+					/*border:1px solid #fff;*/
+					/*display:none;*/
 				}
 				.thumb-image-wrap:hover  img, .flex-active-slide   img{
-					display:block;
+					/*display:block;*/
 				}
 				
 			
