@@ -44,6 +44,7 @@
     {{ parent() }}
     <style>
         .content.collapsed{ height:200px; overflow:hidden; }
+        .fancybox-video-wrapper iframe{ display:block; }
     </style>
 {% endblock %}
 
@@ -73,7 +74,8 @@
 
         function initFancybox() {
             $('.fancybox').fancybox({
-
+                prevEffect: 'none',
+		        nextEffect: 'none'
             });
 
             $('.zoom-fancybox').fancybox({
@@ -170,7 +172,9 @@
                 <ul class="slides image-slider">
                     {% for h in entity.images %}
                         <li>
-                            <a class="fancybox" href="{% path h, 'reference' %}"><img src="{% path h, 'atlasW613' %}" alt="" /></a>
+                            <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
+                                <img src="{% path h, 'atlasW613' %}" alt="" />
+                            </a>
                             <div class="image-stats">
                                 {#<a href="#" class="image-code-link">Код для вставки</a>#}
                                 <p>
@@ -186,8 +190,8 @@
                 <ul class="slides thumbs-slider">
                     {% for h in entity.images %}
                         <li>
-                            <div class="thumb-image-wrap" style="background-image:url({% path h, 'atlasW63H56' %});">
-                                {% thumbnail h, 'atlasW63H56' %}
+                            <div class="thumb-image-wrap">
+                                <img src="{% path h, 'atlasW63H56' %}" alt="" />
                             </div>
                         </li>
                     {% endfor %}
@@ -281,7 +285,7 @@
                     </article>
                 </div>
                 <div id="data-{{ loop.index }}" style="display: none;">
-                    <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
+                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
                         {{ armd_tvigle_video_player(video, 640, 360)|raw }}
                     </div>
                 </div>
@@ -305,7 +309,7 @@
                                 <div style="display:none;">
 
                                     <div id="data-{{ loop.index }}">
-                                        <div class="fancybox-video-wrapper" style="width:640px; height:360px;">
+                                        <div class="fancybox-video-wrapper">
                                             {{ armd_tvigle_video_player(video, 640, 360)|raw }}
                                         </div>
                                     </div>
