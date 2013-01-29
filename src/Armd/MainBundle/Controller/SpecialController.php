@@ -3,6 +3,7 @@
 namespace Armd\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SpecialController extends Controller
@@ -55,11 +56,13 @@ class SpecialController extends Controller
 	function getNews(array $categories)
     {
         $result = array();
-        
+
         foreach ($categories as $c)
         {
-//            $result[$c->getSlug()] = $this->get('armd_news.controller.news')->getPagination(array('category' => $c->getSlug()), 1, 4);
-            $result[$c->getSlug()] = $this->getNewsManager()->getPager(array('category' => $c->getSlug()), 1, 4);
+            $result[$c->getSlug()] =  $this->getNewsManager()->findObjects(array(
+                NewsManager::CRITERIA_LIMIT => 4,
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($c->getSlug())
+            ));
         }
         
         return $result;
@@ -68,12 +71,13 @@ class SpecialController extends Controller
     function newsAction($category, $tag = 'important', $limit = 10)
     {
         $criteria = array(
-            $tag => true, 
-            'category' => $category
+            NewsManager::CRITERIA_LIMIT => $limit,
+            NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($category),
+            NewsManager::CRITERIA_IMPORTANT => $tag === 'important' ? true : null
         );
-    
+
         return $this->render('ArmdMainBundle:Special:news.html.twig', array(
-            'news'  =>  $this->getNewsManager()->getPager($criteria, 1, $limit),
+            'news'  =>  $this->getNewsManager()->findObjects($criteria)
         ));        
     }
             
