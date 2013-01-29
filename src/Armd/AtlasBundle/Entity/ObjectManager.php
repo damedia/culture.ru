@@ -61,6 +61,8 @@ class ObjectManager extends ListManager
 
     public function setCriteria(QueryBuilder $qb, $criteria)
     {
+        parent::setCriteria($qb, $criteria);
+
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
 

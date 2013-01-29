@@ -94,6 +94,15 @@ abstract class ListManager
             }
         }
 
+        if (isset($criteria[self::CRITERIA_TAGS])) {
+            $resourceIds = $this->tagManager->getResourceIdsByTags($this->getTaggableType(), $criteria[self::CRITERIA_TAGS]);
+            if (!empty($resourceIds)) {
+                $qb->andWhere("$o IN (:tagged_ids)")->setParameter('tagged_ids', $resourceIds);
+            } else {
+                $qb->andWhere("TRUE = FALSE");
+            }
+        }
+
     }
 
     public function getTaggedObjectsFromQueryBuilder(QueryBuilder $qb, array $tags, $limit)

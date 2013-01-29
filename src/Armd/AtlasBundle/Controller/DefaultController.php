@@ -3,7 +3,7 @@
 namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Armd\AtlasBundle\Manager\ObjectManager;
+use Armd\AtlasBundle\Entity\ObjectManager;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
