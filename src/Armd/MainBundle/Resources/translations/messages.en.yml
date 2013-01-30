@@ -7,28 +7,31 @@ menu.cinema: Cinema
 menu.chronicle: Chronicle
 menu.spiritual_traditions: Spiritual traditions
 menu.kids: Child
-
 menu.news_index: Events
 menu.news: News
 menu.events: Events
 menu.reportage: Reportage
 menu.interview: Interview
 menu.events_on_map: Events on map
-
 menu.information: Info
 menu.culture_magazine: '"Culture" magazine'
 menu.literature_magazine: '"Literature magazine"'
 menu.government_services: Government services
 menu.library: Library
 menu.banners: Banners
-
 menu.communication: Communication
-
 menu.special_projects: Projects
 menu.borodino: Borodino
 menu.special_projects_romanov450: The Romanovs
 menu.special_projects_stanislavski: Stanislavski
 menu.special_projects_1150: 1150 years of statehood
+menu.online_translation: Online translation
+menu.video: Video
+menu.lectures: Lectures
+menu.forum: Forum
+menu.open_government: Open government
+menu.social_council: Social council
+menu.government_control: State control
 
 #---------------- /menu -------------------------
 
