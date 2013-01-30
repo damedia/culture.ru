@@ -1,0 +1,454 @@
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.state {
+width:1400px;
+	height:3505px;
+	margin:auto;
+}  
+.kremlin {
+	
+	background:url(../img/kremlin/child-bg-main-kremlin.jpg) no-repeat 0 0;
+}
+.arkaim {
+	background:url(../img/arkaim/child-bg-main-arkaim.jpg) no-repeat 0 0;
+}
+.astrahan {
+	background:url(../img/astrahan/child-bg-main-astrahan.jpg) no-repeat 0 0;
+}
+.dazan {
+	background:url(../img/dazan/child-bg-main-dazan.jpg) no-repeat 0 0;
+}
+.kul-sharif  {
+	background:url(../img/kul-sharif/child-bg-main-kul-sharif.jpg) no-repeat 0 0;
+}
+.nevyansk  {
+	background:url(../img/nevyansk/child-bg-main-nevyansk.jpg) no-repeat 0 0;
+}
+.petergof   {
+	background:url(../img/petergof/child-bg-main-petergof.jpg) no-repeat 0 0;
+}
+
+.rodina   {
+	background:url(../img/rodina/child-bg-main-rodina-matj.jpg) no-repeat 0 0;
+}
+.tretyakovf  {
+	background:url(../img/tretyakovf/child-bg-main-tretyakovf.jpg) no-repeat 0 0;
+}
+.vladivostok    {
+	background:url(../img/vladivostok/child-bg-main-vladivostok.jpg) no-repeat 0 0;
+}
+
+	.decor {
+		margin-top:-18px;
+	}
+		.main-menu {
+			margin-left:38px;
+		}
+		
+		.main-image {
+			float:left;
+			margin:-258px 26px 0 -38px;
+		}
+		.arkaim .main-image {
+			margin-bottom:-30px;
+		}
+		.astrahan .main-image {
+			margin-bottom:-5px;
+			margin-top:-267px;
+		}
+		.nevyansk .main-image {
+			margin-bottom:-20px;
+			margin-top:-257px;
+			
+		}
+
+        .rodina .main-image {
+            margin-top:-341px;
+        }
+
+        .tretyakovf .main-image {
+            margin-top:-232px;
+        }
+
+        .vladivostok .main-image {
+            margin-top:-228px;
+        }
+		
+			.main-description {
+				color:#2f4eb2;
+				font:17px/17px "Trebuchet MS", Helvetica, sans-serif;
+				overflow:hidden;
+				width:312px;
+				height:300px;
+			}
+			.arkaim .main-description  {
+				color:#A8691D;
+			}
+			.astrahan .main-description  {
+				color:#AF4135;
+			}
+			.datzan .main-description  {
+				color:#257773;
+			}
+			.dazan .main-description  {
+				color:#257773;
+			}
+			.kul-sharif  .main-description  {
+				color:#5E67A5;
+			}
+			.nevyansk   .main-description {
+				color:#237A76;
+			}
+			.petergof  .main-description  {
+				color:#92599B;
+			}
+			
+			.rodina  .main-description  {
+				color:#2F4EB2;
+			}
+			.tretyakovf  .main-description  {
+				color:#C16825;
+			}
+			.vladivostok  .main-description  {
+				color:#7C5968;
+			}
+
+		.content {
+		
+		}
+			.puzzle-description {
+				width:370px;
+				color:#ce115e;
+				font:14px/17px "Trebuchet MS", Helvetica, sans-serif;
+				
+			}
+				.puzzle-description-text {
+					
+				}	
+					.puzzle-description-text p {
+						margin:0;
+					}
+				
+				.puzzle-slider {
+					width:350px;
+					height:351px;
+					background:url(../img/child-puzzles-frame.png) no-repeat 0 0;
+					
+				}
+					.puzzle-wrap {
+						position:relative;
+						width:350px;
+						height:273px;
+					}
+						.puzzle-setka-wrap {
+							position:absolute;
+							top:50%;
+							left:50%;
+							width:320px;
+							height:213px;
+							margin:-106px 0 0 -160px;
+						}
+							.puzzle-setka {
+								position:absolute;
+								top:0;
+								left:0;
+								display:block;
+								width:100%;
+								height:100%;
+								
+							}
+
+				
+			.case-1  {
+				width: 785px;
+				margin: 119px 0 0 217px;
+			}
+				.case-1 .puzzle-description {
+					float:left;
+				}	
+				.case-1 .puzzle-slider {
+					float:right;
+					
+				}
+					.case-1 .puzzle-description-text {
+						margin-left: 23px;
+						margin-top: 9px;
+					}
+
+			
+			.case-2	{
+				width: 802px;
+				margin: 109px 0 0 358px;
+			}
+				.case-2 .puzzle-description {
+					float:right;
+					font-size:15px;
+					line-height:17px;
+				}
+					
+				.case-2 .puzzle-slider {
+					float:left;
+					margin-top:23px;
+					
+				}
+				.case-2 .puzzle-description-text {
+					margin:17px 0 0 20px;
+					width:280px;
+				}
+
+				
+			.case-3	{
+				width: 759px;
+				margin: 16px 0 0 296px;
+			}
+				.case-3 .puzzle-description {
+					float:left;
+					font-size:15px;
+					line-height:17px;
+				}
+					
+				.case-3 .puzzle-slider {
+					float:right;
+					margin-top:90px;
+					
+				}	
+				.case-3 .puzzle-description-text {
+						margin:1px 0 0 10px;
+						width:280px;
+					}
+				
+				
+			.case-4	{
+				width: 807px;
+				margin: 296px 0 0 225px;
+			}
+				.case-4 .puzzle-description {
+					float:right;
+					font-size:15px;
+					line-height:17px;
+				}
+					
+				.case-4 .puzzle-slider {
+					float:left;
+					margin-top:-120px;
+					
+				}	
+
+				.case-4 .puzzle-description-text {
+					margin: 15px 0 0 10px;
+					width:350px;
+				}
+				
+		.footer-menu {
+			margin: 37px 0 0 39px;
+		}		
+				
+
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 144dpi) {
+
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
