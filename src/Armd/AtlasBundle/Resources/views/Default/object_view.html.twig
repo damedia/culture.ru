@@ -76,6 +76,7 @@
 
         function initFancybox() {
             $('.fancybox').fancybox({
+                autoResize: true,
                 prevEffect: 'none',
 		        nextEffect: 'none'
             });
@@ -161,12 +162,13 @@
         }
 
         function initInfographics() {
-            $('#caribbean').load(function(){
+            $('#shiftzoom').load(function(){
                 shiftzoom.add(this, {
                     showcoords: false,
                     relativecoords: true,
-                    wheelstep: 25,
-                    millisec: 100,
+                    wheelstep: 50,
+                    wheelinvert: true,
+                    millisec: 10,
                     buttons: false,
                     zoom: 100
                 });
@@ -273,11 +275,12 @@
         <div class="block">
             <section class="static-block">
                 <h2>Инфографика</h2>
-                <a class="inf-anons fancybox" href="#infographics">
+                <a class="fancybox" href="#infographics">
                     <img width="280" src="{% path entity.image3d, 'image3d' %}" alt=""/>
                 </a>
-                <div id="infographics" style="display:none; ">
-                    <img id="caribbean" class="shiftzoom" width="{{ entity.image3d.width/4 }}" height="{{ entity.image3d.height/4 }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
+                <div id="infographics" style="display:none;">
+                    {% set popupWidth = 800 %}
+                    <img id="shiftzoom" class="shiftzoom" width="{{ popupWidth }}" height="{{ popupWidth * entity.image3d.height / entity.image3d.width }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
                 </div>
             </section>
         </div>
