@@ -1,0 +1,118 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ entity.seoKeywords|default('') }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ entity.seoDescription|default('') }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.russiaImageAnnounce|striptags }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.primaryImage is not empty %}
+        <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length > 0 %}
+        <meta property="og:image" content="{% path entity.images[0], 'imagesOfRussia' %}" />
+    {% endif %}
+{% endblock %}
+
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    <link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    <script type="text/javascript">
+        window.onload = function() {
+            //window.print();
+        }
+    </script>
+{% endblock %}
+
+
+{% block page_header %}
+    <div class="print-header">
+        <table>
+            <tr>
+                <td class="print-header-logo">
+                    <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
+                </td>
+                <td>
+                    <div class="print-header-title">
+                        <h2>Атлас</h2>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block body%}
+    
+
+    <div class="news-press clearfix">
+        <div class="news-press-center">
+            
+
+            <div class="news-one text">
+                
+                <h1>{{ entity.title|raw }}</h1>
+
+                {% if entity.images|length > 0 %}
+                    {% for h in entity.images %}
+                        {% if loop.index == 1 %}
+                            <div class="news-one-image">
+                                <img src="{% path h, 'atlasW613' %}" alt="" />
+                            </div>
+                         {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <p class="highlight-text">
+                    {{ entity.russiaImageAnnounce|raw }}
+                </p>
+
+                {{ entity.content|raw }}
+
+                
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bottom_blocks%}
+    &nbsp;
+{% endblock %}
+
+{% block main_footer%}
+    <div class="w" id="footer">
+        <table class="print-footer-table">
+            <tr>
+                <td class="footer-logo">
+                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/print-footer-logo.png') }}" alt="logo" />
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+                </td>
+                <td class="footer-copy">
+                    <p>&copy; Портал культурного наследия России</p>
+                </td>
+            </tr>
+        </table>
+        <div >
+            
+        </div>
+    </div>
+{% endblock %}

@@ -1,5 +1,7 @@
 {% extends ':Frontend:base.html.twig' %}
 
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
 {% block stylesheets %}
 	<link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
@@ -7,40 +9,48 @@
 {% block javascripts %}
     <script type="text/javascript">
         window.onload = function() {
-            window.print();
+           window.print();
         }
     </script>
 {% endblock %}
 
 {% block page_header %}
-	<div class="w clearfix" id="header">
-		<img src="{{ asset('/img/logo.png') }}" alt="" class="logo" />
-	</div>
+    <div class="print-header">
+        <table>
+            <tr>
+                <td class="print-header-logo">
+                    <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
+                </td>
+                <td>
+                    <div class="print-header-title">
+                        
+                        <h2>События</h2>
+                    </div>
+                    <ul class="news-press-filter">
+                        {% for cat in categories %}
+                            <li>
+                                <a href="{{ path('armd_news_item_by_category', { 'category':entity.category.slug, 'id':entity.id }) }}" class="{% if cat.slug == category %}active{% endif %}">
+                                    {{ cat.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}
 
 {% block body%}
-    <div class="title-block gray-press">
-        <h2>События</h2>
-    </div>
+    
 
     <div class="news-press clearfix">
         <div class="news-press-center">
-            <ul class="news-press-filter">
-                {% for cat in categories %}
-                    <li>
-                        <a href="{{ path('armd_news_item_by_category', { 'category':entity.category.slug, 'id':entity.id }) }}" class="{% if cat.slug == category %}active{% endif %}">
-                            {{ cat.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+            
 
             <div class="news-one text">
                 <span class="news-one-date">
-                    {% if entity.date %}
-						{{ entity.date|date('d.m.Y') }}
-						{% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
-					{% endif %}
+                   {{ armd_news.news_date(entity.newsDate) }}
                 </span>
 
                 <h1>{{ entity.title|raw }}</h1>
@@ -83,9 +93,19 @@
 
 {% block main_footer%}
     <div class="w" id="footer">
-        <div class="footer-logo">
-            <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/footer-logo.png') }}" alt="logo" />
-            {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+        <table class="print-footer-table">
+            <tr>
+                <td class="footer-logo">
+                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/print-footer-logo.png') }}" alt="logo" />
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+                </td>
+                <td class="footer-copy">
+                    <p>&copy; Портал культурного наследия России</p>
+                </td>
+            </tr>
+        </table>
+        <div >
+            
         </div>
     </div>
 {% endblock %}

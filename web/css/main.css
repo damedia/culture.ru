@@ -1511,9 +1511,9 @@ body {
 						display:inline-block;
 						vertical-align:top;
 						width:21px;
-						height:21px;
+						height:22px;
 						/*background-image:url(../img/types-icons.png);*/
-						/*background-repeat:no-repeat;*/
+						background-repeat:no-repeat;
 					}
 					.ti-video {
 						background-image:url(../img/russia_images_icons/video_.png);
