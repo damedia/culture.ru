@@ -63,8 +63,11 @@ var armdMainPage = {
                 if (data === '1') {
                     armdMessager.showMessage('Ваш голос учтен');
                 }
-                else if (data === 'archiv') {
-                    armdMessager.showMessage('Голосование за данное сообщение закрыто', armdMessager.messageTypes.ERROR)
+                else if (data === 'no') {
+                    armdMessager.showMessage('Вы уже голосовали за это предложение', armdMessager.messageTypes.WARNING)
+                }
+                else if (data === 'arhiv') {
+                    armdMessager.showMessage('Голосование за данное предложение закрыто', armdMessager.messageTypes.WARNING)
                 }
                 else {
                     armdMessager.showMessage('При голосовании возникла ошибка', armdMessager.messageTypes.ERROR);
