@@ -52,6 +52,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script src="{{ asset('vendor/shiftzoom/shiftzoom.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -59,6 +60,7 @@
             initFancybox();
             initSlider();
             initYandexShare();
+            initInfographics();
 
 //            $('.gallery').show();
         });
@@ -157,6 +159,20 @@
                 description: '{{ entity.announce|striptags }}'
             });
         }
+
+        function initInfographics() {
+            $('#caribbean').load(function(){
+                shiftzoom.add(this, {
+                    showcoords: false,
+                    relativecoords: true,
+                    wheelstep: 25,
+                    millisec: 100,
+                    buttons: false,
+                    zoom: 100
+                });
+            });
+        }
+
     </script>
 {% endblock %}
 
@@ -257,9 +273,12 @@
         <div class="block">
             <section class="static-block">
                 <h2>Инфографика</h2>
-                <a href="{% path entity.image3d, 'reference' %}" class="inf-anons zoom-fancybox">
+                <a class="inf-anons fancybox" href="#infographics">
                     <img width="280" src="{% path entity.image3d, 'image3d' %}" alt=""/>
                 </a>
+                <div id="infographics" style="display:none; ">
+                    <img id="caribbean" class="shiftzoom" width="{{ entity.image3d.width/4 }}" height="{{ entity.image3d.height/4 }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
+                </div>
             </section>
         </div>
     {% endif %}
