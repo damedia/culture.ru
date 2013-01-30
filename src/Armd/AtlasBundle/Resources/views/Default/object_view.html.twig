@@ -52,6 +52,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script src="{{ asset('vendor/shiftzoom/shiftzoom.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -59,6 +60,7 @@
             initFancybox();
             initSlider();
             initYandexShare();
+            initInfographics();
 
 //            $('.gallery').show();
         });
@@ -74,6 +76,7 @@
 
         function initFancybox() {
             $('.fancybox').fancybox({
+                autoResize: true,
                 prevEffect: 'none',
 		        nextEffect: 'none'
             });
@@ -157,6 +160,21 @@
                 description: '{{ entity.announce|striptags }}'
             });
         }
+
+        function initInfographics() {
+            $('#shiftzoom').load(function(){
+                shiftzoom.add(this, {
+                    showcoords: false,
+                    relativecoords: true,
+                    wheelstep: 50,
+                    wheelinvert: true,
+                    millisec: 10,
+                    buttons: false,
+                    zoom: 100
+                });
+            });
+        }
+
     </script>
 {% endblock %}
 
@@ -257,9 +275,13 @@
         <div class="block">
             <section class="static-block">
                 <h2>Инфографика</h2>
-                <a href="{% path entity.image3d, 'reference' %}" class="inf-anons zoom-fancybox">
+                <a class="fancybox" href="#infographics">
                     <img width="280" src="{% path entity.image3d, 'image3d' %}" alt=""/>
                 </a>
+                <div id="infographics" style="display:none;">
+                    {% set popupWidth = 800 %}
+                    <img id="shiftzoom" class="shiftzoom" width="{{ popupWidth }}" height="{{ popupWidth * entity.image3d.height / entity.image3d.width }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
+                </div>
             </section>
         </div>
     {% endif %}
