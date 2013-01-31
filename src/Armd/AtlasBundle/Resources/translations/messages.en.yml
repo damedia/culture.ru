@@ -17,7 +17,7 @@ atlas:
     cancel: Cancel
     save: Save
     edit: Edit
-    choose_region: Choose a region
+    choose_region: Choose a region...
     delete: Delete
     done: Done
     filter: Filtering
