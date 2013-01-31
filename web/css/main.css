@@ -1458,10 +1458,10 @@ body {
 		}
 			
 			.plitka-icon {
-				background-position:11px 12px;
+                background-position:-25px 12px;
 			}
 			.full-list-icon {
-				background-position:-25px 12px;
+				background-position:11px 12px;
 			}
 			.short-list-icon {
 				background-position:-62px 12px;

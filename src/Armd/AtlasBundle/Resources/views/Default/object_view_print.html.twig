@@ -36,7 +36,7 @@
 {% block javascripts %}
     <script type="text/javascript">
         window.onload = function() {
-            //window.print();
+            window.print();
         }
     </script>
 {% endblock %}
@@ -49,9 +49,9 @@
                 <td class="print-header-logo">
                     <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
                 </td>
-                <td>
+                <td class="print-header-no-menu">
                     <div class="print-header-title">
-                        <h2>Атлас</h2>
+                        <h2>Образы России</h2>
                     </div>
                 </td>
             </tr>
@@ -68,18 +68,55 @@
 
             <div class="news-one text">
                 
-                <h1>{{ entity.title|raw }}</h1>
+                <h1 class="big-h1">{{ entity.title|raw }}</h1>
 
                 {% if entity.images|length > 0 %}
                     {% for h in entity.images %}
                         {% if loop.index == 1 %}
-                            <div class="news-one-image">
+                            <div class="news-one-image atlas-one-image">
                                 <img src="{% path h, 'atlasW613' %}" alt="" />
                             </div>
                          {% endif %}
                     {% endfor %}
                 {% endif %}
 
+                <div class="block">
+        <article class="static-block contacts-block">
+
+            <h2>{{"contact_info"|trans}}</h2>
+
+            <!-- map -->
+            {#<img src="/images/contacts.jpg" alt="" class="block-image">#}
+            <!-- /map -->
+
+            <div class="block-text">
+                        <p><b>{{ entity.title|raw }}</b></p>
+                        {% if entity.address %}<p>{{"atlas.address"|trans}}: {{ entity.address }}</p>{% endif %}
+                        {% if entity.siteUrl or entity.email or entity.phone %}<p>{% endif %}
+                        {% if entity.siteUrl %}{{"website"|trans}}: <a target="_blank" href="{{ entity.siteUrl }}">{{ entity.siteUrl }}</a><br/>{% endif %}
+                        {% if entity.email %}{{"email"|trans}}: {{ entity.email }}<br/>{% endif %}
+                        {% if entity.phone %}{{"phone"|trans}}: {{ entity.phone }}<br/>{% endif %}
+                        {% if entity.siteUrl or entity.email or entity.phone %}</p>{% endif %}
+                        <p>
+                            {% if entity.workTime is not empty %}
+                                {{"visiting_hours"|trans}}:
+                                {{ entity.workTime }}
+                            {% endif %}
+                            {% if entity.weekends|length > 0 %}
+                                <br/>{{"weekends"|trans}}:
+                                {% for day in entity.weekends %}
+                                    {{ day.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {{"without_holidays"|trans}}
+                            {% endif %}
+                        </p>
+                    </div>
+
+                </article>
+            </div>
+            <div class="clear"></div>
+                
                 <p class="highlight-text">
                     {{ entity.russiaImageAnnounce|raw }}
                 </p>
