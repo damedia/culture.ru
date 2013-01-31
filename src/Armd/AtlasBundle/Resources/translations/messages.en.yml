@@ -89,3 +89,32 @@ more: More
 less: Less
 
 russia_images.search: Search
+
+category_chooser:
+    plitka: Tiles
+    full_list: Full list
+    short_list: Short list
+
+search_category:
+    select: Select
+    region: Region
+    type: Type
+    theme: Theme
+    show: Show
+
+search_found: Found objects
+show_more: Show more
+
+types_icons:
+    video: Video
+    virtual_tour: Virtual tour
+    infographics: Infographics
+    photo_gallery: Photo gallery
+    archives: Archives
+
+save_original_photo: Save original photo
+read_more: Read more
+recommended: Recommended
+back: Back
+social_share: Share with friends
+images_russia: Images of Russia

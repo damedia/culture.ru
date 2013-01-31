@@ -1,6 +1,6 @@
 {% if objects is not empty %}
     <section class="block">
-        <h2><span>Рекомендуем</span></h2>
+        <h2><span>{{ "recommended"|trans }}</span></h2>
 
         {% for object in objects %}
             <div class="recommend-block">
@@ -10,7 +10,7 @@
                     <div class="recommend_name">
                         <p><a href="{{ path('armd_atlas_default_object_view', {'id': object.id}) }}">{{ object.title }}</a></p>
                     </div>
-                    <p class="recommend-type"><a href="{{ path('armd_atlas_russia_images') }}">Образы России</a></p>
+                    <p class="recommend-type"><a href="{{ path('armd_atlas_russia_images') }}">{{ "images_russia"|trans }}</a></p>
                 </div>
             </div>
         {% endfor %}

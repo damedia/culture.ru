@@ -197,7 +197,7 @@
                                 {#<a href="#" class="image-code-link">Код для вставки</a>#}
                                 <p>
                                     <span><b>{{ loop.index }}</b> из {{ entity.images|length }}</span>  /
-                                    <a href="{% path h, 'reference' %}" target="_blank">Сохранить оригинальное фото {#<i>(784 мб.)</i>#}</a>
+                                    <a href="{% path h, 'reference' %}" target="_blank">{{ "save_original_photo"|trans }} {#<i>(784 мб.)</i>#}</a>
                                 </p>
                             </div>
                         </li>
@@ -228,21 +228,21 @@
     </div>
     {% if entity.content is not empty %}
         <div class="more more3">
-            <p><a href="#">Читать дальше</a></p>
+            <p><a href="#">{{ "read_more"|trans }}</a></p>
         </div>
     {% endif %}
     <!-- /Content -->
 
     <div class="block small-block clearfix">
-        <h2><span>Рекомендуем</span></h2>
+        <h2><span>{{ "recommended"|trans }}</span></h2>
         {{ block('rec_plitka') }}
     </div>
 
     <!-- Page service -->
-    <div class="back-link"><p><a href="{{ referer }}">Назад</a></p></div>{#{ path('armd_atlas_index') }#}
+    <div class="back-link"><p><a href="{{ referer }}">{{ "back"|trans }}</a></p></div>{#{ path('armd_atlas_index') }#}
     <div class="event-one_footer clearfix">
         <div class="print-link"><a href="{{ path('armd_atlas_default_object_view_print', {  'id':entity.id }) }}" target="_blank"></a> {{ 'Printversion'|trans }} </div>
-        <div class="publish-links" href="#">Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
+        <div class="publish-links" href="#">{{ "social_share"|trans }}: <span id="yandex-share"></span></div>
     </div>
     <!-- /Page service -->
 
@@ -274,7 +274,7 @@
     {% if entity.image3d %}
         <div class="block">
             <section class="static-block">
-                <h2>Инфографика</h2>
+                <h2>{{ "infographics"|trans }}</h2>
                 <a class="fancybox" href="#infographics">
                     <img width="280" src="{% path entity.image3d, 'image3d' %}" alt=""/>
                 </a>
@@ -294,7 +294,7 @@
             {% for video in entity.videos if loop.first %}
                 <div class="block">
                     <article class="static-block video-block">
-                        <h2>Видео</h2>
+                        <h2>{{ "video"|trans }}</h2>
                         <a class="block-image fancybox" href="#data-{{ loop.index }}">
                             <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
                             <span class="play"></span>
@@ -359,7 +359,7 @@
     {% if entity.archiveImages|length > 0 %}
         <div class="block">
             <section class="static-block object-archives">
-                <h2>Архивы</h2>
+                <h2>{{ "archives"|trans }}</h2>
                 <div class="flexslider">
                     <ul class="slides">
                         {% for h in entity.archiveImages %}
