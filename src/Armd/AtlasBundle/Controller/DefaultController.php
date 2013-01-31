@@ -56,9 +56,9 @@ class DefaultController extends Controller
 
     /**
      * @Route("/object/{id}", requirements={"id"="\d+"}, name="armd_atlas_default_object_view")
-     * @Template("ArmdAtlasBundle:Default:object_view.html.twig")
+     * @Route("/object/{id}/print", requirements={"id"="\d+"}, defaults={"isPrint"=true}, name="armd_atlas_default_object_view_print")
      */
-    public function objectViewAction($id)
+    public function objectViewAction($id, $template = null, $isPrint = false)
     {
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_atlas_russia_images')
@@ -83,12 +83,14 @@ class DefaultController extends Controller
 //        $request = $this->get('request');
 //        $request->get;
 
+        $template = $template ? $template : 'ArmdAtlasBundle:Default:object_view.html.twig';
+        $template = $isPrint ? 'ArmdAtlasBundle:Default:object_view_print.html.twig' : $template;
 
-        return array(
+        return $this->render($template, array(    
             'referer' => $this->getRequest()->headers->get('referer'),
             'entity' => $entity,
             'relatedObjects' => $relatedObjects
-        );
+        ));
     }
 
 

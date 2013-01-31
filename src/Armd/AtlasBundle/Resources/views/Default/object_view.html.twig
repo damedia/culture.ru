@@ -241,7 +241,7 @@
     <!-- Page service -->
     <div class="back-link"><p><a href="{{ referer }}">Назад</a></p></div>{#{ path('armd_atlas_index') }#}
     <div class="event-one_footer clearfix">
-        {#<div class="print-link" href="#"><a href="#"></a> Распечатать материал: </div>#}
+        <div class="print-link"><a href="{{ path('armd_atlas_default_object_view_print', {  'id':entity.id }) }}" target="_blank"></a> {{ 'Printversion'|trans }} </div>
         <div class="publish-links" href="#">Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
     </div>
     <!-- /Page service -->
