@@ -74,28 +74,28 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block page_header_title %}Кинозал{% endblock %}
+{% block page_header_title %}{{ "Cinema Hall"|trans }}{% endblock %}
 {% block page_header_search %}
     <div class="search-category">
 
         <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="post">
-            <span class="search-dates-label">Выбрать</span>
+            <span class="search-dates-label">{{ "search_select"|trans }}</span>
             <div class="search-category-selects">
                 <select id="form_supertype" name="supertype" class="uni">
-                    <option value="0">Категория</option>
+                    <option value="0">{{ "search_category"|trans }}</option>
                     {% for supertype in superTypeList %}
                         <option value="{{ supertype.id }}" {% if supertype.id == superTypeId %}selected="selected"{% endif %}>{{ supertype.name }}</option>
                     {% endfor %}
                 </select>
                 <select id="form_genre" name="genre" class="uni">
-                    <option value="0">Все жанры</option>
+                    <option value="0">{{ "search_all_genres"|trans }}</option>
                     {% for genre in genresList %}
                         <option value="{{ genre.value }}" {% if genre.value == genreId %}selected="selected"{% endif %}>{{ genre.title }}</option>
                     {% endfor %}
                 </select>
                 <input id="form_page" type="hidden" name="page" value="1"/>
             </div>
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
+            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>
         </form>
 
     </div>
@@ -111,7 +111,7 @@
             <p><a id="lecture-more-button" href="{{ path('armd_lecture_default_list', { 'page':2 }) }}">Показать еще</a></p>
         </div>
     {% else %}
-        <strong>По Вашему запросу объектов не найдено</strong>
+        <strong>{{ "search_not_found"|trans }}</strong>
     {% endif %}
 
     {# render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} #}

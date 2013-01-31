@@ -277,7 +277,9 @@ class NewsManager
                 $entity = $qb->getQuery()->getOneOrNullResult();
             }
 
-            $entities[] = $entity;
+            if ($entity) {
+                $entities[] = $entity;
+            }
         }
 
         return $entities;

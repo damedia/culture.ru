@@ -120,11 +120,11 @@
             <div class="header-top-right clearfix">
                 <div class="lk-top">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a href="{{ path('sonata_user_profile_edit') }}">Личный кабинет</a> /
-                        <a href="{{ path('fos_user_security_logout') }}">Выход</a>
+                        <a href="{{ path('sonata_user_profile_edit') }}">{{ "auth_account"|trans }}</a> /
+                        <a href="{{ path('fos_user_security_logout') }}">{{ "auth_logout"|trans }}</a>
                     {% else %}
-                        <a href="{{ path('fos_user_registration_register') }}">Регистрация</a> /
-                        <a href="{{ path('fos_user_security_login') }}">Вход</a>
+                        <a href="{{ path('fos_user_registration_register') }}">{{ "auth_register"|trans }}</a> /
+                        <a href="{{ path('fos_user_security_login') }}">{{ "auth_login"|trans }}</a>
                     {% endif %}
                 </div>
                 {#<a href="#" class="lang-chooser"></a>#}
@@ -150,8 +150,8 @@
                     {% endblock %}
                     <div class="search-top clearfix">
                         <form action="{{ path('armd_search_results') }}">
-                            <input type="text" name="search_query" placeholder="Поиск по сайту" class="search-txt" id="search-txt"/>
-                            <input type="submit" value="Поиск" class="button search-btn"/>
+                            <input type="text" name="search_query" placeholder="{{ "site_search"|trans }}" class="search-txt" id="search-txt"/>
+                            <input type="submit" value="{{ "search"|trans }}" class="button search-btn"/>
                         </form>
                         {% block page_header_search_scope %}{% endblock %}
                     </div>

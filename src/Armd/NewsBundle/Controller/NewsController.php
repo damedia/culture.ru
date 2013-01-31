@@ -241,7 +241,7 @@ class NewsController extends Controller
         );
 
         $entities = $this->getNewsManager()->getBillboardNews();
-    
+
         return $this->render('ArmdNewsBundle:News:billboard.html.twig', array(
             'entities' => $entities,
         ));

@@ -49,3 +49,9 @@ Submit: Submit
 
 404: Page not found.
 Redirect after: You will be redirected to the main page <strong>after 5 seconds</strong>
+
+auth_account: Account
+auth_logout: Logout
+auth_register: Register
+auth_login: Login
+site_search: Site search
