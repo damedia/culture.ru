@@ -100,6 +100,8 @@ Mainpage block:
     Images of Russia:
         Title: Images of Russia
         Of: of
+        All: All images
+    New on portal: New on portal
 
 mainpage.read_mode: Read More
 mainpage.show_all: Show All

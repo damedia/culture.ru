@@ -82,8 +82,8 @@
                      'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
                  },
                  link: '{{ url('armd_main_homepage') }}',
-                 title: 'Портал культурного наследия России',
-                 description: 'Портал культурного наследия России'
+                 title: '{{ 'Portal title'|trans }}',
+                 description: '{{ 'Portal title'|trans }}'
              });
          });
 
@@ -115,7 +115,7 @@
 
     <div class="container">
         <header class="main-header clearfix">
-            <a class="logo" title="Культура.рф" href="{{ path('armd_main_homepage') }}"></a>
+            <a class="logo" title="{{ 'Portal title'|trans }}" href="{{ path('armd_main_homepage') }}"></a>
 
             <div class="header-top-right clearfix">
                 <div class="lk-top">
