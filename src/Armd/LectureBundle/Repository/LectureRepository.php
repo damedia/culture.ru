@@ -60,21 +60,23 @@ class LectureRepository extends EntityRepository
         $qbCount = clone($qb);
         $count = $qbCount->select('COUNT(l)')->getQuery()->getSingleScalarResult();
 
-        $offsets = array();
-        for ($i = 0; $i < $limit; $i++) {
-            $j = 0;
-            do {
-                $offset = rand(0, $count - 1);
-            } while ($j++ < 10 && in_array($offset, $offsets));
-            $offsets[] = $offset;
-        }
-
         $lectures = array();
-        foreach ($offsets as $offset) {
-            $lectures[] = $qb->setMaxResults(1)
-                ->setFirstResult($offset)
-                ->getQuery()
-                ->getSingleResult();
+        if ($count) {
+            $offsets = array();
+            for ($i = 0; $i < $limit; $i++) {
+                $j = 0;
+                do {
+                    $offset = rand(0, $count - 1);
+                } while ($j++ < 10 && in_array($offset, $offsets));
+                $offsets[] = $offset;
+            }
+
+            foreach ($offsets as $offset) {
+                $lectures[] = $qb->setMaxResults(1)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getSingleResult();
+            }
         }
 
         return $lectures;

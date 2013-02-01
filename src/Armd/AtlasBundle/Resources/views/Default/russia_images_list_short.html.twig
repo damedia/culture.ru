@@ -12,11 +12,11 @@
 		</span>
 		<div class="plitka-footer">
 			<div class="types-icons">
-                <span title="Видео" class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
-                <span title="Виртуальный тур" class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
-                <span title="Инфографика" class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
-                <span title="Фотогалерея" class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
-                <span title="Архивы" class="ti-list {% if object.archiveImages is not empty %}active{% endif %}"></span>
+                <span title="{{ "types_icons.video"|trans }}" class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
+                <span title="{{ "types_icons.virtual_tour"|trans }}" class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
+                <span title="{{ "types_icons.infographics"|trans }}" class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
+                <span title="{{ "types_icons.photo_gallery"|trans }}" class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
+                <span title="{{ "types_icons.archives"|trans }}" class="ti-list {% if object.archiveImages is not empty %}active{% endif %}"></span>
 			</div>
 		</div>
 	</div>

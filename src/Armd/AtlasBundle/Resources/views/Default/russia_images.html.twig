@@ -11,16 +11,16 @@
 {% block page_header_search %}
     {% spaceless %}
         <div class="category-chooser" id="category-chooser">
-            <a href="#plitka" class="plitka-icon active" title="Плитка">Плитка</a>
-            <a href="#full-list" class="full-list-icon" title="Полный список">Полный список</a>
-            <a href="#short-list" class="short-list-icon" title="Краткий список">Краткий список</a>
+            <a href="#plitka" class="plitka-icon active" title="{{ "category_chooser.plitka"|trans }}">{{ "category_chooser.plitka"|trans }}</a>
+            <a href="#full-list" class="full-list-icon" title="{{ "category_chooser.full_list"|trans }}">{{ "category_chooser.full_list"|trans }}</a>
+            <a href="#short-list" class="short-list-icon" title="{{ "category_chooser.short_list"|trans }}">{{ "category_chooser.short_list"|trans }}</a>
         </div>
         <div class="search-category">
-            <span class="search-dates-label">Выбрать</span>
+            <span class="search-dates-label">{{ "search_category.select"|trans }}</span>
 
             <div class="search-category-selects">
                 <select name="object-region" id="object-region" class="uni">
-                    <option value="">Регион</option>
+                    <option value="">{{ "search_category.region"|trans }}</option>
                     {% for region in regions %}
                         {% if regionId == region.id %}
                             {% set selected = 'selected' %}
@@ -31,19 +31,19 @@
                     {% endfor %}
                 </select>
                 <select name="object-type" id="object-type" class="uni">
-                    <option value="">Тип</option>
+                    <option value="">{{ "search_category.type"|trans }}</option>
                     {% for type in types %}
                         <option value="{{ type.id }}">{{ type.title }}</option>
                     {% endfor %}
 \               </select>
                 <select name="object-thematic" id="object-thematic" class="uni">
-                    <option value="">Тематика</option>
+                    <option value="">{{ "search_category.theme"|trans }}</option>
                     {% for thematic in thematics %}
                         <option value="{{ thematic.id }}">{{ thematic.title }}</option>
                     {% endfor %}
 \                </select>
             </div>
-            <a href="#" id="search-russia-images-button" class="button search-dates-button">Показать</a>
+            <a href="#" id="search-russia-images-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
         </div>
     {% endspaceless %}
 {% endblock %}
@@ -55,7 +55,7 @@
 {% endblock %}
 
 {% block body %}
-    <p class="search-found">Выбрано образов: <span id="found-objects-count"></span></p>
+    <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span></p>
 
     <div id="plitka" class="tab plitka-list">
         <ul class="plitka obrazy-plitka">
@@ -77,7 +77,7 @@
 
     <div class="more more2">
         <p>
-            <a href="#" id="show-more">Еще образы России</a>
+            <a href="#" id="show-more">{{ "show_more"|trans }}</a>
         </p>
     </div>
 {% endblock %}

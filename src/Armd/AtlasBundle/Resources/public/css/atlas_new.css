@@ -26,7 +26,6 @@
 		}
 
         .bar {
-            background: none repeat scroll 0 0 #FF0000;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
             position: absolute;
             z-index: 2;

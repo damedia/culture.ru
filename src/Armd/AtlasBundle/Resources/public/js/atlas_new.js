@@ -361,7 +361,9 @@ AT.placePoint = function(object) {
         .css({
             'margin-left': '-12px',
             'margin-top': '-38px'
-        });
+        })
+        .attr('title', object.title);
+
     AT.map.geometry.add(point);
 
     // клик по точке

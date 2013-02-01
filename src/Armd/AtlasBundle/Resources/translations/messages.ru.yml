@@ -85,3 +85,32 @@ more: Далее
 less: Свернуть
 
 russia_images.search: Поиск по объектам
+
+category_chooser:
+    plitka: Плитка
+    full_list: Полный список
+    short_list: Краткий список
+
+search_category:
+    select: Выбрать
+    region: Регион
+    type: Тип
+    theme: Тематика
+    show: Показать
+
+search_found: Выбрано образов
+show_more: Еще образы России
+
+types_icons:
+    video: Видео
+    virtual_tour: Виртуальный тур
+    infographics: Инфографика
+    photo_gallery: Фотогалерея
+    archives: Архивы
+
+save_original_photo: Сохранить оригинальное фото
+read_more: Читать дальше
+recommended: Рекомендуем
+back: Назад
+social_share: Опубликовать в социальных сетях
+images_russia: Образы России
