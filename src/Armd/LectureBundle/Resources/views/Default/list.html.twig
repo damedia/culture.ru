@@ -33,24 +33,31 @@
             });
 
             // Ajax Form handler
-            $('#lectures-filter').ajaxForm({
-                dataType: 'json',
-                success: function(jsonData, statusText, xhr, $form) {
+            $('#lectures-filter').bind('submit', function(event) {
+                event.preventDefault();
+                armdMk.startLoading();
+                $('#lectures-filter').ajaxSubmit({
+                    dataType: 'json',
+                    success: function(jsonData, statusText, xhr, $form) {
 
-                    if ($('#lectures-filter').data('mode') == 'append') {
-                        $('#lecture-container').append( jsonData.html );
-                    } else {
-                        $('#lecture-container').html( jsonData.html );
+                        if ($('#lectures-filter').data('mode') == 'append') {
+                            $('#lecture-container').append( jsonData.html );
+                        } else {
+                            $('#lecture-container').html( jsonData.html );
+                        }
+
+                        var loadedCount = $('#lecture-container .plitka-one-wrap').length;
+
+                        if (loadedCount >= jsonData.total) {
+                            $('#lecture-more-container').hide();
+                        } else {
+                            $('#lecture-more-container').show();
+                        }
+                    },
+                    complete: function() {
+                        armdMk.stopLoading();
                     }
-
-                    var loadedCount = $('#lecture-container .plitka-one-wrap').length;
-
-                    if (loadedCount >= jsonData.total) {
-                        $('#lecture-more-container').hide();
-                    } else {
-                        $('#lecture-more-container').show();
-                    }
-                }
+                });
             });
 
             // Form submit
