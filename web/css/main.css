@@ -190,6 +190,7 @@ body {
         top: 0;
         left: 0;
         width: 100%;
+        min-width: 1017px;
         height:1110px;
     }
         .header-banner a {
