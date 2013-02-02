@@ -22,21 +22,12 @@ class Builder extends ContainerAware
         $menu = $this->factory->createItem('root');
 
         if ($request->getLocale() == 'en') {
-            /*
-                Atlas
-                Images of Russia
-                Virtual museums
-                Lectures
-                Events
-                About
-            */
 
             $mainMenu = $menu->addChild('menu.homepage', array('route' => 'armd_main_homepage'));
 
             $menu->addChild('menu.atlas',            array('route' => 'armd_atlas_index'));
             $menu->addChild('menu.russia_images',    array('route' => 'armd_atlas_russia_images'));
             $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_index'));
-            $menu->addChild('menu.cinema',           array('route' => 'armd_lecture_default_list'));
 
             //--- Events
             $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
