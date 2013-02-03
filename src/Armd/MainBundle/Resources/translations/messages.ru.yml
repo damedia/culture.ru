@@ -7,31 +7,33 @@ menu.cinema: Кинозал
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
 menu.kids: Детский раздел
-
-menu.news_index: События
+menu.news_index: Медиа-блок
 menu.news: Новости
 menu.events: Анонсы
+
 menu.reportage: Репортажи
 menu.interview: Интервью
-menu.events_on_map: Мероприятия
-
 menu.about: Информация
+menu.events_on_map: Карта мероприятий
 menu.information: Информация
 menu.culture_magazine: Газета «Культура»
 menu.literature_magazine: «Литературная газета»
 menu.government_services: Госуслуги
 menu.library: Библиотека
 menu.banners: Баннеры
-
 menu.communication: Общение
-
 menu.special_projects: Спецпроекты
 menu.borodino: Бородино
 menu.special_projects_romanov450: Романовы
 menu.special_projects_stanislavski: Станиславский
 menu.special_projects_1150: 1150 лет государственности
-
-
+menu.online_translation: Онлайн трансляции
+menu.video: Видеотека
+menu.lectures: Лекции
+menu.forum: Форум
+menu.open_government: Открытое правительство
+menu.social_council: Общественный совет
+menu.government_control: Форум по госнадзору
 #---------------- /menu -------------------------
 
 

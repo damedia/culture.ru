@@ -119,13 +119,6 @@ class Builder extends ContainerAware
             );
 
             $mainMenu->addChild(
-                'menu.atlas',
-                array(
-                    'route' => 'armd_atlas_index'
-                )
-            );
-
-            $mainMenu->addChild(
                 'menu.russia_images',
                 array(
                     'route' => 'armd_atlas_russia_images'
@@ -140,9 +133,16 @@ class Builder extends ContainerAware
             );
 
             $mainMenu->addChild(
-                'menu.cinema',
+                'menu.atlas',
                 array(
-                    'route' => 'armd_lecture_default_list'
+                    'route' => 'armd_atlas_index'
+                )
+            );
+
+            $mainMenu->addChild(
+                'menu.events_on_map',
+                array(
+                    'route' => 'armd_news_map',
                 )
             );
 
@@ -157,13 +157,6 @@ class Builder extends ContainerAware
                 'menu.spiritual_traditions',
                 array(
                     'route' => 'armd_main_project_traditions'
-                )
-            );
-
-            $mainMenu->addChild(
-                'menu.kids',
-                array(
-                    'uri' => '/kids/children.html'
                 )
             );
 
@@ -211,23 +204,13 @@ class Builder extends ContainerAware
             );
 
             $eventsMenu->addChild(
-                'menu.events_on_map',
+                'menu.online_translation',
                 array(
-                    'route' => 'armd_news_map',
-                )
-            );
-            //--- /Events
-
-
-            //--- Information
-            $infoMenu = $menu->addChild(
-                'menu.information',
-                array(
-                    'route' => 'armd_main_about'
+                    'route' => 'armd_main_online_translation',
                 )
             );
 
-            $infoMenu->addChild(
+            $eventsMenu->addChild(
                 'menu.culture_magazine',
                 array(
                     'route' => 'armd_paper_edition',
@@ -235,7 +218,7 @@ class Builder extends ContainerAware
                 )
             );
 
-            $infoMenu->addChild(
+            $eventsMenu->addChild(
                 'menu.literature_magazine',
                 array(
                     'route' => 'armd_paper_edition',
@@ -243,52 +226,104 @@ class Builder extends ContainerAware
                 )
             );
 
-            $infoMenu->addChild(
+            //--- /Events
+
+
+            //--- Video
+            $videoMenu = $menu->addChild(
+                'menu.video',
+                array(
+                    'route' => 'armd_lecture_default_list'
+                )
+            );
+
+            $videoMenu->addChild(
+                'menu.cinema',
+                array(
+                    'route' => 'armd_lecture_default_list'
+                )
+            );
+
+            $videoMenu->addChild(
+                'menu.lectures',
+                array(
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 1)
+                )
+            );
+
+
+            //--- /Video
+
+
+            //--- Communication
+            $communicationMenu = $menu->addChild(
+                'menu.communication',
+                array(
+                    'uri' => 'http://people.culture.ru/forum/'
+                )
+            );
+
+            $communicationMenu->addChild(
+                'menu.forum',
+                array(
+                    'uri' => 'http://people.culture.ru/forum/'
+                )
+            );
+
+            $communicationMenu->addChild(
                 'menu.government_services',
                 array(
                     'route' => 'armd_main_services'
                 )
             );
 
-            $infoMenu->addChild(
-                'menu.library',
+            $communicationMenu->addChild(
+                'menu.open_government',
                 array(
-                    'route' => 'armd_main_library'
+                    'uri' => 'http://people.culture.ru/opengov/'
                 )
             );
 
-            $infoMenu->addChild(
-                'menu.banners',
+            $communicationMenu->addChild(
+                'menu.social_council',
                 array(
-                    'route' => 'armd_main_banners'
+                    'uri' => 'http://people.culture.ru/community_council/'
                 )
             );
 
-            //--- /Information
-
-
-            //--- Communication
-//            $communicationMenu = $menu->addChild(
-//                'menu.communication',
-//                array(
-//                    'uri' => 'http://people.culture.ru/opengov/expert/'
-//                )
-//            );
+            $communicationMenu->addChild(
+                'menu.government_control',
+                array(
+                    'uri' => 'http://people.culture.ru/forum_private/'
+                )
+            );
             //--- /Communication
+
+
+            //--- Kids
+            $kidsMenu = $menu->addChild(
+                'menu.kids',
+                array(
+                    'uri' => '/kids/children.html'
+                )
+            );
+
+            //--- /Kids
 
 
             //--- Special
             $specialMenu = $menu->addChild(
                 'menu.special_projects',
                 array(
-                    'route' => 'armd_main_project_brodino'
+                    'route' => 'armd_main_project_1150'
                 )
             );
 
             $specialMenu->addChild(
-                'menu.borodino',
+                'menu.special_projects_1150',
                 array(
-                    'route' => 'armd_main_project_brodino'
+                    'route' => 'armd_main_project_1150'
                 )
             );
 
@@ -301,21 +336,21 @@ class Builder extends ContainerAware
             );
 
             $specialMenu->addChild(
+                'menu.borodino',
+                array(
+                    'route' => 'armd_main_project_brodino'
+                )
+            );
+
+            $specialMenu->addChild(
                 'menu.special_projects_stanislavski',
                 array(
                     'route' => 'armd_news_item_by_category',
                     'routeParameters' => array('category' => 'news', 'id' => 3724)
                 )
             );
-
-            $specialMenu->addChild(
-                'menu.special_projects_1150',
-                array(
-                    'route' => 'armd_main_project_1150'
-                )
-            );
-
             //--- /Special
+
         }
 
         $menu->setCurrentUri($request->getRequestUri());

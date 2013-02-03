@@ -28,6 +28,14 @@ var armdMk = {
         return armdMk.baseUrl + path;
     },
 
+    startLoading: function() {
+        armdMk.startLoadingBlock('body');
+    },
+
+    stopLoading: function() {
+        armdMk.stopLoadingBlock('body');
+    },
+
     startLoadingBlock: function(blockSelector) {
         if (typeof(blockSelector) === 'undefined') {
             blockSelector = 'body';
