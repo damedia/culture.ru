@@ -252,6 +252,14 @@ class Builder extends ContainerAware
                 )
             );
 
+            $videoMenu->addChild(
+                'menu.top100',
+                array(
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 4)
+                )
+            );
+
 
             //--- /Video
 
