@@ -257,6 +257,7 @@ class Builder extends ContainerAware
 
 
             //--- Communication
+            /*
             $communicationMenu = $menu->addChild(
                 'menu.communication',
                 array(
@@ -298,6 +299,7 @@ class Builder extends ContainerAware
                     'uri' => 'http://people.culture.ru/forum_private/'
                 )
             );
+            */
             //--- /Communication
 
 
