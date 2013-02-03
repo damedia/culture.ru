@@ -46,6 +46,7 @@ till: по
 Show: Показать
 
 Printversion: Распечатать материал
+Publish to Social networks: Опубликовать в социальных сетях
 Back: Назад
 Prev: Предыдущая
 Next: Следующая
@@ -71,3 +72,4 @@ newsmap:
 
 date.list.empty: На %date% событий не найдено
 
+More events: Еще события
