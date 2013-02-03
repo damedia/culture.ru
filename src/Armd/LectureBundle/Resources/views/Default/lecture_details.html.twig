@@ -173,7 +173,7 @@
 
                 {% elseif lecture.lectureType.code == 'LECTURE_TYPE_URL' %}
                     {% if lecture.externalUrl is not empty %}
-                        <a href="{{ lecture.externalUrl }}">
+                        <a target="_blank" href="{{ lecture.externalUrl }}">
                             <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
                         </a>
                     {% endif %}
