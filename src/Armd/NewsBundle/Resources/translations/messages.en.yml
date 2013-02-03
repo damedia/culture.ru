@@ -33,3 +33,5 @@ newsmap:
     category: Category
 
 date.list.empty: There aren't events at %date%
+
+More events: More events

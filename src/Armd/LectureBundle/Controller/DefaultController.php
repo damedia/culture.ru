@@ -141,6 +141,8 @@ class DefaultController extends Controller
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findAll();
 
+        //var_dump($lecture->getMediaLectureVideo());
+
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'superTypeList' => $superTypeList,
             'referer' => $this->getRequest()->headers->get('referer'),

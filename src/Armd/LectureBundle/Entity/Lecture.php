@@ -131,6 +131,13 @@ class Lecture implements Taggable
     private $productionYear;
 
     /**
+     * Ссылка на внешний ресурс. Для списка лучших 100 фильмов
+     *
+     * @ORM\Column(name="external_url", type="string", nullable=true)
+     */
+    private $externalUrl;
+
+    /**
      * @ORM\OneToMany(targetEntity="\Armd\LectureBundle\Entity\LectureRolePerson", mappedBy="lecture")
      */
     private $rolesPersons;
@@ -575,5 +582,28 @@ class Lecture implements Taggable
     public function getProductionYear()
     {
         return $this->productionYear;
+    }
+
+    /**
+     * Set externalUrl
+     *
+     * @param string $externalUrl
+     * @return Lecture
+     */
+    public function setExternalUrl($externalUrl)
+    {
+        $this->externalUrl = $externalUrl;
+    
+        return $this;
+    }
+
+    /**
+     * Get externalUrl
+     *
+     * @return string 
+     */
+    public function getExternalUrl()
+    {
+        return $this->externalUrl;
     }
 }

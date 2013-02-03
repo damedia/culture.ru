@@ -38,6 +38,13 @@ class LoadLectureCategoryData extends AbstractFixture implements OrderedFixtureI
         $manager->persist($rootCategory);
         $this->addReference('armd_lecture.lecture_category.cinema_root', $rootCategory);
 
+        // create root top100 category
+        $rootCategory = new Category();
+        $rootCategory->setTitle('== Корневая категория (100 лучших фильмов) ==');
+        $rootCategory->setLectureSuperType($this->getReference('armd_lecture.lecture_super_type.top100'));
+        $manager->persist($rootCategory);
+        $this->addReference('armd_lecture.lecture_category.top100_root', $rootCategory);
+
         $manager->flush();
     }
 
