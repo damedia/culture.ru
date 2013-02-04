@@ -64,80 +64,15 @@
             </div>
         {% endfor %}
     {% else %}
-        <strong>Виртуальных музеев удовлетворяющих запросу не найдено</strong>
+        <strong>{{ "museums_not_found"|trans }}</strong>
     {% endif %}
 </div>
 <div id="instruction" style="display:none;">
 	<div class="window">
 		<div class="block window-content">
-			<h2><span>Инструкция</span></h2>
-			<p>При нажатии на ссылку с виртуальным туром откроется панорама в исходной точке тура (1).</p>
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_01.jpg" alt="" width="90%" />
-				<figcaption>
-					<p>Рис 1.  Исходная точка тура</p>
-				</figcaption>
-			</figure>
-			<p>Перемещаться по точкам тура можно либо с помощью карты, которая находится в левом верхнем углу экрана, либо нажимая на белые круги-указатели. В случае перехода по кругам-указателям перемещение по туру происходит последовательно из одной точки в другую. С помощью карты перемещаться по туру можно в произвольном направлении.</p>
-			<p>Раскрывается и закрывается карта нажатием на картинку с картой (Рис. 2).</p>
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_02.jpg" alt="" width="60%" />
-				<figcaption>
-					<p>Рис 2.  Пример карты</p>
-				</figcaption>
-			</figure>
-			<p>В нижней части экрана находится панель навигации (Рис. 3), которая позволяет вращаться в пространстве вокруг точки тура, приближать и уменьшать картинку, а также переходить в полноэкранный режим.</p>
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_03.png" alt="" width="300" />
-				<figcaption>
-					<p>Рис 3.  Панель навигации</p>
-				</figcaption>
-			</figure>
-			
-			<p>Кнопки «<img src="/img/mk_instr/mk_instr_04.png" alt="" width="50" class="inline-image" />» позволяют вращаться вокруг вертикальной оси тура против и по часовой стрелке соответственно. Аналогично вращаться вокруг точки можно с помощью мышки, удерживая левой клавишей мышки картинку и вращая ее в требуемом направлении. Также вращение можно осуществлять с помощью карты тура, поворачивая мышкой зеленую зону вокруг точки в требуемую сторону.</p>
-			
-			
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_05.png" alt="" width="123" height="147" />
-				<figcaption>
-					<p>Рис 4.  Вращение с помощью карты</p>
-				</figcaption>
-			</figure>
-			
-			<p>Кнопки «<img src="/img/mk_instr/mk_instr_06.png" alt="" width="50" class="inline-image" />» позволяют перемещать картинку вверх и вниз соответственно. Аналогичным образом можно управлять картинкой с помощью левой клавиши мыши, как описано выше.</p>
-			<p>Кнопки «<img src="/img/mk_instr/mk_instr_07.png" alt="" width="50" class="inline-image" />» позволяют приближать и уменьшать изображение. С помощью мышки менять размер картинки можно используя колесо прокрутки.</p>
-			<p>Кнопка «<img src="/img/mk_instr/mk_instr_08.png" alt="" width="25" class="inline-image" />» переводит тур в полноэкранный режим. Для выхода из полноэкранного режима необходимо нажать кнопку «Esc» на клавиатуре.</p>
-			<p>В правом нижнем углу экрана находится кнопка информации «<img src="/img/mk_instr/mk_instr_09.png" alt="" width="25" class="inline-image" />». При нажатии на нее открывается контактная информация музея, чей тур просматривается (Рис. 5).</p>
-			
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_10.png" alt=""  />
-				<figcaption>
-					<p>Рис 5.  Пример информации о музее</p>
-				</figcaption>
-			</figure>
-			
-			<p>Если в туре присутствует ссылка на экспонат в хорошем разрешении, то такие экспонаты подсвечиваются синими кругами-указателями (Рис. 6).</p>
-			
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_11.jpg" alt="" width="670" height="340"  />
-				<figcaption>
-					<p>Рис 6.  Пример ссылок на экспонаты в хорошем разрешении</p>
-				</figcaption>
-			</figure>
-			
-			<p>При нажатии на синий круг-указатель в окне открывается описание экспоната (Рис. 7).</p>
-			
-			<figure  class="center-image">
-				<img src="/img/mk_instr/mk_instr_12.png" alt="" width="90%"  />
-				<figcaption>
-					<p>Рис 7.  Пример ссылок на экспонаты в хорошем разрешении</p>
-				</figcaption>
-			</figure>
-			
-			Возврат в тур осуществляется по кнопке «<img src="/img/mk_instr/mk_instr_13.png" alt=""  class="inline-image" />».
-			
-			<div class="back-link"><p><a href="#" onclick='$.fancybox.close(); return false;'>Назад</a></p></div>
-			
+
+            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+
 		</div>
    </div>
 </div>
