@@ -172,7 +172,7 @@
 		{% block main_footer%}
         <footer class="main-footer clearfix">
             <a href="http://mkrf.ru/" target="_blank" class="footer-copyright">
-                <p>Министерство культуры<br/>Российской Федерации</p>
+                <p>{{ "ministerstvo"|trans|raw }}</p>
             </a>
 
             <div class="footer-social">
@@ -181,8 +181,8 @@
                 </div>
                 <div class="footer-share">
                     <p>
-                        Рассказать о портале <span id="yandex-share-global"></span>
-                        <a href="/press-centre/rss/" class="rss-icon" title="События"></a>
+                        {{ "social_share"|trans }} <span id="yandex-share-global"></span>
+                        <a href="{{ path('armd_news_rss') }}" class="rss-icon" title="{{ "events"|trans }}"></a>
                     </p>
 
                     {#<div class="social-links">#}
@@ -192,10 +192,10 @@
             </div>
 
             <div class="footer-center">
-                <p>© Портал культурного наследия России</p>
+                <p>{{ "copyright"|trans }}</p>
                 <ul>
-                    <li><a href="{{ path('armd_main_about') }}">О проекте</a></li>
-                    <li><a href="{{ path('armd_main_banners') }}">Баннеры</a></li>
+                    <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
+                    <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
                     <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
                 </ul>
             </div>
