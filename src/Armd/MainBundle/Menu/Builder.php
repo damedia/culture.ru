@@ -265,11 +265,11 @@ class Builder extends ContainerAware
 
 
             //--- Communication
-            /*
+
             $communicationMenu = $menu->addChild(
                 'menu.communication',
                 array(
-                    'uri' => 'http://people.culture.ru/forum/'
+                    'uri' => 'http://people.culture.ru/opengov/expert/'
                 )
             );
 
@@ -290,7 +290,7 @@ class Builder extends ContainerAware
             $communicationMenu->addChild(
                 'menu.open_government',
                 array(
-                    'uri' => 'http://people.culture.ru/opengov/'
+                    'uri' => 'http://people.culture.ru/opengov/expert/'
                 )
             );
 
@@ -307,7 +307,7 @@ class Builder extends ContainerAware
                     'uri' => 'http://people.culture.ru/forum_private/'
                 )
             );
-            */
+
             //--- /Communication
 
 
