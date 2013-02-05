@@ -6,7 +6,7 @@ menu.virtual_museums: Музеи
 menu.cinema: Кинозал
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
-menu.kids: Детский раздел
+menu.kids: Детям
 menu.news_index: Медиа-блок
 menu.news: Новости
 menu.events: Анонсы
@@ -21,7 +21,7 @@ menu.literature_magazine: «Литературная газета»
 menu.government_services: Госуслуги
 menu.library: Библиотека
 menu.banners: Баннеры
-menu.communication: Общение
+menu.communication: Общение и сервисы
 menu.special_projects: Спецпроекты
 menu.borodino: Бородино
 menu.special_projects_romanov450: Романовы
