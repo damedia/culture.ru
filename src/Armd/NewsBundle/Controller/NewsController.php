@@ -188,8 +188,12 @@ class NewsController extends Controller
         } else {
             // at first get minimal date
             $limit = $limit ? $limit : 25;
+
             $firstLoadedDate = new \DateTime($request->get('first_loaded_date'));
-            $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
+            if ($request->query->has('first_loaded_date')) {
+                $firstLoadedDate->sub(new \DateInterval('P1D'))->setTime(0, 0);
+            }
+
             $criteria = array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $category,
                 NewsManager::CRITERIA_NEWS_DATE_TILL => $firstLoadedDate,
@@ -197,14 +201,17 @@ class NewsController extends Controller
             );
             $news = $newsManager->findObjects($criteria);
 
-            // this is low date
-            $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
+            if (empty($news)) {
+                $newsByDate = array();
+            } else {
+                // this is low date
+                $criteria[NewsManager::CRITERIA_NEWS_DATE_SINCE] = $news[count($news) - 1]->getNewsDate();
 
-            // now get news
-            unset($criteria[NewsManager::CRITERIA_LIMIT]);
-            $news = $newsManager->findObjects($criteria);
-            $newsByDate = $newsManager->getNewsGroupedByNewsDate($news);
-
+                // now get news
+                unset($criteria[NewsManager::CRITERIA_LIMIT]);
+                $news = $newsManager->findObjects($criteria);
+                $newsByDate = $newsManager->getNewsGroupedByNewsDate($news);
+            }
         }
 
         return array(
@@ -299,7 +306,7 @@ class NewsController extends Controller
 
     public function readAlsoNewsAction($entity, $limit = 10)
     {
-        $entities = $this->getNewsManager()->finObjects(
+        $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
                 NewsManager::CRITERIA_NEWS_ID_NOT => array($entity->getId()),

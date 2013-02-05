@@ -13,7 +13,7 @@ class NewsManager extends ListManager
     const CRITERIA_FILTRABLE = 'CRITERIA_FILTRABLE';
 
     /** example: array(13, 7) */
-    const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_CATEGORIES';
+    const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_OR';
 
     /** example: array('news', 'reportages') */
     const CRITERIA_CATEGORY_SLUGS_OR = 'CRITERIA_CATEGORY_SLUGS_OR';
@@ -31,7 +31,7 @@ class NewsManager extends ListManager
     const CRITERIA_HAS_IMAGE = 'CRITERIA_HAS_IMAGE';
 
     /** example: Date('2012-01-16') */
-    const CRITERIA_NEWS_DATE_SINCE = 'CRITERIA_NEWS_DATE_FROM';
+    const CRITERIA_NEWS_DATE_SINCE = 'CRITERIA_NEWS_DATE_SINCE';
 
     /** example: Date('2012-05-16') */
     const CRITERIA_NEWS_DATE_TILL = 'CRITERIA_NEWS_DATE_TILL';
@@ -141,9 +141,9 @@ class NewsManager extends ListManager
                 ->setParameter('event_date_since', $criteria[self::CRITERIA_NEWS_DATE_SINCE]->setTime(0, 0));
         }
 
-        if (!empty($criteria[self::CRITERIA_NEWS_DATE_TILL])) {
+        if (!empty($criteria[self::CRITERIA_EVENT_DATE_TILL])) {
             $qb->andWhere('_news.date <= :event_date_till OR _news.endDate <= :event_date_till')
-                ->setParameter('event_date_till', $criteria[self::CRITERIA_NEWS_DATE_TILL]->setTime(23, 59, 59));
+                ->setParameter('event_date_till', $criteria[self::CRITERIA_EVENT_DATE_TILL]->setTime(23, 59, 59));
         }
 
         if (!empty($criteria[self::CRITERIA_NEWS_ID_NOT])) {
@@ -154,6 +154,9 @@ class NewsManager extends ListManager
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');
         }
+
+        \gFuncs::dbgWriteLogVar($qb->getDQL(), false, 'dql'); // DBG:
+        \gFuncs::dbgWriteLogVar($qb->getParameters(), false, 'parameters'); // DBG:
     }
 
 
