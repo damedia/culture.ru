@@ -31,6 +31,12 @@ class LoadLectureTypeData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($type);
         $this->setReference('armd_lecture.lecture_type.text', $type);
 
+        $type = new LectureType();
+        $type->setCode('LECTURE_TYPE_URL');
+        $type->setName('Ссылка');
+        $manager->persist($type);
+        $this->setReference('armd_lecture.lecture_type.url', $type);
+
         $manager->flush();
     }
 

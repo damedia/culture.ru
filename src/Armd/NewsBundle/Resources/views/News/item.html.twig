@@ -6,7 +6,7 @@
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
-{% block page_header_title %}Новости{% endblock %}
+{% block page_header_title %}{{ "News"|trans }}{% endblock %}
 
 {% block page_header_search %}
     <div class="search-dates">
@@ -78,10 +78,10 @@
 
 
 
-<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">Назад</a></p></div>
+<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>
 <div class="event-one_footer clearfix">
-    <div href="#" class="print-link"><a target="_blank" href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}"></a> Распечатать материал: </div>
-    <div href="#" class="publish-links">Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
+    <div href="#" class="print-link"><a target="_blank" href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}"></a> {{ "Printversion"|trans }}: </div>
+    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
 </div>
 
 <section class="block">
@@ -116,6 +116,9 @@
                     'border':false,
                     'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
                 },
+                {% if entity.image %}
+                    image:'{% path entity.image, 'billboard' %}',
+                {% endif %}
                 link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
                 title:'{{ entity.title }}',
                 description:'{{ entity.announce|striptags }}'

@@ -141,6 +141,8 @@ class DefaultController extends Controller
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findAll();
 
+        //var_dump($lecture->getMediaLectureVideo());
+
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'superTypeList' => $superTypeList,
             'referer' => $this->getRequest()->headers->get('referer'),
@@ -207,6 +209,12 @@ class DefaultController extends Controller
         if ($genreId) {
             $categoryIds = array($genreId);
         }
+
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_lecture_default_list', array('supertype' => $superTypeId))
+        );
+
 
         $lectures = $manager->findFiltered($superTypeId, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
 

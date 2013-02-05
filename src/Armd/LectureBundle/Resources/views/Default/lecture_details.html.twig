@@ -88,46 +88,36 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block page_header %}
-    <h1>
-        {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-            {{ 'Lecture'|trans }}
-        {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-            {{ 'Translations'|trans }}
-        {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-            Кинозал
-        {% endif %}
-    </h1>
-    <div class="search-panel">
-        <div class="search-category">
+{% block page_header_title %}
+    {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+        {{ 'Lecture'|trans }}
+    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+        {{ 'Translations'|trans }}
+    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+        {{ "Cinema Hall"|trans }}
+    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_TOP100' %}
+        {{ "Cinema Hall"|trans }}
+    {% endif %}
+{% endblock %}
 
-            <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="get">
-                <span class="search-dates-label">Выбрать</span>
-                <div class="search-category-selects">
-                    <select id="form_supertype" name="supertype" class="uni">
-                        <option value="0">Категория</option>
-                        {% for supertype in superTypeList %}
-                            <option value="{{ supertype.id }}">{{ supertype.name }}</option>
-                        {% endfor %}
-                    </select>
-                    <select id="form_genre" name="genre" class="uni">
-                        <option value="">Все жанры</option>
-                    </select>
-                    <input id="form_page" type="hidden" name="page" value="1"/>
-                </div>
-                <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
-            </form>
-
-        </div>
-        <div class="search-top clearfix">
-            <form action="">
-                <input type="text" name="search-txt" placeholder="Поиск по сайту" class="search-txt" id="search-txt" />
-                <input type="submit" value="Поиск" class="button search-btn" />
-            </form>
-            <div class="search-checkboxes">
-                <label><input type="checkbox" name="check1" id="check1" /><span>Искать в текущем разделе</span></label>
+{% block page_header_search %}
+    <div class="search-category">
+        <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="get">
+            <span class="search-dates-label">Выбрать</span>
+            <div class="search-category-selects">
+                <select id="form_supertype" name="supertype" class="uni">
+                    <option value="0">Категория</option>
+                    {% for supertype in superTypeList %}
+                        <option value="{{ supertype.id }}">{{ supertype.name }}</option>
+                    {% endfor %}
+                </select>
+                <select id="form_genre" name="genre" class="uni">
+                    <option value="">Все жанры</option>
+                </select>
+                <input id="form_page" type="hidden" name="page" value="1"/>
             </div>
-        </div>
+            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
+        </form>
     </div>
 {% endblock %}
 
@@ -180,6 +170,14 @@
                     {% if lecture.lectureFile is not empty %}
                         <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
                     {% endif %}
+
+                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_URL' %}
+                    {% if lecture.externalUrl is not empty %}
+                        <a target="_blank" href="{{ lecture.externalUrl }}">
+                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
+                        </a>
+                    {% endif %}
+
                 {% endif %}
             </div>
             <div class="video-one-description">

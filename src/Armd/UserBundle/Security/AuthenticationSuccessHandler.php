@@ -36,6 +36,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler i
     
     function setCookies(Response $response, UserInterface $user)
     {
+        \gFuncs::dbgWriteLogVar('set cookie', false, ''); // DBG:
         $expire = new \DateTime();
         $expire->add(new \DateInterval('P1Y'));
         

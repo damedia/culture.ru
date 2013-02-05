@@ -10,6 +10,7 @@ till: till
 Show: Show
 
 Printversion: Print version
+Publish to Social networks: Publish to Social networks
 Back: Back
 Prev: Prev
 Next: Next
@@ -33,3 +34,5 @@ newsmap:
     category: Category
 
 date.list.empty: There aren't events at %date%
+
+More events: More events

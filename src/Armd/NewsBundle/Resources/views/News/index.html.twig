@@ -4,20 +4,20 @@
     {% if categoryEntity is not empty %}
         {{ categoryEntity.title }}
     {% else %}
-        События
+        {{ "Events"|trans }}
     {% endif %}
 {% endblock %}
 
 {% block page_header_search %}
 <div class="search-dates">
-    <span class="search-dates-label">Период:</span>
+    <span class="search-dates-label">{{ "Period"|trans }}:</span>
 
     <div class="dates-chooser">
         <a id="first-date" href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#" id="last-date">01.01.2012</a>
 
         <div id="datapicker"></div>
     </div>
-    <a href="#" class="button search-dates-button">Показать</a>
+    <a href="#" class="button search-dates-button">{{ "Show"|trans }}</a>
 </div>
 {% endblock %}
 
@@ -41,7 +41,7 @@
 
     <div class="more">
         <p>
-            <a href="#" id="more-news">Еще события</a>
+            <a href="#" id="more-news">{{ "More events"|trans }}</a>
         </p>
     </div>
 

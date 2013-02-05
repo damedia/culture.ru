@@ -54,9 +54,15 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema Categories, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
 
-
     armd_lecture.sonata_admin.lecture_cinema:
         class: Armd\LectureBundle\Admin\LectureCinemaAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+
+    # top 100 films
+    armd_lecture.sonata_admin.lecture_top100:
+        class: Armd\LectureBundle\Admin\LectureTop100Admin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Top 100 films, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
