@@ -222,9 +222,10 @@ body {
 		
 	}	
 		.main-header {
-			padding-bottom:21px;
+			padding-bottom:31px;
 			background:url(../img/header-bg.png) no-repeat 50% 100%;
 			position:relative;
+
 		}
 			.logo {
 				float:left;
@@ -277,7 +278,7 @@ body {
 				/*float:left;*/
 				/*margin-left:22px;*/
 				/*margin-top:51px;*/
-                /*width: 850px;*/
+
                 position: absolute;
                 top: 51px;
                 left: 123px;
