@@ -65,9 +65,15 @@ class MainController extends Controller
 
     public function backgroundBannerAction()
     {
+        if ($this->getRequest()->getLocale() == 'en') {
+            $bannerCode = 'HEAD_BANNER_EN';
+        } else {
+            $bannerCode = 'HEAD_BANNER';
+        }
+
         $banner = $this->getDoctrine()->getManager()
             ->getRepository('ArmdBannerBundle:Banner')
-            ->getBanner('HEAD_BANNER');
+            ->getBanner($bannerCode);
 
         return $this->render('ArmdMainBundle:Main:background_banner.html.twig', array('banner' => $banner));
     }
