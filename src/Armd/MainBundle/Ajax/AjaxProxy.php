@@ -91,10 +91,6 @@ class AjaxProxy
         curl_setopt($ch, CURLOPT_COOKIE, $cookie_string);
 
         $response = curl_exec($ch);
-        \gFuncs::dbgWriteLogVar($restUrl, false, 'request url'); // DBG:
-        \gFuncs::dbgWriteLogVar($cookie_string, false, 'request cookie'); // DBG:
-        \gFuncs::dbgWriteLogVar(http_build_query($params), false, 'request params'); // DBG:
-        \gFuncs::dbgWriteLogVar($response, false, 'response'); // DBG:
 
         curl_close($ch);
 
