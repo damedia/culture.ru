@@ -2,22 +2,38 @@
 namespace Armd\LectureBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
+use Armd\TagBundle\Entity\TagManager;
+use Armd\ListBundle\Entity\ListManager;
 use Armd\LectureBundle\Entity\LectureSuperType;
 use Armd\SphinxSearchBundle\Services\Search\SphinxSearch;
 use Knp\Component\Pager\Paginator;
 
-class LectureManager
+class LectureManager extends ListManager
 {
-    private $em;
-    private $paginator;
-    private $search;
+    protected $search;
 
-    public function __construct(EntityManager $em, Paginator $paginator, SphinxSearch $search)
+    public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
-        $this->em = $em;
-        $this->paginator = $paginator;
+        parent::__construct($em, $tagManager);
         $this->search = $search;
     }
+
+    public function getQueryBuilder()
+    {
+        $qb = $this->em->getRepository($this->getClassName())
+            ->createQueryBuilder('_lecture')
+            ->andWhere('_lecture.published = TRUE');
+
+        return $qb;
+    }
+
+    public function setCriteria(QueryBuilder $qb, $criteria) {
+        parent::setCriteria($qb, $criteria);
+
+
+    }
+
 
     public function findFiltered($superTypeId = null, $page = 1, $perPage = 20, $typeIds = null, $categoryIds = null, $sortBy = 'date', $searchString = '')
     {
@@ -100,4 +116,14 @@ class LectureManager
         return $res;
     }
 
+
+    public function getClassName()
+    {
+        return 'Armd\LectureBundle\Entity\Lecture';
+    }
+
+    public function getTaggableType()
+    {
+        return 'armd_lecture';
+    }
 }

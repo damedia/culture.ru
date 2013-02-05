@@ -154,9 +154,6 @@ class NewsManager extends ListManager
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');
         }
-
-        \gFuncs::dbgWriteLogVar($qb->getDQL(), false, 'dql'); // DBG:
-        \gFuncs::dbgWriteLogVar($qb->getParameters(), false, 'parameters'); // DBG:
     }
 
 
