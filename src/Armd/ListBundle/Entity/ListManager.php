@@ -128,7 +128,7 @@ abstract class ListManager
         $o = $aliases[0];
 
         $qbTag->innerJoin($this->tagManager->getTaggingClass(), 'tagging', 'WITH', "TOINT(tagging.resourceId) = $o.id")
-            ->innerJoin($this->tagManager->getTagClass(), 'tag')
+            ->innerJoin('tagging.tag', 'tag')
             ->andWhere('tag.name IN (:tags)')->setParameter('tags', $tagWords)
             ->andWhere('tagging.resourceType = :resourceType')->setParameter('resourceType', $this->getTaggableType())
             ->addSelect("COUNT(tag) tagCount")

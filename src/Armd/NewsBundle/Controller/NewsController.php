@@ -236,7 +236,7 @@ class NewsController extends Controller
         }
 
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
-        $this->get('fpn_tag.tag_manager')->loadTagging($entity);
+        $this->getTagManager()->loadTagging($entity);
 
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
@@ -338,11 +338,22 @@ class NewsController extends Controller
         ));
     }
 
-        
+
+    /**
+     * @return \Armd\NewsBundle\Entity\NewsManager
+     */
     protected function getNewsManager()
     {
         return $this->get('armd_news.manager.news');
-    }        
+    }
+
+    /**
+     * @return \Armd\TagBundle\Entity\TagManager
+     */
+    public function getTagManager()
+    {
+        return $this->get('fpn_tag.tag_manager');
+    }
     
     /**
      * @param \Armd\MkCommentBundle\Entity\Thread $thread
