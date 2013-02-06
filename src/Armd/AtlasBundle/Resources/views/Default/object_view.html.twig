@@ -52,15 +52,24 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-    <script src="{{ asset('vendor/shiftzoom/shiftzoom.js') }}"></script>
+    {#<script src="{{ asset('vendor/shiftzoom/shiftzoom.js') }}"></script>#}
+    <script src="{{ asset('vendor/zp/zp.js') }}"></script>
 
+    <script>
+        var sample = 1;
+        var smPos = 153;
+        var spPos = 153;
+        var sW;
+        var sH;
+    </script>
     <script type="text/javascript">
         $(function () {
             initUi();
             initFancybox();
             initSlider();
             initYandexShare();
-            initInfographics();
+            //initInfographics();
+            initInfographics2();
 
 //            $('.gallery').show();
         });
@@ -162,6 +171,7 @@
             });
         }
 
+        {#
         function initInfographics() {
             $('#shiftzoom').load(function(){
                 shiftzoom.add(this, {
@@ -173,6 +183,19 @@
                     buttons: false,
                     zoom: 0
                 });
+            });
+        }
+        #}
+
+        function initInfographics2() {
+            $("#shiftzoom").z({
+                width: 800,
+                height: 560,
+                responsive: true,
+                responsive_maintain_ratio: true,
+                max_WIDTH: '',
+                max_HEIGHT: '',
+                button_ICON_IMAGE: '{{ asset('vendor/zp/zoom_assets/icons.png') }}'
             });
         }
 
@@ -282,6 +305,9 @@
                 <div id="infographics" style="display:none;">
                     {% set popupWidth = 800 %}
                     <img id="shiftzoom" class="shiftzoom" width="{{ popupWidth }}" height="{{ popupWidth * entity.image3d.height / entity.image3d.width }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
+                    <div style="margin-top:5px; font-size:13px;">
+                        <a target="_blank" href="{% path entity.image3d, 'reference' %}">{{ "infographics_open_original"|trans }}</a>
+                    </div>
                 </div>
             </section>
         </div>
