@@ -75,38 +75,6 @@ class Builder extends ContainerAware
                     'route' => 'armd_main_about'
                 )
             );
-            $infoMenu->addChild(
-                'menu.culture_magazine',
-                array(
-                    'route' => 'armd_paper_edition',
-                    'routeParameters' => array('slug' => 'archive')
-                )
-            );
-            $infoMenu->addChild(
-                'menu.literature_magazine',
-                array(
-                    'route' => 'armd_paper_edition',
-                    'routeParameters' => array('slug' => 'litnews')
-                )
-            );
-            $infoMenu->addChild(
-                'menu.government_services',
-                array(
-                    'route' => 'armd_main_services'
-                )
-            );
-            $infoMenu->addChild(
-                'menu.library',
-                array(
-                    'route' => 'armd_main_library'
-                )
-            );
-            $infoMenu->addChild(
-                'menu.banners',
-                array(
-                    'route' => 'armd_main_banners'
-                )
-            );
 
         } else {
 
@@ -203,12 +171,12 @@ class Builder extends ContainerAware
                 )
             );
 
-            $eventsMenu->addChild(
-                'menu.online_translation',
-                array(
-                    'route' => 'armd_main_online_translation',
-                )
-            );
+//            $eventsMenu->addChild(
+//                'menu.online_translation',
+//                array(
+//                    'route' => 'armd_main_online_translation',
+//                )
+//            );
 
             $eventsMenu->addChild(
                 'menu.culture_magazine',

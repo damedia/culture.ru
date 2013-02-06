@@ -71,6 +71,7 @@ comments: Comments
 comments_auth_require: Чтобы оставлять комментарии необходимо <a href="%loginUrl%">авторизоваться</a> на сайте.
 virtual_tour: Virtual tour
 infographics: Infographics
+infographics_open_original: Open original
 mobile_app: Mobile app
 available_appstore: Available in AppStore
 video: Video
