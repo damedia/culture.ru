@@ -3,6 +3,7 @@
 namespace Armd\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProjectController extends Controller
@@ -43,13 +44,13 @@ class ProjectController extends Controller
     
     function newsAction($category, $subject, $limit = 10)
     {
-        $criteria = array(
-            'subject'   => $subject, 
-            'category'  => $category,
-        );
-    
         return $this->render('ArmdMainBundle:Project:news.html.twig', array(
-            'news'      =>  $this->getNewsManager()->getPager($criteria, 1, $limit),
+            'news' => $this->getNewsManager()->findObjects(array(
+                    NewsManager::CRITERIA_LIMIT => $limit,
+                    NewsManager::CRITERIA_SUBJECT_SLUGS_OR => array($subject),
+                    NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($category)
+
+            ))
         ));        
     }
             

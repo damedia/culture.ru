@@ -3,6 +3,7 @@
 namespace Armd\LectureBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Armd\LectureBundle\Entity\LectureManager;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -123,6 +124,7 @@ class DefaultController extends Controller
      */
     public function lectureDetailsAction($id, $version)
     {
+        // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_lecture_default_list')
         );
@@ -132,6 +134,7 @@ class DefaultController extends Controller
         if(!$lecture) {
             throw $this->createNotFoundException('Lecture not found');
         }
+        $this->getTagManager()->loadTagging($lecture);
 
         $manager = $this->get('armd_lecture.manager.lecture');
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
@@ -261,13 +264,21 @@ class DefaultController extends Controller
      * @Route("/related")
      * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
      */
-    public function relatedLecturesAction(array $tags, $limit, $superTypeCode)
+    public function relatedLecturesAction($tags, $limit, $superTypeCode)
     {
-        $superType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
-            ->findOneByCode($superTypeCode);
+        $lectures = $this->getLectureManager()->findObjects(
+            array(
+                LectureManager::CRITERIA_LIMIT => $limit,
+                LectureManager::CRITERIA_TAGS => $tags,
+                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode)
+            )
+        );
 
-        $lectures = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')
-            ->findRelated($tags, $limit, $superType);
+//        $superType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
+//            ->findOneByCode($superTypeCode);
+//
+//            $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')
+//            ->findRelated($tags, $limit, $superType);
 
         return array('lectures' => $lectures);
     }
@@ -281,6 +292,22 @@ class DefaultController extends Controller
         $res = $manager->getGenresBySupertype($superTypeId);
 
         return $res;
+    }
+
+    /**
+     * @return \Armd\LectureBundle\Entity\LectureManager
+     */
+    public function getLectureManager()
+    {
+        return $this->get('armd_lecture.manager.lecture');
+    }
+
+    /**
+     * @return \Armd\TagBundle\Entity\TagManager
+     */
+    public function getTagManager()
+    {
+        return $this->get('fpn_tag.tag_manager');
     }
 
 }

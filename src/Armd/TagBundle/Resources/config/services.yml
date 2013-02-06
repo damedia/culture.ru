@@ -4,3 +4,4 @@ services:
         arguments: [@doctrine.orm.entity_manager, @fpn_tag.tag_manager]
         tags:
             - { name: form.type, alias: armd_tag }
+

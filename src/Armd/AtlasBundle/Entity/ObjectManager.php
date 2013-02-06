@@ -1,8 +1,9 @@
 <?php
 
-namespace Armd\AtlasBundle\Manager;
+namespace Armd\AtlasBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container;
+use Armd\AtlasBundle\Entity\Object;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
@@ -14,19 +15,13 @@ use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Armd\TagBundle\Entity\TagManager;
+use Armd\ListBundle\Entity\ListManager;
 
 
-class ObjectManager
+class ObjectManager extends ListManager
 {
-    private $em;
-
     private $search;
-
-    /** example: 10 */
-    const CRITERIA_LIMIT = 'CRITERIA_LIMIT';
-
-    /** example: 100  */
-    const CRITERIA_OFFSET = 'CRITERIA_OFFSET';
 
     /** example: true */
     const CRITERIA_RUSSIA_IMAGES = 'CRITERIA_RUSSIA_IMAGES';
@@ -43,12 +38,6 @@ class ObjectManager
     /** example: array(1, 89) */
     const CRITERIA_REGION_IDS_OR = 'CRITERIA_REGION_IDS_OR';
 
-    /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
-    const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
-
-    /** example: 5 */
-    const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
-
     /** example: true */
     const CRITERIA_HAS_SIDE_BANNER_IMAGE = 'CRITERIA_HAS_SIDE_BANNER_IMAGE';
 
@@ -56,58 +45,26 @@ class ObjectManager
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
 
-    /** example: array('museum', 'world war') */
-//    const CRITERIA_TAGS = 'CRITERIA_TAGS';
-
-    public function __construct(EntityManager $em, $search)
+    public function __construct(EntityManager $em, TagManager $tagManager, $search)
     {
-        $this->em = $em;
+        parent::__construct($em, $tagManager);
         $this->search = $search;
     }
 
-    public function findObjects(array $criteria)
-    {
-        $qb = $this->getQueryBuilder($criteria);
-
-        if(!empty($criteria[self::CRITERIA_RANDOM])) {
-            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
-        } else {
-            $objects = $qb->getQuery()->getResult();
-        }
-
-        return $objects;
-    }
-
-
-    public function getQueryBuilder(array $criteria)
+    public function getQueryBuilder()
     {
         $qb = $this->em->getRepository('ArmdAtlasBundle:Object')->createQueryBuilder('o')
             ->where('o.published = TRUE');
-
-        $this->setCriteria($qb, $criteria);
 
         return $qb;
     }
 
     public function setCriteria(QueryBuilder $qb, $criteria)
     {
+        parent::setCriteria($qb, $criteria);
+
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
-
-
-        if (!empty($criteria[self::CRITERIA_OFFSET])) {
-            $qb->setFirstResult($criteria[self::CRITERIA_OFFSET]);
-        }
-
-        if (!empty($criteria[self::CRITERIA_LIMIT])) {
-            $qb->setMaxResults($criteria[self::CRITERIA_LIMIT]);
-        }
-
-        if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
-            foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
-                $qb->addOrderBy("$o.$k", $v);
-            }
-        }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $qb->innerJoin("$o.secondaryCategories", 'sc')
@@ -148,37 +105,6 @@ class ObjectManager
         if (!empty($criteria[self::CRITERIA_HAS_SIDE_BANNER_IMAGE])) {
             $qb->andWhere("$o.sideBannerImage IS NOT NULL");
         }
-
-    }
-
-    public function getRandomObjectsFromQueryBuilder(QueryBuilder $qb, $limit) {
-        $qbCount = clone($qb);
-        $aliases = $qbCount->getRootAliases();
-        $o = $aliases[0];
-        $objectCount = $qbCount->select("COUNT($o)")->getQuery()->getSingleScalarResult();
-
-        if ($objectCount <= $limit) {
-            $objects = $qb->getQuery()->getResult();
-        }
-        else {
-            $offsets = array();
-            for ($i = 0; $i < $limit; $i++) {
-                $j = 0;
-                do {
-                    $offset = rand(0, $objectCount - 1);
-                } while ($j++ < 10 && in_array($offset, $offsets));
-                $offsets[] = $offset;
-            }
-
-            $objects = array();
-            foreach ($offsets as $offset) {
-                $objects[] = $qb->setMaxResults(1)
-                    ->setFirstResult($offset)
-                    ->getQuery()
-                    ->getSingleResult();
-            }
-        }
-        return $objects;
     }
 
     public function getUserObjects(UserInterface $user)
@@ -227,35 +153,6 @@ class ObjectManager
         }
 
         return $objects;
-
-        //--- following block may be used later if we'll decide to use objects for ACL read instead of raw SQL
-
-        /*
-        $objects = $this->om->getRepository('ArmdAtlasBundle:Object')->findAll();
-        $oids = array();
-        $oidToObject = array();
-        foreach($objects as $key => $object) {
-            $oid = ObjectIdentity::fromDomainObject($object);
-            $oids[$key] = $oid;
-            $oidToObject[$oid->getIdentifier()] = $key;
-        }
-
-        var_dump($oidToObject);
-
-
-        $acls = $this->aclProvider->findAcls($oids, array($sid));
-        foreach($acls as $oid) {
-            if(!$acls->offsetGet($oid)->isGranted(array(MaskBuilder::CODE_EDIT), array($sid))) {
-                unset($objects[$oidToObject[$oid->getIdentifier()]]);
-            }
-        }
-
-        echo count($object);
-        */
-
-        //---
-
-        //return $objects;
     }
 
     public function getRussiaImagesList($searchString)
@@ -380,5 +277,13 @@ class ObjectManager
         }
     }
 
+    public function getClassName()
+    {
+        return 'Armd\AtlasBundle\Entity\Object';
+    }
 
+    public function getTaggableType()
+    {
+        return 'armd_atlas_object';
+    }
 }

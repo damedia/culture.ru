@@ -3,11 +3,12 @@
 namespace Armd\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
-use Armd\AtlasBundle\Manager\ObjectManager;
+use Armd\AtlasBundle\Entity\ObjectManager;
 
 
 class MainController extends Controller
@@ -142,14 +143,22 @@ class MainController extends Controller
     {
         $result = array();
 
+        $newsManager = $this->get('armd_news.manager.news');
         foreach ($categories as $c) {
-            $result[$c->getSlug()] = $this->get('armd_news.manager.news')->getPager(
-                array('category' => $c->getSlug()),
-                1,
-                25
-            );
+            $result[$c->getSlug()] = $newsManager->findObjects(array(
+                    NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($c->getSlug()),
+                    NewsManager::CRITERIA_LIMIT => 25
+                ));
         }
 
+//        foreach ($categories as $c) {
+//            $result[$c->getSlug()] = $this->get('armd_news.manager.news')->getPager(
+//                array('category' => $c->getSlug()),
+//                1,
+//                25
+//            );
+//        }
+//
         return $result;
     }
 
