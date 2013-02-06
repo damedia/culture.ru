@@ -150,7 +150,9 @@ abstract class ListManager
         $qbCount = clone($qb);
         $aliases = $qbCount->getRootAliases();
         $o = $aliases[0];
-        $objectCount = $qbCount->select("COUNT($o)")->getQuery()->getSingleScalarResult();
+        $objectCount = $qbCount->select("COUNT($o)")
+            ->resetDQLPart('orderBy')
+            ->getQuery()->getSingleScalarResult();
 
         if ($objectCount <= $limit) {
             $objects = $qb->getQuery()->getResult();
