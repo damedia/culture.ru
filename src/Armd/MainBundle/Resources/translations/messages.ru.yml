@@ -7,7 +7,7 @@ menu.cinema: Кинозал
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
 menu.kids: Детям
-menu.news_index: Медиа-блок
+menu.news_index: Медиа
 menu.news: Новости
 menu.events: Анонсы
 
@@ -21,13 +21,13 @@ menu.literature_magazine: «Литературная газета»
 menu.government_services: Госуслуги
 menu.library: Библиотека
 menu.banners: Баннеры
-menu.communication: Общение и сервисы
+menu.communication: Сервисы
 menu.special_projects: Спецпроекты
 menu.borodino: Бородино
 menu.special_projects_romanov450: Романовы
 menu.special_projects_stanislavski: Станиславский
 menu.special_projects_1150: 1150 лет государственности
-menu.online_translation: Онлайн трансляции
+menu.online_translation: Трансляции
 menu.video: Видеотека
 menu.lectures: Лекции
 menu.top100: 100 лучших фильмов
