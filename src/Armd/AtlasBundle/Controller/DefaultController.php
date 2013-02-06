@@ -60,12 +60,14 @@ class DefaultController extends Controller
      */
     public function objectViewAction($id, $template = null, $isPrint = false)
     {
+        // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_atlas_russia_images')
         );
 
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
+        $this->getTagManager()->loadTagging($entity);
 
         if (!$entity) {
             throw new NotFoundHttpException("Page not found");
@@ -74,8 +76,9 @@ class DefaultController extends Controller
         $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects
         (
             array(
-                ObjectManager::CRITERIA_RANDOM => 5,
-                ObjectManager::CRITERIA_RUSSIA_IMAGES => true
+                ObjectManager::CRITERIA_LIMIT => 5,
+                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+                ObjectManager::CRITERIA_TAGS => $entity->getTags()
             )
         );
 
@@ -732,10 +735,9 @@ class DefaultController extends Controller
     /**
      * @Template("ArmdAtlasBundle:Default:related_objects.html.twig")
      */
-    public function relatedObjectsAction(array $tags, $limit)
+    public function relatedObjectsAction($tags, $limit)
     {
-        $objects = $this->get('armd_atlas.manager.object')->findObjects
-        (
+        $objects = $this->getObjectManager()->findObjects (
             array(
                 ObjectManager::CRITERIA_LIMIT => $limit,
                 ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true,
@@ -749,11 +751,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Armd\AtlasBundle\Manager\ObjectManager
+     * @return \Armd\AtlasBundle\Entity\ObjectManager
      */
     public function getObjectManager()
     {
         return $this->get('armd_atlas.manager.object');
+    }
+
+    /**
+     * @return \Armd\TagBundle\Entity\TagManager
+     */
+    public function getTagManager()
+    {
+        return $this->get('fpn_tag.tag_manager');
     }
 
     /**

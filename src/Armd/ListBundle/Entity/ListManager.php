@@ -2,6 +2,8 @@
 namespace Armd\ListBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use Armd\TagBundle\Entity\Tag;
+use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\ORM\QueryBuilder;
 use Armd\TagBundle\Entity\TagManager;
 
@@ -22,7 +24,7 @@ abstract class ListManager
     /** example: 5 */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
 
-    /** example: array('museum', 'world war') */
+    /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
 
     public function __construct(EntityManager $em, TagManager $tagManager)
@@ -94,21 +96,30 @@ abstract class ListManager
             }
         }
 
-        if (isset($criteria[self::CRITERIA_TAGS])) {
-            $resourceIds = $this->tagManager->getResourceIdsByTags($this->getTaggableType(), $criteria[self::CRITERIA_TAGS]);
-            if (!empty($resourceIds)) {
-                $qb->andWhere("$o IN (:tagged_ids)")->setParameter('tagged_ids', $resourceIds);
-            } else {
-                $qb->andWhere("TRUE = FALSE");
-            }
-        }
+//        if (isset($criteria[self::CRITERIA_TAGS])) {
+//            $resourceIds = $this->tagManager->getResourceIdsByTags($this->getTaggableType(), $criteria[self::CRITERIA_TAGS]);
+//            if (!empty($resourceIds)) {
+//                $qb->andWhere("$o IN (:tagged_ids)")->setParameter('tagged_ids', $resourceIds);
+//            } else {
+//                $qb->andWhere("TRUE = FALSE");
+//            }
+//        }
 
     }
 
-    public function getTaggedObjectsFromQueryBuilder(QueryBuilder $qb, array $tags, $limit)
+    public function getTaggedObjectsFromQueryBuilder(QueryBuilder $qb, $tags, $limit)
     {
-        if (empty($tags)) {
+        if (empty($tags) || count($tags) < 1) {
             return array();
+        }
+
+        $tagWords = array();
+        foreach ($tags as $tag) {
+            if ($tag instanceof Tag) {
+                $tagWords[] = $tag->getName();
+            } else {
+                $tagWords[] = $tag;
+            }
         }
 
         $qbTag = clone($qb);
@@ -118,7 +129,7 @@ abstract class ListManager
 
         $qbTag->innerJoin($this->tagManager->getTaggingClass(), 'tagging', 'WITH', "TOINT(tagging.resourceId) = $o.id")
             ->innerJoin($this->tagManager->getTagClass(), 'tag')
-            ->andWhere('tag.name IN (:tags)')->setParameter('tags', $tags)
+            ->andWhere('tag.name IN (:tags)')->setParameter('tags', $tagWords)
             ->andWhere('tagging.resourceType = :resourceType')->setParameter('resourceType', $this->getTaggableType())
             ->addSelect("COUNT(tag) tagCount")
             ->groupBy($o)

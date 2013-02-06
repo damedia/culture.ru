@@ -1,5 +1,5 @@
 <?php
-namespace Armd\LectureBundle\Manager;
+namespace Armd\LectureBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -12,6 +12,9 @@ use Knp\Component\Pager\Paginator;
 class LectureManager extends ListManager
 {
     protected $search;
+
+
+    const CRITERIA_SUPER_TYPE_CODES_OR = 'CRITERIA_SUPER_TYPE_CODES_OR';
 
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
@@ -31,7 +34,11 @@ class LectureManager extends ListManager
     public function setCriteria(QueryBuilder $qb, $criteria) {
         parent::setCriteria($qb, $criteria);
 
-
+        if (!empty($criteria[self::CRITERIA_SUPER_TYPE_CODES_OR])) {
+            $qb->innerJoin('_lecture.lectureSuperType', '_lectureSuperType')
+                ->andWhere('_lectureSuperType.code IN (:super_type_codes_or)')
+                ->setParameter('super_type_codes_or', $criteria[self::CRITERIA_SUPER_TYPE_CODES_OR]);
+        }
     }
 
 
