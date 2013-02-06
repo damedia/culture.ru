@@ -305,6 +305,9 @@
                 <div id="infographics" style="display:none;">
                     {% set popupWidth = 800 %}
                     <img id="shiftzoom" class="shiftzoom" width="{{ popupWidth }}" height="{{ popupWidth * entity.image3d.height / entity.image3d.width }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
+                    <div style="margin-top:5px; font-size:13px;">
+                        <a target="_blank" href="{% path entity.image3d, 'reference' %}">{{ "infographics_open_original"|trans }}</a>
+                    </div>
                 </div>
             </section>
         </div>
