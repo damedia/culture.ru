@@ -59,7 +59,12 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        entity_managers:
+            default:
+                auto_mapping: true
+                dql:
+                    numeric_functions:
+                        toint: Armd\DoctrineBundle\DQL\PgSql\PgSqlToInt
 
 # Swiftmailer Configuration
 swiftmailer:

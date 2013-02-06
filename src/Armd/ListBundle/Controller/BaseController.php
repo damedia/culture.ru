@@ -17,16 +17,16 @@ abstract class BaseController extends Controller
         return $repository;
     }
     
-    /**
-     * @param \Doctrine\ORM\Query $query
-     * @param int $page
-     * @param int $limit     
-     * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
-     */
-    public function getPagination(\Doctrine\ORM\Query $query, $page, $limit)
-    {   
-        return $this->get('knp_paginator')->paginate($query, $page, $limit);
-    }
+//    /**
+//     * @param \Doctrine\ORM\Query $query
+//     * @param int $page
+//     * @param int $limit
+//     * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
+//     */
+//    public function getPagination(\Doctrine\ORM\Query $query, $page, $limit)
+//    {
+//        return $this->get('knp_paginator')->paginate($query, $page, $limit);
+//    }
 
     /**
      * @return string
