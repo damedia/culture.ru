@@ -48,6 +48,10 @@ class NewsController extends Controller
         if (! $categories)
             throw new NotFoundHttpException("Categories not found");
 
+        $themes = $this->getNewsManager()->getThemes();
+        if (! $themes)
+            throw new NotFoundHttpException("Themes not found");
+
         $lastNews = $this->getNewsManager()->getLastNews();
         $dateFrom = new \DateTime('-1 month');
         $dateTo   = new \DateTime('+13 month');
@@ -56,6 +60,7 @@ class NewsController extends Controller
         return array(
             'regions' => $regions,
             'categories' => $categories,
+            'themes' => $themes,
             'lastNews' => $lastNews,
             'dateFrom' => $dateFromStr,
             'dateTo' => $dateToStr,

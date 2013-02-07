@@ -195,11 +195,20 @@ class NewsManager
         );
     }
 
+    public function getThemes()
+    {
+        return $this->em->getRepository('ArmdNewsBundle:Theme')->findBy(
+            array(),
+            array('title' => 'ASC')
+        );
+    }
+
     public function filterBy($filter = array())
     {
         $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
-        $qb->select('n, c, i')
+        $qb->select('n, c, t, i')
             ->innerJoin('n.category', 'c')
+            ->innerJoin('n.theme', 't')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true');
 
@@ -212,19 +221,24 @@ class NewsManager
         if (isset($filter['category'])) {
             $categoryIds = (array)$filter['category'];
             $qb->andWhere('c.id IN (:categoryIds)')
-                ->setParameter(':categoryIds', $categoryIds);
-        } else {
-            throw new \Exception('Выберите хотя бы один тип события.');
+               ->setParameter(':categoryIds', $categoryIds);
+        }
+
+        // фильтр по выбранным тематикам (иконкам)
+        if (isset($filter['theme'])) {
+            $themeIds = (array)$filter['theme'];
+            $qb->andWhere('t.id IN (:themeIds)')
+               ->setParameter(':themeIds', $themeIds);
         }
 
         // фильтр по датам
-        $dateFrom = isset($filter['date_from']) ? new \DateTime($filter['date_from']) : new \DateTime('now');
-        $dateTo = isset($filter['date_to']) ? new \DateTime($filter['date_to']) : new \DateTime('now');
-        $qb->andWhere(
-            '(n.date >= (:dateFrom) AND n.date <= (:dateTo)) OR (n.endDate >= (:dateFrom) AND n.endDate <= (:dateTo))'
-        )
-            ->setParameter(':dateFrom', $dateFrom)
-            ->setParameter(':dateTo', $dateTo);
+        if (isset($filter['date_from']) && isset($filter['date_to'])) {
+            $dateFrom = isset($filter['date_from']) ? new \DateTime($filter['date_from']) : new \DateTime('now');
+            $dateTo = isset($filter['date_to']) ? new \DateTime($filter['date_to']) : new \DateTime('now');
+            $qb->andWhere('(n.date >= (:dateFrom) AND n.date <= (:dateTo)) OR (n.endDate >= (:dateFrom) AND n.endDate <= (:dateTo))')
+               ->setParameter(':dateFrom', $dateFrom)
+               ->setParameter(':dateTo', $dateTo);
+        }
 
         // result
         $rows = $qb->getQuery()->getResult();
@@ -232,6 +246,7 @@ class NewsManager
         $data = array();
         foreach ($rows as $row) {
             $imageUrl = $this->container->get('sonata.media.twig.extension')->path($row->getImage(), 'thumbnail');
+            $iconUrl = $this->container->get('sonata.media.twig.extension')->path($row->getTheme()->getIconMedia(), 'reference');
             $data[] = array(
                 'id' => $row->getId(),
                 'title' => $row->getTitle(),
@@ -240,7 +255,9 @@ class NewsManager
                 'lon' => $row->getLon(),
                 'lat' => $row->getLat(),
                 'imageUrl' => $imageUrl,
+                'iconUrl' => $iconUrl,
                 'categoryId' => $row->getCategory()->getId(),
+                'themeId' => $row->getTheme()->getId(),
             );
         }
 
