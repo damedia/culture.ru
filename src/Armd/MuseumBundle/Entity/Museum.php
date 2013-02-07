@@ -50,6 +50,11 @@ class Museum
      */
     private $bannerImage;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Region")
+     * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+     */
+    private $region;
 
     public function __toString()
     {
@@ -193,5 +198,28 @@ class Museum
     public function setBannerImage(Media $bannerImage = null)
     {
         $this->bannerImage = $bannerImage;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \Armd\AtlasBundle\Entity\Region $region
+     * @return Museum
+     */
+    public function setRegion(\Armd\AtlasBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+    
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \Armd\AtlasBundle\Entity\Region 
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }

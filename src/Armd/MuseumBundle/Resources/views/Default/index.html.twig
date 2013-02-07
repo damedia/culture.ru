@@ -30,29 +30,30 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    <div class="search-category">
+        <span class="search-dates-label">Выбрать</span>
+        <div class="search-category-selects">
+            <select name="select1" id="select1" class="uni">
+                <option value="1">Категория</option>
+                <option value="2">100 лучших фильмов</option>
+                <option value="3">Исторические</option>
+                <option value="3">Военные</option>
+                <option value="3">Драмы</option>
+                <option value="3">Трагедии</option>
+                <option value="3">Комедии</option>
+            </select>
+            <select name="select3" id="select3" class="uni">
+                <option value="1">Тематика</option>
+                <option value="2">Тематика</option>
+                <option value="3">Тематика</option>
+            </select>
+        </div>
+        <a href="#" class="button search-dates-button">Показать</a>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
     {% render 'ArmdMuseumBundle:Default:list' %}
-
-
-    {#
-    <hr>
-    <div class="title-block timeline-title">
-        <h2>{{ 'Navigation.Virtual museums.Title'|trans }}</h2>
-    </div>
-    <div class="virt-museums">
-        <form action="" class="obr-form">
-            <div class="obr-text-input">
-                <input type="text" name="search" id="search_text"
-                       value="{{ 'Navigation.Virtual museums.Search'|trans }}"/>
-            </div>
-            <input type="submit" class="obr-submit-input" value=""/>
-        </form>
-        <div id="museums-wrapper">
-            <div id="museums-loading" class="loading-block"></div>
-            <div id="museums-container">
-                {% render 'ArmdMuseumBundle:Default:list' %}
-            </div>
-        </div>
-    </div>
-    #}
 {% endblock %}
