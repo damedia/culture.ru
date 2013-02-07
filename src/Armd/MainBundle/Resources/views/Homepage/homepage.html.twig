@@ -29,13 +29,50 @@
 {% endblock %}
 
 {% block left_column %}
-<section class="block">
+<section class="block new-on-site">
 	<h1><span>{{ "Mainpage block.New on portal"|trans }}</span></h1>
-	<section class="index-block clearfix">
+	<section class="index-block clearfix index-russia-images-block">
 		<h2><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.Title"|trans }}</a></h2>
         {% include 'ArmdMainBundle:Homepage:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
         <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.All"|trans }}</a></p>
     </section>
+
+    <section class="index-block two-column-block clearfix index-news-block">
+        <section class="index-block">
+            {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
+            {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
+            <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
+            <a href="{{ newsArticleHref }}">
+                {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
+                {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
+            </a>
+
+            <div class="text-overflow">
+                <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
+                <p>{{ lastReportage.announce|truncate(200) }}</p>
+                <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
+            </div>
+        </section>
+
+        <section class="index-block">
+            {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'interviews'}) %}
+            {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastInterview.id, 'category': lastInterview.category.slug }) %}
+
+            <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
+            <a href="{{ newsArticleHref }}">
+                {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}
+                {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
+            </a>
+
+            <div class="text-overflow">
+                <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
+                <p>{{ lastInterview.announce|truncate(200) }}</p>
+                <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
+            </div>
+        </section>
+
+    </section>
+
 
     <section class="index-block index-video-block clearfix">
         <h2><a href="{{ path('armd_lecture_default_list') }}">Кинозал</a></h2>
@@ -55,8 +92,32 @@
 
 {% block right_column %}
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
-{% endblock %}
 
+    <section id="homepage-social-widgets">
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
+
+        <!-- VK Widget -->
+        <div id="vk_groups"></div>
+        <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "290"}, 46598842);
+        </script>
+
+
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div class="fb-like-box" data-href="http://www.facebook.com/culture.ru" data-width="300" data-show-faces="true"
+             data-stream="false" data-header="true"></div>
+    </section>
+
+{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
