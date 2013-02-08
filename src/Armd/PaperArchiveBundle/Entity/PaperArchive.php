@@ -41,7 +41,7 @@ class PaperArchive
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\PaperArchiveBundle\Entity\PaperEdition", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Armd\PaperArchiveBundle\Entity\PaperEdition")
      * @ORM\JoinColumn(name="edition_id", referencedColumnName="id")
      */
     private $edition;
