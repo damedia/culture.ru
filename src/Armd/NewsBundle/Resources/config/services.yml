@@ -10,6 +10,12 @@ services:
             - { name: sonata.admin, manager_type: orm, group: News, label: Categories }
         arguments: [null, Armd\NewsBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
         
+    armd_news.admin.theme:
+        class: Armd\NewsBundle\Admin\Theme
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: News, label: Themes }
+        arguments: [null, Armd\NewsBundle\Entity\Theme, SonataAdminBundle:CRUD, @service_container]
+
     armd_news.admin.news:
         class: Armd\NewsBundle\Admin\News
         tags:

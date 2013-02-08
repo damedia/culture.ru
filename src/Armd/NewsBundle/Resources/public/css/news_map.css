@@ -1,4 +1,4 @@
-.container .col-left{ float:left; width:75%; }
+.container .col-left{ float:left; width:100%; }
 .container .col-right{ float:right; width:25%; }
 
 .filter-form{ }
@@ -37,6 +37,8 @@
 #map .PGmap-copyright{ display:none; }
 #map .PGmap-geometry-point img{ border:solid 1px #fff; box-shadow:1px 1px 5px #777; }
 
+#map.icons .PGmap-geometry-point img{ border:none; box-shadow:none; }
+
 .atlas-center{ float:right; width:75%; position:static; }
 
 .atlas-map{ margin-right:20px; margin-bottom:20px; overflow:hidden; position:relative; }
@@ -66,20 +68,17 @@
 
 
 .simple-search {
-    margin:0 0 20px;
-}
-.simple-search label {
-    font-size:11px;
-    display:block;
-    margin-bottom:2px;
-    font-size:13px;
-    color:#717171;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 70;
+    width: 250px;
 }
 .simple-search input {
-    background:#f0f0f0;
-    padding:5px 0;
+    font-size: 13px;
+    background:#fff;
+    padding:5px 5px;
     width:100%;
-
 }
 .simple-filter-block {
     margin-bottom:20px;

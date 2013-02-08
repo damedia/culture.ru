@@ -53,6 +53,10 @@ class NewsController extends Controller
                 NewsManager::CRITERIA_LIMIT => 5
             )
         );
+        $themes = $this->getNewsManager()->getThemes();
+        if (! $themes)
+            throw new NotFoundHttpException("Themes not found");
+
         $dateFrom = new \DateTime('-1 month');
         $dateTo   = new \DateTime('+13 month');
         $dateFromStr = $dateFrom->format('d.m.Y');
@@ -60,6 +64,7 @@ class NewsController extends Controller
         return array(
             'regions' => $regions,
             'categories' => $categories,
+            'themes' => $themes,
             'lastNews' => $lastNews,
             'dateFrom' => $dateFromStr,
             'dateTo' => $dateToStr,
@@ -76,23 +81,27 @@ class NewsController extends Controller
 
             $criteria = array(
                 NewsManager::CRITERIA_IS_ON_MAP => true,
-                NewsManager::CRITERIA_HAS_IMAGE => true,
+                //NewsManager::CRITERIA_HAS_IMAGE => true,
                 NewsManager::CRITERIA_EVENT_DATE_SINCE => empty($filter['date_from']) ? new DateTime : new DateTime($filter['date_from']),
-                NewsManager::CRITERIA_EVENT_DATE_TILL => empty($filter['date_to']) ? new DateTime : new DateTime($filter['date_to']),
+                NewsManager::CRITERIA_EVENT_DATE_TILL  => empty($filter['date_to']) ? new DateTime : new DateTime($filter['date_to']),
             );
 
             if (!empty($filter['category'])) {
-                $criteria[NewsManager::CRITERIA_CATEGORY_IDS_OR] = array($filter['category']);
+                $criteria[NewsManager::CRITERIA_CATEGORY_IDS_OR] = $filter['category'];
             } else {
                 throw new \Exception('Выберите хотя бы один тип события.');
             }
 
+            if (!empty($filter['theme'])) {
+                $criteria[NewsManager::CRITERIA_THEME_IDS_OR] = $filter['theme'];
+            }
 
             $news = $this->getNewsManager()->findObjects($criteria);
 
             $data = array();
             foreach ($news as $article) {
                 $imageUrl = $this->get('sonata.media.twig.extension')->path($article->getImage(), 'thumbnail');
+                $iconUrl = $this->get('sonata.media.twig.extension')->path($article->getTheme()->getIconMedia(), 'reference');
                 $data[] = array(
                     'id' => $article->getId(),
                     'title' => $article->getTitle(),
@@ -101,6 +110,7 @@ class NewsController extends Controller
                     'lon' => $article->getLon(),
                     'lat' => $article->getLat(),
                     'imageUrl' => $imageUrl,
+                    'iconUrl' => $iconUrl,
                     'categoryId' => $article->getCategory()->getId(),
                 );
             }

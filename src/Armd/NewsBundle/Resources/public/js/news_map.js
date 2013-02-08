@@ -58,18 +58,21 @@ AT.initFilter = function(){
     $('#news-map-filter').ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
+            $('#date-from').val( $('#first-date').text() );
+            $('#date-to').val( $('#last-date').text() );
             $('#ajax-loading').show();
         },
         success: function(response, statusText, xhr, $form){
             $('#ajax-loading').hide();
             if (response.success) {
+
+                // Очищаем карту
+                AT.clearMap();
+
                 if (! response.result.data.length) {
                     alert('По заданным параметрам мероприятий не найдено. Пожалуйста, измените настройки поиска.');
                     return;
                 }
-
-                // Очищаем карту
-                AT.clearMap();
 
                 // Рисовать точки или фоточки
                 var showAsImages = response.result.filter.show_images > 0 ? true : false;
@@ -208,6 +211,9 @@ AT.placePoint = function(object, showAsImages, onClick) {
 
     var point;
     if (showAsImages) {
+        // Отображаем фотографии
+        $('#map').removeClass('icons');
+
         point = new PGmap.Point({
             coord: new PGmap.Coord(object.lon, object.lat, true),
             width: 42,
@@ -219,13 +225,33 @@ AT.placePoint = function(object, showAsImages, onClick) {
             }
         });
     } else {
-        point = new PGmap.Point({
-            coord: new PGmap.Coord(object.lon, object.lat, true)
-        });
+        // Отображаем иконки
+        if (object.iconUrl == '') {
+            $('#map').removeClass('icons');
+            point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true)
+            });
+        } else {
+            $('#map').addClass('icons');
+            point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true),
+                width: 39,
+                height: 42,
+                backpos: '0 0',
+                innerImage: {
+                    src: object.iconUrl,
+                    width: 39
+                }
+            });
+        }
     }
     $(point.container).data('uid', object.id)
                       .data('point', point)
-                      .attr('title', object.title);
+                      .attr('title', object.title)
+                      .css({
+                            'margin-left': '-18px',
+                            'margin-top': '-42px'
+                      });
     AT.map.geometry.add(point);
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, onClick);
     return point;
