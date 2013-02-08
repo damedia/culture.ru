@@ -284,7 +284,7 @@ $(function () {
 				.parent().siblings().find('a').removeClass('active');
 		$(tabId).show().siblings('.tab').hide();
 		return false;
-	})	
+	})
 	
 	
 	/*TIMELINE*/
