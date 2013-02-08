@@ -101,7 +101,11 @@ class NewsController extends Controller
             $data = array();
             foreach ($news as $article) {
                 $imageUrl = $this->get('sonata.media.twig.extension')->path($article->getImage(), 'thumbnail');
-                $iconUrl = $this->get('sonata.media.twig.extension')->path($article->getTheme()->getIconMedia(), 'reference');
+                if ($article->getTheme()) {
+                    $iconUrl = $this->get('sonata.media.twig.extension')->path($article->getTheme()->getIconMedia(), 'reference');
+                } else {
+                    $iconUrl = '';
+                }
                 $data[] = array(
                     'id' => $article->getId(),
                     'title' => $article->getTitle(),
