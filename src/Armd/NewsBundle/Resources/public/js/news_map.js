@@ -249,8 +249,8 @@ AT.placePoint = function(object, showAsImages, onClick) {
                       .data('point', point)
                       .attr('title', object.title)
                       .css({
-                            'margin-left': '-18px',
-                            'margin-top': '-42px'
+                            'margin-left': '4px',
+                            'margin-top': '-40px'
                       });
     AT.map.geometry.add(point);
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, onClick);
