@@ -97,6 +97,7 @@ class News extends Admin
                 ->add('isOnMap', null, array('required' => false))
                 ->add('lat', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
                 ->add('lon', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
+                ->add('theme')
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -116,6 +117,7 @@ class News extends Admin
             ->add('subject')            
             ->add('important')                  
             ->add('published')                            
+            ->add('isOnMap')
         ;
         
         parent::configureListFields($listMapper);        

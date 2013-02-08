@@ -6,7 +6,28 @@
 {% endblock %}
 
 {% block page_header_search %}
-    <div class="search-dates"></div>
+    <div class="search-category">
+        <form id="news-map-filter" class="filter-form" action="{{ path('armd_news_filter') }}">
+            <div class="search-dates">
+                <span class="search-dates-label">{{ "Period"|trans }}:</span>
+                <div class="dates-chooser">
+                    <a id="first-date" href="#">{{ dateFrom }}</a> <i class="dates-arrow">→</i>
+                    <a href="#" id="last-date">{{ dateTo }}</a>
+                    <div id="datapicker"></div>
+                    <input id="date-from" type="hidden" name="f[date_from]" value="{{ dateFrom }}"/>
+                    <input id="date-to" type="hidden" name="f[date_to]" value="{{ dateTo }}"/>
+                </div>
+            </div>
+            <div class="search-category-selects">
+                <select id="form_theme" name="f[theme][]" class="uni">
+                    {% for theme in themes %}
+                        <option value="{{ theme.id }}">{{ theme.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "Show"|trans }}</button>
+        </form>
+    </div>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -26,102 +47,14 @@
                     {% endfor %}
                 </select>
             </div>
+            <div class="simple-search">
+                <input type="text" class="ss-input" id="ss_input" placeholder="{{ "newsmap.find_address"|trans }}"/>
+            </div>
             <div id="ajax-loading" class="ajax-loading"></div>
         </div>
-
-        {# отключено#}
-        {% if false and lastNews %}
-            <div class="last-news">
-                <ul>
-                    {% for entity in lastNews %}
-                        <li>
-                            {% if entity.image %}
-                                <div class="image">
-                                    <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
-                                        <img src="{% path entity.image, 'thumbnail' %}" />
-                                    </a>
-                                </div>
-                            {% endif %}
-                            <div class="content">
-                                <div class="caption">
-                                    <a href="{{ path('armd_news_item_by_category', { category:entity.category.slug, id:entity.id }) }}">
-                                        {{ entity.title|raw }}
-                                    </a>
-                                </div>
-                                <div class="text">{{ entity.announce|raw }}</div>
-                                <div class="date">
-                                    {{ "newsmap.date"|trans }}:
-                                    {{ entity.date|date('d.m.Y') }}
-                                    {% if entity.endDate %}&mdash;&nbsp;{{ entity.endDate|date('d.m.Y') }}{% endif %}
-                                </div>
-                                <div class="category">
-                                    {{ "newsmap.category"|trans }}:
-                                    {{ entity.category.title }}
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-        {# /отключено#}
-
-    </div>
-    <div class="col-right">
-        <div class="filter checks-filter">
-            <form id="news-map-filter" class="filter-form" action="{{ path('armd_news_filter') }}">
-                <div class="simple-search">
-                    <label for="ss_input">{{ "newsmap.find_address"|trans }}</label>
-                    <input type="text" class="ss-input" id="ss_input" />
-                </div>
-                <div class="filter-tabs">
-                    <div class="filter-tab" id="obj" style="display:block;">
-                        <div class="simple-filter-block" style="display:none;">
-                            <div class="simple-filter-header clearfix">
-                                <span>{{ "newsmap.event_type"|trans }}</span>
-                                <p class="check_all"><span>{{ "atlas.all"|trans }}</span></p>
-                            </div>
-                            <div class="simple-filter-options">
-                                {% for category in categories %}
-                                    <label class="gray-checked checked">
-                                        <input class="category-value" type="hidden" name="f[category][]" value="{{ category.id }}"/>
-                                        <span data-tag="{{ category.id }}">{{ category.title }}</span>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="simple-filter-block">
-                            <div class="simple-filter-header clearfix">
-                                <span>{{ "newsmap.date_range"|trans }}</span>
-                            </div>
-                            <div class="simple-filter-options">
-                                <div class="date-range">
-                                    <label>{{ "newsmap.date_from"|trans }}&nbsp;<input id="date-from" class="datepicker" type="text" name="f[date_from]" value="{{ dateFrom }}"/></label>
-                                    <label>{{ "newsmap.date_to"|trans }}&nbsp;<input id="date-to" class="datepicker" type="text" name="f[date_to]" value="{{ dateTo }}"/></label>
-                                </div>
-                            </div>
-                        </div>
-                        {#
-                        <div class="simple-filter-block visualization">
-                            <div class="simple-filter-header clearfix">
-                                <span>{{ "newsmap.visualization"|trans }}</span>
-                            </div>
-                            <div class="simple-filter-options">
-                                <label for="show-images">
-                                    <input type="hidden" name="f[show_images]" value="0"/>
-                                    <input id="show-images-checkbox" type="checkbox" name="f[show_images]" value="1"/>
-                                    <span id="show-images-span">{{ "newsmap.show_as_photos"|trans }}</span>
-                                </label>
-                            </div>
-                        </div>
-                        #}
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
 
-    <!-- /Асинхронная загрузка jsapi -->
+    <!-- Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
         <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.8"></script>
@@ -159,6 +92,11 @@
                 locale:                '{{ app.request.locale }}'
             });
             AT.submitFiltersForm();
+
+            $("#datapicker").datepicker('onSelect', function (dateText, inst) {
+                console.log('xxx', dateText);
+            });
+
         });
     </script>
 {% endblock %}

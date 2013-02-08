@@ -58,6 +58,8 @@ AT.initFilter = function(){
     $('#news-map-filter').ajaxForm({
         dataType: 'json',
         beforeSubmit: function(){
+            $('#date-from').val( $('#first-date').text() );
+            $('#date-to').val( $('#last-date').text() );
             $('#ajax-loading').show();
         },
         success: function(response, statusText, xhr, $form){
@@ -208,6 +210,9 @@ AT.placePoint = function(object, showAsImages, onClick) {
 
     var point;
     if (showAsImages) {
+        // Отображаем фотографии
+        $('#map').removeClass('icons');
+
         point = new PGmap.Point({
             coord: new PGmap.Coord(object.lon, object.lat, true),
             width: 42,
@@ -219,13 +224,33 @@ AT.placePoint = function(object, showAsImages, onClick) {
             }
         });
     } else {
-        point = new PGmap.Point({
-            coord: new PGmap.Coord(object.lon, object.lat, true)
-        });
+        // Отображаем иконки
+        if (object.iconUrl == '') {
+            $('#map').removeClass('icons');
+            point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true)
+            });
+        } else {
+            $('#map').addClass('icons');
+            point = new PGmap.Point({
+                coord: new PGmap.Coord(object.lon, object.lat, true),
+                width: 32,
+                height: 32,
+                backpos: '0 0',
+                innerImage: {
+                    src: object.iconUrl,
+                    width: 32
+                }
+            });
+        }
     }
     $(point.container).data('uid', object.id)
                       .data('point', point)
-                      .attr('title', object.title);
+                      .attr('title', object.title)
+                      .css({
+                            'margin-left': '-16px',
+                            'margin-top': '-32px'
+                      });
     AT.map.geometry.add(point);
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, onClick);
     return point;

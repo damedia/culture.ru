@@ -53,6 +53,10 @@ class NewsController extends Controller
                 NewsManager::CRITERIA_LIMIT => 5
             )
         );
+        $themes = $this->getNewsManager()->getThemes();
+        if (! $themes)
+            throw new NotFoundHttpException("Themes not found");
+
         $dateFrom = new \DateTime('-1 month');
         $dateTo   = new \DateTime('+13 month');
         $dateFromStr = $dateFrom->format('d.m.Y');
@@ -60,6 +64,7 @@ class NewsController extends Controller
         return array(
             'regions' => $regions,
             'categories' => $categories,
+            'themes' => $themes,
             'lastNews' => $lastNews,
             'dateFrom' => $dateFromStr,
             'dateTo' => $dateToStr,
