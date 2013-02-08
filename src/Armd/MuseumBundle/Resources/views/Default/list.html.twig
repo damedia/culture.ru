@@ -52,7 +52,9 @@
                     </div>
                     {% if m.atlasObject %}
                         <div class="museum-chapter">
-                            <a href="#"><img src="/new_design/images/museum-chapter.jpg" alt="" class="museum-chapter-image" /></a>
+                            <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" title="{{ m.atlasObject.title }}">
+                                <img src="{% path m.atlasObject.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ m.atlasObject.title }}" class="museum-chapter-image" />
+                            </a>
                             <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" class="museum-chapter-label">
                                 Посмотреть<br />
                                 в разделе<br />
