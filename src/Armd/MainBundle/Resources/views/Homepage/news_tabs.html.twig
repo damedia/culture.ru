@@ -1,6 +1,6 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 <div class="tabs events-tabs">
-    <h2>События культуры России</h2>
+    <h2>{{ 'mainpage.russian_culture_events'|trans }}</h2>
 
     <div id="all_events" class="tab event-tab">
         {% if news|length > 0 %}
