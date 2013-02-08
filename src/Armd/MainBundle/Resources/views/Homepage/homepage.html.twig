@@ -37,41 +37,43 @@
         <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.All"|trans }}</a></p>
     </section>
 
-    <section class="index-block two-column-block clearfix index-news-block">
-        <section class="index-block">
-            {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
-            {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
-            <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
-            <a href="{{ newsArticleHref }}">
-                {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
-                {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
-            </a>
+    {% if app.request.locale == 'ru' %}
+        <section class="index-block two-column-block clearfix index-news-block">
+            <section class="index-block">
+                {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
+                {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
+                <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
+                <a href="{{ newsArticleHref }}">
+                    {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
+                    {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
+                </a>
 
-            <div class="text-overflow">
-                <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
-                <p>{{ lastReportage.announce|truncate(200) }}</p>
-                <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
-            </div>
+                <div class="text-overflow">
+                    <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
+                    <p>{{ lastReportage.announce|truncate(200) }}</p>
+                    <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
+                </div>
+            </section>
+
+            <section class="index-block">
+                {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'interviews'}) %}
+                {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastInterview.id, 'category': lastInterview.category.slug }) %}
+
+                <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
+                <a href="{{ newsArticleHref }}">
+                    {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}
+                    {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
+                </a>
+
+                <div class="text-overflow">
+                    <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
+                    <p>{{ lastInterview.announce|truncate(200) }}</p>
+                    <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
+                </div>
+            </section>
+
         </section>
-
-        <section class="index-block">
-            {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'interviews'}) %}
-            {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastInterview.id, 'category': lastInterview.category.slug }) %}
-
-            <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
-            <a href="{{ newsArticleHref }}">
-                {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}
-                {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
-            </a>
-
-            <div class="text-overflow">
-                <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
-                <p>{{ lastInterview.announce|truncate(200) }}</p>
-                <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
-            </div>
-        </section>
-
-    </section>
+    {% endif %}
 
     {% if app.request.locale == 'ru' %}
         <section class="index-block index-video-block clearfix">
@@ -133,15 +135,13 @@
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
     <section id="homepage-social-widgets">
-        {% if app.request.locale == 'ru' %}
-            <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
 
-            <!-- VK Widget -->
-            <div id="vk_groups"></div>
-            <script type="text/javascript">
-                VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "290"}, 46598842);
-            </script>
-        {% endif %}
+        <!-- VK Widget -->
+        <div id="vk_groups"></div>
+        <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "290"}, 46598842);
+        </script>
 
 
         {% if app.request.locale == 'ru' %}
