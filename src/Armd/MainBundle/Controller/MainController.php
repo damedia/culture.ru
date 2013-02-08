@@ -40,7 +40,7 @@ class MainController extends Controller
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => 25
+                NewsManager::CRITERIA_LIMIT => 30
             )
         );
 
@@ -66,6 +66,8 @@ class MainController extends Controller
             $lastInterview = $lastInterview[0];
         }
 
+        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 28);
+
         return $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
@@ -73,7 +75,8 @@ class MainController extends Controller
                 'newRussiaImages' => $newRussiaImages,
                 'newVideos' => $lectures,
                 'lastReportage' => $lastReportage,
-                'lastInterview' => $lastInterview
+                'lastInterview' => $lastInterview,
+                'museum' => $museum
             )
         );
     }
