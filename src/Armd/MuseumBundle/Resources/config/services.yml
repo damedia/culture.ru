@@ -7,4 +7,8 @@ services:
 
     armd_museum.manager.museum:
         class: Armd\MuseumBundle\Entity\MuseumManager
-        arguments: [@doctrine.orm.default_entity_manager, @knp_paginator, @search.sphinxsearch.search]
+        arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager]
+
+#    armd_museum.manager.museum:
+#        class: Armd\MuseumBundle\Entity\MuseumManager
+#        arguments: [@doctrine.orm.default_entity_manager, @knp_paginator, @search.sphinxsearch.search]
