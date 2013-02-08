@@ -33,9 +33,9 @@
                         <span class="plitka-name">
                             {{ m.title|raw }}
                         </span>
-                        {#
-                        <a href="#" class="plitka-type">Костромская область</a>
-                        #}
+                        {% if m.region %}
+                            <a href="#" class="plitka-type">{{ m.region.title }}</a>
+                        {% endif %}
                     </div>
                     <div class="museum-image-container">
                         <div class="museum-image" style="background-image:url({% path m.bannerImage, 'banner' %});"></div>
@@ -50,16 +50,16 @@
                             </a>
                         </div>
                     </div>
-                    {#
-                    <div class="museum-chapter">
-                        <a href="#"><img src="/new_design/images/museum-chapter.jpg" alt="" class="museum-chapter-image" /></a>
-                        <a href="#" class="museum-chapter-label">
-                            Посмотреть<br />
-                            в разделе<br />
-                            Образы России
-                        </a>
-                    </div>
-                    #}
+                    {% if m.atlasObject %}
+                        <div class="museum-chapter">
+                            <a href="#"><img src="/new_design/images/museum-chapter.jpg" alt="" class="museum-chapter-image" /></a>
+                            <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" class="museum-chapter-label">
+                                Посмотреть<br />
+                                в разделе<br />
+                                Образы России
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
