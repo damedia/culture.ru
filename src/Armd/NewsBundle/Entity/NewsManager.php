@@ -18,6 +18,9 @@ class NewsManager extends ListManager
     /** example: array('news', 'reportages') */
     const CRITERIA_CATEGORY_SLUGS_OR = 'CRITERIA_CATEGORY_SLUGS_OR';
 
+    /** example: array(13, 7) */
+    const CRITERIA_THEME_IDS_OR = 'CRITERIA_THEME_IDS_OR';
+
     /** example: Date('2012-11-23') */
     const CRITERIA_MEMORIAL_DATE = 'CRITERIA_MEMORIAL_DATE';
 
@@ -95,6 +98,11 @@ class NewsManager extends ListManager
                 ->setParameter('category_slugs_or', $criteria[self::CRITERIA_CATEGORY_SLUGS_OR]);
         }
 
+        if (!empty($criteria[self::CRITERIA_THEME_IDS_OR])) {
+            $qb->andWhere('_news.theme IN (:theme_ids_or)')
+                ->setParameter('theme_ids_or', $criteria[self::CRITERIA_THEME_IDS_OR]);
+        }
+
         if (!empty($criteria[self::CRITERIA_MEMORIAL_DATE])) {
             $qb->andWhere('_news.month = :memorial_date_month')
                 ->andWhere('_news.day = :memorial_date_day')
@@ -137,8 +145,8 @@ class NewsManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_EVENT_DATE_SINCE])) {
-            $qb->andWhere('_news.date >= :event_date_since OR _news.endDate >= :event_data_since')
-                ->setParameter('event_date_since', $criteria[self::CRITERIA_NEWS_DATE_SINCE]->setTime(0, 0));
+            $qb->andWhere('_news.date >= :event_date_since OR _news.endDate >= :event_date_since')
+                ->setParameter('event_date_since', $criteria[self::CRITERIA_EVENT_DATE_SINCE]->setTime(0, 0));
         }
 
         if (!empty($criteria[self::CRITERIA_EVENT_DATE_TILL])) {

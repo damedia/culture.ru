@@ -65,13 +65,14 @@ AT.initFilter = function(){
         success: function(response, statusText, xhr, $form){
             $('#ajax-loading').hide();
             if (response.success) {
+
+                // Очищаем карту
+                AT.clearMap();
+
                 if (! response.result.data.length) {
                     alert('По заданным параметрам мероприятий не найдено. Пожалуйста, измените настройки поиска.');
                     return;
                 }
-
-                // Очищаем карту
-                AT.clearMap();
 
                 // Рисовать точки или фоточки
                 var showAsImages = response.result.filter.show_images > 0 ? true : false;
@@ -234,12 +235,12 @@ AT.placePoint = function(object, showAsImages, onClick) {
             $('#map').addClass('icons');
             point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
-                width: 32,
-                height: 32,
+                width: 39,
+                height: 42,
                 backpos: '0 0',
                 innerImage: {
                     src: object.iconUrl,
-                    width: 32
+                    width: 39
                 }
             });
         }
@@ -248,8 +249,8 @@ AT.placePoint = function(object, showAsImages, onClick) {
                       .data('point', point)
                       .attr('title', object.title)
                       .css({
-                            'margin-left': '-16px',
-                            'margin-top': '-32px'
+                            'margin-left': '-18px',
+                            'margin-top': '-42px'
                       });
     AT.map.geometry.add(point);
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, onClick);

@@ -19,6 +19,9 @@
                 </div>
             </div>
             <div class="search-category-selects">
+                {% for category in categories %}
+                    <input type="hidden" name="f[category][]" value="{{ category.id }}"/>
+                {% endfor %}
                 <select id="form_theme" name="f[theme][]" class="uni">
                     {% for theme in themes %}
                         <option value="{{ theme.id }}">{{ theme.title }}</option>
