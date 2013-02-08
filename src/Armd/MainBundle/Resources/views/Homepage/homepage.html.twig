@@ -73,18 +73,57 @@
 
     </section>
 
+    {% if app.request.locale == 'ru' %}
+        <section class="index-block index-video-block clearfix">
+            <h2><a href="{{ path('armd_lecture_default_list') }}">Кинозал</a></h2>
+            <div id="video-list">
+                {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+            </div>
+            <p class="all"><a href="{{ path('armd_lecture_default_list') }}">Все видео</a></p>
+        </section>
+    {% endif %}
 
-    <section class="index-block index-video-block clearfix">
-        <h2><a href="{{ path('armd_lecture_default_list') }}">Кинозал</a></h2>
-        <div id="video-list">
-            {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+    <section class="index-block index-museum-block clearfix">
+        <h2><a href="{{ path('armd_museum_index') }}">Музеи</a></h2>
+
+        <div class="plitka-one-wrap plitka-one-wrap-opened">
+            <div class="plitka-one clearfix">
+                <div class="museum-image-container">
+                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                    <div class="museum-image-over">
+                        <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                            <span class="museum-image-text">
+                                {{ "visit_museum"|trans|raw }}
+                            </span>
+                        </a>
+                        <a href="#instruction" class="museum-instr-link">
+                            {{ "manual_instruction"|trans|raw }}
+                        </a>
+                    </div>
+                </div>
+                <div class="museum-text">
+                    {{ museum.title|raw }}
+                </div>
+            </div>
         </div>
-        <p class="all"><a href="{{ path('armd_lecture_default_list') }}">Все видео</a></p>
+
+        <div id="instruction" style="display:none;">
+            <div class="window">
+                <div class="block window-content">
+
+                    {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+
+                </div>
+           </div>
+        </div>
+
     </section>
 
-    <section class="block">
-        {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
-    </section>
+    {% if app.request.locale == 'ru' %}
+        <section class="block">
+            {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
+        </section>
+    {% endif %}
 
 </section>
 {% endblock %}
@@ -94,22 +133,29 @@
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
     <section id="homepage-social-widgets">
-        <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
+        {% if app.request.locale == 'ru' %}
+            <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
 
-        <!-- VK Widget -->
-        <div id="vk_groups"></div>
-        <script type="text/javascript">
-            VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "290"}, 46598842);
-        </script>
+            <!-- VK Widget -->
+            <div id="vk_groups"></div>
+            <script type="text/javascript">
+                VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "290"}, 46598842);
+            </script>
+        {% endif %}
 
 
+        {% if app.request.locale == 'ru' %}
+            {% set facebookLocale = 'ru_RU' %}
+        {% else %}
+            {% set facebookLocale = 'en_EN' %}
+        {% endif %}
         <div id="fb-root"></div>
         <script>(function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
-            js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+            js.src = "//connect.facebook.net/{{ facebookLocale }}/all.js#xfbml=1";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 
@@ -130,9 +176,11 @@
     {{ parent() }}
     <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
+
     <script type="text/javascript">
         $(function () {
             armdMainPage.init();
+
         });
     </script>
 {% endblock %}

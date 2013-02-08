@@ -2880,7 +2880,7 @@ body {
         }
 
         .index-video-block {
-            /*background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;*/
+            background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
             padding-bottom: 20px;
         }
 
@@ -2896,6 +2896,30 @@ body {
             background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
             padding-bottom: 20px;
         }
+
+        .index-museum-block {
+            padding-bottom: 50px;
+        }
+
+            .index-museum-block .plitka-one-wrap {
+                width: 100%;
+                border: 0;
+            }
+
+            .index-museum-block .plitka-one {
+                padding: 0;
+            }
+
+            .index-museum-block .museum-image-container {
+                margin: 0;
+            }
+
+            .index-museum-block .museum-text {
+                margin-top: 10px;
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: bold;
+            }
 
 
 		#video-list {
