@@ -23,6 +23,7 @@
                     <input type="hidden" name="f[category][]" value="{{ category.id }}"/>
                 {% endfor %}
                 <select id="form_theme" name="f[theme][]" class="uni">
+                    <option value="">{{ "All themes"|trans }}</option>
                     {% for theme in themes %}
                         <option value="{{ theme.id }}">{{ theme.title }}</option>
                     {% endfor %}

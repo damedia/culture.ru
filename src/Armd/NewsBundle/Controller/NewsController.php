@@ -92,7 +92,7 @@ class NewsController extends Controller
                 throw new \Exception('Выберите хотя бы один тип события.');
             }
 
-            if (!empty($filter['theme'])) {
+            if (!empty($filter['theme']) && $filter['theme'][0] != '') {
                 $criteria[NewsManager::CRITERIA_THEME_IDS_OR] = $filter['theme'];
             }
 
