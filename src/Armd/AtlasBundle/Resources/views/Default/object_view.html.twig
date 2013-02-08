@@ -216,7 +216,7 @@
                     {% for h in entity.images %}
                         <li>
                             <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
-                                <img src="{% path h, 'atlasW613' %}" alt="" />
+                                <img src="{% path h, 'atlasW613' %}" alt="{{ entity.title }}" />
                             </a>
                             <div class="image-stats">
                                 {#<a href="#" class="image-code-link">Код для вставки</a>#}
@@ -234,7 +234,7 @@
                     {% for h in entity.images %}
                         <li>
                             <div class="thumb-image-wrap">
-                                <img src="{% path h, 'atlasW63H56' %}" alt="" />
+                                <img src="{% path h, 'atlasW63H56' %}" alt="{{ entity.title }}" />
                             </div>
                         </li>
                     {% endfor %}
