@@ -17,6 +17,7 @@
     <script src="{{ asset('vendor/jquery.ui.selectgroup.js') }}"></script>
     {#<script type="text/javascript" src="{{ asset('swf/swfobject/swfkrpano.js') }}"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museums.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             armdMuseums.init();
@@ -30,29 +31,30 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block one_column %}
-    {% render 'ArmdMuseumBundle:Default:list' %}
-
-
-    {#
-    <hr>
-    <div class="title-block timeline-title">
-        <h2>{{ 'Navigation.Virtual museums.Title'|trans }}</h2>
-    </div>
-    <div class="virt-museums">
-        <form action="" class="obr-form">
-            <div class="obr-text-input">
-                <input type="text" name="search" id="search_text"
-                       value="{{ 'Navigation.Virtual museums.Search'|trans }}"/>
+{% block page_header_search %}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
+            <span class="search-dates-label">Выбрать</span>
+            <div class="search-category-selects">
+                <select name="region" id="select1" class="uni">
+                    <option value="">Регион</option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="select3" class="uni">
+                    <option value="">Категория</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <input type="submit" class="obr-submit-input" value=""/>
+            <button type="submit" class="button search-dates-button">Показать</button>
         </form>
-        <div id="museums-wrapper">
-            <div id="museums-loading" class="loading-block"></div>
-            <div id="museums-container">
-                {% render 'ArmdMuseumBundle:Default:list' %}
-            </div>
-        </div>
     </div>
-    #}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block one_column %}
+    {% render 'ArmdMuseumBundle:Default:list' with { region:regionId } %}
 {% endblock %}
