@@ -57,6 +57,12 @@ class Museum
     private $region;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Object")
      * @ORM\JoinColumn(name="atlas_object_id", referencedColumnName="id")
      */
@@ -250,5 +256,28 @@ class Museum
     public function getAtlasObject()
     {
         return $this->atlasObject;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Armd\AtlasBundle\Entity\Category $category
+     * @return Museum
+     */
+    public function setCategory(\Armd\AtlasBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Armd\AtlasBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

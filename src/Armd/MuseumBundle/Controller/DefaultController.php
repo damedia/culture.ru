@@ -5,6 +5,7 @@ namespace Armd\MuseumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Armd\MuseumBundle\Entity\MuseumManager;
 
 class DefaultController extends Controller
 {
@@ -14,57 +15,43 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $regions = $this->getMuseumManager()->getRegions();
+        $categories = $this->getMuseumManager()->getCategories();
+
         return array(
+            'regions' => $regions,
+            'categories' => $categories,
         );
     }
 
     /**
-     * @Route("/museums-list", name="armd_museum_list", options={"expose"=true})
-     * @Template()
+     * @Route("/list", name="armd_museum_list", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Default:list.html.twig")
      */
-    public function listAction($page = 1, $perPage = 1000)
-    {
-        $museumManager = $this->get('armd_museum.manager.museum');
-        $criteria = array(
-            'search_string' => $this->getRequest()->get('searchString')
-        );
-        return array(
-            'museums' => $museumManager->getPager($criteria, $page, $perPage),
-        );
-    }
-
-    /**
-     * @Route("/filter", name="armd_museum_filter", defaults={"_format"="json"})
-     */
-    public function filterAction()
+    public function listAction()
     {
         try {
             $filter = $this->getRequest()->get('f');
 
             $criteria = array(
-                NewsManager::CRITERIA_IS_ON_MAP => true,
-                NewsManager::CRITERIA_HAS_IMAGE => true,
-                NewsManager::CRITERIA_EVENT_DATE_SINCE => empty($filter['date_from']) ? new DateTime : new DateTime($filter['date_from']),
-                NewsManager::CRITERIA_EVENT_DATE_TILL => empty($filter['date_to']) ? new DateTime : new DateTime($filter['date_to']),
+                //MuseumManager::CRITERIA_IS_ON_MAP => true,
+                //MuseumManager::CRITERIA_HAS_IMAGE => true,
+                //MuseumManager::CRITERIA_EVENT_DATE_SINCE => empty($filter['date_from']) ? new DateTime : new DateTime($filter['date_from']),
+                //MuseumManager::CRITERIA_EVENT_DATE_TILL => empty($filter['date_to']) ? new DateTime : new DateTime($filter['date_to']),
             );
 
             if (!empty($filter['category'])) {
-                $criteria[NewsManager::CRITERIA_CATEGORY_IDS_OR] = array($filter['category']);
-            } else {
-                throw new \Exception('Выберите хотя бы один тип события.');
+                $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($filter['category']);
             }
 
-            $museums = $this->getNewsManager()->findObjects($criteria);
+            if (!empty($filter['region'])) {
+                $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($filter['region']);
+            }
 
-            $data = array();
+            $museums = $this->getMuseumManager()->findObjects($criteria);
 
             return array(
-                'success' => true,
-                'message' => 'OK',
-                'result' => array(
-                    'filter' => $filter,
-                    'data' => $data,
-                ),
+                'museums' => $museums,
             );
         }
         catch (\Exception $e) {
@@ -74,4 +61,13 @@ class DefaultController extends Controller
             );
         }
     }
+
+    /**
+     * @return \Armd\MuseumBundle\Entity\MuseumManager
+     */
+    protected function getMuseumManager()
+    {
+        return $this->get('armd_museum.manager.museum');
+    }
+
 }

@@ -1,30 +1,4 @@
-{#
-<div class="museum-block">
-    {% if museums|length > 0 %}
-        <ul class="museum-list clearfix">
-            {% for m in museums %}
-                <li>
-                    <div class="museum-list-one-wrap" style="">
-                        <div class="museum-list-one">
-                            <a href="{{ m.url }}" data-fancybox-type="iframe"
-                               class="vob iframe">{% thumbnail m.image, 'billboard' %}</a>
-
-                            <div class="museum-list-text">
-                                <a href="{{ m.url }}" data-fancybox-type="iframe"
-                                   class="vob iframe museum-list-header">{{ m.title|raw }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <strong>Виртуальных музеев удовлетворяющих запросу не найдено</strong>
-    {% endif %}
-</div>
-#}
-
-<div class="plitka wide-plitka">
+<div id="museums-container" class="plitka wide-plitka">
     {% if museums|length > 0 %}
         {% for m in museums %}
             <div class="plitka-one-wrap">
