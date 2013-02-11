@@ -135,32 +135,8 @@
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
     <section id="homepage-social-widgets">
-        <script type="text/javascript" src="//vk.com/js/api/openapi.js?78"></script>
-
-        <!-- VK Widget -->
-        <div id="vk_groups"></div>
-        <script type="text/javascript">
-            VK.Widgets.Group("vk_groups", {mode: 0, width: "300", height: "290"}, 46598842);
-        </script>
-
-
-        {% if app.request.locale == 'ru' %}
-            {% set facebookLocale = 'ru_RU' %}
-        {% else %}
-            {% set facebookLocale = 'en_EN' %}
-        {% endif %}
-        <div id="fb-root"></div>
-        <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/{{ facebookLocale }}/all.js#xfbml=1";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-
-        <div class="fb-like-box" data-href="http://www.facebook.com/culture.ru" data-width="300" data-show-faces="true"
-             data-stream="false" data-header="true"></div>
+        {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
+        {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
     </section>
 
 {% endblock %}
