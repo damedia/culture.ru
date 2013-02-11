@@ -319,66 +319,24 @@
     {% if entity.videos|length > 0 %}
         <div class="block object-videos">
 
-            {% for video in entity.videos if loop.first %}
-                <div class="block">
-                    <article class="static-block video-block">
-                        <h2>{{ "video"|trans }}</h2>
+            <div class="block">
+                <article class="static-block video-block">
+                    <h2>{{ "video"|trans }}</h2>
+                    {% for video in entity.videos %}
                         <a class="block-image fancybox" href="#data-{{ loop.index }}">
                             <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
                             <span class="play"></span>
                         </a>
-                        {#<div class="block-text">#}
-                            {#<p>#}
-                                {#Народное творчество#}
-                            {#</p>#}
-                        {#</div>#}
-                    </article>
-                </div>
+                    {% endfor %}
+                </article>
+            </div>
+            {% for video in entity.videos %}
                 <div id="data-{{ loop.index }}" style="display: none;">
                     <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
                         {{ armd_tvigle_video_player(video, 640, 360)|raw }}
                     </div>
                 </div>
             {% endfor %}
-
-            {% if false %}
-                <p class="link_header"><a {#href="#"#} style="border:none;">{{"video"|trans}}</a><!--<sup>207</sup></p>-->
-                <ul class="object-video-list">
-                    {% for video in entity.videos %}
-                        <li class="object-video-list-one">
-                            <div class="object-video-list-image">
-                                <a class="in-fancybox" href="#data-{{ loop.index }}">
-
-                                    <img src="{{ video.image }}" alt=""/>
-
-                                    <div class="title-video">{{ video.title }}</div>
-
-                                </a>
-
-
-                                <div style="display:none;">
-
-                                    <div id="data-{{ loop.index }}">
-                                        <div class="fancybox-video-wrapper">
-                                            {{ armd_tvigle_video_player(video, 640, 360)|raw }}
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            {# <div class="object-video-list-descr">
-                                 <span class="ovl-date">{{ video.durationString }}</span>
-                                 <p class="object-video-header"><a class="in-fancybox" href="#data-{{ loop.index }}">{{ video.title }}</a></p>
-                                 <p>
-                                     {{ video.description }}
-                                 </p>
-                             </div> #}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
         </div>
     {% endif %}
     <!-- /Video -->
