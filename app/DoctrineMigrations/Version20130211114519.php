@@ -16,10 +16,6 @@ class Version20130211114519 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql");
         
         $this->addSql("ALTER TABLE armd_museum ADD category_id INT DEFAULT NULL");
-        $this->addSql("ALTER TABLE armd_museum ADD CONSTRAINT FK_F7F4198912469DE2 FOREIGN KEY (category_id) REFERENCES atlas_category (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
-        $this->addSql("ALTER TABLE armd_museum ADD CONSTRAINT FK_F7F41989129049C2 FOREIGN KEY (atlas_object_id) REFERENCES atlas_object (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
-        $this->addSql("CREATE INDEX IDX_F7F4198912469DE2 ON armd_museum (category_id)");
-        $this->addSql("CREATE INDEX IDX_F7F41989129049C2 ON armd_museum (atlas_object_id)");
 
         $this->addSql("INSERT INTO armd_museum_category (id, title) VALUES (1, 'музей')");
         $this->addSql("INSERT INTO armd_museum_category (id, title) VALUES (2, 'монастырь')");
@@ -34,9 +30,5 @@ class Version20130211114519 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql");
         
         $this->addSql("ALTER TABLE armd_museum DROP category_id");
-        $this->addSql("ALTER TABLE armd_museum DROP CONSTRAINT FK_F7F4198912469DE2");
-        $this->addSql("ALTER TABLE armd_museum DROP CONSTRAINT FK_F7F41989129049C2");
-        $this->addSql("DROP INDEX IDX_F7F4198912469DE2");
-        $this->addSql("DROP INDEX IDX_F7F41989129049C2");
     }
 }
