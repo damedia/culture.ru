@@ -3,24 +3,24 @@
 namespace Armd\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
-use Armd\AtlasBundle\Manager\ObjectManager;
+use Armd\AtlasBundle\Entity\ObjectManager;
 
 
 class MainController extends Controller
 {
     public function homepageAction()
     {
+        // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_main_homepage')
         );
 
         $em = $this->getDoctrine()->getManager();
-
-        $categories = $this->getNewsManager()->getCategories();
 
         $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
             array(
@@ -30,12 +30,6 @@ class MainController extends Controller
             )
         );
 
-        /*
-        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
-            ->findOneBy(array('code' => 'LECTURE_SUPER_TYPE_CINEMA'));
-        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
-            ->findLastAdded($lectureSuperType, 6);
-        */
 
         // NewFeature #53983
         $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
@@ -43,13 +37,46 @@ class MainController extends Controller
                 'id' => array(435,432,444,433,437,438),
             ));
 
+        $news = $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
+                NewsManager::CRITERIA_LIMIT => 30
+            )
+        );
+
+        $lastReportage = $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_LIMIT => 1,
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('reportages'),
+                NewsManager::CRITERIA_HAS_IMAGE => true
+            )
+        );
+        if (!empty($lastReportage)) {
+            $lastReportage = $lastReportage[0];
+        }
+
+        $lastInterview = $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_LIMIT => 1,
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('interviews'),
+                NewsManager::CRITERIA_HAS_IMAGE => true
+            )
+        );
+        if (!empty($lastInterview)) {
+            $lastInterview = $lastInterview[0];
+        }
+
+        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 28);
+
         return $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
-                'news' => $this->getNews($categories),
-                'categories' => $categories,
+                'news' => $news,
                 'newRussiaImages' => $newRussiaImages,
-                'newVideos' => $lectures
+                'newVideos' => $lectures,
+                'lastReportage' => $lastReportage,
+                'lastInterview' => $lastInterview,
+                'museum' => $museum
             )
         );
     }
@@ -142,14 +169,22 @@ class MainController extends Controller
     {
         $result = array();
 
+        $newsManager = $this->get('armd_news.manager.news');
         foreach ($categories as $c) {
-            $result[$c->getSlug()] = $this->get('armd_news.manager.news')->getPager(
-                array('category' => $c->getSlug()),
-                1,
-                25
-            );
+            $result[$c->getSlug()] = $newsManager->findObjects(array(
+                    NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($c->getSlug()),
+                    NewsManager::CRITERIA_LIMIT => 25
+                ));
         }
 
+//        foreach ($categories as $c) {
+//            $result[$c->getSlug()] = $this->get('armd_news.manager.news')->getPager(
+//                array('category' => $c->getSlug()),
+//                1,
+//                25
+//            );
+//        }
+//
         return $result;
     }
 
@@ -158,6 +193,9 @@ class MainController extends Controller
         return $this->render("ArmdMainBundle::{$template}.html.twig", $parameters);
     }
 
+    /**
+     * @return \Armd\NewsBundle\Entity\NewsManager
+     */
     function getNewsManager()
     {
         return $this->get('armd_news.manager.news');

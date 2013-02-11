@@ -1,25 +1,23 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 <div class="tabs events-tabs">
-    <h2>События культуры России</h2>
+    <h2>{{ 'mainpage.russian_culture_events'|trans }}</h2>
 
-    <ul class="tabs-headers events-tabs-headers">
-        {% spaceless %}
-            {% for c in categories %}
-                <li>
-                    <a href="#{{ c.slug }}_tab" {% if loop.first %}class="active"{% endif %}>{{ c.title }}</a>
-                </li>
-            {% endfor %}
-        {% endspaceless %}
-    </ul>
-
-    {% for slug, entities in news %}
-        <div id="{{ slug }}_tab" class="tab event-tab" {% if not loop.first %}style = "display:none;" {% endif %}>
+    <div id="all_events" class="tab event-tab">
+        {% if news|length > 0 %}
+            <h3>
+                {% if 'now'|date('Y-m-d') is sameas(news[0].newsDate|date('Y-m-d')) %}
+                    Сегодня,
+                {% endif %}
+                {{ armd_news.news_date_short(news[0].newsDate) }}
+            </h3>
             <ul class="event-tab-news">
                 {% set prevDate = null %}
-                {% for n in entities %}
+                {% set enNewsLimit = 16 %}
+                {% for n in news if app.request.locale == 'ru' or loop.index < enNewsLimit %}
                     {% set articleHref = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
+                    {% set articleCategoryHref = path('armd_news_list_index_by_category', {'category': n.category.slug}) %}
                     {% if loop.first %}
-                        <li class="event-tab-news-one">
+                        <li class="event-tab-news-one first-news">
                             {% if n.image %}
                                 <a href="{{ articleHref }}">
                                     {% thumbnail n.image, 'latest' with {'alt': n.image.description, 'height': 'auto' } %}
@@ -28,7 +26,7 @@
                             <div class="event-tab-text">
                                 <span class="event-tab-text">
                                     {{ n.newsDate|date('H:i') }} /
-                                    <a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ n.category.title }}</a>
+                                    <a href="{{ articleCategoryHref }}">{{ n.category.title }}</a>
                                 </span>
 
                                 <p>
@@ -50,11 +48,11 @@
                              <div class="event-tab-text">
                                  <span class="event-tab-text">
                                      {{ n.newsDate|date('H:i') }} /
-                                     <a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ n.category.title }}</a>
+                                     <a href="{{ articleCategoryHref }}">{{ n.category.title }}</a>
                                  </span>
 
                                  <p>
-                                     <a href="{{ path('armd_news_item_by_category', {'category': n.category.slug, 'id': n.id} ) }}">
+                                     <a href="{{ articleHref }}">
                                          {% if n.date %}
                                              {{ n.date|date('d.m.Y') }}
                                              {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
@@ -68,9 +66,9 @@
                     {% set prevDate = n.newsDate|date('d') %}
                 {% endfor %}
             </ul>
-            <p class="all">
-                <a href="{{ path('armd_news_list_index_by_category', {'category': slug}) }}">{{ 'mainpage.read_more'|trans }}</a>
-            </p>
-        </div>
-    {% endfor %}
+        {% endif %}
+        <p class="all">
+            <a href="{{ path('armd_news_list_index') }}">{{ 'mainpage.read_more'|trans }}</a>
+        </p>
+    </div>
 </div>

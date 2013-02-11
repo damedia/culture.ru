@@ -183,6 +183,11 @@ class News extends BaseNews implements CommentableInterface, Taggable
 
     private $tags;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\NewsBundle\Entity\Theme")
+     */
+    protected $theme;
+
     public function __construct()
     {
         $this->newsDate = new \DateTime();
@@ -869,5 +874,28 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function getTaggableId()
     {
         return $this->getId();
+    }
+
+    /**
+     * Set theme
+     *
+     * @param \Armd\NewsBundle\Entity\Theme $theme
+     * @return News
+     */
+    public function setTheme(\Armd\NewsBundle\Entity\Theme $theme = null)
+    {
+        $this->theme = $theme;
+    
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return \Armd\NewsBundle\Entity\Theme 
+     */
+    public function getTheme()
+    {
+        return $this->theme;
     }
 }

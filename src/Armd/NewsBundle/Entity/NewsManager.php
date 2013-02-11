@@ -3,180 +3,172 @@
 namespace Armd\NewsBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManager;
+use Armd\ListBundle\Entity\ListManager;
 
-class NewsManager
+class NewsManager extends ListManager
 {
-    /**
-     * @var string
-     */
-    protected $class;
+    /** example: true */
+    const CRITERIA_FILTRABLE = 'CRITERIA_FILTRABLE';
 
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $em;
+    /** example: array(13, 7) */
+    const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_OR';
 
-    /**
-     * @var \Symfony\Component\DependencyInjection\Container
-     */
-    protected $container;
+    /** example: array('news', 'reportages') */
+    const CRITERIA_CATEGORY_SLUGS_OR = 'CRITERIA_CATEGORY_SLUGS_OR';
 
-    /**
-     * @param \Doctrine\ORM\EntityManager $em
-     * @param string                      $class
-     */
-    public function __construct(EntityManager $em, $class, $container)
+    /** example: array(13, 7) */
+    const CRITERIA_THEME_IDS_OR = 'CRITERIA_THEME_IDS_OR';
+
+    /** example: Date('2012-11-23') */
+    const CRITERIA_MEMORIAL_DATE = 'CRITERIA_MEMORIAL_DATE';
+
+    /** example: array('borodino') */
+    const CRITERIA_SUBJECT_SLUGS_OR = 'CRITERIA_SUBJECT_SLUGS_OR';
+
+    /** example: true */
+    const CRITERIA_IMPORTANT = 'CRITERIA_IMPORTANT';
+
+    /** example: true */
+    const CRITERIA_HAS_IMAGE = 'CRITERIA_HAS_IMAGE';
+
+    /** example: Date('2012-01-16') */
+    const CRITERIA_NEWS_DATE_SINCE = 'CRITERIA_NEWS_DATE_SINCE';
+
+    /** example: Date('2012-05-16') */
+    const CRITERIA_NEWS_DATE_TILL = 'CRITERIA_NEWS_DATE_TILL';
+
+    /** example: Date('2012-05-16') */
+    const CRITERIA_NEWS_DATE = 'CRITERIA_NEWS_DATE';
+
+    /** example: array(122, 45) */
+    const CRITERIA_NEWS_ID_NOT = 'CRITERIA_NEWS_ID_NOT';
+
+    /** example: true */
+    const CRITERIA_IS_ON_MAP = 'CRITERIA_IS_ON_MAP';
+
+    /** example: Date('2012-03-01') */
+    const CRITERIA_EVENT_DATE_SINCE = 'CRITERIA_EVENT_DATE_SINCE';
+
+    /** example: Date('2013-03-09') */
+    const CRITERIA_EVENT_DATE_TILL = 'CRITERIA_EVENT_DATE_TILL';
+
+    public function getQueryBuilder()
     {
-        $this->em = $em;
-        $this->class = $class;
-        $this->container = $container;
-    }
+        $qb = $this->em->getRepository('ArmdNewsBundle:News')
+            ->createQueryBuilder('_news');
 
-    public function getPager(array $criteria, $page, $limit = 10)
-    {
-        return $this->getQueryBuilder($criteria)
-            ->getQuery()
-            ->setMaxResults($limit)
-            ->getResult();
-    }
-
-    public function getQueryBuilder(array $criteria)
-    {
-        $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
-        $qb->select('n, c, i')
-            ->innerJoin('n.category', 'c')
-            ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
-            ->andWhere('n.published = true')
+        $qb->innerJoin('_news.category', '_newsCategory')
+            ->leftJoin('_news.image', '_newsImage', 'WITH', '_newsImage.enabled = true')
+            ->andWhere('_news.published = true')
             ->andWhere(
             $qb->expr()->orX(
-                $qb->expr()->isNull('n.publishToDate'),
-                $qb->expr()->gte('n.publishToDate', ':now')
+                $qb->expr()->isNull('_news.publishToDate'),
+                $qb->expr()->gte('_news.publishToDate', ':now')
             )
         )
             ->andWhere(
             $qb->expr()->orX(
-                $qb->expr()->isNull('n.publishFromDate'),
-                $qb->expr()->lte('n.publishFromDate', ':now')
+                $qb->expr()->isNull('_news.publishFromDate'),
+                $qb->expr()->lte('_news.publishFromDate', ':now')
             )
         )
-            ->orderBy('n.newsDate', 'DESC')
+            ->orderBy('_news.newsDate', 'DESC')
             ->setParameter('now', new \DateTime());
-
-        $this->setCriteria($qb, $criteria);
 
         return $qb;
     }
 
-    protected function setCriteria($qb, array $criteria)
+    public function setCriteria(QueryBuilder $qb, $criteria)
     {
-        if (!empty($criteria['category'])) {
-            $qb
-                ->andWhere('c.slug in (:slugs)')
-                ->setParameter(':slugs', (array)$criteria['category']);
-        } else {
-            $qb
-                ->andWhere('c.filtrable = true');
+        parent::setCriteria($qb, $criteria);
+
+        if (!empty($criteria[self::CRITERIA_FILTRABLE])) {
+            $qb->andWhere('_newsCategory.filtrable = TRUE');
         }
 
-        if (!empty($criteria['memorial_date'])) {
-            $qb
-                ->andWhere('n.month = :month')
-                ->andWhere('n.day = :day')
-                ->setParameter('month', $criteria['memorial_date']->format('m'))
-                ->setParameter('day', $criteria['memorial_date']->format('d'));
+        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
+            $qb->andWhere('_news.category IN (:category_ids_or)')
+                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
         }
 
-        if (!empty($criteria['subject'])) {
-            $qb
-                ->innerJoin('n.subject', 's', 'WITH', 's.slug = :slug')
-                ->setParameter('slug', $criteria['subject']);
+        if (!empty($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {
+            $qb->andWhere('_newsCategory.slug in (:category_slugs_or)')
+                ->setParameter('category_slugs_or', $criteria[self::CRITERIA_CATEGORY_SLUGS_OR]);
         }
 
-        if (!empty($criteria['important'])) {
-            $qb
-                ->andWhere('n.important = true');
+        if (!empty($criteria[self::CRITERIA_THEME_IDS_OR])) {
+            $qb->andWhere('_news.theme IN (:theme_ids_or)')
+                ->setParameter('theme_ids_or', $criteria[self::CRITERIA_THEME_IDS_OR]);
         }
 
-        if (!empty($criteria['has_image'])) {
-            $qb
-                ->andWhere('i IS NOT NULL');
+        if (!empty($criteria[self::CRITERIA_MEMORIAL_DATE])) {
+            $qb->andWhere('_news.month = :memorial_date_month')
+                ->andWhere('_news.day = :memorial_date_day')
+                ->setParameter('memorial_date_month', $criteria[self::CRITERIA_MEMORIAL_DATE]->format('m'))
+                ->setParameter('memorial_date_day', $criteria[self::CRITERIA_MEMORIAL_DATE]->format('d'));
         }
 
-        if (!empty($criteria['from_date'])) {
-            $qb->andWhere(
-                $qb->expr()->orX(
-//                    $qb->expr()->gte('n.date', ':from_date'),
-                    $qb->expr()->gte('n.newsDate', ':from_date')
-                )
-            )->setParameter('from_date', $criteria['from_date']->setTime(0, 0));
+        if (!empty($criteria[self::CRITERIA_SUBJECT_SLUGS_OR])) {
+            $qb->innerJoin('_news.subject', '_newsSubject', 'WITH', 'newsSubject.slug  :slug')
+                ->andWhere('_newsSubject.slug IN (:subject_slugs_or)')
+                ->setParameter('subject_slugs_or', $criteria[self::CRITERIA_SUBJECT_SLUGS_OR]);
         }
 
-        if (!empty($criteria['to_date'])) {
-            $qb->andWhere(
-                $qb->expr()->orX(
-//                    $qb->expr()->lte('n.date', ':to_date'),
-                    $qb->expr()->lte('n.newsDate', ':to_date')
-                )
-            )->setParameter('to_date', $criteria['to_date']->setTime(23, 59, 59));
+        if (!empty($criteria[self::CRITERIA_IMPORTANT])) {
+            $qb->andWhere('_news.important = true');
         }
 
-        if (!empty($criteria['target_date'])) {
-            $targetDateFrom = $criteria['target_date'];
-            $targetDateTo = clone $criteria['target_date'];
-            $targetDateTo->modify('+1 day');
-
-            $qb->andWhere("(n.date <= :target_date_to) AND (:target_date_from <= n.endDate)")
-                ->setParameter('target_date_from', $targetDateFrom)
-                ->setParameter('target_date_to', $targetDateTo);
+        if (!empty($criteria[self::CRITERIA_HAS_IMAGE])) {
+            $qb->andWhere('_news.image IS NOT NULL');
         }
 
-        if (!empty($criteria['order_by_publish_date'])) {
-            $qb->orderBy('n.publishedAt', 'DESC');
+        if (!empty($criteria[self::CRITERIA_NEWS_DATE_SINCE])) {
+            $qb->andWhere('_news.newsDate >= :news_date_since')
+                ->setParameter('news_date_since', $criteria[self::CRITERIA_NEWS_DATE_SINCE]->setTime(0, 0));
+        }
+
+        if (!empty($criteria[self::CRITERIA_NEWS_DATE_TILL])) {
+            $qb->andWhere('_news.newsDate <= :news_date_till')
+                ->setParameter('news_date_till', $criteria[self::CRITERIA_NEWS_DATE_TILL]->setTime(23, 59, 59));
+        }
+
+        if (!empty($criteria[self::CRITERIA_NEWS_DATE])) {
+            $date1 = $criteria[self::CRITERIA_NEWS_DATE];
+            $date2 = clone $criteria[self::CRITERIA_NEWS_DATE];
+            $date2->modify('+1 day');
+
+            $qb->andWhere("(_news.date <= :news_date1) AND (:news_date2 <= _news.endDate)")
+                ->setParameter('news_date1', $date1)
+                ->setParameter('news_date2', $date2);
+        }
+
+        if (!empty($criteria[self::CRITERIA_EVENT_DATE_SINCE])) {
+            $qb->andWhere('_news.date >= :event_date_since OR _news.endDate >= :event_date_since')
+                ->setParameter('event_date_since', $criteria[self::CRITERIA_EVENT_DATE_SINCE]->setTime(0, 0));
+        }
+
+        if (!empty($criteria[self::CRITERIA_EVENT_DATE_TILL])) {
+            $qb->andWhere('_news.date <= :event_date_till OR _news.endDate <= :event_date_till')
+                ->setParameter('event_date_till', $criteria[self::CRITERIA_EVENT_DATE_TILL]->setTime(23, 59, 59));
+        }
+
+        if (!empty($criteria[self::CRITERIA_NEWS_ID_NOT])) {
+            $qb->andWhere('_news.id NOT IN (:news_id_not)')
+                ->setParameter('news_id_not', $criteria[self::CRITERIA_NEWS_ID_NOT]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
+            $qb->andWhere('_news.isOnMap = TRUE');
         }
     }
 
-    public function getNewsBeforeDate(array $categorySlugs = null, \DateTime $date = null, $minLimit = 25)
+
+    public function getNewsGroupedByNewsDate($news)
     {
-        $criteria = array();
-
-        if ($categorySlugs) {
-            $criteria['category'] = $categorySlugs;
-        }
-
-        if ($date) {
-            $criteria['to_date'] = $date;
-
-        }
-
-        // At first find minimal date. This is the closest day when number of news is more than $minLimit.
-        // We will select news from the beginning of this day.
-        $qb = $this->getQueryBuilder($criteria);
-
-        $news = $qb
-            ->setMaxResults($minLimit)
-            ->orderBy('n.newsDate', 'DESC')
-            ->getQuery()->getResult();
-
-        if(count($news)) {
-            $criteria['from_date'] = $news[count($news) - 1]->getNewsDate();
-        }
-
-        return $this->getNewsGroupedByDate($criteria);
-    }
-
-    public function getNewsGroupedByDate($criteria, $limit = null)
-    {
-        // and now select news
-        $qb = $this->getQueryBuilder($criteria);
-        if($limit) {
-            $qb->setMaxResults($limit);
-        }
-        $news = $qb->getQuery()->getResult();
-
-        // group news by date
         $newsByDate = array();
-        foreach($news as $n) {
+        foreach ($news as $n) {
             $date = $n->getNewsDate()->format('Y-m-d');
             if (!isset($newsByDate[$date])) {
                 $newsByDate[$date] = array();
@@ -195,11 +187,20 @@ class NewsManager
         );
     }
 
+    public function getThemes()
+    {
+        return $this->em->getRepository('ArmdNewsBundle:Theme')->findBy(
+            array(),
+            array('title' => 'ASC')
+        );
+    }
+
     public function filterBy($filter = array())
     {
         $qb = $this->em->getRepository($this->class)->createQueryBuilder('n');
-        $qb->select('n, c, i')
+        $qb->select('n, c, t, i')
             ->innerJoin('n.category', 'c')
+            ->innerJoin('n.theme', 't')
             ->leftJoin('n.image', 'i', 'WITH', 'i.enabled = true')
             ->andWhere('n.published = true');
 
@@ -212,19 +213,24 @@ class NewsManager
         if (isset($filter['category'])) {
             $categoryIds = (array)$filter['category'];
             $qb->andWhere('c.id IN (:categoryIds)')
-                ->setParameter(':categoryIds', $categoryIds);
-        } else {
-            throw new \Exception('Выберите хотя бы один тип события.');
+               ->setParameter(':categoryIds', $categoryIds);
+        }
+
+        // фильтр по выбранным тематикам (иконкам)
+        if (isset($filter['theme'])) {
+            $themeIds = (array)$filter['theme'];
+            $qb->andWhere('t.id IN (:themeIds)')
+               ->setParameter(':themeIds', $themeIds);
         }
 
         // фильтр по датам
-        $dateFrom = isset($filter['date_from']) ? new \DateTime($filter['date_from']) : new \DateTime('now');
-        $dateTo = isset($filter['date_to']) ? new \DateTime($filter['date_to']) : new \DateTime('now');
-        $qb->andWhere(
-            '(n.date >= (:dateFrom) AND n.date <= (:dateTo)) OR (n.endDate >= (:dateFrom) AND n.endDate <= (:dateTo))'
-        )
-            ->setParameter(':dateFrom', $dateFrom)
-            ->setParameter(':dateTo', $dateTo);
+        if (isset($filter['date_from']) && isset($filter['date_to'])) {
+            $dateFrom = isset($filter['date_from']) ? new \DateTime($filter['date_from']) : new \DateTime('now');
+            $dateTo = isset($filter['date_to']) ? new \DateTime($filter['date_to']) : new \DateTime('now');
+            $qb->andWhere('(n.date >= (:dateFrom) AND n.date <= (:dateTo)) OR (n.endDate >= (:dateFrom) AND n.endDate <= (:dateTo))')
+               ->setParameter(':dateFrom', $dateFrom)
+               ->setParameter(':dateTo', $dateTo);
+        }
 
         // result
         $rows = $qb->getQuery()->getResult();
@@ -232,6 +238,7 @@ class NewsManager
         $data = array();
         foreach ($rows as $row) {
             $imageUrl = $this->container->get('sonata.media.twig.extension')->path($row->getImage(), 'thumbnail');
+            $iconUrl = $this->container->get('sonata.media.twig.extension')->path($row->getTheme()->getIconMedia(), 'reference');
             $data[] = array(
                 'id' => $row->getId(),
                 'title' => $row->getTitle(),
@@ -240,7 +247,9 @@ class NewsManager
                 'lon' => $row->getLon(),
                 'lat' => $row->getLat(),
                 'imageUrl' => $imageUrl,
+                'iconUrl' => $iconUrl,
                 'categoryId' => $row->getCategory()->getId(),
+                'themeId' => $row->getTheme()->getId(),
             );
         }
 
@@ -257,54 +266,6 @@ class NewsManager
             ->getResult();
     }
 
-    public function getBillboardNews()
-    {
-        $entities = array();
-        foreach ($this->getCategories() as $category) {
-            $qb = $this->getQueryBuilder(
-                array(
-                    'has_image' => true,
-                    'category' => array($category->getSlug()),
-                )
-            )
-                ->orderBy('n.newsDate', 'DESC')
-                ->setMaxResults(1);
-
-            $entity = $qb->andWhere('n.important = TRUE')
-                ->getQuery()->getOneOrNullResult();
-
-            if (!$entity) {
-                $entity = $qb->getQuery()->getOneOrNullResult();
-            }
-
-            if ($entity) {
-                $entities[] = $entity;
-            }
-        }
-
-        return $entities;
-    }
-
-    public function getSiblingNews($entity, $limit = 10)
-    {
-        $criteria = array('category' => $entity->getCategory()->getSlug());
-        $qb = $this->getQueryBuilder($criteria);
-        $qb->orderBy('n.date', 'DESC');
-        $rows = $qb->getQuery()
-            ->setMaxResults($limit + 1)
-            ->getResult();
-
-        $res = array();
-        foreach ($rows as $i => $row) {
-            if ($row->getId() != $entity->getId()) {
-                $res[] = $row;
-            }
-        }
-        $res = array_slice($res, 0, $limit);
-
-        return $res;
-    }
-
     public function updateImageDescription($news)
     {
         if ($news->getImage() && !$news->getImage()->getDescription()) {
@@ -313,4 +274,13 @@ class NewsManager
     }
 
 
+    public function getClassName()
+    {
+        return 'Armd\NewsBundle\Entity\News';
+    }
+
+    public function getTaggableType()
+    {
+        return 'armd_news';
+    }
 }

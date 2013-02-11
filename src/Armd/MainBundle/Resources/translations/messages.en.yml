@@ -105,7 +105,7 @@ Mainpage block:
         All: All images
     New on portal: New on portal
 
-mainpage.read_mode: Read More
+mainpage.read_more: Read More
 mainpage.show_all: Show All
 mainpage.news: News
 mainpage.updated: Updated
@@ -115,6 +115,7 @@ mainpage.lectures: Lectures
 mainpage.show_all_lectures: Show All Lectures
 mainpage.cinema: Cinema
 mainpage.show_all_cinema: Show All Cinema
+mainpage.russian_culture_events: Russian culture news
 
 
 Projects:

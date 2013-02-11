@@ -1401,7 +1401,6 @@ body {
 						font-weight: bold;
 						margin-bottom: 8px;
 						color:#000;
-						
 					}
 
                         .plitka-name a {
@@ -1499,7 +1498,7 @@ body {
 				display:block;
 				margin-top:5px;
 				text-decoration:underline !important;
-				color:#456986;
+				color:#7691A4;
 			}
 			.obrazy-plitka  .plitka-image {
 				margin: 10px 0 9px;
@@ -2639,7 +2638,7 @@ body {
             padding-right:363px;
         }
         .index-main .right-column {
-            margin:-243px -14px 0 0;
+            margin:-390px -14px 0 0;
             width:365px;
             background:url(../img/events-shadow.png) no-repeat 0 0;
             z-index: 100;
@@ -2682,28 +2681,44 @@ body {
                     .event-tab-news {
                         list-style:none;
                     }
+                        .event-tab-news .first-news p a {
+                            font-size: 13px;
+                        }
+
                         .event-tab-news-one {
                             margin-bottom:10px;
                             overflow: hidden;
                         }
                             .event-tab-news-one  img {
                                 float:left;
-                                margin:11px 13px 10px 0;
+                                margin:0 13px 10px 0;
                             }
                             .event-tab-text {
                                 font-size:11px;
                                 overflow:hidden;
                             }
+
+                                .event-tab-text span,
+                                .event-tab-text span a {
+                                    color: #7691a4;
+                                }
+
+                                .event-tab-text p a {
+                                    color: #000000;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                /*.event-tab-text p a:hover {*/
+                                    /*text-decoration: underline;*/
+                                /*}*/
+
                                 .event-tab-head {
                                     color:#7791a4;
                                     display:block;
                                     
                                     
                                 }
-                                .event-tab-head  a {
-                                    color:#7791a4;
-                                }
-                                
+
                                 .event-tab-text p {
                                     line-height:13px;
                                 }
@@ -2754,6 +2769,7 @@ body {
         .index-block {
             margin-top: 15px;
         }
+
             .index-block h2 {
                 font-size:13px;
                 text-transform:uppercase;
@@ -2762,15 +2778,23 @@ body {
                 font-weight:normal;
             }
                 .index-block h2  a {
-                    color:#b7b7b7;
+                    color:#818181;
                 }
+
+                .index-block .block-left-image {
+                    float: left;
+                    margin: 5px 10px 10px 0;
+                    width: 31%;
+                }
+
                 .obraz-index {
                     border:0;
                     float:left;
+                    width:34%;
                 }
                     .obraz-index  .plitka-one-wrap {
                         border:0;
-                        width:165px;
+                        width: 100%;
                     }
                     .obraz-index  .plitka-one-wrap:hover {
                         box-shadow:none;
@@ -2778,9 +2802,20 @@ body {
                         .obraz-index   .plitka-one {
                             padding:0;
                         }
-                        
+
+                            .obraz-index .plitka-text {
+                                height: auto;
+                                width: 95%;
+                                border-bottom: 0;
+                            }
+                            .obraz-index .plitka-text a {
+                                font-size: 14px;
+                                text-transform: uppercase;
+                            }
+
+
                 .obraz-index-list {
-                    margin-left:200px;
+                    margin-left:35%;
                     list-style:none;
                 }   
                     .obraz-index-list li {
@@ -2797,16 +2832,95 @@ body {
                     .index-obraz-list-text {
                         overflow:hidden;
                         margin-right:20px;
-                        font-size:10px;
-                        line-height:11px;
+                        font-size:11px;
+                        line-height:13px;
                     }
+
+                        .index-obraz-list-text p a {
+                            line-height: normal;
+                            color: #7691A4;
+                            text-decoration: underline;
+                        }
+
+                        .index-obraz-list-text p a:hover {
+                            text-decoration: none;
+                        }
+
                     .index-obraz-name {
-                        font-size:10px;
+                        font-weight: bold;
+                        color: #000000;
+                        font-size:11px;
                         display:block;
                         margin-bottom:5px;
+                        text-decoration: none;
                     }
-   
-   
+
+
+        .two-column-block .index-block {
+            float: left;
+            margin-top: 10px;
+            width: 49%;
+        }
+            .two-column-block .text-overflow {
+                margin-right: 30px;
+            }
+
+            .two-column-name {
+                color: #000000;
+                display: block;
+                font: bold 11px Tahoma,sans-serif;
+                margin-bottom: 6px;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+        .index-russia-images-block {
+            background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
+            padding-bottom: 20px;
+        }
+
+        .index-video-block {
+            background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
+            padding-bottom: 20px;
+        }
+
+            .index-video-block h2 {
+                margin-bottom: 15px;
+            }
+
+            .index-video-block .all {
+                margin-top: 17px;
+            }
+
+        .index-news-block {
+            background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
+            padding-bottom: 20px;
+        }
+
+        .index-museum-block {
+            padding-bottom: 50px;
+        }
+
+            .index-museum-block .plitka-one-wrap {
+                width: 100%;
+                border: 0;
+            }
+
+            .index-museum-block .plitka-one {
+                padding: 0;
+            }
+
+            .index-museum-block .museum-image-container {
+                margin: 0;
+            }
+
+            .index-museum-block .museum-text {
+                margin-top: 10px;
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
 
 		#video-list {
 			position:relative;
@@ -2874,16 +2988,7 @@ body {
 						background-position:100% 0;
 					}
 					
-			.index-video-block {
-				margin-top: 6px;
-			}		
-				.index-video-block h2 {
-					margin-bottom: 15px;
-				}
-			.index-video-block .all {
-				margin-top:17px;
-			}		
-				
+
 		.community-tabs {
 			margin-top: 14px;
 		}	
@@ -3014,7 +3119,13 @@ body {
 						margin-top:5px;
 					}	
 
-					
+        #homepage-social-widgets {
+            padding-left: 30px;
+        }
+            #homepage-social-widgets .fb-like-box {
+                margin-bottom: 20px;
+            }
+
 					
 	
 /*Timeline*/
