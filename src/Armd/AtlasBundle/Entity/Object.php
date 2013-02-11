@@ -245,6 +245,11 @@ class Object implements Taggable
 
     private $tags;
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     public function syncPrimaryAndSecondaryCategories()
     {
         if (!empty($this->primaryCategory)

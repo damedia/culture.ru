@@ -53,7 +53,33 @@ class Museum extends Admin
                 ->add('title')
                 ->add('body')
                 ->add('url')
+                ->add('category')
+                ->add('region', null, array(
+                    'required' => false,
+                    'property' => 'title',
+                    'label' => 'Region',
+                    'attr' => array('class' => 'chzn-select span5'),
+                    'query_builder' => function($er) {
+                        $qb = $er->createQueryBuilder('r');
+                        $qb->orderBy('r.title', 'ASC');
+                        return $qb;
+                    }
+                ))
                 ->add('published', null, array('required' => false))
+            ->end()
+            ->with('Images of Russia')
+                ->add('atlasObject', null, array(
+                    'required' => false,
+                    'property' => 'title',
+                    'label' => 'Atlas Object',
+                    'attr' => array('class' => 'chzn-select span5'),
+                    'query_builder' => function($er) {
+                        $qb = $er->createQueryBuilder('o');
+                        $qb->orderBy('o.title', 'ASC');
+                        return $qb;
+                    }
+                ))
+            ->end()
             ->with('Media')
                 ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
                 ->add('bannerImage', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
