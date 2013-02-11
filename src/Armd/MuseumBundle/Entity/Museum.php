@@ -261,10 +261,10 @@ class Museum
     /**
      * Set category
      *
-     * @param \Armd\AtlasBundle\Entity\Category $category
+     * @param \Armd\MuseumBundle\Entity\Category $category
      * @return Museum
      */
-    public function setCategory(\Armd\AtlasBundle\Entity\Category $category = null)
+    public function setCategory(\Armd\MuseumBundle\Entity\Category $category = null)
     {
         $this->category = $category;
     
@@ -274,7 +274,7 @@ class Museum
     /**
      * Get category
      *
-     * @return \Armd\AtlasBundle\Entity\Category 
+     * @return \Armd\MuseumBundle\Entity\Category
      */
     public function getCategory()
     {
