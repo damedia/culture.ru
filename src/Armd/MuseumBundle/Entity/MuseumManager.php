@@ -53,12 +53,17 @@ class MuseumManager extends ListManager
         );
     }
 
-    public function getRegions()
+    public function getDistinctRegions()
     {
-        return $this->em->getRepository('ArmdAtlasBundle:Region')->findBy(
-            array(),
-            array('title' => 'ASC')
-        );
+        $query = $this->em->createQuery("
+            SELECT DISTINCT region.id, region.title
+            FROM ArmdMuseumBundle:Museum museum
+            JOIN ArmdAtlasBundle:Region region
+            WITH region.id = museum.region
+            ORDER BY region.title
+        ");
+
+        return $query->getResult();;
     }
 
     public function getClassName()

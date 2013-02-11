@@ -15,10 +15,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $regions = $this->getMuseumManager()->getRegions();
+        $regionId = (int) $this->getRequest()->get('region', 0);
+        $regions = $this->getMuseumManager()->getDistinctRegions();
         $categories = $this->getMuseumManager()->getCategories();
 
         return array(
+            'regionId' => $regionId,
             'regions' => $regions,
             'categories' => $categories,
         );
@@ -31,21 +33,17 @@ class DefaultController extends Controller
     public function listAction()
     {
         try {
-            $filter = $this->getRequest()->get('f');
+            $regionId = $this->getRequest()->get('region');
+            $categoryId = $this->getRequest()->get('category');
 
-            $criteria = array(
-                //MuseumManager::CRITERIA_IS_ON_MAP => true,
-                //MuseumManager::CRITERIA_HAS_IMAGE => true,
-                //MuseumManager::CRITERIA_EVENT_DATE_SINCE => empty($filter['date_from']) ? new DateTime : new DateTime($filter['date_from']),
-                //MuseumManager::CRITERIA_EVENT_DATE_TILL => empty($filter['date_to']) ? new DateTime : new DateTime($filter['date_to']),
-            );
+            $criteria = array();
 
-            if (!empty($filter['category'])) {
-                $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($filter['category']);
+            if (!empty($categoryId)) {
+                $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
             }
 
-            if (!empty($filter['region'])) {
-                $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($filter['region']);
+            if (!empty($regionId)) {
+                $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($regionId);
             }
 
             $museums = $this->getMuseumManager()->findObjects($criteria);
@@ -55,10 +53,7 @@ class DefaultController extends Controller
             );
         }
         catch (\Exception $e) {
-            return array(
-                'success' => false,
-                'message' => $e->getMessage(),
-            );
+            $this->createNotFoundException('Not found');
         }
     }
 

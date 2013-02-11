@@ -8,7 +8,7 @@
                             {{ m.title|raw }}
                         </span>
                         {% if m.region %}
-                            <a href="#" class="plitka-type">{{ m.region.title }}</a>
+                            <a href="{{ path('armd_museum_index', { region:m.region.id }) }}" class="plitka-type">{{ m.region.title }}</a>
                         {% endif %}
                     </div>
                     <div class="museum-image-container">

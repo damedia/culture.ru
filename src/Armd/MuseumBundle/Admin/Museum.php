@@ -53,11 +53,18 @@ class Museum extends Admin
                 ->add('title')
                 ->add('body')
                 ->add('url')
-                ->add('region')
+                ->add('category')
+                ->add('region', null, array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select span5')
+                ))
                 ->add('published', null, array('required' => false))
             ->end()
             ->with('Images of Russia')
-                ->add('atlasObject')
+                ->add('atlasObject', null, array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select span5')
+                ))
             ->end()
             ->with('Media')
                 ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))

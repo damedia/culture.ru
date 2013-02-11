@@ -39,25 +39,25 @@ class Museum
     protected $published;    
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="banner_image_id", referencedColumnName="id")
      */
     private $bannerImage;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Region")
+     * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Region", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
      */
     private $region;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="Armd\MuseumBundle\Entity\Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
