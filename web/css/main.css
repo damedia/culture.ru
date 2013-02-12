@@ -2361,6 +2361,7 @@ body {
                             padding:1px;
                             background:#fff;
                             display:block;
+                            margin-bottom: 10px;
                         }
                             .period-block_image .play, .block-image .play {
                                 position:absolute;
