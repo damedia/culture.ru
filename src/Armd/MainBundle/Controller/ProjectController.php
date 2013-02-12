@@ -49,7 +49,6 @@ class ProjectController extends Controller
                     NewsManager::CRITERIA_LIMIT => $limit,
                     NewsManager::CRITERIA_SUBJECT_SLUGS_OR => array($subject),
                     NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($category)
-
             ))
         ));        
     }
