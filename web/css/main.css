@@ -1962,8 +1962,7 @@ body {
 				
 				
 				.time-line-content {
-				margin-left:120px;
-				background:url('../img/timeline_bg.gif') repeat-y 50% 0;
+				margin-left:120px;				
 				padding:30px 0 15px;
 				font-size:12px;
 				margin-bottom:10px;
@@ -3047,22 +3046,13 @@ body {
             .time-line-nav li.inactive a {
                 color:#d4d4d4;
             }
-            .time-line-nav li ul {
-                display:none;
+            .time-line-nav li ul a {
+                font-weight: normal;               
             }
             .time-line-nav li.active ul {
                 display:block;
             }
     
-    
-    .time-line-content {
-        margin-left:120px;
-        background:url('../img/timeline_bg.gif') repeat-y 50% 0;
-        padding:30px 0 15px;
-        font-size:12px;
-        margin-bottom:10px;
-        
-    }
         .time-line-header {
             background:#fff;
             text-align:center;

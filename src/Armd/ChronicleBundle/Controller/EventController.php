@@ -6,26 +6,116 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ChronicleBundle\Util\RomanConverter as Converter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Sonata\MediaBundle\Model\Media;
 
 class EventController extends ListController
-{
-    
-	function __construct(ContainerInterface $container = null)
+{  
+    function __construct(ContainerInterface $container = null)
     {
         $this->setContainer($container);    
     }
 	
 	
-	/**
-     * @Route("/", name="armd_chronicle_index")     
+    /**
+     * @Route("/{century}/{part}", 
+     * defaults={"century" = "21", "part" = "0"}, 
+     * requirements={"century"="\d+", "part"="\d+"}, 
+     * name="armd_chronicle_index")     
      */
-	public function indexAction()
+    public function indexAction($century = 0, $part = 0)
     {
-        return $this->render($this->getTemplateName('chronicle'), array(
-            'centuries' => $this->getCenturiesList(),
+        $activeCentury = $activePart = false;
+        $centuries = array();
+        $centuriesResult = $this->getCenturiesList();
+        
+        if (!$century && count($centuriesResult)) {
+            $century =  $centuriesResult[0]['value'];
+        }                       
+        
+        foreach ($centuriesResult as $c) {
+            if ($c['eventsCount'] > 100) {
+                $c['parts'] = array(
+                    0 => array('value' => 2, 'name' => Converter::toRoman(2) . ' половина'),
+                    1 => array('value' => 1, 'name' => Converter::toRoman(1) . ' половина')
+                );
+            }                                 
+            
+            if ($c['value'] == $century) {
+                $activeCentury = $c;
+            }
+            
+            $centuries[$c['value']] = $c;
+        }
+        
+        if (!$activeCentury) {                     
+            throw $this->createNotFoundException(sprintf('Unable to find century %d', $century));
+        }
+        
+        if (isset($centuries[$century]['parts'])) {                      
+            if (!$part) {
+                $activePart = $centuries[$century]['parts'][0];
+            } else {
+                foreach ($centuries[$century]['parts'] as $p) {
+                    if ($part == $p['value']) {
+                        $activePart = $p;
+                    }
+                }
+            }
+            
+            if (!$activePart) {                     
+                throw $this->createNotFoundException(sprintf('Unable to find part %d', $part));
+            }
+        }
+        
+        return $this->render($this->getTemplateName('chronicle'), array( 
+            'centuries' => $centuries,
+            'activeCentury' => $activeCentury,
+            'activePart' => $activePart,
+            'width' => '100%',
+            'height' => 600,
+            'lang' => 'ru',
+            'start_at_end' => true,
+            'start_zoom_adjust' => 0
         ));
     }
+    
+    /**
+     * @Route("/timeline_json_data.json/{century}/{part}", 
+     * defaults={"century" = "21", "part" = "0"}, 
+     * requirements={"century"="\d+", "part"="\d+"},
+     * name="armd_chronicle_timeline_json_data")     
+     */
+    public function timelineJsonDataAction($century = 0, $part = 0)
+    {
+        $result = array();
+        $result['timeline'] = array(
+            'headline' => '',
+            'type' => 'default',
+            'startDate' => '',
+            'text' => ''
+        );
         
+        $events = $this->getEventsList($century, $part);
+        
+        foreach ($events as $event) {               
+            $result['timeline']['date'][] = array(
+                'startDate' => $event->getDate()->format('Y,n,j'),
+                'headline' => $event->getTitle(),
+                'text' => $event->getBody(),
+                'asset' => array(
+                    'media' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'list') : '',
+                    'thumbnail' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'adminPreview') : '',
+                    'credit' => '',
+                    'caption' => $event->getImage() ? $event->getImage()->getTitle() : ''
+                )
+            );
+        }       
+        
+        return new JsonResponse($result);
+    }
+    
     function getCenturiesList()
     {
         $result = array();
@@ -37,22 +127,38 @@ class EventController extends ListController
             $result[] = array(
                 'value'     => $century,
                 'name'      => Converter::toRoman($century),
-                'events'    => $this->getEventsList($century),
-                'accidents' => $this->getAccidentsList($century),
+                'eventsCount'    => $this->getEventsCount($century),
             );
         }
         
         return $result;
     }
     
-    function getEventsList($century)
+    function getEventsList($century, $part = 0)
     {
-        return $this->getEventsRepository($century)->getQuery()->getResult();
+        $repository = $this->getEventsRepository($century);
+        
+        if ($part) {
+            if ($part == 1) {
+                $from = new \DateTime(($century - 1) . '00-01-01');
+                $to = new \DateTime(($century - 1) . '50-01-01');
+            } else {
+                $from = new \DateTime(($century - 1) . '50-01-01');
+                $to = new \DateTime($century . '00-01-01');
+            }
+            
+            $repository->setPeriod($from, $to);
+        }
+        
+        return $repository->getQuery()->getResult();
     }
     
-    function getAccidentsList($century)
+    function getEventsCount($century)
     {
-        return $this->getDoctrine()->getRepository('ArmdChronicleBundle:Accident')->findBy(array('event' => null, 'century' => $century), array('date' => 'ASC'));
+        $result = $this->getListRepository()->setCentury($century)
+            ->selectCount()->getQuery()->getSingleResult();
+
+        return $result['cnt'];
     }
     
     function getCenturiesRepository()
@@ -72,5 +178,21 @@ class EventController extends ListController
     public function getControllerName()
     {
         return 'ArmdChronicleBundle:Event';
+    }
+    
+    /**
+     * @param \Sonata\MediaBundle\Model\Media $media
+     * @return string
+     */
+    public function getMediaUrl(Media $media, $format)
+    {
+        /**
+         * @var \Sonata\MediaBundle\Provider\Pool $mediaService
+         */
+        $mediaService = $this->container->get('sonata.media.pool');
+        $provider = $mediaService->getProvider($media->getProviderName());
+        $format = $provider->getFormatName($media, $format);
+
+        return $provider->generatePublicUrl($media, $format);
     }
 }
