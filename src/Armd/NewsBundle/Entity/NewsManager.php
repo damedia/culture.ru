@@ -111,7 +111,7 @@ class NewsManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_SUBJECT_SLUGS_OR])) {
-            $qb->innerJoin('_news.subject', '_newsSubject', 'WITH', 'newsSubject.slug  :slug')
+            $qb->innerJoin('_news.subject', '_newsSubject')
                 ->andWhere('_newsSubject.slug IN (:subject_slugs_or)')
                 ->setParameter('subject_slugs_or', $criteria[self::CRITERIA_SUBJECT_SLUGS_OR]);
         }
