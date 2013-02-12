@@ -85,6 +85,9 @@ class LectureTranslationAdmin extends Admin
             ->with('Other video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
+            ->with('External Video')
+                ->add('externalUrl', null, array('required' => false))
+            ->end()
         ;
     }
 
