@@ -108,7 +108,7 @@ class LectureManager extends ListManager
         $qb->where('t.root = :superTypeId')
             ->setParameter('superTypeId', $superTypeId)
             ->andWhere('t.lvl > 1')
-            ->orderBy('t.lft', 'ASC');
+            ->orderBy('t.title', 'ASC');
 
         $rows = $qb->getQuery()->getResult();
 

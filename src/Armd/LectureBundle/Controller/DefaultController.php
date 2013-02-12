@@ -249,7 +249,16 @@ class DefaultController extends Controller
 
             $genresList = $manager->getGenresBySupertype($superTypeId);
 
+            if ($superTypeId) {
+                $superType = $this->getDoctrine()->getManager()
+                    ->getRepository('ArmdLectureBundle:LectureSuperType')
+                    ->find($superTypeId);
+            } else {
+                $superType = false;
+            }
+
             return array(
+                'superType' => $superType,
                 'superTypeId' => $superTypeId,
                 'superTypeList' => $superTypeList,
                 'genreId' => $genreId,
