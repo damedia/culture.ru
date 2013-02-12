@@ -201,14 +201,16 @@ class Builder extends ContainerAware
             $videoMenu = $menu->addChild(
                 'menu.video',
                 array(
-                    'route' => 'armd_lecture_default_list'
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 3)
                 )
             );
 
             $videoMenu->addChild(
                 'menu.cinema',
                 array(
-                    'route' => 'armd_lecture_default_list'
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 3)
                 )
             );
 
