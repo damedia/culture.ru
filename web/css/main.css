@@ -1137,17 +1137,19 @@ body {
 				position:relative;
 				clear:both;
 				margin:0;
-				height:180px;
+				height:40px;
 
-				top:-157px;
-				background:url(../img/more-grad.png) repeat 0 100%;
+				top:0px;
+				/*background:url(../img/more-grad.png) repeat 0 100%;*/
 				
 
 			}
 			.more2 {
+                /*
 				height:128px;
 				top:-128px;
 				background:url(../img/more-grad2.png) repeat 0 100%;
+				*/
 			}
 			.more3 {
 				height:128px;
