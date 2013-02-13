@@ -124,17 +124,18 @@ class DefaultController extends Controller
      */
     public function lectureDetailsAction($id, $version)
     {
-        // fix menu
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_lecture_default_list')
-        );
-
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);
         if(!$lecture) {
             throw $this->createNotFoundException('Lecture not found');
         }
         $this->getTagManager()->loadTagging($lecture);
+
+        // fix menu
+        $lectureSuperType = $lecture->getLectureSuperType();
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_lecture_default_list', array('supertype' => $lectureSuperType->getId()))
+        );
 
         $manager = $this->get('armd_lecture.manager.lecture');
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
@@ -144,12 +145,13 @@ class DefaultController extends Controller
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findAll();
 
-        //var_dump($lecture->getMediaLectureVideo());
+        $genresList = $manager->getGenresBySupertype($lectureSuperType->getId());
 
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'superTypeList' => $superTypeList,
             'referer' => $this->getRequest()->headers->get('referer'),
             'lecture' => $lecture,
+            'genresList' => $genresList,
             'lectureVersion' => $version,
             'lectureRolesPersons' => $rolesPersons,
         ));
