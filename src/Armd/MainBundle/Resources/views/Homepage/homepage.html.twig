@@ -86,7 +86,7 @@
     {% endif %}
 
     <section class="index-block index-museum-block clearfix">
-        <h2><a href="{{ path('armd_museum_index') }}">Музеи</a></h2>
+        <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
 
         <div class="plitka-one-wrap plitka-one-wrap-opened">
             <div class="plitka-one clearfix">
@@ -134,10 +134,12 @@
 {% block right_column %}
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
-    <section id="homepage-social-widgets">
-        {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
-        {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
-    </section>
+    {% if app.request.locale == 'ru' %}
+        <section id="homepage-social-widgets">
+            {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
+            {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
+        </section>
+    {% endif %}
 
 {% endblock %}
 
