@@ -3129,7 +3129,65 @@ body {
                 margin-bottom: 20px;
             }
 
-					
+	#homepage-polls {
+            padding-left: 30px;
+        }
+        
+        #people-culture-polls {
+            margin-bottom: 30px;
+        }
+        
+        #people-culture-polls h3 {
+            border-bottom: 1px solid #D9D9D9;
+            color: #154060;
+            font: 25px 'Trebuchet MS',sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #people-culture-polls h3 span {
+            border-bottom: 3px solid #7791A4;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        
+        #people-culture-polls h4 {
+            text-transform: uppercase;
+        }
+        
+        #people-culture-polls ul {
+            list-style: none outside none;
+        }
+        
+        #people-culture-polls li {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        #people-culture-polls input[type="button"] {
+            background-color: #fa9416;
+            color: #ffffff;
+            font-size: 12px;
+            border-style: none;
+            padding: 5px 8px;
+        }              
+        
+        #people-culture-polls li div.cp_line {
+            background-color: #d9d9d9;
+            height: 10px;
+            float: left;
+        }
+        
+        #people-culture-polls li div.cp_count {
+            color: #d9d9d9;
+            font-size: 18px;
+            position: relative;
+            top: -8px;
+            left: 5px;
+        }
 	
 /*Timeline*/
 .time-line {

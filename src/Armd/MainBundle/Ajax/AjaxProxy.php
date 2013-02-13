@@ -69,13 +69,19 @@ class AjaxProxy
 
         session_write_close();
         $ch = curl_init();
+        
+        if ($params != null) {
+            if ($method == 'GET') {
+                $restUrl .= '?' . http_build_query($params);
+            } else {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+            }
+        }
+        
         curl_setopt($ch, CURLOPT_URL, $restUrl);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        if ($params != null) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-        }
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);        
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 

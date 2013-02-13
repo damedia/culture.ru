@@ -8,6 +8,7 @@ var armdMainPage = {
     init: function () {
         armdMainPage.initAtlas();
         armdMainPage.initCommunicationPlatform();
+        armdMainPage.initPeopleCulturePolls();
     },
 
     initAtlas: function () {
@@ -95,6 +96,134 @@ var armdMainPage = {
                 armdMainPage.communicationPlatformSelectTab(currentTabIndex);
                 armdMk.stopLoadingBlock('#discus');
             }
+        });
+    },
+    
+    initPeopleCulturePolls: function () {
+        var pollBlock = $('#people-culture-polls');
+        pollBlock.empty();
+        
+        $.ajax({
+            url: Routing.generate('armd_main_communication_platform_request'),
+            type: 'get',
+            data: {
+                restUrl: '/ru/export/',
+                method: 'get',
+                contentType: 'text/html',
+                params: {
+                    module: 'm_vote',
+                    count: 1
+                }
+            },
+            dataType: 'json',
+            success: function (data) {
+                try {
+                    var poll = data['data']['items'][0],
+                        iType = poll.VOTE_TYPE == 'single' ? 'radio' : 'checkbox',
+                        ul = $('<ul></ul>'),
+                        button = $('<input type="button" value="Готово!">');
+                    
+                    //pollBlock.append($('<h3>' + poll.title + '</h3>')); 
+                    pollBlock.append($('<h3><span>Опрос</span></h3>')); 
+                    pollBlock.append($('<h4>' + poll.content + '</h4>'));
+                    pollBlock.append(ul);
+                        
+                    if (poll.already_vote === 0 && pollBlock.attr('data-logged') == 1) {                                            
+                        for (answer in poll.answers) {
+                            var item = '<li><label><input name="answer" type="' + iType 
+                                + '" value="' + poll.answers[answer].VOTE_ANSWER_ID + '"> ' 
+                                + poll.answers[answer].TITLE + '</label></li>';
+                            ul.append($(item));
+                        }
+                        
+                        pollBlock.append(button); 
+                        button.click(function () {
+                            var votes = [];
+                            ul.find('input:checked').each(function(i) {
+                                votes.push($(this).attr('value'));
+                            });
+                            
+                            if (votes.length > 0) {
+                                armdMainPage.peopleCulturePollsVote(poll.VOTE_ID, votes);
+                            }
+                        });
+                    } else {
+                        var max = 0, all = 0, limit = 200, width;
+                        
+                        for (answer in poll.answers) {
+                            if (poll.answers[answer].ANSWER_COUNT > poll.answers[max].ANSWER_COUNT) {
+                                max = answer;
+                            }
+                            
+                            all += poll.answers[answer].ANSWER_COUNT;
+                        }
+                        
+                        for (answer in poll.answers) {
+                            if (poll.answers[max].ANSWER_COUNT == 0) {
+                                width = 0;
+                            } else {
+                                width = Math.floor(limit * poll.answers[answer].ANSWER_COUNT / poll.answers[max].ANSWER_COUNT);
+                            }
+                            
+                            var item = '<li><div class="cp_line" style="width: ' + width + 'px;' 
+                                + (answer == max ? ' background-color: #f79017;' : '') + '"></div><div class="cp_count"' 
+                                + (answer == max ? 'style="color: #f79017;"' : '') + '>' 
+                                + poll.answers[answer].ANSWER_COUNT + '</div>' 
+                                + poll.answers[answer].TITLE + '</li>';
+                            ul.append($(item));
+                        }
+                    }
+                } catch(err) {
+                    console.log(err);
+                }
+                
+            },
+            complete: function () {
+                
+            }
+
+        });
+
+    },
+    
+    peopleCulturePollsVote: function (id, votes) {
+        armdMk.startLoadingBlock();
+        $.ajax({
+            url: Routing.generate('armd_main_communication_platform_request'),
+            type: 'post',
+            data: {
+                restUrl: '/ru/ajax_vote/',
+                method: 'post',
+                contentType: 'text/html',
+                params: {
+                    vote_id: id,
+                    answer_id: votes
+                }
+            },
+            dataType: 'html',
+            success: function (data) {
+                data = $.trim(data);
+                if (data === '"added"') {
+                    armdMessager.showMessage('Ваш голос учтен');
+                }
+                else if (data === '"already_voted"') {
+                    armdMessager.showMessage('Вы уже голосовали в этом опросе', armdMessager.messageTypes.WARNING)
+                }
+                else if (data === '"invalid data"') {
+                    armdMessager.showMessage('Голосование по этому опросу закрыто', armdMessager.messageTypes.WARNING)
+                }
+                else if (data === '"no_auth"') {
+                    armdMessager.showMessage('Вы не авторизованы', armdMessager.messageTypes.WARNING)
+                }
+                else {
+                    armdMessager.showMessage('При голосовании возникла ошибка', armdMessager.messageTypes.ERROR);
+                }
+            },
+            complete: function () {
+                armdMainPage.initPeopleCulturePolls();
+                armdMk.stopLoadingBlock();
+            }
+
         });
     }
 
