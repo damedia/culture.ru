@@ -2,26 +2,22 @@
 {% block body%}
 	<h1>{{ 'Navigation.About'|trans }}</h1>
 	<div class="text">
-        <p>Портал «Культура.рф» — уникальный веб-ресурс, созданный для популяризации культурного наследия нашей страны. На портале представлены материалы самых разнообразных форматов — новости, инфографика, фотографии, видеозаписи. Доступ к контенту максимально упрощен, разработаны PDA-сайт и версия для слабовидящих. </p>
-        <p>На портале можно посмотреть трансляции выступлений отечественных и зарубежных артистов, совершить виртуальные экскурсии по музеям в разных городах страны, прослушать краткие лекции и мастер-классы ведущих деятелей культуры. </p>
-        <p>Взаимосвязь развития культуры и истории наглядно отображает раздел «Лента времени»: здесь можно проследить хронологию ключевых событий, увидеть главные культурные явления нашей страны с IX века по настоящее время. </p>
-        <p>Актуальные мероприятия культурной жизни, включая самые интересные театральные премьеры, выставки, концерты и пр., а также юбилеи деятелей культуры и другие важные события освещаются в регулярно обновляемом разделе новостей. </p>
-        <p>Обсудить вопросы, касающиеся развития культуры в стране, а также материалы портала, пообщаться с известными деятелями культуры, журналистами и критиками можно на базе современной коммуникационной площадки. </p>
-        {#
-	<p>
-        Roskult.ru is a unique web-based portal designed to promote cultural heritage of our country. The portal offers a variety of materials - news, infographics, photos, and videos. Access to the content is simplified, and you may browse its PDA version and version for the visually impaired persons.
-</p><p>
-        Here you can watch broadcasts of domestic and foreign artists, take a virtual tour of museums located in different cities of our country, listen to short lectures and take part in master classes of celebrities.
-</p><p>
-        The relationship of culture and history is clearly shown in our "Chronicle" section: here you can follow the chronology of key events, see the main cultural events of our country from the IX century to the present.
-</p><p>
-        Actual events of cultural life, including the most interesting theater performances, exhibitions, concerts, etc., as well as anniversaries of celebrities and other important events, are described in or "News" section, which is regularly updated.
-</p><p>
-        The "Atlas" section allows you to learn about the cultural life of all of 83 subjects of the Russian Federation. The "Atlas" section contains the most complete knowledge base of regional institutions and cultural facilities, which is constantly updated and expanded.
-</p><p>
-        You can discuss topics related to the development of culture in our country, as well as all site materials, communicate with famous artists, journalists and critics, using our up-to-date communication platform.
-</p><p>
-        This portal is created by the Ministry of Culture of the Russian Federation in accordance with the instruction of the Government No. VP-P10-6224 dated 8 September, 2010. The development of the project is performed within the framework of the "Information Society (2011-2020)" State Programme.
-</p> #}
+
+        {% if app.request.locale == 'en' %}
+            <p>Culture.ru is a unique web-based portal designed to promote cultural heritage of our country. The portal offers a variety of materials - news, infographics, photos, and videos. Site available in both Desktop and Mobile versions. Accessibility optimised for the visually impaired.</p>
+            <p>Here you can watch broadcasts of domestic and foreign artists, take a virtual tour of museums located in different cities of our country, listen to short lectures and take part in master classes of celebrities.</p>
+            <p>The relationship of culture and history is clearly shown in our "Chronicle" section: here you can follow the chronology of key events, see the main cultural events of our country from the IX century to the present.</p>
+            <p>Actual events of cultural life, including the most interesting theater performances, exhibitions, concerts, etc., as well as anniversaries of celebrities and other important events, are described in or "News" section, which is regularly updated.</p>
+            <p>The "Atlas" section allows you to learn about the cultural life of all of 83 subjects of the Russian Federation. The "Atlas" section contains the most complete knowledge base of regional institutions and cultural facilities, which is constantly updated and expanded.</p>
+            <p>You can discuss topics related to the development of culture in our country, as well as all site materials, communicate with famous artists, journalists and critics, using our up-to-date communication platform.</p>
+            <p><em>This portal is created by the Ministry of Culture of the Russian Federation in accordance with the instruction of the Government No. VP-P10-6224 dated <nobr>8 September, 2010</nobr>. The development of the project is performed within the framework of the "Information Society (2011-2020)" State Programme.</em></p>
+        {% else %}
+            <p>Портал «Культура.рф» — уникальный веб-ресурс, созданный для популяризации культурного наследия нашей страны. На портале представлены материалы самых разнообразных форматов — новости, инфографика, фотографии, видеозаписи. Доступ к контенту максимально упрощен, разработаны PDA-сайт и версия для слабовидящих. </p>
+            <p>На портале можно посмотреть трансляции выступлений отечественных и зарубежных артистов, совершить виртуальные экскурсии по музеям в разных городах страны, прослушать краткие лекции и мастер-классы ведущих деятелей культуры. </p>
+            <p>Взаимосвязь развития культуры и истории наглядно отображает раздел «Лента времени»: здесь можно проследить хронологию ключевых событий, увидеть главные культурные явления нашей страны с IX века по настоящее время. </p>
+            <p>Актуальные мероприятия культурной жизни, включая самые интересные театральные премьеры, выставки, концерты и пр., а также юбилеи деятелей культуры и другие важные события освещаются в регулярно обновляемом разделе новостей. </p>
+            <p>Обсудить вопросы, касающиеся развития культуры в стране, а также материалы портала, пообщаться с известными деятелями культуры, журналистами и критиками можно на базе современной коммуникационной площадки. </p>
+        {% endif %}
+
 	</div>
 {% endblock %}

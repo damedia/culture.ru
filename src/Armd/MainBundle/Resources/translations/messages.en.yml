@@ -77,7 +77,7 @@ Navigation:
     Public services: Public Services
     Closed forum: Closed Forum
     goverment_services: Goverment services
-    About: Project Info
+    About: About
     Add: Add
     Library: Library
     Reports: Reports
@@ -184,3 +184,4 @@ icons: Russian Icons
 search: Search
 search__: Search...
 culture: Culture
+Today: Today
