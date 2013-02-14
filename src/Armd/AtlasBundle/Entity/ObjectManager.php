@@ -73,12 +73,10 @@ class ObjectManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
-            $qb->innerJoin("$o.secondaryCategories", 'sc');
-            $i = 0;
-            foreach($criteria[self::CRITERIA_CATEGORY_IDS_AND] as $categoryId) {
+            foreach ($criteria[self::CRITERIA_CATEGORY_IDS_AND] as $i => $categoryId) {
+                $qb->innerJoin("$o.secondaryCategories", 'sc'.$i);
                 $parameterName = 'categoryId' . $i;
-                $qb->andWhere("sc = :$parameterName")->setParameter($parameterName, $categoryId);
-                $i++;
+                $qb->andWhere("sc$i = :$parameterName")->setParameter($parameterName, $categoryId);
             }
         }
 
@@ -89,12 +87,10 @@ class ObjectManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_REGION_IDS_AND])) {
-            $qb->innerJoin("$o.regions", 'r');
-            $i = 0;
-            foreach($criteria[self::CRITERIA_REGION_IDS_AND] as $regionId) {
+            foreach ($criteria[self::CRITERIA_REGION_IDS_AND] as $i => $regionId) {
+                $qb->innerJoin("$o.regions", 'r'.$i);
                 $parameterName = 'regionId' . $i;
-                $qb->andWhere("r = :$parameterName")->setParameter($parameterName, $regionId);
-                $i++;
+                $qb->andWhere("r$i = :$parameterName")->setParameter($parameterName, $regionId);
             }
         }
 

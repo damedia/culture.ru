@@ -166,7 +166,6 @@ class DefaultController extends Controller
         $criteria[ObjectManager::CRITERIA_LIMIT] = $limit;
         $criteria[ObjectManager::CRITERIA_OFFSET] = $offset;
 
-
         return $this->render(
             $templates[$templateName],
             array(
