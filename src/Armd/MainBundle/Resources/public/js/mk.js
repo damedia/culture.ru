@@ -29,20 +29,18 @@ var armdMk = {
     },
 
     startLoading: function() {
-        $('#loading-block').show();
-        //armdMk.startLoadingBlock('body');
+        armdMk.startLoadingBlock();
     },
 
     stopLoading: function() {
-        $('#loading-block').hide();
-        //armdMk.stopLoadingBlock('body');
+        armdMk.stopLoadingBlock();
     },
 
     startLoadingBlock: function(blockSelector) {
         if (typeof(blockSelector) === 'undefined') {
             blockSelector = 'body';
         }
-        $(blockSelector).css('position', 'relative')
+        $(blockSelector)
             .append($('<div class="loading-block"></div>'));
     },
 
