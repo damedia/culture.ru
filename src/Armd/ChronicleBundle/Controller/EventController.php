@@ -26,6 +26,11 @@ class EventController extends ListController
      */
     public function indexAction($century = 0, $part = 0)
     {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_chronicle_index')
+        );
+
         $activeCentury = $activePart = false;
         $centuries = array();
         $centuriesResult = $this->getCenturiesList();
