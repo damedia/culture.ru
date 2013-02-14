@@ -164,6 +164,41 @@ class MainController extends Controller
             $this->getRequest()
         );
     }
+    
+    public function peopleCulturePollsAction()
+    {   
+        $apiModule = 'm_vote';
+        $apiCount = 1;
+        $apiDomain = $this->container->getParameter('communication_platform_domain');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://' . $apiDomain . '/ru/export/?' . http_build_query(array(
+            'module' => $apiModule,
+            'count' => $apiCount
+        )));        
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $requestCookies = $this->getRequest()->cookies->all();
+        $cookieArray = array();
+        
+        foreach ($requestCookies as $cookieName => $cookieValue) {
+            if($cookieName !== $this->getRequest()->getSession()->getName()) {
+                $cookieArray[] = urlencode($cookieName) . "=" . urlencode($cookieValue);
+            }
+        }
+        
+        $cookie_string = implode('; ', $cookieArray);
+        curl_setopt($ch, CURLOPT_COOKIE, $cookie_string);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        return $this->render('ArmdMainBundle:Homepage:people_culture_polls.html.twig', 
+                array(
+                    'userLogged' => $this->getUser() ? 1 : 0,
+                    'data' => $response,
+                    'apiModule' => $apiModule,
+                    'apiCount' => $apiCount
+                ));
+    }
 
     function getNews(array $categories)
     {

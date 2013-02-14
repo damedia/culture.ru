@@ -135,7 +135,7 @@
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
     
     <section id="homepage-polls">
-        {% include 'ArmdMainBundle:Homepage:people_culture_polls.html.twig' with {'user': app.user} %}
+        {% render 'ArmdMainBundle:Main:peopleCulturePolls' %}
     </section>
 
     <section id="homepage-social-widgets">

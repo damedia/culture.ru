@@ -3162,9 +3162,9 @@ body {
         #people-culture-polls li {
             color: #000000;
             font-weight: bold;
-            text-decoration: none;
             font-size: 12px;
-            margin-bottom: 10px;
+            line-height: 16px;
+            margin-bottom: 16px;
         }
         
         #people-culture-polls input[type="button"] {
@@ -3185,8 +3185,12 @@ body {
             color: #d9d9d9;
             font-size: 18px;
             position: relative;
-            top: -8px;
+            top: -4px;
             left: 5px;
+        }
+        
+        #people-culture-polls li label input {
+            vertical-align: -3px;
         }
 	
 /*Timeline*/
