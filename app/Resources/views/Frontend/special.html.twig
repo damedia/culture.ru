@@ -74,8 +74,8 @@
 				<ul class="quick-links">
                     {% if app.request.locale == 'ru' %}
 					    <li><a href="http://people.roskult.ru/special/opengov/new/">{{ 'Open Government'|trans }}</a></li>
+                        <li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>
                     {% endif %}
-					<li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>
 				</ul>
 				<nav class="clear">
 					{% block menu %}
