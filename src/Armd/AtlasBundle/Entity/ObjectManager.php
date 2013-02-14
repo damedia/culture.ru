@@ -193,6 +193,18 @@ class ObjectManager extends ListManager
         return $objects;
     }
 
+    public function getRussiaImagesDistinctRegions()
+    {
+        $sql = 'SELECT DISTINCT ro.region_id id, r.title
+                FROM atlas_object_region ro
+                LEFT JOIN atlas_region r ON r.id=ro.region_id
+                LEFT JOIN atlas_object o ON o.published=TRUE AND o.show_at_russian_image=TRUE
+                ORDER BY title ASC';
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function getObject($id)
     {
         $repo = $this->em->getRepository('ArmdAtlasBundle:Object');

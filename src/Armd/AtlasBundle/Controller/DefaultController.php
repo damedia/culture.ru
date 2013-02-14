@@ -119,15 +119,7 @@ class DefaultController extends Controller
             throw new \LogicException('Cant find atlas object category slug "type"');
         }
 
-        $regions = $em->createQueryBuilder()
-            ->select('r')
-            ->from('ArmdAtlasBundle:Object', 'o')
-            ->innerJoin('ArmdAtlasBundle:Region', 'r')
-            ->where('o.showAtRussianImage = TRUE')
-            ->andWhere('o.published = TRUE')
-            ->orderBy('r.title', 'ASC')
-            ->getQuery()->getResult();
-
+        $regions = $this->getObjectManager()->getRussiaImagesDistinctRegions();
 
         return array(
             'thematics' => $thematicsRoot->getChildren(),

@@ -586,7 +586,10 @@ body {
 				.search-category-selects  .selector {
 					float:left;
 				}
-				
+                .ui-selectgroup-list{
+                    max-height:400px;
+                    overflow:auto;
+                }
 					
 				/* Select */
 
@@ -4250,5 +4253,3 @@ body {
         page-break-after: avoid;
     }
 }
-
-
