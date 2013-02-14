@@ -29,11 +29,13 @@ var armdMk = {
     },
 
     startLoading: function() {
-        armdMk.startLoadingBlock('body');
+        $('#loading-block').show();
+        //armdMk.startLoadingBlock('body');
     },
 
     stopLoading: function() {
-        armdMk.stopLoadingBlock('body');
+        $('#loading-block').hide();
+        //armdMk.stopLoadingBlock('body');
     },
 
     startLoadingBlock: function(blockSelector) {
