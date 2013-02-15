@@ -69,13 +69,19 @@ class AjaxProxy
 
         session_write_close();
         $ch = curl_init();
+        
+        if ($params != null) {
+            if ($method == 'GET') {
+                $restUrl .= '?' . http_build_query($params);
+            } else {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+            }
+        }
+        
         curl_setopt($ch, CURLOPT_URL, $restUrl);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        if ($params != null) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-        }
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);        
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
@@ -91,8 +97,11 @@ class AjaxProxy
         curl_setopt($ch, CURLOPT_COOKIE, $cookie_string);
 
         $response = curl_exec($ch);
-
         curl_close($ch);
+
+        \gFuncs::dbgWriteLogVar($cookie_string, false, 'cookie_string'); // DBG:
+        \gFuncs::dbgWriteLogVar($params, false, 'params'); // DBG:
+        \gFuncs::dbgWriteLogVar($response, false, 'response'); // DBG:
 
         list($headers, $response) = explode("\r\n\r\n", $response, 2);
         preg_match_all('/Set-Cookie: (.*)\b/', $headers, $cookies);
