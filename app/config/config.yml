@@ -227,6 +227,7 @@ sonata_media:
 
         paper_archive:
             download:
+
                 strategy: sonata.media.security.public_strategy
                 mode: http
             providers:
