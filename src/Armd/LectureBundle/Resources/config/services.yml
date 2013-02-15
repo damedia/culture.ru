@@ -16,6 +16,12 @@ services:
         class: Armd\LectureBundle\EventListener\MediaListener
         tags:
             - { name: doctrine.event_listener, event: preRemove }
+            
+    armd_lecture.listener.lecture:
+        class: Armd\LectureBundle\EventListener\LectureListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@service_container]
 
     armd_lecture.manager.lecture:
         class: Armd\LectureBundle\Entity\LectureManager
