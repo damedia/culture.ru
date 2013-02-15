@@ -5,6 +5,7 @@ namespace Armd\MainBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
@@ -168,33 +169,25 @@ class MainController extends Controller
     public function peopleCulturePollsAction()
     {   
         $apiModule = 'm_vote';
-        $apiCount = 1;
-        $apiDomain = $this->container->getParameter('communication_platform_domain');
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://' . $apiDomain . '/ru/export/?' . http_build_query(array(
-            'module' => $apiModule,
-            'count' => $apiCount
-        )));        
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        $requestCookies = $this->getRequest()->cookies->all();
-        $cookieArray = array();
-        
-        foreach ($requestCookies as $cookieName => $cookieValue) {
-            if($cookieName !== $this->getRequest()->getSession()->getName()) {
-                $cookieArray[] = urlencode($cookieName) . "=" . urlencode($cookieValue);
-            }
-        }
-        
-        $cookie_string = implode('; ', $cookieArray);
-        curl_setopt($ch, CURLOPT_COOKIE, $cookie_string);
-        $response = curl_exec($ch);
-        curl_close($ch);
+        $apiCount = 1;        
+        $request = $this->getRequest();
+        $request->query->add(array(
+            'restUrl' => '/ru/export/',
+            'method' => 'get',
+            'params' => array(
+                'module' => $apiModule,
+                'count' => $apiCount
+            )
+        ));
+        $response = $this->container->get('armd_main.ajax_proxy')->ajaxRequest(
+            $this->container->getParameter('communication_platform_domain'),
+            $request
+        );
         
         return $this->render('ArmdMainBundle:Homepage:people_culture_polls.html.twig', 
                 array(
-                    'userLogged' => $this->getUser() ? 1 : 0,
-                    'data' => $response,
+                    'userLogged' => $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED') ? 1 : 0,
+                    'data' => $response->getContent(),
                     'apiModule' => $apiModule,
                     'apiCount' => $apiCount
                 ));
