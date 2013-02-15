@@ -133,6 +133,10 @@
 
 {% block right_column %}
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
+    
+    <section id="homepage-polls">
+        {% render 'ArmdMainBundle:Main:peopleCulturePolls' %}
+    </section>
 
     {% if app.request.locale == 'ru' %}
         <section id="homepage-social-widgets">
