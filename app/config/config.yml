@@ -259,7 +259,7 @@ sonata_media:
             thumbnail:  sonata.media.thumbnail.format
 
         image:
-            resizer:    sonata.media.resizer.simple # sonata.media.resizer.square
+            resizer:    sonata.media.resizer.square #sonata.media.resizer.simple
             filesystem: sonata.media.filesystem.local
             generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format

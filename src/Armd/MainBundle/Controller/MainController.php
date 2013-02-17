@@ -35,7 +35,7 @@ class MainController extends Controller
         // NewFeature #53983
         $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
             ->findBy(array(
-                'id' => array(435,432,444,433,437,438),
+                'id' => array(580,553,592,556),
             ));
 
         $news = $this->getNewsManager()->findObjects(
