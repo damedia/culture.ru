@@ -67,11 +67,7 @@
             {{ entity.announce|raw }}
         </p>
     </div>
-
-    
     {{ entity.body|raw }}
-
-
 </article>
 
 
@@ -85,21 +81,21 @@
 </div>
 
 <section class="block">
-    {% render "ArmdNewsBundle:News:readAlsoNews" with { "entity":entity, "limit":2 } %}
+    {% render url("armd_news_read_also_news", { "id":entity.id, "limit":2 }) %}
 </section>
 
 {% endblock %}
 
 {% block right_column %}
-    {% render 'ArmdNewsBundle:News:memorialEvents' %}
+    {% render url('armd_news_memorial_events') %}
 
-    {% render 'ArmdAtlasBundle:Default:relatedObjects' with {'tags': entity.tags, 'limit': 1} %}
+    {% render url('armd_atlas_related_objects', {'tags': entity.tags|extract_array_values('getName'), 'limit': 1}) %}
 
     {% if app.request.locale == 'ru' %}
         <div class="right-video-block">
-            {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': entity.tags, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' } %}
+            {% render url('armd_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
 
-            {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': entity.tags, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' } %}
+            {% render url('armd_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
         </div>
     {% endif %}
 
@@ -286,7 +282,7 @@
 </div>
 
     <!-- Read also -->
-    {% render "ArmdNewsBundle:News:readAlsoNews" with { "entity":entity, "limit":4 } %}
+    {% render url("armd_news_read_also_news", { "id":entity.id, "limit":4 }) %}
     <!-- /Read also -->
 
 {% endblock %}

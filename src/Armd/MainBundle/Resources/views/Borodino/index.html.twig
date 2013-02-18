@@ -133,7 +133,7 @@
 		</div>
 		
 		<h2 class="table-caption">{{ 'Navigation.Borodino.Events block'|trans }}</h2>
-		{% render "ArmdMainBundle:Project:events" with {"subject": subject} %}
+		{% render url("armd_main_project_events", {"subject": subject}) %}
 	</div>	
 {% endblock %}
 
@@ -142,13 +142,13 @@
 		<section class="right-news-list-block">
 			<h2>{{ 'Navigation.Borodino.Announcements'|trans }}</h2>
 		
-			{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
+			{% render url("armd_main_project_news", {"subject": subject, "category": "events"}) %}
 		</section>
 	</section>
 	<section class="block">
 		<section class="right-news-list-block">
 			<h2>{{ 'Navigation.Borodino.News'|trans }}</h2>	
-			{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
+			{% render url("armd_main_project_news", {"subject": subject, "category": "news"}) %}
 		</section>
 	</section>	
 			

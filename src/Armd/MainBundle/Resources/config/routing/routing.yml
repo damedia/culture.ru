@@ -43,8 +43,9 @@ armd_main_project_events:
     defaults: { _controller: ArmdMainBundle:Project:events }
 
 armd_main_project_news:
-    pattern: /events/
-    defaults: { _controller: ArmdMainBundle:Project:events }
+    pattern: /project-news/
+    defaults: { _controller: ArmdMainBundle:Project:news }
+
 
 armd_main_online_translation:
     pattern:  /online-translation/
@@ -71,3 +72,7 @@ armd_main_background_banner:
 armd_main_login_links:
     pattern: /login-links/
     defaults: { _controller: ArmdMainBundle:Main:loginLinks }
+
+armd_main_culture_polls:
+    pattern: /culture-polls/
+    defaults: { _controller: ArmdMainBundle:Main:peopleCulturePolls }

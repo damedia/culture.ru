@@ -287,7 +287,11 @@ class NewsController extends Controller
             'news'  => $this->getNewsManager(array(NewsManager::CRITERIA_LIMIT => $limit)),
         ));
     }
-    
+
+    /**
+     * @Route("/billboard-slider/", name="armd_news_billboard_slider")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     function billboardAction()
     {
         $newsManager = $this->getNewsManager();
@@ -319,8 +323,18 @@ class NewsController extends Controller
         ));
     }
 
-    public function readAlsoNewsAction($entity, $limit = 10)
+    /**
+     * @Route("/read-also-news/", name="armd_news_read_also_news")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function readAlsoNewsAction()
     {
+        $request = $this->getRequest();
+        $entityId = $request->get('id');
+        $limit = $request->get('limit', 10);
+
+        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($entityId);
+
         $this->get('fpn_tag.tag_manager')->loadTagging($entity);
 
         $entities = $this->getNewsManager()->findObjects(

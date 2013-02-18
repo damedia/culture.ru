@@ -191,6 +191,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function __construct()
     {
         $this->newsDate = new \DateTime();
+        $this->tags = new ArrayCollection();
     }
 
     /**
