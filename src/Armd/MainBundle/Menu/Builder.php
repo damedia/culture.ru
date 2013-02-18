@@ -31,41 +31,6 @@ class Builder extends ContainerAware
 
             //--- Events
             $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
-
-            $eventsMenu->addChild(
-                'menu.news',
-                array(
-                    'route' => 'armd_news_list_index_by_category',
-                    'routeParameters' => array('category' => 'news')
-                )
-            );
-            $eventsMenu->addChild(
-                'menu.events',
-                array(
-                    'route' => 'armd_news_list_index_by_category',
-                    'routeParameters' => array('category' => 'events')
-                )
-            );
-            $eventsMenu->addChild(
-                'menu.reportage',
-                array(
-                    'route' => 'armd_news_list_index_by_category',
-                    'routeParameters' => array('category' => 'reportages')
-                )
-            );
-            $eventsMenu->addChild(
-                'menu.interview',
-                array(
-                    'route' => 'armd_news_list_index_by_category',
-                    'routeParameters' => array('category' => 'interviews')
-                )
-            );
-            $eventsMenu->addChild(
-                'menu.events_on_map',
-                array(
-                    'route' => 'armd_news_map',
-                )
-            );
             //--- /Events
 
             //--- Information (About)
@@ -201,14 +166,16 @@ class Builder extends ContainerAware
             $videoMenu = $menu->addChild(
                 'menu.video',
                 array(
-                    'route' => 'armd_lecture_default_list'
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 3)
                 )
             );
 
             $videoMenu->addChild(
                 'menu.cinema',
                 array(
-                    'route' => 'armd_lecture_default_list'
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 3)
                 )
             );
 
@@ -217,6 +184,14 @@ class Builder extends ContainerAware
                 array(
                     'route' => 'armd_lecture_default_list',
                     'routeParameters' => array('supertype' => 1)
+                )
+            );
+
+            $videoMenu->addChild(
+                'menu.translations',
+                array(
+                    'route' => 'armd_lecture_default_list',
+                    'routeParameters' => array('supertype' => 2)
                 )
             );
 

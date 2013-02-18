@@ -5,6 +5,7 @@ namespace Armd\MainBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
@@ -34,7 +35,7 @@ class MainController extends Controller
         // NewFeature #53983
         $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
             ->findBy(array(
-                'id' => array(435,432,444,433,437,438),
+                'id' => array(580,553,592,556),
             ));
 
         $news = $this->getNewsManager()->findObjects(
@@ -163,6 +164,33 @@ class MainController extends Controller
             $this->container->getParameter('communication_platform_domain'),
             $this->getRequest()
         );
+    }
+    
+    public function peopleCulturePollsAction()
+    {   
+        $apiModule = 'm_vote';
+        $apiCount = 1;        
+        $request = $this->getRequest();
+        $request->query->add(array(
+            'restUrl' => '/ru/export/',
+            'method' => 'get',
+            'params' => array(
+                'module' => $apiModule,
+                'count' => $apiCount
+            )
+        ));
+        $response = $this->container->get('armd_main.ajax_proxy')->ajaxRequest(
+            $this->container->getParameter('communication_platform_domain'),
+            $request
+        );
+        
+        return $this->render('ArmdMainBundle:Homepage:people_culture_polls.html.twig', 
+                array(
+                    'userLogged' => $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED') ? 1 : 0,
+                    'data' => $response->getContent(),
+                    'apiModule' => $apiModule,
+                    'apiCount' => $apiCount
+                ));
     }
 
     function getNews(array $categories)

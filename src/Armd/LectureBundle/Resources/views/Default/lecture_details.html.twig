@@ -105,14 +105,17 @@
         <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="get">
             <span class="search-dates-label">Выбрать</span>
             <div class="search-category-selects">
-                <select id="form_supertype" name="supertype" class="uni">
+                <select id="form_supertype" name="supertype" class="" style="display:none;">
                     <option value="0">Категория</option>
                     {% for supertype in superTypeList %}
-                        <option value="{{ supertype.id }}">{{ supertype.name }}</option>
+                        <option value="{{ supertype.id }}" {% if lecture.lectureSuperType.id==supertype.id %}selected="selected" {% endif %}>{{ supertype.name }}</option>
                     {% endfor %}
                 </select>
                 <select id="form_genre" name="genre" class="uni">
-                    <option value="">Все жанры</option>
+                    <option value="0">{{ "All"|trans }}</option>
+                    {% for genre in genresList %}
+                        <option value="{{ genre.value }}">{{ genre.title }}</option>
+                    {% endfor %}
                 </select>
                 <input id="form_page" type="hidden" name="page" value="1"/>
             </div>

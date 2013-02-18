@@ -6,7 +6,7 @@
         {% if news|length > 0 %}
             <h3>
                 {% if 'now'|date('Y-m-d') is sameas(news[0].newsDate|date('Y-m-d')) %}
-                    Сегодня,
+                    {{ "Today"|trans }},
                 {% endif %}
                 {{ armd_news.news_date_short(news[0].newsDate) }}
             </h3>

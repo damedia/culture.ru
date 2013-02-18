@@ -1,4 +1,10 @@
 Museums: Музеи
+Museums Categories: Категории музеев
 visit_museum: Посетить<br />виртуальный<br />музей
 manual_instruction: инструкция по использованию<br />виртуального тура
 museums_not_found: Виртуальных музеев удовлетворяющих запросу не найдено
+
+search.select: Выбрать
+search.region: Регион
+search.category: Категория
+search.show: Показать

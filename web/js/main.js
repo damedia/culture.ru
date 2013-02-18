@@ -22,19 +22,16 @@ $(function () {
         sync: "#thumbs-slider"
     });
 
-
-    $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+    $.datepicker.setDefaults($.datepicker.regional[ $('body').data('locale') ]);
     $("#datapicker").datepicker({
         showOn: 'button',
         buttonImage: 'images/button_cal.gif',
         buttonImageOnly: true,
         dateFormat: 'dd.mm.yy',
-
         showOtherMonths: true,
         selectOtherMonths: true,
         onSelect: function (dateText, inst) {
             $(this).hide();
-            console.log(dateText);
             $('a.clicked').html(dateText).removeClass('clicked');
         }
 

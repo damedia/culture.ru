@@ -37,7 +37,11 @@ class LectureRolePerson
 
     public function __toString()
     {
-        return (string) $this->getPerson()->getName().', '.$this->getRole()->getName();
+        if ($this->getPerson() && $this->getRole()) {
+            return (string) $this->getPerson()->getName().', '.$this->getRole()->getName();
+        } else {
+            return '---';
+        }
     }
 
     /**

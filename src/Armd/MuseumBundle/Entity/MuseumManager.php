@@ -3,75 +3,77 @@
 namespace Armd\MuseumBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Armd\SphinxSearchBundle\Services\Search\SphinxSearch;
 use Knp\Component\Pager\Paginator;
+use Armd\ListBundle\Entity\ListManager;
 
-class MuseumManager
+class MuseumManager extends ListManager
 {
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $em;
-    protected $paginator;
-    protected $search;
+    /** example: array(13, 7) */
+    const CRITERIA_REGION_IDS_OR = 'CRITERIA_REGION_IDS_OR';
 
-    /**
-     * @param \Doctrine\ORM\EntityManager $em
-     * @param \Knp\Component\Pager\Paginator $paginator
-     * @param \Armd\SphinxSearchBundle\Services\Search\SphinxSearch $search
-     */
-    public function __construct(EntityManager $em, Paginator $paginator, SphinxSearch $search)
+    /** example: array(13, 7) */
+    const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_OR';
+
+    public function getQueryBuilder()
     {
-        $this->em = $em;
-        $this->paginator = $paginator;
-        $this->search = $search;
+        $qb = $this->em->getRepository('ArmdMuseumBundle:Museum')
+            ->createQueryBuilder('_museum');
+
+        $qb->leftJoin('_museum.image', '_museumImage', 'WITH', '_museumImage.enabled = TRUE')
+            ->andWhere('_museum.published = TRUE')
+            ->orderBy('_museum.title', 'DESC')
+        ;
+
+        return $qb;
     }
-    
-    public function getPager(array $criteria, $page = 1, $perPage = 10)
+
+    public function setCriteria(QueryBuilder $qb, $criteria)
     {
-        if (empty($criteria['search_string'])) {
+        parent::setCriteria($qb, $criteria);
 
-            $museumQb = $this->getQueryBuilder('m', $criteria)->getQuery();
-            $pagination = $this->paginator->paginate($museumQb, $page, $perPage);
-
-        } else {
-
-            $searchParams = array(
-                'Museums' => array(
-                    'result_offset' => ($page - 1) * $perPage,
-                    'result_limit' => $perPage,
-                    'sort_mode' => '@relevance DESC, @weight DESC'
-                )
-            );
-
-            $searchResult = $this->search->search($criteria['search_string'], $searchParams);
-            $museums = array();
-            if (!empty($searchResult['Museums']['matches'])) {
-                foreach ($searchResult['Museums']['matches'] as $id => $data) {
-                    $museum = $this->em->getRepository('ArmdMuseumBundle:Museum')->find($id);
-                    if (!empty($museum)) {
-                        $museums[] = $museum;
-                    }
-                }
-            }
-            $pagination = $this->paginator->paginate($museums, $page, $perPage);
-            $pagination->setTotalItemCount($searchResult['Museums']['total']);
-
+        if (!empty($criteria[self::CRITERIA_REGION_IDS_OR])) {
+            $qb->andWhere('_museum.region IN (:region_ids_or)')
+                ->setParameter('region_ids_or', $criteria[self::CRITERIA_REGION_IDS_OR]);
         }
 
-        return $pagination;
+        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
+            $qb->innerJoin('_museum.category', '_museumCategory')
+                ->andWhere('_museum.category IN (:category_ids_or)')
+                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
+        }
     }
-    
-    public function getQueryBuilder($rootAlias, $criteria)
+
+    public function getCategories()
     {
-        $query = $this->em->getRepository('ArmdMuseumBundle:Museum')->createQueryBuilder($rootAlias)
-            ->addSelect($rootAlias . ', _i')
-            ->leftJoin($rootAlias . '.image', '_i', 'WITH', '_i.enabled = true')
-            ->andWhere($rootAlias . '.published = true')
-            ->orderBy($rootAlias . '.title')
-        ;
-                
-        return $query;
+        return $this->em->getRepository('ArmdMuseumBundle:Category')->findBy(
+            array(),
+            array('title' => 'ASC')
+        );
+    }
+
+    public function getDistinctRegions()
+    {
+        $query = $this->em->createQuery("
+            SELECT DISTINCT region.id, region.title
+            FROM ArmdMuseumBundle:Museum museum
+            JOIN ArmdAtlasBundle:Region region
+            WITH region.id = museum.region
+            ORDER BY region.title
+        ");
+
+        return $query->getResult();;
+    }
+
+    public function getClassName()
+    {
+        return 'Armd\MuseumBundle\Entity\Museum';
+    }
+
+    public function getTaggableType()
+    {
+        return 'armd_museum';
     }
 
 }

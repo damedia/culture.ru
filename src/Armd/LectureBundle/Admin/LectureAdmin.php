@@ -116,6 +116,9 @@ class LectureAdmin extends Admin
                     )
                 )
             ->end()
+            ->with('External Video')
+                ->add('externalUrl', null, array('required' => false))
+            ->end()
             ->with('Roles and persons')
                 ->add('rolesPersons', 'sonata_type_model', array(
                     'label' => 'Roles',

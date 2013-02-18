@@ -81,21 +81,28 @@
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block page_header_title %}{{ "Cinema Hall"|trans }}{% endblock %}
+{% block page_header_title %}
+    {% if superType %}
+        {{ superType.code|trans }}
+    {% else %}
+        {{ "Cinema Hall"|trans }}
+    {% endif %}
+{% endblock %}
+
 {% block page_header_search %}
     <div class="search-category">
 
         <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="post">
             <span class="search-dates-label">{{ "search_select"|trans }}</span>
             <div class="search-category-selects">
-                <select id="form_supertype" name="supertype" class="uni">
+                <select id="form_supertype" name="supertype" class="" style="display:none;">
                     <option value="0">{{ "search_category"|trans }}</option>
                     {% for supertype in superTypeList %}
                         <option value="{{ supertype.id }}" {% if supertype.id == superTypeId %}selected="selected"{% endif %}>{{ supertype.name }}</option>
                     {% endfor %}
                 </select>
                 <select id="form_genre" name="genre" class="uni">
-                    <option value="0">{{ "search_all_genres"|trans }}</option>
+                    <option value="0">{{ "All"|trans }}</option>
                     {% for genre in genresList %}
                         <option value="{{ genre.value }}" {% if genre.value == genreId %}selected="selected"{% endif %}>{{ genre.title }}</option>
                     {% endfor %}
