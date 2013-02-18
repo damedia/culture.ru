@@ -4,8 +4,9 @@
         <ul class="ui-tabs-nav">
             {% set length = entities|length is even ? entities|length : entities|length - 1 %}
             {% for n in entities|slice(0, length) %}
+            {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
                 <li class="ui-tabs-nav-item" id="nav-fragment-{{ loop.index }}">
-                    <a href="#fragment-{{ loop.index }}">
+                    <a href="#fragment-{{ loop.index }}" rel="{{ href }}" class="aslink">
                         <i>{{ n.category|raw }}</i>
                         <span>{{ n.title|raw }}</span>
                     </a>

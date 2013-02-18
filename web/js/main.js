@@ -152,15 +152,23 @@ $(function () {
 
                                     });
                             }
+                            
 
                             $(this).data("lastOpenedPanel", $(ui.panel));
-                        }
+                        },
+                        select: function() {
+                                console.log ($(this).attr('rel'))
+                                //window.location.href = $(this).attr('rel');    //go to link from a tag.
+                            }
                     }
 
                 ).tabs('rotate', 3000);
             }
         }, 100);
 
+        $('.aslink').click(function() {
+          window.location.href = $(this).attr('rel');
+        });
 
         /*Resize tabs*/
         var endResize;
