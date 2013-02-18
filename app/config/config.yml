@@ -3,7 +3,8 @@ imports:
     - { resource: security.yml }
 
 framework:
-    esi: { enabled: true }
+    esi:
+        enabled: true
     translator:      { fallback: %locale% }
     secret:          %secret%
     router:

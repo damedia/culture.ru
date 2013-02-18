@@ -337,6 +337,9 @@ class NewsController extends Controller
         ));
     }
 
+    /**
+     * @Route("/memorial-events/", name="armd_news_memorial_events")
+     */
     function memorialEventsAction()
     {
         $news = $this->getNewsManager()->findObjects(

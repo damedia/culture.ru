@@ -724,6 +724,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/related-objects/", name="armd_atlas_related_objects")
      * @Template("ArmdAtlasBundle:Default:related_objects.html.twig")
      */
     public function relatedObjectsAction($tags, $limit)

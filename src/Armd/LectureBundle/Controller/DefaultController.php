@@ -174,7 +174,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/right-column")
+     * @Route("/right-column", name="armd_lecture_right_column")
      * @Template()
      */
     public function rightColumnAction()
@@ -272,7 +272,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/related")
+     * @Route("/related", name="armd_lecture_related_lectures")
      * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
      */
     public function relatedLecturesAction($tags, $limit, $superTypeCode)

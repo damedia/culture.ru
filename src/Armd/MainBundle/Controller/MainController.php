@@ -80,8 +80,8 @@ class MainController extends Controller
                 'museum' => $museum
             )
         );
-        $response->setPublic();
-        $response->setSharedMaxAge(120);
+//        $response->setPublic();
+//        $response->setSharedMaxAge(120);
 
         return $response;
     }
@@ -91,12 +91,7 @@ class MainController extends Controller
         $response = $this->render(
             'ArmdMainBundle:Main:login_links.html.twig'
         );
-//        $response->setPublic();
-//        $response->setSharedMaxAge(120);
-//        $response->setPrivate();
-//        $response->set
 
-        $response->setExpires();
         return $response;
     }
 

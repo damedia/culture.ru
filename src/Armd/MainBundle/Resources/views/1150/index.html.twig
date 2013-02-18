@@ -105,7 +105,7 @@
 		
 		
 		<h2 class="table-caption">Мероприятия, посвященные празднованию {{ title }}</h2>
-		{% render "ArmdMainBundle:Project:events" with { "subject": subject } %}
+		{% render url("armd_main_project_events", { "subject": subject }) %}
 	</div>	
 {% endblock %}
 

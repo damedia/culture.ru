@@ -117,7 +117,7 @@
             <a class="logo" title="{{ 'Portal title'|trans }}" href="{{ path('armd_main_homepage') }}"></a>
 
             <div class="header-top-right clearfix">
-                {% render url('armd_main_login_links'), {'standalone': true} %}
+                {% render url('armd_main_login_links') %}
                 {#{% render url('armd_main_login_links') %}#}
                 {#<a href="#" class="lang-chooser"></a>#}
                 <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
