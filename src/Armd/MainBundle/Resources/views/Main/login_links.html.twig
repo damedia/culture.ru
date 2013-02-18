@@ -1,7 +1,11 @@
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    <a href="{{ path('sonata_user_profile_edit') }}">Личный кабинет</a> /
-    <a href="{{ path('fos_user_security_logout') }}">Выход</a>
-{% else %}
-    <a href="{{ path('fos_user_registration_register') }}">Регистрация</a> /
-    <a href="{{ path('fos_user_security_login') }}">Вход</a>
+{% if app.request.locale == 'ru' %}
+    <div class="lk-top">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a href="{{ path('sonata_user_profile_edit') }}">{{ "auth_account"|trans }}</a> /
+            <a href="{{ path('fos_user_security_logout') }}">{{ "auth_logout"|trans }}</a>
+        {% else %}
+            <a href="{{ path('fos_user_registration_register') }}">{{ "auth_register"|trans }}</a> /
+            <a href="{{ path('fos_user_security_login') }}">{{ "auth_login"|trans }}</a>
+        {% endif %}
+    </div>
 {% endif %}

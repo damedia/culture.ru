@@ -69,7 +69,7 @@ class MainController extends Controller
 
         $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 28);
 
-        return $this->render(
+        $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
                 'news' => $news,
@@ -80,6 +80,10 @@ class MainController extends Controller
                 'museum' => $museum
             )
         );
+        $response->setPublic();
+        $response->setSharedMaxAge(120);
+
+        return $response;
     }
 
     public function loginLinksAction()
@@ -87,7 +91,12 @@ class MainController extends Controller
         $response = $this->render(
             'ArmdMainBundle:Main:login_links.html.twig'
         );
-//        $response->setSharedMaxAge(0);
+//        $response->setPublic();
+//        $response->setSharedMaxAge(120);
+//        $response->setPrivate();
+//        $response->set
+
+        \gFuncs::dbgWriteLogVar('loginLinks', false, ''); // DBG:
         return $response;
     }
 
