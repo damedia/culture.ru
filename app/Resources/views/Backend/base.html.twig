@@ -42,3 +42,9 @@
     </script>
 
 {% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+    {% include ':Frontend:counters_top.html.twig' %}
+    {% include ':Frontend:counters_bottom.html.twig' %}
+{% endblock %}
