@@ -167,7 +167,7 @@
                 image: '{% path entity.primaryImage, 'big' %}',
                 link: '{{ url('armd_atlas_default_object_view', { 'id': entity.id }) }}',
                 title: '{{ entity.title }}',
-                description: '{{ entity.announce|striptags }}'
+                description: '{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
             });
         }
 
