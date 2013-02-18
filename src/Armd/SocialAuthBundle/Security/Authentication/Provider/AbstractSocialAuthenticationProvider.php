@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use FOS\UserBundle\Entity\UserManager;
+use FOS\UserBundle\Doctrine\UserManager;
 
 abstract class AbstractSocialAuthenticationProvider implements AuthenticationProviderInterface
 {

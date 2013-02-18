@@ -3,11 +3,12 @@
 namespace Armd\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends BaseSecurityController
 {
-    public function loginAction()
+    public function loginAction(Request $request)
     {
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */

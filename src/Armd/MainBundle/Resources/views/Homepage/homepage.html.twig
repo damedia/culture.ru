@@ -123,7 +123,7 @@
 
     {% if app.request.locale == 'ru' %}
         <section class="block">
-            {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
+            {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
         </section>
     {% endif %}
 
@@ -134,7 +134,6 @@
 {% block right_column %}
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
-
     {% if app.request.locale == 'ru' %}
         <section id="homepage-social-widgets">
             {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
@@ -143,7 +142,7 @@
     {% endif %}
 
     <section id="homepage-polls">
-        {% render 'ArmdMainBundle:Main:peopleCulturePolls' %}
+        {% render url('armd_main_culture_polls') %}
     </section>
 
 {% endblock %}
