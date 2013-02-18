@@ -120,7 +120,7 @@
                 {% endif %}
                 link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
                 title:'{{ entity.title }}',
-                description:'{{ entity.announce|striptags }}'
+                description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
             })
         });
     </script>
