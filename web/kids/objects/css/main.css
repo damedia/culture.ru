@@ -64,7 +64,8 @@ textarea {
 width:1400px;
 	height:3505px;
 	margin:auto;
-}  
+} 
+
 .kremlin {
 	
 	background:url(../img/kremlin/child-bg-main-kremlin.jpg) no-repeat 0 0;
@@ -83,6 +84,8 @@ width:1400px;
 }
 .nevyansk  {
 	background:url(../img/nevyansk/child-bg-main-nevyansk.jpg) no-repeat 0 0;
+    width:1420px;
+    height:4244px;
 }
 .petergof   {
 	background:url(../img/petergof/child-bg-main-petergof.jpg) no-repeat 0 0;
@@ -101,9 +104,33 @@ width:1400px;
 	.decor {
 		margin-top:-18px;
 	}
+        .nevyansk .decor {
+            margin-top: -83px;
+           
+        }
 		.main-menu {
 			margin-left:38px;
 		}
+        .nevyansk .main-menu {
+            margin-left:0;
+             position:relative;
+        }
+         
+         .learn-more-link {
+            position:absolute;
+            left: 124px;
+            top: 368px;
+            
+         }   
+            .learn-more-link  a{
+                color:#5b185b;
+                text-decoration:none;
+                font-size:16px;
+                line-height:18px;
+                width:103px;
+                display:block;
+                padding-top:120px;
+            }
 		
 		.main-image {
 			float:left;
@@ -117,9 +144,7 @@ width:1400px;
 			margin-top:-267px;
 		}
 		.nevyansk .main-image {
-			margin-bottom:-20px;
-			margin-top:-257px;
-			
+			margin:-210px 40px 0 23px;
 		}
 
         .rodina .main-image {
@@ -182,6 +207,10 @@ width:1400px;
 				font:14px/17px "Trebuchet MS", Helvetica, sans-serif;
 				
 			}
+            .nevyansk .puzzle-description  {
+                margin-top:29px;
+                color:#5b185b;
+            }
 				.puzzle-description-text {
 					
 				}	
@@ -226,6 +255,11 @@ width:1400px;
 				.case-1 .puzzle-description {
 					float:left;
 				}	
+                .puzzle-tip {
+                    position: relative;
+                    top: -11px;
+                    left: -16px;
+                }
 				.case-1 .puzzle-slider {
 					float:right;
 					
@@ -240,6 +274,11 @@ width:1400px;
 				width: 802px;
 				margin: 109px 0 0 358px;
 			}
+            .nevyansk  .case-2 {
+                margin-left:329px;
+                width:750px;
+                margin-top:107px;
+            }
 				.case-2 .puzzle-description {
 					float:right;
 					font-size:15px;
@@ -255,6 +294,11 @@ width:1400px;
 					margin:17px 0 0 20px;
 					width:280px;
 				}
+                .nevyansk .case-2 .puzzle-description-text {
+                    margin: 26px 0 0 56px;
+                    width: 252px;
+                    font-size: 18px;
+                }
 
 				
 			.case-3	{
@@ -298,13 +342,320 @@ width:1400px;
 					margin: 15px 0 0 10px;
 					width:350px;
 				}
+                
+            .case-5	{
+				
+				margin: 16px 0 0 296px;
+			}   
+            .case-6	{
+				
+				margin: 0 0 0 296px;
+			}   
+            
+            .case-7 {
+                margin: 81px 0 0 394px;
+            }
+                .test-yourself {
+                    
+                }
+                    .test-yourself img {
+                        display:block;
+                    
+                        margin-left: 8px;
+}
+                    .test-link {
+                        width: 170px;
+                        display:block;
+                        text-decoration:none;
+                        padding: 35px 132px 30px 0;
+                        background: url(../img/nevyansk/arrow.png) no-repeat 100% 0px;
+                    
+                        font-size: 18px;
+                        line-height: 18px;
+                        margin-top: -5px;
+}
+                    
+            .case-8 {
+                margin: 0 0 0 283px;
+            }  
+                .compare {
+                    width: 837px;
+                    
+                }
+                    .compare-sign {
+                        margin: -149px 0 -28px;
+                        float:right;
+                    }
+                    .compare-images {
+                        clear:both;
+                    }
+                        .compare-image {
+                            float:left;
+                            background:#fff;
+                            padding:17px;
+                             border-radius:15px;
+                             margin-right:17px;
+                             position:relative;
+                        }
+                        
+                        .hidden-parts {
+                            position:absolute;
+                            top:0;
+                            left:0;
+                            width:100%;
+                            height:523px;
+                            z-index:2;
+                            
+                        }
+                            .hidden-parts div {
+                                position:absolute;
+                                
+                            }
+                            .star {
+                                top: 25px;
+                                left: 123px;
+                                width:9px;
+                                height:15px;
+                                background:url(../img/nevyansk/compare/star.png) no-repeat 0 0;
+                            }
+                            .bird {
+                                top: 180px;
+                                left: 182px;
+                                width:12px;
+                                height:22px;
+                                background:url(../img/nevyansk/compare/bird.png) no-repeat 0 0;
+                            }
+                            .plane {
+                                top: 66px;
+                                left: 202px;
+                                width:40px;
+                                height:20px;
+                                background:url(../img/nevyansk/compare/plane.png) no-repeat 0 0;
+                            }
+                            .sobor {
+                                top: 271px;
+                                left: 272px;
+                                width:43px;
+                                height:121px;
+                                background:url(../img/nevyansk/compare/sobor.png) no-repeat 0 0;
+                            } 
+                            
+                           
+                            .person {
+                                top: 162px;
+                                left: 161px;
+                                width:23px;
+                                height:36px;
+                                background:url(../img/nevyansk/compare/person.png) no-repeat 0 0;
+                            }
+                            .windows {
+                                top: 210px;
+                                left: 103px;
+                                width:57px;
+                                height:44px;
+                                background:url(../img/nevyansk/compare/windows.png) no-repeat 0 0;
+                            }
+                            .roof {
+                                top: 249px;
+                                left: 91px;
+                                width:183px;
+                                height:104px;
+                                background:url(../img/nevyansk/compare/roof.png) no-repeat 0 0;
+                            }
+                            .flower {
+                                top: 389px;
+                                left: 117px;
+                                width:27px;
+                                height:50px;
+                                background:url(../img/nevyansk/compare/flower.png) no-repeat 0 0;
+                            }
+                            .bike {
+                                top: 491px;
+                                left: 113px;
+                                width:42px;
+                                height:41px;
+                                background:url(../img/nevyansk/compare/bike.png) no-repeat 0 0;
+                            }
+                            .cat {
+                                top: 360px;
+                                left: 331px;
+                                width:25px;
+                                height:23px;
+                                background:url(../img/nevyansk/compare/cat.png) no-repeat 0 0;
+                            }
+                            .hidden-parts div.inv {
+                                background:none;
+                            }
+                            
+                            
+                            
+                            
+            
 				
 		.footer-menu {
 			margin: 37px 0 0 39px;
 		}		
-				
+		.nevyansk .footer-menu {
+            margin:58px 0 0 94px;
+        }	
+            
 
+        .choose-one {
+        
+        }        
+            .choose-panel {
+                position:relative;
+                width:500px;
+                float:left;
+            } 
+                .choose-panel .choice {
+                    display:inline-block;
+                    vertical-align:baseline;   
+                    width:33%; 
+                    text-align:center;                    
+                }
+                
+                .panel-line {
+                    width:100%;
+                    position:absolute;
+                    bottom:0;
+                    left:0;
+                    height:15px;
+                    background:#885889;
+                }
+            
+            .choice-result {
+            
+            }    
+                
+                .choice-result img {
+                    margin-left: -12px;
+                }
+                    .choice-result p {
+                        margin-left: 30px;
+                        font-size: 17px;
+                        line-height: 17px;
+                        margin-top: 28px;
+                    }
+                    
+                .choice-result img.riddle-wrong {
+                   margin-left: -43px;
+                    margin-top: 19px;
+                    margin-bottom: -13px;
+                }
+                   
+                
+                .choice-result  img.riddle-right {
+                    margin-left: -22px;
+                    margin-top: 19px;
+                    margin-bottom: -13px;
+                } 
+                    
+                
+                
+                
+        .nev-riddle-1  {
+            margin-top: 259px;
+            margin-left: 55px;
+        }    
+           .nev-riddle-1 .choose-panel {
+                width:560px;
+            
+                margin-top: 18px;
+}
 
+        
+            .nev-riddle-1 .choice-result {
+                margin-left:580px;
+                height: 366px;
+                width:300px;
+            
+                font-size: 18px;
+}
+            
+        .nev-riddle-2  {
+            margin-top: 61px;
+            margin-left: 62px;
+            width: 726px;
+        
+            height: 346px;
+}    
+           .nev-riddle-2 .choose-panel {
+                width:460px;
+                float:right;
+            
+                margin-top: 65px;
+}
+
+        
+            .nev-riddle-2 .choice-result {
+                margin-right:480px;
+                height:150px;
+                width:300px;
+            }    
+            
+            
+               
+              .nev-riddle-2 .choice-result img {
+                    margin-left: -2px;
+                    margin-top: 3px;
+                }
+                     .nev-riddle-2 .choice-result p {
+                        margin-left: -50px;
+                        margin-top: 33px;
+                    }
+                    
+                 .nev-riddle-2 .choice-result img.riddle-wrong {
+                    margin-top: 3px;
+                }
+                   
+                
+                 .nev-riddle-2 .choice-result  img.riddle-right {
+                    
+                } 
+                
+                
+    .overlay {
+        background:#000;
+        opacity:0.5;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+    }            
+    .window {
+        position:absolute;
+        top:50%;
+        left:50%;
+        width:963px;
+        height:580px;
+        margin:-290px 0 0 -482px;
+        background:url(../img/nevyansk/window_bg.jpg) no-repeat 0 0;
+    }   
+        .close {
+            width:30px;
+            height:30px;
+            display:block;
+            position:absolute;
+            top:35px;
+            right:36px;
+            
+        }
+            .window-text {
+               width: 650px;
+                height: 272px;
+                overflow: auto;
+                color: #683290;
+                font-size: 13px;
+                position: absolute;
+                top: 182px;
+                left: 196px;
+            }
+                 .window-text p {
+                    margin-bottom:20px;
+                    margin-top:0;
+                 }
 
 
 /* ==========================================================================
