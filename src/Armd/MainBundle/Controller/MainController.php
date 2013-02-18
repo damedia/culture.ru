@@ -96,7 +96,7 @@ class MainController extends Controller
 //        $response->setPrivate();
 //        $response->set
 
-        \gFuncs::dbgWriteLogVar('loginLinks', false, ''); // DBG:
+        $response->setExpires();
         return $response;
     }
 

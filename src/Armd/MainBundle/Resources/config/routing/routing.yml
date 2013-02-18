@@ -14,10 +14,6 @@ armd_main_services:
     pattern:  /services/
     defaults: { _controller: ArmdMainBundle:Main:services }
 
-armd_main_login_links:
-    pattern: /login-links/
-    defaults: { _controller: ArmdMainBundle:Main:loginLinks }
-
 armd_main_library:
     pattern:  /library/
     defaults: { _controller: ArmdMainBundle:Main:library }
@@ -59,3 +55,11 @@ armd_main_communication_platform_request:
 armd_test:
     pattern: /main/test-cache
     defaults: { _controller: ArmdMainBundle:Test:testCache }
+
+armd_main_background_banner:
+    pattern: /background-banner
+    defaults: { _controller: ArmdMainBundle:Main:backgroundBanner }
+
+armd_main_login_links:
+    pattern: /login-links/
+    defaults: { _controller: ArmdMainBundle:Main:loginLinks }

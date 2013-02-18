@@ -123,7 +123,7 @@
 
     {% if app.request.locale == 'ru' %}
         <section class="block">
-            {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
+            {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
         </section>
     {% endif %}
 

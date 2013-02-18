@@ -3,8 +3,7 @@ imports:
     - { resource: security.yml }
 
 framework:
-    esi:
-        enabled: true
+    esi: { enabled: true }
     translator:      { fallback: %locale% }
     secret:          %secret%
     router:
@@ -15,6 +14,7 @@ framework:
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     default_locale:  %locale%
+    trusted_proxies: ~
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:
         name: CULTURE_SESSID
