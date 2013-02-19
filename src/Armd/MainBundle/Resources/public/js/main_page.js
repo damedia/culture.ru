@@ -103,7 +103,7 @@ var armdMainPage = {
     peopleCulturePollsCount: 1,
     
     peopleCulturePolls: function (data, logged, module, count) {
-        try {                            
+        try {
             var poll = data['data']['items'][0],
                 pollBlock = $('#people-culture-polls'),
                 iType = poll.VOTE_TYPE == 'single' ? 'radio' : 'checkbox',
@@ -119,7 +119,7 @@ var armdMainPage = {
             pollBlock.append($('<h4>' + poll.content + '</h4>'));
             pollBlock.append(ul);
 
-            if (poll.already_vote === 0 && logged == 1) {                                            
+            if (poll.already_vote === 0 && $.cookie('vote_' + poll.VOTE_ID) != 1) {
                 for (answer in poll.answers) {
                     var item = '<li><label><input name="answer" type="' + iType 
                         + '" value="' + poll.answers[answer].VOTE_ANSWER_ID + '"> ' 

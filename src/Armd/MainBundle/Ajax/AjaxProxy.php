@@ -115,7 +115,7 @@ class AjaxProxy
                     $value = str_replace(' ', '+', $value);
                 }
                 $customCookie = new Cookie($cookie->getName(), $value, $cookie->getExpiresTime(
-                ) == null ? 0 : $cookie->getExpiresTime(), $cookie->getPath());
+                ) == null ? 0 : $cookie->getExpiresTime(), $cookie->getPath(), null, false, false);
                 $response->headers->setCookie($customCookie);
             }
 
