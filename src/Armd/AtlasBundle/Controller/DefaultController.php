@@ -130,9 +130,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/russia-images-list/{templateName}/{offset}/{limit}", name="armd_atlas_russia_images_list", options={"expose"=true})
+     * @Route("/russia-images-list/{templateName}/{offset}/{limit}",
+     *      name="armd_atlas_russia_images_list",
+     *      options={"expose"=true},
+     *      defaults={"offset"="0", "limit"="10"}
+     * )
      */
-    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
+    public function  russiaImagesListAction($templateName, $offset = 0, $limit = 10)
     {
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
