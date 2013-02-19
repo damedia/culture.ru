@@ -6,7 +6,7 @@
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
-{% block page_header_title %}{{ "News"|trans }}{% endblock %}
+{% block page_header_title %}{{ entity.category.title }}{% endblock %}
 
 {% block page_header_search %}
     <div class="search-dates">
