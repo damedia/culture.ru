@@ -96,18 +96,8 @@
 
 </head>
 <body class="locale_{{ app.request.locale }}" data-locale="{{ app.request.locale }}">
-    {#<div style="display: none">#}
-        {#{% render 'ArmdMainBundle:Main:loginLinks' with {}, {'standalone': true} %}#}
-    {#</div>#}
     <div id="armd_messages" style="display: none;"><a class="armd_messages_close" href="#"></a><span></span></div>
     <div class="header-banner">
-        {#{% if armd_has_banner('HEAD_BANNER') %}#}
-            {#{{ armd_banner('HEAD_BANNER')|raw }}#}
-        {#{% else %}#}
-            {#<img src="{{ asset('/img/bg.jpg') }}" alt="" />#}
-        {#{% endif %}#}
-
-        {#<a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;"></a>#}
         {% render url('armd_main_background_banner') %}
     </div>
 
@@ -119,8 +109,12 @@
 
             <div class="header-top-right clearfix">
                 {% render url('armd_main_login_links') %}
-                {#{% render url('armd_main_login_links') %}#}
-                {#<a href="#" class="lang-chooser"></a>#}
+                {% if app.request.locale == 'ru' %}
+                    <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
+                {% else %}
+                    <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
+                {% endif %}
+
                 <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
             </div>
             <nav class="main-menu">

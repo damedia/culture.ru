@@ -263,14 +263,22 @@ body {
 				}	
 				
 					
-				.lang-chooser {
-					background:url(../img/flag.png) no-repeat 0 0;
+				.lang-chooser-en,
+                .lang-chooser-ru {
 					float:left;
 					width:15px;
 					height:14px;
 					margin-top: 4px;
 					margin-right: 13px;
 				}
+
+                .lang-chooser-en {
+                    background:url(../img/flag.png) no-repeat 0 0;
+                }
+
+                .lang-chooser-ru {
+                    background:url(../img/flag_en.jpg) no-repeat 0 0;
+                }
 			
 					
 
