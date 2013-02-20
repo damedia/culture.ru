@@ -139,11 +139,12 @@
             {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
             {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
         </section>
+        
+        <section id="homepage-polls">
+            {% render url('armd_main_culture_polls') %}
+        </section>
     {% endif %}
 
-    <section id="homepage-polls">
-        {% render url('armd_main_culture_polls') %}
-    </section>
 
 {% endblock %}
 
