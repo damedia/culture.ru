@@ -2651,12 +2651,91 @@ body {
             position: relative;
             
         }
+        
+            .index-main .right-column h2 {
+                font:bold 13px Tahoma, Helvetica, sans-serif;
+                text-transform:uppercase;
+               
+            }
+            .index-main  .right-column h3 {
+                font-size: 18px;
+                padding-bottom: 1px;
+                color: #154060;
+            }
+                .index-main  .right-column h4 {
+                    font:bold 13px Tahoma, Helvetica, sans-serif;
+                    text-transform:uppercase;
+                     margin:0;
+                }
+        
+        .online-anons {
+            border-top:5px solid #f79016;
+            margin:0 auto;
+            width:278px;
+            padding:10px 15px 12px;
+            
+            font-size:11px;
+            background:#fff url(../img/more-dots.gif) repeat-x 0 100%;
+            
+        }
+            .online-anons h2 {
+				 margin:0 0 17px;
+			}
+			.online-anons  h3 {
+                margin-top: 7px;
+				margin-bottom: 3px;
+            }
+			.index-main .right-column .online-anons h4 {
+				margin-top:8px;
+				margin-bottom:6px;
+			}
+            .online-type {
+                
+            }
+                .online-anons p {
+                    margin-bottom:7px;
+					line-height:13px;
+                }
+                .online-anons p.online-anons-place {
+                    color:#989898;
+                    
+                }
+                    .online-anons-place b {
+                        color:#000;
+                        font-size:12px;
+                    }
+                    
+            .online-anons-footer {
+				margin-top:11px;
+            }     
+                .online-anons-footer-time {
+                    float: left;
+                    width: 150px;
+                    border-top: 1px solid #d1d1d1;
+                    padding: 7px 0 0 30px;
+                    background: url(../img/clocks.png) no-repeat 0 8px;
+					color:#989898;
+                }
+                 .online-anons-footer a.button {
+                    float:right;
+                    margin-top:8px;
+                 }
+                 .button-orange {
+                    background: #f9a61a;
+                    background: -moz-linear-gradient(top, #f9a61a 0%, #f99e19 25%, #f78213 80%, #f77b12 100%);
+                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9a61a), color-stop(25%,#f99e19), color-stop(80%,#f78213), color-stop(100%,#f77b12));
+                    background: -webkit-linear-gradient(top, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    background: -o-linear-gradient(top, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    background: -ms-linear-gradient(top, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    background: linear-gradient(to bottom, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a61a', endColorstr='#f77b12',GradientType=0 );
+                 }
+                 
         .events-tabs {
             margin:0 auto;
             width:288px;
             padding:9px 13px 24px;
             background:#fff;
-            border-top:5px solid #f79016;
         }
             .events-tabs h2 {
                 font:bold 13px Tahoma, Helvetica, sans-serif;

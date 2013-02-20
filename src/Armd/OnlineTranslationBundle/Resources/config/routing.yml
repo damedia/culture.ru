@@ -1,0 +1,3 @@
+armd_online_translation_test:
+    pattern:  /test/{id}
+    defaults: { _controller: ArmdOnlineTranslationBundle:OnlineTranslation:testIframe }

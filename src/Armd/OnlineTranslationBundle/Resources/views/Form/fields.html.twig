@@ -1,0 +1,22 @@
+{% block _OnlineTranslation_dataCode_widget %}
+{% spaceless %}
+    {{ block('textarea_widget') }}
+    &nbsp;
+    <a id="online_translation_fancybox" href="#fancybox_content" class="fancybox">Тест</a>
+    <div id="fancybox_content" style="display:none;"></div>
+    <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}">
+    <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript">       
+        $(document).ready(function() {
+            $('#online_translation_fancybox').fancybox({
+                openEffect  : 'none',
+                closeEffect : 'none',
+                scrolling: 'visible', 
+                afterLoad   : function() {
+                    $('#fancybox_content').html($('#{{ id }}').val());
+                }
+            });
+	});
+    </script>
+{% endspaceless %}
+{% endblock %}
