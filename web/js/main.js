@@ -22,19 +22,16 @@ $(function () {
         sync: "#thumbs-slider"
     });
 
-
-    $.datepicker.setDefaults($.datepicker.regional[ "ru" ]);
+    $.datepicker.setDefaults($.datepicker.regional[ $('body').data('locale') ]);
     $("#datapicker").datepicker({
         showOn: 'button',
         buttonImage: 'images/button_cal.gif',
         buttonImageOnly: true,
         dateFormat: 'dd.mm.yy',
-
         showOtherMonths: true,
         selectOtherMonths: true,
         onSelect: function (dateText, inst) {
             $(this).hide();
-            console.log(dateText);
             $('a.clicked').html(dateText).removeClass('clicked');
         }
 
@@ -152,15 +149,23 @@ $(function () {
 
                                     });
                             }
+                            
 
                             $(this).data("lastOpenedPanel", $(ui.panel));
-                        }
+                        },
+                        select: function() {
+                                console.log ($(this).attr('rel'))
+                                //window.location.href = $(this).attr('rel');    //go to link from a tag.
+                            }
                     }
 
                 ).tabs('rotate', 3000);
             }
         }, 100);
 
+        $('.aslink').click(function() {
+          window.location.href = $(this).attr('rel');
+        });
 
         /*Resize tabs*/
         var endResize;

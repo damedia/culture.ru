@@ -5,7 +5,7 @@
                 <a href="{{ path('armd_lecture_view', {'id': v.id}) }}">
                     {% if v.lectureVideo.imageMedia is defined %}
                         {% set thumbnailMedia = v.lectureVideo.imageMedia %}
-                    {% elseif lecture.mediaLectureVideo is not empty %}
+                    {% elseif v.mediaLectureVideo is not empty %}
                         {% set thumbnailMedia = v.mediaLectureVideo %}
                     {% endif %}
                     <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ v.title }}"

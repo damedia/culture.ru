@@ -86,7 +86,7 @@
     {% endif %}
 
     <section class="index-block index-museum-block clearfix">
-        <h2><a href="{{ path('armd_museum_index') }}">Музеи</a></h2>
+        <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
 
         <div class="plitka-one-wrap plitka-one-wrap-opened">
             <div class="plitka-one clearfix">
@@ -123,7 +123,7 @@
 
     {% if app.request.locale == 'ru' %}
         <section class="block">
-            {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
+            {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
         </section>
     {% endif %}
 
@@ -134,9 +134,15 @@
 {% block right_column %}
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
-    <section id="homepage-social-widgets">
-        {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
-        {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
+    {% if app.request.locale == 'ru' %}
+        <section id="homepage-social-widgets">
+            {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
+            {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
+        </section>
+    {% endif %}
+
+    <section id="homepage-polls">
+        {% render url('armd_main_culture_polls') %}
     </section>
 
 {% endblock %}

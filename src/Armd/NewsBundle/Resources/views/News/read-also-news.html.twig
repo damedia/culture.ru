@@ -1,7 +1,7 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_date %}
 
 {% if entities is defined %}
-    <h2 class="long-border"><span>Новости по теме</span></h2>
+    <h2 class="long-border"><span>{{ "More on this topic"|trans }}</span></h2>
     <div class="theme-news-block clearfix">
     {% for entity in entities %}
         <ul class="theme-news-list">

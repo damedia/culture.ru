@@ -126,7 +126,7 @@ class DefaultController extends Controller
     {
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);
-        if(!$lecture) {
+        if(!$lecture || !$lecture->getPublished()) {
             throw $this->createNotFoundException('Lecture not found');
         }
         $this->getTagManager()->loadTagging($lecture);
@@ -174,7 +174,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/right-column")
+     * @Route("/right-column", name="armd_lecture_right_column")
      * @Template()
      */
     public function rightColumnAction()
@@ -272,11 +272,16 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/related")
+     * @Route("/related", name="armd_lecture_related_lectures")
      * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
      */
-    public function relatedLecturesAction($tags, $limit, $superTypeCode)
+    public function relatedLecturesAction()
     {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
+        $superTypeCode = $request->get('superTypeCode');
+
         $lectures = $this->getLectureManager()->findObjects(
             array(
                 LectureManager::CRITERIA_LIMIT => $limit,

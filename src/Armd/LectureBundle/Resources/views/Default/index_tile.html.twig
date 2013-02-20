@@ -58,7 +58,7 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
     <div class="left-column-content">
-        {% render 'ArmdLectureBundle:Default:lectureList' with {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'} %}
+        {% render url('armd_lecture_list', {'lectureSuperTypeCode': lectureSuperType.code, 'page': page, 'types': 'all', 'categories': 'all'}) %}
     </div>
 {% endblock %}
 

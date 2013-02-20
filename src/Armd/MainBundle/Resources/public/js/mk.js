@@ -29,18 +29,18 @@ var armdMk = {
     },
 
     startLoading: function() {
-        armdMk.startLoadingBlock('body');
+        armdMk.startLoadingBlock();
     },
 
     stopLoading: function() {
-        armdMk.stopLoadingBlock('body');
+        armdMk.stopLoadingBlock();
     },
 
     startLoadingBlock: function(blockSelector) {
         if (typeof(blockSelector) === 'undefined') {
             blockSelector = 'body';
         }
-        $(blockSelector).css('position', 'relative')
+        $(blockSelector)
             .append($('<div class="loading-block"></div>'));
     },
 

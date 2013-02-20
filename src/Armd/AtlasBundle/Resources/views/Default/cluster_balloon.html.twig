@@ -2,13 +2,13 @@
     <ol>
         {% for entity in entities %}
             <li>
-                {% for image in entity.images if loop.first %}
-                    <div class="bubble_image">
+                {% if entity.images|length > 0 %}
+\                    <div class="bubble_image">
                         <a class="thumb" href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
-                            <img src="{% path image, 'thumbnail' %}" />
+                            <img src="{% path entity.images[0], 'thumbnail' %}" />
                         </a>
                     </div>
-                {% endfor %}
+                {% endif %}
                 <div class="bubble_content">
                     <div class="caption">
                         {% if entity.images|length %}

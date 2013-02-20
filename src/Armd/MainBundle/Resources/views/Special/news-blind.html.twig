@@ -1,9 +1,13 @@
 <h1>{{ 'Events'|trans }}</h1>
-<ul class="tabs-labels" id="tabs-selector">
-	{% for c in categories %}
-		<li {% if loop.first %}class="active"{% endif %}><a href="#{{ c.slug }}tab">{{ c.title }}</a></li>
-	{% endfor %}
-</ul>
+
+{% if app.request.locale == 'ru' %}
+    <ul class="tabs-labels" id="tabs-selector">
+        {% for c in categories %}
+            <li {% if loop.first %}class="active"{% endif %}><a href="#{{ c.slug }}tab">{{ c.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 {% for slug, entities in news %}
 <div id="{{ slug }}tab" class="tab" {% if not loop.first %}style = "display:none;" {% endif %}>
 	{% for n in entities %}

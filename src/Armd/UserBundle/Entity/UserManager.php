@@ -2,7 +2,7 @@
 
 namespace Armd\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\UserManager as BaseUserManager;
+use FOS\UserBundle\Doctrine\UserManager as BaseUserManager;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 

@@ -73,12 +73,10 @@ class ObjectManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_AND])) {
-            $qb->innerJoin("$o.secondaryCategories", 'sc');
-            $i = 0;
-            foreach($criteria[self::CRITERIA_CATEGORY_IDS_AND] as $categoryId) {
+            foreach ($criteria[self::CRITERIA_CATEGORY_IDS_AND] as $i => $categoryId) {
+                $qb->innerJoin("$o.secondaryCategories", 'sc'.$i);
                 $parameterName = 'categoryId' . $i;
-                $qb->andWhere("sc = :$parameterName")->setParameter($parameterName, $categoryId);
-                $i++;
+                $qb->andWhere("sc$i = :$parameterName")->setParameter($parameterName, $categoryId);
             }
         }
 
@@ -89,12 +87,10 @@ class ObjectManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_REGION_IDS_AND])) {
-            $qb->innerJoin("$o.regions", 'r');
-            $i = 0;
-            foreach($criteria[self::CRITERIA_REGION_IDS_AND] as $regionId) {
+            foreach ($criteria[self::CRITERIA_REGION_IDS_AND] as $i => $regionId) {
+                $qb->innerJoin("$o.regions", 'r'.$i);
                 $parameterName = 'regionId' . $i;
-                $qb->andWhere("r = :$parameterName")->setParameter($parameterName, $regionId);
-                $i++;
+                $qb->andWhere("r$i = :$parameterName")->setParameter($parameterName, $regionId);
             }
         }
 
@@ -191,6 +187,18 @@ class ObjectManager extends ListManager
         }
 
         return $objects;
+    }
+
+    public function getRussiaImagesDistinctRegions()
+    {
+        $sql = 'SELECT DISTINCT ro.region_id id, r.title
+                FROM atlas_object_region ro
+                LEFT JOIN atlas_region r ON r.id=ro.region_id
+                LEFT JOIN atlas_object o ON o.published=TRUE AND o.show_at_russian_image=TRUE
+                ORDER BY title ASC';
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     public function getObject($id)

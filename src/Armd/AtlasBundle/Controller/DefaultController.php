@@ -119,15 +119,7 @@ class DefaultController extends Controller
             throw new \LogicException('Cant find atlas object category slug "type"');
         }
 
-        $regions = $em->createQueryBuilder()
-            ->select('r')
-            ->from('ArmdAtlasBundle:Object', 'o')
-            ->innerJoin('ArmdAtlasBundle:Region', 'r')
-            ->where('o.showAtRussianImage = TRUE')
-            ->andWhere('o.published = TRUE')
-            ->orderBy('r.title', 'ASC')
-            ->getQuery()->getResult();
-
+        $regions = $this->getObjectManager()->getRussiaImagesDistinctRegions();
 
         return array(
             'thematics' => $thematicsRoot->getChildren(),
@@ -138,9 +130,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/russia-images-list/{templateName}/{offset}/{limit}", name="armd_atlas_russia_images_list", options={"expose"=true})
+     * @Route("/russia-images-list/{templateName}/{offset}/{limit}",
+     *      name="armd_atlas_russia_images_list",
+     *      options={"expose"=true},
+     *      defaults={"offset"="0", "limit"="10"}
+     * )
      */
-    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
+    public function  russiaImagesListAction($templateName, $offset = 0, $limit = 10)
     {
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
@@ -173,7 +169,6 @@ class DefaultController extends Controller
         $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
         $criteria[ObjectManager::CRITERIA_LIMIT] = $limit;
         $criteria[ObjectManager::CRITERIA_OFFSET] = $offset;
-
 
         return $this->render(
             $templates[$templateName],
@@ -733,10 +728,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/related-objects/", name="armd_atlas_related_objects")
      * @Template("ArmdAtlasBundle:Default:related_objects.html.twig")
      */
-    public function relatedObjectsAction($tags, $limit)
+    public function relatedObjectsAction()
     {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
         $objects = $this->getObjectManager()->findObjects (
             array(
                 ObjectManager::CRITERIA_LIMIT => $limit,

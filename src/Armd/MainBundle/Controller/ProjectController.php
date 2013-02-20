@@ -22,9 +22,10 @@ class ProjectController extends Controller
         return $this->render($template);
     }
     
-    function eventsAction($subject)
+    function eventsAction()
     {        
-        $request = Request::createFromGlobals();
+        $request = $this->getRequest();
+        $subject = $request->get('subject');
         
         $criteria = array(
             'subject'   => $subject,
@@ -42,8 +43,13 @@ class ProjectController extends Controller
         ));
     }
     
-    function newsAction($category, $subject, $limit = 10)
+    function newsAction()
     {
+        $request = $this->getRequest();
+        $category = $request->get('category');
+        $subject = $request->get('subject');
+        $limit = $request->get('limit',  10);
+
         return $this->render('ArmdMainBundle:Project:news.html.twig', array(
             'news' => $this->getNewsManager()->findObjects(array(
                     NewsManager::CRITERIA_LIMIT => $limit,

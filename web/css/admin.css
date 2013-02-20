@@ -107,3 +107,11 @@
 
 
 /*--- /atlas object ---*/
+
+/*--- icons ---*/
+.sonata-bc .icon-ok-circle,
+.sonata-bc .icon-ban-circle {
+    background-image: url("../img/bootstrap_override/glyphicons-halflings.png");
+}
+
+/*--- /icons ---*/

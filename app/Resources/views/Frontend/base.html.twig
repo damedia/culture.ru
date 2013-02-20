@@ -65,6 +65,7 @@
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
         <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
         <script type="text/javascript">
          $(function(){
@@ -94,11 +95,10 @@
 
 
 </head>
-<body class="locale_{{ app.request.locale }}">
+<body class="locale_{{ app.request.locale }}" data-locale="{{ app.request.locale }}">
     {#<div style="display: none">#}
         {#{% render 'ArmdMainBundle:Main:loginLinks' with {}, {'standalone': true} %}#}
     {#</div>#}
-
     <div id="armd_messages" style="display: none;"><a class="armd_messages_close" href="#"></a><span></span></div>
     <div class="header-banner">
         {#{% if armd_has_banner('HEAD_BANNER') %}#}
@@ -108,7 +108,7 @@
         {#{% endif %}#}
 
         {#<a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;"></a>#}
-        {% render 'ArmdMainBundle:Main:backgroundBanner' %}
+        {% render url('armd_main_background_banner') %}
     </div>
 
     {% include ':Frontend:counters_top.html.twig' %}
@@ -118,15 +118,8 @@
             <a class="logo" title="{{ 'Portal title'|trans }}" href="{{ path('armd_main_homepage') }}"></a>
 
             <div class="header-top-right clearfix">
-                <div class="lk-top">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a href="{{ path('sonata_user_profile_edit') }}">{{ "auth_account"|trans }}</a> /
-                        <a href="{{ path('fos_user_security_logout') }}">{{ "auth_logout"|trans }}</a>
-                    {% else %}
-                        <a href="{{ path('fos_user_registration_register') }}">{{ "auth_register"|trans }}</a> /
-                        <a href="{{ path('fos_user_security_login') }}">{{ "auth_login"|trans }}</a>
-                    {% endif %}
-                </div>
+                {% render url('armd_main_login_links') %}
+                {#{% render url('armd_main_login_links') %}#}
                 {#<a href="#" class="lang-chooser"></a>#}
                 <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
             </div>
@@ -181,7 +174,7 @@
                 </div>
                 <div class="footer-share">
                     <p>
-                        {{ "social_share"|trans }} <span id="yandex-share-global"></span>
+                        {{ "social_share"|trans }} <span id="yandex-sha re-global"></span>
                         <a href="{{ path('armd_news_rss') }}" class="rss-icon" title="{{ "events"|trans }}"></a>
                     </p>
 

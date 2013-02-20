@@ -26,27 +26,27 @@
 {% block page_header_search %}
     <div class="search-category">
         <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
-            <span class="search-dates-label">Выбрать</span>
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
             <div class="search-category-selects">
                 <select name="region" id="select1" class="uni">
-                    <option value="">Регион</option>
+                    <option value="">{{ "search.region"|trans }}</option>
                     {% for region in regions %}
                         <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
                     {% endfor %}
                 </select>
                 <select name="category" id="select3" class="uni">
-                    <option value="">Категория</option>
+                    <option value="">{{ "search.category"|trans }}</option>
                     {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.title }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <button type="submit" class="button search-dates-button">Показать</button>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
         </form>
     </div>
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    {% render 'ArmdMuseumBundle:Default:list' with { region:regionId } %}
+    {% render url('armd_museum_list', { region:regionId }) %}
 {% endblock %}
