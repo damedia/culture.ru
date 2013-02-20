@@ -2758,6 +2758,13 @@ body {
                                 
                             }
 
+        .index-main .read-yandex {
+            margin-left: 30px;
+            margin-bottom: 30px;
+            display: block;
+            outline: none;
+        }
+
 
         .index-main .right-column .block {
             width: 288px;
