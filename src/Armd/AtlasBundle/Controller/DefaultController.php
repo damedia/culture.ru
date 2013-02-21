@@ -161,6 +161,11 @@ class DefaultController extends Controller
             $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
         }
 
+        $searchText = $request->get('search_text');
+        if (!empty($searchText)) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        }
+
 //        $searchQuery = $request->get('search_query');
 //        if ($request->query->has('search_query')) {
 //            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchQuery;
