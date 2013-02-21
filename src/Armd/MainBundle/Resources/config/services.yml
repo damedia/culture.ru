@@ -35,9 +35,3 @@ services:
 
     armd_main.menu_finder:
         class: Armd\MainBundle\Menu\MenuFinder
-
-    armd_main.listener.cache_listener:
-        class: Armd\MainBundle\EventListener\CacheListener
-        arguments: [@security.context]
-        tags:
-            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
