@@ -134,11 +134,11 @@
 {% block right_column %}
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
-    <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
-        <img src="{{ asset('img/read_yandex.jpg') }}">
-    </a>
-
     {% if app.request.locale == 'ru' %}
+        <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
+            <img src="{{ asset('img/read_yandex.jpg') }}">
+        </a>
+        
         <section id="homepage-social-widgets">
             {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
             {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
