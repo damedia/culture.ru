@@ -2668,8 +2668,11 @@ body {
                      margin:0;
                 }
         
-        .online-anons {
-            border-top:5px solid #f79016;
+        .right-column > div {
+            border-top: 5px solid #f79016;
+        }
+        
+        .online-anons {            
             margin:0 auto;
             width:278px;
             padding:10px 15px 12px;
@@ -2689,6 +2692,9 @@ body {
 				margin-top:8px;
 				margin-bottom:6px;
 			}
+                        .online-anons a img {
+                            width: 278px;
+                        }
             .online-type {
                 
             }
@@ -2731,6 +2737,16 @@ body {
                     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a61a', endColorstr='#f77b12',GradientType=0 );
                  }
                  
+            #online_translation_notification_form {
+                width: 360px;
+            }
+            #online_translation_notification_form div {
+                margin-bottom: 20px;
+            }
+            #online_translation_notification_form .otnf_email {
+                float: left;
+            }
+                                  
         .events-tabs {
             margin:0 auto;
             width:288px;

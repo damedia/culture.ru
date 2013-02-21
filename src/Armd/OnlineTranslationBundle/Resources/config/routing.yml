@@ -1,3 +1,7 @@
-armd_online_translation_test:
-    pattern:  /test/{id}
-    defaults: { _controller: ArmdOnlineTranslationBundle:OnlineTranslation:testIframe }
+armd_online_translation:
+    pattern:  /
+    defaults: { _controller: ArmdOnlineTranslationBundle:Default:index }
+    
+armd_online_translation_set_notification:
+    pattern:  /set-notification
+    defaults: { _controller: ArmdOnlineTranslationBundle:Default:setNotification }

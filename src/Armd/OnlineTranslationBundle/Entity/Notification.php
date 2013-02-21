@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Armd\OnlineTranslationBundle\Entity\Notification
  *
  * @ORM\Entity
- * @ORM\Table(name="online_translation_notification")
+ * @ORM\Table(name="online_translation_notification", uniqueConstraints={@ORM\UniqueConstraint(name="notification_idx", columns={"onlinetranslation_id", "email", "period"})})
  */
 class Notification
 {
@@ -19,11 +19,6 @@ class Notification
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $status = false;
 
     /**
      * @ORM\Column(type="integer")
@@ -51,29 +46,6 @@ class Notification
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set status
-     *
-     * @param boolean $status
-     * @return Notification
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean 
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**
