@@ -15,10 +15,5 @@ class CacheListener
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        $response = $event->getResponse();
-
-        if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $response->headers->set('X-MK-LOGGED-IN', 1);
-        }
     }
 }
