@@ -67,11 +67,12 @@ class DefaultController extends Controller
 
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
-        $this->getTagManager()->loadTagging($entity);
 
         if (!$entity) {
             throw new NotFoundHttpException("Page not found");
         }
+
+        $this->getTagManager()->loadTagging($entity);
 
         $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects
         (
