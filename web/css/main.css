@@ -1533,8 +1533,9 @@ body {
 					.types-icons span {
 						display:inline-block;
 						vertical-align:top;
-						width:21px;
+						width:22px;
 						height:22px;
+                        margin-right: 4px;
 						/*background-image:url(../img/types-icons.png);*/
 						background-repeat:no-repeat;
 					}
