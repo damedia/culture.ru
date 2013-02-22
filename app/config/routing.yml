@@ -146,9 +146,9 @@ armd_social_auth:
     prefix:   /social-auth
 
 # Internal routing configuration to handle ESI
-_internal:
-    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-    prefix:   /_internal
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal
 
 armd_oauth:
     resource: "@ArmdOAuthBundle/Controller/"

@@ -67,11 +67,12 @@ class DefaultController extends Controller
 
         $om = $this->getObjectManager();
         $entity = $om->getObject($id);
-        $this->getTagManager()->loadTagging($entity);
 
         if (!$entity) {
             throw new NotFoundHttpException("Page not found");
         }
+
+        $this->getTagManager()->loadTagging($entity);
 
         $relatedObjects = $this->get('armd_atlas.manager.object')->findObjects
         (
@@ -130,9 +131,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/russia-images-list/{templateName}/{offset}/{limit}", name="armd_atlas_russia_images_list", options={"expose"=true})
+     * @Route("/russia-images-list/{templateName}/{offset}/{limit}",
+     *      name="armd_atlas_russia_images_list",
+     *      options={"expose"=true},
+     *      defaults={"offset"="0", "limit"="10"}
+     * )
      */
-    public function russiaImagesListAction($templateName, $offset = 0, $limit = 10)
+    public function  russiaImagesListAction($templateName, $offset = 0, $limit = 10)
     {
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
@@ -724,10 +729,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/related-objects/", name="armd_atlas_related_objects")
      * @Template("ArmdAtlasBundle:Default:related_objects.html.twig")
      */
-    public function relatedObjectsAction($tags, $limit)
+    public function relatedObjectsAction()
     {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
         $objects = $this->getObjectManager()->findObjects (
             array(
                 ObjectManager::CRITERIA_LIMIT => $limit,

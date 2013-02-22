@@ -334,7 +334,7 @@
                 {% if not is_granted('ROLE_USER') %}
                     <div class="comments-auth-block">
                         <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
-                        {% render 'ArmdSocialAuthBundle:Default:authLinks' with { 'redirectUrl': app.request.uri } %}
+                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
                     </div>
                 {% endif %}
             </div>
@@ -345,14 +345,14 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-    {% render 'ArmdNewsBundle:News:memorialEvents' %}
+    {% render url('armd_news_memorial_events') %}
 
-    {% render 'ArmdAtlasBundle:Default:relatedObjects' with {'tags': lecture.tags, 'limit': 1} %}
+    {% render url('armd_atlas_related_objects', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 1}) %}
 
     <div class="right-video-block">
-        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': lecture.tags, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' } %}
+        {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
 
-        {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': lecture.tags, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' } %}
+        {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
     </div>
 {% endblock %}
 
@@ -454,7 +454,7 @@
 
     <div class="right-column">
         {#% include 'ArmdNewsBundle:News:latest-news.html.twig' with {'news': linkedNews} only %#}
-        {% render 'ArmdLectureBundle:Default:rightColumn' %}
+        {% render url('armd_lecture_right_column') %}
     </div>
 {% endblock %}
 

@@ -1284,6 +1284,7 @@ class Object implements Taggable
         return $this;
     }
 
+
     /**
      * @return string
      */

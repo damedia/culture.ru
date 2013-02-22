@@ -263,14 +263,22 @@ body {
 				}	
 				
 					
-				.lang-chooser {
-					background:url(../img/flag.png) no-repeat 0 0;
+				.lang-chooser-en,
+                .lang-chooser-ru {
 					float:left;
 					width:15px;
 					height:14px;
 					margin-top: 4px;
 					margin-right: 13px;
 				}
+
+                .lang-chooser-en {
+                    background:url(../img/flag.png) no-repeat 0 0;
+                }
+
+                .lang-chooser-ru {
+                    background:url(../img/flag_en.jpg) no-repeat 0 0;
+                }
 			
 					
 
@@ -1525,8 +1533,9 @@ body {
 					.types-icons span {
 						display:inline-block;
 						vertical-align:top;
-						width:21px;
+						width:22px;
 						height:22px;
+                        margin-right: 4px;
 						/*background-image:url(../img/types-icons.png);*/
 						background-repeat:no-repeat;
 					}
@@ -2849,6 +2858,13 @@ body {
                                 
                             }
 
+        .index-main .read-yandex {
+            margin-left: 30px;
+            margin-bottom: 30px;
+            display: block;
+            outline: none;
+        }
+
 
         .index-main .right-column .block {
             width: 288px;
@@ -3225,6 +3241,7 @@ body {
 					}	
 
         #homepage-social-widgets {
+            margin-bottom: 20px;
             padding-left: 30px;
         }
             #homepage-social-widgets .fb-like-box {

@@ -120,4 +120,15 @@ class ObjectListener
         }
     }
 
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if ($entity instanceof Object) {
+            $tagManager = $this->container->get('fpn_tag.tag_manager');
+            $tag = $tagManager->loadOrCreateTag('o' . $entity->getId());
+            $tagManager->addTag($tag, $entity);
+            $tagManager->saveTagging($entity);                      
+        }
+    }
 }

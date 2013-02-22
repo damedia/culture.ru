@@ -48,5 +48,5 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    {% render 'ArmdMuseumBundle:Default:list' with { region:regionId } %}
+    {% render url('armd_museum_list', { region:regionId }) %}
 {% endblock %}
