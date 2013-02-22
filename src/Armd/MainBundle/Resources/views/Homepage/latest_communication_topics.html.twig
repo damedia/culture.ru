@@ -21,7 +21,7 @@
                             <div class="com-one-header">
                                 <a href="{{ i.url }}">{{ i.title }}</a> / <span class="com-one-date">Обновлено {{ i.date_add }}</span>
                             </div>
-                            <p class="com-one-text"><a href="">{{ i.content }}</a></p>
+                            <p class="com-one-text"><a href="{{ i.url }}">{{ i.content }}</a></p>
                         </div>
                     </div>
                 {% else %}
@@ -37,7 +37,7 @@
                         <div class="com-one-header">
                             <a href="{{ i.url }}">{{ i.title }}</a> / <span class="com-one-date">Обновлено {{ i.date_add }}</span>
                         </div>
-                        <p class="com-one-text"><a href="#">{{ i.content }}</a></p>
+                        <p class="com-one-text"><a href="{{ i.url }}">{{ i.content }}</a></p>
                     </li>
                     {% if loop.last %}
                         </ul>
