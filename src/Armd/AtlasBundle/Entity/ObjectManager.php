@@ -188,7 +188,6 @@ class ObjectManager extends ListManager
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 
         $result = array();
-        \gFuncs::dbgWriteLogVar($searchResult['Atlas']['matches'], false, 'matches'); // DBG:
         if (!empty($searchResult['Atlas']['matches'])) {
             $lectureRepo = $this->em->getRepository('ArmdAtlasBundle:Object');
             $result = $lectureRepo->findBy(array('id' => array_keys($searchResult['Atlas']['matches'])));
