@@ -1,86 +1,106 @@
-{% if entity is defined %}
-    <div class="online-anons clearfix">
-        <h2>online-трансляции</h2>
-        <a href="#">{% thumbnail entity.image, 'adminPreview' with { 'class': 'online-anons-image' } %}</a>
-        <h3>{{ date }}</h3>
-        <h4>{{ entity.title}}</h4>
-        <p class="online-anons-place">{{ entity.location}} / <b>{{ entity.date|date('H:i')}}</b></p>
-        <p>{{ entity.shortDescription}}</p>
-        <div class="online-anons-footer">
-            <div class="online-anons-footer-time">
-                <p>
-                    До трансляции осталось:<br>{{ countdown }}
-                </p>
-            </div>
-            {% if entity.type == 1 %}   
-                <a class="button button-orange " href="{{ path('armd_online_translation') }}">Смотреть</a>
-            {% else %}
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block page_header_title %}
+    {{ "Online translation"|trans }}
+{% endblock %}
+
+{% block left_column %}
+{% if entity %}
+    {% if entity.type == 1 %}
+        <div>{{ entity.dataCode|raw }}</div>
+    {% else %}
+        <div class="online-anons clearfix">
+            <h2>online-трансляции</h2>
+            <a href="#">{% thumbnail entity.image, 'adminPreview' with { 'class': 'online-anons-image' } %}</a>
+            <h3>{{ params.date }}</h3>
+            <h4>{{ entity.title}}</h4>
+            <p class="online-anons-place">{{ entity.location}} / <b>{{ entity.date|date('H:i')}}</b></p>
+            <p>{{ entity.shortDescription}}</p>
+            <div class="online-anons-footer">
+                <div class="online-anons-footer-time">
+                    <p>
+                        До трансляции осталось:<br>{{ params.countdown }}
+                    </p>
+                </div>
                 <a id="online_translation_notification" class="button button-orange " href="#online_translation_notification_form">Напомнить</a>
-            {% endif %}
+            </div>
         </div>
-    </div>
-    <div id="online_translation_notification_form" style="display:none;">
-        <h4>Напомнить</h4>
-        <div class="otnf_email">
-            Email:
-            <br>
-            <input id="notification_email" type="email">
+        <div id="online_translation_notification_form" style="display:none;">
+            <h4>Напомнить</h4>
+            <div class="otnf_email">
+                Email:
+                <br>
+                <input id="notification_email" type="email">
+            </div>
+            <div class="otnf_period">
+                Напомнить за:
+                <br>
+                <select id="notification_period">
+                    {% for key, value in params.notificationPeriods %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="otnf_buttons">
+                <a id="notification_save" class="button button-orange " href="#">Сохранить</a>
+                <a id="notification_cancel" class="button button-orange " href="#">Отмена</a>
+            </div>
         </div>
-        <div class="otnf_period">
-            Напомнить за:
-            <br>
-            <select id="notification_period">
-                {% for key, value in notificationPeriods %}
-                    <option value="{{ key }}">{{ value }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="otnf_buttons">
-            <a id="notification_save" class="button button-orange " href="#">Сохранить</a>
-            <a id="notification_cancel" class="button button-orange " href="#">Отмена</a>
-        </div>
-    </div>
-    <script type="text/javascript">       
-        $(document).ready(function() {
-            $('#online_translation_notification').fancybox({
-                openEffect  : 'none',
-                closeEffect : 'none',
-                scrolling: 'visible'
-            });
-            
-            $('#notification_cancel').click(function () { $.fancybox.close() });
-            
-            $('#notification_save').click(function () {
-                if (!$.trim($('#notification_email').val())) {
-                    return;
-                }
-                
-                $.fancybox.close();
-                armdMk.startLoadingBlock();
-                $.ajax({
-                    url: '{{ path('armd_online_translation_set_notification') }}',
-                    type: 'post',
-                    data: {
-                        id: {{ entity.id }},
-                        email: $('#notification_email').val(),
-                        period: $('#notification_period').val()
-                    },
-                    dataType: 'html',
-                    success: function (data) {
-                        data = $.trim(data);
-                        
-                        if (data === 'ok') {
-                            armdMessager.showMessage('Напоминание установлено');
-                        } else {
-                            armdMessager.showMessage(data, armdMessager.messageTypes.ERROR);
-                        }
-                    },
-                    complete: function () {
-                        armdMk.stopLoadingBlock();
+        <script type="text/javascript">       
+            $(document).ready(function() {
+                $('#online_translation_notification').fancybox({
+                    openEffect  : 'none',
+                    closeEffect : 'none',
+                    scrolling: 'visible'
+                });
+
+                $('#notification_cancel').click(function () { $.fancybox.close() });
+
+                $('#notification_save').click(function () {
+                    if (!$.trim($('#notification_email').val())) {
+                        return;
                     }
 
+                    $.fancybox.close();
+                    armdMk.startLoadingBlock();
+                    $.ajax({
+                        url: '{{ path('armd_online_translation_set_notification') }}',
+                        type: 'post',
+                        data: {
+                            id: {{ entity.id }},
+                            email: $('#notification_email').val(),
+                            period: $('#notification_period').val()
+                        },
+                        dataType: 'html',
+                        success: function (data) {
+                            data = $.trim(data);
+
+                            if (data === 'ok') {
+                                armdMessager.showMessage('Напоминание установлено');
+                            } else {
+                                armdMessager.showMessage(data, armdMessager.messageTypes.ERROR);
+                            }
+                        },
+                        complete: function () {
+                            armdMk.stopLoadingBlock();
+                        }
+
+                    });
                 });
             });
-	});
-    </script>
+        </script>
+    {% endif %}
+{% else %}
+    <div>
+        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_default_list', {'supertype': 2}) }}">архиве</a>
+    </div>
 {% endif %}
+{% endblock %}
+    
+{% block right_column %}
+    {% if app.request.locale == 'ru' %}
+        <div class="right-video-block">
+            {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit':8, 'superTypeCode': 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' } %}            
+        </div>
+    {% endif %}
+{% endblock %}

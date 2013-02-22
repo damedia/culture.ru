@@ -2668,7 +2668,11 @@ body {
                      margin:0;
                 }
         
-        .right-column > div {
+        .right-column > div:first-child {
+            border-top: 5px solid #f79016;
+        }
+        
+        .right-column > section > div:first-child {
             border-top: 5px solid #f79016;
         }
         

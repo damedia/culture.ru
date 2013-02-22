@@ -34,7 +34,7 @@ class Notification
     private $email;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\OnlineTranslationBundle\Entity\OnlineTranslation")
+     * @ORM\ManyToOne(targetEntity="\Armd\OnlineTranslationBundle\Entity\OnlineTranslation", fetch="EAGER")
      */
     private $onlineTranslation;
 

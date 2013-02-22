@@ -7,14 +7,21 @@
         <p class="online-anons-place">{{ entity.location}} / <b>{{ entity.date|date('H:i')}}</b></p>
         <p>{{ entity.shortDescription}}</p>
         <div class="online-anons-footer">
-            <div class="online-anons-footer-time">
-                <p>
-                    До трансляции осталось:<br>{{ params.countdown }}
-                </p>
-            </div>
-            {% if entity.type == 1 %}   
+            {% if entity.type == 1 %}
+                <div class="online-anons-footer-time">
+                    <p>
+                        Ведется онлайн-трансляция
+                    </p>
+                </div>
+               
                 <a class="button button-orange " href="{{ path('armd_online_translation') }}">Смотреть</a>
             {% else %}
+                <div class="online-anons-footer-time">
+                    <p>
+                        До трансляции осталось:<br>{{ params.countdown }}
+                    </p>
+                </div>
+                
                 <a id="online_translation_notification" class="button button-orange " href="#online_translation_notification_form">Напомнить</a>
             {% endif %}
         </div>

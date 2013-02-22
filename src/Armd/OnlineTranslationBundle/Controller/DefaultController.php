@@ -4,8 +4,9 @@ namespace Armd\OnlineTranslationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Armd\ListBundle\Controller\ListController;
 
-class DefaultController extends Controller
+class DefaultController extends ListController
 {  
     protected function getFormatDate(\DateTime $date)
     {
@@ -75,10 +76,8 @@ class DefaultController extends Controller
             $params['date'] = $this->getFormatDate($entity->getDate());
             $params['countdown'] = $this->getCountdown($entity->getDate());
             $params['notificationPeriods'] = $this->getNotificationPeriods();
-        } else {
-            return new Response();
         }
-                   
+                  
         return $this->render('ArmdOnlineTranslationBundle:Default:index.html.twig',
             array(
                 'entity' => $entity,
@@ -158,5 +157,10 @@ class DefaultController extends Controller
         }
         
         return new Response('error');
+    }
+    
+    public function getControllerName()
+    {
+        return 'ArmdOnlineTranslationBundle:Default';
     }
 }

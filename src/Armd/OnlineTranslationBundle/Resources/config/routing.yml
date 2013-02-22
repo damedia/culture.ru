@@ -1,5 +1,5 @@
 armd_online_translation:
-    pattern:  /
+    pattern:  /index
     defaults: { _controller: ArmdOnlineTranslationBundle:Default:index }
     
 armd_online_translation_set_notification:
