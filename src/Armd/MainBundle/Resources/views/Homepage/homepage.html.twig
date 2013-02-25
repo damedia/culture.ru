@@ -18,8 +18,8 @@
     <!-- Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
     <div id="script_ad" class="script_ad" style="display:none;">
-        {# <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.8"></script> #}
-        <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.9"></script>
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.10"></script>
+        {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.10"></script> #}
     </div>
     <script type="text/javascript">
         document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
@@ -29,105 +29,105 @@
 {% endblock %}
 
 {% block left_column %}
-<section class="block new-on-site">
-	<h1><span>{{ "Mainpage block.New on portal"|trans }}</span></h1>
-	<section class="index-block clearfix index-russia-images-block">
-		<h2><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.Title"|trans }}</a></h2>
-        {% include 'ArmdMainBundle:Homepage:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
-        <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.All"|trans }}</a></p>
-    </section>
-
-    {% if app.request.locale == 'ru' %}
-        <section class="index-block two-column-block clearfix index-news-block">
-            <section class="index-block">
-                {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
-                {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
-                <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
-                <a href="{{ newsArticleHref }}">
-                    {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
-                    {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
-                </a>
-
-                <div class="text-overflow">
-                    <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
-                    <p>{{ lastReportage.announce|truncate(200) }}</p>
-                    <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
-                </div>
-            </section>
-
-            <section class="index-block">
-                {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'interviews'}) %}
-                {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastInterview.id, 'category': lastInterview.category.slug }) %}
-
-                <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
-                <a href="{{ newsArticleHref }}">
-                    {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}
-                    {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
-                </a>
-
-                <div class="text-overflow">
-                    <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
-                    <p>{{ lastInterview.announce|truncate(200) }}</p>
-                    <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
-                </div>
-            </section>
-
+    <section class="block new-on-site">
+        <h1><span>{{ "Mainpage block.New on portal"|trans }}</span></h1>
+        <section class="index-block clearfix index-russia-images-block">
+            <h2><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.Title"|trans }}</a></h2>
+            {% include 'ArmdMainBundle:Homepage:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
+            <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.All"|trans }}</a></p>
         </section>
-    {% endif %}
 
-    {% if app.request.locale == 'ru' %}
-        <section class="index-block index-video-block clearfix">
-            <h2><a href="{{ path('armd_lecture_default_list') }}">Видеотека</a></h2>
-            <div id="video-list">
-                {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
-            </div>
-            <p class="all"><a href="{{ path('armd_lecture_default_list') }}">Все видео</a></p>
-        </section>
-    {% endif %}
+        {% if app.request.locale == 'ru' %}
+            <section class="index-block two-column-block clearfix index-news-block">
+                <section class="index-block">
+                    {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
+                    {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
+                    <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
+                    <a href="{{ newsArticleHref }}">
+                        {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
+                        {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
+                    </a>
 
-    <section class="index-block index-museum-block clearfix">
-        <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
+                    <div class="text-overflow">
+                        <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
+                        <p>{{ lastReportage.announce|truncate(200) }}</p>
+                        <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
+                    </div>
+                </section>
 
-        <div class="plitka-one-wrap plitka-one-wrap-opened">
-            <div class="plitka-one clearfix">
-                <div class="museum-image-container">
-                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
-                    <div class="museum-image-over">
-                        <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
-                            <span class="museum-image-text">
-                                {{ "visit_museum"|trans|raw }}
-                            </span>
-                        </a>
-                        <a href="#instruction" class="museum-instr-link">
-                            {{ "manual_instruction"|trans|raw }}
-                        </a>
+                <section class="index-block">
+                    {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'interviews'}) %}
+                    {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastInterview.id, 'category': lastInterview.category.slug }) %}
+
+                    <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
+                    <a href="{{ newsArticleHref }}">
+                        {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}
+                        {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
+                    </a>
+
+                    <div class="text-overflow">
+                        <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
+                        <p>{{ lastInterview.announce|truncate(200) }}</p>
+                        <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
+                    </div>
+                </section>
+
+            </section>
+        {% endif %}
+
+        {% if app.request.locale == 'ru' %}
+            <section class="index-block index-video-block clearfix">
+                <h2><a href="{{ path('armd_lecture_default_list', {'supertype': 3}) }}">Видеотека</a></h2>
+                <div id="video-list">
+                    {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+                </div>
+                <p class="all"><a href="{{ path('armd_lecture_default_list', {'supertype': 3}) }}">Все видео</a></p>
+            </section>
+        {% endif %}
+
+        <section class="index-block index-museum-block clearfix">
+            <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
+
+            <div class="plitka-one-wrap plitka-one-wrap-opened">
+                <div class="plitka-one clearfix">
+                    <div class="museum-image-container">
+                        <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                        <div class="museum-image-over">
+                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                                <span class="museum-image-text">
+                                    {{ "visit_museum"|trans|raw }}
+                                </span>
+                            </a>
+                            <a href="#instruction" class="museum-instr-link">
+                                {{ "manual_instruction"|trans|raw }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="museum-text">
+                        {{ museum.title|raw }}
                     </div>
                 </div>
-                <div class="museum-text">
-                    {{ museum.title|raw }}
-                </div>
             </div>
-        </div>
 
-        <div id="instruction" style="display:none;">
-            <div class="window">
-                <div class="block window-content">
+            <div id="instruction" style="display:none;">
+                <div class="window">
+                    <div class="block window-content">
 
-                    {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+                        {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
 
-                </div>
-           </div>
-        </div>
+                    </div>
+               </div>
+            </div>
+
+        </section>
+
+        {% if app.request.locale == 'ru' %}
+            <section class="block">
+                {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
+            </section>
+        {% endif %}
 
     </section>
-
-    {% if app.request.locale == 'ru' %}
-        <section class="block">
-            {% render "ArmdMainBundle:Main:latestTopics" with {"domain": "people.culture.ru"} %}
-        </section>
-    {% endif %}
-
-</section>
 {% endblock %}
 
 
@@ -137,25 +137,27 @@
     </section>
     
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
-    
-{#
-    <section id="homepage-polls">
-        {% render 'ArmdMainBundle:Main:peopleCulturePolls' %}
-    </section>
-#}
 
     {% if app.request.locale == 'ru' %}
+        <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
+            <img src="{{ asset('img/read_yandex.jpg') }}">
+        </a>
+        
         <section id="homepage-social-widgets">
             {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
             {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
         </section>
+
+        <section id="homepage-polls">
+            {% render url('armd_main_culture_polls') %}
+        </section>
     {% endif %}
+
 
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {#<link rel="stylesheet" href="{{ asset('bundles/armdatlas/common/css/sm.css') }}">#}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdmain/css/atlas_obrazy.css') }}">
 {% endblock %}
@@ -168,7 +170,6 @@
     <script type="text/javascript">
         $(function () {
             armdMainPage.init();
-
         });
     </script>
 {% endblock %}

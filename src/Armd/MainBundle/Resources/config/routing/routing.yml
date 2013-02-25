@@ -38,6 +38,15 @@ armd_main_project_traditions:
     pattern:  /traditions/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Traditions:index.html.twig }
 
+armd_main_project_events:
+    pattern: /events/
+    defaults: { _controller: ArmdMainBundle:Project:events }
+
+armd_main_project_news:
+    pattern: /project-news/
+    defaults: { _controller: ArmdMainBundle:Project:news }
+
+
 armd_main_online_translation:
     pattern:  /online-translation/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle::online_translation.html.twig }
@@ -55,3 +64,15 @@ armd_main_communication_platform_request:
 armd_test:
     pattern: /main/test-cache
     defaults: { _controller: ArmdMainBundle:Test:testCache }
+
+armd_main_background_banner:
+    pattern: /background-banner
+    defaults: { _controller: ArmdMainBundle:Main:backgroundBanner }
+
+armd_main_login_links:
+    pattern: /login-links/
+    defaults: { _controller: ArmdMainBundle:Main:loginLinks }
+
+armd_main_culture_polls:
+    pattern: /culture-polls/
+    defaults: { _controller: ArmdMainBundle:Main:peopleCulturePolls }

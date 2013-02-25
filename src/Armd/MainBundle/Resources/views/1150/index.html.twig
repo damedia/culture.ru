@@ -105,7 +105,7 @@
 		
 		
 		<h2 class="table-caption">Мероприятия, посвященные празднованию {{ title }}</h2>
-		{% render "ArmdMainBundle:Project:events" with { "subject": subject } %}
+		{% render url("armd_main_project_events", { "subject": subject }) %}
 	</div>	
 {% endblock %}
 
@@ -113,12 +113,12 @@
 	<div class="title">
 		<h2>Анонсы</h2>
 	</div>		
-	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "events"} %}
+	{% render url("armd_main_project_news", {"subject": subject, "category": "events"}) %}
 
 	<div class="title">
 		<h2>Новости</h2>
 	</div>		
-	{% render "ArmdMainBundle:Project:news" with {"subject": subject, "category": "news"} %}
+	{% render url("armd_main_project_news", {"subject": subject, "category": "news"}) %}
 
 	{% include "ArmdMainBundle:1150:media.html.twig" %}
 {% endblock %}	    		

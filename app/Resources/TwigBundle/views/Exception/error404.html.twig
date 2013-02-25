@@ -1,26 +1,137 @@
-{% extends '::base.html.twig' %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"> <!--<![endif]-->
+<head>
 
+    <title>{% spaceless %}{% block title %}{{ 'Portal title'|trans }}{% endblock %}{% endspaceless %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
+    <link rel="alternate" type="application/rss+xml" href="/press-centre/rss/"  title="События" />
 
+    <!-- Stylesheets block -->
+    <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Philosopher&subset=latin,cyrillic'>
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <!-- /Stylesheets block -->
 
-{% block body%}
+    <!-- Javascripts block -->
+    <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            new Ya.share({
+                element: 'yandex-share-global',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_main_homepage') }}',
+                title: '{{ 'Portal title'|trans }}',
+                description: '{{ 'Portal title'|trans }}'
+            });
+        });
+    </script>
+    <!-- /Javascripts block -->
 
-<script>
-window.setTimeout(function() {
-    var url = '{% if app.request.locale == 'ru' %}/{% else %}/{{ app.request.locale }}/{% endif %}';
-    window.location.href = url;
-}, 5000);
-</script>
+    <!-- 404 -->
+    <style type="text/css">
+        .container { background: url({{ asset('img/bg404.png') }}) 0 0 no-repeat; }
+        .main { min-height:500px; }
+        .d-404 { padding-left: 25%; color: #656565; }
+        .d-orange { margin-bottom: 4em; font-size: 1.07em; color: #f79016; }
+        .d-big { margin-bottom: .5em; padding: .5em 0 .4em 0; border-bottom: 10px solid #f79016; font-size: 3.8em; line-height: 1em; }
+        .d-big b { display: block; font-size: 1.35em; }
+        .d-clear { clear: both; }
+        .d-fl { float: left; }
+        .d-small { font-size: .88em; }
+        .d-search { padding: 1em 0; text-align: right; }
+        .d-search form { display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; }
+        .d-search input { margin-left: .25em; border: 1px solid #dadada; vertical-align: middle; }
+        .d-search input[type='text'] { width: 25em; }
+        .d-search input[type='submit'] { background: #656565; border: 1px solid #656565; font-size: .88em; color: #fff; }
+        .d-qnav a { margin: 0 .5em; color: #656565; }
+    </style>
+    <!-- /404 -->
 
-			<div>
-			<div class="object-one-text content">
-				<div class="text e404">
-			
-			<h1>{{ '404'|trans }}</h1>
-	        <p>{{ 'Redirect after'|trans|raw }}</p>
-			  </div>
-	</div>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Main block -->
+        <div class="main clearfix index-main">
+
+            <!-- 404 -->
+            <div class='d-404'>
+                <div class='d-orange'>
+                    <p>404 Error: page not found</p>
+                    <p class='d-big d-fl'><b>Ошибка 404:</b> страница не найдена</p>
+                    <p class='d-clear'><i>К сожалению, запрашиваемая страница была перемещена<br />или никогда не существовала.</i></p>
+                </div><!-- /d-orange -->
+                <div class='d-small d-fl'>
+                    <p class='d-qnav'>
+                        Попробуйте посмотреть в других разделах:
+                        <span class='d-small'>
+                            <a href='{{ path('armd_main_homepage') }}'>Главная страница</a>|
+                            <a href='{{ path('armd_atlas_russia_images') }}'>Образы России</a>|
+                            <a href='{{ path('armd_museum_index') }}'>Музеи</a>|
+                            <a href='{{ path('armd_chronicle_index') }}'>Лента времени</a>|
+                            <a href='{{ path('armd_news_list_index') }}'>Медиа</a>
+                        </span>
+                    </p>
+                    <div class='d-search'>
+                        <span class='d-fl'>Или воспользуйтесь формой поиска:</span>
+                        <form action="{{ path('armd_search_results') }}">
+                            <input type="text" name="search_query" placeholder="{{ "site_search"|trans }}" class="search-txt" id="search-txt"/>
+                            <input type="submit" value="{{ "search"|trans }}" class="button search-btn"/>
+                        </form>
+                    </div><!-- /d-search -->
+                </div><!-- /d-small -->
+            </div><!-- /d-404 -->
+            <!-- /// 404 -->
+
         </div>
-        
-        
-{% endblock %}        
+        <!-- /Main block -->
+
+        <!-- Footer block -->
+        {% block main_footer%}
+        <footer class="main-footer clearfix">
+            <a href="http://mkrf.ru/" target="_blank" class="footer-copyright">
+                <p>{{ "ministerstvo"|trans|raw }}</p>
+            </a>
+
+            <div class="footer-social">
+                <div class="footer-banners">
+                    {% include ':Frontend:counters_bottom.html.twig' %}
+                </div>
+                <div class="footer-share">
+                    <p>
+                        {{ "social_share"|trans }}&nbsp;&nbsp;<span id="yandex-sha re-global"></span>
+                        <a href="{{ path('armd_news_rss') }}" class="rss-icon" title="{{ "events"|trans }}"></a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <p>{{ "copyright"|trans }}</p>
+                <ul>
+                    <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
+                    <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
+                    <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
+                </ul>
+            </div>
+        </footer>
+        {% endblock %}
+        <!-- /Footer block -->
+
+    </div>
+
+</body>
+</html>

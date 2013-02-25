@@ -32,11 +32,11 @@
 
 {% block left_column %}
     {% if not category %}
-        {% render 'ArmdNewsBundle:News:billboard' %}
+        {% render url('armd_news_billboard_slider') %}
     {% endif %}
 
     <div id="news-container">
-        {% render 'ArmdNewsBundle:News:twoColumnNewsList' with {'limit': 50, 'category': category} %}
+        {% render url('armd_news_two_column_list', {'limit': 50, 'category': category}) %}
     </div>
 
     <div class="more">
@@ -49,15 +49,15 @@
 
 
 {% block right_column %}
-    {% render 'ArmdNewsBundle:News:memorialEvents' %}
+    {% render url('armd_news_memorial_events') %}
 
-    {% render 'ArmdAtlasBundle:Default:relatedObjects' with {'tags': {}, 'limit': 1} %}
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
 
     {% if app.request.locale == 'ru' %}
         <div class="right-video-block">
-            {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' } %}
+            {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
 
-            {% render 'ArmdLectureBundle:Default:relatedLectures' with {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' } %}
+            {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
         </div>
     {% endif %}
 {% endblock %}

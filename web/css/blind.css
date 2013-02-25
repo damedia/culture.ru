@@ -394,8 +394,8 @@ body {
 						}
 						
 						.rusObr-list-place {
-							font-size:11px;
-							line-height:12px;
+							font-size:0.7em;
+							line-height:1.1em;
 						}
 							.rusObr-list-place  a {
 								color:#676767;
@@ -650,7 +650,7 @@ body {
 .big-font {
 	font-size:1.3125em;
 }
-.big-font .rusObr-list li  {font-size:21px;}
+.big-font .rusObr-list li  {font-size:21px; width:33.33%;}
 
 .big-font .settings-handler {
 	background-position:17px 16px;
@@ -662,7 +662,11 @@ body {
 .huge-font {
 	font-size:1.625em;
 }
-.huge-font .rusObr-list li  {font-size:26px;}
+.huge-font .rusObr-list li  {
+    
+font-size:26px;
+width:50%;
+}
 .huge-font .settings-handler {
 	background-position:17px 20px;
 }

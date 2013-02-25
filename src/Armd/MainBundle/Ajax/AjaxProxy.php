@@ -99,10 +99,6 @@ class AjaxProxy
         $response = curl_exec($ch);
         curl_close($ch);
 
-        \gFuncs::dbgWriteLogVar($cookie_string, false, 'cookie_string'); // DBG:
-        \gFuncs::dbgWriteLogVar($params, false, 'params'); // DBG:
-        \gFuncs::dbgWriteLogVar($response, false, 'response'); // DBG:
-
         list($headers, $response) = explode("\r\n\r\n", $response, 2);
         preg_match_all('/Set-Cookie: (.*)\b/', $headers, $cookies);
         $cookies = $cookies[1];
@@ -119,7 +115,7 @@ class AjaxProxy
                     $value = str_replace(' ', '+', $value);
                 }
                 $customCookie = new Cookie($cookie->getName(), $value, $cookie->getExpiresTime(
-                ) == null ? 0 : $cookie->getExpiresTime(), $cookie->getPath());
+                ) == null ? 0 : $cookie->getExpiresTime(), $cookie->getPath(), null, false, false);
                 $response->headers->setCookie($customCookie);
             }
 

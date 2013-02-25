@@ -1,65 +1,19 @@
-{% extends '::base.html.twig' %}
+{% extends ':Frontend:base.html.twig' %}
+
+{% block page_header_title %}Калека с Инишмаана{% endblock %}
 
 {% block body %}
+    <div style="width: 1024px; margin: 0 auto;">
+        <iframe src="http://permfest.vidicor.ru/" style="width: 960px; height: 580px; border: 0;"></iframe>
+        <p><i>Театр:</i> <b>Пермский театр у Моста</b></p>
+        <h2>Краткое описание:</h2>
 
-    {#<iframe frameBorder="0" marginwidth="0" marginheight="0" style="width: 100%; height: 480px;"#}
-    {#src="http://t.mind.com/FrameContainer.php?eventid=gnesin">#}
-    {#</iframe>#}
-
-    {#<object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="WMP7" width="640" height="480"><param name="URL" value="mms://195.178.211.10:8888/test" /></object>#}
-
-    {% if 'MSIE' in app.request.headers.get('user-agent') %}
-        <object name="UstreamViewer" width="640" height="480" id="UstreamViewer"
-                classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" style="visibility: visible;">
-            <PARAM NAME="_cx" VALUE="16933">
-            <PARAM NAME="_cy" VALUE="10372">
-            <PARAM NAME="FlashVars"
-                   VALUE="cid=12803589&amp;locale=ru_RU&amp;sessionid=false&amp;autoplay=true&amp;enablejsapi=1&amp;sv=6">
-            <PARAM NAME="Movie" VALUE="http://static-cdn1.ustream.tv/swf/live/viewer3:81.swf?vrsl=c:350&amp;ulbr=100">
-            <PARAM NAME="Src" VALUE="http://static-cdn1.ustream.tv/swf/live/viewer3:81.swf?vrsl=c:350&amp;ulbr=100">
-            <PARAM NAME="WMode" VALUE="Opaque">
-            <PARAM NAME="Play" VALUE="0">
-            <PARAM NAME="Loop" VALUE="-1">
-            <PARAM NAME="Quality" VALUE="High">
-            <PARAM NAME="SAlign" VALUE="LT">
-            <PARAM NAME="Menu" VALUE="-1">
-            <PARAM NAME="Base" VALUE="">
-            <PARAM NAME="AllowScriptAccess" VALUE="always">
-            <PARAM NAME="Scale" VALUE="NoScale">
-            <PARAM NAME="DeviceFont" VALUE="0">
-            <PARAM NAME="EmbedMovie" VALUE="0">
-            <PARAM NAME="BGColor" VALUE="000000">
-            <PARAM NAME="SWRemote" VALUE="">
-            <PARAM NAME="MovieData" VALUE="">
-            <PARAM NAME="SeamlessTabbing" VALUE="1">
-            <PARAM NAME="Profile" VALUE="0">
-            <PARAM NAME="ProfileAddress" VALUE="">
-            <PARAM NAME="ProfilePort" VALUE="0">
-            <PARAM NAME="AllowNetworking" VALUE="all">
-            <PARAM NAME="AllowFullScreen" VALUE="true">
-            <PARAM NAME="AllowFullScreenInteractive" VALUE="false">
-            <PARAM NAME="IsDependent" VALUE="-6536">
-            <param name="wmode" value="opaque">
-            <param name="allowfullscreen" value="true">
-            <param name="bgcolor" value="#000000">
-            <param name="allowscriptaccess" value="always">
-            <param name="flashvars"
-                   value="cid=12803589&amp;locale=ru_RU&amp;sessionid=false&amp;autoplay=true&amp;enablejsapi=1&amp;sv=6">
-            <param name="movie" value="http://static-cdn1.ustream.tv/swf/live/viewer3:81.swf?vrsl=c:350&amp;ulbr=100">
-        </object>
-    {% else %}
-        <object width="640" height="480" type="application/x-shockwave-flash" id="UstreamViewer" name="UstreamViewer"
-                data="http://static-cdn1.ustream.tv/swf/live/viewer3:81.swf?vrsl=c:350&amp;amp;ulbr=100"
-                style="visibility: visible;">
-            <param name="wmode" value="direct">
-            <param name="allowfullscreen" value="true">
-            <param name="bgcolor" value="#000000">
-            <param name="allowscriptaccess" value="always">
-            <param name="flashvars"
-                   value="cid=12803589&amp;locale=ru_RU&amp;sessionid=false&amp;autoplay=true&amp;enablejsapi=1&amp;sv=6">
-        </object>
-    {% endif %}
-
-
-
+        <p>Остров Инишмаан – одно из самых загадочнейших и священных мест в Ирландии, точка, где хранится древняя
+            культура и язык маленькой, но гордой страны, вечно борющейся с Англией за свою свободу. Возможно, поэтому
+            МакДонах сочинил для своего острова совершенно особенных жителей.<br>
+            Неспешный мир странных и смешных чудиков-инишманцев буквально взрывается, когда на остров приезжает
+            киносъемочная группа из Америки под предводительством Роберта Флаэрти, а вместе с этим и предчувствие
+            перемен. Инишманцев посещают призрачные и опасные мечты о Голливуде, вслед за которыми хочется уплыть всем.
+            Но получается это только у Калеки Билли.</p>
+    </div>
 {% endblock %}
