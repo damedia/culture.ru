@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]-->        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="/kids/objects/css/normalize.min.css">
+        <link rel="stylesheet" href="/kids/objects/css/main.css">
+        <link rel="stylesheet" href="/kids/objects/css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="/kids/objects/js/vendor/fancybox/jquery.fancybox.css">
+
+		
+        <script src="/kids/objects/js/vendor/modernizr-2.6.2.min.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/kids/objects/js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+
+    </head>
+    <body>
+    
+        <style type="text/css" media="screen">
+            .slides_container {
+                width:570px;
+                height:270px;
+            }
+            .slides_container div {
+                width:570px;
+                height:270px;
+                display:block;
+            }
+        </style>    
+      
+		<a href="#petergof_quiz" class="fancybox">Пройти тест</a>
+		
+		<div style="display: none;">
+			<div id="petergof_quiz">
+				<div class="slides_container">
+					<div class="slide">
+						Начало
+					</div>
+					<div class="slide">
+						<h2>Вопрос 1</h2>
+						<h3>Какое заморское растение Петр I лично впервые посадил на российской земле на Государевых огородах в Петергофе?</h3>
+						<ul class="answers">
+							<li>
+								<a href="#" valid="false">Апельсины</a>
+							</li>
+							<li>
+								<a href="#" valid="true">Картошку</a>
+							</li>
+							<li>
+								<a href="#" valid="false">Ананасы</a>
+							</li>
+						</ul>
+					</div>
+					<div class="slide">
+						<h2>Вопрос 2</h2>
+						<h3>Сколько статуй украшают Большой каскад фонтанов в Петергофе?</h3>
+						<ul class="answers">
+							<li>
+								<a href="#" valid="false">75</a>
+							</li>
+							<li>
+								<a href="#" valid="true">255</a>
+							</li>
+							<li>
+								<a href="#" valid="false">3</a>
+							</li>
+						</ul>						
+					</div>
+					<div class="slide">
+						<h2>Вопрос 3</h2>
+						<h3>Как вода поступает в фонтаны Петергофа?</h3>
+						<ul class="answers">
+							<li>
+								<a href="#" valid="false">Из прудов-резервуаров в Верхнем саду</a>
+							</li>
+							<li>
+								<a href="#" valid="false">Качается насосом из водопровода города Петергофа</a>
+							</li>
+							<li>
+								<a href="#" valid="true">Сама течет с Ропшинской возвышенности</a>
+							</li>
+						</ul>							
+					</div>
+					<div class="slide">
+						Конец
+					</div>										
+				</div>
+			</div>
+		</div>
+
+    
+       
+        
+        <script type="text/javascript" src="/kids/js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="/kids/js/jquery.mousewheel.js"></script>
+         <script src="/kids/objects/js/plugins.js"></script>
+        <script src="/kids/js/main.js"></script>
+        
+        <script src="/kids/objects/js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="/kids/objects/js/vendor/slides.min.jquery.js"></script>
+        
+        <script type="text/javascript">
+        	
+        	$(document).ready(function(){
+        		
+        		$('a.fancybox').fancybox();
+        		$('#petergof_quiz').slides({
+        			'generateNextPrev' : true,
+        			'generatePagination' : false,
+        			'slidesLoaded' : function() {
+        				hidePrev('petergof_quiz');
+        			},
+        			'animationComplete' : function() {
+        				
+        				showPrev('petergof_quiz');
+        				
+        				var listItem,
+        					index;
+        				
+        				$('#petergof_quiz .slide').each(function(){
+        					if ($(this).css('display') == 'block') 
+        						listItem = $(this);
+        				});
+        				
+        				index = $('#petergof_quiz .slide').index(listItem);
+        				
+        				if (index > 0) {
+        					hideNext('petergof_quiz');
+        					showPrev('petergof_quiz');
+        				}
+        				else {
+        					hidePrev('petergof_quiz');
+        					showNext('petergof_quiz');
+        				}
+        			}
+        		});
+        		
+     		   	$('.answers a').live('click', function(){
+     		   		
+     		   		if ($(this).attr('valid') == 'true')
+     		   			showNext('petergof_quiz');
+     		   			
+     		   		return false;
+     		   	});
+        		
+        		var quiz_questions = [
+        			{
+        				'title' : 'Какое заморское растение Петр I лично впервые посадил на российской земле на Государевых огородах в Петергофе?',
+        				'answers' : [
+        					{
+        						'title' : 'Апельсины',
+        						'valid' : false,
+        						'text'	: 'Это не так. Считается, что великий царь самолично посадил первые два мешка картошки, привезенные из Голландии, на Государевых огородах в Стрельне. '
+        					},
+        					{
+        						'title' : 'Картошку',
+        						'valid' : true,
+        						'text' 	: 'Считается, что великий царь самолично посадил первые два мешка картошки, привезенные из Голландии, на Государевых огородах в Стрельне. '        						
+        					},
+        					{
+        						'title' : 'Ананасы',
+        						'valid' : false,
+        						'text' 	: 'Это не так. Считается, что великий царь самолично посадил первые два мешка картошки, привезенные из Голландии, на Государевых огородах в Стрельне. '
+        					}
+        				]
+        			},
+        			{
+        				'title' : 'Сколько статуй украшают Большой каскад фонтанов в Петергофе?',
+        				'answers' : [
+        					{
+        						'title' : '75',
+        						'valid' : false,
+        						'text' 	: 'Это не так. Большой каскад, главное фонтанное сооружение Петергофа, украшен 255 бронзовыми статуями. Каскад также включает  75 фонтанов  и три водопадные лестницы.'
+        					},
+        					{
+        						'title' : '255',
+        						'valid' : true,
+        						'text' 	: 'Большой каскад, главное фонтанное сооружение Петергофа, украшен 255 бронзовыми статуями. Каскад также включает  75 фонтанов  и три водопадные лестницы.'
+        					},
+        					{
+        						'title' : '3',
+        						'valid' : false,
+        						'text' 	: 'Это не так. Большой каскад, главное фонтанное сооружение Петергофа, украшен 255 бронзовыми статуями. Каскад также включает  75 фонтанов  и три водопадные лестницы.'
+        					}        					        					
+        				]
+        			},
+        			{
+        				'title' : 'Как вода поступает в фонтаны Петергофа?',
+        				'answers' : [
+        					{
+        						'title' : 'Из прудов-резервуаров в Верхнем саду',
+        						'valid' : false,
+        						'text' 	: 'Это не так. Сначала хотели пустить воду из прудов-резервуаров. Но тогда фонтаны были бы не такими высокими и многочисленными. Сейчас вода в фонтанах Петергофа течет сверху вниз, с Ропшинской возвышенности, сама. Примерно так, как ты катишься с горки на санках. Эта система вот уже 300 лет питает фонтаны Петергофа по закону сообщающихся сосудов (спроси у взрослых, что это такое). Самый высокий фонтан, «Самсон», «выстреливает» струей воды в воздух на высоту семи этажей обычного дома!'
+        					},
+        					{
+        						'title' : 'Качается насосом из водопровода города Петергофа',
+        						'valid' : false,
+        						'text' 	: 'Это не так. Сначала хотели пустить воду из прудов-резервуаров. Но тогда фонтаны были бы не такими высокими и многочисленными. Сейчас вода в фонтанах Петергофа течет сверху вниз, с Ропшинской возвышенности, сама. Примерно так, как ты катишься с горки на санках. Эта система вот уже 300 лет питает фонтаны Петергофа по закону сообщающихся сосудов (спроси у взрослых, что это такое). Самый высокий фонтан, «Самсон», «выстреливает» струей воды в воздух на высоту семи этажей обычного дома!'
+        					},
+        					{
+        						'title' : 'Сама течет с Ропшинской возвышенности',
+        						'valid' : true,
+        						'text' 	: 'Сначала хотели пустить воду из прудов-резервуаров. Но тогда фонтаны были бы не такими высокими и многочисленными. Сейчас вода в фонтанах Петергофа течет сверху вниз, с Ропшинской возвышенности, сама. Примерно так, как ты катишься с горки на санках. Эта система вот уже 300 лет питает фонтаны Петергофа по закону сообщающихся сосудов (спроси у взрослых, что это такое). Самый высокий фонтан, «Самсон», «выстреливает» струей воды в воздух на высоту семи этажей обычного дома!'
+        					}        					        					
+        				]        				
+        			}
+        		
+        		];
+        	});
+        	
+        	function hideNext(context) {
+        		$('#' + context + ' .next').hide();
+        	}
+        	function hidePrev(context) {
+        		$('#' + context + ' .prev').hide();
+        	}        		
+        	function showNext(context) {
+        		$('#' + context + ' .next').show();
+        	}
+        	function showPrev(context) {
+        		$('#' + context + ' .prev').show();
+        	}     
+          	
+        </script>
+        
+    </body>
+</html>

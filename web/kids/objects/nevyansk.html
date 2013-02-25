@@ -8,11 +8,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <!--meta name="viewport" content="width=device-width"-->
+        <meta name="viewport" content="width=1420">
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
 		
 		
 		<link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
@@ -23,6 +25,8 @@
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]-->
 
     </head>
     <body>
@@ -38,19 +42,19 @@
             <nav>
            <img src="img/nevyansk/nev-top-menu.png" alt="" usemap="#Map">
            <map name="Map">
-             <area shape="rect" coords="94,54,389,140" href="#cult" alt="Культура России" title="Культура России"    />
+             <!--<area shape="rect" coords="94,54,389,140" href="#cult" alt="Культура России" title="Культура России"    />-->
             <area shape="rect" coords="435,152,512,222" href="#find10" alt="Найди отличия" title="Нацди отличия"    />
-            <area shape="rect" coords="560,28,631,98" href="#games" alt="Игры" title="Игры"    />
+            <area shape="rect" coords="560,28,631,98" href="#tests" alt="Проверь себя" title="Проверь себя"    />
             <area shape="rect" coords="572,259,678,329" href="../children.html" alt="Обратно на карту" title="Обратно на карту"    />
             <area shape="rect" coords="830,106,908,176" href="#puzzles" alt="Паззлы" title="Паззлы"    />
             <area shape="rect" coords="1071,85,1153,155" href="#quiz" alt="Загадки" title="Загадки"    />
-            <area shape="rect" coords="1212,188,1278,258" href="#tests" alt="Тесты" title="Тесты"    />
+            <area shape="rect" coords="1212,188,1278,258" href="#flugers" alt="Тесты" title="Тесты"    />
             <area shape="rect" coords="931,198,1081,268" href="#parents" alt="Родителям" title="Родителям"    />
             <!--<area shape="rect" coords="139,368,217,437" href="more" alt="Хочешь знать больше?" title="Хочешь знать больше?"    />-->
            </map>
         </nav>
         <div class="learn-more-link">
-            <a href="#">
+            <a href="#whant-more" class="fancybox">
                 Тогда почитай о Невьянской башне
             </a>
         </div>
@@ -85,8 +89,8 @@
 				</div>
 				<div class="puzzle-slider">
 					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/nev/2.jpg" width="320"  class="puzzle"/>
+						<div class="puzzle-setka-wrap-noresize">
+							<img src="img/nevyansk/nevyansk_puzzle.jpg" width="320"  class="puzzle"/>
 							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
 						</div>
 					</div>
@@ -115,40 +119,44 @@
                                 сильнее?
                             </p>
                         </div>
-                        <div class="choice-1-result" style="display:none;">
+                        <div class="choice-1-result invisible">
                             <img src="img/nevyansk/riddle-wrong.png" alt="" class="riddle-wrong" />
                             <p>
-                                Это не так.<br />
-                                Невьянская башня выше <br />знаменитой Пизанской,<br /> которая стоит в Италии,<br /> но итальянская клонится<br /> к земле сильнее. 
+                                 Это не так.<br />
+                                Хотя башня Сююмбике<br />
+                                и выше знаменитой Пизанской, находящейся в<br /> Италии, Пизанская клонится<br /> к земле сильнее.  
                             </p>
                         </div>
-                        <div class="choice-2-result"  style="display:none;">
+                        <div class="choice-2-result invisible">
                             <img src="img/nevyansk/riddle-right.png" alt="" class="riddle-right" />
                             <p>
                                 Пизанская башня,<br /> находящаяся в Италии, —<br /> самая наклонная из этих трех башен. Зато обе<br /> наши башни выше. 
                             </p>
                         </div>
-                        <div class="choice-3-result"  style="display:none;">
+                        <div class="choice-3-result invisible">
                             <img src="img/nevyansk/riddle-wrong.png" alt="" class="riddle-wrong" />
                             <p>
                                 Это не так.<br />
-                                Хотя башня Сююмбике<br />
-                                и выше знаменитой Пизанской, находящейся в<br /> Италии, Пизанская клонится<br /> к земле сильнее.  
+                                Невьянская башня выше <br />знаменитой Пизанской,<br /> которая стоит в Италии,<br /> но итальянская клонится<br /> к земле сильнее. 
+                               
                             </p>
                         </div>
                     </div>
                  </div>
             </article> 
 
-            <article class="case-6 clearfix">
+            <article class="case-6 clearfix" id="flugers">
                  <div class="choose-one  nev-riddle-2">
                     <div class="choose-panel">
-                        <div class="choice choice1">
-                            <img src="img/nevyansk/choose-one-2/1.png" id="choice-1" alt="" />
-                        </div><div class="choice choice2">
-                            <img src="img/nevyansk/choose-one-2/2.png"  id="choice-2" alt="" />
-                        </div><div class="choice choice3">
-                            <img src="img/nevyansk/choose-one-2/3.png"  id="choice-3" alt="" />
+                        <div class="choice choice1" style="height:227px; width:110px;">
+                            <img src="img/nevyansk/choose-one-2/1.png" id="choice-1" alt="" height="227" width="110">
+                            <img src="img/nevyansk/choose-one-2/1-active.png" class="visuallyhidden" id="choice-1-active" alt="" />
+                        </div><div class="choice choice2" style="height:249px; width:105px;">
+                            <img src="img/nevyansk/choose-one-2/2.png"  id="choice-2" alt="" height="249" width="105">
+                            <img src="img/nevyansk/choose-one-2/2-active.png" class="visuallyhidden" id="choice-2-active" alt="" />
+                        </div><div class="choice choice3" style="height:252px; width:122px;">
+                            <img src="img/nevyansk/choose-one-2/3.png"  id="choice-3" alt="" height="252" width="122">
+                            <img src="img/nevyansk/choose-one-2/3-active.png" class="visuallyhidden" id="choice-3-active" alt="" />
                         </div>
                         <div class="panel-line"></div>
                     </div>
@@ -159,28 +167,28 @@
                                 
                             </p>
                         </div>
-                        <div class="choice-1-result" style="display:none;">
+                        <div class="choice-1-result invisible">
                             <img src="img/nevyansk/riddle2-wrong.png" alt="" class="riddle-wrong" />
                             <p>
                                Петух издавна является самым популярным флюгером. Ему приписываются магические свойства: считается, что он охраняет хозяев дома от напастей.  Однако на Невьянской башне установлен другой флюгер — флаг с гербом семьи Демидовых. 
                             </p>
                         </div>
-                        <div class="choice-2-result"  style="display:none;">
-                            <img src="img/nevyansk/riddle2-right.png" alt="" class="riddle-right" />
+                        <div class="choice-2-result invisible">
+                            <img src="img/nevyansk/riddle2-wrong.png" alt="" class="riddle-right" />
+                            <p>
+                                Фигурка Георгия-победоносца украшает флюгер на крыше Летнего Дворца Петра I 
+                                в Санкт-Петербурге. Этот флюгер показывает не только направление, но и силу ветра.  Однако на Невьянской башне установлен другой флюгер — флаг с гербом семьи Демидовых. 
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/nevyansk/riddle2-right.png" alt="" class="riddle-wrong" />
                             <p>
                                 Действительно, Невьянская башня увенчана флюгером в виде флага 
                                 с гербом семьи Демидовых. Издали флаг кажется маленьким,
                                 но на самом деле его длина — 
                                 127 сантиметров, а вес — 
-                                25 килограммов. Это размеры среднего мальчика-первоклассника.       
-                            </p>
-                        </div>
-                        <div class="choice-3-result"  style="display:none;">
-                            <img src="img/nevyansk/riddle2-wrong.png" alt="" class="riddle-wrong" />
-                            <p>
-                                Фигурка Георгия-победоносца украшает флюгер на крыше Летнего Дворца Петра I 
-                                в Санкт-Петербурге. Этот флюгер показывает не только направление, но и силу ветра.  Однако 
-                                на Невьянской башне установлен другой флюгер — флаг с гербом семьи Демидовых. 
+                                25 килограммов. Это размеры среднего мальчика-первоклассника.   
+                                 
                             </p>
                         </div>
                     </div>
@@ -190,7 +198,7 @@
             <article class="case-7 clearfix" id="tests">
                 <div class="test-yourself">
                     <img src="img/nevyansk/test.png" alt="" class="test-sign" />
-                    <a href="#" class="test-link" >
+                    <a data-fancybox-type="iframe" data-fancybox-width="960" data-fancybox-height="580" href="nevyansk-quiz.html" class="test-link fancybox-inframe" >
                         Пройди тест 
                         и узнай все тайны
                         Невьянской башни! 
@@ -201,31 +209,34 @@
             
             
             <article class="case-8 clearfix" id="find10">
+                    <img src="img/nevyansk/ten-defferences.png" alt="" class="compare-sign">
                 <div class="compare">
-                    <img src="img/nevyansk/ten-defferences.png" alt="" class="compare-sign" />
-                    <div class="compare-images clearfix">
+                    
+                    <div class="compare-images">
                         <div class="compare-image compare-image-1">
-                            <img src="img/nevyansk/compare/1.jpg" alt="" />
+                            <img src="img/nevyansk/compare/1.jpg" alt="" width="346" height="523">
                             <div class="hidden-parts">
-                                <div class="star inv"></div> 
-                                <div class="plane inv"></div> 
-                                <div class="bird inv"></div> 
-                                <div class="sobor inv"></div> 
+                                <div class="star inv"><img src="img/blank.png" width="9" height="12"></div> 
+                                <div class="plane inv"><img src="img/blank.png" width="40" height="20"></div> 
+                                <div class="bird inv"><img src="img/blank.png" width="12" height="22"></div> 
+                                <div class="sobor inv"><img src="img/blank.png" width="43" height="121"></div> 
+
                             </div>
                         </div>
                         <div class="compare-image compare-image-2">
-                            <img src="img/nevyansk/compare/2.jpg" alt="" />
+                            <img src="img/nevyansk/compare/2.jpg" alt=""  width="346" height="523">
                             <div class="hidden-parts">
-                                <div class="person inv"></div> 
-                                <div class="windows inv"></div> 
-                                <div class="cat inv"></div> 
-                                <div class="roof inv"></div> 
-                                <div class="flower inv"></div> 
-                                <div class="bike inv"></div> 
+                                <div class="person inv"><img src="img/blank.png" width="23" height="36"></div> 
+                                <div class="windows inv"><img src="img/blank.png" width="57" height="44"></div> 
+                                <div class="cat inv"><img src="img/blank.png" width="25" height="23"></div> 
+                                <div class="roof inv"><img src="img/blank.png" width="183" height="104"></div> 
+                                <div class="flower inv"><img src="img/blank.png" width="27" height="50"></div> 
+                                <div class="bike inv"><img src="img/blank.png" width="42" height="41"></div> 
                                 
                             </div>
                         </div>
                     </div>
+                    <div class="compare-found">Найдено <span  id="compare-found">0</span> <span class="compare-otl">отличий</span></div>
                 </div>
             </article>
             
@@ -234,17 +245,17 @@
         </div><!-- //content-->
 
         <nav class="footer-menu">
-            <img src="img/child-footer-menu.png" alt="" usemap="#Map2">
-            <map name="Map2">
-              <area shape="rect" coords="8,116,186,240" href="astrahan.html">
-              <area shape="rect" coords="217,133,381,245" href="arkaim.html">
-              <area shape="rect" coords="329,2,498,125" href="index.html">
-              <area shape="rect" coords="852,21,1023,198" href="#state">
-              <area shape="rect" coords="1015,223,1189,350" href="#5">
-              <area shape="rect" coords="891,383,1070,569" href="dazan.html">
-              <area shape="rect" coords="289,278,476,431" href="rodina.html">
-            </map>
-        </nav>
+          <img src="img/nevyansk/child-footer-menu.png" alt="" width="1201" height="671" usemap="#Map2">
+            <map name="Map2"><area shape="rect" coords="326,107,495,230" href="index.html">
+              <area shape="rect" coords="-1,224,177,348" href="astrahan.html">
+              <area shape="rect" coords="207,234,371,346" href="arkaim.html">
+              <area shape="rect" coords="4,5,173,128" href="../children.html">
+              <area shape="rect" coords="847,138,1018,315" href="#state">
+              <area shape="rect" coords="1021,338,1195,465" href="petergof.html">
+              <area shape="rect" coords="899,482,1078,668" href="dazan.html">
+              <area shape="rect" coords="284,377,471,530" href="rodina.html">
+          </map>
+      </nav>
     </div><!-- //state kremlin-->
 
 </div> <!-- //state-wrapper-->
@@ -305,7 +316,7 @@
 		<!-- CONGRATULATION -->
 		<div id="congrat" class="hide">
 		    <h1>Поздравляем!</h1>
-		    <h2>Вы собрали пазл!</h2>
+		    <p>Невьянск был основан по указу Петра I (на памятнике - слева) в 1701 году. В 1702 железные заводы, ради которых создали Невьянск, были переданы в собственность Никите Демидову, основателю знаменитой династии Демидовых. Памятник основателям города поставлен рядом с Невьянской башней.</p>
 		    <h3><span id="time"></span></h3>
 		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
 		        <label>
@@ -327,8 +338,11 @@
 		        </li>
 		        
 		        <li>
-					Для поворота элемента, используйте стрелки налево/направо или правую кнопку мыши.
+					Для того что бы начать заново, используйте кнопку «Перемешать».
 				</li>
+                <li>
+                    Используйте подсказку.
+                </li>
 		
 		        <li>Переключайтесь между центральными и боковыми элементами:<br>
 		            <img src="js/canvas-puzzle/images/toggle.png"/>
@@ -347,7 +361,7 @@
 		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
 		<script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
 		<script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="/static/children/puzzle/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
 		<script>
 		
 		$(document).ready(function(){
@@ -365,10 +379,11 @@
 		
 		
 			var jsaw = new jigsaw.Jigsaw({
-		        defaultImage: "images/1.jpg",
+		        defaultImage: "img/nevyansk/nevyansk_puzzle.jpg",
 		        piecesNumberTmpl: "%d элементов",
 		        redirect: null,
-		        shuffled: true        
+		        shuffled: true,
+                rotatePieces: false      
 		    });			
 			
 			$('img.puzzle-setka').click(function(){
@@ -399,9 +414,10 @@
 		})
 		</script>
 	</div>
-    <div class="overlay" style="display:none;"></div>
-        <div class="window" style="visibility:hidden;">
-            <a href="#" class="close"></a>
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="whant-more want-more-nevyansk" id="whant-more">
+            <div class="whant-more-container">
+            <a href="http://culture.ru/atlas/object/743" class="main-site-link" title="Узнать больше"></a>
             <div class="window-text scroll-pane">
                 <p>
                 В городе Невьянск возвышается очень необычная башня — наклонная. Так ее называют потому, что она отклоняется от вертикали на целых 1,8 метра! В таком удивительном положении башня стоит уже почти три столетия (ее построили в начале 18 века), но до сих пор никто не может разгадать ее загадку.
@@ -426,12 +442,50 @@
 </p>
             </div>
         </div>
+    </div>
+    </div>
+         
 
-    
-       
+       <!--div id="print-content">
+        <img src="img/nevyansk/quiz/sertifikat.png"  alt="" />
+        <div class="winner-name">Имя Фамилия</div>
+       </div-->
         
-        <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+ <!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet-->
+
+<!-- Rating@Mail.ru counter -->
+<script type="text/javascript">//<![CDATA[
+(function(w,n,d,r,s){(new Image).src='http://d0.c8.b2.a2.top.mail.ru/counter?id=2261026;js=13'+
+((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random();})(window,navigator,document);//]]>
+</script><noscript><div style="position:absolute;left:-10000px;"><img src="http://d0.c8.b2.a2.top.mail.ru/counter?id=2261026;js=na" 
+style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" /></div></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-310467-9']);
+    _gaq.push(['_setDomainName', 'culture.ru']);
+    _gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+        
+          <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
         <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+        <script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="js/vendor/slides.min.jquery.js"></script>
+        <script src="js/vendor/cufon-yui.js"></script>
+        <script src="js/adventure_400.font.js"></script>            
+        <script src="js/quiz.js"></script>
          <script src="js/plugins.js"></script>
         <script src="../js/main.js"></script>
     </body>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]--> 
+<meta name="description" content="">
+<!--meta name="viewport" content="width=device-width"-->
+<meta name="viewport" content="width=1400">
+<link rel="stylesheet" href="css/normalize.min.css">
+
+<link rel="stylesheet" href="css/jquery.jscrollpane.css">
+<link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css"> 
+
+
+    
+    <link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="js/canvas-puzzle/css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="js/canvas-puzzle/css/buttons.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/symbols.css">
+<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+<div class="state-wrapper" id="state">
+<div class="state symbol">
+<section class="main-menu">
+<nav>
+<img src="img/symbol/top-menu.png" alt="" usemap="#Map">
+<map name="Map">
+<area shape="rect" coords="94,54,389,140" href="#cult" alt="Культура России" title="Культура России" />
+<area shape="rect" coords="1292,33,1369,103" href="#label-gerb" alt="Герб" title="Герб" />
+<area shape="rect" coords="595,156,910,227" href="../children.html" alt="Обратно на карту" title="Обратно на карту"    />
+<area shape="rect" coords="1176,263,1242,333" href="#label-flag" alt="Флаг" title="Флаг" />
+<area shape="rect" coords="948,182,1034,253" href="#label-gimn" alt="Гимн" title="Гимн"    />
+<!--<area shape="rect" coords="139,368,217,437" href="more" alt="Хочешь знать больше?" title="Хочешь знать больше?"    />-->
+</map>
+</nav>
+</section>
+
+<div class="content">
+<div id="label-puzzles"></div>
+<article class="case-1 clearfix">
+
+  <div class="raduga block">
+<img src="img/symbol/map-raduga.png" width="750" height="490"> </div>
+
+<div class="text block">
+<p>Государственные символы&nbsp;— это особые отличительные знаки государства. </p>
+<p>У&nbsp;каждой страны они свои, установленные Конституцией или специальным законом. </p>
+<p>Государственные символы России&nbsp;— гимн, герб, флаг. </p>
+<p><img src="img/symbol/3flags.png" width="386" height="111"></p>
+<p>В&nbsp;некоторых странах государственным символом также может быть девиз страны, столица или государственная печать.<br>
+</p>
+</div>
+
+
+        
+
+
+</article> 
+
+<div id="label-gerb"></div>
+<article class="case-2 clearfix">
+
+<div class="big-gerb block">
+<img src="img/symbol/big-gerb.png" width="367" height="436"> </div>
+
+<div class="content block">
+<div class="head">
+<img src="img/symbol/gerb-txt.png" width="210" height="134">
+<a href="#gerb-popup" class="fancybox"><img src="img/symbol/gerb-btn.png" width="144" height="134"></a></a></div>
+
+<div class="text">
+<p>Российский герб очень красивый&nbsp;— двуглавый золотой орел на&nbsp;красном геральдическом щите. На&nbsp;головах орла&nbsp;— короны, и&nbsp;еще одна, побольше, сверху. </p>
+<p>На&nbsp;груди орла щит, на&nbsp;котором изображен Святой Георгий Победоносец, победивший дракона копьем. В&nbsp;лапах орел держит символы российской власти&nbsp;— скипетр и&nbsp;державу. </p>
+<p>Скипетр&nbsp;— это жезл, а&nbsp;держава&nbsp;— шар с&nbsp;крестом, их&nbsp;раньше держал в&nbsp;руках русский царь. Святого Георгия Победоносца ты&nbsp;наверняка видел на&nbsp;гербе Москвы. <br>
+А&nbsp;три короны, изображенные на&nbsp;гербе, принадлежат Петру&nbsp;I.</p>
+<p>Попроси маму показать тебе паспорт&nbsp;— самый главный документ каждого россиянина. На&nbsp;обложке паспорта изображен герб нашей страны. Его также печатают на&nbsp;всех самых важных государственных документах и&nbsp;указах. Есть герб и&nbsp;на&nbsp;деньгах.<br>
+</p>
+</div>
+
+</div>
+
+</article>
+<div id="label-flag"></div>
+<article class="case-3 clearfix">
+
+<div class="content block">
+<div class="head">
+<a href="#flag-popup" class="fancybox"><img src="img/symbol/flag-btn.png" width="132" height="160"></a></a>
+<img src="img/symbol/flag-txt.png" width="157" height="160">
+</div>
+
+<div class="text">
+<p>Ты, конечно, узнаешь российский флаг, когда увидишь его. </p>
+<p>На&nbsp;нем три горизонтальные полосы&nbsp;— белая (верхняя), синяя (средняя) и&nbsp;красная (нижняя). Его еще называют триколором, потому что флаг состоит из&nbsp;трех цветных полос. </p>
+<p>Триколоры реют на&nbsp;крышах и&nbsp;у&nbsp;входов во&nbsp;все учреждения органов власти в&nbsp;нашей стране. Также российские флаги обязательно есть во&nbsp;всех представительствах России в&nbsp;разных странах, на&nbsp;всех кораблях и&nbsp;судах. </p>
+<p>Главный государственный флаг размером 3&nbsp;на 4,5 метра развевается над Кремлем. Примерно раз в&nbsp;месяц или полтора его заменяют, потому что на&nbsp;ветру флаги начинают портиться, рваться. На&nbsp;флаги для органов власти в&nbsp;нашей стране в&nbsp;год уходит 450 километров ткани! </p>
+<p>День российского флага отмечают 22&nbsp;августа. Ты&nbsp;тоже можешь отпраздновать его, вывесив маленький флажок за&nbsp;окно. <br>
+</p>
+
+</div>
+
+</div>
+<div class="big-flag block">
+<img src="img/symbol/flag-big.png" width="439" height="295">
+</div>
+
+</article> 
+<div id="label-gimn"></div>
+<article class="case-4 clearfix" id="counts">
+<div class="big-gimn block">
+<img src="img/symbol/music.png" width="490" height="454"> </div>
+
+<div class="content block">
+<div class="head">
+<img src="img/symbol/gimn-txt.png" width="230" height="143">
+<a href="#gimn-popup" class="fancybox"><img src="img/symbol/gimn-btn-1.png" width="132" height="160"></a><a href="#gimn-text-popup" class="fancybox"><img src="img/symbol/gimn-btn-2.png" width="118" height="143"></a></div>
+
+<div class="text">
+<p>Государственный гимн&nbsp;— это самая главная торжественная песня о&nbsp;Родине. </p>
+<p>Ты&nbsp;наверняка слышал его в&nbsp;новогоднюю ночь, после поздравления Президента, и&nbsp;видел, как наши спортсмены поют гимн перед началом спортивного матча или когда получают медали за&nbsp;победу. Гимн каждый день исполняют по&nbsp;радио и&nbsp;телевидению&nbsp;— в&nbsp;6&nbsp;утра и&nbsp;в&nbsp;полночь. </p>
+<p>Также гимн обязательно звучит на&nbsp;Параде Победы 9&nbsp;мая на&nbsp;Красной Площади и&nbsp;во&nbsp;время взрослых официальных событий. Например, если к&nbsp;нашему Президенту приезжает Президент другой страны, чтобы поговорить о&nbsp;важных государственных делах.</p>
+<p>Гимн нужно обязательно выучить&nbsp;— ты&nbsp;же любишь свою Родину и&nbsp;гордишься&nbsp;ею. Поют гимн стоя, причем мальчики, папы и&nbsp;дедушки снимают шапки, кепки, шляпы в&nbsp;знак уважения. Если гимн исполняется при поднятии флага России, нужно обязательно повернуться к&nbsp;флагу лицом.</p>
+</div>
+
+</div>
+</article> 
+
+</div><!-- //content-->
+
+<nav class="footer-menu clearfix">
+<a href="../children.html"><img src="img/symbol/back-to-map.png" width="201" height="43"></a>
+<a href="#top"><img src="img/symbol/intop.png" width="180" height="43"></a>
+</nav>
+
+</div><!-- //state kremlin-->
+
+</div> <!-- //state-wrapper-->
+
+
+
+  
+<div style="visibility:hidden" class="fancy-hide">
+<div class="gerb whant-more" id="gerb-popup">
+<div class="whant-more-container">
+
+
+<div class="window-text scroll-pane">
+
+<p class="l"><img src="img/symbol/img-gerb-1.png" width="105" height="104"><span>В&nbsp;давние времена русские князья использовали личные печати, которые ставили на&nbsp;княжеских указах. Обычно на&nbsp;такой печати был изображен святой&nbsp;— покровитель князя.</span></p>
+
+<p class="r"><span>Затем на&nbsp;печатях стала появляться фигурка вооруженного всадника&nbsp;— символ князя. Иногда этот всадник побеждал змея&nbsp;— символ зла. В&nbsp;ту&nbsp;пору, когда Московский князь стал править не&nbsp;только Московским княжеством, но&nbsp;и&nbsp;всей Россией, этот всадник, поражающий змея копьем, стал важным символом государства.</span><img src="img/symbol/img-gerb-2.png" width="105" height="104"></p>
+
+<p class="l"><img src="img/symbol/img-gerb-3.png" width="105" height="104"><span>Двуглавый орел впервые появился на&nbsp;печати царя Ивана III&nbsp;в 1497&nbsp;году. Печать тогда была двухсторонней: с&nbsp;одной стороны&nbsp;— Георгий Победоносец, а&nbsp;с&nbsp;другой&nbsp;— орел.</span></p>
+
+<p class="r"><span>Первый раз всадника изобразили на&nbsp;груди орла на&nbsp;печати Ивана Грозного в&nbsp;1562&nbsp;году. В&nbsp;ту&nbsp;пору на&nbsp;некоторых царских печатях вместо всадников изображали единорогов. Менялись и&nbsp;другие детали: некоторые гербы изображались со&nbsp;скипетром и&nbsp;державой, некоторые&nbsp;— без. Менялось и&nbsp;количество корон, почти каждый правитель России что-то менял на&nbsp;гербе. Окончательно внешний вид герба был утвержден только в&nbsp;1882 году Александром III.</span><img src="img/symbol/img-gerb-4.png" width="105" height="104"></p>
+
+<p class="l"><img src="img/symbol/img-gerb-5.png" width="105" height="107"><span>После Октябрьской революции 1917 года на&nbsp;смену двуглавому орлу пришел герб Союза Советских Социалистических Республик&nbsp;— земной шар с&nbsp;серпом и&nbsp;молотом, увитый колосьями. Этот герб означал, что в&nbsp;стране произошли большие перемены.</span></p>
+
+<p class="r"><span><strong>В&nbsp;1993 году двуглавый орел, который многие века был гербом России, вернулся. С&nbsp;того момента он&nbsp;стал одним из&nbsp;главных государственных символов России&nbsp;— вместе с&nbsp;флагом и&nbsp;гимном.</strong></span><img src="img/symbol/img-gerb-6.png" width="166" height="199"></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div style="visibility:hidden" class="fancy-hide">
+<div class="flag whant-more" id="flag-popup">
+<div class="whant-more-container">
+
+
+<div class="window-text scroll-pane">
+
+
+<p class="r"><span>Первым триколор в&nbsp;качестве флага использовал Петр I&nbsp;в 1693&nbsp;году. Тогда на&nbsp;фоне бело-сине-красного цвета был изображен золотой двуглавый орел. Петр Великий называл его «флагом царя Московского». Позже Петр велел сделать триколор флагом для торговых судов. Сохранился даже рисунок флага, сделанный царем.</span><img src="img/symbol/img-flag-1.png" width="179" height="119"></p>
+
+<p class="l"><img src="img/symbol/img-flag-2.png" width="179" height="119"><span>В&nbsp;1858 году официальным флагом России стал другой триколор&nbsp;— черно-желто-белый, по&nbsp;указу императора Александра II. Однако накануне коронации другого императора, Александра III, в&nbsp;1883&nbsp;году, государственным флагом России стал бело-сине-красный флаг, который император назвал «исключительно русским». Споры о&nbsp;том, какой триколор правильнее, не&nbsp;утихали вплоть до&nbsp;революции, и&nbsp;какое-то время использовались оба флага.</span></p>
+
+<p class="r"><span>После Октябрьской революции 1917 года флаг нашей страны «покраснел». Союз Советских Социалистических Республик (так называлось наше государство в&nbsp;ту&nbsp;пору) провозгласил своим флагом красное полотнище с&nbsp;золотым серпом и&nbsp;молотом и&nbsp;красной звездой.</span><img src="img/symbol/img-flag-3.png" width="179" height="119"></p>
+
+<p class="l"><img src="img/symbol/img-flag-4.png" width="233" height="155"><span style="width:280px;"><strong>А&nbsp;в&nbsp;1991 году бело-сине-красный триколор вернулся и&nbsp;вновь стал государственным флагом России.</strong></span></p>
+</div>
+</div>
+</div>
+</div> 
+
+<div style="visibility:hidden" class="fancy-hide">
+<div class="gimn-text whant-more" id="gimn-text-popup">
+<div class="whant-more-container">
+
+
+<div class="window-text scroll-pane">
+
+<p>Россия&nbsp;— священная наша держава,<br/>
+Россия&nbsp;— любимая наша страна.<br/>
+Могучая воля, великая слава —<br/>
+Твое достоянье на&nbsp;все времена! 
+</p>
+<p>Славься, Отечество наше свободное,<br/>
+Братских народов союз вековой,<br/>
+Предками данная мудрость народная!<br/>
+Славься, страна! Мы&nbsp;гордимся тобой! 
+</p>
+<p>От&nbsp;южных морей до&nbsp;полярного края<br/>
+Раскинулись наши леса и&nbsp;поля.<br/>
+Одна ты&nbsp;на&nbsp;свете! Одна ты&nbsp;такая —<br/>
+Хранимая Богом родная земля! 
+</p>
+<p>Славься, Отечество наше свободное,<br/>
+Братских народов союз вековой,<br/>
+Предками данная мудрость народная!<br/>
+Славься, страна! Мы&nbsp;гордимся тобой! 
+</p>
+<p>Широкий простор для мечты и&nbsp;для жизни<br/>
+Грядущие нам открывают года.<br/>
+Нам силу дает наша верность Отчизне.<br/>
+Так было, так есть и&nbsp;так будет всегда! 
+</p>
+<p>Славься, Отечество наше свободное,<br/>
+Братских народов союз вековой,<br/>
+Предками данная мудрость народная!<br/>
+Славься, страна! Мы&nbsp;гордимся тобой! 
+</p>
+
+
+</div>
+</div>
+</div>
+</div> 
+
+
+
+
+
+<div style="visibility:hidden" class="fancy-hide">
+<div class="gimn whant-more" id="gimn-popup">
+<div class="whant-more-container">
+
+
+<div class="window-text scroll-pane">
+
+<p>До&nbsp;1816 года у&nbsp;России не&nbsp;было официального государственного гимна. </p>
+<p>Вместо него исполнялись церковные песнопения или военные марши.</p>
+<p>В&nbsp;1791 году поэт Гавриил Державин и&nbsp;композитор Осип Козловский создали первый неофициальный гимн нашей страны. Марш «Гром победы, раздавайся» был написан в&nbsp;честь взятия нашей армией турецкой крепости Измаил. </p>
+<p>В&nbsp;1815 году поэт Василий Жуковский написал стихотворение «Молитва русского народа». </p>
+<p>В&nbsp;1816 году император Александр I&nbsp;одобрил стихи Жуковского в&nbsp;качестве первого официального гимна России. Гимн назывался «Молитва русских» </p>
+<p>и&nbsp;исполнялся на&nbsp;музыку английского гимна «Боже, храни короля». </p>
+<p>При императоре Николае I&nbsp;было решено изменить музыку. В&nbsp;1833 году композитор Алексей Львов написал другую мелодию, а&nbsp;Василий Жуковский изменил свое стихотворение, чтобы оно подходило к&nbsp;новой мелодии. Так появился гимн «Боже, царя храни». </p>
+<p>В&nbsp;1917&nbsp;году, после Февральской революции, гимном России стала «Рабочая Марсельеза», которую исполняли на&nbsp;мотив французского гимна, «Марсельезы». Эту песню не&nbsp;переводили с&nbsp;французского языка, поэт Петр Лавров написал новый, русский текст. Композитор Александр Глазунов доработал музыку француза Клода Жозефа Руже де&nbsp;Лиля. </p>
+<p>Но&nbsp;вскоре гимн снова сменился. В&nbsp;1918&nbsp;году, уже после Октябрьской революции 1917&nbsp;года, главной песней нашей страны стал «Интернационал». Эту песню написали французы Эжен Потье и&nbsp;Пьер Дегейтер. На&nbsp;русский язык «Интернационал» перевел поэт Аркадий Коц.</p>
+<p>В&nbsp;1944&nbsp;году, во&nbsp;время Великой Отечественной Войны, в&nbsp;честь великой победы под Сталинградом, прозвучал новый гимн. Музыку к&nbsp;нему написал композитор Александр Александров, а&nbsp;слова&nbsp;— Сергей Михалков и&nbsp;Габриэль Эль-Регистан. </p>
+<p>С&nbsp;1956 по&nbsp;1977 год исполнялась только музыка этого гимна, без слов, потому что ситуация в&nbsp;стране изменилась, и&nbsp;песня уже не&nbsp;подходила к&nbsp;ней. В&nbsp;1977 году Сергей Михалков изменил слова гимна, и&nbsp;его снова стали петь. </p>
+<p>В&nbsp;1991 году ситуация в&nbsp;России снова изменилась, и&nbsp;старый гимн совсем ей&nbsp;не&nbsp;соответствовал. В&nbsp;качестве гимна стали использовать «Патриотическую песню» композитора Михаила Глинки без слов. </p>
+<p>А&nbsp;в&nbsp;2001 году гимн на&nbsp;музыку Александра Александрова вернулся и&nbsp;стал главной песней страны. Сергей Михалков еще раз изменил слова, чтобы гимн стал символом новой России 21&nbsp;века. </p>
+</div>
+</div>
+</div>
+</div> 
+
+
+
+
+<script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+<script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+<script src="js/vendor/slides.min.jquery.js"></script>
+<script src="js/vendor/cufon-yui.js"></script>
+<script src="js/adventure_400.font.js"></script> 
+<script src="js/quiz.js"></script>
+<script src="js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+
+<!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet-->
+
+<!-- Rating@Mail.ru counter -->
+<script type="text/javascript">//<![CDATA[
+(function(w,n,d,r,s){(new Image).src='http://d0.c8.b2.a2.top.mail.ru/counter?id=2261026;js=13'+
+((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random();})(window,navigator,document);//]]>
+</script><noscript><div style="position:absolute;left:-10000px;"><img src="http://d0.c8.b2.a2.top.mail.ru/counter?id=2261026;js=na" 
+style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" /></div></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-310467-9']);
+    _gaq.push(['_setDomainName', 'culture.ru']);
+    _gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+</body>
+</html>
