@@ -1,5 +1,5 @@
 html, body {
-    font-family: Helvetica, Arial, sans-serif;
+   
     width: 100%;
     height: 100%;
     /*overflow: hidden;*/
@@ -30,19 +30,25 @@ div#canvas-wrap {
 
 canvas#canvas, canvas#buffer, canvas#image-preview {
     position: absolute;
-    top: 45px;
+    /*top: 45px;*/
+    padding-bottom: 45px;
     left: 0;
 }
 
+#image-preview {
+    padding: 0;
+    top: 45px;
+ }
+
 canvas#canvas {  background: #333;}
 
-canvas#canvas.loading { background:#333 url(../images/loader.gif) no-repeat center; }
+canvas#canvas.loading { /*background:#333 url(../images/loader.gif) no-repeat center; */}
 
 canvas#buffer { z-index: 70; }
 
 canvas#image-preview.show {
     left: 50%;
-    opacity: .5;
+   /* opacity: .5;*/
     z-index: 40;
 }
 

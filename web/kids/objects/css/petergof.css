@@ -1,0 +1,99 @@
+.petergof .decor {
+	margin:0;
+}
+
+.petergof .main-site-link {
+	left:400px;
+	top: 90px;
+	width: 360px;
+}
+
+.petergof .learn-more-link a {
+	outline: none;
+}
+
+.petergof .whant-more {
+	/*width: 963px;
+	position: relative;
+	height: 580px*/
+}
+
+.petergof whant-more-container {
+	width: 963px;
+	position: relative;
+	height: 580px
+	}
+
+	.petergof .whant-more-container {
+		background: url("../img/petergof/window_bg.jpg") no-repeat scroll 0 0 transparent;
+	}
+
+.content {
+	position: relative;
+}
+
+#label-puzzles,
+#label-quiz,
+#label-zadachi,
+#label-counts,
+#label-tests {
+	position: absolute;
+}
+
+.petergof #label-puzzles  {
+	top:-50px;
+}
+
+
+
+.petergof #label-quiz {
+	top:580px;
+}
+
+.petergof #label-tests {
+	top:580px;
+}
+
+.petergof #label-counts {
+	top:1480px;
+}
+
+
+
+.quiz-content .answers { 
+	text-transform: uppercase;
+}
+
+	.quiz-content .answers .description {
+		text-transform: none;
+	}
+
+
+	.quiz-content .q-case-3 .description div {
+		width: 310px;
+
+	}
+
+		.quiz-content .q-case-3 .description p {
+			font-size: 14px;
+		}
+
+
+.petergof .winner-name {
+	top: 295px;
+	left: 300px;
+	width: 350px;
+	text-align: center;
+}
+
+
+
+
+.choice-result div {
+	width: auto;
+}
+
+.petergof.whant-more .window-text {
+	top: 200px;
+	height: 250px;
+}

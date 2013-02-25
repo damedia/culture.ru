@@ -5,13 +5,31 @@ html, body, div, p, h1,h2,h3,h4,h5,img,ul {
 }
 body {
 	font:13px Arial, Helvetica, sans-serif;
+	background: url(../img/bg-map.png);
 }
+
+a img {
+	border: none;
+}
+
+
+
 
 .map {
 	width:1280px;  
 	margin:auto; 
 	position:relative;
+	z-index: 1;
 }
+
+	.top-links {
+		position: absolute;
+		width: 1280px;
+		height: 200px;
+		left: 0;
+		top: 0;
+		z-index: 5000;
+	}
 
 	.back-link {
 		position:absolute;
@@ -20,14 +38,33 @@ body {
 		width:100px;
 		height:90px;
 		display:block;
-		z-index:100;		
+		z-index:5010;		
 	}
 		.back-link img {
 			width:100px;
-			display:none;
+			
 		}
-		.back-link:hover img {
-			display:block;
+
+		.back-link img,
+		.symb-link img,
+		.feedback-link img {
+			display: none;
+		}
+
+		
+		.back-link:hover img,
+		.symb-link:hover img,
+		.feedback-link:hover img {
+			display: block;
+		}
+
+		img.ie-dum {
+			display: block !important;
+		}
+
+
+		a:hover img.ie-dum {
+			display: none !important;
 		}
 		
 		
@@ -38,15 +75,15 @@ body {
 		width: 100px;
 		height: 90px;
 		display: block;
-		z-index: 100;	
+		z-index: 5010;
 	}
 		.symb-link img {
 			width: 111px;
-			display:none;
+		
 			
 		}
 		.symb-link:hover img {
-			display:block;
+			
 		}		
 	
 	.feedback-link {
@@ -56,16 +93,17 @@ body {
 		width: 100px;
 		height: 90px;
 		display: block;
-		z-index: 100;	
+		z-index: 5020;	
 	}
 		.feedback-link img {
 			width: 107px;
-			display:none;
+			
 		}
-		.feedback-link:hover img {
-			display:block;
-		}	
-		
+	
+.lt-ie9  #image {
+	z-index: -1;
+	position: relative;
+}
 
 	.objects {
 		width:100%;
@@ -75,10 +113,19 @@ body {
 		left:0;
 	}
 
+	.lt-ie9 .objects {
+		z-index: 10;
+	/*	height: 600px;
+		top: 200px;*/
+	}
+
 .point {
 	position:absolute;
 	cursor:pointer;
 }
+
+	.point a { outline: none; }
+
 .point .current {
 		display:none;
 	}
@@ -223,8 +270,8 @@ body {
 			}
 	
 	.nev {
-		top: 495px;
-		left: 491px;
+		top: 390px;
+		left: 410px;
 		
 	}
 		.nev img {
@@ -237,7 +284,16 @@ body {
 				width:104px;
 			}
 				
+	
+	.krasnoyarsk {
+		top: 550px;
+		left: 550px;
 		
+	}
+
+		.krasnoyarsk .lenta {
+				bottom: -8px;
+			}
 	
 	
 	
@@ -340,4 +396,7 @@ body {
 			width: 210px;
 		}
 	
-	
+.objects {	
+	-webkit-box-shadow: 5px 5px 10px 00px rgba(0, 0, 0, 0.5);
+	box-shadow: 5px 5px 10px 00px rgba(0, 0, 0, 0.5);
+}

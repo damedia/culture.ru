@@ -7,11 +7,17 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]--> 
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-
+        <!--meta name="viewport" content="width=device-width"-->
+<meta name="viewport" content="width=1412">
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/petergof.css">
+        <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
+      
+
 		
 		<link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
 		<link rel="stylesheet" href="js/canvas-puzzle/css/style.css" type="text/css" charset="utf-8" />
@@ -34,112 +40,209 @@
 
         <section class="main-menu">
             <nav>
-           <img src="img/child-main-menu.png" alt="" usemap="#Map">
+           <img src="img/petergof/petergof-top-menu1.png" alt="" width="1400" height="556" usemap="#Map">
            <map name="Map">
-             <area shape="rect" coords="28,56,364,155" href="#9">
-              <area shape="circle" coords="100,229,36" href="../children.html">
-             <area shape="poly" coords="311,196,330,196,331,211,336,213,342,217,345,219,348,221,351,222,355,223,358,224,361,224,364,223,367,222,370,221,373,219,376,217,377,215,379,214,380,213,382,209,383,206,383,201,384,199,385,196,404,195,403,183,383,184,380,179,376,176,375,173,372,171,369,169,364,168,360,168,354,169,348,170,344,172,340,176,337,179,335,182,331,183,326,183,323,184,321,184,319,181,310,181" href="nevyansk.html" >
-             <area shape="poly" coords="467,89,480,88,486,89,488,81,490,77,492,73,494,69,497,67,502,64,508,61,511,61,516,61,521,61,524,62,529,64,533,67,536,71,537,74,539,79,541,84,542,89,542,90,545,91,555,91,560,93,563,96,563,104,543,104,539,105,537,106,535,108,532,110,530,112,528,113,526,114,522,116,519,116,513,117,509,116,505,115,502,114,501,112,499,111,496,108,493,106,493,103,490,103,486,103,483,103,477,105,467,104" href="index.html">
-             <area shape="poly" coords="687,143,687,156,706,157,713,162,717,164,720,165,725,167,727,168,731,168,735,167,737,167,743,164,746,161,748,159,749,158,751,157,757,157,762,157,766,157,772,157,775,156,775,150,775,145,767,143,760,141,758,133,755,129,751,125,750,122,748,119,746,117,742,115,738,114,734,113,729,112,723,113,716,114,712,116,708,120,706,123,703,129,702,135,701,141" href="kul-sharif.html">
-             <area shape="poly" coords="832,35,845,35,859,34,865,31,869,28,873,26,876,25,879,24,885,23,890,24,896,26,901,30,905,33,906,36,915,38,924,38,932,37,936,37,941,38,941,41,941,47,941,49,933,50,921,52,915,52,919,60,919,64,917,66,908,68,906,68,901,73,898,76,894,77,890,78,877,78,869,74,864,72,862,69,858,66,857,59,857,54,847,52,833,53" href="astrahan.html">
-             <area shape="poly" coords="1120,148,1120,136,1122,135,1132,137,1140,137,1148,137,1157,132,1162,128,1167,126,1173,124,1177,124,1182,124,1188,127,1191,128,1195,132,1196,135,1198,137,1214,138,1225,138,1234,139,1236,147,1236,158,1236,166,1226,167,1219,167,1201,168,1198,167,1194,172,1193,173,1189,175,1186,177,1181,178,1177,179,1174,178,1168,177,1162,174,1159,172,1156,168,1155,167,1150,167,1137,169,1119,167" href="rodina.html">
-             <area shape="poly" coords="870,215,869,202,879,203,897,203,902,198,909,193,913,191,916,189,920,188,926,188,931,189,934,190,938,193,940,197,941,198,943,200,946,202,954,203,967,204,971,204,972,215,952,215,948,222,946,226,946,229,945,231,942,235,939,238,937,240,930,242,926,243,922,243,917,243,914,242,910,240,907,238,905,236,899,229,898,226,897,225,897,222,896,219,897,216" href="dazan.html">
-             <area shape="poly" coords="973,329,973,317,981,317,991,318,996,318,999,313,1005,309,1007,308,1010,307,1014,306,1017,305,1020,305,1023,305,1028,306,1031,307,1033,308,1036,310,1039,312,1041,315,1042,316,1048,318,1061,317,1069,318,1068,332,1047,333,1045,345,1044,345,1041,349,1039,353,1037,355,1033,357,1029,358,1025,359,1018,359,1012,359,1011,359,1007,357,1005,354,1002,350,999,346,998,344,996,340,996,336,996,334,995,331" href="#7">
-             <area shape="circle" coords="633,372,30" href="arkaim.html">
+             <area shape="rect" coords="94,54,389,140" href="#cult" alt="Культура России" title="Культура России"    />
+            <area shape="rect" coords="435,152,512,222" href="#label-tests" alt="Проверь себя!" title="Проверь себя!"    />
+            <area shape="rect" coords="553,28,624,98" href="#label-zadachi" alt="Задачи" title="Задачи"    />
+            <area shape="rect" coords="565,259,671,329" href="../children.html" alt="Обратно на карту" title="Обратно на карту"    />
+            <area shape="rect" coords="821,106,899,176" href="#label-puzzles" alt="Паззлы" title="Паззлы"    />
+            <area shape="rect" coords="1062,85,1144,155" href="#label-quiz" alt="Загадки" title="Загадки"    />
+            <area shape="rect" coords="1204,188,1270,258" href="#label-counts" alt="Тесты" title="Тесты"    />
+            <area shape="rect" coords="925,198,1075,268" href="#parents" alt="Родителям" title="Родителям"    />
+            <!--<area shape="rect" coords="139,368,217,437" href="more" alt="Хочешь знать больше?" title="Хочешь знать больше?"    />-->
            </map>
-      </nav>
+
+           
+      </nav><!-- //main-menu-->
+      <div class="learn-more-link">
+            <a href="#whant-more" class="fancybox">
+                Тогда почитай о&nbsp;Государственном музее-заповеднике «Петергоф»
+            </a>
+        </div>
+
+        
+
+        
+    </section>
 
             <div class="decor clearfix">
-				<div class="main-image">
-					<img src="img/petergof/child-main-img-petergof.png" alt="" />
-				</div>
-				<div class="main-description">В Петергофе жили российские императоры. Место для дворцов, парков и фонтанов на берегу Финского залива выбрал лично Петр Великий. Его имя носит  и музей-заповедник, и сам город – Петергоф в переводе с немецкого значит «двор Петра». Сегодня в Петергофе больше 170 фонтанов и 10 парков. </div>
-			
-			</div>
-
-        </nav><!-- //main-menu-->
+                <div class="main-image">
+                    <img src="img/petergof/child-main-img-petergof.png" alt="" />
+                </div>
+                <div class="main-description">В Петергофе жили российские императоры. Место для дворцов, парков и фонтанов на берегу Финского залива выбрал лично Петр Великий. Его имя носит  и музей-заповедник, и сам город — Петергоф в переводе с немецкого языка значит «двор Петра». Сегодня 
+в Петергофе больше 170 фонтанов и 10 парков.</div>
+            
+            </div>
 
         <div class="content">
-            <article class="case-1 clearfix">
-                <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-1.png" alt="" />
-					<div class="puzzle-description-text"></div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/petergof/1.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-				
-            </article>
-
+            <div id="label-puzzles"></div>
             <article class="case-2 clearfix">
-                <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-2.png" alt="" />
-					<div class="puzzle-description-text"></div>
+                
+            	<div class="puzzle-description">
+					<img src="img/petergof/child-puzzles-1.png" alt="" />
+					<img src="img/petergof/puzzle1-tip.png" alt="" class="puzzle-tip" />
+					<div class="puzzle-description-text">Поставь все фрагменты картинки на свои места, и узнаешь, какой фонтан поставили в 1735 году в Петергофе в честь победы России в Северной войне! </div>
 					
 				</div>
+
 				<div class="puzzle-slider">
 					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/petergof/2.jpg" width="320"  class="puzzle"/>
+						<div class="puzzle-setka-wrap-noresize">
+							<img src="images/petergof/puzzle-samson.jpg" width="320"  class="puzzle"/>
 							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
 						</div>
 					</div>
 				</div>
+
+
             </article> 
 
-            <article class="case-3 clearfix">
-                 <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-3.png" alt="" />
-					<div class="puzzle-description-text"></div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/petergof/3.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
+<div id="label-tests"></div>
+             <article class="case-7 clearfix" id="tests">
+                <div class="test-yourself">
+                    <img src="img/petergof/test.png" alt="" class="test-sign" />
+                    <a class="test-link fancybox-inframe"  data-fancybox-type="iframe" data-fancybox-width="960" data-fancybox-height="580" href="petergof-quiz.html">
+                        Пройди тест <br>и узнай все <br>о Петергофе! 
+                    </a>
+                    
+                </div>
+            </article>
+<div id="label-quiz"></div>
+            <article class="case-5 clearfix" id="quiz">
+                 <div class="choose-one  nev-riddle-1">
+
+                    <div class="choose-panel">
+                    	<div class="big-image"><img src="img/petergof/suvorov.png"></div>
+                        <div class="choice choice1">
+                            <img src="img/petergof/choose-one-1/1.png" id="choice-1" alt="" />
+                        </div><div class="choice choice2">
+                            <img src="img/petergof/choose-one-1/2.png"  id="choice-2" alt="" />
+                        </div><div class="choice choice3">
+                            <img src="img/petergof/choose-one-1/3.png"  id="choice-3" alt="" />
+                        </div>
+                        <div class="panel-line"></div>
+                    </div>
+                    <div class="choice-result">
+                        <div class="choice-no-result">
+                            <img src="img/petergof/riddle-q.png" alt="" class="riddle-q" />
+                            <p>
+                                Как ты думаешь, <br>
+какую награду получил в <br>Петергофе молодой <br>Александр Суворов?
+                            </p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/petergof/riddle-wrong.png" alt="" class="riddle-wrong" />
+                            <p>
+                                Екатерина II и правда дарила Суворову свой <br>портрет, но в Москве — его полк тогда <br>отвечал за порядок во время коронации <br>императрицы.<br>
+А в Петергофе он получил в подарок <br>серебряный рубль от императрицы Елизаветы <br>Петровны — за знание устава.   
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/petergof/riddle-wrong.png" alt="" class="riddle-wrong" />
+                            <p>
+                                Орден Святой Анны Александр Васильевич <br>Суворов получил за бои с польскими <br>конфедератами в 1770 году. А вот в Петергофе <br>он получил в подарок серебряный рубль <br>от императрицы Елизаветы Петровны — <br>за знание устава. 
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/petergof/riddle-right.png" alt="" class="riddle-right" />
+                            <p>
+                                Александр Суворов, тогда молодой капрал, <br>получил в подарок серебряный рубль <br>от императрицы Елизаветы — за знание <br>устава. Эту монету он хранил всю свою <br>жизнь.
+                            </p>
+                        </div>
+                    </div>
+                 </div>
             </article> 
-
-            <article class="case-4 clearfix">
-               <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-4.png" alt="" />
-					<div class="puzzle-description-text">
-						<p>
-						</p>
-					</div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/petergof/4.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-            </article>                                  
-
+<div id="label-counts"></div>
+            <article class="case-6 clearfix" id="counts">
+                 <div class="choose-one  nev-riddle-2">
+                    
+                    <div class="choice-result">
+                        <div class="choice-no-result">
+                            <img src="img/petergof/riddle2-q.png" alt="" class="riddle-q" />
+                           
+                        </div>
+                        
+                    <div class="item-count">
+                        <form name="item-count"  id="item-count" action="">
+                            <p>Как ты думаешь, сколько парков в&nbsp;Петергофе? <br>Угадай!</p>
+                           <div class="input-wrapper"><input type="text" id="item-count-input" rel="3"></div>
+                        </form>
+                        <div class="show-right">
+                            <a href="img/petergof/park-map.png"  class="fancybox">
+                            <img src="img/petergof/answer-q.png" alt="" class="on" />
+                            <img src="img/petergof/answer-q-active.png" alt="" class="off" />
+                            </a>
+                        </div>
+                        
+                    </div>    
+                       
+                    </div>
+                 </div>
+            </article>                                
+            
+           
+            
+            <div id="label-zadachi"></div>
+            <article class="case-8 clearfix" id="zadachi">
+                 <div class="choose-one  nev-riddle-3">
+                    <div class="choose-panel">
+                        <div class="choice choice1">
+                            <img src="img/petergof/choose-one-2/1.png" id="choice-1" alt="" />
+                        </div><div class="choice choice2">
+                            <img src="img/petergof/choose-one-2/2.png"  id="choice-2" alt="" />
+                        </div><div class="choice choice3">
+                            <img src="img/petergof/choose-one-2/3.png"  id="choice-3" alt="" />
+                        </div>
+                        <div class="panel-line"></div>
+                    </div>
+                    <div class="choice-result">
+                        <div class="choice-no-result">
+                            <img src="img/petergof/riddle3-q.png" alt="" class="riddle-q" />
+                            <p>
+                              Как слово «Петергоф» переводится с&nbsp;немецкого языка?
+                            </p>
+                            <p>
+                                
+                            </p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/petergof/riddle3-wrong.png" alt="" class="riddle-wrong" />
+                            <p>
+                               «Апельсиновое дерево», или Ораниенбаум — первое, историческое название города Ломоносова, возникшего практически одновременно с Петергофом. В оранжереях Ораниенбаума росли тропические растения, в том числе апельсины. Петергоф же переводится как «двор Петра». 
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/petergof/riddle3-wrong.png" alt="" class="riddle-wrong" />
+                            <p>
+                                «Русская версалия» — это неправильный ответ. 
+Речь идет о Стрельне, самом древнем поселении на южном берегу Финского залива. Именно здесь Петр Великий задумал построить «Русскую версалию». Версаль в ту пору был резиденцией французских королей. А Петергоф переводится как «двор Петра».      
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/petergof/riddle3-right.png" alt="" class="riddle-right" />
+                            <p>
+                                Слово Петергоф переводится с немецкого как «двор Петра» — ведь именно Петр Великий выбрал место, где затем построили великолепные дворцы и фонтаны, разбили парки. На гербе города даже нарисован вензель Петра I.
+                            </p>
+                        </div>
+                    </div>
+                 </div>
+            </article>
+            
+                
+            
         </div><!-- //content-->
 
         <nav class="footer-menu">
-            <img src="img/child-footer-menu.png" alt="" usemap="#Map2">
-            <map name="Map2">
-              <area shape="rect" coords="8,116,186,240" href="astrahan.html">
-              <area shape="rect" coords="217,133,381,245" href="arkaim.html">
-              <area shape="rect" coords="329,2,498,125" href="index.html">
-              <area shape="rect" coords="852,21,1023,198" href="#state">
-              <area shape="rect" coords="1015,223,1189,350" href="#5">
-              <area shape="rect" coords="891,383,1070,569" href="dazan.html">
-              <area shape="rect" coords="289,278,476,431" href="rodina.html">
+            <img src="img/petergof/child-footer-menu.png" alt="" width="1201" height="671" usemap="#Map2">
+            <map name="Map2"><area shape="rect" coords="328,109,497,232" href="index.html">
+              <area shape="rect" coords="5,213,183,337" href="astrahan.html">
+              <area shape="rect" coords="217,235,381,347" href="arkaim.html">
+              <area shape="rect" coords="3,7,172,130" href="../children.html">
+              <area shape="rect" coords="845,122,1016,299" href="#state">
+              <area shape="rect" coords="1023,336,1197,463" href="nevyansk.html">
+              <area shape="rect" coords="898,485,1077,671" href="dazan.html">
+              <area shape="rect" coords="293,365,480,518" href="rodina.html">
             </map>
         </nav>
 
@@ -203,7 +306,7 @@
 		<!-- CONGRATULATION -->
 		<div id="congrat" class="hide">
 		    <h1>Поздравляем!</h1>
-		    <h2>Вы собрали пазл!</h2>
+		    <p>Фонтан «Самсон, разрывающий пасть льву» был построен в&nbsp;честь победы российских войск. Лев, которого победил Самсон, символизирует шведскую армию.</p>
 		    <h3><span id="time"></span></h3>
 		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
 		        <label>
@@ -225,8 +328,12 @@
 		        </li>
 		        
 		        <li>
-					Для поворота элемента, используйте стрелки налево/направо или правую кнопку мыши.
+					Для того что бы начать заново, используйте кнопку «Перемешать».
 				</li>
+                <li>
+                    Используйте подсказку.
+                </li>
+                
 		
 		        <li>Переключайтесь между центральными и боковыми элементами:<br>
 		            <img src="js/canvas-puzzle/images/toggle.png"/>
@@ -245,7 +352,9 @@
 		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
 		<script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
 		<script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="/static/children/puzzle/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+
+
 		<script>
 		
 		$(document).ready(function(){
@@ -263,10 +372,11 @@
 		
 		
 			var jsaw = new jigsaw.Jigsaw({
-		        defaultImage: "images/1.jpg",
+		        defaultImage: "images/petergof/puzzle-samson.jpg",
 		        piecesNumberTmpl: "%d элементов",
 		        redirect: null,
-		        shuffled: true        
+		        shuffled: true,
+                rotatePieces: false       
 		    });			
 			
 			$('img.puzzle-setka').click(function(){
@@ -292,15 +402,76 @@
 				
 				return false;
 			});
+            
+            
 		})
 		</script>
 	</div>
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="petergof whant-more" id="whant-more">
+            <div class="whant-more-container">
+            
+            <a title="Узнать больше" class="main-site-link" href="http://culture.ru/atlas/object/516"></a>
+            <div class="window-text scroll-pane jspScrollable">
+               <p><strong>Государственный музей-заповедник «Петергоф»</strong></p>
+<p>Петергоф – самая известная и, безусловно, самая красивая загородная резиденция российских императоров. Расположена она в&nbsp;30&nbsp;километрах к&nbsp;западу от&nbsp;Санкт-Петербурга на&nbsp;берегу Финского залива. Место строительства будущего города выбрал лично Петр Великий: внимание российского правителя привлекло небольшое поселение недалеко у воды, с большим количеством подземных источников. Здесь император и задумал возвести грандиозный дворцово-парковый комплекс, не уступающий по своему великолепию знаменитым королевским резиденциям Европы. </p>
+<p> Свою мечту Петр I воплотил в жизнь в рекордные сроки: указ о начале строительства был подписан в 1714 году, а в 1723 году уже состоялось торжественное открытие Петергофа (название переводится с немецкого как «Двор Петра»). Новая императорская резиденция поражала величественными фонтанами, роскошными парками, блистательными дворцами. О Петергофе с восхищением заговорили по всей Европе.</p>
+<p><strong>Вопреки легкомысленной славе императорской резиденции, здесь принимались и&nbsp;судьбоносные для страны решения.</strong></p>
+<p> Петр III отрекся от&nbsp;престола в&nbsp;пользу своей жены, будущей Екатерины&nbsp;II (Великой). Александр&nbsp;II (Освободитель) прорабатывал крестьянскую реформу, а&nbsp;Николай&nbsp;II (Кровавый) подписал в&nbsp;1914 году Манифест о&nbsp;вступлении России во&nbsp;Вторую Отечественную войну (Первую мировую). Однако сегодня Петергоф имеет не столько политическое, сколько важное культурно-историческое значение, привлекая гостей со всего мира полюбоваться чудесным городом Великого Петра.</p>
+<p>Наиболее интересный вид на город открывается со стороны Финского залива. И это не случайно: Петр Великий стремился сделать Петергоф именно приморской резиденцией. Император даже приказал прорыть специальный канал, чтобы гости могли попасть в город прямо с моря и на яхтах или парусных лодках доплыть до самого Петергофского дворца. Однако в 1735 году в центре «ковша» канала построили фонтан «Самсон», и прежние водные прогулки стали затруднительными.</p>
+<p> Однако по Петергофу интересно путешествовать и пешком. В первую очередь стоит посмотреть главное здание - Большой Петергофский дворец, построенный архитектором Ф.Б. Растрелли по модели знаменитого французского дворца Версаль. Вокруг него расположены Верхний и Нижний парки со множеством изящных павильонов для увеселений и отдыха. Но главным украшением Петергофа являются сотни самых разных по виду и оформлению фонтанов.</p>
+<p> У каждого фонтана в императорской резиденции – свой характер и своя история. Например, самый высокий из них – «Самсон» - был построен в честь победы России над Швецией в Северной войне. Библейский герой, разрывающий пасть льву, символизирует силу и мощь русской армии, а богатое золотое оформление фонтана подчеркивает величие Российской Империи. Есть среди фонтанов и менее грозные: например, романтические «Данаида» и «Нимфа» или веселые малые фонтаны-шутихи, вокруг которых в солнечную погоду с удовольствием резвятся дети.</p>
+<p> Очень интересна система водоснабжения фонтанов. Изначально планировалось питать их из&nbsp;прудов-резервуаров в&nbsp;Верхнем саду. Но&nbsp;вскоре возникло гениальное в&nbsp;своей простоте решение&nbsp;— использовать уклон местности к&nbsp;морю и&nbsp;пустить воду самотеком с&nbsp;Ропшинской возвышенности. Этот проект осуществил инженер Василий Туволков: был прорыт канал, вдоль которого устроили систему прудов. Система успешно работает уже почти 300 лет! Первые фонтаны запустили летом 1721&nbsp;года, сейчас в&nbsp;Петергофе работает более 170 фонтанов и&nbsp;4&nbsp;каскада.</p>
+<p> Славится Петергоф и своими парками: вместе с&nbsp;комплексом Верхнего сада и&nbsp;Нижнего парка их&nbsp;число достигает десяти. Правда, многие из&nbsp;них серьезно пострадали во&nbsp;время Великой Отечественной войны, и&nbsp;некоторые дворцы и&nbsp;сооружения ныне утрачены. Однако потрясающие парковые пейзажи по сей день продолжают радовать своей красотой гостей Петергофа.</p>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+
+  
 
 
         
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+       <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+        <script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="js/vendor/slides.min.jquery.js"></script>
+        <script src="js/vendor/cufon-yui.js"></script>
+        <script src="js/adventure_400.font.js"></script>            
+        <script src="js/quiz.js"></script>
+         <script src="js/plugins.js"></script>
+        <script src="../js/main.js"></script>
 
+
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet-->
+
+<!-- Rating@Mail.ru counter -->
+<script type="text/javascript">//<![CDATA[
+(function(w,n,d,r,s){(new Image).src='http://d0.c8.b2.a2.top.mail.ru/counter?id=2261026;js=13'+
+((r=d.referrer)?';r='+escape(r):'')+((s=w.screen)?';s='+s.width+'*'+s.height:'')+';_='+Math.random();})(window,navigator,document);//]]>
+</script><noscript><div style="position:absolute;left:-10000px;"><img src="http://d0.c8.b2.a2.top.mail.ru/counter?id=2261026;js=na" 
+style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" /></div></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-310467-9']);
+    _gaq.push(['_setDomainName', 'culture.ru']);
+    _gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
         
     </body>
 </html>

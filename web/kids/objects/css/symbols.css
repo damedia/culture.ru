@@ -1,0 +1,243 @@
+body {
+	background: url("../img/bg-map.png") repeat scroll 0 0 transparent;
+	height: auto;
+	width: auto;
+	}
+
+.state-wrapper { background: url("../img/symbol/bg-curcles.png") no-repeat scroll 165px 740px transparent; }
+
+.symbol .main-menu {
+	margin-left: 0;
+	margin-bottom: -190px;
+}
+
+.state.symbol { height: auto; }
+
+.symbol .case-1,
+.symbol .case-2,
+.symbol .case-3,
+.symbol .case-4 {
+	margin:0;
+	width: auto;
+}
+
+.symbol .case-2 {
+	margin-top: 100px
+}
+
+.symbol .case-3 {
+	margin-top: 140px
+}
+
+.symbol .case-4 {
+	margin-top: 200px
+}
+
+
+
+
+	.symbol .case-1 .raduga {
+		margin-left: 80px;
+		width:750px;
+	}
+
+	.symbol .case-1 .text {
+		width: 470px;
+		margin-top: 105px;
+		margin-left: 20px;
+	}
+
+		.symbol .case-1 .text p {
+			color: #92599A;
+			font-size: 18px;
+			margin-bottom: 10px
+		}
+
+		.symbol .text p:first-child {
+			margin-top:0;
+		}
+
+		.symbol .text p:last-child {
+			margin-bottom:0;
+		}
+
+		.symbol .case-1 .text img {
+			margin-left: 30px;
+		}
+
+	.symbol .block  {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.lt-ie8 .symbol .block {
+		display: inline;
+		zoom:1;
+	}
+
+
+		.symbol .big-gerb {
+		margin-left: 80px;
+		width:367px;
+	}
+
+	.symbol .case-2 .content {
+		width: 660px;
+		margin-top: -35px;
+		margin-left: 20px;
+	}
+
+		.symbol .case-2 .content .text,
+		.symbol .case-3 .content .text,
+		.symbol .case-4 .content .text {
+			padding: 25px;
+			color: #3B771D;
+			font-size: 13px;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			background: #fff;
+			margin-top: 10px;
+		}
+
+		.symbol .big-flag {
+		margin-left: 35px;
+		width:439px;
+		vertical-align: bottom;
+	}
+
+		.symbol .case-3 .content {
+			width: 700px;
+			margin-left: 50px;
+
+		}
+
+		.symbol .case-3 .head {
+			margin-bottom: -30px;
+			text-align: right;
+		}
+
+
+		.symbol .big-gimn {
+			
+			width:548px;			
+		}
+
+		.symbol .case-4 .content {
+			width: 680px;
+		}
+
+		.symbol .case-4 .head {
+			margin-bottom: -10px;
+			margin-left: -70px;
+		}
+
+
+.symbol .footer-menu { 
+	width: 1280px;
+	padding-bottom: 70px;
+}
+
+	.symbol .footer-menu a {
+		float:right;
+	}
+
+		.symbol .footer-menu a:first-child {
+			float:left;
+		}
+
+.gerb.whant-more {
+	background: url("../img/symbol/symbol_gerb.jpg") no-repeat scroll 0 0 transparent;
+}
+
+.whant-more .l img,
+.whant-more .r img,
+.whant-more .l span,
+.whant-more .r span {
+	display: inline-block;
+	vertical-align: middle;
+	
+}
+
+.gerb.whant-more .l span,
+.gerb.whant-more .r span {
+	width: 350px;
+}
+
+.whant-more .r  img{
+	margin-left: 10px;
+}
+
+.whant-more .l img {
+	margin-right: 10px;
+}
+
+
+.gerb.whant-more  p {
+	margin-left: 60px;
+	color: #3B771D;
+}
+
+.gerb.whant-more .window-text {
+	top: 130px;
+	height: 322px;
+}
+
+
+.flag.whant-more {
+	background: url("../img/symbol/symbol_flag.png") no-repeat scroll 0 0 transparent;
+}
+
+.flag.whant-more .l span,
+.flag.whant-more .r span {
+	width: 350px;
+}
+
+.flag.whant-more  p {
+	margin-left: 30px;
+	color: #8D324E;
+}
+
+.gimn-text.whant-more {
+	background: url("../img/symbol/symbol_gimn_text.png") no-repeat scroll 0 0 transparent;
+}
+
+.gimn.whant-more {
+	background: url("../img/symbol/symbol_gimn.jpg") no-repeat scroll 0 0 transparent;
+}
+
+.gimn-text.whant-more  p {
+	margin-left: 110px;
+	color: #3F5588;
+	font-size: 20px;
+}
+
+
+.gimn-text.whant-more .window-text {
+	top: 170px;
+	height: 250px;
+}
+
+
+.gimn.whant-more  p {
+	margin-left: 80x;
+	color: #673290;
+}
+
+.gimn.whant-more .window-text {
+	top: 160px;
+	height: 270px;
+}
+
+
+#label-flag {
+	top:1450px;
+	position: absolute;
+}
+
+.flag.whant-more .window-text {
+	top: 210px;
+	height: 250px;
+}
+
+

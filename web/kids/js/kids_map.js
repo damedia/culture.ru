@@ -13,7 +13,7 @@ $(function(){
 			
 			
 			
-			$('.point').on('click', $(this), function(){
+			$('.map-point').on('click', $(this), function(){
 				var point = $(this).attr('id'),
 					pointName = $('.lenta-wrap', $(this)).html(),
 					forSlider = $('.for-slider', $(this)).html();
@@ -34,7 +34,7 @@ $(function(){
 								.find('.object-slider-content').html(forSlider).end()
 								.removeClass().addClass(point+'_window')
 								.show();
-					window.location = '#window';			
+					//window.location = '#window';			
 				}
 				
 				
