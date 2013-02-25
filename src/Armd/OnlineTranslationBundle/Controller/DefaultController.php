@@ -4,9 +4,9 @@ namespace Armd\OnlineTranslationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Armd\ListBundle\Controller\ListController;
+use Gregwar\Captcha\CaptchaBuilder;
 
-class DefaultController extends ListController
+class DefaultController extends Controller
 {  
     protected function getFormatDate(\DateTime $date)
     {
@@ -14,29 +14,6 @@ class DefaultController extends ListController
         $days = array('понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье');
         
         return $date->format('j') . ' ' . $months[$date->format('n') - 1] . ', ' . $days[$date->format('N') - 1];
-    }
-   
-    protected function getCountdown(\DateTime $date)
-    {
-        $now = new \DateTime();
-        
-        if ($date > $now) {
-            $diff = $date->diff(new \DateTime());
-            
-            if (in_array(intval(mb_substr($diff->d, -1)), array(0, 5, 6, 7, 8, 9))
-                || in_array(intval(mb_substr($diff->d, -2)), array(11, 12, 13, 14, 15, 16, 17, 18, 19))
-            ) {
-                $dStr = 'дней';
-            } elseif (intval(mb_substr($diff->d, -1)) == 1) {
-                $dStr = 'день';
-            } else {
-                $dStr = 'дня';
-            }
-        
-            return $diff->d . ' ' . $dStr . ' ' . $diff->h . ' час ' . $diff->i . ' мин';
-        } else {
-            return '0 дней 0 час 0 мин';
-        }
     }
     
     protected function getNotificationPeriods()
@@ -74,7 +51,6 @@ class DefaultController extends ListController
         
         if ($entity) {        
             $params['date'] = $this->getFormatDate($entity->getDate());
-            $params['countdown'] = $this->getCountdown($entity->getDate());
             $params['notificationPeriods'] = $this->getNotificationPeriods();
         }
                   
@@ -96,7 +72,6 @@ class DefaultController extends ListController
         }
         
         $params['date'] = $this->getFormatDate($entity->getDate());
-        $params['countdown'] = $this->getCountdown($entity->getDate());
         $params['notificationPeriods'] = $this->getNotificationPeriods();
         
         return $this->render('ArmdOnlineTranslationBundle:Default:homepage_widget.html.twig',
@@ -114,17 +89,22 @@ class DefaultController extends ListController
             $email = trim($request->request->get('email', ''));
             $period = trim($request->request->get('period', ''));
             $id = trim($request->request->get('id', ''));
+            $captcha = trim($request->request->get('captcha', ''));
             
-            if (!$id) {
-                return new Response('invalid parameters');
+            if (!$id || !$captcha) {
+                return new Response('invalid_parameters');
+            }
+            
+            if ($captcha != $this->getRequest()->getSession()->get('online-translation-captcha')) {
+                return new Response('invalid_captcha');
             }
             
             if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return new Response('invalid email');
+                return new Response('invalid_email');
             }
 
             if (!$period || !isset($this->getNotificationPeriods()[$period])) {
-                return new Response('invalid period');
+                return new Response('invalid_period');
             }  
             
             $already = $this->getDoctrine()
@@ -159,8 +139,13 @@ class DefaultController extends ListController
         return new Response('error');
     }
     
-    public function getControllerName()
+    public function getCaptchaAction()
     {
-        return 'ArmdOnlineTranslationBundle:Default';
+        $builder = new CaptchaBuilder;
+        $builder->setDistortion(false);
+        $builder->build();
+        $this->getRequest()->getSession()->set('online-translation-captcha', $builder->getPhrase());
+        
+        return new Response($builder->get(), 200, array('Content-type' => 'image/jpeg'));
     }
 }

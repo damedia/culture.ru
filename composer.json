@@ -44,7 +44,8 @@
         "armd/sphinx-search-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
         "armd/twig-bundle": "*",
-        "fpn/tag-bundle": "dev-master"
+        "fpn/tag-bundle": "dev-master",
+        "gregwar/captcha": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

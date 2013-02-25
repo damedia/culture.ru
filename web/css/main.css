@@ -2699,6 +2699,10 @@ body {
                         .online-anons a img {
                             width: 278px;
                         }
+                        .online-anons h4 a {
+                            color: #222222;
+                            text-decoration: none;
+                        }
             .online-type {
                 
             }

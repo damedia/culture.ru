@@ -5,3 +5,7 @@ armd_online_translation:
 armd_online_translation_set_notification:
     pattern:  /set-notification
     defaults: { _controller: ArmdOnlineTranslationBundle:Default:setNotification }
+
+armd_online_translation_captcha:
+    pattern:  /captcha
+    defaults: { _controller: ArmdOnlineTranslationBundle:Default:getCaptcha }

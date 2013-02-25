@@ -21,6 +21,13 @@ class OnlineTranslationAdmin extends Admin
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
     }
+    
+    public function initialize()
+    {
+        parent::initialize();
+        
+        $this->uniqid = 'OnlineTranslation';
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -66,9 +73,9 @@ class OnlineTranslationAdmin extends Admin
             ->with('Media')
                 ->add('image', 'armd_media_file_type', array(
                     'required' => false, 
-                    'media_context' => 'default',
+                    'media_context' => 'online_broadcast',
                     'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'adminPreview'
+                    'media_format' => 'default'
                 ))
             ->end()    
         ;

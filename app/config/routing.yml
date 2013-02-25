@@ -157,4 +157,4 @@ armd_oauth:
 
 armd_online_translation:
     resource: '@ArmdOnlineTranslationBundle/Resources/config/routing.yml'
-    prefix:   /online-translation
+    prefix:   /broadcasts
