@@ -272,21 +272,6 @@ class NewsController extends Controller
             'thread'      => $entity->getThread(),
         ));
     }
-        
-    function categoriesAction($category)
-    {
-        return $this->render('ArmdNewsBundle:News:categories.html.twig', array(
-            'category'      => $category,
-            'categories'    => $this->getNewsManager()->getCategories(),
-        ));
-    }
-    
-    function latestNewsAction($limit)
-    {
-        return $this->render('ArmdNewsBundle:News:latest-news.html.twig', array(
-            'news'  => $this->getNewsManager(array(NewsManager::CRITERIA_LIMIT => $limit)),
-        ));
-    }
 
     /**
      * @Route("/billboard-slider/", name="armd_news_billboard_slider")
@@ -311,15 +296,6 @@ class NewsController extends Controller
     
         return $this->render('ArmdNewsBundle:News:billboard.html.twig', array(
             'entities' => $entities,
-        ));
-    }
-    
-    public function recommendedNewsAction($limit = 10)
-    {
-        $criteria = array('important' => true);
-        $entities = $this->getNewsManager()->getBillboardNews();
-        return $this->render('ArmdNewsBundle:News:latest-news.html.twig', array(
-            'news' => $entities,
         ));
     }
 
