@@ -34,12 +34,12 @@ $(function(){
 
 
          
-
+/*
             $('#item-count-input').on('input',function(e){
                
             });
 
-
+*/
 		$('.choice img').click(function(evt){
                 
                 var image = $(this),
