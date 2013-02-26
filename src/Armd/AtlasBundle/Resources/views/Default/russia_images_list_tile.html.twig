@@ -5,26 +5,27 @@
                 {% set region = object.regions[0] %}
                 <a href="#" class="plitka-type object-region" data-region-id="{{ region.id }}"> {{ region.title }} </a>
             {% endif %}
-            <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}">
+            <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="image-link">
                 {% thumbnail object.primaryImage, 'searchAllResult' with {'alt': object.primaryImage.description, 'class': 'plitka-image'} %}
-            </a>
+            
             <div class="plitka-text">
                 <span class="plitka-name">
-                     <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="no-decoration">{{ object.title|truncate(50) }}</a>
+                     {{ object.title|truncate(50) }}
                 </span>
 
             </div>
             <div class="plitka-footer">
                 <div class="types-icons">
-                    <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="no-decoration">
+                    
     					<span title="{{ "types_icons.video"|trans }}" class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
     					<span title="{{ "types_icons.virtual_tour"|trans }}" class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
     					<span title="{{ "types_icons.infographics"|trans }}" class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
     					<span title="{{ "types_icons.photo_gallery"|trans }}" class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>
     					<span title="{{ "types_icons.archives"|trans }}" class="ti-list {% if object.archiveImages is not empty %}active{% endif %}"></span>
-                    </a>
+                    
 				</div>
             </div>
+            </a>
         </div>
 
     </li>

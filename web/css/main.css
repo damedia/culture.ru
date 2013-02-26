@@ -1536,6 +1536,11 @@ body {
 					border:none;
 				}
 
+				.image-link {
+					display: block;
+					cursor: pointer;
+				}
+
 
 					.types-icons span {
 						display:inline-block;
