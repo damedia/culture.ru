@@ -124,14 +124,22 @@ class MainController extends Controller
     {
         return $this->renderTemplate('services');
     }
+
     public function libraryAction()
     {
         return $this->renderTemplate('library');
     }
+
     public function bannersAction()
     {
         return $this->renderTemplate('banners');
     }
+
+    public function onlineTranslationAction()
+    {
+        return $this->renderTemplate('online_translation');
+    }
+
 	public function printAction()
     {
         return $this->renderTemplate('print');
