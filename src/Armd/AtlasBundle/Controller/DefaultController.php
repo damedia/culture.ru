@@ -98,7 +98,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("russia-images/", name="armd_atlas_russia_images")
+     * @Route("russia-images/", name="armd_atlas_russia_images", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:russia_images.html.twig")
      */
     public function russiaImagesAction()
@@ -125,7 +125,8 @@ class DefaultController extends Controller
             'thematics' => $thematicsRoot->getChildren(),
             'types' => $typesRoot->getChildren(),
             'regions' => $regions,
-            'regionId' => $this->getRequest()->get('region_id')
+            'regionId' => $this->getRequest()->get('region_id'),
+            'searchQuery' => $this->getRequest()->get('search_query')
         );
     }
 
