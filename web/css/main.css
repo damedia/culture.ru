@@ -1499,10 +1499,27 @@ body {
 	.obrazy-plitka {
 		list-style:none;
 	}	
-		.obrazy-plitka  .plitka-one-wrap {
+		.obrazy-plitka .plitka-one-wrap {
 			width:178px;
 			margin:0 12px 12px 0;
 		}
+
+		.obrazy-plitka .plitka-one-wrap.fix-height {
+			height: 268px;
+		}
+
+			.obrazy-plitka .plitka-one-wrap.fix-height .plitka-footer {
+				position: absolute;
+				bottom: 5px;
+				border-top: 1px solid #EDEDED;
+				width: 150px;
+			}
+
+			.obrazy-plitka .plitka-one-wrap.fix-height .plitka-text {
+				border: none;
+			}
+
+
 			.obrazy-plitka  .plitka-one {
 				padding:6px 14px;
 			}
@@ -1533,7 +1550,12 @@ body {
 
 				.types-icons a {
 					text-decoration: none;
+					border:none;
+				}
+
+				.image-link {
 					display: block;
+					cursor: pointer;
 				}
 
 
