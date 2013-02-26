@@ -49,7 +49,7 @@ armd_main_project_news:
 
 armd_main_online_translation:
     pattern:  /online-translation/
-    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle::online_translation.html.twig }
+    defaults: { _controller: ArmdMainBundle:Main:onlineTranslation }
 
 armd_main_latest_topics:
     pattern: /latest-topics

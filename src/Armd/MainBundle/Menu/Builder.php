@@ -159,6 +159,13 @@ class Builder extends ContainerAware
                 )
             );
 
+//            $eventsMenu->addChild(
+//                'menu.online_translation',
+//                array(
+//                    'route' => 'armd_main_online_translation'
+//                )
+//            );
+
             //--- /Events
 
 
