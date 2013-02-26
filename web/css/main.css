@@ -1530,6 +1530,13 @@ body {
 				.types-icons {
 					margin-top:6px;
 				}
+
+				.types-icons a {
+					text-decoration: none;
+					display: block;
+				}
+
+
 					.types-icons span {
 						display:inline-block;
 						vertical-align:top;
