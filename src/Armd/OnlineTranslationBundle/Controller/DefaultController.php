@@ -3,6 +3,7 @@
 namespace Armd\OnlineTranslationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Armd\LectureBundle\Entity\LectureManager;
 use Symfony\Component\HttpFoundation\Response;
 use Gregwar\Captcha\CaptchaBuilder;
 
@@ -53,11 +54,18 @@ class DefaultController extends Controller
             $params['date'] = $this->getFormatDate($entity->getDate());
             $params['notificationPeriods'] = $this->getNotificationPeriods();
         }
+
+        $archiveTranslations = $this->get('armd_lecture.manager.lecture')->findObjects(array(
+                LectureManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC'),
+                LectureManager::CRITERIA_LIMIT => 12,
+                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_VIDEO_TRANSLATION')
+            ));
                   
         return $this->render('ArmdOnlineTranslationBundle:Default:index.html.twig',
             array(
                 'entity' => $entity,
-                'params' => $params
+                'params' => $params,
+                'archiveTranslations' => $archiveTranslations
             )
         );
     }

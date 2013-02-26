@@ -4323,6 +4323,10 @@ body {
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a519', endColorstr='#f77b11',GradientType=0 ); /* IE6-9 */
 		}
 
+        .online-translation .full-description {
+            margin-top: 30px;
+        }
+
 /* online translation */
 
 .long-border.type-1 {

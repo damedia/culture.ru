@@ -15,6 +15,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class OnlineTranslation implements Taggable
 {
+    const TYPE_ANNOUNCE = 0;
+    const TYPE_TRANSLATION = 1;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

@@ -1,4 +1,5 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 
 {% block page_header_title %}
     {{ "Online translation"|trans }}
@@ -8,11 +9,12 @@
 {% if entity %}
 <div class="online-translation">
     <h2>{{ entity.title }}</h2>
-    <div class="player-container">
+    {#<div class="player-container">    </div> <!-- /player-container -->#}
         {% if entity.type == 1 %}
             {{ entity.dataCode|raw }}
+        {% else %}
+            {% thumbnail entity.image, 'broadcastW600' %}
         {% endif %}
-        </div> <!-- /player-container -->
 
         <div class="translation-desc">
             <h3>{{ params.date }}</h3>
@@ -28,6 +30,10 @@
 
         {% include 'ArmdOnlineTranslationBundle:Default:countdown_remind.html.twig' with {'entity': entity, 'params': params} %}
     {% endif %}
+
+        <div class="full-description">
+            {{ entity.fullDescription|raw }}
+        </div>
     </div>
 {% else %}
     <div>
@@ -38,23 +44,44 @@
     <section class="block">
         <h2 class="long-border type-1"><span>Архив трансляций</span></h2>
         <div class="plitka">
-            <div class="plitka-one-wrap">
-                <div class="plitka-one">
-                    <a href="#">
-                        <img alt="" class="plitka-image" src="images/kino1.jpg">
-                    </a>	
-                    <div class="plitka-text">
-                        <span class="plitka-name">Белое солнце<br>пустыни</span>
-                        1969 / 81 мин. / <a href="#">Приключения</a><br>
-                        Режиссер: Мотыль Владимир
-                    </div>
-                    <div class="plitka-footer">
-                        <a href="#">Фильмы</a>
+            {% for translation in archiveTranslations %}
+                {% set translationHref = path('armd_lecture_view', {'id': translation.id}) %}
+                <div class="plitka-one-wrap">
+                    <div class="plitka-one">
+                        <a href="{{ translationHref }}">
+                            {{ lectureMacro.lectureThumbnail(translation, 'tile', {'class': 'plitka-image', 'height': 'auto'}) }}
+                            {#{% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}#}
+                        </a>
+                        <div class="plitka-text">
+                            <span class="plitka-name">{{ translation.title|truncate(30) }}</span>
+
+{#
+                            {% if translation.productionYear is not empty %}
+                                {{ translation.productionYear }} /
+                            {% endif %}
+
+                            {% if translation.timeLength is not empty %}
+                                {{ translation.timeLength }} мин. /
+                            {% endif %}
+#}
+
+                            {% if translation.categories[0] is defined %}
+                                {{ translation.categories[0].title }}
+                            {% endif %}
+                            {% if translation.categories[1] is defined %}
+                                / {{ translation.categories[1].title }}
+                            {% endif %}
+                            {#1969 / 81 мин. / <a href="#">Приключения</a><br>#}
+                            {#Режиссер: Мотыль Владимир#}
+                        </div>
+                        <div class="plitka-footer">
+                            <a href="{{ translationHref }}">{{ translation.lectureSuperType.name }}</a>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div class="plitka-one-wrap">
+            {% endfor %}
+ {#           <div class="plitka-one-wrap">
                 <div class="plitka-one">
                     <a href="#">
                         <img alt="" class="plitka-image" src="images/kino2.jpg">
@@ -245,7 +272,7 @@
                     </div>
                 </div>
 
-            </div>								
+            </div>		#}
         </div>
 
     </section>
