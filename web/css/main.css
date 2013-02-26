@@ -1533,7 +1533,7 @@ body {
 
 				.types-icons a {
 					text-decoration: none;
-					display: block;
+					border:none;
 				}
 
 
