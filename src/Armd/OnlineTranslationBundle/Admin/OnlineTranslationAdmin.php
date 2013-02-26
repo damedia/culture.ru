@@ -3,13 +3,9 @@
 namespace Armd\OnlineTranslationBundle\Admin;
 
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
-use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
-use Armd\AtlasBundle\Entity\Category;
 
 class OnlineTranslationAdmin extends Admin
 {
@@ -20,13 +16,6 @@ class OnlineTranslationAdmin extends Admin
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
-    }
-    
-    public function initialize()
-    {
-        parent::initialize();
-        
-        $this->uniqid = 'OnlineTranslation';
     }
 
     /**

@@ -1,9 +1,11 @@
-{% block _OnlineTranslation_dataCode_widget %}
+{% block textarea_widget %}
 {% spaceless %}
-    {{ block('textarea_widget') }}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+    
+{% if form.vars.name == 'dataCode' %}
     &nbsp;
     <a id="online_translation_fancybox" href="#fancybox_content" class="fancybox">Тест</a>
-    <div id="fancybox_content" style="display:none;"></div>
+    <div id="fancybox_content" style="display: none;"></div>
     <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}">
     <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>
     <script type="text/javascript">       
@@ -18,5 +20,6 @@
             });
 	});
     </script>
+{% endif %}
 {% endspaceless %}
 {% endblock %}

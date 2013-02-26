@@ -2731,13 +2731,15 @@ body {
             .online-anons-footer {
 				margin-top:11px;
             }     
-                .online-anons-footer-time {
+                .online-anons-footer-countdown {
                     float: left;
                     width: 150px;
                     border-top: 1px solid #d1d1d1;
                     padding: 7px 0 0 30px;
+                    color:#989898;
+                }
+                .online-anons-footer-time {                   
                     background: url(../img/clocks.png) no-repeat 0 8px;
-					color:#989898;
                 }
                  .online-anons-footer a.button {
                     float:right;
@@ -4237,7 +4239,95 @@ body {
 
 /*--- /login form ---*/
 
+/*online translation */
 
+.online-translation { margin-bottom: 70px; }
+
+	.online-translation h2 { margin: 0 0 7px 0;}
+
+	.online-translation .player-container {
+		width: 100%;
+		min-height: 462px;
+		background: #E1E1E1;
+	}
+
+
+	.online-translation .translation-desc {
+		margin: 20px 0;
+	}
+
+		.online-translation .translation-desc h3 {
+			font-weight: normal;
+			color: #193F5E;
+			font-size: 18px;
+			margin:0 0 5px 0;
+			padding: 0;
+		}
+
+		.online-translation .translation-desc h4 {
+			margin: 0 0 5px 0;
+			padding: 0;
+			font-size: 12px;
+			color: #979797;
+			font-weight: normal;
+		}
+
+			.online-translation .translation-desc h4 i {
+				color: #000;
+				font-style: normal;
+			}
+
+			.online-translation .translation-desc p {
+				font-size: 11px;
+				margin: 0;
+				padding: 0;
+
+			}
+
+	.online-translation .translation-coutdown {}
+
+		.online-translation .translation-coutdown p,
+		.online-translation .translation-coutdown a {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.lt-ie8 .online-translation .translation-coutdown p,
+		.lt-ie8 .online-translation .translation-coutdown a {
+			display: inline;
+			zoom:1;
+		}
+
+
+		.online-translation .translation-coutdown p {
+			width: 135px;
+			padding-left: 30px;
+			background: url(../img/clocks.png) no-repeat 0 center;
+			color: #979797;
+			font-size: 11px;
+			margin-right: 30px;
+			border-top:1px solid #D2D2D2;
+			padding-top: 6px;
+		}
+
+		.online-translation .translation-coutdown .button {
+			position: relative;
+			top: 6px;
+			background: #f9a519; /* Old browsers */
+			background: -moz-linear-gradient(top, #f9a519 0%, #f77b11 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9a519), color-stop(100%,#f77b11)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top, #f9a519 0%,#f77b11 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top, #f9a519 0%,#f77b11 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top, #f9a519 0%,#f77b11 100%); /* IE10+ */
+			background: linear-gradient(to bottom, #f9a519 0%,#f77b11 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a519', endColorstr='#f77b11',GradientType=0 ); /* IE6-9 */
+		}
+
+/* online translation */
+
+.long-border.type-1 {
+	margin-bottom: 15px;
+}
 
 
 /* ==========================================================================
