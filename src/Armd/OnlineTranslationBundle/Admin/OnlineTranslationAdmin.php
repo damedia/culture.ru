@@ -56,7 +56,7 @@ class OnlineTranslationAdmin extends Admin
                 ->add('date')
                 ->add('location')
                 ->add('shortDescription')
-                ->add('fullDescription')
+                ->add('fullDescription', null, array('attr' => array('class' => 'tinymce')))
                 ->add('dataCode')
             ->end()    
             ->with('Media')

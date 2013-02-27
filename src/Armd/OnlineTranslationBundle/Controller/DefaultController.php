@@ -111,7 +111,8 @@ class DefaultController extends Controller
                 return new Response('invalid_email');
             }
 
-            if (!$period || !isset($this->getNotificationPeriods()[$period])) {
+            $notificationPeriods = $this->getNotificationPeriods();
+            if (!$period || !isset($notificationPeriods[$period])) {
                 return new Response('invalid_period');
             }  
             
