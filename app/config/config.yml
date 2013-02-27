@@ -357,6 +357,8 @@ armd_sphinx_search:
             %sphinxsearch_index_atlas%: ~
         Museums:
             %sphinxsearch_index_museums%: ~
+        News:
+            %sphinxsearch_index_news%: ~
 
     searchd:
         host:   %sphinxsearch_host%
