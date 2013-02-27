@@ -233,6 +233,26 @@ class NewsController extends Controller
         );
     }
 
+    /**
+     * @Route(
+     *  "/text-search-result",
+     *  name="armd_news_text_search_result",
+     *  options={"expose"=true}
+     * )
+     * @Template("ArmdNewsBundle:News:text_search_result.html.twig")
+     */
+    public function textSearchResultAction()
+    {
+        $searchQuery = $this->getRequest()->get('search_query');
+        $categorySlug = $this->getRequest()->get('category_slug');
+        $news = $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_SEARCH_STRING => $searchQuery,
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($categorySlug)
+            )
+        );
+    }
+
 
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
