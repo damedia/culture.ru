@@ -189,31 +189,32 @@ class NewsManager extends ListManager
     public function findObjectsWithSphinx($criteria) {
         $searchParams = array('News' => array('filters' => array()));
 
-        if (isset($criteria[self::CRITERIA_LIMIT])) {
+        if (!empty($criteria[self::CRITERIA_LIMIT])) {
             $searchParams['News']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
         }
 
-        if (isset($criteria[self::CRITERIA_OFFSET])) {
+        if (!empty($criteria[self::CRITERIA_OFFSET])) {
             $searchParams['News']['result_offset'] = (int) $criteria[self::CRITERIA_OFFSET];
         }
 
-        if (isset($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {
+        if (!empty($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {
             $categories = $this->em->getRepository('ArmdNewsBundle:Category')->findBy(array('slug' => $criteria[self::CRITERIA_CATEGORY_SLUGS_OR]));
             $categoryIds = array();
             foreach ($categories as $category) {
                 $categoryIds[] = $category->getId();
             }
-            $searchParams['News']['filters'][] = array(
-                'attribute' => 'category_id',
-                'values' => $categoryIds
-            );
-        } elseif (isset($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
+            if (!empty($categoryIds)) {
+                $searchParams['News']['filters'][] = array(
+                    'attribute' => 'category_id',
+                    'values' => $categoryIds
+                );
+            }
+        } elseif (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $searchParams['News']['filters'][] = array(
                 'attribute' => 'category_id',
                 'values' => $criteria[self::CRITERIA_CATEGORY_IDS_OR]
             );
         }
-
 
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 

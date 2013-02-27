@@ -1,8 +1,10 @@
 var armdMkNews = {
     categorySlug: '',
+    loadByCount: 30,
 
-    init: function() {
-        console.log('news init');
+    init: function(categorySlug) {
+        armdMkNews.categorySlug = categorySlug;
+
         $('#more-news').bind('click', function(event) {
             event.preventDefault();
             armdMkNews.loadMoreNews();
@@ -11,16 +13,45 @@ var armdMkNews = {
         $('.search-dates-button').bind('click', function(event){
             event.preventDefault();
             armdMkNews.loadNewsByDates();
+            armdMkNews.initMoreButtonToLoadByDates();
         });
 
         $('#first-date').html(armdMkNews.dateFromIso8601(firstLoadedDate));
         $('#last-date').html(moment().format('DD.MM.YYYY'));
+
+        $('#search-form').bind('submit', function(event) {
+            if ($('#search-this-section').prop('checked')) {
+                event.preventDefault();
+                armdMkNews.loadSearchResult(false);
+                armdMkNews.initMoreButtonToLoadSearch();
+            }
+        });
+    },
+
+    initMoreButtonToLoadByDates: function() {
+        $('.more').show();
+        $('#more-news').unbind('click');
+        $('#more-news').bind('click', function (event) {
+            event.preventDefault();
+            armdMkNews.loadMoreNews();
+        });
+    },
+
+    initMoreButtonToLoadSearch: function() {
+        $('.more').show();
+        $('#more-news').unbind('click');
+        $('#more-news').bind('click', function (event) {
+            event.preventDefault();
+            armdMkNews.loadSearchResult(true);
+        });
+
     },
 
     /**
-     * uses global var firstLoadedDate
+     * uses global var firstLoadedDatet
      */
     loadMoreNews: function() {
+        armdMk.startLoading();
         $.ajax({
             url: Routing.generate('armd_news_two_column_list', {
                 category: armdMkNews.categorySlug
@@ -37,8 +68,53 @@ var armdMkNews = {
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error loading news: ' + errorThrown);
+            },
+            complete: function() {
+                armdMk.stopLoading();
             }
         })
+    },
+
+    loadSearchResult: function(append) {
+        var offset;
+        var searchQuery = $('#search-txt').val();
+        var data;
+
+        if (append) {
+            offset = $('#news-container article.news-search-result-item').length;
+        } else {
+            offset = 0;
+        }
+
+        data = {
+            offset: offset,
+            limit: armdMkNews.loadByCount,
+            search_query: searchQuery,
+            category_slug: armdMkNews.categorySlug
+        };
+
+        armdMk.startLoading();
+        $.ajax({
+            url: Routing.generate('armd_news_text_search_result'),
+            data: data,
+            cache: false,
+            type: 'get',
+            dataType: 'html',
+            success: function(data) {
+                if (append) {
+                    $('#news-container').append(data);
+                } else {
+                    $('#featured').hide();
+                    $('#news-container').html(data);
+                }
+                if ($.trim(data) === '' || $(data).find('article.news-search-result-item').length < armdMkNews.loadByCount) {
+                    $('.more').hide();
+                }
+            },
+            complete: function() {
+                armdMk.stopLoading();
+            }
+        });
     },
 
     /**

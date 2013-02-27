@@ -161,6 +161,18 @@ class NewsController extends Controller
      */
     function newsIndexAction($category = null)
     {
+        $request = $this->getRequest();
+
+        // fix menu
+        $menu = $this->get('armd_main.menu.main');
+        $menuFinder = $this->get('armd_main.menu_finder');
+        if(!$menuFinder->findByUri($menu, $request->getRequestUri())) {
+            $menu->setCurrentUri(
+                $this->get('router')->generate('armd_news_list_index')
+            );
+        }
+
+
         if ($category) {
             $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
                 ->findOneBySlug($category);
@@ -168,9 +180,12 @@ class NewsController extends Controller
             $categoryEntity = null;
         }
 
+        $searchQuery = $request->get('search_query');
+
         return array(
             'category' => $category,
-            'categoryEntity' => $categoryEntity
+            'categoryEntity' => $categoryEntity,
+            'searchQuery' => $searchQuery
         );
     }
 
@@ -250,6 +265,36 @@ class NewsController extends Controller
                 NewsManager::CRITERIA_SEARCH_STRING => $searchQuery,
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($categorySlug)
             )
+        );
+    }
+
+    /**
+     * @Route(
+     *  "/text-search-result",
+     *  name="armd_news_text_search_result",
+     *  options={"expose"=true}
+     * )
+     * @Template("ArmdNewsBundle:News:text_search_result.html.twig")
+     */
+    public function textSearchResultAction()
+    {
+        $request = $this->getRequest();
+        $limit = $request->get('limit', 20);
+        if ($limit > 100) {
+            $limit = 100;
+        }
+
+        $news = $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_SEARCH_STRING => $request->get('search_query'),
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
+                NewsManager::CRITERIA_LIMIT => $limit,
+                NewsManager::CRITERIA_OFFSET => $request->get('offset'),
+            )
+        );
+
+        return array(
+            'news' => $news
         );
     }
 
