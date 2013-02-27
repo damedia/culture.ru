@@ -67,7 +67,7 @@ class MainController extends Controller
             $lastInterview = $lastInterview[0];
         }
 
-        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 28);
+        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 2);
 
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
