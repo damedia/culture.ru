@@ -79,7 +79,8 @@ class DefaultController extends Controller
             array(
                 ObjectManager::CRITERIA_LIMIT => 5,
                 ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
-                ObjectManager::CRITERIA_TAGS => $entity->getTags()
+                ObjectManager::CRITERIA_TAGS => $entity->getTags(),
+                ObjectManager::CRITERIA_NOT_IDS => array($id)
             )
         );
 

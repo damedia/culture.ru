@@ -26,6 +26,9 @@ abstract class ListManager
 
     /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
+    
+    /** example: array(1, 2, 3) */
+    const CRITERIA_NOT_IDS = 'CRITERIA_NOT_IDS';
 
     public function __construct(EntityManager $em, TagManager $tagManager)
     {
@@ -93,6 +96,14 @@ abstract class ListManager
         if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
             foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
                 $qb->addOrderBy("$o.$k", $v);
+            }
+        }
+        
+        if (!empty($criteria[self::CRITERIA_NOT_IDS])) {
+            $notIds = $criteria[self::CRITERIA_NOT_IDS];
+            
+            if (is_array($notIds) && count($notIds) && $notIds != array(0)) {
+                $qb->andWhere("$o.id NOT IN (:notIds)")->setParameter('notIds', $notIds);
             }
         }
 
