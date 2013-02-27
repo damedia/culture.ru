@@ -123,8 +123,10 @@ abstract class ListManager
             ->andWhere('tag.name IN (:tags)')->setParameter('tags', $tagWords)
             ->andWhere('tagging.resourceType = :resourceType')->setParameter('resourceType', $this->getTaggableType())
             ->addSelect("COUNT(tag) tagCount")
+            ->addSelect("MAX(TOINT(tag.isTechnical)) tagIsTechnical")
             ->groupBy($o)
-            ->orderBy('tagCount', 'DESC')
+            ->orderBy('tagIsTechnical', 'DESC')
+            ->addOrderBy('tagCount', 'DESC')
             ->setMaxResults($limit)
             ;
 

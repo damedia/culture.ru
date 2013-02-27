@@ -127,6 +127,7 @@ class ObjectListener
         if ($entity instanceof Object) {
             $tagManager = $this->container->get('fpn_tag.tag_manager');
             $tag = $tagManager->loadOrCreateTag('o' . $entity->getId());
+            $tag->setIsTechnical(true);
             $tagManager->addTag($tag, $entity);
             $tagManager->saveTagging($entity);                      
         }
