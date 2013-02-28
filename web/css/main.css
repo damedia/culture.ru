@@ -2689,7 +2689,14 @@ body {
             position: relative;
             
         }
-        
+
+            .right-column .helper-top-orange-line {
+                border-top: 5px solid #f79016;
+                display: block;
+                width:314px;
+                margin: 0 auto;
+            }
+
             #homepage-online-translation h2 {
                 font:bold 13px Tahoma, Helvetica, sans-serif;
                 text-transform:uppercase;
@@ -2707,15 +2714,12 @@ body {
                 margin: 0;
             }
 
-            #homepage-online-translation .online-anons {
-                border-top: 5px solid #f79016;
-            }
 
 
         .online-anons {            
             margin:0 auto;
             width:278px;
-            padding:10px 15px 12px;
+            padding:10px 18px 12px;
             
             font-size:11px;
             background:#fff url(../img/more-dots.gif) repeat-x 0 100%;
