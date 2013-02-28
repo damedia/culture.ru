@@ -132,6 +132,10 @@
 
 
 {% block right_column %}
+    <section id="homepage-online-translation">
+        {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
+    </section>
+    
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
     {% if app.request.locale == 'ru' %}

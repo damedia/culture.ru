@@ -1,0 +1,31 @@
+{% if entity %}
+    <div class="online-anons clearfix">
+        <h2>online-трансляции</h2>
+        <a href="{{ path('armd_online_translation') }}">{% thumbnail entity.image, 'default' with { 'class': 'online-anons-image' } %}</a>
+        <h3>{{ params.date }}</h3>
+        <h4><a href="{{ path('armd_online_translation') }}">{{ entity.title }}</a></h4>
+        <p class="online-anons-place">{{ entity.location }} / <b>{{ entity.date|date('H:i') }}</b></p>
+        <p>{{ entity.shortDescription }}</p>
+        <div class="online-anons-footer">
+            {% if entity.type == 1 %}
+                <div class="online-anons-footer-countdown">
+                    <p>
+                        Ведется онлайн-трансляция
+                    </p>
+                </div>
+               
+                <a class="button button-orange " href="{{ path('armd_online_translation') }}">Смотреть</a>
+            {% else %}
+                <div class="online-anons-footer-countdown online-anons-footer-time">
+                    <p>
+                        До трансляции осталось:<br><span id="countdown"></span>
+                    </p>
+                </div>
+                
+                <a id="online_translation_notification" class="button button-orange " href="#online_translation_notification_form">Напомнить</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include 'ArmdOnlineTranslationBundle:Default:countdown_remind.html.twig' with {'entity': entity, 'params': params} %}
+{% endif %}

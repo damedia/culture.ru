@@ -1,0 +1,294 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+
+{% block page_header_title %}
+    {{ "Online translation"|trans }}
+{% endblock %}
+
+{% block left_column %}
+{% if entity %}
+<div class="online-translation">
+    <h2>{{ entity.title }}</h2>
+    {#<div class="player-container">    </div> <!-- /player-container -->#}
+        {% if entity.type == 1 %}
+            {{ entity.dataCode|raw }}
+        {% else %}
+            {% thumbnail entity.image, 'broadcastW600' %}
+        {% endif %}
+
+        <div class="translation-desc">
+            <h3>{{ params.date }}</h3>
+            <h4>{{ entity.location }} / <i>{{ entity.date|date('H:i') }}</i></h4>
+            <p>{{ entity.shortDescription }}</p>
+        </div><!-- /description -->
+
+    {% if entity.type != 1 %}
+        <div class="translation-coutdown">
+            <p>До трансляции осталось:<br> <span id="countdown"></span></p>
+            <a id="online_translation_notification" class="button remind" href="#online_translation_notification_form">Напомнить</a>
+        </div><!-- /translation-coutdown -->
+
+        {% include 'ArmdOnlineTranslationBundle:Default:countdown_remind.html.twig' with {'entity': entity, 'params': params} %}
+    {% endif %}
+
+        <div class="full-description">
+            {{ entity.fullDescription|raw }}
+        </div>
+    </div>
+{% else %}
+    <div>
+        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_default_list', {'supertype': 2}) }}">архиве</a>.
+    </div>
+{% endif %}
+
+    <section class="block">
+        <h2 class="long-border type-1"><span>Архив трансляций</span></h2>
+        <div class="plitka">
+            {% for translation in archiveTranslations %}
+                {% set translationHref = path('armd_lecture_view', {'id': translation.id}) %}
+                <div class="plitka-one-wrap">
+                    <div class="plitka-one">
+                        <a href="{{ translationHref }}">
+                            {{ lectureMacro.lectureThumbnail(translation, 'tile', {'class': 'plitka-image', 'height': 'auto'}) }}
+                            {#{% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}#}
+                        </a>
+                        <div class="plitka-text">
+                            <span class="plitka-name">{{ translation.title|truncate(30) }}</span>
+
+{#
+                            {% if translation.productionYear is not empty %}
+                                {{ translation.productionYear }} /
+                            {% endif %}
+
+                            {% if translation.timeLength is not empty %}
+                                {{ translation.timeLength }} мин. /
+                            {% endif %}
+#}
+
+                            {% if translation.categories[0] is defined %}
+                                {{ translation.categories[0].title }}
+                            {% endif %}
+                            {% if translation.categories[1] is defined %}
+                                / {{ translation.categories[1].title }}
+                            {% endif %}
+                            {#1969 / 81 мин. / <a href="#">Приключения</a><br>#}
+                            {#Режиссер: Мотыль Владимир#}
+                        </div>
+                        <div class="plitka-footer">
+                            <a href="{{ translationHref }}">{{ translation.lectureSuperType.name }}</a>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+ {#           <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino2.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">
+                            1150-летие российской<br>
+                            государственности.
+                            Призвание Рюрика</span>
+                        Лектор: Александр Ужанков<br>
+                        Продолжительность: 44 мин.
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Лекции</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino3.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">В зоне особого<br>
+                            внимания</span>
+                        1977 / 98 мин. / Боевик<br>
+                        Режиссер: Малюков Андрей
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino1.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">Белое солнце<br>пустыни</span>
+                        1969 / 81 мин. / <a href="#">Документальное</a><br>
+                        Режиссер: Мотыль Владимир
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Кинозал</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino2.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">
+                            1150-летие российской<br>
+                            государственности.
+                            Призвание Рюрика</span>
+                        Лектор: Александр Ужанков<br>
+                        Продолжительность: 44 мин.
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Кинозал</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino3.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">В зоне особого<br>
+                            внимания</span>
+                        1977 / 98 мин. / Боевик<br>
+                        Режиссер: Малюков Андрей
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino1.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">Белое солнце<br>пустыни</span>
+                        1969 / 81 мин. / <a href="#">Приключения</a><br>
+                        Режиссер: Мотыль Владимир
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino2.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">
+                            1150-летие российской<br>
+                            государственности.
+                            Призвание Рюрика</span>
+                        Лектор: Александр Ужанков<br>
+                        Продолжительность: 44 мин.
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Лекции</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino3.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">В зоне особого<br>
+                            внимания</span>
+                        1977 / 98 мин. / Боевик<br>
+                        Режиссер: Малюков Андрей
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino1.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">Белое солнце<br>пустыни</span>
+                        1969 / 81 мин. / <a href="#">Приключения</a><br>
+                        Режиссер: Мотыль Владимир
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino2.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">
+                            1150-летие российской<br>
+                            государственности.
+                            Призвание Рюрика</span>
+                        Лектор: Александр Ужанков<br>
+                        Продолжительность: 44 мин.
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Лекции</a>
+                    </div>
+                </div>
+
+            </div>	
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a href="#">
+                        <img alt="" class="plitka-image" src="images/kino3.jpg">
+                    </a>	
+                    <div class="plitka-text">
+                        <span class="plitka-name">В зоне особого<br>
+                            внимания</span>
+                        1977 / 98 мин. / Боевик<br>
+                        Режиссер: Малюков Андрей
+                    </div>
+                    <div class="plitka-footer">
+                        <a href="#">Фильмы</a> / <a class="sub" href="#">Документальный</a>
+                    </div>
+                </div>
+
+            </div>		#}
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{% block right_column %}
+    {% render url('armd_news_memorial_events') %}
+
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+
+    {% if app.request.locale == 'ru' %}
+        <div class="right-video-block">
+            {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+
+            {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+        </div>
+    {% endif %}
+{% endblock %}

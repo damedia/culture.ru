@@ -2689,12 +2689,117 @@ body {
             position: relative;
             
         }
+        
+            .index-main .right-column h2 {
+                font:bold 13px Tahoma, Helvetica, sans-serif;
+                text-transform:uppercase;
+               
+            }
+            .index-main  .right-column h3 {
+                font-size: 18px;
+                padding-bottom: 1px;
+                color: #154060;
+            }
+                .index-main  .right-column h4 {
+                    font:bold 13px Tahoma, Helvetica, sans-serif;
+                    text-transform:uppercase;
+                     margin:0;
+                }
+        
+        .right-column > div:first-child {
+            border-top: 5px solid #f79016;
+        }
+        
+        .right-column > section > div:first-child {
+            border-top: 5px solid #f79016;
+        }
+        
+        .online-anons {            
+            margin:0 auto;
+            width:278px;
+            padding:10px 15px 12px;
+            
+            font-size:11px;
+            background:#fff url(../img/more-dots.gif) repeat-x 0 100%;
+            
+        }
+            .online-anons h2 {
+				 margin:0 0 17px;
+			}
+			.online-anons  h3 {
+                margin-top: 7px;
+				margin-bottom: 3px;
+            }
+			.index-main .right-column .online-anons h4 {
+				margin-top:8px;
+				margin-bottom:6px;
+			}
+                        .online-anons a img {
+                            width: 278px;
+                        }
+                        .online-anons h4 a {
+                            color: #222222;
+                            text-decoration: none;
+                        }
+            .online-type {
+                
+            }
+                .online-anons p {
+                    margin-bottom:7px;
+					line-height:13px;
+                }
+                .online-anons p.online-anons-place {
+                    color:#989898;
+                    
+                }
+                    .online-anons-place b {
+                        color:#000;
+                        font-size:12px;
+                    }
+                    
+            .online-anons-footer {
+				margin-top:11px;
+            }     
+                .online-anons-footer-countdown {
+                    float: left;
+                    width: 150px;
+                    border-top: 1px solid #d1d1d1;
+                    padding: 7px 0 0 30px;
+                    color:#989898;
+                }
+                .online-anons-footer-time {                   
+                    background: url(../img/clocks.png) no-repeat 0 8px;
+                }
+                 .online-anons-footer a.button {
+                    float:right;
+                    margin-top:8px;
+                 }
+                 .button-orange {
+                    background: #f9a61a;
+                    background: -moz-linear-gradient(top, #f9a61a 0%, #f99e19 25%, #f78213 80%, #f77b12 100%);
+                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9a61a), color-stop(25%,#f99e19), color-stop(80%,#f78213), color-stop(100%,#f77b12));
+                    background: -webkit-linear-gradient(top, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    background: -o-linear-gradient(top, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    background: -ms-linear-gradient(top, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    background: linear-gradient(to bottom, #f9a61a 0%,#f99e19 25%,#f78213 80%,#f77b12 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a61a', endColorstr='#f77b12',GradientType=0 );
+                 }
+                 
+            #online_translation_notification_form {
+                width: 360px;
+            }
+            #online_translation_notification_form div {
+                margin-bottom: 20px;
+            }
+            #online_translation_notification_form .otnf_email {
+                float: left;
+            }
+                                  
         .events-tabs {
             margin:0 auto;
             width:288px;
             padding:9px 13px 24px;
             background:#fff;
-            border-top:5px solid #f79016;
         }
             .events-tabs h2 {
                 font:bold 13px Tahoma, Helvetica, sans-serif;
@@ -4163,7 +4268,99 @@ body {
 
 /*--- /login form ---*/
 
+/*online translation */
 
+.online-translation { margin-bottom: 70px; }
+
+	.online-translation h2 { margin: 0 0 7px 0;}
+
+	.online-translation .player-container {
+		width: 100%;
+		min-height: 462px;
+		background: #E1E1E1;
+	}
+
+
+	.online-translation .translation-desc {
+		margin: 20px 0;
+	}
+
+		.online-translation .translation-desc h3 {
+			font-weight: normal;
+			color: #193F5E;
+			font-size: 18px;
+			margin:0 0 5px 0;
+			padding: 0;
+		}
+
+		.online-translation .translation-desc h4 {
+			margin: 0 0 5px 0;
+			padding: 0;
+			font-size: 12px;
+			color: #979797;
+			font-weight: normal;
+		}
+
+			.online-translation .translation-desc h4 i {
+				color: #000;
+				font-style: normal;
+			}
+
+			.online-translation .translation-desc p {
+				font-size: 11px;
+				margin: 0;
+				padding: 0;
+
+			}
+
+	.online-translation .translation-coutdown {}
+
+		.online-translation .translation-coutdown p,
+		.online-translation .translation-coutdown a {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.lt-ie8 .online-translation .translation-coutdown p,
+		.lt-ie8 .online-translation .translation-coutdown a {
+			display: inline;
+			zoom:1;
+		}
+
+
+		.online-translation .translation-coutdown p {
+			width: 135px;
+			padding-left: 30px;
+			background: url(../img/clocks.png) no-repeat 0 center;
+			color: #979797;
+			font-size: 11px;
+			margin-right: 30px;
+			border-top:1px solid #D2D2D2;
+			padding-top: 6px;
+		}
+
+		.online-translation .translation-coutdown .button {
+			position: relative;
+			top: 6px;
+			background: #f9a519; /* Old browsers */
+			background: -moz-linear-gradient(top, #f9a519 0%, #f77b11 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9a519), color-stop(100%,#f77b11)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top, #f9a519 0%,#f77b11 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top, #f9a519 0%,#f77b11 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top, #f9a519 0%,#f77b11 100%); /* IE10+ */
+			background: linear-gradient(to bottom, #f9a519 0%,#f77b11 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a519', endColorstr='#f77b11',GradientType=0 ); /* IE6-9 */
+		}
+
+        .online-translation .full-description {
+            margin-top: 30px;
+        }
+
+/* online translation */
+
+.long-border.type-1 {
+	margin-bottom: 15px;
+}
 
 
 /*online translation */

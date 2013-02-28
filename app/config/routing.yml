@@ -154,3 +154,7 @@ armd_oauth:
     resource: "@ArmdOAuthBundle/Controller/"
     type:     annotation
     prefix:   /oauth
+
+armd_online_translation:
+    resource: '@ArmdOnlineTranslationBundle/Resources/config/routing.yml'
+    prefix:   /broadcasts

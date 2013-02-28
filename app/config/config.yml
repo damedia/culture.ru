@@ -238,6 +238,16 @@ sonata_media:
             formats:
                 big: { width: 200 }
                 small: { width: 97 }
+        
+        online_broadcast:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: { width: 278 }
+                broadcastW600: { width: 600 }
 
     cdn:
         server:
@@ -245,7 +255,7 @@ sonata_media:
 
     filesystem:
         local:
-            directory:  %kernel.root_dir%/../web/uploads/media
+            directory:  %sonata_media_filesystem_path%
             create:     true
 
 #    class:
