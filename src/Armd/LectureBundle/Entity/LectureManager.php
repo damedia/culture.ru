@@ -48,7 +48,7 @@ class LectureManager extends ListManager
             'Lectures' => array(
                 'result_offset' => ($page - 1) * $perPage,
                 'result_limit' => (int) $perPage,
-                'sort_mode' => 'date_from DESC, @relevance DESC, @weight DESC',
+                'sort_mode' => 'date_from DESC',
             )
         );
 
