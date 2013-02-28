@@ -2690,30 +2690,28 @@ body {
             
         }
         
-            .index-main .right-column h2 {
+            #homepage-online-translation h2 {
                 font:bold 13px Tahoma, Helvetica, sans-serif;
                 text-transform:uppercase;
                
             }
-            .index-main  .right-column h3 {
+            #homepage-online-translation  h3 {
                 font-size: 18px;
                 padding-bottom: 1px;
                 color: #154060;
             }
-                .index-main  .right-column h4 {
-                    font:bold 13px Tahoma, Helvetica, sans-serif;
-                    text-transform:uppercase;
-                     margin:0;
-                }
-        
-        .right-column > div:first-child {
-            border-top: 5px solid #f79016;
-        }
-        
-        .right-column > section > div:first-child {
-            border-top: 5px solid #f79016;
-        }
-        
+
+            #homepage-online-translation h4 {
+                font: bold 13px Tahoma, Helvetica, sans-serif;
+                text-transform: uppercase;
+                margin: 0;
+            }
+
+            #homepage-online-translation .online-anons {
+                border-top: 5px solid #f79016;
+            }
+
+
         .online-anons {            
             margin:0 auto;
             width:278px;
