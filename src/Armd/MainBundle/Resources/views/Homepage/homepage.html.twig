@@ -50,7 +50,7 @@
 
                     <div class="text-overflow">
                         <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
-                        <p>{{ lastReportage.announce|truncate(200) }}</p>
+                        <p>{{ lastReportage.announce|striptags|truncate(200)|raw }}</p>
                         <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
                     </div>
                 </section>
@@ -67,7 +67,7 @@
 
                     <div class="text-overflow">
                         <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
-                        <p>{{ lastInterview.announce|truncate(200) }}</p>
+                        <p>{{ lastInterview.announce|striptags|truncate(200)|raw }}</p>
                         <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
                     </div>
                 </section>
@@ -112,9 +112,7 @@
             <div id="instruction" style="display:none;">
                 <div class="window">
                     <div class="block window-content">
-
                         {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-
                     </div>
                </div>
             </div>
