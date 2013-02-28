@@ -82,7 +82,14 @@ class LectureManager extends ListManager
         $result = array();
         if (!empty($searchResult['Lectures']['matches'])) {
             $lectureRepo = $this->em->getRepository('ArmdLectureBundle:Lecture');
-            $items = $lectureRepo->findBy(array('id' => array_keys($searchResult['Lectures']['matches'])));
+            $items = array();
+            $ids = array_keys($searchResult['Lectures']['matches']);
+            foreach ($ids as $id) {
+                $item = $lectureRepo->find($id);
+                if ($item) {
+                    $items[] = $item;
+                }
+            }
             $result = array(
                 'total' => $searchResult['Lectures']['total'],
                 'items' => $items,
