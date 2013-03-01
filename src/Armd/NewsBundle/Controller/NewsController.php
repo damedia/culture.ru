@@ -161,6 +161,18 @@ class NewsController extends Controller
      */
     function newsIndexAction($category = null)
     {
+        $request = $this->getRequest();
+
+        // fix menu
+        $menu = $this->get('armd_main.menu.main');
+        $menuFinder = $this->get('armd_main.menu_finder');
+        if(!$menuFinder->findByUri($menu, $request->getRequestUri())) {
+            $menu->setCurrentUri(
+                $this->get('router')->generate('armd_news_list_index')
+            );
+        }
+
+
         if ($category) {
             $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
                 ->findOneBySlug($category);
@@ -168,9 +180,12 @@ class NewsController extends Controller
             $categoryEntity = null;
         }
 
+        $searchQuery = $request->get('search_query');
+
         return array(
             'category' => $category,
-            'categoryEntity' => $categoryEntity
+            'categoryEntity' => $categoryEntity,
+            'searchQuery' => $searchQuery
         );
     }
 
@@ -233,6 +248,36 @@ class NewsController extends Controller
         );
     }
 
+    /**
+     * @Route(
+     *  "/text-search-result",
+     *  name="armd_news_text_search_result",
+     *  options={"expose"=true}
+     * )
+     * @Template("ArmdNewsBundle:News:text_search_result.html.twig")
+     */
+    public function textSearchResultAction()
+    {
+        $request = $this->getRequest();
+        $limit = $request->get('limit', 20);
+        if ($limit > 100) {
+            $limit = 100;
+        }
+
+        $news = $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_SEARCH_STRING => $request->get('search_query'),
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
+                NewsManager::CRITERIA_LIMIT => $limit,
+                NewsManager::CRITERIA_OFFSET => $request->get('offset'),
+            )
+        );
+
+        return array(
+            'news' => $news
+        );
+    }
+
 
     /**
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
@@ -272,21 +317,6 @@ class NewsController extends Controller
             'thread'      => $entity->getThread(),
         ));
     }
-        
-    function categoriesAction($category)
-    {
-        return $this->render('ArmdNewsBundle:News:categories.html.twig', array(
-            'category'      => $category,
-            'categories'    => $this->getNewsManager()->getCategories(),
-        ));
-    }
-    
-    function latestNewsAction($limit)
-    {
-        return $this->render('ArmdNewsBundle:News:latest-news.html.twig', array(
-            'news'  => $this->getNewsManager(array(NewsManager::CRITERIA_LIMIT => $limit)),
-        ));
-    }
 
     /**
      * @Route("/billboard-slider/", name="armd_news_billboard_slider")
@@ -311,15 +341,6 @@ class NewsController extends Controller
     
         return $this->render('ArmdNewsBundle:News:billboard.html.twig', array(
             'entities' => $entities,
-        ));
-    }
-    
-    public function recommendedNewsAction($limit = 10)
-    {
-        $criteria = array('important' => true);
-        $entities = $this->getNewsManager()->getBillboardNews();
-        return $this->render('ArmdNewsBundle:News:latest-news.html.twig', array(
-            'news' => $entities,
         ));
     }
 

@@ -99,7 +99,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("russia-images/", name="armd_atlas_russia_images")
+     * @Route("russia-images/", name="armd_atlas_russia_images", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:russia_images.html.twig")
      */
     public function russiaImagesAction()
@@ -126,7 +126,8 @@ class DefaultController extends Controller
             'thematics' => $thematicsRoot->getChildren(),
             'types' => $typesRoot->getChildren(),
             'regions' => $regions,
-            'regionId' => $this->getRequest()->get('region_id')
+            'regionId' => $this->getRequest()->get('region_id'),
+            'searchQuery' => $this->getRequest()->get('search_query')
         );
     }
 
@@ -160,6 +161,11 @@ class DefaultController extends Controller
         $regionId = $request->get('region_id');
         if (!empty($regionId)) {
             $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
+        }
+
+        $searchText = $request->get('search_text');
+        if (!empty($searchText)) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
 //        $searchQuery = $request->get('search_query');

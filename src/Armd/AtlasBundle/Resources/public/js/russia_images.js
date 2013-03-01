@@ -21,6 +21,7 @@ var armdMkRussiaImages = {
             event.preventDefault();
 
             armdMkRussiaImages.readFilter();
+            armdMkRussiaImages.resetTextFilter();
             armdMkRussiaImages.loadList(false);
         });
 
@@ -29,13 +30,24 @@ var armdMkRussiaImages = {
             event.preventDefault();
             var regionId = $(this).data('region-id');
 
+            armdMkRussiaImages.resetFilter();
+            armdMkRussiaImages.resetTextFilter();
             $('#object-region').val(regionId).selectgroup('refresh');
-            $('#object-type').val('').selectgroup('refresh');
-            $('#object-thematic').val('').selectgroup('refresh');
-
             armdMkRussiaImages.readFilter();
+
             armdMkRussiaImages.loadList(false);
         });
+
+        // init search
+        $('#search-form').bind('submit', function(event) {
+            if ($('#search-this-section').prop('checked')) {
+                event.preventDefault();
+                armdMkRussiaImages.resetFilter();
+                armdMkRussiaImages.readTextFilter();
+                armdMkRussiaImages.loadList(false);
+            }
+        });
+
     },
 
     readFilter: function () {
@@ -58,6 +70,23 @@ var armdMkRussiaImages = {
         armdMkRussiaImages.categoryIds = categoryIds;
     },
 
+    resetFilter: function () {
+        $('#object-region').val('').selectgroup('refresh');
+        $('#object-type').val('').selectgroup('refresh');
+        $('#object-thematic').val('').selectgroup('refresh');
+
+        armdMkRussiaImages.readFilter();
+    },
+
+    readTextFilter: function () {
+        armdMkRussiaImages.searchText = $('#search-txt').val();
+    },
+
+    resetTextFilter: function() {
+        armdMkRussiaImages.searchText = '';
+        $('#search-txt').val('');
+    },
+
     startLoading: function () {
         armdMk.startLoadingBlock('body');
         $('#search-russia-images-button').addClass('loading');
@@ -77,7 +106,7 @@ var armdMkRussiaImages = {
         var data = {
             region_id: armdMkRussiaImages.regionId,
             category_ids: armdMkRussiaImages.categoryIds,
-            search_query: armdMkRussiaImages.searchText
+            search_text: armdMkRussiaImages.searchText
         };
 
         var offset = append ? armdMkRussiaImages.visibleCount : 0;

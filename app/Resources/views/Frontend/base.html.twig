@@ -136,8 +136,8 @@
                         <div class="search-category"></div>
                     {% endblock %}
                     <div class="search-top clearfix">
-                        <form action="{{ path('armd_search_results') }}">
-                            <input type="text" name="search_query" placeholder="{{ "site_search"|trans }}" class="search-txt" id="search-txt"/>
+                        <form id="search-form" action="{{ path('armd_search_results') }}">
+                            <input type="text" name="search_query" placeholder="{{ "site_search"|trans }}" class="search-txt" id="search-txt" autocomplete="off" value="{% block search_query %}{% endblock %}" />
                             <input type="submit" value="{{ "search"|trans }}" class="button search-btn"/>
                         </form>
                         {% block page_header_search_scope %}{% endblock %}

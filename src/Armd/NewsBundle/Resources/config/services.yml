@@ -24,7 +24,7 @@ services:
         
     armd_news.manager.news:
         class: Armd\NewsBundle\Entity\NewsManager
-        arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager]
+        arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager, @search.sphinxsearch.search]
         
     armd_news.controller.news:
         class: Armd\NewsBundle\Controller\NewsController

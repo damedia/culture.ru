@@ -3,6 +3,7 @@
 namespace Armd\MuseumBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use Armd\TagBundle\Entity\TagManager;
 use Doctrine\ORM\QueryBuilder;
 use Armd\SphinxSearchBundle\Services\Search\SphinxSearch;
 use Knp\Component\Pager\Paginator;
@@ -10,11 +11,31 @@ use Armd\ListBundle\Entity\ListManager;
 
 class MuseumManager extends ListManager
 {
+    protected $search;
+
     /** example: array(13, 7) */
     const CRITERIA_REGION_IDS_OR = 'CRITERIA_REGION_IDS_OR';
 
     /** example: array(13, 7) */
     const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_OR';
+
+    /** example: 'the rolling stones' */
+    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
+
+    public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
+    {
+        parent::__construct($em, $tagManager);
+        $this->search = $search;
+    }
+
+
+    public function findObjects(array $criteria) {
+        if (!empty($criteria[self::CRITERIA_SEARCH_STRING])) {
+            return $this->findObjectsWithSphinx($criteria);
+        } else {
+            return parent::findObjects($criteria);
+        }
+    }
 
     public function getQueryBuilder()
     {
@@ -45,6 +66,37 @@ class MuseumManager extends ListManager
         }
     }
 
+    public function findObjectsWithSphinx(array $criteria)
+    {
+        $searchParams = array('Museums' => array(
+            'filters' => array(
+                array(
+                    'attribute' => 'published',
+                    'values' => array(1)
+                )
+            )
+        ));
+
+        if (isset($criteria[self::CRITERIA_LIMIT])) {
+            $searchParams['Museums']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
+        }
+
+        if (isset($criteria[self::CRITERIA_OFFSET])) {
+            $searchParams['Museums']['result_offset'] = (int) $criteria[self::CRITERIA_OFFSET];
+        }
+
+        $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
+
+        $result = array();
+        if (!empty($searchResult['Museums']['matches'])) {
+            $lectureRepo = $this->em->getRepository('ArmdMuseumBundle:Museum');
+            $result = $lectureRepo->findBy(array('id' => array_keys($searchResult['Museums']['matches'])));
+        }
+
+        return $result;
+
+    }
+
     public function getCategories()
     {
         return $this->em->getRepository('ArmdMuseumBundle:Category')->findBy(
@@ -63,7 +115,7 @@ class MuseumManager extends ListManager
             ORDER BY region.title
         ");
 
-        return $query->getResult();;
+        return $query->getResult();
     }
 
     public function getClassName()
