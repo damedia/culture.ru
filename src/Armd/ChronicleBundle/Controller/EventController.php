@@ -104,18 +104,34 @@ class EventController extends ListController
         
         $events = $this->getEventsList($century, $part);
         
-        foreach ($events as $event) {               
-            $result['timeline']['date'][] = array(
-                'startDate' => $event->getDate()->format('Y,n,j'),
-                'headline' => $event->getTitle(),
-                'text' => $event->getBody(),
-                'asset' => array(
-                    'media' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'list') : '',
-                    'thumbnail' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'adminPreview') : '',
-                    'credit' => '',
-                    'caption' => $event->getImage() ? $event->getImage()->getTitle() : ''
-                )
-            );
+        foreach ($events as $event) {
+            if (get_class($event) == 'Armd\ChronicleBundle\Entity\Event') {
+                $result['timeline']['date'][] = array(
+                    'startDate' => $event->getDate()->format('Y,n,j'),
+                    'headline' => $event->getTitle(),
+                    'text' => $event->getBody(),
+                    'accident' => '',
+                    'asset' => array(
+                        'media' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'list') : '',
+                        'thumbnail' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'adminPreview') : '',
+                        'credit' => '',
+                        'caption' => $event->getImage() ? $event->getImage()->getTitle() : ''
+                    )
+                );
+            } else {
+                $result['timeline']['date'][] = array(
+                    'startDate' => $event->getDate()->format('Y,n,j'),
+                    'headline' => 'В мире',
+                    'text' => $event->getAnnounce(),
+                    'accident' => 'accident',
+                    'asset' => array(
+                        'media' => '',
+                        'thumbnail' => '',
+                        'credit' => 'В мире',
+                        'caption' => 'В мире'
+                    )
+                );
+            }
         }       
         
         return new JsonResponse($result);
@@ -142,6 +158,7 @@ class EventController extends ListController
     function getEventsList($century, $part = 0)
     {
         $repository = $this->getEventsRepository($century);
+        $accidentRepository = $this->getAccidentsRepository($century);
         
         if ($part) {
             if ($part == 1) {
@@ -153,9 +170,25 @@ class EventController extends ListController
             }
             
             $repository->setPeriod($from, $to);
+            $accidentRepository->setPeriod($from, $to);
         }
         
-        return $repository->getQuery()->getResult();
+        $eventsAccidents = array_merge(
+            $repository->getQuery()->getResult(), 
+            $accidentRepository->getQuery()->getResult()
+        );
+        
+        usort($eventsAccidents, function ($a, $b) {
+            if ($a->getDate() > $b->getDate()) {
+                return -1;
+            } elseif ($a->getDate() < $b->getDate()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        
+        return $eventsAccidents;
     }
     
     function getEventsCount($century)
@@ -178,6 +211,16 @@ class EventController extends ListController
         return $this->getListRepository()
             ->setCentury($century)
             ->orderByDate('DESC');
+    }
+    
+    function getAccidentsRepository($century)
+    {
+        $repository = $this->getDoctrine()->getEntityManager()
+                ->getRepository('ArmdChronicleBundle:Accident');
+        
+        $repository->createQueryBuilder('t');
+        
+        return $repository->setCentury($century)->orderByDate('DESC');       
     }
     
     public function getControllerName()

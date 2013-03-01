@@ -44,6 +44,7 @@
 .vco-storyjs h2.date{font-size:16px;line-height:18px;margin-bottom:3.75px;color:#999999;}
 .vco-storyjs h3,.vco-storyjs h4,.vco-storyjs h5,.vco-storyjs h6{line-height:40px;}.vco-storyjs h3 .active,.vco-storyjs h4 .active,.vco-storyjs h5 .active,.vco-storyjs h6 .active{color:#0088cc;}
 .vco-storyjs h3{font-size:28px;line-height:30px;}.vco-storyjs h3 small{font-size:14px;}
+.vco-storyjs .accident h3{color: #999999;}
 .vco-storyjs h4{font-size:20px;line-height:22px;}.vco-storyjs h4 small{font-size:12px;}
 .vco-storyjs h5{font-size:16px;line-height:18px;}
 .vco-storyjs h6{font-size:13px;line-height:14px;text-transform:uppercase;}
@@ -95,7 +96,7 @@
 .vco-slider .nav-previous .date,.vco-slider .nav-previous .title{text-align:left;padding-left:15px;}
 .vco-slider .nav-next{float:right;text-align:right;}.vco-slider .nav-next .icon{margin-left:61px;background-image:url(timeline.png?v4.3);background-repeat:no-repeat;background-position:-184px 0;width:24px;height:24px;overflow:hidden;}
 .vco-slider .nav-next .date,.vco-slider .nav-next .title{text-align:right;padding-right:15px;}
-.vco-slider .slider-item{position:absolute;width:700px;height:100%;padding:0px;margin:0px;display:table;overflow-y:auto;}.vco-slider .slider-item .content{display:table-cell;vertical-align:middle;}.vco-slider .slider-item .content .pad-top .text .timeline-container{padding-top:15px;}
+.vco-slider .slider-item{position:absolute;width:700px;height:100%;padding:0px;margin:0px;overflow:hidden;}.vco-slider .slider-item .content{vertical-align:middle;overflow-y:scroll;height:100%;right:-18px;position:absolute;padding-right:16px;width:100%;}.vco-slider .slider-item .content .pad-top .text .timeline-container{padding-top:15px;}.vco-slider .accident{background-color: #E9E9E9;}
 .vco-slider .slider-item .content .pad-right .text .timeline-container{padding-right:15px;}
 .vco-slider .slider-item .content .pad-left .text .timeline-container{padding-left:30px;}
 .vco-slider .slider-item .content .pad-left .media.text-media .media-wrapper .media-container{border:none;background-color:#ffffff;}

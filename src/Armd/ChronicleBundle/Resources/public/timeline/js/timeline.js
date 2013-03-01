@@ -5222,7 +5222,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				VMM.Lib.css(".slider-item .media blockquote p", "line-height", "36px" );
 				VMM.Lib.css(".slider-item .media blockquote p", "font-size", "28px" );
 				
-				VMM.Lib.css(".slider-item", "display", "table" );
+				//VMM.Lib.css(".slider-item", "display", "table" );
 				//VMM.Lib.css(".slider-item", "overflow-y", "auto" );
 			}
 			
@@ -5302,7 +5302,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Slider == 'undefined') {
 				if (slides[i].content_height() > config.slider.height + 20) {
 					slides[i].css("display", "block");
 				} else {
-					slides[i].css("display", "table");
+					//slides[i].css("display", "table");
 				}
 			}
 			
@@ -5573,7 +5573,7 @@ if (typeof VMM.Slider != 'undefined') {
 		this.enqueue	= _enqueue;
 		this.id			= _id;
 		
-		element		=	VMM.appendAndGetElement(_parent, "<div>", "slider-item");
+		element		=	VMM.appendAndGetElement(_parent, "<div>", "slider-item " + data.accident);
 		c = {slide:"", text: "", media: "", media_element: "", layout: "content-container layout", has: { headline: false, text: false, media: false }};
 		
 		/* PUBLIC
@@ -5756,6 +5756,11 @@ if (typeof VMM.Slider != 'undefined') {
 			================================================== */
 			if (data.headline != null && data.headline != "") {
 				c.has.headline	=	true;
+                                
+                                if (data.accident == 'accident') {
+                                    data.headline = '-- ' + data.headline + ' --';
+                                }
+                                
 				if (data.type == "start") {
 					c.text		+=	VMM.createElement("h2", VMM.Util.linkify_with_twitter(data.headline, "_blank"), "start");
 				} else { 
@@ -7245,6 +7250,7 @@ if(typeof VMM != 'undefined' && typeof VMM.Timeline == 'undefined') {
 						_date.tag				= data.date[i].tag;
 						_date.slug				= data.date[i].slug;
 						_date.uniqueid			= VMM.Util.unique_ID(7);
+                                                _date.accident			= data.date[i].accident;
 						
 						_dates.push(_date);
 					} 
@@ -8793,7 +8799,7 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 					has_title			= false;
 				
 				
-				_marker					= VMM.appendAndGetElement($content, "<div>", "marker");
+				_marker					= VMM.appendAndGetElement($content, "<div>", "marker " . data[i].accident);
 				_marker_flag			= VMM.appendAndGetElement(_marker, "<div>", "flag");
 				_marker_content			= VMM.appendAndGetElement(_marker_flag, "<div>", "flag-content");
 				_marker_dot				= VMM.appendAndGetElement(_marker, "<div>", "dot");
@@ -8833,6 +8839,10 @@ if(typeof VMM.Timeline != 'undefined' && typeof VMM.Timeline.TimeNav == 'undefin
 					trace("TITLE SLUG NOT FOUND " + data[i].slug)
 				}
 				
+                                if (data[i].accident == 'accident') {
+                                    _marker_title = '-- ' + _marker_title + ' --';
+                                }
+                                
 				if (has_title) {
 					VMM.appendElement(_marker_content, "<h3>" + _marker_title + "</h3>");
 				} else {
