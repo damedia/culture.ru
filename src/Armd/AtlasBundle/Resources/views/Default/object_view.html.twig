@@ -39,6 +39,14 @@
     </div>
 {% endblock %}
 
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
@@ -70,6 +78,7 @@
             initYandexShare();
             //initInfographics();
             initInfographics2();
+            initSearch();
 
 //            $('.gallery').show();
         });
@@ -196,6 +205,17 @@
                 max_WIDTH: '',
                 max_HEIGHT: '',
                 button_ICON_IMAGE: '{{ asset('vendor/zp/zoom_assets/icons.png') }}'
+            });
+        }
+
+        function initSearch() {
+            // init search
+            $('#search-form').bind('submit', function(event) {
+                if ($('#search-this-section').prop('checked')) {
+                    var searchQuery = $('#search-txt').val();
+                    event.preventDefault();
+                    window.location = Routing.generate('armd_atlas_russia_images', {'search_query': searchQuery});
+                }
             });
         }
 

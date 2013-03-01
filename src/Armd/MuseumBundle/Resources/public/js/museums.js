@@ -7,12 +7,23 @@ var armdMuseums = {
     initUi: function () {
         $('#museums-filter-form').ajaxForm({
             beforeSubmit: function(){
+                armdMk.startLoading();
+                armdMuseums.resetTextFilter();
                 armdMuseums.startLoading();
             },
             success: function(data) {
                 $('#museums-container').html(data);
                 armdMuseums.stopLoading();
                 armdMuseums.initLoadedUi();
+                armdMk.stopLoading();
+            }
+        });
+
+        // init search
+        $('#search-form').bind('submit', function(event) {
+            if ($('#search-this-section').prop('checked')) {
+                event.preventDefault();
+                armdMuseums.loadTextFilterResult();
             }
         });
     },
@@ -42,12 +53,43 @@ var armdMuseums = {
         });
     },
 
+    resetFilter: function() {
+        $('#filter-region').val('').selectgroup('refresh');
+        $('#filter-category').val('').selectgroup('refresh');
+    },
+
+    resetTextFilter: function() {
+        $('#search-txt').val('').selectgroup('refresh');
+    },
+
     startLoading: function () {
         $('#museums-loading').show();
     },
 
     stopLoading: function () {
         $('#museums-loading').hide();
+    },
+
+    loadTextFilterResult: function() {
+        var searchQuery = $('#search-txt').val().trim();
+        if (searchQuery.length > 0) {
+            armdMuseums.resetFilter();
+            armdMk.startLoading();
+            $.ajax({
+                url: Routing.generate('armd_museum_list'),
+                data: {
+                    'search_query': searchQuery
+                },
+                dataType: 'html',
+                method: 'get',
+                success: function(data) {
+                    $('#museums-container').html(data);
+                },
+                complete: function() {
+                    armdMk.stopLoading();
+                }
+            })
+        }
     }
 
 };

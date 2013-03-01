@@ -8,6 +8,8 @@
     {{ 'Navigation.Images of Russia.Title'|trans }}
 {% endblock %}
 
+{% block search_query %}{{ searchQuery }}{% endblock %}
+
 {% block page_header_search %}
     {% spaceless %}
         <div class="category-chooser" id="category-chooser">
@@ -35,13 +37,13 @@
                     {% for type in types %}
                         <option value="{{ type.id }}">{{ type.title }}</option>
                     {% endfor %}
-\               </select>
+                </select>
                 <select name="object-thematic" id="object-thematic" class="uni">
                     <option value="">{{ "search_category.theme"|trans }}</option>
                     {% for thematic in thematics %}
                         <option value="{{ thematic.id }}">{{ thematic.title }}</option>
                     {% endfor %}
-\                </select>
+                </select>
             </div>
             <a href="#" id="search-russia-images-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
         </div>
@@ -49,9 +51,9 @@
 {% endblock %}
 
 {% block page_header_search_scope %}
-    {#<div class="search-checkboxes">#}
-        {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
-    {#</div>#}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
 {% endblock %}
 
 {% block body %}
@@ -59,19 +61,19 @@
 
     <div id="plitka" class="tab plitka-list">
         <ul class="plitka obrazy-plitka">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'tile', 'limit': 24, 'region_id': regionId }) %}
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'tile', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
         </ul>
     </div>
 
     <div id="full-list" class="tab" style="display:none">
         <ul class="full-list">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'full-list', 'limit': 24, 'region_id': regionId }) %}
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'full-list', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
         </ul>
     </div>
 
     <div id="short-list" class="tab"  style="display:none">
         <ul class="short-list">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'short-list', 'limit': 24, 'region_id': regionId }) %}
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'short-list', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
         </ul>
     </div>
 

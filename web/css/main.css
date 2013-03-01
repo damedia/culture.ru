@@ -1230,8 +1230,44 @@ body {
 					color:#7791A4;
 				}
 				
-			
-			
+
+    /*--- news section search results ---*/
+    #news-container article {
+        margin-bottom: 20px;
+    }
+        #news-container .search-result-image {
+            float: left;
+            color: #7791A4;
+            float: left;
+            font-size: 11px;
+            margin-right: 3%;
+            text-decoration: none;
+            width: 160px;
+        }
+
+            #news-container .search-result-type {
+                display: block;
+                margin-bottom: 3px;
+            }
+
+
+        #news-container .search-result-date {
+            color: #7791A4;
+            display: block;
+            font-size: 11px;
+        }
+
+        #news-container .search-result-title {
+            color: #000000;
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 0;
+            text-decoration: none;
+        }
+
+    /*--- /news section search results ---*/
+
 	/*VIDEO*/		
 	.video-one {
 		margin-top:6px;

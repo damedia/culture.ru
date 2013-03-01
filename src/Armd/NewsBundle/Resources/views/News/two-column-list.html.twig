@@ -36,8 +36,8 @@
         var firstLoadedDate = '{{ newsByDate|keys[newsByDate|keys|length - 1] }}';
         var lastLoadedDate = '{{ newsByDate|keys[0] }}';
     {% else %}
-        var firstLoadedDate = momentum().format('YYYY-MM-DD');
-        var lastLoadedDate = momentum().format('YYYY-MM-DD');
+        var firstLoadedDate = moment().format('YYYY-MM-DD');
+        var lastLoadedDate = moment().format('YYYY-MM-DD');
     {% endif %}
 </script>
 

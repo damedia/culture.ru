@@ -21,22 +21,27 @@
 </div>
 {% endblock %}
 
+{% block search_query %}{{ searchQuery }}{% endblock %}
 
 {% block page_header_search_scope %}
-    {#<div class="search-checkboxes">#}
-        {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section" {% if searchQuery is not empty %}checked{% endif %}/><span>Искать в текущем разделе</span></label>
         {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
-    {#</div>#}
+    </div>
 {% endblock %}
 
 
 {% block left_column %}
-    {% if not category %}
+    {% if not category and searchQuery is empty %}
         {% render url('armd_news_billboard_slider') %}
     {% endif %}
 
     <div id="news-container">
-        {% render url('armd_news_two_column_list', {'limit': 50, 'category': category}) %}
+        {% if searchQuery is empty %}
+            {% render url('armd_news_two_column_list', {'limit': 50, 'category': category}) %}
+        {% else %}
+            {% render url('armd_news_text_search_result', {'limit': 30, 'search_query': searchQuery}) %}
+        {% endif %}
     </div>
 
     <div class="more">
@@ -68,8 +73,10 @@
     <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news.js') }}"></script>
     <script type="text/javascript">
         $(function(){
-            armdMkNews.init();
-            armdMkNews.categorySlug = '{{ category }}';
+            armdMkNews.init('{{ category }}');
+            {% if searchQuery is not empty %}
+                armdMkNews.initMoreButtonToLoadSearch();
+            {% endif %}
         });
     </script>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container;
+use Armd\SphinxSearchBundle\Services\Search\SphinxSearch;
 use Armd\AtlasBundle\Entity\Object;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -45,10 +46,18 @@ class ObjectManager extends ListManager
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
 
-    public function __construct(EntityManager $em, TagManager $tagManager, $search)
+    public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
         parent::__construct($em, $tagManager);
         $this->search = $search;
+    }
+
+    public function findObjects(array $criteria) {
+        if (!empty($criteria[self::CRITERIA_SEARCH_STRING])) {
+            return $this->findObjectsWithSphinx($criteria);
+        } else {
+            return parent::findObjects($criteria);
+        }
     }
 
     public function getQueryBuilder()
@@ -149,6 +158,42 @@ class ObjectManager extends ListManager
         }
 
         return $objects;
+    }
+
+    public function findObjectsWithSphinx($criteria) {
+        $searchParams = array('Atlas' => array(
+            'filters' => array(
+                array(
+                    'attribute' => 'published',
+                    'values' => array(1)
+                )
+            )
+        ));
+
+        if (isset($criteria[self::CRITERIA_LIMIT])) {
+            $searchParams['Atlas']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
+        }
+
+        if (isset($criteria[self::CRITERIA_OFFSET])) {
+            $searchParams['Atlas']['result_offset'] = (int) $criteria[self::CRITERIA_OFFSET];
+        }
+
+        if (isset($criteria[self::CRITERIA_RUSSIA_IMAGES])) {
+            $searchParams['Atlas']['filters'][] = array(
+                'attribute' => 'show_at_russian_image',
+                'values' => array(1)
+            );
+        }
+
+        $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
+
+        $result = array();
+        if (!empty($searchResult['Atlas']['matches'])) {
+            $lectureRepo = $this->em->getRepository('ArmdAtlasBundle:Object');
+            $result = $lectureRepo->findBy(array('id' => array_keys($searchResult['Atlas']['matches'])));
+        }
+
+        return $result;
     }
 
     public function getRussiaImagesList($searchString)
