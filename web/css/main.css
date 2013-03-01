@@ -4382,6 +4382,15 @@ body {
     /* Style adjustments for high resolution devices */
 }
 
+@media screen and (max-width: 1195px) {
+    /* Style adjustments for viewports that meet the condition */
+    .plitka.rec-plitka li:last-child {
+    	display: none;
+    }
+}
+
+
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r
