@@ -166,40 +166,35 @@ class Builder extends ContainerAware
             $videoMenu = $menu->addChild(
                 'menu.video',
                 array(
-                    'route' => 'armd_lecture_default_list',
-                    'routeParameters' => array('supertype' => 3)
+                    'route' => 'armd_lecture_cinema_index',
                 )
             );
 
             $videoMenu->addChild(
                 'menu.cinema',
                 array(
-                    'route' => 'armd_lecture_default_list',
-                    'routeParameters' => array('supertype' => 3)
+                    'route' => 'armd_lecture_cinema_index',
                 )
             );
 
             $videoMenu->addChild(
                 'menu.lectures',
                 array(
-                    'route' => 'armd_lecture_default_list',
-                    'routeParameters' => array('supertype' => 1)
+                    'route' => 'armd_lecture_lecture_index',
                 )
             );
 
             $videoMenu->addChild(
                 'menu.translations',
                 array(
-                    'route' => 'armd_lecture_default_list',
-                    'routeParameters' => array('supertype' => 2)
+                    'route' => 'armd_lecture_translation_index',
                 )
             );
 
             $videoMenu->addChild(
                 'menu.top100',
                 array(
-                    'route' => 'armd_lecture_default_list',
-                    'routeParameters' => array('supertype' => 4)
+                    'route' => 'armd_lecture_top100_index',
                 )
             );
 

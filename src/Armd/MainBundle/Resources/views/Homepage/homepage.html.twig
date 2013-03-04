@@ -77,11 +77,11 @@
 
     {% if app.request.locale == 'ru' %}
         <section class="index-block index-video-block clearfix">
-            <h2><a href="{{ path('armd_lecture_default_list') }}">Видеотека</a></h2>
+            <h2><a href="{{ path('armd_lecture_cinema_index') }}">Видеотека</a></h2>
             <div id="video-list">
                 {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
             </div>
-            <p class="all"><a href="{{ path('armd_lecture_default_list') }}">Все видео</a></p>
+            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
         </section>
     {% endif %}
 

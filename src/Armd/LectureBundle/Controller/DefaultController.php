@@ -11,108 +11,109 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/lecture/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_lecture_index")
+     * @Route("/lecture/", name="armd_lecture_lecture_index")
      */
-    public function lectureIndexAction($page)
+    public function lectureIndexAction()
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE',
-            'page' => $page
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE'
         ));
     }
 
     /**
-     * @Route("/translation/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_translation_index")
+     * @Route("/translation/", name="armd_lecture_translation_index")
      */
-    public function translationIndexAction($page)
+    public function translationIndexAction()
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION',
-            'page' => $page
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION'
         ));
     }
 
     /**
-     * @Route("/cinema/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_cinema_index")
+     * @Route("/cinema/", name="armd_lecture_cinema_index")
      */
-    public function cinemaIndexAction($page)
+    public function cinemaIndexAction()
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
-            'page' => $page
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA'
         ));
     }
 
     /**
-     * @Route("/index/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_default_index")
-     * @Template()
+     * @Route("/top100/", name="armd_lecture_top100_index")
      */
-    public function indexAction($lectureSuperTypeCode, $page)
+    public function top100IndexAction()
     {
+        return $this->forward('ArmdLectureBundle:Default:index', array(
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_TOP100'
+        ));
+    }
+
+
+    /**
+     * @Route("/index/{lectureSuperTypeCode}/", name="armd_lecture_default_index", options={"expose": true})
+     * @Template("ArmdLectureBundle:Default:index.html.twig")
+     */
+    public function indexAction($lectureSuperTypeCode)
+    {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->getMenuUri($lectureSuperTypeCode)
+        );
+
         $em = $this->getDoctrine()->getManager();
-        $lectureRepo = $em->getRepository('ArmdLectureBundle:Lecture');
-        $categoryRepo =  $em->getRepository('ArmdLectureBundle:LectureCategory');
 
-        $superType = $em->getRepository('ArmdLectureBundle:LectureSuperType')->findOneByCode($lectureSuperTypeCode);
-        $rootCategory = $categoryRepo->findOneByLectureSuperType($superType);
-
-        // lecture types and categories
-        $lectureTypes = $em->getRepository('ArmdLectureBundle:LectureType')->findAll();
-        $lectureCategories = $em->getRepository('ArmdLectureBundle:LectureCategory')->childrenHierarchy($rootCategory);
-
-        // recommended and last lectures
-        if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
-            $template = 'ArmdLectureBundle:Default:index_tile.html.twig';
-        } else {
-            $template = 'ArmdLectureBundle:Default:index_list.html.twig';
-        }
-        $lastLectures = $lectureRepo->findLastAdded($superType,  2);
-
-        $typeCategories = $lectureRepo->getTypeCategories($superType);
-
-        return $this->render($template, array(
-            'lectureSuperType' => $superType,
-            'lectureTypes' => $lectureTypes,
-            'lectureCategories' => $lectureCategories,
-            'lastLectures' => $lastLectures,
-            'page' => $page,
-            'typeCategories' => $typeCategories
-        ));
-    }
-
-    /**
-     * @Route("/list/{lectureSuperTypeCode}/{page}", requirements={"page"="\d+"}, defaults={"page" = 1}, name="armd_lecture_list", options={"expose"=true})
-     * @Template()
-     */
-    public function lectureListAction($lectureSuperTypeCode, $page)
-    {
-        $request = $this->getRequest();
-        $sortBy = $request->get('sortBy', 'date');
-        $categories = $request->get('categories');
-        $types = $request->get('types');
-        $searchString = $request->get('searchString');
-
-        $superType = $this->getDoctrine()->getManager()
-            ->getRepository('ArmdLectureBundle:LectureSuperType')
+        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode($lectureSuperTypeCode);
 
-        $manager = $this->get('armd_lecture.manager.lecture');
 
-        if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
-            $template = 'ArmdLectureBundle:Default:lecture_tile.html.twig';
-            $perPage = 20;
-        } else {
-            $template = 'ArmdLectureBundle:Default:lecture_list.html.twig';
-            $perPage = 8;
-        }
-        //$this->get('knp_paginator')->paginate($query, $page, $limit);
-        $lectures = $manager->findFiltered($superType, $page, $perPage, $types, $categories, $sortBy, $searchString);
+        $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
 
-        return $this->render($template, array(
+        return array(
+            'lectureSuperType' => $lectureSuperType,
             'categories' => $categories,
-            'pagination' => $lectures,
-            'sortBy' => $sortBy
-        ));
+            'categoryId' => $this->getRequest()->get('category_id'),
+            'searchQuery' => $this->getRequest()->get('search_query')
+        );
+
+    }
+
+    /**
+     * @Route("/list/{lectureSuperTypeCode}/", name="armd_lecture_list", options={"expose"=true})
+     * @Template("ArmdLectureBundle:Default:list.html.twig")
+     */
+    public function lectureListAction($lectureSuperTypeCode)
+    {
+        $request = $this->getRequest();
+        $criteria = array(
+            LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($lectureSuperTypeCode)
+        );
+
+        if ($request->query->has('offset')) {
+            $criteria[LectureManager::CRITERIA_OFFSET] = $request->get('offset');
+        }
+
+        if ($request->query->has('limit')) {
+            $limit = $request->get('limit');
+            $criteria[LectureManager::CRITERIA_LIMIT] = $limit > 100 ? 100 : $limit;
+        }
+
+        if ($request->query->has('category_id')) {
+            $categoryId = $request->get('category_id');
+            if ($categoryId > 0 ) {
+                $criteria[LectureManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
+            }
+        }
+
+        if ($request->query->has('search_query')) {
+            $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
+        }
+
+        $lectures = $this->getLectureManager()->findObjects($criteria);
+        return array(
+            'lectures' => $lectures
+        );
     }
 
     /**
@@ -126,32 +127,25 @@ class DefaultController extends Controller
     {
         $lecture = $this->getDoctrine()->getManager()
             ->getRepository('ArmdLectureBundle:Lecture')->find($id);
+
         if(!$lecture || !$lecture->getPublished()) {
             throw $this->createNotFoundException('Lecture not found');
         }
         $this->getTagManager()->loadTagging($lecture);
 
         // fix menu
-        $lectureSuperType = $lecture->getLectureSuperType();
         $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_lecture_default_list', array('supertype' => $lectureSuperType->getId()))
+            $this->getMenuUri($lecture->getLectureSuperType()->getCode())
         );
 
         $manager = $this->get('armd_lecture.manager.lecture');
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
-
-        // Форма фильтра по категориям и тематике
-        $superTypeList = $this->getDoctrine()->getManager()
-            ->getRepository('ArmdLectureBundle:LectureSuperType')
-            ->findAll();
-
-        $genresList = $manager->getGenresBySupertype($lectureSuperType->getId());
+        $categories = $manager->getCategoriesBySupertype($lecture->getLectureSuperType());
 
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
-            'superTypeList' => $superTypeList,
             'referer' => $this->getRequest()->headers->get('referer'),
             'lecture' => $lecture,
-            'genresList' => $genresList,
+            'categories' => $categories,
             'lectureVersion' => $version,
             'lectureRolesPersons' => $rolesPersons,
         ));
@@ -174,104 +168,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/right-column", name="armd_lecture_right_column")
-     * @Template()
-     */
-    public function rightColumnAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $russiaImages = $em->getRepository('ArmdAtlasBundle:Object')->findRussiaImages(6);
-        return $this->render('ArmdLectureBundle:Default:right_column.html.twig', array(
-            'russiaImages' => $russiaImages
-        ));
-    }
-
-    /**
-     * Experimental video index
-     *
-     * @Route("/", options={"expose"=true}, name="armd_lecture_default_list")
-     * @Template()
-     */
-    public function listAction()
-    {
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_lecture_default_list')
-        );
-
-        $manager = $this->get('armd_lecture.manager.lecture');
-        $request = $this->getRequest();
-
-        // Форма фильтра
-        $page      = $request->get('page', 1);
-        $perPage   = $request->get('perPage', 16);
-        $sort      = 'date';
-        $typeIds   = null;
-        $categoryIds = null;
-        $searchString = '';
-        $superTypeId = $request->get('supertype') ? $request->get('supertype') : null;
-
-        $genreId = (int) $request->get('genre');
-        if ($genreId) {
-            $categoryIds = array($genreId);
-        }
-
-        // fix menu
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_lecture_default_list', array('supertype' => $superTypeId))
-        );
-
-
-        $lectures = $manager->findFiltered($superTypeId, $page, $perPage, $typeIds, $categoryIds, $sort, $searchString);
-
-        if ($lectures) {
-            $lecturesItems = isset($lectures['items']) ? $lectures['items'] : false;
-            $lecturesTotal = $lectures['total'];
-        } else {
-            $lecturesItems = false;
-            $lecturesTotal = 0;
-        }
-
-        if ($request->isXmlHttpRequest()) {
-            $html = $this->render('ArmdLectureBundle:Default:plitka_one_wrap.html.twig', array(
-                'lectures' => $lecturesItems,
-            ));
-
-            $response = new Response(json_encode(array(
-                'html' => $html->getContent(),
-                'total' => $lecturesTotal,
-            )));
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-
-        } else {
-            $superTypeList = $this->getDoctrine()->getManager()
-                ->getRepository('ArmdLectureBundle:LectureSuperType')
-                ->findAll();
-
-            $genresList = $manager->getGenresBySupertype($superTypeId);
-
-            if ($superTypeId) {
-                $superType = $this->getDoctrine()->getManager()
-                    ->getRepository('ArmdLectureBundle:LectureSuperType')
-                    ->find($superTypeId);
-            } else {
-                $superType = false;
-            }
-
-            return array(
-                'superType' => $superType,
-                'superTypeId' => $superTypeId,
-                'superTypeList' => $superTypeList,
-                'genreId' => $genreId,
-                'genresList' => $genresList,
-                'lecturesTotal' => $lecturesTotal,
-                'lectures' => $lecturesItems,
-            );
-        }
-    }
-
-    /**
      * @Route("/related", name="armd_lecture_related_lectures")
      * @Template("ArmdLectureBundle:Default:related_lectures.html.twig")
      */
@@ -290,24 +186,30 @@ class DefaultController extends Controller
             )
         );
 
-//        $superType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
-//            ->findOneByCode($superTypeCode);
-//
-//            $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')
-//            ->findRelated($tags, $limit, $superType);
-
         return array('lectures' => $lectures);
     }
 
-    /**
-     * @Route("/fetch-genres/{superTypeId}", requirements={"superTypeId"="\d+"}, options={"expose"=true}, defaults={"_format"="json"}, name="armd_lecture_default_fetchgenresbysupertype")
-     */
-    public function fetchGenresBySupertypeAction($superTypeId = null)
+    public function getMenuUri($lectureSuperTypeCode)
     {
-        $manager = $this->get('armd_lecture.manager.lecture');
-        $res = $manager->getGenresBySupertype($superTypeId);
+        $router = $this->get('router');
 
-        return $res;
+        switch ($lectureSuperTypeCode) {
+            case 'LECTURE_SUPER_TYPE_LECTURE':
+                $uri = $router->generate('armd_lecture_lecture_index');
+                break;
+            case 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION':
+                $uri = $router->generate('armd_lecture_translation_index');
+                break;
+            case 'LECTURE_SUPER_TYPE_CINEMA':
+                $uri = $router->generate('armd_lecture_cinema_index');
+                break;
+            case 'LECTURE_SUPER_TYPE_TOP100':
+                $uri = $router->generate('armd_lecture_top100_index');
+                break;
+            default:
+                $uri = $router->generate('armd_lecture_cinema_index');
+        }
+        return $uri;
     }
 
     /**
