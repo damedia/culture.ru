@@ -9,7 +9,7 @@ $(function(){
 
 
     var ua = navigator.userAgent, 
-    click_event = (ua.match(/iPad/i)) ? "touchstart" : "click";
+        click_event = (ua.match(/iPad/i)) ? "touchstart" : "click";
 
 
     
@@ -19,7 +19,7 @@ $(function(){
       /* $('#item-count-input').val($('#item-count-input').attr('rel')) ;*/
       
 
-         })
+    })
 
 
 
@@ -29,8 +29,10 @@ $(function(){
 
             $("#item-count").submit(function () {
                  $(".show-right a").click();
-                  return false;
+                 $('#item-count-input').blur();
+                 return false;
              });
+             
 
 
          
