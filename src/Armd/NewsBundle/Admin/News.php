@@ -98,6 +98,14 @@ class News extends Admin
                 ->add('lat', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
                 ->add('lon', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
                 ->add('theme')
+            ->end()
+            ->with('Stuff')
+                ->add(
+                    'stuff',
+                    'sonata_type_model',
+                    array('required' => false, 'multiple' => true, 'by_reference' => false),
+                    array('link_parameters' => array('context' => 'stuff'))
+                )
             ->end();
 
         parent::configureFormFields($formMapper);

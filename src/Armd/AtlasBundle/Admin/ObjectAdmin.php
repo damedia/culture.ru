@@ -215,6 +215,14 @@ class ObjectAdmin extends Admin
                     )
                 )
             ->end()
+            ->with('Stuff')
+                ->add(
+                    'stuff',
+                    'sonata_type_model',
+                    array('required' => false, 'multiple' => true, 'by_reference' => false),
+                    array('link_parameters' => array('context' => 'stuff'))
+                )
+            ->end()
             ->with('Hints')
                 ->add('objectHints', 'sonata_type_collection',
                     array(

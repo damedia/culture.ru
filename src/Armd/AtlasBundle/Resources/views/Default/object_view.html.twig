@@ -428,6 +428,27 @@
     </div>
     <!-- /Contacts -->
 
+    {% if entity.stuff.count %}
+    <!-- Stuff -->
+    <div class="block">
+        <article class="static-block stuff-block">
+
+            <h2>{{"Stuff"|trans}}</h2>
+
+            <div class="block-text">
+                {% for stuff in entity.stuff %}
+                    <div>
+                        {# TODO Icon. #}
+                        <a href="{% path stuff, 'original' %}">{{ stuff.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </article>
+    </div>
+    <!-- /Stuff -->
+    {% endif %}
+
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}

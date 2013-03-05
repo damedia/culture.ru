@@ -130,6 +130,17 @@ sonata_media:
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
 
+        stuff:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
+            formats:
+                original: { }
+
         news:
             download:
                 strategy: sonata.media.security.public_strategy

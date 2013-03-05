@@ -188,6 +188,20 @@
 			{% endif %}
         </section>
 
+        {% if lecture.stuff.count %}
+            <div class="video-one-description">
+                <div>
+                    <strong>{{"Stuff"|trans}}</strong>
+                </div>
+                {% for stuff in lecture.stuff %}
+                    <div>
+                        {# TODO Icon. #}
+                        <a href="{% path stuff, 'original' %}">{{ stuff.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <div class="back-link">
             <p><a href="{{ referer }}">Назад</a></p>
         </div>

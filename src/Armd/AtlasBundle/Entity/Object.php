@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Application\Sonata\MediaBundle\Entity\Media;
+
 /**
  * Armd\AtlasBundle\Entity\Object
  *
@@ -245,6 +247,14 @@ class Object implements Taggable
 
     private $tags;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="atlas_object_stuff")
+     *
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stuff;
+
     public function __toString()
     {
         return $this->getTitle();
@@ -271,6 +281,27 @@ class Object implements Taggable
         $this->regions = new ArrayCollection();
         $this->createdAt = $this->updatedAt = new \DateTime("now");
         $this->virtualTours = new ArrayCollection();
+        $this->stuff = new ArrayCollection();
+    }
+
+    public function setStuff($stuff)
+    {
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 
     public function getIcon()

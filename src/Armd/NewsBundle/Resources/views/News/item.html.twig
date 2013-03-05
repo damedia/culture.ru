@@ -69,8 +69,19 @@
     {{ entity.body|raw }}
 </article>
 
-
-
+{% if entity.stuff.count %}
+<div>
+    <div>
+        <strong>{{"Stuff"|trans}}</strong>
+    </div>
+    {% for stuff in entity.stuff %}
+        <div>
+            {# TODO Icon. #}
+            <a href="{% path stuff, 'original' %}">{{ stuff.name }}</a>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
 
 
 <div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>
