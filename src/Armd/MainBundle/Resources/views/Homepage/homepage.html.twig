@@ -50,7 +50,7 @@
 
                     <div class="text-overflow">
                         <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
-                        <p>{{ lastReportage.announce|truncate(200) }}</p>
+                        <p>{{ lastReportage.announce|striptags|truncate(200)|raw }}</p>
                         <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
                     </div>
                 </section>
@@ -67,44 +67,40 @@
 
                     <div class="text-overflow">
                         <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastInterview.title }}</a>
-                        <p>{{ lastInterview.announce|truncate(200) }}</p>
+                        <p>{{ lastInterview.announce|striptags|truncate(200)|raw }}</p>
                         <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
                     </div>
                 </section>
-
             </section>
-        {% endif %}
+        </section>
+    {% endif %}
 
-        {% if app.request.locale == 'ru' %}
-            <section class="index-block index-video-block clearfix">
-                <h2><a href="{{ path('armd_lecture_default_list', {'supertype': 3}) }}">Видеотека</a></h2>
-                <div id="video-list">
-                    {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
-                </div>
-                <p class="all"><a href="{{ path('armd_lecture_default_list', {'supertype': 3}) }}">Все видео</a></p>
-            </section>
-        {% endif %}
+    {% if app.request.locale == 'ru' %}
+        <section class="index-block index-video-block clearfix">
+            <h2><a href="{{ path('armd_lecture_cinema_index') }}">Видеотека</a></h2>
+            <div id="video-list">
+                {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+            </div>
+            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
+        </section>
+    {% endif %}
 
-        <section class="index-block index-museum-block clearfix">
-            <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
+    <section class="index-block index-museum-block clearfix">
+        <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
 
-            <div class="plitka-one-wrap plitka-one-wrap-opened">
-                <div class="plitka-one clearfix">
-                    <div class="museum-image-container">
-                        <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
-                        <div class="museum-image-over">
-                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
-                                <span class="museum-image-text">
-                                    {{ "visit_museum"|trans|raw }}
-                                </span>
-                            </a>
-                            <a href="#instruction" class="museum-instr-link">
-                                {{ "manual_instruction"|trans|raw }}
-                            </a>
-                        </div>
-                    </div>
-                    <div class="museum-text">
-                        {{ museum.title|raw }}
+        <div class="plitka-one-wrap plitka-one-wrap-opened">
+            <div class="plitka-one clearfix">
+                <div class="museum-image-container">
+                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                    <div class="museum-image-over">
+                        <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                            <span class="museum-image-text">
+                                {{ "visit_museum"|trans|raw }}
+                            </span>
+                        </a>
+                        <a href="#instruction" class="museum-instr-link">
+                            {{ "manual_instruction"|trans|raw }}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -112,9 +108,7 @@
             <div id="instruction" style="display:none;">
                 <div class="window">
                     <div class="block window-content">
-
                         {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-
                     </div>
                </div>
             </div>
@@ -132,6 +126,11 @@
 
 
 {% block right_column %}
+    <span class="helper-top-orange-line"></span>
+    <section id="homepage-online-translation">
+        {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
+    </section>
+    
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
     {% if app.request.locale == 'ru' %}

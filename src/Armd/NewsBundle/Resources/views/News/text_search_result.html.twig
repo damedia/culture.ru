@@ -1,0 +1,26 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_date %}
+
+{% for article in news %}
+    {% set url = path('armd_news_item_by_category', {'id': article.id, 'category': article.category.slug}) %}
+    <article class="news-search-result-item clearfix">
+        <a class="search-result-image" href="{{ url }}">
+            <span class="search-result-type">{{ article.category.title }}</span>
+            {% thumbnail article.image, 'list' %}
+        </a>
+
+        <span class="search-result-date"> {{ armd_date.news_date(article.newsDate) }} </span>
+        <a class="search-result-title" href="{{ url }}">{{ article.title }}</a>
+        <p>{{ article.announce|raw }}</p>
+
+    </article>
+{% endfor %}
+
+<script type="text/javascript">
+    {% if news|length > 0 %}
+        var firstLoadedDate = '{{ news[news|length - 1].newsDate|date('Y-m-d') }}';
+        var lastLoadedDate = '{{ news[0].newsDate|date('Y-m-d') }}';
+    {% else %}
+        var firstLoadedDate = moment().format('YYYY-MM-DD');
+        var lastLoadedDate = moment().format('YYYY-MM-DD');
+    {% endif %}
+</script>

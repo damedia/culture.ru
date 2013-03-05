@@ -3,12 +3,16 @@
 namespace Armd\NewsBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container;
+use Armd\SphinxSearchBundle\Services\Search\SphinxSearch;
+use Armd\TagBundle\Entity\TagManager;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManager;
 use Armd\ListBundle\Entity\ListManager;
 
 class NewsManager extends ListManager
 {
+    protected $search;
+
     /** example: true */
     const CRITERIA_FILTRABLE = 'CRITERIA_FILTRABLE';
 
@@ -53,6 +57,24 @@ class NewsManager extends ListManager
 
     /** example: Date('2013-03-09') */
     const CRITERIA_EVENT_DATE_TILL = 'CRITERIA_EVENT_DATE_TILL';
+
+    /** example: 'the rolling stones' */
+    const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
+
+    public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
+    {
+        parent::__construct($em, $tagManager);
+        $this->search = $search;
+    }
+
+    public function findObjects(array $criteria) {
+        if (!empty($criteria[self::CRITERIA_SEARCH_STRING])) {
+            return $this->findObjectsWithSphinx($criteria);
+        } else {
+            return parent::findObjects($criteria);
+        }
+    }
+
 
     public function getQueryBuilder()
     {
@@ -162,6 +184,47 @@ class NewsManager extends ListManager
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');
         }
+    }
+
+    public function findObjectsWithSphinx($criteria) {
+        $searchParams = array('News' => array('filters' => array()));
+
+        if (!empty($criteria[self::CRITERIA_LIMIT])) {
+            $searchParams['News']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
+        }
+
+        if (!empty($criteria[self::CRITERIA_OFFSET])) {
+            $searchParams['News']['result_offset'] = (int) $criteria[self::CRITERIA_OFFSET];
+        }
+
+        if (!empty($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {
+            $categories = $this->em->getRepository('ArmdNewsBundle:Category')->findBy(array('slug' => $criteria[self::CRITERIA_CATEGORY_SLUGS_OR]));
+            $categoryIds = array();
+            foreach ($categories as $category) {
+                $categoryIds[] = $category->getId();
+            }
+            if (!empty($categoryIds)) {
+                $searchParams['News']['filters'][] = array(
+                    'attribute' => 'category_id',
+                    'values' => $categoryIds
+                );
+            }
+        } elseif (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
+            $searchParams['News']['filters'][] = array(
+                'attribute' => 'category_id',
+                'values' => $criteria[self::CRITERIA_CATEGORY_IDS_OR]
+            );
+        }
+
+        $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
+
+        $result = array();
+        if (!empty($searchResult['News']['matches'])) {
+            $lectureRepo = $this->em->getRepository('ArmdNewsBundle:News');
+            $result = $lectureRepo->findBy(array('id' => array_keys($searchResult['News']['matches'])));
+        }
+
+        return $result;
     }
 
 

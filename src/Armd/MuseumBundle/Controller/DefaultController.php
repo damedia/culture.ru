@@ -32,9 +32,10 @@ class DefaultController extends Controller
      */
     public function listAction()
     {
-        try {
+//        try {
             $regionId = $this->getRequest()->get('region');
             $categoryId = $this->getRequest()->get('category');
+            $searchText = $this->getRequest()->get('search_query');
 
             $criteria = array();
 
@@ -46,15 +47,19 @@ class DefaultController extends Controller
                 $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($regionId);
             }
 
+            if (!empty($searchText)) {
+                $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
+            }
+
             $museums = $this->getMuseumManager()->findObjects($criteria);
 
             return array(
-                'museums' => $museums,
+                'museums' => $museums,  
             );
-        }
-        catch (\Exception $e) {
-            $this->createNotFoundException('Not found');
-        }
+//        }
+//        catch (\Exception $e) {
+//            $this->createNotFoundException('Not found');
+//        }
     }
 
     /**

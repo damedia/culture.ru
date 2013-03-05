@@ -1,0 +1,6 @@
+services:
+    armd_online_translation.sonata_admin.object:
+        class: Armd\OnlineTranslationBundle\Admin\OnlineTranslationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: OnlineTranslation, label: OnlineTranslation, show_in_dashboard: true }
+        arguments: [null, Armd\OnlineTranslationBundle\Entity\OnlineTranslation, SonataAdminBundle:CRUD, @service_container]

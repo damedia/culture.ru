@@ -22,10 +22,9 @@
 {% endblock %}
 
 {% block page_header_search_scope %}
-    {#<div class="search-checkboxes">#}
-        {#<label><input type="checkbox" name="check1" id="check1"/><span>Искать в текущем разделе</span></label>#}
-        {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
-    {#</div>#}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
 {% endblock %}
 
 {% block left_column %}
@@ -121,7 +120,14 @@
                 link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
                 title:'{{ entity.title }}',
                 description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
-            })
+            });
+
+            $('#search-form').bind('submit', function(event) {
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+                    window.location = Routing.generate('armd_news_list_index', {'search_query': $('#search-txt').val()})
+                }
+            });
         });
     </script>
 

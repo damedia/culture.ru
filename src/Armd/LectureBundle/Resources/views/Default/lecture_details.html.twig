@@ -27,67 +27,7 @@
     #}
 {% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('new_design/css/jquery.ui.selectgroup.css') }}">
-    <style>
-        #lectures-filter { display: inline; }
-    </style>
-{% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        $(function(){
-            initSocialShare();
-
-            // При выборе типа видосов, подгружаем список категорий
-            $('.ui-selectgroup-list li a').live('click', function(){
-                var combo = $(this).closest('.ui-selectgroup-list').attr('aria-labelledby');
-                var superTypeId = $(this).data('value');
-
-                if (combo == 'ui-form_supertype') {
-                    // ajax-загрузка genre by supertype
-                    var url = Routing.generate('armd_lecture_default_fetchgenresbysupertype', { superTypeId: superTypeId });
-                    $.ajax({
-                        url: url,
-                        dataType: 'json',
-                        success: function(json){
-                            // создаем комбобокс с жанрами
-                            var optionsHtml = '<option>Все жанры</option>';
-                            $(json).each(function(i, el){
-                                optionsHtml += '<option value="'+ el.value +'">' + el.title + '</option>';
-                            });
-                            $('#form_genre').html(optionsHtml);
-                            $('#form_genre option:first').attr('selected', 'selected');
-                            $('#form_genre').selectgroup('refresh');
-                        }
-                    });
-                }
-                return false;
-            });
-
-        });
-        function initSocialShare() {
-            new Ya.share({
-                element: 'yandex-share',
-                elementStyle: {
-                    'type': 'none',
-                    'border': false,
-                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
-                },
-                link: '{{ url('armd_lecture_view', { 'id': lecture.id }) }}',
-                title: '{{ lecture.title }}'
-                {#description: '{{ lecture.description|escape }}'#}
-            });
-        }
-    </script>
-{% endblock %}
-
-{#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_title %}
     {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
         {{ 'Lecture'|trans }}
@@ -102,25 +42,24 @@
 
 {% block page_header_search %}
     <div class="search-category">
-        <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="get">
+        <form id="lectures-filter" action="{{ path('armd_lecture_default_index', {'lectureSuperTypeCode': lecture.lectureSuperType.code}) }}" method="get">
             <span class="search-dates-label">Выбрать</span>
             <div class="search-category-selects">
-                <select id="form_supertype" name="supertype" class="" style="display:none;">
-                    <option value="0">Категория</option>
-                    {% for supertype in superTypeList %}
-                        <option value="{{ supertype.id }}" {% if lecture.lectureSuperType.id==supertype.id %}selected="selected" {% endif %}>{{ supertype.name }}</option>
-                    {% endfor %}
-                </select>
-                <select id="form_genre" name="genre" class="uni">
+                <select id="category_id" name="category_id" class="uni">
                     <option value="0">{{ "All"|trans }}</option>
-                    {% for genre in genresList %}
-                        <option value="{{ genre.value }}">{{ genre.title }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
                     {% endfor %}
                 </select>
-                <input id="form_page" type="hidden" name="page" value="1"/>
             </div>
             <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
         </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
     </div>
 {% endblock %}
 
@@ -458,3 +397,29 @@
     </div>
 {% endblock %}
 
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            armdMkLecture.init('{{ lecture.lectureSuperType.code }}');
+            initSocialShare();
+        });
+
+        function initSocialShare() {
+            new Ya.share({
+                element: 'yandex-share',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_lecture_view', { 'id': lecture.id }) }}',
+                title: '{{ lecture.title }}'
+                {#description: '{{ lecture.description|escape }}'#}
+            });
+        }
+    </script>
+{% endblock %}
