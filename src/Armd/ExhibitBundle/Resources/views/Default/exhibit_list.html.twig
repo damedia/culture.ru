@@ -1,0 +1,445 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} &mdash; {{ 'Art objects'|trans }}
+{% endblock %}
+
+{% block page_header_title %}
+    {{ 'Art objects'|trans }}
+{% endblock %}
+
+{% block body %}
+<div class="blocksection w clearfix" id="f-section">    
+    <div class="exponats-gallery">
+        <form action="" class="obr-form exp-form">
+            <div class="obr-text-input">
+                <input id="search_text" name="search" type="text" value="Поиск экспоната" />
+            </div>
+            <input class="obr-submit-input" type="button" value="" />
+        </form>
+        <div class="exponats-top-line clearfix">
+            <p class="exponats-total">8562 экспоната</p>
+            <ul class="exponats-tags" id="exponats-tags">
+                <li class="big-tag"><a href="#">Государственный Эрмитаж</a><span class="delete"></span></li>
+            </ul>
+        </div>
+        <div class="exponats-main">
+
+            <ul class="exponats-categories" id="exp-categories">
+                <li class="active with-filter"><a href="#">Автор</a>
+                </li><li class="with-filter"><a href="#">Категория</span></a>
+                </li><li><a href="#">Эпоха<span class="delete" title="Удалить"></span></a>
+                </li><li><a href="#">Музей<span class="delete" title="Удалить"></span></a>
+                </li><li><a href="#">Материал<span class="delete" title="Удалить"></span></a></li>
+            </ul>
+            <div class="exp-filter" id="exp-filter">
+                <div class="alphabet">
+                    <a href="#" class="active">Все</a><a href="#">А</a><a href="#">Б</a><a href="#">В</a><a href="#">Г</a><a href="#">Д</a><a href="#">Е</a><a href="#">Ё</a><a href="#">Ж</a><a href="#">З</a><a href="#">И</a><a href="#">Й</a><a href="#">К</a><a href="#">Л</a><a href="#">М</a><a href="#">Н</a><a href="#">О</a><a href="#">П</a><a href="#">Р</a><a href="#">С</a><a href="#">Т</a><a href="#">У</a><a href="#">Ф</a><a href="#">Х</a><a href="#">Ц</a><a href="#">Ч</a><a href="#">Ш</a><a href="#">Щ</a><a href="#">Ъ</a><a href="#">Ы</a><a href="#">Ь</a><a href="#">Э</a><a href="#">Ю</a><a href="#">Я</a>
+                </div>
+                <div class="fiter-results">
+                    <a href="#">Патерсен Б.</a>
+                    <a href="#">Пахомов А.Ф.</a>
+                    <a href="#">Пашков В.Г.</a>     
+                    <a href="#">Пелевин И.А.</a>     
+                    <a href="#">Переплётчиков В.В.</a>     
+                    <a href="#">Песков М.И.</a>    
+                    <a href="#">Петров В.П.</a>     
+                    <a href="#">Петров-Водкин К.С.</a>    
+                    <a href="#">Петровичев П.И.</a>     
+                    <a href="#">Петровский П.С.</a>     
+                    <a href="#">Пименов Ю.И.</a>     
+                    <a href="#">Пимоненко Н.К.</a>     
+                    <a href="#">Пластов А.А.</a>     
+                    <a href="#">Плахов Л.К.</a>     
+                    <a href="#">Плешанов П.Ф.</a>     
+                    <a href="#">Пушкин А.С.</a>
+                </div>
+                <span class="filter-handle" id="filter-handle"></span>
+            </div>
+            <div class="exponats-content" id="exponats-content">
+                <ul class="exponats-types" id="exp-types">
+                    <li><a href="#threelines" class="all-rows"></a>
+                    </li><li class="active"><a href="#twolines" class="two-rows"></a>
+                    </li><li><a href="#oneline" class="one-row"></a></li>
+                </ul>
+                <div class="exponats-scroll-pane">
+                    <div class="exponats-scroll">
+
+                        <div class="line first-line">
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line second-line">
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="line third-line">
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="el-one">
+                                <a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a>
+                                <div class="el-one-wrap">
+                                    <table>
+                                        <td><a href="#"><img src="http://culture/uploads/media/exhibit/0001/14/thumb_13172_exhibit_default.jpeg" alt="" /></a></td>
+                                        <td class="el-one-text">
+                                            <h4>Флора</h4>
+                                            <i class="el-note">1634</i>
+                                            <div>
+                                                <p><a href="#">Харменс ван Рейн Рембрандт</a></p>
+                                            </div>
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-left" id="scroll-left" style="display:none;"></div>
+                <div class="scroll-right" id="scroll-right"></div>
+            </div>	
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/armdexhibit/css/jquery.jscrollpane.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.jscrollpane.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.mousewheel.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/mwheelIntent.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/exponats.js') }}"></script>
+<script type="text/javascript">
+
+    </script>
+{% endblock %}

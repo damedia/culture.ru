@@ -15,3 +15,8 @@ services:
         class: Armd\MuseumBundle\Entity\MuseumManager
         arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager, @search.sphinxsearch.search]
 
+    armd_museum.admin.real_museum:
+        class: Armd\MuseumBundle\Admin\RealMuseum
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: Real museums }
+        arguments: [null, Armd\MuseumBundle\Entity\RealMuseum, SonataAdminBundle:CRUD, @service_container]

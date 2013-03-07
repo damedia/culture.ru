@@ -248,6 +248,16 @@ sonata_media:
             formats:
                 default: { width: 278 }
                 broadcastW600: { width: 600 }
+                
+        exhibit:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: { width: 278 }
+                big: { width: 920 }
 
     cdn:
         server:
