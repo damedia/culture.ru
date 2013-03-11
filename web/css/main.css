@@ -4189,6 +4189,11 @@ body {
 					display:none;
 				}
 
+        .footer-fond-link {
+            text-align: center;
+            margin-top: 3px;
+        }
+
 
 		#yandex-share-global {
 			display:inline-block;
