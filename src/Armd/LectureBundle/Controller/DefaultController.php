@@ -177,12 +177,14 @@ class DefaultController extends Controller
         $tags = $request->get('tags', array());
         $limit = $request->get('limit');
         $superTypeCode = $request->get('superTypeCode');
+        $id = $request->get('id');
 
         $lectures = $this->getLectureManager()->findObjects(
             array(
                 LectureManager::CRITERIA_LIMIT => $limit,
                 LectureManager::CRITERIA_TAGS => $tags,
-                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode)
+                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode),
+                LectureManager::CRITERIA_NOT_IDS => array($id)
             )
         );
 
