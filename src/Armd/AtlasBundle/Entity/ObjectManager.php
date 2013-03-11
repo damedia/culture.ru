@@ -161,14 +161,7 @@ class ObjectManager extends ListManager
     }
 
     public function findObjectsWithSphinx($criteria) {
-        $searchParams = array('Atlas' => array(
-            'filters' => array(
-                array(
-                    'attribute' => 'published',
-                    'values' => array(1)
-                )
-            )
-        ));
+        $searchParams = array('Atlas' => array('filters' => array()));
 
         if (isset($criteria[self::CRITERIA_LIMIT])) {
             $searchParams['Atlas']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
