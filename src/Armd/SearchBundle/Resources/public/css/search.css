@@ -12,20 +12,17 @@
     color: #7791A4;
     float: left;
     font-size: 11px;
-    margin-right: 3%;
+    margin-right: 20px;
     text-decoration: none;
-    width: 160px;
 }
 
 .search-result-type {
-    display: block;
-    margin-bottom: 3px;
-
+    color: #7791A4;
+    font-size: 11px;
 }
 
 .search-result-date {
     color: #7791A4;
-    display: block;
     font-size: 11px;
 }
 
@@ -34,7 +31,7 @@
     display: block;
     font-size: 14px;
     font-weight: bold;
-    margin: 5px 0;
+    margin: 0 0 5px;
     text-decoration: none;
 }
 
