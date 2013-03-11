@@ -8,7 +8,7 @@
                     {% elseif v.mediaLectureVideo is not empty %}
                         {% set thumbnailMedia = v.mediaLectureVideo %}
                     {% endif %}
-                    <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ v.title }}"
+                    <img src="{% path thumbnailMedia, 'lectureH228' %}" alt="{{ v.title }}"
                          class="lecture-tile-list-image"/>
                 </a>
                 <a href="{{ path('armd_lecture_view', {'id': v.id}) }}" class="index-video-name">{{ v.title }}</a>

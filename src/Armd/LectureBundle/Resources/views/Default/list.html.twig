@@ -1,7 +1,7 @@
 {% for lecture in lectures if lectures|length %}
     <div class="plitka-one-wrap">
         <div class="plitka-one">
-            <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+            <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
                 {% if lecture.lectureVideo.imageMedia is defined %}
                     {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
                 {% elseif lecture.mediaLectureVideo is not empty %}
@@ -11,8 +11,10 @@
                 {% endif %}
 
                 {% if thumbnailMedia is not null %}
-                    {% thumbnail thumbnailMedia, 'searchAllResult' with { 'alt': lecture.title } %}
-                    {#<img alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'searchAllResult' %}"/>#}
+                    <div class="plitka-one-image">
+                        {% thumbnail thumbnailMedia, 'lectureW160H120' with { 'alt': lecture.title, 'height': 'auto' } %}
+                        {#<img alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'searchAllResult' %}"/>#}
+                    </div>
                 {% endif %}
             </a>
             <div class="plitka-text">
