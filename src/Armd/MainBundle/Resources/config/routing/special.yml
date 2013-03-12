@@ -8,7 +8,7 @@ armd_main_special_chronicles:
 
 armd_main_special_press:
     pattern:  /press-centre/
-    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: armd_main_special_homepage }
+    defaults: { _controller: ArmdMainBundle:Special:newsIndex }
     
 armd_main_special_news_item_by_category:
     pattern:  /press-centre/{category}/{id}/

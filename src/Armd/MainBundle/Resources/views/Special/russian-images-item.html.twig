@@ -2,7 +2,7 @@
 {% block stylesheets %}
 {{ parent() }}
 	<link href="{{ asset('/bundles/armdatlas/common/css/sm.css') }}" rel="stylesheet" />
-	<link href="{{ asset('js/libs/fancybox/jquery.fancybox.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('vendor/fancybox/jquery.fancybox.css') }}">
 {% endblock %}
 
 {% block body%}
@@ -183,7 +183,7 @@
 
 
 	<script type="text/javascript" src="{{ asset('bundles/armdatlas/common/js/jquery.jqzoom-core-pack.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/libs/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+	<script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
 	<script src="/swf/swfobject/swfkrpano.js"></script>
 
     <script type="text/javascript">

@@ -1,42 +1,49 @@
 {% extends ':Frontend:special.html.twig' %}
 
+{% block menu %}
+    <ul class="main-navigation clearfix" title="{{ 'Main menu'|trans }}">
+        {% if app.request.locale == 'ru' %}
+            <li class="active"><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_press') }}">{{ 'menu.news_index'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>
+        {% else %}
+            <li class="active"><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
 {% block body%}
 <div class="rusObr-block">
     {% if objects|length > 0 %}
         <ul class="rusObr-list clearfix">
-
-            {% for object in objects %}
-                <li>
-                    <div class="rusObr-list-one-wrap" style="">
-                        <div class="rusObr-list-one">
-                            <a href="{{ path('armd_main_special_russian_images_item', {id: object.id} ) }}">
-                                {% if object.primaryImage is not empty %}
-                                    <img src="{% path object.primaryImage, 'reference' %}" alt="" class="rusObr-list-image"/></a>
-                                {% elseif object.images|length > 0 %}
-                                    <img src="{% path object.images[0], 'imagesOfRussia' %}" alt="" class="rusObr-list-image"/></a>
-                                {% endif %}
-
-                            <div class="rusObr-list-text">
-                                <a href="{{ path('armd_main_special_russian_images_item', {id: object.id} ) }}" class="rusObr-list-header">
-                                    {{ object.title }}
-                                </a>
-
-                                <p class="rusObr-list-place">
-                                    {% for region in object.regions %}
-                                        {{ region.title }}
-                                        {% if not loop.last %}/{% endif %}
-                                    {% endfor %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-
-        </ul>
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'special-list', 'limit': 24, 'region_id': 0, 'search_text': '' }) %}
+        </ul>    
     {% else %}
         <strong>{{ 'No objects'|trans }}</strong>
     {% endif %}
 </div>
 
+<div class="more more2">
+    <p>
+        <a href="#" id="show-more">{{ "show_more"|trans }}</a>
+    </p>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+<script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/routing?callback=fos.Router.setData') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/russia_images_special.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMkRussiaImages.init();
+        });
+    </script>
 {% endblock %}

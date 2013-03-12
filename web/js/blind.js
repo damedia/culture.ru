@@ -105,13 +105,31 @@ $(function(){
 		return false;
 	})
 
-	
 	$('.btn-more a').click(function(){
 		$("div#" + $(this).attr('rel')).slideToggle();
 		$(this).toggleClass("opened");
 		 return false;
 	});
 	
+    $('.tabs-headers').on('click', 'a', function(){
+		var tabId = $(this).attr('href');
+		$(this).addClass('active')
+				.parent().siblings().find('a').removeClass('active');
+		$(tabId).show().siblings('.tab').hide();
+		return false;
+	})
+    
+    new Ya.share({
+         element: 'yandex-share-global',
+         elementStyle: {
+             'type': 'none',
+             'border': false,
+             'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+         },
+         link: 'http://culture.ru/',
+         title: 'Портал культурного наследия России',
+         description: 'Портал культурного наследия России'
+     });
 	
 		
 	

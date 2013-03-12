@@ -143,7 +143,8 @@ class DefaultController extends Controller
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
             'full-list' => 'ArmdAtlasBundle:Default:russia_images_list_full.html.twig',
-            'short-list' => 'ArmdAtlasBundle:Default:russia_images_list_short.html.twig'
+            'short-list' => 'ArmdAtlasBundle:Default:russia_images_list_short.html.twig',
+            'special-list' => 'ArmdAtlasBundle:Default:russia_images_list_special.html.twig'
         );
 
         if (in_array($templateName, $templates)) {

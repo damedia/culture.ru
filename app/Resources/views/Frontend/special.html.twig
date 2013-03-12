@@ -16,6 +16,7 @@
 			<link rel="stylesheet" href="{{ asset('css/blind.css') }}">
 		{% endblock %}
         <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+        
     </head>
 	<body>
 		<div class="wrapper">
@@ -74,20 +75,17 @@
 				<ul class="quick-links">
                     {% if app.request.locale == 'ru' %}
 					    <li><a href="http://people.roskult.ru/special/opengov/new/">{{ 'Open Government'|trans }}</a></li>
-                        <li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>
+                        {#<li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>#}
                     {% endif %}
 				</ul>
 				<nav class="clear">
 					{% block menu %}
-						<ul class="main-navigation clearfix" title="{{ 'Main menu|trans' }}">
+                        <ul class="main-navigation clearfix" title="{{ 'Main menu'|trans }}">
                             {% if app.request.locale == 'ru' %}
                                 <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
-                                <li><a href="http://people.roskult.ru/special/forum/">{{ 'Navigation.Forum'|trans }}</a></li>
-                                <li><a href="http://people.roskult.ru/special/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+                                <li><a href="{{ path('armd_main_special_press') }}">{{ 'menu.news_index'|trans }}</a></li>
+                                <li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>
                             {% else %}
                                 <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
@@ -107,16 +105,32 @@
 		</div>
 		<footer class="main-footer">
 			<div class="site-owner">
-				{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}
+				<a href="http://mkrf.ru/" target="_blank">{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}</a>
 			</div>
-			<div class="site-info">
+			
+            <div class="special-counters">
+                <div class="footer-banners">
+                    {% include ':Frontend:counters_bottom.html.twig' %}
+                </div>
+                <div class="footer-share">
+                    <p>
+                        {{ "social_share"|trans }} <span id="yandex-share-global"></span>
+                        <a href="{{ path('armd_news_rss') }}" class="rss-icon" title="{{ "events"|trans }}"></a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="site-info">
 				<p class="site-copyright">{{ 'Copyright'|trans }}</p>
-				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a></p>
+				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a><br />
+                <a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></p>
 			</div>
+            
 		</footer>
 		{% block javascripts %}
             <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/share.js') }}" ></script>
 			<script src="{{ asset('js/plugins.js') }}"></script>
 			<script src="{{ asset('js/blind.js') }}"></script>
        {% endblock %}
