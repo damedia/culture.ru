@@ -1433,6 +1433,19 @@ body {
 				.plitka-one {
 					padding: 6px 15px;
 				}
+
+                    .plitka-one-image-wrapper {
+                        display: table;
+                        background: #000000;
+                        width: 160px;
+                        height: 120px;
+                    }
+
+                    .plitka-one-image {
+                        display: table-cell;
+                        vertical-align:middle;
+                    }
+
 					.plitka-one a {
 						text-decoration:none;
 					}
@@ -3125,6 +3138,8 @@ body {
 			.index-video-list  li {
 				float:left;
 				width:281px;
+                overflow: hidden;
+                text-align: center;
 				margin:0 37px 0 0;
 			}
 				.index-video-list img {
