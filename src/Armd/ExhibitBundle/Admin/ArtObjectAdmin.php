@@ -32,9 +32,10 @@ class ArtObjectAdmin extends Admin
             ->add('title')
             ->add('date')
             ->add('description')
-            ->add('image')
+            ->add('image')   
+            ->add('authors')
+            ->add('museum')           
             ->add('videos')
-            ->add('museum')
             ->add('categories')
         ;
     }
@@ -53,6 +54,18 @@ class ArtObjectAdmin extends Admin
                 ->add('title')
                 ->add('date', null, array('widget' => 'single_text'))
                 ->add('description')  
+                ->add('authors', null,
+                    array(
+                        'required' => false,
+                        'attr' => array('class' => 'chzn-select span5'),
+                        'query_builder' => function($er) {
+                            $qb = $er->createQueryBuilder('a');
+                            $qb->join('a.personTypes', 't');
+                            $qb->andWhere('t.slug = :slug')->setParameter('slug', 'art_gallery_author');
+                            return $qb;
+                        }
+                    )
+                )
                 ->add('museum', null,
                     array(
                         'required' => false,

@@ -9,8 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Armd\ExhibitBundle\Entity\ArtObject
  *
- * @ORM\Entity()
  * @ORM\Table(name="art_object")
+ * @ORM\Entity(repositoryClass="Armd\ExhibitBundle\Repository\ArtObjectRepository")
  */
 class ArtObject implements Taggable
 {
@@ -74,6 +74,12 @@ class ArtObject implements Taggable
      */
     private $categories;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="\Armd\PersonBundle\Entity\Person")
+     * @ORM\JoinTable(name="art_object_person")
+     */
+    private $authors;
+    
     private $tags;
 
     public function __toString()
@@ -87,6 +93,8 @@ class ArtObject implements Taggable
     public function __construct()
     {
         $this->videos = new ArrayCollection();
+        $this->authors = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
     
     /**
@@ -309,7 +317,7 @@ class ArtObject implements Taggable
      * @param \Armd\ExhibitBundle\Entity\Category $categories
      * @return ArtObject
      */
-    public function addCategory(\Armd\ExhibitBundle\Entity\Category $category)
+    public function addCategories(\Armd\ExhibitBundle\Entity\Category $category)
     {
         $this->categories[] = $category;
     
@@ -321,7 +329,7 @@ class ArtObject implements Taggable
      *
      * @param \Armd\ExhibitBundle\Entity\Category $categories
      */
-    public function removeCategory(\Armd\ExhibitBundle\Entity\Category $category)
+    public function removeCategories(\Armd\ExhibitBundle\Entity\Category $category)
     {
         $this->categories->removeElement($category);
     }
@@ -334,5 +342,38 @@ class ArtObject implements Taggable
     public function getCategories()
     {
         return $this->categories;
+    }
+    
+    /**
+     * Add author
+     *
+     * @param \Armd\PersonBundle\Entity\Person $author
+     * @return ArtObject
+     */
+    public function addAuthor(\Armd\PersonBundle\Entity\Person $author)
+    {
+        $this->authors[] = $author;
+    
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \Armd\PersonBundle\Entity\Person $author
+     */
+    public function removeAuthor(\Armd\PersonBundle\Entity\Person $author)
+    {
+        $this->authors->removeElement($author);
+    }
+
+    /**
+     * Get authors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
     }
 }
