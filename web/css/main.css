@@ -168,6 +168,13 @@ body {
         background-color: #fff341;
     }
 
+
+.empty-message {
+    margin: 30px 0 ;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 .loading-block {
     position: absolute;
     top: 50%;
