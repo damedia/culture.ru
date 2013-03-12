@@ -1,21 +1,12 @@
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 {% for lecture in lectures if lectures|length %}
     <div class="plitka-one-wrap">
         <div class="plitka-one">
             <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                {% if lecture.lectureVideo.imageMedia is defined %}
-                    {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
-                {% elseif lecture.mediaLectureVideo is not empty %}
-                    {% set thumbnailMedia = lecture.mediaLectureVideo %}
-                {% else %}
-                    {% set thumbnailMedia = null %}
-                {% endif %}
-
-                {% if thumbnailMedia is not null %}
-                    <div class="plitka-one-image">
-                        {% thumbnail thumbnailMedia, 'lectureW160H120' with { 'alt': lecture.title, 'height': 'auto' } %}
-                        {#<img alt="{{ lecture.title }}" src="{% path thumbnailMedia, 'searchAllResult' %}"/>#}
-                    </div>
-                {% endif %}
+                <div class="plitka-one-image">
+                    {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 'auto'}) }}
+                    {#{% thumbnail thumbnailMedia, 'lectureW160H120' with { 'alt': lecture.title, 'height': 'auto' } %}#}
+                </div>
             </a>
             <div class="plitka-text">
                 <span class="plitka-name">

@@ -48,8 +48,10 @@
                 {% set translationHref = path('armd_lecture_view', {'id': translation.id}) %}
                 <div class="plitka-one-wrap">
                     <div class="plitka-one">
-                        <a href="{{ translationHref }}">
-                            {{ lectureMacro.lectureThumbnail(translation, 'tile', {'class': 'plitka-image', 'height': 'auto'}) }}
+                        <a href="{{ translationHref }}" class="plitka-one-image-wrapper">
+                            <div class="plitka-one-image">
+                                {{ lectureMacro.lectureThumbnail(translation, 'lectureW160H120', {'alt': translation.title, 'height': 'auto'}) }}
+                            </div>
                             {#{% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}#}
                         </a>
                         <div class="plitka-text">
