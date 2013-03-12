@@ -36,8 +36,8 @@
         </div>
     </div>
 {% else %}
-    <div>
-        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_default_list', {'supertype': 2}) }}">архиве</a>.
+    <div class="empty-message">
+        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_translation_index') }}">архиве</a>.
     </div>
 {% endif %}
 
