@@ -1,6 +1,6 @@
 {% if entity %}
     <div class="online-anons clearfix">
-        <h2>online-трансляции</h2>
+        <h2>Онлайн трансляции</h2>
         <a href="{{ path('armd_online_translation') }}">{% thumbnail entity.image, 'default' with { 'class': 'online-anons-image' } %}</a>
         <h3>{{ params.date }}</h3>
         <h4><a href="{{ path('armd_online_translation') }}">{{ entity.title }}</a></h4>
