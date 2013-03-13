@@ -4,6 +4,7 @@ var exhibit = {
     loading: false,
     offset: 0,
     stopLoad: false,
+    data: [],
     addElOneHover: function() {
         $('.el-one').hover(function() {
             $(this).addClass('el-one-hovered');
@@ -12,11 +13,12 @@ var exhibit = {
         });
     },
     init: function(data) {
+        exhibit.data = data;
         //$(window).load(function() {
-           //alert("window load occurred!");
+           
         //});
         $(function() {
-            exhibit.setExhibits(data);
+            exhibit.setExhibits(exhibit.data);
         });
         $(window).load(function() {
             //exhibit.setExhibits(data);
@@ -95,11 +97,10 @@ var exhibit = {
 
             $('#exp-types').on('click', 'a', function() {
                 if (!$(this).parent().hasClass('active')) {
-                    var type = $(this).attr('href').substr(1);
-
-                    exhibit.replaceExhibits(type);
+                    var type = $(this).attr('href').substr(1);                   
 
                     $(this).parent().addClass('active').siblings().removeClass();
+                    exhibit.replaceExhibits();
                     $('#exponats-content').removeClass().addClass(type);
                     exhibit.api.scrollToX(0, false);
                     exhibit.api.reinitialise();
@@ -110,23 +111,24 @@ var exhibit = {
             });
 
             $('#exp-categories').on('click', '.with-filter a', function() {
-                var li = $(this).parent();
+                var that = this, li = $(this).parent();
                 console.log(li.hasClass('filtered'));
                 if (li.hasClass('filtered')) {
                     li.removeClass('filtered');
-                    $('#exp-filter').slideUp();
+                    $('#' + $(this).attr('data-id')).slideUp();
                 } else {
                     li.addClass('filtered').siblings().removeClass('filtered');
-                    $('#exp-filter').show();
+                    $('.exp-filter').slideUp();
+                    $('#' + $(that).attr('data-id')).show();
                 }
 
 
                 return false;
             });
 
-            $('#exp-filter').on('click', '#filter-handle', function() {
+            $('.exp-filter').on('click', '#filter-handle', function() {
                 $('#exp-categories li').removeClass('filtered');
-                $('#exp-filter').slideUp();
+                $(this).parent().slideUp();
             });
 
             $('.alphabet').on('click', 'a', function() {
@@ -143,10 +145,10 @@ var exhibit = {
                 }).removeClass('active');
             });
 
-            $('#exp-filter .fiter-results').on('click', 'a', function() {
+            $('.exp-filter .fiter-results').on('click', 'a', function() {
                 var tag = $(this),
                         tagText = tag.text(),
-                        newTag;
+                        newTag, cl = '';
 
                 if (tag.hasClass('active')) {
                     $(this).removeClass('active');
@@ -154,113 +156,34 @@ var exhibit = {
                         return $(this).text() === tagText;
                     }).parent().remove();
                 } else {
-                    newTag = $('<li><a href="#">' + tagText + '</a><span class="delete"></span></li>');
-                    newTag.appendTo('#exponats-tags');
+                    if ($(this).attr('data-fname') == 'museum') {
+                        cl = 'big-tag';
+                    }
+                    
+                    newTag = $('<li data-fname="' + $(this).attr('data-fname') + '" class="' + cl + '"><a href="#">' + tagText + '</a><span class="delete"></span></li>');
+                    
+                    if ($('#exponats-tags li[data-fname="' + $(this).attr('data-fname') + '"]').size()) {
+                        $('#exponats-tags li[data-fname="' + $(this).attr('data-fname') + '"]:last').after(newTag);
+                    } else {
+                        if ($(this).attr('data-fname') == 'museum') {
+                            $('#exponats-tags').prepend(newTag);
+                        } else {
+                            $('#exponats-tags').append(newTag);
+                        }                      
+                    }
+                                      
                     $(this).addClass('active');
                 }
 
                 return false;
-            });
-
-            //$('#carousel').jcarousel({});
-            /*
-            $(".jcarousel-container")
-                    .mousewheel(function(event, delta) {
-                if (delta < 0)
-                    $(".jcarousel-next").click();
-                else if (delta > 0)
-                    $(".jcarousel-prev").click();
-                return false;
-            });
-
-
-            $('#carousel').on('click', 'img', function() {
-
-                var borderWidth = $(this).width() - 4,
-                        borderHeight = $(this).height() - 4,
-                        imgBorder = $('<i style="width:' + 36 + 'px; height:' + 48 + 'px; "></i>'),
-                        fullImageSrc = $(this).attr('data-fullimage'),
-                        fullImageWidth, fullImageHeight;
-
-                $(this).parent().append(imgBorder)
-                        .siblings().find('i').remove();
-
-                $(this).addClass('active')
-                        .parent().siblings().find('img').removeClass('active');
-
-                $('.main-zoomed-image img').css('opacity', 0).attr('src', fullImageSrc);
-                fullImageWidth = $('.main-zoomed-image img').width();
-                fullImageHeight = $('.main-zoomed-image img').height();
-
-                $('.main-zoomed-image img').css({
-                    'opacity': 1,
-                    'marginLeft': -fullImageWidth / 2,
-                    'marginTop': -fullImageHeight / 2
-                });
-            });
-
-            var image, imageWidth, imagePos, popupImage, imgPosLeft, imgPosTop, popupTimeout;
-
-            $('#carousel').on('mouseenter', 'li', function() {
-                image = $(this).find('img');
-                imagePos = image.offset();
-                imgPosLeft = imagePos.left;
-                imgPosTop = imagePos.top - 90;
-                imageWidth = image.width();
-                popupImage = $('<img src="' + image.attr('src') + '" alt="" class="popup-image" style="opacity:0;top:' + imgPosTop + 'px; left:' + imgPosLeft + 'px" id="image_' + image.index() + '" />');
-                $('.popup-image').remove();
-                $('body').append(popupImage);
-                imgPosLeft = imgPosLeft + 20 - popupImage.width() / 2;
-                popupImage.css({'left': imgPosLeft, 'opacity': '1'});
-
-            });
-
-            $('#carousel').on('mouseout', 'li', function() {
-                $('.popup-image').remove();
-            });
-
-
-            $('#details-btn').on('click', function() {
-                if (!$(this).data('opened')) {
-                    $('#exponats-details').show();
-                    $('#exponat-main-container').hide();
-                    $(this).data('opened', true);
-                    $(this).text('Спрятать детали');
-                } else {
-                    $('#exponats-details').hide();
-                    $('#exponat-main-container').show();
-                    $(this).data('opened', false);
-                    $(this).text('Детали');
-                }
-                return false;
-            });
-            */
+            });           
         });
     },
-    replaceExhibits: function (type) {
-        var i = 0,
-            lines = $('.exponats-scroll .line > div').remove();
-
-        while (true) {
-            if (!lines.eq(i).size()) {
-                break;
-            }
-
-            $('.exponats-scroll .first-line').append(lines.eq(i));
-            i++;
-
-            if (lines.eq(i).size() && (type == 'twolines' || type == 'threelines')) {
-                $('.exponats-scroll .second-line').append(lines.eq(i));
-                i++;
-            }
-
-            if (lines.eq(i).size() && type == 'threelines') {
-                $('.exponats-scroll .third-line').append(lines.eq(i));
-                i++;
-            }
-        }
+    replaceExhibits: function () {
+        $('.exponats-scroll .line > div').remove();
+        exhibit.setExhibits(exhibit.data);
     },
-    setExhibits: function(data) {
+    setExhibitsTest: function(data) {
         if (!data['data'].length) {
             exhibit.stopLoad = true;
             
@@ -275,13 +198,13 @@ var exhibit = {
         width['second'] = 0; 
         width['third'] = 0;
         
-        $('.exponats-scroll .first-line > div').each(function () {
+        $('.exponats-scroll .first-line > div > a img').each(function () {
             width['first'] += $(this).width();
         });
-        $('.exponats-scroll .second-line > div').each(function () {
+        $('.exponats-scroll .second-line > div > a img').each(function () {
             width['second'] += $(this).width();
         });
-        $('.exponats-scroll .third-line > div').each(function () {
+        $('.exponats-scroll .third-line > div > a img').each(function () {
             width['third'] += $(this).width();
         });
         console.log(width);
@@ -311,7 +234,64 @@ var exhibit = {
             el.attr('style', '');
             el.find('a img').attr('src', data['data'][i]['img']);            
             elAppend.append(el);
-            width[w] += el.width();
+            width[w] += el.find('> a img').width();
+            el.find('> a img').load(function() {
+                console.log('width - ' + $(this).width())
+            });
+            console.log(width);
+        }
+
+        exhibit.addElOneHover();
+    },
+    setExhibits: function(data) {
+        if (!data['data'].length) {
+            exhibit.stopLoad = true;
+            
+            return false;
+        }
+        
+        var elAppend, w, el, width = {},
+                elClone = $('#el-one-blank').eq(0),
+                type = $('#exp-types li.active a').attr('href').substr(1);
+                      
+        width['first'] = $('.exponats-scroll .first-line > div').size();
+        width['second'] = $('.exponats-scroll .second-line > div').size();
+        width['third'] = $('.exponats-scroll .third-line > div').size();       
+        
+        exhibit.offset = data['offset'];
+
+        for (var i in data['data']) {
+            if (type == 'threelines') {
+                if (width['first'] <= width['second'] && width['first'] <= width['third']) {
+                    elAppend = $('.exponats-scroll .first-line');
+                    width['first']++;
+                } else if (width['second'] <= width['third']) {
+                    elAppend = $('.exponats-scroll .second-line');
+                    width['second']++;
+                } else {
+                    elAppend = $('.exponats-scroll .third-line');
+                    width['third']++;
+                }
+            } else if ((type == 'twolines' && width['first'] <= width['second']) || type == 'oneline') {
+                elAppend = $('.exponats-scroll .first-line');
+                width['first']++;
+            } else {
+                elAppend = $('.exponats-scroll .second-line');
+                width['second']++;
+            }
+
+            el = elClone.clone();           
+            el.attr('style', '');
+            el.find('a img').attr('src', data['data'][i]['img']);  
+            el.find('.el-one-title').text(data['data'][i]['title']);
+            el.find('.el-one-year').text(data['data'][i]['date']);
+            el.find('.el-one-museum').text(data['data'][i]['museum']['title']);
+            
+            for (var a in data['data'][i]['authors']) {              
+                el.find('.el-one-authors').append('<p><a href="">' + data['data'][i]['authors'][a]['title'] + '</a></p>');
+            }
+            
+            elAppend.append(el);    
         }
 
         exhibit.addElOneHover();
@@ -329,11 +309,13 @@ var exhibit = {
             data: {
             },
             dataType: 'json',
-            success: function(data) {
+            success: function(data) {                
+                exhibit.data.data = $.merge(exhibit.data.data, data.data);
+                exhibit.data.offset = data.offset;               
                 exhibit.setExhibits(data);
                 
                 if (!exhibit.stopLoad) {                   
-                    setTimeout(function () { exhibit.api.reinitialise(); }, 300);
+                    setTimeout(function () { exhibit.api.reinitialise(); }, 200);
                 }           
             },
             complete: function() {

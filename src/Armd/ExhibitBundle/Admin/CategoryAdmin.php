@@ -47,11 +47,11 @@ class CategoryAdmin extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('published')
             ->add('title')
             ->add('description')
             ->add('slug');
     }
-
 
     /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -62,6 +62,7 @@ class CategoryAdmin extends Admin
     {
         $formMapper
             ->with('General')
+            ->add('published', null, array('required' => false))
             ->add('parent', null,
             array(
                 'required' => true,
@@ -75,15 +76,7 @@ class CategoryAdmin extends Admin
                 }
             ))
             ->add('title')
-            ->add('description')
-            ->add('iconMedia', 'armd_media_file_type',
-            array(
-                'media_provider' => 'sonata.media.provider.image',
-                'media_context' => 'atlas_icon',
-                'media_format' => 'default',
-                'with_remove' => true,
-                'required' => false
-            ))
+            ->add('description')            
             ->end();
     }
 
@@ -102,10 +95,7 @@ class CategoryAdmin extends Admin
                 'template' => 'ArmdExhibitBundle:Admin:list_raw.html.twig',
                 'label' => 'Title'
             ))
-            ->add('iconMedia', null,
-            array(
-                'template' => 'ArmdExhibitBundle:Admin:list_category_icon.html.twig'
-            ))
+            ->add('published')
 //            ->add('actions', 'text', array('template' => 'ArmdAtlasBundle:Admin:list_category_row_actions.html.twig'))
         ;
     }

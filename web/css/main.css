@@ -4991,6 +4991,10 @@ body {
 							.el-one-text  a {
 								color:#f17100;
 								text-decoration:none;
+							}                                                      
+                                                        .el-one-text  a.el-one-museum {
+								color:#000;
+                                                                font-weight: bold;
 							}
 							.el-one-text  a:hover {
 								text-decoration:underline;

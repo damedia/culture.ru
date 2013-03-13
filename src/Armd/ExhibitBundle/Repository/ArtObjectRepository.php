@@ -19,17 +19,17 @@ class ArtObjectRepository extends BaseRepository
         return $this;
     }
     
-    function orderByCentury($order = 'DESC')
+    function setPublished()
     {
-        $this->qb->orderBy("{$this->alias}.century", $order);
+        $this->qb->andWhere("{$this->alias}.published = :published")->setParameter('published', true);
             
         return $this;
     }
     
-    function orderByDate($order = 'ASC')
+    public function selectCount()
     {
-        $this->qb->orderBy("{$this->alias}.date", $order);
-            
+        $this->qb->select("COUNT({$this->alias}.id)");                    
+        
         return $this;
-    }    
+    }
 }

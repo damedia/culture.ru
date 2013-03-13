@@ -35,13 +35,19 @@ class CategoryRepository extends NestedTreeRepository
         return $resultTree;
     }
 
-    protected function getArrayNodeChildren($nodes, $nodeId=false)
+    protected function getArrayNodeChildren($nodes, $nodeId=false, $published = true)
     {
         //$router = $this->container->get('router');
 
         $resultNodes = array();
 
         foreach ($nodes as $node) {
+            if ($published) {
+                if (!$node['published']) {
+                    continue;
+                }
+            }
+            
             $isFolder = isset($node['__children']) && sizeof($node['__children']);
             $resultNode = array(
                 'id' => $node['id'],

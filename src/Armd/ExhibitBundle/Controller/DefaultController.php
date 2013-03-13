@@ -25,17 +25,18 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
         $repository->createQueryBuilder('o');
         $entities = $repository
+            ->setPublished()
             ->setLimit($limit, $offset)
             ->getQuery()
-            //->getSQL();
             ->getResult();
-        //\Doctrine\Common\Util\Debug::dump($entities); die();
+        
         foreach ($entities as $i => $e) {
             $data[$i] = array(
                 'img' => $this->getImageSrc($e->getImage()),
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),
-                'museum' => array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle())
+                'museum' => array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle()),
+                'authors' => array()
             );
             
             foreach ($e->getAuthors() as $a) {
@@ -51,9 +52,23 @@ class DefaultController extends Controller
      * @Template("ArmdExhibitBundle:Default:exhibit_list.html.twig")
      */
     public function listAction()
-    {      
+    {
+        $authors = $this->getDoctrine()->getRepository('ArmdPersonBundle:Person')
+            ->createQueryBuilder('a')
+            ->join('a.personTypes', 't')
+            ->andWhere('t.slug = :slug')->setParameter('slug', 'art_gallery_author')
+            ->getQuery()->getResult();
+        
+        $count = 
+        
         return array(
-            'data' => json_encode(array('data' => $this->getObjects($this->limit), 'offset' => $this->limit))
+            'data' => json_encode(array('data' => $this->getObjects($this->limit), 'offset' => $this->limit)),
+            'filters' => array(
+                'museum' => $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')
+                    ->findBy(array(), array('title' => 'ASC')),
+                'author' => $authors,
+                'category' => $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree()
+            )
         );
     }
     

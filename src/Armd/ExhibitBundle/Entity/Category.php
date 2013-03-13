@@ -38,12 +38,11 @@ class Category implements Node
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-
+    
     /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="icon_media_id", nullable=true)
-     */
-    private $iconMedia;
+     * @ORM\Column(type="boolean", nullable=false, options={"default"=false})
+     */        
+    protected $published;
 
     /**
      * @Gedmo\TreeRoot
@@ -177,6 +176,29 @@ class Category implements Node
     public function getDescription()
     {
         return $this->description;
+    }
+    
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return ArtObject
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+    
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 
     /**
@@ -325,26 +347,6 @@ class Category implements Node
     public function getChildren()
     {
         return $this->children;
-    }
-
-    /**
-     * @return \Application\Sonata\MediaBundle\Entity\Media
-     */
-    public function getIconMedia()
-    {
-        return $this->iconMedia;
-    }
-
-    /**
-     * @param \Application\Sonata\MediaBundle\Entity\Media $iconMedia
-     * @return \Armd\ExhibitBundle\Entity\Category
-     */
-    public function setIconMedia(\Application\Sonata\MediaBundle\Entity\Media $iconMedia = null)
-    {
-        if(is_null($iconMedia) || $iconMedia->isUploaded()) {
-            $this->iconMedia = $iconMedia;
-        }
-        return $this;
     }
 
     /**

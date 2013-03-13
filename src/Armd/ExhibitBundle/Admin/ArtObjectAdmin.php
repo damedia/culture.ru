@@ -50,7 +50,7 @@ class ArtObjectAdmin extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('published')
+                ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('date', null, array('widget' => 'single_text'))
                 ->add('description')  
