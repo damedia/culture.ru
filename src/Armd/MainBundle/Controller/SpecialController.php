@@ -5,6 +5,7 @@ namespace Armd\MainBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Armd\AtlasBundle\Entity\ObjectManager;
 
 class SpecialController extends Controller
 {
@@ -12,9 +13,18 @@ class SpecialController extends Controller
     {    
         $categories = $this->getNewsManager()->getCategories();
         
+        $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
+            array(
+                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+                ObjectManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC'),
+                ObjectManager::CRITERIA_LIMIT => 4
+            )
+        );
+        
 		return $this->render('ArmdMainBundle:Special:index.html.twig', array(
             'categories'    => $categories,		
-			'news'          => $this->getNews($categories),        
+			'news'          => $this->getNews($categories),
+            'newRussiaImages' => $newRussiaImages         
         ));
     }
     
@@ -79,6 +89,16 @@ class SpecialController extends Controller
         return $this->render('ArmdMainBundle:Special:news.html.twig', array(
             'news'  =>  $this->getNewsManager()->findObjects($criteria)
         ));        
+    }
+    
+    function newsIndexAction()
+    {    
+        $categories = $this->getNewsManager()->getCategories();
+        
+		return $this->render('ArmdMainBundle:Special:news.html.twig', array(
+            'categories'    => $categories,		
+			'news'          => $this->getNews($categories),        
+        ));
     }
             
     function getEventManager()

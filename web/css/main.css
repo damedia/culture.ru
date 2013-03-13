@@ -4497,6 +4497,19 @@ body {
 }
 
 
+.appstore {
+	float: left;
+	display: block;
+	width: 61px;
+	height: 20px;
+	background:url(../img/app-store-ico.png) no-repeat 0 0; 
+	text-indent: -9000em;
+	margin-left: 13px;
+	position: relative;
+	top: 1px;
+}
+
+
 
 /* ==========================================================================
    Helper classes
