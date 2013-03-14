@@ -120,10 +120,13 @@
                 
                 <div class="app_store-block">
                     <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
+
                     <ul style="display:none;">
                         <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
-                        <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
-                        <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
+                        {% if app.request.locale == 'ru' %}
+                            <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
+                            <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -195,7 +198,9 @@
                     <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
                     <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
                 </ul>
-                <p class="footer-fond-link"><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></p>
+                {% if app.request.locale == 'ru' %}
+                    <p class="footer-fond-link"><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></p>
+                {% endif %}
             </div>
         </footer>
 		{% endblock %}

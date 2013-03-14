@@ -4502,8 +4502,7 @@ body {
     position:relative;
     margin-left: 13px;
 }
-.appstore-link {
-	
+a.appstore-link {
 	display: block;
 	width: 61px;
 	height: 20px;
@@ -4512,6 +4511,7 @@ body {
 	
 	position: relative;
 	top: 1px;
+    outline: none;
 }
 .app_store-block ul {
     position:absolute;
