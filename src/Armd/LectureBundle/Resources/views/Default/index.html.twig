@@ -12,7 +12,7 @@
     <div class="search-category">
 
         <form id="lectures-filter" method="post">
-            <span class="search-dates-label">{{ "search_select"|trans }}</span>
+            <span class="search-dates-label">Рубрика</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
                     <option value="0">{{ "All"|trans }}</option>
@@ -20,9 +20,17 @@
                         <option value="{{ category.id }}" {% if category.id == categoryId %}selected="selected"{% endif %}>{{ category.title }}</option>
                     {% endfor %}
                 </select>
-                <input id="form_page" type="hidden" name="page" value="1"/>
             </div>
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>
+
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                <span class="search-dates-label">Жанр</span>
+                <div class="search-category-selects">
+                    <select id="lecture_sub_category" name="lecture_sub_category" class="uni">
+                        <option value="0">{{ "All"|trans }}</option>
+                    </select>
+                </div>
+            {% endif %}
+            {#<button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>#}
         </form>
 
     </div>
