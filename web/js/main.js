@@ -372,4 +372,13 @@ $(function () {
         })
     })
     
+    $('#appstore-link').click(function(){
+        $(this).next('ul').slideToggle();
+        return false;
+    })
+    $('.app_store-block ul a').click(function(){
+        $(this).closest('ul').slideUp();
+    })
+    
+    
 })
