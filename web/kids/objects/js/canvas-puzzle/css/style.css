@@ -4,9 +4,9 @@ html, body {
     height: 100%;
     /*overflow: hidden;*/
     /********************/
-    /* board background */
+    /* board background 
     /********************/
-    background: #333;
+   /* background: #333;*/
 }
 
 html, body, div, ul, li, canvas { margin: 0; padding: 0; }
@@ -21,6 +21,7 @@ html, body, div, ul, li, canvas { margin: 0; padding: 0; }
 	left:0;
 	width:1903px;
 	height:910px;
+    z-index:100;
 }
 /*== Jigsaw puzzle ==*/
 div#canvas-wrap {

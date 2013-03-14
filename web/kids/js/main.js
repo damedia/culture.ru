@@ -1,11 +1,35 @@
 $(function(){
-   //$('#state').hide();
+   //$('#wrapper').hide();
     
     $(window).load(function(){
-      //$('#state').show();
+      //$('#wrapper').show();
     
          
     })
+
+
+    if(navigator.userAgent.match(/Android/i)){
+                $("html").addClass("android"); 
+      }
+      else if(navigator.userAgent.match(/webOS/i)){
+                      $("html").addClass("webos");  
+      }
+      else if(navigator.userAgent.match(/iPhone/i)){
+                      $("html").addClass("iphone"); 
+      }
+      else if(navigator.userAgent.match(/iPod/i)){
+                      $("html").addClass("ipod"); 
+      }
+      else if(navigator.userAgent.match(/iPad/i)){
+                      $("html").addClass("ipad"); 
+      }
+      else if(navigator.userAgent.match(/BlackBerry/i)){
+                      $("html").addClass("blackberry"); 
+      }
+
+      if(navigator.userAgent.match(/(iPhone|iPad|iPod)/i)){
+                                $("html").addClass("ios");  /*jQuery*/
+      }
 
 
     var ua = navigator.userAgent, 
@@ -45,8 +69,8 @@ $(function(){
 		$('.choice img').click(function(evt){
                 
                 var image = $(this),
-                    otherImages = $(this).parent().siblings('.choice'),
-                    choiseRes = image.closest('.choose-panel').next('.choice-result');
+                    otherImages =image.parent().siblings('.choice'),
+                    choiseRes = image.closest('article').find('.choice-result');
                 
                 if(image.data('clicked')) {
                     image.data('clicked', false);
@@ -121,10 +145,10 @@ $(function(){
             //$('.hidden-parts div').css({'visibility':'hidden'}).show();
             var compareTotal = $('.compare-images .inv').length;
           
-            $('.hidden-parts').on(click_event, '.inv img', function(){
+            $('.hidden-parts').on(click_event, '.inv', function(){
                 
                 var foundTotal;
-                $(this).parent().removeClass('inv');
+                $(this).removeClass('inv');
                 
                 foundTotal = compareTotal - $('.compare-images .inv').length;
                 $('#compare-found').html(foundTotal);

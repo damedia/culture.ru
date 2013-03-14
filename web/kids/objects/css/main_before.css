@@ -1,0 +1,1920 @@
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+a img { border: none; }
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body { font-family: "Trebuchet MS", Helvetica, sans-serif; }
+
+body {
+     /*cursor: url('../img/bluearrow.cur'), default;/*/
+}
+
+#wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+ 
+}
+
+.state {
+    width:1400px;
+	height:3505px;
+	margin:auto;
+    position: relative;
+    
+   background-size: cover;
+} 
+
+.kremlin {
+	
+	background:url(../img/kremlin/child-bg-main-kremlin.jpg) no-repeat 0 0;
+}
+.arkaim {
+	background:url(../img/arkaim/child-bg-main-arkaim.jpg) no-repeat 0 0;
+}
+.astrahan {
+	background:url(../img/astrahan/child-bg-main-astrahan.jpg) no-repeat 0 0;
+}
+.dazan {
+	background:url(../img/dazan/child-bg-main-dazan.jpg) no-repeat 0 0;
+}
+.kul-sharif  {
+	background:url(../img/kul-sharif/child-bg-main-kul-sharif.jpg) no-repeat 0 0;
+}
+.nevyansk  {
+	background:url(../img/nevyansk/child-bg-main-nevyansk.jpg) no-repeat 0 0;
+    width:1420px;
+    /*height:4244px;*/
+    height: auto;
+}
+.state.petergof   {
+	background:url(../img/petergof/child-bg-main-petergof.jpg) no-repeat 0 0;
+    height: auto;
+    width:1412px;
+}
+
+.rodina   {
+	background:url(../img/rodina/child-bg-main-rodina-matj.jpg) no-repeat 0 0;
+}
+.tretyakovf  {
+	background:url(../img/tretyakovf/child-bg-main-tretyakovf.jpg) no-repeat 0 0;
+}
+.vladivostok    {
+	background:url(../img/vladivostok/child-bg-main-vladivostok.jpg) no-repeat 0 0;
+}
+
+	.decor {
+		margin-top:-18px;
+	}
+        .nevyansk .decor {
+            margin-top: -83px;
+           
+        }
+		.main-menu {
+			margin-left:38px;
+		}
+        .nevyansk .main-menu {
+            margin-left:0;
+             position:relative;
+             height: 556px;
+        }
+
+        .petergof .main-menu {
+            margin-left:0;
+             position:relative;
+             height: 556px;
+        }
+         
+         .learn-more-link {
+            position:absolute;
+            left: 124px;
+            top: 368px;
+            
+         }   
+            .learn-more-link  a {
+                color:#5b185b;
+                text-decoration:none;
+                font-size:17px;
+                line-height:19px;
+                width:103px;
+                display:block;
+                padding-top:120px;
+                font-weight: bold;
+            }
+
+        .petergof .learn-more-link {
+            top: 300px;
+            left: 100px;
+        }
+
+             .petergof .learn-more-link a {
+                 padding-top:140px;
+                 width:200px;
+            }
+		
+		.main-image {
+			float:left;
+			margin:-258px 26px 0 -38px;
+		}
+		.arkaim .main-image {
+			margin-bottom:-30px;
+		}
+		.astrahan .main-image {
+			margin-bottom:-5px;
+			margin-top:-267px;
+		}
+		.nevyansk .main-image {
+			margin:-210px 40px 0 23px;
+		}
+
+        .petergof .main-image {
+            margin:-39px 40px 0 0px;
+        }
+
+        .rodina .main-image {
+            margin-top:-341px;
+        }
+
+        .tretyakovf .main-image {
+            margin-top:-232px;
+        }
+
+        .vladivostok .main-image {
+            margin-top:-228px;
+        }
+		
+			.main-description {
+				color:#2f4eb2;
+				font:17px/19px "Trebuchet MS", Helvetica, sans-serif;
+				overflow:hidden;
+				width:312px;
+				height:300px;
+                font-weight:bold;
+			}
+			.arkaim .main-description  {
+				color:#A8691D;
+			}
+			.astrahan .main-description  {
+				color:#AF4135;
+			}
+			.datzan .main-description  {
+				color:#257773;
+			}
+			.dazan .main-description  {
+				color:#257773;
+			}
+			.kul-sharif  .main-description  {
+				color:#5E67A5;
+			}
+			.nevyansk   .main-description {
+				color:#237A76;
+			}
+			.petergof  .main-description  {
+				color:#92599B;
+			}
+
+
+			
+			.rodina  .main-description  {
+				color:#2F4EB2;
+			}
+			.tretyakovf  .main-description  {
+				color:#C16825;
+			}
+			.vladivostok  .main-description  {
+				color:#7C5968;
+			}
+
+		.content {
+		
+		}
+			.puzzle-description {
+				width:370px;
+				color:#ce115e;
+				font:14px/17px "Trebuchet MS", Helvetica, sans-serif;
+				
+			}
+            .nevyansk .puzzle-description  {
+                margin-top:29px;
+                color:#5b185b;
+            }
+				.puzzle-description-text {
+					
+				}	
+					.puzzle-description-text p {
+						margin:0;
+					}
+				
+				.puzzle-slider {
+					width:350px;
+					height:351px;
+					background:url(../img/child-puzzles-frame.png) no-repeat 0 0;
+					
+				}
+					.puzzle-wrap {
+						position:relative;
+						width:350px;
+						height:273px;
+                        cursor: pointer;
+					}
+						.puzzle-setka-wrap {
+							position:absolute;
+							top:50%;
+							left:50%;
+							width:320px;
+							height:213px;
+							margin:-106px 0 0 -160px;
+						}
+
+                        .puzzle-setka-wrap-noresize {
+                            position:absolute;
+                            top:50%;
+                            left:50%;
+                            width:320px;
+                            height:213px;
+                            margin:-106px 0 0 -160px;
+                            overflow: hidden;
+                        }
+
+
+							.puzzle-setka {
+								position:absolute;
+								top:0;
+								left:0;
+								display:block;
+								width:100%;
+								height:100%;
+								
+							}
+
+				
+			.case-1  {
+				width: 785px;
+				margin: 119px 0 0 217px;
+			}
+				.case-1 .puzzle-description {
+					float:left;
+				}	
+                .puzzle-tip {
+                    position: relative;
+                    top: -11px;
+                    left: -16px;
+                }
+
+                .petergof .puzzle-tip {
+                    position: relative;
+                    top: -11px;
+                    left: 10px;
+                }
+
+				.case-1 .puzzle-slider {
+					float:right;
+					
+				}
+					.case-1 .puzzle-description-text {
+						margin-left: 23px;
+						margin-top: 9px;
+					}
+
+			
+			.case-2	{
+				width: 802px;
+				margin: 109px 0 0 358px;
+			}
+            .nevyansk  .case-2 {
+                margin-left:329px;
+                width:750px;
+                margin-top:107px;
+            }
+
+            .petergof .case-2 {
+                margin-left:250px;
+                width:750px;
+                margin-top:40px;
+            }
+				.case-2 .puzzle-description {
+					float:right;
+					font-size:15px;
+					line-height:17px;
+				}
+
+                .petergof .case-2 .puzzle-description {
+                    float:left;
+                    font-size:15px;
+                    line-height:17px;
+                }
+					
+				.case-2 .puzzle-slider {
+					float:left;
+					margin-top:23px;
+					
+				}
+
+                .petergof .case-2 .puzzle-slider {
+                    float:right;
+                    margin-top:23px;
+                    
+                }
+				.case-2 .puzzle-description-text {
+					margin:17px 0 0 20px;
+					width:280px;
+				}
+                .nevyansk .case-2 .puzzle-description-text {
+                    margin: 26px 0 0 56px;
+                    width: 252px;
+                    font-size: 17px;
+                    line-height: 19px;
+                    font-weight: bold;
+                }
+
+                 .petergof .case-2 .puzzle-description-text {
+                    margin: 10px 0 0 30px;
+                    width: 300px;
+                    font-size: 17px;
+                    line-height: 19px;
+                    color: #2C326B;
+                    line-height: normal;
+                }
+
+                
+
+				
+			.case-3	{
+				width: 759px;
+				margin: 16px 0 0 296px;
+			}
+				.case-3 .puzzle-description {
+					float:left;
+					font-size:15px;
+					line-height:17px;
+				}
+					
+				.case-3 .puzzle-slider {
+					float:right;
+					margin-top:90px;
+					
+				}	
+				.case-3 .puzzle-description-text {
+						margin:1px 0 0 10px;
+						width:280px;
+					}
+				
+				
+			.case-4	{
+				width: 807px;
+				margin: 296px 0 0 225px;
+			}
+				.case-4 .puzzle-description {
+					float:right;
+					font-size:15px;
+					line-height:17px;
+				}
+					
+				.case-4 .puzzle-slider {
+					float:left;
+					margin-top:-120px;
+					
+				}	
+
+				.case-4 .puzzle-description-text {
+					margin: 15px 0 0 10px;
+					width:350px;
+				}
+                
+            .case-5	{
+				
+				margin: 16px 0 0 296px;
+			} 
+
+
+
+            .case-6	{
+				
+				margin: 0 0 0 296px;
+			} 
+
+            .petergof .case-6    {
+                margin: 200px 0 0 296px;
+                position: relative;
+            }    
+            
+            .case-7 {
+                margin: 81px 0 0 394px;
+            }
+
+            .petergof .case-7 {
+                margin: 210px 0 0 300px;
+            }
+                .test-yourself {
+                    position: relative;
+                }
+                    .test-yourself img {
+                        display:block;
+                    
+                        margin-left: 8px;
+}
+                    .test-link {
+                        width: 170px;
+                        display:block;
+                        text-decoration:none;
+                        padding: 35px 132px 30px 0;
+                        background: url(../img/nevyansk/arrow.png) no-repeat 100% 0px;
+                        
+                        font-size: 17px;
+                        line-height: 19px;
+                        margin-top: -5px;
+                    }
+
+                     .petergof .test-link {
+                        width: 115px;
+                        display:block;
+                        text-decoration:none;
+                        padding: 0 0 135px 0;
+                        background: url(../img/petergof/arrow.png) no-repeat center bottom;
+                        color: #2C326B;
+                      
+                        line-height: 18px;
+                        position: absolute;
+                        top: 50px;
+                        left: 250px;
+                        font-weight: bold;
+                        
+                    }
+
+                    .nevyansk .test-link { 
+                        color: #5B185B;
+                        font-size: 17px;
+                        font-weight: bold;
+                    }
+                    
+            .case-8 {
+                margin: 0 0 0 283px;
+            } 
+
+            .petergof .case-8 {
+                margin: 180px 0 0 283px;
+                height: 299px;
+            }  
+                .compare {
+                    width: 837px;
+                    height: 560px;
+                    position: absolute;
+                    top: 150px;
+                }
+                    .compare-sign {
+                        
+                        right: 180px;
+                        top:-160px;
+                        position: absolute;
+                    }
+                    .compare-images {
+                        
+                        position: absolute;
+                        width: 800px;
+                        height: 560px;
+                        top: 0;
+                        left: 0;
+
+                    }
+                        .compare-image {
+                            
+                            background:#fff;
+                            padding:17px;
+                             border-radius:15px;
+                             margin-right:17px;
+                             position:absolute;
+                             width:346px;
+                             height: 523px;
+                             cursor: pointer;
+                             
+
+                        }
+
+                           .compare-image.compare-image-1 {
+                                left: 0;
+                                top: 0;
+                           }
+
+                           .compare-image.compare-image-2 {
+                                left: 398px;
+                                top: 0;
+                           }
+
+                           .compare-image > img {
+                            position: absolute;
+                            left: 17px;
+                            top: 17px;
+                           }
+
+            .nevyansk .case-8 {
+                position: relative;
+                width: 1000px;
+                height: 717px;
+            }
+                        
+                        .hidden-parts {
+                            position:absolute;
+                            top:0;
+                            left:0;
+                            width:380px;
+                            height:555px;
+
+                            z-index:2000;
+                            display: block;
+                            
+                        }
+                            .hidden-parts div,
+                            .hidden-parts a {
+                                position:absolute;
+                                display: inline-block;
+                                z-index: 2500;
+                                
+                               
+
+                                
+                            }
+
+                            .hidden-parts img {
+                                
+                                position: relative;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                display: inline-block;
+
+                            }
+
+                            .star {
+                                top: 20px;
+                                left: 117px;
+                                width:20px;
+                                height:20px;
+                                background:url(../img/nevyansk/compare/star.png) no-repeat 6px 5px;
+                            }
+                            .bird {
+                                top: 175px;
+                                left: 175px;
+                                width:24px;
+                                height:24px;
+                                background:url(../img/nevyansk/compare/bird.png) no-repeat 6px 4px;
+                            }
+                            .plane {
+                                top: 66px;
+                                left: 202px;
+                                width:40px;
+                                height:20px;
+                                background:url(../img/nevyansk/compare/plane.png) no-repeat 0 0;
+                            }
+                            .sobor {
+                                top: 271px;
+                                left: 272px;
+                                width:43px;
+                                height:121px;
+                                background:url(../img/nevyansk/compare/sobor.png) no-repeat 0 0;
+                            } 
+                            
+                           
+                            .person {
+                                top: 162px;
+                                left: 161px;
+                                width:23px;
+                                height:36px;
+                                background:url(../img/nevyansk/compare/person.png) no-repeat 0 0;
+                            }
+                            .windows {
+                                top: 210px;
+                                left: 103px;
+                                width:57px;
+                                height:44px;
+                                background:url(../img/nevyansk/compare/windows.png) no-repeat 0 0;
+                            }
+                            .roof {
+                                top: 249px;
+                                left: 91px;
+                                width:183px;
+                                height:104px;
+                                background:url(../img/nevyansk/compare/roof.png) no-repeat 0 0;
+                            }
+                            .flower {
+                                top: 389px;
+                                left: 117px;
+                                width:27px;
+                                height:50px;
+                                background:url(../img/nevyansk/compare/flower.png) no-repeat 0 0;
+                            }
+                            .bike {
+                                top: 491px;
+                                left: 113px;
+                                width:42px;
+                                height:41px;
+                                background:url(../img/nevyansk/compare/bike.png) no-repeat 0 0;
+                            }
+                            .cat {
+                                top: 360px;
+                                left: 331px;
+                                width:25px;
+                                height:23px;
+                                background:url(../img/nevyansk/compare/cat.png) no-repeat 0 0;
+                            }
+                            .hidden-parts div.inv {
+                                background:none;
+                            }
+                            .compare-found {
+                                background:#fff;
+                                color:#c4513f;
+                                text-transform:uppercase;
+                                padding:4px 13px;
+                                display:inline-block;
+                                font:bold 15px Arial black, Helvetica, sans-serif;
+                                border-radius:5px;
+                                float:right;
+                                position:absolute;
+                                bottom: -48px;
+                                right: 61px;
+                            }
+                            
+                                #compare-found {
+                                    color:#6bab68;
+                                    font-size:19px;
+                                    margin:0 3px;
+                                }
+                                
+                            .all-found {
+                                background:#7ce0f7;
+                                color:#fff;
+                            }
+                               .all-found  #compare-found {
+                                    color:#d65fd3;
+                               }   
+                            
+                            
+                            
+            
+				
+		.footer-menu {
+			margin: 37px 0 0 39px;
+		}		
+		.nevyansk .footer-menu {
+            margin:-45px 0 0 94px;
+            padding-bottom: 50px;
+        }	
+
+        .petergof .footer-menu {
+            margin:30px 0 0 85px;
+             padding-bottom: 60px;
+        }   
+            
+
+        .choose-one {
+        
+        }        
+            .choose-panel {
+                position:relative;
+                width:500px;
+                float:left;
+            } 
+                .choose-panel .choice {
+                    display:inline-block;
+                    vertical-align:bottom;   
+                    width:33%; 
+                    text-align:center;  
+                    cursor: pointer;                  
+                }
+
+
+                
+                .panel-line {
+                    width:100%;
+                    position:absolute;
+                    bottom:0;
+                    left:0;
+                    height:15px;
+                    background:#885889;
+                }
+
+                .petergof .panel-line {
+                    background: #5972B2;
+                }
+              
+            
+            .choice-result {
+                position: relative;
+            }
+               .choice-result > div {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 270px;
+                }
+                
+                .choice-result img {
+                    margin-left: -12px;
+                }
+
+                
+                    .choice-result p {
+                        margin-left: 30px;
+                        font-size: 17px;
+                        line-height: 19px;
+                        margin-top: 28px;
+                        color:#5b185b;
+                        font-weight:bold;
+                    }
+                    
+                .choice-result img.riddle-wrong {
+                   margin-left: -43px;
+                    margin-top: 19px;
+                    margin-bottom: -13px;
+                }
+                   
+                
+                .choice-result  img.riddle-right {
+                    margin-left: -22px;
+                    margin-top: 19px;
+                    margin-bottom: -13px;
+                } 
+
+
+                 .petergof .choose-panel .big-image {
+                    display:inline-block;
+                    vertical-align:bottom;   
+                    width:272px; 
+                    text-align:center;                    
+                }
+
+                .petergof .nev-riddle-1 .choose-panel .choice {
+                    width: 140px;
+                    vertical-align:bottom;
+                    margin-bottom: 35px;
+                }
+                
+
+                .petergof .nev-riddle-1 .choice-result img,
+                .petergof .nev-riddle-3 .choice-result img {
+                    margin-left: 0px;
+                }
+
+
+                .petergof .nev-riddle-1 .choice-result img.riddle-wrong,
+                .petergof .nev-riddle-3 .choice-result img.riddle-wrong {
+                   margin: 0;
+                }
+                   
+                
+                .petergof .nev-riddle-1 .choice-result  img.riddle-right,
+                .petergof .nev-riddle-3 .choice-result  img.riddle-right {
+                    margin: 0;
+                } 
+                
+                
+                
+        .nev-riddle-1  {
+            margin-top: 259px;
+            margin-left: 55px;
+        } 
+
+        .petergof .nev-riddle-1  {
+            margin-top: 150px;
+            margin-left: 0px;
+            position: relative;
+        } 
+
+           .nev-riddle-1 .choose-panel {
+                width:560px;
+            
+                margin-top: 18px;
+            }
+
+            .petergof .nev-riddle-1 .choose-panel {
+                width:757px;
+            }
+
+        
+            .nev-riddle-1 .choice-result {
+                margin-left:580px;
+                height: 366px;
+                width:300px;
+            
+                font-size: 17px;
+                line-height: 19px;
+            }
+
+            .petergof .nev-riddle-1 .choice-result {
+                position: absolute;
+                margin: 0;
+                left: 520px;
+                top: -220px;
+                width: 400px;
+            }
+
+                .petergof .nev-riddle-1 .choice-result p {
+                    color: #2C326B;
+                    margin:15px 0 0 0;
+                    position: relative;
+                    font-weight: bold;
+                    
+                   
+                }
+
+                    .petergof .nev-riddle-1 .choice-result .choice-no-result p {
+                        left: 58px;
+                    }
+
+                    .petergof .nev-riddle-1 .choice-result .choice-1-result p {
+                        left: -105px;
+                    }
+
+                    .petergof .nev-riddle-1 .choice-result .choice-2-result p {
+                        left: -105px;
+                    }
+
+                    .petergof .nev-riddle-1 .choice-result .choice-3-result p {
+                        left: -105px;
+                    }
+
+
+
+            
+        .nev-riddle-2  {
+            margin-top: 61px;
+            margin-left: 62px;
+            width: 726px;
+        
+            height: 346px;
+}    
+           .nev-riddle-2 .choose-panel {
+                width:460px;
+                float:right;
+            
+                margin-top: 65px;
+}
+
+        
+            .nev-riddle-2 .choice-result {
+                margin-right:480px;
+                height:150px;
+                width:300px;
+            }    
+            
+            
+               
+              .nev-riddle-2 .choice-result img {
+                    margin-left: -2px;
+                    margin-top: 3px;
+                }
+                     .nev-riddle-2 .choice-result p {
+                        margin-left: -50px;
+                        margin-top: 33px;
+                    }
+                    
+                 .nev-riddle-2 .choice-result img.riddle-wrong {
+                    margin-top: 3px;
+                }
+                   
+                
+                 .nev-riddle-2 .choice-result  img.riddle-right {
+                    
+                } 
+
+
+    .petergof .nev-riddle-2,
+    .petergof .nev-riddle-2 .choice-result {
+        width: auto;
+        margin: 0;    }
+
+        .petergof .nev-riddle-2 .choice-no-result,
+        .petergof .nev-riddle-2 .item-count,
+        .petergof .nev-riddle-2 form,
+        .petergof .nev-riddle-2 .show-right {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+       
+
+        .petergof .nev-riddle-2 .item-count {
+            width: 500px;
+            left: 300px;
+        }
+
+        .petergof .nev-riddle-2 .choice-no-result {
+             width: 260px;
+             position: relative;
+             top:60px;
+             left: 26px;
+        }
+
+        .petergof .nev-riddle-2 form {
+            width: 200px;
+            position: relative;
+            left: 50px;
+            top: 40px;
+
+        }
+
+            .petergof .nev-riddle-2 form p {
+                color: #2C326B;
+                margin:0 0 20px 5px;
+                width: 150px;
+                font-weight: bold;
+
+            }
+
+            .petergof .nev-riddle-2 form .input-wrapper {
+                display: inline-block;
+                background:url(../img/petergof/count-bg.png) no-repeat 0 0;
+                width: 128px;
+                height: 107px;
+                text-align: center;
+                position: relative;
+            }
+
+                .petergof .nev-riddle-2 form .input-wrapper input {
+                    border:none;
+                    background: none;
+                    font-size: 55px;
+                    color: #2C326B;
+                    font-weight: bold;
+                    padding:12px 0 12px 0px;
+                    width: 95px;
+                    text-align: center;
+                    position: relative;
+                    top: 9px;
+                    
+                }
+
+        .petergof .nev-riddle-2 .show-right {
+            position: relative;
+            left: 50px;
+        }
+
+
+         .petergof .nev-riddle-2 .show-right .off {
+            display: none;
+        }
+
+         .petergof .nev-riddle-2 .show-right .on {
+            display: block;
+        }
+
+        .petergof .nev-riddle-2 .show-right.active .off {
+            display: block;
+        }
+
+        .petergof .nev-riddle-2 .show-right.active .on {
+            display: none;
+        }
+
+
+        .petergof .nev-riddle-3 .choose-panel {
+            position: relative;
+            width:600px;
+        }
+
+        .petergof .nev-riddle-3 .choice2 {
+            position: relative;
+            left: -25px;
+        }
+
+
+            .petergof .nev-riddle-3 .choice-result {
+                display: inline-block;
+                width: 250px;
+                position: relative;
+            }
+
+
+            .petergof .nev-riddle-3 .choice-result p {
+                width: 200px;
+                top: 100px;
+                position: relative;
+                margin: 0;
+                color: #2C326B;
+                font-weight: bold;
+            }
+
+
+
+
+                .petergof .nev-riddle-3 .choice-result .choice-no-result p {
+                    left: 38px;
+                }
+
+                .petergof .nev-riddle-3 .choice-result .choice-1-result p {
+                    left: -275px;
+                    width: 480px
+                }
+
+                .petergof .nev-riddle-3 .choice-result .choice-2-result p {
+                     left: -275px;
+                    width: 480px
+                }
+
+                .petergof .nev-riddle-3 .choice-result .choice-3-result p {
+                     left: -275px;
+                    width: 480px
+                }        
+
+
+
+                
+                
+    .overlay {
+        background:#000;
+        opacity:0.5;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+    }            
+    .window {
+        position:absolute;
+        top:50%;
+        left:50%;
+        width:963px;
+        height:580px;
+        margin:-290px 0 0 -482px;
+        background:url(../img/nevyansk/window_bg.jpg) no-repeat 0 0;
+    } 
+
+    .petergof.window  {
+        background:url(../img/petergof/window_bg.jpg) no-repeat 0 0;
+    }
+        .close {
+            width:30px;
+            height:30px;
+            display:block;
+            position:absolute;
+            top:35px;
+            right:36px;
+            
+        }
+            .window-text {
+               width: 650px;
+                height: 272px;
+                overflow: auto;
+                color: #683290;
+                font-size: 13px;
+                position: absolute;
+                top: 182px;
+                left: 196px;
+            }
+                 .window-text p {
+                    margin-bottom:20px;
+                    margin-top:0;
+                 }
+                 
+        .main-site-link {
+           width: 220px;
+            height: 44px;
+            position: absolute;
+            left: 385px;
+            top: 75px;
+        }         
+
+        
+    
+
+    .whant-more-container {
+        width: 963px;
+        position: relative;
+        height: 580px;
+       
+	}
+        .want-more-nevyansk {
+             background:url(../img/nevyansk/window_bg.jpg) no-repeat 0 0;
+        }
+
+	
+    
+        
+        
+
+   .quiz-window {
+    position: relative;
+    width: 960px;
+    height: 580px;
+   }
+
+   .petergof.quiz-window {
+         background:url(../img/petergof/quiz/bg-quiz.png) no-repeat 0 0;
+   }
+   .quiz-nevyansk {
+        background:url(../img/nevyansk/quiz/bg-quiz.png) repeat;
+        
+   }
+
+   .quiz-window .quiz-content {
+        position: relative;
+   }
+
+        .quiz-window .quiz-content .baloons {
+            position: absolute;
+            width: 782px;
+            height: 391px;
+            background:url(../img/petergof/quiz/baloons.png) no-repeat 0 0;
+            padding: 0;
+            margin: 0;
+            top: 57px;
+            left: 50px;
+            z-index: 5;
+
+        }
+        .quiz-nevyansk .quiz-content .baloons  {
+            background:url(../img/nevyansk/quiz/baloons.png) no-repeat 0 0;
+        }
+
+            .quiz-window .quiz-content .baloons li {
+                position: absolute;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                text-indent: -9000em
+            }
+
+                .quiz-window .quiz-content .baloons .first {
+                    width: 108px;
+                    height: 127px;
+                    background:url(../img/petergof/quiz/baloon-step-1.png) no-repeat 0 0;
+                    left: 205px;
+                    top:-5px;
+                    
+                }
+                .quiz-nevyansk .quiz-content .baloons .first  {
+                     background:url(../img/nevyansk/quiz/baloon-step-1.png) no-repeat 0 0;
+                }
+
+                .quiz-window .quiz-content .baloons .first.active {
+                    background:url(../img/petergof/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                }
+                .quiz-nevyansk .quiz-content .baloons .first.active {
+                    background:url(../img/nevyansk/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                }
+
+
+                .quiz-window .quiz-content .baloons .second {
+                    width: 109px;
+                    height: 130px;
+                    background:url(../img/petergof/quiz/baloon-step-2.png) no-repeat 0 0;
+                    left: 382px;
+                    top:-2px;
+                    
+                }
+                .quiz-nevyansk .quiz-content .baloons .second  {
+                    background:url(../img/nevyansk/quiz/baloon-step-2.png) no-repeat 0 0;
+                }
+                
+
+                .quiz-window .quiz-content .baloons .second.active {
+                    background:url(../img/petergof/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                }
+                .quiz-nevyansk .quiz-content .baloons .second.active {
+                     background:url(../img/nevyansk/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                }
+
+                .quiz-window .quiz-content .baloons .third {
+                    width: 109px;
+                    height: 130px;
+                    background:url(../img/petergof/quiz/baloon-step-3.png) no-repeat 0 0;
+                    left: 555px;
+                    top:-2px;
+                    
+                }
+                .quiz-nevyansk .quiz-content .baloons .third {
+                    background:url(../img/nevyansk/quiz/baloon-step-3.png) no-repeat 0 0;
+                }
+
+                .quiz-window .quiz-content .baloons .third.active {
+                    background:url(../img/petergof/quiz/baloon-step-3-active.png) no-repeat 0 0;
+                } 
+                
+                .quiz-nevyansk .quiz-content .baloons .third.active {
+                    background:url(../img/nevyansk/quiz/baloon-step-3-active.png) no-repeat 0 0;
+                }
+
+
+                .quiz-content .q-case-intro,
+                .quiz-content .q-case-1,
+                .quiz-content .q-case-2,
+                .quiz-content .q-case-3,
+                .quiz-content .final,
+                .quiz-content .sertificat {
+                    position: absolute;
+                    width: 705px;
+                    height: 325px;
+                    padding: 215px 40px 40px 215px;
+                }
+                .name-text {
+                   position: absolute;
+                   z-index: 500;
+                   width: 220px;
+                   height: 25px;
+                  
+                   top: 309px;
+                    left: 535px;
+                }
+                    .name-text input {
+                        /*position: absolute;
+                        top: 309px;
+                        left: 535px;*/
+                        font: 15px Arial, helvetica, sans-serif;
+                        width: 210px;
+                        background: transparent;
+                        color: #000;
+                        border: 0;
+                        padding: 2px 5px;
+                        z-index: 550;
+                    }
+
+                        .petergof .name-text input {
+                            top:3px;
+                            position: relative;
+                        }
+                    .get-diplom {
+                        position:absolute;
+                        bottom: -230px;
+                        right: -175px;
+                        width:223px;
+                        height:37px;
+                        display:block;
+                        border:0;
+                        background:url(../img/nevyansk/quiz/sert-button.gif) no-repeat 0 0;
+                        text-indent:-9999px;
+                    }
+                    .sertificat img {
+                        display:block;
+                        margin:auto;
+                    }
+                    .winner-name {
+                        position: absolute;
+                        top: 315px;
+                        left: 370px;
+                        padding: 2px 5px;
+                        color:#456c92;
+                        font:22px 'adventurecregular', Arial, Helvetica, sans-serif;
+                        z-index: 600;
+                    }
+
+                        .nevyansk .winner-name {
+                            width: 200px;
+                            height: 100px;
+                        }
+
+                    .to-print {
+                        position:absolute;
+                        bottom: 21px;
+                        right: 9px;
+                        display:block;
+                        width:59px;
+                        height:57px;
+                        text-decoration:none;
+                        background:url(../img/to-print.png) no-repeat 0 0;
+                        text-indent:-9999em;
+                        z-index: 580;
+                    }
+
+
+                .quiz-content .final,
+                .quiz-content .sertificat {
+                    padding: 0;
+                    display: none;
+                    width: 960px;
+                    height: 580px;
+                }
+
+                .quiz-content .final img,
+                .quiz-content .sertificat img {
+                    position: relative;
+                    z-index: 10;
+                }
+
+                 .quiz-content .sertificat {
+                    width:960px;
+                    height:580px;
+                 }
+                .quiz-content .q-case-intro,
+                .quiz-content .q-case-2,
+                .quiz-content .q-case-3 {
+                    display: none;
+                }
+
+    .quiz-nav { width: 200px; }
+
+        .quiz-nav li {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            width: 34px;
+            height: 35px;
+            position: relative;
+            text-indent: -9000px;
+            cursor: pointer;
+            margin-right: 15px;
+            vertical-align: top;
+            list-style: none;
+        }
+
+        .quiz-window .next {
+            position:absolute;
+            width: 113px;
+            line-height: 40px;
+            height: 40px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            background: #FFF;
+            bottom: 20px;
+            left:20px;
+            color: #536DDE;
+            font-size: 17px;
+            text-transform:uppercase;
+            font-weight: bold;
+            text-align: center;
+            z-index: 800;
+            text-decoration:none;
+        }
+
+        .quiz-window .next.first_slide {
+            bottom:133px;
+            left:215px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            color: #B773B7;
+            text-decoration: none;
+            line-height: 40px;
+            background: #FFF;
+            text-transform:uppercase;
+        }
+
+            .quiz-nav li.start,
+            .quiz-nav li.next {
+                background:url(../img/petergof/quiz/btns-sprite.png) no-repeat -44px 0;
+            }
+
+            .quiz-nav li.prev {
+                background:url(../img/petergof/quiz/btns-sprite.png) no-repeat 0px 0;
+            }
+
+               .quiz-nav li.next.disbled {
+                background:url(../img/petergof/quiz/btns-sprite.png) no-repeat -43px -36px;
+            }
+
+            .quiz-nav li.prev.disbled {
+                background:url(../img/petergof/quiz/btns-sprite.png) no-repeat 0px -36px;
+            }
+
+
+            .quiz-nav li.close {
+                 background:url(../img/petergof/quiz/btns-sprite.png) no-repeat -99px 0;
+                 margin-left: 25px;
+                 right: 0;
+                 top: 0;
+            }
+
+        .q-case-intro .quiz-nav {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 15px;
+        }
+
+        .q-case-intro h1 {
+            font-size: 28px;
+            color: #303563;
+            background: #FFF;
+            padding: 10px;
+            line-height: 30px;
+            width: 370px;
+            letter-spacing: 2px;
+            margin-top: 50px;
+            position: relative;
+            vertical-align: middle;
+        }
+        .quiz-nevyansk .q-case-intro h1 {
+            color:#188793;
+        }
+
+        .q-case-intro p {
+            display: inline-block;
+            color: #B773B7;
+            font-size: 14px;
+            
+            font-weight: bold;
+            line-height: 40px;
+        }
+
+            .q-case-intro p a {
+                padding: 0px 30px;
+                color: #B773B7;
+                text-decoration: none;
+                line-height: 40px;
+                background: #FFF;
+                display: inline-block;
+            }
+
+    .quiz-content .question { 
+        padding: 0 0 0 15px;
+        position: relative;
+        z-index: 50
+    }
+
+        .quiz-content .question p {
+            font-size: 15px;
+            color: #303563;
+            margin-top: 20px;
+            font-weight: bold;
+            width: 530px;
+
+        }
+        .quiz-nevyansk .question p {
+            color:#188793;
+        }
+
+        .quiz-content .question p:first-child,
+        .quiz-content .answers ul li:first-child {
+            margin: 0;
+        }
+
+       .quiz-content .answers {
+            padding-left: 15px;
+            position: relative;
+            z-index: 50
+        }
+
+            .quiz-content .answers ul,
+            .quiz-content .answers .description {
+                display: inline-block;
+                vertical-align: top;
+            }
+            .quiz-content .answers .description p {
+                margin-top:0;
+                line-height: 1.2em;
+                margin-bottom: 3px;
+            }
+
+
+            .quiz-content .answers ul {
+                margin: 0 40px 0 0;
+                width: 280px;
+            }
+
+                .quiz-content .answers ul li {
+                    list-style: none;
+                    margin-top: 20px;
+                }
+
+                    .quiz-content .answers ul li a {
+                        display: block;
+                        line-height: 20px;
+                        padding: 8px 5px;
+                        text-decoration: none;
+                        background: #FFF;
+                        -webkit-border-radius: 6px;
+                        -moz-border-radius: 6px;
+                        border-radius: 6px;
+                    }
+
+            .quiz-content .answers .description div {
+                padding: 13px 13px 13px 34px;
+                width: 250px;
+                -webkit-border-radius: 6px;
+                -moz-border-radius: 6px;
+                border-radius: 6px;
+                display: none;
+            }
+
+            .quiz-content .answers .description h4 {
+                margin: 0 0 5px 0;
+                text-transform: uppercase;
+                font-size: 25px;
+
+            }
+
+
+    .quiz-content .q-case-1 .answers ul li.first a {
+        color: #89BD68;
+    }
+        .quiz-nevyansk .q-case-1 .answers ul li.first a {
+            color:#f7576e;
+        }
+
+    .quiz-content .q-case-1 .answers.first  ul li.first a,
+    .quiz-content .q-case-1 .answers.first .description .first {
+        background: #89BD68;
+        color: #FFF;
+        display: block;
+    }
+        .quiz-nevyansk .q-case-1 .answers.first  ul li.first a,
+        .quiz-nevyansk .q-case-1 .answers.first .description .first {
+            background:#f7576e;
+        }
+
+    .quiz-content .q-case-1 .answers ul li.second a {
+        color: #5DC6C2;
+    }
+        .quiz-nevyansk .q-case-1 .answers ul li.second a {
+            color: #7e9964;
+        }
+
+    .quiz-content .q-case-1 .answers.second ul li.second a,
+    .quiz-content .q-case-1 .answers.second .description .second {
+        background: #5DC6C2;
+        color: #FFF;
+        display: block;
+    }
+    
+        .quiz-nevyansk .q-case-1 .answers.second ul li.second a,
+        .quiz-nevyansk .q-case-1 .answers.second .description .second {
+            background: #7e9964;
+        }
+
+    .quiz-content .q-case-1 .answers ul li.third a {
+        color: #B97EC0;
+    }
+        .quiz-nevyansk .q-case-1 .answers ul li.third a {
+            color: #ce7a41;
+        }
+
+    .quiz-content .q-case-1 .answers.third ul li.third a,
+    .quiz-content .q-case-1 .answers.third .description .third {
+        background: #B97EC0;
+        color: #FFF;
+        display: block;
+    }
+        .quiz-nevyansk .q-case-1 .answers.third ul li.third a,
+        .quiz-nevyansk .q-case-1 .answers.third .description .third {
+            background: #e8803a;
+        }
+
+
+
+    .quiz-nevyansk .q-case-2  .answers .description p {
+        
+    } 
+    .quiz-nevyansk .q-case-2  .question p {
+        margin-top:0;
+    }
+    .quiz-nevyansk .q-case-2  .answers .description {
+        margin-top:76px;
+        width:340px;
+    }    
+    .quiz-nevyansk .q-case-2  .answers .description div {
+        width:333px;
+    }
+    .quiz-content .q-case-2 .answers ul li.first a {
+        color: #72BF9F;
+    }
+        .quiz-nevyansk .q-case-2 .answers ul li.first {
+            width:545px;
+        }
+        .quiz-nevyansk .q-case-2 .answers ul li.first a {
+            color: #47a0d1;
+        }
+
+    .quiz-content .q-case-2 .answers.first ul li.first a,
+    .quiz-content .q-case-2 .answers.first .description .first {
+        background: #72BF9F;
+        color: #FFF;
+         display: block;
+    }
+        .quiz-nevyansk .q-case-2 .answers.first ul li.first a,
+        .quiz-nevyansk .q-case-2 .answers.first .description .first {
+            background: #47a0d1;
+        }
+
+    .quiz-content .q-case-2 .answers ul li.second a {
+        color: #7166C2;
+    }
+        .quiz-nevyansk .q-case-2 .answers ul li.second a {
+            color: #b774b7;
+        }
+
+    .quiz-content .q-case-2 .answers.second ul li.second a,
+    .quiz-content .q-case-2 .answers.second .description .second {
+        background: #7166C2;
+        color: #FFF;
+         display: block;
+    }
+        .quiz-nevyansk .q-case-2 .answers.second ul li.second a,
+        .quiz-nevyansk .q-case-2 .answers.second .description .second {
+            background: #b774b7;
+        }
+
+    .quiz-content .q-case-2 .answers ul li.third a {
+        color: #B97EC0;
+    }
+        .quiz-nevyansk .q-case-2 .answers ul li.third a {
+            color: #8cc63f;
+        }
+
+    .quiz-content .q-case-2 .answers.third ul li.third a,
+    .quiz-content .q-case-2 .answers.third .description .third {
+        background: #B97EC0;
+        color: #FFF;
+         display: block;
+    }    
+        .quiz-nevyansk .q-case-2 .answers.third ul li.third a,
+        .quiz-nevyansk .q-case-2 .answers.third .description .third {
+            background: #8cc63f;
+        }  
+
+
+
+
+  .quiz-content .q-case-3 .answers ul li.first a {
+        color: #E3D16B;
+    }
+
+    .quiz-content .q-case-3 .answers.first ul li.first a,
+    .quiz-content .q-case-3 .answers.first .description .first {
+        background: #E3D16B;
+        color: #FFF;
+         display: block;
+    }
+
+    .quiz-content .q-case-3 .answers ul li.second a {
+        color: #C9809E;
+    }
+
+    .quiz-content .q-case-3 .answers.second ul li.second a,
+    .quiz-content .q-case-3 .answers.second .description .second {
+        background: #C9809E;
+        color: #FFF;
+         display: block;
+    }
+
+    .quiz-content .q-case-3 .answers ul li.third a {
+        color: #EF8B7B;
+    }
+
+    .quiz-content .q-case-3 .answers.third ul li.third a,
+    .quiz-content .q-case-3 .answers.third .description .third {
+        background: #EF8B7B;
+        color: #FFF;
+         display: block;
+    } 
+
+
+
+
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 144dpi) {
+
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+/*
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; 
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; 
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+*/
+#print-content {display:none;}
+
+@media print {
+   /* #wrapper {
+      display:none;
+    }
+
+    .quiz-box-hidden,
+    .quiz-window {
+        display: block;
+        position: absolute;
+        left:0;
+        top: 0;
+
+    }*/
+
+    
+   /* body #print-content * {
+        display:block;
+    }   
+    body #print-content {
+      display:block;
+      position:relative;
+      width:960px;
+      height:580px;
+      
+    }
+        #print-content img {
+            position:static;
+        }
+         #print-content  a {
+            display:none;
+         }
+         #print-content .winner-name {
+            
+            display:block;
+           left:350px;
+            
+         }*/
+    
+}
+
+/*@font-face {
+    font-family: 'adventurecregular';
+    src: url('fonts/adventurec-webfont.eot');
+    src: url('fonts/adventurec-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/adventurec-webfont.woff') format('woff'),
+         url('fonts/adventurec-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
