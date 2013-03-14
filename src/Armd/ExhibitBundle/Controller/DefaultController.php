@@ -19,17 +19,43 @@ class DefaultController extends Controller
         return $provider->getCdnPath($provider->getReferenceImage($image), $image->getCdnIsFlushable());
     }
     
-    protected function getObjects($limit = 0, $offset = 0)
+    protected function getObjects($filters = array(), $limit = 0, $offset = 0)
     {
-        $data = array();
+        $data = $fAutor = $fMuseum = $fCategory = array();
         $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
         $repository->createQueryBuilder('o');
+        
+        foreach ($filters as $k => $v) {
+            if ($k == 'author') {
+                $fAutor = array_keys($v);
+            } elseif ($k == 'museum') {
+                $fMuseum = array_keys($v);
+            } elseif (intval($k)) {
+                $fCategory = array_merge($fCategory, array_keys($v));
+            }
+        }
+        
+        if (count($fAutor)) {
+            $repository->setAuthors($fAutor);
+        }
+        
+        if (count($fMuseum)) {
+            $repository->setMuseums($fMuseum);
+        }
+        
+        if (count($fCategory)) {
+            $repository->setCategories($fCategory);
+        }
+        
         $entities = $repository
+            ->setDistinct()
             ->setPublished()
             ->setLimit($limit, $offset)
+            ->orderByDate()
             ->getQuery()
             ->getResult();
-        
+        //\Doctrine\Common\Util\Debug::dump($entities);
+        //die();
         foreach ($entities as $i => $e) {
             $data[$i] = array(
                 'img' => $this->getImageSrc($e->getImage()),
@@ -53,22 +79,44 @@ class DefaultController extends Controller
      */
     public function listAction()
     {
+        $filters = array(
+            'author' => array('title' => 'Автор'),
+            'museum' => array('title' => 'Музей')
+        );
+        
         $authors = $this->getDoctrine()->getRepository('ArmdPersonBundle:Person')
             ->createQueryBuilder('a')
             ->join('a.personTypes', 't')
             ->andWhere('t.slug = :slug')->setParameter('slug', 'art_gallery_author')
-            ->getQuery()->getResult();
+            ->getQuery()->getResult();       
         
-        $count = 
+        foreach ($authors as $a) {
+            $filters['author']['data'][] = array('id' => $a->getId(), 'title' => $a->getName());
+        }
+        
+        $museums = $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')
+            ->findBy(array(), array('title' => 'ASC'));
+        
+        foreach ($museums as $m) {
+            $filters['museum']['data'][] = array('id' => $m->getId(), 'title' => $m->getTitle());
+        }
+        
+        $categories = $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree();
+        
+        foreach ($categories as $c) {
+            $filters[$c['id']] = array(
+                'title' => $c['title'],
+                'data' => array()
+            );
+            
+            foreach ($c['children'] as $ch) {
+                $filters[$c['id']]['data'][] = array('id' => $ch['id'], 'title' => $ch['title']);
+            }
+        }
         
         return array(
-            'data' => json_encode(array('data' => $this->getObjects($this->limit), 'offset' => $this->limit)),
-            'filters' => array(
-                'museum' => $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')
-                    ->findBy(array(), array('title' => 'ASC')),
-                'author' => $authors,
-                'category' => $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree()
-            )
+            'data' => array('objects' => $this->getObjects(array(), $this->limit), 'offset' => $this->limit),
+            'filters' => $filters
         );
     }
     
@@ -81,7 +129,11 @@ class DefaultController extends Controller
     {                    
         return new JsonResponse(
             array(
-                'data' => $this->getObjects($this->limit, $offset), 
+                'objects' => $this->getObjects(
+                    $this->getRequest()->request->get('filters', array()), 
+                    $this->limit, 
+                    $offset
+                ), 
                 'offset' => $offset + $this->limit
             )
         );
