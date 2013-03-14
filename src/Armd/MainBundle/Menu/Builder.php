@@ -136,12 +136,12 @@ class Builder extends ContainerAware
                 )
             );
 
-            $eventsMenu->addChild(
-                'menu.online_translation',
-                array(
-                    'route' => 'armd_online_translation',
-                )
-            );
+//            $eventsMenu->addChild(
+//                'menu.online_translation',
+//                array(
+//                    'route' => 'armd_online_translation',
+//                )
+//            );
 
             $eventsMenu->addChild(
                 'menu.culture_magazine',
