@@ -4496,18 +4496,46 @@ body {
 	margin-bottom: 15px;
 }
 
-
-.appstore {
-	float: left;
+.app_store-block {
+    float: left;
+    width: 61px;
+    position:relative;
+    margin-left: 13px;
+}
+a.appstore-link {
 	display: block;
 	width: 61px;
 	height: 20px;
 	background:url(../img/app-store-ico.png) no-repeat 0 0; 
 	text-indent: -9000em;
-	margin-left: 13px;
+	
 	position: relative;
 	top: 1px;
+    outline: none;
 }
+.app_store-block ul {
+    position:absolute;
+    top:25px;
+    right:0;
+    width:137px;
+    padding:3px 5px 8px;
+    background:#fff;
+    border:1px solid rgba(0,0,0,0.2);
+    box-shadow:1px 1px 5px rgba(0,0,0,0.2);
+}
+    .app_store-block ul  li {
+        padding: 5px 5px 5px 28px;
+        position: relative;
+        list-style: none;
+        font-size: 12px;
+    }
+    .app_store-block img {
+        position:absolute;
+        left:0;
+        top:5px;
+        width:20px;
+        height:auto;
+    }
 
 
 
