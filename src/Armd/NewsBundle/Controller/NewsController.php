@@ -264,12 +264,12 @@ class NewsController extends Controller
             $limit = 100;
         }
 
-        $news = $this->getNewsManager()->findObjects(
+        $news = $this->getNewsManager()->findObjects(                
             array(
                 NewsManager::CRITERIA_SEARCH_STRING => $request->get('search_query'),
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
                 NewsManager::CRITERIA_LIMIT => $limit,
-                NewsManager::CRITERIA_OFFSET => $request->get('offset'),
+                NewsManager::CRITERIA_OFFSET => $request->get('offset'),              
             )
         );
 
@@ -296,7 +296,15 @@ class NewsController extends Controller
 
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
         $this->getTagManager()->loadTagging($entity);
-
+        
+        
+        /*  $this->getNewsManager()->findObjects(                
+            array(              
+                NewsManager::CRITERIA_MEMORIAL_DATE => new \DateTime(),              
+            )
+        );*/
+        
+        // echo 'test';
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
@@ -332,6 +340,7 @@ class NewsController extends Controller
                     NewsManager::CRITERIA_CATEGORY_IDS_OR => array($category->getId()),
                     NewsManager::CRITERIA_LIMIT => 1,
                     NewsManager::CRITERIA_IMPORTANT
+                   
                 ));
 
             if (!empty($news)) {
@@ -357,13 +366,15 @@ class NewsController extends Controller
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($entityId);
 
         $this->get('fpn_tag.tag_manager')->loadTagging($entity);
-
+        
         $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
                 NewsManager::CRITERIA_NEWS_ID_NOT => array($entity->getId()),
-                NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),
-                NewsManager::CRITERIA_TAGS => $entity->getTags()
+                NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),                
+                NewsManager::CRITERIA_TAGS => $entity->getTags()             
+               
+               
             )
         );
 

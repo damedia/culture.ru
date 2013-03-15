@@ -112,7 +112,8 @@ class NewsManager extends ListManager
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $qb->andWhere('_news.category IN (:category_ids_or)')
-                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
+                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR])             
+             ->orderBy('_news.newsDate', 'DESC');
         }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {
@@ -130,6 +131,8 @@ class NewsManager extends ListManager
                 ->andWhere('_news.day = :memorial_date_day')
                 ->setParameter('memorial_date_month', $criteria[self::CRITERIA_MEMORIAL_DATE]->format('m'))
                 ->setParameter('memorial_date_day', $criteria[self::CRITERIA_MEMORIAL_DATE]->format('d'));
+                        
+               
         }
 
         if (!empty($criteria[self::CRITERIA_SUBJECT_SLUGS_OR])) {

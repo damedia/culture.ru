@@ -58,7 +58,10 @@ abstract class ListManager
             // pad them
             if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
                 $criteriaMod = $criteria;
-                $criteriaMod[self::CRITERIA_RANDOM] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
+                if (count($objects) > 0){
+                    $criteriaMod[self::CRITERIA_RANDOM] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
+                }
+                echo count($objects); 
                 unset($criteriaMod[self::CRITERIA_TAGS]);
                 $paddingObjects = $this->findObjects($criteriaMod);
                 $objects = array_merge($objects, $paddingObjects);
