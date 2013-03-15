@@ -300,15 +300,15 @@
     {% if entity.virtualTours|length > 0 %}
     <div class="block">
         <section class="static-block first-obraz-block">
-            <h2>{{ "virtual_tour"|trans }}</h2>
-
+            <h2>-{{ "virtual_tour"|trans }}-</h2>
             {% if entity.virtualTours|length > 0 %}
-                {% set virtualTour = entity.virtualTours[0] %}
-                <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
-                    {#<img src="/images/virt-tour.jpg" alt="" />#}
-                    <img src="{% path virtualTour.image, 'reference' %}" alt="" width="280" />
-                    <span class="virt-tour-anons-over"></span>
-                </a>
+                {% for virtualTour in entity.virtualTours %}
+                    <a href="{{ virtualTour.url }}" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                        {#<img src="/images/virt-tour.jpg" alt="" />#}
+                        <img src="{% path virtualTour.image, 'reference' %}" alt="" width="280" />
+                        <span class="virt-tour-anons-over"></span>
+                    </a>
+                {% endfor %}
             {% endif %}
 
         </section>
