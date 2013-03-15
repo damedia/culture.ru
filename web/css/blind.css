@@ -129,7 +129,7 @@ body {
 	height:5.4375em;
 }
 .main-footer {
-	height:7.4375em;
+	height:8.4375em;
 	min-width:1000px;
 	max-width:1400px;
 	margin:auto;
@@ -344,7 +344,14 @@ body {
 				*display:inline;
 			}	
 
-			
+			.index-news-all-link {
+                float:right;
+                margin-top:0.4em;
+            }
+            .index-obraz-all-link {
+                float:right;
+                margin-top:-2em;
+            }
 		
 							
 		/*text*/
@@ -424,7 +431,11 @@ body {
             }
             .huge-font .index-rusObr-block li:nth-child(4), .huge-font .index-rusObr-block li:nth-child(3) {
                 display:none;
-            }              
+            }  
+
+            .index-rusObr-block  .rusObr-list-one {
+                border-bottom:0;
+            }        
 
 			/*one obraz */
 			.virtual-anons {
@@ -724,7 +735,7 @@ body {
 			font-weight:bold;
 			float:left;
 			width:21%;
-			padding:2.4em 0 0 1.5em;
+			padding:1.5em 0 0 1.5em;
 		}
             
 		.site-info {
@@ -732,6 +743,7 @@ body {
 			width:34%;
 			padding-top:1.4em;
             line-height:1.5em;
+            margin-right:1.4em;
 		}
 			.site-about {
 				margin:0;
@@ -742,8 +754,10 @@ body {
                 
         .special-counters {
             float:right;
-			width:35%;
-            padding-top:1.4em;
+			width:30%;
+            margin-right:1.5em;
+            padding-top:1.7em;
+            text-align:right;
         }       
 
            
@@ -759,13 +773,13 @@ body {
             margin-bottom: 22px;
         }
         .footer-share {
-            
+            margin-right:-5px;
         }
         
         #yandex-share-global {
             display: inline-block;
             margin-left: 8px;
-            margin-top: -11px;
+            margin-top: -5px;
             vertical-align: middle;
         } 
 
@@ -774,11 +788,15 @@ body {
             vertical-align: bottom;
             width: 24px;
             height: 25px;
-            margin: 0 3px 4px 0;
+            margin: 0 0 4px 5px;
             outline: none;
             background: url("../img/soc_ico.png") no-repeat 0 -60px;
           
-        }   
+        }  
+
+        .b-share__handle {
+            padding:0 !important;
+        }    
                 
         .b-share-icon {background-position:0 -60px}
              .b-share-icon:hover {background-position:0 -25px}
@@ -884,6 +902,10 @@ body {
 .big-font .settings-hidden{
 	background-position:17px -28px;
 }
+.big-font .main-footer {
+   
+}
+
 /*huge font*/
 .huge-font {
 	font-size:1.625em;
@@ -900,10 +922,30 @@ width:50%;
 	background-position:17px -24px;
 }	
 
+.huge-font .main-footer {
+    height:9em;
+}
+
 /*Times*/
 .times-font {
 	font-family:'Times new Roman', Georgia, serif;
 }	
+
+
+/*English*/
+.en .index-news-all-link    {
+    margin-top:-2em;
+}
+.en .rusObr-block {
+    margin-bottom:3em;
+}
+.en  .rus {
+    display:none;
+}
+
+.en.main-footer {
+    height:8em;
+}
 
 /* ==========================================================================
    Helper classes
@@ -1033,7 +1075,25 @@ width:50%;
     .rusObr-list-text {
         min-height:12em;
     }
+    
+    
+    
 }
+@media all and (min-width: 1300px) {
+    .site-info {
+        width:37%;
+    }
+    .special-counters {
+        width:25%;
+    }
+    .huge-font .main-footer {
+        height:8em;
+    }
+    .huge-font .en.main-footer {
+        height:7em;
+    }
+}
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r

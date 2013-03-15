@@ -129,6 +129,9 @@ Projects:
 
 Special:
     Main version: Полная версия
+    BodyClass: ru
+    AllNews: Посмотреть все
+    AllRussiaImages: Все образы
     Color: Цвет
     Background:
         Black: Черный фон
