@@ -352,6 +352,15 @@ body {
                 float:right;
                 margin-top:-2em;
             }
+            .back-link {
+                font-size: 1em;
+                margin:-0.7em 0 1.5em 8em;
+                
+            }
+                .back-link  a {
+                    font-weight:bold;
+                    font-size:1.3em;
+                }
 		
 							
 		/*text*/

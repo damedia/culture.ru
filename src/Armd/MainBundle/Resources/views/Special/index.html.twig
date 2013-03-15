@@ -11,7 +11,7 @@
 	{% include "ArmdMainBundle:Special:news-blind.html.twig" with {"categories": categories, "news": news} %}
     
     <section>
-        <h1><a href="{{ path('armd_main_special_russian_images') }}">{{ "Mainpage block.Images of Russia.Title"|trans }}</a></h1>
+        <h1>{{ "Mainpage block.Images of Russia.Title"|trans }}</h1>
         <a href="{{ path('armd_main_special_russian_images') }}" class="index-obraz-all-link">{{ 'Special.AllRussiaImages'|trans }}</a>
     {% include 'ArmdMainBundle:Special:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
     </section>    
