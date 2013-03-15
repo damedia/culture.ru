@@ -594,6 +594,9 @@ body {
 				.search-category-selects  .selector {
 					float:left;
 				}
+                .search-category-selects select {
+                    display:none;
+                }
                 .ui-selectgroup-list{
                     max-height:400px;
                     overflow:auto;
