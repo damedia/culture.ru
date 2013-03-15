@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Armd\ChronicleBundle\Entity\Accident
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Armd\ChronicleBundle\Repository\AccidentRepository")
  * @ORM\Table(name="content_chronicle_accident")
  */
 class Accident

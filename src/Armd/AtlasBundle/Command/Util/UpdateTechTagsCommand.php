@@ -27,6 +27,7 @@ class UpdateTechTagsCommand extends DoctrineCommand
         
         foreach ($entities as $entity) {
             $tag = $tagManager->loadOrCreateTag('o' . $entity->getId(), false);
+            $tag->setIsTechnical(true);
             $tagManager->addTag($tag, $entity);
             $tagManager->saveTagging($entity, false);              
         }

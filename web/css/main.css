@@ -168,6 +168,13 @@ body {
         background-color: #fff341;
     }
 
+
+.empty-message {
+    margin: 30px 0 ;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 .loading-block {
     position: absolute;
     top: 50%;
@@ -1416,7 +1423,26 @@ body {
 							}
 			
 			
-	/*KINOZAL*/		
+	/*KINOZAL*/
+
+    .search-category-selects .ui-selectgroup-copy {
+        white-space: nowrap;
+    }
+
+    #lecture_category {
+        width: 300px;
+    }
+        #ui-lecture_category {
+            width: 204px;
+        }
+
+        #ui-lecture_category .ui-selectgroup-copy {
+            width: 173px;
+        }
+
+        .ui-selectgroup-list[aria-labelledby=ui-lecture_category] {
+            width: 204px;
+        }
 			
 	.plitka {
 		margin-right:-13px;
@@ -1436,6 +1462,19 @@ body {
 				.plitka-one {
 					padding: 6px 15px;
 				}
+
+                    .plitka-one-image-wrapper {
+                        display: table;
+                        background: #000000;
+                        width: 160px;
+                        height: 120px;
+                    }
+
+                    .plitka-one-image {
+                        display: table-cell;
+                        vertical-align:middle;
+                    }
+
 					.plitka-one a {
 						text-decoration:none;
 					}
@@ -2043,8 +2082,7 @@ body {
 				
 				
 				.time-line-content {
-				margin-left:120px;
-				background:url('../img/timeline_bg.gif') repeat-y 50% 0;
+				margin-left:120px;				
 				padding:30px 0 15px;
 				font-size:12px;
 				margin-bottom:10px;
@@ -3129,6 +3167,8 @@ body {
 			.index-video-list  li {
 				float:left;
 				width:281px;
+                overflow: hidden;
+                text-align: center;
 				margin:0 37px 0 0;
 			}
 				.index-video-list img {
@@ -3418,22 +3458,13 @@ body {
             .time-line-nav li.inactive a {
                 color:#d4d4d4;
             }
-            .time-line-nav li ul {
-                display:none;
+            .time-line-nav li ul a {
+                font-weight: normal;               
             }
             .time-line-nav li.active ul {
                 display:block;
             }
     
-    
-    .time-line-content {
-        margin-left:120px;
-        background:url('../img/timeline_bg.gif') repeat-y 50% 0;
-        padding:30px 0 15px;
-        font-size:12px;
-        margin-bottom:10px;
-        
-    }
         .time-line-header {
             background:#fff;
             text-align:center;

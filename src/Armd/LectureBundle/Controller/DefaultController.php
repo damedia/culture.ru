@@ -4,6 +4,7 @@ namespace Armd\LectureBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\LectureBundle\Entity\LectureManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -39,17 +40,6 @@ class DefaultController extends Controller
             'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA'
         ));
     }
-
-    /**
-     * @Route("/top100/", name="armd_lecture_top100_index")
-     */
-    public function top100IndexAction()
-    {
-        return $this->forward('ArmdLectureBundle:Default:index', array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_TOP100'
-        ));
-    }
-
 
     /**
      * @Route("/index/{lectureSuperTypeCode}/", name="armd_lecture_default_index", options={"expose": true})
@@ -99,10 +89,16 @@ class DefaultController extends Controller
             $criteria[LectureManager::CRITERIA_LIMIT] = $limit > 100 ? 100 : $limit;
         }
 
-        if ($request->query->has('category_id')) {
-            $categoryId = $request->get('category_id');
+        if ($request->query->has('category_id') || $request->query->has('sub_category_id')) {
+
+            if ($request->query->has('sub_category_id')) {
+                $categoryId = $request->get('sub_category_id');
+            } elseif ($request->query->has('category_id')) {
+                $categoryId = $request->get('category_id');
+            }
+
             if ($categoryId > 0 ) {
-                $criteria[LectureManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
+                $criteria[LectureManager::CRITERIA_CATEGORY_ID_OR_PARENT_ID] = $categoryId;
             }
         }
 
@@ -114,6 +110,43 @@ class DefaultController extends Controller
         return array(
             'lectures' => $lectures
         );
+    }
+
+
+    /**
+     * @Route(
+     *  "/categories/{lectureSuperTypeCode}/{parentId}",
+     *  name="armd_lecture_categories",
+     *  defaults={"parentId"=null},
+     *  options={"expose": true}
+     * )
+    */
+    public function getLectureCategoriesAction($lectureSuperTypeCode, $parentId = null) {
+        $em = $this->getDoctrine()->getManager();
+        $result = array();
+
+        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneByCode($lectureSuperTypeCode);
+
+        if ($lectureSuperType) {
+            if ($parentId) {
+                $parentCategory = $em->find('ArmdLectureBundle:LectureCategory', $parentId);
+            } else {
+                $parentCategory = null;
+            }
+
+            $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType, $parentCategory);
+            $result = array_map(
+                function ($value) {
+                    return array(
+                        'id' => $value->getId(),
+                        'title' => $value->getTitle()
+                    );
+                },
+                $categories
+            );
+        }
+        return new JsonResponse($result);
     }
 
     /**
@@ -177,12 +210,14 @@ class DefaultController extends Controller
         $tags = $request->get('tags', array());
         $limit = $request->get('limit');
         $superTypeCode = $request->get('superTypeCode');
+        $id = $request->get('id');
 
         $lectures = $this->getLectureManager()->findObjects(
             array(
                 LectureManager::CRITERIA_LIMIT => $limit,
                 LectureManager::CRITERIA_TAGS => $tags,
-                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode)
+                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode),
+                LectureManager::CRITERIA_NOT_IDS => array($id)
             )
         );
 

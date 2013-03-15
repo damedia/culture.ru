@@ -68,14 +68,7 @@ class MuseumManager extends ListManager
 
     public function findObjectsWithSphinx(array $criteria)
     {
-        $searchParams = array('Museums' => array(
-            'filters' => array(
-                array(
-                    'attribute' => 'published',
-                    'values' => array(1)
-                )
-            )
-        ));
+        $searchParams = array('Museums' => array('filters' => array()));
 
         if (isset($criteria[self::CRITERIA_LIMIT])) {
             $searchParams['Museums']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];

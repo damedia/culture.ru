@@ -31,7 +31,12 @@ class DefaultController extends Controller
      */
     public function searchResultsAction() //$searchQuery, $page
     {
-        $perPage = 20;
+        $menu = $this->get('armd_main.menu.main');
+        $menu->setCurrentUri(
+            $this->get('router')->generate('armd_main_homepage')
+        );
+
+        $perPage = 50;
         $page = $this->getRequest()->get('page', 1);
         $words = $this->getRequest()->get('search_query');
 
@@ -45,37 +50,48 @@ class DefaultController extends Controller
                     'result_offset' => ($page - 1) * $perPage,
                     'result_limit' => $perPage,
                     'sort_mode' => '@relevance DESC, @weight DESC, date_from DESC',
-                    'filters' => array(
-                        array(
-                            'attribute' => 'published',
-                            'values' => array(1)
-                        )
-                    )
-
                 )
             );
             $res = $search->search($words, $searchParams);
+
             if (!empty($res['All']['matches'])) {
+                $searchResultNews = array();
+                $searchResultLecture = array();
+                $searchResultAtlas = array();
+                $searchResultVirtualMuseum = array();
                 foreach ($res['All']['matches'] as $id => $data) {
                     if (isset($data['attrs']['object_type'])) {
-                        $searchResult = false;
-
                         if ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_NEWS) {
                             $searchResult = $this->getNewsInfo($id - SearchEnum::START_INDEX_NEWS);
+                            if ($searchResult) {
+                                $searchResultNews[] = $searchResult;
+                            }
                         } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_LECTURE) {
                             $searchResult = $this->getLectureInfo($id - SearchEnum::START_INDEX_LECTURE);
+                            if ($searchResult) {
+                                $searchResultLecture[] = $searchResult;
+                            }
 
                         } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_ATLAS) {
                             $searchResult = $this->getAtlasObjectInfo($id - SearchEnum::START_INDEX_ATLAS);
+                            if ($searchResult) {
+                                $searchResultAtlas[] = $searchResult;
+                            }
                         } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_VIRTUAL_MUSEUM) {
                             $searchResult = $this->getVirtualMuseumInfo($id - SearchEnum::START_INDEX_VIRTUAL_MUSEUM);
-                        }
-
-                        if (!empty($searchResult)) {
-                            $searchResults[] = $searchResult;
+                            if ($searchResult) {
+                                $searchResultVirtualMuseum[] = $searchResult;
+                            }
                         }
                     }
                 }
+
+                $searchResults = array_merge(
+                    $searchResultAtlas,
+                    $searchResultVirtualMuseum,
+                    $searchResultLecture,
+                    $searchResultNews
+                );
                 // use $pagination only to display page navigation bar because data is already cut
                 $paginator = $this->container->get('knp_paginator');
                 $pagination = $paginator->paginate($searchResults, $page, $perPage);
@@ -146,17 +162,25 @@ class DefaultController extends Controller
                     'announce' => ''
                 ),
                 'section' => array(
-                    'name' => $lecture->getLectureSuperType()->getCode(
-                    ) == 'LECTURE_SUPER_TYPE_LECTURE' ? 'Лекции' : 'Трансляции',
+                    'name' => $lecture->getLectureSuperType()->getName()
                 )
             );
 
+            $mediaImage = false;
             if ($lecture->getLectureVideo()) {
-                $lectureInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
-                    $lecture->getLectureVideo()->getImageMedia(),
-                    'lecture_searchAllResult'
-                );
+                $mediaImage = $this->getLectureVideo()->getImageMedia();
+            } elseif ($lecture->getTrailerVideo()) {
+                $mediaImage = $this->getTrailerVideo()->getImageMedia();
+            } elseif ($lecture->getMediaLectureVideo()) {
+                $mediaImage = $lecture->getMediaLectureVideo();
+            } elseif ($lecture->getMediaTrailerVideo()) {
+                $mediaImage = $lecture->getMediaTrailerVideo();
             }
+
+            $lectureInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                $mediaImage,
+                'lecture_searchAllResult'
+            );
         }
 
         return $lectureInfo;
@@ -173,7 +197,7 @@ class DefaultController extends Controller
                         'armd_news_item_by_category',
                         array('category' => 'news', 'id' => $id)
                     ),
-                    'date' => $article->getDate(),
+                    'date' => $article->getNewsDate(),
                     'title' => strip_tags($article->getTitle()),
                     'announce' => $article->getAnnounce()
                 ),

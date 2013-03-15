@@ -11,17 +11,35 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block one_column %}
-    {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries} %}
-
+    {% include "ArmdChronicleBundle:Event:centuries.html.twig" with {"centuries": centuries, "activeCentury": activeCentury, "activePart": activePart} %}
+    
+    <script type="text/javascript" src="{{ asset('bundles/armdchronicle/timeline/js/storyjs-embed.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            createStoryJS({
+                type:       'timeline',
+                width:      '{{ width }}',
+                height:     '{{ height }}',
+                source:     '{{ path('armd_chronicle_timeline_json_data', {'century': activeCentury.value, 'part': activePart.value is defined ? activePart.value : 0 }) }}',
+                embed_id:   'timeline-block',
+                lang:       '{{ lang }}',
+                start_at_end: {{ start_at_end }},
+                start_zoom_adjust: {{ start_zoom_adjust }}
+            });
+            
+            $(document).ready(function() {
+		$(".fancybox").fancybox();
+            });
+        });
+    </script>
+    
     <div class="wayponits-area">
-        {% for c in centuries %}
-            <div class="time-line-content clearfix" id="{{ c.name }}">
-                <div class="time-line-header">{{ c.name }}<br />
-                    <span>{{ 'Century'|trans }}</span>
-                </div>
-
-                {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": c.events, "accidents": c.accidents} %}
+        <div class="time-line-content clearfix">
+            <div class="time-line-header">{{ activeCentury.name }}<br />
+                <span>{{ 'Century'|trans }}</span>
             </div>
-        {% endfor%}
+
+            <div id="timeline-block"></div>
+        </div>
     </div><!-- //wayponits-area-->
-{% endblock %}    
+{% endblock %}
