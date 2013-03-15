@@ -46,6 +46,7 @@
     {% block javascripts %}
         <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/respond.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker.js') }}"></script>
@@ -173,6 +174,10 @@
         <footer class="main-footer clearfix">
             <a href="http://mkrf.ru/" target="_blank" class="footer-copyright">
                 <p>{{ "ministerstvo"|trans|raw }}</p>
+            </a>
+
+            <a href="http://nic.ru/news/2013/culture.html" target="_blank" class="footer-banner-1">
+                <img src="{{ asset('img/footer/100x43_logo_nic.gif') }}" alt="" />
             </a>
 
             <div class="footer-social">
