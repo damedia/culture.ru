@@ -438,9 +438,18 @@ body {
             .big-font .index-rusObr-block  ul li:nth-child(4) {
                 display:none;
             }
+            .lt-ie9 .big-font .index-rusObr-block li:first-child + * + * + * {
+                display:none;
+            }
+            
             .huge-font .index-rusObr-block li:nth-child(4), .huge-font .index-rusObr-block li:nth-child(3) {
                 display:none;
             }  
+            
+            .lt-ie9 .huge-font .index-rusObr-block li:first-child + * + * + *, .lt-ie9 .huge-font .index-rusObr-block li:first-child + * + *  {
+                display:none;
+            }
+            
 
             .index-rusObr-block  .rusObr-list-one {
                 border-bottom:0;

@@ -105,9 +105,10 @@ $(function(){
 		return false;
 	})
 
-	$('.btn-more a').click(function(){
-		$("div#" + $(this).attr('rel')).slideToggle();
-		$(this).toggleClass("opened");
+	$('.btn-more a .more').click(function(){
+		var link = $(this).parent();
+        $("div#" + link.attr('rel')).slideDown();
+		link.addClass("opened");
 		 return false;
 	});
 	
