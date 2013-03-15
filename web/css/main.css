@@ -594,6 +594,9 @@ body {
 				.search-category-selects  .selector {
 					float:left;
 				}
+                .search-category-selects select {
+                    display:none;
+                }
                 .ui-selectgroup-list{
                     max-height:400px;
                     overflow:auto;
@@ -4538,6 +4541,14 @@ a.appstore-link {
     }
 
 
+.footer-banner-1 {
+	display: block;
+	float: left;
+	margin-left: 35px;
+	position: relative;
+	top: 15px;
+}
+
 
 /* ==========================================================================
    Helper classes
@@ -4656,6 +4667,7 @@ a.appstore-link {
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
@@ -4666,6 +4678,10 @@ a.appstore-link {
 @media screen and (max-width: 1195px) {
     /* Style adjustments for viewports that meet the condition */
     .plitka.rec-plitka li:last-child {
+    	display: none;
+    }
+
+    .lt-ie9 .plitka.rec-plitka li:first-child {
     	display: none;
     }
 }

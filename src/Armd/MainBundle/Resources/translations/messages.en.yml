@@ -128,6 +128,10 @@ Projects:
 
 Special:
     Main version: Main version
+    BodyClass: en
+    AllNews: All News
+    BackLink: Back
+    AllRussiaImages: All Russia Images
     Color: Color
     Background:
         Black: Black
@@ -143,7 +147,7 @@ Special:
             Sans Serif : Arial
             Serif: Times New Roman
     Settings: Settings
-    Address: культура.рф
+    Address: culture.ru
     Search: Search
     Date: Date
     Images of Russia:

@@ -228,8 +228,16 @@ $(function () {
 
     })
 
-    $('select.uni').selectgroup();
+    
 	
+    var fancySelect = (function() {
+        $('select.uni').each(function(){
+            $(this).css({'display':'block','visibility':'hidden'});
+            $(this).selectgroup();
+        })
+    })();
+    
+    
 	$('#category-chooser').on('click', 'a', function(){
 		var id = $(this).attr('href');
 		$(this).addClass('active').siblings().removeClass('active');

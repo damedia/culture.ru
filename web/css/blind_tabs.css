@@ -41,6 +41,10 @@
 			font-size:0.875em;
 			margin-top:0.5em;
 		}
+        .event-anons .date i {
+            font-style:normal;
+            white-space: nowrap;
+        }
 		.text-overflow {
 			overflow:hidden;
 		}

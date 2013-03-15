@@ -16,10 +16,11 @@
 			<link rel="stylesheet" href="{{ asset('css/blind.css') }}">
 		{% endblock %}
         <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="{{ asset('vendor/respond.min.js') }}"></script><![endif]-->
         
     </head>
 	<body>
-		<div class="wrapper">
+		<div class="wrapper {{ 'Special.BodyClass'|trans }}">
 			<div class="settings-wrap">
 				<div class="settings-block" id="settings" >
 					<a href="{{ path('armd_main_homepage') }}" class="full-version-link">{{ 'Special.Main version'|trans }}</a>
@@ -103,7 +104,7 @@
 			
 			<div class="push"></div>
 		</div>
-		<footer class="main-footer">
+		<footer class="main-footer {{ 'Special.BodyClass'|trans }}">
 			<div class="site-owner">
 				<a href="http://mkrf.ru/" target="_blank">{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}</a>
 			</div>
@@ -123,7 +124,7 @@
             <div class="site-info">
 				<p class="site-copyright">{{ 'Copyright'|trans }}</p>
 				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a><br />
-                <a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></p>
+                <a href="http://fond.culture.ru/" target="_blank" class="rus">Российский Фонд Культуры</a></p>
 			</div>
             
 		</footer>
