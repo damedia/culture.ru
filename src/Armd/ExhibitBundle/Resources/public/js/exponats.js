@@ -8,29 +8,22 @@ var exhibit = {
     filters: {},
     activeFilters: {},
     tagsDelTimeout: null,
-    addElOneHover: function() {
-        $('.el-one').hover(function() {
-            $(this).addClass('el-one-hovered');
-        }, function() {
-            $(this).removeClass('el-one-hovered');
-        });
-    },
     init: function(data, filters) {
         exhibit.objects = data.objects;
         exhibit.offset = data.offset;
         exhibit.filters = filters;
-        //$(window).load(function() {
-           
-        //});
+        
         $(function() {
             exhibit.setExhibits(exhibit.objects);
+            //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
+            //exhibit.api = exhibit.scrollPane.data('jsp');
             exhibit.setFilters();
+            exhibit.setCount(data.count);
         });
-        $(window).load(function() {
-            //exhibit.setExhibits(data);
+        $(window).load(function() {           
             exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
             exhibit.api = exhibit.scrollPane.data('jsp');
-
+            //exhibit.apiReinitialise();
             var throttleTimeout;
             $(window).bind('resize', function() {
                 if ($.browser.msie) {
@@ -54,7 +47,7 @@ var exhibit = {
             });
             exhibit.scrollPane
                 .bind('mousewheel', function(event, delta, deltaX, deltaY) {
-                    exhibit.api.scrollByX(delta * -100);
+                    exhibit.api.scrollByX(delta * -200);
                     return false;
                 })
                 .bind('jsp-scroll-x', function(event, scrollPositionX, isAtLeft, isAtRight) {                   
@@ -77,8 +70,7 @@ var exhibit = {
                     exhibit.replaceExhibits();
                     $('#exponats-content').removeClass().addClass(type);
                     exhibit.api.scrollToX(0, false);
-                    exhibit.api.reinitialise();
-                    exhibit.addElOneHover();
+                    exhibit.apiReinitialise();
                 }
 
                 return false;
@@ -117,56 +109,96 @@ var exhibit = {
             });
 
             $('#exponats-tags').on('click', '.delete', function() {
-                clearTimeout(exhibit.tagsDelTimeout);
-                var tag = $(this).prev(),
-                    tagText = tag.text();
-                    
-                $(this).parent().remove();
-                $('.fiter-results a').filter(function(index) {
-                    return $(this).text() === tagText;
-                }).removeClass('active');
+                clearTimeout(exhibit.tagsDelTimeout); 
+                exhibit.unsetActiveFilterTag($(this).parent());
                 
-                exhibit.setActiveFilter($(this).parent().attr('data-fid'), $(this).parent().attr('data-fitemid'), undefined);               
-                exhibit.tagsDelTimeout = setTimeout(function() { exhibit.filterLoadExhibits(); }, 2000);
+                if ($('#exp-categories .filtered').size() == 0) {
+                    exhibit.tagsDelTimeout = setTimeout(function() { exhibit.filterLoadExhibits(); }, 2000);
+                }                            
             });
 
             $('.exp-filter .fiter-results').on('click', 'a', function() {
-                var tag = $(this),
-                    tagText = tag.text(),
-                    newTag, cl = '', 
-                    fId = $(this).attr('data-fid'), 
-                    fItemId = $(this).attr('data-fitemid');
-
-                if (tag.hasClass('active')) {
-                    $(this).removeClass('active');
-                    exhibit.setActiveFilter(fId, fItemId, undefined);
-                    $('#exponats-tags a').filter(function(index) {
-                        return $(this).text() === tagText;
-                    }).parent().remove();
+                if ($(this).hasClass('active')) {
+                    exhibit.unsetActiveFilterTag($(this));
                 } else {
-                    if (fId == 'museum') {
-                        cl = 'big-tag';
-                    }
-                    
-                    newTag = $('<li data-fid="' + fId + '" data-fitemid="' + fItemId + '" class="' + cl + '"><a href="#">' + tagText + '</a><span class="delete"></span></li>');
-                    
-                    if ($('#exponats-tags li[data-fid="' + fId + '"]').size()) {
-                        $('#exponats-tags li[data-fid="' + fId + '"]:last').after(newTag);
-                    } else {
-                        if (fId == 'museum') {
-                            $('#exponats-tags').prepend(newTag);
-                        } else {
-                            $('#exponats-tags').append(newTag);
-                        }                      
-                    }
-                                      
-                    $(this).addClass('active');
-                    exhibit.setActiveFilter(fId, fItemId, 1);
+                    exhibit.setActiveFilterTag($(this));
                 }
 
                 return false;
-            });           
+            });
+            
+            $('#search_text').val('');
+            
+            $('.obr-submit-input').click(function() {
+                var searchText = $.trim($('#search_text').val());
+                
+                if (searchText) {
+                    exhibit.searchLoadExhibits(searchText);                  
+                }
+            });                     
         });
+    },
+    setObjectListeners: function() {
+        $('.el-one').hover(function() {
+            $(this).addClass('el-one-hovered');
+        }, function() {
+            $(this).removeClass('el-one-hovered');
+        });
+        
+        $('.el-one-text a').click(function() {
+            exhibit.clearFilters();
+            exhibit.setActiveFilterTag($(this));
+            exhibit.filterLoadExhibits();                
+        });
+    },
+    setActiveFilterTag: function(tag) {
+        var newTag, cl = '',
+            fId = tag.attr('data-fid'),
+            fItemId = tag.attr('data-fitemid');
+    
+        exhibit.activeFilters['search'] = undefined;
+        
+        if (exhibit.activeFilters[fId] == undefined) {
+            exhibit.activeFilters[fId] = {};
+        }
+        
+        exhibit.activeFilters[fId][fItemId] = 1;
+        
+        if (fId == 'museum') {
+            cl = 'big-tag';
+        }
+
+        newTag = $('<li data-fid="' + fId + '" data-fitemid="' + fItemId + '" class="' + cl + '"><a href="#">' + tag.text() + '</a><span class="delete"></span></li>');
+
+        if ($('#exponats-tags li[data-fid="' + fId + '"]').size()) {
+            $('#exponats-tags li[data-fid="' + fId + '"]:last').after(newTag);
+        } else {
+            if (fId == 'museum') {
+                $('#exponats-tags').prepend(newTag);
+            } else {
+                $('#exponats-tags').append(newTag);
+            }                      
+        }
+
+        $('.fiter-results a').filter(function(index) {
+            return ($(this).attr('data-fid') == fId && $(this).attr('data-fitemid') == fItemId);
+        }).addClass('active');
+    },
+    unsetActiveFilterTag: function(tag) {
+        var fId = tag.attr('data-fid'),
+            fItemId = tag.attr('data-fitemid');
+    
+        if (exhibit.activeFilters[fId] != undefined) {
+            exhibit.activeFilters[fId][fItemId] = undefined;
+        }  
+        
+        $('#exponats-tags a').filter(function(index) {
+            return ($(this).parent().attr('data-fid') == fId && $(this).parent().attr('data-fitemid') == fItemId);
+        }).parent().remove();
+        
+        $('.fiter-results a').filter(function(index) {
+            return ($(this).attr('data-fid') == fId && $(this).attr('data-fitemid') == fItemId);
+        }).removeClass('active');
     },
     replaceExhibits: function () {
         $('.exponats-scroll .line > div').remove();
@@ -230,7 +262,7 @@ var exhibit = {
             console.log(width);
         }
 
-        exhibit.addElOneHover();
+        exhibit.setObjectListeners();
     },
     setFilters: function() {
         var elClone, elBlank = $('#exp-filter-blank');
@@ -258,13 +290,6 @@ var exhibit = {
                 el.append('<a class="' + cl + '" data-fid="' + id + '" data-fitemid="' + data.id + '" href="#">' + data.title + '</a>');
             }
         }
-    },
-    setActiveFilter: function(fId, fItemId, value) {
-        if (exhibit.activeFilters[fId] == undefined) {
-            exhibit.activeFilters[fId] = {};
-        }
-        
-        exhibit.activeFilters[fId][fItemId] = value;
     },
     getActiveFilter: function(fId, fItemId) {
         if (exhibit.activeFilters[fId] == undefined) {
@@ -313,18 +338,22 @@ var exhibit = {
             el.find('a img').attr('src', objects[i]['img']);  
             el.find('.el-one-title').text(objects[i]['title']);
             el.find('.el-one-year').text(objects[i]['date']);
+            el.find('.el-one-museum').attr('data-fid', 'museum');
+            el.find('.el-one-museum').attr('data-fitemid', objects[i]['museum']['id']);
             el.find('.el-one-museum').text(objects[i]['museum']['title']);
             
             for (var a in objects[i]['authors']) {              
-                el.find('.el-one-authors').append('<p><a href="">' + objects[i]['authors'][a]['title'] + '</a></p>');
+                el.find('.el-one-authors').append('<p><a href="#" data-fid="author" data-fitemid="' + objects[i]['authors'][a]['id'] + '">' + objects[i]['authors'][a]['title'] + '</a></p>');
             }
             
             elAppend.append(el);    
         }
 
-        exhibit.addElOneHover();
+        exhibit.setObjectListeners();
     },
-    apiReinitialise: function() {
+    apiReinitialise: function() {       
+        exhibit.api = $('.exponats-scroll-pane').data('jsp');
+        //exhibit.api.reinitialise();
         setTimeout(function () { exhibit.api.reinitialise(); }, 300);
     },
     clearExhibits: function() {
@@ -333,11 +362,24 @@ var exhibit = {
         exhibit.offset = 0;
         exhibit.objects = [];
     },
+    clearFilters: function() {
+        exhibit.activeFilters = {};
+        $('#exponats-tags').empty();
+        $('.fiter-results a').removeClass('active');
+    },
+    searchLoadExhibits: function(text) {
+        exhibit.clearFilters();
+        exhibit.activeFilters = {'search': text};
+        exhibit.filterLoadExhibits();
+    },
     filterLoadExhibits: function() {   
         exhibit.clearExhibits();       
         exhibit.api.scrollToX(0, false);
         exhibit.apiReinitialise();
         exhibit.loadExhibits();
+    },
+    setCount: function(count) {
+        $('.exponats-total').text('Всего ' + count);
     },
     loadExhibits: function() {
         if (exhibit.loading || exhibit.stopLoad) {
@@ -346,26 +388,33 @@ var exhibit = {
 
         exhibit.loading = true;
         armdMk.startLoadingBlock();
-        $.ajax({
+        var jqxhr = $.ajax({
             url: Routing.generate('armd_load_exhibits', {'offset': exhibit.offset}),
             type: 'post',
             data: {
                 filters: exhibit.activeFilters
             },
-            dataType: 'json',
-            success: function(data) { 
-                exhibit.objects = $.merge(exhibit.objects, data.objects);
-                exhibit.offset = data.offset;               
-                exhibit.setExhibits(data.objects);
-                
-                if (!exhibit.stopLoad) {                   
-                    exhibit.apiReinitialise();
-                }           
-            },
-            complete: function() {
-                exhibit.loading = false;
-                armdMk.stopLoadingBlock();
+            dataType: 'json'
+        })
+        .done(function(data) { 
+            exhibit.objects = $.merge(exhibit.objects, data.objects);
+
+            if (exhibit.offset === 0) {
+                exhibit.setCount(data.count);
             }
+
+            exhibit.offset = data.offset;               
+            exhibit.setExhibits(data.objects);
+
+            //if (!exhibit.stopLoad) {                   
+                exhibit.apiReinitialise();
+            //}           
+        })
+        .always(function() {
+            exhibit.loading = false;
+            armdMk.stopLoadingBlock();           
         });
+        
+        return jqxhr;
     }
 };

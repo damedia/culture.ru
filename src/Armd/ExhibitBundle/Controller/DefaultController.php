@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
-    private $limit = 9;
+    private $limit = 10;
     
     protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image)
     {
@@ -21,32 +21,42 @@ class DefaultController extends Controller
     
     protected function getObjects($filters = array(), $limit = 0, $offset = 0)
     {
-        $data = $fAutor = $fMuseum = $fCategory = array();
+        $data = array('objects' => array(), 'count' => 0);
+        $fAutor = $fMuseum = $fCategory = array();
         $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
         $repository->createQueryBuilder('o');
         
-        foreach ($filters as $k => $v) {
-            if ($k == 'author') {
-                $fAutor = array_keys($v);
-            } elseif ($k == 'museum') {
-                $fMuseum = array_keys($v);
-            } elseif (intval($k)) {
-                $fCategory = array_merge($fCategory, array_keys($v));
+        if (isset($filters['search'])) {
+            $repository->setSearch($filters['search']);
+        } else {
+            foreach ($filters as $k => $v) {
+                if ($k == 'author') {
+                    $fAutor = array_keys($v);
+                } elseif ($k == 'museum') {
+                    $fMuseum = array_keys($v);
+                } elseif (intval($k)) {
+                    $fCategory = array_merge($fCategory, array_keys($v));
+                }
+            }
+
+            if (count($fAutor)) {
+                $repository->setAuthors($fAutor);
+            }
+
+            if (count($fMuseum)) {
+                $repository->setMuseums($fMuseum);
+            }
+
+            if (count($fCategory)) {
+                $repository->setCategories($fCategory);
             }
         }
         
-        if (count($fAutor)) {
-            $repository->setAuthors($fAutor);
+        if ($offset == 0) {
+            $repoCount = clone $repository;
+            $data['count'] = $repoCount->getCount();
         }
-        
-        if (count($fMuseum)) {
-            $repository->setMuseums($fMuseum);
-        }
-        
-        if (count($fCategory)) {
-            $repository->setCategories($fCategory);
-        }
-        
+                
         $entities = $repository
             ->setDistinct()
             ->setPublished()
@@ -57,7 +67,7 @@ class DefaultController extends Controller
         //\Doctrine\Common\Util\Debug::dump($entities);
         //die();
         foreach ($entities as $i => $e) {
-            $data[$i] = array(
+            $data['objects'][$i] = array(
                 'img' => $this->getImageSrc($e->getImage()),
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),
@@ -66,7 +76,7 @@ class DefaultController extends Controller
             );
             
             foreach ($e->getAuthors() as $a) {
-                $data[$i]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+                $data['objects'][$i]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
             }
         }
         
@@ -114,8 +124,10 @@ class DefaultController extends Controller
             }
         }
         
+        $objects = $this->getObjects(array(), $this->limit);
+        
         return array(
-            'data' => array('objects' => $this->getObjects(array(), $this->limit), 'offset' => $this->limit),
+            'data' => array('objects' => $objects['objects'], 'count' => $objects['count'], 'offset' => $this->limit),
             'filters' => $filters
         );
     }
@@ -126,14 +138,17 @@ class DefaultController extends Controller
      * )
      */
     public function loadExhibitsAction($offset = 0)
-    {                    
+    {            
+        $objects = $this->getObjects(
+            $this->getRequest()->request->get('filters', array()), 
+            $this->limit, 
+            $offset
+        );
+        
         return new JsonResponse(
             array(
-                'objects' => $this->getObjects(
-                    $this->getRequest()->request->get('filters', array()), 
-                    $this->limit, 
-                    $offset
-                ), 
+                'objects' => $objects['objects'],
+                'count' => $objects['count'],
                 'offset' => $offset + $this->limit
             )
         );

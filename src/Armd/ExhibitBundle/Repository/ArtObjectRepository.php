@@ -59,6 +59,14 @@ class ArtObjectRepository extends BaseRepository
         return $this;
     }
     
+    function setSearch($text)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.title LIKE :text")->setParameter('text', '%' . $text . '%');
+            
+        return $this;
+    }
+    
     function orderByDate($order = 'ASC')
     {
         $this->qb
@@ -68,10 +76,11 @@ class ArtObjectRepository extends BaseRepository
         return $this;
     }
     
-    public function selectCount()
+    public function getCount()
     {
-        $this->qb->select("COUNT({$this->alias}.id)");                    
-        
-        return $this;
+        return $this->qb
+            ->select("COUNT(DISTINCT {$this->alias}.id)")
+            ->getQuery()
+            ->getSingleScalarResult();      
     }
 }
