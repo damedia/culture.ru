@@ -78,6 +78,7 @@ body {
 .wrapper {
     background:url(../img/bg-texture-flowers.png) repeat 50% 50%;
     position:relative;
+    min-width:1415px;
     
 }
      /*HEADER*/
@@ -1238,7 +1239,7 @@ body {
                         background:url(../img/nevyansk/compare/cat.png) no-repeat 0 0;
                     }
                     .hidden-parts div.inv {
-                        background:none !important;
+                        background:url(../img/blank.png) repeat !important;
                         /*outline:1px solid #fff;*/
                     }
                     .compare-found {
@@ -1838,6 +1839,7 @@ body {
     
         
         
+        
     /*QIIZ*/
    .quiz-window {
         position: relative;
@@ -1853,6 +1855,9 @@ body {
     }
     .quiz-arkaim {
         background:url(../img/arkaim/quiz/bg.gif) repeat;
+    }
+    .quiz-kremlin {
+        background:url(../img/kremlin/quiz/bg.jpg) no-repeat;
     }
     
 
@@ -1877,6 +1882,9 @@ body {
         .quiz-arkaim .quiz-content .baloons  {
             background:url(../img/arkaim/quiz/baloons.png) no-repeat 0 0;
         }
+        .quiz-kremlin .quiz-content .baloons  {
+            background:url(../img/kremlin/quiz/baloons.png) no-repeat 0 0;
+        }
 
             .quiz-window .quiz-content .baloons li {
                 position: absolute;
@@ -1899,6 +1907,9 @@ body {
                     .quiz-arkaim .quiz-content .baloons .first  {
                          background:none;
                     }
+                    .quiz-kremlin .quiz-content .baloons .first  {
+                         background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .first.active {
                     background:url(../img/petergof/quiz/baloon-step-1-active.png) no-repeat 0 0;
@@ -1908,6 +1919,11 @@ body {
                     }
                     .quiz-arkaim .quiz-content .baloons .first.active {
                         background:url(../img/arkaim/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                        top: 0px;
+                        left: 206px;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .first.active {
+                        background:url(../img/kremlin/quiz/baloon-step-1-active.png) no-repeat 0 0;
                         top: 0px;
                         left: 206px;
                     }
@@ -1926,6 +1942,9 @@ body {
                     .quiz-arkaim .quiz-content .baloons .second  {
                         background:none;
                     }
+                    .quiz-kremlin .quiz-content .baloons .second  {
+                        background:none;
+                    }
                 
 
                 .quiz-window .quiz-content .baloons .second.active {
@@ -1936,6 +1955,12 @@ body {
                     }
                     .quiz-arkaim .quiz-content .baloons .second.active {
                         background:url(../img/arkaim/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                        left: 375px;
+                        top: 2px;
+                        width: 120px;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .second.active {
+                        background:url(../img/kremlin/quiz/baloon-step-2-active.png) no-repeat 0 0;
                         left: 375px;
                         top: 2px;
                         width: 120px;
@@ -1954,6 +1979,9 @@ body {
                     .quiz-arkaim .quiz-content .baloons .third {
                         background:none;
                     }
+                    .quiz-kremlin .quiz-content .baloons .third {
+                        background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .third.active {
                     background:url(../img/petergof/quiz/baloon-step-3-active.png) no-repeat 0 0;
@@ -1964,6 +1992,9 @@ body {
                     }
                     .quiz-arkaim .quiz-content .baloons .third.active {
                         background:url(../img/arkaim/quiz/baloon-step-3-active.png) no-repeat 0 5px;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .third.active {
+                        background:url(../img/kremlin/quiz/baloon-step-3-active.png) no-repeat 0 5px;
                     }
 
 
@@ -2015,9 +2046,6 @@ body {
 
 
                         .arkaim .name-text input {
-                           
-                            
-                            
                             display: block;
                             z-index: 9000;
                             }
@@ -2156,6 +2184,9 @@ body {
             .quiz-arkaim .next.first_slide {
                 color:#f27746;
             }
+            .quiz-arkaim .next.first_slide {
+                color:#739b51;
+            }
             .quiz-nav li.start,
             .quiz-nav li.next {
                 background:url(../img/petergof/quiz/btns-sprite.png) no-repeat -44px 0;
@@ -2205,6 +2236,9 @@ body {
             .quiz-arkaim .q-case-intro h1 {
                 color:#7db52c;
             }
+            .quiz-arkaim .q-case-intro h1 {
+                color:#ea9b9b;
+            }
 
         .q-case-intro p {
             display: inline-block;
@@ -2243,6 +2277,9 @@ body {
             }
             .quiz-arkaim .question p {
                 color:#188793;
+            }
+            .quiz-kremlin .question p {
+                color:#739b51;
             }
 
         .quiz-content .question p:first-child,
@@ -2317,14 +2354,25 @@ body {
 
 /*CASE 1*/            
     
-    .quiz-arkaim .q-case-1 .answers {
+    .quiz-kremlin .q-case-1 .answers {
         margin-top:50px;    
     }
-    .quiz-arkaim .q-case-1  .answers ul {
-        width:365px;
-        margin-right:20px;
-    }            
-            
+        .quiz-kremlin .q-case-1  .answers ul {
+            width:365px;
+            margin-right:20px;
+        } 
+    .quiz-kremlin .q-case-1 .answers {
+        margin-top:50px;    
+    }
+        .quiz-kremlin .q-case-1  .answers ul {
+            width:365px;
+            margin-right:20px;
+        }      
+          
+    .quiz-kremlin .q-case-1 .answers .description div {
+        padding-left:18px;
+    }
+          
     .quiz-content .q-case-1 .answers ul li.first a {
         color: #89BD68;
     }
@@ -2333,6 +2381,9 @@ body {
         }
         .quiz-arkaim .q-case-1 .answers ul li.first a {
             color:#e27a5a;
+        }
+        .quiz-kremlin .q-case-1 .answers ul li.first a {
+            color:#db5d96;
         }
 
     .quiz-content .q-case-1 .answers.first  ul li.first a,
@@ -2354,6 +2405,15 @@ body {
             color:#b0e2cd;
         }
         
+        .quiz-kremlin .q-case-1 .answers.first  ul li.first a,
+        .quiz-kremlin .q-case-1 .answers.first .description .first {
+            background:#d879a9;
+        }
+        .quiz-kremlin .q-case-1 .first .description h4 {
+            color:#f4dda8;
+        }
+        
+        
 
     .quiz-content .q-case-1 .answers ul li.second a {
         color: #5DC6C2;
@@ -2363,6 +2423,9 @@ body {
         }
         .quiz-arkaim .q-case-1 .answers ul li.second a {
             color: #34a587;
+        }
+        .quiz-kremlin .q-case-1 .answers ul li.second a {
+            color: #f77c7c;
         }
 
     .quiz-content .q-case-1 .answers.second ul li.second a,
@@ -2384,6 +2447,14 @@ body {
         .quiz-arkaim .q-case-1 .second .description h4 {
             color:#f9c082;
         }
+        
+        .quiz-kremlin .q-case-1 .answers.second ul li.second a,
+        .quiz-kremlin .q-case-1 .answers.second .description .second {
+            background: #f77c7c;
+        }
+        .quiz-kremlin .q-case-1 .second .description h4 {
+            color:#dbf2aa;
+        }
 
     .quiz-content .q-case-1 .answers ul li.third a {
         color: #B97EC0;
@@ -2393,6 +2464,9 @@ body {
         }
         .quiz-arkaim .q-case-1 .answers ul li.third a {
             color: #818ccc;
+        }
+        .quiz-kremlin .q-case-1 .answers ul li.third a {
+            color: #e29847;
         }
 
     .quiz-content .q-case-1 .answers.third ul li.third a,
@@ -2411,6 +2485,16 @@ body {
         }
         .quiz-arkaim .q-case-1 .third .description h4 {
             color:#b0e2cd;
+        }
+        .quiz-kremlin .q-case-1 .answers.third ul li.third a,
+        .quiz-kremlin .q-case-1 .answers.third .description .third {
+            background: #e29847;
+        }
+        .quiz-kremlin .q-case-1 .answers.third .description .third {
+            width:288px;
+        }
+        .quiz-kremlin .q-case-1 .third .description h4 {
+            color:#dceeff;
         }
 
 /*CASE 2*/
@@ -2448,6 +2532,9 @@ body {
         .quiz-arkaim .q-case-2 .answers ul li.first a {
             color: #8ab78a;
         }
+        .quiz-kremlin .q-case-2 .answers ul li.first a {
+            color: #a1b721;
+        }
 
     .quiz-content .q-case-2 .answers.first ul li.first a,
     .quiz-content .q-case-2 .answers.first .description .first {
@@ -2466,6 +2553,13 @@ body {
         .quiz-arkaim .q-case-2 .first .description h4 {
             color:#c5eaf9;
         }
+        .quiz-kremlin .q-case-2 .answers.first ul li.first a,
+        .quiz-kremlin .q-case-2 .answers.first .description .first {
+            background: #a1b721;
+        }
+        .quiz-kremlin .q-case-2 .first .description h4 {
+            color:#ffdef9;
+        }
 
     .quiz-content .q-case-2 .answers ul li.second a {
         color: #7166C2;
@@ -2475,6 +2569,9 @@ body {
         }
         .quiz-arkaim .q-case-2 .answers ul li.second a {
             color: #a469b7;
+        }
+        .quiz-kremlin .q-case-2 .answers ul li.second a {
+            color: #a385c6;
         }
 
     .quiz-content .q-case-2 .answers.second ul li.second a,
@@ -2492,6 +2589,13 @@ body {
         .quiz-arkaim .q-case-2 .answers.second .description .second {
             background: #a469b7;
         }
+        .quiz-kremlin .q-case-2 .answers.second ul li.second a,
+        .quiz-kremlin .q-case-2 .answers.second .description .second {
+            background: #a385c6;
+        }
+         .quiz-kremlin .q-case-2 .second .description h4 {
+            color:#e1f4ff;
+        }
 
     .quiz-content .q-case-2 .answers ul li.third a {
         color: #B97EC0;
@@ -2501,6 +2605,9 @@ body {
         }
         .quiz-arkaim .q-case-2 .answers ul li.third a {
             color: #bc6a46;
+        }
+        .quiz-kremlin .q-case-2 .answers ul li.third a {
+            color: #7992d8;
         }
 
     .quiz-content .q-case-2 .answers.third ul li.third a,
@@ -2520,6 +2627,13 @@ body {
         }  
         .quiz-arkaim .q-case-2 .third .description h4 {
             color:#fcf8d9;
+        }
+        .quiz-kremlin .q-case-2 .answers.third ul li.third a,
+        .quiz-kremlin .q-case-2 .answers.third .description .third {
+            background: #86a1d1;
+        }  
+        .quiz-kremlin .q-case-2 .third .description h4 {
+            color:#f9ecb7;
         }
 
 
@@ -2542,6 +2656,9 @@ body {
         .quiz-arkaim .q-case-3 .answers ul li.first a {
             color: #8091d8;
         }
+        .quiz-kremlin .q-case-3 .answers ul li.first a {
+            color: #4ca4d6;
+        }
 
     .quiz-content .q-case-3 .answers.first ul li.first a,
     .quiz-content .q-case-3 .answers.first .description .first {
@@ -2552,10 +2669,16 @@ body {
         .quiz-arkaim .q-case-3 .answers.first ul li.first a,
         .quiz-arkaim .q-case-3 .answers.first .description .first {
             background: #8f9ed1;
-           
         }
         .quiz-arkaim .q-case-3 .first .description h4 {
             color:#edd8ef;
+        }
+        .quiz-kremlin .q-case-3 .answers.first ul li.first a,
+        .quiz-kremlin .q-case-3 .answers.first .description .first {
+            background: #4ca4d6;
+        }
+        .quiz-kremlin .q-case-3 .first .description h4 {
+            color:#f1deff;
         }
 
     .quiz-content .q-case-3 .answers ul li.second a {
@@ -2563,6 +2686,9 @@ body {
     }
         .quiz-arkaim .q-case-3 .answers ul li.second a {
             color: #b569a7;
+        }
+        .quiz-kremlin .q-case-3 .answers ul li.second a {
+            color: #e26e5a;
         }
 
     .quiz-content .q-case-3 .answers.second ul li.second a,
@@ -2577,6 +2703,13 @@ body {
         }
         .quiz-arkaim .q-case-3 .second .description h4 {
             color:#dff7ef;
+        }  
+        .quiz-kremlin .q-case-3 .answers.second ul li.second a,
+        .quiz-kremlin .q-case-3 .answers.second .description .second {
+            background: #e26e5a;
+        }
+        .quiz-kremlin .q-case-3 .second .description h4 {
+            color:#fff;
         }        
 
     .quiz-content .q-case-3 .answers ul li.third a {
@@ -2584,6 +2717,9 @@ body {
     }
         .quiz-arkaim .q-case-3 .answers ul li.third a {
             color: #dd726b;
+        }
+        .quiz-kremlin .q-case-3 .answers ul li.third a {
+            color: #529e8a;
         }
 
     .quiz-content .q-case-3 .answers.third ul li.third a,
@@ -2598,6 +2734,13 @@ body {
         } 
         .quiz-arkaim .q-case-3 .third .description h4 {
             color:#e2f9bb;
+        }  
+        .quiz-kremlin .q-case-3 .answers.third ul li.third a,
+        .quiz-kremlin .q-case-3 .answers.third .description .third {
+            background: #529e8a;
+        } 
+        .quiz-kremlin .q-case-3 .third .description h4 {
+            color:#fff;
         }  
 /* SERTIFICAT*/
      

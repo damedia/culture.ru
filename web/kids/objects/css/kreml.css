@@ -2,6 +2,8 @@
         background: url(../img/kremlin/sky-clouds.png) no-repeat 50% 29px;
         height:782px;
     }
+    
+   
 .kreml .riddle-cloud {
     background:url(../img/kremlin/cloud-1.png) no-repeat 0 0;
 }
@@ -22,6 +24,7 @@
     .kreml .quizes-cloud a {
         color:#08697f;
         margin-right: 24px;
+        margin-top:14px;
     }
     
     .kreml .test-cloud a {
@@ -299,7 +302,6 @@
                         top: 25px;
                     }
         
-        
                     .kreml .compare-found {
                         top: 254px;
                         left: 229px;
@@ -320,8 +322,8 @@
                                 color:#26a5a8;
                             }
                     .kreml .hidden-parts {
-                        width:520px;
-                        height:346px;
+                        width: 816px;
+                        height: 223px;
                         left:17px;
                         top:17px;
                     }
@@ -452,10 +454,11 @@
     background: url(../img/kremlin/elki-left.png) no-repeat 0 0;
     top:47px;
     height:3618px;
+    left:0;
 }
 .kreml .elki-right {
     background: url(../img/kremlin/elki-right.png) no-repeat 0 0;
-    right:1px;
+    right:-5px;
     top:5px;
     height:3660px;
 }
@@ -484,6 +487,10 @@
 .want-more-kreml {
     background:url(../img/kremlin/window_bg.jpg) no-repeat 0 0;
 }
+    .want-more-kreml  .main-site-link {
+        width: 385px;
+        height: 64px;
+    } 
     .want-more-kreml .window-text {
         height:250px;
         color:#9861aa;
