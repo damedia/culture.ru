@@ -22,6 +22,9 @@ class LectureManager extends ListManager
     /** example: array(1, 2) */
     const CRITERIA_CATEGORY_IDS_OR = 'CRITERIA_CATEGORY_IDS_OR';
 
+    /** exampple: 12 */
+    const CRITERIA_CATEGORY_ID_OR_PARENT_ID = 'CRITERIA_CATEGORY_ID_OR_PARENT_ID';
+
     /** example: 'the rolling stones' */
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
@@ -66,6 +69,25 @@ class LectureManager extends ListManager
             $qb->innerJoin('_lecture.categories', '_lectureCategories')
                 ->andWhere('_lectureCategories IN (:category_ids_or)')
                 ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_CATEGORY_ID_OR_PARENT_ID])) {
+            $category = $this->em->find(
+                'ArmdLectureBundle:LectureCategory',
+                $criteria[self::CRITERIA_CATEGORY_ID_OR_PARENT_ID]
+            );
+
+            $qb->innerJoin('_lecture.categories', '_lectureCategoryCP')
+                ->andWhere($qb->expr()->orX(
+                    $qb->expr()->eq('_lectureCategoryCP', ':category'),
+                    $qb->expr()->andX(
+                        $qb->expr()->gt('_lectureCategoryCP.lft', ':parent_lft'),
+                        $qb->expr()->lt('_lectureCategoryCP.rgt', ':parent_rgt'))
+                    )
+                )
+                ->setParameter('category', $category)
+                ->setParameter('parent_lft', $category->getLft())
+                ->setParameter('parent_rgt', $category->getRgt());
         }
 
     }
@@ -139,13 +161,21 @@ class LectureManager extends ListManager
         return $res;
     }
 
-    public function getCategoriesBySuperType($superType)
+    public function getCategoriesBySuperType(LectureSuperType $superType, LectureCategory $parentCategory = null)
     {
         $qb = $this->em->getRepository('ArmdLectureBundle:LectureCategory')->createQueryBuilder('t');
         $qb->where('t.root = :superTypeId')
             ->setParameter('superTypeId', $superType->getId())
-            ->andWhere('t.lvl > 1')
             ->orderBy('t.title', 'ASC');
+
+        if ($parentCategory) {
+            $qb->andWhere('t.parent = :parent_category')
+                ->andWhere('t.lvl = :category_level')
+                ->setParameter('parent_category', $parentCategory)
+                ->setParameter('category_level', $parentCategory->getLvl() + 1);
+        } else {
+            $qb->andWhere('t.lvl = 1');
+        }
 
         $categories = $qb->getQuery()->getResult();
 

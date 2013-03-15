@@ -22,6 +22,7 @@ class LectureListener
         if ($entity instanceof Lecture) {
             $tagManager = $this->container->get('fpn_tag.tag_manager');
             $tag = $tagManager->loadOrCreateTag('l' . $entity->getId());
+            $tag->setIsTechnical(true);
             $tagManager->addTag($tag, $entity);
             $tagManager->saveTagging($entity);
         }

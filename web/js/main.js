@@ -228,8 +228,7 @@ $(function () {
 
     })
 
-    
-	
+
     var fancySelect = (function() {
         $('select.uni').each(function(){
             $(this).css({'display':'block','visibility':'hidden'});
@@ -318,8 +317,7 @@ $(function () {
 
         $('.section-active').removeClass('section-active');
         $active.addClass('section-active');
-
-        $('.time-line-nav .active').removeClass('active');
+       
         $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
 
         // console.log($('a[href=#' + $active.attr('id') + ']'));

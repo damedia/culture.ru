@@ -44,5 +44,24 @@ class EventRepository extends BaseRepository
         $this->qb->orderBy("{$this->alias}.date", $order);
             
         return $this;
-    }    
+    }
+    
+    function selectCount()
+    {
+        $this->qb->select("COUNT({$this->alias}.id) AS cnt");
+        
+        return $this;
+    }
+    
+    function setPeriod(\DateTime $from, \DateTime $to)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.date >= :from")
+            ->andWhere("{$this->alias}.date < :to")
+            ->setParameter('from', $from)
+            ->setParameter('to', $to)
+        ;
+        
+        return $this;
+    }
 }

@@ -25,6 +25,21 @@ class Tag extends BaseTag
      * @ORM\OneToMany(targetEntity="Tagging", mappedBy="tag", fetch="EAGER")
      **/
     protected $tagging;
+    
+    /**
+     * @ORM\Column(type="boolean", options={"default" = false})
+     */        
+    private $isTechnical = false;
+    
+    public function getIsTechnical()
+    {
+        return $this->isTechnical;
+    }
+    
+    public function setIsTechnical($isTechnical)
+    {
+        $this->isTechnical = $isTechnical;
+    }
 
 //    /**
 //     * Add tagging

@@ -26,6 +26,9 @@ abstract class ListManager
 
     /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
+    
+    /** example: array(1, 2, 3) */
+    const CRITERIA_NOT_IDS = 'CRITERIA_NOT_IDS';
 
     public function __construct(EntityManager $em, TagManager $tagManager)
     {
@@ -95,6 +98,14 @@ abstract class ListManager
                 $qb->addOrderBy("$o.$k", $v);
             }
         }
+        
+        if (!empty($criteria[self::CRITERIA_NOT_IDS])) {
+            $notIds = $criteria[self::CRITERIA_NOT_IDS];
+            
+            if (is_array($notIds) && count($notIds) && $notIds != array(0)) {
+                $qb->andWhere("$o.id NOT IN (:notIds)")->setParameter('notIds', $notIds);
+            }
+        }
 
     }
 
@@ -123,8 +134,10 @@ abstract class ListManager
             ->andWhere('tag.name IN (:tags)')->setParameter('tags', $tagWords)
             ->andWhere('tagging.resourceType = :resourceType')->setParameter('resourceType', $this->getTaggableType())
             ->addSelect("COUNT(tag) tagCount")
+            ->addSelect("MAX(TOINT(tag.isTechnical)) tagIsTechnical")
             ->groupBy($o)
-            ->orderBy('tagCount', 'DESC')
+            ->orderBy('tagIsTechnical', 'DESC')
+            ->addOrderBy('tagCount', 'DESC')
             ->setMaxResults($limit)
             ;
 
