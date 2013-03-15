@@ -7,12 +7,16 @@ var armdMkLectures = {
         armdMkLectures.lectureSuperTypeCode = lectureSuperTypeCode;
 
         // filter
-        $('#lectures-filter-submit').bind('click', function(event) {
-            event.preventDefault();
-            armdMkLectures.resetSearchForm();
-            armdMkLectures.isSearch = false;
-            armdMkLectures.loadList(false, false);
-        });
+        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_category"] a, .ui-selectgroup-list[aria-labelledby="ui-lecture_sub_category"] a',
+            function (event) {
+                armdMkLectures.resetSearchForm();
+                armdMkLectures.isSearch = false;
+                if ($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-lecture_category') {
+                    armdMkLectures.loadSubCategories();
+                }
+                armdMkLectures.loadList(false, false);
+
+            });
 
         // search
         $('#search-form').bind('submit', function(event) {
@@ -40,7 +44,7 @@ var armdMkLectures = {
     },
 
     resetFilterForm: function() {
-        $('#lecture_category').val('').selectgroup('refresh');
+        $('#lecture_category, #lecture_sub_category').val('').selectgroup('refresh');
     },
 
     resetSearchForm: function() {
@@ -62,7 +66,9 @@ var armdMkLectures = {
         if (isSearch) {
             data['search_query'] = $('#search-txt').val();
         } else {
-            data['category_id'] = $('#lecture_category').val();
+            var categoryId = $('#lecture_category').val();
+            var subCategoryId = $('#lecture_sub_category').val();
+            data['category_id'] = parseInt(subCategoryId) > 0 ? subCategoryId : categoryId;
         }
 
         $.ajax({
@@ -77,13 +83,13 @@ var armdMkLectures = {
                     $('#lecture-container').html(data);
                 }
 
-                if ($(data).find('.plitka-one-wrap').length < armdMkLectures.loadByCount) {
+                if ($(data).filter('.plitka-one-wrap').length < armdMkLectures.loadByCount) {
                     armdMkLectures.hideMore();
                 } else {
                     armdMkLectures.showMore();
                 }
 
-                if ($.trim(data).length === 0) {
+                if ($.trim(data).length === 0 && !append) {
                     $('#lecture-container').html('<h2>Не найдено</h2>');
                 }
             },
@@ -91,5 +97,32 @@ var armdMkLectures = {
                 armdMk.stopLoading();
             }
         });
+    },
+
+    loadSubCategories: function () {
+        var select = $('#lecture_sub_category');
+        if (select.length) {
+            var parentCategoryId = $('#lecture_category').val();
+            select.html('<option value="0">Все</option>');
+            if (parentCategoryId > 0) {
+                armdMk.startLoading();
+                $.ajax({
+                    url: Routing.generate(
+                        'armd_lecture_categories',
+                        {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode, 'parentId': parentCategoryId}
+                    ),
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i in data) {
+                            select.append($('<option>', {value: data[i].id}).text(data[i].title));
+                        }
+                        select.selectgroup('refresh');
+                    },
+                    complete: function () {
+                        armdMk.stopLoading();
+                    }
+                });
+            }
+        }
     }
 };

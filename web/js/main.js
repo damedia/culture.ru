@@ -228,7 +228,9 @@ $(function () {
 
     })
 
-    $('select.uni').selectgroup();
+    $('select.uni').selectgroup({
+        autoWidth: true
+    });
 	
 	$('#category-chooser').on('click', 'a', function(){
 		var id = $(this).attr('href');

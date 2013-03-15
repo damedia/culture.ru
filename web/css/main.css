@@ -1420,7 +1420,26 @@ body {
 							}
 			
 			
-	/*KINOZAL*/		
+	/*KINOZAL*/
+
+    .search-category-selects .ui-selectgroup-copy {
+        white-space: nowrap;
+    }
+
+    #lecture_category {
+        width: 300px;
+    }
+        #ui-lecture_category {
+            width: 204px;
+        }
+
+        #ui-lecture_category .ui-selectgroup-copy {
+            width: 173px;
+        }
+
+        .ui-selectgroup-list[aria-labelledby=ui-lecture_category] {
+            width: 204px;
+        }
 			
 	.plitka {
 		margin-right:-13px;

@@ -107,7 +107,7 @@ var armdMkNews = {
                     $('#featured').hide();
                     $('#news-container').html(data);
                 }
-                if ($.trim(data) === '' || $(data).find('article.news-search-result-item').length < armdMkNews.loadByCount) {
+                if ($.trim(data) === '' || $(data).filter('article.news-search-result-item').length < armdMkNews.loadByCount) {
                     $('.more').hide();
                 }
             },
