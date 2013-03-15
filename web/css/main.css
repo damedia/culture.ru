@@ -1450,6 +1450,7 @@ body {
 		list-style:none;
 	}	
 		.plitka-one-wrap {
+                height: 240px;
 				width:194px;
 				border:1px solid #ededed;
 				float:left;
