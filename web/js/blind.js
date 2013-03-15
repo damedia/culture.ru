@@ -108,7 +108,8 @@ $(function(){
 	$('.btn-more a .more').click(function(){
 		var link = $(this).parent();
         $("div#" + link.attr('rel')).slideDown();
-		link.addClass("opened");
+		//link.addClass("opened");
+        link.remove();
 		 return false;
 	});
 	

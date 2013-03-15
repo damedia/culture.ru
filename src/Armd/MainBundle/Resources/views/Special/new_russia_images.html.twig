@@ -1,7 +1,6 @@
 <div class="rusObr-block index-rusObr-block">
 <ul class="rusObr-list clearfix">
-{% for object in objects %}
-    <li>
+{% for object in objects %}<li>
         <div class="rusObr-list-one-wrap" style="">
             <div class="rusObr-list-one">
                 <a href="{{ path('armd_main_special_russian_images_item', {id: object.id} ) }}">
@@ -25,7 +24,6 @@
                 </div>
             </div>
         </div>
-    </li>
-{% endfor %}
+    </li>{% endfor %}
 </ul>
 </div>

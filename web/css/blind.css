@@ -357,6 +357,9 @@ body {
                 margin:-0.7em 0 1.5em 8em;
                 
             }
+            .obj-back-link {
+                margin-left:0;
+            }
                 .back-link  a {
                     font-weight:bold;
                     font-size:1.3em;
@@ -793,6 +796,7 @@ body {
         .footer-share {
             margin-right:-5px;
         }
+            
         
         #yandex-share-global {
             display: inline-block;
@@ -800,6 +804,10 @@ body {
             margin-top: -5px;
             vertical-align: middle;
         } 
+        .lt-ie9  #yandex-share-global  {
+        margin-top:5px;
+        margin-right:-5px;
+        }
 
         .b-share-icon {
             display: inline-block;
