@@ -79,6 +79,7 @@ class DefaultController extends Controller
             array(
                 ObjectManager::CRITERIA_LIMIT => 5,
                 ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+                ObjectManager::CRITERIA_RANDOM => 5,
                 ObjectManager::CRITERIA_TAGS => $entity->getTags()
             )
         );
@@ -90,7 +91,7 @@ class DefaultController extends Controller
         $template = $template ? $template : 'ArmdAtlasBundle:Default:object_view.html.twig';
         $template = $isPrint ? 'ArmdAtlasBundle:Default:object_view_print.html.twig' : $template;
 
-        return $this->render($template, array(    
+        return $this->render($template, array(
             'referer' => $this->getRequest()->headers->get('referer'),
             'entity' => $entity,
             'relatedObjects' => $relatedObjects
@@ -748,6 +749,7 @@ class DefaultController extends Controller
             array(
                 ObjectManager::CRITERIA_LIMIT => $limit,
                 ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true,
+                ObjectManager::CRITERIA_RANDOM => $limit,
                 ObjectManager::CRITERIA_TAGS => $tags
             )
         );

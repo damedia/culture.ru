@@ -112,8 +112,8 @@ class NewsManager extends ListManager
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $qb->andWhere('_news.category IN (:category_ids_or)')
-                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR])             
-             ->orderBy('_news.newsDate', 'DESC');
+                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);             
+            
         }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {

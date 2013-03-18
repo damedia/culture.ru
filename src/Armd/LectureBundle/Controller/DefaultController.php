@@ -182,6 +182,7 @@ class DefaultController extends Controller
             array(
                 LectureManager::CRITERIA_LIMIT => $limit,
                 LectureManager::CRITERIA_TAGS => $tags,
+                LectureManager::CRITERIA_RANDOM => $limit,
                 LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode)
             )
         );

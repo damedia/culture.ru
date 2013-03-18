@@ -43,6 +43,7 @@ abstract class ListManager
 
             $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
 
+
         } elseif (isset($criteria[self::CRITERIA_TAGS])) {
             if (empty($criteria[self::CRITERIA_LIMIT])) {
                 throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
@@ -58,10 +59,7 @@ abstract class ListManager
             // pad them
             if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
                 $criteriaMod = $criteria;
-                if (count($objects) > 0){
-                    $criteriaMod[self::CRITERIA_RANDOM] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
-                }
-                echo count($objects); 
+              //  $criteriaMod[self::CRITERIA_RANDOM] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
                 unset($criteriaMod[self::CRITERIA_TAGS]);
                 $paddingObjects = $this->findObjects($criteriaMod);
                 $objects = array_merge($objects, $paddingObjects);
