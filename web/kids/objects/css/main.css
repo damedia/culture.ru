@@ -1858,8 +1858,14 @@ body {
     }
     .quiz-kremlin {
         background:url(../img/kremlin/quiz/bg.jpg) no-repeat;
+        height:578px;
     }
     
+    
+    
+    .kreml-window {
+        background:none;
+    }
 
     .quiz-window .quiz-content {
         position: relative;
@@ -1961,7 +1967,7 @@ body {
                     }
                     .quiz-kremlin .quiz-content .baloons .second.active {
                         background:url(../img/kremlin/quiz/baloon-step-2-active.png) no-repeat 0 0;
-                        left: 375px;
+                        left: 381px;
                         top: 2px;
                         width: 120px;
                     }
@@ -2084,6 +2090,12 @@ body {
                                 width: 305px;
                                 text-align: center;
                             }
+                            .kreml .winner-name {
+                                top: 300px;
+                                left: 318px;
+                                width: 305px;
+                                text-align: center;
+                            }
 
                     .to-print {
                         position:absolute;
@@ -2121,6 +2133,9 @@ body {
                 .quiz-content .q-case-2,
                 .quiz-content .q-case-3 {
                     display: none;
+                }
+                .quiz-kremlin .sertificat img {
+                    top:10px;
                 }
 
     .quiz-nav { 
@@ -2167,6 +2182,10 @@ body {
             .quiz-arkaim .next {
              color:#ff9971;
             }
+            
+            .quiz-kremlin .next {
+             color:#739b51;
+            }
         
         .quiz-window .next.first_slide {
             bottom:133px;
@@ -2184,7 +2203,7 @@ body {
             .quiz-arkaim .next.first_slide {
                 color:#f27746;
             }
-            .quiz-arkaim .next.first_slide {
+            .quiz-kremlin .next.first_slide {
                 color:#739b51;
             }
             .quiz-nav li.start,
@@ -2236,7 +2255,7 @@ body {
             .quiz-arkaim .q-case-intro h1 {
                 color:#7db52c;
             }
-            .quiz-arkaim .q-case-intro h1 {
+            .quiz-kremlin .q-case-intro h1 {
                 color:#ea9b9b;
             }
 
@@ -2280,6 +2299,7 @@ body {
             }
             .quiz-kremlin .question p {
                 color:#739b51;
+                margin-top:13px;
             }
 
         .quiz-content .question p:first-child,
@@ -2350,22 +2370,24 @@ body {
                 font-size: 25px;
 
             }
-
+            .quiz-kremlin .answers .description h4 {
+                text-align:center;
+            }
 
 /*CASE 1*/            
     
-    .quiz-kremlin .q-case-1 .answers {
+    .quiz-arkaim .q-case-1 .answers {
         margin-top:50px;    
     }
-        .quiz-kremlin .q-case-1  .answers ul {
+        .quiz-arkaim .q-case-1  .answers ul {
             width:365px;
             margin-right:20px;
         } 
     .quiz-kremlin .q-case-1 .answers {
-        margin-top:50px;    
+        margin-top:68px;    
     }
         .quiz-kremlin .q-case-1  .answers ul {
-            width:365px;
+            width:343px;
             margin-right:20px;
         }      
           
@@ -2491,21 +2513,33 @@ body {
             background: #e29847;
         }
         .quiz-kremlin .q-case-1 .answers.third .description .third {
-            width:288px;
+            width:310px;
         }
         .quiz-kremlin .q-case-1 .third .description h4 {
             color:#dceeff;
         }
 
 /*CASE 2*/
-
+    
     .quiz-arkaim .q-case-2 .answers {
         margin-top:50px;    
     }
     .quiz-arkaim .q-case-2  .answers ul {
         width:365px;
         margin-right:20px;
-    }     
+    }  
+    .quiz-kremlin  .q-case-2 .answers {
+        margin-top: 69px;
+    }
+    .quiz-content .q-case-2 .answers ul {
+        margin: 0 18px 0 0;
+        width: 361px;
+    }
+    
+    .quiz-kremlin .q-case-2 .answers .description div {
+        width: 290px;
+        padding-left:13px;
+    }    
     
     .quiz-nevyansk .q-case-2  .answers .description p {
         
@@ -2648,7 +2682,20 @@ body {
     }   
     .quiz-arkaim   .q-case-3  .answers .description div {
         width:340px;
-    }    
+    } 
+        
+    .quiz-kremlin  .q-case-3 .answers {
+        margin-top: 50px;
+    }
+        .quiz-kremlin  .q-case-3 .answers ul {
+            margin: 0 16px 0 0;
+            width: 360px; 
+        }
+        .quiz-kremlin  .q-case-3  .answers .description div {
+            padding-left:13px;
+            width: 287px; 
+        }
+    
 
     .quiz-content .q-case-3 .answers ul li.first a {
         color: #E3D16B;
@@ -2709,7 +2756,7 @@ body {
             background: #e26e5a;
         }
         .quiz-kremlin .q-case-3 .second .description h4 {
-            color:#fff;
+            color:#e1fff0;
         }        
 
     .quiz-content .q-case-3 .answers ul li.third a {
@@ -2740,13 +2787,27 @@ body {
             background: #529e8a;
         } 
         .quiz-kremlin .q-case-3 .third .description h4 {
-            color:#fff;
+            color:#f9cb98;
         }  
 /* SERTIFICAT*/
      
     .quiz-arkaim .sertificat img {
         top:10px;
     }
+    .quiz-kremlin .name-text input {
+        left: 536px;
+        top: 311px;
+    }        
+
+    .quiz-kremlin .get-diplom {
+        bottom: 20px;
+        right: 30px;
+        background:none;
+    }
+    .quiz-kremlin .to-print {
+        bottom: 12px;
+    }
+    
 
 /*FOOTER*/				
 .footer-menu {

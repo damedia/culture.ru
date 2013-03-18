@@ -93,7 +93,7 @@
                     </div>
                     
                 </div>
-                <div class="puzzle-slider">
+                <div class="puzzle-slider puzzle-init">
                     <div class="puzzle-wrap">
                         <div class="puzzle-setka-wrap-noresize">
                             <img src="img/kremlin/puzzle.jpg" width="320"  class="puzzle"/>
@@ -101,7 +101,6 @@
                         </div>
                     </div>
                 </div>
-                
             </article>
 
             <article class="case-2 clearfix"  id="tests">
@@ -193,7 +192,8 @@
                 </div>
             </article> 
 
-            <article class="case-4 clearfix" id="quiz">
+            <article class="case-4 clearfix">
+               <a name="quiz" class="quiz-link"></a>
                <div class="test-yourself">
                     <img src="img/kremlin/test-header.png" alt="" class="test-sign" />
                     <a data-fancybox-type="iframe" data-fancybox-width="960" data-fancybox-height="580" href="moscow-quiz.html" class="test-link fancybox-inframe" >
@@ -404,62 +404,7 @@
 		    <input type="text" name="parts" id="p" />
 		</form>
 		<iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
-		<!-- SCRIPTS ROMPECABEZAS -->
-		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
-        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
-        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
-		<script>
 		
-		$(document).ready(function(){
-			
-			var windowWidth = $(window).width(); //retrieve current window width
-			var windowHeight = $(window).height(); //retrieve current window height
-			var docScrollTop, docScrollLeft;	
-		
-			$(window).load(function(){
-				$('.puzzle-setka-wrap').each(function(){
-					var imageheight = $(this).find('img.puzzle').height();
-					$(this).height(imageheight).css('marginTop', -imageheight/2);
-				})
-			})	
-		
-		
-			var jsaw = new jigsaw.Jigsaw({
-		        defaultImage: "img/arkaim/puzzle.jpg",
-		        piecesNumberTmpl: "%d элементов",
-		        redirect: null,
-		        shuffled: true,
-                rotatePieces: false      
-		    });			
-			
-			$('img.puzzle-setka').click(function(){
-				docScrollTop = $(document).scrollTop();	
-			    docScrollLeft = $(document).scrollLeft();
-				$('body, html').css('overflow', 'hidden');
-				windowWidth = $(window).width();
-			    windowHeight = $(window).height();
-				
-				jsaw.set_image($(this).prev().attr('src'));
-				$('#puzzle-block').css({
-					'width':windowWidth,
-					'height':windowHeight
-				}).show();
-				//$('#puzzle-block-wrapper').show();
-				document.location.href = '#';
-				
-			});
-			
-			$('a#CLOSE_PUZZLE').click(function(){
-				$('#puzzle-block').hide();
-				$('body, html').css('overflow', 'visible').scrollTop(docScrollTop).scrollLeft(docScrollLeft);
-				
-				return false;
-			});
-            
-            
-		})
-		</script>
 	</div>
     <div style="visibility:hidden" class="fancy-hide">
         <div class="whant-more want-more-kreml" id="whant-more">
@@ -517,8 +462,15 @@
         <script src="js/vendor/cufon-yui.js"></script>
         <script src="js/adventure_400.font.js"></script>            
         <script src="js/quiz.js"></script>
-         <script src="js/plugins.js"></script>
-        <script src="../js/main.js"></script>
+        <script src="js/plugins.js"></script>
+        
+        
+        <!-- SCRIPTS ROMPECABEZAS -->
+		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<script src="../js/main.js"></script>
 
         
     </body>

@@ -47,6 +47,7 @@
 }
     .kreml .main-description {
         width:360px;
+        color:#546fb5;
     }
     .kreml .main-image {
        margin: -197px 30px 0 20px;
@@ -104,15 +105,22 @@
                 border:0;
                 padding-bottom:0;
             }
-                .choose-block-horizontal .cbv-choices:after {
+           
+                .choose-block-horizontal .cbv-choices:after, .lt-ie9  .choose-block-horizontal .cbv-choices .ie-after {
                     content:'';
                     position: absolute;
                     bottom:0;
                     left:0;
                     width:100%;
                     height:15px;
+                    z-index:100;
                     background:#6bab68;
+                    
                 }
+            .lt-ie9  .choose-block-horizontal .cbv-choices:after {
+                display:none;
+            }    
+               
             
             .choose-block-horizontal  .choice {
                 display: inline-block;
@@ -266,6 +274,11 @@
             color:#ce115e;
             background: url(../img/kremlin/test-arrow.png) no-repeat 48px 100%;
         }
+        
+        .kreml .quiz-link {
+            position:absolute;
+            top:-100px;
+        }
     
     
     .kreml .case-5 {
@@ -292,7 +305,7 @@
             }
                 .kreml .compare-image {
                     width:855px;
-                    height:266px;
+                    height:262px;
                     position:relative;
                     margin-bottom: 25px;
                     padding:0;
@@ -388,11 +401,11 @@
                         background-position: -404px -117px;
                     } 
                     .krem_sec_3 {
-                        width: 16px;
+                        width: 33px;
                         height: 102px;
                         top: 16px;
-                        left: 483px;
-                        background-position: -375px -4px;
+                        left: 471px;
+                        background-position: -363px -4px;
                     }
                     .krem_sec_4 {
                         width: 117px;
@@ -402,11 +415,12 @@
                         background-position: -270px -125px;
                     }
                     .krem_sec_5 {
-                        width: 40px;
+                        width: 56px;
                         height: 48px;
                         top: 168px;
-                        left: 758px;
-                        background-position: -93px -140px;
+                        left: 749px;
+                        background-position: -84px -140px;
+
                     }
                     
                     
@@ -437,7 +451,7 @@
             padding-top: 171px;
         }
         
-        .kreml .case-6  .choose-block-horizontal .cbv-choices:after {
+        .kreml .case-6  .choose-block-horizontal .cbv-choices:after,  .kreml .case-6  .choose-block-horizontal .cbv-choices .ie-after {
             bottom: -27px;
         }
         .kreml .case-6 .choose-block-smart .choice p {
@@ -508,5 +522,11 @@
     
     .want-more-kreml-container .jspTrack {
         background:#d8efed;
-    }        
+    } 
+    
+    
+    
+
+    
+        
         
