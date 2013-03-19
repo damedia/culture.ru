@@ -1443,15 +1443,19 @@ body {
         .ui-selectgroup-list[aria-labelledby=ui-lecture_category] {
             width: 204px;
         }
-			
+
+
+    #lecture-container .plitka-one-wrap {
+        height: 260px;
+    }
+
 	.plitka {
 		margin-right:-13px;
 		position:relative;
 		list-style:none;
 	}	
 		.plitka-one-wrap {
-                height: 240px;
-				width:194px;
+  				width:194px;
 				border:1px solid #ededed;
 				float:left;
 				margin:12px 12px 0 0;
