@@ -46,9 +46,6 @@ class NewsManager extends ListManager
     /** example: Date('2012-05-16') */
     const CRITERIA_NEWS_DATE = 'CRITERIA_NEWS_DATE';
 
-    /** example: array(122, 45) */
-    const CRITERIA_NEWS_ID_NOT = 'CRITERIA_NEWS_ID_NOT';
-
     /** example: true */
     const CRITERIA_IS_ON_MAP = 'CRITERIA_IS_ON_MAP';
 
@@ -179,10 +176,6 @@ class NewsManager extends ListManager
                 ->setParameter('event_date_till', $criteria[self::CRITERIA_EVENT_DATE_TILL]->setTime(23, 59, 59));
         }
 
-        if (!empty($criteria[self::CRITERIA_NEWS_ID_NOT])) {
-            $qb->andWhere('_news.id NOT IN (:news_id_not)')
-                ->setParameter('news_id_not', $criteria[self::CRITERIA_NEWS_ID_NOT]);
-        }
 
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');

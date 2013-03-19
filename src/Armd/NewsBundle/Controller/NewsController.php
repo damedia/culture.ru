@@ -369,9 +369,9 @@ class NewsController extends Controller
         $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
-                NewsManager::CRITERIA_NEWS_ID_NOT => array($entity->getId()),
+                NewsManager::CRITERIA_IDS_NOT => array($entity->getId()),
                 NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),
-                NewsManager::CRITERIA_TAGS => $entity->getTags()
+                NewsManager::CRITERIA_TAGS => $entity->getTags(),
             )
         );
 
