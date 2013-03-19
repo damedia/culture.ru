@@ -18,7 +18,7 @@ class NewsController extends Controller
 
     /**
      * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
-     */        
+     */
     function rssAction()
     {
         $news = $this->getNewsManager()->findObjects(
@@ -30,7 +30,7 @@ class NewsController extends Controller
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
             'news' => $news
         ));
-    }        
+    }
 
     /**
      * @Route("/map/", name="armd_news_map")
@@ -297,6 +297,14 @@ class NewsController extends Controller
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
         $this->getTagManager()->loadTagging($entity);
 
+
+        /*  $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_MEMORIAL_DATE => new \DateTime(),
+            )
+        );*/
+
+        // echo 'test';
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
@@ -338,7 +346,7 @@ class NewsController extends Controller
                 $entities[] = $news[0];
             }
         }
-    
+
         return $this->render('ArmdNewsBundle:News:billboard.html.twig', array(
             'entities' => $entities,
         ));
@@ -361,9 +369,9 @@ class NewsController extends Controller
         $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
-                NewsManager::CRITERIA_NEWS_ID_NOT => array($entity->getId()),
+                NewsManager::CRITERIA_IDS_NOT => array($entity->getId()),
                 NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),
-                NewsManager::CRITERIA_TAGS => $entity->getTags()
+                NewsManager::CRITERIA_TAGS => $entity->getTags(),
             )
         );
 
@@ -406,7 +414,7 @@ class NewsController extends Controller
     {
         return $this->get('fpn_tag.tag_manager');
     }
-    
+
     /**
      * @param \Armd\MkCommentBundle\Entity\Thread $thread
      * @return \Armd\MkCommentBundle\Entity\Comment

@@ -217,7 +217,8 @@ class DefaultController extends Controller
                 LectureManager::CRITERIA_LIMIT => $limit,
                 LectureManager::CRITERIA_TAGS => $tags,
                 LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode),
-                LectureManager::CRITERIA_NOT_IDS => array($id)
+                LectureManager::CRITERIA_NOT_IDS => array($id),
+                LectureManager::CRITERIA_RANDOM => true,
             )
         );
 
