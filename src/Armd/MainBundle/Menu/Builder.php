@@ -198,6 +198,14 @@ class Builder extends ContainerAware
                 )
             );
 
+            $videoMenu->addChild(
+                'menu.top100',
+                array(
+                    'route' => 'armd_lecture_top100_index',
+                )
+            );
+
+
             //--- /Video
 
 
