@@ -35,7 +35,13 @@ abstract class ListManager
 
     public function findObjects(array $criteria)
     {
+        // /*
+        // echo '<pre>';
+        // print_r($criteria);
+        // echo '</pre>';
+        // */
         if (!empty($criteria[self::CRITERIA_RANDOM])) {
+            echo '-' . $criteria[self::CRITERIA_RANDOM] . '-' . self::CRITERIA_RANDOM . '-' . '<br/>';
             $qb = $this->getQueryBuilder();
             $criteriaMod = $criteria;
             unset($criteriaMod[self::CRITERIA_LIMIT]);
@@ -44,6 +50,7 @@ abstract class ListManager
             $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
 
         } elseif (isset($criteria[self::CRITERIA_TAGS])) {
+            
             if (empty($criteria[self::CRITERIA_LIMIT])) {
                 throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
             }

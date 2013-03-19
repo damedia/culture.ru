@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
+use Armd\LectureBundle\Entity\Lecture;
 
 class LectureCinemaAdmin extends Admin
 {
@@ -46,7 +47,10 @@ class LectureCinemaAdmin extends Admin
             ->add('lecturer')
             ->add('recommended')
             ->add('lectureVideo')
-            ->add('lectureFile');
+            ->add('lectureFile')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
+            ;
     }
 
     /**
@@ -81,6 +85,14 @@ class LectureCinemaAdmin extends Admin
                 'super_type' => $superType
             ))
             ->add('recommended')
+            ->with('Главная')
+                ->add('showOnMain', null, array(
+                    'required' => false
+                ))
+                ->add('showOnMainOrd', null, array(
+                    'required' => false
+                ))
+            ->end()
             ->with('Tvigle Video')
                 ->add('lectureVideo', 'armd_tvigle_video_selector', array( 'required' => false))
             ->end()
@@ -102,7 +114,9 @@ class LectureCinemaAdmin extends Admin
         $datagridMapper
             ->add('published')
             ->add('title')
-            ->add('categories');
+            ->add('categories')
+            ->add('showOnMain')
+            ->add('showOnMainOrd');
     }
 
 
@@ -116,6 +130,8 @@ class LectureCinemaAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
             ->add('createdAt')
             ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
         ;
@@ -129,4 +145,26 @@ class LectureCinemaAdmin extends Admin
         return $themes;
     }
 
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = parent::getBatchActions();
+
+        
+        // check user permissions
+        if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
+            // /*
+            $actions['ShowOnMain']=array(
+                'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['NotShowOnMain']=array(
+                'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            // */
+        }
+        
+        return $actions;
+    }    
 }
