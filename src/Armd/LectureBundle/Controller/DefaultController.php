@@ -42,6 +42,17 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/top100/", name="armd_lecture_top100_index")
+     */
+    public function top100IndexAction()
+    {
+        return $this->forward('ArmdLectureBundle:Default:index', array(
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_TOP100'
+        ));
+    }
+
+
+    /**
      * @Route("/index/{lectureSuperTypeCode}/", name="armd_lecture_default_index", options={"expose": true})
      * @Template("ArmdLectureBundle:Default:index.html.twig")
      */

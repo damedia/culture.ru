@@ -1,0 +1,125 @@
+<?php
+
+namespace Armd\LectureBundle\Admin;
+
+use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\EntityRepository;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Admin\Admin;
+
+class LectureTop100Admin extends Admin
+{
+    protected $translationDomain = 'ArmdLectureBundle';
+    protected $classnameLabel = 'Top100';
+    protected $baseRouteName = 'lecture_top100';
+    protected $baseRoutePattern = 'lecture_top100';
+
+    public function createQuery($context = 'list')
+    {
+        $qb = $this->modelManager->getEntityManager('ArmdLectureBundle:Lecture')
+            ->getRepository('ArmdLectureBundle:Lecture')->createQueryBuilder('l')
+            ->innerJoin('l.lectureSuperType', 'st')
+            ->where('st.code = \'LECTURE_SUPER_TYPE_TOP100\'');
+
+        return new ProxyQuery($qb);
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
+     *
+     * @return void
+     */
+    protected function configureShowField(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->add('published')
+            ->add('title')
+            ->add('description')
+            ->add('categories')
+            ->add('createdAt')
+            ->add('lecturer')
+            ->add('recommended')
+            ->add('lectureVideo')
+            ->add('lectureFile');
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     *
+     * @return void
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $lecture = $this->getSubject();
+        $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
+            ->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneByCode('LECTURE_SUPER_TYPE_TOP100');
+
+        $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
+            ->getRepository('ArmdLectureBundle:LectureType')
+            ->findOneByCode('LECTURE_TYPE_URL');
+
+        $lecture->setLectureSuperType($superType);
+        $lecture->setLectureType($type);
+
+
+        $formMapper
+            ->add('published')
+            ->add('title')
+            ->add('description', null, array(
+                'attr' => array('class' => 'tinymce'),
+            ))
+            ->add('categories', 'armd_lecture_categories', array(
+                'required' => false,
+                'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                'super_type' => $superType
+            ))
+            ->add('recommended')
+            ->with('External Video')
+                ->add('externalUrl', null, array('required' => false))
+                ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+            ->end()
+        ;
+    }
+
+
+    /**
+     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('published')
+            ->add('title')
+            ->add('categories');
+    }
+
+
+    /**
+     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
+     *
+     * @return void
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('title')
+            ->add('published')
+            ->add('createdAt')
+            ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+        ;
+    }
+
+    public function getFormTheme()
+    {
+        $themes = parent::getFormTheme();
+        $themes[] = 'ArmdLectureBundle:Form:fields.html.twig';
+        $themes[] = 'ArmdMediaHelperBundle:Form:fields.html.twig';
+        return $themes;
+    }
+
+}
