@@ -70,8 +70,16 @@ class ArtObjectRepository extends BaseRepository
     function orderByDate($order = 'ASC')
     {
         $this->qb
-            ->orderBy("{$this->alias}.date", $order)
+            ->addOrderBy("{$this->alias}.date", $order)
             ->addOrderBy("{$this->alias}.id", 'ASC');
+            
+        return $this;
+    }
+    
+    function setNotId($id)
+    {
+        $this->qb
+            ->andWhere("{$this->alias}.id != :id")->setParameter('id', $id);
             
         return $this;
     }

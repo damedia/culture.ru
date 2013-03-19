@@ -257,7 +257,10 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 default: { width: 278 }
-                big: { width: 920 }
+                item: { width: 600 }
+                smallThumbnail: { width: 40 }
+                smallZoom: { width: 127 }
+                big: { width: 2000 }
 
     cdn:
         server:

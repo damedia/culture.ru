@@ -4,10 +4,11 @@ var exhibit = {
     loading: false,
     offset: 0,
     stopLoad: false,
-    objects: [],
+    objects: {},
     filters: {},
     activeFilters: {},
     tagsDelTimeout: null,
+    imgLoadTimeout: null,
     init: function(data, filters) {
         exhibit.objects = data.objects;
         exhibit.offset = data.offset;
@@ -67,9 +68,9 @@ var exhibit = {
                     var type = $(this).attr('href').substr(1);                   
 
                     $(this).parent().addClass('active').siblings().removeClass();
-                    exhibit.replaceExhibits();
-                    $('#exponats-content').removeClass().addClass(type);
                     exhibit.api.scrollToX(0, false);
+                    exhibit.replaceExhibits();
+                    $('#exponats-content').removeClass().addClass(type);                
                     exhibit.apiReinitialise();
                 }
 
@@ -146,9 +147,11 @@ var exhibit = {
         });
         
         $('.el-one-text a').click(function() {
-            exhibit.clearFilters();
-            exhibit.setActiveFilterTag($(this));
-            exhibit.filterLoadExhibits();                
+            if ($(this).attr('href') == '#') {
+                exhibit.clearFilters();
+                exhibit.setActiveFilterTag($(this));
+                exhibit.filterLoadExhibits();     
+            }
         });
     },
     setActiveFilterTag: function(tag) {
@@ -204,66 +207,6 @@ var exhibit = {
         $('.exponats-scroll .line > div').remove();
         exhibit.setExhibits(exhibit.objects);
     },
-    setExhibitsTest: function(data) {
-        if (!data['data'].length) {
-            exhibit.stopLoad = true;
-            
-            return false;
-        }
-        
-        var elAppend, w, width = {},
-            el = $('#el-one-blank').eq(0),
-            type = $('#exp-types li.active a').attr('href').substr(1);
-        
-        width['first'] = 0; 
-        width['second'] = 0; 
-        width['third'] = 0;
-        
-        $('.exponats-scroll .first-line > div > a img').each(function () {
-            width['first'] += $(this).width();
-        });
-        $('.exponats-scroll .second-line > div > a img').each(function () {
-            width['second'] += $(this).width();
-        });
-        $('.exponats-scroll .third-line > div > a img').each(function () {
-            width['third'] += $(this).width();
-        });
-        console.log(width);
-        exhibit.offset = data['offset'];
-
-        for (i in data['data']) {
-            if (type == 'threelines') {
-                if (width['first'] <= width['second'] && width['first'] <= width['third']) {
-                    elAppend = $('.exponats-scroll .first-line');
-                    w = 'first';
-                } else if (width['second'] <= width['third']) {
-                    elAppend = $('.exponats-scroll .second-line');
-                    w = 'second';
-                } else {
-                    elAppend = $('.exponats-scroll .third-line');
-                    w = 'third';
-                }
-            } else if ((type == 'twolines' && width['first'] <= width['second']) || type == 'oneline') {
-                elAppend = $('.exponats-scroll .first-line');
-                w = 'first';
-            } else {
-                elAppend = $('.exponats-scroll .second-line');
-                w = 'second';
-            }
-
-            el = el.clone();           
-            el.attr('style', '');
-            el.find('a img').attr('src', data['data'][i]['img']);            
-            elAppend.append(el);
-            width[w] += el.find('> a img').width();
-            el.find('> a img').load(function() {
-                console.log('width - ' + $(this).width())
-            });
-            console.log(width);
-        }
-
-        exhibit.setObjectListeners();
-    },
     setFilters: function() {
         var elClone, elBlank = $('#exp-filter-blank');
         
@@ -299,12 +242,12 @@ var exhibit = {
         return exhibit.activeFilters[fId][fItemId];
     },
     setExhibits: function(objects) {
-        if (!objects.length) {
+        if ($.isEmptyObject(objects)) {
             exhibit.stopLoad = true;
             
             return false;
         }
-        
+
         var elAppend, w, el, width = {},
                 elClone = $('#el-one-blank').eq(0),
                 type = $('#exp-types li.active a').attr('href').substr(1);
@@ -316,27 +259,38 @@ var exhibit = {
         for (var i in objects) {
             if (type == 'threelines') {
                 if (width['first'] <= width['second'] && width['first'] <= width['third']) {
-                    elAppend = $('.exponats-scroll .first-line');
+                    //elAppend = $('.exponats-scroll .first-line');
+                    //elAppend = exhibit.api.getContentPane().find('.first-line');
+                    elAppend = '.first-line';
                     width['first']++;
                 } else if (width['second'] <= width['third']) {
-                    elAppend = $('.exponats-scroll .second-line');
+                    //elAppend = $('.exponats-scroll .second-line');
+                    //elAppend = exhibit.api.getContentPane().find('.second-line');
+                    elAppend = '.second-line';
                     width['second']++;
                 } else {
-                    elAppend = $('.exponats-scroll .third-line');
+                    //elAppend = $('.exponats-scroll .third-line');
+                    //elAppend = exhibit.api.getContentPane().find('.third-line');
+                    elAppend = '.third-line';
                     width['third']++;
                 }
             } else if ((type == 'twolines' && width['first'] <= width['second']) || type == 'oneline') {
-                elAppend = $('.exponats-scroll .first-line');
+                //elAppend = $('.exponats-scroll .first-line');
+                //elAppend = exhibit.api.getContentPane().find('.first-line');
+                elAppend = '.first-line';
                 width['first']++;
             } else {
-                elAppend = $('.exponats-scroll .second-line');
+                //elAppend = $('.exponats-scroll .second-line');
+                //elAppend = exhibit.api.getContentPane().find('.second-line');
+                elAppend = '.second-line';
                 width['second']++;
             }
 
             el = elClone.clone();           
             el.attr('style', '');
             el.find('a img').attr('src', objects[i]['img']);  
-            el.find('.el-one-title').text(objects[i]['title']);
+            el.find('.el-one-title').html('<a href="' + Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}) + '">' + objects[i]['title'] + '</a>');
+            el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
             el.find('.el-one-year').text(objects[i]['date']);
             el.find('.el-one-museum').attr('data-fid', 'museum');
             el.find('.el-one-museum').attr('data-fitemid', objects[i]['museum']['id']);
@@ -346,15 +300,34 @@ var exhibit = {
                 el.find('.el-one-authors').append('<p><a href="#" data-fid="author" data-fitemid="' + objects[i]['authors'][a]['id'] + '">' + objects[i]['authors'][a]['title'] + '</a></p>');
             }
             
-            elAppend.append(el);    
+            if (exhibit.api) {
+               exhibit.api.getContentPane().find(elAppend).append(el);
+            } else {
+                $('.exponats-scroll').find(elAppend).append(el);
+            }
+            
+            //elAppend.append(el);    
+            
+            /*
+            el.find('> a img:first').load(function() {
+                exhibit.imgLoadTimeout = setTimeout(function() { 
+                    clearTimeout(exhibit.imgLoadTimeout);
+                    //exhibit.api.reinitialise(); 
+                    console.log('img');
+                }, 300);
+            });
+            */
         }
 
         exhibit.setObjectListeners();
     },
     apiReinitialise: function() {       
-        exhibit.api = $('.exponats-scroll-pane').data('jsp');
+        //exhibit.api = $('.exponats-scroll-pane').data('jsp');
         //exhibit.api.reinitialise();
-        setTimeout(function () { exhibit.api.reinitialise(); }, 300);
+        setTimeout(function () { 
+            exhibit.api = $('.exponats-scroll-pane').data('jsp'); 
+            exhibit.api.reinitialise();           
+        }, 300);
     },
     clearExhibits: function() {
         $('.exponats-scroll .line > div').remove();
@@ -397,8 +370,9 @@ var exhibit = {
             dataType: 'json'
         })
         .done(function(data) { 
-            exhibit.objects = $.merge(exhibit.objects, data.objects);
-
+            //exhibit.objects = $.merge(exhibit.objects, data.objects);
+            $.extend(exhibit.objects, data.objects);
+            
             if (exhibit.offset === 0) {
                 exhibit.setCount(data.count);
             }
