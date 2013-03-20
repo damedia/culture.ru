@@ -107,6 +107,7 @@ class Museum extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('title')
         ;
     }    
 }
