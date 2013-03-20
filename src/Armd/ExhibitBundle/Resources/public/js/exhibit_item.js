@@ -127,11 +127,9 @@ var exhibitItem = {
         
         $('#exp-one-category').text(exhibitItem.objects[id]['museum']['title']);
         $('#exp-one-name').text(exhibitItem.objects[id]['title']);
-        $('#exp-one-date').text(exhibitItem.objects[id]['date']);
+        $('#exp-one-date').text(exhibitItem.objects[id]['date']);              
         
-        for (i in exhibitItem.objects[id]['authors']) {
-            $('#exp-one-authors').append(exhibitItem.objects[id]['authors'][i]['title'] + ' ');
-        }
+        exhibitItem.setPageData(id);
         
         fullImageWidth = $('.main-zoomed-image img').width();
         fullImageHeight = $('.main-zoomed-image img').height();
@@ -141,6 +139,51 @@ var exhibitItem = {
             'marginLeft': -fullImageWidth / 2,
             'marginTop': -fullImageHeight / 2
         });
+    },
+    setPageData: function(id) {
+        var vBlock = $('#exhibit-video');   
+        
+        $('#exp-one-category').text(exhibitItem.objects[id]['museum']['title']);
+        $('.exhibit-title').text(exhibitItem.objects[id]['title']);
+        $('.exhibit-date').text(exhibitItem.objects[id]['date']);
+        $('.exhibit-authors').empty();
+        
+        for (var i in exhibitItem.objects[id]['authors']) {
+            if (i != 0) {
+                $('.exhibit-authors').append(', ');
+            }
+            
+            $('.exhibit-authors').append(exhibitItem.objects[id]['authors'][i]['title']);
+        }
+        
+        $('#exhibit-description').text(exhibitItem.objects[id]['description']);
+        $('#exhibit-detail-img').attr('src', exhibitItem.objects[id]['img_big']);
+        
+        if (exhibitItem.objects[id]['video']['frame'] != undefined) {
+            vBlock.find('iframe').attr('src', exhibitItem.objects[id]['video']['frame'] + '&dopparam=armada_skin');
+            vBlock.find('img').attr('src', exhibitItem.objects[id]['video']['img']);
+            vBlock.find('.fancybox').fancybox({
+                autoResize: true,
+                prevEffect: 'none',
+                nextEffect: 'none'
+            });
+            vBlock.show();
+        } else {
+            vBlock.hide();
+        }
+        
+        $('#exhibit-museum-img').attr('src', exhibitItem.objects[id]['museum']['img']);
+        $('#exhibit-museum-title').text(exhibitItem.objects[id]['museum']['title']);
+        $('#exhibit-museum-address').text(exhibitItem.objects[id]['museum']['address']);
+        $('#exhibit-museum-url').attr('href', exhibitItem.objects[id]['museum']['url']);
+        $('#exhibit-museum-url').text(exhibitItem.objects[id]['museum']['url']);
+        
+        if (exhibitItem.objects[id]['museum']['vtour']['url'] != undefined) {
+            $('#exhibit-museum-vtour').attr('href', exhibitItem.objects[id]['museum']['vtour']['url']);
+            $('#exhibit-museum-vtour').show();
+        } else {
+            $('#exhibit-museum-vtour').hide();
+        }
     },
     loadExhibits: function() {
         if (exhibitItem.loading || exhibitItem.stopLoad) {

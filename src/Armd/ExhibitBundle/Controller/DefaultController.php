@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Armd\ExhibitBundle\Repository\ArtObjectRepository;
 
 class DefaultController extends Controller
 {
@@ -20,12 +21,9 @@ class DefaultController extends Controller
         return $provider->generatePublicUrl($image, $format);
     }
     
-    protected function getObjects($filters = array(), $limit = 0, $offset = 0, $firstId = 0)
+    protected function setFilters(ArtObjectRepository $repository, $filters)
     {
-        $data = array('objects' => array(), 'count' => 0);
         $fAutor = $fMuseum = $fCategory = array();
-        $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
-        $repository->createQueryBuilder('o');
         
         if (isset($filters['search'])) {
             $repository->setSearch($filters['search']);
@@ -51,12 +49,55 @@ class DefaultController extends Controller
             if (count($fCategory)) {
                 $repository->setCategories($fCategory);
             }
-        }              
+        }
+    }
+    
+    protected function getObjects($filters = array(), $limit = 0, $offset = 0)
+    {
+        $data = array('objects' => array(), 'count' => 0);
+        $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
+        $repository->createQueryBuilder('o');      
+        $this->setFilters($repository, $filters);              
         
         if ($offset == 0) {
             $repoCount = clone $repository;
             $data['count'] = $repoCount->getCount();
         }
+                              
+        $entities = $repository
+            ->setDistinct()
+            ->setPublished()
+            ->setLimit($limit, $offset)
+            ->orderByDate()
+            ->getQuery()
+            ->getResult();
+        //\Doctrine\Common\Util\Debug::dump($entities);
+        //die();              
+        
+        foreach ($entities as $i => $e) {
+            $data['objects'][$e->getId()] = array(
+                'id' => $e->getId(),
+                'img' => $this->getImageSrc($e->getImage('default')),               
+                'title' => $e->getTitle(),
+                'date' => $e->getDate()->format('Y'),
+                'museum' => array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle()),
+                'authors' => array()
+            );
+            
+            foreach ($e->getAuthors() as $a) {
+                $data['objects'][$e->getId()]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+            }
+        }
+        
+        return $data;
+    }
+    
+    protected function getItemObjects($filters = array(), $limit = 0, $offset = 0, $firstId = 0)
+    {
+        $data = array('objects' => array());
+        $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
+        $repository->createQueryBuilder('o');      
+        $this->setFilters($repository, $filters);                            
         
         if ($firstId) {
             $repository->setNotId($firstId);
@@ -88,12 +129,38 @@ class DefaultController extends Controller
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallThumbnail'),
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),
-                'museum' => array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle()),
-                'authors' => array()
+                'description' => $e->getDescription(),
+                'museum' => array(
+                    'id' => $e->getMuseum()->getId(), 
+                    'title' => $e->getMuseum()->getTitle(),
+                    'address' => $e->getMuseum()->getAddress(),
+                    'url' => $e->getMuseum()->getUrl(),
+                    'img' => $this->getImageSrc($e->getMuseum()->getImage(), 'realSmall'),
+                    'vtour' => array()
+                ),               
+                'authors' => array(),
+                'video' => array()
             );
             
             foreach ($e->getAuthors() as $a) {
                 $data['objects'][$e->getId()]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+            }
+            
+            if ($e->getVideos()->count()) {
+                $video = $e->getVideos()->first();
+                
+                if ($video->getFrame()) {
+                    $data['objects'][$e->getId()]['video']['img'] = $video->getImage();
+                    $data['objects'][$e->getId()]['video']['frame'] = $video->getFrame();
+                }
+            }
+            
+            if ($e->getMuseum()->getVirtualTours()->count()) {
+                $vTour = $e->getMuseum()->getVirtualTours()->first();
+                
+                if ($vTour->getUrl()) {
+                    $data['objects'][$e->getId()]['museum']['vtour']['url'] = $vTour->getUrl();
+                }
             }
         }
         
@@ -174,23 +241,8 @@ class DefaultController extends Controller
      * @Template("ArmdExhibitBundle:Default:exhibit_item.html.twig")
      */
     public function itemAction($id)
-    {
-        /*
-        $object = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject')->find($id);
-        
-        if (!$object) {
-            $this->createNotFoundException('Page not found');
-        }
-        */
-        /*
-        echo '<pre>';
-        var_dump($this->getObjects(
-                    $this->get('session')->get('exhibits-filters', array()),
-                    $this->limit));
-        echo '</pre>';
-        die();
-        */
-        $objects = $this->getObjects(
+    {       
+        $objects = $this->getItemObjects(
             $this->get('session')->get('exhibits-filters', array()),
             $this->limit,
             0,
@@ -213,7 +265,7 @@ class DefaultController extends Controller
      */
     public function loadItemExhibitsAction($id = 0, $offset = 0)
     {            
-        $objects = $this->getObjects(
+        $objects = $this->getItemObjects(
             $this->get('session')->get('exhibits-filters', array()),
             $this->limit, 
             $offset,

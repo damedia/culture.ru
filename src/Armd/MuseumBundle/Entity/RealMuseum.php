@@ -22,29 +22,28 @@ class RealMuseum implements Taggable
     /**
      * @ORM\Column(type="string")
      */
-    protected $title;
-    
-    /**
-     * @ORM\Column(type="boolean", nullable=false)
-     */        
-    protected $published;
+    protected $title;        
     
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $description;        
+    protected $description;      
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $address;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $url;
     
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="banner_image_id", referencedColumnName="id")
-     */
-    private $bannerImage;
 
     /**
      * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Region", cascade={"all"}, fetch="EAGER")
@@ -151,26 +150,49 @@ class RealMuseum implements Taggable
     }
     
     /**
-     * Set published
+     * Set address
      *
-     * @param boolean $published
-     * @return Museum
+     * @param string $address
+     * @return RealMuseum
      */
-    public function setPublished($published)
+    public function setAddress($address)
     {
-        $this->published = $published;
+        $this->address = $address;
     
         return $this;
     }
 
     /**
-     * Get published
+     * Get address
      *
-     * @return boolean 
+     * @return string 
      */
-    public function getPublished()
+    public function getAddress()
     {
-        return $this->published;
+        return $this->address;
+    }
+    
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return RealMuseum
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**
@@ -217,22 +239,6 @@ class RealMuseum implements Taggable
     public function getImage()
     {
         return $this->image;
-    }
-    
-    /**
-     * @return mixed
-     */
-    public function getBannerImage()
-    {
-        return $this->bannerImage;
-    }
-
-    /**
-     * @param $bannerImage
-     */
-    public function setBannerImage(Media $bannerImage = null)
-    {
-        $this->bannerImage = $bannerImage;
     }
 
     /**

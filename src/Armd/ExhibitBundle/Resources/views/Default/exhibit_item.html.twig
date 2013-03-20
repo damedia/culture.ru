@@ -13,7 +13,7 @@
     <div class="exponats-gallery">       
         <div class="exponats-top-line clearfix">
             <p id="exp-one-category" class="exp-one-category"></p>
-            <p class="exp-one-name"><span id="exp-one-name"></span><i id="exp-one-date"></i><b id="exp-one-authors"></b></p>
+            <p class="exp-one-name"><span class="exhibit-title"></span><i class="exhibit-date"></i><b class="exhibit-authors"></b></p>
             <a href="#" id="details-btn" class="exp-one-details-button">Детали</a>
         </div>
         <div class="exponats-main exponats-main-one">
@@ -53,63 +53,44 @@
 
                 <div class="text exponat-one-content ">
                     <div class="exponat-text-wrap">
-                        <h1>Флора</h1>
-                        <p class="exponat-date">1634</p>
-                        <h2>Харменс ван Рейн Рембрандт</h2>
-                        <p class="exponat-note">холст, масло</p>
-                        <img src="images/exponat-image1.jpg" alt="" class="image-left" />
-                        <p>
-                            Рембрандт написал его жена Саския ван Uylenburgh как Флора, богиня весны и цветов, трижды: в 1634,1635 и 1641. В этой работе он сочетает в себе элементы пастырских и исторических портретов. Созданный в год их брака, эта картина показывает любовь и восхищение художника нащупала молодая женщина.
-                        </p>
-                        <p>
-                            восхищение художника нащупала молодая женщина.
-                            Контраст между неуверенные в себе молодые сиделки позы и пышность ее богато расшитые одежды и аксессуаров придает изображению особую прелесть.Государственный Эрмитаж, Санкт-Петербург. 
-                        </p>
-                        <p class="gray">
-                            Фото Владимира Теребенин.
-                        </p>
-                        <div class="gray-block">
-                            <img src="images/exponat-image2.jpg" alt="" class="image-right" />
-                            <h2>Рембрандт Харменс ван Рейн, 1606-1669</h2>
-                            <p>голландский живописец, офортист и рисовальщик, величайший художник Голландии. Родился в семье мельника в Лейдене, где работал примерно до 1632 г., после чего переехал в Амстердам. В 1634 г. Рембрандт женился на девушке из состоятельной семьи Саскии ван Эйленбюрх, чей образ был увековечен им на многих портретах с необыкновенной нежностью и любовью.
-                            </p><p>
-                                С 1640-х гг., в творчестве Рембрандта, особенно в картинах на религиозные темы, значение приобретает светотень, создающая напряжённую эмоциональную атмосферу. 
-                                <br />
-                                Его последние работы поражают отточенностью мастерства.
-                            </p>
-                        </div>
-                        <p><a href="#">Флора Харменса ван Рейн Рембрандта в Образах России</a></p>
+                        <h1 class="exhibit-title"></h1>
+                        <p class="exponat-date exhibit-date">1634</p>
+                        <h2 class="exhibit-authors"></h2>
+                        <p class="exponat-note"></p>
+                        <img id="exhibit-detail-img" src="" alt="" class="image-left" width="127px"/>
+                        <p id="exhibit-description"></p                       
+                        <p class="gray"></p>                      
                     </div>
                 </div>
-                <div class="exponat-one-right">
-                    <div class="exp-block exp-videos">
-                        <h3>Видео</h3>
+                <div class="exponat-one-right">                   
+                    <div id="exhibit-video" class="exp-block exp-videos" style="display: none;">
+                        <h3>{{ "video"|trans }}</h3>
                         <div class="exp-video-list-image">
-                            <a class="in-fancybox" href="#">
-                                <img alt="" src="images/exponat-video.jpg">
-                                <span class="blue-play"></span>
+                            <a class="block-image fancybox" href="#data-video">
+                                <img style="max-width: 100%;" src="" alt=""  />
+                                <span class="play"></span>
                             </a>
-                            <div class="title-video">
-                                <p>Флора - известная картина Рембрандта</p>
+                        </div>
+                        <div id="data-video" style="display: none;">
+                            <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                <iframe width="640" height="360" src="" style="border: 0px;"></iframe>
                             </div>
                         </div>
                     </div>
-
                     <div class="exp-block exp-videos">
                         <h3>Музей</h3>
                         <div class="exp-text-block">
                             <a href="#">
-                                <img alt="" src="images/exponat-museum.jpg">
+                                <img id="exhibit-museum-img" alt="" src="">
                             </a>
                             <p class="main-title">
-                                <a href="#">Государственный Эрмитаж</a>
+                                <a id="exhibit-museum-title" href="#"></a>
                             </p>
                             <p>
-                                г. Санкт-Петербург<br />
-                                Дворцовая набережная, 34<br />
-                                Сайт: <a href="http://www.hermitagemuseum.org" target="_blank">http://www.hermitagemuseum.org</a> 	
+                                <span id="exhibit-museum-address"></span><br />
+                                <span id="exhibit-museum-url"></span>	
                             </p>
-                            <a href="#" class="orange-btn">Виртуальный тур</a>
+                            <a id="exhibit-museum-vtour" href="#" data-fancybox-type="iframe" class="orange-btn virt-tour-anons vob iframe" style="display: none;">Виртуальный тур</a>
                         </div>
                     </div>
                 </div>

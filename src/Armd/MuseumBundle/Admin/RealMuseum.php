@@ -36,6 +36,10 @@ class RealMuseum extends Admin
     {
         $showMapper
             ->add('title')
+            ->add('address')
+            ->add('url')
+            ->add('description')
+            ->add('image')
         ;
         
         parent::configureShowField($showMapper);        
@@ -51,6 +55,9 @@ class RealMuseum extends Admin
         $formMapper
             ->with('General')
                 ->add('title')
+                ->add('address')
+                ->add('url')
+                ->add('description')
                 ->add('category')
                 ->add('region', null, array(
                     'required' => false,
@@ -62,8 +69,7 @@ class RealMuseum extends Admin
                         $qb->orderBy('r.title', 'ASC');
                         return $qb;
                     }
-                ))
-                ->add('published', null, array('required' => false))
+                ))             
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -89,8 +95,7 @@ class RealMuseum extends Admin
                 )
             ->end()
             ->with('Media')
-                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
-                ->add('bannerImage', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
+                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))                
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -104,17 +109,9 @@ class RealMuseum extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {        
         $listMapper
-            ->addIdentifier('title')
-            ->add('published')            
+            ->addIdentifier('title')           
         ;
         
         parent::configureListFields($listMapper);        
-    }
-    
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('published')
-        ;
     }    
 }
