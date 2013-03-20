@@ -36,6 +36,8 @@ class Museum extends Admin
     {
         $showMapper
             ->add('title')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
         
         parent::configureShowField($showMapper);        
@@ -66,6 +68,14 @@ class Museum extends Admin
                     }
                 ))
                 ->add('published', null, array('required' => false))
+            ->end()
+            ->with('Главная')
+                ->add('showOnMain', null, array(
+                    'required' => false
+                ))
+                ->add('showOnMainOrd', null, array(
+                    'required' => false
+                ))                
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -98,6 +108,8 @@ class Museum extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')            
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
         
         parent::configureListFields($listMapper);        
@@ -107,6 +119,31 @@ class Museum extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
+    }    
+
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = parent::getBatchActions();
+
+        
+        // check user permissions
+        if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
+            // /*
+            $actions['ShowOnMain']=array(
+                'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['NotShowOnMain']=array(
+                'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            // */
+        }
+        
+        return $actions;
     }    
 }

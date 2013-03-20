@@ -1,12 +1,12 @@
 <?php
-namespace Armd\LectureBundle\Controller;
+namespace Armd\NewsBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class LectureCinemaCrudController extends CRUDController
+class NewsCrudController extends CRUDController
 {
     public function batchActionShowOnMain(ProxyQueryInterface $selectedModelQuery)
     {

@@ -1,0 +1,8 @@
+services:
+
+    # museum
+    armd_museum.sonata_admin.news:
+        class: Armd\MuseumBundle\Admin\Museum
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museum, label: Museum, show_in_dashboard: true }
+        arguments: [null, Armd\MuseumBundle\Entity\Museum, ArmdMuseumBundle:MuseumCrud, @service_container]

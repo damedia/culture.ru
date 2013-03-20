@@ -61,6 +61,9 @@ class NewsManager extends ListManager
     /** example: 'the rolling stones' */
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
+    /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
+    const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
+    
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
         parent::__construct($em, $tagManager);
@@ -96,7 +99,6 @@ class NewsManager extends ListManager
                 $qb->expr()->lte('_news.publishFromDate', ':now')
             )
         )
-            ->orderBy('_news.newsDate', 'DESC')
             ->setParameter('now', new \DateTime());
 
         return $qb;
@@ -183,6 +185,10 @@ class NewsManager extends ListManager
 
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');
+        }
+
+        if (empty($criteria[self::CRITERIA_ORDER_BY])) {
+            $qb->orderBy('_news.newsDate', 'DESC');
         }
     }
 
