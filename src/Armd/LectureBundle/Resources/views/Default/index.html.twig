@@ -46,6 +46,14 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <div id="sort-list">
+        <span>Сортировать по:</span>
+        <ul>
+            <li class="active"><a href="#" data-sort-by="date">дате</a></li>
+            <li><a href="#" data-sort-by="popularity">популярности</a></li>
+            <li><a href="#" data-sort-by="title">алфавиту</a></li>
+        </ul>
+    </div>
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
             'lectureSuperTypeCode': lectureSuperType.code,

@@ -142,6 +142,16 @@ class Lecture implements Taggable
      */
     private $rolesPersons;
 
+    /**
+     * @ORM\Column(name="view_count", type="integer", nullable=true)
+     */
+    private $viewCount = 0;
+
+    /**
+     * @ORM\Column(name="is_top_100_film", type="boolean", nullable=true)
+     */
+    private $isTop100Film = false;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -605,5 +615,30 @@ class Lecture implements Taggable
     public function getExternalUrl()
     {
         return $this->externalUrl;
+    }
+
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
+
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
+    }
+
+    public function addViewCount()
+    {
+        $this->viewCount++;
+    }
+
+    public function getIsTop100Film()
+    {
+        return is_null($this->isTop100Film) ? 0 : $this->isTop100Film;
+    }
+
+    public function setIsTop100Film($isTop100Film)
+    {
+        $this->isTop100Film = $isTop100Film;
     }
 }
