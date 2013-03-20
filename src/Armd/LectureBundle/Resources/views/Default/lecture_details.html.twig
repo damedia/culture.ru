@@ -195,8 +195,31 @@
                 </div>
                 {% for stuff in lecture.stuff %}
                     <div>
-                        {# TODO Icon. #}
-                        <a href="{% path stuff, 'original' %}">{{ stuff.name }}</a>
+                        <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
+
+                        <a href="{{ armd_media_original_url(stuff) }}">{{ stuff.name }}</a>
+
+                        {% if stuff.extension == "mpga" %}
+                            —
+
+                            <span id="jp_container_{{ stuff.id }}" class="jp-audio">
+                                <span class="jp-type-single">
+                                    <span class="jp-gui jp-interface">
+                                        <span class="jp-current-time"></span>/<span class="jp-duration"></span>
+                                        (
+                                        <ul class="jp-controls">
+                                            <li><a href="#" class="jp-play" tabindex="1">{{"play"|trans}}</a></li>
+                                            <li><a href="#" class="jp-pause" tabindex="1">{{"pause"|trans}}</a></li>
+                                            <li>| <a href="#" class="jp-stop" tabindex="1">{{"stop"|trans}}</a></li>
+                                        </ul>
+                                        )
+                                    </span>
+                                </span>
+                            </span>
+
+                            <div id="jquery_jplayer_{{ stuff.id }}" class="jp-player" data-media-url="{% path stuff, 'original' %}"></div>
+                        {% endif %}
+
                     </div>
                 {% endfor %}
             </div>
@@ -410,8 +433,46 @@
 {% endblock %}
 
 
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .stuff .file-icon {
+            vertical-align: baseline;
+        }
+
+        .stuff .jp-audio ul, .stuff .jp-audio li {
+            display: inline;
+        }
+    </style>
+{% endblock %}
+
+
 {% block javascripts %}
     {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".jp-player").each(function() {
+                $(this).jPlayer({
+                    ready: function(event) {
+                        $(this).jPlayer("setMedia", {
+                            mp3: $(this).attr('data-media-url')
+                        });
+                    },
+                    play: function() { // To avoid both jPlayers playing together.
+                        $(this).jPlayer("pauseOthers");
+                    },
+                    {# Возможно, тут лучше пронать через PHP путь как-то, но assets по смыслу кажется не тем инструментом. #}
+                    swfPath: "/vendor/jquery.jplayer/",
+                    cssSelectorAncestor: "#jp_container_" + $(this).attr('id').replace('jquery_jplayer_', ''),
+                    supplied: "mp3"
+                });
+            });
+        });
+    </script>
+
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
     <script type="text/javascript">
