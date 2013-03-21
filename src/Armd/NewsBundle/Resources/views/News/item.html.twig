@@ -4,6 +4,17 @@
 {% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
 {% block meta_description %}{{ entity.seoDescription }}{% endblock %}
 
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.announce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image is not empty %}
+        <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
 {% block page_header_title %}{{ entity.category.title }}{% endblock %}
