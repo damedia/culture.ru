@@ -12,11 +12,14 @@ class DefaultController extends Controller
 {
     private $limit = 25;
     
-    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'default')
+    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
     {
         $mediaPool = $this->get('sonata.media.pool');
         $provider = $mediaPool->getProvider($image->getProviderName());
-        $format = $provider->getFormatName($image, $format);
+        
+        if ($format != 'reference') {
+            $format = $provider->getFormatName($image, $format);       
+        }
         
         return $provider->generatePublicUrl($image, $format);
     }
@@ -77,7 +80,7 @@ class DefaultController extends Controller
         foreach ($entities as $i => $e) {
             $data['objects'][$e->getId()] = array(
                 'id' => $e->getId(),
-                'img' => $this->getImageSrc($e->getImage('default')),               
+                'img' => $this->getImageSrc($e->getImage(), 'default'),               
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),
                 'museum' => array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle()),
@@ -124,7 +127,7 @@ class DefaultController extends Controller
         foreach ($entities as $i => $e) {
             $data['objects'][$e->getId()] = array(
                 'id' => $e->getId(),
-                'img' => $this->getImageSrc($e->getImage('default')),
+                'img' => $this->getImageSrc($e->getImage()),
                 'img_big' => $this->getImageSrc($e->getImage(), 'big'),
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallThumbnail'),
                 'title' => $e->getTitle(),

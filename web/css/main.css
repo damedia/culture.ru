@@ -5098,13 +5098,10 @@ body {
 		.main-zoomed-image {
 			height:736px;
 			overflow:hidden;
+                        position: relative;
 		}
 			.main-zoomed-image img {
-				position:absolute;
-				top:50%;
-				left:50%;
-				height:100%;
-				margin:-368px  0 0 -299px;
+				position: absolute;				
 			}
 			
 			
@@ -5301,13 +5298,17 @@ body {
 		position:absolute;
 		right:50px;
 		top:60px;
-		width:160px;
 		background:#fff;
 	}
 		.zoom-thumb-image-block  {
 			text-align:center;
-			padding:5px 0;
+			padding:5px;
+                        position: relative;
 		}
+                .zoom-thumb-border {
+                    position: absolute;
+                    border: 2px solid #F18800;
+                }
 			.zoom-thumb-image-block img {
 				
 			}
@@ -5350,7 +5351,6 @@ body {
 			}
 				.zoom-handle {
 					position:absolute;
-					left:50px;
 					top:0;
 					height:27px;
 					width:12px;
