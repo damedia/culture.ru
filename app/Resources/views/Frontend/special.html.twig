@@ -106,7 +106,7 @@
 		</div>
 		<footer class="main-footer {{ 'Special.BodyClass'|trans }}">
 			<div class="site-owner">
-				<a href="http://mkrf.ru/" target="_blank">{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}</a>
+				<a href="{% if app.request.locale == 'ru' %}http://mkrf.ru/?t=sb{% else %}http://mkrf.ru/en/?t=sb{% endif %}" target="_blank">{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}</a>
 			</div>
 			
             <div class="special-counters">
