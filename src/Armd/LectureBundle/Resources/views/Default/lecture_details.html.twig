@@ -138,11 +138,14 @@
                 <h2 class="video-one-name">{{ lecture.title }}</h2>
 
                 <span class="video-one-stats">
-                    {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
-                    {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
-                    {% for lectureCategory in lecture.categories %}
-                        <a href="#">{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
-                    {% endfor %}
+                    {% spaceless %}
+                        {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                        {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
+                        {% for lectureCategory in lecture.categories %}
+                            <a href="#">{{ lectureCategory.title }}</a>,
+                        {% endfor %}
+                        Просмотров: {{ lecture.viewCount }}
+                    {% endspaceless %}
                 </span>
 
                 <div class="video-one-anons">

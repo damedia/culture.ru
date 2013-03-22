@@ -45,8 +45,10 @@ class LectureCinemaAdmin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
+            ->add('isTop100Film')
             ->add('lectureVideo')
-            ->add('lectureFile');
+            ->add('lectureFile')
+            ;
     }
 
     /**
@@ -81,6 +83,7 @@ class LectureCinemaAdmin extends Admin
                 'super_type' => $superType
             ))
             ->add('recommended')
+            ->add('isTop100Film')
             ->with('Tvigle Video')
                 ->add('lectureVideo', 'armd_tvigle_video_selector', array( 'required' => false))
             ->end()
@@ -102,7 +105,8 @@ class LectureCinemaAdmin extends Admin
         $datagridMapper
             ->add('published')
             ->add('title')
-            ->add('categories');
+            ->add('categories')
+            ->add('isTop100Film');
     }
 
 
@@ -118,6 +122,7 @@ class LectureCinemaAdmin extends Admin
             ->add('published')
             ->add('createdAt')
             ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+            ->add('isTop100Film')
         ;
     }
 
