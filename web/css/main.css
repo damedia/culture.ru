@@ -2872,6 +2872,22 @@ body {
                 margin: 0;
             }
 
+            .social-widget-block {
+                width: 48%;
+                /*margin-right: 15px;*/
+                float: left;
+            }
+
+            .twitter-widget-block {
+                width: 48%;
+                float: right;
+            }
+
+                .twitter-widget-block .timeline {
+                    border: 0;
+                }
+
+
 
 
         .online-anons {            
