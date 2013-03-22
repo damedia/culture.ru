@@ -37,6 +37,5 @@ class Version20130320191153 extends AbstractMigration
         $this->addSql("ALTER TABLE armd_museum DROP show_on_main_ord");
         $this->addSql("ALTER TABLE content_news DROP show_on_main");
         $this->addSql("ALTER TABLE content_news DROP show_on_main_ord");
-        $this->addSql("ALTER TABLE content_news ALTER is_on_map SET  DEFAULT 'false'");
     }
 }
