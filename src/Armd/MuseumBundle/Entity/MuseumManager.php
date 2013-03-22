@@ -44,7 +44,6 @@ class MuseumManager extends ListManager
 
         $qb->leftJoin('_museum.image', '_museumImage', 'WITH', '_museumImage.enabled = TRUE')
             ->andWhere('_museum.published = TRUE')
-//            ->orderBy('_museum.title', 'DESC')
         ;
 
         return $qb;
@@ -63,10 +62,6 @@ class MuseumManager extends ListManager
             $qb->innerJoin('_museum.category', '_museumCategory')
                 ->andWhere('_museum.category IN (:category_ids_or)')
                 ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
-        }
-
-        if (empty($criteria[self::CRITERIA_ORDER_BY])) {
-            $qb->orderBy('_museum.title', 'DESC');
         }
     }
 

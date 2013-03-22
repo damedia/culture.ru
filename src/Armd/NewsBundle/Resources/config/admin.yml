@@ -1,8 +1,0 @@
-services:
-
-    # news
-    armd_news_admn.sonata_admin.news:
-        class: Armd\NewsBundle\Admin\News
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: News, label: News, show_in_dashboard: true }
-        arguments: [null, Armd\NewsBundle\Entity\News, ArmdNewsBundle:NewsCrud, @service_container]

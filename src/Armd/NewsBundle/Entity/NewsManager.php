@@ -186,10 +186,6 @@ class NewsManager extends ListManager
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');
         }
-
-        if (empty($criteria[self::CRITERIA_ORDER_BY])) {
-            $qb->orderBy('_news.newsDate', 'DESC');
-        }
     }
 
     public function findObjectsWithSphinx($criteria) {

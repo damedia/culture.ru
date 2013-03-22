@@ -53,7 +53,7 @@ class MainController extends Controller
             array(
                 NewsManager::CRITERIA_LIMIT => 1,
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('reportages'),
-                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'newsDate' => 'DESC'),
+                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
                 NewsManager::CRITERIA_HAS_IMAGE => true
             )
         );
@@ -65,7 +65,7 @@ class MainController extends Controller
             array(
                 NewsManager::CRITERIA_LIMIT => 1,
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('interviews'),
-                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'newsDate' => 'DESC'),
+                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
                 NewsManager::CRITERIA_HAS_IMAGE => true
             )
         );
