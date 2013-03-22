@@ -75,9 +75,13 @@
 	}
 
 		.quiz-content .q-case-3 .description p {
-			font-size: 14px;
+			/*font-size: 14px;*/
 		}
 
+        .petergof .quiz-content .q-case-3 .answers .description div {
+            padding: 13px 13px;
+            width: 366px;
+        }    
 
 .petergof .winner-name {
 	top: 295px;

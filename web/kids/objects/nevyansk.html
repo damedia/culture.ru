@@ -87,7 +87,7 @@
                     <div class="puzzle-description-text">Поставь все фрагменты картинки на&nbsp;свои места, и&nbsp;узнаешь, кто основал город Невьянск,     в&nbsp;котором позднее построили знаменитую наклонную башню!</div>
                     
                 </div>
-                <div class="puzzle-slider">
+                <div class="puzzle-slider puzzle-init">
                     <div class="puzzle-wrap">
                         <div class="puzzle-setka-wrap-noresize">
                             <img src="img/nevyansk/nevyansk_puzzle.jpg" width="320"  class="puzzle"/>
@@ -261,59 +261,65 @@
 </div> <!-- //state-wrapper-->
 
 
-
-    <div id="puzzle-block" style="display:none;">
-        <!-- JIGSAW CANVAS -->
-        <div id="canvas-wrap">
-         <canvas id="canvas"></canvas>
-         <canvas class="hide" id="image"></canvas>
-         <canvas class="hide" id="image-preview"></canvas>
-        </div>
-        
-        <!-- GAME OPTIONS -->
-        <div id="game-options">
-        <ul>
-         <li><b id="clock" class="button">00:00:00</b></li>
-         <li><a href="#" id="SHOW_EDGE" class="button left" title="Показать крайние элементы">Боковые</a></li>
-         <li><a href="#" id="SHOW_MIDDLE" class="button middle" title="Показать центральные элементы">Центральные</a></li>
-         <li><a href="#" id="SHOW_ALL" class="button right" title="Показать все элементы">Все</a></li>
-         <li><a href="#" id="JIGSAW_SHUFFLE" class="button left" title="Перемешать">Перемешать</a></li>
-         <li><a href="#" id="SHOW_PREVIEW" class="button middle" title="Подсказка">Подсказка</a></li> 
-         <li><a href="#" id="SHOW_HELP" class="button help right" title="Помощь">Помощь</a></li>
-         <!-- INSERT CUSTOM BUTTONS -->
-         
-         <!-- END INSERT CUSTOM BUTTONS -->
-         <li>
-         <div class="styled-select">
-         <select id="set-parts" selected-index="8">
-         </select>
-         </div>
-         </li>
-         <!-- Insert custom buttons here -->
-         <li><a href="#" class="button" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
-         <li style="display:none;"> <ul><li id="create" ><a href="#" class="button add" id="SHOW_FILEPICKER" title="Create puzzle" >Create puzzle</a></li></ul></li>
-        </ul>
-        <br class="clear"/>
-        </div>
-        
-        <!-- MODAL WINDOW -->
-        <div class="hide" id="overlay"></div>
-        <div id="modal-window" class="hide">
-         <div id="modal-window-msg"></div>
-         <a href="#" id="modal-window-close" class="button">Закрыть</a>
-        </div>
-        
-        <!-- CREATE PUZZLE -->
-        <div class="hide" id="create-puzzle">
-         <h1>Choose an&nbsp;image</h1>
-         <form id="image-form" id="add-image-form">
-         <input type="file" id="image-input">
-         <p id="image-error">that’s not an&nbsp;image</p>
-         <p id="dnd"><i>Or&nbsp;drag one from your computer</i></p>
-         </form>
-        </div>
-        
-        <!-- CONGRATULATION -->
+<div id="puzzle-block" class="mk-puzzle-block" style="display:none;">
+		<!-- JIGSAW CANVAS -->
+		<div id="canvas-wrap">
+		    <canvas id="canvas"></canvas>
+		    <canvas class="hide" id="image"></canvas>
+		    <canvas class="hide" id="image-preview"></canvas>
+		</div>
+		
+		<!-- GAME OPTIONS -->
+		<div id="game-options">
+		<ul>
+		    <li class="game-button clock-counter"><b id="clock">00:00:00</b></li>
+		    <li class="game-button puzzle-elements edge-el"><a href="#" id="SHOW_EDGE" class=" " title="Показать крайние элементы">Боковые</a></li>
+		    <li class="game-button puzzle-elements midl-el"><a href="#" id="SHOW_MIDDLE" class=" " title="Показать центральные элементы">Центральные</a></li>
+		    <li class="game-button puzzle-elements all-el"><a href="#" id="SHOW_ALL" class=" " title="Показать все элементы">Все</a></li>
+		    <li class="game-button puzzle-shuffle"><a href="#" id="JIGSAW_SHUFFLE" class=" " title="Перемешать">Перемешать!</a></li>
+		    <li class="game-button puzzle-preview"><a href="#" id="SHOW_PREVIEW" class=" " title="Подсказка">Подсказка</a></li> 
+		    <li class="game-button puzzle-help"><a href="#" id="SHOW_HELP" class="" title="Как играть">Как играть</a></li>
+		    <!-- INSERT CUSTOM BUTTONS -->
+		    
+		    <!-- END INSERT CUSTOM BUTTONS -->
+		    <li>
+		        
+                <select id="set-parts" selected-index="8" class="hide">
+                </select>
+		        <div class="set-parts-select" id="set-parts-select">
+                    <p class="chosen-option" id="chosen-option">12 элементов</p>
+                    <ul class="select-options" id="select-options" style="display:none;"></ul>
+                </div>
+                
+		    </li>
+		    <!-- Insert custom buttons here -->
+		    <li><a href="#" class="" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
+		   <li style="display:none;"> <ul><li id="create" ><a href="#" class="button add" id="SHOW_FILEPICKER" title="Create puzzle" >Create puzzle</a></li></ul></li>
+		</ul>
+		<br class="clear"/>
+		</div>
+		
+		<!-- MODAL WINDOW -->
+		<div class="hide" id="overlay"></div>
+		<div id="modal-window" class="hide">
+		    <div id="modal-window-msg">
+				
+			
+			</div>
+		    <a href="#" id="modal-window-close" class="close-button">Закрыть</a>
+		</div>
+		
+		<!-- CREATE PUZZLE -->
+		<div class="hide" id="create-puzzle">
+		    <h1>Choose an image</h1>
+		    <form id="image-form" id="add-image-form">
+		        <input type="file" id="image-input">
+		        <p id="image-error">that's not an image</p>
+		        <p id="dnd"><i>Or drag one from your computer</i></p>
+		    </form>
+		</div>
+		
+		<!-- CONGRATULATION -->
         <div id="congrat" class="hide">
          <h1>Поздравляем!</h1>
          <p>Невьянск был основан по&nbsp;указу Петра&nbsp;I (на&nbsp;памятнике&nbsp;— слева) в&nbsp;1701&nbsp;году. В&nbsp;1702 железные заводы, ради которых создали Невьянск, были переданы в&nbsp;собственность Никите Демидову, основателю знаменитой династии Демидовых. Памятник основателям города поставлен рядом с&nbsp;Невьянской башней.</p>
@@ -326,94 +332,46 @@
          <input type="hidden" id="time-input" name="time"/>
          </form>
         </div>
-        
-        
-        
-        <!-- HELP -->
-        <div id="help" class="hide">
-         <h2>Как играть</h2>
-         <ul>
-         <li>Выберите количество элементов с&nbsp;помощью селектора<br/>
-         <img src="js/canvas-puzzle/images/selector.png"/>
-         </li>
-         
-         <li>
-                    Для того что&nbsp;бы начать заново, используйте кнопку «Перемешать».
-                </li>
-<li>
-Используйте подсказку.
-</li>
-        
-         <li>Переключайтесь между центральными и&nbsp;боковыми элементами:<br>
-         <img src="js/canvas-puzzle/images/toggle.png"/>
-         </li>
-         </ul>
-         
-         <h3>Удачи.</h3>
-        </div>
-        
-        <form class="hide" method="post" id="redirect-form">
-         <input type="text" name="time" id="t" />
-         <input type="text" name="parts" id="p" />
-        </form>
-        <iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
-        <!-- SCRIPTS ROMPECABEZAS -->
-        <script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
-        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
-        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
-        <script>
-        
-        $(document).ready(function(){
-            
-            var windowWidth = $(window).width(); //retrieve current window width
-            var windowHeight = $(window).height(); //retrieve current window height
-            var docScrollTop, docScrollLeft;    
-        
-            $(window).load(function(){
-                $('.puzzle-setka-wrap').each(function(){
-                    var imageheight = $(this).find('img.puzzle').height();
-                    $(this).height(imageheight).css('marginTop', -imageheight/2);
-                })
-            })  
-        
-        
-            var jsaw = new jigsaw.Jigsaw({
-                defaultImage: "img/nevyansk/nevyansk_puzzle.jpg",
-                piecesNumberTmpl: "%d элементов",
-                redirect: null,
-                shuffled: true,
-                rotatePieces: false      
-            });         
-            
-            $('img.puzzle-setka').click(function(){
-                docScrollTop = $(document).scrollTop(); 
-                docScrollLeft = $(document).scrollLeft();
-                $('body, html').css('overflow', 'hidden');
-                windowWidth = $(window).width();
-                windowHeight = $(window).height();
-                
-                jsaw.set_image($(this).prev().attr('src'));
-                $('#puzzle-block').css({
-                    'width':windowWidth,
-                    'height':windowHeight
-                }).show();
-                //$('#puzzle-block-wrapper').show();
-                document.location.href = '#';
-                
-            });
-            
-            $('a#CLOSE_PUZZLE').click(function(){
-                $('#puzzle-block').hide();
-                $('body, html').css('overflow', 'visible').scrollTop(docScrollTop).scrollLeft(docScrollLeft);
-                
-                return false;
-            });
-            
-            
-        })
-        </script>
-    </div>
+		
+		
+		
+		<!-- HELP -->
+		<div id="help"  class="hide" >
+			<ul  class="mk-help">
+				<li>
+					<p class="mk-help-count">
+						ВЫБЕРИ КОЛИЧЕСТВО ЭЛЕМЕНТОВ С ПОМОЩЬЮ СЕЛЕКТОРА
+					</p>	
+				</li>
+				
+				<li>
+					<p class="mk-help-mix">
+						ХОЧЕШЬ НАЧАТЬ ЗАНОВО? НАЖМИ КНОПКУ «ПЕРЕМЕШАТЬ!»
+					</p>	
+				</li>
+				<li>
+					<p class="mk-help-prev">
+						НЕ ПОЛУЧАЕТСЯ? НЕ БЕДА! ИСПОЛЬЗУЙ ПОДСКАЗКУ
+					</p>	
+				</li>
+		
+				<li>
+					<p class="mk-help-el">
+						ТЫ МОЖЕШЬ ПОСМОТРЕТЬ ОТДЕЛЬНО БОКОВЫЕ И ЦЕНТРАЛЬНЫЕ ЭЛЕМЕНТЫ
+					</p>
+				</li>
+			</ul>
+			
+			<h3  class="mk-help-msg">Удачи!</h3>
+		</div>
+		
+		<form class="hide" method="post" id="redirect-form">
+		    <input type="text" name="time" id="t" />
+		    <input type="text" name="parts" id="p" />
+		</form>
+		<iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
+		
+	</div>
 <div style="visibility:hidden" class="fancy-hide">
 <div class="whant-more want-more-nevyansk" id="whant-more">
 <div class="whant-more-container">
@@ -487,6 +445,12 @@ var _gaq = _gaq || [];
 <script src="js/adventure_400.font.js"></script> 
 <script src="js/quiz.js"></script>
 <script src="js/plugins.js"></script>
+
+<!-- SCRIPTS ROMPECABEZAS -->
+<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
+<script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
+<script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
 <script src="../js/main.js"></script>
 </body>
 </html>

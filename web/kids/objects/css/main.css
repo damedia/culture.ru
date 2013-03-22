@@ -599,6 +599,9 @@ body {
         margin: 109px 0 0 212px;
         height:800px;
     }
+    .petergof .case-5	{
+        margin-left:263px;
+    }
 
 
 
@@ -830,7 +833,8 @@ body {
             }  
         
         .puzzle-description-text {
-            
+             font-size: 15px;
+             font-weight: bold;
         }	
             .puzzle-description-text p {
                 margin:0;
@@ -839,22 +843,22 @@ body {
             .nevyansk .puzzle-description-text {
                 margin: 26px 0 0 56px;
                 width: 252px;
-                font-size: 17px;
+                /*font-size: 17px;*/
                 line-height: 19px;
-                font-weight: bold;
+                
             }
 
             .petergof .puzzle-description-text {
                 margin: 10px 0 0 30px;
                 width: 300px;
-                font-size: 17px;
+                /*font-size: 17px;*/
                 line-height: 19px;
                 color: #2C326B;
                 line-height: normal;
             }
             .arkaim .puzzle-description-text {
                 margin-top: 29px;
-                font-size: 17px;
+                /*font-size: 17px;*/
                 line-height: 19px;
                 color:#a50a0a;
             }
@@ -951,12 +955,13 @@ body {
         }
             .count-block-counter-text {
                 color:#a50a0a;
-                font-size: 17px;
+                font-size: 15px;
                 line-height: 19px;
+                font-weight:bold;
             }
 
             .arkaim .count-block-counter-text {
-               
+               margin-right:114px;
             }
             
             .count-block-counter-input {
@@ -1044,9 +1049,11 @@ body {
             text-decoration:none;
             padding: 35px 132px 30px 0;
             background: url(../img/nevyansk/arrow.png) no-repeat 100% 0px;
-            font-size: 17px;
+            /*font-size: 17px;*/
+            font-size: 15px;
             line-height: 19px;
             margin-top: -5px;
+            font-weight:bold;
         }
 
          .petergof .test-link {
@@ -1066,7 +1073,7 @@ body {
 
         .nevyansk .test-link { 
             color: #5B185B;
-            font-size: 17px;
+            /*font-size: 17px;*/
             font-weight: bold;
         }
         
@@ -1086,6 +1093,8 @@ body {
             padding-right: 0;
             padding-top: 61px;
             color:#a50a0a;
+            width:150px;
+            padding-right:20px;
         }
 
     /*COMPARE*/        
@@ -1459,7 +1468,7 @@ body {
         
             .choice-result p {
                 margin-left: 30px;
-                font-size: 17px;
+                font-size: 15px;
                 line-height: 19px;
                 margin-top: 28px;
                 color:#5b185b;
@@ -1484,7 +1493,8 @@ body {
             display:inline-block;
             vertical-align:bottom;   
             width:272px; 
-            text-align:center;                    
+            text-align:center;   
+            margin-left:33px;            
         }
 
         .petergof .nev-riddle-1 .choose-panel .choice {
@@ -2325,6 +2335,8 @@ body {
                 margin-top:0;
                 line-height: 1.2em;
                 margin-bottom: 3px;
+                font-size:15px;
+                font-weight:bold;
             }
 
 
@@ -2549,10 +2561,11 @@ body {
         }
     .quiz-nevyansk .q-case-2  .answers .description {
         margin-top:76px;
-        width:340px;
+       width: 294px;
     }    
         .quiz-nevyansk .q-case-2  .answers .description div {
-            width:333px;
+            width: 310px;
+            padding: 13px 13px;
         }
     .quiz-content .q-case-2 .answers ul li.first a {
         color: #72BF9F;
@@ -2789,6 +2802,8 @@ body {
         .quiz-kremlin .q-case-3 .third .description h4 {
             color:#f9cb98;
         }  
+        
+        
 /* SERTIFICAT*/
      
     .quiz-arkaim .sertificat img {
