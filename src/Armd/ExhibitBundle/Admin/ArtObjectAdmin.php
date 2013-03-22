@@ -87,7 +87,7 @@ class ArtObjectAdmin extends Admin
                     'with_remove' => true,
                     'media_context' => 'exhibit',
                     'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'default'
+                    'media_format' => 'small'
                 ))
                 ->add('videos', 'collection', array(
                     'required' => false,

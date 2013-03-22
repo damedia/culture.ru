@@ -16,14 +16,16 @@ var exhibit = {
         
         $(function() {
             exhibit.setExhibits(exhibit.objects);
-            //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
-            //exhibit.api = exhibit.scrollPane.data('jsp');
+            exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
+            exhibit.api = exhibit.scrollPane.data('jsp');
+            exhibit.apiReinitialise();
+            
             exhibit.setFilters();
             exhibit.setCount(data.count);
         });
         $(window).load(function() {           
-            exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
-            exhibit.api = exhibit.scrollPane.data('jsp');
+            //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
+            //exhibit.api = exhibit.scrollPane.data('jsp');
             //exhibit.apiReinitialise();
             var throttleTimeout;
             $(window).bind('resize', function() {
@@ -71,7 +73,7 @@ var exhibit = {
                     exhibit.api.scrollToX(0, false);
                     exhibit.replaceExhibits();
                     $('#exponats-content').removeClass().addClass(type);                
-                    exhibit.apiReinitialise();
+                    //exhibit.apiReinitialise();
                 }
 
                 return false;
@@ -258,30 +260,20 @@ var exhibit = {
 
         for (var i in objects) {
             if (type == 'threelines') {
-                if (width['first'] <= width['second'] && width['first'] <= width['third']) {
-                    //elAppend = $('.exponats-scroll .first-line');
-                    //elAppend = exhibit.api.getContentPane().find('.first-line');
+                if (width['first'] <= width['second'] && width['first'] <= width['third']) {                   
                     elAppend = '.first-line';
                     width['first']++;
-                } else if (width['second'] <= width['third']) {
-                    //elAppend = $('.exponats-scroll .second-line');
-                    //elAppend = exhibit.api.getContentPane().find('.second-line');
+                } else if (width['second'] <= width['third']) {                    
                     elAppend = '.second-line';
                     width['second']++;
-                } else {
-                    //elAppend = $('.exponats-scroll .third-line');
-                    //elAppend = exhibit.api.getContentPane().find('.third-line');
+                } else {                    
                     elAppend = '.third-line';
                     width['third']++;
                 }
-            } else if ((type == 'twolines' && width['first'] <= width['second']) || type == 'oneline') {
-                //elAppend = $('.exponats-scroll .first-line');
-                //elAppend = exhibit.api.getContentPane().find('.first-line');
+            } else if ((type == 'twolines' && width['first'] <= width['second']) || type == 'oneline') {               
                 elAppend = '.first-line';
                 width['first']++;
-            } else {
-                //elAppend = $('.exponats-scroll .second-line');
-                //elAppend = exhibit.api.getContentPane().find('.second-line');
+            } else {               
                 elAppend = '.second-line';
                 width['second']++;
             }
@@ -304,30 +296,31 @@ var exhibit = {
                exhibit.api.getContentPane().find(elAppend).append(el);
             } else {
                 $('.exponats-scroll').find(elAppend).append(el);
-            }
+            }                          
             
-            //elAppend.append(el);    
-            
-            /*
             el.find('> a img:first').load(function() {
-                exhibit.imgLoadTimeout = setTimeout(function() { 
-                    clearTimeout(exhibit.imgLoadTimeout);
-                    //exhibit.api.reinitialise(); 
-                    console.log('img');
-                }, 300);
+                clearTimeout(exhibit.imgLoadTimeout);
+                exhibit.imgLoadTimeout = exhibit.apiReinitialise();
             });
-            */
+            
         }
 
         exhibit.setObjectListeners();
     },
-    apiReinitialise: function() {       
-        //exhibit.api = $('.exponats-scroll-pane').data('jsp');
-        //exhibit.api.reinitialise();
-        setTimeout(function () { 
+    apiReinitialise: function(timeout) {
+        if (exhibit.api == undefined) {
+            return 0;
+        }
+        
+        if (timeout == undefined) {
+            timeout = 100;
+        }
+        
+        return setTimeout(function () { 
             exhibit.api = $('.exponats-scroll-pane').data('jsp'); 
-            exhibit.api.reinitialise();           
-        }, 300);
+            exhibit.api.reinitialise();  
+            console.log('apiReinitialise');
+        }, timeout);
     },
     clearExhibits: function() {
         $('.exponats-scroll .line > div').remove();
@@ -348,7 +341,7 @@ var exhibit = {
     filterLoadExhibits: function() {   
         exhibit.clearExhibits();       
         exhibit.api.scrollToX(0, false);
-        exhibit.apiReinitialise();
+        //exhibit.apiReinitialise();
         exhibit.loadExhibits();
     },
     setCount: function(count) {
@@ -380,9 +373,7 @@ var exhibit = {
             exhibit.offset = data.offset;               
             exhibit.setExhibits(data.objects);
 
-            //if (!exhibit.stopLoad) {                   
-                exhibit.apiReinitialise();
-            //}           
+            //exhibit.apiReinitialise();           
         })
         .always(function() {
             exhibit.loading = false;

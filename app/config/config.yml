@@ -257,11 +257,10 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                default: { width: 278 }
-                item: { width: 600 }
+                default: { width: 600 }
                 smallThumbnail: { width: 40 }
                 smallZoom: { width: 127 }
-                big: { width: 2000 }
+                small: { width: 200 }
 
     cdn:
         server:

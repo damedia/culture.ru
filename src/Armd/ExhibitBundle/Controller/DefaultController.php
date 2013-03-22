@@ -10,7 +10,7 @@ use Armd\ExhibitBundle\Repository\ArtObjectRepository;
 
 class DefaultController extends Controller
 {
-    private $limit = 25;
+    private $limit = 50;
     
     protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
     {
@@ -128,7 +128,6 @@ class DefaultController extends Controller
             $data['objects'][$e->getId()] = array(
                 'id' => $e->getId(),
                 'img' => $this->getImageSrc($e->getImage()),
-                'img_big' => $this->getImageSrc($e->getImage(), 'big'),
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallThumbnail'),
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),

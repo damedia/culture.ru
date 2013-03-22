@@ -11,6 +11,9 @@ var exhibitItem = {
     imgRealHeight: 0,
     imgStartWidth: 0,
     imgStartHeight: 0,
+    dx: 0,
+    dy: 0,
+    resizeStep: 40,
     init: function(data) {
         $(function() {
             exhibitItem.currentId = data.id;
@@ -136,7 +139,7 @@ var exhibitItem = {
     setPrimaryImage: function(id) {
         var img, nativeImg, imgRealWidth, imgRealHeight,
                 imgStartWidth, imgStartHeight,
-                wheelStep = 40, src = exhibitItem.objects[id]['img'],
+                src = exhibitItem.objects[id]['img'],
                 containerWidth = $('.main-zoomed-image').width(),
                 containerHeight = $('.main-zoomed-image').height();
 
@@ -147,6 +150,7 @@ var exhibitItem = {
         img = $(nativeImg);
         img.hide();
         img.off();
+        $('.zoom-out, .zoom-in').off();
         $('.main-zoomed-image').append(img);
         exhibitItem.primaryImg = img;
         img.load(function() {
@@ -168,6 +172,30 @@ var exhibitItem = {
                 $('.zoom-thumb img').width(200);
                 $('.zoom-thumb img').attr('src', src);
                 $('.zoom-thumb').show();
+                
+                $('.zoom-handle').offset({ left: $('.zoom-line').offset().left });
+                $('.zoom-handle').draggable({
+                    containment: "parent",
+                    drag: function( event, ui ) {
+                        exhibitItem.zoomHandleAction();
+                    }
+                });
+                
+                $('.zoom-out').click(function() {
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.resizeStep * 2);
+                    console.log(this);
+                    exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+                    
+                    return false;
+                });
+                
+                $('.zoom-in').click(function() {
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.resizeStep * 2);
+                    console.log(this);
+                    exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+                    
+                    return false;
+                });
             } else {
                 imgStartWidth = imgRealWidth;
                 imgStartHeight = imgRealHeight;
@@ -187,73 +215,92 @@ var exhibitItem = {
             }
 
             img.show();
+            $('.zoom-thumb-border').draggable('destroy');
+            $('.zoom-thumb-border').hide();
 
             img.mousewheel(function(event, delta) {
                 if (delta < 0) {
-                    exhibitItem.resizePrimaryImage(wheelStep);                   
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.resizeStep);                   
                 } else if (delta > 0) {
-                    exhibitItem.resizePrimaryImage(- wheelStep);                   
-                }              
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.resizeStep);                   
+                } 
+                
+                exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
 
                 return false;
-            });
-            
-            exhibitItem.setZoomThumbBorder();
+            });            
         });
     },
-    resizePrimaryImage: function(value) {
+    zoomHandleAction: function() {
+        var zhContainer = $('.zoom-line'),
+            zh = $('.zoom-handle'),
+            zhSize = zhContainer.width() - zh.width(),
+            zhPos = zh.offset().left - zhContainer.offset().left;
+    
+        width = Math.floor(zhPos * (exhibitItem.imgRealWidth - exhibitItem.imgStartWidth) / zhSize + exhibitItem.imgStartWidth);
+        exhibitItem.resizePrimaryImage(width);
+    },
+    setZoomHandle: function(primaryImgWidth) {
+        var zhContainer = $('.zoom-line'),
+            zh = $('.zoom-handle'),
+            zhSize = zhContainer.width() - zh.width();
+    
+        pos = Math.floor(zhSize * (primaryImgWidth - exhibitItem.imgStartWidth) / (exhibitItem.imgRealWidth - exhibitItem.imgStartWidth));
+        
+        if (pos < 0) {
+            pos = 0;
+        } else if (pos > zhContainer.width() - zh.width()) {
+            pos = zhContainer.width() - zh.width();
+        }
+        
+        pos = pos + zhContainer.offset().left;
+        zh.offset({ left: pos });
+    },    
+    resizePrimaryImage: function(width) {
         var x, y, dx, dy, x1, y1, x2, y2,
-            imgWidth = exhibitItem.primaryImg.width(),
             containerOffset = $('.main-zoomed-image').offset(),
             containerWidth = $('.main-zoomed-image').width(),
             containerHeight = $('.main-zoomed-image').height();
-
-        if (value > 0) {
-            if (imgWidth + value < exhibitItem.imgRealWidth) {
-                exhibitItem.primaryImg.width(imgWidth + value);
-                exhibitItem.primaryImg.height(Math.floor((imgWidth + value) * exhibitItem.imgRealHeight / exhibitItem.imgRealWidth));
+            
+        if (width < exhibitItem.imgStartWidth) {
+            exhibitItem.primaryImg.width(exhibitItem.imgStartWidth);
+            exhibitItem.primaryImg.height(exhibitItem.imgStartHeight);
+            exhibitItem.primaryImg.offset(containerOffset);
+        } else if (width > exhibitItem.imgRealWidth) {
+            exhibitItem.primaryImg.width(exhibitItem.imgRealWidth);
+            exhibitItem.primaryImg.height(exhibitItem.imgRealHeight);
+        } else {
+            exhibitItem.primaryImg.width(width);
+            exhibitItem.primaryImg.height(Math.floor((width) * exhibitItem.imgRealHeight / exhibitItem.imgRealWidth));
+            
+            if (exhibitItem.primaryImg.offset().left + exhibitItem.primaryImg.width() < containerOffset.left + containerWidth) {
+                x = containerOffset.left + containerWidth - exhibitItem.primaryImg.width();
+                x = x > containerOffset.left ? containerOffset.left : x;
             } else {
-                exhibitItem.primaryImg.width(exhibitItem.imgRealWidth);
-                exhibitItem.primaryImg.height(exhibitItem.imgRealHeight);
+                x = exhibitItem.primaryImg.offset().left;
             }
-        } else if (value < 0) {
-            if (imgWidth + value > exhibitItem.imgStartWidth) {
-                exhibitItem.primaryImg.width(imgWidth + value);
-                exhibitItem.primaryImg.height(Math.floor((imgWidth + value) * exhibitItem.imgRealHeight / exhibitItem.imgRealWidth));
 
-                if (exhibitItem.primaryImg.offset().left + exhibitItem.primaryImg.width() < containerOffset.left + containerWidth) {
-                    x = containerOffset.left + containerWidth - exhibitItem.primaryImg.width();
-                    x = x > containerOffset.left ? containerOffset.left : x;
-                } else {
-                    x = exhibitItem.primaryImg.offset().left;
-                }
-
-                if (exhibitItem.primaryImg.offset().top + exhibitItem.primaryImg.height() < containerOffset.top + containerHeight) {
-                    y = containerOffset.top + containerHeight - exhibitItem.primaryImg.height();
-                    y = y > containerOffset.top ? containerOffset.top : y;
-                } else {
-                    y = exhibitItem.primaryImg.offset().top;
-                }
-
-                exhibitItem.primaryImg.offset({left: x, top: y});
+            if (exhibitItem.primaryImg.offset().top + exhibitItem.primaryImg.height() < containerOffset.top + containerHeight) {
+                y = containerOffset.top + containerHeight - exhibitItem.primaryImg.height();
+                y = y > containerOffset.top ? containerOffset.top : y;
             } else {
-                exhibitItem.primaryImg.width(exhibitItem.imgStartWidth);
-                exhibitItem.primaryImg.height(exhibitItem.imgStartHeight);
-                exhibitItem.primaryImg.offset(containerOffset);
+                y = exhibitItem.primaryImg.offset().top;
             }
-        }
+            
+            exhibitItem.primaryImg.offset({left: x, top: y});
+        }                  
 
-        dx = dy = 0;
+        exhibitItem.dx = exhibitItem.dy = dx = dy = 0;
 
         if (exhibitItem.primaryImg.width() < containerWidth) {
-            dx = (containerWidth - exhibitItem.primaryImg.width()) / 2;
+            exhibitItem.dx = dx = (containerWidth - exhibitItem.primaryImg.width()) / 2;
             exhibitItem.primaryImg.offset({left: Math.floor(containerOffset.left + dx)});
         } else if (exhibitItem.primaryImg.offset().left > containerOffset.left) {
             exhibitItem.primaryImg.offset({left: containerOffset.left});
         }
 
         if (exhibitItem.primaryImg.height() < containerHeight) {
-            dy = (containerHeight - exhibitItem.primaryImg.height()) / 2;
+            exhibitItem.dy = dy = (containerHeight - exhibitItem.primaryImg.height()) / 2;
             exhibitItem.primaryImg.offset({top: Math.floor(containerOffset.top + dy)});
         } else if (exhibitItem.primaryImg.offset().top > containerOffset.top) {
             exhibitItem.primaryImg.offset({top: containerOffset.top});
@@ -266,27 +313,51 @@ var exhibitItem = {
         x2 = containerOffset.left + dx;
         y2 = containerOffset.top + dy;
         exhibitItem.primaryImg.draggable('destroy');
-        exhibitItem.primaryImg.draggable({containment: [x1, y1, x2, y2]});
+        exhibitItem.primaryImg.draggable({
+            containment: [x1, y1, x2, y2],
+            drag: function( event, ui ) {
+                exhibitItem.setZoomThumbBorder();
+            }
+        });
         
         exhibitItem.setZoomThumbBorder();
-
-        return false;
+        
+        $('.zoom-thumb-border').css({cursor: 'move'});
+        $('.zoom-thumb-border').draggable('destroy');
+        $('.zoom-thumb-border').draggable({
+            containment: "parent",
+            drag: function( event, ui ) {
+                exhibitItem.movePrimaryImageByZoomThumb();
+            }
+        });
+    },
+    movePrimaryImageByZoomThumb: function() {
+        var left, top,
+            ztContainer = $('.zoom-thumb-image-block'),
+            ztBorder = $('.zoom-thumb-border'),
+            container = $('.main-zoomed-image'),
+            k = exhibitItem.primaryImg.width() / $('.zoom-thumb-image-block img').width();
+            
+        left = Math.floor(container.offset().left - (ztBorder.offset().left - ztContainer.offset().left) * k);
+        left = (left < container.offset().left ? left : container.offset().left) + exhibitItem.dx;
+        top = Math.floor(container.offset().top - (ztBorder.offset().top - ztContainer.offset().top) * k);
+        top = (top < container.offset().top ? top : container.offset().top) + exhibitItem.dy;
+        
+        exhibitItem.primaryImg.offset({left: left, top: top});
     },
     setZoomThumbBorder: function() {
         var left = 0, top = 0, width, height,
             ztb = $('.zoom-thumb-border'),
-            ztbImg = $('.zoom-thumb-image-block img'),
+            ztbImg = $('#zoom-img-bg'),
             container = $('.main-zoomed-image'),
-            defaultOffset = $('.zoom-thumb-image-block img').offset(),
+            defaultOffset = ztbImg.offset(),
             k = ztbImg.width() / exhibitItem.primaryImg.width();
         
-        if (exhibitItem.primaryImg.offset().left < 0) {
-            left = Math.floor((container.offset().left + exhibitItem.primaryImg.offset().left) * k);
-        }
-              
-        if (exhibitItem.primaryImg.offset().top < 0) {
-            top = Math.floor((container.offset().top + exhibitItem.primaryImg.offset().top) * k);
-        }
+        ztb.show();
+        left = Math.floor((container.offset().left - exhibitItem.primaryImg.offset().left) * k);
+        left = left > 0 ? left : 0;
+        top = Math.floor((container.offset().top - exhibitItem.primaryImg.offset().top) * k);
+        top = top > 0 ? top : 0;
         width = Math.floor(container.width() * k);
         width = width < ztbImg.width() ? width : ztbImg.width();
         height = Math.floor(container.height() * k);
@@ -294,7 +365,6 @@ var exhibitItem = {
         ztb.offset({left: defaultOffset.left + left, top: defaultOffset.top + top});
         ztb.width(width - 3);
         ztb.height(height - 3);
-        console.log(ztb.offset());
     },
     setPageData: function(id) {
         var vBlock = $('#exhibit-video');
