@@ -33,6 +33,33 @@ var armdMkLectures = {
             event.preventDefault();
             armdMkLectures.loadList(armdMkLectures.isSearch, true);
         });
+
+        // sort
+        $('#sort-list a').bind('click', function(event) {
+            event.preventDefault();
+            $('#sort-list li').removeClass('active');
+            $(this).closest('li').addClass('active');
+            armdMkLectures.loadList(armdMkLectures.isSearch, false);
+        });
+
+        // sort by region
+        $('#lecture-container').on('click', '.cinema-category-link', function(event) {
+            event.preventDefault();
+            var categoryId = $(this).data('category-id');
+
+            // get right select
+            var select = $('#lecture_sub_category');
+            if (select.length === 0) {
+                select = $('#lecture_category');
+            }
+
+            // add value if not exists
+            if (select.find('option[value=' + categoryId + ']').length === 0) {
+                select.append('<option value="' + categoryId + '">' + $(this).text() + '</option>');
+            }
+            select.val(categoryId).selectgroup('refresh');
+            armdMkLectures.loadList(false, false);
+        });
     },
 
     hideMore: function() {
@@ -70,6 +97,8 @@ var armdMkLectures = {
             var subCategoryId = $('#lecture_sub_category').val();
             data['category_id'] = parseInt(subCategoryId) > 0 ? subCategoryId : categoryId;
         }
+
+        data['sort_by'] = $('#sort-list li.active a').data('sort-by');
 
         $.ajax({
             url: Routing.generate('armd_lecture_list', {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode}),

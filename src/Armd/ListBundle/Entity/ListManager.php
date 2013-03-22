@@ -21,7 +21,7 @@ abstract class ListManager
     /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
     const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
 
-    /** example: 5 */
+    /** example: true */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
 
     /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
@@ -29,6 +29,9 @@ abstract class ListManager
     
     /** example: array(1, 2, 3) */
     const CRITERIA_NOT_IDS = 'CRITERIA_NOT_IDS';
+
+    /** example(12, 150 */
+    const CRITERIA_IDS_NOT = 'CRITERIA_IDS_NOT';
 
     public function __construct(EntityManager $em, TagManager $tagManager)
     {
@@ -38,15 +41,8 @@ abstract class ListManager
 
     public function findObjects(array $criteria)
     {
-        if (!empty($criteria[self::CRITERIA_RANDOM])) {
-            $qb = $this->getQueryBuilder();
-            $criteriaMod = $criteria;
-            unset($criteriaMod[self::CRITERIA_LIMIT]);
-            $this->setCriteria($qb, $criteria);
+        if (isset($criteria[self::CRITERIA_TAGS])) {
 
-            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
-
-        } elseif (isset($criteria[self::CRITERIA_TAGS])) {
             if (empty($criteria[self::CRITERIA_LIMIT])) {
                 throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
             }
@@ -61,12 +57,17 @@ abstract class ListManager
             // pad them
             if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
                 $criteriaMod = $criteria;
-                $criteriaMod[self::CRITERIA_RANDOM] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
+                $criteriaMod[self::CRITERIA_LIMIT] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
                 unset($criteriaMod[self::CRITERIA_TAGS]);
                 $paddingObjects = $this->findObjects($criteriaMod);
                 $objects = array_merge($objects, $paddingObjects);
             }
 
+        } elseif (!empty($criteria[self::CRITERIA_RANDOM])) {
+            $qb = $this->getQueryBuilder();
+            $this->setCriteria($qb, $criteria);
+
+            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_LIMIT]);
         } else {
             $qb = $this->getQueryBuilder();
             $this->setCriteria($qb, $criteria);
@@ -105,6 +106,11 @@ abstract class ListManager
             if (is_array($notIds) && count($notIds) && $notIds != array(0)) {
                 $qb->andWhere("$o.id NOT IN (:notIds)")->setParameter('notIds', $notIds);
             }
+        }
+
+        if (!empty($criteria[self::CRITERIA_IDS_NOT])) {
+            $qb->andWhere("$o NOT IN (:ids_not)")
+                ->setParameter('ids_not', $criteria[self::CRITERIA_IDS_NOT]);
         }
 
     }

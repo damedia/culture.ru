@@ -164,8 +164,17 @@ class LectureManager extends ListManager
     public function getCategoriesBySuperType(LectureSuperType $superType, LectureCategory $parentCategory = null)
     {
         $qb = $this->em->getRepository('ArmdLectureBundle:LectureCategory')->createQueryBuilder('t');
-        $qb->where('t.root = :superTypeId')
-            ->setParameter('superTypeId', $superType->getId())
+
+        $qbRoot = clone($qb);
+        $rootCategory = $qbRoot
+            ->where('t.lectureSuperType = :superType')
+            ->andWhere('t.lvl = 0')
+            ->setParameter('superType', $superType)
+            ->getQuery()
+            ->getSingleResult();
+
+        $qb->where('t.root = :root')
+            ->setParameter('root', $rootCategory->getRoot())
             ->orderBy('t.title', 'ASC');
 
         if ($parentCategory) {

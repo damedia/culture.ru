@@ -12,6 +12,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/home", name="armd_lecture_home")
+     * @Template("ArmdLectureBundle:Default:homepage.html.twig")
+     */
+    public function lectureHomepageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $superTypes = $em->getRepository('ArmdLectureBundle:LectureSuperType')->findAll();
+
+        $lecturesBySuperType = array();
+        foreach ($superTypes as $superType) {
+            $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findBy(
+                array(
+                    'lectureSuperType' => $superType,
+                    'published' => true
+                ),
+                array(
+                    'recommended' => 'DESC',
+                    'createdAt' => 'DESC'
+                ),
+                4
+            );
+
+            $lecturesBySuperType[$superType->getCode()] = $lectures;
+        }
+
+        return array(
+            'superTypes' => $superTypes,
+            'lecturesBySuperType' => $lecturesBySuperType
+        );
+    }
+
+    /**
      * @Route("/lecture/", name="armd_lecture_lecture_index")
      */
     public function lectureIndexAction()
@@ -117,6 +149,19 @@ class DefaultController extends Controller
             $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
         }
 
+        $sort = $request->query->get('sort_by');
+        switch ($sort) {
+            case 'popularity':
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('viewCount' => 'DESC');
+                break;
+            case 'title':
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('title' => 'ASC');
+                break;
+            default:
+                // sort by date (default)
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('createdAt' => 'DESC');
+        }
+
         $lectures = $this->getLectureManager()->findObjects($criteria);
         return array(
             'lectures' => $lectures
@@ -169,13 +214,16 @@ class DefaultController extends Controller
      */
     public function lectureDetailsAction($id, $version)
     {
-        $lecture = $this->getDoctrine()->getManager()
-            ->getRepository('ArmdLectureBundle:Lecture')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $lecture = $em->getRepository('ArmdLectureBundle:Lecture')->find($id);
 
         if(!$lecture || !$lecture->getPublished()) {
             throw $this->createNotFoundException('Lecture not found');
         }
         $this->getTagManager()->loadTagging($lecture);
+
+        $lecture->addViewCount();
+        $em->flush();
 
         // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
@@ -228,7 +276,8 @@ class DefaultController extends Controller
                 LectureManager::CRITERIA_LIMIT => $limit,
                 LectureManager::CRITERIA_TAGS => $tags,
                 LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode),
-                LectureManager::CRITERIA_NOT_IDS => array($id)
+                LectureManager::CRITERIA_NOT_IDS => array($id),
+                LectureManager::CRITERIA_RANDOM => true,
             )
         );
 
