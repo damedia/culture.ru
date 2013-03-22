@@ -321,20 +321,24 @@
 		<div id="game-options">
 		<ul>
 		    <li class="game-button clock-counter"><b id="clock">00:00:00</b></li>
-		    <li class="game-button puzzle-elements edge-el"><a href="#" id="SHOW_EDGE" class=" left" title="Показать крайние элементы">Боковые</a></li>
-		    <li class="game-button puzzle-elements midl-el"><a href="#" id="SHOW_MIDDLE" class=" middle" title="Показать центральные элементы">Центральные</a></li>
-		    <li class="game-button puzzle-elements all-el"><a href="#" id="SHOW_ALL" class=" right" title="Показать все элементы">Все</a></li>
-		    <li class="game-button puzzle-shuffle"><a href="#" id="JIGSAW_SHUFFLE" class=" left" title="Перемешать">Перемешать!</a></li>
-		    <li class="game-button puzzle-preview"><a href="#" id="SHOW_PREVIEW" class=" middle" title="Подсказка">Подсказка</a></li> 
+		    <li class="game-button puzzle-elements edge-el"><a href="#" id="SHOW_EDGE" class=" " title="Показать крайние элементы">Боковые</a></li>
+		    <li class="game-button puzzle-elements midl-el"><a href="#" id="SHOW_MIDDLE" class=" " title="Показать центральные элементы">Центральные</a></li>
+		    <li class="game-button puzzle-elements all-el"><a href="#" id="SHOW_ALL" class=" " title="Показать все элементы">Все</a></li>
+		    <li class="game-button puzzle-shuffle"><a href="#" id="JIGSAW_SHUFFLE" class=" " title="Перемешать">Перемешать!</a></li>
+		    <li class="game-button puzzle-preview"><a href="#" id="SHOW_PREVIEW" class=" " title="Подсказка">Подсказка</a></li> 
 		    <li class="game-button puzzle-help"><a href="#" id="SHOW_HELP" class="" title="Как играть">Как играть</a></li>
 		    <!-- INSERT CUSTOM BUTTONS -->
 		    
 		    <!-- END INSERT CUSTOM BUTTONS -->
 		    <li>
-		        <div class="styled-select">
-		            <select id="set-parts" selected-index="8">
-		            </select>
-		        </div>
+		        
+                <select id="set-parts" selected-index="8" class="hide">
+                </select>
+		        <div class="set-parts-select" id="set-parts-select">
+                    <p class="chosen-option" id="chosen-option">12 элементов</p>
+                    <ul class="select-options" id="select-options" style="display:none;"></ul>
+                </div>
+                
 		    </li>
 		    <!-- Insert custom buttons here -->
 		    <li><a href="#" class="" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>

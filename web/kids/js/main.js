@@ -219,7 +219,7 @@ $(function(){
                 this.start();
         },
         
-        load: function(container) {
+         load: function(container) {
             $(window).load(function(){
                 $('.puzzle-setka-wrap', container).each(function(){
                     var imageheight = $(this).find('img.puzzle').height();
@@ -233,6 +233,19 @@ $(function(){
                 shuffled: true,
                 rotatePieces: false      
             });
+            
+            
+            $('#chosen-option').click(function(){
+                $(this).next().show();
+                $(this).hide();
+            })
+            
+            $('#select-options').click(function(){
+                $(this).hide();
+                $(this).prev().show();
+                
+                return false;
+            })
             
         },
         start: function(container) {
@@ -274,7 +287,7 @@ $(function(){
             self.windowWidth = $(window).width();
             self.windowHeight = $(window).height();
             $('#puzzle-block').css({
-                'width':self.windowWidth,
+                'width':self.windowWidth - 20,
                 'height':self.windowHeight
             })
         },
