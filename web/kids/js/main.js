@@ -68,6 +68,17 @@ $(function(){
                 .parent().removeClass('selected');
         },
         
+        /** Показать результат
+         *  @param {object} object
+         */
+        showResult: function(object){
+           if (object.hasClass('invisible'))  {
+                object.removeClass('invisible')
+                      .addClass('show')
+                      .siblings().addClass('invisible');
+            }
+        },
+        
         /** Запуск
          *  
          */
@@ -77,24 +88,22 @@ $(function(){
             $('.choice img').click(function(){
                 var image = $(this),
                     otherImages = image.parent().siblings('.choice'),
-                    choiseRes = image.closest('article').find('.choice-result');
+                    choiseRes = image.closest('article').find('.choice-result'),
+                    choiceNoRes = choiseRes.find('.choice-no-result'),
+                    choiceYesRes = choiseRes.find('.'+$(this).attr('id')+'-result');
                 
                 if (image.data('clicked')) {
                     image.data('clicked', false);
                     
                     self.deHilightImage(image);
-                   
-                    if (choiseRes.find('.choice-no-result').hasClass('invisible'))  {
-                        choiseRes.find('.choice-no-result')
-                                 .removeClass('invisible')
-                                 .addClass('show')
-                                 .siblings().addClass('invisible');
-                    }
+                    self.showResult(choiceNoRes)
                     
                 } else {
                     image.data('clicked', true);
+
                     self.hilightImage(image);
-                   
+                    self.showResult(choiceYesRes);
+                    
                     otherImages.each(function(){
                         var otherImage = $(this).find('img');
                         
@@ -103,14 +112,6 @@ $(function(){
                             self.deHilightImage(otherImage);
                         }
                     })
-                    
-                    if (choiseRes.find('.'+$(this).attr('id')+'-result').hasClass('invisible'))  {
-                        choiseRes.find('.'+$(this).attr('id')+'-result')
-                                 .removeClass('invisible')
-                                 .addClass('show')
-                                 .siblings()
-                                 .addClass('invisible');
-                    }
                 }
 
                 return false;
@@ -197,4 +198,110 @@ $(function(){
     })
    
     $('.fancy-hide').css('visibility','visible').hide();
+    
+    
+    // IE fix
+    if ($.browser.msie  && parseInt($.browser.version, 10) <= 8) {
+        $('.choose-block-horizontal .cbv-choices').append('<span class="ie-after"></span>');
+    }
+    
+    
+   // PUZZLE
+    var puzzleGame = {
+        windowWidth: $(window).width(), //retrieve current window width
+        windowHeight: $(window).height(), //retrieve current window height
+        docScrollTop : 0,
+        docScrollLeft : 0,
+        jsaw : {},
+        
+        init: function(container) {
+            if (container.length > 0)
+                this.start();
+        },
+        
+         load: function(container) {
+            $(window).load(function(){
+                $('.puzzle-setka-wrap', container).each(function(){
+                    var imageheight = $(this).find('img.puzzle').height();
+                    $(this).height(imageheight).css('marginTop', -imageheight/2);
+                })
+            });
+            this.jsaw = new jigsaw.Jigsaw({
+                defaultImage: "img/arkaim/puzzle.jpg",
+                piecesNumberTmpl: "%d элементов",
+                redirect: null,
+                shuffled: true,
+                rotatePieces: false      
+            });
+            
+            
+            $('#chosen-option').click(function(){
+                $(this).next().show();
+                $(this).hide();
+            })
+            
+            $('#select-options').click(function(){
+                $(this).hide();
+                $(this).prev().show();
+                
+                return false;
+            })
+            
+        },
+        start: function(container) {
+            var self = this;
+            self.load(container);
+            
+            $('img.puzzle-setka', container).click(function(){
+                self.clicked($(this));
+            });
+            
+            $(window).resize(function(){
+                self.resize();
+            })
+            
+            self.close();
+            
+        },
+        clicked: function(object) {
+            var self = this;
+            self.docScrollTop = $(document).scrollTop();	
+            self.docScrollLeft = $(document).scrollLeft();
+            
+            self.windowWidth = $(window).width();
+            self.windowHeight = $(window).height();
+            
+            $('body, html').css('overflow', 'hidden');
+            
+            self.jsaw.set_image(object.prev().attr('src'));
+            
+            $('#puzzle-block').css({
+                'width':self.windowWidth,
+                'height':self.windowHeight
+            }).show();
+            
+            document.location.href = '#';
+        }, 
+        resize: function() {
+            var self = this;
+            self.windowWidth = $(window).width();
+            self.windowHeight = $(window).height();
+            $('#puzzle-block').css({
+                'width':self.windowWidth - 20,
+                'height':self.windowHeight
+            })
+        },
+        close: function() {
+             $('a#CLOSE_PUZZLE').click(function(){
+                $('#puzzle-block').hide();
+                $('body, html').css('overflow', 'visible').scrollTop(self.docScrollTop).scrollLeft(self.docScrollLeft);
+                
+                return false;
+            });
+        }
+    };
+
+    puzzleGame.init($('.puzzle-init'));	
+    
+    
 })

@@ -135,13 +135,18 @@ var armdMkRussiaImages = {
                 else {
                     $('.rusObr-list').html(data);
                 }
+                if (!count || count < armdMkRussiaImages.loadByCount) {
+                    $('.more').hide();
+                }
+                armdMkRussiaImages.refreshVisibleCount();
             }
         };
 
         
 
         armdMkRussiaImages.startLoading();
-        $.when($.ajax(specialList))
+       $.when($.ajax(specialList))
+          //$.when($.ajax(tileParams), $.ajax(fullList), $.ajax(shortListParams))
             .done(function () {
                 armdMkRussiaImages.stopLoading();
             })

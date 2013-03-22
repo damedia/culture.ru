@@ -19,13 +19,14 @@
                 {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
 
                 {% for lectureCategory in lecture.categories %}
-                    <span><nobr>{{ lectureCategory.title }}</nobr></span>{% if not loop.last %},{% endif %}
+                    <span><nobr><a href="#" class="cinema-category-link" data-category-id="{{ lectureCategory.id }}">{{ lectureCategory.title }}</a></nobr></span>{% if not loop.last %},{% endif %}
                 {% endfor %}
             </div>
             <div class="plitka-footer">
                 <a href="{{ path('armd_lecture_default_index', { 'lectureSuperTypeCode': lecture.lectureSuperType.code }) }}">
                     {{ lecture.lectureSuperType.name }}
                 </a>
+                <span class="lecture-view-counter">Просмотров: {{ lecture.viewCount }}</span>
             </div>
         </div>
         {# Пока отключим рейтинг

@@ -22,7 +22,7 @@
 				   
 				   {% if entity.content|length > 0 %}
 					   <div class="btn-more">
-							<a href="javascript:history.back()" rel="full-text" title="{{ 'Special.Images of Russia.More'|trans }}" class=""><span class="more">{{ 'Special.Images of Russia.More'|trans }}...</span><span class="less">{{ 'Special.BackLink'|trans }}</span></a>
+							<a href="javascript:history.back()" rel="full-text" title="{{ 'Special.Images of Russia.More'|trans }}" class=""><span class="more">{{ 'Special.Images of Russia.More'|trans }}...</span></a>
 					   </div>
                    {% endif %}
                    
@@ -173,7 +173,7 @@
                 </div>
             </div>
     </div>
-
+     <p class="back-link obj-back-link"><a href="javascript:history.back()">{{ 'Special.BackLink'|trans }}</a></p>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

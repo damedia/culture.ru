@@ -35,7 +35,7 @@ class MainController extends Controller
         // NewFeature #53983
         $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
             ->findBy(array(
-                'id' => array(603,763,645,657),
+                'id' => array(616,720,880,667),
             ));
 
         $news = $this->getNewsManager()->findObjects(
@@ -67,7 +67,7 @@ class MainController extends Controller
             $lastInterview = $lastInterview[0];
         }
 
-        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 3);
+        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 1);
 
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
