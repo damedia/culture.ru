@@ -115,6 +115,7 @@ class News extends Admin
                         'media_format' => 'original',
                         'with_remove' => false, // Удаление выше, на уровне коллекции.
                         'with_title' => false,
+                        'with_description' => true,
                     ),
                     'attr' => array('class' => 'armd-sonata-images-collection'),
                 )

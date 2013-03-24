@@ -471,6 +471,10 @@
                         <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
 
                         <a href="{{ armd_media_original_url(stuff) }}">{{ stuff.name }}</a>
+
+                        {% if stuff.description %}
+                            <p>{{ stuff.description }}</p>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

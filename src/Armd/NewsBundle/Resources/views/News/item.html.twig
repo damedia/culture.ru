@@ -98,7 +98,11 @@
                 </span>
             </span>
 
-            <div id="jquery_jplayer_{{ stuff.id }}" class="jp-player" data-media-url="{% path stuff, 'original' %}"></div>
+            <div id="jquery_jplayer_{{ stuff.id }}" class="jp-player" data-media-url="{{ armd_media_original_url(stuff) }}"></div>
+            {% endif %}
+
+            {% if stuff.description %}
+                <p>{{ stuff.description }}</p>
             {% endif %}
 
         </div>
