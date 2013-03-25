@@ -4931,7 +4931,6 @@ body {
 					}
 						.el-one  img {
 							margin:13px;
-							height:318px;
 							width:auto;
 						}
 						
@@ -4943,7 +4942,6 @@ body {
 					display:block;
 				}
 				.threelines  img {
-					height:180px;
 				}
 				
 			.oneline .line {
@@ -4953,7 +4951,6 @@ body {
 					display:none;
 				}
 				.oneline  img {
-					height:560px;
 				}	
 						
 				.el-one-hovered {

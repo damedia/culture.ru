@@ -183,7 +183,6 @@ var exhibitItem = {
                 
                 $('.zoom-out').click(function() {
                     exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.resizeStep * 2);
-                    console.log(this);
                     exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                     
                     return false;
@@ -191,7 +190,6 @@ var exhibitItem = {
                 
                 $('.zoom-in').click(function() {
                     exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.resizeStep * 2);
-                    console.log(this);
                     exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                     
                     return false;

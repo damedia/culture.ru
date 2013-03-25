@@ -9,6 +9,12 @@ var exhibit = {
     activeFilters: {},
     tagsDelTimeout: null,
     imgLoadTimeout: null,
+    firstLineWidth: 0,
+    secondLineWidth: 0,
+    thirdLineWidth: 0,
+    oneLineImgHeight: 560,
+    twoLineImgHeight: 318,
+    threeLineImgHeight: 180,
     init: function(data, filters) {
         exhibit.objects = data.objects;
         exhibit.offset = data.offset;
@@ -80,7 +86,7 @@ var exhibit = {
             });
 
             $('#exp-categories').on('click', '.with-filter a', function() {
-                var li = $(this).parent();
+                var that = this, li = $(this).parent();
 
                 if (li.hasClass('filtered')) {
                     li.removeClass('filtered');
@@ -88,8 +94,14 @@ var exhibit = {
                     exhibit.filterLoadExhibits();
                 } else {
                     li.addClass('filtered').siblings().removeClass('filtered');
-                    $('.exp-filter').slideUp();
-                    $('#' + $(this).attr('data-id')).show();
+                    
+                    if ($('.exp-filter:visible').size()) {
+                        $('.exp-filter:visible').slideUp(function() {
+                            $('#' + $(that).attr('data-id')).show();
+                        });
+                    } else {
+                        $('#' + $(this).attr('data-id')).show();
+                    }
                 }
 
                 return false;
@@ -207,6 +219,7 @@ var exhibit = {
     },
     replaceExhibits: function () {
         $('.exponats-scroll .line > div').remove();
+        exhibit.firstLineWidth = exhibit.secondLineWidth = exhibit.thirdLineWidth = 0;
         exhibit.setExhibits(exhibit.objects);
     },
     setFilters: function() {
@@ -243,7 +256,7 @@ var exhibit = {
         
         return exhibit.activeFilters[fId][fItemId];
     },
-    setExhibits: function(objects) {
+    setExhibitsOld: function(objects) {
         if ($.isEmptyObject(objects)) {
             exhibit.stopLoad = true;
             
@@ -298,7 +311,80 @@ var exhibit = {
                 $('.exponats-scroll').find(elAppend).append(el);
             }                          
             
-            el.find('> a img:first').load(function() {
+            el.find('> a img:first').load(function() {               
+                clearTimeout(exhibit.imgLoadTimeout);
+                exhibit.imgLoadTimeout = exhibit.apiReinitialise();
+            });
+            
+        }
+
+        exhibit.setObjectListeners();
+    },
+    setExhibits: function(objects) {
+        if ($.isEmptyObject(objects)) {
+            exhibit.stopLoad = true;
+            
+            return false;
+        }
+
+        var elAppend, w, h, el,
+            elClone = $('#el-one-blank').eq(0),
+            type = $('#exp-types li.active a').attr('href').substr(1);                                         
+                  
+        for (var i in objects) {
+            w = objects[i]['img_width'] / objects[i]['img_height'];
+            
+            if (type == 'threelines') {
+                h = exhibit.threeLineImgHeight;
+                
+                if (exhibit.firstLineWidth <= exhibit.secondLineWidth && exhibit.firstLineWidth <= exhibit.thirdLineWidth) {                   
+                    elAppend = '.first-line';
+                    exhibit.firstLineWidth += w * h;
+                } else if (exhibit.secondLineWidth <= exhibit.thirdLineWidth) {                    
+                    elAppend = '.second-line';
+                    exhibit.secondLineWidth += w * h;
+                } else {                    
+                    elAppend = '.third-line';
+                    exhibit.thirdLineWidth += w * h;                 
+                }                             
+            } else if (type == 'twolines') {    
+                h = exhibit.twoLineImgHeight;
+                
+                if (exhibit.firstLineWidth <= exhibit.secondLineWidth) {
+                    elAppend = '.first-line';
+                    exhibit.firstLineWidth += w * h;
+                } else {
+                    elAppend = '.second-line';
+                    exhibit.secondLineWidth += w * h;
+                }                               
+            } else { 
+                h = exhibit.oneLineImgHeight;
+                elAppend = '.first-line';
+                //exhibit.firstLineWidth += w * h;               
+            }
+            
+            el = elClone.clone();           
+            el.attr('style', '');
+            el.find('a img').attr('src', objects[i]['img']);  
+            el.find('a img').height(h);
+            el.find('.el-one-title').html('<a href="' + Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}) + '">' + objects[i]['title'] + '</a>');
+            el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
+            el.find('.el-one-year').text(objects[i]['date']);
+            el.find('.el-one-museum').attr('data-fid', 'museum');
+            el.find('.el-one-museum').attr('data-fitemid', objects[i]['museum']['id']);
+            el.find('.el-one-museum').text(objects[i]['museum']['title']);
+            
+            for (var a in objects[i]['authors']) {              
+                el.find('.el-one-authors').append('<p><a href="#" data-fid="author" data-fitemid="' + objects[i]['authors'][a]['id'] + '">' + objects[i]['authors'][a]['title'] + '</a></p>');
+            }
+            
+            if (exhibit.api) {
+               exhibit.api.getContentPane().find(elAppend).append(el);
+            } else {
+                $('.exponats-scroll').find(elAppend).append(el);
+            }                          
+
+            el.find('> a img:first').load(function() {               
                 clearTimeout(exhibit.imgLoadTimeout);
                 exhibit.imgLoadTimeout = exhibit.apiReinitialise();
             });
@@ -308,7 +394,7 @@ var exhibit = {
         exhibit.setObjectListeners();
     },
     apiReinitialise: function(timeout) {
-        if (exhibit.api == undefined) {
+        if (exhibit.api == undefined || $('.exponats-scroll-pane').data('jsp') == undefined) {
             return 0;
         }
         

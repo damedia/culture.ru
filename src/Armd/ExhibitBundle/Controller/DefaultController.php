@@ -80,12 +80,18 @@ class DefaultController extends Controller
         foreach ($entities as $i => $e) {
             $data['objects'][$e->getId()] = array(
                 'id' => $e->getId(),
-                'img' => $this->getImageSrc($e->getImage(), 'default'),               
+                'img' => $this->getImageSrc($e->getImage(), 'default'),    
+                'img_width' => $e->getImage()->getWidth(),
+                'img_height' => $e->getImage()->getHeight(),
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),
-                'museum' => array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle()),
+                'museum' => array('id' => '', 'title' => ''),
                 'authors' => array()
             );
+            
+            if ($e->getMuseum()) {
+                $data['objects'][$e->getId()]['museum'] = array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle());
+            }
             
             foreach ($e->getAuthors() as $a) {
                 $data['objects'][$e->getId()]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
@@ -133,16 +139,35 @@ class DefaultController extends Controller
                 'date' => $e->getDate()->format('Y'),
                 'description' => $e->getDescription(),
                 'museum' => array(
+                    'id' => '', 
+                    'title' => '',
+                    'address' => '',
+                    'url' => '',
+                    'img' => '',
+                    'vtour' => array()
+                ),               
+                'authors' => array(),
+                'video' => array()
+            );
+            
+            if ($e->getMuseum()) {
+                $data['objects'][$e->getId()]['museum'] = array(
                     'id' => $e->getMuseum()->getId(), 
                     'title' => $e->getMuseum()->getTitle(),
                     'address' => $e->getMuseum()->getAddress(),
                     'url' => $e->getMuseum()->getUrl(),
                     'img' => $this->getImageSrc($e->getMuseum()->getImage(), 'realSmall'),
                     'vtour' => array()
-                ),               
-                'authors' => array(),
-                'video' => array()
-            );
+                );
+                
+                if ($e->getMuseum()->getVirtualTours()->count()) {
+                    $vTour = $e->getMuseum()->getVirtualTours()->first();
+
+                    if ($vTour->getUrl()) {
+                        $data['objects'][$e->getId()]['museum']['vtour']['url'] = $vTour->getUrl();
+                    }
+                }
+            }
             
             foreach ($e->getAuthors() as $a) {
                 $data['objects'][$e->getId()]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
@@ -155,15 +180,7 @@ class DefaultController extends Controller
                     $data['objects'][$e->getId()]['video']['img'] = $video->getImage();
                     $data['objects'][$e->getId()]['video']['frame'] = $video->getFrame();
                 }
-            }
-            
-            if ($e->getMuseum()->getVirtualTours()->count()) {
-                $vTour = $e->getMuseum()->getVirtualTours()->first();
-                
-                if ($vTour->getUrl()) {
-                    $data['objects'][$e->getId()]['museum']['vtour']['url'] = $vTour->getUrl();
-                }
-            }
+            }                        
         }
         
         return $data;
@@ -200,13 +217,15 @@ class DefaultController extends Controller
         $categories = $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree();
         
         foreach ($categories as $c) {
-            $filters[$c['id']] = array(
-                'title' => $c['title'],
-                'data' => array()
-            );
-            
-            foreach ($c['children'] as $ch) {
-                $filters[$c['id']]['data'][] = array('id' => $ch['id'], 'title' => $ch['title']);
+            if (isset($c['children'])) {
+                $filters[$c['id']] = array(
+                    'title' => $c['title'],
+                    'data' => array()
+                );
+
+                foreach ($c['children'] as $ch) {
+                    $filters[$c['id']]['data'][] = array('id' => $ch['id'], 'title' => $ch['title']);
+                }
             }
         }
         
