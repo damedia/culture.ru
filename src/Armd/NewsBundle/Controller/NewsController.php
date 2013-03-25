@@ -15,18 +15,55 @@ use DateTime;
 
 class NewsController extends Controller
 {
+    /**
+     * @param int $count
+     *
+     * @return array
+     */
+    private function getNewsFeed($count = 30)
+    {
+        return $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages'),
+                NewsManager::CRITERIA_LIMIT => $count
+            )
+        );
+    }
+
+    /**
+     * @Route("/widget/", defaults={"_format"="js"}, name="armd_news_widget")
+     */
+    function widgetAction()
+    {
+        $count = $this->getRequest()->get('count', 3);
+
+        // Validate...
+        if (!in_array($count, array(1, 3, 5))) {
+            $count = 3; // Default.
+        }
+
+        $news = $this->getNewsFeed($count);
+
+        return $this->render('ArmdNewsBundle:News:widget.js.twig', array(
+            'newsList' => $news
+        ));
+    }
+
+    /**
+     * @Route("/get-widget/", name="armd_news_get_widget")
+     */
+    function getWidgetAction()
+    {
+        return $this->render('ArmdNewsBundle:News:get-widget.html.twig');
+    }
 
     /**
      * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
      */
     function rssAction()
     {
-        $news = $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages'),
-                NewsManager::CRITERIA_LIMIT => 30
-            )
-        );
+        $news = $this->getNewsFeed();
+
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
             'news' => $news
         ));
