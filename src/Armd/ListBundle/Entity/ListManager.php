@@ -42,7 +42,6 @@ abstract class ListManager
     public function findObjects(array $criteria)
     {
         if (isset($criteria[self::CRITERIA_TAGS])) {
-
             if (empty($criteria[self::CRITERIA_LIMIT])) {
                 throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
             }
@@ -77,6 +76,9 @@ abstract class ListManager
         return $objects;
     }
 
+    /**
+     * @return QueryBuilder
+     */
     abstract public function getQueryBuilder();
 
 
@@ -95,6 +97,7 @@ abstract class ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
+            $qb->resetDQLPart('orderBy');
             foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
                 $qb->addOrderBy("$o.$k", $v);
             }

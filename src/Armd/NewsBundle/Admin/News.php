@@ -46,6 +46,8 @@ class News extends Admin
             ->add('announce')
             ->add('body')
             ->add('date')                            
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
         
         parent::configureShowField($showMapper);        
@@ -65,6 +67,14 @@ class News extends Admin
                 ->add('announce')
                 ->add('body')
                 ->add('source')
+            ->end()
+            ->with('Главная')
+                ->add('showOnMain', null, array(
+                    'required' => false
+                ))
+                ->add('showOnMainOrd', null, array(
+                    'required' => false
+                ))                
             ->end()
             ->with('Classification')
                 ->add('category')
@@ -112,6 +122,8 @@ class News extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
             ->add('date')            
             ->add('category')
             ->add('subject')            
@@ -131,6 +143,8 @@ class News extends Admin
             ->add('published')
             ->add('important')
             ->add('isOnMap')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
     }
 
@@ -164,4 +178,26 @@ class News extends Admin
         $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
     }
 
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = parent::getBatchActions();
+
+        
+        // check user permissions
+        if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
+            // /*
+            $actions['ShowOnMain']=array(
+                'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['NotShowOnMain']=array(
+                'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            // */
+        }
+        
+        return $actions;
+    }    
 }

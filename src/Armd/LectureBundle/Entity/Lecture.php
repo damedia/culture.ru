@@ -152,6 +152,16 @@ class Lecture implements Taggable
      */
     private $isTop100Film = false;
 
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     */
+    private $showOnMain;
+    
+    /**
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     */
+    private $showOnMainOrd;
+    
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -640,5 +650,39 @@ class Lecture implements Taggable
     public function setIsTop100Film($isTop100Film)
     {
         $this->isTop100Film = $isTop100Film;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        $this->showOnMain = $this->showOnMain;
+
+        return $this->showOnMain;
+    }
+
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainOrd()
+    {
+        $this->showOnMainOrd = $this->showOnMainOrd;
+
+        return $this->showOnMainOrd;
+    }
+
+    public function setShowOnMainOrd($showOnMainOrd)
+    {
+        $this->showOnMainOrd = $showOnMainOrd;
+
+        return $this;
     }
 }

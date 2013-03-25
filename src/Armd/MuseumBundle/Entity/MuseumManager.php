@@ -44,7 +44,6 @@ class MuseumManager extends ListManager
 
         $qb->leftJoin('_museum.image', '_museumImage', 'WITH', '_museumImage.enabled = TRUE')
             ->andWhere('_museum.published = TRUE')
-            ->orderBy('_museum.title', 'DESC')
         ;
 
         return $qb;
