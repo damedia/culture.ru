@@ -232,7 +232,7 @@ class ObjectManager extends ListManager
         $sql = 'SELECT DISTINCT ro.region_id id, r.title
                 FROM atlas_object_region ro
                 LEFT JOIN atlas_region r ON r.id=ro.region_id
-                LEFT JOIN atlas_object o ON o.published=TRUE AND o.show_at_russian_image=TRUE
+                JOIN atlas_object o ON o.published=TRUE AND o.show_at_russian_image=TRUE AND ro.object_id = o.id
                 ORDER BY title ASC';
         $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute();
