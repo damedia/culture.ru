@@ -35,13 +35,7 @@ abstract class ListManager
 
     public function findObjects(array $criteria)
     {
-        // /*
-        // echo '<pre>';
-        // print_r($criteria);
-        // echo '</pre>';
-        // */
         if (!empty($criteria[self::CRITERIA_RANDOM])) {
-            echo '-' . $criteria[self::CRITERIA_RANDOM] . '-' . self::CRITERIA_RANDOM . '-' . '<br/>';
             $qb = $this->getQueryBuilder();
             $criteriaMod = $criteria;
             unset($criteriaMod[self::CRITERIA_LIMIT]);
@@ -74,12 +68,16 @@ abstract class ListManager
         } else {
             $qb = $this->getQueryBuilder();
             $this->setCriteria($qb, $criteria);
+            \gFuncs::dbgWriteLogVar($qb->getQuery()->getDQL(), false, 'query builder'); // DBG:
             $objects = $qb->getQuery()->getResult();
         }
 
         return $objects;
     }
 
+    /**
+     * @return QueryBuilder
+     */
     abstract public function getQueryBuilder();
 
 
@@ -98,6 +96,7 @@ abstract class ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
+            $qb->resetDQLPart('orderBy');
             foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
                 $qb->addOrderBy("$o.$k", $v);
             }

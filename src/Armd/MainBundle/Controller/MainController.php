@@ -183,7 +183,6 @@ class MainController extends Controller
                 $result[] = $obj->{'data'};
             }
         }
-        \gFuncs::dbgWriteLogVar($result, false, ''); // DBG:
         return $this->render(
             'ArmdMainBundle:Homepage:latest_communication_topics.html.twig',
             array(

@@ -274,6 +274,7 @@ class ObjectAdmin extends Admin
                 'field_type' => 'checkbox',
                 'callback' => array($this, 'getEmptyCoordinatesFilter')
             ))
+            ->add('showAtRussianImage')
             ->add('showOnMain')
             ->add('showOnMainOrd');                        
     }

@@ -1,117 +1,40 @@
 <?php
 namespace Armd\AtlasBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController;
+use Armd\AdminHelperBundle\Controller\BaseCrudController;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ObjectCrudController extends CRUDController
+class ObjectCrudController extends BaseCrudController
 {
     public function batchActionPublish(ProxyQueryInterface $selectedModelQuery)
     {
-        if ($this->admin->isGranted('EDIT') === false) {
-            throw new AccessDeniedException();
-        }
-
-        $modelManager = $this->admin->getModelManager();
-
-        $selectedModels = $selectedModelQuery->execute();
-
-        try {
-            foreach ($selectedModels as $selectedModel) {
-
-                $selectedModel->setPublished(true);
-                $modelManager->update($selectedModel);
-            }
-
-        } catch (\Exception $e) {
-            $this->get('session')->setFlash('sonata_flash_error', $this->admin->trans('flash_batch_publish_error'));
-
-            return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
-        }
-
-        $this->get('session')->setFlash('sonata_flash_success', $this->admin->trans('flash_batch_publish_success'));
-
-        return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setPublished(true);
+            });
     }
 
     public function batchActionUnpublish(ProxyQueryInterface $selectedModelQuery)
     {
-        if ($this->admin->isGranted('EDIT') === false) {
-            throw new AccessDeniedException();
-        }
-
-        $modelManager = $this->admin->getModelManager();
-
-        $selectedModels = $selectedModelQuery->execute();
-
-        try {
-            foreach ($selectedModels as $selectedModel) {
-
-                $selectedModel->setPublished(false);
-                $modelManager->update($selectedModel);
-            }
-
-        } catch (\Exception $e) {
-            $this->get('session')->setFlash('sonata_flash_error', $this->admin->trans('flash_batch_unpublish_error'));
-
-            return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
-        }
-
-        $this->get('session')->setFlash('sonata_flash_success', $this->admin->trans('flash_batch_unpublish_success'));
-
-        return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
+        return $this->doBatchAction($selectedModelQuery, function($object) {
+                $object->setPublished(false);
+            });
     }
+
     public function batchActionShowOnMain(ProxyQueryInterface $selectedModelQuery)
     {
-        if ($this->admin->isGranted('EDIT') === false) {
-            throw new AccessDeniedException();
-        }
-        $modelManager = $this->admin->getModelManager();
-
-        $selectedModels = $selectedModelQuery->execute();
-        try {
-            foreach ($selectedModels as $selectedModel) {
-
-                $selectedModel->setShowOnMain(true);
-                $modelManager->update($selectedModel);
-            }
-
-        } catch (\Exception $e) {
-            $this->get('session')->setFlash('sonata_flash_error', $this->admin->trans('Error'));
-
-            return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
-        }
-
-        $this->get('session')->setFlash('sonata_flash_success', $this->admin->trans('Success'));
-        
-        return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));        
+        return $this->doBatchAction($selectedModelQuery, function($object) {
+                $object->setShowOnMain(true);
+            });
     }
+
 
     public function batchActionNotShowOnMain(ProxyQueryInterface $selectedModelQuery)
     {
-        if ($this->admin->isGranted('EDIT') === false) {
-            throw new AccessDeniedException();
-        }
-        $modelManager = $this->admin->getModelManager();
-
-        $selectedModels = $selectedModelQuery->execute();
-        try {
-            foreach ($selectedModels as $selectedModel) {
-
-                $selectedModel->setShowOnMain(false);
-                $modelManager->update($selectedModel);
-            }
-
-        } catch (\Exception $e) {
-            $this->get('session')->setFlash('sonata_flash_error', $this->admin->trans('Error'));
-
-            return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
-        }
-
-        $this->get('session')->setFlash('sonata_flash_success', $this->admin->trans('Success'));
-        
-        return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));        
+        return $this->doBatchAction($selectedModelQuery, function($object) {
+                $object->setShowOnMain(false);
+            });
     }
+
 }

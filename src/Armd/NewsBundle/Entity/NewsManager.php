@@ -99,6 +99,7 @@ class NewsManager extends ListManager
                 $qb->expr()->lte('_news.publishFromDate', ':now')
             )
         )
+            ->orderBy('_news.newsDate', 'DESC')
             ->setParameter('now', new \DateTime());
 
         return $qb;
