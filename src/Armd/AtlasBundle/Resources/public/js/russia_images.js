@@ -24,22 +24,7 @@ var armdMkRussiaImages = {
             armdMkRussiaImages.resetTextFilter();
             armdMkRussiaImages.loadList(false);
         });
-        
-        armdMkRussiaImages.updateEventClickFilter();
-        
-        // init search
-        $('#search-form').bind('submit', function(event) {
-            if ($('#search-this-section').prop('checked')) {
-                event.preventDefault();
-                armdMkRussiaImages.resetFilter();
-                armdMkRussiaImages.readTextFilter();
-                armdMkRussiaImages.loadList(false);
-            }
-        });
 
-    },
-
-    updateEventClickFilter: function () {
         // object region click
         $('.object-region').bind('click', function (event) {
             event.preventDefault();
@@ -52,6 +37,17 @@ var armdMkRussiaImages = {
 
             armdMkRussiaImages.loadList(false);
         });
+
+        // init search
+        $('#search-form').bind('submit', function(event) {
+            if ($('#search-this-section').prop('checked')) {
+                event.preventDefault();
+                armdMkRussiaImages.resetFilter();
+                armdMkRussiaImages.readTextFilter();
+                armdMkRussiaImages.loadList(false);
+            }
+        });
+
     },
 
     readFilter: function () {
@@ -127,7 +123,6 @@ var armdMkRussiaImages = {
             type: 'get',
             data: data,
             success: function (data) {
-                // alert('bind');
                 var count = $(data).filter('.plitka-one-wrap').length;
 
                 if (append) {
@@ -142,7 +137,6 @@ var armdMkRussiaImages = {
                     $('.more').hide();
                 }
                 armdMkRussiaImages.refreshVisibleCount();
-                armdMkRussiaImages.updateEventClickFilter();
             }
         };
 
