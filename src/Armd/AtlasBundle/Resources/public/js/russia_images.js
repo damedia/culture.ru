@@ -26,7 +26,7 @@ var armdMkRussiaImages = {
         });
 
         // object region click
-        $('.object-region').bind('click', function (event) {
+        $('.main').on('click', '.object-region', function (event) {
             event.preventDefault();
             var regionId = $(this).data('region-id');
 
