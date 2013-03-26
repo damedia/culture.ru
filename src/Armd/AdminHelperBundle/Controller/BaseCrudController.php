@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BaseCrudController extends CRUDController {
 
-    public function doBatchAction(ProxyQueryInterface $selectedModelQuery, callable $actionFunction) {
+    public function doBatchAction(ProxyQueryInterface $selectedModelQuery, $actionFunction) {
         if ($this->admin->isGranted('EDIT') === false) {
             throw new AccessDeniedException();
         }
