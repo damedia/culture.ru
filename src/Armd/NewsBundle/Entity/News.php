@@ -188,10 +188,50 @@ class News extends BaseNews implements CommentableInterface, Taggable
      */
     protected $theme;
 
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     */
+    private $showOnMain;
+    
+    /**
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     */
+    private $showOnMainOrd;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="content_news_stuff")
+     *
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stuff;
+
     public function __construct()
     {
         $this->newsDate = new \DateTime();
         $this->tags = new ArrayCollection();
+        $this->stuff = new ArrayCollection();
+    }
+
+    public function setStuff($stuff)
+    {
+
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 
     /**
@@ -899,4 +939,38 @@ class News extends BaseNews implements CommentableInterface, Taggable
     {
         return $this->theme;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        $this->showOnMain = $this->showOnMain;
+
+        return $this->showOnMain;
+    }
+
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainOrd()
+    {
+        $this->showOnMainOrd = $this->showOnMainOrd;
+
+        return $this->showOnMainOrd;
+    }
+
+    public function setShowOnMainOrd($showOnMainOrd)
+    {
+        $this->showOnMainOrd = $showOnMainOrd;
+
+        return $this;
+    }    
 }

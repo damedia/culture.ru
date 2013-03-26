@@ -146,6 +146,28 @@ class LectureAdmin extends Admin
                 )
                 */
             ->end()
+            ->with('Stuff')
+            ->add(
+                'stuff',
+                'collection',
+                array(
+                    'type' => 'armd_media_file_type',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'options' => array(
+                        'required' => false,
+                        'media_provider' => 'sonata.media.provider.file',
+                        'by_reference' => true,
+                        'media_context' => 'stuff',
+                        'media_format' => 'original',
+                        'with_remove' => false, // Удаление выше, на уровне коллекции.
+                        'with_title' => false,
+                        'with_description' => true,
+                    ),
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                )
+            )
+            ->end()
         ;
     }
 

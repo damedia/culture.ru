@@ -53,12 +53,42 @@
     <style>
         .content.collapsed{ height:200px; overflow:hidden; }
         .fancybox-video-wrapper iframe{ display:block; }
+
+        .stuff .file-icon {
+            vertical-align: baseline;
+        }
+
+        .stuff .jp-audio ul, .stuff .jp-audio li {
+            display: inline;
+        }
     </style>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".jp-player").each(function() {
+                $(this).jPlayer({
+                    ready: function(event) {
+                        $(this).jPlayer("setMedia", {
+                            mp3: $(this).attr('data-media-url')
+                        });
+                    },
+                    play: function() { // To avoid both jPlayers playing together.
+                        $(this).jPlayer("pauseOthers");
+                    },
+                    {# Возможно, тут лучше пронать через PHP путь как-то, но assets по смыслу кажется не тем инструментом. #}
+                    swfPath: "/vendor/jquery.jplayer/",
+                    cssSelectorAncestor: "#jp_container_" + $(this).attr('id').replace('jquery_jplayer_', ''),
+                    supplied: "mp3"
+                });
+            });
+        });
+    </script>
+
     <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
     {#<script src="{{ asset('vendor/shiftzoom/shiftzoom.js') }}"></script>#}
     <script src="{{ asset('vendor/zp/zp.js') }}"></script>
@@ -427,6 +457,32 @@
         </article>
     </div>
     <!-- /Contacts -->
+
+    {% if entity.stuff.count %}
+    <!-- Stuff -->
+    <div class="block">
+        <article class="static-block stuff-block">
+
+            <h2>{{"Stuff"|trans}}</h2>
+
+            <div class="block-text">
+                {% for stuff in entity.stuff %}
+                    <div>
+                        <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
+
+                        <a href="{{ armd_media_original_url(stuff) }}">{{ stuff.name }}</a>
+
+                        {% if stuff.description %}
+                            <p>{{ stuff.description }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </article>
+    </div>
+    <!-- /Stuff -->
+    {% endif %}
 
 {% endblock %}
 

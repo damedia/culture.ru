@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Application\Sonata\MediaBundle\Entity\Media;
+
 /**
  * Armd\AtlasBundle\Entity\Object
  *
@@ -158,11 +160,6 @@ class Object implements Taggable
     private $virtualTours;
 
     /**
-     * @ORM\Column(name="show_at_homepage", type="boolean", nullable=true)
-     */
-    private $showAtHomepage = false;
-
-    /**
      * @ORM\Column(name="show_at_russian_image", type="boolean", nullable=true)
      */
     private $showAtRussianImage = false;
@@ -245,6 +242,25 @@ class Object implements Taggable
 
     private $tags;
 
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     */
+    private $showOnMain;
+    
+    /**
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     */
+    private $showOnMainOrd;
+    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="atlas_object_stuff")
+     *
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stuff;
+
     public function __toString()
     {
         return $this->getTitle();
@@ -271,6 +287,27 @@ class Object implements Taggable
         $this->regions = new ArrayCollection();
         $this->createdAt = $this->updatedAt = new \DateTime("now");
         $this->virtualTours = new ArrayCollection();
+        $this->stuff = new ArrayCollection();
+    }
+
+    public function setStuff($stuff)
+    {
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 
     public function getIcon()
@@ -629,19 +666,6 @@ class Object implements Taggable
     }
 
     /**
-     * Set showAtHomepage
-     *
-     * @param boolean $showAtHomepage
-     * @return Object
-     */
-    public function setShowAtHomepage($showAtHomepage)
-    {
-        $this->showAtHomepage = $showAtHomepage;
-
-        return $this;
-    }
-
-    /**
      * Set virtualTourImage
      *
      * @param \Application\Sonata\MediaBundle\Entity\Media $virtualTourImage
@@ -682,16 +706,6 @@ class Object implements Taggable
     public function getVirtualTours()
     {
         return $this->virtualTours;
-    }
-
-    /**
-     * Get showAtHomepage
-     *
-     * @return boolean
-     */
-    public function getShowAtHomepage()
-    {
-        return $this->showAtHomepage;
     }
 
     /**
@@ -1283,8 +1297,6 @@ class Object implements Taggable
 
         return $this;
     }
-
-
     /**
      * @return string
      */
@@ -1301,5 +1313,38 @@ class Object implements Taggable
         return $this->getId();
     }
 
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        $this->showOnMain = $this->showOnMain;
+
+        return $this->showOnMain;
+    }
+
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainOrd()
+    {
+        $this->showOnMainOrd = $this->showOnMainOrd;
+
+        return $this->showOnMainOrd;
+    }
+
+    public function setShowOnMainOrd($showOnMainOrd)
+    {
+        $this->showOnMainOrd = $showOnMainOrd;
+
+        return $this;
+    }    
 
 }

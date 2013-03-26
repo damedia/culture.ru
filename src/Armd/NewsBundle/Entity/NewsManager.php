@@ -58,6 +58,9 @@ class NewsManager extends ListManager
     /** example: 'the rolling stones' */
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
+    /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
+    const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
+    
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
         parent::__construct($em, $tagManager);

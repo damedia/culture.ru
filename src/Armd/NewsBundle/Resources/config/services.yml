@@ -20,7 +20,7 @@ services:
         class: Armd\NewsBundle\Admin\News
         tags:
             - { name: sonata.admin, manager_type: orm, group: News, label: News }
-        arguments: [null, Armd\NewsBundle\Entity\News, SonataAdminBundle:CRUD, @service_container]
+        arguments: [null, Armd\NewsBundle\Entity\News, ArmdNewsBundle:NewsCrud, @service_container]        
         
     armd_news.manager.news:
         class: Armd\NewsBundle\Entity\NewsManager
@@ -36,3 +36,7 @@ services:
         arguments: [@service_container]
         tags:
             - { name: doctrine.event_listener, event: onFlush }
+
+    armd_museum.manager.news:
+        class: Armd\MuseumBundle\Entity\MuseumManager
+        arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager, @search.sphinxsearch.search]

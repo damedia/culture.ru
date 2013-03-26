@@ -143,6 +143,7 @@ class Lecture implements Taggable
     private $rolesPersons;
 
     /**
+<<<<<<< HEAD
      * @ORM\Column(name="view_count", type="integer", nullable=true)
      */
     private $viewCount = 0;
@@ -152,10 +153,50 @@ class Lecture implements Taggable
      */
     private $isTop100Film = false;
 
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     */
+    private $showOnMain;
+    
+    /**
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     */
+    private $showOnMainOrd;
+    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="lecture_stuff")
+     *
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stuff;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->rolesPersons = new ArrayCollection();
+        $this->stuff = new ArrayCollection();
+    }
+
+    public function setStuff($stuff)
+    {
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 
     public function __toString()
@@ -640,5 +681,39 @@ class Lecture implements Taggable
     public function setIsTop100Film($isTop100Film)
     {
         $this->isTop100Film = $isTop100Film;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        $this->showOnMain = $this->showOnMain;
+
+        return $this->showOnMain;
+    }
+
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainOrd()
+    {
+        $this->showOnMainOrd = $this->showOnMainOrd;
+
+        return $this->showOnMainOrd;
+    }
+
+    public function setShowOnMainOrd($showOnMainOrd)
+    {
+        $this->showOnMainOrd = $showOnMainOrd;
+
+        return $this;
     }
 }

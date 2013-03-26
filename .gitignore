@@ -2,6 +2,7 @@
 /app/cache/*
 /app/logs/*
 /app/config/parameters.yml
+/app/config/sphinx/sphinx.conf
 /build
 /vendor
 /composer.phar
