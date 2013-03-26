@@ -1,0 +1,4 @@
+personTypes:
+    - title: Автор
+      slug: art_gallery_author
+      ref_code: armd_person.type.author

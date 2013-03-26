@@ -1,0 +1,5 @@
+person:
+    - name: Харменс ван Рейн Рембрандт
+      description: Голландский живописец, офортист и рисовальщик, величайший художник Голландии
+      personTypes: [armd_person.type.author]
+      ref_code: armd_person.person.rem

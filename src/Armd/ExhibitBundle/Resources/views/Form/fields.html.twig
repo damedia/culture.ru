@@ -13,15 +13,13 @@
 {% block armd_art_object_categories_widget_options %}
 {% spaceless %}
 {% for choice in options %}
-    {% if choice.children|length > 0 %}
+    {% if choice.lvl == 1 %}
         <optgroup label="{{ choice.title }}">
             {% set options = choice.children %}
             {{ block('armd_art_object_categories_widget_options') }}
         </optgroup>
-    {% else %}
-        {% if not only_with_icon or only_with_icon and choice.iconMedia is not empty %}
-            <option value="{{ choice.id }}"{% if choice.id in value %} selected="selected"{% endif %}>{{ choice.title|trans({}, translation_domain) }}</option>
-        {% endif %}
+    {% elseif choice.lvl == 2 %}
+        <option value="{{ choice.id }}"{% if choice.id in value %} selected="selected"{% endif %}>{{ choice.title|trans({}, translation_domain) }}</option>
     {% endif %}
 {% endfor %}
 

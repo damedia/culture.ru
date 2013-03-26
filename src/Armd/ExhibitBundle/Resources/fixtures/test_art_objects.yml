@@ -1,0 +1,7 @@
+objects:
+    - title: Флора
+      date: 1634-01-01
+      description: Работа художника также известна как Саския в образе Флоры
+      image: flora.jpg
+      categories: [armd_exhibit.category.pic]
+      authors: [armd_person.person.rem]      

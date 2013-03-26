@@ -20,7 +20,7 @@ class Version20130325111850 extends AbstractMigration
                 INSERT INTO exhibit_category (id, published, title, root, lvl, lft, rgt)
                 VALUES((select nextval('exhibit_category_id_seq')), true, :title, :root, :lvl, :lft, :rgt)
             ", array(
-                'title' => 'Root',
+                'title' => '== Корневая категория ==',
                 'root' => 1,
                 'lvl' => 0,
                 'lft' => 0,

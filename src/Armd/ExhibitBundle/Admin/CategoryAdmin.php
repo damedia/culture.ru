@@ -96,8 +96,7 @@ class CategoryAdmin extends Admin
                 'label' => 'Title'
             ))
             ->add('published')
-//            ->add('actions', 'text', array('template' => 'ArmdAtlasBundle:Admin:list_category_row_actions.html.twig'))
-        ;
+        ;       
     }
 
     public function getFormTheme()

@@ -38,15 +38,13 @@ class ArtObjectCategoriesType extends AbstractType
     {
         parent::buildView($view, $form, $options);
         $view->vars['root_element'] = $this->getRootElement();
-        $view->vars['only_with_icon'] = $options['only_with_icon'];
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'class' => 'Armd\ExhibitBundle\Entity\Category',
-            'multiple' => true,
-            'only_with_icon' => false
+            'multiple' => true
         ));
     }
 

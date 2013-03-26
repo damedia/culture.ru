@@ -150,10 +150,10 @@ class Person implements Taggable
     /**
      * Add personTypes
      *
-     * @param \Armd\PersonBundle\Entity\PersonTypes $personTypes
+     * @param \Armd\PersonBundle\Entity\PersonType $personTypes
      * @return Person
      */
-    public function addPersonType(\Armd\PersonBundle\Entity\PersonTypes $personTypes)
+    public function addPersonType(\Armd\PersonBundle\Entity\PersonType $personTypes)
     {
         $this->personTypes[] = $personTypes;
     
@@ -163,9 +163,9 @@ class Person implements Taggable
     /**
      * Remove personTypes
      *
-     * @param \Armd\PersonBundle\Entity\PersonTypes $personTypes
+     * @param \Armd\PersonBundle\Entity\PersonType $personTypes
      */
-    public function removePersonType(\Armd\PersonBundle\Entity\PersonTypes $personTypes)
+    public function removePersonType(\Armd\PersonBundle\Entity\PersonType $personTypes)
     {
         $this->personTypes->removeElement($personTypes);
     }
