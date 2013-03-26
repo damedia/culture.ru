@@ -245,10 +245,10 @@ $(function () {
 		return false;
 	})
 	
-	
+	/*
 	$('.museum-image, .plitka-name').on('click', $(this), function(){
 		$(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
-	})
+	})*/
 	
 	if($(".iframe").length > 0) {
 		$(".iframe").fancybox({

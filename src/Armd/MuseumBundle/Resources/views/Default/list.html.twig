@@ -1,54 +1,428 @@
-<div id="museums-container" class="plitka wide-plitka">
-    {% if museums|length > 0 %}
-        {% for m in museums %}
-            <div class="plitka-one-wrap">
-                <div class="plitka-one clearfix">
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            {{ m.title|raw }}
-                        </span>
-                        {% if m.region %}
-                            <a href="{{ path('armd_museum_index', { region:m.region.id }) }}" class="plitka-type">{{ m.region.title }}</a>
+<div class="tab active" id="plitka">
+    <div id="museums-container" class="plitka wide-plitka" >
+        {% if museums|length > 0 %}
+            {% for m in museums %}
+                <div class="plitka-one-wrap">
+                    <div class="plitka-one clearfix">
+                        <div class="plitka-text">
+                            <span class="plitka-name">
+                                {{ m.title|raw }}
+                            </span>
+                            {% if m.region %}
+                                <a href="{{ path('armd_museum_index', { region:m.region.id }) }}" class="plitka-type">{{ m.region.title }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="museum-image-container">
+                            <div class="museum-image" style="background-image:url({% path m.bannerImage, 'banner' %});"></div>
+                            <div class="museum-image-over">
+                                <a class="museum-image-link vob iframe" href="{{ m.url }}" data-fancybox-type="iframe">
+                                    <span class="museum-image-text">
+                                        {{ "visit_museum"|trans|raw }}
+                                    </span>
+                                </a>
+                                <a href="#instruction" class="museum-instr-link">
+                                    {{ "manual_instruction"|trans|raw }}
+                                </a>
+                            </div>
+                        </div>
+                        {% if m.atlasObject %}
+                            <div class="museum-chapter">
+                                <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" title="{{ m.atlasObject.title }}">
+                                    <img src="{% path m.atlasObject.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ m.atlasObject.title }}" class="museum-chapter-image" />
+                                </a>
+                                <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" class="museum-chapter-label">
+                                    Посмотреть<br />
+                                    в разделе<br />
+                                    Образы России
+                                </a>
+                            </div>
                         {% endif %}
                     </div>
-                    <div class="museum-image-container">
-                        <div class="museum-image" style="background-image:url({% path m.bannerImage, 'banner' %});"></div>
-                        <div class="museum-image-over">
-                            <a class="museum-image-link vob iframe" href="{{ m.url }}" data-fancybox-type="iframe">
-                                <span class="museum-image-text">
-                                    {{ "visit_museum"|trans|raw }}
-                                </span>
-                            </a>
-                            <a href="#instruction" class="museum-instr-link">
-                                {{ "manual_instruction"|trans|raw }}
-                            </a>
-                        </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <strong>{{ "museums_not_found"|trans }}</strong>
+        {% endif %}
+    </div>
+    <div id="instruction" style="display:none;">
+        <div class="window">
+            <div class="block window-content">
+
+                {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+
+            </div>
+       </div>
+    </div>
+</div>
+<div class="tab" id="list"   style="display:none">
+    <div class="museum-list-wrapper">
+        <ul class="museum-list">
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Архангельская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Архангельский государственный музей деревянного зодчества и народного искусства «Малые Корелы»</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Владимировская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Владимиро-Суздальский музей-заповедник</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Московская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Странноприимный дом графа Шереметева</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Старый английский двор на Варварке</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-усадьба Л.Н. Толстого «Хамовники»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-панорама «Бородинская битва»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей отечественной войны 1812 года</a></li>
+                    </ul>
+                </section>
+            </li>
+        </ul><ul class="museum-list">
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Архангельская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Архангельский государственный музей деревянного зодчества и народного искусства «Малые Корелы»</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Владимировская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Владимиро-Суздальский музей-заповедник</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Московская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Странноприимный дом графа Шереметева</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Старый английский двор на Варварке</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-усадьба Л.Н. Толстого «Хамовники»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-панорама «Бородинская битва»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей отечественной войны 1812 года</a></li>
+                    </ul>
+                </section>
+            </li>
+        </ul>
+        <div class="more">
+            <p>
+                <a href="#" id="more-news">Еще Виртуальные туры</a>
+            </p>
+        </div>
+    </div>
+    
+</div>
+{#
+
+<!-- Museum Pages 
+
+<!-- RIGHT COLUMN -->
+<div class="right-column">
+            
+    <section class="block">
+        <h2><span>Рекомендуем</span></h2>
+            <div class="recommend-block">
+                <a href="/atlas/object/811"><img width="308" src="/img/museum-temp/rec.jpg"></a>
+
+                <div class="recommend-over">
+                    <div class="recommend_name">
+                        <p><a href="/atlas/object/811">Серия акварелей Бёзана Хирасавы</a></p>
                     </div>
-                    {% if m.atlasObject %}
-                        <div class="museum-chapter">
-                            <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" title="{{ m.atlasObject.title }}">
-                                <img src="{% path m.atlasObject.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ m.atlasObject.title }}" class="museum-chapter-image" />
-                            </a>
-                            <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" class="museum-chapter-label">
-                                Посмотреть<br />
-                                в разделе<br />
-                                Образы России
-                            </a>
-                        </div>
-                    {% endif %}
+                    <p class="recommend-type"><a href="/atlas/russia-images/">МУЗЕЙНЫЙ ГИД</a></p>
                 </div>
             </div>
-        {% endfor %}
-    {% else %}
-        <strong>{{ "museums_not_found"|trans }}</strong>
-    {% endif %}
-</div>
-<div id="instruction" style="display:none;">
-	<div class="window">
-		<div class="block window-content">
+    </section>
+    
+    <div class="block">
+        <section class="static-block virt-anons-black">
+            <h2>Виртуальный тур</h2>
+            <a href="http://eyera.dev.armd.ru/merc/peterhof/virtualtour.html" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                <img src="/uploads/media/museum/0001/05/3e1a13da6d60956b01cb3ea812c5c3ed3879caab.jpeg" alt="" width="280">
+                <span class="virt-tour-anons-over"></span>
+            </a>
+        </section>
+    </div>
+    
+    <div class="block">
+        <section class="static-block darker-anons">
+            <h2>Инфографика</h2>
+            <a class="fancybox" href="#infographics">
+                <img width="280" src="/uploads/media/atlas/0001/08/thumb_7779_atlas_image3d.jpeg" alt="">
+            </a>
+        </section>
+    </div>
+    
+    <div class="block object-videos">
+        <div class="block">
+            <article class="static-block video-block">
+                <h2>Видео</h2>
+                                        <a class="block-image fancybox" href="#data-1">
+                        <img style="max-width: 100%;" src="http://photo.tvigle.ru/res/prt/85deec0537d438363b1c3b54dbe222e8/02/98/000002130298/pub.jpg" alt="">
+                        <span class="play"></span>
+                    </a>
+            </article>
+        </div>
+        <div id="data-1" style="display: none;">
+            <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+            <iframe width="640" height="360" src="http://pub.tvigle.ru/frame/p.htm?prt=85deec0537d438363b1c3b54dbe222e8&amp;id=2130298&amp;srv=pub.tvigle.ru&amp;modes=1&amp;nl=1&amp;dopparam=armada_skin" style="border: 0px;"></iframe>
+            </div>
+        </div>
+    </div>
 
-            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-
-		</div>
-   </div>
+    
+    <div class="block">
+        <section class="static-block object-archives">
+            <h2>Архивы</h2>
+            <div class="flexslider">
+                
+            <div class="flex-viewport" style="overflow: hidden; position: relative;"><ul class="slides" style="width: 1200%; -webkit-transition: 0s; -webkit-transform: translate3d(-280px, 0, 0);"><li class="clone" style="width: 280px; float: left; display: block;">
+                            <article class="period-block  archive-block ">
+                                <a class="in-fancybox" href="/uploads/media/atlas/0001/07/c567e74513e060b1ad910eed925ae0192168ae0d.jpeg">
+                                    <img src="/uploads/media/atlas/0001/07/c567e74513e060b1ad910eed925ae0192168ae0d.jpeg" alt="" class="period-block_image">
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>И.К. Айвазовский, «Вид на Большой каскад в Петергофе», 1837</b></p>
+                                    <p>Большой каскад — предмет вдохновения многих художников. На картине И.К. Айвазовского каскад и центральная фигура Самсона, раздирающего пасть льву, переосмыслены как фон для пейзажа в духе романтизма.</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                                                <li style="width: 280px; float: left; display: block;" class="flex-active-slide">
+                            <article class="period-block  archive-block ">
+                                <a class="in-fancybox" href="/uploads/media/atlas/0001/07/08fb879d6452c07e6e393a7b0a20c7a0bdfec4c9.jpeg">
+                                    <img src="/uploads/media/atlas/0001/07/08fb879d6452c07e6e393a7b0a20c7a0bdfec4c9.jpeg" alt="" class="period-block_image">
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>В. Садовников, «Придворный выезд от главного подъезда Большого дворца в Петергофе», 1852</b></p>
+                                    <p>Дворец был перестроен Ф.-Б. Растрелли в традициях барокко для императрицы Елизаветы Петровны. Однако общий облик парка от этого не изменился, сохранив петровскую геометрию Большого каскада.</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                                                <li style="width: 280px; float: left; display: block;">
+                            <article class="period-block  archive-block ">
+                                <a class="in-fancybox" href="/uploads/media/atlas/0001/07/d2a0c1b2219f1801958ab609758a158e0e0979f1.jpeg">
+                                    <img src="/uploads/media/atlas/0001/07/d2a0c1b2219f1801958ab609758a158e0e0979f1.jpeg" alt="" class="period-block_image">
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>А.И. Ростовцев, «Большой каскад и верхние палаты», гравюра, 1716</b></p>
+                                    <p>Строительство дворца в загородной резиденции Петра I началось в 1714 г. Гравюра отражает первоначальный замысел устройства дворца и парка. За образец приняли архитектурно-парковый ансамбль Версаля.</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                                                <li style="width: 280px; float: left; display: block;">
+                            <article class="period-block  archive-block ">
+                                <a class="in-fancybox" href="/uploads/media/atlas/0001/07/781aa53f4baa997d91e2287726457dad74ff0e4f.jpeg">
+                                    <img src="/uploads/media/atlas/0001/07/781aa53f4baa997d91e2287726457dad74ff0e4f.jpeg" alt="" class="period-block_image">
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>И.Я. Майер, «Дворец Монплезир в Петергофе», 1843-1844</b></p>
+                                    <p>Акварель выполнена по заказу императорской семьи знаменитым швейцарским художником в рамках серии работ. Дворец Монплезир на берегу Финского залива был любимым местом основателя Петергофа Петра I.</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                                                <li style="width: 280px; float: left; display: block;">
+                            <article class="period-block  archive-block ">
+                                <a class="in-fancybox" href="/uploads/media/atlas/0001/07/c567e74513e060b1ad910eed925ae0192168ae0d.jpeg">
+                                    <img src="/uploads/media/atlas/0001/07/c567e74513e060b1ad910eed925ae0192168ae0d.jpeg" alt="" class="period-block_image">
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>И.К. Айвазовский, «Вид на Большой каскад в Петергофе», 1837</b></p>
+                                    <p>Большой каскад — предмет вдохновения многих художников. На картине И.К. Айвазовского каскад и центральная фигура Самсона, раздирающего пасть льву, переосмыслены как фон для пейзажа в духе романтизма.</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                                        <li style="width: 280px; float: left; display: block;" class="clone">
+                            <article class="period-block  archive-block ">
+                                <a class="in-fancybox" href="/uploads/media/atlas/0001/07/08fb879d6452c07e6e393a7b0a20c7a0bdfec4c9.jpeg">
+                                    <img src="/uploads/media/atlas/0001/07/08fb879d6452c07e6e393a7b0a20c7a0bdfec4c9.jpeg" alt="" class="period-block_image">
+                                </a>
+                                <div class="period-block_text">
+                                    <p><b>В. Садовников, «Придворный выезд от главного подъезда Большого дворца в Петергофе», 1852</b></p>
+                                    <p>Дворец был перестроен Ф.-Б. Растрелли в традициях барокко для императрицы Елизаветы Петровны. Однако общий облик парка от этого не изменился, сохранив петровскую геометрию Большого каскада.</p>
+                                </div>
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li></ul></div><ul class="flex-direction-nav"><li><a class="flex-prev" href="#">Previous</a></li><li><a class="flex-next" href="#">Next</a></li></ul></div>
+        </section>
+    </div>
+            
+    
 </div>
+
+<!-- LEFT COLUMN -->
+
+<div class="left-column">
+
+    <!-- Музейный гид -->
+    <div class="museum-guide">
+        <div class="mg-new">
+            <div class="mg-new-text">
+                <span class="mg-new-header">Новинки</span>
+                <a href="#" class="mg-new-title">Егорьевские диковины</a>
+                <p>Сокровища, редкости, курьёзы и прочие замечательные вещи из коллекции М.Н. Бардыгина, ныне собрания Егорьевского историко-художественного музея.</p>
+                <p class="mg-izd">М.: Издательская программа «Интерроса», 2008. 384 с.: ил.</p>
+            </div>
+            <div class="mg-new-image">
+                <img src="/img/museum-temp/guide-big.jpg" alt="" />
+            </div>
+            
+        </div>
+        <ul class="mg-guide-list">
+            <li>
+                <img src="/img/museum-temp/guide1.jpg" alt="" class="mg-list-image" />
+                <div class="mg-list-text">
+                    <a href="#" class="mg-list-title">Дейнека. Графика</a>
+                    <p>В рамках проекта «Александр Дейнека. Исследования, книги, выставки. 2008–2011».</p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/guide2.jpg" alt="" class="mg-list-image" />
+                <div class="mg-list-text">
+                    <a href="#" class="mg-list-title">Небеса и окрестности Кенозерья</a>
+                    <p>Расписные потолки, иконы, деревенские часовни, церкви, составляющие историко-культурный ландшафт Национального парка «Кенозерский». </p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/guide3.jpg" alt="" class="mg-list-image" />
+                <div class="mg-list-text">
+                    <a href="#" class="mg-list-title">Дейнека. Живопись</a>
+                    <p>В рамках проекта Издательской программы «Интерроса» и Государственной Третьяковской галереи «Александр Дейнека. Исследования, книги, выставки. 2009–2011».</p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2010, 496 с.</p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/guide1.jpg" alt="" class="mg-list-image" />
+                <div class="mg-list-text">
+                    <a href="#" class="mg-list-title">Дейнека. Графика</a>
+                    <p>В рамках проекта «Александр Дейнека. Исследования, книги, выставки. 2008–2011».</p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/guide2.jpg" alt="" class="mg-list-image" />
+                <div class="mg-list-text">
+                    <a href="#" class="mg-list-title">Небеса и окрестности Кенозерья</a>
+                    <p>Расписные потолки, иконы, деревенские часовни, церкви, составляющие историко-культурный ландшафт Национального парка «Кенозерский». </p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/guide3.jpg" alt="" class="mg-list-image" />
+                <div class="mg-list-text">
+                    <a href="#" class="mg-list-title">Дейнека. Живопись</a>
+                    <p>В рамках проекта Издательской программы «Интерроса» и Государственной Третьяковской галереи «Александр Дейнека. Исследования, книги, выставки. 2009–2011».</p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2010, 496 с.</p>
+                </div>
+            </li>
+        </ul>
+        <div class="more more3">
+            <p><a href="#">Смотреть дальше</a></p>
+        </div>
+    </div>
+    
+    <!-- Музеи и образование. Список -->
+    <div class="museum-education">
+        <ul class="museum-education-list">
+            <li>
+                <img src="/img/museum-temp/edu1.jpg" alt="" class="me-list-image" />
+                <div class="me-list-text">
+                    <h3><a href="#" class="me-list-title">Курсы повышения квалификации для руководителей музеев ОУ</a></h3>
+                    <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                    <span class="me-list-place">МосгорСЮТур</span>
+                    <a href="#" class="me-list-region">Москва</a>
+                    <p>
+                        Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/edu2.jpg" alt="" class="me-list-image" />
+                <div class="me-list-text">
+                    <h3><a href="#" class="me-list-title">Праздничное мероприятие, посвященное Победе России в Отечественно войне 1812 года</a></h3>
+                    <span class="me-list-dates">04.11.12, 12:00</span>
+                    <span class="me-list-place">Музей-усадьба Люблино (дворец Н.А.Дурасова)</span>
+                    <a href="#" class="me-list-region">Москва</a>
+                    <p>
+                        Двухсотлетие Отечественной войны широко отпразднуют в Москве в 2012 году. В течение всего года в Москве будут проходить научные конференции и "круглые столы", посвященные исследованию событий 1812 -1814 годов и фальсификации истории.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/edu1.jpg" alt="" class="me-list-image" />
+                <div class="me-list-text">
+                    <h3><a href="#" class="me-list-title">Курсы повышения квалификации для руководителей музеев ОУ</a></h3>
+                    <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                    <span class="me-list-place">МосгорСЮТур</span>
+                    <a href="#" class="me-list-region">Москва</a>
+                    <p>
+                        Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <img src="/img/museum-temp/edu2.jpg" alt="" class="me-list-image" />
+                <div class="me-list-text">
+                    <h3><a href="#" class="me-list-title">Праздничное мероприятие, посвященное Победе России в Отечественно войне 1812 года</a></h3>
+                    <span class="me-list-dates">04.11.12, 12:00</span>
+                    <span class="me-list-place">Музей-усадьба Люблино (дворец Н.А.Дурасова)</span>
+                    <a href="#" class="me-list-region">Москва</a>
+                    <p>
+                        Двухсотлетие Отечественной войны широко отпразднуют в Москве в 2012 году. В течение всего года в Москве будут проходить научные конференции и "круглые столы", посвященные исследованию событий 1812 -1814 годов и фальсификации истории.
+                    </p>
+                </div>
+            </li>
+        </ul>
+        <div class="more more3">
+            <p><a href="#">Смотреть еще</a></p>
+        </div>
+    </div>
+    
+    <!-- Музеи и образование. Элемент -->
+    <div class="museum-education museum-education-one">
+        <h2>Курсы повышения квалификации для руководителей музеев ОУ</h2>
+        <img src="/img/museum-temp/edu-main.jpg" alt="" class="edu-one-image" />
+        <div class="edu-one-stats">
+            <p><b>Дата проведения:</b> 03.10.12 – 09.02.13, каждую среду</p>
+            <p><b>Время проведения:</b> 15:00 –19:00</p>
+            <p><b>Максимальное количество участников:</b> 100</p>
+            <p><b>Место проведения:</b> Москва, МосгорСЮТур, Багратионовский пр-д, д. 10</p>
+            <p><b>Образование:</b> Архитектура</p>
+            <p><b>Рекомендуемый возраст:</b> дополнительное образование для взрослых</p>
+            <p><b>Навыки:</b> исследовательские</p>
+            <p><b>Форма проведения:</b> очная</p>
+            <p><b>Ссылка на сайт:</b> <a href="http://www.mosgorsyutur.ru" target="_blank">www.mosgorsyutur.ru</a></p>
+        </div>
+        <div class="edu-main-text">
+            <div class="edu-main-anons">
+                <p>Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.</p>
+            </div>
+            Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона, а музею Виктории и Альберта из пыльного собрания, каким он являлся в 80-е годы, превратиться в самый правильный и популярный музей мира? Сотрудники Jane Wentworth Associates Джо Марш и Сесилия Мартин в рамках программы Cultural Leadership International, курируемой Британским Cоветом, провели в Центре современной культуры «Гараж» воркшоп, посвященный брендингу культурных институций. T&P поговорили с его участниками о том, как должен выглядеть современный музей и что есть хорошего в творческой среде Москвы.
+        </div>
+        <div class="back-link"><p><a href="http://mk.dev.armd.ru/app_dev.php/atlas/russia-images/">Назад</a></p></div>
+        <div class="event-one_footer clearfix">
+        <div class="print-link"><a href="/app_dev.php/atlas/object/516/print" target="_blank"></a> Распечатать материал </div>
+        <div class="publish-links" href="#">Рассказать о портале: <span id="yandex-share"><span class="b-share"><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link b-share-btn__vkontakte" href="http://share.yandex.ru/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="LiveJournal" class="b-share__handle b-share__link b-share-btn__lj" href="http://share.yandex.ru/go.xml?service=lj&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="lj"><span class="b-share-icon b-share-icon_lj"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link b-share-btn__twitter" href="http://share.yandex.ru/go.xml?service=twitter&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link b-share-btn__facebook" href="http://share.yandex.ru/go.xml?service=facebook&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link b-share-btn__odnoklassniki" href="http://share.yandex.ru/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span><span class="b-share-counter"></span></a></span></span></div>
+    </div>
+    </div>
+   
+</div>
+
+--> 
+#}
