@@ -1,0 +1,237 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block title %}
+    {{ parent() }} — {{ 'Navigation.Virtual museums.Title'|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museums.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseums.init();
+        });
+    </script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_title %}
+    {{ "MuseumEdu"|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    {#
+    <div class="category-chooser" id="category-chooser">
+        <a href="#plitka" class="mus-plitka-icon active" title="Плитка">Плитка</a><a href="#list" class="mus-list-icon" title="Список">Список</a>
+    </div>
+    #}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
+            <div class="search-category-selects">
+                <select name="region" id="filter-region" class="uni">
+                    <option value="">{{ "search.museum"|trans }}</option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.place"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.edu"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.subject"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.skills"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block one_column %}
+    <div class="right-column">
+            
+        <section class="block">
+            <h2><span>Рекомендуем</span></h2>
+                <div class="recommend-block">
+                    <a href="/atlas/object/811"><img width="308" src="/img/museum-temp/rec2.jpg"></a>
+
+                    <div class="recommend-over">
+                        <div class="recommend_name">
+                            <p><a href="/atlas/object/811">Основные парадоксы статистической классической физики и квантовой механики</a></p>
+                        </div>
+                        <p class="recommend-type"><a href="/atlas/russia-images/">МУЗЕЙНЫЙ ГИД</a></p>
+                    </div>
+                </div>
+        </section>
+        
+        <div class="right-video-block">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <article class="period-block">
+                            <h2>Нужный выбор</h2><a class="period-block_image" href="/lecture/view/926"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/14/thumb_13912_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>«Звезда»</h2><a class="period-block_image" href="/lecture/view/992"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/15/thumb_14205_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>«А зори здесь тихие», 2-я серия</h2><a class="period-block_image" href="/lecture/view/980"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/15/thumb_14192_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Цикл «Тайники Русского музея». Песни о России Бориса Кустодиева</h2><a class="period-block_image" href="/lecture/view/622"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12716_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <article class="period-block">
+                            <h2>Томмасо Каларко. «Будущие квантовые технологии»</h2><a class="period-block_image" href="/lecture/view/328"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/09/thumb_8315_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 155070" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Людмила Сараскина. Спецкурс. «Достоевский. «Бесы»</h2><a class="period-block_image" href="/lecture/view/318"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/09/thumb_8304_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 155151" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Олег Федотов. «Поэзия Владимира Набокова» 1-я лекция</h2><a class="period-block_image" href="/lecture/view/194"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/09/thumb_8100_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 155166" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Андрей Зализняк. «Берестяные грамоты». 1-я лекция</h2><a class="period-block_image" href="/lecture/view/117"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/08/thumb_7992_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 156390" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                
+        
+    </div>
+
+    <div class="left-column">
+        <div class="museum-education museum-education-one">
+        <h2>Курсы повышения квалификации для руководителей музеев ОУ</h2>
+        <img src="/img/museum-temp/edu-main.jpg" alt="" class="edu-one-image" />
+        <div class="edu-one-stats">
+            <p><b>Дата проведения:</b> 03.10.12 – 09.02.13, каждую среду</p>
+            <p><b>Время проведения:</b> 15:00 –19:00</p>
+            <p><b>Максимальное количество участников:</b> 100</p>
+            <p><b>Место проведения:</b> Москва, МосгорСЮТур, Багратионовский пр-д, д. 10</p>
+            <p><b>Образование:</b> Архитектура</p>
+            <p><b>Рекомендуемый возраст:</b> дополнительное образование для взрослых</p>
+            <p><b>Навыки:</b> исследовательские</p>
+            <p><b>Форма проведения:</b> очная</p>
+            <p><b>Ссылка на сайт:</b> <a href="http://www.mosgorsyutur.ru" target="_blank">www.mosgorsyutur.ru</a></p>
+        </div>
+        <div class="edu-main-text">
+            <div class="edu-main-anons">
+                <p>Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.</p>
+            </div>
+            Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона, а музею Виктории и Альберта из пыльного собрания, каким он являлся в 80-е годы, превратиться в самый правильный и популярный музей мира? Сотрудники Jane Wentworth Associates Джо Марш и Сесилия Мартин в рамках программы Cultural Leadership International, курируемой Британским Cоветом, провели в Центре современной культуры «Гараж» воркшоп, посвященный брендингу культурных институций. T&P поговорили с его участниками о том, как должен выглядеть современный музей и что есть хорошего в творческой среде Москвы.
+        </div>
+        <div class="back-link"><p><a href="http://mk.dev.armd.ru/app_dev.php/atlas/russia-images/">Назад</a></p></div>
+        <div class="event-one_footer clearfix">
+        <div class="print-link"><a href="/app_dev.php/atlas/object/516/print" target="_blank"></a> Распечатать материал </div>
+        <div class="publish-links" href="#">Рассказать о портале: <span id="yandex-share"><span class="b-share"><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link b-share-btn__vkontakte" href="http://share.yandex.ru/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="LiveJournal" class="b-share__handle b-share__link b-share-btn__lj" href="http://share.yandex.ru/go.xml?service=lj&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="lj"><span class="b-share-icon b-share-icon_lj"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link b-share-btn__twitter" href="http://share.yandex.ru/go.xml?service=twitter&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link b-share-btn__facebook" href="http://share.yandex.ru/go.xml?service=facebook&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span><span class="b-share-counter"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link b-share-btn__odnoklassniki" href="http://share.yandex.ru/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fatlas%2Fobject%2F516&amp;title=%D0%93%D0%BE%D1%81%D1%83%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%BD%D0%B8%D0%BA%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB&amp;description=%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%20%D0%B1%D1%8B%D0%BB%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B5%20XVIII%20%D1%81%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%B8%D0%BC%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BE%D0%BC%20%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%BC%20I%20%D0%B8%20%D1%81%D1%82%D0%B0%D0%BB%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%B7%20%D1%81%D0%B0%D0%BC%D1%8B%D1%85%20%D1%80%D0%BE%D1%81%D0%BA%D0%BE%D1%88%D0%BD%D1%8B%D1%85%20%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D1%85%20%D1%86%D0%B0%D1%80%D1%81%D0%BA%D0%B8%D1%85%20%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B9%20%D0%B8%20%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%20%D0%B7%D0%B0%D0%B2%D0%BE%D0%B5%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B5%D0%B9%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%B0%20%D0%BA%20%D0%91%D0%B0%D0%BB%D1%82%D0%B8%D0%B9%D1%81%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BC%D0%BE%D1%80%D1%8E.%20%D0%95%D0%B6%D0%B5%D0%B3%D0%BE%D0%B4%D0%BD%D0%BE%20%D0%93%D0%9C%D0%97%20%C2%AB%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84%C2%BB%20%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B0%D1%8E%D1%82%204%20%D1%81%20%D0%BF%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BE%D0%B9%20%D0%BC%D0%B8%D0%BB%D0%BB%D0%B8%D0%BE%D0%BD%D0%B0%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA.%20%D0%92%D0%BA%D0%BB%D1%8E%D1%87%D0%B0%D0%B5%D1%82%20%D0%B2%20%D1%81%D0%B5%D0%B1%D1%8F%20%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%8E%D0%B6%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D1%8F%20%D0%A4%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%B0.&amp;image=%2Fuploads%2Fmedia%2Fatlas%2F0001%2F04%2Fthumb_3985_atlas_big.jpeg" data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span><span class="b-share-counter"></span></a></span></span></div>
+    </div>
+    </div>
+    
+    </div>
+    
+
+    
+{% endblock %}

@@ -2020,7 +2020,11 @@ body {
 
         .darker-anons {
             background:#ebeff2;
-        }            
+        }  
+        .yellow-block, .yellow-block .period-block, .yellow-block .archive-block {
+            background:#f4f1ea !important;
+        }        
+            
           
                     
         /*museum-education*/
