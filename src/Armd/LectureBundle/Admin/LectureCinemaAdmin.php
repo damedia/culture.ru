@@ -114,6 +114,7 @@ class LectureCinemaAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('id')
             ->add('published')
             ->add('title')
             ->add('categories')
