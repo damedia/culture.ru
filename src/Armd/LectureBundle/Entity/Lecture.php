@@ -143,6 +143,7 @@ class Lecture implements Taggable
     private $rolesPersons;
 
     /**
+<<<<<<< HEAD
      * @ORM\Column(name="view_count", type="integer", nullable=true)
      */
     private $viewCount = 0;
@@ -162,10 +163,40 @@ class Lecture implements Taggable
      */
     private $showOnMainOrd;
     
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="lecture_stuff")
+     *
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stuff;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->rolesPersons = new ArrayCollection();
+        $this->stuff = new ArrayCollection();
+    }
+
+    public function setStuff($stuff)
+    {
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 
     public function __toString()
