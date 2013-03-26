@@ -95,7 +95,13 @@ class RealMuseum extends Admin
                 )
             ->end()
             ->with('Media')
-                ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))                
+                ->add('image', 'armd_media_file_type', array(
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'museum',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'realSmall'
+                ))                
             ->end();
 
         parent::configureFormFields($formMapper);

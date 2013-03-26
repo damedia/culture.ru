@@ -48,7 +48,7 @@
                 <div class="text exponat-one-content ">
                     <div class="exponat-text-wrap">
                         <h1 class="exhibit-title"></h1>
-                        <p class="exponat-date exhibit-date">1634</p>
+                        <p class="exponat-date exhibit-date"></p>
                         <h2 class="exhibit-authors"></h2>
                         <p class="exponat-note"></p>
                         <img id="exhibit-detail-img" src="" alt="" class="image-left" width="127px"/>
@@ -71,8 +71,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="exp-block exp-videos">
-                        <h3>Музей</h3>
+                    <div id="exhibit-museum" class="exp-block exp-videos" style="display: none;">
+                        <h3>{{ "Museum"|trans }}</h3>
                         <div class="exp-text-block">
                             <a href="#">
                                 <img id="exhibit-museum-img" alt="" src="">
@@ -82,7 +82,7 @@
                             </p>
                             <p>
                                 <span id="exhibit-museum-address"></span><br />
-                                <a id="exhibit-museum-url"></a>	
+                                <a id="exhibit-museum-url" target="_blank"></a>	
                             </p>
                             <a id="exhibit-museum-vtour" href="#" data-fancybox-type="iframe" class="orange-btn virt-tour-anons vob iframe" style="display: none;">Виртуальный тур</a>
                         </div>

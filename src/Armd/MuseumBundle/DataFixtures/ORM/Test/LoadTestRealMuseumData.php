@@ -1,12 +1,12 @@
 <?php
-namespace Armd\ExhibitBundle\DataFixtures\ORM\Test;
+namespace Armd\MuseumBundle\DataFixtures\ORM\Test;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\Yaml\Parser;
-use Armd\ExhibitBundle\Entity\ArtObject;
+use Armd\MuseumBundle\Entity\RealMuseum;
 use Application\Sonata\MediaBundle\Entity\Media;
 
 
@@ -20,9 +20,9 @@ class LoadTestArtObjectData extends AbstractFixture implements OrderedFixtureInt
     function load(ObjectManager $manager)
     {
         $parser = new Parser();
-        $data = $parser->parse(file_get_contents(__DIR__ . '/../../../Resources/fixtures/test_art_objects.yml'));
+        $data = $parser->parse(file_get_contents(__DIR__ . '/../../../Resources/fixtures/test_real_museums.yml'));
 
-        foreach ($data['objects'] as $objectData) {
+        foreach ($data['realMuseums'] as $objectData) {
             $object = $this->createObject($objectData);
             $manager->persist($object);
         }
@@ -32,48 +32,28 @@ class LoadTestArtObjectData extends AbstractFixture implements OrderedFixtureInt
 
     function createObject(array $data)
     {
-        $object = new ArtObject();      
-        $object->setPublished(true);
+        $object = new RealMuseum();      
         $object->setTitle($data['title']);
         $object->setDescription($data['description']);
-        $object->setDate(new \DateTime($data['date']));
+        $object->setAddress($data['address']);
+        $object->setUrl($data['url']);
+        
+        if(!empty($data['category'])) {
+            $category = $this->getReference($data['category']);
+
+            if (empty($category)) {
+                throw new \InvalidArgumentException('Category reference ' . $data['category'] . ' not found');
+            }
+
+            $object->setCategory($category);
+        }
         
         if(!empty($data['image'])) {
             $object->setImage($this->createMediaImage($data['image']));
-        }               
-
-        if (!empty($data['categories'])) {
-            foreach ($data['categories'] as $ref) {
-                $category = $this->getReference($ref);
-                
-                if (empty($category)) {
-                    throw new \InvalidArgumentException('Category reference ' . $ref . ' not found');
-                }
-                
-                $object->addCategories($category);
-            }
-        }
-
-        if (!empty($data['authors'])) {
-            foreach ($data['authors'] as $ref) {
-                $author = $this->getReference($ref);
-                
-                if (empty($author)) {
-                    throw new \InvalidArgumentException('Authors reference ' . $ref . ' not found');
-                }
-                
-                $object->addAuthor($author);
-            }
         }
         
-        if(!empty($data['museum'])) {
-            $museum = $this->getReference($data['museum']);
-
-            if (empty($museum)) {
-                throw new \InvalidArgumentException('Museum reference ' . $data['museum'] . ' not found');
-            }
-
-            $object->setMuseum($museum);
+        if (!empty($data['ref_code'])) {
+            $this->addReference($data['ref_code'], $object);
         }
 
         return $object;
@@ -102,7 +82,7 @@ class LoadTestArtObjectData extends AbstractFixture implements OrderedFixtureInt
 
     public static function getContext() 
     {
-        return 'exhibit';
+        return 'museum';
     }
 
     /**

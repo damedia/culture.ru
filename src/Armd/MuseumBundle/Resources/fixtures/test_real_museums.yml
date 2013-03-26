@@ -1,0 +1,8 @@
+realMuseums:
+    - title: Государственный Эрмитаж
+      description: Крупнейший в России и один из крупнейших в мире художественных и культурно-исторических музеев
+      address: Россия, Санкт-Петербург, Дворцовая площадь, дом 2
+      url: http://www.hermitagemuseum.org/
+      image: zimniy.jpg
+      category: armd_museum.category.museum
+      ref_code: armd_museum.museum.hermitage

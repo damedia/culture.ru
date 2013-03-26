@@ -4,4 +4,5 @@ objects:
       description: Работа художника также известна как Саския в образе Флоры
       image: flora.jpg
       categories: [armd_exhibit.category.pic]
-      authors: [armd_person.person.rem]      
+      authors: [armd_person.person.rem]  
+      museum: armd_museum.museum.hermitage

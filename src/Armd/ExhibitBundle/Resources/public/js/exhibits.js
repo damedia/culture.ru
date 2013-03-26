@@ -245,7 +245,7 @@ var exhibit = {
                     cl = 'active';
                 }
                 
-                el.append('<a class="' + cl + '" data-fid="' + id + '" data-fitemid="' + data.id + '" href="#">' + data.title + '</a>');
+                el.append('<a class="' + cl + '" data-fid="' + id + '" data-fitemid="' + data.id + '" href="#">' + data.title + '</a> ');
             }
         }
     },
@@ -413,6 +413,7 @@ var exhibit = {
         exhibit.stopLoad = false;
         exhibit.offset = 0;
         exhibit.objects = [];
+        exhibit.firstLineWidth = exhibit.secondLineWidth = exhibit.thirdLineWidth = 0;
     },
     clearFilters: function() {
         exhibit.activeFilters = {};

@@ -2,8 +2,6 @@
 namespace Armd\ExhibitBundle\DataFixtures\ORM\Test;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Application\Sonata\MediaBundle\Entity\Media;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Armd\ExhibitBundle\Entity\Category;
