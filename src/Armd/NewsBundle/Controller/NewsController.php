@@ -54,7 +54,7 @@ class NewsController extends Controller
      */
     function getWidgetAction()
     {
-        return $this->render('ArmdNewsBundle:News:get-widget.html.twig');
+        return $this->render('ArmdNewsBundle:News:get_widget.html.twig');
     }
 
     /**

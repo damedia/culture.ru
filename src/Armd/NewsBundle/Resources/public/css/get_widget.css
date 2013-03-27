@@ -1,0 +1,23 @@
+#news-widget-settings table {
+
+}
+#news-widget-settings table td {
+    padding: 5px 5px 5px 0;
+}
+#news-widget-preview {
+    padding: 5px 0;
+}
+#news-widget-code textarea {
+    margin: 5px 0;
+}
+
+#culture-news-widget {
+    border: 1px solid #e1e1e1;
+    padding: 5px;
+}
+#culture-news-widget .culture-news-header {
+    text-align: center;
+}
+#culture-news-widget .culture-news-header div {
+
+}
