@@ -62,7 +62,7 @@ class LectureTop100Admin extends Admin
 
         $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
             ->getRepository('ArmdLectureBundle:LectureType')
-            ->findOneByCode('LECTURE_TYPE_URL');
+            ->findOneByCode('LECTURE_TYPE_VIDEO');
 
         $lecture->setLectureSuperType($superType);
         $lecture->setLectureType($type);
