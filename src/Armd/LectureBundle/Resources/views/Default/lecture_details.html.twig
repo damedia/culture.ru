@@ -71,7 +71,8 @@
                     {% if lecture.lectureVideo is not empty %}
                         {% set lectureVideo = lecture.lectureVideo %}
                         {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-                    {% elseif lecture.mediaLectureVideo is not empty %}
+                    {% elseif lecture.mediaLectureVideo is not empty
+                            and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
                         {% set lectureVideo = lecture.mediaLectureVideo %}
                         {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
                     {% elseif lecture.trailerVideo is not empty %}
@@ -80,6 +81,10 @@
                     {% elseif lecture.mediaTrailerVideo is not empty %}
                         {% set lectureVideo = lecture.mediaTrailerVideo %}
                         {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                    {% elseif lecture.externalUrl is not empty %}
+                        <a target="_blank" href="{{ lecture.externalUrl }}">
+                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
+                        </a>
                     {% endif %}
 
                     {# отключено #}
@@ -109,13 +114,6 @@
                 {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
                     {% if lecture.lectureFile is not empty %}
                         <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
-                    {% endif %}
-
-                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_URL' %}
-                    {% if lecture.externalUrl is not empty %}
-                        <a target="_blank" href="{{ lecture.externalUrl }}">
-                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
-                        </a>
                     {% endif %}
 
                 {% endif %}
