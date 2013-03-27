@@ -15,19 +15,20 @@ var exhibit = {
     oneLineImgHeight: 560,
     twoLineImgHeight: 318,
     threeLineImgHeight: 180,
+    fullCount: 0,
     init: function(data, filters) {
         exhibit.objects = data.objects;
         exhibit.offset = data.offset;
         exhibit.filters = filters;
         
         $(function() {
+            exhibit.setCount(data.count);
             exhibit.setExhibits(exhibit.objects);
             exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
             exhibit.api = exhibit.scrollPane.data('jsp');
             exhibit.apiReinitialise();
             
-            exhibit.setFilters();
-            exhibit.setCount(data.count);
+            exhibit.setFilters();         
         });
         $(window).load(function() {           
             //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
@@ -91,8 +92,10 @@ var exhibit = {
                 if (li.hasClass('filtered')) {
                     li.removeClass('filtered');
                     $('#' + $(this).attr('data-id')).slideUp();
+                    exhibit.searchClear();
                     exhibit.filterLoadExhibits();
                 } else {
+                    clearTimeout(exhibit.tagsDelTimeout);
                     li.addClass('filtered').siblings().removeClass('filtered');
                     
                     if ($('.exp-filter:visible').size()) {
@@ -110,6 +113,7 @@ var exhibit = {
             $('.exp-filter').on('click', '#filter-handle', function() {
                 $('#exp-categories li').removeClass('filtered');
                 $(this).parent().slideUp();
+                exhibit.searchClear();
                 exhibit.filterLoadExhibits();
             });
 
@@ -142,15 +146,18 @@ var exhibit = {
                 return false;
             });
             
-            $('#search_text').val('');
+            exhibit.searchClear();
             
             $('.obr-submit-input').click(function() {
-                var searchText = $.trim($('#search_text').val());
-                
-                if (searchText) {
-                    exhibit.searchLoadExhibits(searchText);                  
-                }
-            });                     
+                exhibit.searchLoadExhibits($.trim($('#search_text').val()));
+            });
+            
+            $('#search_text').keypress(function(event) {
+                if ( event.which == 13 ) {
+                    exhibit.searchLoadExhibits($.trim($('#search_text').val()));
+                    event.preventDefault();
+                }               
+            });
         });
     },
     setObjectListeners: function() {
@@ -164,6 +171,7 @@ var exhibit = {
             if ($(this).attr('href') == '#') {
                 exhibit.clearFilters();
                 exhibit.setActiveFilterTag($(this));
+                exhibit.searchClear();
                 exhibit.filterLoadExhibits();     
             }
         });
@@ -255,71 +263,7 @@ var exhibit = {
         }
         
         return exhibit.activeFilters[fId][fItemId];
-    },
-    setExhibitsOld: function(objects) {
-        if ($.isEmptyObject(objects)) {
-            exhibit.stopLoad = true;
-            
-            return false;
-        }
-
-        var elAppend, w, el, width = {},
-                elClone = $('#el-one-blank').eq(0),
-                type = $('#exp-types li.active a').attr('href').substr(1);
-                      
-        width['first'] = $('.exponats-scroll .first-line > div').size();
-        width['second'] = $('.exponats-scroll .second-line > div').size();
-        width['third'] = $('.exponats-scroll .third-line > div').size();              
-
-        for (var i in objects) {
-            if (type == 'threelines') {
-                if (width['first'] <= width['second'] && width['first'] <= width['third']) {                   
-                    elAppend = '.first-line';
-                    width['first']++;
-                } else if (width['second'] <= width['third']) {                    
-                    elAppend = '.second-line';
-                    width['second']++;
-                } else {                    
-                    elAppend = '.third-line';
-                    width['third']++;
-                }
-            } else if ((type == 'twolines' && width['first'] <= width['second']) || type == 'oneline') {               
-                elAppend = '.first-line';
-                width['first']++;
-            } else {               
-                elAppend = '.second-line';
-                width['second']++;
-            }
-
-            el = elClone.clone();           
-            el.attr('style', '');
-            el.find('a img').attr('src', objects[i]['img']);  
-            el.find('.el-one-title').html('<a href="' + Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}) + '">' + objects[i]['title'] + '</a>');
-            el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
-            el.find('.el-one-year').text(objects[i]['date']);
-            el.find('.el-one-museum').attr('data-fid', 'museum');
-            el.find('.el-one-museum').attr('data-fitemid', objects[i]['museum']['id']);
-            el.find('.el-one-museum').text(objects[i]['museum']['title']);
-            
-            for (var a in objects[i]['authors']) {              
-                el.find('.el-one-authors').append('<p><a href="#" data-fid="author" data-fitemid="' + objects[i]['authors'][a]['id'] + '">' + objects[i]['authors'][a]['title'] + '</a></p>');
-            }
-            
-            if (exhibit.api) {
-               exhibit.api.getContentPane().find(elAppend).append(el);
-            } else {
-                $('.exponats-scroll').find(elAppend).append(el);
-            }                          
-            
-            el.find('> a img:first').load(function() {               
-                clearTimeout(exhibit.imgLoadTimeout);
-                exhibit.imgLoadTimeout = exhibit.apiReinitialise();
-            });
-            
-        }
-
-        exhibit.setObjectListeners();
-    },
+    },    
     setExhibits: function(objects) {
         if ($.isEmptyObject(objects)) {
             exhibit.stopLoad = true;
@@ -392,6 +336,19 @@ var exhibit = {
         }
 
         exhibit.setObjectListeners();
+        
+        if (!exhibit.stopLoad && exhibit.getObjectsCount() >= exhibit.fullCount) {
+            exhibit.stopLoad = true;
+        }
+    },
+    getObjectsCount: function() {
+        var count = 0;
+        
+        $.each(exhibit.objects, function(key, value) {
+            count++;
+        });
+        
+        return count;
     },
     apiReinitialise: function(timeout) {
         if (exhibit.api == undefined || $('.exponats-scroll-pane').data('jsp') == undefined) {
@@ -405,7 +362,6 @@ var exhibit = {
         return setTimeout(function () { 
             exhibit.api = $('.exponats-scroll-pane').data('jsp'); 
             exhibit.api.reinitialise();  
-            console.log('apiReinitialise');
         }, timeout);
     },
     clearExhibits: function() {
@@ -419,11 +375,21 @@ var exhibit = {
         exhibit.activeFilters = {};
         $('#exponats-tags').empty();
         $('.fiter-results a').removeClass('active');
+        $('.exp-filter:visible').slideUp();
+        $('#exp-categories .filtered').removeClass('filtered');
     },
     searchLoadExhibits: function(text) {
         exhibit.clearFilters();
-        exhibit.activeFilters = {'search': text};
+        
+        if (text) {
+            exhibit.activeFilters = {'search': text};
+        }
+        
         exhibit.filterLoadExhibits();
+    },
+    searchClear: function() {
+        exhibit.activeFilters['search'] = undefined;
+        $('#search_text').val('');
     },
     filterLoadExhibits: function() {   
         exhibit.clearExhibits();       
@@ -432,6 +398,7 @@ var exhibit = {
         exhibit.loadExhibits();
     },
     setCount: function(count) {
+        exhibit.fullCount = count;
         $('.exponats-total').text('Всего ' + count);
     },
     loadExhibits: function() {
@@ -440,7 +407,7 @@ var exhibit = {
         }
 
         exhibit.loading = true;
-        armdMk.startLoadingBlock();
+        armdMk.startLoadingBlock($('#exponats-content'));
         var jqxhr = $.ajax({
             url: Routing.generate('armd_load_exhibits', {'offset': exhibit.offset}),
             type: 'post',
@@ -464,7 +431,7 @@ var exhibit = {
         })
         .always(function() {
             exhibit.loading = false;
-            armdMk.stopLoadingBlock();           
+            armdMk.stopLoadingBlock($('#exponats-content'));           
         });
         
         return jqxhr;

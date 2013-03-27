@@ -10,7 +10,7 @@ use Armd\ExhibitBundle\Repository\ArtObjectRepository;
 
 class DefaultController extends Controller
 {
-    private $limit = 50;
+    private $limit = 25;
     
     protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
     {
@@ -103,10 +103,15 @@ class DefaultController extends Controller
     
     protected function getItemObjects($filters = array(), $limit = 0, $offset = 0, $firstId = 0)
     {
-        $data = array('objects' => array());
+        $data = array('objects' => array(), 'count' => 0);
         $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
         $repository->createQueryBuilder('o');      
-        $this->setFilters($repository, $filters);                            
+        $this->setFilters($repository, $filters);   
+        
+        if ($offset == 0) {
+            $repoCount = clone $repository;
+            $data['count'] = $repoCount->getCount();
+        }
         
         if ($firstId) {
             $repository->setNotId($firstId);
@@ -197,6 +202,8 @@ class DefaultController extends Controller
             'museum' => array('title' => 'Музей')
         );
         
+        $this->get('session')->remove('exhibits-filters');
+        
         $authors = $this->getDoctrine()->getRepository('ArmdPersonBundle:Person')
             ->createQueryBuilder('a')
             ->join('a.personTypes', 't')
@@ -273,6 +280,7 @@ class DefaultController extends Controller
         return array(
             'data' => array(
                 'objects' => $objects['objects'],
+                'count' => $objects['count'],
                 'offset' => $this->limit,
                 'id' => $id
             )
@@ -296,7 +304,8 @@ class DefaultController extends Controller
         return new JsonResponse(
             array(
                 'objects' => $objects['objects'],
-                'offset' => $offset + $this->limit
+                'count' => $objects['count'],
+                'offset' => $offset + $this->limit,
             )
         );
     }

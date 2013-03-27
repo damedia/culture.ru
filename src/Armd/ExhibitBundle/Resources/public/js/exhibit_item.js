@@ -14,24 +14,17 @@ var exhibitItem = {
     dx: 0,
     dy: 0,
     resizeStep: 40,
+    fullCount: 0,
     init: function(data) {
         $(function() {
             exhibitItem.currentId = data.id;
-            exhibitItem.setExhibits(data.objects, data.offset);
+            exhibitItem.fullCount = data.count;
+            exhibitItem.setExhibits(data.objects, data.offset);            
             $('#carousel li img:first').addClass('active');
 
             $(window).load(function() {
                 exhibitItem.activeExhibit($('#carousel img.active'));
-            });
-            /*
-             $('#carousel').jcarousel({
-             buttonNextCallback: function(carousel, control, flag) {
-             if (!flag) {
-             exhibitItem.loadExhibits();
-             }
-             }
-             });
-             */
+            });            
 
             $('#details-btn').on('click', function() {
                 if (!$(this).data('opened')) {
@@ -83,6 +76,15 @@ var exhibitItem = {
             $('.popup-image').remove();
         });
     },
+    getObjectsCount: function() {
+        var count = 0;
+        
+        $.each(exhibitItem.objects, function(key, value) {
+            count++;
+        });
+        
+        return count;
+    },
     setExhibits: function(objects, offset) {
         var li, imgBorder = $('<i style="width:' + 36 + 'px; height:' + 48 + 'px; "></i>');
 
@@ -112,7 +114,7 @@ var exhibitItem = {
         $('#carousel').jcarousel({
             start: exhibitItem.start,
             buttonNextCallback: function(carousel, control, flag) {
-                if (!flag) {
+                if (!flag && exhibitItem.getObjectsCount() < exhibitItem.fullCount) {
                     exhibitItem.start = carousel.last;
                     exhibitItem.loadExhibits();
                 }
@@ -124,7 +126,8 @@ var exhibitItem = {
     activeExhibit: function(img) {
         var imgBorder = $('<i style="width:' + 36 + 'px; height:' + 48 + 'px; "></i>'),
                 id = img.attr('data-id');
-
+        
+        $('.exponats-top-line').css('visibility', 'hidden');
         exhibitItem.activeId = id;
         img.parent().append(imgBorder).siblings().find('i').remove();
         img.addClass('active').parent().siblings().find('img').removeClass('active');
@@ -135,6 +138,7 @@ var exhibitItem = {
 
         exhibitItem.setPrimaryImage(id);
         exhibitItem.setPageData(id);
+        $('.exponats-top-line').css('visibility', 'visible');
     },
     setPrimaryImage: function(id) {
         var img, nativeImg, imgRealWidth, imgRealHeight,
@@ -421,7 +425,7 @@ var exhibitItem = {
         }
 
         exhibitItem.loading = true;
-        armdMk.startLoadingBlock();
+        armdMk.startLoadingBlock($('#exponat-main-container'));
 
         var jqxhr = $.ajax({
             url: Routing.generate('armd_load_item_exhibits', {'id': exhibitItem.currentId, 'offset': exhibitItem.offset}),
@@ -430,13 +434,13 @@ var exhibitItem = {
             },
             dataType: 'json'
         })
-                .done(function(data) {
+        .done(function(data) {
             exhibitItem.setExhibits(data.objects, data.offset)
             //$('#carousel').jcarousel('reload');
         })
-                .always(function() {
+        .always(function() {
             exhibitItem.loading = false;
-            armdMk.stopLoadingBlock();
+            armdMk.stopLoadingBlock($('#exponat-main-container'));
         });
 
         return jqxhr;
