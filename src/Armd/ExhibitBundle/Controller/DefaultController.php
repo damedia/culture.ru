@@ -10,7 +10,7 @@ use Armd\ExhibitBundle\Repository\ArtObjectRepository;
 
 class DefaultController extends Controller
 {
-    private $limit = 25;
+    protected $limit = 50;
     
     protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
     {
@@ -123,9 +123,7 @@ class DefaultController extends Controller
             ->setLimit($limit, $offset)
             ->orderByDate()
             ->getQuery()
-            ->getResult();
-        //\Doctrine\Common\Util\Debug::dump($entities);
-        //die();
+            ->getResult();       
         
         if ($firstId && $offset == 0) {
              $object = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject')->find($firstId);
@@ -139,7 +137,7 @@ class DefaultController extends Controller
             $data['objects'][$e->getId()] = array(
                 'id' => $e->getId(),
                 'img' => $this->getImageSrc($e->getImage()),
-                'img_thumb' => $this->getImageSrc($e->getImage(), 'smallThumbnail'),
+                'img_thumb' => $this->getImageSrc($e->getImage(), 'smallZoom'),
                 'title' => $e->getTitle(),
                 'date' => $e->getDate()->format('Y'),
                 'description' => $e->getDescription(),

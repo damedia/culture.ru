@@ -76,8 +76,7 @@ var exhibit = {
                 if (!$(this).parent().hasClass('active')) {
                     var type = $(this).attr('href').substr(1);                   
 
-                    $(this).parent().addClass('active').siblings().removeClass();
-                    exhibit.api.scrollToX(0, false);
+                    $(this).parent().addClass('active').siblings().removeClass();                    
                     exhibit.replaceExhibits();
                     $('#exponats-content').removeClass().addClass(type);                
                     //exhibit.apiReinitialise();
@@ -227,6 +226,7 @@ var exhibit = {
     },
     replaceExhibits: function () {
         $('.exponats-scroll .line > div').remove();
+        exhibit.api.scrollToX(0, false);
         exhibit.firstLineWidth = exhibit.secondLineWidth = exhibit.thirdLineWidth = 0;
         exhibit.setExhibits(exhibit.objects);
     },
@@ -270,8 +270,12 @@ var exhibit = {
             
             return false;
         }
+        
+        if (!exhibit.stopLoad && exhibit.getObjectsCount(exhibit.objects) >= exhibit.fullCount) {
+            exhibit.stopLoad = true;           
+        }
 
-        var elAppend, w, h, el,
+        var elAppend, w, h, el, c = 0,
             elClone = $('#el-one-blank').eq(0),
             type = $('#exp-types li.active a').attr('href').substr(1);                                         
                   
@@ -328,23 +332,29 @@ var exhibit = {
                 $('.exponats-scroll').find(elAppend).append(el);
             }                          
 
-            el.find('> a img:first').load(function() {               
+            el.find('> a img:first').load(function() {
+                c++;
                 clearTimeout(exhibit.imgLoadTimeout);
-                exhibit.imgLoadTimeout = exhibit.apiReinitialise();
+
+                if (c == exhibit.getObjectsCount(objects) && exhibit.stopLoad) {
+                    if (exhibit.api) {
+                        exhibit.api.getContentPane().find(elAppend).append('<div class="el-one" style="width: 260px"></div>');
+                    } else {
+                        $('.exponats-scroll').find(elAppend).append('<div class="el-one" style="width: 260px"></div>');
+                    }                   
+                }
+                
+                exhibit.imgLoadTimeout = exhibit.apiReinitialise();                              
             });
             
         }
 
-        exhibit.setObjectListeners();
-        
-        if (!exhibit.stopLoad && exhibit.getObjectsCount() >= exhibit.fullCount) {
-            exhibit.stopLoad = true;
-        }
+        exhibit.setObjectListeners();                
     },
-    getObjectsCount: function() {
+    getObjectsCount: function(objects) {
         var count = 0;
         
-        $.each(exhibit.objects, function(key, value) {
+        $.each(objects, function(key, value) {
             count++;
         });
         
@@ -368,7 +378,7 @@ var exhibit = {
         $('.exponats-scroll .line > div').remove();
         exhibit.stopLoad = false;
         exhibit.offset = 0;
-        exhibit.objects = [];
+        exhibit.objects = {};
         exhibit.firstLineWidth = exhibit.secondLineWidth = exhibit.thirdLineWidth = 0;
     },
     clearFilters: function() {
@@ -394,7 +404,7 @@ var exhibit = {
     filterLoadExhibits: function() {   
         exhibit.clearExhibits();       
         exhibit.api.scrollToX(0, false);
-        //exhibit.apiReinitialise();
+        exhibit.api.reinitialise();
         exhibit.loadExhibits();
     },
     setCount: function(count) {
