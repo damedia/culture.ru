@@ -171,7 +171,7 @@ class EventController extends ListController
     }
 
 
-     function getCenturiesListAll()
+    function getCenturiesListAll()
     {
         $result = array();
         $centuries = $this->getCenturiesRepository()->getQuery()->getArrayResult();
