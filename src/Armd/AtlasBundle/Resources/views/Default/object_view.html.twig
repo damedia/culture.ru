@@ -397,8 +397,11 @@
                     {% for video in entity.videos %}
                         <a class="block-image fancybox" href="#data-{{ loop.index }}">
                             <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
-                            <span class="play"></span>
+                            <span class="play"></span>                            
                         </a>
+                        <div class="period-block_text">
+                            <p><b>{{ video.title }}</b></p>
+                        </div>
                     {% endfor %}
                 </article>
             </div>
