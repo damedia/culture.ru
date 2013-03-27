@@ -158,3 +158,8 @@ armd_oauth:
 armd_online_translation:
     resource: '@ArmdOnlineTranslationBundle/Resources/config/routing.yml'
     prefix:   /broadcasts
+
+armd_external_search:
+    resource: '@ArmdExternalSearchBundle/Controller/'
+    type:     annotation
+    prefix:   /external-search
