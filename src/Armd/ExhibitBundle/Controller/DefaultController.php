@@ -78,7 +78,7 @@ class DefaultController extends Controller
         //die();              
         
         foreach ($entities as $i => $e) {
-            $data['objects'][$e->getId()] = array(
+            $data['objects']["'{$e->getId()}'"] = array(
                 'id' => $e->getId(),
                 'img' => $this->getImageSrc($e->getImage(), 'default'),    
                 'img_width' => $e->getImage()->getWidth(),
@@ -90,11 +90,11 @@ class DefaultController extends Controller
             );
             
             if ($e->getMuseum()) {
-                $data['objects'][$e->getId()]['museum'] = array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle());
+                $data['objects']["'{$e->getId()}'"]['museum'] = array('id' => $e->getMuseum()->getId(), 'title' => $e->getMuseum()->getTitle());
             }
             
             foreach ($e->getAuthors() as $a) {
-                $data['objects'][$e->getId()]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+                $data['objects']["'{$e->getId()}'"]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
             }
         }
         
@@ -134,7 +134,7 @@ class DefaultController extends Controller
         }
         
         foreach ($entities as $i => $e) {
-            $data['objects'][$e->getId()] = array(
+            $data['objects']["'{$e->getId()}'"] = array(
                 'id' => $e->getId(),
                 'img' => $this->getImageSrc($e->getImage()),
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallZoom'),
@@ -154,7 +154,7 @@ class DefaultController extends Controller
             );
             
             if ($e->getMuseum()) {
-                $data['objects'][$e->getId()]['museum'] = array(
+                $data['objects']["'{$e->getId()}'"]['museum'] = array(
                     'id' => $e->getMuseum()->getId(), 
                     'title' => $e->getMuseum()->getTitle(),
                     'address' => $e->getMuseum()->getAddress(),
@@ -167,21 +167,21 @@ class DefaultController extends Controller
                     $vTour = $e->getMuseum()->getVirtualTours()->first();
 
                     if ($vTour->getUrl()) {
-                        $data['objects'][$e->getId()]['museum']['vtour']['url'] = $vTour->getUrl();
+                        $data['objects']["'{$e->getId()}'"]['museum']['vtour']['url'] = $vTour->getUrl();
                     }
                 }
             }
             
             foreach ($e->getAuthors() as $a) {
-                $data['objects'][$e->getId()]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+                $data['objects']["'{$e->getId()}'"]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
             }
             
             if ($e->getVideos()->count()) {
                 $video = $e->getVideos()->first();
                 
                 if ($video->getFrame()) {
-                    $data['objects'][$e->getId()]['video']['img'] = $video->getImage();
-                    $data['objects'][$e->getId()]['video']['frame'] = $video->getFrame();
+                    $data['objects']["'{$e->getId()}'"]['video']['img'] = $video->getImage();
+                    $data['objects']["'{$e->getId()}'"]['video']['frame'] = $video->getFrame();
                 }
             }                        
         }
