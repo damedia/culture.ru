@@ -3,6 +3,7 @@ namespace Armd\ListBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Armd\TagBundle\Entity\Tag;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\ORM\QueryBuilder;
 use Armd\TagBundle\Entity\TagManager;
@@ -70,7 +71,8 @@ abstract class ListManager
         } else {
             $qb = $this->getQueryBuilder();
             $this->setCriteria($qb, $criteria);
-            $objects = $qb->getQuery()->getResult();
+            $paginator = new Paginator($qb, $fetchJoinCollection = true);
+            $objects = $paginator; //$qb->getQuery()->getResult();
         }
 
         return $objects;
@@ -86,7 +88,6 @@ abstract class ListManager
     {
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
-
 
         if (!empty($criteria[self::CRITERIA_OFFSET])) {
             $qb->setFirstResult($criteria[self::CRITERIA_OFFSET]);

@@ -243,14 +243,14 @@ class Object implements Taggable
     private $tags;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
-    private $showOnMain;
+    private $showOnMain = false;
     
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
-    private $showOnMainOrd;
+    private $showOnMainOrd = 0;
     
 
     /**

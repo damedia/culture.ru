@@ -19,6 +19,14 @@
                     {% for category in categories %}
                         <option value="{{ category.id }}" {% if category.id == categoryId %}selected="selected"{% endif %}>{{ category.title }}</option>
                     {% endfor %}
+                    {% for category in specialCategories %}
+                        <option value="{{ category.id }}"
+                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                data-system-slug="{{ category.systemSlug }}"
+                                >
+                            {{ category.title }}
+                        </option>
+                    {% endfor %}
                 </select>
             </div>
 

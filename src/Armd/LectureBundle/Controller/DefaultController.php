@@ -96,6 +96,7 @@ class DefaultController extends Controller
         );
 
         $em = $this->getDoctrine()->getManager();
+        $translator = $this->get('translator');
 
         $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode($lectureSuperTypeCode);
@@ -103,9 +104,21 @@ class DefaultController extends Controller
 
         $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
 
+        $specialCategories = array();
+        if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
+            $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                        ->findOneBySystemSlug('CINEMA_TOP_100');
+            if ($top100Category) {
+                $top100Category = clone($top100Category);
+                $top100Category->setTitle($translator->trans('LECTURE_SUPER_TYPE_TOP100'));
+                $specialCategories[] = $top100Category;
+            }
+        }
+
         return array(
             'lectureSuperType' => $lectureSuperType,
             'categories' => $categories,
+            'specialCategories' => $specialCategories,
             'categoryId' => $this->getRequest()->get('category_id'),
             'searchQuery' => $this->getRequest()->get('search_query')
         );
@@ -160,6 +173,11 @@ class DefaultController extends Controller
             default:
                 // sort by date (default)
                 $criteria[LectureManager::CRITERIA_ORDER_BY] = array('createdAt' => 'DESC');
+        }
+
+        $cinemaTop100 = $request->get('cinema_top100');
+        if ($cinemaTop100) {
+            $criteria[LectureManager::CRITERIA_IS_TOP_100_FILM] = true;
         }
 
         $lectures = $this->getLectureManager()->findObjects($criteria);
