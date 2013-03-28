@@ -30,5 +30,20 @@ armd_main_special_russian_images:
 armd_main_special_russian_images_item:
     pattern: /russian-images/{id}/
     defaults: { _controller: ArmdMainBundle:Special:russianImagesItem }
-    requirements: { id: \d+ }         
+    requirements: { id: \d+ }       
     
+armd_main_special_newstext_search_result:
+    pattern:  /newstext-search-result/
+    defaults: { _controller: ArmdMainBundle:Special:newstextSearchResult }   
+    options:
+        expose: true   
+        
+armd_main_specialsearch_search_result:
+    pattern:  /search/
+    defaults: { _controller: ArmdMainBundle:SpecialSearch:searchResults }      
+    
+armd_main_special_news_more_load:
+    pattern:  /news-more-load/
+    defaults: { _controller: ArmdMainBundle:Special:newsMoreLoad }   
+    options:
+        expose: true       
