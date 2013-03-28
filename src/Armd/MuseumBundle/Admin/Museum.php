@@ -85,7 +85,10 @@ class Museum extends Admin
                     'attr' => array('class' => 'chzn-select span5'),
                     'query_builder' => function($er) {
                         $qb = $er->createQueryBuilder('o');
-                        $qb->orderBy('o.title', 'ASC');
+                        $qb->orderBy('o.title', 'ASC')
+                            ->where('o.showAtRussianImage = TRUE')
+                            ->andWhere('o.published = TRUE')
+                        ;
                         return $qb;
                     }
                 ))
