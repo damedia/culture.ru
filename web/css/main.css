@@ -1490,6 +1490,16 @@ body {
             display: inline;
         }
 
+        #alphabet-filter li.active a,
+        #alphabet-filter li.active a:hover,
+        #alphabet-filter li.active a:visited {
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+            cursor: default;
+            outline: none;
+        }
+
     .lecture-homepage-section {
         margin-bottom: 10px;
     }

@@ -31,6 +31,9 @@ class LectureManager extends ListManager
     /** example: true */
     const CRITERIA_IS_TOP_100_FILM = 'CRITERIA_IS_TOP_100_FILM';
 
+    /** example: 'A' */
+    const CRITERIA_FIRST_LETTER = 'CRITERIA_FIRST_LETTER';
+
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
         parent::__construct($em, $tagManager);
@@ -96,6 +99,10 @@ class LectureManager extends ListManager
         if (!empty($criteria[self::CRITERIA_IS_TOP_100_FILM])) {
             $qb->andWhere('_lecture.isTop100Film = TRUE');
         }
+
+//        if (!empty($criteria[self::CRITERIA_FIRST_LETTER])) {
+//            $qb->andWhere('_lecture.title = :');
+//        }
     }
 
     public function findObjectsWithSphinx($criteria) {

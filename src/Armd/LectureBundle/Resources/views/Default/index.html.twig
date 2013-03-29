@@ -67,14 +67,14 @@
             <li><a href="#" data-sort-by="title">алфавиту</a></li>
         </ul>
     </div>
-    {#<div id="alphabet-filter">#}
-        {#<ul>#}
-            {#<li><a href="#" class="active">Все</a></li>#}
-        {#{% for l in alphabet %}#}
-            {#<li>{{ l }}</li>#}
-        {#{% endfor %}#}
-        {#</ul>#}
-    {#</div>#}
+{#    <div id="alphabet-filter">
+        <ul>
+            <li class="active"><a href="#">Все</a></li>
+            {% for l in alphabet %}
+                <li><a href="#">{{ l }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>#}
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
                 'lectureSuperTypeCode': lectureSuperType.code,
