@@ -164,7 +164,7 @@ class EventController extends ListController
                 'value'     => $century,
                 'name'      => Converter::toRoman($century),
                 'eventsCount'    => $this->getEventsCount($century),
-                'events' => $this->getEventsList1($century),
+                'events' => $this->getEventsListAll($century),
  	  	'accidents' => $this->getAccidentsList($century),
             );
         }
@@ -184,7 +184,7 @@ class EventController extends ListController
             $result[] = array(
                 'value'     => $century,
                 'name'      => Converter::toRoman($century),
-                'events' => $this->getEventsList1($century),
+                'events' => $this->getEventsListAll($century),
  	  	'accidents' => $this->getAccidentsList($century),
             );
         }
@@ -197,7 +197,7 @@ class EventController extends ListController
          return $this->getDoctrine()->getRepository('ArmdChronicleBundle:Accident')->findBy(array('event' => null, 'century' => $century), array('date' => 'ASC'));
     }
 
-    function getEventsList1($century)
+    function getEventsListAll($century)
     {
         return $this->getEventsRepository($century)->getQuery()->getResult();
     }
