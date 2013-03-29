@@ -25,8 +25,8 @@ class RemoveTop100Command  extends DoctrineCommand {
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->removeTop100();
         $this->repairCategoryTree();
+        $this->removeTop100();
     }
 
     protected function removeTop100()
@@ -76,12 +76,16 @@ class RemoveTop100Command  extends DoctrineCommand {
 
         $cinemaCategory->setSystemSlug('CINEMA_TOP_100');
 
+        echo '1';
         $em->remove($topCategory);
+        echo '2';
         $em->remove($topSuperType);
 
         $topCategory = $em->getRepository('ArmdLectureBundle:LectureCategory')
             ->findOneByTitle('100 фильмов для школьников');
-        $em->remove($topCategory);
+        if ($topCategory) {
+            $em->remove($topCategory);
+        }
 
         $em->flush();
 
