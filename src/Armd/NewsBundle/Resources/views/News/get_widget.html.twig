@@ -8,7 +8,7 @@
             </tr>
             <tr>
                 <td>Высота</td>
-                <td><input type="number" name="height" value="250" /></td>
+                <td><input type="number" name="height" id="news-widget-settings-height" value="250" /></td>
             </tr>
             <tr>
                 <td>Количество новостей</td>
@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Прокрутка</td>
-                <td><input type="checkbox" name="overflow" checked="checked" /></td>
+                <td><input type="checkbox" name="overflow" id="news-widget-settings-overflow" checked="checked" /></td>
             </tr>
             <tr>
                 <td>Вывод изображений</td>
@@ -44,13 +44,17 @@
     <textarea cols="50" rows="10"></textarea>
 </div>
 
-</article>
-
 <link rel="stylesheet" href="{{ asset('bundles/armdnews/css/get_widget.css') }}">
 
 <script type="text/javascript">
     $(document).ready(function() {
         $('#news-widget-settings').change(function() {
+            if ($('#news-widget-settings-overflow').is(':checked')) {
+                $('#news-widget-settings-height').removeAttr('disabled');
+            } else {
+                $('#news-widget-settings-height').attr('disabled', 'disabled');
+            }
+
             var formData = $('#news-widget-settings').serializeArray();
 
             var serializedArray2Object = function(a) {
@@ -72,8 +76,6 @@
 
             var widgetUrl = '{{ url('armd_news_widget') }}';
 
-
-
             var widgetCode = [
 '<style type="text/css">',
 '    #culture-news-widget .culture-news-image {',
@@ -81,7 +83,7 @@
 '    }',
 '    #culture-news-widget {',
 '        background: transparent;',
-'        height: ' + formData.height + 'px;',
+'        height: ' + ($('#news-widget-settings-height').is(':disabled') ? 'auto' : formData.height + 'px') + ';',
 '        width: ' + formData.width + 'px;',
 ('overflow' in formData) ? '        overflow-y: auto;' : '        overflow-y: visible;',
 '    }',
