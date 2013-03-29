@@ -1688,6 +1688,7 @@ body {
 				margin-top:5px;
 				text-decoration:underline !important;
 				color:#7691A4;
+                                height: 28px;
 			}
 			.obrazy-plitka  .plitka-image {
 				margin: 10px 0 9px;
@@ -2359,6 +2360,7 @@ body {
 		}
 		.rec-plitka  .plitka-one {
 			padding: 6px 11px 6px 0;
+                        word-wrap: normal;
 		}
 		.rec-plitka .plitka-one-wrap:hover {
 			box-shadow:none;
