@@ -28,6 +28,10 @@
                 <td>Вывод изображений</td>
                 <td><input type="checkbox" name="images" /></td>
             </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" id="news-widget-settings-get" value="Получить код" /></td>
+            </tr>
         </table>
     </form>
 
@@ -96,6 +100,10 @@
 
             $('#news-widget-preview').html(widgetCode);
 
+            return false;
+        });
+
+        $('#news-widget-settings').submit(function() {
             $('#news-widget-code textarea').focus();
 
             return false;
