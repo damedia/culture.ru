@@ -1793,7 +1793,7 @@ body {
             }
             .theatre-plitka   li .plitka-name {
                 text-transform:uppercase; 
-                height:3.4em;  
+                height:3.5em;  
                 overflow:hidden;                
                 margin-bottom: 10px;
             }
@@ -5127,6 +5127,156 @@ a.appstore-link {
 .category-chooser a {
 	outline: none;
 }
+
+
+
+/*Theatre One*/
+.main {
+    width:1177px;
+}
+.theatre-one {
+    
+}
+    .theatre-one-main {
+    margin-top: 20px;
+    
+    }
+        .theatre-one-main  h1 {
+            font:31px Verdana, Helvetica, sans-serif;
+            margin:0 0 5px;
+        }
+        .theatre-tags {
+            margin: 7px 0 17px;
+        }
+            .theatre-tags  a {
+                color:#7791a4;
+            }
+
+        .theatre-one-image {
+            margin: 5px 0 26px;
+        }    
+            .theatre-one-image img {
+                width:100%;
+                height:auto;
+            }
+            
+        .theatre-one-description {
+            background: url(../img/more-dots.gif) repeat-x 0 100%;
+        
+            padding-bottom: 9px;
+}    
+            .theatre-one-description p {
+                padding-bottom: 8px;
+            }
+            
+    .content-tabs {
+        margin-top: 25px;
+    }   
+        .content-tabs a {
+            text-transform:uppercase;
+            color:#000;
+            margin-right:15px;
+            border-bottom:1px dashed #000;
+            text-decoration:none;
+            font-size:14px;
+        }
+        .content-tabs a.active {
+            border-bottom:3px solid #f79016;
+        }
+        
+        .content-tab {
+            padding-bottom: 58px;
+            
+        }
+            .content-tab .perfomances-list {
+                padding-top: 10px;
+                padding-bottom: 31px;
+            }
+            
+            .theater-contacts {
+                margin:18px 0 0;
+            }
+                .theater-contacts  caption {
+                    color:#f79016;
+                    font-weight:bold;
+                    border-bottom:3px solid #ececec; 
+                    text-align:left;
+                    padding-bottom:6px;
+                }
+                .theater-contacts td {
+                    background: url(../img/table-dots.gif) repeat-x 0 100%;
+                    padding:7px 30px 8px 0;
+                    vertical-align:top;
+                }
+                .theater-contacts td.label {
+                    font-weight:bold;
+                    color:#7e7e7e;
+                    padding-right:50px;
+                }
+                
+                
+                
+            .sub-tabs {
+                margin: 18px 0 0;
+            }  
+                .sub-tabs a {
+                    color:#989898;
+                    border-bottom:1px dashed #989898;
+                    text-decoration:none;
+                    font-size:12px;
+                    margin-right:10px;
+                }
+                    .sub-tabs a.active {
+                        color:#f5902d;
+                        border:0;
+                        font-size:14px;
+                        font-weight:bold;
+                    }
+                     
+            .sub-tab {
+                
+            } 
+                .afisha-table {
+                    border-top: 3px solid #ececec;
+                    width:100%;
+                    margin-top: 9px;
+                }
+                    .afisha-table td {
+                        background: url(../img/table-dots.gif) repeat-x 0 100%;
+                        vertical-align:middle;
+                    }
+                        .at-name {
+                            padding: 9px 0;
+                            font-size:12px;
+                            width:65%;
+                        }
+                            .at-name b {
+                                text-transform:uppercase;
+                                display:block;
+                            }
+                            .at-name i {
+                                color:#989898;
+                                font-style:normal;
+                                display:block;
+                            }
+                        .at-day {
+                            color:#7e7e7e;
+                            font-size:12px;
+                        }
+                        .at-date {
+                        
+                        }
+
+            .content-tab  .comments {
+                margin-top:2px;
+            }
+
+
+
+
+
+
+
 
 
 /* ==========================================================================

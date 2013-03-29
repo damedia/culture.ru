@@ -81,3 +81,7 @@ armd_main_theatre:
     pattern:  /theatre/
     defaults: { _controller: ArmdMainBundle:Main:theatre }
     
+armd_main_theatreone:
+    pattern:  /theatreone/
+    defaults: { _controller: ArmdMainBundle:Main:theatreone }
+    

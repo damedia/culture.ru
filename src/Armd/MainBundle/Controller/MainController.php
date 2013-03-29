@@ -150,6 +150,11 @@ class MainController extends Controller
         return $this->renderTemplate('theatre');
     }
     
+    public function theatreoneAction()
+    {
+        return $this->renderTemplate('theatreone');
+    }
+    
     public function latestTopicsAction()
     {
         $domain = $this->container->getParameter('communication_platform_domain');
