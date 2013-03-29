@@ -191,7 +191,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function __construct()
     {
         $this->newsDate = new \DateTime();
-        $this->tags = new ArrayCollection();    
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -886,14 +886,14 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function setTheme(\Armd\NewsBundle\Entity\Theme $theme = null)
     {
         $this->theme = $theme;
-    
+
         return $this;
     }
 
     /**
      * Get theme
      *
-     * @return \Armd\NewsBundle\Entity\Theme 
+     * @return \Armd\NewsBundle\Entity\Theme
      */
     public function getTheme()
     {
