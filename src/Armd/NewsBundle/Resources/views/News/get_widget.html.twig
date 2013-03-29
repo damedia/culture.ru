@@ -52,7 +52,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#news-widget-settings').change(function() {
+        $('#news-widget-settings').submit(function() {
             if ($('#news-widget-settings-overflow').is(':checked')) {
                 $('#news-widget-settings-height').removeAttr('disabled');
             } else {
@@ -103,14 +103,8 @@
             return false;
         });
 
-        $('#news-widget-settings').submit(function() {
-            $('#news-widget-code textarea').focus();
-
-            return false;
-        });
-
         // Raise...
-        $('#news-widget-settings').change();
+        $('#news-widget-settings').submit();
     });
 </script>
 
