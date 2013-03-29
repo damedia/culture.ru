@@ -1,0 +1,23 @@
+<div class="culture-news-header">
+    <img src="{{ asset('img/logo.jpg') }}" alt="" />
+
+    <div>Новости культуры</div>
+</div>
+
+<div class="culture-news-list">
+    {% for news in newsList %}
+    <div class="culture-news">
+        <div class="culture-news-date">{{ news.date|date('d.m.Y') }}</div>
+        <div class="culture-news-image">
+            {% if news.image is not empty %}
+                <img src="{% path news.image, 'thumbnail' %}" />
+            {% endif %}
+        </div>
+        <div class="culture-news-link">
+            <a href="{{ url('armd_news_item_by_category', { 'id': news.id, 'category': news.category.slug }) }}" target="_blank">{{ news.title }}</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="culture-news-footer"></div>

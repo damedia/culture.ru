@@ -1,0 +1,108 @@
+<div class="block">
+    <h3>Выбор параметров оформления</h3>
+    <form id="news-widget-settings">
+        <table>
+            <tr>
+                <td>Ширина</td>
+                <td><input type="number" name="width" value="250" /></td>
+            </tr>
+            <tr>
+                <td>Высота</td>
+                <td><input type="number" name="height" id="news-widget-settings-height" value="250" /></td>
+            </tr>
+            <tr>
+                <td>Количество новостей</td>
+                <td>
+                    <select name="count">
+                        <option value="1">1</option>
+                        <option value="3" selected="selected">3</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Прокрутка</td>
+                <td><input type="checkbox" name="overflow" id="news-widget-settings-overflow" checked="checked" /></td>
+            </tr>
+            <tr>
+                <td>Вывод изображений</td>
+                <td><input type="checkbox" name="images" /></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+<div class="block">
+    <h3>Просмотр</h3>
+
+    <div id="news-widget-preview"></div>
+</div>
+
+<div class="block" id="news-widget-code">
+    <h3>Код информера</h3>
+    <textarea cols="50" rows="10"></textarea>
+</div>
+
+<link rel="stylesheet" href="{{ asset('bundles/armdnews/css/get_widget.css') }}">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#news-widget-settings').change(function() {
+            if ($('#news-widget-settings-overflow').is(':checked')) {
+                $('#news-widget-settings-height').removeAttr('disabled');
+            } else {
+                $('#news-widget-settings-height').attr('disabled', 'disabled');
+            }
+
+            var formData = $('#news-widget-settings').serializeArray();
+
+            var serializedArray2Object = function(a) {
+                var o = {};
+                $.each(a, function() {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            }
+
+            formData = serializedArray2Object(formData);
+
+            var widgetUrl = '{{ url('armd_news_widget') }}';
+
+            var widgetCode = [
+'<style type="text/css">',
+'    #culture-news-widget .culture-news-image {',
+('images' in formData) ? '' : '        display: none;',
+'    }',
+'    #culture-news-widget {',
+'        background: transparent;',
+'        height: ' + ($('#news-widget-settings-height').is(':disabled') ? 'auto' : formData.height + 'px') + ';',
+'        width: ' + formData.width + 'px;',
+('overflow' in formData) ? '        overflow-y: auto;' : '        overflow-y: visible;',
+'    }',
+'</style>',
+'<script src="' + widgetUrl + '?count=' + formData.count + '" type="text/javascript"></' + 'script>',
+'<div id="culture-news-widget"></div>'
+            ].join("\n");
+
+            $('#news-widget-code textarea').text(widgetCode);
+
+            $('#news-widget-preview').html(widgetCode);
+
+            $('#news-widget-code textarea').focus();
+
+            return false;
+        });
+
+        // Raise...
+        $('#news-widget-settings').change();
+    });
+</script>
+
