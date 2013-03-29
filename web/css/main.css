@@ -1430,7 +1430,7 @@ body {
     }
 
     #sort-list {
-        margin: 10px 0 20px;
+        margin: 10px 0 10px;
     }
         #sort-list span {
             font-weight: bold;
@@ -1478,6 +1478,16 @@ body {
 
         #sort-list li:last-child:after {
             display: none;
+        }
+
+    #alphabet-filter {
+        margin: 10px 0 20px;
+    }
+
+        #alphabet-filter ul,
+        #alphabet-filter li {
+            list-style-type: none;
+            display: inline;
         }
 
     .lecture-homepage-section {

@@ -133,13 +133,17 @@ class DefaultController extends Controller
             }
         }
 
+        $alphabet = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О',
+            'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
+
         return array(
             'lectureSuperType' => $lectureSuperType,
             'categories' => $categories,
             'specialCategories' => $specialCategories,
             'categoryId' => $this->getRequest()->get('category_id'),
             'searchQuery' => $this->getRequest()->get('search_query'),
-            'cinemaTop100' => $this->getRequest()->get('cinema_top100')
+            'cinemaTop100' => $this->getRequest()->get('cinema_top100'),
+            'alphabet' => $alphabet
         );
 
     }
@@ -264,7 +268,7 @@ class DefaultController extends Controller
 
         // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->getMenuUri($lecture->getLectureSuperType()->getCode())
+            $this->getMenuUri($lecture->getLectureSuperType()->getCode(), $this->getRequest())
         );
 
         $manager = $this->get('armd_lecture.manager.lecture');
