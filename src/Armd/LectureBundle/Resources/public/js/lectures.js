@@ -96,6 +96,10 @@ var armdMkLectures = {
             var categoryId = $('#lecture_category').val();
             var subCategoryId = $('#lecture_sub_category').val();
             data['category_id'] = parseInt(subCategoryId) > 0 ? subCategoryId : categoryId;
+
+            if ($('#lecture_category option:selected').data('system-slug') === 'CINEMA_TOP_100') {
+                data['cinema_top100'] = 1;
+            }
         }
 
         data['sort_by'] = $('#sort-list li.active a').data('sort-by');

@@ -1,0 +1,23 @@
+ {% extends ':Frontend:layout_one_column.html.twig' %} 
+
+{# ------------------------------------------------------------------------ #}
+ {% block page_header_title %}
+    {{ 'Chronicle'|trans }}
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-dates"></div>
+{% endblock %} 
+
+{# ------------------------------------------------------------------------ #}
+{% block one_column %} 
+     {% for c in centuries %}
+        <div class="time-line-content clearfix all" id="{{ c.name }}">
+            <div class="time-line-header">{{ c.name }}<br />
+ 	  	<span>{{ 'Century'|trans }}</span>
+ 	   </div>
+ 	  {% include "ArmdChronicleBundle:Event:list.html.twig" with {"events": c.events, "accidents": c.accidents} %} 
+        </div>
+    {% endfor%}
+    </div><!-- //wayponits-area-->
+{% endblock %}

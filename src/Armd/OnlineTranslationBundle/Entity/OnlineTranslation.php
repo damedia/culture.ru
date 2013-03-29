@@ -31,7 +31,7 @@ class OnlineTranslation implements Taggable
     private $published = false;
     
     /**
-     * @ORM\Column(type="smallint", options={"default"=0})
+     * @ORM\Column(type="smallint")
      */
     private $type = 0;
 
@@ -53,7 +53,7 @@ class OnlineTranslation implements Taggable
     private $location;
     
     /**
-     * @ORM\Column(name="short_description", type="string")
+     * @ORM\Column(name="short_description", type="text")
      * @Assert\NotBlank()
      */
     private $shortDescription;

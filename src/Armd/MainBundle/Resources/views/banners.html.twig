@@ -31,9 +31,9 @@
 
 {% block body%}
 
-    {% if app.request.locale == 'en' %}
+    <div class="content" id="banners-page">
+        {% if app.request.locale == 'en' %}
     
-        <div class="content">
             <p>The banners of the culture.ru portal can be displayed on Internet websites without any restrictions on length or time of publication.</p>
             <table class="banners-list">
                 <tr>
@@ -301,11 +301,10 @@
                     </td>
                 </tr>                 
             </table>
-        </div>
+        {% else %}
 
-    {% else %}
-
-        <div class="content">
+            <section class="block">
+            <h2><span>Баннеры</span></h2>
             <p>Баннеры портала Культура.рф  могут быть воспроизведены на серверах сети Интернет без каких-либо ограничений по объёму и срокам публикации.</p>
             <table class="banners-list">
                 <tr>
@@ -574,8 +573,16 @@
                 </tr>  
 
             </table>
-        </div>
 
-    {% endif %}
+            </section>
+
+            <section class="block">
+                <h2><span>Новостной информер</span></h2>
+
+                {% render url('armd_news_get_widget') %}
+            </section>
+
+        {% endif %}
+    </div>
 
 {% endblock %}

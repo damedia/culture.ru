@@ -25,7 +25,7 @@
 
 {% block page_header_search_scope %}
     <div class="search-checkboxes">
-        <label><input type="checkbox" name="search-this-section" id="search-this-section" {% if searchQuery is not empty %}checked{% endif %}/><span>Искать в текущем разделе</span></label>
+        <label><input type="checkbox" name="search-this-section" id="search-this-section" {% if searchQuery is not empty %}checked{% endif %}/><span>{{"Search_current_section"|trans}}</span></label>
         {#<label><input type="checkbox" name="check2" id="check2"/><span>Искать за выбранный период</span></label>#}
     </div>
 {% endblock %}

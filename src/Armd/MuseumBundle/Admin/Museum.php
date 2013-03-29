@@ -89,6 +89,7 @@ class Museum extends Admin
                             ->where('o.showAtRussianImage = TRUE')
                             ->andWhere('o.published = TRUE')
                         ;
+
                         return $qb;
                     }
                 ))

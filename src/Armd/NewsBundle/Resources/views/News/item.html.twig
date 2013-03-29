@@ -23,7 +23,7 @@
 
 {% block page_header_search_scope %}
     <div class="search-checkboxes">
-        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
     </div>
 {% endblock %}
 
@@ -111,7 +111,8 @@
 {% endif %}
 
 
-<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>
+{#<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>#}
+<div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
 <div class="event-one_footer clearfix">
     <div href="#" class="print-link"><a target="_blank" href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}"></a> {{ "Printversion"|trans }}: </div>
     <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
