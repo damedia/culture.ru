@@ -37,11 +37,31 @@ class SpecialController extends Controller
         ));
     }    
     
-    public function russianImagesItemAction($id)
+    public function russianImagesItemAction($id, $print=0)
     {
-        return $this->render('ArmdMainBundle:Special:russian-images-item.html.twig', array(
-            'entity'    => $this->getObjectManager()->getObject($id),
-        ));        
+    	$entity = $this->getObjectManager()->getObject($id);
+    	
+        $relatedObjects = $this->getObjectManager()->findObjects
+        (
+            array(
+                ObjectManager::CRITERIA_LIMIT => 5,
+                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+                ObjectManager::CRITERIA_TAGS => $entity->getTags(),
+                ObjectManager::CRITERIA_RANDOM => true,
+                ObjectManager::CRITERIA_IDS_NOT => array($entity->getId()),
+            )
+        );    	
+    	
+        if ($print)
+	        return $this->render('ArmdMainBundle:Special:russian-images-item-print.html.twig', array(
+	            'entity'    => $entity,
+	            'relatedObjects' => $relatedObjects
+	        )); 
+        else
+	        return $this->render('ArmdMainBundle:Special:russian-images-item.html.twig', array(
+	            'entity'    => $entity,
+	            'relatedObjects' => $relatedObjects
+	        ));        
     }    
 	
 	public function aboutAction()

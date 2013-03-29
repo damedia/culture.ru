@@ -1,0 +1,25 @@
+{% extends ':Frontend:special_print.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+	<link href="{{ asset('css/blind_tabs.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block body%}
+{% set n = entity %}
+{% set f = n.date %}
+{% set t = n.endDate %}
+
+
+    <h1>{{ n.title|raw }}</h1>
+	<div class="text">
+		<article class="event-anons event-one">	
+			<span class="date" title="{{ 'Special.Date'|trans }}">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' Y') }}
+			{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' Y') }}{% endif%}</span>
+			<div class="text-overflow">
+				<p>{{ n.announce|raw }}</p>
+				{{ n.body|raw }}
+			</div>
+			
+		</article>
+       
+	</div>
+{% endblock %}
