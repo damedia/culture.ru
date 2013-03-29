@@ -2168,7 +2168,15 @@ body {
 				font-size:12px;
 				margin-bottom:10px;
 				
-			}
+                                }
+                                .time-line-content.clearfix.all {
+                                    margin-left:0px;
+                                }
+
+                                .link-chronicle-all {
+                                    text-align: right;
+                                }
+
 				.time-line-header {
 					background:#fff;
 					text-align:center;
