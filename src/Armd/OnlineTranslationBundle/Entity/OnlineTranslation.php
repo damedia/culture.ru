@@ -53,7 +53,7 @@ class OnlineTranslation implements Taggable
     private $location;
     
     /**
-     * @ORM\Column(name="short_description", type="string")
+     * @ORM\Column(name="short_description", type="text")
      * @Assert\NotBlank()
      */
     private $shortDescription;

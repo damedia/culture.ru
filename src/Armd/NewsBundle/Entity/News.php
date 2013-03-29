@@ -96,12 +96,12 @@ class News extends BaseNews implements CommentableInterface, Taggable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $priority;
+    protected $priority = 0;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    protected $published;
+    private $published = true;
 
     /**
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
@@ -926,14 +926,14 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function setTheme(\Armd\NewsBundle\Entity\Theme $theme = null)
     {
         $this->theme = $theme;
-    
+
         return $this;
     }
 
     /**
      * Get theme
      *
-     * @return \Armd\NewsBundle\Entity\Theme 
+     * @return \Armd\NewsBundle\Entity\Theme
      */
     public function getTheme()
     {
