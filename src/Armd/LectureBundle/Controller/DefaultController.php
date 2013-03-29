@@ -2,6 +2,7 @@
 
 namespace Armd\LectureBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\LectureBundle\Entity\LectureManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -78,9 +79,13 @@ class DefaultController extends Controller
      */
     public function top100IndexAction()
     {
-        return $this->forward('ArmdLectureBundle:Default:index', array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_TOP100'
-        ));
+        return $this->forward(
+            'ArmdLectureBundle:Default:index',
+            array(
+                'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
+                'cinema_top100' => 1
+            )
+        );
     }
 
 
@@ -90,28 +95,41 @@ class DefaultController extends Controller
      */
     public function indexAction($lectureSuperTypeCode)
     {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $translator = $this->get('translator');
+
         // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->getMenuUri($lectureSuperTypeCode)
+            $this->getMenuUri($lectureSuperTypeCode, $request)
         );
 
-        $em = $this->getDoctrine()->getManager();
-        $translator = $this->get('translator');
 
         $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode($lectureSuperTypeCode);
 
 
-        $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
-
         $specialCategories = array();
-        if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
+        $cinemaTop100 = $request->get('cinema_top100');
+        if ($cinemaTop100) {
             $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
                         ->findOneBySystemSlug('CINEMA_TOP_100');
-            if ($top100Category) {
-                $top100Category = clone($top100Category);
-                $top100Category->setTitle($translator->trans('LECTURE_SUPER_TYPE_TOP100'));
-                $specialCategories[] = $top100Category;
+
+            $categories = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                ->findBy(array('parent' => $top100Category), array('title' => 'ASC'));
+
+        } else {
+            $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
+
+            $specialCategories = array();
+            if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
+                $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                            ->findOneBySystemSlug('CINEMA_TOP_100');
+                if ($top100Category) {
+                    $top100Category = clone($top100Category);
+                    $top100Category->setTitle($translator->trans('LECTURE_SUPER_TYPE_TOP100'));
+                    $specialCategories[] = $top100Category;
+                }
             }
         }
 
@@ -120,7 +138,8 @@ class DefaultController extends Controller
             'categories' => $categories,
             'specialCategories' => $specialCategories,
             'categoryId' => $this->getRequest()->get('category_id'),
-            'searchQuery' => $this->getRequest()->get('search_query')
+            'searchQuery' => $this->getRequest()->get('search_query'),
+            'cinemaTop100' => $this->getRequest()->get('cinema_top100')
         );
 
     }
@@ -214,7 +233,7 @@ class DefaultController extends Controller
                 function ($value) {
                     return array(
                         'id' => $value->getId(),
-                        'title' => $value->getTitle()
+                        'title' => $value->getTitle(),
                     );
                 },
                 $categories
@@ -302,7 +321,7 @@ class DefaultController extends Controller
         return array('lectures' => $lectures);
     }
 
-    public function getMenuUri($lectureSuperTypeCode)
+    public function getMenuUri($lectureSuperTypeCode, $request)
     {
         $router = $this->get('router');
 
@@ -314,10 +333,11 @@ class DefaultController extends Controller
                 $uri = $router->generate('armd_lecture_translation_index');
                 break;
             case 'LECTURE_SUPER_TYPE_CINEMA':
-                $uri = $router->generate('armd_lecture_cinema_index');
-                break;
-            case 'LECTURE_SUPER_TYPE_TOP100':
-                $uri = $router->generate('armd_lecture_top100_index');
+                if ($request->get('cinema_top100')) {
+                    $uri = $router->generate('armd_lecture_top100_index');
+                } else {
+                    $uri = $router->generate('armd_lecture_cinema_index');
+                }
                 break;
             default:
                 $uri = $router->generate('armd_lecture_cinema_index');

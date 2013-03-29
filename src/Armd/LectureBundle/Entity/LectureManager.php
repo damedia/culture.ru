@@ -181,7 +181,8 @@ class LectureManager extends ListManager
 
         $qb->where('t.root = :root')
             ->setParameter('root', $rootCategory->getRoot())
-            ->orderBy('t.title', 'ASC');
+            ->orderBy('t.title', 'ASC')
+        ;
 
         if ($parentCategory) {
             $qb->andWhere('t.parent = :parent_category')
