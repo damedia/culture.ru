@@ -1553,10 +1553,6 @@ body {
                     }
 
                         .plitka-one-image .cinema-top100-icon {
-                            background: transparent url('../img/top100.png') no-repeat scroll 0 0;
-                            position: absolute;
-                            width: 48px;
-                            height: 48px;
                             right: -26px;
                             top: -12px;
                         }
@@ -1822,7 +1818,16 @@ body {
 				.lt-ie8 .short-list .full-list-text {
 					background:url(../img/obr-dot.png) no-repeat 0 6px;
 				}
-			
+
+    .cinema-top100-icon {
+        background: transparent url('../img/top100.png') no-repeat scroll 0 0;
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        right: 0;
+        top: 0;
+        z-index: 100;
+    }
 		
 	/*MUSEUMS*/
 	.wide-plitka {
@@ -2575,6 +2580,7 @@ body {
                             display:block;
                             margin-bottom: 10px;
                         }
+
                             .period-block_image .play, .block-image .play {
                                 position:absolute;
                                 top:50%;
@@ -3279,6 +3285,10 @@ body {
                 text-align: center;
 				margin:0 37px 0 0;
 			}
+                .index-video-list .index-video-one {
+                    position: relative;
+                }
+
 				.index-video-list img {
 					margin-bottom:10px;
 				}

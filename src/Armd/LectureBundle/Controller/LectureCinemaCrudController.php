@@ -18,7 +18,7 @@ class LectureCinemaCrudController extends BaseCrudController
     public function batchActionNotShowOnMain(ProxyQueryInterface $selectedModelQuery)
     {
         return $this->doBatchAction($selectedModelQuery, function ($object) {
-                $this->setShowOnMain(false);
+                $object->setShowOnMain(false);
             });
     }
 }
