@@ -23,26 +23,35 @@
                 
             </ul>
         </div>
+        
         <div class="exponats-main">
-            <ul class="exponats-categories" id="exp-categories">
-                {% for id, f in filters %}
-                    <li class="with-filter"><a data-id="fid-{{ id }}" href="#">{{ f.title }}</span></a></li>
-                {% endfor %}               
-            </ul>   
-            <div id="exp-filter-blank" class="exp-filter" style="display: none;">
-                <div class="alphabet">
-                    <a href="#" class="active">Все</a><a href="#">А</a><a href="#">Б</a><a href="#">В</a><a href="#">Г</a><a href="#">Д</a><a href="#">Е</a><a href="#">Ё</a><a href="#">Ж</a><a href="#">З</a><a href="#">И</a><a href="#">Й</a><a href="#">К</a><a href="#">Л</a><a href="#">М</a><a href="#">Н</a><a href="#">О</a><a href="#">П</a><a href="#">Р</a><a href="#">С</a><a href="#">Т</a><a href="#">У</a><a href="#">Ф</a><a href="#">Х</a><a href="#">Ц</a><a href="#">Ч</a><a href="#">Ш</a><a href="#">Щ</a><a href="#">Э</a><a href="#">Ю</a><a href="#">Я</a>
-                </div>
-                <div class="fiter-results"></div>
-                <span class="filter-handle" id="filter-handle"></span>
-            </div>           
+          <div class="exponats-menu" id="exp-menu">
+            <div class="clearfix">
+              <ul class="exponats-types" id="exp-types">
+                  </li><li><a href="#oneline" class="one-row"></a></li>
+                  </li><li class="active"><a href="#twolines" class="two-rows"></a>
+                  <li><a href="#threelines" class="all-rows"></a>
+              </ul>
+              <ul class="exponats-categories" id="exp-categories">
+                  {% for id, f in filters %}
+                      <li class="with-filter">
+                        <a data-id="fid-{{ id }}" href="#"><span>{{ f.title }}</span></a>
+                        <div id="exp-filter-blank" class="exp-filter" style="display: none;">
+                          <div class="alphabet">
+                              <a href="#" class="active">Все</a><a href="#">А</a><a href="#">Б</a><a href="#">В</a><a href="#">Г</a><a href="#">Д</a><a href="#">Е</a><a href="#">Ё</a><a href="#">Ж</a><a href="#">З</a><a href="#">И</a><a href="#">Й</a><a href="#">К</a><a href="#">Л</a><a href="#">М</a><a href="#">Н</a><a href="#">О</a><a href="#">П</a><a href="#">Р</a><a href="#">С</a><a href="#">Т</a><a href="#">У</a><a href="#">Ф</a><a href="#">Х</a><a href="#">Ц</a><a href="#">Ч</a><a href="#">Ш</a><a href="#">Щ</a><a href="#">Э</a><a href="#">Ю</a><a href="#">Я</a>
+                          </div>
+                          <div class="fiter-results"></div>
+                          <span class="filter-handle" id="filter-handle"></span>
+                      </div>  
+                      </li>
+                  {% endfor %}               
+              </ul>
+            </div>
+          </div>
+            <script>
+              $('#exp-menu').appendTo('.nav-header');
+            </script>        
             <div class="exponats-content" id="exponats-content">
-                <ul class="exponats-types" id="exp-types">
-                    <li><a href="#threelines" class="all-rows"></a>
-                    </li><li class="active"><a href="#twolines" class="two-rows"></a>
-                    </li><li><a href="#oneline" class="one-row"></a></li>
-                </ul>
-                
                 <div id="el-one-blank" class="el-one" style="display: none;">
                     <a href="#"><img src=""></a>
                     <div class="el-one-wrap">
