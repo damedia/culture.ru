@@ -3,6 +3,7 @@
 namespace Armd\ChronicleBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ChronicleBundle\Util\RomanConverter as Converter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -85,6 +86,20 @@ class EventController extends ListController
             'start_zoom_adjust' => 0
         ));
     }
+
+
+    /**
+     * @Route("/all/", name="armd_chronicle_all")
+     * @Template()
+    */
+     public function allAction()
+     {
+        $activeCentury = $activePart = false;
+        return  array(
+            'centuries' => $this->getCenturiesListAll(),
+        );
+     }
+
     
     /**
      * @Route("/timeline_json_data.json/{century}/{part}", 
@@ -149,10 +164,42 @@ class EventController extends ListController
                 'value'     => $century,
                 'name'      => Converter::toRoman($century),
                 'eventsCount'    => $this->getEventsCount($century),
+                'events' => $this->getEventsList1($century),
+ 	  	'accidents' => $this->getAccidentsList($century),
             );
         }
         
         return $result;
+    }
+
+
+    function getCenturiesListAll()
+    {
+        $result = array();
+        $centuries = $this->getCenturiesRepository()->getQuery()->getArrayResult();
+
+        foreach ($centuries as $c) {
+            $century = $c['century'];
+
+            $result[] = array(
+                'value'     => $century,
+                'name'      => Converter::toRoman($century),
+                'events' => $this->getEventsList1($century),
+ 	  	'accidents' => $this->getAccidentsList($century),
+            );
+        }
+
+        return $result;
+    }
+
+    function getAccidentsList($century)
+    {
+         return $this->getDoctrine()->getRepository('ArmdChronicleBundle:Accident')->findBy(array('event' => null, 'century' => $century), array('date' => 'ASC'));
+    }
+
+    function getEventsList1($century)
+    {
+        return $this->getEventsRepository($century)->getQuery()->getResult();
     }
     
     function getEventsList($century, $part = 0)
