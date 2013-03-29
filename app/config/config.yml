@@ -280,7 +280,6 @@ sonata_media:
         file:
             resizer:    false
             filesystem: sonata.media.filesystem.local
-            generator:  armd_media_helper.generator.original
             thumbnail:  sonata.media.thumbnail.format
             # Default set of allowed types doesn't include mp3.
             allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml', 'mp3']
@@ -438,4 +437,3 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-    sonata.media.provider.file.class: Armd\MediaHelperBundle\Provider\OriginalFileProvider
