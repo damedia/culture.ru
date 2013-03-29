@@ -22,7 +22,7 @@
                     <span class="search-result-date">,{{ armd_date.news_date(searchResult.object.date) }} </span>
                 {% endif %}
                 <a class="search-result-title" href="{{ searchResult.object.url }}">
-                    {{ searchResult.object.title }}
+                    {{ searchResult.object.title|raw }}
                 </a>
 
                 <a class="search-result-image" href="{{ searchResult.object.url }}">

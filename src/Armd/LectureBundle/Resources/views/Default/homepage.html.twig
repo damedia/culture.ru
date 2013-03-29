@@ -71,6 +71,9 @@
                         <div class="plitka-one">
                             <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
                                 <div class="plitka-one-image">
+                                    {% if lecture.isTop100Film %}
+                                        <div class="cinema-top100-icon"></div>
+                                    {% endif %}
                                     {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 'auto'}) }}
                                 </div>
                             </a>
@@ -85,7 +88,14 @@
                                 {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
 
                                 {% for lectureCategory in lecture.categories %}
-                                    <span><nobr>{{ lectureCategory.title }}</nobr></span>{% if not loop.last %},{% endif %}
+                                    <span><nobr>
+                                        <a href="{{ path('armd_lecture_default_index', {
+                                                    'lectureSuperTypeCode': lecture.lectureSuperType.code,
+                                                    'category_id': lectureCategory.id}) }}"
+                                                >
+                                            {{ lectureCategory.title }}
+                                        </a>
+                                    </nobr></span>{% if not loop.last %},{% endif %}
                                 {% endfor %}
                             </div>
 

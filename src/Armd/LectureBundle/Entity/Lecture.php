@@ -143,25 +143,24 @@ class Lecture implements Taggable
     private $rolesPersons;
 
     /**
-<<<<<<< HEAD
      * @ORM\Column(name="view_count", type="integer", nullable=true)
      */
     private $viewCount = 0;
 
     /**
-     * @ORM\Column(name="is_top_100_film", type="boolean", nullable=true)
+     * @ORM\Column(name="is_top_100_film", type="boolean", nullable=false)
      */
     private $isTop100Film = false;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
-    private $showOnMain;
+    private $showOnMain = false;
     
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
-    private $showOnMainOrd;
+    private $showOnMainOrd = 0;
     
 
     /**

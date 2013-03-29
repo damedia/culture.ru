@@ -4,6 +4,9 @@
         <div class="plitka-one">
             <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
                 <div class="plitka-one-image">
+                    {% if lecture.isTop100Film %}
+                        <div class="cinema-top100-icon"></div>
+                    {% endif %}
                     {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 'auto'}) }}
                     {#{% thumbnail thumbnailMedia, 'lectureW160H120' with { 'alt': lecture.title, 'height': 'auto' } %}#}
                 </div>

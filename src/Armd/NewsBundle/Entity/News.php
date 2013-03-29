@@ -96,12 +96,12 @@ class News extends BaseNews implements CommentableInterface, Taggable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $priority;
+    protected $priority = 0;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    protected $published;
+    private $published = true;
 
     /**
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
@@ -144,7 +144,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     private $mediaVideo;
 
     /**
-     * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
+     * @ORM\Column(name="is_on_map", type="boolean", nullable=false)
      */
     private $isOnMap = false;
 
@@ -189,14 +189,14 @@ class News extends BaseNews implements CommentableInterface, Taggable
     protected $theme;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
-    private $showOnMain;
+    private $showOnMain = false;
     
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
-    private $showOnMainOrd;
+    private $showOnMainOrd = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -926,14 +926,14 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function setTheme(\Armd\NewsBundle\Entity\Theme $theme = null)
     {
         $this->theme = $theme;
-    
+
         return $this;
     }
 
     /**
      * Get theme
      *
-     * @return \Armd\NewsBundle\Entity\Theme 
+     * @return \Armd\NewsBundle\Entity\Theme
      */
     public function getTheme()
     {
