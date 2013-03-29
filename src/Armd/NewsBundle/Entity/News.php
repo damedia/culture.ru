@@ -144,7 +144,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     private $mediaVideo;
 
     /**
-     * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
+     * @ORM\Column(name="is_on_map", type="boolean", nullable=false)
      */
     private $isOnMap = false;
 
@@ -189,14 +189,14 @@ class News extends BaseNews implements CommentableInterface, Taggable
     protected $theme;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
-    private $showOnMain;
+    private $showOnMain = false;
     
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false, options={"default" = 0})
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
-    private $showOnMainOrd;
+    private $showOnMainOrd = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})

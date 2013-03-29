@@ -27,7 +27,7 @@ class Tag extends BaseTag
     protected $tagging;
     
     /**
-     * @ORM\Column(type="boolean", options={"default" = false})
+     * @ORM\Column(type="boolean")
      */        
     private $isTechnical = false;
     

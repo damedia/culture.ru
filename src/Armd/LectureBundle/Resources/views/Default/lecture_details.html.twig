@@ -140,7 +140,12 @@
                         {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
                         {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
                         {% for lectureCategory in lecture.categories %}
-                            <a href="#">{{ lectureCategory.title }}</a>,
+                            <a href="{{ path('armd_lecture_default_index', {
+                                        'lectureSuperTypeCode': lecture.lectureSuperType.code,
+                                        'category_id': lectureCategory.id }) }}"
+                                    >
+                                {{ lectureCategory.title }}
+                            </a>,
                         {% endfor %}
                         Просмотров: {{ lecture.viewCount }}
                     {% endspaceless %}

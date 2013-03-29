@@ -17,12 +17,25 @@
                 <select id="lecture_category" name="lecture_category" class="uni">
                     <option value="0">{{ "All"|trans }}</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}" {% if category.id == categoryId %}selected="selected"{% endif %}>{{ category.title }}</option>
+                        <option value="{{ category.id }}"
+                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}
+                                >
+                            {{ category.title }}
+                        </option>
+                    {% endfor %}
+                    {% for category in specialCategories %}
+                        <option value="{{ category.id }}"
+                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                data-system-slug="{{ category.systemSlug }}"
+                                >
+                            {{ category.title }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
 
-            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and not cinemaTop100 %}
                 <span class="search-dates-label">Жанр</span>
                 <div class="search-category-selects">
                     <select id="lecture_sub_category" name="lecture_sub_category" class="uni">
@@ -54,12 +67,22 @@
             <li><a href="#" data-sort-by="title">алфавиту</a></li>
         </ul>
     </div>
+{#    <div id="alphabet-filter">
+        <ul>
+            <li class="active"><a href="#">Все</a></li>
+            {% for l in alphabet %}
+                <li><a href="#">{{ l }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>#}
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
-            'lectureSuperTypeCode': lectureSuperType.code,
-            'limit': 32,
-            'search_query': searchQuery,
-            'category_id': categoryId})
+                'lectureSuperTypeCode': lectureSuperType.code,
+                'limit': 32,
+                'search_query': searchQuery,
+                'category_id': categoryId,
+                'cinema_top100': cinemaTop100
+            })
         %}
     </div>
     <div id="lecture-more-container" class="more more2">
