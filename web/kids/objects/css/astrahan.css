@@ -113,11 +113,13 @@
             background: url(../img/astrahan/test-arrow.png) no-repeat 48px 100%;
         
             margin-top: -18px;
+            position:relative;
+            z-index:5;
 }
         
         .astr .quiz-link {
             position:absolute;
-            top:-100px;
+            top:-110px;
         }
         
         
@@ -134,7 +136,7 @@
 
     }
         
-        .image-qiuz {
+       .image-qiuz {
         
         }
             .image-qiuz .choice-result img {
@@ -151,13 +153,13 @@
                 margin-top:60px;
             }
             
-            .image-qiuz  .cbv-choices {
-                background:url(../img/astrahan/quiz-1/quiz-1-image.png) no-repeat 0 0;
-                width:596px;
-                height:650px;
+            .image-qiuz .cbv-choices {
+                background:url(../img/astrahan/quiz-1/quiz-1-bg.png) no-repeat 0 0;
+                width:644px;
+                height:663px;
                 position:relative;
-                margin: 0 0 0 310px;
-                top: -112px;
+                margin: 0 0 0 286px;
+                top: -116px;
                 border:0;
             }   
                 .image-qiuz  .choice div {
@@ -180,8 +182,8 @@
                     }
                     
                     .image-qiuz  .choice-1 {
-                        top: 275px;
-                        left: -21px;
+                        top: 282px;
+                        left: 0px;
                         width:110px;
                         height:113px;
                     }
@@ -189,14 +191,14 @@
                         background-position:0 0;
                     } 
                         .image-qiuz  .choice-1 p {
-                            top: -45px;
-                            left: 5px;
+                            top: -54px;
+                            left: 10px;
                         }
                         
                         
                     .image-qiuz  .choice-2 {
-                        top: 116px;
-                        left: 230px;
+                        top: 123px;
+                        left: 251px;
                         width:110px;
                         height:113px;
                     }
@@ -204,74 +206,74 @@
                         background-position:-200px 0;
                     }
                         .image-qiuz  .choice-2 p {
-                            top: -46px;
-                            left: 24px;
+                            top: -54px;
+                            left: 27px;
                         }
                     .image-qiuz  .choice-3 {
-                        top: -7px;
-                        left: 500px;
+                        top: 0px;
+                        left: 522px;
                          width:110px;
                         height:113px;
                     }
                     .image-qiuz  .selected .choice-3 {
-                        background-position:-400px 0;
+                        background-position: -401px 0;
                     }
                         .image-qiuz  .choice-3 p {
-                            top: 24px;
-                            left: -72px;
+                            top: 17px;
+                            left: -75px;
                         }
                         
                     .image-qiuz  .choice-4 {
-                        top: 111px;
-                        left: 500px;
+                        top: 118px;
+                        left: 522px;
                         width:122px;
                         height:128px;
                     }
                     .image-qiuz  .selected .choice-4 {
-                        background-position:-600px 0;
+                        background-position: -600px 0;
                     }
                         .image-qiuz  .choice-4 p {
-                            top: 109px;
-                            left: 97px;
+                            top: 113px;
+                            left: 86px;
                         }
                     .image-qiuz  .choice-5 {
-                        top: 392px;
-                        left: 477px;
+                        top: 401px;
+                        left: 497px;
                         width:116px;
                         height:121px;
                     }
                     .image-qiuz  .selected .choice-5 {
-                        background-position:0 -200px;
+                        background-position: 0 -202px;
                     }
                         .image-qiuz  .choice-5 p {
-                            top: 114px;
-                            left: 36px;
+                            top: 116px;
+                            left: 39px;
                         }
                     .image-qiuz  .choice-6 {
-                        top: 535px;
-                        left: 331px;
+                        top: 543px;
+                        left: 353px;
                         width:116px;
                         height:121px;
                     }
                     .image-qiuz  .selected .choice-6 {
-                        background-position:-200px -200px;
+                        background-position: -201px -202px;
                     }
                         .image-qiuz  .choice-6 p {
-                            top: 117px;
+                            top: 124px;
                             left: 5px;
                         }
                     .image-qiuz  .choice-7 {
-                        top: 330px;
-                        left: 125px;
+                        top: 339px;
+                        left: 148px;
                         width:184px;
                         height:190px;
                     }
                      .image-qiuz  .selected .choice-7 {
-                        background-position:-400px -200px;
+                        background-position: -402px -202px;
                     }
                         .image-qiuz  .choice-7 p {
-                            top: 185px;
-                            left: 24px;
+                            top: 186px;
+                            left: 29px;
                         }
         
         .astr  .case-3 .choice-1-result  img {
@@ -323,7 +325,7 @@
             }
                 .astr .compare-image {
                     width:420px;
-                    height:330px;
+                    height:318px;
                     position:relative;
                     margin-bottom: 25px;
                     padding:0;
@@ -348,11 +350,11 @@
                             color:#91dbf2;
                         }
                         .astr  .all-found {
-                            background:#ffb2b0;
+                            background:#e55c65;
                             color:#fff;
                         }
                             .astr  .all-found  #compare-found {
-                                color:#26a5a8;
+                                color:#d1e2b5;
                             }
                     .astr .hidden-parts {
                         width: 378px;
@@ -361,10 +363,46 @@
                         top:21px;
                     }
                     .astr  .hidden-parts  div {
-                        background-image:url(../img/kremlin/compare/all_diff.png);
+                        background-image:url(../img/astrahan/compare/all_diff.png);
                         background-repeat:no-repeat;
                         z-index: 700;
                     }
+                        .astr_first_1 {
+                            width:74px;
+                            height:60px;
+                            top: 10px;
+                            left:100px;
+                            background-position:-21px -86px;
+                        }
+                        .astr_first_2 {
+                            width:92px;
+                            height:104px;
+                            top: 169px;
+                            left: 95px;
+                            background-position:-132px 0;
+                        }
+                        
+                        .astr_sec_1 {
+                            width:41px;
+                            height:68px;
+                            top: 108px;
+                            left: 84px;
+                            background-position:-87px -161px;
+                        }
+                        .astr_sec_2 {
+                            width:109px;
+                            height:65px;
+                            top: 205px;
+                            left: 93px;
+                            background-position:0 0;
+                        }
+                        .astr_sec_3 {
+                            width: 52px;
+                            height: 131px;
+                            top: 79px;
+                            left: 326px;
+                            background-position: -168px -106px;
+                        }
                     
                     
                     
@@ -546,8 +584,32 @@
 .astr  .footer-purple-link {
     top:375px;
 }
-        
     
+ /*WANT MORE*/      
+    .whant-more-container {
+        width: 963px;
+        position: relative;
+        height: 580px;
+       
+	}
+        .want-more-astr {
+             background:url(../img/astrahan/window_bg.png) no-repeat 0 0;
+        }
+        
+            .want-more-astr .window-text {
+                height:220px;
+                color:#5baab2;
+            }
+            
+            .want-more-astr-container .jspTrack {
+                background:#f9f5cf;
+            }    
+    
+        .want-more-astr-container .main-site-link {
+            width: 325px;
+            left: 440px;
+            top: 69px;
+        }
     
     
 

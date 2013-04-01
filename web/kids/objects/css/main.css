@@ -1255,9 +1255,9 @@ body {
                         background:#fff;
                         color:#c4513f;
                         text-transform:uppercase;
-                        padding:4px 13px;
+                        padding:5px 13px 6px;
                         display:inline-block;
-                        font:bold 15px Arial black, Helvetica, sans-serif;
+                        font:bold 15px/17px Arial black, Helvetica, sans-serif;
                         border-radius:5px;
                         float:right;
                         position:absolute;
@@ -1573,15 +1573,15 @@ body {
                     }
 
                     .petergof .nev-riddle-1 .choice-result .choice-1-result p {
-                        left: -105px;
+                        left: -44px;
                     }
 
                     .petergof .nev-riddle-1 .choice-result .choice-2-result p {
-                        left: -105px;
+                        left: -44px;
                     }
 
                     .petergof .nev-riddle-1 .choice-result .choice-3-result p {
-                        left: -105px;
+                        left: -44px;
                     }
 
 
@@ -1870,6 +1870,10 @@ body {
         background:url(../img/kremlin/quiz/bg.jpg) no-repeat;
         height:578px;
     }
+    .quiz-astr {
+        background:url(../img/astrahan/quiz/bg.gif) repeat;
+        height:578px;
+    }
     
     
     
@@ -1901,6 +1905,9 @@ body {
         .quiz-kremlin .quiz-content .baloons  {
             background:url(../img/kremlin/quiz/baloons.png) no-repeat 0 0;
         }
+        .quiz-astr .quiz-content .baloons  {
+            background:url(../img/astrahan/quiz/baloons.png) no-repeat 0 0;
+        }
 
             .quiz-window .quiz-content .baloons li {
                 position: absolute;
@@ -1926,6 +1933,9 @@ body {
                     .quiz-kremlin .quiz-content .baloons .first  {
                          background:none;
                     }
+                    .quiz-astr .quiz-content .baloons .first  {
+                         background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .first.active {
                     background:url(../img/petergof/quiz/baloon-step-1-active.png) no-repeat 0 0;
@@ -1940,6 +1950,11 @@ body {
                     }
                     .quiz-kremlin .quiz-content .baloons .first.active {
                         background:url(../img/kremlin/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                        top: 0px;
+                        left: 206px;
+                    }
+                    .quiz-astr .quiz-content .baloons .first.active {
+                        background:url(../img/astrahan/quiz/baloon-step-1-active.png) no-repeat 0 0;
                         top: 0px;
                         left: 206px;
                     }
@@ -1959,6 +1974,9 @@ body {
                         background:none;
                     }
                     .quiz-kremlin .quiz-content .baloons .second  {
+                        background:none;
+                    }
+                    .quiz-astr .quiz-content .baloons .second  {
                         background:none;
                     }
                 
@@ -1981,6 +1999,12 @@ body {
                         top: 2px;
                         width: 120px;
                     }
+                    .quiz-astr .quiz-content .baloons .second.active {
+                        background:url(../img/astrahan/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                        left: 381px;
+                        top: 2px;
+                        width: 120px;
+                    }
 
                 .quiz-window .quiz-content .baloons .third {
                     width: 109px;
@@ -1998,6 +2022,9 @@ body {
                     .quiz-kremlin .quiz-content .baloons .third {
                         background:none;
                     }
+                    .quiz-astr .quiz-content .baloons .third {
+                        background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .third.active {
                     background:url(../img/petergof/quiz/baloon-step-3-active.png) no-repeat 0 0;
@@ -2011,6 +2038,9 @@ body {
                     }
                     .quiz-kremlin .quiz-content .baloons .third.active {
                         background:url(../img/kremlin/quiz/baloon-step-3-active.png) no-repeat 0 5px;
+                    }
+                    .quiz-astr .quiz-content .baloons .third.active {
+                        background:url(../img/astrahan/quiz/baloon-step-3-active.png) no-repeat 0 5px;
                     }
 
 
@@ -2059,8 +2089,6 @@ body {
                             top: 308px;
                            
                         }
-
-
                         .arkaim .name-text input {
                             display: block;
                             z-index: 9000;
@@ -2106,6 +2134,13 @@ body {
                                 width: 305px;
                                 text-align: center;
                             }
+                            .astr .winner-name {
+                                top: 300px;
+                                left: 318px;
+                                width: 305px;
+                                text-align: center;
+                            }
+                            
 
                     .to-print {
                         position:absolute;
@@ -2133,6 +2168,9 @@ body {
                 .quiz-content .sertificat img {
                     position: relative;
                     z-index: 10;
+                }
+                .quiz-astr .sertificat img{
+                    top:9px;            
                 }
 
                 .quiz-content .sertificat {
@@ -2196,6 +2234,9 @@ body {
             .quiz-kremlin .next {
              color:#739b51;
             }
+            .quiz-astr .next {
+                color:#83b2ea;
+            }
         
         .quiz-window .next.first_slide {
             bottom:133px;
@@ -2215,6 +2256,9 @@ body {
             }
             .quiz-kremlin .next.first_slide {
                 color:#739b51;
+            }
+            .quiz-astr .next.first_slide {
+                color:#e25959;
             }
             .quiz-nav li.start,
             .quiz-nav li.next {
@@ -2268,6 +2312,9 @@ body {
             .quiz-kremlin .q-case-intro h1 {
                 color:#ea9b9b;
             }
+            .quiz-astr .q-case-intro h1 {
+                color:#57b7c1;
+            }
 
         .q-case-intro p {
             display: inline-block;
@@ -2311,6 +2358,13 @@ body {
                 color:#739b51;
                 margin-top:13px;
             }
+            .quiz-astr .question p {
+                color:#529ca0;
+                margin-top: 18px;
+                line-height: 17px;
+                margin-bottom: 40px;
+               
+            }
 
         .quiz-content .question p:first-child,
         .quiz-content .answers ul li:first-child {
@@ -2345,6 +2399,10 @@ body {
                 width: 280px;
                 padding: 0;
             }
+            .quiz-astr .answers ul {
+                margin: 0 17px 0 0;
+                width: 326px;
+            }
 
                 .quiz-content .answers ul li {
                     list-style: none;
@@ -2361,6 +2419,9 @@ body {
                         -moz-border-radius: 6px;
                         border-radius: 6px;
                     }
+                    .quiz-astr .answers ul li a {
+                        padding:8px 5px 8px 9px;
+                    }
 
             .quiz-content .answers .description div {
                 padding: 13px 13px 13px 34px;
@@ -2372,6 +2433,10 @@ body {
                 margin-top: -1px;
                 margin-bottom: -1px;
                 position: absolute;
+            }
+            .quiz-astr .answers .description div {
+                width: 315px;
+                padding:13px 13px 25px 17px;
             }
 
             .ios .quiz-content .answers .description div { position: absolute; }
@@ -2385,6 +2450,9 @@ body {
             .quiz-kremlin .answers .description h4 {
                 text-align:center;
             }
+            
+            
+            
 
 /*CASE 1*/            
     
@@ -2419,6 +2487,9 @@ body {
         .quiz-kremlin .q-case-1 .answers ul li.first a {
             color:#db5d96;
         }
+        .quiz-astr .q-case-1 .answers ul li.first a {
+            color:#9b9b49;
+        }
 
     .quiz-content .q-case-1 .answers.first  ul li.first a,
     .quiz-content .q-case-1 .answers.first .description .first {
@@ -2446,6 +2517,13 @@ body {
         .quiz-kremlin .q-case-1 .first .description h4 {
             color:#f4dda8;
         }
+        .quiz-astr .q-case-1 .answers.first  ul li.first a,
+        .quiz-astr .q-case-1 .answers.first .description .first {
+            background:#9b9b49;
+        }
+        .quiz-astr .q-case-1 .first .description h4 {
+            color:#f9eebb;
+        }
         
         
 
@@ -2460,6 +2538,9 @@ body {
         }
         .quiz-kremlin .q-case-1 .answers ul li.second a {
             color: #f77c7c;
+        }
+        .quiz-astr .q-case-1 .answers ul li.second a {
+            color: #c68dc6;
         }
 
     .quiz-content .q-case-1 .answers.second ul li.second a,
@@ -2489,6 +2570,14 @@ body {
         .quiz-kremlin .q-case-1 .second .description h4 {
             color:#dbf2aa;
         }
+        
+        .quiz-astr .q-case-1 .answers.second ul li.second a,
+        .quiz-astr .q-case-1 .answers.second .description .second {
+            background: #c68dc6;
+        }
+        .quiz-astr .q-case-1 .second .description h4 {
+            color:#d7e2c7;
+        }
 
     .quiz-content .q-case-1 .answers ul li.third a {
         color: #B97EC0;
@@ -2501,6 +2590,9 @@ body {
         }
         .quiz-kremlin .q-case-1 .answers ul li.third a {
             color: #e29847;
+        }
+        .quiz-astr .q-case-1 .answers ul li.third a {
+            color: #7ccecc;
         }
 
     .quiz-content .q-case-1 .answers.third ul li.third a,
@@ -2530,6 +2622,15 @@ body {
         .quiz-kremlin .q-case-1 .third .description h4 {
             color:#dceeff;
         }
+        .quiz-astr .q-case-1 .answers.third ul li.third a,
+        .quiz-astr .q-case-1 .answers.third .description .third {
+            background: #6cbcb8;
+        }
+        .quiz-astr .q-case-1 .third .description h4 {
+            color:#ffebe9;
+        }
+        
+        
 
 /*CASE 2*/
     
@@ -2547,11 +2648,16 @@ body {
         margin: 0 18px 0 0;
         width: 361px;
     }
+    .quiz-astr .q-case-2 .answers ul {
+        margin: 0 17px 0 0;
+        width: 326px;
+    }
     
     .quiz-kremlin .q-case-2 .answers .description div {
         width: 290px;
         padding-left:13px;
     }    
+    
     
     .quiz-nevyansk .q-case-2  .answers .description p {
         
@@ -2582,6 +2688,9 @@ body {
         .quiz-kremlin .q-case-2 .answers ul li.first a {
             color: #a1b721;
         }
+        .quiz-astr .q-case-2 .answers ul li.first a {
+            color: #fcb663;
+        }
 
     .quiz-content .q-case-2 .answers.first ul li.first a,
     .quiz-content .q-case-2 .answers.first .description .first {
@@ -2607,6 +2716,13 @@ body {
         .quiz-kremlin .q-case-2 .first .description h4 {
             color:#ffdef9;
         }
+        .quiz-astr .q-case-2 .answers.first ul li.first a,
+        .quiz-astr .q-case-2 .answers.first .description .first {
+            background: #f7aa54;
+        }
+        .quiz-astr .q-case-2 .first .description h4 {
+            color:#d9f9ec;
+        }
 
     .quiz-content .q-case-2 .answers ul li.second a {
         color: #7166C2;
@@ -2619,6 +2735,9 @@ body {
         }
         .quiz-kremlin .q-case-2 .answers ul li.second a {
             color: #a385c6;
+        }
+        .quiz-astr .q-case-2 .answers ul li.second a {
+            color: #db86a2;
         }
 
     .quiz-content .q-case-2 .answers.second ul li.second a,
@@ -2643,6 +2762,13 @@ body {
          .quiz-kremlin .q-case-2 .second .description h4 {
             color:#e1f4ff;
         }
+        .quiz-astr .q-case-2 .answers.second ul li.second a,
+        .quiz-astr .q-case-2 .answers.second .description .second {
+            background: #db86a2;
+        }
+         .quiz-astr .q-case-2 .second .description h4 {
+            color:#ebfffe;
+        }
 
     .quiz-content .q-case-2 .answers ul li.third a {
         color: #B97EC0;
@@ -2655,6 +2781,9 @@ body {
         }
         .quiz-kremlin .q-case-2 .answers ul li.third a {
             color: #7992d8;
+        }
+        .quiz-astr .q-case-2 .answers ul li.third a {
+            color: #5b81af;
         }
 
     .quiz-content .q-case-2 .answers.third ul li.third a,
@@ -2681,6 +2810,13 @@ body {
         }  
         .quiz-kremlin .q-case-2 .third .description h4 {
             color:#f9ecb7;
+        }
+        .quiz-astr .q-case-2 .answers.third ul li.third a,
+        .quiz-astr .q-case-2 .answers.third .description .third {
+            background: #5b81af;
+        }  
+        .quiz-astr .q-case-2 .third .description h4 {
+            color:#f9eeff;
         }
 
 
@@ -2719,6 +2855,9 @@ body {
         .quiz-kremlin .q-case-3 .answers ul li.first a {
             color: #4ca4d6;
         }
+        .quiz-astr .q-case-3 .answers ul li.first a {
+            color: #7db785;
+        }
 
     .quiz-content .q-case-3 .answers.first ul li.first a,
     .quiz-content .q-case-3 .answers.first .description .first {
@@ -2740,6 +2879,13 @@ body {
         .quiz-kremlin .q-case-3 .first .description h4 {
             color:#f1deff;
         }
+        .quiz-astr .q-case-3 .answers.first ul li.first a,
+        .quiz-astr .q-case-3 .answers.first .description .first {
+            background: #7db785;
+        }
+        .quiz-astr .q-case-3 .first .description h4 {
+            color:#fff0fd;
+        }
 
     .quiz-content .q-case-3 .answers ul li.second a {
         color: #C9809E;
@@ -2749,6 +2895,9 @@ body {
         }
         .quiz-kremlin .q-case-3 .answers ul li.second a {
             color: #e26e5a;
+        }
+        .quiz-astr .q-case-3 .answers ul li.second a {
+            color: #ef81bd;
         }
 
     .quiz-content .q-case-3 .answers.second ul li.second a,
@@ -2770,6 +2919,13 @@ body {
         }
         .quiz-kremlin .q-case-3 .second .description h4 {
             color:#e1fff0;
+        }    
+        .quiz-astr .q-case-3 .answers.second ul li.second a,
+        .quiz-astr .q-case-3 .answers.second .description .second {
+            background: #d68bb8;
+        }
+        .quiz-astr .q-case-3 .second .description h4 {
+            color:#fff0fd;
         }        
 
     .quiz-content .q-case-3 .answers ul li.third a {
@@ -2780,6 +2936,9 @@ body {
         }
         .quiz-kremlin .q-case-3 .answers ul li.third a {
             color: #529e8a;
+        }
+        .quiz-astr .q-case-3 .answers ul li.third a {
+            color: #bf9562;
         }
 
     .quiz-content .q-case-3 .answers.third ul li.third a,
@@ -2802,6 +2961,13 @@ body {
         .quiz-kremlin .q-case-3 .third .description h4 {
             color:#f9cb98;
         }  
+        .quiz-astr .q-case-3 .answers.third ul li.third a,
+        .quiz-astr .q-case-3 .answers.third .description .third {
+            background: #bf9562;
+        } 
+        .quiz-asrt .q-case-3 .third .description h4 {
+            color:#fff9de;
+        }  
         
         
 /* SERTIFICAT*/
@@ -2812,7 +2978,12 @@ body {
     .quiz-kremlin .name-text input {
         left: 536px;
         top: 311px;
-    }        
+    } 
+
+    .quiz-astr .name-text input {
+        left: 536px;
+        top: 311px;
+    }         
 
     .quiz-kremlin .get-diplom {
         bottom: 20px;
@@ -2820,6 +2991,15 @@ body {
         background:none;
     }
     .quiz-kremlin .to-print {
+        bottom: 12px;
+    }
+    
+    .quiz-astr .get-diplom {
+        bottom: 20px;
+        right: 30px;
+        background:none;
+    }
+    .quiz-astr .to-print {
         bottom: 12px;
     }
     
