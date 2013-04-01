@@ -15,7 +15,9 @@
             <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
-                    <option value="0">{{ "All"|trans }}</option>
+                    <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
+                        {{ "All"|trans }}
+                    </option>
                     {% for category in categories %}
                         <option value="{{ category.id }}"
                                 {% if category.id == categoryId %}selected="selected"{% endif %}
