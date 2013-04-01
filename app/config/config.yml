@@ -85,7 +85,9 @@ stof_doctrine_extensions:
 
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.noop
+        handler: sonata.admin.security.handler.acl
+        information:
+            ADMINS:    [EDIT, LIST, CREATE, VIEW, DELETE, EXPORT, OPERATOR, MASTER]
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
     dashboard:
@@ -438,4 +440,3 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-
