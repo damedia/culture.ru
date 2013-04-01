@@ -86,7 +86,7 @@ class LectureCinemaAdmin extends Admin
                 'super_type' => $superType
             ))
             ->add('recommended')
-            ->add('isTop100Film')
+            ->add('isTop100Film', null, array('required' => false))
             ->with('Главная')
                 ->add('showOnMain', null, array(
                     'required' => false
