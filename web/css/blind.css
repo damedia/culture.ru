@@ -25,6 +25,9 @@ body {
     line-height: 1.4;
 }
 a {color:#000;}
+a:hover {
+    text-decoration:none;
+}
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection declarations have to be separate.
@@ -118,7 +121,7 @@ body {
 	max-width:1360px;
 	margin:auto;
 	min-height: 100%;
-    margin-bottom: -5.4375em;
+    margin-bottom: -8.4375em;
 	
 	
 } 
@@ -126,7 +129,7 @@ body {
     height: 100%;
 }
 .push {
-	height:5.4375em;
+	height:8.4375em;
 }
 .main-footer {
 	height:8.4375em;
@@ -315,6 +318,9 @@ body {
 					color:#000;*/
                     text-decoration:underline;
 				}
+                .main-navigation li.active a:hover {
+                    text-decoration:none;
+                }
 
 
 	.content {
@@ -364,6 +370,20 @@ body {
                     font-weight:bold;
                     font-size:1.3em;
                 }
+                
+            .print-link {
+                text-align:right;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 1.5em;
+                margin-top: -0.6em;
+                margin-bottom:1em;
+            }  
+            .obj-print-link {
+                float: right;
+                margin-bottom:0;
+            }
+            
 		
 							
 		/*text*/
@@ -1132,29 +1152,23 @@ width:50%;
         box-shadow:none !important;
         text-shadow: none !important;
     }
-
+    
     a,
     a:visited {
         text-decoration: underline;
     }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
+    /*
+    
 
     abbr[title]:after {
         content: " (" attr(title) ")";
     }
-
+*/
     /*
      * Don't show links for images, or javascript/internal links
      */
 
-    .ir a:after,
-    a[href^="javascript:"]:after,
-    a[href^="#"]:after {
-        content: "";
-    }
+   
 
     pre,
     blockquote {
@@ -1190,4 +1204,39 @@ width:50%;
     h3 {
         page-break-after: avoid;
     }
+    
+    
+    .object-one-text.content #full-text, .expand-text {
+        display:block !important;
+    }
+     .settings-wrap, .back-link, .print-link, .special-counters, .btn-more, .search, .quick-links, .sf-toolbarreset{
+        display:none;
+    } 
+    .object-one-col3 {
+        display:none;
+    }
+    .object-one-col12 {
+        float:none !important;
+        width:100% !important;
+        margin-right:0 !important;
+    }
+    .object-one-text {
+        padding:0 !important; 
+    }
+    
+    .block {
+        page-break-inside: avoid;
+    }
+    
+    .gos-links a[href]:after {
+        content: " (" attr(href) ")";
+        text-transform:none;
+        display:block;
+        marign:0.3em 0 1em;
+    }
+    #gos_tab, .gosuslugi {
+        margin-bottom:0 !important; 
+        padding-bottom:0 !important; 
+    }
+    
 }
