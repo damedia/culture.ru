@@ -4930,7 +4930,8 @@ body {
 				overflow: auto;
 			}
 				.exponats-scroll {
-					height:714px;
+         /* height:714px; */
+					height:200px;
 				}
 				
 			.line {
@@ -4957,7 +4958,8 @@ body {
 						
 					
 			.threelines .line {
-				height:220px;
+				/* height:220px; */
+        height:auto;
 			}	
 				.threelines .third-line {
 					display:block;
@@ -4966,7 +4968,8 @@ body {
 				}
 				
 			.oneline .line {
-				height:600px;
+				/* height:600px; */
+        height:auto;
 			}	
 				.oneline .third-line, .oneline .second-line {
 					display:none;
