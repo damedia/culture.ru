@@ -68,28 +68,46 @@
 
     
     <div class="theatre-one">
-        <section class="theatre-one-main">
+        <section class="theatre-one-main clearfix">
             <h1>МХТ им. Чехова</h1>
-            <div class="theatre-tags">
-                <a href="#">Дети</a>,
-                <a href="#">Драматический театр</a>
+            <div class="theatre-one-stats">
+                <div class="theatre-tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+                <div class="theatre-stats-contacts">
+                    <p>
+                        Москва, <nobr>Камергерский пер., 3</nobr><br />
+                        метро Театральная<br />
+                        +7 (495) 646-36-46, 692-67-48<br />
+                        <a href="#" target="_blank" class="external">www.mxat.ru</a>
+                    </p>
+                </div>
+                <div class="theatre-stats-head">
+                    <p>
+                        Художественный руководитель,<br />директор театра: 
+                        <b>Олег Табаков</b>
+                    </p>
+                </div>
             </div>
             <div class="theatre-one-image">
                 <img src="/uploads/media/atlas/0001/13/thumb_12210_atlas_atlasW613.jpeg" alt="" />                                        
             </div>
-            <div class="theatre-one-description">
-                <p>
-                    Создан в 1898 г. К. С. Станиславским и Вл. И. Немировичем-Данченко под названием Московский Художественный театр (МХТ), с 1919 г. — академический (МХАТ).
-                </p><p>    
-                    Открылся 14 октября 1898 спектаклем «Царь Фёдор Иоаннович» А. К. Толстого в здании театра «Эрмитаж» (Каретный ряд, 3). С 1902 располагался в Камергерском переулке, в здании бывшего Лианозовского театра, перестроенного в том же году (архитектор Ф. О. Шехтель).
-                </p><p> 
-                    Началом Художественного театра считают встречу его основателей Константина Сергеевича Станиславского и Владимира Ивановича Немировича-Данченко в ресторане «Славянский базар» 19 июня 1897 года. Имя «Художественно-Общедоступного» театр носил недолго: уже в 1901 году из названия было убрано слово «общедоступный», хотя ориентация на демократического зрителя оставалась одним из принципов МХТ.  
-                </p>
-            </div>
-        </section>
+            
+        </section>    
+        <div class="theatre-one-description">
+            <p>
+            Создан в&nbsp;1898&nbsp;г. К.&nbsp;С.&nbsp;Станиславским и&nbsp;Вл. И.&nbsp;Немировичем-Данченко под названием Московский Художественный театр (МХТ), с&nbsp;1919&nbsp;г. &mdash;&nbsp;академический (МХАТ).
+            </p> <p> 
+            Открылся 14&nbsp;октября 1898 спектаклем &laquo;Царь Фёдор Иоаннович&raquo; А.&nbsp;К.&nbsp;Толстого в&nbsp;здании театра &laquo;Эрмитаж&raquo; (Каретный ряд, 3). С&nbsp;1902 располагался в&nbsp;Камергерском переулке, в&nbsp;здании бывшего Лианозовского театра, перестроенного в&nbsp;том&nbsp;же году (архитектор Ф.&nbsp;О.&nbsp;Шехтель).
+            </p> <p> 
+            Началом Художественного театра считают встречу его основателей Константина Сергеевича Станиславского и&nbsp;Владимира Ивановича Немировича-Данченко в&nbsp;ресторане &laquo;Славянский базар&raquo; 19&nbsp;июня 1897&nbsp;года. Имя &laquo;Художественно-Общедоступного&raquo; театр носил недолго: уже в&nbsp;1901 году из&nbsp;названия было убрано слово &laquo;общедоступный&raquo;, хотя ориентация на&nbsp;демократического зрителя оставалась одним из&nbsp;принципов МХТ. 
+            </p>
+        </div>
+        
         <div class="content-tabs">
             <a href="#c-tab1" class="active">спектакли театра</a>
-            <a href="#c-tab2">контакты</a>
+            <a href="#c-tab2">Как нас найти</a>
             <a href="#c-tab3">афиша</a>
             <a href="#c-tab4">Оставить комментарий</a>
         </div>
@@ -297,40 +315,47 @@
         </div>
         
         {# Контакты #}
-        <div class="content-tab" id="c-tab2"  style="display:none;">
-            <table class="theater-contacts">
-                <caption>МХТ им. Чехова</caption>
-                <tr>
-                    <td class="label">
-                        Адрес: 
-                    </td>
-                    <td>
-                        125009, Москва, Камергерский пер., 3 
-                    </td>
-                </tr>
-                <tr>
-                	<td class="label">Метро:</td>
-                	<td>Театральная</td>
-                </tr>
-                <tr>
-                	<td class="label">Телефон:</td>
-                	<td>+7 (495) 646-36-46<br />
-                        +7 (495) 692-67-48
-                    </td>
-                </tr>
-                <tr>
-                	<td class="label">Режим работы кассы:</td>
-                	<td>понедельник - воскресенье: 12:00 - 18:00</td>
-                </tr>
-                <tr>
-                	<td class="label">Email:</td>
-                	<td><a href="http://www.mxat.ru" target="_blank">www.mxat.ru</a></td>
-                </tr>
-                <tr>
-                	<td class="label">Сайт:</td>
-                	<td><a href="mailto:info@mxat.ru">info@mxat.ru</a></td>
-                </tr>
-            </table>
+        <div class="content-tab" id="c-tab2"  style="display:none">
+            <div class="theater-contacts-map-wrap">
+                <div class="theater-contacts-map">
+                    <img src="/img/map-image.jpg" alt="" />
+                </div>
+            </div>
+            <div class="theater-contacts-wrap">
+                <table class="theater-contacts">
+                    <caption>МХТ им. Чехова</caption>
+                    <tr>
+                        <td class="label">
+                            Адрес: 
+                        </td>
+                        <td>
+                            125009, Москва, Камергерский пер., 3 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Метро:</td>
+                        <td>Театральная</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Телефон:</td>
+                        <td>+7 (495) 646-36-46<br />
+                            +7 (495) 692-67-48
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Режим работы кассы:</td>
+                        <td>понедельник - воскресенье: 12:00 - 18:00</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email:</td>
+                        <td><a href="http://www.mxat.ru" target="_blank">www.mxat.ru</a></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Сайт:</td>
+                        <td><a href="mailto:info@mxat.ru">info@mxat.ru</a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
         
         {# Афиша #}

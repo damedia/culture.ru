@@ -1648,6 +1648,9 @@ body {
             display:inline-block;
             vertical-align:top;
             height:auto !important;
+            *display:inline;
+            *zoom:1;
+            
         }
             .perfomances-list .plitka-one-image {
                 display:block;
@@ -5132,7 +5135,7 @@ a.appstore-link {
 
 /*Theatre One*/
 .main {
-    width:1177px;
+    
 }
 .theatre-one {
     
@@ -5143,17 +5146,36 @@ a.appstore-link {
     }
         .theatre-one-main  h1 {
             font:31px Verdana, Helvetica, sans-serif;
-            margin:0 0 5px;
+            margin: 0 0 17px;
         }
-        .theatre-tags {
-            margin: 7px 0 17px;
+        
+        .theatre-one-stats {
+            float:right;
+            width:30%;
         }
-            .theatre-tags  a {
-                color:#7791a4;
+            .theatre-tags {
+                margin: -3px 0 10px;
             }
+                .theatre-tags  a {
+                    color:#7791a4;
+                }
+                
+            .theatre-stats-contacts {
+                margin: 10px 0 11px;
+            }    
+            .theatre-stats-head {
+                margin: 11px 0 11px;
+                color:#7e7e7e;
+            }
+                .theatre-stats-head  b {
+                    display:block;
+                    color:#000;
+                    font-weight:normal;
+                }
+                
 
         .theatre-one-image {
-            margin: 5px 0 26px;
+            margin: 0 33% 26px 0;
         }    
             .theatre-one-image img {
                 width:100%;
@@ -5193,26 +5215,42 @@ a.appstore-link {
                 padding-bottom: 31px;
             }
             
-            .theater-contacts {
-                margin:18px 0 0;
+            .theater-contacts-map-wrap {
+                float:left;
+                width:280px;
+                padding:14px;
+                background:#f5f5f5;
+                margin-right:24px;
+                margin-top: 22px;
+                }
+                .theater-contacts-map {
+                    border:1px solid #fff;
+                }
+            
+            .theater-contacts-wrap {
+                padding-top: 19px;
             }
-                .theater-contacts  caption {
-                    color:#f79016;
-                    font-weight:bold;
-                    border-bottom:3px solid #ececec; 
-                    text-align:left;
-                    padding-bottom:6px;
+                .theater-contacts {
+                    margin: 0;
                 }
-                .theater-contacts td {
-                    background: url(../img/table-dots.gif) repeat-x 0 100%;
-                    padding:7px 30px 8px 0;
-                    vertical-align:top;
-                }
-                .theater-contacts td.label {
-                    font-weight:bold;
-                    color:#7e7e7e;
-                    padding-right:50px;
-                }
+                    .theater-contacts  caption {
+                        color:#f79016;
+                        font-weight:bold;
+                        border-bottom:3px solid #ececec; 
+                        text-align:left;
+                        padding-bottom:6px;
+                        font-size:14px;
+                    }
+                    .theater-contacts td {
+                        background: url(../img/table-dots.gif) repeat-x 0 100%;
+                        padding:7px 30px 8px 0;
+                        vertical-align:top;
+                    }
+                    .theater-contacts td.label {
+                        font-weight:bold;
+                        color:#7e7e7e;
+                        padding-right:50px;
+                    }
                 
                 
                 
