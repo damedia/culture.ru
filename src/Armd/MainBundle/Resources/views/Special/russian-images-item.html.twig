@@ -43,7 +43,7 @@
                    
                   </div><!--// content-->
                   
-                  {{ block('rec_objects') }}
+                  
 				   
 				   {#<div class='afisha-list-more' id="more-show">{{ 'Special.Images of Russia.Comments'|trans }}</div>#}
 				   {#<div class="more-comments-show" style="display:none;">  #}
@@ -189,10 +189,14 @@
                         {% endif % #}
                 </div>
             </div>
+            
+        {{ block('rec_objects') }}    
     </div>
-     <p class="print-link obj-print-link"><a href="#" onclick="window.print();">{{ 'Special.PrintLink'|trans }}</a></p>
+    
+    
+     <p class="print-link obj-print-link"><a href="{{ path('armd_main_special_russian_images_item_print', {  'id':entity.id }) }}"  target="_blank">{{ 'Special.PrintLink'|trans }}</a></p>
      <p class="back-link obj-back-link"><a href="javascript:history.back()">{{ 'Special.BackLink'|trans }}</a></p>
-     <p><a href="{{ path('armd_main_special_russian_images_item_print', {  'id':entity.id }) }}" target="_blank">{{ 'Printversion'|trans }}</a></p>
+     
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -269,22 +273,40 @@
 
 {% block rec_objects %}
     {% if relatedObjects is not empty %}
-        <ul class="plitka rec-plitka">
-            {% for object in relatedObjects %}
-                <li class="plitka-one-wrap">
-                    <div class="plitka-one">
-                        {% if object.regions is not empty %}
-                            <a class="plitka-type" href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">{{ object.regions[0].title }}</a>
-                        {% endif %}
-                        <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">
-                            {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
-                        </a>
-                        <div class="plitka-text">
-                            <span class="plitka-name"> <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}" class="no-decoration">{{ object.title }}</a> </span>
+        <h2>{{'Mainpage block.Recommended.Title'|trans}}</h2>
+        <div class="rusObr-block index-rusObr-block" style="margin-bottom:3em;">
+            <ul class="rusObr-list clearfix">
+            {% for object in relatedObjects|slice(0, 4) %}<li>
+                    <div class="rusObr-list-one-wrap" style="">
+                        <div class="rusObr-list-one">
+                            {% if object.regions is not empty %}
+                                <a class="plitka-type" href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">{{ object.regions[0].title }}</a>
+                            {% endif %}
+                            <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">
+                                {% if object.primaryImage is not empty %}
+                                    <img src="{% path object.primaryImage, 'reference' %}" alt="" class="rusObr-list-image"/></a>
+                                {% elseif object.images|length > 0 %}
+                                    <img src="{% path object.images[0], 'imagesOfRussia' %}" alt="" class="rusObr-list-image"/></a>
+                                {% endif %}
+
+                            <div class="rusObr-list-text">
+                                <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}" class="rusObr-list-header">
+                                    {{ object.title }}
+                                </a>
+
+                                <p class="rusObr-list-place">
+                                    {% for region in object.regions %}
+                                        {{ region.title }}
+                                        {% if not loop.last %}/{% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </li>
-            {% endfor %}
-        </ul>
+                </li>{% endfor %}
+            </ul>
+        </div>
+    
+        
     {% endif %}
 {% endblock %}

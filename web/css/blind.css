@@ -255,6 +255,7 @@ body {
 		.search {
 			float:left;
 			margin-bottom:1.3em;
+            position:relative;
 		}
 			.search-input {
 				border:1px solid #000;
@@ -272,6 +273,81 @@ body {
 				padding:0 1em;
 				text-transform:uppercase;
 			}
+            
+            
+            	
+            .search-checkboxes {
+                display:none;
+                position:absolute;
+                top:1.7em;
+                left:0;
+                background:#fff;
+                border:1px solid #000;
+                margin-top:2px;
+                padding-bottom:0.2em;
+                padding-top: 0.2em;
+                padding-left: 0.2em;
+                padding-right: 1.2em;
+            }
+            .search-checkboxes label {
+                display:block;
+                position:relative;
+                padding-left:1.5em;
+                margin:0 0.1em;
+                            
+            }
+            .search-checkboxes input {
+                position:absolute;
+                top:0.1em;
+                left:0;
+                margin:0;
+                padding:0;
+                width:1em;
+                height:1em;
+                visibility:hidden;
+            }
+            .lt-ie8 .search-checkboxes input{
+                visibility:visible;
+            }
+            .search-checkboxes span {
+                color:#000;
+                text-transform:uppercase;
+                font-size: 1em;
+                font-weight:bold;
+            }	
+            
+            .search-checkboxes label:before {
+                content:'';
+                position:absolute;
+                top:0.1em;
+                left:0;
+                margin:0;
+                padding:0;
+                width:1em;
+                height:1em;
+                background:url(../img/check-small.png) no-repeat 0 -21px;
+            }
+            .search-checkboxes label.checked:before {
+                background-position:0 0;
+            }
+            .big-font .search-checkboxes label:before  {
+                background:url(../img/check-big.png) no-repeat 0 -28px;
+            }
+            .big-font .search-checkboxes label.checked:before  {
+                background:url(../img/check-big.png) no-repeat 0 0;
+            }
+            .huge-font .search-checkboxes label:before  {
+                background: url(../img/check-huge.png) no-repeat 0 -40px;
+                width: 1.2em;
+                height: 1.2em;
+                top: 0;
+            }
+            .huge-font .search-checkboxes label.checked:before  {
+                background:url(../img/check-huge.png) no-repeat 0 0;
+            }
+                
+            
+            
 	
 		.quick-links {
 			float:right;
@@ -366,9 +442,10 @@ body {
             .obj-back-link {
                 margin-left:0;
             }
-                .back-link  a {
+                .back-link a {
                     font-weight:bold;
-                    font-size:1.3em;
+                    font-size: 1.5em;
+                    text-transform: uppercase;
                 }
                 
             .print-link {
@@ -435,6 +512,15 @@ body {
 						.rusObr-list-one img {
 							width:100%;
 						}
+                        
+                    .plitka-type {
+                        font-size:1em;
+                        white-space:nowrap;
+                        display:block;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
+                        margin-bottom:1em;
+                    }    
 				
 					.rusObr-list-text {
 						min-height:7.5em;
@@ -633,6 +719,48 @@ body {
                 }
     
 
+        /*Search Results*/
+        .search-results-special {
+        
+        }
+            .search-query {
+               font-size:1.3em; 
+               font-weight:bold;
+            }
+                .search-query span {
+                    font-weight:normal;
+                }
+                
+                
+            .search-result-one {
+                margin-bottom:1.4em;
+                padding-bottom:1.3em;
+                border-bottom:1px solid #000;
+            }    
+                .search-result-type {
+                    font-size:1em;
+                    display:block;
+                    font-weight:bold;
+                }
+                .search-result-title {
+                    font-size:1.4em;
+                     display:block;
+                     margin:0;
+                     line-height:1.6em;
+                }
+                .search-result-date {
+                    font-size:0.8em;
+                    display:block;
+                    margin-bottom:1em;
+                }
+                    .search-result-date i {
+                        font-style:normal;
+                    }
+                .search-result-one p {
+                    margin:0.2em 0 0;
+                }
+    
+    
     /*Community*/
     .community-tabs {
 			margin-top: 1em;
@@ -934,7 +1062,10 @@ body {
 		.black-color .virtual-anons-header,.black-color  .obj-o-infograph-header, .black-color .link_header a, .black-color .obj-o-contacts-header, .black-color  .obj-o-contacts-main{
 			color:#fff;
 		}
-		
+	
+	        
+        
+        
 
 /*big font*/
 .big-font {
