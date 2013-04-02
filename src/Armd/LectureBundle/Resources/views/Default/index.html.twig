@@ -27,7 +27,7 @@
                         </option>
                     {% endfor %}
                     {% for category in specialCategories %}
-                        <option value="{{ category.id }}"
+                        <option value="0" {# { category.id } #}
                                 {% if category.id == categoryId %}selected="selected"{% endif %}
                                 data-system-slug="{{ category.systemSlug }}"
                                 >
