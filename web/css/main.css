@@ -1099,10 +1099,11 @@ body {
 				.featured .ui-tabs-panel{ 
 					background:#000;
 					position:relative;
+                                        text-align: center;
 				}
 				.featured .ui-tabs-panel img {
-					width:100%;
-					height:auto;
+					width:auto;
+					height:100%;
 				}
 					
 
@@ -1114,6 +1115,7 @@ body {
 					background:url(../img/featured-over.png) repeat-x 0 0;
 					width:100%;
 					height:191px;
+                                        text-align: left;
 				}
 				.info-text {
 					position:absolute;
