@@ -1,0 +1,14 @@
+{% for n in news %}
+
+	{% set f = n.newsDate %}
+	{% set t = n.endDate %}
+	<article class="event-anons">
+		<span class="date" title="{{ 'Special.Date'|trans }}"><i>{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' Y') }}</i>
+		{% if t %} - <i>{{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' Y') }}</i>{% endif%}</span>
+		<div class="text-overflow">
+			<h1><a href="{{ path('armd_main_special_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></h1>
+			<p>{{ n.announce|raw }}</p>
+		</div>
+	</article>
+		
+{% endfor %}

@@ -14,9 +14,77 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
 			<link rel="stylesheet" href="{{ asset('css/blind.css') }}">
+			<style>
+				.search-checkboxes {
+					display:none;
+					position:absolute;
+					top:185px;
+					left:20;
+					background:#f6f6f6;
+					width:202px;
+					padding-bottom:5px;
+							
+				}
+				.search-checkboxes label {
+					display:block;
+					position:relative;
+					padding-left:20px;
+					margin:0 4px;
+								
+				}
+				.search-checkboxes input {
+					position:absolute;
+					top:5px;
+					left:0;
+					margin:0;
+					padding:0;
+					width:15px;
+					height:15px;
+				}
+				.search-checkboxes span {
+					color:#5b5b5b;
+					text-transform:uppercase;
+					font-size:10px;
+				}				
+			</style>
 		{% endblock %}
-        <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
-        <!--[if lt IE 9]><script type="text/javascript" src="{{ asset('vendor/respond.min.js') }}"></script><![endif]-->
+		
+		{% block javascripts %}
+			<script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+			<!--[if lt IE 9]><script type="text/javascript" src="{{ asset('vendor/respond.min.js') }}"></script><![endif]-->
+            <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
+            
+	        <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+
+	        <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
+	        {% if app.request.locale == 'ru' %}
+	         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker-ru.js') }}"></script>
+	        {% endif %}
+	        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+	        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+
+
+	        <script type="text/javascript" src="{{ asset('vendor/jquery.jplayer/jquery.jplayer.min.js') }}"></script>            
+            <script type="text/javascript" src="{{ asset('js/share.js') }}" ></script>
+			<script src="{{ asset('js/plugins.js') }}"></script>
+			<script src="{{ asset('js/blind.js') }}"></script>
+			
+
+		
+       {% endblock %}		
+        
+        
         
     </head>
 	<body>
@@ -68,10 +136,11 @@
 			<header class="main-header">
 				<a href="{{ path('armd_main_special_homepage') }}" class="logo" title="{{ 'Special.Address'|trans }}">{{ 'Special.Address'|trans|capitalize }}</a>
 				<div class="search">
-					<form action="{{ path('armd_search_results') }}" title="{{ 'Special.Search'|trans }}">
-						<input type="text" value="" class="search-input" />
+					<form action="{{ path('armd_main_specialsearch_search_result') }}" title="{{ 'Special.Search'|trans }}" id="search-form">
+						<input type="text" value="" class="search-input" name="search_query" autocomplete="off" id="search-txt"/>
 						<input type="submit" value="{{ 'Special.Search'|trans }}" class="search-button" />
 					</form>
+					{% block page_header_search_scope %}{% endblock %}
 				</div>
 				<ul class="quick-links">
                     {% if app.request.locale == 'ru' %}
@@ -128,12 +197,5 @@
 			</div>
             
 		</footer>
-		{% block javascripts %}
-            <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/share.js') }}" ></script>
-			<script src="{{ asset('js/plugins.js') }}"></script>
-			<script src="{{ asset('js/blind.js') }}"></script>
-       {% endblock %}
     </body>
 </html>
