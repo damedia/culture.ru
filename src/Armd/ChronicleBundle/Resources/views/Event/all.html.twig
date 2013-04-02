@@ -10,9 +10,10 @@
 {% endblock %} 
 
 {# ------------------------------------------------------------------------ #}
-{% block one_column %} 
+{% block one_column %}
+    {% include "ArmdChronicleBundle:Event:centuries_all.html.twig" with {"centuries": centuries, "activeCentury": activeCentury, "activePart": activePart} %}
      {% for c in centuries %}
-        <div class="time-line-content clearfix all" id="{{ c.name }}">
+        <div class="time-line-content clearfix" id="{{ c.name }}">
             <div class="time-line-header">{{ c.name }}<br />
  	  	<span>{{ 'Century'|trans }}</span>
  	   </div>
