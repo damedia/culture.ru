@@ -1,0 +1,40 @@
+{% extends ':Frontend:special.html.twig' %}
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_date %}
+
+
+{% block body %}
+<p class="search-query"><span>{{ 'Query'|trans }}:</span> {{ searchQuery }}</p>
+
+{% if searchResults|length > 0 %}
+
+    {% for searchResult in searchResults %}
+        {% spaceless %}
+            <article class="event-anons">
+            	{% if searchResult.object.date is defined and searchResult.object.date is not empty %}
+            		<span class="date" title="{{ 'Special.Date'|trans }}"><i>{{ armd_date.news_date(searchResult.object.date) }}</i>
+            	{% endif %}	
+            	<div class="text-overflow">
+
+	                <h1>{% if searchResult.section is defined %} {{ searchResult.section.name }}:{% endif %}
+		                <a href="{{ searchResult.object.url }}">
+		                    {{ searchResult.object.title }}
+		                </a>
+	                </h1>
+	
+                    <p>{{ searchResult.object.announce|raw }}</p>
+				</div>
+            </article>
+        {% endspaceless %}
+    {% endfor %}
+
+
+{% else %}
+    {{ 'Not found'|trans }}
+{% endif %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/armdsearch/css/search.css') }}">
+{% endblock %}

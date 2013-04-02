@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
 use Armd\AtlasBundle\Entity\ObjectManager;
+use Armd\MuseumBundle\Entity\MuseumManager;
 
 
 class MainController extends Controller
@@ -26,17 +27,19 @@ class MainController extends Controller
         $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
             array(
                 ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
-                ObjectManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC'),
+                ObjectManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'),
                 ObjectManager::CRITERIA_LIMIT => 7
             )
         );
 
-
-        // NewFeature #53983
-        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
-            ->findBy(array(
-                'id' => array(603,763,645,657),
-            ));
+        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findBy(
+            array(
+                'showOnMain' => true,
+            ),
+            array(
+                'showOnMainOrd' => 'ASC'
+            )
+        );
 
         $news = $this->getNewsManager()->findObjects(
             array(
@@ -49,6 +52,7 @@ class MainController extends Controller
             array(
                 NewsManager::CRITERIA_LIMIT => 1,
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('reportages'),
+                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
                 NewsManager::CRITERIA_HAS_IMAGE => true
             )
         );
@@ -60,6 +64,7 @@ class MainController extends Controller
             array(
                 NewsManager::CRITERIA_LIMIT => 1,
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('interviews'),
+                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
                 NewsManager::CRITERIA_HAS_IMAGE => true
             )
         );
@@ -67,8 +72,24 @@ class MainController extends Controller
             $lastInterview = $lastInterview[0];
         }
 
-        $museum = $this->getDoctrine()->getManager()->find('ArmdMuseumBundle:Museum', 3);
-
+        $museums =  $this->getMuseumManager()->findObjects(
+            array(
+                MuseumManager::CRITERIA_LIMIT => 1,
+                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC')
+            )
+        );
+        $museum = $museums[0];
+        // */
+        /*
+        $museum = $em->getRepository('ArmdMuseumBundle:Museum')->findBy(
+            array(
+                'showOnMain' => true,
+            ),
+            array(
+                'showOnMainOrd' => 'ASC'
+            )
+        );
+        */
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
@@ -251,6 +272,13 @@ class MainController extends Controller
         return $this->get('armd_news.manager.news');
     }
 
+    /**
+     * @return \Armd\NewsBundle\Entity\NewsManager
+     */
+    function getMuseumManager()
+    {
+        return $this->get('armd_museum.manager.news');
+    }
 
     function getGalleryManager()
     {

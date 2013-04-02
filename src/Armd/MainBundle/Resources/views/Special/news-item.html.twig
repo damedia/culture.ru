@@ -40,4 +40,5 @@
 	</div>
      <p class="print-link obj-print-link"><a href="#" onclick="window.print();">{{ 'Special.PrintLink'|trans }}</a></p>
      <p class="back-link"><a href="javascript:history.back()">{{ 'Special.BackLink'|trans }}</a></p>
+     <p><a href="{{ path('armd_main_special_news_item_by_category_print',  {'id': n.id, 'category': n.category.slug }) }}" target="_blank">{{ 'Printversion'|trans }}</a></p>
 {% endblock %}

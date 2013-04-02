@@ -78,6 +78,11 @@ class LectureCategory implements Node
      */
     private $lectures;
 
+    /**
+     * @ORM\Column(name="system_slug", type="string", nullable=true)
+     */
+    private $systemSlug;
+
 
     public function __construct()
     {
@@ -340,6 +345,16 @@ class LectureCategory implements Node
     public function getLectures()
     {
         return $this->lectures;
+    }
+
+    public function getSystemSlug()
+    {
+        return $this->systemSlug;
+    }
+
+    public function setSystemSlug($systemSlug)
+    {
+        $this->systemSlug = $systemSlug;
     }
 
 }

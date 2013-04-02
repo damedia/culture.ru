@@ -46,9 +46,6 @@ class NewsManager extends ListManager
     /** example: Date('2012-05-16') */
     const CRITERIA_NEWS_DATE = 'CRITERIA_NEWS_DATE';
 
-    /** example: array(122, 45) */
-    const CRITERIA_NEWS_ID_NOT = 'CRITERIA_NEWS_ID_NOT';
-
     /** example: true */
     const CRITERIA_IS_ON_MAP = 'CRITERIA_IS_ON_MAP';
 
@@ -61,6 +58,9 @@ class NewsManager extends ListManager
     /** example: 'the rolling stones' */
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
+    /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
+    const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
+    
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
         parent::__construct($em, $tagManager);
@@ -112,7 +112,8 @@ class NewsManager extends ListManager
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
             $qb->andWhere('_news.category IN (:category_ids_or)')
-                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);
+                ->setParameter('category_ids_or', $criteria[self::CRITERIA_CATEGORY_IDS_OR]);             
+            
         }
 
         if (!empty($criteria[self::CRITERIA_CATEGORY_SLUGS_OR])) {
@@ -130,6 +131,8 @@ class NewsManager extends ListManager
                 ->andWhere('_news.day = :memorial_date_day')
                 ->setParameter('memorial_date_month', $criteria[self::CRITERIA_MEMORIAL_DATE]->format('m'))
                 ->setParameter('memorial_date_day', $criteria[self::CRITERIA_MEMORIAL_DATE]->format('d'));
+                        
+               
         }
 
         if (!empty($criteria[self::CRITERIA_SUBJECT_SLUGS_OR])) {
@@ -176,10 +179,6 @@ class NewsManager extends ListManager
                 ->setParameter('event_date_till', $criteria[self::CRITERIA_EVENT_DATE_TILL]->setTime(23, 59, 59));
         }
 
-        if (!empty($criteria[self::CRITERIA_NEWS_ID_NOT])) {
-            $qb->andWhere('_news.id NOT IN (:news_id_not)')
-                ->setParameter('news_id_not', $criteria[self::CRITERIA_NEWS_ID_NOT]);
-        }
 
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');

@@ -36,9 +36,11 @@ class Museum extends Admin
     {
         $showMapper
             ->add('title')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
         
-        parent::configureShowField($showMapper);        
+        parent::configureShowFields($showMapper);
     }
 
     /**
@@ -67,6 +69,14 @@ class Museum extends Admin
                 ))
                 ->add('published', null, array('required' => false))
             ->end()
+            ->with('Главная')
+                ->add('showOnMain', null, array(
+                    'required' => false
+                ))
+                ->add('showOnMainOrd', null, array(
+                    'required' => false
+                ))                
+            ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
                     'required' => false,
@@ -75,7 +85,11 @@ class Museum extends Admin
                     'attr' => array('class' => 'chzn-select span5'),
                     'query_builder' => function($er) {
                         $qb = $er->createQueryBuilder('o');
-                        $qb->orderBy('o.title', 'ASC');
+                        $qb->orderBy('o.title', 'ASC')
+                            ->where('o.showAtRussianImage = TRUE')
+                            ->andWhere('o.published = TRUE')
+                        ;
+
                         return $qb;
                     }
                 ))
@@ -98,6 +112,8 @@ class Museum extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')            
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
         
         parent::configureListFields($listMapper);        
@@ -108,6 +124,31 @@ class Museum extends Admin
         $datagridMapper
             ->add('published')
             ->add('title')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
         ;
+    }    
+
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = parent::getBatchActions();
+
+        
+        // check user permissions
+        if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
+            // /*
+            $actions['ShowOnMain']=array(
+                'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['NotShowOnMain']=array(
+                'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            // */
+        }
+        
+        return $actions;
     }    
 }

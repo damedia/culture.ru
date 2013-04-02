@@ -1432,6 +1432,98 @@ body {
         white-space: nowrap;
     }
 
+    #sort-list {
+        margin: 10px 0 10px;
+        float: left;
+    }
+        #sort-list span {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        #sort-list ul,
+        #sort-list li {
+            list-style-type: none;
+            display: inline;
+        }
+
+        #sort-list ul {
+            /*position: relative;*/
+        }
+
+        #sort-list li {
+            padding-right: 7px;
+            margin-right: 5px;
+            position: relative;
+        }
+
+        #sort-list li.active {
+        }
+            #sort-list li.active a,
+            #sort-list li.active a:hover,
+            #sort-list li.active a:visited {
+                font-weight: bold;
+                color: #000000;
+                text-decoration: none;
+                cursor: default;
+                outline: none;
+            }
+
+        #sort-list li:after {
+            background: #8D8D8D;
+            content: "";
+            display: block;
+            height: 14px;
+            position: absolute;
+            width: 1px;
+            top: 3px;
+            right: -1px;
+        }
+
+        #sort-list li:last-child:after {
+            display: none;
+        }
+
+    #alphabet-filter {
+        margin: 10px 0 20px;
+        float: right;
+    }
+
+        #alphabet-filter ul,
+        #alphabet-filter li {
+            list-style-type: none;
+            display: inline;
+        }
+
+        #alphabet-filter li.active a,
+        #alphabet-filter li.active a:hover,
+        #alphabet-filter li.active a:visited {
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+            cursor: default;
+            outline: none;
+        }
+
+    .lecture-homepage-section {
+        margin-bottom: 10px;
+    }
+
+        .lecture-homepage-section .show-all {
+            margin-top: 10px;
+            margin-right: 30px;
+            float: right;
+
+        }
+
+        .lecture-homepage-section .plitka-text {
+            border-bottom: 0;
+        }
+
+        #lecture-container .lecture-homepage-section .plitka-one-wrap {
+            height: 226px;
+        }
+
     #lecture_category {
         width: 300px;
     }
@@ -1464,6 +1556,7 @@ body {
 				margin:12px 12px 0 0;
 				position:relative;
 			}
+
 			.plitka-one-wrap:hover {
 				box-shadow:0 0 7px #ddd;
 			}
@@ -1476,12 +1569,19 @@ body {
                         background: #000000;
                         width: 160px;
                         height: 120px;
+                        position: relative;
                     }
 
                     .plitka-one-image {
                         display: table-cell;
                         vertical-align:middle;
                     }
+
+                        .plitka-one-image .cinema-top100-icon {
+                            right: -26px;
+                            top: -12px;
+                        }
+
 
 					.plitka-one a {
 						text-decoration:none;
@@ -1538,6 +1638,11 @@ body {
 						.plitka-footer a:hover {
 							border-color:transparent;
 						}
+
+                        .plitka-footer .lecture-view-counter {
+                            display: block;
+                            color: #666666;
+                        }
 						
 					
 					.plitka-one-wrap .star-mark  {
@@ -1891,6 +1996,7 @@ body {
 				margin-top:5px;
 				text-decoration:underline !important;
 				color:#7691A4;
+                                height: 28px;
 			}
 			.obrazy-plitka  .plitka-image {
 				margin: 10px 0 9px;
@@ -2014,7 +2120,16 @@ body {
 				.lt-ie8 .short-list .full-list-text {
 					background:url(../img/obr-dot.png) no-repeat 0 6px;
 				}
-			
+
+    .cinema-top100-icon {
+        background: transparent url('../img/top100.png') no-repeat scroll 0 0;
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        right: 0;
+        top: 0;
+        z-index: 100;
+    }
 		
 	
 	/*MUSEUMS*/
@@ -2633,7 +2748,15 @@ body {
 				font-size:12px;
 				margin-bottom:10px;
 				
-			}
+                                }
+                                .time-line-content.clearfix.all {
+                                    margin-left:0px;
+                                }
+
+                                .link-chronicle-all {
+                                    text-align: right;
+                                }
+
 				.time-line-header {
 					background:#fff;
 					text-align:center;
@@ -2816,6 +2939,7 @@ body {
 		}
 		.rec-plitka  .plitka-one {
 			padding: 6px 11px 6px 0;
+                        word-wrap: normal;
 		}
 		.rec-plitka .plitka-one-wrap:hover {
 			box-shadow:none;
@@ -3029,6 +3153,7 @@ body {
                             display:block;
                             margin-bottom: 10px;
                         }
+
                             .period-block_image .play, .block-image .play {
                                 position:absolute;
                                 top:50%;
@@ -3336,6 +3461,22 @@ body {
                 text-transform: uppercase;
                 margin: 0;
             }
+
+            .social-widget-block {
+                width: 48%;
+                /*margin-right: 15px;*/
+                float: left;
+            }
+
+            .twitter-widget-block {
+                width: 48%;
+                float: right;
+            }
+
+                .twitter-widget-block .timeline {
+                    border: 0;
+                }
+
 
 
 
@@ -3717,6 +3858,10 @@ body {
                 text-align: center;
 				margin:0 37px 0 0;
 			}
+                .index-video-list .index-video-one {
+                    position: relative;
+                }
+
 				.index-video-list img {
 					margin-bottom:10px;
 				}
@@ -5526,3 +5671,11 @@ a.appstore-link {
         page-break-after: avoid;
     }
 }
+
+
+#banners-page h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+

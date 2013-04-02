@@ -96,12 +96,12 @@ class News extends BaseNews implements CommentableInterface, Taggable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $priority;
+    protected $priority = 0;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
      */
-    protected $published;
+    private $published = true;
 
     /**
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
@@ -144,7 +144,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     private $mediaVideo;
 
     /**
-     * @ORM\Column(name="is_on_map", type="boolean", nullable=false, options={"default" = false})
+     * @ORM\Column(name="is_on_map", type="boolean", nullable=false)
      */
     private $isOnMap = false;
 
@@ -188,10 +188,50 @@ class News extends BaseNews implements CommentableInterface, Taggable
      */
     protected $theme;
 
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
+     */
+    private $showOnMain = false;
+    
+    /**
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
+     */
+    private $showOnMainOrd = 0;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="content_news_stuff")
+     *
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stuff;
+
     public function __construct()
     {
         $this->newsDate = new \DateTime();
         $this->tags = new ArrayCollection();
+        $this->stuff = new ArrayCollection();
+    }
+
+    public function setStuff($stuff)
+    {
+
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 
     /**
@@ -886,17 +926,51 @@ class News extends BaseNews implements CommentableInterface, Taggable
     public function setTheme(\Armd\NewsBundle\Entity\Theme $theme = null)
     {
         $this->theme = $theme;
-    
+
         return $this;
     }
 
     /**
      * Get theme
      *
-     * @return \Armd\NewsBundle\Entity\Theme 
+     * @return \Armd\NewsBundle\Entity\Theme
      */
     public function getTheme()
     {
         return $this->theme;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        $this->showOnMain = $this->showOnMain;
+
+        return $this->showOnMain;
+    }
+
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainOrd()
+    {
+        $this->showOnMainOrd = $this->showOnMainOrd;
+
+        return $this->showOnMainOrd;
+    }
+
+    public function setShowOnMainOrd($showOnMainOrd)
+    {
+        $this->showOnMainOrd = $showOnMainOrd;
+
+        return $this;
+    }    
 }

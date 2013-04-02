@@ -67,6 +67,7 @@
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.jplayer/jquery.jplayer.min.js') }}"></script>
         <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
         <script type="text/javascript">
          $(function(){
@@ -176,9 +177,11 @@
                 <p>{{ "ministerstvo"|trans|raw }}</p>
             </a>
 
+{#
             <a href="http://nic.ru/news/2013/culture.html" target="_blank" class="footer-banner-1">
                 <img src="{{ asset('img/footer/100x43_logo_nic.gif') }}" alt="" />
             </a>
+#}
 
             <div class="footer-social">
                 <div class="footer-banners">
@@ -207,7 +210,7 @@
                     <p class="footer-fond-link">
                         <ul>
                             <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
-                            <li><a href="http://dnklive.ru/" target="_blank">ДНК Live</a></li>
+                            <li><a href="http://dnk.culture.ru/" target="_blank">ДНК Live</a></li>
                         </ul>
                     </p>
                 {% endif %}

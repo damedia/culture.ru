@@ -3,7 +3,7 @@ services:
         class: Armd\MuseumBundle\Admin\Museum
         tags:
             - { name: sonata.admin, manager_type: orm, group: Museums, label: Museums }
-        arguments: [null, Armd\MuseumBundle\Entity\Museum, SonataAdminBundle:CRUD, @service_container]
+        arguments: [null, Armd\MuseumBundle\Entity\Museum, ArmdMuseumBundle:MuseumCrud, @service_container]
 
     armd_museum.admin.category:
         class: Armd\MuseumBundle\Admin\Category
@@ -14,4 +14,3 @@ services:
     armd_museum.manager.museum:
         class: Armd\MuseumBundle\Entity\MuseumManager
         arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager, @search.sphinxsearch.search]
-

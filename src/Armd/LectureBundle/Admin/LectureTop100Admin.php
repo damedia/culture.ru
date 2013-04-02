@@ -43,6 +43,7 @@ class LectureTop100Admin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
+            ->add('isTop100Film')
             ->add('lectureVideo')
             ->add('lectureFile');
     }
@@ -61,7 +62,7 @@ class LectureTop100Admin extends Admin
 
         $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
             ->getRepository('ArmdLectureBundle:LectureType')
-            ->findOneByCode('LECTURE_TYPE_URL');
+            ->findOneByCode('LECTURE_TYPE_VIDEO');
 
         $lecture->setLectureSuperType($superType);
         $lecture->setLectureType($type);
@@ -79,9 +80,19 @@ class LectureTop100Admin extends Admin
                 'super_type' => $superType
             ))
             ->add('recommended')
+            ->add('isTop100Film')
+            ->with('Tvigle Video')
+                ->add('lectureVideo', 'armd_tvigle_video_selector',
+                    array(
+                        'required' => false
+                    )
+                )
+            ->end()
+            ->with('Other video')
+                ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+            ->end()
             ->with('External Video')
                 ->add('externalUrl', null, array('required' => false))
-                ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
         ;
     }
@@ -95,7 +106,8 @@ class LectureTop100Admin extends Admin
         $datagridMapper
             ->add('published')
             ->add('title')
-            ->add('categories');
+            ->add('categories')
+            ->add('isTop100Film');
     }
 
 
@@ -111,6 +123,7 @@ class LectureTop100Admin extends Admin
             ->add('published')
             ->add('createdAt')
             ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+            ->add('isTop100Film')
         ;
     }
 

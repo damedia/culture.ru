@@ -15,14 +15,29 @@
             <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
-                    <option value="0">{{ "All"|trans }}</option>
+                    <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
+                        {{ "All"|trans }}
+                    </option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}" {% if category.id == categoryId %}selected="selected"{% endif %}>{{ category.title }}</option>
+                        <option value="{{ category.id }}"
+                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}
+                                >
+                            {{ category.title }}
+                        </option>
+                    {% endfor %}
+                    {% for category in specialCategories %}
+                        <option value="{{ category.id }}"
+                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                data-system-slug="{{ category.systemSlug }}"
+                                >
+                            {{ category.title }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
 
-            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and not cinemaTop100 %}
                 <span class="search-dates-label">Жанр</span>
                 <div class="search-category-selects">
                     <select id="lecture_sub_category" name="lecture_sub_category" class="uni">
@@ -38,7 +53,7 @@
 
 {% block page_header_search_scope %}
     <div class="search-checkboxes">
-        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
     </div>
 {% endblock %}
 
@@ -46,12 +61,30 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <div id="sort-list">
+        <span>Сортировать по:</span>
+        <ul>
+            <li class="active"><a href="#" data-sort-by="date">дате</a></li>
+            <li><a href="#" data-sort-by="popularity">популярности</a></li>
+            <li><a href="#" data-sort-by="title">алфавиту</a></li>
+        </ul>
+    </div>
+    <div id="alphabet-filter">
+        <ul>
+            <li class="active"><a href="#">Все</a></li>
+            {% for l in alphabet %}
+                <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
-            'lectureSuperTypeCode': lectureSuperType.code,
-            'limit': 32,
-            'search_query': searchQuery,
-            'category_id': categoryId})
+                'lectureSuperTypeCode': lectureSuperType.code,
+                'limit': 32,
+                'search_query': searchQuery,
+                'category_id': categoryId,
+                'cinema_top100': cinemaTop100
+            })
         %}
     </div>
     <div id="lecture-more-container" class="more more2">

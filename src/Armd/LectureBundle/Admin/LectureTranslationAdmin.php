@@ -72,6 +72,7 @@ class LectureTranslationAdmin extends Admin
         $formMapper
             ->add('published')
             ->add('title')
+            ->add('description')
             ->add('categories', 'armd_lecture_categories',
             array(
                 'required' => false,

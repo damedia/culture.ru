@@ -63,7 +63,13 @@ class LectureAdmin extends Admin
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
+        $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
+            ->getRepository('ArmdLectureBundle:LectureType')
+            ->findOneByCode('LECTURE_TYPE_VIDEO');
+
         $lecture->setLectureSuperType($superType);
+        $lecture->setLectureType($type);
+
 
         $formMapper
             ->with('General')
@@ -72,7 +78,6 @@ class LectureAdmin extends Admin
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
-                ->add('lectureType')
                 ->add('categories', 'armd_lecture_categories',
                     array(
                         'required' => false,
@@ -126,25 +131,28 @@ class LectureAdmin extends Admin
                     'multiple' => true,
                     'expanded' => true,
                 ))
-                /*
-                ->add('rolesPersons', 'sonata_type_collection',
-                    array(
-                        'by_reference' => false,
-                        'required' => true,
-                    ),
-                    array(
-                        'edit' => 'inline',
-                        'inline' => 'table',
-                    )
-                )
-                ->add('rolesPersons', 'armd_lecture_roles_persons',
-                    array(
-                        'class' => 'Armd\LectureBundle\Entity\LectureRolePerson',
+            ->end()
+            ->with('Stuff')
+            ->add(
+                'stuff',
+                'collection',
+                array(
+                    'type' => 'armd_media_file_type',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'options' => array(
                         'required' => false,
-                        'attr' => array('class' => 'chzn-select atlas-lectures-roles-persons-select'),
-                    )
+                        'media_provider' => 'sonata.media.provider.file',
+                        'by_reference' => true,
+                        'media_context' => 'stuff',
+                        'media_format' => 'original',
+                        'with_remove' => false, // Удаление выше, на уровне коллекции.
+                        'with_title' => false,
+                        'with_description' => true,
+                    ),
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
                 )
-                */
+            )
             ->end()
         ;
     }

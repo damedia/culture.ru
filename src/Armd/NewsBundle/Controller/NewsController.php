@@ -15,22 +15,59 @@ use DateTime;
 
 class NewsController extends Controller
 {
+    /**
+     * @param int $count
+     *
+     * @return array
+     */
+    private function getNewsFeed($count = 30)
+    {
+        return $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages'),
+                NewsManager::CRITERIA_LIMIT => $count
+            )
+        );
+    }
+
+    /**
+     * @Route("/widget/", defaults={"_format"="js"}, name="armd_news_widget")
+     */
+    function widgetAction()
+    {
+        $count = $this->getRequest()->get('count', 3);
+
+        // Validate...
+        if (!in_array($count, array(1, 3, 5))) {
+            $count = 3; // Default.
+        }
+
+        $news = $this->getNewsFeed($count);
+
+        return $this->render('ArmdNewsBundle:News:widget.js.twig', array(
+            'newsList' => $news
+        ));
+    }
+
+    /**
+     * @Route("/get-widget/", name="armd_news_get_widget")
+     */
+    function getWidgetAction()
+    {
+        return $this->render('ArmdNewsBundle:News:get_widget.html.twig');
+    }
 
     /**
      * @Route("/rss/", defaults={"_format"="xml"}, name="armd_news_rss")
-     */        
+     */
     function rssAction()
     {
-        $news = $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages'),
-                NewsManager::CRITERIA_LIMIT => 30
-            )
-        );
+        $news = $this->getNewsFeed();
+
         return $this->render('ArmdNewsBundle:News:rss.xml.twig', array(
             'news' => $news
         ));
-    }        
+    }
 
     /**
      * @Route("/map/", name="armd_news_map")
@@ -297,6 +334,14 @@ class NewsController extends Controller
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
         $this->getTagManager()->loadTagging($entity);
 
+
+        /*  $this->getNewsManager()->findObjects(
+            array(
+                NewsManager::CRITERIA_MEMORIAL_DATE => new \DateTime(),
+            )
+        );*/
+
+        // echo 'test';
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
@@ -338,7 +383,7 @@ class NewsController extends Controller
                 $entities[] = $news[0];
             }
         }
-    
+
         return $this->render('ArmdNewsBundle:News:billboard.html.twig', array(
             'entities' => $entities,
         ));
@@ -361,9 +406,9 @@ class NewsController extends Controller
         $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
-                NewsManager::CRITERIA_NEWS_ID_NOT => array($entity->getId()),
+                NewsManager::CRITERIA_IDS_NOT => array($entity->getId()),
                 NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),
-                NewsManager::CRITERIA_TAGS => $entity->getTags()
+                NewsManager::CRITERIA_TAGS => $entity->getTags(),
             )
         );
 
@@ -406,7 +451,7 @@ class NewsController extends Controller
     {
         return $this->get('fpn_tag.tag_manager');
     }
-    
+
     /**
      * @param \Armd\MkCommentBundle\Entity\Thread $thread
      * @return \Armd\MkCommentBundle\Entity\Comment
