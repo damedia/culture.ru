@@ -4931,7 +4931,7 @@ body {
 			}
 				.exponats-scroll {
          /* height:714px; */
-					height:200px;
+					/* height:200px; */
 				}
 				
 			.line {
@@ -4959,7 +4959,7 @@ body {
 					
 			.threelines .line {
 				/* height:220px; */
-        height:auto;
+        /* height:auto; */
 			}	
 				.threelines .third-line {
 					display:block;
@@ -4969,7 +4969,7 @@ body {
 				
 			.oneline .line {
 				/* height:600px; */
-        height:auto;
+        /* height:auto; */
 			}	
 				.oneline .third-line, .oneline .second-line {
 					display:none;
@@ -5121,12 +5121,12 @@ body {
 		overflow:hidden;
 	}	
 		.main-zoomed-image {
-			height:736px;
+			/* height:736px; */
 			overflow:hidden;
-                        position: relative;
+      position: relative;
 		}
 			.main-zoomed-image img {
-				position: absolute;				
+				position: absolute;	
 			}
 			
 			
