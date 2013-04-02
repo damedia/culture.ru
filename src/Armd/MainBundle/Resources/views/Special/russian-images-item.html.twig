@@ -13,20 +13,22 @@
                 <div class="object-one-col12">
 					<div class="object-one-text content">
 						
-					<div class="content-anons">{{ entity.russiaImageAnnounce|raw }}</div>
+						<div class="content-anons">{{ entity.russiaImageAnnounce|raw }}</div>
 					
-					<div class="content-text" id="full-text">
-						{{ entity.content|raw }}
-					</div>	
-						
+						<div class="content-text" id="full-text">
+							{{ entity.content|raw }}
+						</div>	
+							
 				   
-				   {% if entity.content|length > 0 %}
-					   <div class="btn-more">
-							<a href="javascript:history.back()" rel="full-text" title="{{ 'Special.Images of Russia.More'|trans }}" class=""><span class="more">{{ 'Special.Images of Russia.More'|trans }}...</span></a>
-					   </div>
-                   {% endif %}
+					   {% if entity.content|length > 0 %}
+						   <div class="btn-more">
+								<a href="javascript:history.back()" rel="full-text" title="{{ 'Special.Images of Russia.More'|trans }}" class=""><span class="more">{{ 'Special.Images of Russia.More'|trans }}...</span></a>
+						   </div>
+	                   {% endif %}
                    
                   </div><!--// content-->
+                  
+                  {{ block('rec_objects') }}
 				   
 				   {#<div class='afisha-list-more' id="more-show">{{ 'Special.Images of Russia.Comments'|trans }}</div>#}
 				   {#<div class="more-comments-show" style="display:none;">  #}
@@ -174,6 +176,7 @@
             </div>
     </div>
      <p class="back-link obj-back-link"><a href="javascript:history.back()">{{ 'Special.BackLink'|trans }}</a></p>
+     <p><a href="{{ path('armd_main_special_russian_images_item_print', {  'id':entity.id }) }}" target="_blank">{{ 'Printversion'|trans }}</a></p>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -246,4 +249,26 @@
 			
         });
     </script>
+{% endblock %}
+
+{% block rec_objects %}
+    {% if relatedObjects is not empty %}
+        <ul class="plitka rec-plitka">
+            {% for object in relatedObjects %}
+                <li class="plitka-one-wrap">
+                    <div class="plitka-one">
+                        {% if object.regions is not empty %}
+                            <a class="plitka-type" href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">{{ object.regions[0].title }}</a>
+                        {% endif %}
+                        <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">
+                            {% thumbnail object.primaryImage, 'searchAllResult' with { 'class': 'plitka-image' } %}
+                        </a>
+                        <div class="plitka-text">
+                            <span class="plitka-name"> <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}" class="no-decoration">{{ object.title }}</a> </span>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

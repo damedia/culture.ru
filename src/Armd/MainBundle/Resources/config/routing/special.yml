@@ -13,8 +13,13 @@ armd_main_special_press:
 armd_main_special_news_item_by_category:
     pattern:  /press-centre/{category}/{id}/
     defaults: { _controller: ArmdNewsBundle:News:newsItem, template: ArmdMainBundle:Special:news-item.html.twig  }
-    requirements: { category: "[a-z]+", id: \d+ }    
-
+    requirements: { category: "[a-z]+", id: \d+ }  
+    
+armd_main_special_news_item_by_category_print:
+    pattern:  /press-centre/{category}/{id}/print
+    defaults: { _controller: ArmdNewsBundle:News:newsItem, template: ArmdMainBundle:Special:news-item-print.html.twig  }
+    requirements: { category: "[a-z]+", id: \d+ }      
+    
 armd_main_special_services:
     pattern:  /services/
     defaults: { _controller: ArmdMainBundle:Special:services }
@@ -30,5 +35,25 @@ armd_main_special_russian_images:
 armd_main_special_russian_images_item:
     pattern: /russian-images/{id}/
     defaults: { _controller: ArmdMainBundle:Special:russianImagesItem }
-    requirements: { id: \d+ }         
+    requirements: { id: \d+ }       
     
+armd_main_special_russian_images_item_print:
+    pattern: /russian-images/{id}/print
+    defaults: { _controller: ArmdMainBundle:Special:russianImagesItem, print: 1 }
+    requirements: { id: \d+ }       
+    
+armd_main_special_newstext_search_result:
+    pattern:  /newstext-search-result/
+    defaults: { _controller: ArmdMainBundle:Special:newstextSearchResult }   
+    options:
+        expose: true   
+        
+armd_main_specialsearch_search_result:
+    pattern:  /search/
+    defaults: { _controller: ArmdMainBundle:SpecialSearch:searchResults }      
+    
+armd_main_special_news_more_load:
+    pattern:  /news-more-load/
+    defaults: { _controller: ArmdMainBundle:Special:newsMoreLoad }   
+    options:
+        expose: true       
