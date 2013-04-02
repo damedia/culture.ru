@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 use Armd\AtlasBundle\Entity\Category;
+use Armd\AtlasBundle\Entity\TouristCluster;
 
 class ObjectAdmin extends Admin
 {
@@ -49,7 +50,8 @@ class ObjectAdmin extends Admin
             ->add('image3d')
             ->add('virtualTour')
             ->add('showOnMain')
-            ->add('showOnMainOrd');
+            ->add('showOnMainOrd')
+            ->add('touristCluster');
     }
 
 
@@ -92,7 +94,11 @@ class ObjectAdmin extends Admin
                     'required' => false,
                     'attr' => array('class' => 'select2-tags'),
                 ))
-            ->add('isOfficial', null, array('required' => false))
+                ->add('touristCluster', null, array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                ))
+                ->add('isOfficial', null, array('required' => false))
             ->end()
             ->with('Moderation')
                 ->add('status')

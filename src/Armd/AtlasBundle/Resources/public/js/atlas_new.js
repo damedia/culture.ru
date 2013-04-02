@@ -11,13 +11,17 @@ AT.clusterPoints = null;
 AT.regions = [];
 
 AT.init = function(params) {
-    //console.info('Init Atlas');
+//    console.info('Init Atlas');
 
     this.params = params;
 
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
+    
+    AT.initTabFilters();
+/*
+
     AT.initFilters();
     AT.initHacks();
 
@@ -30,6 +34,7 @@ AT.init = function(params) {
             break;
         }
     }
+*/
 };
 
 AT.initMap = function(params) {
@@ -276,7 +281,12 @@ AT.initUI = function() {
     });
 
 };
-
+// Init filters
+AT.initTabFilters = function(){
+    $('.atlas-tab-filters ').on( 'click', function(){
+        alert($(this).attr('id'));
+    });
+}
 // Init filters
 AT.initFilters = function(){
 
