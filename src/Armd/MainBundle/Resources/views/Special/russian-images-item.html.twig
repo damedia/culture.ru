@@ -279,9 +279,7 @@
             {% for object in relatedObjects|slice(0, 4) %}<li>
                     <div class="rusObr-list-one-wrap" style="">
                         <div class="rusObr-list-one">
-                            {% if object.regions is not empty %}
-                                <a class="plitka-type" href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">{{ object.regions[0].title }}</a>
-                            {% endif %}
+                            
                             <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}">
                                 {% if object.primaryImage is not empty %}
                                     <img src="{% path object.primaryImage, 'reference' %}" alt="" class="rusObr-list-image"/></a>
@@ -293,12 +291,9 @@
                                 <a href="{{ path('armd_main_special_russian_images_item', {'id': object.id}) }}" class="rusObr-list-header">
                                     {{ object.title }}
                                 </a>
-
+                                        
                                 <p class="rusObr-list-place">
-                                    {% for region in object.regions %}
-                                        {{ region.title }}
-                                        {% if not loop.last %}/{% endif %}
-                                    {% endfor %}
+                                   {{ object.regions[0].title }}
                                 </p>
                             </div>
                         </div>
