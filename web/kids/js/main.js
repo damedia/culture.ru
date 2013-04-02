@@ -118,7 +118,7 @@ $(function(){
                 
             })
             
-        },
+        }
     }
     chooseGame.start();
     
@@ -163,7 +163,7 @@ $(function(){
                 
                 return false;
             })
-        },
+        }
         
     };
     compareGame.start();
@@ -219,15 +219,21 @@ $(function(){
                 this.start();
         },
         
-         load: function(container) {
+        load: function(container) {
+            var imageSrc = '';
             $(window).load(function(){
                 $('.puzzle-setka-wrap', container).each(function(){
                     var imageheight = $(this).find('img.puzzle').height();
                     $(this).height(imageheight).css('marginTop', -imageheight/2);
                 })
             });
+            
+            if ( !jQuery.browser.msie || jQuery.browser.version > 8.0) {
+                imageSrc = $('img.puzzle', container).attr('src');
+            }
+            
             this.jsaw = new jigsaw.Jigsaw({
-                defaultImage: "img/arkaim/puzzle.jpg",
+                defaultImage: imageSrc,
                 piecesNumberTmpl: "%d элементов",
                 redirect: null,
                 shuffled: true,
@@ -273,7 +279,15 @@ $(function(){
             
             $('body, html').css('overflow', 'hidden');
             
-            self.jsaw.set_image(object.prev().attr('src'));
+            //self.jsaw.set_image(object.prev().attr('src'));
+            //self.jsaw.redraw();
+            
+            if ( jQuery.browser.msie && jQuery.browser.version <= 8.0) {
+                setTimeout(function(){
+                   self.jsaw.set_image(object.prev().attr('src'));
+                },10);
+               
+            }
             
             $('#puzzle-block').css({
                 'width':self.windowWidth,
@@ -373,7 +387,7 @@ $(function(){
                 
             })
             
-        },
+        }
     }
     ImageGame.start();
     
