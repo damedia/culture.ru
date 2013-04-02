@@ -27,12 +27,12 @@ abstract class ListManager
 
     /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
+
+    const CRITERIA_TAG_ID = 'CRITERIA_TAG_ID';
     
     /** example: array(1, 2, 3) */
     const CRITERIA_NOT_IDS = 'CRITERIA_NOT_IDS';
 
-    /** example(12, 150 */
-    const CRITERIA_IDS_NOT = 'CRITERIA_IDS_NOT';
 
     public function __construct(EntityManager $em, TagManager $tagManager)
     {
@@ -116,11 +116,20 @@ abstract class ListManager
             }
         }
 
-        if (!empty($criteria[self::CRITERIA_IDS_NOT])) {
-            $qb->andWhere("$o NOT IN (:ids_not)")
-                ->setParameter('ids_not', $criteria[self::CRITERIA_IDS_NOT]);
-        }
+        if (!empty($criteria[self::CRITERIA_TAG_ID])) {
+            $qb->andWhere($qb->expr()->in(
+                    "$o.id",
+                    $this->em->getRepository($this->tagManager->getTaggingClass())
+                        ->createQueryBuilder('tagging')
+                        ->select('TOINT(tagging.resourceId)')
+                        ->where('tagging.tag = :tag_id')
+                        ->getDQL()
+                ))
+                ->setParameter('tag_id', $criteria[self::CRITERIA_TAG_ID]);
 
+//            $qb->innerJoin($this->tagManager->getTaggingClass(), 'tagging', 'WITH', "TOINT(tagging.resourceId) = $o.id")
+//                ->andWhere('tagging.tag  = :tag_id')->setParameter('tag_id', $criteria[self::CRITERIA_TAG_ID]);
+        }
     }
 
     public function getTaggedObjectsFromQueryBuilder(QueryBuilder $qb, $tags, $limit)

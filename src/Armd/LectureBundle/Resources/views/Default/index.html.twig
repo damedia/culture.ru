@@ -18,9 +18,13 @@
                     <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
                         {{ "All"|trans }}
                     </option>
+                    {% set selectedCategoryFound = false %}
                     {% for category in categories %}
                         <option value="{{ category.id }}"
-                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                {% if category.id == selectedCategory.id|default(0) %}
+                                    {% set selectedCategoryFound = true %}
+                                    selected="selected"
+                                {% endif %}
                                 {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}
                                 >
                             {{ category.title }}
@@ -28,7 +32,7 @@
                     {% endfor %}
                     {% for category in specialCategories %}
                         <option value="{{ category.id }}"
-                                {% if category.id == categoryId %}selected="selected"{% endif %}
+                                {% if category.id == selectedCategory.id|default(0) %}selected="selected"{% endif %}
                                 data-system-slug="{{ category.systemSlug }}"
                                 >
                             {{ category.title }}
@@ -42,6 +46,9 @@
                 <div class="search-category-selects">
                     <select id="lecture_sub_category" name="lecture_sub_category" class="uni">
                         <option value="0">{{ "All"|trans }}</option>
+                        {% if not selectedCategoryFound and selectedCategory is not empty%}
+                            <option value="{{ selectedCategory.id }}" selected="selected">{{ selectedCategory.title }}</option>
+                        {% endif %}
                     </select>
                 </div>
             {% endif %}
@@ -61,29 +68,39 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
-    <div id="sort-list">
-        <span>Сортировать по:</span>
-        <ul>
-            <li class="active"><a href="#" data-sort-by="date">дате</a></li>
-            <li><a href="#" data-sort-by="popularity">популярности</a></li>
-            <li><a href="#" data-sort-by="title">алфавиту</a></li>
-        </ul>
-    </div>
-    <div id="alphabet-filter">
-        <ul>
-            <li class="active"><a href="#">Все</a></li>
-            {% for l in alphabet %}
-                <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+    <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
+        <div id="sort-list">
+            <span>Сортировать по:</span>
+            <ul>
+                <li class="active"><a href="#" data-sort-by="date">дате</a></li>
+                <li><a href="#" data-sort-by="popularity">популярности</a></li>
+                <li><a href="#" data-sort-by="title">алфавиту</a></li>
+            </ul>
+        </div>
+        <div id="alphabet-filter">
+            <ul>
+                <li class="active"><a href="#">Все</a></li>
+                {% for l in alphabet %}
+                    <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    {% if tag is not empty %}
+        <section id="tag-filter-panel">
+            Показаны результаты по тегу <strong>{{ tag.name }}</strong>
+        </section>
+    {% endif %}
+
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
                 'lectureSuperTypeCode': lectureSuperType.code,
                 'limit': 32,
                 'search_query': searchQuery,
-                'category_id': categoryId,
-                'cinema_top100': cinemaTop100
+                'category_id': selectedCategory.id|default(0),
+                'cinema_top100': cinemaTop100,
+                'tag_id': (tag is empty ? 0 : tag.id)
             })
         %}
     </div>
