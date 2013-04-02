@@ -136,19 +136,36 @@
                 <h2 class="video-one-name">{{ lecture.title }}</h2>
 
                 <span class="video-one-stats">
-                    {% spaceless %}
+                    <span>Категории:</span>
                         {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
                         {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
                         {% for lectureCategory in lecture.categories %}
                             <a href="{{ path('armd_lecture_default_index', {
                                         'lectureSuperTypeCode': lecture.lectureSuperType.code,
                                         'category_id': lectureCategory.id }) }}"
-                                    >
-                                {{ lectureCategory.title }}
-                            </a>,
+                                    >{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
                         {% endfor %}
-                        Просмотров: {{ lecture.viewCount }}
-                    {% endspaceless %}
+                </span>
+
+                {% set tags = [] %}
+                {% for tag in lecture.tags if not tag.isTechnical %}
+                    {% set tags = tags|merge([tag]) %}
+                {% endfor %}
+
+                {% if tags|length > 0 %}
+                    <span class="video-one-stats">
+                        <span>Теги:</span>
+                        {% for tag in tags %}
+                            <a href="{{ path('armd_lecture_default_index', {
+                                    'lectureSuperTypeCode': lecture.lectureSuperType.code,
+                                    'tag_id': tag.id }) }}"
+                                >{{ tag.name }}</a>{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                <span class="video-one-stats">
+                    Просмотров: {{ lecture.viewCount }}
                 </span>
 
                 <div class="video-one-anons">
@@ -337,108 +354,6 @@
         {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'id': lecture.id }) %}
 
         {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'id': lecture.id }) %}
-    </div>
-{% endblock %}
-
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block body_old %}
-    <div class="left-column type-2 text">
-
-        <div class="title blue-title">
-            <h2>
-                {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                    {{ 'Lecture'|trans }}
-                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-                    {{ 'Translations'|trans }}
-                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-                    Кинозал
-                {% endif %}
-            </h2>
-        </div>
-
-        <div class="media-one-block video-one">
-            <div id="videoplayer" style="background: none">
-                {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-
-                    {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
-                        {# tvigle video #}
-                        {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
-                            {% set lectureVideo = lecture.trailerVideo %}
-                        {% else %}
-                            {% set lectureVideo = lecture.lectureVideo %}
-                        {% endif %}
-                        {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-
-                    {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
-                        {# media video #}
-                        {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
-                            {% set lectureVideo = lecture.mediaTrailerVideo %}
-                        {% else %}
-                            {% set lectureVideo = lecture.mediaLectureVideo %}
-                        {% endif %}
-                        {% media lectureVideo, 'noformat' with { 'width': '100%', 'height': 506 } %}
-
-                    {% endif %}
-
-                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
-                    {% if lecture.lectureFile is not empty %}
-                        <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
-                    {% endif %}
-                {% endif %}
-            </div>
-            <div class="video-stats">
-                {% if lecture.lecturer is not empty %}
-                    <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lecture.lecturer }}</span></p>
-                {% endif %}
-                <p class="vs-date">{{ 'Date'|trans }}: <span>{{ lecture.createdAt|date('d.m.Y') }}</span></p>
-            </div>
-            {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE'
-                and
-                (lecture.trailerVideo is not empty
-                and lecture.lectureVideo is not empty
-                or
-                lecture.mediaTrailerVideo is not empty
-                and lecture.mediaLectureVideo is not empty)
-            %}
-            <div class="video-version-switch">
-                {% if lectureVersion == 'full' %}
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id, 'version': 'trailer'} ) }}">{{ 'Watch trailer'|trans }}</a>
-                {% elseif lectureVersion == 'trailer' %}
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id, 'version': 'full'} ) }}">{{ 'Watch full version'|trans }}</a>
-                {% endif %}
-            </div>
-            {% endif %}
-
-            <div class="video-description">
-                <h2>{{ lecture.title }}</h2>
-                <div class="tags">
-                      {% for lectureCategory in lecture.categories %}
-                        <a {#href="#"#} style="text-decoration:none;">{{ lectureCategory.title }}</a>
-                       {% endfor %}
-                </div>
-
-                <div>{{ lecture.description|raw }}</div>
-
-                <div>
-                    <h2>Roles:</h2>
-                    {% for key in lectureRolesPersons|keys %}
-                        <div>
-                            <span>{{ key }}:</span>
-                            {% for person in lectureRolesPersons[key] %}
-                                <a href="#">{{ person.name }}</a>{% if not loop.last %},{% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="right-column">
-        {#% include 'ArmdNewsBundle:News:latest-news.html.twig' with {'news': linkedNews} only %#}
-        {% render url('armd_lecture_right_column') %}
     </div>
 {% endblock %}
 

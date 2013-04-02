@@ -1313,8 +1313,9 @@ body {
 				.video-one-stats {
 					color:#6f6f6f;
 					font-size:13px;
+                    display: block;
 				}
-			
+
 			.video-one-stars {
 				float:right;
 				margin-top:13px;

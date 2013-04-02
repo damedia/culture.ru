@@ -82,6 +82,22 @@ var armdMkLectures = {
         $('#lecture-more-container').show();
     },
 
+    hideSortPanel: function() {
+        $('#sort-panel').hide();
+    },
+
+    showSortPanel: function() {
+        $('#sort-panel').show();
+    },
+
+    hideTagFilterPanel: function() {
+        $('#tag-filter-panel').hide();
+    },
+
+    showTagFilterPanel: function() {
+        $('#tag-filter-panel').show();
+    },
+
     resetFilterForm: function() {
         $('#lecture_category, #lecture_sub_category').val('').selectgroup('refresh');
     },
@@ -103,12 +119,12 @@ var armdMkLectures = {
         }
 
         if (isSearch) {
-            $('#sort-list').hide();
-            $('#alphabet-filter').hide();
+            armdMkLectures.hideSortPanel();
+            armdMkLectures.hideTagFilterPanel();
             data['search_query'] = $('#search-txt').val();
         } else {
-            $('#sort-list').show();
-            $('#alphabet-filter').show();
+            armdMkLectures.showSortPanel();
+            armdMkLectures.hideTagFilterPanel();
             var categoryId = $('#lecture_category').val();
             var subCategoryId = $('#lecture_sub_category').val();
             data['category_id'] = parseInt(subCategoryId) > 0 ? subCategoryId : categoryId;
