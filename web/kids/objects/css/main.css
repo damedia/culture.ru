@@ -2988,7 +2988,7 @@ body {
     .quiz-kremlin .get-diplom {
         bottom: 20px;
         right: 30px;
-        background:none;
+        background:url(../img/blank.png) repeat !important;
     }
     .quiz-kremlin .to-print {
         bottom: 12px;
@@ -2997,7 +2997,7 @@ body {
     .quiz-astr .get-diplom {
         bottom: 20px;
         right: 30px;
-        background:none;
+        background:url(../img/blank.png) repeat !important;
     }
     .quiz-astr .to-print {
         bottom: 12px;
