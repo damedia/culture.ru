@@ -1431,6 +1431,7 @@ body {
 
     #sort-list {
         margin: 10px 0 10px;
+        float: left;
     }
         #sort-list span {
             font-weight: bold;
@@ -1482,6 +1483,7 @@ body {
 
     #alphabet-filter {
         margin: 10px 0 20px;
+        float: right;
     }
 
         #alphabet-filter ul,

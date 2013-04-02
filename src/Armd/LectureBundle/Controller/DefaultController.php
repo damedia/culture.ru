@@ -203,6 +203,10 @@ class DefaultController extends Controller
             $criteria[LectureManager::CRITERIA_IS_TOP_100_FILM] = true;
         }
 
+        if ($request->query->has('first_letter')) {
+            $criteria[LectureManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
+        }
+
         $lectures = $this->getLectureManager()->findObjects($criteria);
         return array(
             'lectures' => $lectures
