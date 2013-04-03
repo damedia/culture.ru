@@ -1089,9 +1089,9 @@ body {
 					position:relative;
 					z-index:10;
 				}
-				.featured ul.ui-tabs-nav li.ui-tabs-selected span, .featured ul.ui-tabs-nav li.ui-tabs-active span{ 
-					font-weight:bold;
-				}
+				/*.featured ul.ui-tabs-nav li.ui-tabs-selected span, .featured ul.ui-tabs-nav li.ui-tabs-active span{ */
+					/*font-weight:bold;*/
+				/*}*/
 					.featured ul.ui-tabs-nav li.ui-tabs-selected a i, .featured ul.ui-tabs-nav li.ui-tabs-active a i{
 						
 					}
