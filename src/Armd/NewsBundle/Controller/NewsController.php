@@ -331,13 +331,15 @@ class NewsController extends Controller
             );
         }
 
-        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
-        $gallaryId = $entity->getGallery()->getId();
-        $em = $this->getDoctrine()->getManager();
-        $images = $em->getRepository('ApplicationSonataMediaBundle:GalleryHasMedia')->findBy(array(
-            'enabled' => true,
-            'gallery' => $gallaryId
-        ));
+        $images = array();
+        if ($entity->getGallery()) {
+            $gallaryId = $entity->getGallery()->getId();
+            $em = $this->getDoctrine()->getManager();
+            $images = $em->getRepository('ApplicationSonataMediaBundle:GalleryHasMedia')->findBy(array(
+                'enabled' => true,
+                'gallery' => $gallaryId
+            ));
+        }
 
         $this->getTagManager()->loadTagging($entity);
 
