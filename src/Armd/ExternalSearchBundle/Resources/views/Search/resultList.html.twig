@@ -30,6 +30,30 @@
 {% block left_column %}
 
     {# Search form code from Yandex. #}
+
+    <style>
+      .ya-site-form{
+        background:red;
+        }
+    </style>
+    <!--
+    <script>
+      $('.content-tabs').on('click', 'a', function(){
+          var tabId = $(this).attr('href');
+          $(this).addClass('active')
+                  .siblings().removeClass('active');
+          $(tabId).show().siblings('.content-tab').hide();        
+          return false;
+      })
+    </script>
+    -->
+    <div class="content-tabs">
+        <a href="#c-tab1" class="active">форма</a>
+        <a href="#c-tab2">таблица</a>
+    </div>
+    <div class="content-tab" id="c-tab1">форма asdfas </div>
+    <div class="content-tab" id="c-tab2">таблица sadf asdf </div>
+
     <div
         class="ya-site-form ya-site-form_inited_no"
         onclick="return {'bg': 'transparent', 'target': '_self', 'language': 'ru', 'suggest': true, 'tld': 'ru', 'site_suggest': true, 'action': '{{ url('armd_external_search_results') }}', 'webopt': false, 'fontsize': 12, 'arrow': false, 'fg': '#000000', 'searchid': '{{ yandexSearchId }}', 'logo': 'rb', 'websearch': false, 'type': 2}">
