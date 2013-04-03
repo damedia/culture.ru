@@ -387,6 +387,8 @@ armd_sphinx_search:
             %sphinxsearch_index_museums%: ~
         News:
             %sphinxsearch_index_news%: ~
+        Perfomances:
+            %sphinxsearch_index_perfomances%: ~            
 
     searchd:
         host:   %sphinxsearch_host%

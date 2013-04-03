@@ -1,0 +1,144 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block left_column %}
+	<div class="perfomance-one">
+		<section class="video-one">
+			<div class="video-one_container">
+				{% if entity.perfomanceVideo is not empty %}
+                    {{ armd_tvigle_video_player(entity.perfomanceVideo, '100%', 506)|raw }}				
+                {% endif %}
+                
+				{% if entity.trailerVideo is not empty %}
+                    {{ armd_tvigle_video_player(entity.trailerVideo, '100%', 506)|raw }}				
+                {% endif %}                
+			</div>
+			<div class="video-one-description">
+				<h2 class="video-one-name">{{ entity.title }}</h2>
+				<div class="video-one-source">
+					<a href="">Театр</a>
+				</div>
+				<div class="video-one-tags">
+					{% if entity.ganres|length > 0 %}
+						{% for ganre in entity.ganres %}
+							<a href="{{ path('armd_perfomance_list', {'ganreId': ganre.id }) }}">{{ ganre.title }}</a>{% if entity.ganres|length > 1 and not(loop.last) %}, {% endif %}
+						{% endfor %}
+					{% endif %}				
+				</div>
+				<div class="video-one-views">
+					Просмотров: {{ entity.viewCount }}
+				</div>
+			</div>
+			
+			<div class="video-one-full-text">
+				{{ entity.description|raw }}
+			</div>
+		</section>
+		<div class="back-link">
+			<p><a href="javascript:history.back();">Назад</a></p>
+		</div>
+        <div class="event-one_footer clearfix">
+            <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
+        </div>	
+        
+        <div class="more-comments-show">
+            <div class="comments comments-gray clearfix">
+                {% set comment_thread_id = app.request.locale ~ '_content_perfomance_' ~ entity.id %}
+                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                {% if not is_granted('ROLE_USER') %}
+                    <div class="comments-auth-block">
+                        <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>        	
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+        $(function(){
+			armdMkPerfomance.init();
+			initSocialShare();
+        });
+            
+		var armdMkPerfomance = {
+		
+		    init: function() {
+		        $('#search-form').bind('submit', function(event) {
+		            if ($('#search-this-section').prop('checked')) {
+		                event.preventDefault();
+		                window.location = Routing.generate('armd_perfomance_list', {
+		                    'search_query': $('#search-txt').val()
+		                })
+		            }
+		        });
+		    }
+		};    
+
+        function initSocialShare() {
+            new Ya.share({
+                element: 'yandex-share',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_perfomance_item', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}'
+            });
+        }
+    </script>    
+{% endblock %}   
+
+{% block page_header_search %}
+    <div class="search-category">
+        <form id="lectures-filter" action="{{ path('armd_perfomance_list') }}" method="get">
+        
+            <span class="search-dates-label">Театр</span>
+            <div class="search-category-selects">
+                <select id="perfomance_theater" name="theater_id" class="uni">
+                    <option value="0">
+                        {{ "All"|trans }}
+                    </option>
+                    {#{% for theater in theaters %}
+                        <option value="{{ theater.id }}">
+                            {{ theater.title }}
+                        </option>
+                    {% endfor %}#}
+                </select>
+            </div>
+                    
+            <span class="search-dates-label">Жанр</span>
+            <div class="search-category-selects">
+                <select id="perfomance_ganre" name="ganre_id" class="uni">
+                    <option value="0">
+                        {{ "All"|trans }}
+                    </option>
+                    {% for ganre in ganres %}
+                        <option value="{{ ganre.id }}">
+                            {{ ganre.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>        
+
+            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{% block page_header_title %}
+	Спектакли
+{% endblock %}

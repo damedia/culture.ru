@@ -59,6 +59,7 @@ class DefaultController extends Controller
                 $searchResultLecture = array();
                 $searchResultAtlas = array();
                 $searchResultVirtualMuseum = array();
+                $searchResultPerfomance = array();
                 foreach ($res['All']['matches'] as $id => $data) {
                     if (isset($data['attrs']['object_type'])) {
                         if ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_NEWS) {
@@ -82,7 +83,12 @@ class DefaultController extends Controller
                             if ($searchResult) {
                                 $searchResultVirtualMuseum[] = $searchResult;
                             }
-                        }
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_PERFOMANCE) {
+                            $searchResult = $this->getPerfomanceInfo($id - SearchEnum::START_INDEX_PERFOMANCE);
+                            if ($searchResult) {
+                                $searchResultPerfomance[] = $searchResult;
+                            }
+                        }                        
                     }
                 }
 
@@ -90,7 +96,8 @@ class DefaultController extends Controller
                     $searchResultAtlas,
                     $searchResultVirtualMuseum,
                     $searchResultLecture,
-                    $searchResultNews
+                    $searchResultNews,
+                    $searchResultPerfomance
                 );
                 // use $pagination only to display page navigation bar because data is already cut
                 $paginator = $this->container->get('knp_paginator');
@@ -168,9 +175,9 @@ class DefaultController extends Controller
 
             $mediaImage = false;
             if ($lecture->getLectureVideo()) {
-                $mediaImage = $this->getLectureVideo()->getImageMedia();
+                $mediaImage = $lecture->getLectureVideo()->getImageMedia();
             } elseif ($lecture->getTrailerVideo()) {
-                $mediaImage = $this->getTrailerVideo()->getImageMedia();
+                $mediaImage = $lecture->getTrailerVideo()->getImageMedia();
             } elseif ($lecture->getMediaLectureVideo()) {
                 $mediaImage = $lecture->getMediaLectureVideo();
             } elseif ($lecture->getMediaTrailerVideo()) {
@@ -249,4 +256,40 @@ class DefaultController extends Controller
 
         return $museumInfo;
     }
+    
+    protected function getPerfomanceInfo($id)
+    {
+        $perfomance = $this->getDoctrine()->getManager()->getRepository('ArmdPerfomanceBundle:Perfomance')->find($id);
+        $perfomanceInfo = false;
+        if (!empty($perfomance)) {
+            $perfomanceInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_perfomance_item',
+                        array('id' => $id)
+                    ),
+                    'date' => $perfomance->getCreatedAt(),
+                    'title' => strip_tags($perfomance->getTitle()),
+                    'announce' => '',
+                ),
+                'section' => array(
+                    'name' => 'Спектакль',
+                )                
+            );
+
+            $mediaImage = false;
+            if ($perfomance->getPerfomanceVideo()) {
+                $mediaImage = $perfomance->getPerfomanceVideo()->getImageMedia();
+            } elseif ($perfomance->getTrailerVideo()) {
+                $mediaImage = $perfomance->getTrailerVideo()->getImageMedia();
+            } 
+
+            $perfomanceInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                $mediaImage,
+                'lecture_searchAllResult'
+            );
+        }
+
+        return $perfomanceInfo;
+    }    
 }
