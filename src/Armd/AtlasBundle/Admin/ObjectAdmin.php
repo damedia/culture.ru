@@ -90,7 +90,6 @@ class ObjectAdmin extends Admin
                 ))
                 ->add('tags', 'armd_tag', array(
                     'required' => false,
-                    'attr' => array('class' => 'select2-tags'),
                 ))
             ->add('isOfficial', null, array('required' => false))
             ->end()

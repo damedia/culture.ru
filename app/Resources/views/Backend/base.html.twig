@@ -23,8 +23,11 @@
 
     {{ tinymce_init() }}
 
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
 
     <script type="text/javascript">
         $(function(){
@@ -32,14 +35,6 @@
 
             $('.select2').select2();
 
-            // Init tags.
-            // This is quick and dirty solution to extract available tags
-            var tags = $('.select2-tags').data('tags');
-            $('.select2-tags').select2({
-                tags: tags,
-                tokenSeparators: [','],
-                width: '450px'
-            });
         });
     </script>
 
