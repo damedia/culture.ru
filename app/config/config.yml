@@ -30,7 +30,6 @@ twig:
     form:
         resources:
              - 'ArmdMediaHelperBundle:Form:fields.html.twig'
-             - 'ArmdTagBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
