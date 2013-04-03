@@ -97,6 +97,8 @@ class EventController extends ListController
         $activeCentury = $activePart = false;
         return  array(
             'centuries' => $this->getCenturiesListAll(),
+            'activeCentury' => $activeCentury,
+            'activePart' => $activePart,
         );
      }
 

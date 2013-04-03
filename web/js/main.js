@@ -45,6 +45,28 @@ $(function () {
     });
 
 
+    /*TimeLine selector*/
+    $('.time-line-nav > li:not(.inactive) > a').click(function(){
+        var thisLi = $(this).parent(),
+        thisId = thisLi.attr('id');
+        thisLi.addClass('active').siblings().removeClass('active');
+        $('#'+thisId+'_tab').show().siblings('.time-line-content').hide();
+        return false;
+    })
+
+    $('.time-line-nav li li a').click(function(){
+        var blockId = $(this).attr('href');
+        if(blockId != 'undefined') {
+            var blockPos = $(blockId).position();
+            if ($(blockId).parent().hasClass('time-line-left')) {
+                $(window).scrollTop(blockPos.top);
+            } else {
+                $(window).scrollTop(blockPos.top - $('#time-line-events').height() - 40);
+            }
+        }
+        return false;
+    })
+
     /*NEWS SLIDER*/
     /*if($("#featured").length > 0) {
      $("#featured").tabs({
