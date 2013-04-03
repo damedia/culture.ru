@@ -11,6 +11,7 @@ use Armd\TagBundle\Form\DataTransformer\TagTransformer;
 use DoctrineExtensions\Taggable\Taggable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
 class TagType extends AbstractType
@@ -32,18 +33,10 @@ class TagType extends AbstractType
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options) {
-        $data = $form->getParent()->getData();
-        if ($data instanceof Taggable) {
-            $tags = $this->em->getRepository('ArmdTagBundle:Tag')->findAll();
-            $allTags = array();
-            foreach($tags as $tag) {
-                $allTags[] = $tag->getName();
-            }
-
-        } else {
-            $allTags = array();
+        if (empty($view->vars['attr']['class'])) {
+            $view->vars['attr']['class'] = '';
         }
-        $view->vars['all_tags'] = $allTags;
+        $view->vars['attr']['class'] .= ' select2-armd-tags';
     }
 
     public function getName()
@@ -55,6 +48,14 @@ class TagType extends AbstractType
     {
         return 'text';
     }
+
+//    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+//        $resolver->setDefaults(
+//            array(
+//                'expanded' => true
+//            )
+//        );
+//    }
 
 
 
