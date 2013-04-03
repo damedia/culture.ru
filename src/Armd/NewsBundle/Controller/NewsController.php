@@ -332,6 +332,13 @@ class NewsController extends Controller
         }
 
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
+        $gallaryId = $entity->getGallery()->getId();
+        $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('ApplicationSonataMediaBundle:GalleryHasMedia')->findBy(array(
+            'enabled' => true,
+            'gallery' => $gallaryId
+        ));
+
         $this->getTagManager()->loadTagging($entity);
 
 
@@ -360,6 +367,7 @@ class NewsController extends Controller
             'calendarDate'  => $calendarDate,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
+            'images'      => $images,
         ));
     }
 

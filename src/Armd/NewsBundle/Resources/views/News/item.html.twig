@@ -69,6 +69,24 @@
     {{ entity.body|raw }}
 </article>
 
+   {% if images|length > 0 %}
+    <div class="block">
+            <h2><span>Фотогалерея</span></h2>
+    </div>
+        <ul class="news-gallery">
+            {% for h in images %}
+                <li>
+                    <div class="thumb-image-wrap">
+                        <a class="news-fancybox" rel="slider" href="{% path h, 'reference' %}">
+                            <img src="{% path h, 'newsW63H56' %}" alt="{{ h.media.title }}" />
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div style="clear:both"></div>
+    {% endif %}
+
 {% if entity.stuff.count %}
 <div>
     <div>
