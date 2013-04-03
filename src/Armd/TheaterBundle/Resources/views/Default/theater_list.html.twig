@@ -1,0 +1,89 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{#{% block stylesheets %}#}
+
+{#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
+
+{#{{ parent() }}#}
+
+{#{% endblock %}#}
+
+
+{% block title %}{{ parent() }} — {{ 'Театры'|trans }}{% endblock %}
+
+{% block page_header_title %}
+    Театры
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category wide-search">
+        <span class="search-dates-label">Город</span>
+            <div class="search-category-selects">
+                <select id="filter-city" class="uni">
+                    <option value="0">все</option>
+                    
+                    {% for value in cityList %}
+                        <option value="{{ value.id }}">{{ value.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <div class="search-category-selects">
+                <select id="filter-category" class="uni">
+                    <option value="0">все</option>
+                    
+                    {% for value in categoryList %}
+                        <option value="{{ value.id }}">{{ value.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <a href="#" id="search-russia-images-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+
+{% block body%}
+
+
+
+<ul class="breadcrumbs">
+    <li><a href="#">Главная</a></li>
+    <li><span>Театры</span></li>
+</ul>
+
+<div class="sort-filter">
+    <span>Сортировать</span>
+    
+    {% for key, value in orders %}
+        <a href="#" data-order="{{ key }}" class="{{ loop.first ? 'active' : '' }}">{{ value.title }}</a>
+    {% endfor %}  
+</div>
+
+    
+
+<ul class="plitka obrazy-plitka theatre-plitka">
+    {% render url('armd_theater_list_data') %}
+</ul>
+<div  class="more more2">
+    <p><a  href="#" id="show-more">{{ "Еще театры"|trans }}</a></p>
+</div>
+    
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('bundles/armdtheater/js/theater_list.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMkTheaterList.init();
+        });
+    </script>
+{% endblock %}

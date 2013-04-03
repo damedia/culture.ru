@@ -1,0 +1,25 @@
+parameters:
+#    armd_theater.example.class: Armd\TheaterBundle\Example
+
+services:
+    armd_theater.admin.theater:
+        class: Armd\TheaterBundle\Admin\TheaterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Theaters, label: Theaters }
+        arguments: [null, Armd\TheaterBundle\Entity\Theater, SonataAdminBundle:CRUD, @service_container]
+
+    armd_theater.admin.theater_category:
+        class: Armd\TheaterBundle\Admin\TheaterCategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Theaters, label: Theater categories }
+        arguments: [null, Armd\TheaterBundle\Entity\TheaterCategory, SonataAdminBundle:CRUD, @service_container]
+    
+    armd_theater.admin.billboard:
+        class: Armd\TheaterBundle\Admin\BillboardAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Theaters, label: Billboards }
+        arguments: [null, Armd\TheaterBundle\Entity\Billboard, SonataAdminBundle:CRUD, @service_container]
+        
+    armd_theater.manager.theater:
+        class: Armd\TheaterBundle\Entity\TheaterManager
+        arguments: [@doctrine.orm.entity_manager, @fpn_tag.tag_manager, @search.sphinxsearch.search]
