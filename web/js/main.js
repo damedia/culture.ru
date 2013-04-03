@@ -283,6 +283,14 @@ $(function () {
 		});
 	}
 
+    $('.news-fancybox').fancybox({
+        'autoScale' : false,
+        'nextEffect' : 'fade',
+        'prevEffect' : 'fade',
+        'nextSpeed' : 1000,
+        'prevSpeed' : 1000
+    })
+
     $('.in-fancybox').fancybox();
 	
 	if($('.museum-instr-link').length > 0) {
