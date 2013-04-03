@@ -242,7 +242,6 @@ class DefaultController extends Controller
         $categories = $repo->getDataForFilter();
         if (!$categories)
             throw new NotFoundHttpException("Categories not found");
-
         $regionsRepo = $em->getRepository('ArmdAtlasBundle:Region');
         $regions = $regionsRepo->findBy(array(), array('title' => 'ASC'));
         if (!$regions)
@@ -253,7 +252,34 @@ class DefaultController extends Controller
             'regions' => $regions,
         );
     }
-
+    
+    /**
+     * @Route("/objects/afilters/{type_tab}", name="armd_atlas_ajax_filters", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Default:ajax_filter.html.twig")
+     */
+    public function ajaxFilterAction($type_tab)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categories = array();
+        
+        switch ($type_tab) {
+            case 'filter_culture_objects':
+                $repo = $em->getRepository('ArmdAtlasBundle:Category');
+                $categories = $repo->getDataForFilter();
+                break;
+            case 'filter_tourist_clusters':
+                $repo = $em->getRepository('ArmdAtlasBundle:TouristCluster');
+                $categories = $repo->getDataForFilter();
+                break;
+        }
+        // if (array_ count_values($categories))
+        //    throw new NotFoundHttpException("Categories not found");
+        
+        return array(
+            'type_tab' => $type_tab,
+            'categories' => $categories
+        );
+    }
     /**
      * @Route("/objects/filter", defaults={"_format"="json"}, name="armd_atlas_default_filter", options={"expose"=true})
      */
@@ -264,6 +290,7 @@ class DefaultController extends Controller
 
         try {
             $category = $request->get('category');
+            $filter_type = $request->get('filter_type');
             if (empty($category))
                 throw new \Exception('Categories is null');
 
@@ -279,6 +306,7 @@ class DefaultController extends Controller
                 'term' => '',
                 'category' => $categoryIds,
                 'categoryTree' => $categoryTree,
+                'filter_type' => $filter_type
             );
 
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Armd\AtlasBundle\Entity\TouristCluster
  *
  * @ORM\Table(name="atlas_tourist_cluster")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\TouristClusterRepository")
  */
 class TouristCluster
 {

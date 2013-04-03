@@ -1,0 +1,22 @@
+<div class="filter-tab" id="obj" style="display:block;">
+    <!-- объекты -->
+    {% for category in categories %}
+        <div class="simple-filter-block">
+            <div class="simple-filter-header clearfix">
+                <span>{{ category.title }}</span>
+                {% if type_tab=='filter_culture_objects' %}
+                    <p class="check_all"><span>{{ "atlas.all"|trans }}</span></p>
+                {% endif %}
+            </div>
+            <div class="simple-filter-options">
+                {% for tag in category.tags %}
+                    <label class="gray-checked">
+                        <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        No categories found.
+    {% endfor %}
+</div>

@@ -277,9 +277,9 @@ class ObjectAdmin extends Admin
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
-            ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
+            ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
+            ->add('touristCluster', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
     }
-
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
