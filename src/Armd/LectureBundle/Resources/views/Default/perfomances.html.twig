@@ -1,0 +1,669 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block page_header_title %}
+    {{ "LECTURE_SUPER_TYPE_PERFOMANCES"|trans }}
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category wide-search">
+        <form id="lectures-filter" method="post">
+            <span class="search-dates-label">Театр</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+{% block search_query %}{#{ searchQuery }#}{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Видеотека</a></li>
+        <li><span>Спектакли</span></li>
+    </ul>
+
+    <div class="sort-filter">
+        <span>Сортировать</span>
+        <a href="#" class="active">по дате</a>
+        <a href="#">по алфавиту</a>
+    </div>
+    <div id="lecture-container" class="plitka perfomances-list">
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь
+                        </a>
+                    </span>
+                     <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div><div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                    <div class="plitka-one-image">                                      
+                        <img title="TV Culture brand_id:20898 video_cid: 158820" width="160" height="auto" alt="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" src="/uploads/media/lecture/0001/09/thumb_8438_lecture_lectureW160H120.jpg"  />            
+                    </div>
+                </a>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="Александр Чубарьян. «Россия и Европа. Результаты войны 1812 года»" href="/app_dev.php/lecture/view/416">
+                           Митина<br />Любовь<br />Любовь
+                        </a>
+                    </span>
+                    <span  class="three-row-link">
+                    <a href="#">Театр Содружество актеров Таганки Театр Содружество актеров Таганки Театр Содружество актеров Таганки</a>
+                    </span>
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                    </div>
+                    <p class="views">Просмотров: 4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="lecture-more-container" class="more more2">
+        <p><a id="lecture-more-button" href="#">{{ "show_more"|trans }}</a></p>
+    </div>
+
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block right_column %}
+
+    {% render url('armd_news_memorial_events') %}
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+    <div class="right-video-block">
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lectures.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+           {# armdMkLectures.init('{{ lectureSuperType.code }}'); #}
+        });
+    </script>
+{% endblock %}

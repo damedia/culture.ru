@@ -1,54 +1,125 @@
-<div id="museums-container" class="plitka wide-plitka">
-    {% if museums|length > 0 %}
-        {% for m in museums %}
-            <div class="plitka-one-wrap">
-                <div class="plitka-one clearfix">
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            {{ m.title|raw }}
-                        </span>
-                        {% if m.region %}
-                            <a href="{{ path('armd_museum_index', { region:m.region.id }) }}" class="plitka-type">{{ m.region.title }}</a>
+<div class="tab active" id="plitka">
+    <div id="museums-container" class="plitka wide-plitka" >
+        {% if museums|length > 0 %}
+            {% for m in museums %}
+                <div class="plitka-one-wrap">
+                    <div class="plitka-one clearfix">
+                        <div class="plitka-text">
+                            <span class="plitka-name">
+                                {{ m.title|raw }}
+                            </span>
+                            {% if m.region %}
+                                <a href="{{ path('armd_museum_index', { region:m.region.id }) }}" class="plitka-type">{{ m.region.title }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="museum-image-container">
+                            <div class="museum-image" style="background-image:url({% path m.bannerImage, 'banner' %});"></div>
+                            <div class="museum-image-over">
+                                <a class="museum-image-link vob iframe" href="{{ m.url }}" data-fancybox-type="iframe">
+                                    <span class="museum-image-text">
+                                        {{ "visit_museum"|trans|raw }}
+                                    </span>
+                                </a>
+                                <a href="#instruction" class="museum-instr-link">
+                                    {{ "manual_instruction"|trans|raw }}
+                                </a>
+                            </div>
+                        </div>
+                        {% if m.atlasObject %}
+                            <div class="museum-chapter">
+                                <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" title="{{ m.atlasObject.title }}">
+                                    <img src="{% path m.atlasObject.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ m.atlasObject.title }}" class="museum-chapter-image" />
+                                </a>
+                                <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" class="museum-chapter-label">
+                                    Посмотреть<br />
+                                    в разделе<br />
+                                    Образы России
+                                </a>
+                            </div>
                         {% endif %}
                     </div>
-                    <div class="museum-image-container">
-                        <div class="museum-image" style="background-image:url({% path m.bannerImage, 'banner' %});"></div>
-                        <div class="museum-image-over">
-                            <a class="museum-image-link vob iframe" href="{{ m.url }}" data-fancybox-type="iframe">
-                                <span class="museum-image-text">
-                                    {{ "visit_museum"|trans|raw }}
-                                </span>
-                            </a>
-                            <a href="#instruction" class="museum-instr-link">
-                                {{ "manual_instruction"|trans|raw }}
-                            </a>
-                        </div>
-                    </div>
-                    {% if m.atlasObject %}
-                        <div class="museum-chapter">
-                            <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" title="{{ m.atlasObject.title }}">
-                                <img src="{% path m.atlasObject.primaryImage, 'imagesOfRussiaSmall' %}" alt="{{ m.atlasObject.title }}" class="museum-chapter-image" />
-                            </a>
-                            <a href="{{ path('armd_atlas_default_object_view', { id: m.atlasObject.id }) }}" class="museum-chapter-label">
-                                Посмотреть<br />
-                                в разделе<br />
-                                Образы России
-                            </a>
-                        </div>
-                    {% endif %}
                 </div>
+            {% endfor %}
+        {% else %}
+            <strong>{{ "museums_not_found"|trans }}</strong>
+        {% endif %}
+    </div>
+    <div id="instruction" style="display:none;">
+        <div class="window">
+            <div class="block window-content">
+
+                {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+
             </div>
-        {% endfor %}
-    {% else %}
-        <strong>{{ "museums_not_found"|trans }}</strong>
-    {% endif %}
+       </div>
+    </div>
 </div>
-<div id="instruction" style="display:none;">
-	<div class="window">
-		<div class="block window-content">
-
-            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-
-		</div>
-   </div>
+<div class="tab" id="list"   style="display:none">
+    <div class="museum-list-wrapper">
+        <ul class="museum-list">
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Архангельская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Архангельский государственный музей деревянного зодчества и народного искусства «Малые Корелы»</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Владимировская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Владимиро-Суздальский музей-заповедник</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Московская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Странноприимный дом графа Шереметева</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Старый английский двор на Варварке</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-усадьба Л.Н. Толстого «Хамовники»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-панорама «Бородинская битва»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей отечественной войны 1812 года</a></li>
+                    </ul>
+                </section>
+            </li>
+        </ul><ul class="museum-list">
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Архангельская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Архангельский государственный музей деревянного зодчества и народного искусства «Малые Корелы»</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Владимировская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Владимиро-Суздальский музей-заповедник</a></li>
+                    </ul>
+                </section>
+            </li>
+            <li>
+                <section class="block">
+                    <h1 class="long-border"><span>Московская область</span></h1>
+                    <ul class="museum-list-level2">
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Странноприимный дом графа Шереметева</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Старый английский двор на Варварке</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-усадьба Л.Н. Толстого «Хамовники»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей-панорама «Бородинская битва»</a></li>
+                        <li><a class="vob iframe" data-fancybox-type="iframe" href="http://eyera.dev.armd.ru/museum-of-dagestani-village/museum-of-dagestani-village/index.html">Музей отечественной войны 1812 года</a></li>
+                    </ul>
+                </section>
+            </li>
+        </ul>
+        <div class="more">
+            <p>
+                <a href="#" id="more-news">Еще Виртуальные туры</a>
+            </p>
+        </div>
+    </div>
+    
 </div>

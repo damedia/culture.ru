@@ -3,8 +3,16 @@ Museums Categories: Категории музеев
 visit_museum: Посетить<br />виртуальный<br />музей
 manual_instruction: инструкция по использованию<br />виртуального тура
 museums_not_found: Виртуальных музеев удовлетворяющих запросу не найдено
+MuseumEdu: Музейное образование
+MuseumGuide: Музейный гид
 
 search.select: Выбрать
 search.region: Регион
 search.category: Категория
+search.museum: Музей
+search.place: Город
+search.edu: Образование
+search.subject: Предмет
+search.skills: Навыки
+search.author: Автор
 search.show: Показать

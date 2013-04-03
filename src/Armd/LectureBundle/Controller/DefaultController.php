@@ -87,7 +87,7 @@ class DefaultController extends Controller
             )
         );
     }
-
+    
 
     /**
      * @Route("/index/{lectureSuperTypeCode}/", name="armd_lecture_default_index", options={"expose": true})
@@ -147,6 +147,26 @@ class DefaultController extends Controller
         );
 
     }
+    
+    
+    /**
+     * @Route("/perfomances/", name="armd_lecture_perfomances")
+     * @Template("ArmdLectureBundle:Default:perfomances.html.twig")
+     */
+    public function perfomancesAction()
+    {
+        return $this->render('ArmdLectureBundle:Default:perfomances.html.twig');
+    }
+    
+    /**
+     * @Route("/perfomancesone/", name="armd_lecture_perfomancesone")
+     * @Template("ArmdLectureBundle:Default:perfomancesone.html.twig")
+     */
+    public function perfomancesoneAction()
+    {
+        return $this->render('ArmdLectureBundle:Default:perfomancesone.html.twig');
+    }
+    
 
     /**
      * @Route("/list/{lectureSuperTypeCode}/", name="armd_lecture_list", options={"expose"=true})
@@ -201,6 +221,10 @@ class DefaultController extends Controller
         $cinemaTop100 = $request->get('cinema_top100');
         if ($cinemaTop100) {
             $criteria[LectureManager::CRITERIA_IS_TOP_100_FILM] = true;
+        }
+
+        if ($request->query->has('first_letter')) {
+            $criteria[LectureManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
         }
 
         $lectures = $this->getLectureManager()->findObjects($criteria);

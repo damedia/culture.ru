@@ -586,6 +586,9 @@ body {
 				padding:0 4px 0 9px;
 				text-align:left;
 			}
+            .wide-search {
+                padding:0 10px 0 10px;
+            }
 				.search-category .search-dates-label {
 					color:#fff;
 					margin-right:6px;
@@ -1431,6 +1434,7 @@ body {
 
     #sort-list {
         margin: 10px 0 10px;
+        float: left;
     }
         #sort-list span {
             font-weight: bold;
@@ -1482,6 +1486,7 @@ body {
 
     #alphabet-filter {
         margin: 10px 0 20px;
+        float: right;
     }
 
         #alphabet-filter ul,
@@ -1647,6 +1652,276 @@ body {
 						border:2px solid #fff;
 					}
 		
+    /*PERFOMANCES*/    
+    .breadcrumbs { 
+        list-style: none; 
+        overflow: hidden; 
+        font-size: 10px;
+        margin-left: -29px;
+        margin-top: 6px;
+    }
+		.breadcrumbs li { 
+			float: left; 
+		}
+		.breadcrumbs li a, .breadcrumbs li span {
+			color: #989898;
+			text-decoration: none; 
+			padding: 4px 3px 3px 20px;
+			background: #f0f0f0;             
+			position: relative; 
+			float: left;
+            text-transform:uppercase;
+		}
+		.breadcrumbs li a:after, .breadcrumbs li span:after { 
+			content: " "; 
+			display: block; 
+			width: 0; 
+			height: 0;
+			border-top: 15px solid transparent;           
+			border-bottom: 15px solid transparent;
+			border-left: 10px solid #f0f0f0;   
+			position: absolute;
+			top: 50%;
+			margin-top: -15px; 
+			left: 100%;
+			z-index: 2; 
+		}	
+		.breadcrumbs li a:before, .breadcrumbs li span:before { 
+			content: " "; 
+			display: block; 
+			width: 0; 
+			height: 0;
+			border-top: 15px solid transparent;           
+			border-bottom: 15px solid transparent;
+			border-left: 11px solid white;
+			position: absolute;
+			top: 50%;
+			margin-top: -15px; 
+			margin-left: 1px;
+			left: 100%;
+			z-index: 1; 
+		}	
+		.breadcrumbs li:first-child a {
+			padding-left: 10px;
+		}
+		
+		
+		 .breadcrumbs li span {
+			background:#f5902d;
+			color: #fff;
+			cursor: default;
+		}
+		  .breadcrumbs li span:after { 
+           border-left-color:#f5902d;
+         }
+		.breadcrumbs li a:hover { background: #f5902d; color:#fff;}
+		.breadcrumbs li a:hover:after { border-left-color: #f5902d !important; }
+		
+        
+    /*Sort Filter*/
+    .sort-filter {
+        font-size:12px;
+        margin: 24px 0 2px;
+    }  
+        .sort-filter span, .sort-filter a {
+            display:inline-block;
+            vertical-align:top;
+        }
+        .sort-filter span {
+            color:#989898;
+            margin-right:7px;
+        }
+        .sort-filter a {
+            font-weight:bold;
+            text-decoration:none;
+            border-bottom:1px dashed #000;
+            color:#000;
+            margin-right:7px;
+        }
+        .sort-filter a.active {
+            border-bottom:2px solid #f5902d;
+        }
+    
+    .perfomances-list {
+        
+    } 
+        .perfomances-list .plitka-one  {
+            padding: 14px 14px 8px 14px;
+        }
+        .perfomances-list .plitka-one-wrap {
+            float:none;
+            display:inline-block;
+            vertical-align:top;
+            height:auto !important;
+            *display:inline;
+            *zoom:1;
+            
+        }
+            .perfomances-list .plitka-one-image {
+                display:block;
+                height: 121px;
+                overflow:hidden;
+            }
+            .perfomances-list img  {
+                width:165px;
+                height:auto;
+            }
+            .perfomances-list .plitka-text {
+                height:auto;
+            }
+            .perfomances-list .plitka-name {
+                height:2.5em;
+                overflow:hidden;
+                margin-top: 10px;
+                line-height: 14px;
+                margin-bottom: 5px;
+            }
+                .perfomances-list .plitka-name a {
+                    color:#010101;
+                }
+            .three-row-link {
+                height:3.5em;
+                line-height:1.2em;
+                overflow:hidden;
+                display:block;
+                margin-bottom: 10px;
+                
+            } 
+                .three-row-link a {
+                    color:#4e4e4e;
+                }
+            .perfomances-list .tags {
+            
+            }
+                .perfomances-list .tags a   {
+                    color:#7691a4;
+                    border-color:#7691a4;
+                }  
+                
+                .perfomances-list .views {
+                    margin-top: 6px;
+                    color:#7e7e7e;
+                }
+                .perfomances-list  .plitka-footer {
+                    padding-top: 8px;
+                    padding-bottom: 0;
+                }
+        
+        /*Perfomance Element*/    
+        
+        .sort-element-filter {
+            font-size:14px;
+            margin-bottom:20px;
+        }
+            .sort-element-filter a {
+                margin-right:15px;
+            }
+            .sort-element-filter a.active {
+                border-width:3px;
+            }
+            
+        .perfomance-one {
+        
+        }
+             .perfomance-one .video-one-description {
+                padding-bottom: 14px;
+                margin-top: 12px;
+            }
+            .video-one-source {
+                margin-top: 9px;
+                font-size;13px;
+            } 
+                .video-one-source  a {
+                    color:#000;
+                }
+            .video-one-tags {
+                margin-top: 3px;
+            }
+                .video-one-tags a {
+                    color:#7791a4;
+                }
+            .video-one-views {
+                color:#7e7e7e;
+                margin-top: 4px;
+            }
+            
+            .video-one-full-text {
+                background: url(../img/more-dots.gif) repeat-x 0 0;
+                padding: 17px 0 0px;
+                line-height: 19px;
+            }
+        
+            .perfomance-one .comments {
+                margin-top:15px;
+            }
+            .comments .fos_comment_submit input {
+                color:#fff;
+                font-size:11px;
+                background: #8ea7b7;
+                background: -moz-linear-gradient(top,  #8ea7b7 0%, #859fb0 25%, #67839a 80%, #607b94 100%);
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ea7b7), color-stop(25%,#859fb0), color-stop(80%,#67839a), color-stop(100%,#607b94));
+                background: -webkit-linear-gradient(top,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                background: -o-linear-gradient(top,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                background: -ms-linear-gradient(top,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                background: linear-gradient(to bottom,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                padding:4px 10px;
+                margin:7px 0 0;
+                border:0;
+
+            }
+        
+        .separate-video-block {
+            background:#fff !important;
+            margin-top:40px;
+        }
+            
+            .separate-video-block .flexslider:after {
+                display:none;
+            }
+            .separate-video-block  .flexslider {
+                margin-bottom:20px;
+                background:#f5f5f5;
+            }
+            .separate-video-block .period-block_footer {
+                margin-top:0;
+            }
+        
+    /*THEATRE*/
+     .theatre-plitka {
+        margin-top: 14px;
+    }    
+        .theatre-plitka  li {
+            
+        }
+            .theatre-plitka li a.plitka-type {
+                color:#7691a4;
+            }
+            .theatre-plitka .plitka-text {
+                height:auto !important;
+            }
+            .theatre-plitka   li .plitka-name {
+                text-transform:uppercase; 
+                height:3.5em;  
+                overflow:hidden;                
+                margin-bottom: 10px;
+            }
+            .theatre-plitka  .image-link {
+                height: 97px;
+                overflow:hidden;
+            }
+            .theatre-plitka  .tags {
+                margin-top: 5px;
+            }
+                .theatre-plitka .tags  a {
+                    color:#7e7e7e;
+                    border-color:#7e7e7e;
+                }
+        
+        
+        
+        
+        
+        
 
 	/*OBRAZY*/
 	.category-chooser {
@@ -1675,6 +1950,12 @@ body {
 			.short-list-icon {
 				background-position:-62px 12px;
 			}
+            .mus-plitka-icon {
+                background-position:-97px 12px;
+            }
+            .mus-list-icon {
+                background-position:-131px 12px;
+            }
 			
 			.category-chooser  a.active {
 				background-color:#ce2125;
@@ -1850,6 +2131,7 @@ body {
         z-index: 100;
     }
 		
+	
 	/*MUSEUMS*/
 	.wide-plitka {
 		margin:0;
@@ -1876,7 +2158,7 @@ body {
 				margin-top:0;
 				min-height:60px;
 				cursor:pointer;
-				text-transform:none;
+				
 			}
 			.museum-image-container {
 				margin-left:225px;
@@ -1901,6 +2183,15 @@ body {
 			.plitka-one-wrap-opened {
 				
 			}
+            .wide-plitka .plitka-one-wrap-opened{
+                border-color:rgba(0,0,0,0.1);
+                box-shadow:0 0 40px rgba(0,0,0,0.4);
+                
+                *border:1px solid #eee;
+               
+                
+            }
+            
 				.plitka-one-wrap-opened  .museum-image {
 					height:273px;
 				}
@@ -1908,30 +2199,31 @@ body {
 					display:block;
 					position:absolute;
 					left:0;
-					top:0;
+					bottom:0;
 					width:100%;
-					height:273px;
-					background:rgba(0,0,0,0.47);
+					height:112px;
+					background:rgba(255,255,255,0.6);
 				}
 					.museum-image-link {
 						display:block;
 						position:absolute;
 						left:0;
-						top:0;
+						bottom:0;
 						width:100%;
-						height:273px;
-						background:url(../img/360.png) no-repeat 50% 50%;
+						height:112px;
+						background:url(../img/360-black.png) no-repeat 50% 50%;
 					}
 						.museum-image-text {
 							display:block;
 							position:absolute;
 							left:50%;
 							top:50%;
-							color:#fff;
+							color:#000;
 							text-transform: uppercase;
-							margin: -3px 0 0 -170px;
+							margin: -13px 0 0 -170px;
 							font-size: 13px;
-							line-height: 15px;
+							line-height: 17px;
+                            font-weight:bold;
 							text-align:right;
 						}
 						.museum-instr-link {
@@ -1939,19 +2231,31 @@ body {
 							position: absolute;
 							left: 50%;
 							top: 50%;
-							color: white;
+							color: #000;
 							text-transform: uppercase;
-							margin: -9px 0 0 90px;
+							margin: -9px 0 0 77px;
 							font-size: 9px;
-							line-height: 11px;
+							line-height: 12px;
 							text-decoration: underline !important;
 							padding: 6px 10px 0 0;
 							background:url(../img/new-window.png) no-repeat 100% 0;
-						}
+						
+							font-weight: bold;
+                        }
 						.museum-instr-link:hover {
 							text-decoration:none !important;
 						}
 						
+                    .overlay {
+                        position:fixed;
+                        top:0;
+                        left:0;
+                        width:100%;
+                        height:100%;
+                        background:#fff;
+                        opacity:0.83;
+                    }    
+                        
 						
 			.museum-chapter {
 				position:absolute;
@@ -1979,6 +2283,245 @@ body {
 						text-decoration:none !important;
 					}
 		
+        /*List*/
+        .museum-list-wrapper {
+            
+        }
+            .museum-list {
+                display:inline-block;
+                vertical-align:top;
+                width:47%;
+                margin:0 0 30px;
+                padding:0;
+                list-style:none;
+            }
+            .museum-list:first-child {
+                margin-right:4%;
+            }
+                .museum-list-level2 {
+                    margin-top:15px;
+                }
+                    .museum-list-level2 li {
+                        list-style:none;
+                        padding-left:20px;
+                        position:relative;
+                        margin-bottom:7px;
+                    }
+                        .museum-list-level2 li:before {
+                            content:'•';
+                            position:absolute;
+                            top:-1px;
+                            left:0;
+                            color:#f79016;
+                            font-size:23px;
+                            line-height:23px;
+                        }
+                        .museum-list-level2 li a {
+                            text-decoration:none;
+                            color:#262626;
+                        }
+        
+        
+        /*Museum Guide*/  
+        .museum-guide {
+           float:left;
+           width:100%;
+           margin-top:10px;
+        }
+            .mg-new {
+                background:#f4f4f4;
+                padding:8px;
+            }
+                .mg-new-text {
+                    float:right;
+                    width:215px;
+                    margin: 5px 50px 0 0;
+                    font-size:14px;
+                }
+                    .mg-new-header {
+                        color:#7791a4;
+                        display:block;
+                        font-size:19px;
+                        line-height:21px;
+                        margin-bottom: 22px;
+                    }
+                    .mg-new-title {
+                        display:block;
+                        font-size:18px;
+                        margin-bottom: 12px;
+                        color:#3e3e3e;
+                    }
+                    .mg-new-text p {
+                        margin:0 0 20px;
+                        line-height: 17px;
+                    }
+                        .mg-izd {
+                            font-size:12px;
+                            line-height:14px !important;
+                        }
+                
+                .mg-new-image {
+                    margin-right:300px;
+                    
+                }
+                    .mg-new-image img {
+                        width:100%;
+                        height:auto;
+                    }
+         
+            .mg-guide-list {
+                list-style:none;
+                margin-top:45px;
+            }  
+                .mg-guide-list li {
+                    overflow:hidden;
+                    margin-bottom:57px;
+                }
+                    .mg-list-image {
+                        float:left;
+                        margin:0 30px 0 0;
+                    }
+                    .mg-list-text {
+                        overflow:hidden;
+                    }
+                        .mg-list-title {
+                            font-size:18px;
+                            display:block;
+                            margin-bottom:3px;
+                            color:#3e3e3e;
+                        }
+                        .mg-list-text p {
+                            margin-bottom:10px;
+                        }
+          
+        .virt-anons-black {
+        
+        }
+            .virt-anons-black .virt-tour-anons {
+                height:120px;
+                overflow:hidden;
+            }
+            .virt-anons-black .virt-tour-anons-over {
+                background-image:url(../img/360-black-small.png);
+                background-color:rgba(255,255,255,0.6);
+            }   
+
+        .darker-anons {
+            background:#ebeff2;
+        }  
+        .yellow-block, .yellow-block .period-block, .yellow-block .archive-block {
+            background:#f4f1ea !important;
+        }        
+            
+          
+                    
+        /*museum-education*/
+        
+        .museum-education {
+            margin-top:14px;
+            float:left;
+            width:100%;
+        }    
+            .museum-education-list {
+                list-style:none;
+                margin-bottom:20px;
+            }
+                .museum-education-list li {
+                    margin-bottom: 48px;
+                    overflow: hidden;
+                }
+                    .me-list-image {
+                        float:left;
+                        margin:0 34px 0 0;
+                    }
+                    .me-list-text {
+                        overflow:hidden;
+                        
+                    }
+                         .me-list-dates, .me-list-place, .me-list-region {
+                            display:block;
+                        }
+                        .me-list-text h3 {
+                            margin: 0 0 4px;
+                            line-height: 20px;
+                        }
+                        .me-list-title {
+                            font-size:18px;
+                            color:#000;
+                        }
+                        .me-list-dates {
+                            font-size:14px;
+                            font-weight:bold;
+                        }
+                        .me-list-place {
+                            font-size:13px;
+                        }
+                        .me-list-region {
+                            font-size:13px;
+                            color:#7791a4;
+                        }
+                        .me-list-text p {
+                            margin-top:6px;
+                        }
+            
+           
+        .museum-education-one h2 {
+            font-size:32px;
+            line-height:36px;
+            font-weight:normal;
+            margin:-12px 0 20px;
+        }  
+            .edu-one-image {
+                float:left;
+                margin-right:30px;
+            }
+            .edu-one-stats {
+                overflow:hidden;
+                font-size:14px;
+                line-height:20px;
+            } 
+            .edu-main-text {
+                clear:both;
+                padding:47px 0 40px;
+            }
+                 .edu-main-text p {
+                    margin-bottom:19px;
+                 }
+                .edu-main-anons {
+                    font-weight:bold;
+                    margin-right:20%;
+                }
+
+           
+                
+        @media screen and (max-width: 1150px) {
+            .mg-new-header {
+                margin-bottom:10px;
+            }
+            .mg-new-text {
+                width: 250px;
+                margin: 5px 20px 0 0;
+            }
+        }
+        @media screen and (max-width: 1090px) {
+            .mg-new-header {
+                margin-bottom:5px;
+            }
+            .mg-new-text p {
+                margin-bottom:7px;
+            }
+            .mg-new-title {
+                margin-bottom:7px;
+            }
+            .mg-new-text {
+                width: 270px;
+                margin: 5px 10px 0 0;
+            }
+        }
+        
+        
+        
+        
 	/*RELIGION*/		
 	.plitka-religion {
 		margin-bottom:20px;
@@ -4732,6 +5275,191 @@ a.appstore-link {
 .category-chooser a {
 	outline: none;
 }
+
+
+
+/*Theatre One*/
+.main {
+    
+}
+.theatre-one {
+    
+}
+    .theatre-one-main {
+    margin-top: 20px;
+    
+    }
+        .theatre-one-main  h1 {
+            font:31px Verdana, Helvetica, sans-serif;
+            margin: 0 0 17px;
+        }
+        
+        .theatre-one-stats {
+            float:right;
+            width:30%;
+        }
+            .theatre-tags {
+                margin: -3px 0 10px;
+            }
+                .theatre-tags  a {
+                    color:#7791a4;
+                }
+                
+            .theatre-stats-contacts {
+                margin: 10px 0 11px;
+            }    
+            .theatre-stats-head {
+                margin: 11px 0 11px;
+                color:#7e7e7e;
+            }
+                .theatre-stats-head  b {
+                    display:block;
+                    color:#000;
+                    font-weight:normal;
+                }
+                
+
+        .theatre-one-image {
+            margin: 0 33% 26px 0;
+        }    
+            .theatre-one-image img {
+                width:100%;
+                height:auto;
+            }
+            
+        .theatre-one-description {
+            background: url(../img/more-dots.gif) repeat-x 0 100%;
+        
+            padding-bottom: 9px;
+}    
+            .theatre-one-description p {
+                padding-bottom: 8px;
+            }
+            
+    .content-tabs {
+        margin-top: 25px;
+    }   
+        .content-tabs a {
+            text-transform:uppercase;
+            color:#000;
+            margin-right:15px;
+            border-bottom:1px dashed #000;
+            text-decoration:none;
+            font-size:14px;
+        }
+        .content-tabs a.active {
+            border-bottom:3px solid #f79016;
+        }
+        
+        .content-tab {
+            padding-bottom: 58px;
+            
+        }
+            .content-tab .perfomances-list {
+                padding-top: 10px;
+                padding-bottom: 31px;
+            }
+            
+            .theater-contacts-map-wrap {
+                float:left;
+                width:280px;
+                padding:14px;
+                background:#f5f5f5;
+                margin-right:24px;
+                margin-top: 22px;
+                }
+                .theater-contacts-map {
+                    border:1px solid #fff;
+                }
+            
+            .theater-contacts-wrap {
+                padding-top: 19px;
+            }
+                .theater-contacts {
+                    margin: 0;
+                }
+                    .theater-contacts  caption {
+                        color:#f79016;
+                        font-weight:bold;
+                        border-bottom:3px solid #ececec; 
+                        text-align:left;
+                        padding-bottom:6px;
+                        font-size:14px;
+                    }
+                    .theater-contacts td {
+                        background: url(../img/table-dots.gif) repeat-x 0 100%;
+                        padding:7px 30px 8px 0;
+                        vertical-align:top;
+                    }
+                    .theater-contacts td.label {
+                        font-weight:bold;
+                        color:#7e7e7e;
+                        padding-right:50px;
+                    }
+                
+                
+                
+            .sub-tabs {
+                margin: 18px 0 0;
+            }  
+                .sub-tabs a {
+                    color:#989898;
+                    border-bottom:1px dashed #989898;
+                    text-decoration:none;
+                    font-size:12px;
+                    margin-right:10px;
+                }
+                    .sub-tabs a.active {
+                        color:#f5902d;
+                        border:0;
+                        font-size:14px;
+                        font-weight:bold;
+                    }
+                     
+            .sub-tab {
+                
+            } 
+                .afisha-table {
+                    border-top: 3px solid #ececec;
+                    width:100%;
+                    margin-top: 9px;
+                }
+                    .afisha-table td {
+                        background: url(../img/table-dots.gif) repeat-x 0 100%;
+                        vertical-align:middle;
+                    }
+                        .at-name {
+                            padding: 9px 0;
+                            font-size:12px;
+                            width:65%;
+                        }
+                            .at-name b {
+                                text-transform:uppercase;
+                                display:block;
+                            }
+                            .at-name i {
+                                color:#989898;
+                                font-style:normal;
+                                display:block;
+                            }
+                        .at-day {
+                            color:#7e7e7e;
+                            font-size:12px;
+                        }
+                        .at-date {
+                        
+                        }
+
+            .content-tab  .comments {
+                margin-top:2px;
+            }
+
+
+
+
+
+
+
 
 
 /* ==========================================================================

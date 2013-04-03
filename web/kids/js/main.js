@@ -118,7 +118,7 @@ $(function(){
                 
             })
             
-        },
+        }
     }
     chooseGame.start();
     
@@ -163,7 +163,7 @@ $(function(){
                 
                 return false;
             })
-        },
+        }
         
     };
     compareGame.start();
@@ -219,15 +219,21 @@ $(function(){
                 this.start();
         },
         
-         load: function(container) {
+        load: function(container) {
+            var imageSrc = '';
             $(window).load(function(){
                 $('.puzzle-setka-wrap', container).each(function(){
                     var imageheight = $(this).find('img.puzzle').height();
                     $(this).height(imageheight).css('marginTop', -imageheight/2);
                 })
             });
+            
+            if ( !jQuery.browser.msie || jQuery.browser.version > 8.0) {
+                imageSrc = $('img.puzzle', container).attr('src');
+            }
+            
             this.jsaw = new jigsaw.Jigsaw({
-                defaultImage: "img/arkaim/puzzle.jpg",
+                defaultImage: imageSrc,
                 piecesNumberTmpl: "%d элементов",
                 redirect: null,
                 shuffled: true,
@@ -273,7 +279,15 @@ $(function(){
             
             $('body, html').css('overflow', 'hidden');
             
-            self.jsaw.set_image(object.prev().attr('src'));
+            //self.jsaw.set_image(object.prev().attr('src'));
+            //self.jsaw.redraw();
+            
+            if ( jQuery.browser.msie && jQuery.browser.version <= 8.0) {
+                setTimeout(function(){
+                   self.jsaw.set_image(object.prev().attr('src'));
+                },10);
+               
+            }
             
             $('#puzzle-block').css({
                 'width':self.windowWidth,
@@ -302,6 +316,80 @@ $(function(){
     };
 
     puzzleGame.init($('.puzzle-init'));	
+    
+    
+    
+    // Quiz game. "Image Quiz" (Астрахань)
+    var ImageGame = {
+        
+        /** Выделить элемент
+         *  @param {object} image
+         */
+        hilightImage: function(image){
+            image.parent().addClass('selected');
+        },
+        
+        /** Убрать выделение с элемента
+         *  @param {object} image
+         */
+        deHilightImage: function(image){
+            
+           image.parent().removeClass('selected');
+        },
+        
+        /** Показать результат
+         *  @param {object} object
+         */
+        showResult: function(object){
+           if (object.hasClass('invisible'))  {
+                object.removeClass('invisible')
+                      .addClass('show')
+                      .siblings().addClass('invisible');
+            }
+        },
+        
+        /** Запуск
+         *  
+         */
+        start: function(){
+            var self = this;
+           
+            $('.choice div').click(function(){
+                var block = $(this),
+                    otherBlocks = block.parent().siblings('.choice'),
+                    choiseRes = block.closest('article').find('.choice-result'),
+                    choiceNoRes = choiseRes.find('.choice-no-result'),
+                    choiceYesRes = choiseRes.find('.'+$(this).attr('id')+'-result');
+                
+                if (block.data('clicked')) {
+                    block.data('clicked', false);
+                    
+                    self.deHilightImage(block);
+                    self.showResult(choiceNoRes)
+                    
+                } else {
+                    block.data('clicked', true);
+
+                    self.hilightImage(block);
+                    self.showResult(choiceYesRes);
+                    
+                    otherBlocks.each(function(){
+                        var otherBlock = $(this).find('div');
+                        
+                        if (otherBlock.data('clicked')) {
+                            otherBlock.data('clicked', false);
+                            self.deHilightImage(otherBlock);
+                        }
+                    })
+                }
+
+                return false;
+                
+            })
+            
+        }
+    }
+    ImageGame.start();
     
     
 })

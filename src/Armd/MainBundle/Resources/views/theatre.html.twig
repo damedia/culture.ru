@@ -1,0 +1,395 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{#{% block stylesheets %}#}
+
+{#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
+
+{#{{ parent() }}#}
+
+{#{% endblock %}#}
+
+
+{% block title %}{{ parent() }} — {{ 'Театры'|trans }}{% endblock %}
+
+{% block page_header_title %}
+    Театры
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category wide-search">
+        <form id="lectures-filter" method="post">
+            <span class="search-dates-label">Город</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+
+{% block body%}
+
+
+
+<ul class="breadcrumbs">
+    <li><a href="#">Главная</a></li>
+    <li><span>Театры</span></li>
+</ul>
+
+<div class="sort-filter">
+    <span>Сортировать</span>
+    <a href="#" class="active">по дате</a>
+    <a href="#">по алфавиту</a>
+</div>
+
+    
+
+<ul class="plitka obrazy-plitka theatre-plitka">
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     МХТ им. Чехова <br />
+                     МХТ им. Чехова <br />
+                     МХТ им. Чехова <br />
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+    <li class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a href="#" class="plitka-type object-region" data-region-id="4"> Москва </a>
+                        <a href="/app_dev.php/atlas/object/810" class="image-link">
+                <img width="160" height="107" alt="Англиканская церковь Святого Андрея" class="plitka-image" src="/uploads/media/atlas/0001/05/thumb_4473_atlas_searchAllResult.jpeg">    
+                 </a>   
+            <div class="plitka-text">
+                <span class="plitka-name">
+                     Молодежный <br />
+                    музыкальный театр <br />
+                    «Лотос» 
+                </span>
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <a href="#">Дети</a>,
+                    <a href="#">Драматический театр</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </li>
+</ul>
+<div  class="more more2">
+    <p><a  href="#">{{ "Еще театры"|trans }}</a></p>
+</div>
+    
+{% endblock %}
