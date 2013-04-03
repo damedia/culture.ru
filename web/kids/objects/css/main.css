@@ -130,6 +130,13 @@ body {
                     text-indent:-9999em;
                     overflow:hidden;
                 }
+                    .culture-cloud a {
+                        margin:0;
+                        display:block;
+                        height:119px;
+                        width:100%;
+                    }
+                
                 .test-cloud {
                     top: 37px;
                     left: 481px;

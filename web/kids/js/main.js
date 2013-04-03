@@ -174,7 +174,28 @@ $(function(){
 
    
    // Fancyboxes
-    $('a.fancybox').fancybox();
+    $('a.fancybox').fancybox({
+        
+    });
+    
+    
+    $(".modal").fancybox({
+        padding: 20,
+        autoDimensions: false,
+        width: "auto",
+        height: "auto",
+        onStart: function() {
+            $("body").css({'overflow':'hidden'});
+        },
+        onComplete: function() {
+            this.fancyboxScrollpane = $("#fancybox-content .scroll-pane").jScrollPane().data().jsp;
+        },
+        onClosed: function() {
+            this.fancyboxScrollpane.destroy();
+            $("body").css({"overflow":"visible"});
+        }
+    });
+    
     $('a.fancybox-inframe').fancybox({
         type: 'iframe',
         autoSize : false,
@@ -184,7 +205,16 @@ $(function(){
         this.width  = parseInt(this.element.data('fancybox-width'));  
         this.height = parseInt(this.element.data('fancybox-height'));
         }
+        
     });
+    
+    $('.not-fancybox').click(function(){
+        blockId = $(this).attr('href');
+        console.log(blockId);
+        $(blockId).addClass('not-fancybox-visible').show();
+        return false;
+    })
+    
     
     
     // Print
@@ -197,6 +227,7 @@ $(function(){
         return false;
     })
    
+
     $('.fancy-hide').css('visibility','visible').hide();
     
     
