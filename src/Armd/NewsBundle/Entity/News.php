@@ -505,7 +505,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     /**
      * Set gallery
      *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $gallery
      * @return News
      */
     public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)

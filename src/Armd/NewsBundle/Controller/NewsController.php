@@ -331,29 +331,11 @@ class NewsController extends Controller
             );
         }
 
-        $images = array();
-        if ($entity->getGallery()) {
-            $gallaryId = $entity->getGallery()->getId();
-            $em = $this->getDoctrine()->getManager();
-            $images = $em->getRepository('ApplicationSonataMediaBundle:GalleryHasMedia')->findBy(array(
-                'enabled' => true,
-                'gallery' => $gallaryId
-            ));
-        }
-
-        $this->getTagManager()->loadTagging($entity);
-
-
-        /*  $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_MEMORIAL_DATE => new \DateTime(),
-            )
-        );*/
-
-        // echo 'test';
+        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
+        $this->getTagManager()->loadTagging($entity);
 
         $template = $template ? $template : 'ArmdNewsBundle:News:item.html.twig';
         $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
@@ -369,7 +351,6 @@ class NewsController extends Controller
             'calendarDate'  => $calendarDate,
             'comments'    => $this->getComments($entity->getThread()),
             'thread'      => $entity->getThread(),
-            'images'      => $images,
         ));
     }
 

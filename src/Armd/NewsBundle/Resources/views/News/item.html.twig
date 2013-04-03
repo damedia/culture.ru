@@ -69,23 +69,20 @@
     {{ entity.body|raw }}
 </article>
 
-   {% if images|length > 0 %}
-    <div class="block">
-            <h2><span>Фотогалерея</span></h2>
-    </div>
+{% if entity.gallery is not empty and entity.gallery.galleryHasMedias|length > 0 %}
+    <div class="block news-gallery-block">
+        <h2><span>Фотогалерея</span></h2>
         <ul class="news-gallery">
-            {% for h in images %}
+            {% for ghm in entity.gallery.galleryHasMedias %}
                 <li>
-                    <div class="thumb-image-wrap">
-                        <a class="news-fancybox" rel="slider" href="{% path h, 'reference' %}">
-                            <img src="{% path h, 'newsW63H56' %}" alt="{{ h.media.title }}" />
-                        </a>
-                    </div>
+                    <a class="news-fancybox" rel="slider" href="{% path ghm.media, 'reference' %}">
+                        <img src="{% path ghm.media, 'list' %}" alt="{{ ghm.media.title }}" />
+                    </a>
                 </li>
             {% endfor %}
         </ul>
-        <div style="clear:both"></div>
-    {% endif %}
+    </div>
+{% endif %}
 
 {% if entity.stuff.count %}
 <div>

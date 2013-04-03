@@ -99,7 +99,7 @@ class News extends Admin
             ->end()
             ->with('Media')                
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
-                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'gallery')))
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
                 ->add('video', 'armd_tvigle_video_selector', array('required' => false))
                 ->add('mediaVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'news')))
             ->end()

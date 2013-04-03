@@ -161,7 +161,6 @@ sonata_media:
                 big: { width: 920 }
                 thumbnail: { width: 85, height: 85 }
                 searchAllResult: { width: 160, height: 107 }
-                newsW63H56: { width: 63, height: 56 }
 
         chronicle:
             download:

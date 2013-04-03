@@ -4672,7 +4672,34 @@ body {
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a519', endColorstr='#f77b11',GradientType=0 ); /* IE6-9 */
 		}
 
-/* online translation */
+/* /online translation */
+
+
+/*--- NEWS ---*/
+.news-gallery li {
+    list-style: none;
+    display: inline-block;
+    width: 24%;
+    height: 107px;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.news-gallery-block h2 {
+    margin-bottom: 20px;
+}
+/*--- /NEWS ---*/
+
+
+/*--- BANNERS ---*/
+#banners-page h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+/*--- /BANNERS ---*/
+
 
 .long-border.type-1 {
 	margin-bottom: 15px;
@@ -4945,14 +4972,3 @@ a.appstore-link {
 }
 
 
-#banners-page h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-}
-
-.news-gallery li{
-    list-style: none;
-    float: left;
-    margin: 0 10px;
-}
