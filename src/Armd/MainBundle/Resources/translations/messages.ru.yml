@@ -142,11 +142,11 @@ Special:
         Size:
             Title: Размер шрифта
             Huge: Огромный шрифт
-            Big: Огромный шрифт
-            Normal: Огромный шрифт
+            Big: Большой шрифт
+            Normal: Нормальный шрифт
         Family:
             Title: Вид шрифта
-            Sans Serif : шрифт Arial
+            Sans serif: шрифт Arial
             Serif: шрифт Times New Roman
     Settings: Настройка
     Address: культура.рф

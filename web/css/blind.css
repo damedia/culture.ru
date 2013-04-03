@@ -1011,6 +1011,10 @@ body {
 		.black-color  .settings-types span.active {
 			box-shadow:0 0 0 3px #fff;
 		}
+        .black-color  #white-color span {
+            color:#000;
+            background:#fff;
+        }
 		
 		.black-color .tabs-labels a, .black-color .expand-handle  a {
 			border-color:#fff;
