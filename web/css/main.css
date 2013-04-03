@@ -1099,11 +1099,12 @@ body {
 				.featured .ui-tabs-panel{ 
 					background:#000;
 					position:relative;
-                                        text-align: center;
+                    text-align: center;
+                    overflow: hidden;
 				}
 				.featured .ui-tabs-panel img {
-					width:auto;
-					height:100%;
+					width: auto;
+                    height: 100%;
 				}
 					
 
