@@ -5355,6 +5355,9 @@ a.appstore-link {
             padding-bottom: 58px;
             
         }
+        .content-tabs-norm-pad .content-tab{
+          padding:15px 0 15px 0;
+          }
             .content-tab .perfomances-list {
                 padding-top: 10px;
                 padding-bottom: 31px;
@@ -5375,10 +5378,12 @@ a.appstore-link {
             .theater-contacts-wrap {
                 padding-top: 19px;
             }
-                .theater-contacts {
+                .theater-contacts,
+                .thetable{
                     margin: 0;
                 }
-                    .theater-contacts  caption {
+                    .theater-contacts  caption,
+                    .thetable caption{
                         color:#f79016;
                         font-weight:bold;
                         border-bottom:3px solid #ececec; 
@@ -5386,16 +5391,27 @@ a.appstore-link {
                         padding-bottom:6px;
                         font-size:14px;
                     }
-                    .theater-contacts td {
+                    .theater-contacts td,
+                    .thetable td{
                         background: url(../img/table-dots.gif) repeat-x 0 100%;
                         padding:7px 30px 8px 0;
                         vertical-align:top;
                     }
-                    .theater-contacts td.label {
+                    .theater-contacts td.label,
+                    .thetable td.label{
                         font-weight:bold;
                         color:#7e7e7e;
                         padding-right:50px;
                     }
+
+                    .thetable th{
+                      padding:7px 30px 8px 0;
+                      vertical-align:top;
+                      background: url(../img/table-dots.gif) repeat-x 0 100%;
+                      text-transform:uppercase;
+                      text-align:left;
+                      font-size:12px;
+                      }
                 
                 
                 
