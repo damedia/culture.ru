@@ -82,6 +82,7 @@ class News extends Admin
                 ->add('subject', null, array('required' => false))
                 ->add('important', null, array('required' => false))
                 ->add('priority')
+                ->add('countryDistrict')
             ->end()
             ->with('Publish')
                 ->add('published', null, array('required' => false))
