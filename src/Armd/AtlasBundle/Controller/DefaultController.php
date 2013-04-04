@@ -257,12 +257,12 @@ class DefaultController extends Controller
      * @Route("/objects/afilters/{type_tab}", name="armd_atlas_ajax_filters", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:ajax_filter.html.twig")
      */
-    public function ajaxFilterAction($type_tab)
+    public function ajaxFilterAction($typeTab)
     {
         $em = $this->getDoctrine()->getManager();
         $categories = array();
         
-        switch ($type_tab) {
+        switch ($typeTab) {
             case 'filter_culture_objects':
                 $repo = $em->getRepository('ArmdAtlasBundle:Category');
                 $categories = $repo->getDataForFilter();
@@ -276,7 +276,7 @@ class DefaultController extends Controller
         //    throw new NotFoundHttpException("Categories not found");
         
         return array(
-            'type_tab' => $type_tab,
+            'type_tab' => $typeTab,
             'categories' => $categories
         );
     }
@@ -290,7 +290,7 @@ class DefaultController extends Controller
 
         try {
             $category = $request->get('category');
-            $filter_type = $request->get('filter_type');
+            $filterType = $request->get('filter_type');
             if (empty($category))
                 throw new \Exception('Categories is null');
 
@@ -306,7 +306,7 @@ class DefaultController extends Controller
                 'term' => '',
                 'category' => $categoryIds,
                 'categoryTree' => $categoryTree,
-                'filter_type' => $filter_type
+                'filter_type' => $filterType
             );
 
             $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');

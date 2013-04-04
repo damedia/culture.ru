@@ -1354,22 +1354,11 @@ class Object implements Taggable
         return $this;
     }    
 
-    /**
-     * Get touristCluster
-     *
-     * @return string
-     */
     public function getTouristCluster()
     {
         return $this->touristCluster;
     }
 
-    /**
-     * Set touristCluster
-     *
-     * @param \Armd\AtlasBundle\Entity\TouristCluster $touristCluster
-     * @return Object
-     */
     public function setTouristCluster(TouristCluster $touristCluster = null)
     {
         $this->touristCluster = $touristCluster;

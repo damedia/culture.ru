@@ -50,10 +50,8 @@ class TouristCluster
     }
 
     /**
-     * Set title
-     *
      * @param string $title
-     * @return Region
+     * @return Armd\AtlasBundle\Entity\TouristCluster
      */
     public function setTitle($title)
     {
@@ -63,8 +61,6 @@ class TouristCluster
     }
 
     /**
-     * Get title
-     *
      * @return string 
      */
     public function getTitle()

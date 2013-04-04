@@ -12,29 +12,16 @@ AT.regions = [];
 
 AT.init = function(params) {
 //    console.info('Init Atlas');
-
     this.params = params;
 
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
-    
     AT.initTabFilters();
     AT.initFilters();
     AT.initHacks();
 
     AT.selectFirstFilterObject();
-/*
-    // Сабмитим форму (показываем Образы России)
-    var elems = $('#atlas-filter-form').find('.gray-checked');
-    for (var i=0; i<elems.length; i++) {
-        var tagId = $(elems[i]).find('span').data('tag');
-        if (tagId == 74) {
-            $(elems[i]).find('span').click();
-            break;
-        }
-    }
-*/
 };
 
 AT.initMap = function(params) {
@@ -282,7 +269,6 @@ AT.initUI = function() {
 };
 AT.selectFirstFilterObject = function() {
     var elems = $('#ajax-filter-tabs').find('.gray-checked');
-    //alert($(elems[0]).html());
     $('span', $(elems[0])).click();    
 }
 // Init filters
@@ -318,7 +304,6 @@ AT.initTabFilters = function(){
 }
 // Init filters
 AT.initFilters = function(){
-// /*
     $('.atlas-filter-form .check_all').click(function(){
         var parentDiv = $(this).closest('.simple-filter-block');
         if (!$(this).data('checked')) {
@@ -351,7 +336,6 @@ AT.initFilters = function(){
         // сбор отмеченных тегов
         AT.submitFiltersForm();
     });
-// */
 };
 
 AT.clearMap = function() {

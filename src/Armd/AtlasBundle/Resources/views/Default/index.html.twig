@@ -35,37 +35,19 @@
                     {% render url('armd_atlas_ajax_filters', {'type_tab': 'filter_culture_objects' }) %}
                 </div>
                 <div class="filter-tabs">
-                    {#
+                    {# 
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
                         <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
                     </ul>
                     #}
+                    {# Блок, который был на этом месте перенесен в шаблон src\Armd\AtlasBundle\Resources\views\Default\ajax_filter.html.twig #}
                     {#
-                    <div class="filter-tab" id="obj" style="display:block;">
-                        <!-- объекты -->
-                        {% for category in categories %}
-                            <div class="simple-filter-block">
-                                <div class="simple-filter-header clearfix">
-                                    <span>{{ category.title }}</span>
-                                    <p class="check_all"><span>{{ "atlas.all"|trans }}</span></p>
-                                </div>
-                                <div class="simple-filter-options">
-                                    {% for tag in category.tags %}
-                                        <label class="gray-checked">
-                                            <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
-                                        </label>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% else %}
-                            No categories found.
-                        {% endfor %}
-                    </div>
                     <div class="filter-tab" id="mrsh">
                         <!-- маршруты -->
                     </div>
                     #}
+                     
                     <div class="filter-tab" id="maps">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <!-- мои карты -->
@@ -117,7 +99,6 @@
         <div class="atlas-center">
             <div class="sort-filter sort-element-filter">
                 <a id="filter_culture_objects" href="#" class="atlas-tab-filters active">Объекты культуры</a>
-                <!-- <a href="#">Пользовательские объекты</a> -->
                 <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters">Туристические кластеры</a>
             </div>
             <div class="atlas-map">
