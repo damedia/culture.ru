@@ -70,6 +70,27 @@ class User extends BaseUser
     protected $loginTokenExpires;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $subscriptions;
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $subscriptions
+     */
+    public function setSubscriptions($subscriptions)
+    {
+        $this->subscriptions = $subscriptions;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubscriptions()
+    {
+        return $this->subscriptions;
+    }
+
+    /**
      * Get id
      *
      * @return integer $id

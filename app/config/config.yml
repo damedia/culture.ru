@@ -375,6 +375,8 @@ armd_tvigle_video:
     api_login: Stella_l
     api_password: armada
 
+armd_subscription: ~
+
 armd_sphinx_search:
     indexes:
         All:

@@ -33,6 +33,20 @@
 
         <field name="loginTokenExpires" column="login_token_expires" type="datetime" nullable="true"/>
 
+        <many-to-many
+            field="subscriptions"
+            target-entity="Armd\SubscriptionBundle\Entity\MailingList"
+            inversed-by="subscribers">
+            <join-table name="user_mailing_list">
+                <join-columns>
+                    <join-column name="user_id" nullable="false" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="mailing_list_id" nullable="false" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
     </entity>
 
 </doctrine-mapping>

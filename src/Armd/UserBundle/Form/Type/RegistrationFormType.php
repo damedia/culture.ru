@@ -19,7 +19,9 @@ class RegistrationFormType extends BaseType
 
         $builder            
             ->add('gender')
-            ->add('city');
+            ->add('city')
+            ->add('subscriptions', null, array('expanded' => true))
+        ;
     }
 
     public function getName()
