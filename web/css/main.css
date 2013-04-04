@@ -1888,13 +1888,17 @@ body {
         
     /*THEATRE*/
      .theatre-plitka {
-        margin-top: 14px;
+        margin-top: 31px;
     }    
         .theatre-plitka  li {
             
         }
             .theatre-plitka li a.plitka-type {
                 color:#7691a4;
+                height:auto;
+                overflow:hidden;
+                white-space:nowrap;
+                text-overflow:ellipsis;
             }
             .theatre-plitka .plitka-text {
                 height:auto !important;
@@ -4758,6 +4762,72 @@ body {
 		width:100%;
 	}	
    
+   /*New slider Orange arrows*/
+    .orange-slider-block {
+        background:#f5f5f5;
+        margin-bottom:30px;
+    }
+        .o-slider-header {
+            text-transform:uppercase;
+            font-size:16px;
+            padding:7px 0 7px 15px;
+            margin:0;
+            border-bottom:1px solid #fff;
+        }
+        .orange-slider-block  .flexslider {
+            
+        }
+        .orange-slider-block  .period-block {
+            padding:0;
+        }
+            .orange-slider-block  .period-block_text {
+                padding:0 12px 20px;
+                margin-top:13px;
+            }
+                .orange-slider-block  .period-block_text h4 {
+                    font-weight:bold;
+                    font-size:15px;
+                    line-height:17px;
+                    margin:0;
+                    padding:0 0 10px;
+                }
+                .orange-slider-block  .period-block_text p {
+                    color:#5e5e5e;
+                    font-size:12px;
+                }
+                
+                .orange-slider-block .flex-direction-nav {
+                    background:none;
+                    position:absolute;
+                    top:63px;
+                    left:0;
+                    width:100%;
+                    height:71px;
+                    bottom:auto;
+                    right:auto;
+                    z-index:100;
+                    
+                }
+                    .orange-slider-block .flex-direction-nav li {
+                        width:35px;
+                        height:71px;
+                        position:absolute;
+                        top:0;
+                        background:url(../img/orange-slider-icons.png) no-repeat 0 0;
+                    }
+                        .orange-slider-block .flex-direction-nav li a {
+                            width:35px;
+                            height:71px;
+                            
+                        }
+                    .orange-slider-block  .flex-direction-nav li:first-child {
+                        left:0;
+                    }
+                    .orange-slider-block  .flex-direction-nav li:last-child {
+                        right:0;
+                        background-position:0 -100px;
+                    }
+   
    /*POPup Instruction*/
     
     .window {
@@ -5297,6 +5367,7 @@ a.appstore-link {
         .theatre-one-stats {
             float:right;
             width:30%;
+            color:#000;
         }
             .theatre-tags {
                 margin: -3px 0 10px;
@@ -5335,6 +5406,21 @@ a.appstore-link {
             .theatre-one-description p {
                 padding-bottom: 8px;
             }
+            
+        .external {
+            position:relative;
+            color:#17415f;
+        } 
+            .external:after {
+                content:'';
+                position:absolute;
+                top:3px;
+                right:-10px;
+                width:7px;
+                height:5px;
+                background:url(../img/ext.gif) no-repeat 0 0;
+            }
+            
             
     .content-tabs {
         margin-top: 25px;
@@ -5429,14 +5515,20 @@ a.appstore-link {
                         vertical-align:middle;
                     }
                         .at-name {
-                            padding: 9px 0;
+                            padding: 9px 0 9px 15px;
                             font-size:12px;
                             width:65%;
                         }
-                            .at-name b {
+                            .at-name a {
                                 text-transform:uppercase;
                                 display:block;
+                                color:#000;
+                                font-weight:bold;
+                                text-decoration:none;
                             }
+                                .at-name a:hover {
+                                    text-decoration:underline;
+                                }
                             .at-name i {
                                 color:#989898;
                                 font-style:normal;
@@ -5445,10 +5537,16 @@ a.appstore-link {
                         .at-day {
                             color:#7e7e7e;
                             font-size:12px;
+                            padding-right:10%;
                         }
                         .at-date {
-                        
+                            padding-right:5%;
+                            white-space:nowrap;
                         }
+                        
+                    .afisha-table tr:hover {
+                        background:#fbfbfb;
+                    }    
 
             .content-tab  .comments {
                 margin-top:2px;
