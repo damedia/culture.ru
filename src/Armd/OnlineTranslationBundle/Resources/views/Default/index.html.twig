@@ -13,7 +13,7 @@
         {% if entity.type == 1 %}
             {{ entity.dataCode|raw }}
         {% else %}
-            {% thumbnail entity.image, 'broadcastW600' %}
+            {% thumbnail entity.image, 'reference' with {'width': '100%', 'height': 'auto'} %}
         {% endif %}
 
         <div class="translation-desc">
