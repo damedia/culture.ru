@@ -93,7 +93,7 @@
         <div class="stuff">
             <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
 
-            <a href="{{ armd_media_original_url(stuff) }}">{{ stuff.name }}</a>
+            <a href="{{ path('sonata_media_download', {'id': stuff.id}) }}">{{ stuff.name }}</a>
 
             {% if stuff.extension == "mpga" %}
             —
