@@ -38,6 +38,17 @@ var armdMkPerfomance = {
             armdMkPerfomance.loadList(armdMkPerfomance.isSearch, false);
             return false;
         });
+        
+        // abc filter
+        $('#perfomance-abc-filter a').on('click', function(event) {
+            event.preventDefault();
+
+            if (!$(this).hasClass('active')) {
+                $('#perfomance-abc-filter a').removeClass('active');
+                $(this).addClass('active');
+                armdMkPerfomance.loadList(false, false);
+            }
+        });        
 
     },
 
@@ -71,10 +82,15 @@ var armdMkPerfomance = {
 
         if (isSearch) {
             data['search_query'] = $('#search-txt').val();
+            $('#perfomance-abc-filter').hide();
         } else {
 
             data['ganre_id'] = $('#perfomance_ganre').val();
-                    	
+            $('#perfomance-abc-filter').show();   
+            
+            if ($('#perfomance-abc-filter a.active').data('letter')) {
+                data['first_letter'] = $('#perfomance-abc-filter a.active').data('letter');
+            }                 	
         }
 
         data['sort_by'] = $('#perfomance-sort-filter a.active').data('sort-by');

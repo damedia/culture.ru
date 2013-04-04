@@ -71,10 +71,28 @@ class PerfomanceAdmin extends Admin
                 )
                 ->add('perfomanceVideo', 'armd_tvigle_video_selector',
                     array(
-                        'required' => true
+                        'required' => false
                     )
                 )
             ->end()
+            ->with('External')
+                ->add('externalUrl', 'url',  array('required' => false))
+				->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
+            ->end()             
+            ->with('Interview')
+                ->add('interviewVideo', 'armd_tvigle_video_selector',
+                    array(
+                        'required' => false
+                    )
+                )
+				->add('interviewTitle')
+                ->add('interviewDescription', null, array(
+                    'attr' => array('class' => 'tinymce'),
+                ))				
+            ->end()   
+            ->with('Media')                
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))                                
+            ->end();                     
         ;
     }
 

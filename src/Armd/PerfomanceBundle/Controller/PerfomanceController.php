@@ -12,6 +12,7 @@ use Armd\PerfomanceBundle\Entity\PerfomanceGanre;
 class PerfomanceController extends Controller
 {
 	static $count = 32;
+	static $abc = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
 	
     /**
      * @Route("/", name="armd_perfomance_index")
@@ -57,7 +58,8 @@ class PerfomanceController extends Controller
 			'load_count' => self::$count, 
 			'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll(),
 			'ganreId' => $ganreId,
-			'searchQuery' => $request->get('search_query')
+			'searchQuery' => $request->get('search_query'),
+			'abc' => self::$abc
 		);
     }   
     
@@ -96,6 +98,11 @@ class PerfomanceController extends Controller
         if ($request->query->has('search_query')) {
             $criteria[PerfomanceManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
         }
+        
+        //первая буква
+        if ($request->query->has('first_letter')) {
+            $criteria[PerfomanceManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
+        }        
 
         $list = $this -> getPerfomanceManager() -> findObjects(
     		array(
@@ -108,6 +115,30 @@ class PerfomanceController extends Controller
 		return array('list' => $list);
     }  
 
+    /**
+     * @Route("/related/", name="armd_perfomance_list_related")
+     * @Template("ArmdPerfomanceBundle:Perfomance:list-related.html.twig")
+     */
+    public function listRelatedAction()
+    {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
+        
+        $id = $request->get('id');
+        
+        $list = $this->getPerfomanceManager()->findObjects(
+            array(
+                PerfomanceManager::CRITERIA_LIMIT => $limit,
+                PerfomanceManager::CRITERIA_TAGS => $tags,
+                PerfomanceManager::CRITERIA_NOT_IDS => array($id),
+                PerfomanceManager::CRITERIA_RANDOM => true,
+            )
+        );
+        
+        return array('list' => $list);
+    }
+        
     /**
      *
      * @Route("/item/{id}/", requirements={"id"="\d+"}, name="armd_perfomance_item")
@@ -132,12 +163,38 @@ class PerfomanceController extends Controller
         );
 
         return array(
-            'referer' => $this->getRequest()->headers->get('referer'),
             'entity' => $entity,
             'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll()
         );
     }       
     
+    /**
+     *
+     * @Route("/item-video/{id}/{mode}/", requirements={"id"="\d+"}, name="armd_perfomance_item_video", defaults={"mode"="perfomance"}, options={"expose"=true})
+     */
+    public function itemVideoAction($id, $mode='perfomance')
+    {
+        $em = $this->getEntityManager();
+        $entity = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($id);
+
+        if(!$entity || !$entity->getPublished()) {
+            throw $this->createNotFoundException('Perfomance not found');
+        }
+        
+        if ($mode == 'trailer' && !$entity->getTrailerVideo()) {
+        	throw $this->createNotFoundException('Video not found');
+        }
+
+		$tvigle_twig_extension = $this -> get('armd_tvigle_video.twig.tvigle_video_extension');
+		$tvigle_twig_extension -> initRuntime($this -> get('twig'));
+		echo $tvigle_twig_extension -> videoPlayerFunction(($mode == 'trailer' ? $entity->getTrailerVideo() : $entity->getPerfomanceVideo()), '100%', 506);
+		exit();        
+
+    }    
+        
+    /**
+     * @return \Armd\PerfomanceBundle\Entity\PerfomanceManager
+     */    
     public function getEntityManager() {
     	return $this->getDoctrine()->getManager();
     }

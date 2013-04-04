@@ -17,7 +17,9 @@ class PerfomanceManager extends ListManager
 
     /** example: 'the rolling stones' */
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
-
+    
+    /** example: 'A' */
+    const CRITERIA_FIRST_LETTER = 'CRITERIA_FIRST_LETTER';    
 
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
@@ -51,6 +53,11 @@ class PerfomanceManager extends ListManager
                 ->setParameter('ganre_ids_or', $criteria[self::CRITERIA_GANRE_IDS_OR]);
         }
 
+        if (!empty($criteria[self::CRITERIA_FIRST_LETTER])) {
+            $qb->andWhere("SUBSTRING(TRIM(LEADING ' .\"«' FROM _perfomance.title), 1, 1) = :first_letter")
+                ->setParameter('first_letter', $criteria[self::CRITERIA_FIRST_LETTER]);
+        }
+                
     }
 
     public function findObjectsWithSphinx($criteria) {

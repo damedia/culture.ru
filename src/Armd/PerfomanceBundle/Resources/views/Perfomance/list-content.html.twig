@@ -3,15 +3,19 @@
 		{% for entity in list %}
 			<div class="plitka-one-wrap">
 				<div class="plitka-one">
-					<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" class="plitka-one-image-wrapper" title="{{ entity.title|escape }}">
+					<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" class="plitka-one-image-wrapper" title="{{ entity.title|escape }}" target="_blank">
 						<div class="plitka-one-image">
-							{{ perfomanceMacro.perfomanceThumbnail(entity, 'lectureW160H120', {'alt': entity.title, 'height': 'auto'}) }}
+							{% if entity.perfomanceVideo %}
+								{{ perfomanceMacro.perfomanceThumbnail(entity, 'lectureW160H120', {'alt': entity.title|escape}) }}
+							{% elseif entity.image %}
+								{% media entity.image, 'perfomanceW160H120' with {'alt': entity.title|escape} %}
+							{% endif %}
 						</div>
 					</a>
 					
 					<div class="plitka-text">
 						<span class="plitka-name">
-							<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" title="{$entity.title|escape}">
+							<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" title="{$entity.title|escape}" target="_blank">
 								{{ entity.title|raw }}
 							</a>
 						</span>

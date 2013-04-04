@@ -1,17 +1,29 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
+	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
+		<div class="sort-filter sort-element-filter" id="switch_view">
+			<a href="#" class="active" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>
+			<a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'perfomance'}) }}">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+		</div>
+	{% endif %}
 	<div class="perfomance-one">
 		<section class="video-one">
-			<div class="video-one_container">
-				{% if entity.perfomanceVideo is not empty %}
-                    {{ armd_tvigle_video_player(entity.perfomanceVideo, '100%', 506)|raw }}				
-                {% endif %}
-                
-				{% if entity.trailerVideo is not empty %}
-                    {{ armd_tvigle_video_player(entity.trailerVideo, '100%', 506)|raw }}				
-                {% endif %}                
-			</div>
+			
+			{% if entity.perfomanceVideo %}
+				<div class="video-one_container" id="pefomance_video_container" style="height: 506px;">
+					{% if entity.trailerVideo is not empty %}
+	                   	{{ armd_tvigle_video_player(entity.trailerVideo, '100%', 506)|raw }}				
+	                {% else %}
+	                	{{ armd_tvigle_video_player(entity.perfomanceVideo, '100%', 506)|raw }}	
+	                {% endif %}                
+	            </div>
+	        {% elseif entity.image %}
+	         	{% if entity.externalUrl %}<a href="{{ entity.externalUrl }}" target="_blank">{% endif %}
+	           		{% media entity.image, 'xbig' with {'alt' : entity.title|escape, 'width' : '100%', 'height' : ''} %}
+	           	{% if entity.externalUrl %}</a>{% endif %}
+	        {% endif %}
+			
 			<div class="video-one-description">
 				<h2 class="video-one-name">{{ entity.title }}</h2>
 				<div class="video-one-source">
@@ -56,6 +68,64 @@
 	</div>
 {% endblock %}
 
+{% block right_column %}
+	{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
+		<div class="right-video-block separate-video-block">
+		
+			{% if entity.interviewVideo %}
+		        <div class="flexslider">
+		            <ul class="slides">
+		                <li>
+		                    <article class="period-block">
+		                        <h2>{{ entity.interviewTitle}}</h2>
+		                        <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
+		                        	{% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape} %}
+		                            <span class="play"></span>
+		                        </a>
+		                        <div class="period-block_text">
+		                            <p>{{ entity.interviewDescription|raw }}</p>
+		                        </div>
+		                        <footer class="period-block_footer">
+	                            </footer>
+		                    </article>
+		                </li>
+		            </ul>
+		        </div>			
+			{% endif %}
+		
+			{% if entity.gallery and entity.gallery|length > 0 %}
+				<div class="flexslider">
+		            <ul class="slides">
+						{% for img in entity.gallery.galleryHasMedias %}
+			                <li>
+			                    <article class="period-block">
+			                        <h2>{{ entity.gallery.name }}</h2>
+									<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}">
+		                                {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape} %}
+									</a>
+			                        <div class="period-block_text">
+			                            <p>{{ img.media.name }}</p>
+			                        </div>
+			                        <footer class="period-block_footer">
+			                                
+			                        </footer>
+			                    </article>
+			                </li>
+						{% endfor %}	            	                
+		            </ul>				
+				</div>
+			{% endif %}
+		
+		</div>
+		
+	{% else %}
+
+		{% render url('armd_perfomance_list_related', {'tags': entity.tags|extract_array_values('getName'), 'limit':4, 'id': entity.id }) %}
+		
+	{% endif %}
+
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
 
@@ -65,6 +135,49 @@
         $(function(){
 			armdMkPerfomance.init();
 			initSocialShare();
+			
+			//просмотр интервью
+			$('a.tvigle-player-fancybox').fancybox({
+						'padding'		: 0,
+						'autoScale'		: false,
+						'transitionIn'	: 'none',
+						'transitionOut'	: 'none',
+						'width'		: 680,
+						'height'		: 495,
+						'type'			: 'swf',
+						'swf'			: {
+						   	 'wmode'		: 'transparent'
+						}
+					});
+			
+			//переключение видео							
+			$('#switch_view a').click(function(){
+				
+				$('#switch_view a').removeClass('active');
+				$(this).addClass('active');
+							                
+				if ($(this).attr('rel')) {
+				
+					var a = $(this);
+					armdMk.startLoading();
+					$('#pefomance_video_container').html('')
+					
+					$.ajax({
+						'url' : $(a).attr('rel'),
+						'dataType' : 'html',
+						'success' : function(data, textStatus, jqXHR ){
+							$('#pefomance_video_container').html(data);
+						},
+			            'complete': function() {
+							armdMk.stopLoading();
+			            }						
+					});	
+				}
+				
+				return false;
+				
+			});
+			
         });
             
 		var armdMkPerfomance = {

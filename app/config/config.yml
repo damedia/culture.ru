@@ -263,6 +263,25 @@ sonata_media:
             formats:
                 default: { width: 278 }
                 broadcastW600: { width: 600 }
+                
+        perfomance:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+                - sonata.media.provider.image
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
+            formats:
+                xbig: { width: 670, height: 378 }
+                big: { width: 335, height: 189 }
+                tile: {width: 295, height: 228 }
+                medium: { width: 111 }
+                small: { width: 85 }
+                searchAllResult: { width: 160, height: 107 }
+                perfomanceW160H120: { width: 160, height: 120 }
+                perfomanceH228: { height: 228 }                
 
     cdn:
         server:

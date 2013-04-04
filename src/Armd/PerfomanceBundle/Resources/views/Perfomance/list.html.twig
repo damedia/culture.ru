@@ -1,12 +1,20 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
-	<div class="sort-filter" id="perfomance-sort-filter">
+	{#<div class="sort-filter" id="perfomance-sort-filter">
 		<span>Сортировать</span>
 		<a href="" data-sort-by="date" class="active">по дате</a>
 		<a href="" data-sort-by="abc">по алфавиту</a>
 		<a href="" data-sort-by="popular">по популярности</a>
-	</div>
+	</div>#}
+	
+    <div class="sort-filter" id="perfomance-abc-filter">
+			<a href="#" class="active">Все</a>
+            {% for l in abc %}
+                <a href="#" data-letter="{{ l }}">{{ l }}</a>
+            {% endfor %}
+        </ul>
+    </div>	
 	
 	<div class="plitka perfomances-list" id="perfomance-container">
 		

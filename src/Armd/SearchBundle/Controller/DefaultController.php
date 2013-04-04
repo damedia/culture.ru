@@ -280,13 +280,13 @@ class DefaultController extends Controller
             $mediaImage = false;
             if ($perfomance->getPerfomanceVideo()) {
                 $mediaImage = $perfomance->getPerfomanceVideo()->getImageMedia();
-            } elseif ($perfomance->getTrailerVideo()) {
-                $mediaImage = $perfomance->getTrailerVideo()->getImageMedia();
+            } elseif ($perfomance->getImage()) {
+                $mediaImage = $perfomance->getImage();
             } 
 
             $perfomanceInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
                 $mediaImage,
-                'lecture_searchAllResult'
+                'perfomance_searchAllResult'
             );
         }
 

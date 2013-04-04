@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="content_perfomance")
- * @ORM\Entity(repositoryClass="\Armd\PerfomanceBundle\Repository\PerfomanceRepository")
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
 class Perfomance implements Taggable
@@ -70,6 +70,40 @@ class Perfomance implements Taggable
      * @ORM\Column(name="year", type="integer", nullable=true)
      */
     private $year;	
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="interview_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $interviewVideo;   
+    
+    /**
+     * @ORM\Column(name="interview_title", type="string", length=255, nullable=true)
+     */
+    private $interviewTitle;  
+    
+    /**
+     * @ORM\Column(name="interview_description", type="text", nullable=true)
+     */
+    private $interviewDescription;    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
+     */
+    private $gallery;     
+
+    /**
+     *
+     * @ORM\Column(name="external_url", type="string", nullable=true)
+     */
+    private $externalUrl;   
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
+     */
+    private $image;       
    
     /**
      * @return int
@@ -355,5 +389,143 @@ class Perfomance implements Taggable
     public function getYear()
     {
         return $this->year;
+    }
+
+    /**
+     * Set interviewTitle
+     *
+     * @param string $interviewTitle
+     * @return Perfomance
+     */
+    public function setInterviewTitle($interviewTitle)
+    {
+        $this->interviewTitle = $interviewTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get interviewTitle
+     *
+     * @return string 
+     */
+    public function getInterviewTitle()
+    {
+        return $this->interviewTitle;
+    }
+
+    /**
+     * Set interviewVideo
+     *
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $interviewVideo
+     * @return Perfomance
+     */
+    public function setInterviewVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $interviewVideo = null)
+    {
+        $this->interviewVideo = $interviewVideo;
+    
+        return $this;
+    }
+
+    /**
+     * Get interviewVideo
+     *
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo 
+     */
+    public function getInterviewVideo()
+    {
+        return $this->interviewVideo;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @return Perfomance
+     */
+    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+    
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * Set externalUrl
+     *
+     * @param string $externalUrl
+     * @return Perfomance
+     */
+    public function setExternalUrl($externalUrl)
+    {
+        $this->externalUrl = $externalUrl;
+    
+        return $this;
+    }
+
+    /**
+     * Get externalUrl
+     *
+     * @return string 
+     */
+    public function getExternalUrl()
+    {
+        return $this->externalUrl;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     * @return Perfomance
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set interviewDescription
+     *
+     * @param string $interviewDescription
+     * @return Perfomance
+     */
+    public function setInterviewDescription($interviewDescription)
+    {
+        $this->interviewDescription = $interviewDescription;
+    
+        return $this;
+    }
+
+    /**
+     * Get interviewDescription
+     *
+     * @return string 
+     */
+    public function getInterviewDescription()
+    {
+        return $this->interviewDescription;
     }
 }
