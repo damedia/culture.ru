@@ -5346,6 +5346,7 @@ a.appstore-link {
             border-bottom:1px dashed #000;
             text-decoration:none;
             font-size:14px;
+            outline:0;
         }
         .content-tabs a.active {
             border-bottom:3px solid #f79016;
@@ -5355,7 +5356,7 @@ a.appstore-link {
             padding-bottom: 58px;
             
         }
-        .content-tabs-norm-pad .content-tab{
+        .content-tab.content-tabs-norm-pad {
           padding:15px 0 15px 0;
           }
             .content-tab .perfomances-list {
@@ -5382,6 +5383,9 @@ a.appstore-link {
                 .thetable{
                     margin: 0;
                 }
+                .thetable{
+                  width:100%;
+                  }
                     .theater-contacts  caption,
                     .thetable caption{
                         color:#f79016;
@@ -5412,7 +5416,16 @@ a.appstore-link {
                       text-align:left;
                       font-size:12px;
                       }
-                
+                    
+                    .thetable th,
+                    .thetable td{
+                      
+                      }
+                    .thetable tr th:first-child,
+                    .thetable tr td:first-child{
+                      white-space:nowrap;
+                      }
+                      
                 
                 
             .sub-tabs {

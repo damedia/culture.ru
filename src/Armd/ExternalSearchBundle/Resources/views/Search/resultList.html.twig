@@ -41,11 +41,11 @@
         })
       });
     </script>
-    <div class="content-tabs content-tabs-norm-pad">
+    <div class="content-tabs">
         <a href="#c-tab1" class="active">Поиск по сайтам учреждений культуры</a>
         <a href="#c-tab2">Каталог сайтов о культуре</a>
     </div>
-    <div class="content-tab" id="c-tab1">
+    <div class="content-tab content-tabs-norm-pad" id="c-tab1">
       {# Search form code from Yandex. #}
       <div
           class="ya-site-form ya-site-form_inited_no"
@@ -73,10 +73,8 @@
           (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src='http://site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init()})})(window,document,'yandex_site_callbacks');
       </script>
     </div><!--/content-tab -->
-    <div class="content-tab" id="c-tab2" style="display:none">
+    <div class="content-tab content-tabs-norm-pad" id="c-tab2" style="display:none;">
       <table class="thetable">
-      <col style="width:400px !important;">
-      <col width="width:200px !important;">
       <tr>
         <th>Описание</th>
         <th>Ссылка</th>
@@ -87,7 +85,7 @@
       </tr>
       <tr>
         <td>Подведомственные организации</td>
-        <td><u>&nbsp;</u></td>
+        <td>-</td>
       </tr>
       <tr>
         <td>Федеральное архивное агентство</td>
@@ -98,10 +96,11 @@
         <td><a href="http://www.russiatourism.ru/">http://www.russiatourism.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Территориальные органы</th>
+        <th>Территориальные органы</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
-        <th>Управление    Минкультуры России по Центральному федеральному округу</h>
+        <th>Управление    Минкультуры России по Центральному федеральному округу</th>
         <td><a href="http://www.rosohrancult-cfo.ru/">http://www.rosohrancult-cfo.ru</a></td>
       </tr>
       <tr>
@@ -177,7 +176,8 @@
         <td><a href="http://kultura.mos.ru/">http://kultura.mos.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Управление    Минкультуры России по Северо-Западному федеральному округу</th>
+        <th>Управление    Минкультуры России по Северо-Западному федеральному округу</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Республика Карелия</td>
@@ -220,7 +220,8 @@
         <td><a href="http://www.ogv-nao.ru/ogvnao/ogv/regional/uk/news.htm">http://www.ogv-nao.ru/ogvnao/ogv/regional/uk/news.htm</a></td>
       </tr>
       <tr>
-        <th colspan="2">Управление    Минкультуры России по Уральскому федеральному округу</th>
+        <th>Управление    Минкультуры России по Уральскому федеральному округу</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Управление Культуры Курганская область</td>
@@ -236,7 +237,7 @@
       </tr>
       <tr>
         <td>4.    Министерство культуры Челябинская область</td>
-        <td>http://www.culture-chel.ru/</td>
+        <td><a href="http://www.culture-chel.ru">http://www.culture-chel.ru</a></td>
       </tr>
       <tr>
         <td>5.    Департамент культуры, Ханты-Мансийский автономный округ — Югра</td>
@@ -307,11 +308,12 @@
         <td><a href="http://www.uprava.mv.ru/">http://www.uprava.mv.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Южное    управление Минкультуры России</th>
+        <th>Южное    управление Минкультуры России</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Республика Дагестан</td>
-        <td>http://minkultrd.ru/</td>
+        <td><a href="http://minkultrd.ru">http://minkultrd.ru</a></td>
       </tr>
       <tr>
         <td>2.    Министерство культуры, Республика Ингушетия</td>
@@ -334,11 +336,12 @@
         <td><a href="http://mkro.donland.ru/">http://mkro.donland.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Кубанское    управление Минкультуры России</th>
+        <th>Кубанское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Республика Адыгея</td>
-        <td>мкра.рф</td>
+        <td><a href="http://мкра.рф">мкра.рф</a></td>
       </tr>
       <tr>
         <td>2.    Министерство культуры, Кабардино-Балкарская Республика </td>
@@ -353,11 +356,12 @@
         <td><a href="http://kultura.kubangov.ru/">http://kultura.kubangov.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Нижне-Волжское    управление Минкультуры России</th>
+        <th>Нижне-Волжское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Республика Калмыкия</td>
-        <td>http://www.mon-rk.ru/</td>
+        <td><a href="http://www.mon-rk.ru">http://www.mon-rk.ru</a></td>
       </tr>
       <tr>
         <td>2.    Министерство культуры, Астраханская область</td>
@@ -425,10 +429,11 @@
       </tr>
       <tr>
         <td>3.    Министерство культуры Забайкальский край</td>
-        <td>минкультура.забайкальскийкрай.рф/</td>
+        <td><a href="http://минкультура.забайкальскийкрай.рф">минкультура.забайкальскийкрай.рф</a></td>
       </tr>
       <tr>
-        <th colspan="2">Дальневосточное    управление Минкультуры России</th>
+        <th>Дальневосточное    управление Минкультуры России</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Республика Саха (Якутия)</td>
@@ -444,7 +449,7 @@
       </tr>
       <tr>
         <td>4.    Управление культуры, Магаданская область</td>
-        <td>http://www.culture.goldkolyma.ru/</td>
+        <td><a href="http://www.culture.goldkolyma.ru">http://www.culture.goldkolyma.ru</a></td>
       </tr>
       <tr>
         <td>5    Управление культуры, Еврейская автономная область</td>
@@ -455,7 +460,8 @@
         <td><a href="http://www.chukotka.org/power/administrative_setting/Dep_obr_molod/">http://www.chukotka.org/power/administrative_setting/Dep_obr_molod/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Приморское    управление Минкультуры России</th>
+        <th>Приморское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Камчатский край </td>
@@ -470,14 +476,16 @@
         <td><a href="http://culture.admsakhalin.ru/">http://culture.admsakhalin.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Балтийское    управление Минкультуры России</th>
+        <th>Балтийское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>1.    Министерство культуры, Калининградская область</td>
         <td><a href="http://culart.gov39.ru/">http://culart.gov39.ru/</a></td>
       </tr>
       <tr>
-        <th colspan="2">Дополнительно</th>
+        <th>Дополнительно</th>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td>История.РФ</td>
