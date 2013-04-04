@@ -1654,7 +1654,7 @@ body {
 					}
 		
 
-	/*OBRAZY*/
+	/*--- OBRAZY ---*/
 	.category-chooser {
 		display:inline-block;
 		vertical-align:top;
@@ -1855,8 +1855,19 @@ body {
         top: 0;
         z-index: 100;
     }
-		
-	/*MUSEUMS*/
+
+    .stuff .file-icon {
+        vertical-align: baseline;
+    }
+
+    .stuff .jp-audio ul, .stuff .jp-audio li {
+        display: inline;
+    }
+
+	/*--- /OBRAZY ---*/
+
+
+	/*--- MUSEUMS ---*/
 	.wide-plitka {
 		margin:0;
 	}

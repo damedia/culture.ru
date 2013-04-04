@@ -53,14 +53,6 @@
     <style>
         .content.collapsed{ height:200px; overflow:hidden; }
         .fancybox-video-wrapper iframe{ display:block; }
-
-        .stuff .file-icon {
-            vertical-align: baseline;
-        }
-
-        .stuff .jp-audio ul, .stuff .jp-audio li {
-            display: inline;
-        }
     </style>
 {% endblock %}
 
@@ -491,7 +483,7 @@
 
             <div class="block-text">
                 {% for stuff in entity.stuff %}
-                    <div>
+                    <div class="stuff">
                         <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
 
                         <a href="{{ path('sonata_media_download', {'id': stuff.id}) }}">{{ stuff.name }}</a>
