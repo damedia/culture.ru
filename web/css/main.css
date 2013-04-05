@@ -3565,9 +3565,8 @@ body {
             display: block;
         }
 
-        #homepage-polls .form-actions {
+        #homepage-polls .form-actions .poll-results-links {
             display: none;
-            margin: 10px 0 20px;
         }
 
         #homepage-polls .form-actions a {
@@ -3597,7 +3596,6 @@ body {
         }
 
             #homepage-polls .progress {
-                margin-bottom: 5px;
                 width: 80%;
                 overflow: visible;
                 white-space: nowrap;
