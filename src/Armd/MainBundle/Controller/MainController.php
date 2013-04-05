@@ -199,32 +199,7 @@ class MainController extends Controller
         );
     }
     
-    public function peopleCulturePollsAction()
-    {   
-        $apiModule = 'm_vote';
-        $apiCount = 1;        
-        $request = $this->getRequest();
-        $request->query->add(array(
-            'restUrl' => '/ru/export/',
-            'method' => 'get',
-            'params' => array(
-                'module' => $apiModule,
-                'count' => $apiCount
-            )
-        ));
-        $response = $this->container->get('armd_main.ajax_proxy')->ajaxRequest(
-            $this->container->getParameter('communication_platform_domain'),
-            $request
-        );
-        
-        return $this->render('ArmdMainBundle:Homepage:people_culture_polls.html.twig', 
-                array(
-                    'userLogged' => $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED') ? 1 : 0,
-                    'data' => $response->getContent(),
-                    'apiModule' => $apiModule,
-                    'apiCount' => $apiCount
-                ));
-    }
+
 
     function getNews(array $categories)
     {
