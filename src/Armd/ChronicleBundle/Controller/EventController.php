@@ -30,6 +30,8 @@ class EventController extends ListController
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_chronicle_index')
         );
+        
+        $startAtSlide = $this->getRequest()->get('start_at_slide', 0);
 
         $activeCentury = $activePart = false;
         $centuries = array();
@@ -82,6 +84,7 @@ class EventController extends ListController
             'height' => 600,
             'lang' => 'ru',
             'start_at_end' => true,
+            'start_at_slide' => $startAtSlide,
             'start_zoom_adjust' => 0
         ));
     }
