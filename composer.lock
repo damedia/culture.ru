@@ -1,5 +1,5 @@
 {
-    "hash": "d63324eb5bfdef23f9bdc4d98a627681",
+    "hash": "11c531cbfd3bf86aa1aa77faa2759ab8",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -22,6 +22,29 @@
             },
             "description": "Banner Bundle",
             "time": "2012-09-03 14:32:54"
+        },
+        {
+            "name": "armd/poll-bundle",
+            "version": "dev-master",
+            "target-dir": "Armd/PollBundle",
+            "source": {
+                "type": "git",
+                "url": "git@git.armd.ru:armdpollbundle.git",
+                "reference": "5231bfdd7da4c43de816a11b29d0f4e051406e96"
+            },
+            "require": {
+                "knplabs/knp-paginator-bundle": "*",
+                "sonata-project/admin-bundle": "*",
+                "sonata-project/doctrine-orm-admin-bundle": "*"
+            },
+            "type": "armd-cms-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Armd\\PollBundle": ""
+                }
+            },
+            "description": "Poll Bundle",
+            "time": "2012-08-28 13:17:40"
         },
         {
             "name": "armd/sphinx-search-bundle",
@@ -3785,7 +3808,9 @@
             "time": "2013-02-17 19:51:08"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
@@ -3795,8 +3820,17 @@
         "jms/i18n-routing-bundle": 20,
         "friendsofsymfony/jsrouting-bundle": 20,
         "stfalcon/tinymce-bundle": 20,
+        "sonata-project/media-bundle": 20,
+        "sonata-project/admin-bundle": 20,
+        "sonata-project/doctrine-orm-admin-bundle": 20,
         "armd/banner-bundle": 20,
         "fpn/tag-bundle": 20,
         "gregwar/captcha": 20
-    }
+    },
+    "platform": {
+        "php": ">=5.3.3"
+    },
+    "platform-dev": [
+
+    ]
 }
