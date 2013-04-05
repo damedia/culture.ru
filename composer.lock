@@ -1,5 +1,5 @@
 {
-    "hash": "11c531cbfd3bf86aa1aa77faa2759ab8",
+    "hash": "fe31fa3aa627436350652b65601c9ee1",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -30,7 +30,7 @@
             "source": {
                 "type": "git",
                 "url": "git@git.armd.ru:armdpollbundle.git",
-                "reference": "5231bfdd7da4c43de816a11b29d0f4e051406e96"
+                "reference": "368a20967bf45f1b6d4965a448783aa96f01d3cd"
             },
             "require": {
                 "knplabs/knp-paginator-bundle": "*",
@@ -44,7 +44,7 @@
                 }
             },
             "description": "Poll Bundle",
-            "time": "2012-08-28 13:17:40"
+            "time": "2013-04-05 21:31:19"
         },
         {
             "name": "armd/sphinx-search-bundle",

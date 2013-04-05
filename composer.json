@@ -7,7 +7,8 @@
     "repositories":{
         "armd/banner-bundle":{ "type":"git", "url":"git@git.armd.ru:armdbannerbundle.git" },
         "armd/sphinx-search-bundle":{ "type":"git", "url":"git@git.armd.ru:armdsphinxsearchbundle.git" },
-        "armd/twig-bundle": {"type":"git", "url":"git@git.armd.ru:armdtwigbundle.git"}
+        "armd/twig-bundle": {"type":"git", "url":"git@git.armd.ru:armdtwigbundle.git"},
+        "armd/poll-bundle": {"type":"git", "url":"git@git.armd.ru:armdpollbundle.git"}
     },
     "require": {
         "php": ">=5.3.3",
