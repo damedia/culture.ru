@@ -254,7 +254,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/objects/afilters/{type_tab}", name="armd_atlas_ajax_filters", options={"expose"=true})
+     * @Route("/objects/afilters/{typeTab}", name="armd_atlas_ajax_filters", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:ajax_filter.html.twig")
      */
     public function ajaxFilterAction($typeTab)

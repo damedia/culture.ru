@@ -273,21 +273,20 @@ AT.selectFirstFilterObject = function() {
 }
 // Init filters
 AT.initTabFilters = function(){
-    AT.clearMap();
     $('#filter-type').val('filter_culture_objects');
     $('.atlas-tab-filters').on( 'click', function(){
-        $('#ajax-loading').show();
-        
+        AT.clearMap();
         if( $(this).hasClass('active') ) {
             return false;
         }
+        $('#ajax-loading').show();
         $('.atlas-tab-filters').removeClass('active');
         $(this).addClass('active');
         current_sel_tab = $(this).attr('id');
         
         $.ajax({
             url: Routing.generate('armd_atlas_ajax_filters', {
-                'type_tab': current_sel_tab
+                'typeTab': current_sel_tab
             }),
             cache: false,
             dataType: 'html',
