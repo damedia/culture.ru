@@ -179,7 +179,7 @@ $(function(){
     });
     
     
-    $(".modal").fancybox({
+    $("a.modal").fancybox({
         padding: 20,
         autoDimensions: false,
         width: "auto",
@@ -236,8 +236,11 @@ $(function(){
         $('.choose-block-horizontal .cbv-choices').append('<span class="ie-after"></span>');
     }
     
-    
+  
    // PUZZLE
+    
+    
+    
     var puzzleGame = {
         windowWidth: $(window).width(), //retrieve current window width
         windowHeight: $(window).height(), //retrieve current window height
@@ -258,6 +261,7 @@ $(function(){
                     $(this).height(imageheight).css('marginTop', -imageheight/2);
                 })
             });
+            
             
             if ( !jQuery.browser.msie || jQuery.browser.version > 8.0) {
                 imageSrc = $('img.puzzle', container).attr('src');
@@ -310,13 +314,23 @@ $(function(){
             
             $('body, html').css('overflow', 'hidden');
             
-            //self.jsaw.set_image(object.prev().attr('src'));
-            //self.jsaw.redraw();
+             self.jsaw.set_image(object.prev().attr('src'));
+           
             
             if ( jQuery.browser.msie && jQuery.browser.version <= 8.0) {
+                var jqImageSrc = object.prev('.puzzle').attr('src');
+                var jqImageWidth = object.prev('.puzzle').width();
+                var jqImageHeight = object.prev('.puzzle').height();
+                jQuery('#image-preview').html('<img  src="'+jqImageSrc+'" alt="" />').css({'width':620, 'height':455});
+            }    
+            
+            
+            if (jQuery.browser.msie && jQuery.browser.version <= 8.0) {
+                self.jsaw.clear();
+               
                 setTimeout(function(){
-                   self.jsaw.set_image(object.prev().attr('src'));
-                },10);
+                    jQuery('#select-options .active a').click();
+                },500);
                
             }
             
@@ -337,8 +351,10 @@ $(function(){
             })
         },
         close: function() {
+             var self = this;
              $('a#CLOSE_PUZZLE').click(function(){
                 $('#puzzle-block').hide();
+                
                 $('body, html').css('overflow', 'visible').scrollTop(self.docScrollTop).scrollLeft(self.docScrollLeft);
                 
                 return false;
@@ -347,6 +363,7 @@ $(function(){
     };
 
     puzzleGame.init($('.puzzle-init'));	
+    
     
     
     
