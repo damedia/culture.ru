@@ -128,7 +128,7 @@
             initSlider();
             initYandexShare();
             //initInfographics();
-            initInfographics2();
+            //initInfographics2(800, 560);
             initSearch();
 
 //            $('.gallery').show();
@@ -152,12 +152,26 @@
 
             $('.zoom-fancybox').fancybox({
                  autoResize:true,
+	             prevEffect: 'none',
+			     nextEffect: 'none',                 
                  afterShow:function ()
                  {
                      var innerWidth = $('.fancybox-inner').width();
-                     var innerHeight = $('.fancybox-inner').height();
+                     var innerHeight = $('.fancybox-inner').height() - 25;
+                     
+                     var imgWidth = $('img#shiftzoom').width();
+                     var imgHeight = $('img#shiftzoom').height();
+                     
+                     if (innerHeight < imgHeight) {
+                     	
+                     	imgWidth = Math.ceil(imgWidth * innerHeight/imgHeight);
+                     	imgHeight = innerHeight;
+						$('img#shiftzoom').css({'width' : imgWidth, 'height': imgHeight});                     	
+                     }
+                       
+                     initInfographics2(imgWidth, imgHeight);
 
-                     var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="' + innerHeight + '"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
+                     /*var newContent = $('<a id="zoom" href="{% path entity.image3d, 'reference' %}"><img class="zoom-img" src="{% path entity.image3d, 'reference' %}" height="' + innerHeight + '"></img></a><div class="info-line"><a href="{% path entity.image3d, 'reference' %}" target="_blank">Скачать</a><a href="{% path entity.image3d, 'reference' %}" id="fancy_print">Распечатать</a></div>');
                      $('.fancybox-inner').html(newContent);
                      $('#zoom').jqzoom({
                          zoomType:'innerzoom',
@@ -184,7 +198,7 @@
                          win.close();
 
                          return false;
-                     }); // bind
+                     }); // bind*/
 
                  }
              });
@@ -247,10 +261,10 @@
         }
         #}
 
-        function initInfographics2() {
+        function initInfographics2(width,height) {
             $("#shiftzoom").z({
-                width: 800,
-                height: 560,
+                width: width,
+                height: height,
                 responsive: true,
                 responsive_maintain_ratio: true,
                 max_WIDTH: '',
@@ -372,7 +386,7 @@
         <div class="block">
             <section class="static-block">
                 <h2>{{ "infographics"|trans }}</h2>
-                <a class="fancybox" href="#infographics">
+                <a class="zoom-fancybox" href="#infographics">
                     <img width="280" src="{% path entity.image3d, 'image3d' %}" alt=""/>
                 </a>
                 <div id="infographics" style="display:none;">
