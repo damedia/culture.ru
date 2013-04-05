@@ -7,8 +7,35 @@ Description: Описание
 Image: Фото (обложка)
 Images: Фотогалерея
 Tvigle Video: Tvigle видео
-Director: Директор
+Director: Художественный руководитель
 Address: Адрес
+Latitude: Широта
+Longitude: Долгота
+Metro: Метро
+Ticket Office Mode: Режим работы кассы
+Photo gallery: Фотогалерея театра
+Map: Карта
 
 Billboards: Афиша 
-Billboard List: Афиша 
+Billboard List: Афиша
+
+January: Январь
+February: Февраль
+March: Март
+April: Апрель
+May: Май
+June: Июнь
+July: Июль
+August: Август
+September: Сентябрь
+October: Октябрь
+November: Ноябрь
+December: Декабрь
+
+Monday: Понедельник
+Tuesday: Вторник
+Wednesday: Среда
+Thursday: Четверг
+Friday: Пятница
+Saturday: Суббота
+Sunday: Воскресенье

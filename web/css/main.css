@@ -1901,7 +1901,7 @@ body {
             }
             .theatre-plitka   li .plitka-name {
                 text-transform:uppercase; 
-                /*height:3.5em;*/  
+                height:3.5em;  
                 overflow:hidden;                
                 margin-bottom: 10px;
             }
@@ -1911,6 +1911,8 @@ body {
             }
             .theatre-plitka  .tags {
                 margin-top: 5px;
+                height:3.5em;
+                overflow: hidden;
             }
                 .theatre-plitka .tags  a {
                     color:#7e7e7e;
@@ -1968,7 +1970,7 @@ body {
 	}	
 		.obrazy-plitka .plitka-one-wrap {
 			width:178px;
-			margin:0 12px 12px 0;
+			margin:0 12px 5px 0;
 		}
 
 		.obrazy-plitka .plitka-one-wrap.fix-height {

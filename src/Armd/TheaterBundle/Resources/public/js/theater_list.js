@@ -14,10 +14,12 @@ var armdMkTheaterList = {
         // init "more" click
         $('#show-more').bind('click', function(event) {
             event.preventDefault();
+            
+            armdMkTheaterList.readFilter();
             armdMkTheaterList.loadList(true);
         });
 
-        // russia images search button
+        // search button
         $('#search-russia-images-button').bind('click', function(event) {
             event.preventDefault();
 

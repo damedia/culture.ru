@@ -92,6 +92,13 @@ class Builder extends ContainerAware
                     'route' => 'armd_main_project_traditions'
                 )
             );
+            
+            $mainMenu->addChild(
+                'menu.theaters',
+                array(
+                    'route' => 'armd_theater_list'
+                )
+            );
 
             //--- /Main
 

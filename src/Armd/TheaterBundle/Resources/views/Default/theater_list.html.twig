@@ -34,7 +34,7 @@
                     <option value="0">все</option>
                     
                     {% for value in categoryList %}
-                        <option value="{{ value.id }}">{{ value.title }}</option>
+                        <option value="{{ value.id }}" {{ value.id == category ? 'selected="selected"' : '' }}>{{ value.title }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -54,10 +54,11 @@
 
 
 <ul class="breadcrumbs">
-    <li><a href="#">Главная</a></li>
+    <li><a href="/">Главная</a></li>
     <li><span>Театры</span></li>
 </ul>
 
+<!--
 <div class="sort-filter">
     <span>Сортировать</span>
     
@@ -65,11 +66,10 @@
         <a href="#" data-order="{{ key }}" class="{{ loop.first ? 'active' : '' }}">{{ value.title }}</a>
     {% endfor %}  
 </div>
-
+-->
     
-
 <ul class="plitka obrazy-plitka theatre-plitka">
-    {% render url('armd_theater_list_data') %}
+    {% render url('armd_theater_list_data', { 'category': category }) %}
 </ul>
 <div  class="more more2">
     <p><a  href="#" id="show-more">{{ "Еще театры"|trans }}</a></p>

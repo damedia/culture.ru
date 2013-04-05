@@ -9,7 +9,7 @@ use Armd\TheaterBundle\Entity\TheaterManager;
 
 class DefaultController extends Controller
 {
-    protected function getTheaterOrderList()
+    protected function getTheaterOrders()
     {
         return array(
             'date' => array(
@@ -23,16 +23,19 @@ class DefaultController extends Controller
         );
     }
 
-        /**
-     * @Route("/list", name="armd_theater_list")
+    /**
+     * @Route("/list/{category}", name="armd_theater_list",
+     *      requirements={"category"="\d+"}, defaults={"category"=0}
+     * )
      * @Template("ArmdTheaterBundle:Default:theater_list.html.twig")
      */
-    public function theaterListAction()
+    public function theaterListAction($category = 0)
     {
         $em = $this->getDoctrine()->getManager();
         
         return array(
-            'orders' => $this->getTheaterOrderList(),
+            'orders' => $this->getTheaterOrders(),
+            'category' => $category,
             'cityList' => $em->getRepository('ArmdAddressBundle:City')
                 ->findBy(array(), array('title' => 'ASC')),
             'categoryList' => $em->getRepository('ArmdTheaterBundle:TheaterCategory')
@@ -49,7 +52,7 @@ class DefaultController extends Controller
      */
     public function  theaterListDataAction($offset = 0, $limit = 24)
     {
-        $orders = $this->getTheaterOrderList();      
+        $orders = $this->getTheaterOrders();      
         
         $request = $this->getRequest();
         $criteria = array();
@@ -92,13 +95,48 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/item/{id}", name="armd_theater_theater_item", 
-     *  requirements={"id"="\d+"}, defaults={"id"=0}
+     * @Route("/item/{id}", name="armd_theater_item", 
+     *     requirements={"id"="\d+"}, defaults={"id"=0}
      * )
+     * @Template("ArmdTheaterBundle:Default:theater_item.html.twig")
      */
     public function theaterItemAction($id)
     {
-        return $this->render('ArmdTheaterBundle:Default:theater_item.html.twig');
+        $billboards = array();
+        
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_theater_list')
+        );
+        
+        $object = $this->getTheaterManager()->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException('Page not found');
+        }       
+        
+        $now = new \DateTime();
+        $m1 = $now->format('Y-m-01');
+        $m2 = $now->modify('+1 month')->format('Y-m-01');
+        $m3 = $now->modify('+1 month')->format('Y-m-01');
+                
+        foreach ($object->getBillboards() as $b) {
+            $now = new \DateTime();
+            $bdf = $b->getDate()->format('Y-m-01');
+            
+            if ($bdf == $m1) {
+                $billboards['m1'][] = $b;
+            } elseif ($bdf == $m2) {
+                $billboards['m2'][] = $b;
+            } elseif ($bdf == $m3) {
+                $billboards['m3'][] = $b;
+            }
+        }
+        
+        return array(
+            'object' => $object,
+            'billboards' => $billboards,
+            'referer' => $this->getRequest()->headers->get('referer')
+        );
     }
     
     /**

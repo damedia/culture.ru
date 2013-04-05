@@ -41,6 +41,8 @@ class TheaterAdmin extends Admin
             ->add('url')
             ->add('email')
             ->add('phone')
+            ->add('metro')
+            ->add('ticketOfficeMode')
             ->add('image')
         ;
         
@@ -72,11 +74,17 @@ class TheaterAdmin extends Admin
                 ->add('categories', null, array('attr' => array('class' => 'chzn-select span5')))
                 ->add('description')
                 ->add('director')
-                ->add('address')
+                ->add('address')               
                 ->add('url')
                 ->add('email')
-                ->add('phone')                
-            ->end()                      
+                ->add('phone')  
+                ->add('metro')
+                ->add('ticketOfficeMode')
+            ->end()   
+            ->with('Map')
+                ->add('latitude', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
+                ->add('longitude', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
+            ->end()
             ->with('Media')
                 ->add('image', 'armd_media_file_type', array(
                     'required' => false,
@@ -109,6 +117,18 @@ class TheaterAdmin extends Admin
             ;
 
         parent::configureFormFields($formMapper);
+    }
+    
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'ArmdTheaterBundle:Form:edit_container.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
     }
 
     /**

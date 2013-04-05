@@ -70,7 +70,8 @@ class TheaterManager extends ListManager
         }                      
     }   
 
-    public function findObjectsWithSphinx($criteria) {
+    public function findObjectsWithSphinx($criteria) 
+    {
         $searchParams = array('Theater' => array('filters' => array()));
 
         if (isset($criteria[self::CRITERIA_LIMIT])) {
@@ -91,6 +92,21 @@ class TheaterManager extends ListManager
         }
 
         return $result;
+    }
+    
+    public function getObject($id)
+    {
+        $entity = $this->em->getRepository('ArmdTheaterBundle:Theater')->createQueryBuilder('t')
+            ->select('t, b')
+            ->leftJoin('t.billboards', 'b', 'WITH', 'b.date > :now')->setParameter('now', new \DateTime())
+            ->andWhere('t.published = :published')->setParameter('published', true)
+            ->andWhere('t.id = :id')->setParameter('id', $id)
+            ->addOrderBy('b.date')
+            ->getQuery()
+            ->getSingleResult()
+        ;       
+
+        return $entity;
     }
 
     public function getClassName()
