@@ -18,7 +18,7 @@
 {% block page_header_search %}
     <div class="search-category wide-search">
         <form id="lectures-filter" method="post">
-            <span class="search-dates-label">Город</span>
+            <span class="search-dates-label">Регион</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
                     <option value="0">все</option>
@@ -32,7 +32,7 @@
                 </select>
             </div>
             
-            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <span class="search-dates-label">&nbsp;&nbsp;Категория</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
                     <option value="0">все</option>
@@ -60,12 +60,14 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    {#
     <ul class="breadcrumbs">
         <li><a href="#">Главная</a></li>
         <li><a href="#">Театры</a></li>
         <li><span>МХТ им. Чехова</span></li>
     </ul>
-
+    #}
+    
     
     <div class="theatre-one">
         <section class="theatre-one-main clearfix">
@@ -112,7 +114,7 @@
             <a href="#c-tab4">Оставить комментарий</a>
         </div>
         {# Спектакли театра  #}
-        <div class="content-tab" id="c-tab1" style="display:none;">
+        <div class="content-tab" id="c-tab1">
             <div id="lecture-container" class="plitka perfomances-list">
                 <div class="plitka-one-wrap">
                     <div class="plitka-one">
@@ -359,7 +361,7 @@
         </div>
         
         {# Афиша #}
-        <div class="content-tab" id="c-tab3"  >
+        <div class="content-tab" id="c-tab3" style="display:none"  >
             <div class="sub-tabs">
                 <a href="#s-tab1" class="active">Март</a>
                 <a href="#s-tab2">Апрель</a>
@@ -381,7 +383,7 @@
                     </tr>
                     <tr>
                         <td class="at-name">
-                            <a href="#">Дневник провинциала в Петербурге</a>
+                            <span>Дневник провинциала в Петербурге</span>
                             <i>Драматические спектакли</i>        
                         </td>
                         <td class="at-day">
@@ -405,7 +407,7 @@
                     </tr>
                     <tr>
                         <td class="at-name">
-                            <a href="#">Каренин</a>
+                            <span>Каренин</span>
                             <i>Драматические спектакли</i>        
                         </td>
                         <td class="at-day">
@@ -634,14 +636,14 @@
 
     {# % render url('armd_news_memorial_events') % #}
     {# % render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) % #}
-    <div class="orange-slider-block">
+    <div class="orange-slider-block orange-slider-first">
         <h3 class="o-slider-header">Интервью</h3>
         <div class="flexslider">
             <ul class="slides">
                 <li>
                     <article class="period-block">
                         <a href="#data1" class="period-block_image fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
                             <span class="play"></span>
                         </a>
                         <div class="period-block_text">
@@ -654,112 +656,94 @@
                 <li>
                     <article class="period-block">
                         <a href="#data1" class="period-block_image fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
                             <span class="play"></span>
                         </a>
                         <div class="period-block_text">
-                            <p>Интервью с Владиславом Наставшеевым</p>
+                            <h4>Мир, в котором я живу: Юлия Снигирь</h4>
+                            <p>Описание интервю, если есть.. Например, интервью с главной актрисой театра</p>
                         </div>
-                        <footer class="period-block_footer">
-                                <div class="tags">
-                                    <a href="/app_dev.php/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
-                                </div>
-                            </footer>
-                    </article>
-                </li><li>
-                    <article class="period-block">
-                        <a href="#data1" class="period-block_image fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
-                            <span class="play"></span>
-                        </a>
-                        <div class="period-block_text">
-                            <p>Интервью с Владиславом Наставшеевым</p>
-                        </div>
-                        <footer class="period-block_footer">
-                                <div class="tags">
-                                    <a href="/app_dev.php/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
-                                </div>
-                            </footer>
-                    </article>
-                </li><li>
-                    <article class="period-block">
                         
+                    </article>
+                </li><li>
+                    <article class="period-block">
                         <a href="#data1" class="period-block_image fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
                             <span class="play"></span>
                         </a>
                         <div class="period-block_text">
-                            <p>Интервью с Владиславом Наставшеевым</p>
+                            <h4>Мир, в котором я живу: Юлия Снигирь</h4>
+                            <p>Описание интервю, если есть.. Например, интервью с главной актрисой театра</p>
                         </div>
-                        <footer class="period-block_footer">
-                                <div class="tags">
-                                    <a href="/app_dev.php/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
-                                </div>
-                            </footer>
+                        
+                    </article>
+                </li><li>
+                    <article class="period-block">
+                        <a href="#data1" class="period-block_image fancybox">
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Мир, в котором я живу: Юлия Снигирь</h4>
+                            <p>Описание интервю, если есть.. Например, интервью с главной актрисой театра</p>
+                        </div>
+                        
                     </article>
                 </li>
             </ul>            
         </div>  
     </div>
-    <div class="right-video-block">
+    
+    <div class="orange-slider-block">
+        <h3 class="o-slider-header">фотогалерея ТЕАТРА</h3>
         <div class="flexslider">
             <ul class="slides">
                 <li>
                     <article class="period-block">
-                        <h2>фотогалерея ТЕАТРА</h2>
-                        <a href="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg" class="period-block_image in-fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
                         </a>
                         <div class="period-block_text">
-                            <p>Описание фотогалереи</p>
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
                         </div>
-                        <footer class="period-block_footer">
-                                
-                        </footer>
+                        
                     </article>
-                </li>
-                <li>
+                </li><li>
                     <article class="period-block">
-                        <h2>фотогалерея ТЕАТРА</h2>
-                        <a href="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg" class="period-block_image in-fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
                         </a>
                         <div class="period-block_text">
-                            <p>Описание фотогалереи</p>
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
                         </div>
-                        <footer class="period-block_footer">
-                                
-                        </footer>
+                        
                     </article>
-                </li>
-                <li>
+                </li><li>
                     <article class="period-block">
-                        <h2>фотогалерея ТЕАТРА</h2>
-                        <a href="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg" class="period-block_image in-fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
                         </a>
                         <div class="period-block_text">
-                            <p>Описание фотогалереи</p>
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
                         </div>
-                        <footer class="period-block_footer">
-                                
-                        </footer>
+                        
                     </article>
-                </li>
-                <li>
+                </li><li>
                     <article class="period-block">
-                        <h2>фотогалерея ТЕАТРА</h2>
-                        <a href="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg" class="period-block_image in-fancybox">
-                            <img width="335" height="189" src="/uploads/media/lecture/0001/14/thumb_13035_lecture_big.jpeg"  />
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
                         </a>
                         <div class="period-block_text">
-                            <p>Описание фотогалереи</p>
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
                         </div>
-                        <footer class="period-block_footer">
-                                
-                        </footer>
+                        
                     </article>
                 </li>
+    
             </ul>            
         </div>
     </div>

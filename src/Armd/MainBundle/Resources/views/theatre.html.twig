@@ -18,7 +18,7 @@
 {% block page_header_search %}
     <div class="search-category wide-search">
         <form id="lectures-filter" method="post">
-            <span class="search-dates-label">Город</span>
+            <span class="search-dates-label">Регион</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
                     <option value="0">все</option>
@@ -32,7 +32,7 @@
                 </select>
             </div>
             
-            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <span class="search-dates-label">&nbsp;&nbsp;Категория</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
                     <option value="0">все</option>
@@ -60,11 +60,14 @@
 {% block body%}
 
 
-
+{# Breadcrumbs #}
+{#
 <ul class="breadcrumbs">
     <li><a href="#">Главная</a></li>
     <li><span>Театры</span></li>
 </ul>
+#}
+
 {#
 <div class="sort-filter">
     <span>Сортировать</span>
@@ -72,7 +75,7 @@
     <a href="#">по алфавиту</a>
 </div>
 #}
-    
+
 
 <ul class="plitka obrazy-plitka theatre-plitka">
     <li class="plitka-one-wrap">

@@ -1742,6 +1742,38 @@ body {
             border-bottom:2px solid #f5902d;
         }
     
+    /* Alphabet */
+    .alphabet {
+        margin-top:30px;
+    }
+        .alphabet a {
+            float:left;
+            color:#fff;
+            background:#ccc;
+            height:17px;
+            line-height:17px;
+            padding:1px 5px 1px;
+            margin-right:1px;
+            text-transform:uppercase;
+            font-size:13px;
+            text-decoration:none;
+            margin-bottom:8px;
+        }
+        .alphabet a.disabled {
+            background:url(../img/alpha-inactive.gif) repeat;
+            cursor:default;
+        }
+        .alphabet a.active {
+            background:#f79016;
+            cursor:default;
+        }
+        .alphabet a:hover {
+            background:#ce2125;
+        }
+        .alphabet a.disabled:hover {
+            background:url(../img/alpha-inactive.gif) repeat;
+        }
+    
     .perfomances-list {
         
     } 
@@ -1797,6 +1829,9 @@ body {
                     color:#7691a4;
                     border-color:#7691a4;
                 }  
+                .perfomances-list .tags a:hover {
+                    border-color:#fff;
+                }
                 
                 .perfomances-list .views {
                     margin-top: 6px;
@@ -1839,6 +1874,9 @@ body {
             }
                 .video-one-tags a {
                     color:#7791a4;
+                }
+                .video-one-tags a:hover {
+                    text-decoration:none;
                 }
             .video-one-views {
                 color:#7e7e7e;
@@ -1919,6 +1957,9 @@ body {
                 .theatre-plitka .tags  a {
                     color:#7e7e7e;
                     border-color:#7e7e7e;
+                }
+                .theatre-plitka .tags  a:hover {
+                    border-color:#fff;
                 }
         
         
@@ -2002,6 +2043,10 @@ body {
 				color:#7691A4;
                                 height: 28px;
 			}
+                .obrazy-plitka a.plitka-type:hover, .plitka-type:hover {
+                    text-decoration:none !important;
+                }
+            
 			.obrazy-plitka  .plitka-image {
 				margin: 10px 0 9px;
 				
@@ -3226,6 +3271,10 @@ body {
                                 line-height:24px;
                                 background:rgba(255,255,255, 0.8);
                             }
+                                .recommend_name a {
+                                    color:#000;
+                                    text-decoration:none;
+                                }
                             .lt-ie9 .recommend_name {
                                 background:#fff;
                             }
@@ -4763,9 +4812,13 @@ body {
 	}	
    
    /*New slider Orange arrows*/
+    
     .orange-slider-block {
         background:#f5f5f5;
-        margin-bottom:30px;
+        margin-bottom:22px;
+    }
+    .orange-slider-first {
+        margin-top:60px;
     }
         .o-slider-header {
             text-transform:uppercase;
@@ -4789,23 +4842,26 @@ body {
                     font-size:15px;
                     line-height:17px;
                     margin:0;
-                    padding:0 0 10px;
+                    padding:0 0 6px;
                 }
                 .orange-slider-block  .period-block_text p {
                     color:#5e5e5e;
                     font-size:12px;
                 }
                 
+                .orange-slider-block .flex-viewport {
+                    z-index:5;
+                }
                 .orange-slider-block .flex-direction-nav {
                     background:none;
                     position:absolute;
-                    top:63px;
+                    top:57px;
                     left:0;
                     width:100%;
                     height:71px;
                     bottom:auto;
                     right:auto;
-                    z-index:100;
+                    
                     
                 }
                     .orange-slider-block .flex-direction-nav li {
@@ -4813,11 +4869,12 @@ body {
                         height:71px;
                         position:absolute;
                         top:0;
-                        background:url(../img/orange-slider-icons.png) no-repeat 0 0;
+                        z-index:10;
                     }
                         .orange-slider-block .flex-direction-nav li a {
                             width:35px;
                             height:71px;
+                            background:url(../img/orange-slider-icons.png) no-repeat 0 0;
                             
                         }
                     .orange-slider-block  .flex-direction-nav li:first-child {
@@ -4825,8 +4882,36 @@ body {
                     }
                     .orange-slider-block  .flex-direction-nav li:last-child {
                         right:0;
-                        background-position:0 -100px;
+                        
                     }
+                        .orange-slider-block .flex-direction-nav li a.flex-prev:hover {
+                            background-position:0 -200px;
+                        }
+                        .orange-slider-block .flex-direction-nav li a.flex-next {
+                            background-position:0 -100px;
+                        }
+                        .orange-slider-block .flex-direction-nav li a.flex-next:hover  {
+                            background-position:0 -300px;
+                        }
+                    
+                    .orange-slider-block .flexslider .slides .period-block_image {
+                        width:306px;
+                        height:179px;
+                        overflow:hidden;
+                    }
+                    .orange-slider-block .flexslider .slides .period-block_image:after {
+                       content:'';
+                        position:absolute;
+                        top:0;
+                        left:0;
+                       width:100%;
+                       height:306px;
+                       display:block;
+                       background:rgba(255,255,255,0.35);
+                        
+                    }
+                       
+                    
    
    /*POPup Instruction*/
     
@@ -5366,7 +5451,7 @@ a.appstore-link {
         
         .theatre-one-stats {
             float:right;
-            width:30%;
+            width:31%;
             color:#000;
         }
             .theatre-tags {
@@ -5374,6 +5459,9 @@ a.appstore-link {
             }
                 .theatre-tags  a {
                     color:#7791a4;
+                }
+                .theatre-tags  a:hover {
+                    text-decoration:none;
                 }
                 
             .theatre-stats-contacts {
@@ -5391,7 +5479,7 @@ a.appstore-link {
                 
 
         .theatre-one-image {
-            margin: 0 33% 26px 0;
+            margin: 0 35% 26px 0;
         }    
             .theatre-one-image img {
                 width:100%;
@@ -5519,7 +5607,7 @@ a.appstore-link {
                             font-size:12px;
                             width:65%;
                         }
-                            .at-name a {
+                            .at-name a, .at-name span {
                                 text-transform:uppercase;
                                 display:block;
                                 color:#000;
@@ -5537,10 +5625,10 @@ a.appstore-link {
                         .at-day {
                             color:#7e7e7e;
                             font-size:12px;
-                            padding-right:10%;
+                            padding-right:7%;
                         }
                         .at-date {
-                            padding-right:5%;
+                            padding-right:8%;
                             white-space:nowrap;
                         }
                         
