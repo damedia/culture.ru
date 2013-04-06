@@ -281,7 +281,6 @@ sonata_media:
         file:
             resizer:    false
             filesystem: sonata.media.filesystem.local
-            generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format
             # Default set of allowed types doesn't include mp3.
             allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml', 'mp3']

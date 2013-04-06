@@ -163,3 +163,8 @@ armd_tag:
     resource: "@ArmdTagBundle/Controller/"
     type: annotation
     prefix: tag
+
+armd_poll:
+    resource: "@ArmdPollBundle/Controller/"
+    type: annotation
+    prefix: poll
