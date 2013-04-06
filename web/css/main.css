@@ -1089,9 +1089,9 @@ body {
 					position:relative;
 					z-index:10;
 				}
-				.featured ul.ui-tabs-nav li.ui-tabs-selected span, .featured ul.ui-tabs-nav li.ui-tabs-active span{ 
-					font-weight:bold;
-				}
+				/*.featured ul.ui-tabs-nav li.ui-tabs-selected span, .featured ul.ui-tabs-nav li.ui-tabs-active span{ */
+					/*font-weight:bold;*/
+				/*}*/
 					.featured ul.ui-tabs-nav li.ui-tabs-selected a i, .featured ul.ui-tabs-nav li.ui-tabs-active a i{
 						
 					}
@@ -1099,10 +1099,12 @@ body {
 				.featured .ui-tabs-panel{ 
 					background:#000;
 					position:relative;
+                    text-align: center;
+                    overflow: hidden;
 				}
 				.featured .ui-tabs-panel img {
-					width:100%;
-					height:auto;
+					width: auto;
+                    height: 100%;
 				}
 					
 
@@ -1114,6 +1116,7 @@ body {
 					background:url(../img/featured-over.png) repeat-x 0 0;
 					width:100%;
 					height:191px;
+                                        text-align: left;
 				}
 				.info-text {
 					position:absolute;
@@ -1313,8 +1316,9 @@ body {
 				.video-one-stats {
 					color:#6f6f6f;
 					font-size:13px;
+                    display: block;
 				}
-			
+
 			.video-one-stars {
 				float:right;
 				margin-top:13px;
@@ -1650,7 +1654,7 @@ body {
 					}
 		
 
-	/*OBRAZY*/
+	/*--- OBRAZY ---*/
 	.category-chooser {
 		display:inline-block;
 		vertical-align:top;
@@ -1851,8 +1855,19 @@ body {
         top: 0;
         z-index: 100;
     }
-		
-	/*MUSEUMS*/
+
+    .stuff .file-icon {
+        vertical-align: baseline;
+    }
+
+    .stuff .jp-audio ul, .stuff .jp-audio li {
+        display: inline;
+    }
+
+	/*--- /OBRAZY ---*/
+
+
+	/*--- MUSEUMS ---*/
 	.wide-plitka {
 		margin:0;
 	}
@@ -3516,13 +3531,10 @@ body {
 
 	#homepage-polls {
             padding-left: 30px;
-        }
-        
-        #people-culture-polls {
             margin-bottom: 30px;
         }
         
-        #people-culture-polls h3 {
+        #homepage-polls h3 {
             border-bottom: 1px solid #D9D9D9;
             color: #154060;
             font: 25px 'Trebuchet MS',sans-serif;
@@ -3530,29 +3542,42 @@ body {
             padding: 0;
         }
         
-        #people-culture-polls h3 span {
+        #homepage-polls h3 span {
             border-bottom: 3px solid #7791A4;
             display: inline-block;
             padding-bottom: 4px;
         }
-        
-        #people-culture-polls h4 {
+
+
+        #homepage-polls .poll-results-description {
             text-transform: uppercase;
+            font-size: 1em;
+            margin: 1.33em 0;
+            font-weight: bold;
         }
-        
-        #people-culture-polls ul {
-            list-style: none outside none;
-        }
-        
-        #people-culture-polls li {
+
+        #homepage-polls .controls label {
             color: #000000;
             font-weight: bold;
             font-size: 12px;
             line-height: 16px;
             margin-bottom: 16px;
+            display: block;
+        }
+
+        #homepage-polls .form-actions .poll-results-links {
+            display: none;
+        }
+
+        #homepage-polls .form-actions a {
+            font-size: 12px;
+        }
+
+        #homepage-polls ul {
+            list-style: none outside none;
         }
         
-        #people-culture-polls input[type="button"] {
+        #homepage-polls button {
             background-color: #fa9416;
             color: #ffffff;
             font-size: 12px;
@@ -3560,23 +3585,54 @@ body {
             padding: 5px 8px;
         }              
         
-        #people-culture-polls li div.cp_line {
-            background-color: #d9d9d9;
-            height: 10px;
-            float: left;
+
+
+        #homepage-polls .poll-results-row {
+            color: #000000;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 16px;
+            margin-bottom: 16px;
         }
-        
-        #people-culture-polls li div.cp_count {
-            color: #d9d9d9;
-            font-size: 18px;
-            position: relative;
-            top: -4px;
-            left: 5px;
-        }
-        
-        #people-culture-polls li label input {
-            vertical-align: -3px;
-        }
+
+            #homepage-polls .progress {
+                width: 80%;
+                overflow: visible;
+                white-space: nowrap;
+            }
+
+            #homepage-polls .progress .bar {
+                background-color: #d9d9d9;
+                height: 10px;
+                position: static;
+                box-shadow: none;
+                float: left;
+            }
+
+            #homepage-polls .poll-results-row.max .progress .bar {
+                background-color: #F79017;
+            }
+            #homepage-polls .poll-results-row.max .progress-vote-count {
+                color: #F79017;
+            }
+
+            #homepage-polls .progress-vote-count {
+                color: #d9d9d9;
+                font-size: 18px;
+                position: relative;
+                top: -4px;
+                left: 5px;
+            }
+
+
+            #homepage-polls .poll-results-row-answer {
+                clear: both;
+            }
+
+            #homepage-polls .poll-results-row-answer .vote-count {
+                display: none;
+            }
+
 	
 /*Timeline*/
 .time-line {
@@ -3608,6 +3664,11 @@ body {
             .time-line-nav li.inactive a {
                 color:#d4d4d4;
             }
+            
+            .time-line-nav li ul {
+                display:none;
+            }
+
             .time-line-nav li ul a {
                 font-weight: normal;               
             }
@@ -4674,7 +4735,34 @@ body {
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9a519', endColorstr='#f77b11',GradientType=0 ); /* IE6-9 */
 		}
 
-/* online translation */
+/* /online translation */
+
+
+/*--- NEWS ---*/
+.news-gallery li {
+    list-style: none;
+    display: inline-block;
+    width: 24%;
+    height: 107px;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.news-gallery-block h2 {
+    margin-bottom: 20px;
+}
+/*--- /NEWS ---*/
+
+
+/*--- BANNERS ---*/
+#banners-page h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+/*--- /BANNERS ---*/
+
 
 .long-border.type-1 {
 	margin-bottom: 15px;
@@ -4946,10 +5034,4 @@ a.appstore-link {
     }
 }
 
-
-#banners-page h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-}
 

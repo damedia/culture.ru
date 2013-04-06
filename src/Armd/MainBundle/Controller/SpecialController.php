@@ -48,7 +48,7 @@ class SpecialController extends Controller
                 ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
                 ObjectManager::CRITERIA_TAGS => $entity->getTags(),
                 ObjectManager::CRITERIA_RANDOM => true,
-                ObjectManager::CRITERIA_IDS_NOT => array($entity->getId()),
+                ObjectManager::CRITERIA_NOT_IDS => array($entity->getId()),
             )
         );    	
     	

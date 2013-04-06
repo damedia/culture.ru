@@ -17,6 +17,9 @@ services:
         tags:
           - { name: twig.extension }
 
+#    armd_media_helper.generator.original:
+#        class: Armd\MediaHelperBundle\Generator\OriginalGenerator
+
     armd_media_helper.configuration_pool:
         class: Armd\MediaHelperBundle\Pool\ConfigurationPool
 

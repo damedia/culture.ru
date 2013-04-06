@@ -10,7 +10,7 @@
     {% endif %}
 {% endfor %}
 
-<rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+<rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" xmlns:culture="http://culture.ru" version="2.0">
     <channel>
         <title>{{ title }}</title>
         <link>{{ link }}</link>
@@ -43,6 +43,9 @@
                 {% for image in i.gallery.galleryHasMedias %}
                     <enclosure url="{% path image.media, 'eventsBillboard' %}" type="{{ image.media.contentType }}" />
                 {% endfor %}
+            {% endif %}
+            {% if i.countryDistrict %}
+            <culture:federalDistrict>{{ i.countryDistrict.code }}</culture:federalDistrict>
             {% endif %}
         </item>
         {% endfor %}

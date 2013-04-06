@@ -19,7 +19,7 @@
             {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
             <div id="fragment-{{ loop.index }}" class="ui-tabs-panel" style="">
                 {#<img src="{% path n.image, 'eventsBillboard' %}">#}
-                <a href="{{ href }}">{% thumbnail n.image, 'eventsBillboard' %}</a>
+                <a href="{{ href }}">{% thumbnail n.image, 'billboard' %}</a>
                 <div class="info">
                     <div class="info-text">
                         <h2><a href="{{ href }}">{{ n.title|raw }}</a></h2>
