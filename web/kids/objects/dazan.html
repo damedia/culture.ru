@@ -12,6 +12,8 @@
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
 		
 		<link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
 		<link rel="stylesheet" href="js/canvas-puzzle/css/style.css" type="text/css" charset="utf-8" />
@@ -20,6 +22,9 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+        
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]-->
+        
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -27,27 +32,26 @@
         <![endif]-->
 
       
-<div class="wrapper dazan" id="wrapper">
+<div class="wrapper  temp dazan" id="wrapper">
    
-<div class="header-sky-bg">
+    <div class="header-sky-bg">
         <header class="main-header">
-            <section class="main-menu">
-                <nav>
-           <img src="img/child-main-menu.png" alt="" usemap="#Map">
-           <map name="Map">
-             <area shape="rect" coords="28,56,364,155" href="#9">
-             <area shape="circle" coords="100,229,36" href="../children.html">
-             <area shape="poly" coords="311,196,330,196,331,211,336,213,342,217,345,219,348,221,351,222,355,223,358,224,361,224,364,223,367,222,370,221,373,219,376,217,377,215,379,214,380,213,382,209,383,206,383,201,384,199,385,196,404,195,403,183,383,184,380,179,376,176,375,173,372,171,369,169,364,168,360,168,354,169,348,170,344,172,340,176,337,179,335,182,331,183,326,183,323,184,321,184,319,181,310,181" href="nevyansk.html" >
-             <area shape="poly" coords="467,89,480,88,486,89,488,81,490,77,492,73,494,69,497,67,502,64,508,61,511,61,516,61,521,61,524,62,529,64,533,67,536,71,537,74,539,79,541,84,542,89,542,90,545,91,555,91,560,93,563,96,563,104,543,104,539,105,537,106,535,108,532,110,530,112,528,113,526,114,522,116,519,116,513,117,509,116,505,115,502,114,501,112,499,111,496,108,493,106,493,103,490,103,486,103,483,103,477,105,467,104" href="index.html">
-             <area shape="poly" coords="687,143,687,156,706,157,713,162,717,164,720,165,725,167,727,168,731,168,735,167,737,167,743,164,746,161,748,159,749,158,751,157,757,157,762,157,766,157,772,157,775,156,775,150,775,145,767,143,760,141,758,133,755,129,751,125,750,122,748,119,746,117,742,115,738,114,734,113,729,112,723,113,716,114,712,116,708,120,706,123,703,129,702,135,701,141" href="kul-sharif.html">
-             <area shape="poly" coords="832,35,845,35,859,34,865,31,869,28,873,26,876,25,879,24,885,23,890,24,896,26,901,30,905,33,906,36,915,38,924,38,932,37,936,37,941,38,941,41,941,47,941,49,933,50,921,52,915,52,919,60,919,64,917,66,908,68,906,68,901,73,898,76,894,77,890,78,877,78,869,74,864,72,862,69,858,66,857,59,857,54,847,52,833,53" href="astrahan.html">
-             <area shape="poly" coords="1120,148,1120,136,1122,135,1132,137,1140,137,1148,137,1157,132,1162,128,1167,126,1173,124,1177,124,1182,124,1188,127,1191,128,1195,132,1196,135,1198,137,1214,138,1225,138,1234,139,1236,147,1236,158,1236,166,1226,167,1219,167,1201,168,1198,167,1194,172,1193,173,1189,175,1186,177,1181,178,1177,179,1174,178,1168,177,1162,174,1159,172,1156,168,1155,167,1150,167,1137,169,1119,167" href="rodina.html">
-             <area shape="poly" coords="870,215,869,202,879,203,897,203,902,198,909,193,913,191,916,189,920,188,926,188,931,189,934,190,938,193,940,197,941,198,943,200,946,202,954,203,967,204,971,204,972,215,952,215,948,222,946,226,946,229,945,231,942,235,939,238,937,240,930,242,926,243,922,243,917,243,914,242,910,240,907,238,905,236,899,229,898,226,897,225,897,222,896,219,897,216" href="dazan.html">
-             <area shape="poly" coords="973,329,973,317,981,317,991,318,996,318,999,313,1005,309,1007,308,1010,307,1014,306,1017,305,1020,305,1023,305,1028,306,1031,307,1033,308,1036,310,1039,312,1041,315,1042,316,1048,318,1061,317,1069,318,1068,332,1047,333,1045,345,1044,345,1041,349,1039,353,1037,355,1033,357,1029,358,1025,359,1018,359,1012,359,1011,359,1007,357,1005,354,1002,350,999,346,998,344,996,340,996,336,996,334,995,331" href="#7">
-             <area shape="circle" coords="633,372,30" href="arkaim.html">
-           </map>
-      </nav>
-       </section>
+            <nav class="top-menu">
+                <ul>
+                    <li class="culture-cloud"><a href="../children.html">Культура России</a></li>
+                    <li class="test-cloud temp-test-cloud"><a href="#puzzle1">Паззл</a></li>
+                    <li class="riddle-cloud"><a href="#puzzle2">Паззл</a></li>
+                    <li class="puzzle-cloud"><a href="#puzzle3">Паззл</a></li>
+                    <li class="difference-cloud temp-difference-cloud"><a href="#puzzle4">Паззл</a></li>
+                    <li class="top-back-link"><a href="../children.html">Обратно на карту</a></li>
+                </ul>
+            </nav>
+            <a href="#whant-more" class="fancybox l-more-link">
+                <span>Хочешь знать больше?</span>
+               <!-- <a href="#whant-more" class="fancybox">
+                   <b class="descr">Тогда почитай об Иволгинском дацане</b>-->
+               <!-- </a>-->
+            </a> 
 
                        
             <div class="main-description-block clearfix">
@@ -67,7 +71,7 @@
     </div> 
  <div class="state ">
         <div class="content">
-            <article class="case-1 clearfix">
+            <article class="case-1 clearfix" id="puzzle1">
                 <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-1.png" alt="" />
 					<div class="puzzle-description-text">
@@ -77,7 +81,7 @@
 					</div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/dacan/1.jpg" width="320"  class="puzzle"/>
@@ -88,7 +92,7 @@
 				
             </article>
 
-            <article class="case-2 clearfix">
+            <article class="case-2 clearfix" id="puzzle2">
                 <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-2.png" alt="" />
 					<div class="puzzle-description-text">
@@ -96,7 +100,7 @@
 					</div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/dacan/2.jpg" width="320"  class="puzzle"/>
@@ -106,7 +110,7 @@
 				</div>
             </article> 
 
-            <article class="case-3 clearfix">
+            <article class="case-3 clearfix" id="puzzle3">
                  <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-3.png" alt="" />
 					<div class="puzzle-description-text">
@@ -114,7 +118,7 @@
 					</div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/dacan/3.jpg" width="320"  class="puzzle"/>
@@ -124,7 +128,7 @@
 				</div>
             </article> 
 
-            <article class="case-4 clearfix">
+            <article class="case-4 clearfix" id="puzzle4">
                <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-4.png" alt="" />
 					<div class="puzzle-description-text">
@@ -132,7 +136,7 @@
 					</div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/dacan/4.jpg" width="320"  class="puzzle"/>
@@ -144,17 +148,17 @@
 
         </div><!-- //content-->
 
-       <nav class="footer-menu">
-            <img src="img/child-footer-menu.png" alt="" usemap="#Map2">
-            <map name="Map2">
-              <area shape="rect" coords="8,116,186,240" href="astrahan.html">
-              <area shape="rect" coords="217,133,381,245" href="arkaim.html">
-              <area shape="rect" coords="329,2,498,125" href="index.html">
-              <area shape="rect" coords="852,21,1023,198" href="#wrapper">
-              <area shape="rect" coords="1015,223,1189,350" href="#5">
-              <area shape="rect" coords="891,383,1070,569" href="dazan.html">
-              <area shape="rect" coords="289,278,476,431" href="rodina.html">
-            </map>
+        <nav class="footer-menu temp-footer-menu">
+            <ul>
+                <li class="footer-back-link return"><a href="../children.html">Обратно на карту</a></li>
+                <li class="footer-red-link a-kreml"><a href="astrahan.html">Астраханский<br />кремль</a></li>
+                <li class="footer-green-link a-kreml"><a href="arkaim.html">Аркаим</a></li>
+                <li class="footer-purple-link peter footer-purple-long-link"><a href="rodina.html">Мамаев курган<br />и Родина-мать</a></li>
+                <li class="footer-blue-link kulsharif"><a href="index.html">Московский<br />кремль</a></li>
+                <li class="footer-top-link top"><a href="#">Наверх</a></li>
+                <li class="footer-pink-link krstolb footer-pink-short-link"><a href="petergof.html">Петергоф</a></li>
+                <li class="footer-greenlight-link vlad"><a href="nevyansk.html">Невьянская<br />башня</a></li>
+            </ul>
         </nav>
 
     </div><!-- //state kremlin-->
@@ -162,7 +166,7 @@
 </div> <!-- //state-wrapper-->
 
 
-	<div id="puzzle-block" style="display:none;">
+	<div id="puzzle-block" class="mk-puzzle-block" style="display:none;">
 		<!-- JIGSAW CANVAS -->
 		<div id="canvas-wrap">
 		    <canvas id="canvas"></canvas>
@@ -173,24 +177,28 @@
 		<!-- GAME OPTIONS -->
 		<div id="game-options">
 		<ul>
-		    <li><b id="clock" class="button">00:00:00</b></li>
-		    <li><a href="#" id="SHOW_EDGE" class="button left" title="Показать крайние элементы">Боковые</a></li>
-		    <li><a href="#" id="SHOW_MIDDLE" class="button middle" title="Показать центральные элементы">Центральные</a></li>
-		    <li><a href="#" id="SHOW_ALL" class="button right" title="Показать все элементы">Все</a></li>
-		    <li><a href="#" id="JIGSAW_SHUFFLE" class="button left" title="Перемешать">Перемешать</a></li>
-		  <li><a href="#" id="SHOW_PREVIEW" class="button middle" title="Подсказка">Подсказка</a></li> 
-		    <li><a href="#" id="SHOW_HELP" class="button help right" title="Помощь">Помощь</a></li>
+		    <li class="game-button clock-counter"><b id="clock">00:00:00</b></li>
+		    <li class="game-button puzzle-elements edge-el"><a href="#" id="SHOW_EDGE" class=" " title="Показать крайние элементы">Боковые</a></li>
+		    <li class="game-button puzzle-elements midl-el"><a href="#" id="SHOW_MIDDLE" class=" " title="Показать центральные элементы">Центральные</a></li>
+		    <li class="game-button puzzle-elements all-el"><a href="#" id="SHOW_ALL" class=" " title="Показать все элементы">Все</a></li>
+		    <li class="game-button puzzle-shuffle"><a href="#" id="JIGSAW_SHUFFLE" class=" " title="Перемешать">Перемешать!</a></li>
+		    <li class="game-button puzzle-preview"><a href="#" id="SHOW_PREVIEW" class=" " title="Подсказка">Подсказка</a></li> 
+		    <li class="game-button puzzle-help"><a href="#" id="SHOW_HELP" class="" title="Как играть">Как играть</a></li>
 		    <!-- INSERT CUSTOM BUTTONS -->
 		    
 		    <!-- END INSERT CUSTOM BUTTONS -->
 		    <li>
-		        <div class="styled-select">
-		            <select id="set-parts" selected-index="8">
-		            </select>
-		        </div>
+		        
+                <select id="set-parts" selected-index="8" class="hide">
+                </select>
+		        <div class="set-parts-select" id="set-parts-select">
+                    <p class="chosen-option" id="chosen-option">12 элементов</p>
+                    <ul class="select-options" id="select-options" style="display:none;"></ul>
+                </div>
+                
 		    </li>
 		    <!-- Insert custom buttons here -->
-		    <li><a href="#" class="button" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
+		    <li><a href="#" class="" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
 		   <li style="display:none;"> <ul><li id="create" ><a href="#" class="button add" id="SHOW_FILEPICKER" title="Create puzzle" >Create puzzle</a></li></ul></li>
 		</ul>
 		<br class="clear"/>
@@ -199,8 +207,11 @@
 		<!-- MODAL WINDOW -->
 		<div class="hide" id="overlay"></div>
 		<div id="modal-window" class="hide">
-		    <div id="modal-window-msg"></div>
-		    <a href="#" id="modal-window-close" class="button">Закрыть</a>
+		    <div id="modal-window-msg">
+				
+			
+			</div>
+		    <a href="#" id="modal-window-close" class="close-button">Закрыть</a>
 		</div>
 		
 		<!-- CREATE PUZZLE -->
@@ -216,7 +227,7 @@
 		<!-- CONGRATULATION -->
 		<div id="congrat" class="hide">
 		    <h1>Поздравляем!</h1>
-		    <h2>Вы собрали пазл!</h2>
+		    <p>Вы собрали пазл!</p>
 		    <h3><span id="time"></span></h3>
 		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
 		        <label>
@@ -230,26 +241,33 @@
 		
 		
 		<!-- HELP -->
-		<div id="help" class="hide">
-		    <h2>Как играть</h2>
-		    <ul>
-		        <li>Выберите количество элементов с помощью селектора<br/>
-		            <img src="js/canvas-puzzle/images/selector.png"/>
-		        </li>
-		        
-		        <li>
-					Для того что бы начать заново, используйте кнопку «Перемешать».
+		<div id="help"  class="hide" >
+			<ul  class="mk-help">
+				<li>
+					<p class="mk-help-count">
+						ВЫБЕРИ КОЛИЧЕСТВО ЭЛЕМЕНТОВ С ПОМОЩЬЮ СЕЛЕКТОРА
+					</p>	
+				</li>
+				
+				<li>
+					<p class="mk-help-mix">
+						ХОЧЕШЬ НАЧАТЬ ЗАНОВО? НАЖМИ КНОПКУ «ПЕРЕМЕШАТЬ!»
+					</p>	
 				</li>
 				<li>
-                    Используйте подсказку.
-                </li>
+					<p class="mk-help-prev">
+						НЕ ПОЛУЧАЕТСЯ? НЕ БЕДА! ИСПОЛЬЗУЙ ПОДСКАЗКУ
+					</p>	
+				</li>
 		
-		        <li>Переключайтесь между центральными и боковыми элементами:<br>
-		            <img src="js/canvas-puzzle/images/toggle.png"/>
-		        </li>
-		    </ul>
-		    
-		    <h3>Удачи.</h3>
+				<li>
+					<p class="mk-help-el">
+						ТЫ МОЖЕШЬ ПОСМОТРЕТЬ ОТДЕЛЬНО БОКОВЫЕ И ЦЕНТРАЛЬНЫЕ ЭЛЕМЕНТЫ
+					</p>
+				</li>
+			</ul>
+			
+			<h3  class="mk-help-msg">Удачи!</h3>
 		</div>
 		
 		<form class="hide" method="post" id="redirect-form">
@@ -257,65 +275,136 @@
 		    <input type="text" name="parts" id="p" />
 		</form>
 		<iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
-		<!-- SCRIPTS ROMPECABEZAS -->
-		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
-		<script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
-		<script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="/static/children/puzzle/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
-		<script>
 		
-		$(document).ready(function(){
-			
-			var windowWidth = $(window).width(); //retrieve current window width
-			var windowHeight = $(window).height(); //retrieve current window height
-			var docScrollTop, docScrollLeft;	
-		
-			$(window).load(function(){
-				$('.puzzle-setka-wrap').each(function(){
-					var imageheight = $(this).find('img.puzzle').height();
-					$(this).height(imageheight).css('marginTop', -imageheight/2);
-				})
-			})	
-		
-		
-			var jsaw = new jigsaw.Jigsaw({
-		        defaultImage: "images/1.jpg",
-		        piecesNumberTmpl: "%d элементов",
-		        redirect: null,
-		        shuffled: true        
-		    });			
-			
-			$('img.puzzle-setka').click(function(){
-				docScrollTop = $(document).scrollTop();	
-			    docScrollLeft = $(document).scrollLeft();
-				$('body, html').css('overflow', 'hidden');
-				windowWidth = $(window).width();
-			    windowHeight = $(window).height();
-				
-				jsaw.set_image($(this).prev().attr('src'));
-				$('#puzzle-block').css({
-					'width':windowWidth,
-					'height':windowHeight
-				}).show();
-				//$('#puzzle-block-wrapper').show();
-				document.location.href = '#';
-				
-			});
-			
-			$('a#CLOSE_PUZZLE').click(function(){
-				$('#puzzle-block').hide();
-				$('body, html').css('overflow', 'visible').scrollTop(docScrollTop).scrollLeft(docScrollLeft);
-				
-				return false;
-			});
-		})
-		</script>
 	</div>
 
+    
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="whant-more want-more-dazan" id="whant-more">
+            <div class="whant-more-container want-more-dazan-container">
+                <a href="http://culture.ru/atlas/object/726" class="main-site-link" title="Узнать больше"></a>
+                <div class="window-text scroll-pane">
+                  <p>
+                    Иволгинский дацан, открытый недалеко от&nbsp;Улан-Удэ в&nbsp;1945&nbsp;году, сегодня называют
+                    духовной столицей буддистов России. Кроме того, это самый крупный буддийский
+                    комплекс на&nbsp;территории нашей страны. С&nbsp;его постройки началась история возрождения
+                    буддистской традиции в&nbsp;России, почти полностью уничтоженной в&nbsp;первые десятилетия
+                    советской власти.
+                    </p> <p>
+                    Буддизм в&nbsp;России появился в&nbsp;ХVIII&nbsp;веке. Однако на&nbsp;территории Тувы, которая была
+                    присоединена в&nbsp;1914&nbsp;году, буддизм исповедуют уже больше 700&nbsp;лет.
+                    </p> <p>
+                    На&nbsp;рубеже <nobr>XIX&ndash;XX</nobr> веков в&nbsp;азиатской части России проживало более 150&nbsp;000&nbsp;буддистов,
+                    существовало больше 150 сумэ (небольших храмов) и&nbsp;30&nbsp;дацанов. Однако после
+                    революции 1917 года на&nbsp;все религиозные конфессии, в&nbsp;том числе и&nbsp;на&nbsp;буддизм, начались
+                    гонения. Почти все буддийские храмы были закрыты или приспособлены под склады
+                    и&nbsp;здания государственных учреждений.
+                    </p> <p>
+                    Неожиданно для многих после окончания Великой Отечественной войны власти
+                    пошли на&nbsp;небольшие уступки. И&nbsp;хотя в&nbsp;восстановлении старинных дацанов XVIII века
+                    буддистской общине было отказано, власти выделили ей&nbsp;землю в&nbsp;болотистой местности
+                    неподалеку от&nbsp;поселка Верхняя Иволга, в&nbsp;30&nbsp;километрах от&nbsp;столицы Бурятии Улан-Удэ.
+                    Одна из&nbsp;зажиточных бурятских семей пожертвовала под храм собственный небольшой
+                    дом. Он&nbsp;обустраивался силами добровольцев и&nbsp;лам, также неожиданно амнистированных
+                    после войны. Именно из&nbsp;этой постройки впоследствии вырос Иволгинский дацан.
+                    </p> <p>
+                    &laquo;Түгэс Баясгалантай Үлзы Номой Хүрдын Хиид&raquo;&nbsp;&mdash; так полностью звучит название
+                    дацана на&nbsp;бурятском и&nbsp;переводится как &laquo;монастырь, где вращается колесо учения,
+                    полное радости и&nbsp;приносящее счастье&raquo;. В&nbsp;тибетской традиции дацанами принято
+                    называть &laquo;факультеты&raquo; буддистских университетов, в&nbsp;которых изучают философию
+                    и&nbsp;медицину при монастырях. Однако в&nbsp;России, вероятно, из-за долгих периодов
+                    изолированности буддизма от&nbsp;внешних влияний, за&nbsp;дацаном закрепилось значение
+                    не&nbsp;только университета, но&nbsp;и&nbsp;монастыря.
+                    </p> <p>
+                    Сегодня, много десятилетий спустя, Иволгинский дацан&nbsp;&mdash; это монастырский комплекс
+                    их&nbsp;восьми сооружений, включающих храмы, библиотеку, а&nbsp;также единственный
+                    в&nbsp;России буддистский университет, в&nbsp;котором изучают философию и&nbsp;традиционную
+                    тибетскую медицину. Слава о&nbsp;нем распространилась далеко за&nbsp;пределы России. И&nbsp;связано
+                    это не&nbsp;только с&nbsp;современным духовным образованием, но&nbsp;и&nbsp;с&nbsp;именем Даши-Доржо
+                    Итигэлова&nbsp;&mdash; главы буддистов России начала XX&nbsp;века, сподвижника Далай-ламы XIV.
+                    </p> <p>
+                    Итигэлов перед своей смертью в&nbsp;1927 году попросил монахов о&nbsp;двух вещах: читать
+                    о&nbsp;нем специальную заупокойную молитву и&nbsp;&laquo;навестить его тело через 30&nbsp;лет&raquo;. Монахи
+                    не&nbsp;решились читать подобную молитву при еще живом учителе. Тогда Итигэлов, заняв
+                    позу лотоса, сам начал ее&nbsp;читать и&nbsp;так ушел в&nbsp;лучший мир. Не&nbsp;меняя положения тела его
+                    похоронили в&nbsp;кедровом саркофаге в&nbsp;Хухэ-Зурхэн, неподалеку от&nbsp;Улан-Удэ. В&nbsp;1957&nbsp;году,
+                    к&nbsp;тому моменту, когда его осмотрели в&nbsp;первый раз, на&nbsp;территории нынешнего
+                    Иволгинского дацана уже стоял небольшой храм-сумэ и&nbsp;несколько домов для лам. На&nbsp;теле
+                    Итигэлова не&nbsp;было следов тления. После проведения обрядов и&nbsp;смены одеяния тело снова
+                    захоронили. В&nbsp;следующий раз нетленное тело Итигэлова подняли в&nbsp;1973 году и&nbsp;вновь
+                    захоронили.
+                    </p> <p>
+                    Дацан рос. Возникали новые храмы, увеличивалось количество монахов и&nbsp;лам. Буддизм
+                    в&nbsp;России стал возрождаться. В&nbsp;сентябре 2002 года саркофаг выкопали. Ученые, которые
+                    всегда скептически относятся к&nbsp;подобным историям, предложили сделать экспертизу тела.
+                    Она показала, что суставы Итигэлова остались подвижными, а&nbsp;кожа мягкой. Эксперты
+                    не&nbsp;смогли объяснить этот феномен. А&nbsp;монахи ответ знали и&nbsp;так. Они перенесли тело
+                    Итигэлова в&nbsp;дацан и&nbsp;вместе с&nbsp;добровольцами воздвигли для него специальную постройку,
+                    самую красивую во&nbsp;всем комплексе дацана.
+                    </p> <p>
+                    Сегодня паломники из&nbsp;близлежащих регионов и&nbsp;из&nbsp;других стран приезжают специально,
+                    чтобы увидеть нетленное тело двенадцатого Пандито Хамбо ламы. Считается, что
+                    Итигэлов помогает тем, кто его просит. А&nbsp;дацан продолжает развиваться, превратившись
+                    за&nbsp;несколько десятилетий из&nbsp;небольшого синего домика в&nbsp;монастырский комплекс.
+                    Со&nbsp;своей рощей бодхи и&nbsp;с&nbsp;живыми косулями, которые ежедневно слушают молитвы
+                    монахов, повторяющих слова Будды, сказанные 2500 лет назад.
+                    </p> <p>
+                    Пять вещей, которые нужно сделать в&nbsp;Иволгинском дацане
+                    </p>
+                    <ol><li>
+                    Обойти храм по&nbsp;часовой стрелке и&nbsp;покрутить барабаны &laquo;хурдэ&raquo;.<br />
+                    Согласно традиции, прежде чем войти в&nbsp;буддистский храм, его следует обойти
+                    кругом. По&nbsp;пути будут барабаны &laquo;хурдэ&raquo;, внутри которых лежат свитки
+                    с&nbsp;мантрами. Буддисты считают, что прокручивание этих барабанов равносильно
+                    молитве
+                    </li> <li>
+                    Поставить свечку.<br />
+                    В&nbsp;буддистских храмах ставят свечи особым образом. Внутри большой
+                    спирали благовоний закрепляют записку с&nbsp;именем, после чего ее&nbsp;поджигают
+                    и&nbsp;подвешивают к&nbsp;потолку. Когда бумажка колышется от&nbsp;дыма или ветра&nbsp;&mdash; это
+                    равносильно молитве
+                    </li> <li>
+                    Поговорить с&nbsp;ламой.<br />
+                    Ламы очень приветливы и&nbsp;могут ответить на&nbsp;любой вопрос, который вы&nbsp;бы
+                    им&nbsp;ни&nbsp;задали. Следует знать заранее, что после разговора принято делать
+                    небольшое пожертвование
+                    </li> <li>
+                   Сходить на&nbsp;прием к&nbsp;врачу.<br />
+                    В&nbsp;любом буддистском университете чаще всего обучают традиционной тибетской
+                    медицине. Врач продиагностирует болезни по&nbsp;пульсу, после чего сделает для вас
+                    лекарство из&nbsp;трав
+                    </li> <li>
+                    Увидеть Итигэлова.<br />
+                    Нетленное тело Пандито Хамбо ламы Итигэлова находится в&nbsp;отдельном здании
+                    дацана. Говорят, что если до&nbsp;него дотронуться, уходят недуги и&nbsp;сбываются
+                    желания
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    
+    
+
+        <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+        <script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="js/vendor/slides.min.jquery.js"></script>
+        <script src="js/vendor/cufon-yui.js"></script>
+        <script src="js/adventure_400.font.js"></script>            
+        <script src="js/quiz.js"></script>
         <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-
+        
+        
+        <!-- SCRIPTS ROMPECABEZAS -->
+		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<script src="../js/main.js"></script>
+        
+        
          <!--LiveInternet counter--><script type="text/javascript"><!--
 new Image().src = "//counter.yadro.ru/hit?r"+
 escape(document.referrer)+((typeof(screen)=="undefined")?"":

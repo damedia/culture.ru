@@ -131,6 +131,7 @@ Special:
     BodyClass: en
     AllNews: All News
     BackLink: Back
+    PrintLink: Print
     AllRussiaImages: All Russia Images
     Color: Color
     Background:
@@ -149,6 +150,7 @@ Special:
     Settings: Settings
     Address: culture.ru
     Search: Search
+    SearchThisSection: Search in current section
     Date: Date
     Images of Russia:
         More: More

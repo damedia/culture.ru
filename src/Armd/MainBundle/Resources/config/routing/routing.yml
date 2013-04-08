@@ -76,3 +76,12 @@ armd_main_login_links:
 armd_main_culture_polls:
     pattern: /culture-polls/
     defaults: { _controller: ArmdMainBundle:Main:peopleCulturePolls }
+
+armd_main_theatre:
+    pattern:  /theatre/
+    defaults: { _controller: ArmdMainBundle:Main:theatre }
+    
+armd_main_theatreone:
+    pattern:  /theatreone/
+    defaults: { _controller: ArmdMainBundle:Main:theatreone }
+    

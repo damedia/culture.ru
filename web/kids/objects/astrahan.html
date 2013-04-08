@@ -8,10 +8,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-
+        <!--meta name="viewport" content="width=device-width"-->
+        <meta name="viewport" content="width=1415">
+        <meta name="format-detection" content="telephone=no">
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/astrahan.css">
+        <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
 		
 		
 		<link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
@@ -20,10 +24,11 @@
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 		
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
 
-		
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]-->
+
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -31,140 +36,283 @@
         <![endif]-->
 
       
-<div class="wrapper astrahan" id="wrapper">
+<div class="wrapper astr" id="wrapper">
     <div class="header-sky-bg">
         <header class="main-header">
-            <section class="main-menu">
-                <nav>
-                   <img src="img/child-main-menu.png" alt="" usemap="#Map">
-                    <map name="Map">
-                     <area shape="rect" coords="28,56,364,155" href="#9">
-                      <area shape="circle" coords="100,229,36" href="../children.html">
-                     <area shape="poly" coords="311,196,330,196,331,211,336,213,342,217,345,219,348,221,351,222,355,223,358,224,361,224,364,223,367,222,370,221,373,219,376,217,377,215,379,214,380,213,382,209,383,206,383,201,384,199,385,196,404,195,403,183,383,184,380,179,376,176,375,173,372,171,369,169,364,168,360,168,354,169,348,170,344,172,340,176,337,179,335,182,331,183,326,183,323,184,321,184,319,181,310,181" href="nevyansk.html" >
-                     <area shape="poly" coords="467,89,480,88,486,89,488,81,490,77,492,73,494,69,497,67,502,64,508,61,511,61,516,61,521,61,524,62,529,64,533,67,536,71,537,74,539,79,541,84,542,89,542,90,545,91,555,91,560,93,563,96,563,104,543,104,539,105,537,106,535,108,532,110,530,112,528,113,526,114,522,116,519,116,513,117,509,116,505,115,502,114,501,112,499,111,496,108,493,106,493,103,490,103,486,103,483,103,477,105,467,104" href="index.html">
-                     <area shape="poly" coords="687,143,687,156,706,157,713,162,717,164,720,165,725,167,727,168,731,168,735,167,737,167,743,164,746,161,748,159,749,158,751,157,757,157,762,157,766,157,772,157,775,156,775,150,775,145,767,143,760,141,758,133,755,129,751,125,750,122,748,119,746,117,742,115,738,114,734,113,729,112,723,113,716,114,712,116,708,120,706,123,703,129,702,135,701,141" href="kul-sharif.html">
-                     <area shape="poly" coords="832,35,845,35,859,34,865,31,869,28,873,26,876,25,879,24,885,23,890,24,896,26,901,30,905,33,906,36,915,38,924,38,932,37,936,37,941,38,941,41,941,47,941,49,933,50,921,52,915,52,919,60,919,64,917,66,908,68,906,68,901,73,898,76,894,77,890,78,877,78,869,74,864,72,862,69,858,66,857,59,857,54,847,52,833,53" href="astrahan.html">
-                     <area shape="poly" coords="1120,148,1120,136,1122,135,1132,137,1140,137,1148,137,1157,132,1162,128,1167,126,1173,124,1177,124,1182,124,1188,127,1191,128,1195,132,1196,135,1198,137,1214,138,1225,138,1234,139,1236,147,1236,158,1236,166,1226,167,1219,167,1201,168,1198,167,1194,172,1193,173,1189,175,1186,177,1181,178,1177,179,1174,178,1168,177,1162,174,1159,172,1156,168,1155,167,1150,167,1137,169,1119,167" href="rodina.html">
-                     <area shape="poly" coords="870,215,869,202,879,203,897,203,902,198,909,193,913,191,916,189,920,188,926,188,931,189,934,190,938,193,940,197,941,198,943,200,946,202,954,203,967,204,971,204,972,215,952,215,948,222,946,226,946,229,945,231,942,235,939,238,937,240,930,242,926,243,922,243,917,243,914,242,910,240,907,238,905,236,899,229,898,226,897,225,897,222,896,219,897,216" href="dazan.html">
-                     <area shape="poly" coords="973,329,973,317,981,317,991,318,996,318,999,313,1005,309,1007,308,1010,307,1014,306,1017,305,1020,305,1023,305,1028,306,1031,307,1033,308,1036,310,1039,312,1041,315,1042,316,1048,318,1061,317,1069,318,1068,332,1047,333,1045,345,1044,345,1041,349,1039,353,1037,355,1033,357,1029,358,1025,359,1018,359,1012,359,1011,359,1007,357,1005,354,1002,350,999,346,998,344,996,340,996,336,996,334,995,331" href="#7">
-                     <area shape="circle" coords="633,372,30" href="arkaim.html">
-                   </map>
-              </nav>
-                <div class="main-description-block clearfix">
-                    <div class="main-image">
-                       <img src="img/astrahan/child-main-img-astrahan.png" alt="" />
-                    </div>
-                    <div class="main-description">
+            <nav class="top-menu">
+                <ul>
+                    <li class="culture-cloud"><a href="../children.html">Культура России</a></li>
+                    <li class="test-cloud"><a href="#quiz2">Угадай!</a></li>
+                    <li class="riddle-cloud"><a href="#find10">Найди отличия</a></li>
+                    <li class="puzzle-cloud"><a href="#puzzle">Паззлы</a></li>
+                    <li class="quizes-cloud"><a href="#quiz">Проверь себя</a></li>
+                    <li class="difference-cloud"><a href="#quiz1">Загадки</a></li>
+                    <li class="top-back-link"><a href="../children.html">Обратно на карту</a></li>
+                </ul>
+            </nav>
+            <a href="#whant-more" class="fancybox l-more-link">
+                <span>Хочешь знать больше?</span>
+               <!-- <a href="#whant-more" class="fancybox">-->
+                   <b class="descr">Тогда почитай<br />об Астраханском<br />Кремле</b>
+               <!-- </a>-->
+            </a>   
+                
+
+            <div class="main-description-block clearfix">
+                <div class="main-image">
+                    <img src="img/astrahan/child-main-img-astrahan1.png" alt="" />
+                </div>
+                <div class="main-description">
+                    <p>
+                        Астраханский кремль построили четыре века назад для защиты южных границ России. 
+                        <br /><br />
+                        Это была одна из&nbsp;самых мощных крепостей. Воины следили, не&nbsp;показался&nbsp;ли враг, с&nbsp;восьми укрепленных башен. Сегодня сохранились только семь из&nbsp;них. Самая высокая, Пречистенские ворота (или Колокольня), выше, чем три девятиэтажных здания, поставленных друг на&nbsp;друга..
+                    </p>
+                </div>
+            
+            </div>
+        </header>
+    </div>   
+    
+    <div class="road-wrap">
+        <div class="road-block">
+            <div class="road-left"></div>
+        </div>
+    </div>
+    <div class="state">
+
+        <div class="content">
+            <article class="case-1 clearfix" id="puzzle">
+                <div class="puzzle-description">
+                    <img src="img/astrahan/puzzle-header.png" alt="" class="puzzle-header" />
+                    <img src="img/astrahan/puzzle-tip.png" alt="" class="puzzle-tip" />
+                    <div class="puzzle-description-text">
                         <p>
-                            Астраханский кремль построили целых четыре века назад для защиты южных границ России. Это была одна из самых мощных крепостей. Воины следили, не показался ли враг, с восьми укрепленных башен. Сегодня сохранились только семь из них. Самая высокая, Пречистенские ворота (Колокольня), выше, чем три девятиэтажных здания, поставленных друг на друга.
+                           Поставь все фрагменты картинки на&nbsp;свои места, и&nbsp;узнаешь, как выглядят изнутри башенные часы. У&nbsp;них четыре циферблата, электромотор и&nbsp;плоский колокол. Часы начали работать 100 лет назад, в&nbsp;1912&nbsp;году. 
                         </p>
                     </div>
-                
+                    
                 </div>
-                
-            </section>
-        </header>
-    </div>    
-        
-    <div class="state">
-        <div class="content">
-            <article class="case-1 clearfix">
-                <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-1.png" alt="" />
-					<div class="puzzle-description-text">
-						<p>&nbsp;</p>
-					</div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/astrahan/1.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-				
+                <div class="puzzle-slider puzzle-init">
+                    <div class="puzzle-wrap">
+                        <div class="puzzle-setka-wrap-noresize">
+                            <img src="img/astrahan/puzzle.jpg" width="320"  class="puzzle"/>
+                            <img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
+                        </div>
+                    </div>
+                </div>
             </article>
 
             <article class="case-2 clearfix">
-                <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-2.png" alt="" />
-					<div class="puzzle-description-text">
-						<p>&nbsp;</p>
-					</div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/astrahan/2.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
+                <a name="quiz" class="quiz-link"></a>
+                <div class="test-yourself">
+                    <img src="img/astrahan/test-header.png" alt="" class="test-sign" />
+                    <a data-fancybox-type="iframe" data-fancybox-width="960" data-fancybox-height="580" href="astrahan-quiz.html" class="test-link fancybox-inframe" >
+                       Пройди тест<br />и узнай все<br />о крепости<br />и башнях!
+                    </a>
+                    
+                </div>
+                 
             </article> 
 
-            <article class="case-3 clearfix">
-                 <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-3.png" alt="" />
-					<div class="puzzle-description-text">
-						<p>&nbsp;</p>
-					</div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/astrahan/3.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
+            <article class="case-3  clearfix">
+                <a name="quiz1" class="quiz-link"></a>
+                <div class="image-qiuz">
+                    <div class="choice-result cbv-question-column">
+                        <div class="choice-no-result">
+                            <img src="img/astrahan/quiz-1/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>На&nbsp;сегодняшний день сохранилось семь из&nbsp;восьми башен Астраханского кремля. Четыре из&nbsp;них имеют выход только на&nbsp;территорию кремля, а&nbsp;в&nbsp;трех были устроены ворота.
+                            <br /><br />
+                            Найди башни, через которые можно попасть в&nbsp;Астраханский кремль!</p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-1.png" alt="" />
+                            <p>
+                               В Архиерейской башне<br />ворот нет...
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-2.png" alt=""  />
+                            <p>
+                               В Житной башне ворот нет...
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-3.png" alt=""  />
+                            <p>
+                               В Крымской башне ворот нет...
+                            </p>
+                        </div>  
+                        <div class="choice-4-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-4.png" alt=""  />
+                            <p>
+                               Правильно, в&nbsp;этой башне есть ворота!
+Сами астраханцы считали ее&nbsp;самой красивой и&nbsp;нарядной. Двенадцатигранная башня предназначалась для круговой обороны. 
+Ядро, выпущенное из&nbsp;пушки с&nbsp;этой башни, могло пролететь <nobr>200-300 метров!</nobr> Оригинальная башня была разобрана в&nbsp;конце 18&nbsp;века из-за ветхости. Ее&nbsp;заново отстроили по&nbsp;старинным чертежам в&nbsp;20&nbsp;веке.  
+                            </p>
+                        </div>  
+                        <div class="choice-5-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-5.png" alt=""  />
+                            <p>
+                               Правильно, в этой башне были ворота!
+К сожалению, она не дошла до нас в первозданном виде, ее неоднократно  перестраивали и изменяли во время ремонта. 
+                            </p>
+                        </div>  
+                        <div class="choice-6-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-6.png" alt=""  />
+                            <p>
+                               В Артиллерийской башне ворот нет..
+                            </p>
+                        </div>  
+                        <div class="choice-7-result invisible">
+                            <img src="img/astrahan/quiz-1/choice-7.png" alt=""  />
+                            <p>
+                               Правильно, в&nbsp;этой башне есть ворота!
+Колокольню над ними перестраивали три раза: первая колокольня 1710 года дала осадку и&nbsp;покрылась трещинами. 
+Вторая колокольня 1813 года грозилась упасть, и&nbsp;ее&nbsp;также разобрали. Ту&nbsp;колокольню, которую можно увидеть сейчас, построили в&nbsp;1910&nbsp;году.
+                            </p>
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        <div class="choice">
+                            <div class="choice-1" id="choice-1">
+                                <p>Архиерейская<br />башня</p>
+                            </div>
+                        </div>
+                        <div class="choice">
+                            <div class="choice-2" id="choice-2" >
+                                <p>житная<br />башня</p>
+                            </div>
+                        </div>
+                        <div class="choice">
+                            <div class="choice-3" id="choice-3" >
+                                <p>крымская<br />башня</p>
+                            </div> 
+                        </div>
+                        <div class="choice">
+                            <div class="choice-4" id="choice-4" >
+                                <p>башня<br />красные<br />ворота</p>
+                            </div> 
+                        </div>
+                        <div class="choice">
+                            <div class="choice-5" id="choice-5" >
+                             <p>никольская<br />башня</p>
+                            </div> 
+                        </div>
+                        <div class="choice">
+                            <div class="choice-6" id="choice-6" >
+                                <p>артиллерийская<br />башня</p>
+                            </div>    
+                        </div>
+                        <div class="choice">
+                            <div class="choice-7" id="choice-7" >
+                                <p>пречистенские<br />ворота</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </article> 
 
-            <article class="case-4 clearfix">
-               <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-4.png" alt="" />
-					<div class="puzzle-description-text">
-						<p>
-							Поставь все фрагменты картинки на свои места, и узнаешь, как выглядят изнутри  башенные часы. У них четыре циферблата, электромотор и плоский колокол. Часы начали работать 100 лет назад, в 1912 году.
-						</p>
-					</div>
-					
-				</div>
-				<div class="puzzle-slider">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="images/astrahan/4.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-            </article>                                  
-
+            <article class="case-4 clearfix" id="find10">
+                <div class="compare-side">
+                    <img src="img/astrahan/find10-header.png" alt="" />
+                     <div class="compare-found">Найдено <span  id="compare-found">0</span> <span class="compare-otl">отличий</span></div>
+                </div>
+                <div class="compare">
+                    <div class="compare-images">
+                        <div class="compare-image">
+                            <img src="img/astrahan/compare/1.jpg" alt="" />
+                            <div class="hidden-parts">
+                                <div class="astr_first_1 inv"></div> 
+                                <div class="astr_first_2 inv"></div> 
+                                
+                            </div>
+                        </div>
+                        <div class="compare-image">
+                            <img src="img/astrahan/compare/2.jpg" alt="" />
+                            <div class="hidden-parts">
+                                <div class="astr_sec_1 inv"></div> 
+                                <div class="astr_sec_2 inv"></div> 
+                                <div class="astr_sec_3 inv"></div> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            
+            <article class="case-5 count-block clearfix" id="quiz2">
+                <div class="choose-block-horizontal choose-block-smart">
+                    <div class="choice-result cbv-question-column">
+                        <div class="choice-no-result">
+                            <img src="img/astrahan/quiz-2/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>Угадай, какую мелодию дважды в&nbsp;день играют часы на&nbsp;башне в&nbsp;Астраханском кремле?</p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/astrahan/quiz-2/choose-wrong.png" alt="" />
+                            <p>
+                                Часы заработали сто лет назад, в&nbsp;1912&nbsp;году, когда группа The Beatles даже не&nbsp;существовала. Дважды в&nbsp;день, в&nbsp;полдень и&nbsp;в&nbsp;шесть часов вечера часы играют &laquo;Славься&raquo; Михаила Глинки.
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/astrahan/quiz-2/choose-wrong.png" alt=""  />
+                            <p>
+                                Часы заработали сто лет назад, в&nbsp;1912&nbsp;году, задолго до&nbsp;написания гимна нашей страны. Дважды в&nbsp;день, в&nbsp;полдень и&nbsp;в&nbsp;шесть часов вечера, часы играют &laquo;Славься&raquo; Михаила Глинки.
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/astrahan/quiz-2/choose-right.png" alt=""  />
+                            <p>
+                                Именно эта мелодия раздается в&nbsp;Астраханском кремле дважды в&nbsp;день, в&nbsp;полдень и&nbsp;в&nbsp;шесть часов вечера!
+                            </p>
+                            
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        <div class="choice">
+                            <img src="img/astrahan/quiz-2/1.png" alt="" class="choice-1" id="choice-1" />
+                            <p>«Yesterday»<br />группы The Beatles</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/astrahan/quiz-2/2.png" alt="" class="choice-2" id="choice-2" />
+                            <p>Гимн Российской<br />Федерации </p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/astrahan/quiz-2/3.png" alt="" class="choice-3" id="choice-3" />
+                             <p>«Славься»<br />Михаила Глинки </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            
+            <nav class="footer-menu">
+                <ul>
+                    <li class="footer-back-link return"><a href="../children.html">Обратно на карту</a></li>
+                    <li class="footer-red-link a-kreml"><a href="index.html">Московский<br />кремль</a></li>
+                    <li class="footer-green-link a-kreml"><a href="arkaim.html">Аркаим</a></li>
+                    <li class="footer-purple-link peter"><a href="petergof.html">Петергоф</a></li>
+                    <li class="footer-blue-link kulsharif"><a href="kul-sharif.html">Мечеть<br />Кул Шариф</a></li>
+                    <li class="footer-top-link top"><a href="#">Наверх</a></li>
+                    <li class="footer-pink-link krstolb"><a href="#">Красноярские столбы</a></li>
+                    <li class="footer-greenlight-link vlad"><a href="vladivostok.html">Владивостоксткая крепость</a></li>
+                </ul>
+            </nav>
         </div><!-- //content-->
 
-        <nav class="footer-menu">
-            <img src="img/child-footer-menu.png" alt="" usemap="#Map2">
-            <map name="Map2">
-              <area shape="rect" coords="8,116,186,240" href="astrahan.html">
-              <area shape="rect" coords="217,133,381,245" href="arkaim.html">
-              <area shape="rect" coords="329,2,498,125" href="index.html">
-              <area shape="rect" coords="852,21,1023,198" href="#state">
-              <area shape="rect" coords="1015,223,1189,350" href="#5">
-              <area shape="rect" coords="891,383,1070,569" href="dazan.html">
-              <area shape="rect" coords="289,278,476,431" href="rodina.html">
-            </map>
-        </nav>
+        <div class="elki-left"></div> 
+        <div class="elki-right"></div> 
+        <div class="elki-bottom"></div> 
 
-    </div><!-- //state kremlin-->
-
+    </div><!-- //state -->
+    
 </div> <!-- //state-wrapper-->
 
 
 
-	<div id="puzzle-block" style="display:none;">
+	<div id="puzzle-block" class="mk-puzzle-block" style="display:none;">
 		<!-- JIGSAW CANVAS -->
 		<div id="canvas-wrap">
 		    <canvas id="canvas"></canvas>
@@ -175,24 +323,28 @@
 		<!-- GAME OPTIONS -->
 		<div id="game-options">
 		<ul>
-		    <li><b id="clock" class="button">00:00:00</b></li>
-		    <li><a href="#" id="SHOW_EDGE" class="button left" title="Показать крайние элементы">Боковые</a></li>
-		    <li><a href="#" id="SHOW_MIDDLE" class="button middle" title="Показать центральные элементы">Центральные</a></li>
-		    <li><a href="#" id="SHOW_ALL" class="button right" title="Показать все элементы">Все</a></li>
-		    <li><a href="#" id="JIGSAW_SHUFFLE" class="button left" title="Перемешать">Перемешать</a></li>
-		  <li><a href="#" id="SHOW_PREVIEW" class="button middle" title="Подсказка">Подсказка</a></li> 
-		    <li><a href="#" id="SHOW_HELP" class="button help right" title="Помощь">Помощь</a></li>
+		    <li class="game-button clock-counter"><b id="clock">00:00:00</b></li>
+		    <li class="game-button puzzle-elements edge-el"><a href="#" id="SHOW_EDGE" class=" " title="Показать крайние элементы">Боковые</a></li>
+		    <li class="game-button puzzle-elements midl-el"><a href="#" id="SHOW_MIDDLE" class=" " title="Показать центральные элементы">Центральные</a></li>
+		    <li class="game-button puzzle-elements all-el"><a href="#" id="SHOW_ALL" class=" " title="Показать все элементы">Все</a></li>
+		    <li class="game-button puzzle-shuffle"><a href="#" id="JIGSAW_SHUFFLE" class=" " title="Перемешать">Перемешать!</a></li>
+		    <li class="game-button puzzle-preview"><a href="#" id="SHOW_PREVIEW" class=" " title="Подсказка">Подсказка</a></li> 
+		    <li class="game-button puzzle-help"><a href="#" id="SHOW_HELP" class="" title="Как играть">Как играть</a></li>
 		    <!-- INSERT CUSTOM BUTTONS -->
 		    
 		    <!-- END INSERT CUSTOM BUTTONS -->
 		    <li>
-		        <div class="styled-select">
-		            <select id="set-parts" selected-index="8">
-		            </select>
-		        </div>
+		        
+                <select id="set-parts" selected-index="8" class="hide">
+                </select>
+		        <div class="set-parts-select" id="set-parts-select">
+                    <p class="chosen-option" id="chosen-option">12 элементов</p>
+                    <ul class="select-options" id="select-options" style="display:none;"></ul>
+                </div>
+                
 		    </li>
 		    <!-- Insert custom buttons here -->
-		    <li><a href="#" class="button" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
+		    <li><a href="#" class="" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
 		   <li style="display:none;"> <ul><li id="create" ><a href="#" class="button add" id="SHOW_FILEPICKER" title="Create puzzle" >Create puzzle</a></li></ul></li>
 		</ul>
 		<br class="clear"/>
@@ -201,8 +353,11 @@
 		<!-- MODAL WINDOW -->
 		<div class="hide" id="overlay"></div>
 		<div id="modal-window" class="hide">
-		    <div id="modal-window-msg"></div>
-		    <a href="#" id="modal-window-close" class="button">Закрыть</a>
+		    <div id="modal-window-msg">
+				
+			
+			</div>
+		    <a href="#" id="modal-window-close" class="close-button">Закрыть</a>
 		</div>
 		
 		<!-- CREATE PUZZLE -->
@@ -217,8 +372,8 @@
 		
 		<!-- CONGRATULATION -->
 		<div id="congrat" class="hide">
-		    <h1>Поздравляем!</h1>
-		    <h2>Вы собрали пазл!</h2>
+		    <h1>Верно!</h1>
+		    <p>Эти часы были изготовлены на&nbsp;фабрике Ф.&nbsp;Винтера в&nbsp;Санкт-Петербурге. Они отбивают каждую четверть часа и&nbsp;каждый час, и&nbsp;дважды в&nbsp;день играют мелодию патриотической композиции Михаила Глинки &laquo;Славься&raquo;.</p>
 		    <h3><span id="time"></span></h3>
 		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
 		        <label>
@@ -232,26 +387,33 @@
 		
 		
 		<!-- HELP -->
-		<div id="help" class="hide">
-		    <h2>Как играть</h2>
-		    <ul>
-		        <li>Выберите количество элементов с помощью селектора<br/>
-		            <img src="js/canvas-puzzle/images/selector.png"/>
-		        </li>
-		        
-		        <li>
-					Для того что бы начать заново, используйте кнопку «Перемешать».
+		<div id="help"  class="hide" >
+			<ul  class="mk-help">
+				<li>
+					<p class="mk-help-count">
+						ВЫБЕРИ КОЛИЧЕСТВО ЭЛЕМЕНТОВ С ПОМОЩЬЮ СЕЛЕКТОРА
+					</p>	
+				</li>
+				
+				<li>
+					<p class="mk-help-mix">
+						ХОЧЕШЬ НАЧАТЬ ЗАНОВО? НАЖМИ КНОПКУ «ПЕРЕМЕШАТЬ!»
+					</p>	
 				</li>
 				<li>
-                    Используйте подсказку.
-                </li>
+					<p class="mk-help-prev">
+						НЕ ПОЛУЧАЕТСЯ? НЕ БЕДА! ИСПОЛЬЗУЙ ПОДСКАЗКУ
+					</p>	
+				</li>
 		
-		        <li>Переключайтесь между центральными и боковыми элементами:<br>
-		            <img src="js/canvas-puzzle/images/toggle.png"/>
-		        </li>
-		    </ul>
-		    
-		    <h3>Удачи.</h3>
+				<li>
+					<p class="mk-help-el">
+						ТЫ МОЖЕШЬ ПОСМОТРЕТЬ ОТДЕЛЬНО БОКОВЫЕ И ЦЕНТРАЛЬНЫЕ ЭЛЕМЕНТЫ
+					</p>
+				</li>
+			</ul>
+			
+			<h3  class="mk-help-msg">Удачи!</h3>
 		</div>
 		
 		<form class="hide" method="post" id="redirect-form">
@@ -259,66 +421,69 @@
 		    <input type="text" name="parts" id="p" />
 		</form>
 		<iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
-		<!-- SCRIPTS ROMPECABEZAS -->
-		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
-		<script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
-		<script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="/static/children/puzzle/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
-		<script>
 		
-		$(document).ready(function(){
-			
-			var windowWidth = $(window).width(); //retrieve current window width
-			var windowHeight = $(window).height(); //retrieve current window height
-			var docScrollTop, docScrollLeft;	
-		
-			$(window).load(function(){
-				$('.puzzle-setka-wrap').each(function(){
-					var imageheight = $(this).find('img.puzzle').height();
-					$(this).height(imageheight).css('marginTop', -imageheight/2);
-				})
-			})	
-		
-		
-			var jsaw = new jigsaw.Jigsaw({
-		        defaultImage: "images/1.jpg",
-		        piecesNumberTmpl: "%d элементов",
-		        redirect: null,
-		        shuffled: true        
-		    });			
-			
-			$('img.puzzle-setka').click(function(){
-				docScrollTop = $(document).scrollTop();	
-			    docScrollLeft = $(document).scrollLeft();
-				$('body, html').css('overflow', 'hidden');
-				windowWidth = $(window).width();
-			    windowHeight = $(window).height();
-				
-				jsaw.set_image($(this).prev().attr('src'));
-				$('#puzzle-block').css({
-					'width':windowWidth,
-					'height':windowHeight
-				}).show();
-				//$('#puzzle-block-wrapper').show();
-				document.location.href = '#';
-				
-			});
-			
-			$('a#CLOSE_PUZZLE').click(function(){
-				$('#puzzle-block').hide();
-				$('body, html').css('overflow', 'visible').scrollTop(docScrollTop).scrollLeft(docScrollLeft);
-				
-				return false;
-			});
-		})
-		</script>
 	</div>
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="whant-more want-more-astr" id="whant-more">
+            <div class="whant-more-container want-more-astr-container">
+                <a href="http://culture.ru/atlas/object/1465" class="main-site-link" title="Узнать больше"></a>
+                <div class="window-text scroll-pane">
+                    <p>
+Вот уже четыре века стоит на&nbsp;левом берегу дельты Волги Астраханский кремль. Построенный для защиты южных рубежей русского государства, он&nbsp;стал великолепным образчиком инженерно-фортификационного искусства конца XVI&nbsp;столетия, свидетелем и&nbsp;участником важных исторических событий. Сегодня Астраханский кремль&nbsp;&mdash; одна из&nbsp;немногих крепостей России, сохранивших свой средневековый облик.
+</p>  <p>
+В&nbsp;1552 году царь Иван IV&nbsp;покорил Казанское ханство. Четыре года спустя русское войско заняло Астрахань. С&nbsp;присоединением Среднего и&nbsp;Нижнего Поволжья Московское государство получило выход к&nbsp;Каспийскому морю, на&nbsp;новых землях стали появляться русские укрепления и&nbsp;города. Но&nbsp;на&nbsp;эти&nbsp;же территории претендовали Турция и&nbsp;Крымское ханство. Стремясь вытеснить русских с&nbsp;Поволжья, они нередко предпринимали совместные военные походы. Форпостом на&nbsp;пути продвижения турецко-татарских войск предстояло стать Астрахани.</p> <p>
+В&nbsp;1557 году астраханский воевода Иван Семенович Черемисинов решил перенести город ближе к&nbsp;низовьям Волги. Прежняя Астрахань располагалась примерно на&nbsp;12&nbsp;километров выше современной, на&nbsp;правом, нагорном берегу реки. Город окружали степи, и&nbsp;оборонять его в&nbsp;случае нападения было крайне неудобно. Местом для основания новой Астрахани Черемисинов выбрал высокий Заячий бугор на&nbsp;левом берегу Волги. Эта возвышенность, окруженная волжскими протоками и&nbsp;солончаковыми озерами, как нельзя лучше подходила для сооружения укреплений.
+</p> <p>
+В&nbsp;1558 году дьяк Разрядного приказа Иван Григорьевич Выродков выстроил на&nbsp;Заячьем бугре первую астраханскую крепость&nbsp;&mdash; деревянную с&nbsp;высокими засыпными стенами. В&nbsp;<nobr>1569-м</nobr> эта крепость выдержала осаду турецко-татарского войска. Однако необходимость в&nbsp;дальнейшем укреплении Астрахани была очевидной, и&nbsp;было решено построить каменный кремль.
+</p> <p>
+Московское правительство понимало всю важность Астрахани и&nbsp;заботилось о&nbsp;ее&nbsp;процветании. В&nbsp;дошедших до&nbsp;нас путевых заметках купцов английской &laquo;Московской компании&raquo; по&nbsp;этому поводу сообщалось: &laquo;Астрахань&nbsp;&mdash; самая отдаленная крепость, которую русский царь завоевал в&nbsp;сторону Каспийского моря; он&nbsp;старается, чтобы она была очень сильной, и&nbsp;ежегодно посылает туда людей, припасы и&nbsp;лес...&raquo; Для строительства каменного кремля в&nbsp;Астрахань отправили &laquo;казенных&raquo; ремесленников&nbsp;&mdash; каменщиков, плотников и&nbsp;кузнецов. Возведением приграничной крепости занялись мастера городового дела из&nbsp;Москвы&nbsp;&mdash; воевода Григорий Семенович Овцын, думный дворянин Михаил Иванович Вельяминов и&nbsp;думный дьяк Дей Губастый.
+</p> <p>
+К&nbsp;работам приступили в&nbsp;1582&nbsp;году. Чтобы ускорить строительство, решили брать старый, но&nbsp;крепкий кирпич с&nbsp;развалин разрушенных золотоордынских городов. В&nbsp;плане каменный кремль должен был повторять тот&nbsp;же прямоугольный треугольник, которым была выстроена деревянная крепость. Как свидетельствует &laquo;Ключаревская летопись&raquo;, мастерам предписывалось &laquo;поставить в&nbsp;кремле восемь башен, к&nbsp;наружному месту больше, а&nbsp;где менее беды, поменьше, но&nbsp;чтобы все были о&nbsp;трех бойницах, с&nbsp;выхода, где город будет на&nbsp;востоке, ставить выше и&nbsp;шире большую башню, чтобы можно было в&nbsp;ней проезжать...&raquo;.
+</p> <p>
+Астраханский кремль построили за&nbsp;семь лет. Общая протяженность его стен составила более 1,5&nbsp;километров. Стены усилили восемью боевыми башнями, три из&nbsp;которых&nbsp;&mdash; угловые. Одна из&nbsp;сторон кремля обращена к&nbsp;Волге. Всякому, кто подходил к&nbsp;городу со&nbsp;стороны реки, издали была видна громада Астраханской цитадели. Высота некоторых крепостных стен&nbsp;&mdash; более 11&nbsp;метров, толщина превышает 5&nbsp;метров, а&nbsp;высота башен достигает 17&nbsp;метров.
+</p> <p>
+Во&nbsp;время недавних археологических раскопок на&nbsp;территории Астраханского кремля обнаружены остатки жилищ, относящихся к&nbsp;VII&nbsp;веку. Ученые называют эту находку уникальной, поскольку ранее было принято считать, что от&nbsp;культурного слоя той эпохи следов не&nbsp;осталось.</p> <p>
+В&nbsp;своих основных чертах Астраханский кремль схож с&nbsp;укреплениями, строившимися в&nbsp;центральной части русского государства. Однако возводился он&nbsp;в&nbsp;соответствии с&nbsp;самыми новыми для того времени правилами фортификации и&nbsp;стал одной из&nbsp;наиболее мощных русских крепостей. Стены Астраханского кремля, как и&nbsp;многих других кремлей, венчались зубцами, прорези которых позволяли вести огонь против неприятеля из&nbsp;легкого огнестрельного оружия. Здесь&nbsp;же, на&nbsp;верхнем ярусе, были устроены &laquo;варницы&raquo;&nbsp;&mdash; отверстия, через которые на&nbsp;нападавших лили кипяток или горячую смолу. По&nbsp;традиции, на&nbsp;нижнем ярусе находились бойницы для тяжелых пушек. Новшеством стали бойницы среднего яруса. Они предназначались для стрельбы из&nbsp;пищалей и&nbsp;легких пушек и&nbsp;располагались в&nbsp;шахматном порядке относительно бойниц нижнего яруса. Это позволяло существенно повысить плотность огня. Ярусы бойниц, соединенные между собой лестницами, были устроены и&nbsp;в&nbsp;стенах башен. Каждая башня могла держать круговую оборону и&nbsp;венчалась деревянным шатром со&nbsp;сторожевой площадкой. Башни, резко выдвинутые вперед, позволяли вести огонь почти параллельно стенам кремля. Это сочетание плотного фронтального огня со&nbsp;стен и&nbsp;бокового со&nbsp;стороны башен создавало на&nbsp;ближних подступах к&nbsp;кремлю зону сплошного поражения, практически непреодолимую для противника.
+</p> <p>
+Из&nbsp;восьми башен, построенных в&nbsp;Астраханском кремле, до&nbsp;наших дней сохранились семь. Четыре из&nbsp;них&nbsp;&mdash; глухие: угловые Крымская, Архиерейская и&nbsp;Артиллерийская и&nbsp;расположенная в&nbsp;центре южной стены Житная. Все они имеют выход только во&nbsp;внутреннюю часть кремля. Три другие башни&nbsp;&mdash; проездные: Пречистенская, Красные и&nbsp;Никольские ворота. В&nbsp;каждой из&nbsp;них были устроены массивные деревянные ворота, окованные железом. Самой мощной считается Крымская башня, которая сохранилась в&nbsp;почти первоначальном виде. Высота ее&nbsp;стен превышает 17&nbsp;метров. Эта башня, расположенная в&nbsp;западном углу кремля, была обращена к&nbsp;Крымскому шляху, откуда всегда ожидали нападения. Она прикрывала стратегически важное направление. В&nbsp;ней было пять ярусов и&nbsp;20&nbsp;бойниц, размещенных на&nbsp;всех четырех сторонах. В&nbsp;Астраханском кремле размещался гарнизон, пороховые и&nbsp;артиллерийские склады, городская администрация. Под защитой крепостных стен было выстроено несколько храмов.
+</p> <p>
+Астраханский кремль едва&nbsp;ли не&nbsp;сразу оказался в&nbsp;центре весьма бурных исторических перипетий. Смутное время отмечено в&nbsp;Астрахани настоящим парадом самозванцев, бунтами и&nbsp;погромами. В&nbsp;1613 году в&nbsp;кремле, занятом шайкой атамана Ивана Заруцкого, укрылась Марина Мнишек. Годом позже незваных гостей изгнали из&nbsp;Астрахани. В&nbsp;память об&nbsp;этом событии к&nbsp;главной проезжей башне пристроили церковь во&nbsp;имя иконы Казанской Божьей Матери, а&nbsp;ворота стали называться Пречистенскими. Впоследствии эта башня была переделана в&nbsp;колокольню, которую не&nbsp;раз перестраивали, так что колокольня, существующая на&nbsp;этом месте сейчас, возведена в&nbsp;начале XX&nbsp;века. В&nbsp;1670 году Астраханский кремль при помощи поднявших мятеж местных жителей был захвачен войском Степана Разина. Лишь 17&nbsp;месяцев спустя правительству удалось вернуть Астрахань под свой контроль. По&nbsp;свидетельству современников, все эти события сопровождались &laquo;ужасной резней&raquo;. Для Астраханского кремля XVII век памятен не&nbsp;только восстаниями и&nbsp;расправами. В&nbsp;этом столетии крепость обрела первые каменные храмы. Еще в&nbsp;самом начале века деревянные строения Троицкого монастыря были заменены каменными. После пожара, случившегося в&nbsp;1623&nbsp;году, монастырь восстановили. Позже его неоднократно перестраивали, и&nbsp;сегодня Троицкий монастырь&nbsp;&mdash; это комплекс из&nbsp;трех храмов на&nbsp;одном подклете, сохранившийся в&nbsp;формах конца XVII&nbsp;&mdash; начала XVIII&nbsp;веков. В&nbsp;ансамбль Троицкого монастыря входит и&nbsp;Кирилловская часовня, построенная с&nbsp;его западной стороны в&nbsp;<nobr>1677-м.</nobr>
+</p> <p>
+Начало XVIII века принесло Астрахани и&nbsp;кремлю новые испытания. В&nbsp;1705 году стрельцы гарнизона и&nbsp;жители города, не&nbsp;принявшие петровских реформ и&nbsp;страдавшие от&nbsp;непосильных налогов, подняли восстание. На&nbsp;Соборной площади кремля был казнен астраханский воевода Тимофей Ржевский. Полгода спустя фельдмаршал Борис Петрович Шереметев подверг мятежный город артиллерийской бомбардировке и&nbsp;взял его штурмом. Восставшие отступили за&nbsp;стены кремля и&nbsp;заперлись в&nbsp;нем, но&nbsp;потом сдались на&nbsp;милость победителя.
+</p> <p>
+Пожалуй, самым значимым событием для Астраханского кремля стало строительство на&nbsp;его территории Успенского собора, начатое еще в&nbsp;1698&nbsp;году. Возвел его крепостной архитектор Дорофей Минеевич Мякишев. Этот собор простой кубической формы с&nbsp;пятью золочеными главами сразу привлекает внимание всех посетителей Астраханского кремля сдержанным благородством пропорций. Собор, освященный в&nbsp;1710&nbsp;году, имеет два храма: верхний&nbsp;&mdash; Успения Пресвятой Богородицы&nbsp;&mdash; и&nbsp;нижний&nbsp;&mdash; Сретенья Владимирской иконы Божьей Матери. С&nbsp;западной стороны к&nbsp;Успенскому собору примыкает Лобное место. Здесь зачитывались указы и&nbsp;сообщения о&nbsp;важнейших событиях в&nbsp;государстве.
+</p> <p>
+Два века прошли для Астраханского кремля относительно спокойно. Его здания ремонтировались, перестраивались, подновлялись. В&nbsp;<nobr>1729&ndash;1738</nobr> годах построили новые Никольские ворота с&nbsp;надвратной церковью. В&nbsp;конце XVIII столетия снесли башню &laquo;Красные ворота&raquo;, пришедшую в&nbsp;аварийное состояние. В&nbsp;начале XIX века появились здания Гауптвахты и&nbsp;Артиллерийского цейхгауза. В&nbsp;1828 году разобрали Архиерейскую башню, которая обветшала и&nbsp;грозила рухнуть. Через полтора десятка лет во&nbsp;время ремонта кремля ее&nbsp;восстановили, не&nbsp;придерживаясь прежних исторических форм.
+</p> <p>
+Астраханский кремль вновь оказался в&nbsp;водовороте судьбоносных событий в&nbsp;январе 1918&nbsp;года, когда на&nbsp;улицах города начались бои между сторонниками советской власти и&nbsp;астраханскими казаками. Засевших в&nbsp;кремле красноармейцев казаки обстреливали из&nbsp;артиллерийских орудий и&nbsp;пулеметов, установленных на&nbsp;крышах близлежащих зданий. Древние стены выдержали и&nbsp;это испытание. В&nbsp;советский период территория Астраханского кремля долго находилась в&nbsp;ведении военных. Чудом уцелели храмы кремля, которые неоднократно предлагалось снести. В&nbsp;середине&nbsp;XX века в&nbsp;кремле проводились большие реставрационные работы, благодаря которым многие его здания, требовавшие срочного ремонта, были спасены. Во&nbsp;время этой реставрации восстановили башню &laquo;Красные ворота&raquo;, вернули прежний облик Артиллерийской башне, Архиерейским палатам и&nbsp;зданию Консистории.
+</p> <p>
+В&nbsp;1974 году Астраханский кремль стал музеем, а&nbsp;в&nbsp;<nobr>1980-м</nobr> вошел в&nbsp;состав Астраханского государственного объединенного историко-архитектурного музея-заповедника. Сегодня музейные экспозиции позволяют познакомиться с&nbsp;бытом астраханского гарнизона, увидеть повседневные костюмы стрельцов, фузелеров и&nbsp;бомбардиров, элементы их&nbsp;вооружения и&nbsp;амуниции, выставки, посвященные истории народных восстаний и&nbsp;телесных наказаний. В&nbsp;2011 году после реставрации открылось помещение Гауптвахты, экспозиция которой рассказывает о&nbsp;жизни астраханского военного гарнизона XIX&nbsp;века.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+
+        <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+        <script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="js/vendor/slides.min.jquery.js"></script>
+        <script src="js/vendor/cufon-yui.js"></script>
+        <script src="js/adventure_400.font.js"></script>            
+        <script src="js/quiz.js"></script>
         <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        
+        
+        <!-- SCRIPTS ROMPECABEZAS -->
+		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<script src="../js/main.js"></script>
 
-         <!--LiveInternet counter--><script type="text/javascript"><!--
+    
+<!--LiveInternet counter--><script type="text/javascript"><!--
 new Image().src = "//counter.yadro.ru/hit?r"+
 escape(document.referrer)+((typeof(screen)=="undefined")?"":
 ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
@@ -344,6 +509,8 @@ var _gaq = _gaq || [];
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
-</script>
+</script>    
+        
+        
     </body>
 </html>

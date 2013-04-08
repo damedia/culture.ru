@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="css/normalize.min.css">
 
 <link rel="stylesheet" href="css/jquery.jscrollpane.css">
-<link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css"> 
+<link rel="stylesheet" href="js/fancybox/jquery.fancybox-1.3.4.css"> 
 
 
     
@@ -27,7 +27,20 @@
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+<script src="js/soundmanager2-nodebug-jsmin.js"></script>
+<script src="js/mp3-player-button.js"></script>
+<script type="text/javascript">
 
+    soundManager.setup({
+      url: '/kids/objects/js/swf/',
+      flashVersion: 9,
+       preferFlash: false,
+      onready: function() {
+        // Ready to use; soundManager.createSound() etc. can now be called.
+      }
+    });
+
+</script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -40,7 +53,7 @@
 <nav>
 <img src="img/symbol/top-menu.png" alt="" usemap="#Map">
 <map name="Map">
-<area shape="rect" coords="94,54,389,140" href="#cult" alt="Культура России" title="Культура России" />
+<area shape="rect" coords="94,54,389,140" href="../children.html" alt="Культура России" title="Культура России" />
 <area shape="rect" coords="1292,33,1369,103" href="#label-gerb" alt="Герб" title="Герб" />
 <area shape="rect" coords="595,156,910,227" href="../children.html" alt="Обратно на карту" title="Обратно на карту"    />
 <area shape="rect" coords="1176,263,1242,333" href="#label-flag" alt="Флаг" title="Флаг" />
@@ -61,7 +74,15 @@
 <p>Государственные символы&nbsp;— это особые отличительные знаки государства. </p>
 <p>У&nbsp;каждой страны они свои, установленные Конституцией или специальным законом. </p>
 <p>Государственные символы России&nbsp;— гимн, герб, флаг. </p>
-<p><img src="img/symbol/3flags.png" width="386" height="111"></p>
+<p>
+<img src="img/symbol/3flags.png" width="386" height="111" usemap="#symbols" />
+<map name="symbols">
+<area shape="rect" coords="5,5,91,96" href="#label-gimn" alt="Гимн" title="Гимн"    />
+<area shape="rect" coords="127,4,216,104" href="#label-gerb" alt="Герб" title="Герб" />
+<area shape="rect" coords="241,5,381,97" href="#label-flag" alt="Флаг" title="Флаг" />
+
+</map>
+</p>
 <p>В&nbsp;некоторых странах государственным символом также может быть девиз страны, столица или государственная печать.<br>
 </p>
 </div>
@@ -81,7 +102,7 @@
 <div class="content block">
 <div class="head">
 <img src="img/symbol/gerb-txt.png" width="210" height="134">
-<a href="#gerb-popup" class="fancybox"><img src="img/symbol/gerb-btn.png" width="144" height="134"></a></a></div>
+<a href="#gerb-popup" class="modal"><img src="img/symbol/gerb-btn.png" width="144" height="134"></a></a></div>
 
 <div class="text">
 <p>Российский герб очень красивый&nbsp;— двуглавый золотой орел на&nbsp;красном геральдическом щите. На&nbsp;головах орла&nbsp;— короны, и&nbsp;еще одна, побольше, сверху. </p>
@@ -100,7 +121,7 @@
 
 <div class="content block">
 <div class="head">
-<a href="#flag-popup" class="fancybox"><img src="img/symbol/flag-btn.png" width="132" height="160"></a></a>
+<a href="#flag-popup" class="modal"><img src="img/symbol/flag-btn.png" width="132" height="160"></a></a>
 <img src="img/symbol/flag-txt.png" width="157" height="160">
 </div>
 
@@ -126,9 +147,19 @@
 <img src="img/symbol/music.png" width="490" height="454"> </div>
 
 <div class="content block">
-<div class="head">
-<img src="img/symbol/gimn-txt.png" width="230" height="143">
-<a href="#gimn-popup" class="fancybox"><img src="img/symbol/gimn-btn-1.png" width="132" height="160"></a><a href="#gimn-text-popup" class="fancybox"><img src="img/symbol/gimn-btn-2.png" width="118" height="143"></a></div>
+<div class="head gimn-head">
+    <img src="img/symbol/gimn-txt.png" width="230" height="143" />
+    <a href="#gimn-popup" class="modal">
+        <img src="img/symbol/gimn-btn-1.png" width="132" height="160">
+    </a>
+    <a href="#gimn-text-popup" class="modal">
+        <img src="img/symbol/gimn-btn-2.png" width="118" height="143" />
+    </a>
+    
+    <a href="music/gimn.mp3" title="Прослушать гимн" class="sm2_button">
+        <span class="gimn-sound"></span>
+    </a>
+</div>
 
 <div class="text">
 <p>Государственный гимн&nbsp;— это самая главная торжественная песня о&nbsp;Родине. </p>
@@ -277,7 +308,7 @@
 
 <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
 <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
-<script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+<script src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <script src="js/vendor/slides.min.jquery.js"></script>
 <script src="js/vendor/cufon-yui.js"></script>
 <script src="js/adventure_400.font.js"></script> 

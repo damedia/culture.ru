@@ -61,6 +61,59 @@ class DefaultController extends Controller
 //            $this->createNotFoundException('Not found');
 //        }
     }
+    
+    /**
+     * @Route("/edu", name="armd_museum_edu", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Default:edu.html.twig")
+     */
+    public function eduAction()
+    {
+        $regionId = (int) $this->getRequest()->get('region', 0);
+        $regions = $this->getMuseumManager()->getDistinctRegions();
+        $categories = $this->getMuseumManager()->getCategories();
+
+        return array(
+            'regionId' => $regionId,
+            'regions' => $regions,
+            'categories' => $categories,
+        );
+    }
+    
+    /**
+     * @Route("/eduone", name="armd_museum_edu_one", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Default:edu_one.html.twig")
+     */
+    public function eduoneAction()
+    {
+        $regionId = (int) $this->getRequest()->get('region', 0);
+        $regions = $this->getMuseumManager()->getDistinctRegions();
+        $categories = $this->getMuseumManager()->getCategories();
+
+        return array(
+            'regionId' => $regionId,
+            'regions' => $regions,
+            'categories' => $categories,
+        );
+    }
+    
+
+    /**
+     * @Route("/guide", name="armd_museum_guide", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Default:guide.html.twig")
+     */
+    public function guideAction()
+    {
+        $regionId = (int) $this->getRequest()->get('region', 0);
+        $regions = $this->getMuseumManager()->getDistinctRegions();
+        $categories = $this->getMuseumManager()->getCategories();
+
+        return array(
+            'regionId' => $regionId,
+            'regions' => $regions,
+            'categories' => $categories,
+        );
+    }
+    
 
     /**
      * @return \Armd\MuseumBundle\Entity\MuseumManager

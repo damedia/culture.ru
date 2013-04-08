@@ -1,0 +1,333 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block title %}
+    {{ parent() }} — {{ 'Navigation.Virtual museums.Title'|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museums.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseums.init();
+        });
+    </script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_title %}
+    {{ "MuseumEdu"|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    {#
+    <div class="category-chooser" id="category-chooser">
+        <a href="#plitka" class="mus-plitka-icon active" title="Плитка">Плитка</a><a href="#list" class="mus-list-icon" title="Список">Список</a>
+    </div>
+    #}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
+            <div class="search-category-selects">
+                <select name="region" id="filter-region" class="uni">
+                    <option value="">{{ "search.museum"|trans }}</option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.place"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.edu"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.subject"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.skills"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block one_column %}
+    <div class="right-column">
+            
+        <section class="block">
+            <h2><span>Рекомендуем</span></h2>
+                <div class="recommend-block">
+                    <a href="/atlas/object/811"><img width="308" src="/img/museum-temp/rec.jpg"></a>
+
+                    <div class="recommend-over">
+                        <div class="recommend_name">
+                            <p><a href="/atlas/object/811">Серия акварелей Бёзана Хирасавы</a></p>
+                        </div>
+                        <p class="recommend-type"><a href="/atlas/russia-images/">МУЗЕЙНЫЙ ГИД</a></p>
+                    </div>
+                </div>
+        </section>
+        
+        <div class="block">
+            <section class="static-block virt-anons-black">
+                <h2>Виртуальный тур</h2>
+                <a href="http://eyera.dev.armd.ru/merc/peterhof/virtualtour.html" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                    <img src="/uploads/media/museum/0001/05/3e1a13da6d60956b01cb3ea812c5c3ed3879caab.jpeg" alt="" width="280">
+                    <span class="virt-tour-anons-over"></span>
+                </a>
+            </section>
+        </div>
+        
+        <div class="block">
+            <section class="static-block darker-anons">
+                <h2>Инфографика</h2>
+                <a class="fancybox" href="#infographics">
+                    <img width="280" src="/uploads/media/atlas/0001/08/thumb_7779_atlas_image3d.jpeg" alt="">
+                </a>
+            </section>
+        </div>
+        
+        <div class="right-video-block">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <article class="period-block">
+                            <h2>Нужный выбор</h2><a class="period-block_image" href="/lecture/view/926"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/14/thumb_13912_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>«Звезда»</h2><a class="period-block_image" href="/lecture/view/992"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/15/thumb_14205_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>«А зори здесь тихие», 2-я серия</h2><a class="period-block_image" href="/lecture/view/980"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/15/thumb_14192_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Цикл «Тайники Русского музея». Песни о России Бориса Кустодиева</h2><a class="period-block_image" href="/lecture/view/622"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12716_lecture_big.jpeg" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <article class="period-block">
+                            <h2>Томмасо Каларко. «Будущие квантовые технологии»</h2><a class="period-block_image" href="/lecture/view/328"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/09/thumb_8315_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 155070" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Людмила Сараскина. Спецкурс. «Достоевский. «Бесы»</h2><a class="period-block_image" href="/lecture/view/318"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/09/thumb_8304_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 155151" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Олег Федотов. «Поэзия Владимира Набокова» 1-я лекция</h2><a class="period-block_image" href="/lecture/view/194"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/09/thumb_8100_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 155166" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="period-block">
+                            <h2>Андрей Зализняк. «Берестяные грамоты». 1-я лекция</h2><a class="period-block_image" href="/lecture/view/117"><img height="189" src="http://culture.ru/ru/uploads/media/lecture/0001/08/thumb_7992_lecture_big.jpg" title="TV Culture brand_id:20898 video_cid: 156390" width="335"></a>
+
+                            <footer class="period-block_footer">
+                                <div class="tags">
+                                    <a href="/lecture/index/LECTURE_SUPER_TYPE_LECTURE/">Лекция</a>
+                                </div>
+                            </footer>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                
+        
+    </div>
+
+    <div class="left-column">
+        <div class="museum-education">
+            <ul class="museum-education-list">
+                <li>
+                    <img src="/img/museum-temp/edu1.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Курсы повышения квалификации для руководителей музеев ОУ</a></h3>
+                        <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                        <span class="me-list-place">МосгорСЮТур</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu2.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Праздничное мероприятие, посвященное Победе России в Отечественно войне 1812 года</a></h3>
+                        <span class="me-list-dates">04.11.12, 12:00</span>
+                        <span class="me-list-place">Музей-усадьба Люблино (дворец Н.А.Дурасова)</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Двухсотлетие Отечественной войны широко отпразднуют в Москве в 2012 году. В течение всего года в Москве будут проходить научные конференции и "круглые столы", посвященные исследованию событий 1812 -1814 годов и фальсификации истории.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu1.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Курсы повышения квалификации для руководителей музеев ОУ</a></h3>
+                        <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                        <span class="me-list-place">МосгорСЮТур</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu2.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Праздничное мероприятие, посвященное Победе России в Отечественно войне 1812 года</a></h3>
+                        <span class="me-list-dates">04.11.12, 12:00</span>
+                        <span class="me-list-place">Музей-усадьба Люблино (дворец Н.А.Дурасова)</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Двухсотлетие Отечественной войны широко отпразднуют в Москве в 2012 году. В течение всего года в Москве будут проходить научные конференции и "круглые столы", посвященные исследованию событий 1812 -1814 годов и фальсификации истории.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu1.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Курсы повышения квалификации для руководителей музеев ОУ</a></h3>
+                        <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                        <span class="me-list-place">МосгорСЮТур</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu2.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Праздничное мероприятие, посвященное Победе России в Отечественно войне 1812 года</a></h3>
+                        <span class="me-list-dates">04.11.12, 12:00</span>
+                        <span class="me-list-place">Музей-усадьба Люблино (дворец Н.А.Дурасова)</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Двухсотлетие Отечественной войны широко отпразднуют в Москве в 2012 году. В течение всего года в Москве будут проходить научные конференции и "круглые столы", посвященные исследованию событий 1812 -1814 годов и фальсификации истории.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu1.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Курсы повышения квалификации для руководителей музеев ОУ</a></h3>
+                        <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                        <span class="me-list-place">МосгорСЮТур</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Каким должен быть музей: воркшопы Джо Марш и Сесилии Мартин из Jane Wentworth Associates. Как Tate modern удалось стать не просто музеем современного искусства, а одним из главных мест силы Лондона.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/edu2.jpg" alt="" class="me-list-image" />
+                    <div class="me-list-text">
+                        <h3><a href="#" class="me-list-title">Праздничное мероприятие, посвященное Победе России в Отечественно войне 1812 года</a></h3>
+                        <span class="me-list-dates">04.11.12, 12:00</span>
+                        <span class="me-list-place">Музей-усадьба Люблино (дворец Н.А.Дурасова)</span>
+                        <a href="#" class="me-list-region">Москва</a>
+                        <p>
+                            Двухсотлетие Отечественной войны широко отпразднуют в Москве в 2012 году. В течение всего года в Москве будут проходить научные конференции и "круглые столы", посвященные исследованию событий 1812 -1814 годов и фальсификации истории.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="more more3">
+                <p><a href="#">Смотреть еще</a></p>
+            </div>
+        </div>
+    
+    </div>
+    
+
+    
+{% endblock %}

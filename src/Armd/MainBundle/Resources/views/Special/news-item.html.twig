@@ -3,6 +3,22 @@
 {{ parent() }}
 	<link href="{{ asset('css/blind_tabs.css') }}" rel="stylesheet" />
 {% endblock %}
+
+{% block menu %}
+    <ul class="main-navigation clearfix" title="{{ 'Main menu'|trans }}">
+        {% if app.request.locale == 'ru' %}
+            <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
+            <li class="active"><a href="{{ path('armd_main_special_press') }}">{{ 'menu.news_index'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>
+        {% else %}
+            <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
+            <li class="active"><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
+            <li><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
 {% block body%}
 {% set n = entity %}
 {% set f = n.date %}
@@ -22,6 +38,7 @@
 		</article>
        
 	</div>
+     <p class="print-link obj-print-link"><a href="{{ path('armd_main_special_news_item_by_category_print',  {'id': n.id, 'category': n.category.slug }) }}"  target="_blank">{{ 'Special.PrintLink'|trans }}</a></p>
      <p class="back-link"><a href="javascript:history.back()">{{ 'Special.BackLink'|trans }}</a></p>
-     <p><a href="{{ path('armd_main_special_news_item_by_category_print',  {'id': n.id, 'category': n.category.slug }) }}" target="_blank">{{ 'Printversion'|trans }}</a></p>
+     
 {% endblock %}

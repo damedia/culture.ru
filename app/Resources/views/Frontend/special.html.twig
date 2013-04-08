@@ -14,39 +14,6 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
 			<link rel="stylesheet" href="{{ asset('css/blind.css') }}">
-			<style>
-				.search-checkboxes {
-					display:none;
-					position:absolute;
-					top:185px;
-					left:20;
-					background:#f6f6f6;
-					width:202px;
-					padding-bottom:5px;
-							
-				}
-				.search-checkboxes label {
-					display:block;
-					position:relative;
-					padding-left:20px;
-					margin:0 4px;
-								
-				}
-				.search-checkboxes input {
-					position:absolute;
-					top:5px;
-					left:0;
-					margin:0;
-					padding:0;
-					width:15px;
-					height:15px;
-				}
-				.search-checkboxes span {
-					color:#5b5b5b;
-					text-transform:uppercase;
-					font-size:10px;
-				}				
-			</style>
 		{% endblock %}
 		
 		{% block javascripts %}
@@ -97,7 +64,7 @@
 							<p>{{ 'Special.Color'|trans }}:</p>
 							<ul class="color-picker">
 								<li id="white-color">
-									<span title="{{ 'Special.Background.Black'|trans }}" class="active">В</span>
+									<span title="{{ 'Special.Background.White'|trans }}" class="active">В</span>
 								</li>
 								<li id="black-color">
 									<span title="{{ 'Special.Background.Black'|trans }}">В</span>
@@ -165,7 +132,7 @@
 					{% endblock %}
 				</nav>
 			</header>
-			<div class="content">
+			<div class="content clearfix">
 				{% block body %}
 				&nbsp;
 				{% endblock %}

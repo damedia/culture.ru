@@ -58,6 +58,19 @@
                 $('.get-diplom').click(function(){
                     var thisSlide = $(this).closest('.slide'),
                         thisName = $(this).prev('input').val();
+                    showDiplom(thisSlide, thisName);
+                     return false;
+                    
+                })
+                $('.name-text').submit(function(){
+                    var thisSlide = $(this).closest('.slide'),
+                        thisName = $(this).find('input').val();
+                    showDiplom(thisSlide, thisName)    
+                    return false;
+                    
+                })
+                
+                function showDiplom(thisSlide, thisName) {
                     if($.trim(thisName) !='') {
                         thisSlide.hide();
                         thisSlide.next().find('.winner-name').html(thisName);    
@@ -66,9 +79,7 @@
                     } else {
                         alert('Введите имя');
                     }
-                     return false;
-                    
-                })
+                }
                 
         		
         	});
