@@ -20,7 +20,13 @@ class ContentFillerFactory extends ContainerAware
     {
         if ($mailingList->getType() == MailingList::TYPE_NEW_NEWS) {
             return array(
-                $this->container->get('armd_subscription.content_filler.new_news')
+                $this->container->get('armd_subscription.content_filler.new_news'),
+            );
+        } elseif ($mailingList->getType() == MailingList::TYPE_NEW_CONTENT) {
+            return array(
+                $this->container->get('armd_subscription.content_filler.new_news'),
+                $this->container->get('armd_subscription.content_filler.new_lectures'),
+                $this->container->get('armd_subscription.content_filler.new_atlas_objects'),
             );
         } else {
             return array();

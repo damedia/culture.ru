@@ -6,6 +6,16 @@ services:
         arguments:
             - @doctrine.orm.default_entity_manager
 
+    armd_subscription.content_filler.new_lectures:
+        class: Armd\SubscriptionBundle\Service\LectureContentFiller
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    armd_subscription.content_filler.new_atlas_objects:
+        class: Armd\SubscriptionBundle\Service\AtlasContentFiller
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
     armd_subscription.content_filler_factory:
         class: Armd\SubscriptionBundle\Service\ContentFillerFactory
         calls:

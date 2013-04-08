@@ -10,4 +10,22 @@
     {{ news.announce }}
 
 {% endfor %}
+
+Лекции
+
+{% for lecture in latestLectures %}
+    {{ lecture.title }}
+
+    {{ lecture.description }}
+
+{% endfor %}
+
+Атлас
+
+{% for object in latestObjects %}
+    {{ object.title }}
+
+    {{ object.announce }}
+
+{% endfor %}
 {{ mailingList.issueSignature }}
