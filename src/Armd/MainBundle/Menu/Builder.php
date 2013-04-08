@@ -64,6 +64,13 @@ class Builder extends ContainerAware
                     'route' => 'armd_museum_index'
                 )
             );
+            
+            $mainMenu->addChild(
+                'menu.art_objects',
+                array(
+                    'route' => 'armd_exhibit_list'
+                )
+            );
 
             $mainMenu->addChild(
                 'menu.atlas',

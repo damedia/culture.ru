@@ -1,3 +1,8 @@
+armd_exhibit:
+    resource: "@ArmdExhibitBundle/Controller/"
+    type:     annotation
+    prefix:   /exhibit
+
 armd_paper_archive:
     resource: "@ArmdPaperArchiveBundle/Controller/"
     type:     annotation

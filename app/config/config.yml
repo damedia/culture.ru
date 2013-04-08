@@ -228,6 +228,7 @@ sonata_media:
                 billboard: { width: 213 }
                 searchAllResult: { width: 160, height: 107 }
                 banner: { width: 922 }
+                realSmall: { width: 285 }
 
         gallery:
             download:
@@ -262,6 +263,18 @@ sonata_media:
             formats:
                 default: { width: 278 }
                 broadcastW600: { width: 600 }
+                
+        exhibit:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: { width: 600 }
+                smallThumbnail: { width: 40 }
+                smallZoom: { width: 127 }
+                small: { width: 200 }
 
     cdn:
         server:
