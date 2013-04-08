@@ -1,0 +1,41 @@
+{% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
+
+		{% for entity in list %}
+			<div class="plitka-one-wrap">
+				<div class="plitka-one">
+					<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" class="plitka-one-image-wrapper" title="{{ entity.title|escape }}" target="_blank">
+						<div class="plitka-one-image">
+							{% if entity.perfomanceVideo %}
+								{{ perfomanceMacro.perfomanceThumbnail(entity, 'lectureW160H120', {'alt': entity.title|escape}) }}
+							{% elseif entity.image %}
+								{% media entity.image, 'perfomanceW160H120' with {'alt': entity.title|escape} %}
+							{% endif %}
+						</div>
+					</a>
+					
+					<div class="plitka-text">
+						<span class="plitka-name">
+							<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" title="{$entity.title|escape}" target="_blank">
+								{{ entity.title|raw }}
+							</a>
+						</span>
+						<span class="three-row-link">
+							<a href="#">Театр</a>
+						</span>
+					</div>
+					
+					<div class="plitka-footer">
+						<div class="tags">
+							{% if entity.ganres|length > 0 %}
+								{% for ganre in entity.ganres %}
+									<a href="{{ path('armd_perfomance_list', {'ganreId': ganre.id }) }}">{{ ganre.title }}</a>{% if entity.ganres|length > 1 and not(loop.last) %}, {% endif %}
+								{% endfor %}
+							{% endif %}
+						</div>
+						<p class="views">
+							Просмотров: {{ entity.viewCount }}
+						</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}

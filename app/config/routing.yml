@@ -1,3 +1,7 @@
+armd_perfomance:
+    resource: "@ArmdPerfomanceBundle/Resources/config/routing.yml"
+    prefix:   /
+
 armd_paper_archive:
     resource: "@ArmdPaperArchiveBundle/Controller/"
     type:     annotation
@@ -134,6 +138,11 @@ armd_lecture:
     resource: "@ArmdLectureBundle/Controller/"
     type:     annotation
     prefix:   /lecture
+    
+armd_perfomance:
+    resource: "@ArmdPerfomanceBundle/Controller/"
+    type:     annotation
+    prefix:   /perfomance    
     
 armd_user_bundle:
     resource: "@ArmdUserBundle/Controller/AuthenticationController.php"

@@ -16,34 +16,37 @@
 {% endblock %}
 
 {% block body%}
-<div class="rusObr-block">
-    {% if objects|length > 0 %}
-        <ul class="rusObr-list clearfix">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'special-list', 'limit': 24, 'region_id': 0, 'search_text': '' }) %}
-        </ul>    
-    {% else %}
-        <strong>{{ 'No objects'|trans }}</strong>
-    {% endif %}
-</div>
-
-<div class="more more2">
-    <p>
-        <a href="#" id="show-more">{{ "show_more"|trans }}</a>
-    </p>
-</div>
+	<div class="rusObr-block">
+	    {% if objects|length > 0 %}
+	        <ul class="rusObr-list clearfix">
+	            {% render url('armd_atlas_russia_images_list', { 'templateName': 'special-list', 'limit': 24, 'region_id': 0, 'search_text': '' }) %}
+	        </ul>    
+	    {% else %}
+	        <strong>{{ 'No objects'|trans }}</strong>
+	    {% endif %}
+	</div>
+	
+	<div class="more more2">
+	    <p>
+	        <a href="#" id="show-more">{{ "show_more"|trans }}</a>
+	    </p>
+	</div>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     
-<script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/routing?callback=fos.Router.setData') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdatlas/js/russia_images_special.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             armdMkRussiaImages.init();
         });
     </script>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
 {% endblock %}

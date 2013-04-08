@@ -23,3 +23,22 @@
     <h1>{{ 'menu.news_index'|trans }}</h1>
 	{% include "ArmdMainBundle:Special:news-blind.html.twig" with {"categories": categories, "news": news} %}
 {% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_special.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            armdMkNews.init();
+            {% if searchQuery is not empty %}
+                armdMkNews.initMoreButtonToLoadSearch();
+            {% endif %}
+        });
+    </script>
+{% endblock %}

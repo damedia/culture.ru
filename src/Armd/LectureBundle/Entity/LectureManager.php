@@ -100,9 +100,10 @@ class LectureManager extends ListManager
             $qb->andWhere('_lecture.isTop100Film = TRUE');
         }
 
-//        if (!empty($criteria[self::CRITERIA_FIRST_LETTER])) {
-//            $qb->andWhere('_lecture.title = :');
-//        }
+        if (!empty($criteria[self::CRITERIA_FIRST_LETTER])) {
+            $qb->andWhere("SUBSTRING(TRIM(LEADING ' .\"«' FROM _lecture.title), 1, 1) = :first_letter")
+                ->setParameter('first_letter', $criteria[self::CRITERIA_FIRST_LETTER]);
+        }
     }
 
     public function findObjectsWithSphinx($criteria) {

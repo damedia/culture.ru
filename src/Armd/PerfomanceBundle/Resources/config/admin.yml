@@ -1,0 +1,15 @@
+services:
+
+    armd_perfomance.sonata_admin.perfomance:
+        class: Armd\PerfomanceBundle\Admin\PerfomanceAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Perfomance, label: Perfomances, show_in_dashboard: true }
+        arguments: [null, Armd\PerfomanceBundle\Entity\Perfomance, SonataAdminBundle:CRUD]
+        calls:
+            - [ setContainer, [ @service_container ] ]
+            
+    armd_perfomance.sonata_admin.perfomance_ganre:
+        class: Armd\PerfomanceBundle\Admin\PerfomanceGanreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Perfomance, label: Perfomance ganres, show_in_dashboard: true }
+        arguments: [null, Armd\PerfomanceBundle\Entity\PerfomanceGanre, SonataAdminBundle:CRUD]            

@@ -1717,7 +1717,34 @@ body {
 		.breadcrumbs li a:hover { background: #f5902d; color:#fff;}
 		.breadcrumbs li a:hover:after { border-left-color: #f5902d !important; }
 		
+    /*Select Filter*/        
+	
+    #perfomance_ganre {
+        width: 300px;
+    }
+        #ui-perfomance_ganre {
+            width: 204px;
+        }
+
+        #ui-perfomance_ganre .ui-selectgroup-copy {
+            width: 173px;
+        }
+
+        .ui-selectgroup-list[aria-labelledby=ui-perfomance_ganre] {
+            width: 204px;
+        }
         
+    #perfomance_theater {
+        width: 300px;
+    }
+        #ui-perfomance_theater {
+            width: 204px;
+        }
+
+        #ui-perfomance_theater .ui-selectgroup-copy {
+            width: 173px;
+        }
+                
     /*Sort Filter*/
     .sort-filter {
         font-size:12px;
@@ -1925,6 +1952,178 @@ body {
         
         
 
+        .ui-selectgroup-list[aria-labelledby=ui-perfomance_theater] {
+            width: 204px;
+        }        
+        	
+    /*Sort Filter*/
+    .sort-filter {
+        font-size:12px;
+        margin: 24px 0 2px;
+    }  
+        .sort-filter span, .sort-filter a {
+            display:inline-block;
+            vertical-align:top;
+        }
+        .sort-filter span {
+            color:#989898;
+            margin-right:7px;
+        }
+        .sort-filter a {
+            font-weight:bold;
+            text-decoration:none;
+            border-bottom:1px dashed #000;
+            color:#000;
+            margin-right:7px;
+        }
+        .sort-filter a.active {
+            border-bottom:2px solid #f5902d;
+        }
+    
+    .perfomances-list {
+        
+    } 
+        .perfomances-list .plitka-one  {
+            padding: 14px 14px 8px 14px;
+        }
+        .perfomances-list .plitka-one-wrap {
+            float:none;
+            display:inline-block;
+            vertical-align:top;
+            height:auto !important;
+            *display:inline;
+            *zoom:1;
+            
+        }
+            .perfomances-list .plitka-one-image {
+                display:block;
+                height: 121px;
+                overflow:hidden;
+            }
+            .perfomances-list img  {
+                width:165px;
+                height:auto;
+            }
+            .perfomances-list .plitka-text {
+                height:auto;
+            }
+            .perfomances-list .plitka-name {
+                height:2.5em;
+                overflow:hidden;
+                margin-top: 10px;
+                line-height: 14px;
+                margin-bottom: 5px;
+            }
+                .perfomances-list .plitka-name a {
+                    color:#010101;
+                }
+            .three-row-link {
+                height:3.5em;
+                line-height:1.2em;
+                overflow:hidden;
+                display:block;
+                margin-bottom: 10px;
+                
+            } 
+                .three-row-link a {
+                    color:#4e4e4e;
+                }
+            .perfomances-list .tags {
+            
+            }
+                .perfomances-list .tags a   {
+                    color:#7691a4;
+                    border-color:#7691a4;
+                }  
+                
+                .perfomances-list .views {
+                    margin-top: 6px;
+                    color:#7e7e7e;
+                }
+                .perfomances-list  .plitka-footer {
+                    padding-top: 8px;
+                    padding-bottom: 0;
+                }
+        
+        /*Perfomance Element*/    
+        
+        .sort-element-filter {
+            font-size:14px;
+            margin-bottom:20px;
+        }
+            .sort-element-filter a {
+                margin-right:15px;
+            }
+            .sort-element-filter a.active {
+                border-width:3px;
+            }
+            
+        .perfomance-one {
+        
+        }
+             .perfomance-one .video-one-description {
+                padding-bottom: 14px;
+                margin-top: 12px;
+            }
+            .video-one-source {
+                margin-top: 9px;
+                font-size;13px;
+            } 
+                .video-one-source  a {
+                    color:#000;
+                }
+            .video-one-tags {
+                margin-top: 3px;
+            }
+                .video-one-tags a {
+                    color:#7791a4;
+                }
+            .video-one-views {
+                color:#7e7e7e;
+                margin-top: 4px;
+            }
+            
+            .video-one-full-text {
+                background: url(../img/more-dots.gif) repeat-x 0 0;
+                padding: 17px 0 0px;
+                line-height: 19px;
+            }
+        
+            .perfomance-one .comments {
+                margin-top:15px;
+            }
+            .comments .fos_comment_submit input {
+                color:#fff;
+                font-size:11px;
+                background: #8ea7b7;
+                background: -moz-linear-gradient(top,  #8ea7b7 0%, #859fb0 25%, #67839a 80%, #607b94 100%);
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ea7b7), color-stop(25%,#859fb0), color-stop(80%,#67839a), color-stop(100%,#607b94));
+                background: -webkit-linear-gradient(top,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                background: -o-linear-gradient(top,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                background: -ms-linear-gradient(top,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                background: linear-gradient(to bottom,  #8ea7b7 0%,#859fb0 25%,#67839a 80%,#607b94 100%);
+                padding:4px 10px;
+                margin:7px 0 0;
+                border:0;
+
+            }
+        
+        .separate-video-block {
+            background:#fff !important;
+            margin-top:40px;
+        }
+            
+            .separate-video-block .flexslider:after {
+                display:none;
+            }
+            .separate-video-block  .flexslider {
+                margin-bottom:20px;
+                background:#f5f5f5;
+            }
+            .separate-video-block .period-block_footer {
+                margin-top:0;
+            }
+            
 	/*OBRAZY*/
 	.category-chooser {
 		display:inline-block;

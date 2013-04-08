@@ -69,6 +69,7 @@ class AppKernel extends Kernel
             new Armd\AdminHelperBundle\ArmdAdminHelperBundle(),
             new Armd\TheaterBundle\ArmdTheaterBundle(),
             new Armd\AddressBundle\ArmdAddressBundle(),
+            new Armd\PerfomanceBundle\ArmdPerfomanceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {

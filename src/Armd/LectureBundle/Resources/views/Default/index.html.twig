@@ -15,7 +15,9 @@
             <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
                 <select id="lecture_category" name="lecture_category" class="uni">
-                    <option value="0">{{ "All"|trans }}</option>
+                    <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
+                        {{ "All"|trans }}
+                    </option>
                     {% for category in categories %}
                         <option value="{{ category.id }}"
                                 {% if category.id == categoryId %}selected="selected"{% endif %}
@@ -67,14 +69,14 @@
             <li><a href="#" data-sort-by="title">алфавиту</a></li>
         </ul>
     </div>
-{#    <div id="alphabet-filter">
+    <div id="alphabet-filter">
         <ul>
             <li class="active"><a href="#">Все</a></li>
             {% for l in alphabet %}
-                <li><a href="#">{{ l }}</a></li>
+                <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
             {% endfor %}
         </ul>
-    </div>#}
+    </div>
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
                 'lectureSuperTypeCode': lectureSuperType.code,

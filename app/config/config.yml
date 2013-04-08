@@ -85,7 +85,9 @@ stof_doctrine_extensions:
 
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.noop
+        handler: sonata.admin.security.handler.acl
+        information:
+            ADMINS:    [EDIT, LIST, CREATE, VIEW, DELETE, EXPORT, OPERATOR, MASTER]
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
     dashboard:
@@ -271,6 +273,25 @@ sonata_media:
             formats:
                 item: { width: 600 }
                 thumbnail: { width: 165, height: 125 }
+                
+        perfomance:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+                - sonata.media.provider.image
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
+            formats:
+                xbig: { width: 670, height: 378 }
+                big: { width: 335, height: 189 }
+                tile: {width: 295, height: 228 }
+                medium: { width: 111 }
+                small: { width: 85 }
+                searchAllResult: { width: 160, height: 107 }
+                perfomanceW160H120: { width: 160, height: 120 }
+                perfomanceH228: { height: 228 }                
 
     cdn:
         server:
@@ -395,6 +416,8 @@ armd_sphinx_search:
             %sphinxsearch_index_museums%: ~
         News:
             %sphinxsearch_index_news%: ~
+        Perfomances:
+            %sphinxsearch_index_perfomances%: ~            
 
     searchd:
         host:   %sphinxsearch_host%
@@ -448,4 +471,3 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-
