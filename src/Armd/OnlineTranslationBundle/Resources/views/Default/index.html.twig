@@ -34,10 +34,19 @@
         <div class="full-description">
             {{ entity.fullDescription|raw }}
         </div>
+        <div class="event-one_footer clearfix">
+        <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+        </div>
     </div>
 {% else %}
     <div class="empty-message">
         В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_translation_index') }}">архиве</a>.
+    </div>
+    <div class="full-description">
+       asdfasdf asdf asdf asd f
+    </div>
+    <div class="event-one_footer clearfix">
+    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
     </div>
 {% endif %}
 
@@ -293,4 +302,26 @@
             {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
         </div>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex-share',
+                elementStyle:{
+                    'type':'none',
+                    'border':false,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+               {# link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}', #}
+                title:'{{ entity.title }}'
+                {# description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}' #}
+            });
+        });
+    </script>
+
 {% endblock %}
