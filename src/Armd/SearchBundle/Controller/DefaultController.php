@@ -168,9 +168,9 @@ class DefaultController extends Controller
 
             $mediaImage = false;
             if ($lecture->getLectureVideo()) {
-                $mediaImage = $this->getLectureVideo()->getImageMedia();
+                $mediaImage = $lecture->getLectureVideo()->getImageMedia();
             } elseif ($lecture->getTrailerVideo()) {
-                $mediaImage = $this->getTrailerVideo()->getImageMedia();
+                $mediaImage = $lecture->getTrailerVideo()->getImageMedia();
             } elseif ($lecture->getMediaLectureVideo()) {
                 $mediaImage = $lecture->getMediaLectureVideo();
             } elseif ($lecture->getMediaTrailerVideo()) {
