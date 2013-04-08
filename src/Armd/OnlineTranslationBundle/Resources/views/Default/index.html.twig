@@ -311,6 +311,10 @@
                     'border':false,
                     'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
                 },
+                {% if entity.image %}
+                    image:'{% path entity.image, 'broadcastW600' %}',
+                {% endif %}
+               {# link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}', #}
                 title:'{{ entity.title }}',
                 description:'{{ entity.shortDescription|replace({"\n":'',"\r":''})|striptags }}'
             });
