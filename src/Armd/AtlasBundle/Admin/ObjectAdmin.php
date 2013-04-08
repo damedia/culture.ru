@@ -48,7 +48,8 @@ class ObjectAdmin extends Admin
             ->add('archiveImages')
             ->add('image3d')
             ->add('virtualTour')
-            ->add('showAtHomepage');
+            ->add('showOnMain')
+            ->add('showOnMainOrd');
     }
 
 
@@ -68,6 +69,13 @@ class ObjectAdmin extends Admin
 //                ->add('categories', 'sonata_type_model',
 //                    array('multiple' => true, 'expanded' => true)
 //                )
+            ->with('Главная')
+                ->add('showOnMain', null, array(
+                    'required' => false
+                ))
+                ->add('showOnMainOrd', null, array(
+                    'required' => false
+                ))
             ->with('Classification')
                 ->add('primaryCategory', 'armd_atlas_object_categories',
                 array(
@@ -82,11 +90,7 @@ class ObjectAdmin extends Admin
                 ))
                 ->add('tags', 'armd_tag', array(
                     'required' => false,
-                    'attr' => array('class' => 'select2-tags'),
                 ))
-                ->add('showAtHomepage', null,
-                    array('required' => false)
-                )
             ->add('isOfficial', null, array('required' => false))
             ->end()
             ->with('Moderation')
@@ -215,6 +219,28 @@ class ObjectAdmin extends Admin
                     )
                 )
             ->end()
+            ->with('Stuff')
+            ->add(
+                'stuff',
+                'collection',
+                array(
+                    'type' => 'armd_media_file_type',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'options' => array(
+                        'required' => false,
+                        'media_provider' => 'sonata.media.provider.file',
+                        'by_reference' => true,
+                        'media_context' => 'stuff',
+                        'media_format' => 'original',
+                        'with_remove' => false, // Удаление выше, на уровне коллекции.
+                        'with_title' => false,
+                        'with_description' => true,
+                    ),
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                )
+            )
+            ->end()
             ->with('Hints')
                 ->add('objectHints', 'sonata_type_collection',
                     array(
@@ -241,6 +267,8 @@ class ObjectAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('showOnMain')
+            ->add('showOnMainOrd')
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
     }
@@ -266,7 +294,10 @@ class ObjectAdmin extends Admin
             ->add('coordinatesAreEmpty', 'doctrine_orm_callback', array(
                 'field_type' => 'checkbox',
                 'callback' => array($this, 'getEmptyCoordinatesFilter')
-            ));
+            ))
+            ->add('showAtRussianImage')
+            ->add('showOnMain')
+            ->add('showOnMainOrd');                        
     }
 
     public function getEmptyCoordinatesFilter($qb, $alias, $field, $value)
@@ -301,6 +332,15 @@ class ObjectAdmin extends Admin
         );
         $actions['unpublish'] = array(
             'label' => 'Снять публикацию'
+        );
+
+        $actions['ShowOnMain']=array(
+            'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
+            'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+        );
+        $actions['NotShowOnMain']=array(
+            'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+            'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
         );
 
         return $actions;

@@ -45,6 +45,28 @@ $(function () {
     });
 
 
+    /*TimeLine selector*/
+    $('.time-line-nav > li:not(.inactive) > a').click(function(){
+        var thisLi = $(this).parent(),
+        thisId = thisLi.attr('id');
+        thisLi.addClass('active').siblings().removeClass('active');
+        $('#'+thisId+'_tab').show().siblings('.time-line-content').hide();
+        return false;
+    })
+
+    $('.time-line-nav li li a').click(function(){
+        var blockId = $(this).attr('href');
+        if(blockId != 'undefined') {
+            var blockPos = $(blockId).position();
+            if ($(blockId).parent().hasClass('time-line-left')) {
+                $(window).scrollTop(blockPos.top);
+            } else {
+                $(window).scrollTop(blockPos.top - $('#time-line-events').height() - 40);
+            }
+        }
+        return false;
+    })
+
     /*NEWS SLIDER*/
     /*if($("#featured").length > 0) {
      $("#featured").tabs({
@@ -228,8 +250,15 @@ $(function () {
 
     })
 
-    $('select.uni').selectgroup();
-	
+
+    var fancySelect = (function() {
+        $('select.uni').each(function(){
+            $(this).css({'display':'block','visibility':'hidden'});
+            $(this).selectgroup();
+        })
+    })();
+    
+    
 	$('#category-chooser').on('click', 'a', function(){
 		var id = $(this).attr('href');
 		$(this).addClass('active').siblings().removeClass('active');
@@ -253,6 +282,14 @@ $(function () {
 			'type': 'iframe'
 		});
 	}
+
+    $('.news-fancybox').fancybox({
+        'autoScale' : false,
+        'nextEffect' : 'fade',
+        'prevEffect' : 'fade',
+        'nextSpeed' : 1000,
+        'prevSpeed' : 1000
+    })
 
     $('.in-fancybox').fancybox();
 	
@@ -310,8 +347,7 @@ $(function () {
 
         $('.section-active').removeClass('section-active');
         $active.addClass('section-active');
-
-        $('.time-line-nav .active').removeClass('active');
+       
         $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
 
         // console.log($('a[href=#' + $active.attr('id') + ']'));
@@ -371,5 +407,14 @@ $(function () {
             $(this).find('figcaption').width($(this).find('img').width());
         })
     })
+    
+    $('#appstore-link').click(function(){
+        $(this).next('ul').slideToggle();
+        return false;
+    })
+    $('.app_store-block ul a').click(function(){
+        $(this).closest('ul').slideUp();
+    })
+    
     
 })

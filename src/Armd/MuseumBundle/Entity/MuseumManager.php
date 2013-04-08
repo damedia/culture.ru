@@ -44,7 +44,6 @@ class MuseumManager extends ListManager
 
         $qb->leftJoin('_museum.image', '_museumImage', 'WITH', '_museumImage.enabled = TRUE')
             ->andWhere('_museum.published = TRUE')
-            ->orderBy('_museum.title', 'DESC')
         ;
 
         return $qb;
@@ -68,14 +67,7 @@ class MuseumManager extends ListManager
 
     public function findObjectsWithSphinx(array $criteria)
     {
-        $searchParams = array('Museums' => array(
-            'filters' => array(
-                array(
-                    'attribute' => 'published',
-                    'values' => array(1)
-                )
-            )
-        ));
+        $searchParams = array('Museums' => array('filters' => array()));
 
         if (isset($criteria[self::CRITERIA_LIMIT])) {
             $searchParams['Museums']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];

@@ -136,6 +136,7 @@ body {
 .symbol .footer-menu { 
 	width: 1280px;
 	padding-bottom: 70px;
+    height:auto;
 }
 
 	.symbol .footer-menu a {

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <!--meta name="viewport" content="width=device-width"-->
+        <meta name="viewport" content="width=1415">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/kreml.css">
+        <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
+		
+		
+		<link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
+		<link rel="stylesheet" href="js/canvas-puzzle/css/style.css" type="text/css" charset="utf-8" />
+		<link rel="stylesheet" href="js/canvas-puzzle/css/buttons.css" type="text/css" charset="utf-8" />
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]-->
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      
+<div class="wrapper kreml" id="wrapper">
+    <div class="header-sky-bg">
+        <header class="main-header">
+            <nav class="top-menu">
+                <ul>
+                    <li class="culture-cloud">Культура России</li>
+                    <li class="test-cloud"><a href="#riddle">Угадай!</a></li>
+                    <li class="riddle-cloud"><a href="#find10">Найди отличия</a></li>
+                    <li class="puzzle-cloud"><a href="#puzzle">Паззлы</a></li>
+                    <li class="quizes-cloud"><a href="#quiz">Тесты</a></li>
+                    <li class="difference-cloud"><a href="#tests">Загадки</a></li>
+                    <li class="top-back-link"><a href="../children.html">Обратно на карту</a></li>
+                </ul>
+            </nav>
+            <a href="#whant-more" class="fancybox l-more-link">
+                <span>Хочешь знать больше?</span>
+               <!-- <a href="#whant-more" class="fancybox">-->
+                   <b class="descr">Тогда почитай <br>о Московском<br>Кремле</b>
+               <!-- </a>-->
+            </a>   
+                
+
+            <div class="main-description-block clearfix">
+                <div class="main-image">
+                    <img src="img/kremlin/child-main-img-kremlin.png" alt="" />
+                </div>
+                <div class="main-description">
+                    <p>
+               Один из символов нашей страны и известный на весь мир архитектурный памятник. 
+<br /><br />
+В свое время Кремль служил резиденцией московским царям, а в Средневековье был реально действующей крепостью. На территории Кремля и Красной площади находятся старинные соборы, Оружейная палата и даже Алмазный фонд. На площади проходят парады, и каждый турист считает обязательным здесь сфотографироваться.
+                    </p>
+                </div>
+            
+            </div>
+        </header>
+    </div>   
+    
+    <div class="road-wrap">
+        <div class="road-block">
+            <div class="road-left"></div>
+        </div>
+    </div>
+    <div class="state">
+
+        <div class="content">
+            <article class="case-1 clearfix" id="puzzle">
+                <div class="puzzle-description">
+                    <img src="img/kremlin/puzzle-header.png" alt="" class="puzzle-header" />
+                    <img src="img/kremlin/puzzle-tip.png" alt="" class="puzzle-tip" />
+                    <div class="puzzle-description-text">
+                        <p>
+                            Поставь все фрагменты картинки на свои места, и узнаешь, как звали двух героев, собравших ополчение против польских захватчиков в 1612 году. Их отважная дружина выгнала врага из Москвы, а затем и со всей Русской земли. 
+                        </p>
+                    </div>
+                    
+                </div>
+                <div class="puzzle-slider">
+                    <div class="puzzle-wrap">
+                        <div class="puzzle-setka-wrap-noresize">
+                            <img src="img/kremlin/puzzle.jpg" width="320"  class="puzzle"/>
+                            <img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
+                        </div>
+                    </div>
+                </div>
+                
+            </article>
+
+            <article class="case-2 clearfix"  id="tests">
+                <div class="choose-block-horizontal choose-block-horizontal-left">
+                    <div class="choice-result cbv-question-column">
+                        <div class="choice-no-result">
+                            <img src="img/kremlin/quiz-1/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>А как ты думаешь, какая башня выше?</p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/kremlin/quiz-1/choose-wrong.png" alt="" />
+                            <p>
+                                На самом деле высота Спасской башни 71 метр. Для сравнения, первый небоскреб в мире был высотой около 55 метров.
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/kremlin/quiz-1/choose-right.png" alt=""  />
+                            <p>
+                                Высота Угловой арсенальной башни — 61 метр, Спасской башни — 71 метр, а колокольни Ивана Великого — 81 метр.  Для сравнения, первый в мире небоскреб построили высотой около 55 метров.    
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/kremlin/quiz-1/choose-wrong.png" alt=""  />
+                            <p>
+                               На самом деле Угловая арсенальная башня ниже остальных — ее высота 61 метр, затем идет  Спасская башня — 71 метр, а затем колокольня Ивана Великого — 81 метр.  Для сравнения, первый небоскреб в мире был высотой около 55 метров.  
+                            </p>
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-1/1.png" alt="" class="choice-1" id="choice-1" />
+                        </div>
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-1/2.png" alt="" class="choice-2" id="choice-2" />
+                        </div>
+                        <div class="choice">
+                        <img src="img/kremlin/quiz-1/3.png" alt="" class="choice-3" id="choice-3" />
+                        </div>
+                    </div>
+                </div> 
+                 
+            </article> 
+
+            <article class="case-3 count-block clearfix" id="riddle">
+                <div class="choose-block-horizontal choose-block-smart">
+                    <div class="choice-result cbv-question-column">
+                        <div class="choice-no-result">
+                            <img src="img/kremlin/quiz-2/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>Как ты думаешь, кто из российских государей приказал построить собор Василия Блаженного?</p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/kremlin/quiz-2/choose-wrong.png" alt="" />
+                            <p>
+                                Князь Юрий Долгорукий в 1156 году основал Москву. А строительство собора Василия Блаженного начали в 1555 году по приказу Ивана Грозного в честь взятия Казани и победы   над Казанским Ханством. 
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/kremlin/quiz-2/choose-wrong.png" alt=""  />
+                            <p>
+                                При Дмитрии Донском в 1367 году было начато строительство Кремля. А строить собор Василия Блаженного начали в 1555 году по приказу Ивана Грозного в честь взятия Казани и победы над Казанским Ханством.  
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/kremlin/quiz-2/choose-right.png" alt=""  />
+                            <p>
+                               Иван Грозный велел в 1555 году построить собор в честь взятия Казани и победы над Казанским Ханством. 
+                            </p>
+                            
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        
+                        <div class="choice-image">
+                            <img src="img/kremlin/quiz-2/choose-kreml.png" alt="" />
+                        </div>
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-2/1.png" alt="" class="choice-1" id="choice-1" />
+                            <p>Юрий Долгорукий</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-2/2.png" alt="" class="choice-2" id="choice-2" />
+                            <p>Дмитрий Донской</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-2/3.png" alt="" class="choice-3" id="choice-3" />
+                             <p>Иван Грозный</p>
+                        </div>
+                    </div>
+                </div>
+            </article> 
+
+            <article class="case-4 clearfix" id="quiz">
+               <div class="test-yourself">
+                    <img src="img/kremlin/test-header.png" alt="" class="test-sign" />
+                    <a data-fancybox-type="iframe" data-fancybox-width="960" data-fancybox-height="580" href="moscow-quiz.html" class="test-link fancybox-inframe" >
+                       Пройди тест<br />и узнай все тайны Московского Кремля! 
+                    </a>
+                    
+                </div>
+            </article> 
+            
+            <article class="case-5 clearfix" id="find10">
+                <div class="compare-side">
+                    <img src="img/kremlin/find-header.png" alt="" />
+                     <div class="compare-found">Найдено <span  id="compare-found">0</span> <span class="compare-otl">отличий</span></div>
+              
+                </div>
+                <div class="compare">
+                    
+                    <div class="compare-images">
+                        <div class="compare-image">
+                            <img src="img/kremlin/compare/1.jpg" alt="">
+                            <div class="hidden-parts">
+                                <div class="krem_first_1 inv"></div> 
+                                <div class="krem_first_2 inv"></div> 
+                                <div class="krem_first_3 inv"></div> 
+                                <div class="krem_first_4 inv"></div> 
+                                <div class="krem_first_5 inv"></div> 
+
+                            </div>
+                        </div>
+                        <div class="compare-image">
+                            <img src="img/kremlin/compare/2.jpg" alt="" >
+                            <div class="hidden-parts">
+                                <div class="krem_sec_1 inv"></div> 
+                                <div class="krem_sec_2 inv"></div> 
+                                <div class="krem_sec_3 inv"></div> 
+                                <div class="krem_sec_4 inv"></div> 
+                                <div class="krem_sec_5 inv"></div> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            
+            <article class="case-6 count-block clearfix" id="quiz3">
+                <div class="choose-block-horizontal choose-block-smart">
+                    <div class="choice-result cbv-question-column">
+                        <div class="choice-no-result">
+                            <img src="img/kremlin/quiz-3/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>Почему главную площадь страны<br />называют Красной?</p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/kremlin/quiz-3/choose-wrong.png" alt="" />
+                            <p>
+                                Цвет кирпичей здесь не причем. Помнишь, в сказках говорят «красна девица», когда обращаются к красивой девушке? Красной площадь назвал царь Алексей Михайлович в 17 веке — за красоту.
+
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/kremlin/quiz-3/choose-wrong.png" alt=""  />
+                            <p>
+                                Пожары здесь случались до 19 века, пока площадь не вымостили булыжником.  Из-за этого ее даже прозвали Пожаром. А Красной площадь назвал царь Алексей Михайлович в 17 веке — за красоту.
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/kremlin/quiz-3/choose-right.png" alt=""  />
+                            <p>
+                              Это правильный ответ! Помнишь, в сказках говорят «красна девица», когда обращаются к красивой девушке? Красной площадь назвал царь Алексей Михайлович в 17 веке — за красоту. 
+                            </p>
+                            
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-3/1.png" alt="" class="choice-1" id="choice-1" />
+                            <p>Из-за красного<br />кирпича</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-3/2.png" alt="" class="choice-2" id="choice-2" />
+                            <p>Из-за пожаров</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kremlin/quiz-3/3.png" alt="" class="choice-3" id="choice-3" />
+                             <p>за красоту</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            
+            <nav class="footer-menu">
+                <ul>
+                    <li class="footer-back-link return"><a href="../children.html">Обратно на карту</a></li>
+                    <li class="footer-red-link a-kreml"><a href="astrahan.html">Астраханский кремль</a></li>
+                    <li class="footer-green-link a-kreml"><a href="arkaim.html">Аркаим</a></li>
+                    <li class="footer-purple-link peter"><a href="petergof.html">Петергоф</a></li>
+                    <li class="footer-blue-link kulsharif"><a href="kul-sharif.html">Мечеть<br />Кул-Шариф</a></li>
+                    <li class="footer-top-link top"><a href="#">Наверх</a></li>
+                    <li class="footer-pink-link krstolb"><a href="#">Красноярские столбы</a></li>
+                    <li class="footer-greenlight-link vlad"><a href="vladivostok.html">Владивостоксткая крепость</a></li>
+                </ul>
+            </nav>
+        </div><!-- //content-->
+
+        <div class="elki-left"></div> 
+        <div class="elki-right"></div> 
+        <div class="elki-bottom"></div> 
+
+    </div><!-- //state -->
+    
+</div> <!-- //state-wrapper-->
+
+
+
+	<div id="puzzle-block" style="display:none;">
+		<!-- JIGSAW CANVAS -->
+		<div id="canvas-wrap">
+		    <canvas id="canvas"></canvas>
+		    <canvas class="hide" id="image"></canvas>
+		    <canvas class="hide" id="image-preview"></canvas>
+		</div>
+		
+		<!-- GAME OPTIONS -->
+		<div id="game-options">
+		<ul>
+		    <li><b id="clock" class="button">00:00:00</b></li>
+		    <li><a href="#" id="SHOW_EDGE" class="button left" title="Показать крайние элементы">Боковые</a></li>
+		    <li><a href="#" id="SHOW_MIDDLE" class="button middle" title="Показать центральные элементы">Центральные</a></li>
+		    <li><a href="#" id="SHOW_ALL" class="button right" title="Показать все элементы">Все</a></li>
+		    <li><a href="#" id="JIGSAW_SHUFFLE" class="button left" title="Перемешать">Перемешать</a></li>
+		  <li><a href="#" id="SHOW_PREVIEW" class="button middle" title="Подсказка">Подсказка</a></li> 
+		    <li><a href="#" id="SHOW_HELP" class="button help right" title="Помощь">Помощь</a></li>
+		    <!-- INSERT CUSTOM BUTTONS -->
+		    
+		    <!-- END INSERT CUSTOM BUTTONS -->
+		    <li>
+		        <div class="styled-select">
+		            <select id="set-parts" selected-index="8">
+		            </select>
+		        </div>
+		    </li>
+		    <!-- Insert custom buttons here -->
+		    <li><a href="#" class="button" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
+		   <li style="display:none;"> <ul><li id="create" ><a href="#" class="button add" id="SHOW_FILEPICKER" title="Create puzzle" >Create puzzle</a></li></ul></li>
+		</ul>
+		<br class="clear"/>
+		</div>
+		
+		<!-- MODAL WINDOW -->
+		<div class="hide" id="overlay"></div>
+		<div id="modal-window" class="hide">
+		    <div id="modal-window-msg"></div>
+		    <a href="#" id="modal-window-close" class="button">Закрыть</a>
+		</div>
+		
+		<!-- CREATE PUZZLE -->
+		<div class="hide" id="create-puzzle">
+		    <h1>Choose an image</h1>
+		    <form id="image-form" id="add-image-form">
+		        <input type="file" id="image-input">
+		        <p id="image-error">that's not an image</p>
+		        <p id="dnd"><i>Or drag one from your computer</i></p>
+		    </form>
+		</div>
+		
+		<!-- CONGRATULATION -->
+		<div id="congrat" class="hide">
+		    <h1>Поздравляем!</h1>
+		    <p>Стены поселения – два вписанных
+друг в друга кольца. В середине
+поселения была площадь, а
+вокруг него – защитный ров,
+наполненный водой. Это хорошая
+идея градостроителей, и никаких
+инопланетян!</p>
+		    <h3><span id="time"></span></h3>
+		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
+		        <label>
+		        Ваше имя: <input type="text" name="name" />
+		        </label>
+		        <input type="submit" value="Save score" />
+		        <input type="hidden" id="time-input" name="time"/>
+		    </form>
+		</div>
+		
+		
+		
+		<!-- HELP -->
+		<div id="help" class="hide">
+		    <h2>Как играть</h2>
+		    <ul>
+		        <li>Выберите количество элементов с помощью селектора<br/>
+		            <img src="js/canvas-puzzle/images/selector.png"/>
+		        </li>
+		        
+		        <li>
+					Для того что бы начать заново, используйте кнопку «Перемешать».
+				</li>
+                <li>
+                    Используйте подсказку.
+                </li>
+		
+		        <li>Переключайтесь между центральными и боковыми элементами:<br>
+		            <img src="js/canvas-puzzle/images/toggle.png"/>
+		        </li>
+		    </ul>
+		    
+		    <h3>Удачи.</h3>
+		</div>
+		
+		<form class="hide" method="post" id="redirect-form">
+		    <input type="text" name="time" id="t" />
+		    <input type="text" name="parts" id="p" />
+		</form>
+		<iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
+		<!-- SCRIPTS ROMPECABEZAS -->
+		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<script>
+		
+		$(document).ready(function(){
+			
+			var windowWidth = $(window).width(); //retrieve current window width
+			var windowHeight = $(window).height(); //retrieve current window height
+			var docScrollTop, docScrollLeft;	
+		
+			$(window).load(function(){
+				$('.puzzle-setka-wrap').each(function(){
+					var imageheight = $(this).find('img.puzzle').height();
+					$(this).height(imageheight).css('marginTop', -imageheight/2);
+				})
+			})	
+		
+		
+			var jsaw = new jigsaw.Jigsaw({
+		        defaultImage: "img/arkaim/puzzle.jpg",
+		        piecesNumberTmpl: "%d элементов",
+		        redirect: null,
+		        shuffled: true,
+                rotatePieces: false      
+		    });			
+			
+			$('img.puzzle-setka').click(function(){
+				docScrollTop = $(document).scrollTop();	
+			    docScrollLeft = $(document).scrollLeft();
+				$('body, html').css('overflow', 'hidden');
+				windowWidth = $(window).width();
+			    windowHeight = $(window).height();
+				
+				jsaw.set_image($(this).prev().attr('src'));
+				$('#puzzle-block').css({
+					'width':windowWidth,
+					'height':windowHeight
+				}).show();
+				//$('#puzzle-block-wrapper').show();
+				document.location.href = '#';
+				
+			});
+			
+			$('a#CLOSE_PUZZLE').click(function(){
+				$('#puzzle-block').hide();
+				$('body, html').css('overflow', 'visible').scrollTop(docScrollTop).scrollLeft(docScrollLeft);
+				
+				return false;
+			});
+            
+            
+		})
+		</script>
+	</div>
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="whant-more want-more-kreml" id="whant-more">
+            <div class="whant-more-container want-more-kreml-container">
+                <a href="http://culture.ru/atlas/object/696" class="main-site-link" title="Узнать больше"></a>
+                <div class="window-text scroll-pane">
+                    <p>
+                        Кремль — исторический центр Москвы, духовный и государственный символ России. Здесь вбит в землю знак нулевого километра и идут главные часы страны. 
+                    </p>
+                    <p>    
+                        Здесь, в Успенском соборе, венчали на царство всех государей от Ивана IV до Николая II. В сокровищницах веками копились старинные драгоценности и оружие. Отсюда смотрел на пылающий город Наполеон, чуть не победивший в Отечественной войне 1812 года. 
+                        От Средневековья здесь осталась Царь-пушка, от петровских времен — Оружейная палата, от советского периода — Дворец съездов и Мавзолей. За кирпичной стеной хранится вся история Государства Российского.
+                    </p>
+                    <h2> 
+                        Что надо обязательно сделать при посещении Кремля:
+                    </h2>
+                    <p> 
+                        1. Сфотографироваться на фоне собора Василия Блаженного. Храм строили по приказу Ивана Грозного после взятия Казани. Церковь над захоронением Василия Блаженного была пристроена к собору почти через 30 лет. Рядом стоит памятник гражданину Минину и князю Пожарскому, отличившимся в Московской битве 1612 года. Неподалеку располагается Лобное место, на котором объявляли царские указы. 
+                    </p><p> 
+                        2. Увидеть шапку Мономаха в Оружейной палате. Раньше Оружейная палата была мастерской при царском дворе, где собирались талантливые художники по металлу и дереву. Кроме изделий кремлевского производства здесь можно увидеть диковинки из разных стран, привезенные и полученные в дар от посольств. Именно здесь можно рассмотреть шапку Мономаха, трон Ивана Грозного и коллекцию яиц Фаберже.
+                    </p><p> 
+                        3. Послушать бой курантов. Самые первые часы появились на башне в 16 веке, а в начале следующего столетия они уже умели играть музыку. Сейчас куранты заводятся автоматически, а раньше в пристройке к башне жил мастер, который ежедневно проверял и чистил часы.
+                    </p><p> 
+                        4. Посмотреть на смену караула. Московский пост часовых изначально был выставлен у Мавзолея. Теперь он находится у Могилы Неизвестного Солдата в Александровском саду. Каждый час, с 8 утра до 20 вечера, можно посмотреть, как печатают шаг служащие Президентского полка.
+                    </p><p> 
+                        5. Посмотреть на алмазы и императорские короны в Алмазном фонде. Здесь выставлены фамильные драгоценности монархов, копившиеся с 18 века. Алмазный фонд открыл свою выставку в 1967 году. Теперь каждый посетитель может рассмотреть императорские короны и семь исторических камней, среди которых алмазы «Орлов» и «Шах».
+                    </p><p> 
+                        В 12 веке восточно-славянское племя кривичей построило на Боровицком холме маленькую деревянную крепость. Укрепление много раз горело, перестраивалось и подвергалось вражеским набегам. Кремль стал таким, как мы привыкли, только в конце 15 века. А ведь раньше он был белокаменным и даже деревянным! Царь Иван III очертил границы крепости. При помощи итальянских зодчих были построены Грановитая палата, Успенский, Благовещенский и Архангельский соборы. Тогда же город начали охранять 20 сторожевых башен.
+                    </p><p> 
+                        Прилегающую к Кремлю территорию очистили от деревянных лачуг, а на месте оборонительного рва по приказу царя создали площадь. Сначала там был рынок, выросший сам собой на пустом месте. Место стало зваться Торгом.
+                    </p><p> 
+                        Красной площадь первым назвал царь Алексей Михайлович. Такое имя она получила не из-за цвета кремлевских стен, а за исключительную красоту. Ведь    давным-давно слово «красный» означало «красивый». В те времена площадь еще не мостили булыжником. 
+                        Став каменной, площадь почти перестала меняться. Из года в год бьют часы на Спасской башне, в полумраке Алмазного фонда сверкают драгоценности, а по праздникам здесь проходит парад. 
+                    </p><p> 
+                        Но Московский Кремль не всегда был музеем-заповедником. Долгое время там жили люди. Последние обитатели выехали оттуда в 1961 году.
+                        Население перестало помещаться в Кремле уже в 11-12 веках. Тогда ремесленники и торговцы переселились в посад за его пределами. Официальной резиденцией московских князей Кремль стал только во второй половине 13 столетия.
+                    </p><p> 
+                        До установления советской власти вход в крепость был свободным. Последние русские императоры жили в Петербурге, а в московскую резиденцию приезжали нечасто. Можно было даже походить по всем кремлевским дворцам абсолютно бесплатно!
+                    </p><p> 
+                        После Октябрьской революции 1917 года из Кремля выселили всех монахов и церковных служащих. Также снесли Вознесенский и Чудов монастыри. Вместе с Лениным на территории крепости стали проживать члены высшей партийной номенклатуры, их семьи, работники охраны и военные. Заселены были не только дворцы, но и кремлевские башни, соборы и даже колокольня Ивана Великого. 
+                    </p><p> 
+                        В 1955 году Кремль начали постепенно расселять и снова открыли для посетителей.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+         <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+        <script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="js/vendor/slides.min.jquery.js"></script>
+        <script src="js/vendor/cufon-yui.js"></script>
+        <script src="js/adventure_400.font.js"></script>            
+        <script src="js/quiz.js"></script>
+         <script src="js/plugins.js"></script>
+        <script src="../js/main.js"></script>
+
+        
+    </body>
+</html>

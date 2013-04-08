@@ -15,21 +15,28 @@
 {% if searchResults|length > 0 %}
     <ul class="search-result">
     {% for searchResult in searchResults %}
-        <li>
-            <a class="search-result-image" href="{{ searchResult.object.url }}">
+        {% spaceless %}
+            <li>
                 <span class="search-result-type">{{ searchResult.section.name }}</span>
-                {% if searchResult.object.imageUrl is defined %}
-                    <img src="{{ searchResult.object.imageUrl }}" />
+                {% if searchResult.object.date is not empty %}
+                    <span class="search-result-date">,{{ armd_date.news_date(searchResult.object.date) }} </span>
                 {% endif %}
-            </a>
+                <a class="search-result-title" href="{{ searchResult.object.url }}">
+                    {{ searchResult.object.title|raw }}
+                </a>
 
-            <div class="search-result-text">
-                <span class="search-result-date"> {{ armd_date.news_date(searchResult.object.date) }} </span>
-                <a class="search-result-title" href="{{ searchResult.object.url }}">{{ searchResult.object.title }}</a>
-                <p>{{ searchResult.object.announce|raw }}</p>
-            </div>
+                <a class="search-result-image" href="{{ searchResult.object.url }}">
+                    {% if searchResult.object.imageUrl is defined %}
+                        <img src="{{ searchResult.object.imageUrl }}" />
+                    {% endif %}
+                </a>
 
-        </li>
+                <div class="search-result-text">
+                    <p>{{ searchResult.object.announce|raw }}</p>
+                </div>
+
+            </li>
+        {% endspaceless %}
     {% endfor %}
     </ul>
 

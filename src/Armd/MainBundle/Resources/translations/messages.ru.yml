@@ -12,7 +12,7 @@ menu.news_index: Медиа
 menu.news: Новости
 menu.events: Анонсы
 
-menu.reportage: Репортажи
+menu.reportage: Статьи
 menu.interview: Интервью
 menu.about: Информация
 menu.events_on_map: Карта мероприятий
@@ -24,9 +24,9 @@ menu.library: Библиотека
 menu.banners: Баннеры
 menu.communication: Сервисы
 menu.special_projects: Спецпроекты
-menu.borodino: Бородино
-menu.special_projects_romanov450: Романовы
-menu.special_projects_stanislavski: Станиславский
+menu.borodino: Война 1812 года
+menu.special_projects_romanov450: Дом Романовых
+menu.special_projects_stanislavski: К. Станиславский
 menu.special_projects_1150: 1150 лет государственности
 menu.online_translation: Онлайн трансляции
 menu.video: Видеотека
@@ -84,7 +84,7 @@ Navigation:
     About: О проекте
     Add: Еще
     Library: Библиотека
-    Reports: Репортажи
+    Reports: Статьи
     Banners: Баннеры
     ForumGos: Форум по гос.надзору
 
@@ -130,6 +130,10 @@ Projects:
 
 Special:
     Main version: Полная версия
+    BodyClass: ru
+    AllNews: Посмотреть все
+    BackLink: Назад
+    AllRussiaImages: Все образы
     Color: Цвет
     Background:
         Black: Черный фон

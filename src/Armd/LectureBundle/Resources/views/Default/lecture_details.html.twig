@@ -27,67 +27,7 @@
     #}
 {% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('new_design/css/jquery.ui.selectgroup.css') }}">
-    <style>
-        #lectures-filter { display: inline; }
-    </style>
-{% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        $(function(){
-            initSocialShare();
-
-            // При выборе типа видосов, подгружаем список категорий
-            $('.ui-selectgroup-list li a').live('click', function(){
-                var combo = $(this).closest('.ui-selectgroup-list').attr('aria-labelledby');
-                var superTypeId = $(this).data('value');
-
-                if (combo == 'ui-form_supertype') {
-                    // ajax-загрузка genre by supertype
-                    var url = Routing.generate('armd_lecture_default_fetchgenresbysupertype', { superTypeId: superTypeId });
-                    $.ajax({
-                        url: url,
-                        dataType: 'json',
-                        success: function(json){
-                            // создаем комбобокс с жанрами
-                            var optionsHtml = '<option>Все жанры</option>';
-                            $(json).each(function(i, el){
-                                optionsHtml += '<option value="'+ el.value +'">' + el.title + '</option>';
-                            });
-                            $('#form_genre').html(optionsHtml);
-                            $('#form_genre option:first').attr('selected', 'selected');
-                            $('#form_genre').selectgroup('refresh');
-                        }
-                    });
-                }
-                return false;
-            });
-
-        });
-        function initSocialShare() {
-            new Ya.share({
-                element: 'yandex-share',
-                elementStyle: {
-                    'type': 'none',
-                    'border': false,
-                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
-                },
-                link: '{{ url('armd_lecture_view', { 'id': lecture.id }) }}',
-                title: '{{ lecture.title }}'
-                {#description: '{{ lecture.description|escape }}'#}
-            });
-        }
-    </script>
-{% endblock %}
-
-{#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_title %}
     {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
         {{ 'Lecture'|trans }}
@@ -95,32 +35,29 @@
         {{ 'Translations'|trans }}
     {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
         {{ "Cinema Hall"|trans }}
-    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_TOP100' %}
-        {{ "Cinema Hall"|trans }}
     {% endif %}
 {% endblock %}
 
 {% block page_header_search %}
     <div class="search-category">
-        <form id="lectures-filter" action="{{ path('armd_lecture_default_list') }}" method="get">
+        <form id="lectures-filter" action="{{ path('armd_lecture_default_index', {'lectureSuperTypeCode': lecture.lectureSuperType.code}) }}" method="get">
             <span class="search-dates-label">Выбрать</span>
             <div class="search-category-selects">
-                <select id="form_supertype" name="supertype" class="" style="display:none;">
-                    <option value="0">Категория</option>
-                    {% for supertype in superTypeList %}
-                        <option value="{{ supertype.id }}" {% if lecture.lectureSuperType.id==supertype.id %}selected="selected" {% endif %}>{{ supertype.name }}</option>
-                    {% endfor %}
-                </select>
-                <select id="form_genre" name="genre" class="uni">
+                <select id="category_id" name="category_id" class="uni">
                     <option value="0">{{ "All"|trans }}</option>
-                    {% for genre in genresList %}
-                        <option value="{{ genre.value }}">{{ genre.title }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
                     {% endfor %}
                 </select>
-                <input id="form_page" type="hidden" name="page" value="1"/>
             </div>
             <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
         </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
     </div>
 {% endblock %}
 
@@ -134,7 +71,8 @@
                     {% if lecture.lectureVideo is not empty %}
                         {% set lectureVideo = lecture.lectureVideo %}
                         {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-                    {% elseif lecture.mediaLectureVideo is not empty %}
+                    {% elseif lecture.mediaLectureVideo is not empty
+                            and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
                         {% set lectureVideo = lecture.mediaLectureVideo %}
                         {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
                     {% elseif lecture.trailerVideo is not empty %}
@@ -143,6 +81,10 @@
                     {% elseif lecture.mediaTrailerVideo is not empty %}
                         {% set lectureVideo = lecture.mediaTrailerVideo %}
                         {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                    {% elseif lecture.externalUrl is not empty %}
+                        <a target="_blank" href="{{ lecture.externalUrl }}">
+                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
+                        </a>
                     {% endif %}
 
                     {# отключено #}
@@ -174,13 +116,6 @@
                         <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
                     {% endif %}
 
-                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_URL' %}
-                    {% if lecture.externalUrl is not empty %}
-                        <a target="_blank" href="{{ lecture.externalUrl }}">
-                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
-                        </a>
-                    {% endif %}
-
                 {% endif %}
             </div>
             <div class="video-one-description">
@@ -201,11 +136,36 @@
                 <h2 class="video-one-name">{{ lecture.title }}</h2>
 
                 <span class="video-one-stats">
-                    {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
-                    {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
-                    {% for lectureCategory in lecture.categories %}
-                        <a href="#">{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
-                    {% endfor %}
+                    <span>Категории:</span>
+                        {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                        {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
+                        {% for lectureCategory in lecture.categories %}
+                            <a href="{{ path('armd_lecture_default_index', {
+                                        'lectureSuperTypeCode': lecture.lectureSuperType.code,
+                                        'category_id': lectureCategory.id }) }}"
+                                    >{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                </span>
+
+                {% set tags = [] %}
+                {% for tag in lecture.tags if not tag.isTechnical %}
+                    {% set tags = tags|merge([tag]) %}
+                {% endfor %}
+
+                {% if tags|length > 0 %}
+                    <span class="video-one-stats">
+                        <span>Теги:</span>
+                        {% for tag in tags %}
+                            <a href="{{ path('armd_lecture_default_index', {
+                                    'lectureSuperTypeCode': lecture.lectureSuperType.code,
+                                    'tag_id': tag.id }) }}"
+                                >{{ tag.name }}</a>{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                <span class="video-one-stats">
+                    Просмотров: {{ lecture.viewCount }}
                 </span>
 
                 <div class="video-one-anons">
@@ -250,6 +210,47 @@
             </div>
 			{% endif %}
         </section>
+
+        {% if lecture.stuff.count %}
+            <div class="video-one-description">
+                <div>
+                    <strong>{{"Stuff"|trans}}</strong>
+                </div>
+                {% for stuff in lecture.stuff %}
+                    <div>
+                        <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
+
+                        <a href="{{ path('sonata_media_download', {'id': stuff.id}) }}">{{ stuff.name }}</a>
+
+                        {% if stuff.extension == "mpga" %}
+                            —
+
+                            <span id="jp_container_{{ stuff.id }}" class="jp-audio">
+                                <span class="jp-type-single">
+                                    <span class="jp-gui jp-interface">
+                                        <span class="jp-current-time"></span>/<span class="jp-duration"></span>
+                                        (
+                                        <ul class="jp-controls">
+                                            <li><a href="#" class="jp-play" tabindex="1">{{"play"|trans}}</a></li>
+                                            <li><a href="#" class="jp-pause" tabindex="1">{{"pause"|trans}}</a></li>
+                                            <li>| <a href="#" class="jp-stop" tabindex="1">{{"stop"|trans}}</a></li>
+                                        </ul>
+                                        )
+                                    </span>
+                                </span>
+                            </span>
+
+                            <div id="jquery_jplayer_{{ stuff.id }}" class="jp-player" data-media-url="{{ armd_media_original_url(stuff) }}"></div>
+                        {% endif %}
+
+                        {% if stuff.description %}
+                            <p>{{ stuff.description }}</p>
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
         <div class="back-link">
             <p><a href="{{ referer }}">Назад</a></p>
@@ -350,111 +351,57 @@
     {% render url('armd_atlas_related_objects', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 1}) %}
 
     <div class="right-video-block">
-        {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'id': lecture.id }) %}
 
-        {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'id': lecture.id }) %}
     </div>
 {% endblock %}
 
-{#--------------------------------------------------------------------------------------------------------------------#}
-{% block body_old %}
-    <div class="left-column type-2 text">
 
-        <div class="title blue-title">
-            <h2>
-                {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-                    {{ 'Lecture'|trans }}
-                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-                    {{ 'Translations'|trans }}
-                {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-                    Кинозал
-                {% endif %}
-            </h2>
-        </div>
+{% block javascripts %}
+    {{ parent() }}
 
-        <div class="media-one-block video-one">
-            <div id="videoplayer" style="background: none">
-                {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".jp-player").each(function() {
+                $(this).jPlayer({
+                    ready: function(event) {
+                        $(this).jPlayer("setMedia", {
+                            mp3: $(this).attr('data-media-url')
+                        });
+                    },
+                    play: function() { // To avoid both jPlayers playing together.
+                        $(this).jPlayer("pauseOthers");
+                    },
+                    {# Возможно, тут лучше пронать через PHP путь как-то, но assets по смыслу кажется не тем инструментом. #}
+                    swfPath: "/vendor/jquery.jplayer/",
+                    cssSelectorAncestor: "#jp_container_" + $(this).attr('id').replace('jquery_jplayer_', ''),
+                    supplied: "mp3"
+                });
+            });
+        });
+    </script>
 
-                    {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
-                        {# tvigle video #}
-                        {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
-                            {% set lectureVideo = lecture.trailerVideo %}
-                        {% else %}
-                            {% set lectureVideo = lecture.lectureVideo %}
-                        {% endif %}
-                        {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lecture.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            armdMkLecture.init('{{ lecture.lectureSuperType.code }}');
+            initSocialShare();
+        });
 
-                    {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
-                        {# media video #}
-                        {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
-                            {% set lectureVideo = lecture.mediaTrailerVideo %}
-                        {% else %}
-                            {% set lectureVideo = lecture.mediaLectureVideo %}
-                        {% endif %}
-                        {% media lectureVideo, 'noformat' with { 'width': '100%', 'height': 506 } %}
-
-                    {% endif %}
-
-                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
-                    {% if lecture.lectureFile is not empty %}
-                        <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
-                    {% endif %}
-                {% endif %}
-            </div>
-            <div class="video-stats">
-                {% if lecture.lecturer is not empty %}
-                    <p class="vs-lector">{{ 'Lecturer'|trans }}: <span>{{ lecture.lecturer }}</span></p>
-                {% endif %}
-                <p class="vs-date">{{ 'Date'|trans }}: <span>{{ lecture.createdAt|date('d.m.Y') }}</span></p>
-            </div>
-            {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE'
-                and
-                (lecture.trailerVideo is not empty
-                and lecture.lectureVideo is not empty
-                or
-                lecture.mediaTrailerVideo is not empty
-                and lecture.mediaLectureVideo is not empty)
-            %}
-            <div class="video-version-switch">
-                {% if lectureVersion == 'full' %}
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id, 'version': 'trailer'} ) }}">{{ 'Watch trailer'|trans }}</a>
-                {% elseif lectureVersion == 'trailer' %}
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id, 'version': 'full'} ) }}">{{ 'Watch full version'|trans }}</a>
-                {% endif %}
-            </div>
-            {% endif %}
-
-            <div class="video-description">
-                <h2>{{ lecture.title }}</h2>
-                <div class="tags">
-                      {% for lectureCategory in lecture.categories %}
-                        <a {#href="#"#} style="text-decoration:none;">{{ lectureCategory.title }}</a>
-                       {% endfor %}
-                </div>
-
-                <div>{{ lecture.description|raw }}</div>
-
-                <div>
-                    <h2>Roles:</h2>
-                    {% for key in lectureRolesPersons|keys %}
-                        <div>
-                            <span>{{ key }}:</span>
-                            {% for person in lectureRolesPersons[key] %}
-                                <a href="#">{{ person.name }}</a>{% if not loop.last %},{% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="right-column">
-        {#% include 'ArmdNewsBundle:News:latest-news.html.twig' with {'news': linkedNews} only %#}
-        {% render url('armd_lecture_right_column') %}
-    </div>
+        function initSocialShare() {
+            new Ya.share({
+                element: 'yandex-share',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_lecture_view', { 'id': lecture.id }) }}',
+                title: '{{ lecture.title }}'
+                {#description: '{{ lecture.description|escape }}'#}
+            });
+        }
+    </script>
 {% endblock %}
-

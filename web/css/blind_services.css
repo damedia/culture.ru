@@ -1,7 +1,8 @@
 /*gosuslugi*/	
 .gosuslugi {
 	border:solid #000;
-	border-width:3px 0;
+	/*border-width:3px 0;*/
+    border-width:0;
 	padding:1.4em 0;
 	margin-bottom:2em;
 }	

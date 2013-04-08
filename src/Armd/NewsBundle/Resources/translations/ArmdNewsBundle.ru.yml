@@ -22,6 +22,7 @@ Image: Изображение
 Gallery: Галерея
 Video: Видео (Tvigle ID)
 Media Video: Видео
+Stuff: Материалы для скачивания
 
 General: Основные
 Publish: Публикация
@@ -29,4 +30,7 @@ Event date: Дата события
 Media: Медиа
 Classification: Классификация
 
+Show On Main: Показывать на главной
+Show On Main Ord: Приоритет на главной
 
+Country District: Федеральный округ

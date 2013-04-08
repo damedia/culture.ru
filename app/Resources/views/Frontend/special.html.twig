@@ -14,11 +14,81 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
 			<link rel="stylesheet" href="{{ asset('css/blind.css') }}">
+			<style>
+				.search-checkboxes {
+					display:none;
+					position:absolute;
+					top:185px;
+					left:20;
+					background:#f6f6f6;
+					width:202px;
+					padding-bottom:5px;
+							
+				}
+				.search-checkboxes label {
+					display:block;
+					position:relative;
+					padding-left:20px;
+					margin:0 4px;
+								
+				}
+				.search-checkboxes input {
+					position:absolute;
+					top:5px;
+					left:0;
+					margin:0;
+					padding:0;
+					width:15px;
+					height:15px;
+				}
+				.search-checkboxes span {
+					color:#5b5b5b;
+					text-transform:uppercase;
+					font-size:10px;
+				}				
+			</style>
 		{% endblock %}
-        <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+		
+		{% block javascripts %}
+			<script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
+			<!--[if lt IE 9]><script type="text/javascript" src="{{ asset('vendor/respond.min.js') }}"></script><![endif]-->
+            <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
+            
+	        <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+
+	        <script type="text/javascript" src="{{ asset('vendor/moment.min.js') }}"></script>
+	        {% if app.request.locale == 'ru' %}
+	         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker-ru.js') }}"></script>
+	        {% endif %}
+	        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+	        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
+	        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+
+
+	        <script type="text/javascript" src="{{ asset('vendor/jquery.jplayer/jquery.jplayer.min.js') }}"></script>            
+            <script type="text/javascript" src="{{ asset('js/share.js') }}" ></script>
+			<script src="{{ asset('js/plugins.js') }}"></script>
+			<script src="{{ asset('js/blind.js') }}"></script>
+			
+
+		
+       {% endblock %}		
+        
+        
+        
     </head>
 	<body>
-		<div class="wrapper">
+		<div class="wrapper {{ 'Special.BodyClass'|trans }}">
 			<div class="settings-wrap">
 				<div class="settings-block" id="settings" >
 					<a href="{{ path('armd_main_homepage') }}" class="full-version-link">{{ 'Special.Main version'|trans }}</a>
@@ -66,28 +136,26 @@
 			<header class="main-header">
 				<a href="{{ path('armd_main_special_homepage') }}" class="logo" title="{{ 'Special.Address'|trans }}">{{ 'Special.Address'|trans|capitalize }}</a>
 				<div class="search">
-					<form action="{{ path('armd_search_results') }}" title="{{ 'Special.Search'|trans }}">
-						<input type="text" value="" class="search-input" />
+					<form action="{{ path('armd_main_specialsearch_search_result') }}" title="{{ 'Special.Search'|trans }}" id="search-form">
+						<input type="text" value="" class="search-input" name="search_query" autocomplete="off" id="search-txt"/>
 						<input type="submit" value="{{ 'Special.Search'|trans }}" class="search-button" />
 					</form>
+					{% block page_header_search_scope %}{% endblock %}
 				</div>
 				<ul class="quick-links">
                     {% if app.request.locale == 'ru' %}
 					    <li><a href="http://people.roskult.ru/special/opengov/new/">{{ 'Open Government'|trans }}</a></li>
-                        <li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>
+                        {#<li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>#}
                     {% endif %}
 				</ul>
 				<nav class="clear">
 					{% block menu %}
-						<ul class="main-navigation clearfix" title="{{ 'Main menu|trans' }}">
+                        <ul class="main-navigation clearfix" title="{{ 'Main menu'|trans }}">
                             {% if app.request.locale == 'ru' %}
                                 <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
-                                <li><a href="http://people.roskult.ru/special/forum/">{{ 'Navigation.Forum'|trans }}</a></li>
-                                <li><a href="http://people.roskult.ru/special/community_council/">{{ 'Navigation.Public council'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_services') }}">{{ 'Navigation.Public services'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a></li>
+                                <li><a href="{{ path('armd_main_special_press') }}">{{ 'menu.news_index'|trans }}</a></li>
+                                <li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>
                             {% else %}
                                 <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
@@ -105,20 +173,29 @@
 			
 			<div class="push"></div>
 		</div>
-		<footer class="main-footer">
+		<footer class="main-footer {{ 'Special.BodyClass'|trans }}">
 			<div class="site-owner">
-				{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}
+				<a href="{% if app.request.locale == 'ru' %}http://mkrf.ru/?t=sb{% else %}http://mkrf.ru/en/?t=sb{% endif %}" target="_blank">{{ 'Ministry of Culture'|trans }} {{ 'Russian Federation'|trans }}</a>
 			</div>
-			<div class="site-info">
+			
+            <div class="special-counters">
+                <div class="footer-banners">
+                    {% include ':Frontend:counters_bottom.html.twig' %}
+                </div>
+                <div class="footer-share">
+                    <p>
+                        {{ "social_share"|trans }} <span id="yandex-share-global"></span>
+                        <a href="{{ path('armd_news_rss') }}" class="rss-icon" title="{{ "events"|trans }}"></a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="site-info">
 				<p class="site-copyright">{{ 'Copyright'|trans }}</p>
-				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a></p>
+				<p class="site-about"><a href="{{ path('armd_main_special_about') }}">{{ 'Navigation.About'|trans }}</a> / <a href="mailto:info@mkrf.ru">portal@mkrf.ru</a><br />
+                <a href="http://fond.culture.ru/" target="_blank" class="rus">Российский Фонд Культуры</a></p>
 			</div>
+            
 		</footer>
-		{% block javascripts %}
-            <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
-			<script src="{{ asset('js/plugins.js') }}"></script>
-			<script src="{{ asset('js/blind.js') }}"></script>
-       {% endblock %}
     </body>
 </html>

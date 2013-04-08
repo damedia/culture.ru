@@ -13,6 +13,7 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    background:url(../img/sky.png) repeat-x;
 }
 
 ::-moz-selection {
@@ -74,110 +75,264 @@ body {
     height: 100%;
  
 }
-
-.state {
-    width:1400px;
-	height:3505px;
-	margin:auto;
-    position: relative;
+.wrapper {
+    background:url(../img/bg-texture-flowers.png) repeat 50% 50%;
+    position:relative;
+    min-width:1415px;
     
-   background-size: cover;
-} 
-
-.kremlin {
-	
-	background:url(../img/kremlin/child-bg-main-kremlin.jpg) no-repeat 0 0;
 }
-.arkaim {
-	background:url(../img/arkaim/child-bg-main-arkaim.jpg) no-repeat 0 0;
-}
-.astrahan {
-	background:url(../img/astrahan/child-bg-main-astrahan.jpg) no-repeat 0 0;
-}
-.dazan {
-	background:url(../img/dazan/child-bg-main-dazan.jpg) no-repeat 0 0;
-}
-.kul-sharif  {
-	background:url(../img/kul-sharif/child-bg-main-kul-sharif.jpg) no-repeat 0 0;
-}
-.nevyansk  {
-	background:url(../img/nevyansk/child-bg-main-nevyansk.jpg) no-repeat 0 0;
-    width:1420px;
-    /*height:4244px;*/
-    height: auto;
-}
-.state.petergof   {
-	background:url(../img/petergof/child-bg-main-petergof.jpg) no-repeat 0 0;
-    height: auto;
-    width:1412px;
-}
-
-.rodina   {
-	background:url(../img/rodina/child-bg-main-rodina-matj.jpg) no-repeat 0 0;
-}
-.tretyakovf  {
-	background:url(../img/tretyakovf/child-bg-main-tretyakovf.jpg) no-repeat 0 0;
-}
-.vladivostok    {
-	background:url(../img/vladivostok/child-bg-main-vladivostok.jpg) no-repeat 0 0;
-}
-
-	.decor {
-		margin-top:-18px;
-	}
-        .nevyansk .decor {
-            margin-top: -83px;
-           
-        }
-		.main-menu {
-			margin-left:38px;
-		}
-        .nevyansk .main-menu {
-            margin-left:0;
-             position:relative;
-             height: 556px;
-        }
-
-        .petergof .main-menu {
-            margin-left:0;
-             position:relative;
-             height: 556px;
-        }
-         
-         .learn-more-link {
-            position:absolute;
-            left: 124px;
-            top: 368px;
+     /*HEADER*/
+    .header-sky-bg {
+        background:url(../img/sky.png) repeat-x;
+    }
+        .main-header {
+            position:relative;
+            width:1415px;
+            height:787px;
+            margin:auto;
             
-         }   
-            .learn-more-link  a {
-                color:#5b185b;
-                text-decoration:none;
-                font-size:17px;
-                line-height:19px;
-                width:103px;
-                display:block;
-                padding-top:120px;
-                font-weight: bold;
-            }
-
-        .petergof .learn-more-link {
-            top: 300px;
-            left: 100px;
         }
-
-             .petergof .learn-more-link a {
-                 padding-top:140px;
-                 width:200px;
+        .arkaim .main-header {
+            background: url(../img/sky-clouds.png) no-repeat 50% 29px;
+        }
+            
+        .top-menu {
+            
+        }   
+            .top-menu ul {
+                position:relative;
+                list-style:none;
+                z-index:30;
             }
-		
-		.main-image {
+                .top-menu  li {
+                    position:absolute;
+                    display:block;
+                    z-index:30;
+                }
+                    .top-menu  a {
+                        display:block;
+                        font:22px Impact, Helvetica, sans-serif;
+                        text-align:center;
+                        width:120px;
+                        margin:33px auto 0;
+                        text-decoration:none;
+                        line-height:23px;
+                    }
+
+
+                
+                .culture-cloud {
+                    top: 66px;
+                    left: 63px;
+                    width:340px;
+                    height:119px;
+                    background:url(../img/culture-cloud.png) no-repeat 0 0;
+                    text-indent:-9999em;
+                    overflow:hidden;
+                }
+                .test-cloud {
+                    top: 37px;
+                    left: 481px;
+                    width:223px;
+                    height:116px;
+                    background:url(../img/cloud-green.png) no-repeat 0 0;
+                    
+                }
+                    .test-cloud a {
+                        color:#165b16;
+                    }
+                    
+                .riddle-cloud {
+                    top: 176px;
+                    left: 380px;
+                    width:179px;
+                    height:79px;
+                    background:url(../img/cloud-blue.png) no-repeat 0 0;
+                } 
+                    .riddle-cloud a {
+                        color:#08697f;
+                        margin-top:29px;
+                        padding-right:10px;
+                        outline: none;
+                    }
+                
+                .puzzle-cloud {
+                    top: 131px;
+                    left: 785px;
+                    width:157px;
+                    height:74px;
+                    background:url(../img/cloud-red.png) no-repeat 0 0;
+                } 
+                    .puzzle-cloud a {
+                        color:#894e5a;
+                        margin-top:25px;
+                    }
+                  
+                .difference-cloud {
+                    top: 103px;
+                    left: 1000px;
+                    width:218px;
+                    height:97px;
+                    background:url(../img/cloud-yellow.png) no-repeat 0 0;
+                }  
+                    .difference-cloud a {
+                        color:#a02e1c;
+                        margin-top:24px;
+                    } 
+                    
+                .quizes-cloud {
+                    top: 215px;
+                    left: 1167px;
+                    width:158px;
+                    height:73px;
+                    background:url(../img/cloud-orange.png) no-repeat 0 0;
+                }  
+                    .quizes-cloud a {
+                        color:#994c44;
+                        margin-top:25px;
+                    }
+                    
+                .top-back-link {
+                    top: 190px;
+                    left:500px;
+                    width:265px;
+                    height:183px;
+                    background:url(../img/back-link.png) no-repeat 0 0;
+                } 
+                    .top-back-link a {
+                        color: #fff;
+                        margin-top: 115px;
+                        width: 75px;
+                        font-size: 17px;
+                        padding-right: 25px;
+                        line-height: 18px;
+                    }
+                    
+                  
+
+             .learn-more-link {
+                position:absolute;
+                left: 124px;
+                top: 368px;
+                
+             }   
+                .learn-more-link  a {
+                    color:#5b185b;
+                    text-decoration:none;
+                    font-size:17px;
+                    line-height:19px;
+                    width:103px;
+                    display:block;
+                    padding-top:120px;
+                    font-weight: bold;
+                }
+
+            .petergof .learn-more-link {
+                top: 300px;
+                left: 100px;
+            }
+
+                 .petergof .learn-more-link a {
+                     padding-top:140px;
+                     width:200px;
+                }      
+            
+            .l-more-link {
+                position:absolute;
+                left: 203px;
+                top: 238px;
+                width:148px;
+                min-height:261px;
+                background:url(../img/rocket-more.png) no-repeat 0 0;
+                z-index:30;
+                text-decoration: none;
+             }   
+                .l-more-link span {
+                    position:absolute;
+                    top: 171px;
+                    left: 13px;
+                    width:100px;
+                    font:17px/18px Impact, Helvetica, sans-serif;
+                    color:#fff;
+                    display:block;
+                    text-transform:uppercase;
+                    text-align:center;
+                }
+
+                .l-more-link b {
+                    text-decoration: none;
+                    position: relative;
+                    display: block;
+                    color:#5b185b;
+                    font-size:17px;
+                    line-height:19px;
+                    margin-top:272px;
+                }
+
+                .l-more-link  a {
+                    color:#5b185b;
+                    text-decoration:none;
+                    font-size:17px;
+                    line-height:19px;
+                    width:103px;
+                    display:block;
+                    padding-top:272px;
+                    font-weight: bold;
+                }
+
+                    .ios .top-menu  a,
+                    .ios .l-more-link span {
+                        font-family: impactregular;
+                    }
+		       
+    
+    /*MAIN BLOCK*/
+    .main-description-block {
+        position:relative;
+        top: 542px;
+        left:0;
+        z-index:20;
+    }
+        .petergof .main-description-block {
+            top:-2px;
+        }
+        .nevyansk .main-description-block {
+            top:-83px;
+        }
+        .astrahan .main-description-block  {
+            top:12px;
+            left:-147px;
+        }
+        .dazan  .main-description-block  {
+            top:12px;
+            left:-147px;
+        }
+        .kul-sharif  .main-description-block  {
+            top:-4px;
+            left:-147px;
+        }
+        .rodina .main-description-block  {
+            top:12px;
+            left:-147px;
+        }
+        .tretyakovf .main-description-block  {
+            top: 10px;
+            left: -87px;
+        }
+        .vladivostok .main-description-block  {
+            top:-14px;
+            left:-147px;
+        }
+        .kremlin  .main-description-block  {
+            top:12px;
+            left:-147px;
+        }
+            
+        .main-image {
 			float:left;
-			margin:-258px 26px 0 -38px;
+			margin: -37px 5px 0 82px;
 		}
-		.arkaim .main-image {
-			margin-bottom:-30px;
-		}
+		
 		.astrahan .main-image {
 			margin-bottom:-5px;
 			margin-top:-267px;
@@ -191,7 +346,13 @@ body {
         }
 
         .rodina .main-image {
-            margin-top:-341px;
+           margin-top: -345px;
+            margin-right: 20px;
+        }
+        
+        .dazan .main-image {
+            margin-top: -263px;
+            margin-right: 34px;
         }
 
         .tretyakovf .main-image {
@@ -199,7 +360,15 @@ body {
         }
 
         .vladivostok .main-image {
-            margin-top:-228px;
+            margin-top:-204px;
+        }
+        .kremlin .main-image {
+            margin-top:-266px;
+        }
+        
+        .kul-sharif .main-image  {
+             margin-top:-241px;
+             margin-right:32px;
         }
 		
 			.main-description {
@@ -243,588 +412,1114 @@ body {
 			.vladivostok  .main-description  {
 				color:#7C5968;
 			}
-
-		.content {
-		
-		}
-			.puzzle-description {
-				width:370px;
-				color:#ce115e;
-				font:14px/17px "Trebuchet MS", Helvetica, sans-serif;
-				
-			}
-            .nevyansk .puzzle-description  {
-                margin-top:29px;
-                color:#5b185b;
+    
+        .decor {
+            margin-top:-18px;
+        }
+            .nevyansk .decor {
+                margin-top: -83px;
+               
             }
-				.puzzle-description-text {
-					
-				}	
-					.puzzle-description-text p {
-						margin:0;
-					}
+            .main-menu {
+                margin-left:38px;
+                z-index:21;
+                 position:relative;
+            }
+            .nevyansk .main-menu {
+                margin-left:0;
+                 position:relative;
+                 height: 556px;
+                 z-index:21;
+            }
+
+            .petergof .main-menu {
+                margin-left:0;
+                 position:relative;
+                 height: 556px;
+            }
+    
+    
+    
+    
+/*CASES*/				
+.case-1  {
+    width: 785px;
+    margin: 119px 0 0 217px;
+}
+    .case-1 .puzzle-description {
+        float:left;
+    }	
+        
+    .case-1 .puzzle-slider {
+        float:right;
+        
+    }
+        .case-1 .puzzle-description-text {
+            margin-left: 23px;
+            margin-top: 9px;
+        }
+        
+    .arkaim    .case-1  {
+        margin: 103px 0 0 311px;
+        width:764px;
+    } 
+    .petergof .case-1 {
+        margin-left:250px;
+        width:750px;
+        margin-top:0;
+    }
+    .astrahan .case-1 {
+        margin-top:0;
+    }
+   
+    .dazan .case-1 {
+        margin-top:0;
+    }
+    .kul-sharif .case-1 {
+        margin-top:0;
+    }
+    .rodina .case-1 {
+        margin-top:0;
+    }
+    .tretyakovf .case-1 {
+        margin-top:0;
+    }
+
+    .vladivostok .case-1 {
+        margin-top:0;
+    }
+    .kremlin  .case-1 {
+        margin-top:0;
+    }
+    
+        
+         
+
+.case-2	{
+    width: 802px;
+    margin: 109px 0 0 358px;
+}
+    
+
+    .petergof .case-2 {
+        margin-left:250px;
+        width:750px;
+        margin-top:40px;
+    }
+    .arkaim .case-2	{
+        margin: 20px 0 0 281px;
+    }
+            
+    .case-2 .puzzle-description {
+        float:right;
+        font-size:15px;
+        line-height:17px;
+    }
+    .case-2 .puzzle-slider {
+        float:left;
+        margin-top:23px;
+        
+    }
+    
+    .case-2 .puzzle-description-text {
+        margin:17px 0 0 20px;
+        width:280px;
+    }
+    .nevyansk .case-2 {
+        margin-left:329px;
+        width:750px;
+        margin-top:0;
+    }
+
+                
+
 				
-				.puzzle-slider {
-					width:350px;
-					height:351px;
-					background:url(../img/child-puzzles-frame.png) no-repeat 0 0;
-					
-				}
-					.puzzle-wrap {
-						position:relative;
-						width:350px;
-						height:273px;
-                        cursor: pointer;
-					}
-						.puzzle-setka-wrap {
-							position:absolute;
-							top:50%;
-							left:50%;
-							width:320px;
-							height:213px;
-							margin:-106px 0 0 -160px;
-						}
-
-                        .puzzle-setka-wrap-noresize {
-                            position:absolute;
-                            top:50%;
-                            left:50%;
-                            width:320px;
-                            height:213px;
-                            margin:-106px 0 0 -160px;
-                            overflow: hidden;
-                        }
-
-
-							.puzzle-setka {
-								position:absolute;
-								top:0;
-								left:0;
-								display:block;
-								width:100%;
-								height:100%;
-								
-							}
-
+.case-3	{
+    width: 759px;
+    margin: 16px 0 0 296px;
+}
+    .case-3 .puzzle-description {
+        float:left;
+        font-size:15px;
+        line-height:17px;
+    }
+        
+    .case-3 .puzzle-slider {
+        float:right;
+        margin-top:90px;
+    }	
+    .case-3 .puzzle-description-text {
+        margin:1px 0 0 10px;
+        width:280px;
+    }
 				
-			.case-1  {
-				width: 785px;
-				margin: 119px 0 0 217px;
-			}
-				.case-1 .puzzle-description {
-					float:left;
-				}	
-                .puzzle-tip {
-                    position: relative;
-                    top: -11px;
-                    left: -16px;
+                
+    .arkaim .case-3	 {
+        width: 1095px;
+        margin-left: 207px;
+        margin-top: 101px;
+    }
+                
+				
+.case-4	{
+    width: 807px;
+    margin: 296px 0 0 225px;
+}
+    .case-4 .puzzle-description {
+        float:right;
+        font-size:15px;
+        line-height:17px;
+    }
+        
+    .case-4 .puzzle-slider {
+        float:left;
+        margin-top:-120px;
+        
+    }	
+
+    .case-4 .puzzle-description-text {
+        margin: 15px 0 0 10px;
+        width:350px;
+    }
+    
+    .arkaim .case-4 {
+        width: 1018px;
+        margin-left: 335px;
+        margin-top: 93px;
+        
+    }
+                
+.case-5	{
+    
+    margin: 16px 0 0 296px;
+   
+} 
+    .arkaim .case-5 {
+        position: relative;
+        margin: 109px 0 0 212px;
+        height:800px;
+    }
+    .petergof .case-5	{
+        margin-left:263px;
+    }
+
+
+
+.case-6	{
+    margin: 0 0 0 296px;
+} 
+
+    .petergof .case-6    {
+        margin: 200px 0 0 296px;
+        position: relative;
+    }    
+            
+.case-7 {
+    margin: 81px 0 0 394px;
+}
+
+    .petergof .case-7 {
+        margin: 210px 0 0 300px;
+    }
+                
+
+.case-8 {
+    margin: 0 0 0 283px;
+} 
+
+    .petergof .case-8 {
+        margin: 180px 0 0 283px;
+        height: 299px;
+    }
+
+    .nevyansk .case-8 {
+        position: relative;
+        width: 1000px;
+        height: 717px;
+    }    
+
+/* STATE */   
+.state {
+    width:1400px;
+	
+	margin:auto;
+    position: relative;
+    background-size: cover;
+} 
+    /*Road*/
+    .road-wrap {
+        min-width:1415px;
+        overflow:hidden;
+        margin-bottom:-41px;
+    }
+        .road-block {
+            width:1415px;
+            position:relative;
+            height:41px;
+            margin:auto;
+        }
+        .road-left {
+            position:absolute;
+            right:100%;
+            width:9000px;
+            background:url(../img/arkaim/road-test.png) repeat-x right 0;
+            height:41px;
+        }
+
+        .nevyansk .road-left,
+        .petergof .road-left {
+            top: 0;
+            margin-right: -2px;
+        }
+
+    /*ELKI*/
+    .elki-left {
+        position:absolute;
+        left: -7px;
+        top: 44px;
+        width:130px;
+        height:3652px;
+        background:url(../img/elki_left.png) no-repeat 0 0;
+    } 
+    .elki-right {
+        position:absolute;
+        right: -12px;
+        top: 6px;
+        width:132px;
+        height:3697px;
+        background:url(../img/elki_right.png) no-repeat 0 0;
+    } 
+    .elki-bottom {
+        position:absolute;
+        left: 35px;
+        bottom:0;
+        width:1369px;
+        height:139px;
+        background:url(../img/elki_bottom.png) no-repeat 0 0;
+    } 
+        
+        
+
+    .kremlin .state{
+        background:url(../img/kremlin/child-bg-main-kremlin-old.jpg) no-repeat 0 -764px;
+    }
+    
+    .arkaim .state {
+        position:relative;
+        
+        width:1415px;
+        height:auto;
+        
+        background:url(../img/arkaim/main-bg.png) repeat-y;
+        background-size: auto;
+    }
+    
+    .nevyansk .state{
+        background:url(../img/nevyansk/child-bg-main-nevyansk.jpg) no-repeat 0 -788px;
+        width:1420px;
+        /*height:4244px;*/
+        height: auto;
+    }
+   .petergof   .state  {
+        background:url(../img/petergof/child-bg-main-petergof.jpg) no-repeat 0 0;
+        height: auto;
+        width:1412px;
+    }
+
+    
+    .astrahan .state{
+        background:url(../img/astrahan/child-bg-main-astrahan.jpg) no-repeat 0 -757px;
+         height:auto;
+    }
+    .dazan .state {
+        background:url(../img/dazan/child-bg-main-dazan.jpg) no-repeat 0 -761px;
+    }
+    .kul-sharif .state {
+        background:url(../img/kul-sharif/child-bg-main-kul-sharif.jpg) no-repeat 0 -757px;
+    }
+    
+    .rodina .state  {
+        background:url(../img/rodina/child-bg-main-rodina-matj.jpg) no-repeat 0 -763px;
+    }
+    .tretyakovf .state {
+        background:url(../img/tretyakovf/child-bg-main-tretyakovf.jpg) no-repeat 0 -759px;
+    }
+    .vladivostok .state  {
+        background:url(../img/vladivostok/child-bg-main-vladivostok.jpg) no-repeat 0 -760px;
+    }
+
+	
+         
+ /* CONTENT BLOCK */        
+    .content {
+    
+    }
+        .arkaim .content {
+            background:url(../img/arkaim/full-road.png) no-repeat scroll 0 0;
+            padding-top:100px;
+            position: relative;
+             /* background:url(../img/petergof/child-bg-main-petergof.jpg) no-repeat 0 0;*/
+        }   
+
+        .ios .arkaim .content {
+             background:url(../img/arkaim/full-road-ios.png) no-repeat scroll 0 0;
+              background-size: cover;
+        }
+
+        .petergof .content {
+            padding-top:183px;
+        }
+        .nevyansk .content {
+            padding-top:245px;
+        }
+        
+        .astrahan .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .dazan .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .kul-sharif .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .rodina .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .tretyakovf .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        
+        .vladivostok .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .kremlin  .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        
+        
+        
+            
+    /*Puzzle*/
+    .puzzle-description {
+        width:370px;
+        color:#ce115e;
+        font:14px/17px "Trebuchet MS", Helvetica, sans-serif;
+    }
+        .nevyansk .puzzle-description {
+            margin-top:29px;
+            color:#5b185b;
+        }
+        .arkaim .puzzle-description {
+            position:relative;
+        }
+        .petergof .puzzle-description {
+            float:left;
+            font-size:15px;
+            line-height:17px;
+        }
+
+        .puzzle-header {
+        
+        } 
+            .arkaim .puzzle-header {
+                
+            }  
+        
+        .puzzle-description-text {
+             font-size: 15px;
+             font-weight: bold;
+        }	
+            .puzzle-description-text p {
+                margin:0;
+            }
+            
+            .nevyansk .puzzle-description-text {
+                margin: 26px 0 0 56px;
+                width: 252px;
+                /*font-size: 17px;*/
+                line-height: 19px;
+                
+            }
+
+            .petergof .puzzle-description-text {
+                margin: 10px 0 0 30px;
+                width: 300px;
+                /*font-size: 17px;*/
+                line-height: 19px;
+                color: #2C326B;
+                line-height: normal;
+            }
+            .arkaim .puzzle-description-text {
+                margin-top: 29px;
+                /*font-size: 17px;*/
+                line-height: 19px;
+                color:#a50a0a;
+            }
+            
+
+        .puzzle-slider {
+            width:350px;
+            height:351px;
+            background:url(../img/child-puzzles-frame.png) no-repeat 0 0;
+            
+        }
+            .petergof .puzzle-slider {
+                float:right;
+                margin-top:23px;
+            }
+        
+            .puzzle-wrap {
+                position:relative;
+                width:350px;
+                height:273px;
+                cursor: pointer;
+            }
+                .puzzle-setka-wrap {
+                    position:absolute;
+                    top:50%;
+                    left:50%;
+                    width:320px;
+                    height:213px;
+                    margin:-106px 0 0 -160px;
                 }
+
+                .puzzle-setka-wrap-noresize {
+                    position:absolute;
+                    top:50%;
+                    left:50%;
+                    width:320px;
+                    height:213px;
+                    margin:-106px 0 0 -160px;
+                    overflow: hidden;
+                }
+
+                .puzzle-setka {
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    display:block;
+                    width:100%;
+                    height:100%;
+                }
+
+            .puzzle-tip {
+                position: relative;
+                top: -11px;
+                left: -16px;
+            }
+                .arkaim   .puzzle-tip {
+                    right:0;
+                    left:auto;
+                    top:8px;
+                }  
 
                 .petergof .puzzle-tip {
                     position: relative;
                     top: -11px;
                     left: 10px;
                 }
-
-				.case-1 .puzzle-slider {
-					float:right;
-					
-				}
-					.case-1 .puzzle-description-text {
-						margin-left: 23px;
-						margin-top: 9px;
-					}
-
-			
-			.case-2	{
-				width: 802px;
-				margin: 109px 0 0 358px;
-			}
-            .nevyansk  .case-2 {
-                margin-left:329px;
-                width:750px;
-                margin-top:107px;
-            }
-
-            .petergof .case-2 {
-                margin-left:250px;
-                width:750px;
-                margin-top:40px;
-            }
-				.case-2 .puzzle-description {
-					float:right;
-					font-size:15px;
-					line-height:17px;
-				}
-
-                .petergof .case-2 .puzzle-description {
-                    float:left;
-                    font-size:15px;
-                    line-height:17px;
-                }
-					
-				.case-2 .puzzle-slider {
-					float:left;
-					margin-top:23px;
-					
-				}
-
-                .petergof .case-2 .puzzle-slider {
-                    float:right;
-                    margin-top:23px;
-                    
-                }
-				.case-2 .puzzle-description-text {
-					margin:17px 0 0 20px;
-					width:280px;
-				}
-                .nevyansk .case-2 .puzzle-description-text {
-                    margin: 26px 0 0 56px;
-                    width: 252px;
-                    font-size: 17px;
-                    line-height: 19px;
-                    font-weight: bold;
-                }
-
-                 .petergof .case-2 .puzzle-description-text {
-                    margin: 10px 0 0 30px;
-                    width: 300px;
-                    font-size: 17px;
-                    line-height: 19px;
-                    color: #2C326B;
-                    line-height: normal;
-                }
-
-                
-
-				
-			.case-3	{
-				width: 759px;
-				margin: 16px 0 0 296px;
-			}
-				.case-3 .puzzle-description {
-					float:left;
-					font-size:15px;
-					line-height:17px;
-				}
-					
-				.case-3 .puzzle-slider {
-					float:right;
-					margin-top:90px;
-					
-				}	
-				.case-3 .puzzle-description-text {
-						margin:1px 0 0 10px;
-						width:280px;
-					}
-				
-				
-			.case-4	{
-				width: 807px;
-				margin: 296px 0 0 225px;
-			}
-				.case-4 .puzzle-description {
-					float:right;
-					font-size:15px;
-					line-height:17px;
-				}
-					
-				.case-4 .puzzle-slider {
-					float:left;
-					margin-top:-120px;
-					
-				}	
-
-				.case-4 .puzzle-description-text {
-					margin: 15px 0 0 10px;
-					width:350px;
-				}
-                
-            .case-5	{
-				
-				margin: 16px 0 0 296px;
-			} 
-
-
-
-            .case-6	{
-				
-				margin: 0 0 0 296px;
-			} 
-
-            .petergof .case-6    {
-                margin: 200px 0 0 296px;
-                position: relative;
-            }    
-            
-            .case-7 {
-                margin: 81px 0 0 394px;
-            }
-
-            .petergof .case-7 {
-                margin: 210px 0 0 300px;
-            }
-                .test-yourself {
-                    position: relative;
-                }
-                    .test-yourself img {
-                        display:block;
-                    
-                        margin-left: 8px;
-}
-                    .test-link {
-                        width: 170px;
-                        display:block;
-                        text-decoration:none;
-                        padding: 35px 132px 30px 0;
-                        background: url(../img/nevyansk/arrow.png) no-repeat 100% 0px;
-                        
-                        font-size: 17px;
-                        line-height: 19px;
-                        margin-top: -5px;
-                    }
-
-                     .petergof .test-link {
-                        width: 115px;
-                        display:block;
-                        text-decoration:none;
-                        padding: 0 0 135px 0;
-                        background: url(../img/petergof/arrow.png) no-repeat center bottom;
-                        color: #2C326B;
-                      
-                        line-height: 18px;
-                        position: absolute;
-                        top: 50px;
-                        left: 250px;
-                        font-weight: bold;
-                        
-                    }
-
-                    .nevyansk .test-link { 
-                        color: #5B185B;
-                        font-size: 17px;
-                        font-weight: bold;
-                    }
-                    
-            .case-8 {
-                margin: 0 0 0 283px;
-            } 
-
-            .petergof .case-8 {
-                margin: 180px 0 0 283px;
-                height: 299px;
-            }  
-                .compare {
-                    width: 837px;
-                    height: 560px;
-                    position: absolute;
-                    top: 150px;
-                }
-                    .compare-sign {
-                        
-                        right: 180px;
-                        top:-160px;
-                        position: absolute;
-                    }
-                    .compare-images {
-                        
-                        position: absolute;
-                        width: 800px;
-                        height: 560px;
-                        top: 0;
-                        left: 0;
-
-                    }
-                        .compare-image {
-                            
-                            background:#fff;
-                            padding:17px;
-                             border-radius:15px;
-                             margin-right:17px;
-                             position:absolute;
-                             width:346px;
-                             height: 523px;
-                             cursor: pointer;
-                             
-
-                        }
-
-                           .compare-image.compare-image-1 {
-                                left: 0;
-                                top: 0;
-                           }
-
-                           .compare-image.compare-image-2 {
-                                left: 398px;
-                                top: 0;
-                           }
-
-                           .compare-image > img {
-                            position: absolute;
-                            left: 17px;
-                            top: 17px;
-                           }
-
-            .nevyansk .case-8 {
-                position: relative;
-                width: 1000px;
-                height: 717px;
-            }
-                        
-                        .hidden-parts {
-                            position:absolute;
-                            top:0;
-                            left:0;
-                            width:380px;
-                            height:555px;
-
-                            z-index:2000;
-                            display: block;
-                            
-                        }
-                            .hidden-parts div,
-                            .hidden-parts a {
-                                position:absolute;
-                                display: inline-block;
-                                z-index: 2500;
-                                
-                               
-
-                                
-                            }
-
-                            .hidden-parts img {
-                                
-                                position: relative;
-                                left: 0;
-                                top: 0;
-                                width: 100%;
-                                height: 100%;
-                                display: inline-block;
-
-                            }
-
-                            .star {
-                                top: 20px;
-                                left: 117px;
-                                width:20px;
-                                height:20px;
-                                background:url(../img/nevyansk/compare/star.png) no-repeat 6px 5px;
-                            }
-                            .bird {
-                                top: 175px;
-                                left: 175px;
-                                width:24px;
-                                height:24px;
-                                background:url(../img/nevyansk/compare/bird.png) no-repeat 6px 4px;
-                            }
-                            .plane {
-                                top: 66px;
-                                left: 202px;
-                                width:40px;
-                                height:20px;
-                                background:url(../img/nevyansk/compare/plane.png) no-repeat 0 0;
-                            }
-                            .sobor {
-                                top: 271px;
-                                left: 272px;
-                                width:43px;
-                                height:121px;
-                                background:url(../img/nevyansk/compare/sobor.png) no-repeat 0 0;
-                            } 
-                            
-                           
-                            .person {
-                                top: 162px;
-                                left: 161px;
-                                width:23px;
-                                height:36px;
-                                background:url(../img/nevyansk/compare/person.png) no-repeat 0 0;
-                            }
-                            .windows {
-                                top: 210px;
-                                left: 103px;
-                                width:57px;
-                                height:44px;
-                                background:url(../img/nevyansk/compare/windows.png) no-repeat 0 0;
-                            }
-                            .roof {
-                                top: 249px;
-                                left: 91px;
-                                width:183px;
-                                height:104px;
-                                background:url(../img/nevyansk/compare/roof.png) no-repeat 0 0;
-                            }
-                            .flower {
-                                top: 389px;
-                                left: 117px;
-                                width:27px;
-                                height:50px;
-                                background:url(../img/nevyansk/compare/flower.png) no-repeat 0 0;
-                            }
-                            .bike {
-                                top: 491px;
-                                left: 113px;
-                                width:42px;
-                                height:41px;
-                                background:url(../img/nevyansk/compare/bike.png) no-repeat 0 0;
-                            }
-                            .cat {
-                                top: 360px;
-                                left: 331px;
-                                width:25px;
-                                height:23px;
-                                background:url(../img/nevyansk/compare/cat.png) no-repeat 0 0;
-                            }
-                            .hidden-parts div.inv {
-                                background:none;
-                            }
-                            .compare-found {
-                                background:#fff;
-                                color:#c4513f;
-                                text-transform:uppercase;
-                                padding:4px 13px;
-                                display:inline-block;
-                                font:bold 15px Arial black, Helvetica, sans-serif;
-                                border-radius:5px;
-                                float:right;
-                                position:absolute;
-                                bottom: -48px;
-                                right: 61px;
-                            }
-                            
-                                #compare-found {
-                                    color:#6bab68;
-                                    font-size:19px;
-                                    margin:0 3px;
-                                }
-                                
-                            .all-found {
-                                background:#7ce0f7;
-                                color:#fff;
-                            }
-                               .all-found  #compare-found {
-                                    color:#d65fd3;
-                               }   
-                            
-                            
-                            
-            
-				
-		.footer-menu {
-			margin: 37px 0 0 39px;
-		}		
-		.nevyansk .footer-menu {
-            margin:-45px 0 0 94px;
-            padding-bottom: 50px;
-        }	
-
-        .petergof .footer-menu {
-            margin:30px 0 0 85px;
-             padding-bottom: 60px;
-        }   
-            
-
-        .choose-one {
-        
-        }        
-            .choose-panel {
-                position:relative;
-                width:500px;
-                float:left;
-            } 
-                .choose-panel .choice {
-                    display:inline-block;
-                    vertical-align:bottom;   
-                    width:33%; 
-                    text-align:center;  
-                    cursor: pointer;                  
-                }
-
-
-                
-                .panel-line {
-                    width:100%;
-                    position:absolute;
-                    bottom:0;
-                    left:0;
-                    height:15px;
-                    background:#885889;
-                }
-
-                .petergof .panel-line {
-                    background: #5972B2;
-                }
               
-            
-            .choice-result {
-                position: relative;
+
+              
+                            
+     /* Count Block */      
+    .count-block {
+        
+    }    
+        .arkaim  .count-block {
+        
+        }
+    
+        .count-block-image {
+            float:left;
+            margin-right: 29px;
+        
+            margin-top: 53px;
+}
+        .count-block-header {
+            display:block;
+        
+            margin-left: 705px;
+}
+        .count-block-counter {
+            width: 305px;
+            overflow: hidden;
+            min-height: 157px;
+        }
+            .count-block-counter-text {
+                color:#a50a0a;
+                font-size: 15px;
+                line-height: 19px;
+                font-weight:bold;
             }
-               .choice-result > div {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 270px;
-                }
+
+            .arkaim .count-block-counter-text {
+               margin-right:114px;
+            }
+            
+            .count-block-counter-input {
+                border:9px solid #fff;
+                border-radius:5px;
+                background:#f7d394;
+                float:right;
+                font-size: 55px;
+                color: #9f4aa5;
+                font-weight: bold;
+                padding: 4px 0 4px 0px;
+                width: 90px;
+                text-align: center;
+                position: relative;
+                top: 20px;
+                left: -5px;
+            }
+            
+            .count-block-counter-answer-button {
+                margin-left: 12px;
+            }    
+    
+    
+     
+    
+
+    
+    /*Choose block vertical*/    
+    .choose-block-vertical {
+        
+    } 
+        .cbv-question-column {
+            float:left;
+            width:270px;
+            margin-top: 44px;
+        }
+            .choose-block-vertical .cbv-question-column img {
+                margin:0 0 -5px 12px;
+            }
+            .choose-block-vertical .cbv-question-column p {
+                line-height:19px;
+                color:#a50a0a;
+            }
+            .cbv-question-text {
                 
-                .choice-result img {
-                    margin-left: -12px;
+            }
+    
+        .cbv-choices {
+            margin-left: 277px;
+            padding-left: 20px;
+            padding-top: -3px;
+            width: 534px;
+            padding-bottom: 17px;
+            border-bottom:15px solid #af765a;
+        }
+            .cbv-choices  img {
+                display:block;
+            }
+            
+    /* choose block arkaim */       
+    .stone {
+        margin-bottom: 33px;
+        margin-left: 21px;
+}
+    .wall {
+        margin-left:20px;
+    }
+    .pyramids {
+         margin-left: 26px;
+    }
+       
+       
+       
+    /*TEST*/   
+    .test-yourself {
+        position: relative;
+    }
+        .test-yourself img {
+            display:block;
+            margin-left: 8px;
+        }
+        .test-link {
+            width: 170px;
+            display:block;
+            text-decoration:none;
+            padding: 35px 132px 30px 0;
+            background: url(../img/nevyansk/arrow.png) no-repeat 100% 0px;
+            /*font-size: 17px;*/
+            font-size: 15px;
+            line-height: 19px;
+            margin-top: -5px;
+            font-weight:bold;
+        }
+
+         .petergof .test-link {
+            width: 115px;
+            display:block;
+            text-decoration:none;
+            padding: 0 0 135px 0;
+            background: url(../img/petergof/arrow.png) no-repeat center bottom;
+            color: #2C326B;
+            line-height: 19px;
+            position: absolute;
+            top: 50px;
+            left: 250px;
+            font-weight: bold;
+            
+        }
+
+        .nevyansk .test-link { 
+            color: #5B185B;
+            /*font-size: 17px;*/
+            font-weight: bold;
+        }
+        
+        .arkaim  .test-yourself {
+            position: relative;
+            width: 390px;
+        }
+            .arkaim  .test-yourself img {
+                display:block;
+                margin-left: 8px;
+                float: left;
+            }
+        .arkaim .test-link {
+            background: url(../img/arkaim/test-arrow.png) no-repeat 0 100%;
+            float: right;
+            padding-bottom: 117px;
+            padding-right: 0;
+            padding-top: 61px;
+            color:#a50a0a;
+            width:150px;
+            padding-right:20px;
+        }
+
+    /*COMPARE*/        
+    .compare {
+        width: 837px;
+        height: 560px;
+        position: absolute;
+        top: 150px;
+    }
+        .compare-sign {
+            right: 180px;
+            top:-160px;
+            position: absolute;
+        }
+        .compare-images {
+            position: absolute;
+            width: 800px;
+            height: 560px;
+            top: 0;
+            left: 0;
+
+        }
+            .compare-image {
+                background:#fff;
+                padding:17px;
+                border-radius:15px;
+                margin-right:17px;
+                position:absolute;
+                width:346px;
+                height: 523px;
+                cursor: pointer;
+            }
+
+                .compare-image.compare-image-1 {
+                    left: 0;
+                    top: 0;
                 }
 
-                
-                    .choice-result p {
-                        margin-left: 30px;
-                        font-size: 17px;
-                        line-height: 19px;
-                        margin-top: 28px;
-                        color:#5b185b;
-                        font-weight:bold;
+               .compare-image.compare-image-2 {
+                    left: 398px;
+                    top: 0;
+                }
+
+                .compare-image > img {
+                    position: absolute;
+                    left: 17px;
+                    top: 17px;
+                    z-index: 1
+                }    
+        
+                .hidden-parts {
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    width:380px;
+                    height:555px;
+
+                    z-index:2000;
+                    display: block;
+                 
+                    
+                }
+                    .hidden-parts div,
+                    .hidden-parts a {
+                        position:absolute;
+                        display: inline-block;
+                        z-index: 2500;
+                   }
+
+                    .hidden-parts img {
+                        
+                        position: relative;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: inline-block;
+
+                    }
+
+                    .star {
+                        top: 20px;
+                        left: 117px;
+                        width:20px;
+                        height:20px;
+                        background:url(../img/nevyansk/compare/star.png) no-repeat 6px 5px;
+                    }
+                    .bird {
+                        top: 175px;
+                        left: 175px;
+                        width:24px;
+                        height:24px;
+                        background:url(../img/nevyansk/compare/bird.png) no-repeat 6px 4px;
+                    }
+                    .plane {
+                        top: 66px;
+                        left: 202px;
+                        width:40px;
+                        height:20px;
+                        background:url(../img/nevyansk/compare/plane.png) no-repeat 0 0;
+                    }
+                    .sobor {
+                        top: 271px;
+                        left: 272px;
+                        width:43px;
+                        height:121px;
+                        background:url(../img/nevyansk/compare/sobor.png) no-repeat 0 0;
+                    } 
+                    
+                   
+                    .person {
+                        top: 162px;
+                        left: 161px;
+                        width:23px;
+                        height:36px;
+                        background:url(../img/nevyansk/compare/person.png) no-repeat 0 0;
+                    }
+                    .windows {
+                        top: 210px;
+                        left: 103px;
+                        width:57px;
+                        height:44px;
+                        background:url(../img/nevyansk/compare/windows.png) no-repeat 0 0;
+                    }
+                    .roof {
+                        top: 249px;
+                        left: 91px;
+                        width:183px;
+                        height:104px;
+                        background:url(../img/nevyansk/compare/roof.png) no-repeat 0 0;
+                    }
+                    .flower {
+                        top: 389px;
+                        left: 117px;
+                        width:27px;
+                        height:50px;
+                        background:url(../img/nevyansk/compare/flower.png) no-repeat 0 0;
+                    }
+                    .bike {
+                        top: 491px;
+                        left: 113px;
+                        width:42px;
+                        height:41px;
+                        background:url(../img/nevyansk/compare/bike.png) no-repeat 0 0;
+                    }
+                    .cat {
+                        top: 360px;
+                        left: 331px;
+                        width:25px;
+                        height:23px;
+                        background:url(../img/nevyansk/compare/cat.png) no-repeat 0 0;
+                    }
+                    .hidden-parts div.inv {
+                        background:url(../img/blank.png) repeat !important;
+                        /*outline:1px solid #fff;*/
+                    }
+                    .compare-found {
+                        background:#fff;
+                        color:#c4513f;
+                        text-transform:uppercase;
+                        padding:4px 13px;
+                        display:inline-block;
+                        font:bold 15px Arial black, Helvetica, sans-serif;
+                        border-radius:5px;
+                        float:right;
+                        position:absolute;
+                        bottom: -48px;
+                        right: 61px;
                     }
                     
-                .choice-result img.riddle-wrong {
-                   margin-left: -43px;
-                    margin-top: 19px;
-                    margin-bottom: -13px;
-                }
-                   
-                
-                .choice-result  img.riddle-right {
-                    margin-left: -22px;
-                    margin-top: 19px;
-                    margin-bottom: -13px;
-                } 
+                        #compare-found {
+                            color:#6bab68;
+                            font-size:19px;
+                            margin:0 3px;
+                        }
+                        
+                    .all-found {
+                        background:#7ce0f7;
+                        color:#fff;
+                    }
+                       .all-found  #compare-found {
+                            color:#d65fd3;
+                       }   
+                    
+                    
+                    
+                    /*Arkaim Compare*/
+                    /*Arkaim Compare*/
+                    .arkaim .compare {
+                        position:static;
+                    }
+                    .compare-side {
+                        width: 305px;
+                        float:left;
+                    }
+                    .arkaim .compare-image {
+                        width:520px;
+                        height:346px;
+                        position:relative;
+                         
+                        margin-bottom: 15px;
+                    }
+                    .arkaim  .compare-images {
+                        width:600px;
+                        height:auto;
+                        position:static;
+                        margin-left: 329px;
+                        padding-top: 21px;
+                    }
+                    .arkaim .compare-found {
+                        position:static;
+                        top:0;
+                        left:0;
+                        margin-top: -30px;
+                        color:#f9867a;
+                       /* width:217px;*/
+                        text-align:center;
+                    }
+                        .arkaim #compare-found {
+                            color:#9d82d1;
+                        }
+                        .arkaim  .all-found {
+                            background:#d16720;
+                            color:#fff;
+                        }
+                            .arkaim  .all-found  #compare-found {
+                                color:#c1d128;
+                            }
+                    .arkaim .hidden-parts {
+                        width:520px;
+                        height:346px;
+                        left:17px;
+                        top:17px;
+                    }
+                    .arkaim  .hidden-parts  div {
+                        background-image:url(../img/arkaim/compare/all-diff.png);
+                        background-repeat:no-repeat;
+                        z-index: 700;
+
+                    }
+                    .first_1 {
+                        width:52px;
+                        height:28px;
+                        top: 194px;
+                        left: 17px;
+                        background-position: 0 -12px;
+                    }  
+
+                    .first_2 {
+                       width: 102px;
+                        height: 43px;
+                        top: 276px;
+                        left: 235px;
+                        background-position: -139px -10px;
+                    } 
+                    .first_3 {
+                        width: 37px;
+                        height: 29px;
+                        top: 79px;
+                        left: 304px;
+                        background-position: -73px -11px;
+                    } 
+                    .first_4 {
+                        width: 102px;
+                        height: 75px;
+                        top: 61px;
+                        left: 394px;
+                        background-position: -370px -5px;
+                    }
+                    .first_5 {
+                        width: 32px;
+                        height: 48px;
+                        top: 188px;
+                        left: 424px;
+                        background-position: -314px -6px;
+                    } 
+                    
+                    .sec_1 {
+                        width: 37px;
+                        height: 47px;
+                        top: 161px;
+                        left: 283px;
+                        background-position: -261px -6px;
+                    } 
+                    .sec_2 {
+                        width: 23px;
+                        height: 27px;
+                        top: 117px;
+                        left: 303px;
+                        background-position: -3px -162px;
+                    } 
+                    .sec_3 {
+                        width: 135px;
+                        height: 99px;
+                        top: -2px;
+                        left: 30px;
+                        background-position: -41px -57px;
+                    }
+                    .sec_4 {
+                        width: 37px;
+                        height: 106px;
+                        top: 125px;
+                        left: 175px;
+                        background-position: -197px -58px;
+                    }
+                    .sec_5 {
+                        width: 193px;
+                        height: 98px;
+                        top: 248px;
+                        left: 26px;
+                        background-position: -261px -80px;
+                    }
+                                        
+            
+            
+ 
+            
+/*CHOOSE ONE*/
+.choose-one {
+
+}        
+    .choose-panel {
+        position:relative;
+        width:500px;
+        float:left;
+    } 
+        .choose-panel .choice {
+            display:inline-block;
+            vertical-align:bottom;   
+            width:33%; 
+            text-align:center;  
+            cursor: pointer;                  
+        }
+            .nevyansk .case-6  .choose-panel .choice1 {
+                margin-left:10px;
+            }
+            .nevyansk .case-6  .choose-panel .choice2 {
+                margin:0 53px;
+            }
 
 
-                 .petergof .choose-panel .big-image {
-                    display:inline-block;
-                    vertical-align:bottom;   
-                    width:272px; 
-                    text-align:center;                    
-                }
+        
+        .panel-line {
+            width:100%;
+            position:absolute;
+            bottom:0;
+            left:0;
+            height:15px;
+            background:#885889;
+        }
 
-                .petergof .nev-riddle-1 .choose-panel .choice {
-                    width: 140px;
-                    vertical-align:bottom;
-                    margin-bottom: 35px;
-                }
-                
+        .petergof .panel-line {
+            background: #5972B2;
+        }
+      
+    
+    .choice-result {
+        position: relative;
+    }
+       .choice-result > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 270px;
+        }
+        
+        .choice-result img {
+            margin-left: -12px;
+        }
 
-                .petergof .nev-riddle-1 .choice-result img,
-                .petergof .nev-riddle-3 .choice-result img {
-                    margin-left: 0px;
-                }
+        
+            .choice-result p {
+                margin-left: 30px;
+                font-size: 15px;
+                line-height: 19px;
+                margin-top: 28px;
+                color:#5b185b;
+                font-weight:bold;
+            }
+            
+        .choice-result img.riddle-wrong {
+            margin-left: -43px;
+            margin-top: 19px;
+            margin-bottom: -13px;
+        }
+           
+        
+        .choice-result  img.riddle-right {
+            margin-left: -22px;
+            margin-top: 19px;
+            margin-bottom: -13px;
+        } 
 
 
-                .petergof .nev-riddle-1 .choice-result img.riddle-wrong,
-                .petergof .nev-riddle-3 .choice-result img.riddle-wrong {
-                   margin: 0;
-                }
-                   
-                
-                .petergof .nev-riddle-1 .choice-result  img.riddle-right,
-                .petergof .nev-riddle-3 .choice-result  img.riddle-right {
-                    margin: 0;
-                } 
+        .petergof .choose-panel .big-image {
+            display:inline-block;
+            vertical-align:bottom;   
+            width:272px; 
+            text-align:center;   
+            margin-left:33px;            
+        }
+
+        .petergof .nev-riddle-1 .choose-panel .choice {
+            width: 140px;
+            vertical-align:bottom;
+            margin-bottom: 35px;
+        }
+        
+
+        .petergof .nev-riddle-1 .choice-result img,
+        .petergof .nev-riddle-3 .choice-result img {
+            margin-left: 0px;
+        }
+
+
+        .petergof .nev-riddle-1 .choice-result img.riddle-wrong,
+        .petergof .nev-riddle-3 .choice-result img.riddle-wrong {
+           margin: 0;
+        }
+           
+        
+        .petergof .nev-riddle-1 .choice-result  img.riddle-right,
+        .petergof .nev-riddle-3 .choice-result  img.riddle-right {
+            margin: 0;
+        } 
                 
                 
                 
@@ -833,21 +1528,20 @@ body {
             margin-left: 55px;
         } 
 
-        .petergof .nev-riddle-1  {
-            margin-top: 150px;
-            margin-left: 0px;
-            position: relative;
-        } 
+            .petergof .nev-riddle-1  {
+                margin-top: 150px;
+                margin-left: 0px;
+                position: relative;
+            } 
 
            .nev-riddle-1 .choose-panel {
                 width:560px;
-            
                 margin-top: 18px;
             }
 
-            .petergof .nev-riddle-1 .choose-panel {
-                width:757px;
-            }
+                .petergof .nev-riddle-1 .choose-panel {
+                    width:757px;
+                }
 
         
             .nev-riddle-1 .choice-result {
@@ -859,21 +1553,19 @@ body {
                 line-height: 19px;
             }
 
-            .petergof .nev-riddle-1 .choice-result {
-                position: absolute;
-                margin: 0;
-                left: 520px;
-                top: -220px;
-                width: 400px;
-            }
+                .petergof .nev-riddle-1 .choice-result {
+                    position: absolute;
+                    margin: 0;
+                    left: 520px;
+                    top: -220px;
+                    width: 400px;
+                }
 
                 .petergof .nev-riddle-1 .choice-result p {
                     color: #2C326B;
                     margin:15px 0 0 0;
                     position: relative;
                     font-weight: bold;
-                    
-                   
                 }
 
                     .petergof .nev-riddle-1 .choice-result .choice-no-result p {
@@ -899,40 +1591,35 @@ body {
             margin-top: 61px;
             margin-left: 62px;
             width: 726px;
-        
             height: 346px;
-}    
+        }    
            .nev-riddle-2 .choose-panel {
                 width:460px;
                 float:right;
-            
                 margin-top: 65px;
-}
+            }
 
-        
             .nev-riddle-2 .choice-result {
                 margin-right:480px;
                 height:150px;
                 width:300px;
             }    
             
-            
-               
-              .nev-riddle-2 .choice-result img {
+                .nev-riddle-2 .choice-result img {
                     margin-left: -2px;
                     margin-top: 3px;
                 }
-                     .nev-riddle-2 .choice-result p {
+                    .nev-riddle-2 .choice-result p {
                         margin-left: -50px;
                         margin-top: 33px;
                     }
                     
-                 .nev-riddle-2 .choice-result img.riddle-wrong {
+                .nev-riddle-2 .choice-result img.riddle-wrong {
                     margin-top: 3px;
                 }
                    
                 
-                 .nev-riddle-2 .choice-result  img.riddle-right {
+                .nev-riddle-2 .choice-result  img.riddle-right {
                     
                 } 
 
@@ -940,7 +1627,8 @@ body {
     .petergof .nev-riddle-2,
     .petergof .nev-riddle-2 .choice-result {
         width: auto;
-        margin: 0;    }
+        margin: 0;    
+    }
 
         .petergof .nev-riddle-2 .choice-no-result,
         .petergof .nev-riddle-2 .item-count,
@@ -1056,29 +1744,29 @@ body {
 
 
 
-                .petergof .nev-riddle-3 .choice-result .choice-no-result p {
-                    left: 38px;
-                }
+        .petergof .nev-riddle-3 .choice-result .choice-no-result p {
+            left: 38px;
+        }
 
-                .petergof .nev-riddle-3 .choice-result .choice-1-result p {
-                    left: -275px;
-                    width: 480px
-                }
+        .petergof .nev-riddle-3 .choice-result .choice-1-result p {
+            left: -275px;
+            width: 480px
+        }
 
-                .petergof .nev-riddle-3 .choice-result .choice-2-result p {
-                     left: -275px;
-                    width: 480px
-                }
+        .petergof .nev-riddle-3 .choice-result .choice-2-result p {
+             left: -275px;
+            width: 480px
+        }
 
-                .petergof .nev-riddle-3 .choice-result .choice-3-result p {
-                     left: -275px;
-                    width: 480px
-                }        
+        .petergof .nev-riddle-3 .choice-result .choice-3-result p {
+             left: -275px;
+            width: 480px
+        }        
 
 
 
                 
-                
+          
     .overlay {
         background:#000;
         opacity:0.5;
@@ -1135,7 +1823,7 @@ body {
 
         
     
-
+    /*WANT MORE*/      
     .whant-more-container {
         width: 963px;
         position: relative;
@@ -1145,29 +1833,53 @@ body {
         .want-more-nevyansk {
              background:url(../img/nevyansk/window_bg.jpg) no-repeat 0 0;
         }
+        .want-more-arkaim {
+             background:url(../img/arkaim/window_bg.jpg) no-repeat 0 0;
+        }
+            .want-more-arkaim .window-text {
+                height:220px;
+                color:#747f47;
+            }
+            
+            .want-more-arkaim-container .jspTrack {
+                background:#f9f5cf;
+            }
 
 	
     
         
         
-
-   .quiz-window {
-    position: relative;
-    width: 960px;
-    height: 580px;
-   }
-
-   .petergof.quiz-window {
-         background:url(../img/petergof/quiz/bg-quiz.png) no-repeat 0 0;
-   }
-   .quiz-nevyansk {
-        background:url(../img/nevyansk/quiz/bg-quiz.png) repeat;
         
-   }
-
-   .quiz-window .quiz-content {
+    /*QIIZ*/
+   .quiz-window {
         position: relative;
-   }
+        width: 960px;
+        height: 580px;
+    }
+
+    .petergof.quiz-window {
+        background:url(../img/petergof/quiz/bg-quiz.png) no-repeat 0 0;
+    }
+    .quiz-nevyansk {
+        background:url(../img/nevyansk/quiz/bg-quiz.png) repeat;
+    }
+    .quiz-arkaim {
+        background:url(../img/arkaim/quiz/bg.gif) repeat;
+    }
+    .quiz-kremlin {
+        background:url(../img/kremlin/quiz/bg.jpg) no-repeat;
+        height:578px;
+    }
+    
+    
+    
+    .kreml-window {
+        background:none;
+    }
+
+    .quiz-window .quiz-content {
+        position: relative;
+    }
 
         .quiz-window .quiz-content .baloons {
             position: absolute;
@@ -1179,10 +1891,15 @@ body {
             top: 57px;
             left: 50px;
             z-index: 5;
-
         }
         .quiz-nevyansk .quiz-content .baloons  {
             background:url(../img/nevyansk/quiz/baloons.png) no-repeat 0 0;
+        }
+        .quiz-arkaim .quiz-content .baloons  {
+            background:url(../img/arkaim/quiz/baloons.png) no-repeat 0 0;
+        }
+        .quiz-kremlin .quiz-content .baloons  {
+            background:url(../img/kremlin/quiz/baloons.png) no-repeat 0 0;
         }
 
             .quiz-window .quiz-content .baloons li {
@@ -1199,18 +1916,33 @@ body {
                     background:url(../img/petergof/quiz/baloon-step-1.png) no-repeat 0 0;
                     left: 205px;
                     top:-5px;
-                    
                 }
-                .quiz-nevyansk .quiz-content .baloons .first  {
-                     background:url(../img/nevyansk/quiz/baloon-step-1.png) no-repeat 0 0;
-                }
+                    .quiz-nevyansk .quiz-content .baloons .first  {
+                         background:url(../img/nevyansk/quiz/baloon-step-1.png) no-repeat 0 0;
+                    }
+                    .quiz-arkaim .quiz-content .baloons .first  {
+                         background:none;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .first  {
+                         background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .first.active {
                     background:url(../img/petergof/quiz/baloon-step-1-active.png) no-repeat 0 0;
                 }
-                .quiz-nevyansk .quiz-content .baloons .first.active {
-                    background:url(../img/nevyansk/quiz/baloon-step-1-active.png) no-repeat 0 0;
-                }
+                    .quiz-nevyansk .quiz-content .baloons .first.active {
+                        background:url(../img/nevyansk/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                    }
+                    .quiz-arkaim .quiz-content .baloons .first.active {
+                        background:url(../img/arkaim/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                        top: 0px;
+                        left: 206px;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .first.active {
+                        background:url(../img/kremlin/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                        top: 0px;
+                        left: 206px;
+                    }
 
 
                 .quiz-window .quiz-content .baloons .second {
@@ -1219,19 +1951,36 @@ body {
                     background:url(../img/petergof/quiz/baloon-step-2.png) no-repeat 0 0;
                     left: 382px;
                     top:-2px;
-                    
                 }
-                .quiz-nevyansk .quiz-content .baloons .second  {
-                    background:url(../img/nevyansk/quiz/baloon-step-2.png) no-repeat 0 0;
-                }
+                    .quiz-nevyansk .quiz-content .baloons .second  {
+                        background:url(../img/nevyansk/quiz/baloon-step-2.png) no-repeat 0 0;
+                    }
+                    .quiz-arkaim .quiz-content .baloons .second  {
+                        background:none;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .second  {
+                        background:none;
+                    }
                 
 
                 .quiz-window .quiz-content .baloons .second.active {
                     background:url(../img/petergof/quiz/baloon-step-2-active.png) no-repeat 0 0;
                 }
-                .quiz-nevyansk .quiz-content .baloons .second.active {
-                     background:url(../img/nevyansk/quiz/baloon-step-2-active.png) no-repeat 0 0;
-                }
+                    .quiz-nevyansk .quiz-content .baloons .second.active {
+                        background:url(../img/nevyansk/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                    }
+                    .quiz-arkaim .quiz-content .baloons .second.active {
+                        background:url(../img/arkaim/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                        left: 375px;
+                        top: 2px;
+                        width: 120px;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .second.active {
+                        background:url(../img/kremlin/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                        left: 381px;
+                        top: 2px;
+                        width: 120px;
+                    }
 
                 .quiz-window .quiz-content .baloons .third {
                     width: 109px;
@@ -1239,19 +1988,30 @@ body {
                     background:url(../img/petergof/quiz/baloon-step-3.png) no-repeat 0 0;
                     left: 555px;
                     top:-2px;
-                    
                 }
-                .quiz-nevyansk .quiz-content .baloons .third {
-                    background:url(../img/nevyansk/quiz/baloon-step-3.png) no-repeat 0 0;
-                }
+                    .quiz-nevyansk .quiz-content .baloons .third {
+                        background:url(../img/nevyansk/quiz/baloon-step-3.png) no-repeat 0 0;
+                    }
+                    .quiz-arkaim .quiz-content .baloons .third {
+                        background:none;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .third {
+                        background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .third.active {
                     background:url(../img/petergof/quiz/baloon-step-3-active.png) no-repeat 0 0;
                 } 
                 
-                .quiz-nevyansk .quiz-content .baloons .third.active {
-                    background:url(../img/nevyansk/quiz/baloon-step-3-active.png) no-repeat 0 0;
-                }
+                    .quiz-nevyansk .quiz-content .baloons .third.active {
+                        background:url(../img/nevyansk/quiz/baloon-step-3-active.png) no-repeat 0 0;
+                    }
+                    .quiz-arkaim .quiz-content .baloons .third.active {
+                        background:url(../img/arkaim/quiz/baloon-step-3-active.png) no-repeat 0 5px;
+                    }
+                    .quiz-kremlin .quiz-content .baloons .third.active {
+                        background:url(../img/kremlin/quiz/baloon-step-3-active.png) no-repeat 0 5px;
+                    }
 
 
                 .quiz-content .q-case-intro,
@@ -1266,35 +2026,50 @@ body {
                     padding: 215px 40px 40px 215px;
                 }
                 .name-text {
-                   position: absolute;
-                   z-index: 500;
-                   width: 220px;
-                   height: 25px;
-                  
-                   top: 309px;
-                    left: 535px;
+                    position: absolute;
+                    z-index: 500;
+                    width: 100%;
+                    height: 100%;
+                    top: 0px;
+                    left: 0px;
                 }
                     .name-text input {
-                        /*position: absolute;
-                        top: 309px;
-                        left: 535px;*/
                         font: 15px Arial, helvetica, sans-serif;
                         width: 210px;
-                        background: transparent;
+                        background: #E2DCE8;
                         color: #000;
                         border: 0;
                         padding: 2px 5px;
                         z-index: 550;
+                        border: 1px solid #E2DCE8;
+                        position: relative;
+                        left: 540px;
+                        top: 314px;
                     }
 
                         .petergof .name-text input {
-                            top:3px;
-                            position: relative;
+                            left: 535px;
+                            top: 310px;
+                            background: #A0C4DA;
+
                         }
+
+                         .nevyansk .name-text input {
+                            left: 535px;
+                            top: 308px;
+                           
+                        }
+
+
+                        .arkaim .name-text input {
+                            display: block;
+                            z-index: 9000;
+                            }
+                            
                     .get-diplom {
                         position:absolute;
-                        bottom: -230px;
-                        right: -175px;
+                        bottom: 17px;
+                        right: 25px;
                         width:223px;
                         height:37px;
                         display:block;
@@ -1302,24 +2077,35 @@ body {
                         background:url(../img/nevyansk/quiz/sert-button.gif) no-repeat 0 0;
                         text-indent:-9999px;
                     }
-                    .sertificat img {
-                        display:block;
-                        margin:auto;
-                    }
-                    .winner-name {
-                        position: absolute;
-                        top: 315px;
-                        left: 370px;
-                        padding: 2px 5px;
-                        color:#456c92;
-                        font:22px 'adventurecregular', Arial, Helvetica, sans-serif;
-                        z-index: 600;
-                    }
-
-                        .nevyansk .winner-name {
-                            width: 200px;
-                            height: 100px;
+                        .sertificat img {
+                            display:block;
+                            margin:auto;
                         }
+                        .winner-name {
+                            position: absolute;
+                            top: 315px;
+                            left: 370px;
+                            padding: 2px 5px;
+                            color:#456c92;
+                            font:22px 'adventurecregular', Arial, Helvetica, sans-serif;
+                            z-index: 600;
+                        }
+                            .nevyansk .winner-name {
+                                width: 200px;
+                                height: 100px;
+                            }
+                            .arkaim .winner-name {
+                                top: 287px;
+                                left: 318px;
+                                width: 305px;
+                                text-align: center;
+                            }
+                            .kreml .winner-name {
+                                top: 300px;
+                                left: 318px;
+                                width: 305px;
+                                text-align: center;
+                            }
 
                     .to-print {
                         position:absolute;
@@ -1349,17 +2135,22 @@ body {
                     z-index: 10;
                 }
 
-                 .quiz-content .sertificat {
+                .quiz-content .sertificat {
                     width:960px;
                     height:580px;
-                 }
+                }
                 .quiz-content .q-case-intro,
                 .quiz-content .q-case-2,
                 .quiz-content .q-case-3 {
                     display: none;
                 }
+                .quiz-kremlin .sertificat img {
+                    top:10px;
+                }
 
-    .quiz-nav { width: 200px; }
+    .quiz-nav { 
+        width: 200px; 
+    }
 
         .quiz-nav li {
             margin: 0;
@@ -1395,6 +2186,17 @@ body {
             text-decoration:none;
         }
 
+        .ios .quiz-window .next {
+            margin-top: -1px;
+        }
+            .quiz-arkaim .next {
+             color:#ff9971;
+            }
+            
+            .quiz-kremlin .next {
+             color:#739b51;
+            }
+        
         .quiz-window .next.first_slide {
             bottom:133px;
             left:215px;
@@ -1408,6 +2210,12 @@ body {
             text-transform:uppercase;
         }
 
+            .quiz-arkaim .next.first_slide {
+                color:#f27746;
+            }
+            .quiz-kremlin .next.first_slide {
+                color:#739b51;
+            }
             .quiz-nav li.start,
             .quiz-nav li.next {
                 background:url(../img/petergof/quiz/btns-sprite.png) no-repeat -44px 0;
@@ -1451,9 +2259,15 @@ body {
             position: relative;
             vertical-align: middle;
         }
-        .quiz-nevyansk .q-case-intro h1 {
-            color:#188793;
-        }
+            .quiz-nevyansk .q-case-intro h1 {
+                color:#188793;
+            }
+            .quiz-arkaim .q-case-intro h1 {
+                color:#7db52c;
+            }
+            .quiz-kremlin .q-case-intro h1 {
+                color:#ea9b9b;
+            }
 
         .q-case-intro p {
             display: inline-block;
@@ -1487,9 +2301,16 @@ body {
             width: 530px;
 
         }
-        .quiz-nevyansk .question p {
-            color:#188793;
-        }
+            .quiz-nevyansk .question p {
+                color:#188793;
+            }
+            .quiz-arkaim .question p {
+                color:#188793;
+            }
+            .quiz-kremlin .question p {
+                color:#739b51;
+                margin-top:13px;
+            }
 
         .quiz-content .question p:first-child,
         .quiz-content .answers ul li:first-child {
@@ -1499,24 +2320,30 @@ body {
        .quiz-content .answers {
             padding-left: 15px;
             position: relative;
-            z-index: 50
+            z-index: 50;
+            
         }
 
             .quiz-content .answers ul,
             .quiz-content .answers .description {
                 display: inline-block;
                 vertical-align: top;
+                position: relative;
+
             }
             .quiz-content .answers .description p {
                 margin-top:0;
                 line-height: 1.2em;
                 margin-bottom: 3px;
+                font-size:15px;
+                font-weight:bold;
             }
 
 
             .quiz-content .answers ul {
                 margin: 0 40px 0 0;
                 width: 280px;
+                padding: 0;
             }
 
                 .quiz-content .answers ul li {
@@ -1542,7 +2369,12 @@ body {
                 -moz-border-radius: 6px;
                 border-radius: 6px;
                 display: none;
+                margin-top: -1px;
+                margin-bottom: -1px;
+                position: absolute;
             }
+
+            .ios .quiz-content .answers .description div { position: absolute; }
 
             .quiz-content .answers .description h4 {
                 margin: 0 0 5px 0;
@@ -1550,13 +2382,42 @@ body {
                 font-size: 25px;
 
             }
+            .quiz-kremlin .answers .description h4 {
+                text-align:center;
+            }
 
-
+/*CASE 1*/            
+    
+    .quiz-arkaim .q-case-1 .answers {
+        margin-top:50px;    
+    }
+        .quiz-arkaim .q-case-1  .answers ul {
+            width:365px;
+            margin-right:20px;
+        } 
+    .quiz-kremlin .q-case-1 .answers {
+        margin-top:68px;    
+    }
+        .quiz-kremlin .q-case-1  .answers ul {
+            width:343px;
+            margin-right:20px;
+        }      
+          
+    .quiz-kremlin .q-case-1 .answers .description div {
+        padding-left:18px;
+    }
+          
     .quiz-content .q-case-1 .answers ul li.first a {
         color: #89BD68;
     }
         .quiz-nevyansk .q-case-1 .answers ul li.first a {
             color:#f7576e;
+        }
+        .quiz-arkaim .q-case-1 .answers ul li.first a {
+            color:#e27a5a;
+        }
+        .quiz-kremlin .q-case-1 .answers ul li.first a {
+            color:#db5d96;
         }
 
     .quiz-content .q-case-1 .answers.first  ul li.first a,
@@ -1569,12 +2430,36 @@ body {
         .quiz-nevyansk .q-case-1 .answers.first .description .first {
             background:#f7576e;
         }
+        
+        .quiz-arkaim .q-case-1 .answers.first  ul li.first a,
+        .quiz-arkaim .q-case-1 .answers.first .description .first {
+            background:#e27a5a;
+        }
+        .quiz-arkaim .q-case-1 .first .description h4 {
+            color:#b0e2cd;
+        }
+        
+        .quiz-kremlin .q-case-1 .answers.first  ul li.first a,
+        .quiz-kremlin .q-case-1 .answers.first .description .first {
+            background:#d879a9;
+        }
+        .quiz-kremlin .q-case-1 .first .description h4 {
+            color:#f4dda8;
+        }
+        
+        
 
     .quiz-content .q-case-1 .answers ul li.second a {
         color: #5DC6C2;
     }
         .quiz-nevyansk .q-case-1 .answers ul li.second a {
             color: #7e9964;
+        }
+        .quiz-arkaim .q-case-1 .answers ul li.second a {
+            color: #34a587;
+        }
+        .quiz-kremlin .q-case-1 .answers ul li.second a {
+            color: #f77c7c;
         }
 
     .quiz-content .q-case-1 .answers.second ul li.second a,
@@ -1588,12 +2473,34 @@ body {
         .quiz-nevyansk .q-case-1 .answers.second .description .second {
             background: #7e9964;
         }
+        
+        .quiz-arkaim .q-case-1 .answers.second ul li.second a,
+        .quiz-arkaim .q-case-1 .answers.second .description .second {
+            background: #34a587;
+        }
+        .quiz-arkaim .q-case-1 .second .description h4 {
+            color:#f9c082;
+        }
+        
+        .quiz-kremlin .q-case-1 .answers.second ul li.second a,
+        .quiz-kremlin .q-case-1 .answers.second .description .second {
+            background: #f77c7c;
+        }
+        .quiz-kremlin .q-case-1 .second .description h4 {
+            color:#dbf2aa;
+        }
 
     .quiz-content .q-case-1 .answers ul li.third a {
         color: #B97EC0;
     }
         .quiz-nevyansk .q-case-1 .answers ul li.third a {
             color: #ce7a41;
+        }
+        .quiz-arkaim .q-case-1 .answers ul li.third a {
+            color: #818ccc;
+        }
+        .quiz-kremlin .q-case-1 .answers ul li.third a {
+            color: #e29847;
         }
 
     .quiz-content .q-case-1 .answers.third ul li.third a,
@@ -1606,22 +2513,60 @@ body {
         .quiz-nevyansk .q-case-1 .answers.third .description .third {
             background: #e8803a;
         }
+        .quiz-arkaim .q-case-1 .answers.third ul li.third a,
+        .quiz-arkaim .q-case-1 .answers.third .description .third {
+            background: #818ccc;
+        }
+        .quiz-arkaim .q-case-1 .third .description h4 {
+            color:#b0e2cd;
+        }
+        .quiz-kremlin .q-case-1 .answers.third ul li.third a,
+        .quiz-kremlin .q-case-1 .answers.third .description .third {
+            background: #e29847;
+        }
+        .quiz-kremlin .q-case-1 .answers.third .description .third {
+            width:310px;
+        }
+        .quiz-kremlin .q-case-1 .third .description h4 {
+            color:#dceeff;
+        }
 
-
-
+/*CASE 2*/
+    
+    .quiz-arkaim .q-case-2 .answers {
+        margin-top:50px;    
+    }
+    .quiz-arkaim .q-case-2  .answers ul {
+        width:365px;
+        margin-right:20px;
+    }  
+    .quiz-kremlin  .q-case-2 .answers {
+        margin-top: 69px;
+    }
+    .quiz-content .q-case-2 .answers ul {
+        margin: 0 18px 0 0;
+        width: 361px;
+    }
+    
+    .quiz-kremlin .q-case-2 .answers .description div {
+        width: 290px;
+        padding-left:13px;
+    }    
+    
     .quiz-nevyansk .q-case-2  .answers .description p {
         
     } 
-    .quiz-nevyansk .q-case-2  .question p {
-        margin-top:0;
-    }
+        .quiz-nevyansk .q-case-2  .question p {
+            margin-top:0;
+        }
     .quiz-nevyansk .q-case-2  .answers .description {
         margin-top:76px;
-        width:340px;
+       width: 294px;
     }    
-    .quiz-nevyansk .q-case-2  .answers .description div {
-        width:333px;
-    }
+        .quiz-nevyansk .q-case-2  .answers .description div {
+            width: 310px;
+            padding: 13px 13px;
+        }
     .quiz-content .q-case-2 .answers ul li.first a {
         color: #72BF9F;
     }
@@ -1630,6 +2575,12 @@ body {
         }
         .quiz-nevyansk .q-case-2 .answers ul li.first a {
             color: #47a0d1;
+        }
+        .quiz-arkaim .q-case-2 .answers ul li.first a {
+            color: #8ab78a;
+        }
+        .quiz-kremlin .q-case-2 .answers ul li.first a {
+            color: #a1b721;
         }
 
     .quiz-content .q-case-2 .answers.first ul li.first a,
@@ -1642,12 +2593,32 @@ body {
         .quiz-nevyansk .q-case-2 .answers.first .description .first {
             background: #47a0d1;
         }
+        .quiz-arkaim .q-case-2 .answers.first ul li.first a,
+        .quiz-arkaim .q-case-2 .answers.first .description .first {
+            background: #8ab78a;
+        }
+        .quiz-arkaim .q-case-2 .first .description h4 {
+            color:#c5eaf9;
+        }
+        .quiz-kremlin .q-case-2 .answers.first ul li.first a,
+        .quiz-kremlin .q-case-2 .answers.first .description .first {
+            background: #a1b721;
+        }
+        .quiz-kremlin .q-case-2 .first .description h4 {
+            color:#ffdef9;
+        }
 
     .quiz-content .q-case-2 .answers ul li.second a {
         color: #7166C2;
     }
         .quiz-nevyansk .q-case-2 .answers ul li.second a {
             color: #b774b7;
+        }
+        .quiz-arkaim .q-case-2 .answers ul li.second a {
+            color: #a469b7;
+        }
+        .quiz-kremlin .q-case-2 .answers ul li.second a {
+            color: #a385c6;
         }
 
     .quiz-content .q-case-2 .answers.second ul li.second a,
@@ -1660,12 +2631,30 @@ body {
         .quiz-nevyansk .q-case-2 .answers.second .description .second {
             background: #b774b7;
         }
+        
+        .quiz-arkaim .q-case-2 .answers.second ul li.second a,
+        .quiz-arkaim .q-case-2 .answers.second .description .second {
+            background: #a469b7;
+        }
+        .quiz-kremlin .q-case-2 .answers.second ul li.second a,
+        .quiz-kremlin .q-case-2 .answers.second .description .second {
+            background: #a385c6;
+        }
+         .quiz-kremlin .q-case-2 .second .description h4 {
+            color:#e1f4ff;
+        }
 
     .quiz-content .q-case-2 .answers ul li.third a {
         color: #B97EC0;
     }
         .quiz-nevyansk .q-case-2 .answers ul li.third a {
             color: #8cc63f;
+        }
+        .quiz-arkaim .q-case-2 .answers ul li.third a {
+            color: #bc6a46;
+        }
+        .quiz-kremlin .q-case-2 .answers ul li.third a {
+            color: #7992d8;
         }
 
     .quiz-content .q-case-2 .answers.third ul li.third a,
@@ -1678,13 +2667,58 @@ body {
         .quiz-nevyansk .q-case-2 .answers.third .description .third {
             background: #8cc63f;
         }  
+        
+        .quiz-arkaim .q-case-2 .answers.third ul li.third a,
+        .quiz-arkaim .q-case-2 .answers.third .description .third {
+            background: #bc6a46;
+        }  
+        .quiz-arkaim .q-case-2 .third .description h4 {
+            color:#fcf8d9;
+        }
+        .quiz-kremlin .q-case-2 .answers.third ul li.third a,
+        .quiz-kremlin .q-case-2 .answers.third .description .third {
+            background: #86a1d1;
+        }  
+        .quiz-kremlin .q-case-2 .third .description h4 {
+            color:#f9ecb7;
+        }
 
 
 
+/*CASE 3*/
+    .quiz-arkaim .q-case-3 .answers {
+        margin-top:50px;    
+    }
+    .quiz-arkaim .q-case-3  .answers ul {
+        width:265px;
+        margin-right:20px;
+    }   
+    .quiz-arkaim   .q-case-3  .answers .description div {
+        width:340px;
+    } 
+        
+    .quiz-kremlin  .q-case-3 .answers {
+        margin-top: 50px;
+    }
+        .quiz-kremlin  .q-case-3 .answers ul {
+            margin: 0 16px 0 0;
+            width: 360px; 
+        }
+        .quiz-kremlin  .q-case-3  .answers .description div {
+            padding-left:13px;
+            width: 287px; 
+        }
+    
 
-  .quiz-content .q-case-3 .answers ul li.first a {
+    .quiz-content .q-case-3 .answers ul li.first a {
         color: #E3D16B;
     }
+        .quiz-arkaim .q-case-3 .answers ul li.first a {
+            color: #8091d8;
+        }
+        .quiz-kremlin .q-case-3 .answers ul li.first a {
+            color: #4ca4d6;
+        }
 
     .quiz-content .q-case-3 .answers.first ul li.first a,
     .quiz-content .q-case-3 .answers.first .description .first {
@@ -1692,10 +2726,30 @@ body {
         color: #FFF;
          display: block;
     }
+        .quiz-arkaim .q-case-3 .answers.first ul li.first a,
+        .quiz-arkaim .q-case-3 .answers.first .description .first {
+            background: #8f9ed1;
+        }
+        .quiz-arkaim .q-case-3 .first .description h4 {
+            color:#edd8ef;
+        }
+        .quiz-kremlin .q-case-3 .answers.first ul li.first a,
+        .quiz-kremlin .q-case-3 .answers.first .description .first {
+            background: #4ca4d6;
+        }
+        .quiz-kremlin .q-case-3 .first .description h4 {
+            color:#f1deff;
+        }
 
     .quiz-content .q-case-3 .answers ul li.second a {
         color: #C9809E;
     }
+        .quiz-arkaim .q-case-3 .answers ul li.second a {
+            color: #b569a7;
+        }
+        .quiz-kremlin .q-case-3 .answers ul li.second a {
+            color: #e26e5a;
+        }
 
     .quiz-content .q-case-3 .answers.second ul li.second a,
     .quiz-content .q-case-3 .answers.second .description .second {
@@ -1703,10 +2757,30 @@ body {
         color: #FFF;
          display: block;
     }
+        .quiz-arkaim .q-case-3 .answers.second ul li.second a,
+        .quiz-arkaim .q-case-3 .answers.second .description .second {
+            background: #b569a7;
+        }
+        .quiz-arkaim .q-case-3 .second .description h4 {
+            color:#dff7ef;
+        }  
+        .quiz-kremlin .q-case-3 .answers.second ul li.second a,
+        .quiz-kremlin .q-case-3 .answers.second .description .second {
+            background: #e26e5a;
+        }
+        .quiz-kremlin .q-case-3 .second .description h4 {
+            color:#e1fff0;
+        }        
 
     .quiz-content .q-case-3 .answers ul li.third a {
         color: #EF8B7B;
     }
+        .quiz-arkaim .q-case-3 .answers ul li.third a {
+            color: #dd726b;
+        }
+        .quiz-kremlin .q-case-3 .answers ul li.third a {
+            color: #529e8a;
+        }
 
     .quiz-content .q-case-3 .answers.third ul li.third a,
     .quiz-content .q-case-3 .answers.third .description .third {
@@ -1714,11 +2788,349 @@ body {
         color: #FFF;
          display: block;
     } 
+        .quiz-arkaim .q-case-3 .answers.third ul li.third a,
+        .quiz-arkaim .q-case-3 .answers.third .description .third {
+            background: #dd726b;
+        } 
+        .quiz-arkaim .q-case-3 .third .description h4 {
+            color:#e2f9bb;
+        }  
+        .quiz-kremlin .q-case-3 .answers.third ul li.third a,
+        .quiz-kremlin .q-case-3 .answers.third .description .third {
+            background: #529e8a;
+        } 
+        .quiz-kremlin .q-case-3 .third .description h4 {
+            color:#f9cb98;
+        }  
+        
+        
+/* SERTIFICAT*/
+     
+    .quiz-arkaim .sertificat img {
+        top:10px;
+    }
+    .quiz-kremlin .name-text input {
+        left: 536px;
+        top: 311px;
+    }        
+
+    .quiz-kremlin .get-diplom {
+        bottom: 20px;
+        right: 30px;
+        background:none;
+    }
+    .quiz-kremlin .to-print {
+        bottom: 12px;
+    }
+    
+
+/*FOOTER*/				
+.footer-menu {
+    margin: 0;
+    height:689px;
+    position:relative;
+   
+}		
+
+
+    .footer-menu ul {
+        list-style:none;
+    }
+        .footer-menu li {
+            position:absolute;
+        }
+            .footer-menu a {
+                display: block;
+                padding: 27px 0 0 17px;
+                text-transform: uppercase;
+                text-decoration: none;
+                font: 13px/15px Tahoma, Helvetica, sans-serif;
+                text-align:center;
+                font-weight: bold;
+            }
+        .footer-back-link {
+            top: -207px;
+            left: 40px;
+            width:166px;
+            height:126px;
+            background:url(../img/footer-arrows/1.png) no-repeat 0 0;
+        }
+
+
+            .footer-back-link a {
+                color:#337733;
+            }
+            
+            
+        .footer-red-link {
+            top: 216px;
+            left: 87px;
+            width:166px;
+            height:109px;
+            background:url(../img/footer-arrows/2.png) no-repeat 0 0;
+        }
+            .footer-red-link a {
+                color:#af4135;
+            } 
+
+        
+    
+        .footer-green-link {
+            top: 235px;
+            left: 300px;
+            width:150px;
+            height:90px;
+            background:url(../img/footer-arrows/3.png) no-repeat 0 0;
+        } 
+
+        
+
+        .footer-green-link.m-kreml a {
+            padding-top: 21px;
+        }
+            .footer-green-link a {
+                color:#336849;
+            }  
+            
+        .footer-purple-link {
+            top: 379px;
+            left: 377px;
+            width:166px;
+            height:125px;
+            background:url(../img/footer-arrows/4.png) no-repeat 0 0;
+        } 
+
+
+
+
+            .footer-purple-link a {
+                color:#63497c;
+                padding-top:34px;
+            } 
+
+        .footer-blue-link {
+            top: 90px;
+            left: 416px;
+            width:166px;
+            height:118px;
+            background:url(../img/footer-arrows/5.png) no-repeat 0 0;
+        } 
+
+
+            .footer-blue-link a {
+                color:#177d8e;
+               
+            }  
+             
+        .footer-top-link {
+            top: 138px;
+            left: 937px;
+            width:166px;
+            height:145px;
+            background:url(../img/footer-arrows/6.png) no-repeat 0 0;
+        } 
+
+
+
+            .footer-top-link a {
+                color:#d36900;
+                font-size:18px;
+                padding:33px 20px 0 0;
+            } 
+
+        
+        .footer-greenlight-link {
+            top: 475px;
+            left: 988px;
+            width:174px;
+            height:180px;
+            background:url(../img/footer-arrows/7.png) no-repeat 0 0;
+        }
+
+       
+
+
+            .footer-greenlight-link a {
+                color:#257773;
+                padding:28px 15px 0 0;
+            }     
+        
+        .footer-pink-link {
+            top: 327px;
+            left: 1114px;
+            width:166px;
+            height:113px;
+            background:url(../img/footer-arrows/8.png) no-repeat 0 0;
+        } 
+
+
+
+            .footer-pink-link a {
+                color:#9b5062;
+                padding:28px 20px 0 0;
+            }   
+    
+
+
+    .arkaim .footer-menu {
+         background: url(../img/choose-dest.png) no-repeat 678px 221px;
+    }
+
+    .nevyansk .footer-menu {
+         background: url(../img/choose-dest.png) no-repeat 590px 240px;
+        }
+
+    .nevyansk .footer-green-link {
+            top: 249px;
+        }
+
+    .nevyansk .footer-greenlight-link {
+            left: 886px;
+        }
+
+        .nevyansk .footer-purple-link {
+            left:327px;
+            top: 394px;
+        }
+
+           .nevyansk .footer-purple-link a {
+            padding-bottom: 20px;
+           }
+
+        .nevyansk .footer-blue-link {
+            top: 111px;
+            left: 350px;
+        }
+
+        .nevyansk .footer-top-link {
+            top: 140px;
+            left: 900px;
+        }
+
+        .nevyansk .footer-pink-link {
+            left: 1050px;
+            top: 346px;
+        }
+            .nevyansk .footer-pink-link a {
+                padding: 34px 20px 40px 0;
+            }
+
+       .nevyansk .footer-back-link {
+            top:-192px;
+            left: -50px;
+        }
+
+        .nevyansk .footer-red-link  {
+            top:230px;
+        }
 
 
 
 
 
+
+    .petergof .footer-menu {
+         background: url(../img/choose-dest.png) no-repeat 590px 240px;
+        }
+
+    .petergof .footer-green-link {
+            top: 249px;
+           
+        }
+    .petergof .footer-greenlight-link {
+            left: 886px;
+        }
+
+        .petergof .footer-purple-link {
+            left:327px;
+            top: 394px;
+        }
+
+           .petergof .footer-purple-link a {
+            padding-bottom: 20px;
+           }
+
+        .petergof .footer-blue-link {
+            top: 111px;
+            left: 350px;
+        }
+
+        .petergof .footer-top-link {
+            top: 143px;
+            left: 870px;
+        }
+
+        .petergof .footer-pink-link {
+            left: 1050px;
+            top: 346px;
+        }
+            .petergof .footer-pink-link a {
+                padding: 28px 20px 40px 0;
+            }  
+
+         .petergof .footer-back-link {
+            top:-4px;
+            left: -50px;
+        }
+
+        .petergof .footer-red-link  {
+            top:230px;
+        }          
+        
+
+        
+
+
+       
+
+            
+
+.nevyansk .footer-menu {
+    margin:-45px 0 0 94px;
+    padding-bottom: 33px;
+}	
+
+.petergof .footer-menu {
+    margin:30px 0 0 85px;
+     padding-bottom: 42px;
+}  
+
+.astrahan .footer-menu {
+    margin-left: 73px;
+    margin-top: 50px;
+    height: 613px;
+}
+.dazan .footer-menu {
+    margin-left: 74px;
+    margin-top: 80px;
+    height: 613px;
+}
+.kul-sharif .footer-menu {
+    margin-left: 73px;
+    margin-top: 81px;
+    height: 613px;
+}
+.rodina .footer-menu {
+    margin-left: 73px;
+    margin-top: 79px;
+    height: 613px;
+}
+.tretyakovf .footer-menu {
+    margin-left: 77px;
+    margin-top: 69px;
+    height: 613px;
+}
+
+.vladivostok .footer-menu {
+    margin-left: 73px;
+    margin-top: 80px;
+    height: 613px;
+}
+.kremlin  .footer-menu {
+    margin-left: 77px;
+margin-top: 79px;
+    height: 603px;
+}
 
 
 /* ==========================================================================
@@ -1918,3 +3330,15 @@ body {
     font-style: normal;
 
 }*/
+
+
+@font-face {
+    font-family: 'impactregular';
+    src: url('fonts/impact-webfont.eot');
+    src: url('fonts/impact-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/impact-webfont.woff') format('woff'),
+         url('fonts/impact-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

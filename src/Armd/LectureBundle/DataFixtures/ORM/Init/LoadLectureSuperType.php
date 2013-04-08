@@ -30,12 +30,6 @@ class LoadLectureSuperTypeData extends AbstractFixture implements OrderedFixture
         $manager->persist($type);
         $this->setReference('armd_lecture.lecture_super_type.cinema', $type);
 
-        $type = new LectureSuperType();
-        $type->setCode('LECTURE_SUPER_TYPE_TOP100');
-        $type->setName('100 лучших фильмов');
-        $manager->persist($type);
-        $this->setReference('armd_lecture.lecture_super_type.top100', $type);
-
         $manager->flush();
     }
 

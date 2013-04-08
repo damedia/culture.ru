@@ -55,6 +55,7 @@ Object Hints: Подсказки
 Hint Text: Текст (резделитель страниц "---")
 Classification: Классификация
 Moderation: Модерация
+Stuff: Материалы для скачивания
 
 Coordinates Are Empty: Не заданы координаты
 Category: Теги
@@ -78,3 +79,5 @@ Is Official: Официальный слой
 Status: Статус модерации
 Reason: Причина
 
+Show On Main: Показывать на главной
+Show On Main Ord: Приоритет на главной

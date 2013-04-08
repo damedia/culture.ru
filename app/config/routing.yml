@@ -163,3 +163,13 @@ armd_oauth:
 armd_online_translation:
     resource: '@ArmdOnlineTranslationBundle/Resources/config/routing.yml'
     prefix:   /broadcasts
+
+armd_tag:
+    resource: "@ArmdTagBundle/Controller/"
+    type: annotation
+    prefix: tag
+
+armd_poll:
+    resource: "@ArmdPollBundle/Controller/"
+    type: annotation
+    prefix: poll

@@ -79,7 +79,9 @@ class DefaultController extends Controller
             array(
                 ObjectManager::CRITERIA_LIMIT => 5,
                 ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
-                ObjectManager::CRITERIA_TAGS => $entity->getTags()
+                ObjectManager::CRITERIA_TAGS => $entity->getTags(),
+                ObjectManager::CRITERIA_RANDOM => true,
+                ObjectManager::CRITERIA_NOT_IDS => array($entity->getId()),
             )
         );
 
@@ -90,7 +92,7 @@ class DefaultController extends Controller
         $template = $template ? $template : 'ArmdAtlasBundle:Default:object_view.html.twig';
         $template = $isPrint ? 'ArmdAtlasBundle:Default:object_view_print.html.twig' : $template;
 
-        return $this->render($template, array(    
+        return $this->render($template, array(
             'referer' => $this->getRequest()->headers->get('referer'),
             'entity' => $entity,
             'relatedObjects' => $relatedObjects
@@ -143,7 +145,8 @@ class DefaultController extends Controller
         $templates = array(
             'tile' => 'ArmdAtlasBundle:Default:russia_images_list_tile.html.twig',
             'full-list' => 'ArmdAtlasBundle:Default:russia_images_list_full.html.twig',
-            'short-list' => 'ArmdAtlasBundle:Default:russia_images_list_short.html.twig'
+            'short-list' => 'ArmdAtlasBundle:Default:russia_images_list_short.html.twig',
+            'special-list' => 'ArmdAtlasBundle:Default:russia_images_list_special.html.twig'
         );
 
         if (in_array($templateName, $templates)) {
@@ -743,13 +746,15 @@ class DefaultController extends Controller
         $request = $this->getRequest();
         $tags = $request->get('tags', array());
         $limit = $request->get('limit');
-        $objects = $this->getObjectManager()->findObjects (
-            array(
-                ObjectManager::CRITERIA_LIMIT => $limit,
-                ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true,
-                ObjectManager::CRITERIA_TAGS => $tags
-            )
+
+        $criteria = array(
+            ObjectManager::CRITERIA_LIMIT => $limit,
+            ObjectManager::CRITERIA_HAS_SIDE_BANNER_IMAGE => true,
+            ObjectManager::CRITERIA_RANDOM => true,
+            ObjectManager::CRITERIA_TAGS => $tags,
         );
+
+        $objects = $this->getObjectManager()->findObjects($criteria);
 
         return array(
             'objects' => $objects

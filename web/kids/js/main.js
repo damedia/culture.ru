@@ -1,194 +1,307 @@
 $(function(){
-   //$('#state').hide();
+   //$('#wrapper').hide();
     
     $(window).load(function(){
-      //$('#state').show();
-    
-         
+      //$('#wrapper').show();
     })
+
+    
+    if (navigator.userAgent.match(/Android/i)){
+        $("html").addClass("android"); 
+    } else if (navigator.userAgent.match(/webOS/i)) {
+        $("html").addClass("webos");  
+    } else if (navigator.userAgent.match(/iPhone/i)) {
+        $("html").addClass("iphone"); 
+    } else if (navigator.userAgent.match(/iPod/i)) {
+        $("html").addClass("ipod"); 
+    } else if (navigator.userAgent.match(/iPad/i)){
+        $("html").addClass("ipad"); 
+    } else if (navigator.userAgent.match(/BlackBerry/i)){
+        $("html").addClass("blackberry"); 
+    }
+
+    if (navigator.userAgent.match(/(iPhone|iPad|iPod)/i)){
+        $("html").addClass("ios");  /*jQuery*/
+    }
 
 
     var ua = navigator.userAgent, 
-    click_event = (ua.match(/iPad/i)) ? "touchstart" : "click";
+        click_event = (ua.match(/iPad/i)) ? "touchstart" : "click";
 
 
     
-
+    //Угадай сколько
     $('.show-right').click(function(){
        $(this).toggleClass("active");
-      /* $('#item-count-input').val($('#item-count-input').attr('rel')) ;*/
-      
+    })
 
-         })
-
-
-
-//$("#theElement").bind(event, function() {
-     // jquery code
-//}
-
-            $("#item-count").submit(function () {
-                 $(".show-right a").click();
-                  return false;
-             });
-
-
-         
-/*
-            $('#item-count-input').on('input',function(e){
-               
-            });
-
-*/
-		$('.choice img').click(function(evt){
+    $("#item-count").submit(function () {
+         $(".show-right a").click();
+         $('#item-count-input').blur();
+         return false;
+     });
+     
+  
+    
+    // Quiz game. "Угадай кто?", "Выбери один из 3-x."
+    var chooseGame = {
+        
+        /** Выделить элемент
+         *  @param {object} image
+         */
+        hilightImage: function(image){
+            var imageSrc = image.attr('src'),
+                imageSrcLength = imageSrc.length;
                 
+            image.attr('src', imageSrc.substr(0, imageSrcLength-4)+'-active.png')
+                 .parent().addClass('selected');
+        },
+        
+        /** Убрать выделение с элемента
+         *  @param {object} image
+         */
+        deHilightImage: function(image){
+            var imageSrc = image.attr('src'),
+                imageSrcLength = imageSrc.length;
+
+           image.attr('src', imageSrc.substr(0, imageSrcLength-11)+'.png')
+                .parent().removeClass('selected');
+        },
+        
+        /** Показать результат
+         *  @param {object} object
+         */
+        showResult: function(object){
+           if (object.hasClass('invisible'))  {
+                object.removeClass('invisible')
+                      .addClass('show')
+                      .siblings().addClass('invisible');
+            }
+        },
+        
+        /** Запуск
+         *  
+         */
+        start: function(){
+            var self = this;
+            
+            $('.choice img').click(function(){
                 var image = $(this),
-                    otherImages = $(this).parent().siblings('.choice'),
-                    choiseRes = image.closest('.choose-panel').next('.choice-result');
+                    otherImages = image.parent().siblings('.choice'),
+                    choiseRes = image.closest('article').find('.choice-result'),
+                    choiceNoRes = choiseRes.find('.choice-no-result'),
+                    choiceYesRes = choiseRes.find('.'+$(this).attr('id')+'-result');
                 
-                if(image.data('clicked')) {
+                if (image.data('clicked')) {
                     image.data('clicked', false);
-                    deHilightImage(image);
-                    //choiseRes.find('div').hide();
-                    if (choiseRes.find('.choice-no-result').hasClass('invisible'))  {
-                      
-                        choiseRes.find('.choice-no-result').removeClass('invisible').addClass('show').siblings().addClass('invisible');
-                       
-                    }
-                       
-                  //  choiseRes
-                      //      .find('.choice-no-result').hasClass('invisible').addClass('invisible');//.siblings().addClass('show');
-                        //.find('.choice-no-result').css('visibility', 'visible')
-                        //.siblings().css('visibility', 'hidden');
-                
+                    
+                    self.deHilightImage(image);
+                    self.showResult(choiceNoRes)
+                    
                 } else {
                     image.data('clicked', true);
-                    hilightImage(image);
-                   
+
+                    self.hilightImage(image);
+                    self.showResult(choiceYesRes);
+                    
                     otherImages.each(function(){
-                        
                         var otherImage = $(this).find('img');
                         
-                        if(otherImage.data('clicked')) {
+                        if (otherImage.data('clicked')) {
                             otherImage.data('clicked', false);
-                            deHilightImage(otherImage);
+                            self.deHilightImage(otherImage);
                         }
                     })
-                    
-                    //choiseRes.find('div').hide();
-
-                    if (choiseRes.find('.'+$(this).attr('id')+'-result').hasClass('invisible'))  {
-                      
-                        choiseRes.find('.'+$(this).attr('id')+'-result').removeClass('invisible').addClass('show').siblings().addClass('invisible');
-                        console.log ($(this))
-                    }
-                   // choiseRes
-                           // .find('.'+$(this).attr('id')+'-result').hasClass('invisible').removeClass('invisible').siblings().addClass('show');
-                        
-                        //.find('.'+$(this).attr('id')+'-result').css('visibility', 'visible');
-                        //.siblings().css('visibility', 'hidden');
-                        
-                    
                 }
-                
-                //evt.stopPropagation();
+
                 return false;
                 
             })
             
-            
-            function hilightImage(image) {
-                var imageSrc = image.attr('src'),
-                    imageSrcLength = imageSrc.length;
-                    //console.log();
-               // image.siblings('.visuallyhidden').removeClass('visuallyhidden')
-               // image.addClass('visuallyhidden');
-
-                image.attr('src', imageSrc.substr(0, imageSrcLength-4)+'-active.png');
+        },
+    }
+    chooseGame.start();
+    
+    
+    
+    //Сравнение. 10 отличий
+    var compareGame = {
+        container: $('.hidden-parts'),
+        compareTotal: $('.compare-images .inv').length,
+        foundTotal: 0,
+        
+        /** Склонение слова в зависимости от количества элементов
+         *  @param {int} count
+         *  @param {array} valuesArr
+         */
+        countLabel: function(count, valuesArr) {
+            if ($.inArray(count, [2,3,4]) != -1) {
+                return valuesArr[0];
+            } else if ($.inArray(count, [1]) != -1){
+                return valuesArr[1];
+            } else {
+                return valuesArr[2];
             }
-            function deHilightImage(image) {
-                var imageSrc = image.attr('src'),
-                    imageSrcLength = imageSrc.length;
-                    //console.log();
-                //image.siblings('.visuallyhidden').removeClass('visuallyhidden')
-               // image.addClass('visuallyhidden');
-               image.attr('src', imageSrc.substr(0, imageSrcLength-11)+'.png');
-            }
-            
-            
-            //$('.hidden-parts div').css({'visibility':'hidden'}).show();
-            var compareTotal = $('.compare-images .inv').length;
-          
-            $('.hidden-parts').on(click_event, '.inv img', function(){
+        },
+        
+        /** Запуск
+         *  
+         */
+        start: function() {
+            var self = this;
                 
-                var foundTotal;
-                $(this).parent().removeClass('inv');
+            self.container.on(click_event, '.inv', function(){
                 
-                foundTotal = compareTotal - $('.compare-images .inv').length;
-                $('#compare-found').html(foundTotal);
+                self.foundTotal++;
                 
-                if($('.compare-images .inv').length == 0) {
+                $(this).removeClass('inv');
+                if ($('.compare-images .inv').length == 0) {
                     $('#compare-found').parent().addClass('all-found');
                 }
+                $('#compare-found').html(self.foundTotal);
+                $('.compare-otl').html(self.countLabel(self.foundTotal, ['отличия', 'отличие', 'отличий']));
                 
-                if($.inArray(foundTotal, [2,3,4]) != -1) {
-                    $('.compare-otl').html('отличия');
-                } else if ($.inArray(foundTotal, [1]) != -1){
-                    $('.compare-otl').html('отличие');
-                } else {
-                     $('.compare-otl').html('отличий');
-                }
-               
                 return false;
-                
             })
-            
-           // if($('.scroll-pane').length > 0) {
-                $('.scroll-pane').jScrollPane();
-           // }
-
-            $('a.fancybox').fancybox();
-
-
-                $('a.fancybox-inframe').fancybox({
-                    type: 'iframe',
-                    autoSize : false,
-                    fitToView : false,
-                    scrolling : 'no',
-                    beforeLoad : function() {         
-                    this.width  = parseInt(this.element.data('fancybox-width'));  
-                    this.height = parseInt(this.element.data('fancybox-height'));
-                    }
-                });
-            
-            
-           /* window.print();*/
-            
-            $('.to-print').click(function(){
-               var printContent = $('.winner-name').text();
-               Cufon.replace('.winner-name');
-             
+        },
+        
+    };
+    compareGame.start();
     
+    
+    //jScrollPane
+    $('.scroll-pane').jScrollPane();
 
-                 window.print();
+   
+   // Fancyboxes
+    $('a.fancybox').fancybox();
+    $('a.fancybox-inframe').fancybox({
+        type: 'iframe',
+        autoSize : false,
+        fitToView : false,
+        scrolling : 'no',
+        beforeLoad : function() {         
+        this.width  = parseInt(this.element.data('fancybox-width'));  
+        this.height = parseInt(this.element.data('fancybox-height'));
+        }
+    });
+    
+    
+    // Print
+    $('.to-print').click(function(){
+        var printContent = $('.winner-name').text();
+        
+        Cufon.replace('.winner-name');
+        window.print();
+        
+        return false;
+    })
+   
+    $('.fancy-hide').css('visibility','visible').hide();
+    
+    
+    // IE fix
+    if ($.browser.msie  && parseInt($.browser.version, 10) <= 8) {
+        $('.choose-block-horizontal .cbv-choices').append('<span class="ie-after"></span>');
+    }
+    
+    
+   // PUZZLE
+    var puzzleGame = {
+        windowWidth: $(window).width(), //retrieve current window width
+        windowHeight: $(window).height(), //retrieve current window height
+        docScrollTop : 0,
+        docScrollLeft : 0,
+        jsaw : {},
+        
+        init: function(container) {
+            if (container.length > 0)
+                this.start();
+        },
+        
+         load: function(container) {
+            $(window).load(function(){
+                $('.puzzle-setka-wrap', container).each(function(){
+                    var imageheight = $(this).find('img.puzzle').height();
+                    $(this).height(imageheight).css('marginTop', -imageheight/2);
+                })
+            });
+            this.jsaw = new jigsaw.Jigsaw({
+                defaultImage: "img/arkaim/puzzle.jpg",
+                piecesNumberTmpl: "%d элементов",
+                redirect: null,
+                shuffled: true,
+                rotatePieces: false      
+            });
+            
+            
+            $('#chosen-option').click(function(){
+                $(this).next().show();
+                $(this).hide();
+            })
+            
+            $('#select-options').click(function(){
+                $(this).hide();
+                $(this).prev().show();
                 
                 return false;
             })
-           
             
+        },
+        start: function(container) {
+            var self = this;
+            self.load(container);
             
-            /*$('.close').click(function(){
-                $(this).parent('.window').hide();
-                $('.overlay').hide();
-                return false;
-            })*/
+            $('img.puzzle-setka', container).click(function(){
+                self.clicked($(this));
+            });
             
-           /* $('.learn-more-link').click(function(){
-                $('.window').show();
-                $('.overlay').show();
-                return false;
+            $(window).resize(function(){
+                self.resize();
             })
             
-            */
-            $('.fancy-hide').css('visibility','visible').hide();
-		})
+            self.close();
+            
+        },
+        clicked: function(object) {
+            var self = this;
+            self.docScrollTop = $(document).scrollTop();	
+            self.docScrollLeft = $(document).scrollLeft();
+            
+            self.windowWidth = $(window).width();
+            self.windowHeight = $(window).height();
+            
+            $('body, html').css('overflow', 'hidden');
+            
+            self.jsaw.set_image(object.prev().attr('src'));
+            
+            $('#puzzle-block').css({
+                'width':self.windowWidth,
+                'height':self.windowHeight
+            }).show();
+            
+            document.location.href = '#';
+        }, 
+        resize: function() {
+            var self = this;
+            self.windowWidth = $(window).width();
+            self.windowHeight = $(window).height();
+            $('#puzzle-block').css({
+                'width':self.windowWidth - 20,
+                'height':self.windowHeight
+            })
+        },
+        close: function() {
+             $('a#CLOSE_PUZZLE').click(function(){
+                $('#puzzle-block').hide();
+                $('body, html').css('overflow', 'visible').scrollTop(self.docScrollTop).scrollLeft(self.docScrollLeft);
+                
+                return false;
+            });
+        }
+    };
+
+    puzzleGame.init($('.puzzle-init'));	
+    
+    
+})

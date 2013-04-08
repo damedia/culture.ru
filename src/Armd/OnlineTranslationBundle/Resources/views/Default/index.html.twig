@@ -13,7 +13,7 @@
         {% if entity.type == 1 %}
             {{ entity.dataCode|raw }}
         {% else %}
-            {% thumbnail entity.image, 'broadcastW600' %}
+            {% thumbnail entity.image, 'reference' with {'width': '100%', 'height': 'auto'} %}
         {% endif %}
 
         <div class="translation-desc">
@@ -36,8 +36,8 @@
         </div>
     </div>
 {% else %}
-    <div>
-        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_default_list', {'supertype': 2}) }}">архиве</a>.
+    <div class="empty-message">
+        В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_translation_index') }}">архиве</a>.
     </div>
 {% endif %}
 
@@ -48,8 +48,10 @@
                 {% set translationHref = path('armd_lecture_view', {'id': translation.id}) %}
                 <div class="plitka-one-wrap">
                     <div class="plitka-one">
-                        <a href="{{ translationHref }}">
-                            {{ lectureMacro.lectureThumbnail(translation, 'tile', {'class': 'plitka-image', 'height': 'auto'}) }}
+                        <a href="{{ translationHref }}" class="plitka-one-image-wrapper">
+                            <div class="plitka-one-image">
+                                {{ lectureMacro.lectureThumbnail(translation, 'lectureW160H120', {'alt': translation.title, 'height': 'auto'}) }}
+                            </div>
                             {#{% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}#}
                         </a>
                         <div class="plitka-text">

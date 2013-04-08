@@ -46,6 +46,7 @@
     {% block javascripts %}
         <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/respond.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/flexslider/jquery.flexslider-min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker.js') }}"></script>
@@ -59,6 +60,7 @@
         {% if app.request.locale == 'ru' %}
          <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker-ru.js') }}"></script>
         {% endif %}
+        <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
@@ -66,6 +68,7 @@
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/jquery.jplayer/jquery.jplayer.min.js') }}"></script>
         <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
         <script type="text/javascript">
          $(function(){
@@ -116,6 +119,19 @@
                 {% endif %}
 
                 <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
+
+                
+                <div class="app_store-block">
+                    <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
+
+                    <ul style="display:none;">
+                        <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
+                        {% if app.request.locale == 'ru' %}
+                            <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
+                            <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
             <nav class="main-menu">
                 {{ knp_menu_render('main', {
@@ -162,6 +178,12 @@
                 <p>{{ "ministerstvo"|trans|raw }}</p>
             </a>
 
+{#
+            <a href="http://nic.ru/news/2013/culture.html" target="_blank" class="footer-banner-1">
+                <img src="{{ asset('img/footer/100x43_logo_nic.gif') }}" alt="" />
+            </a>
+#}
+
             <div class="footer-social">
                 <div class="footer-banners">
                     {% include ':Frontend:counters_bottom.html.twig' %}
@@ -185,6 +207,14 @@
                     <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
                     <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
                 </ul>
+                {% if app.request.locale == 'ru' %}
+                    <p class="footer-fond-link">
+                        <ul>
+                            <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
+                            <li><a href="http://dnk.culture.ru/" target="_blank">ДНК Live</a></li>
+                        </ul>
+                    </p>
+                {% endif %}
             </div>
         </footer>
 		{% endblock %}

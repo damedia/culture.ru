@@ -1,15 +1,28 @@
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+
 <ul class="slides index-video-list">
     {% for v in videos %}
         <li>
             <div class="index-video-one">
                 <a href="{{ path('armd_lecture_view', {'id': v.id}) }}">
-                    {% if v.lectureVideo.imageMedia is defined %}
-                        {% set thumbnailMedia = v.lectureVideo.imageMedia %}
-                    {% elseif v.mediaLectureVideo is not empty %}
-                        {% set thumbnailMedia = v.mediaLectureVideo %}
+                    {% if v.isTop100Film %}
+                        <div class="cinema-top100-icon"></div>
                     {% endif %}
-                    <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ v.title }}"
-                         class="lecture-tile-list-image"/>
+                    {{ lectureMacro.lectureThumbnail(v, 'lectureH228', {
+                            'alt': v.title,
+                            'height': 'auto',
+                            'width': 'auto',
+                            'class': 'lecture-tile-list-image'
+                        })
+                    }}
+
+                    {#{% if v.lectureVideo.imageMedia is defined %}#}
+                        {#{% set thumbnailMedia = v.lectureVideo.imageMedia %}#}
+                    {#{% elseif v.mediaLectureVideo is not empty %}#}
+                        {#{% set thumbnailMedia = v.mediaLectureVideo %}#}
+                    {#{% endif %}#}
+                    {#<img src="{% path thumbnailMedia, 'lectureH228' %}" alt="{{ v.title }}"#}
+                         {#class="lecture-tile-list-image"/>#}
                 </a>
                 <a href="{{ path('armd_lecture_view', {'id': v.id}) }}" class="index-video-name">{{ v.title }}</a>
                 {#<p>#}

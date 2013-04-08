@@ -19,11 +19,13 @@ Lecture Super Type: Раздел
 Lecture Type: Тип лекций
 Categories: Категории
 Recommended: Рекомендована
+Is Top100 Film: Топ 100 фильмов
 Published: Опубликована
 Trailer Video: Трейлер (Tvigle ID)
 Lecture Video: Видео (Tvigle ID)
 Lecture File: Файл
 Tags: Теги
+Stuff: Материалы для скачивания
 
 Translations: Трансляции
 Translation List: Список Трансляций
@@ -54,3 +56,6 @@ Persons: Персоны
 Roles persons: Персоны в ролях
 Lecture Role List: Список ролей
 Lecture Person List: Список персон
+
+Show On Main: Показывать на главной
+Show On Main Ord: Приоритет на главной

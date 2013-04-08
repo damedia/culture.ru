@@ -42,7 +42,7 @@
                 <section class="index-block">
                     {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
                     {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
-                    <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
+                    <h2><a href="{{ newsCategoryHref }}">Статьи</a></h2>
                     <a href="{{ newsArticleHref }}">
                         {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
                         {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
@@ -51,7 +51,7 @@
                     <div class="text-overflow">
                         <a class="two-column-name" href="{{ newsArticleHref }}">{{ lastReportage.title|raw }}</a>
                         <p>{{ lastReportage.announce|striptags|truncate(200)|raw }}</p>
-                        <p class="all"><a href="{{ newsCategoryHref }}">все репортажи</a></p>
+                        <p class="all"><a href="{{ newsCategoryHref }}">все статьи</a></p>
                     </div>
                 </section>
 
@@ -71,40 +71,36 @@
                         <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
                     </div>
                 </section>
-
             </section>
-        {% endif %}
+        </section>
+    {% endif %}
 
-        {% if app.request.locale == 'ru' %}
-            <section class="index-block index-video-block clearfix">
-                <h2><a href="{{ path('armd_lecture_default_list', {'supertype': 3}) }}">Видеотека</a></h2>
-                <div id="video-list">
-                    {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
-                </div>
-                <p class="all"><a href="{{ path('armd_lecture_default_list', {'supertype': 3}) }}">Все видео</a></p>
-            </section>
-        {% endif %}
+    {% if app.request.locale == 'ru' %}
+        <section class="index-block index-video-block clearfix">
+            <h2><a href="{{ path('armd_lecture_cinema_index') }}">Видеотека</a></h2>
+            <div id="video-list">
+                {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+            </div>
+            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
+        </section>
+    {% endif %}
 
-        <section class="index-block index-museum-block clearfix">
-            <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
+    <section class="index-block index-museum-block clearfix">
+        <h2><a href="{{ path('armd_museum_index') }}">{{ "Museums"|trans }}</a></h2>
 
-            <div class="plitka-one-wrap plitka-one-wrap-opened">
-                <div class="plitka-one clearfix">
-                    <div class="museum-image-container">
-                        <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
-                        <div class="museum-image-over">
-                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
-                                <span class="museum-image-text">
-                                    {{ "visit_museum"|trans|raw }}
-                                </span>
-                            </a>
-                            <a href="#instruction" class="museum-instr-link">
-                                {{ "manual_instruction"|trans|raw }}
-                            </a>
-                        </div>
-                    </div>
-                    <div class="museum-text">
-                        {{ museum.title|raw }}
+        <div class="plitka-one-wrap plitka-one-wrap-opened">
+            <div class="plitka-one clearfix">
+                <div class="museum-image-container">
+                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                    <div class="museum-image-over">
+                        <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                            <span class="museum-image-text">
+                                {{ "visit_museum"|trans|raw }}
+                            </span>
+                        </a>
+                        <a href="#instruction" class="museum-instr-link">
+                            {{ "manual_instruction"|trans|raw }}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -120,8 +116,11 @@
         </section>
 
         {% if app.request.locale == 'ru' %}
-            <section class="block">
+            <section class="block social-widget-block">
                 {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
+            </section>
+            <section class="block twitter-widget-block">
+                {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
             </section>
         {% endif %}
 
@@ -148,7 +147,8 @@
         </section>
 
         <section id="homepage-polls">
-            {% render url('armd_main_culture_polls') %}
+            <h3><span>Опрос</span></h3>
+            {% render url('armd_poll_poll') %}
         </section>
     {% endif %}
 

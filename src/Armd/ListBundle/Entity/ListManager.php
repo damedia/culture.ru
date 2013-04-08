@@ -3,6 +3,7 @@ namespace Armd\ListBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Armd\TagBundle\Entity\Tag;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\ORM\QueryBuilder;
 use Armd\TagBundle\Entity\TagManager;
@@ -21,11 +22,17 @@ abstract class ListManager
     /** example: array('title' => 'ASC', 'createdAt' => 'DESC') */
     const CRITERIA_ORDER_BY = 'CRITERIA_ORDER_BY';
 
-    /** example: 5 */
+    /** example: true */
     const CRITERIA_RANDOM = 'CRITERIA_RANDOM';
 
     /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
+
+    const CRITERIA_TAG_ID = 'CRITERIA_TAG_ID';
+    
+    /** example: array(1, 2, 3) */
+    const CRITERIA_NOT_IDS = 'CRITERIA_NOT_IDS';
+
 
     public function __construct(EntityManager $em, TagManager $tagManager)
     {
@@ -35,15 +42,7 @@ abstract class ListManager
 
     public function findObjects(array $criteria)
     {
-        if (!empty($criteria[self::CRITERIA_RANDOM])) {
-            $qb = $this->getQueryBuilder();
-            $criteriaMod = $criteria;
-            unset($criteriaMod[self::CRITERIA_LIMIT]);
-            $this->setCriteria($qb, $criteria);
-
-            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_RANDOM]);
-
-        } elseif (isset($criteria[self::CRITERIA_TAGS])) {
+        if (isset($criteria[self::CRITERIA_TAGS])) {
             if (empty($criteria[self::CRITERIA_LIMIT])) {
                 throw new \LogicException('Criteria ObjectManager::CRITERIA_LIMIT must specified when searching with ObjectManager::CRITERIA_TAGS');
             }
@@ -58,21 +57,34 @@ abstract class ListManager
             // pad them
             if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
                 $criteriaMod = $criteria;
-                $criteriaMod[self::CRITERIA_RANDOM] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
+                $criteriaMod[self::CRITERIA_LIMIT] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
                 unset($criteriaMod[self::CRITERIA_TAGS]);
                 $paddingObjects = $this->findObjects($criteriaMod);
                 $objects = array_merge($objects, $paddingObjects);
             }
 
+        } elseif (!empty($criteria[self::CRITERIA_RANDOM])) {
+            $qb = $this->getQueryBuilder();
+            $this->setCriteria($qb, $criteria);
+
+            $objects = $this->getRandomObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_LIMIT]);
         } else {
             $qb = $this->getQueryBuilder();
             $this->setCriteria($qb, $criteria);
-            $objects = $qb->getQuery()->getResult();
+            $paginator = new Paginator($qb, $fetchJoinCollection = true);
+            $objects = array();
+            foreach($paginator as $item) {
+                $objects[] = $item;
+            }
+//            $objects = $paginator; //$qb->getQuery()->getResult();
         }
 
         return $objects;
     }
 
+    /**
+     * @return QueryBuilder
+     */
     abstract public function getQueryBuilder();
 
 
@@ -80,7 +92,6 @@ abstract class ListManager
     {
         $aliases = $qb->getRootAliases();
         $o = $aliases[0];
-
 
         if (!empty($criteria[self::CRITERIA_OFFSET])) {
             $qb->setFirstResult($criteria[self::CRITERIA_OFFSET]);
@@ -91,11 +102,34 @@ abstract class ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_ORDER_BY])) {
+            $qb->resetDQLPart('orderBy');
             foreach ($criteria[self::CRITERIA_ORDER_BY] as $k => $v) {
                 $qb->addOrderBy("$o.$k", $v);
             }
         }
+        
+        if (!empty($criteria[self::CRITERIA_NOT_IDS])) {
+            $notIds = $criteria[self::CRITERIA_NOT_IDS];
+            
+            if (is_array($notIds) && count($notIds) && $notIds != array(0)) {
+                $qb->andWhere("$o.id NOT IN (:notIds)")->setParameter('notIds', $notIds);
+            }
+        }
 
+        if (!empty($criteria[self::CRITERIA_TAG_ID])) {
+            $qb->andWhere($qb->expr()->in(
+                    "$o.id",
+                    $this->em->getRepository($this->tagManager->getTaggingClass())
+                        ->createQueryBuilder('tagging')
+                        ->select('TOINT(tagging.resourceId)')
+                        ->where('tagging.tag = :tag_id')
+                        ->getDQL()
+                ))
+                ->setParameter('tag_id', $criteria[self::CRITERIA_TAG_ID]);
+
+//            $qb->innerJoin($this->tagManager->getTaggingClass(), 'tagging', 'WITH', "TOINT(tagging.resourceId) = $o.id")
+//                ->andWhere('tagging.tag  = :tag_id')->setParameter('tag_id', $criteria[self::CRITERIA_TAG_ID]);
+        }
     }
 
     public function getTaggedObjectsFromQueryBuilder(QueryBuilder $qb, $tags, $limit)
@@ -123,8 +157,10 @@ abstract class ListManager
             ->andWhere('tag.name IN (:tags)')->setParameter('tags', $tagWords)
             ->andWhere('tagging.resourceType = :resourceType')->setParameter('resourceType', $this->getTaggableType())
             ->addSelect("COUNT(tag) tagCount")
+            ->addSelect("MAX(TOINT(tag.isTechnical)) tagIsTechnical")
             ->groupBy($o)
-            ->orderBy('tagCount', 'DESC')
+            ->orderBy('tagIsTechnical', 'DESC')
+            ->addOrderBy('tagCount', 'DESC')
             ->setMaxResults($limit)
             ;
 

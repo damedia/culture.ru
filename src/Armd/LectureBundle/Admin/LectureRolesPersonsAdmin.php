@@ -14,6 +14,17 @@ class LectureRolesPersonsAdmin extends Admin
     protected $translationDomain = 'ArmdLectureBundle';
 
     /**
+     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('lecture')
+            ->add('role')
+            ->add('person');
+    }
+
+    /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
      * @return void
@@ -30,9 +41,9 @@ class LectureRolesPersonsAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('lecture')
-            ->add('role')
-            ->add('person')
+            ->add('lecture', null, array('attr' => array('class' => 'chzn-select')))
+            ->add('role', null, array('attr' => array('class' => 'chzn-select')))
+            ->add('person', null, array('attr' => array('class' => 'chzn-select')))
         ;
     }
 

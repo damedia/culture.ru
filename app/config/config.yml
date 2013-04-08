@@ -30,7 +30,6 @@ twig:
     form:
         resources:
              - 'ArmdMediaHelperBundle:Form:fields.html.twig'
-             - 'ArmdTagBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -85,7 +84,9 @@ stof_doctrine_extensions:
 
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.noop
+        handler: sonata.admin.security.handler.acl
+        information:
+            ADMINS:    [EDIT, LIST, CREATE, VIEW, DELETE, EXPORT, OPERATOR, MASTER]
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
     dashboard:
@@ -129,6 +130,17 @@ sonata_media:
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
+
+        stuff:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
+            formats:
+                original: { }
 
         news:
             download:
@@ -203,6 +215,8 @@ sonata_media:
                 medium: { width: 111 }
                 small: { width: 85 }
                 searchAllResult: { width: 160, height: 107 }
+                lectureW160H120: { width: 160, height: 120 }
+                lectureH228: { height: 228 }
 
         museum:
             download:
@@ -280,11 +294,13 @@ sonata_media:
         file:
             resizer:    false
             filesystem: sonata.media.filesystem.local
-            generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format
+            # Default set of allowed types doesn't include mp3.
+            allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml', 'mp3']
+            allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain', 'application/excel', 'application/msword', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/vnd.ms-powerpoint', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.presentation', 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.oasis.opendocument.chart', 'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.database', 'application/vnd.oasis.opendocument.image', 'text/comma-separated-values', 'text/xml', 'application/xml', 'application/zip', 'audio/mpeg']
 
         image:
-            resizer:    sonata.media.resizer.square #sonata.media.resizer.simple
+            resizer:    sonata.media.resizer.simple #sonata.media.resizer.square
             filesystem: sonata.media.filesystem.local
             generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format
@@ -435,4 +451,3 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
-

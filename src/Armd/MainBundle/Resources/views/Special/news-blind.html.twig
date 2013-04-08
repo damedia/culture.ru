@@ -1,9 +1,8 @@
-<h1>{{ 'Events'|trans }}</h1>
 
 {% if app.request.locale == 'ru' %}
     <ul class="tabs-labels" id="tabs-selector">
         {% for c in categories %}
-            <li {% if loop.first %}class="active"{% endif %}><a href="#{{ c.slug }}tab">{{ c.title }}</a></li>
+            <li {% if loop.first %}class="active"{% endif %}><a href="#{{ c.slug }}tab" slug="{{ c.slug }}">{{ c.title }}</a></li>
         {% endfor %}
     </ul>
 {% endif %}
@@ -11,11 +10,12 @@
 {% for slug, entities in news %}
 <div id="{{ slug }}tab" class="tab" {% if not loop.first %}style = "display:none;" {% endif %}>
 	{% for n in entities %}
-		{% set f = n.date %}
+		{% set f = n.newsDate %}
 		{% set t = n.endDate %}
 		<article class="event-anons">
-			<span class="date" title="{{ 'Special.Date'|trans }}">{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' Y') }}
-			{% if t %} - {{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' Y') }}{% endif%}</span>
+			<span class="date" title="{{ 'Special.Date'|trans }}"><i>{{ f|date('j ')}}{{ ('calendar.full.'~f|date('M'))|trans }}{{ f|date(' Y') }}</i>
+			{% if t %} - <i>{{ t|date('j ')}}{{ ('calendar.full.'~t|date('M'))|trans }}{{ t|date(' Y') }}</i>{% endif%}
+			</span>
 			<div class="text-overflow">
 				<h1><a href="{{ path('armd_main_special_news_item_by_category', {'id': n.id, 'category': n.category.slug }) }}">{{ n.title|raw }}</a></h1>
 				<p>{{ n.announce|raw }}</p>
@@ -28,6 +28,13 @@
 #}		
 	{% endfor %}
 		
+	{% if show_more is defined and show_more %}
+		<div class="more more2">
+		    <p>
+		        <a href="#" class="show-more">{{ "show_more"|trans }}</a>
+		    </p>
+		</div>	
+	{% endif %}
 </div>
 {% endfor %}
 

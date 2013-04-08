@@ -1,3 +1,9 @@
 Atlas: Атлас
 Directories: Справочники
 btn_return_to_list: Вернуться к списку
+
+aShowOnMain: Показывать на главной
+aNotShowOnMain: Не показывать на главной
+
+Success: Выполнено успешно
+Error: Ошибка выполнения операции
