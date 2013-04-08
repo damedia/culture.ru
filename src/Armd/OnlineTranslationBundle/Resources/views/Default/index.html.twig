@@ -42,12 +42,6 @@
     <div class="empty-message">
         В настоящее время трансляции не проводятся, посмотреть прошедшие вы можете в <a href="{{ path('armd_lecture_translation_index') }}">архиве</a>.
     </div>
-    <div class="full-description">
-       asdfasdf asdf asdf asd f
-    </div>
-    <div class="event-one_footer clearfix">
-    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
-    </div>
 {% endif %}
 
     <section class="block">
@@ -317,9 +311,8 @@
                     'border':false,
                     'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
                 },
-               {# link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}', #}
-                title:'{{ entity.title }}'
-                {# description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}' #}
+                title:'{{ entity.title }}',
+                description:'{{ entity.shortDescription|replace({"\n":'',"\r":''})|striptags }}'
             });
         });
     </script>
