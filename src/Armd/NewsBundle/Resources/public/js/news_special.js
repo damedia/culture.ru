@@ -9,12 +9,6 @@ var armdMkNews = {
             armdMkNews.loadMoreNews($(this));
         });
 
-        /*$('.search-dates-button').bind('click', function(event){
-            event.preventDefault();
-            armdMkNews.loadNewsByDates();
-            armdMkNews.initMoreButtonToLoadByDates();
-        });*/
-
         $('#search-form').bind('submit', function(event) {
             if ($('#search-this-section').prop('checked')) {
                 event.preventDefault();
@@ -24,14 +18,6 @@ var armdMkNews = {
         });
     },
 
-    /*initMoreButtonToLoadByDates: function() {
-        $('.more').show();
-        $('#show-more').unbind('click');
-        $('#show-more').bind('click', function (event) {
-            event.preventDefault();
-            armdMkNews.loadMoreNews();
-        });
-    },*/
 
     initMoreButtonToLoadSearch: function() {
         $('.more').show();
@@ -48,7 +34,7 @@ var armdMkNews = {
      */
     loadMoreNews: function(a) {
         armdMk.startLoading();
-        var category = $('#tabs-selector li.active a').attr('slug'),
+        var category = $('#tabs-selector').length ? $('#tabs-selector li.active a').attr('slug') : 'news',
         	offset = $('#' + category + 'tab article.event-anons').length;
                 
         $.ajax({
