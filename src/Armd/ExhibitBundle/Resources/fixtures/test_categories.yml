@@ -1,0 +1,18 @@
+categories:
+    - title: Вид искусств
+      children:
+        - title: Живопись
+          ref_code: armd_exhibit.category.pic
+        - title: Скульптура          
+        - title: Графика
+        - title: Фотоискусство
+        - title: Декоративно-прикладное искусство
+        - title: Иконопись
+
+    - title: Материалы
+      children:
+        - title: Холст
+        - title: Масло          
+        - title: Дерево
+        - title: Темпера
+        - title: Акварель

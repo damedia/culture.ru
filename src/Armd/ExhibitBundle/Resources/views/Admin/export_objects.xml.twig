@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mkdata>
+    <atlasObjects>
+        {% for object in objects %}
+        <atlasObject id="{{ object.id }}">
+            <title>{{ object.title }}</title>
+            <announce>{{ object.announce }}</announce>
+            <content>{{ object.content }}</content>
+            <siteUrl>{{ object.siteUrl }}</siteUrl>
+            <email>{{ object.email }}</email>
+            <phone>{{ object.phone }}</phone>
+            <address>{{ object.address }}</address>
+            <lat>{{ object.lat }}</lat>
+            <lon>{{ object.lon }}</lon>
+            <russiaImageAnnounce>{{ object.russiaImageAnnounce }}</russiaImageAnnounce>
+
+
+            <primaryCategory>
+                {% if object.primaryCategory is not empty %}
+                <atlasCategory id="{{ object.primaryCategory.id }}"/>
+                {% endif %}
+            </primaryCategory>
+
+            <secondaryCategories>
+                {% for category in object.secondaryCategories %}
+                <atlasCategory id="{{ category.id }}"/>
+
+                {% endfor %}
+            </secondaryCategories>
+
+            <workTime>{{ object.workTime }}</workTime>
+
+            <weekends>
+                {% for day in object.weekends%}
+                <day>{{ day.name }}</day>
+                {% endfor %}
+            </weekends>
+
+            <showAtHomepage val="{% if object.showAtHomepage %}1{% else %}0{% endif %}"/>
+            <showAtRussianImage val="{% if object.showAtRussianImage %}1{% else %}0{% endif %}"/>
+
+            <literatures>
+                {% for literature in object.literatures %}
+                <literature>
+                    <title>{{ literature.title }}</title>
+                </literature>
+                {% endfor %}
+            </literatures>
+
+            <objectHints>
+                {% for objectHint in object.objectHints %}
+                <objectHint>
+                    <title>{{ objectHint.title }}</title>
+                    <pages>
+                        {% for page in objectHing.pagedHintText %}
+                        <page>
+                            {{ page }}
+                        </page>
+                        {% endfor %}
+                    </pages>
+                </objectHint>
+                {% endfor %}
+            </objectHints>
+
+
+        </atlasObject>
+        {% endfor %}
+    </atlasObjects>
+
+
+    <atlasCategories>
+        {% if categories[0] is not empty %}
+        {{ _self.atlasCategories(categories[0]) }}
+        {% endif %}
+    </atlasCategories>
+
+
+    {% macro atlasCategories(parentCategory) %}
+    {% for category in parentCategory.__children %}
+    <atlasCategory id="{{ category.id }}">
+        <title>{{ category.title }}</title>
+        <description>{{ category.description }}</description>
+        {% if category.__children|length %}
+        <children>
+            {{ _self.atlasCategories(category) }}
+        </children>
+        {% endif %}
+    </atlasCategory>
+    {% endfor %}
+    {% endmacro %}
+</mkdata>

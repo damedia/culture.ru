@@ -4,6 +4,17 @@
 {% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
 {% block meta_description %}{{ entity.seoDescription }}{% endblock %}
 
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.announce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image is not empty %}
+        <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
 {% block page_header_title %}{{ entity.category.title }}{% endblock %}
@@ -69,6 +80,21 @@
     {{ entity.body|raw }}
 </article>
 
+{% if entity.gallery is not empty and entity.gallery.galleryHasMedias|length > 0 %}
+    <div class="block news-gallery-block">
+        <h2><span>Фотогалерея</span></h2>
+        <ul class="news-gallery">
+            {% for ghm in entity.gallery.galleryHasMedias %}
+                <li>
+                    <a class="news-fancybox" rel="slider" href="{% path ghm.media, 'reference' %}">
+                        <img src="{% path ghm.media, 'list' %}" alt="{{ ghm.media.title }}" />
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
 {% if entity.stuff.count %}
 <div>
     <div>
@@ -78,7 +104,7 @@
         <div class="stuff">
             <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
 
-            <a href="{{ armd_media_original_url(stuff) }}">{{ stuff.name }}</a>
+            <a href="{{ path('sonata_media_download', {'id': stuff.id}) }}">{{ stuff.name }}</a>
 
             {% if stuff.extension == "mpga" %}
             —
@@ -137,21 +163,6 @@
         </div>
     {% endif %}
 
-{% endblock %}
-
-
-{% block stylesheets %}
-    {{ parent() }}
-
-    <style type="text/css">
-        .stuff .file-icon {
-            vertical-align: baseline;
-        }
-
-        .stuff .jp-audio ul, .stuff .jp-audio li {
-            display: inline;
-        }
-    </style>
 {% endblock %}
 
 

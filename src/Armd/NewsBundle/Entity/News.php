@@ -206,6 +206,11 @@ class News extends BaseNews implements CommentableInterface, Taggable
      */
     private $stuff;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\CountryDistrict")
+     */
+    protected $countryDistrict;
+
     public function __construct()
     {
         $this->newsDate = new \DateTime();
@@ -505,7 +510,7 @@ class News extends BaseNews implements CommentableInterface, Taggable
     /**
      * Set gallery
      *
-     * @param Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $gallery
      * @return News
      */
     public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
@@ -972,5 +977,28 @@ class News extends BaseNews implements CommentableInterface, Taggable
         $this->showOnMainOrd = $showOnMainOrd;
 
         return $this;
-    }    
+    }
+
+    /**
+     * Set countryDistrict
+     *
+     * @param \Armd\AddressBundle\Entity\CountryDistrict $countryDistrict
+     * @return News
+     */
+    public function setCountryDistrict(\Armd\AddressBundle\Entity\CountryDistrict $countryDistrict = null)
+    {
+        $this->countryDistrict = $countryDistrict;
+
+        return $this;
+    }
+
+    /**
+     * Get countryDistrict
+     *
+     * @return \Armd\AddressBundle\Entity\CountryDistrict
+     */
+    public function getCountryDistrict()
+    {
+        return $this->countryDistrict;
+    }
 }

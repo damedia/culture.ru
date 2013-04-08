@@ -1,0 +1,18 @@
+services:
+    armd_exhibit.sonata_admin.category:
+        class: Armd\ExhibitBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Exhibits, label: Categories, show_in_dashboard: true }
+        arguments: [null, Armd\ExhibitBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
+        
+    armd_exhibit.sonata_admin.exhibit:
+        class: Armd\ExhibitBundle\Admin\ArtObjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Exhibits, label: Exhibits, show_in_dashboard: true }
+        arguments: [null, Armd\ExhibitBundle\Entity\ArtObject, ArmdExhibitBundle:ArtObjectCrud, @service_container]
+        
+    armd.exhibit_bundle.type.armd_art_object_categories:
+            class: Armd\ExhibitBundle\Form\Type\ArtObjectCategoriesType
+            arguments: [@doctrine.orm.entity_manager]
+            tags:
+                - { name: form.type, alias: armd_art_object_categories }

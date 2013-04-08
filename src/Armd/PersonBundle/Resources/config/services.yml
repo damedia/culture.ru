@@ -1,0 +1,12 @@
+services:    
+    armd_person.sonata_admin.person:
+        class: Armd\PersonBundle\Admin\PersonAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Persons, label: Persons, show_in_dashboard: true }
+        arguments: [null, Armd\PersonBundle\Entity\Person, SonataAdminBundle:CRUD]
+        
+    armd_person.sonata_admin.person_type:
+        class: Armd\PersonBundle\Admin\PersonTypeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Persons, label: PersonType, show_in_dashboard: true }
+        arguments: [null, Armd\PersonBundle\Entity\PersonType, SonataAdminBundle:CRUD]

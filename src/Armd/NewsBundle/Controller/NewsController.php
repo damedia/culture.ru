@@ -332,19 +332,10 @@ class NewsController extends Controller
         }
 
         $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
-        $this->getTagManager()->loadTagging($entity);
-
-
-        /*  $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_MEMORIAL_DATE => new \DateTime(),
-            )
-        );*/
-
-        // echo 'test';
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
+        $this->getTagManager()->loadTagging($entity);
 
         $template = $template ? $template : 'ArmdNewsBundle:News:item.html.twig';
         $template = $isPrint ? 'ArmdNewsBundle:News:item-print.html.twig' : $template;
@@ -406,7 +397,7 @@ class NewsController extends Controller
         $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
-                NewsManager::CRITERIA_IDS_NOT => array($entity->getId()),
+                NewsManager::CRITERIA_NOT_IDS => array($entity->getId()),
                 NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),
                 NewsManager::CRITERIA_TAGS => $entity->getTags(),
             )

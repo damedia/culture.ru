@@ -136,14 +136,29 @@ class DefaultController extends Controller
         $alphabet = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О',
             'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
 
+        if ($request->query->has('tag_id')) {
+            $tag = $em->getRepository('ArmdTagBundle:Tag')->find($request->get('tag_id'));
+        } else {
+            $tag = false;
+        }
+
+        $selectedCategory = false;
+        $selectedCategoryId = $request->get('category_id');
+        if ($request->query->has('category_id')) {
+            $selectedCategory = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                ->find($selectedCategoryId);
+        }
+
+
         return array(
             'lectureSuperType' => $lectureSuperType,
             'categories' => $categories,
             'specialCategories' => $specialCategories,
-            'categoryId' => $this->getRequest()->get('category_id'),
-            'searchQuery' => $this->getRequest()->get('search_query'),
-            'cinemaTop100' => $this->getRequest()->get('cinema_top100'),
-            'alphabet' => $alphabet
+            'selectedCategory' => $selectedCategory,
+            'searchQuery' => $request->get('search_query'),
+            'cinemaTop100' => $request->get('cinema_top100'),
+            'alphabet' => $alphabet,
+            'tag' => $tag
         );
 
     }
@@ -227,7 +242,12 @@ class DefaultController extends Controller
             $criteria[LectureManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
         }
 
+        if ($request->query->has('tag_id')) {
+            $criteria[LectureManager::CRITERIA_TAG_ID] = $request->get('tag_id');
+        }
+
         $lectures = $this->getLectureManager()->findObjects($criteria);
+
         return array(
             'lectures' => $lectures
         );
