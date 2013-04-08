@@ -5860,4 +5860,30 @@ a.appstore-link {
 			}
 			.exponat-text-wrap .gray {
 				color:#717171;
-			}                                      
+			}
+/*--- /exponats ---*/
+
+.sort-element-filter {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.sort-filter a.active {
+  border-bottom: 2px solid #F5902D;
+}
+.sort-element-filter a.active {
+  border-width: 3px;
+}
+.sort-element-filter a {
+  margin-right: 15px;
+}
+.sort-filter a {
+  border-bottom: 1px dashed #000000;
+  color: #000000;
+  font-weight: bold;
+  text-decoration: none;
+}
+.sort-filter span, .sort-filter a {
+  display: inline-block;
+  vertical-align: top;
+}
+

@@ -25,41 +25,29 @@
             <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
 
                 <input id="category-id" type="hidden" name="category" value="">
+                <input id="filter-type" type="hidden" name="filter_type" value="">
 
                 <div class="simple-search">
                     <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
                 </div>
-
+                
+                <div id="ajax-filter-tabs" class="ajax-filter-tabs">
+                    {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
+                </div>
                 <div class="filter-tabs">
-                    {#
+                    {# 
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
                         <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
                     </ul>
                     #}
-                    <div class="filter-tab" id="obj" style="display:block;">
-                        <!-- объекты -->
-                        {% for category in categories %}
-                            <div class="simple-filter-block">
-                                <div class="simple-filter-header clearfix">
-                                    <span>{{ category.title }}</span>
-                                    <p class="check_all"><span>{{ "atlas.all"|trans }}</span></p>
-                                </div>
-                                <div class="simple-filter-options">
-                                    {% for tag in category.tags %}
-                                        <label class="gray-checked">
-                                            <span data-tag="{{ tag.id }}">{{ tag.title }}</span>
-                                        </label>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% else %}
-                            No categories found.
-                        {% endfor %}
-                    </div>
+                    {# Блок, который был на этом месте перенесен в шаблон src\Armd\AtlasBundle\Resources\views\Default\ajax_filter.html.twig #}
+                    {#
                     <div class="filter-tab" id="mrsh">
                         <!-- маршруты -->
                     </div>
+                    #}
+                     
                     <div class="filter-tab" id="maps">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <!-- мои карты -->
@@ -109,6 +97,10 @@
             </form>
         </div>
         <div class="atlas-center">
+            <div class="sort-filter sort-element-filter">
+                <a id="filter_culture_objects" href="#" class="atlas-tab-filters active">Объекты культуры</a>
+                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters">Туристические кластеры</a>
+            </div>
             <div class="atlas-map">
                 <div class="bar bar-top"></div>
                 <div class="bar bar-right"></div>
@@ -287,7 +279,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('vendor/chosen/chosen.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/chosen/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/valums-file-uploader/client/fileuploader.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
 {% endblock %}
