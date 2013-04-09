@@ -85,9 +85,7 @@ stof_doctrine_extensions:
 
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.acl
-        information:
-            ADMINS:    [EDIT, LIST, CREATE, VIEW, DELETE, EXPORT, OPERATOR, MASTER]
+        handler: sonata.admin.security.handler.noop
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
     dashboard:
