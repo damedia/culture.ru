@@ -1,0 +1,16 @@
+{% macro perfomanceThumbnail(entity, format, attributes) %}
+    {% if entity.perfomanceVideo.imageMedia is defined %}
+        {% set thumbnailMedia = entity.perfomanceVideo.imageMedia %}
+    {% else %}
+        {% set thumbnailMedia = null %}
+    {% endif %}
+
+    {% set attributesActual = {'alt': entity.title} %}
+    {% if attributes is iterable %}
+        {% set attributesActual = attributesActual|merge(attributes) %}
+    {% endif %}
+
+    {% if thumbnailMedia is not null %}
+        {% thumbnail thumbnailMedia, format with attributesActual %}
+    {% endif %}
+{% endmacro %}

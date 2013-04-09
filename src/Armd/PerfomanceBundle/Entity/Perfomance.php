@@ -103,7 +103,13 @@ class Perfomance implements Taggable
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
-    private $image;       
+    private $image;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\TheaterBundle\Entity\Theater")
+     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id")
+     */
+    private $theater;
    
     /**
      * @return int
@@ -527,5 +533,28 @@ class Perfomance implements Taggable
     public function getInterviewDescription()
     {
         return $this->interviewDescription;
+    }
+
+    /**
+     * Set theater
+     *
+     * @param \Armd\TheaterBundle\Entity\Theater $theater
+     * @return Perfomance
+     */
+    public function setTheater(\Armd\TheaterBundle\Entity\Theater $theater = null)
+    {
+        $this->theater = $theater;
+    
+        return $this;
+    }
+
+    /**
+     * Get theater
+     *
+     * @return \Armd\TheaterBundle\Entity\Theater 
+     */
+    public function getTheater()
+    {
+        return $this->theater;
     }
 }

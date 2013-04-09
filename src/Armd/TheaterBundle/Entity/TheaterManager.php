@@ -72,23 +72,23 @@ class TheaterManager extends ListManager
 
     public function findObjectsWithSphinx($criteria) 
     {
-        $searchParams = array('Theater' => array('filters' => array()));
+        $searchParams = array('Theaters' => array('filters' => array()));
 
         if (isset($criteria[self::CRITERIA_LIMIT])) {
-            $searchParams['Theater']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
+            $searchParams['Theaters']['result_limit'] = (int) $criteria[self::CRITERIA_LIMIT];
         }
 
         if (isset($criteria[self::CRITERIA_OFFSET])) {
-            $searchParams['Theater']['result_offset'] = (int) $criteria[self::CRITERIA_OFFSET];
+            $searchParams['Theaters']['result_offset'] = (int) $criteria[self::CRITERIA_OFFSET];
         }       
 
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 
         $result = array();
         
-        if (!empty($searchResult['Theater']['matches'])) {
+        if (!empty($searchResult['Theaters']['matches'])) {
             $repo = $this->em->getRepository('ArmdTheaterBundle:Theater');
-            $result = $repo->findBy(array('id' => array_keys($searchResult['Theater']['matches'])));
+            $result = $repo->findBy(array('id' => array_keys($searchResult['Theaters']['matches'])));
         }
 
         return $result;
@@ -97,8 +97,9 @@ class TheaterManager extends ListManager
     public function getObject($id)
     {
         $entity = $this->em->getRepository('ArmdTheaterBundle:Theater')->createQueryBuilder('t')
-            ->select('t, b')
+            ->select('t, p, b')
             ->leftJoin('t.billboards', 'b', 'WITH', 'b.date > :now')->setParameter('now', new \DateTime())
+            ->leftJoin('t.performances', 'p')
             ->andWhere('t.published = :published')->setParameter('published', true)
             ->andWhere('t.id = :id')->setParameter('id', $id)
             ->addOrderBy('b.date')

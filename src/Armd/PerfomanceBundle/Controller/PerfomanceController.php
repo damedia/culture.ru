@@ -25,10 +25,10 @@ class PerfomanceController extends Controller
     }
     
     /**
-     * @Route("/list/{ganreId}", name="armd_perfomance_list", defaults={"ganreId"=null}, options={"expose"=true})
+     * @Route("/list/{ganreId}/{theaterId}", name="armd_perfomance_list", defaults={"ganreId"=0, "theaterId"=0}, options={"expose"=true})
      * @Template("ArmdPerfomanceBundle:Perfomance:list.html.twig")
      */	
-    public function listAction($ganreId = null)
+    public function listAction($ganreId = 0, $theaterId = 0)
     {
     	$request = $this -> getRequest();
     	$criteria = array();
@@ -39,6 +39,15 @@ class PerfomanceController extends Controller
     	
         if ($ganreId)
     		$criteria[PerfomanceManager::CRITERIA_GANRE_IDS_OR] = array($ganreId);
+        
+        //театр
+        if ($request->get('theater_id')) {
+            $theaterId = $request->get('theater_id');
+        }
+    	
+        if ($theaterId) {
+            $criteria[PerfomanceManager::CRITERIA_THEATER_IDS_OR] = array($theaterId);
+        }
     		
         //слово для поиска
         if ($request->query->has('search_query')) {
@@ -57,7 +66,9 @@ class PerfomanceController extends Controller
 			'list' => $list, 
 			'load_count' => self::$count, 
 			'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll(),
-			'ganreId' => $ganreId,
+			'theaters' => $this->getEntityManager()->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC')),
+                        'ganreId' => $ganreId,
+                        'theaterId' => $theaterId,
 			'searchQuery' => $request->get('search_query'),
 			'abc' => self::$abc
 		);
@@ -102,11 +113,16 @@ class PerfomanceController extends Controller
         //первая буква
         if ($request->query->has('first_letter')) {
             $criteria[PerfomanceManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
-        }        
+        }
+        
+        //театр
+        if ($request->query->has('theater_id')) {
+            $criteria[PerfomanceManager::CRITERIA_THEATER_IDS_OR] = $request->get('theater_id');
+        }
 
         $list = $this -> getPerfomanceManager() -> findObjects(
     		array(
-    			PerfomanceManager::CRITERIA_LIMIT => self::$count, 
+    			PerfomanceManager::CRITERIA_LIMIT => $request->get('limit') ? $request->get('limit') : self::$count, 
     			PerfomanceManager::CRITERIA_OFFSET => $request->get('offset') ? $request->get('offset') : 0, 
     			PerfomanceManager::CRITERIA_ORDER_BY => $order_by
     		) + $criteria

@@ -54,12 +54,12 @@
                 <select id="perfomance_theater" name="perfomance_theater" class="uni">
                     <option value="0">
                         {{ "All"|trans }}
-                    </option>
-                    {#{% for theater in theaters %}
-                        <option value="{{ theater.id }}" {% if theater.id == theaterId %}selected="selected"{% endif %}>
-                            {{ theater.title }}
-                        </option>
-                    {% endfor %}#}
+                        {% for theater in theaters %}
+                            <option value="{{ theater.id }}" {% if theater.id == theaterId %}selected="selected"{% endif %}>
+                                {{ theater.title }}
+                            </option>
+                        {% endfor %}
+                    </option>                  
                 </select>
             </div>
                     

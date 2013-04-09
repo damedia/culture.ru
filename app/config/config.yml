@@ -272,7 +272,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 item: { width: 600 }
-                thumbnail: { width: 165, height: 125 }
+                thumbnail: { width: 306, height: 179 }
                 
         perfomance:
             download:
@@ -416,6 +416,8 @@ armd_sphinx_search:
             %sphinxsearch_index_museums%: ~
         News:
             %sphinxsearch_index_news%: ~
+        Theaters:
+            %sphinxsearch_index_theaters%: ~
         Perfomances:
             %sphinxsearch_index_perfomances%: ~            
 

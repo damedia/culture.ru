@@ -19,7 +19,10 @@ class PerfomanceManager extends ListManager
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
     
     /** example: 'A' */
-    const CRITERIA_FIRST_LETTER = 'CRITERIA_FIRST_LETTER';    
+    const CRITERIA_FIRST_LETTER = 'CRITERIA_FIRST_LETTER';  
+    
+    /** example: array(1, 2) */
+    const CRITERIA_THEATER_IDS_OR = 'CRITERIA_THEATER_IDS_OR';
 
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
@@ -57,7 +60,11 @@ class PerfomanceManager extends ListManager
             $qb->andWhere("SUBSTRING(TRIM(LEADING ' .\"«' FROM _perfomance.title), 1, 1) = :first_letter")
                 ->setParameter('first_letter', $criteria[self::CRITERIA_FIRST_LETTER]);
         }
-                
+        
+        if (!empty($criteria[self::CRITERIA_THEATER_IDS_OR])) {
+            $qb->andWhere("_perfomance.theater IN (:theater_ids_or)")
+                ->setParameter('theater_ids_or', $criteria[self::CRITERIA_THEATER_IDS_OR]);
+        }
     }
 
     public function findObjectsWithSphinx($criteria) {

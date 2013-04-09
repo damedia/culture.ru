@@ -86,6 +86,7 @@ var armdMkPerfomance = {
         } else {
 
             data['ganre_id'] = $('#perfomance_ganre').val();
+            data['theater_id'] = $('#perfomance_theater').val();
             $('#perfomance-abc-filter').show();   
             
             if ($('#perfomance-abc-filter a.active').data('letter')) {

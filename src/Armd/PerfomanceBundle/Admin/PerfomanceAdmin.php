@@ -61,6 +61,16 @@ class PerfomanceAdmin extends Admin
 						'multiple' => true
                     )
                 )
+                ->add('theater', null, array(
+                    'property' => 'title',
+                    'label' => 'Theater',
+                    'attr' => array('class' => 'chzn-select span5'),
+                    'query_builder' => function($er) {
+                        $qb = $er->createQueryBuilder('r');
+                        $qb->orderBy('r.title', 'ASC');
+                        return $qb;
+                    }
+                ))
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->end()
             ->with('Tvigle Video')

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\TheaterBundle\Entity\TheaterManager;
+use Armd\PerfomanceBundle\Entity\PerfomanceManager;
 
 class DefaultController extends Controller
 {
@@ -140,10 +141,57 @@ class DefaultController extends Controller
     }
     
     /**
+     * @Route("/performance-list-data/", name="armd_theater_performance_list_data", options={"expose"=true})
+     * @Template("ArmdTheaterBundle:Default:performance_list_data.html.twig")
+     */	
+    public function performanceListDataAction()
+    {
+    	$request = $this -> getRequest();
+    	$criteria = array();
+    	
+    	//сортировка
+    	switch ($request -> get('sort_by')) {
+    		case 'date':
+    		default:
+    			$order_by = array('createdAt' => 'DESC');
+    			break;
+    		case 'abc':
+    			$order_by = array('title' => 'ASC');
+    			break;    
+    		case 'popular':
+    			$order_by = array('viewCount' => 'DESC');
+    			break;        					
+    	}  	
+        
+        //театр
+        if ($request->query->has('theater_id')) {
+            $criteria[PerfomanceManager::CRITERIA_THEATER_IDS_OR] = $request->get('theater_id');
+        }
+
+        $list = $this -> getPerfomanceManager() -> findObjects(
+    		array(
+    			PerfomanceManager::CRITERIA_LIMIT => $request->get('limit') ? $request->get('limit') : 12, 
+    			PerfomanceManager::CRITERIA_OFFSET => $request->get('offset') ? $request->get('offset') : 0, 
+    			PerfomanceManager::CRITERIA_ORDER_BY => $order_by
+    		) + $criteria
+    	);
+    	
+		return array('list' => $list);
+    }
+    
+    /**
      * @return \Armd\TheaterBundle\Entity\TheaterManager
      */
     public function getTheaterManager()
     {
         return $this->get('armd_theater.manager.theater');
+    }
+    
+    /**
+     * @return \Armd\PerfomanceBundle\Entity\PerfomanceManager
+     */
+    public function getPerfomanceManager()
+    {
+        return $this->get('armd_perfomance.manager.perfomance');
     }
 }

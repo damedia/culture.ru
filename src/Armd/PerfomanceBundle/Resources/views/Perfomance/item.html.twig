@@ -27,7 +27,9 @@
 			<div class="video-one-description">
 				<h2 class="video-one-name">{{ entity.title }}</h2>
 				<div class="video-one-source">
-					<a href="">Театр</a>
+                                    {% if entity.theater %}
+                                        <a href="{{ path('armd_theater_item', {'id': entity.theater.id }) }}">{{ entity.theater.title }}</a>
+                                    {% endif %}
 				</div>
 				<div class="video-one-tags">
 					{% if entity.ganres|length > 0 %}

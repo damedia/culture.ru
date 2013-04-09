@@ -92,20 +92,19 @@ class Theater
     private $image;
     
     /**
-     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
-     * @ORM\JoinTable(name="armd_theater_image")
-     * @ORM\OrderBy({"id" = "ASC"})
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
-    private $images;
+    private $gallery;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"all"})
-     * @ORM\JoinColumn(name="interview_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"all"})
+     * @ORM\JoinTable(name="armd_theater_interviews")
      */
-    private $interview;
+    private $interviews;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\City", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\City")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
@@ -121,6 +120,12 @@ class Theater
      * @ORM\OrderBy({"date" = "ASC"})
      */
     private $billboards;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Armd\PerfomanceBundle\Entity\Perfomance", mappedBy="theater")
+     * @ORM\OrderBy({"title" = "ASC"})
+     */
+    private $performances;
 
     public function __toString()
     {
@@ -131,10 +136,10 @@ class Theater
      */
     public function __construct()
     {
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createdAt = new \DateTime('now');
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->billboards = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->performances = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -306,62 +311,6 @@ class Theater
     public function getImage()
     {
         return $this->image;
-    }
-
-    /**
-     * Add images
-     *
-     * @param \Application\Sonata\MediaBundle\Entity\Media $images
-     * @return Theater
-     */
-    public function addImage(\Application\Sonata\MediaBundle\Entity\Media $images)
-    {
-        $this->images[] = $images;
-    
-        return $this;
-    }
-
-    /**
-     * Remove images
-     *
-     * @param \Application\Sonata\MediaBundle\Entity\Media $images
-     */
-    public function removeImage(\Application\Sonata\MediaBundle\Entity\Media $images)
-    {
-        $this->images->removeElement($images);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    /**
-     * Set interview
-     *
-     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $interview
-     * @return Theater
-     */
-    public function setInterview(\Armd\TvigleVideoBundle\Entity\TvigleVideo $interview = null)
-    {
-        $this->interview = $interview;
-    
-        return $this;
-    }
-
-    /**
-     * Get interview
-     *
-     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo 
-     */
-    public function getInterview()
-    {
-        return $this->interview;
     }
 
     /**
@@ -612,5 +561,94 @@ class Theater
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * Add performances
+     *
+     * @param \Armd\PerfomanceBundle\Entity\Perfomance $performances
+     * @return Theater
+     */
+    public function addPerformance(\Armd\PerfomanceBundle\Entity\Perfomance $performances)
+    {
+        $this->performances[] = $performances;
+    
+        return $this;
+    }
+
+    /**
+     * Remove performances
+     *
+     * @param \Armd\PerfomanceBundle\Entity\Perfomance $performances
+     */
+    public function removePerformance(\Armd\PerfomanceBundle\Entity\Perfomance $performances)
+    {
+        $this->performances->removeElement($performances);
+    }
+
+    /**
+     * Get performances
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPerformances()
+    {
+        return $this->performances;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     * @return Theater
+     */
+    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+    
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * Add interviews
+     *
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $interviews
+     * @return Theater
+     */
+    public function addInterview(\Armd\TvigleVideoBundle\Entity\TvigleVideo $interviews)
+    {
+        $this->interviews[] = $interviews;
+    
+        return $this;
+    }
+
+    /**
+     * Remove interviews
+     *
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $interviews
+     */
+    public function removeInterview(\Armd\TvigleVideoBundle\Entity\TvigleVideo $interviews)
+    {
+        $this->interviews->removeElement($interviews);
+    }
+
+    /**
+     * Get interviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInterviews()
+    {
+        return $this->interviews;
     }
 }

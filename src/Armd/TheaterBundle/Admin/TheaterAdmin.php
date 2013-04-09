@@ -72,7 +72,7 @@ class TheaterAdmin extends Admin
                     }
                 ))
                 ->add('categories', null, array('attr' => array('class' => 'chzn-select span5')))
-                ->add('description')
+                ->add('description', null, array('attr' => array('class' => 'tinymce')))
                 ->add('director')
                 ->add('address')               
                 ->add('url')
@@ -85,34 +85,20 @@ class TheaterAdmin extends Admin
                 ->add('latitude', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lat')))
                 ->add('longitude', 'text', array('required' => false, 'attr' => array('class' => 'geopicker lon')))
             ->end()
-            ->with('Media')
-                ->add('image', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'theater',
-                    'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'thumbnail'
-                ))               
-                ->add('images', 'collection', array(
-                    'type' => 'armd_media_file_type',
-                    'options' => array(
-                        'media_context' => 'theater',
-                        'media_provider' => 'sonata.media.provider.image',
-                        'media_format' => 'thumbnail'
-                    ),
+            ->with('Media')                
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'theater')))               
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'theater')))
+            ->end()
+            ->with('Tvigle Video')                      
+                ->add('interviews', 'collection', array(
+                    'type' => 'armd_tvigle_video_selector',
                     'by_reference' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'required' => false,
-                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                    'attr' => array('class' => 'armd-sonata-tvigle-collection'),
+                    'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
+                    'label' => 'Interviews'
                 ))
-            ->end()
-            ->with('Tvigle Video')
-                ->add('interview', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )               
             ->end()            
             ;
 

@@ -1,4 +1,4 @@
-{% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
+{% import 'ArmdTheaterBundle:Default:perfomance_macro.html.twig' as perfomanceMacro %}
 
 		{% for entity in list %}
 			<div class="plitka-one-wrap">
@@ -19,11 +19,11 @@
 								{{ entity.title|raw }}
 							</a>
 						</span>
+                                                <!--
 						<span class="three-row-link">
-                                                        {% if entity.theater %}
-                                                            <a href="{{ path('armd_perfomance_list', {'theaterId': entity.theater.id }) }}">{{ entity.theater.title }}</a>
-                                                        {% endif %}
+							<a href="#">Театр</a>
 						</span>
+                                                -->
 					</div>
 					
 					<div class="plitka-footer">
