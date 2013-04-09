@@ -39,18 +39,57 @@
 {% endblock %}
 
 {% block page_header_search %}
+    {% set lecturesFilterPath = 'armd_lecture_default_index' %}
+    {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+        {% set lecturesFilterPath = 'armd_lecture_lecture_index' %}
+    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+        {% set lecturesFilterPath = 'armd_lecture_translation_index' %}
+    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+        {% set lecturesFilterPath = 'armd_lecture_cinema_index' %}
+    {% endif %}
     <div class="search-category">
-        <form id="lectures-filter" action="{{ path('armd_lecture_default_index', {'lectureSuperTypeCode': lecture.lectureSuperType.code}) }}" method="get">
-            <span class="search-dates-label">Выбрать</span>
+        <form id="lectures-filter" action="{{ path(lecturesFilterPath, {'category_id': selectedCategory.id|default(0)}) }}" method="get">
+            <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
-                <select id="category_id" name="category_id" class="uni">
-                    <option value="0">{{ "All"|trans }}</option>
+                <select id="lecture_category" name="category_id" class="uni">
+                    <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
+                        {{ "All"|trans }}
+                    </option>
+                    {% set selectedCategoryFound = false %}
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.title }}</option>
+                        <option value="{{ category.id }}"
+                                {% if category.id == selectedCategory.id|default(0) %}
+                                    {% set selectedCategoryFound = true %}
+                                    selected="selected"
+                                {% endif %}
+                                {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}
+                                >
+                            {{ category.title }}
+                        </option>
+                    {% endfor %}
+                    {% for category in specialCategories %}
+                        <option value="0"
+                                {% if cinemaTop100 and category.id == selectedCategory.id %}selected="selected"{% endif %}
+                                data-system-slug="{{ category.systemSlug }}"
+                                >
+                            {{ category.title }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
+
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and not cinemaTop100 %}
+                <span class="search-dates-label">Жанр</span>
+                <div class="search-category-selects">
+                    <select id="lecture_sub_category" name="sub_category" class="uni">
+                        <option value="0">{{ "All"|trans }}</option>
+                        {% if not selectedCategoryFound and selectedCategory is not empty%}
+                            <option value="{{ selectedCategory.id }}">{{ selectedCategory.title }}</option>
+                        {% endif %}
+                    </select>
+                </div>
+            {% endif %}
+            {#<button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>#}
         </form>
     </div>
 {% endblock %}

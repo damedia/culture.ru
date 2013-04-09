@@ -40,7 +40,8 @@ class DefaultController extends Controller
 
         return array(
             'superTypes' => $superTypes,
-            'lecturesBySuperType' => $lecturesBySuperType
+            'lecturesBySuperType' => $lecturesBySuperType,
+            'selectedCategory' => $this->getRequest()->get('category_id'),
         );
     }
 
@@ -51,6 +52,8 @@ class DefaultController extends Controller
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
             'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE'
+        ), array(
+            'category_id' => $this->getRequest()->get('category_id')
         ));
     }
 
@@ -61,6 +64,8 @@ class DefaultController extends Controller
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
             'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION'
+        ), array(
+            'category_id' => $this->getRequest()->get('category_id')
         ));
     }
 
@@ -70,7 +75,11 @@ class DefaultController extends Controller
     public function cinemaIndexAction()
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
-            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA'
+            'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
+            'cinema_top100' => $this->getRequest()->get('cinema_top100'),
+        ), array(
+            'category_id' => $this->getRequest()->get('category_id'),
+            'sub_category_id' => $this->getRequest()->get('sub_category_id'),
         ));
     }
 
@@ -97,7 +106,6 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $translator = $this->get('translator');
 
         // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri(
@@ -108,31 +116,6 @@ class DefaultController extends Controller
         $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode($lectureSuperTypeCode);
 
-
-        $specialCategories = array();
-        $cinemaTop100 = $request->get('cinema_top100');
-        if ($cinemaTop100) {
-            $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
-                        ->findOneBySystemSlug('CINEMA_TOP_100');
-
-            $categories = $em->getRepository('ArmdLectureBundle:LectureCategory')
-                ->findBy(array('parent' => $top100Category), array('title' => 'ASC'));
-
-        } else {
-            $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
-
-            $specialCategories = array();
-            if ($lectureSuperTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
-                $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
-                            ->findOneBySystemSlug('CINEMA_TOP_100');
-                if ($top100Category) {
-                    $top100Category = clone($top100Category);
-                    $top100Category->setTitle($translator->trans('LECTURE_SUPER_TYPE_TOP100'));
-                    $specialCategories[] = $top100Category;
-                }
-            }
-        }
-
         $alphabet = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О',
             'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
 
@@ -142,19 +125,13 @@ class DefaultController extends Controller
             $tag = false;
         }
 
-        $selectedCategory = false;
-        $selectedCategoryId = $request->get('category_id');
-        if ($request->query->has('category_id')) {
-            $selectedCategory = $em->getRepository('ArmdLectureBundle:LectureCategory')
-                ->find($selectedCategoryId);
-        }
-
+        $data = $this->getCategoryData($lectureSuperType);
 
         return array(
             'lectureSuperType' => $lectureSuperType,
-            'categories' => $categories,
-            'specialCategories' => $specialCategories,
-            'selectedCategory' => $selectedCategory,
+            'categories' => $data['categories'],
+            'specialCategories' => $data['specialCategories'],
+            'selectedCategory' => $data['selectedCategory'],
             'searchQuery' => $request->get('search_query'),
             'cinemaTop100' => $request->get('cinema_top100'),
             'alphabet' => $alphabet,
@@ -162,7 +139,7 @@ class DefaultController extends Controller
         );
 
     }
-
+    
     /**
      * @Route("/list/{lectureSuperTypeCode}/", name="armd_lecture_list", options={"expose"=true})
      * @Template("ArmdLectureBundle:Default:list.html.twig")
@@ -229,7 +206,8 @@ class DefaultController extends Controller
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
         return array(
-            'lectures' => $lectures
+            'lectures' => $lectures,
+            'selectedCategory' => $request->get('category_id'),
         );
     }
 
@@ -297,14 +275,19 @@ class DefaultController extends Controller
 
         $manager = $this->get('armd_lecture.manager.lecture');
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
-        $categories = $manager->getCategoriesBySupertype($lecture->getLectureSuperType());
-
+        $lectureSuperType = $lecture->getLectureSuperType();
+        $data = $this->getCategoryData($lectureSuperType);
+        
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'referer' => $this->getRequest()->headers->get('referer'),
             'lecture' => $lecture,
-            'categories' => $categories,
+            'lectureSuperType' => $lectureSuperType,
+            'categories' => $data['categories'],
+            'specialCategories' => $data['specialCategories'],
+            'selectedCategory' => $data['selectedCategory'],
             'lectureVersion' => $version,
             'lectureRolesPersons' => $rolesPersons,
+            'cinemaTop100' => $this->getRequest()->get('cinema_top100'),
         ));
     }
 
@@ -389,4 +372,50 @@ class DefaultController extends Controller
         return $this->get('fpn_tag.tag_manager');
     }
 
+    /**
+     * @param Armd\LectureBundle\Entity\LectureSuperType $lectureSuperType
+     * @return array
+     */
+    protected function getCategoryData($lectureSuperType)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $translator = $this->get('translator');
+        
+        $cinemaTop100 = $request->get('cinema_top100');
+        if ($cinemaTop100) {
+            $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                        ->findOneBySystemSlug('CINEMA_TOP_100');
+
+            $categories = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                ->findBy(array('parent' => $top100Category), array('title' => 'ASC'));
+
+        } else {
+            $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
+
+            $specialCategories = array();
+            if ($lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_CINEMA') {
+                $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                            ->findOneBySystemSlug('CINEMA_TOP_100');
+                if ($top100Category) {
+                    $top100Category = clone($top100Category);
+                    $top100Category->setTitle($translator->trans('LECTURE_SUPER_TYPE_TOP100'));
+                    $specialCategories[] = $top100Category;
+                }
+            }
+        }
+        
+        $selectedCategory = false;
+        $selectedCategoryId = (int)$request->get('category_id');
+        if ($request->query->has('category_id') && $selectedCategoryId) {
+            $selectedCategory = $em->getRepository('ArmdLectureBundle:LectureCategory')
+                ->find($selectedCategoryId);
+        }
+        
+        return array(
+            'categories' => $categories,
+            'specialCategories' => $specialCategories,
+            'selectedCategory' => $selectedCategory,
+        );
+    }
 }
