@@ -1,0 +1,4 @@
+services:
+    armd_perfomance.manager.perfomance:
+        class: Armd\PerfomanceBundle\Entity\PerfomanceManager
+        arguments:  [@doctrine.orm.entity_manager, @fpn_tag.tag_manager, @search.sphinxsearch.search]

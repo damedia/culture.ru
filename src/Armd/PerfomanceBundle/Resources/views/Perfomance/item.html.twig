@@ -1,0 +1,259 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block left_column %}
+	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
+		<div class="sort-filter sort-element-filter" id="switch_view">
+			<a href="#" class="active" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>
+			<a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'perfomance'}) }}">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+		</div>
+	{% endif %}
+	<div class="perfomance-one">
+		<section class="video-one">
+			
+			{% if entity.perfomanceVideo %}
+				<div class="video-one_container" id="pefomance_video_container" style="height: 506px;">
+					{% if entity.trailerVideo is not empty %}
+	                   	{{ armd_tvigle_video_player(entity.trailerVideo, '100%', 506)|raw }}				
+	                {% else %}
+	                	{{ armd_tvigle_video_player(entity.perfomanceVideo, '100%', 506)|raw }}	
+	                {% endif %}                
+	            </div>
+	        {% elseif entity.image %}
+	         	{% if entity.externalUrl %}<a href="{{ entity.externalUrl }}" target="_blank">{% endif %}
+	           		{% media entity.image, 'xbig' with {'alt' : entity.title|escape, 'width' : '100%', 'height' : ''} %}
+	           	{% if entity.externalUrl %}</a>{% endif %}
+	        {% endif %}
+			
+			<div class="video-one-description">
+				<h2 class="video-one-name">{{ entity.title }}</h2>
+				<div class="video-one-source">
+                                    {% if entity.theater %}
+                                        <a href="{{ path('armd_theater_item', {'id': entity.theater.id }) }}">{{ entity.theater.title }}</a>
+                                    {% endif %}
+				</div>
+				<div class="video-one-tags">
+					{% if entity.ganres|length > 0 %}
+						{% for ganre in entity.ganres %}
+							<a href="{{ path('armd_perfomance_list', {'ganreId': ganre.id }) }}">{{ ganre.title }}</a>{% if entity.ganres|length > 1 and not(loop.last) %}, {% endif %}
+						{% endfor %}
+					{% endif %}				
+				</div>
+				<div class="video-one-views">
+					Просмотров: {{ entity.viewCount }}
+				</div>
+			</div>
+			
+			<div class="video-one-full-text">
+				{{ entity.description|raw }}
+			</div>
+		</section>
+		<div class="back-link">
+			<p><a href="javascript:history.back();">Назад</a></p>
+		</div>
+        <div class="event-one_footer clearfix">
+            <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
+        </div>	
+        
+        <div class="more-comments-show">
+            <div class="comments comments-gray clearfix">
+                {% set comment_thread_id = app.request.locale ~ '_content_perfomance_' ~ entity.id %}
+                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                {% if not is_granted('ROLE_USER') %}
+                    <div class="comments-auth-block">
+                        <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>        	
+	</div>
+{% endblock %}
+
+{% block right_column %}
+	{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
+		<div class="right-video-block separate-video-block">
+		
+			{% if entity.interviewVideo %}
+		        <div class="flexslider">
+		            <ul class="slides">
+		                <li>
+		                    <article class="period-block">
+		                        <h2>{{ entity.interviewTitle}}</h2>
+		                        <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
+		                        	{% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape} %}
+		                            <span class="play"></span>
+		                        </a>
+		                        <div class="period-block_text">
+		                            <p>{{ entity.interviewDescription|raw }}</p>
+		                        </div>
+		                        <footer class="period-block_footer">
+	                            </footer>
+		                    </article>
+		                </li>
+		            </ul>
+		        </div>			
+			{% endif %}
+		
+			{% if entity.gallery and entity.gallery|length > 0 %}
+				<div class="flexslider">
+		            <ul class="slides">
+						{% for img in entity.gallery.galleryHasMedias %}
+			                <li>
+			                    <article class="period-block">
+			                        <h2>{{ entity.gallery.name }}</h2>
+									<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}">
+		                                {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape} %}
+									</a>
+			                        <div class="period-block_text">
+			                            <p>{{ img.media.name }}</p>
+			                        </div>
+			                        <footer class="period-block_footer">
+			                                
+			                        </footer>
+			                    </article>
+			                </li>
+						{% endfor %}	            	                
+		            </ul>				
+				</div>
+			{% endif %}
+		
+		</div>
+		
+	{% else %}
+
+		{% render url('armd_perfomance_list_related', {'tags': entity.tags|extract_array_values('getName'), 'limit':4, 'id': entity.id }) %}
+		
+	{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+        $(function(){
+			armdMkPerfomance.init();
+			initSocialShare();
+			
+			//просмотр интервью
+			$('a.tvigle-player-fancybox').fancybox({
+						'padding'		: 0,
+						'autoScale'		: false,
+						'transitionIn'	: 'none',
+						'transitionOut'	: 'none',
+						'width'		: 680,
+						'height'		: 495,
+						'type'			: 'swf',
+						'swf'			: {
+						   	 'wmode'		: 'transparent'
+						}
+					});
+			
+			//переключение видео							
+			$('#switch_view a').click(function(){
+				
+				$('#switch_view a').removeClass('active');
+				$(this).addClass('active');
+							                
+				if ($(this).attr('rel')) {
+				
+					var a = $(this);
+					armdMk.startLoading();
+					$('#pefomance_video_container').html('')
+					
+					$.ajax({
+						'url' : $(a).attr('rel'),
+						'dataType' : 'html',
+						'success' : function(data, textStatus, jqXHR ){
+							$('#pefomance_video_container').html(data);
+						},
+			            'complete': function() {
+							armdMk.stopLoading();
+			            }						
+					});	
+				}
+				
+				return false;
+				
+			});
+			
+        });
+            
+		var armdMkPerfomance = {
+		
+		    init: function() {
+		        $('#search-form').bind('submit', function(event) {
+		            if ($('#search-this-section').prop('checked')) {
+		                event.preventDefault();
+		                window.location = Routing.generate('armd_perfomance_list', {
+		                    'search_query': $('#search-txt').val()
+		                })
+		            }
+		        });
+		    }
+		};    
+
+        function initSocialShare() {
+            new Ya.share({
+                element: 'yandex-share',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_perfomance_item', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}'
+            });
+        }
+    </script>    
+{% endblock %}   
+
+{% block page_header_search %}
+    <div class="search-category">
+        <form id="lectures-filter" action="{{ path('armd_perfomance_list') }}" method="get">
+        
+            <span class="search-dates-label">Театр</span>
+            <div class="search-category-selects">
+                <select id="perfomance_theater" name="theater_id" class="uni">
+                    <option value="0">
+                        {{ "All"|trans }}
+                    </option>
+                    {#{% for theater in theaters %}
+                        <option value="{{ theater.id }}">
+                            {{ theater.title }}
+                        </option>
+                    {% endfor %}#}
+                </select>
+            </div>
+                    
+            <span class="search-dates-label">Жанр</span>
+            <div class="search-category-selects">
+                <select id="perfomance_ganre" name="ganre_id" class="uni">
+                    <option value="0">
+                        {{ "All"|trans }}
+                    </option>
+                    {% for ganre in ganres %}
+                        <option value="{{ ganre.id }}">
+                            {{ ganre.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>        
+
+            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{% block page_header_title %}
+	Спектакли
+{% endblock %}

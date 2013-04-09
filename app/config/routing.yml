@@ -140,6 +140,11 @@ armd_lecture:
     type:     annotation
     prefix:   /lecture
     
+armd_perfomance:
+    resource: "@ArmdPerfomanceBundle/Controller/"
+    type:     annotation
+    prefix:   /perfomance    
+    
 armd_user_bundle:
     resource: "@ArmdUserBundle/Controller/AuthenticationController.php"
     type: annotation
@@ -173,3 +178,8 @@ armd_poll:
     resource: "@ArmdPollBundle/Controller/"
     type: annotation
     prefix: poll
+
+armd_theater:
+    resource: "@ArmdTheaterBundle/Controller/"
+    type:     annotation
+    prefix:   /theater
