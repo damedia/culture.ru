@@ -7,6 +7,7 @@ menu.art_objects: Экспонаты
 menu.cinema: Кинозал
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
+menu.theaters: Театры
 menu.kids: Детям
 menu.news_index: Медиа
 menu.news: Новости
@@ -38,6 +39,7 @@ menu.open_government: Открытое правительство
 menu.social_council: Общественный совет
 menu.government_control: Форум по госнадзору
 menu.online_translation: Онлайн трансляции
+menu.perfomance: Спектакли
 #---------------- /menu -------------------------
 
 

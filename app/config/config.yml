@@ -84,9 +84,7 @@ stof_doctrine_extensions:
 
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.acl
-        information:
-            ADMINS:    [EDIT, LIST, CREATE, VIEW, DELETE, EXPORT, OPERATOR, MASTER]
+        handler: sonata.admin.security.handler.noop
     title:      Sonata Project
     title_logo: /bundles/sonataadmin/logo_title.png
     dashboard:
@@ -276,6 +274,36 @@ sonata_media:
                 smallZoom: { width: 127 }
                 small: { width: 200 }
 
+        theater:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                item: { width: 600 }
+                thumbnail: { width: 306, height: 179 }
+                
+        perfomance:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+                - sonata.media.provider.image
+                - sonata.media.provider.culturetv
+                - sonata.media.provider.youtube
+            formats:
+                xbig: { width: 670, height: 378 }
+                big: { width: 335, height: 189 }
+                tile: {width: 295, height: 228 }
+                medium: { width: 111 }
+                small: { width: 85 }
+                searchAllResult: { width: 160, height: 107 }
+                perfomanceW160H120: { width: 160, height: 120 }
+                perfomanceH228: { height: 228 }                
+>>>>>>> theater-57004
+
     cdn:
         server:
             path: %sonata_media_cdn%
@@ -398,6 +426,10 @@ armd_sphinx_search:
             %sphinxsearch_index_museums%: ~
         News:
             %sphinxsearch_index_news%: ~
+        Theaters:
+            %sphinxsearch_index_theaters%: ~
+        Perfomances:
+            %sphinxsearch_index_perfomances%: ~            
 
     searchd:
         host:   %sphinxsearch_host%
