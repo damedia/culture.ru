@@ -91,6 +91,7 @@ class TheaterAdmin extends Admin
             ->end()
             ->with('Tvigle Video')                      
                 ->add('interviews', 'collection', array(
+                    'required' => false,
                     'type' => 'armd_tvigle_video_selector',
                     'by_reference' => false,
                     'allow_add' => true,
