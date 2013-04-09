@@ -507,11 +507,17 @@ body {
                                 color: transparent;
                                 background: url(../img/loading/loading_button.png) no-repeat scroll 50% 50%;
                             }
+
                             .button.loading * {
                                 display: none;
                                 visibility: hidden;
                             }
-
+                            .button.button-download span{
+                                padding-left:20px;
+                                background-image: url(../img/icons/download.png);
+                                background-repeat:no-repeat;
+                                background-position:0px 50%;
+                            }
 						.search-dates-button {
 							margin-top:5px;
 							display:inline-block;
@@ -731,9 +737,16 @@ body {
 							color:#000;
 							margin:1px 0 16px;
 						}	
+            .event-one.guide-one h2 span{
+              font-size:18px;
+             }
 							.event-one h2:after {
 								display:none;
 							}
+            .event-one.guide-one h2{
+              margin:8px 0 13px;
+              line-height:26px;
+            }
 						.event-one_image {
 							float:left;
 							margin:0 20px 1px 0;
@@ -758,7 +771,82 @@ body {
 								.event-one_anons  p {
 									line-height:17px;
 								}
+						.additional-info{
+              font-size:13px;
+              color:#989898;
+              font-style:italic;
+              }
+
+            .guide-text{
+              font-size:14px;
+              line-height:17px;
+              color:#222;
+              }
+             .guide-text p {
+								margin-bottom:12px;
+							}
 							
+							.guide-text .guide-text_anons {
+								color:#7e7e7e;
+								margin-top:27px;
+                font-size:16px;
+                font-style:italic;
+                line-height:19px;
+							}
+
+            .guide-list{
+              margin:25px 0;
+              }
+            .guide-list section{
+              float:left;
+              margin:0 13px 13px 0;
+              }
+            .guide-list section a{
+              display:block;
+              padding:14px;
+              width:237px;
+              border:1px solid #ededed;
+              color:#000;
+              cursor:pointer;
+              }
+            .guide-list section:nth-child(3n+3){
+              margin-right:0;
+              }
+            .guide-list .summary{
+              position:relative;
+              float:left;
+              width:125px;
+              height:144px;
+              overflow:hidden;
+              }
+            .guide-list h3{
+              margin:0 0 5px 0;
+              text-transform:uppercase;
+              font-size:12px;
+              }
+            .guide-list p{
+              margin:0;
+              color:#7e7e7e;
+              font-size:12px;
+              }
+            .guide-list .fadein{
+              position:absolute;
+              left:0;
+              bottom:0;
+              height:30px;
+              width:100%;
+              background:url(../img/fadein.png) repeat-x 0 0;
+              }
+            .guide-list .img{
+              float:right;
+              width:104px;
+              }
+            .guide-list .img img{
+              display:block;
+              height:144px;
+              }
+
+
 						.back-link {
 							border-top:1px solid #d5d4d4;
 							position:relative;
@@ -781,6 +869,22 @@ body {
 									text-transform:uppercase;
 									font-size:13px;
 								}
+
+             .pdf-lister{}
+             .pdf-lister h3{
+                margin-bottom:10px;
+                font-size:14px;
+                text-transform:uppercase;
+                text-align:center;
+             }
+             .pdf-lister .pdf-content{
+                margin-bottom:5px;
+                text-align:center;
+                }
+             .pdf-lister .item-title{
+                color:#a3a3a3;
+                font-size:12px;
+             }
 								
 						.event-one_footer {
 							font-size:9px;
