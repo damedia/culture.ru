@@ -1,4 +1,3 @@
 parameters:
 #    armd_address.example.class: Armd\AddressBundle\Example
 
-services:

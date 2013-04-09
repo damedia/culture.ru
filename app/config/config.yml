@@ -301,9 +301,7 @@ sonata_media:
                 small: { width: 85 }
                 searchAllResult: { width: 160, height: 107 }
                 perfomanceW160H120: { width: 160, height: 120 }
-                perfomanceH228: { height: 228 }                
->>>>>>> theater-57004
-
+                perfomanceH228: { height: 228 }
     cdn:
         server:
             path: %sonata_media_cdn%
