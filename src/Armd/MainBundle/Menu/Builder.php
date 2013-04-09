@@ -93,12 +93,12 @@ class Builder extends ContainerAware
                 )
             );
             
-            $mainMenu->addChild(
-                'menu.theaters',
-                array(
-                    'route' => 'armd_theater_list'
-                )
-            );
+//            $mainMenu->addChild(
+//                'menu.theaters',
+//                array(
+//                    'route' => 'armd_theater_list'
+//                )
+//            );
 
             //--- /Main
 
@@ -212,12 +212,12 @@ class Builder extends ContainerAware
                 )
             );
             
-            $videoMenu->addChild(
-                'menu.perfomance',
-                array(
-                    'route' => 'armd_perfomance_list'
-                )
-            );
+//            $videoMenu->addChild(
+//                'menu.perfomance',
+//                array(
+//                    'route' => 'armd_perfomance_list'
+//                )
+//            );
             
 
 
