@@ -8,6 +8,7 @@ class SearchEnum
     const OBJECT_TYPE_ATLAS = 'atlas_object';
     const OBJECT_TYPE_VIRTUAL_MUSEUM = 'virtual_museum';
     const OBJECT_TYPE_PERFOMANCE = 'perfomance';
+    const OBJECT_TYPE_THEATER = 'theater';
 
     const START_INDEX_NEWS = 0;
     const START_INDEX_LECTURE = 1000000000;

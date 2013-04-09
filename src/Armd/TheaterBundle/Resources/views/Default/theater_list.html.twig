@@ -69,9 +69,10 @@
 -->
     
 <ul class="plitka obrazy-plitka theatre-plitka">
-    {% render url('armd_theater_list_data', { 'category': category }) %}
+    {% render url('armd_theater_list_data', { 'category': category, 'limit': limit }) %}
 </ul>
-<div  class="more more2">
+
+<div  class="more more2" style="display: none;">
     <p><a  href="#" id="show-more">{{ "Еще театры"|trans }}</a></p>
 </div>
     
@@ -83,7 +84,7 @@
     <script type="text/javascript" src="{{ asset('bundles/armdtheater/js/theater_list.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            armdMkTheaterList.init();
+            armdMkTheaterList.init({{ limit }});
         });
     </script>
 {% endblock %}

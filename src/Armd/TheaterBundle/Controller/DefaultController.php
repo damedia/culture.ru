@@ -10,6 +10,8 @@ use Armd\PerfomanceBundle\Entity\PerfomanceManager;
 
 class DefaultController extends Controller
 {
+    static $limit = 24;
+    
     protected function getTheaterOrders()
     {
         return array(
@@ -36,6 +38,7 @@ class DefaultController extends Controller
         
         return array(
             'orders' => $this->getTheaterOrders(),
+            'limit' => self::$limit,
             'category' => $category,
             'cityList' => $em->getRepository('ArmdAddressBundle:City')
                 ->findBy(array(), array('title' => 'ASC')),
@@ -48,10 +51,10 @@ class DefaultController extends Controller
      * @Route("/list-data/{offset}/{limit}",
      *      name="armd_theater_list_data",
      *      options={"expose"=true},
-     *      defaults={"offset"="0", "limit"="24"}
+     *      defaults={"offset"="0", "limit"="0"}
      * )
      */
-    public function  theaterListDataAction($offset = 0, $limit = 24)
+    public function  theaterListDataAction($offset = 0, $limit = 0)
     {
         $orders = $this->getTheaterOrders();      
         
@@ -84,7 +87,7 @@ class DefaultController extends Controller
             $criteria[TheaterManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
-        $criteria[TheaterManager::CRITERIA_LIMIT] = $limit;
+        $criteria[TheaterManager::CRITERIA_LIMIT] = $limit ? $limit : self::$limit;
         $criteria[TheaterManager::CRITERIA_OFFSET] = $offset;
 
         return $this->render(

@@ -100,7 +100,7 @@
             
         </section>    
         <div class="theatre-one-description">
-            {{ object.description }}
+            {{ object.description|raw }}
         </div>
         
         <div class="content-tabs">
@@ -122,9 +122,11 @@
                 <div id="performance-container" class="plitka perfomances-list">
                     {% render url('armd_theater_performance_list_data', { 'theater_id': object.id, 'limit': 12 }) %}
                 </div>
-                <div id="lecture-more-container" class="more more2">
-                    <p><a id="show-more" href="#">Ещё спектакли</a></p>
-                </div>    
+                {% if object.performances|length > 12 %}
+                    <div id="lecture-more-container" class="more more2">
+                        <p><a id="show-more" href="#">Ещё спектакли</a></p>
+                    </div> 
+                {% endif %}
 
             </div>
         {% endif %}

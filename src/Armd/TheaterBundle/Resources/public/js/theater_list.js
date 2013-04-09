@@ -5,11 +5,16 @@ var armdMkTheaterList = {
     order: 'date',
 
     visibleCount: 0,
-    loadByCount: 24,
+    loadByCount: 0,
 
 
-    init: function () {
+    init: function (limit) {
+        armdMkTheaterList.loadByCount = limit;
         armdMkTheaterList.refreshVisibleCount();
+        
+        if (armdMkTheaterList.visibleCount >= armdMkTheaterList.loadByCount) {
+            $('.more').show();
+        }
 
         // init "more" click
         $('#show-more').bind('click', function(event) {
@@ -115,7 +120,7 @@ var armdMkTheaterList = {
         var offset = append ? armdMkTheaterList.visibleCount : 0;
         
         armdMkTheaterList.startLoading();
-        
+        console.log(armdMkTheaterList.searchText);
         var jqxhr = $.ajax({
             url: Routing.generate('armd_theater_list_data', {
                 'offset': offset,
