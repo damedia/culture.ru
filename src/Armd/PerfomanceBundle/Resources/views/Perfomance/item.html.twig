@@ -1,6 +1,11 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{{ path('armd_perfomance_list') }}">Спектакли</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
 	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
 		<div class="sort-filter sort-element-filter" id="switch_view">
 			<a href="#" class="active" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>

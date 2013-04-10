@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block page_header_search %}
-    <div class="search-category wide-search">
+    <div class="search-category">
         <span class="search-dates-label">Регион</span>
             <div class="search-category-selects">
                 <select id="filter-city" class="uni">
@@ -37,8 +37,7 @@
                         <option value="{{ value.id }}" {{ value.id == category ? 'selected="selected"' : '' }}>{{ value.title }}</option>
                     {% endfor %}
                 </select>
-            </div>
-            <a href="#" id="search-russia-images-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
+            </div>            
     </div>
 {% endblock %}
 

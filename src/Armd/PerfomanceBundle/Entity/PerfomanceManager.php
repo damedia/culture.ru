@@ -57,7 +57,7 @@ class PerfomanceManager extends ListManager
         }
 
         if (!empty($criteria[self::CRITERIA_FIRST_LETTER])) {
-            $qb->andWhere("SUBSTRING(TRIM(LEADING ' .\"«' FROM _perfomance.title), 1, 1) = :first_letter")
+            $qb->andWhere("LOWER(SUBSTRING(TRIM(LEADING ' .\"«' FROM _perfomance.title), 1, 1)) = LOWER(:first_letter)")
                 ->setParameter('first_letter', $criteria[self::CRITERIA_FIRST_LETTER]);
         }
         
