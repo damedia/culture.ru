@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=1400">
+	<title></title>
+    
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script>var jqOLD = jQuery.noConflict(true);</script> 
+    
+	
+    
+	
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/cutext.css" media="all" />
+    
+    <link rel="stylesheet" href="objects/css/jquery.jscrollpane.css">
+    <link rel="stylesheet" href="objects/js/fancybox/jquery.fancybox-1.3.4.css"> 
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+    
+    
+</head>
+<body>
+	<div class="map" style=" ">
+	<!--img src="img/kid_map_1026x667.jpg"  alt="" id="image" width="1026"-->
+		<img src="img/kid_map_last.jpg"  alt="" id="image" width="1280" >
+		<div class="top-links">
+			<a href="/" class="back-link">
+				<img src="img/back-active.png" alt="" />
+				<img src="objects/img/blank.png" class="ie-dum" alt="" />
+			</a>
+			<a href="objects/symbols.html" class="symb-link">
+				<img src="img/symb-active.png" alt="" />
+				<img src="objects/img/blank.png" class="ie-dum" alt="" />
+			</a>
+			<a href="#feedback-popup" class="feedback-link modal" >
+				<img src="img/feedback-active.png" alt="" />
+				<img src="objects/img/blank.png" class="ie-dum" alt="" />
+			</a>
+		</div>
+		
+		<div class="objects">
+			<div class="point mos active" id="mos">
+				<a href="objects/index.html">
+					<img src="img/mos.png" alt="" class="normal" />
+					<img src="img/mos_active.png" alt="" class="current" />
+				</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Москва
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon">
+						<a href="objects/tretyakovf.html">
+						<img src="img/tret.png" alt="" />
+						<p>
+							Третьяковская<br />галерея
+						</p>
+						</a>
+					</div><div class="object-icon">
+						<a href="objects/index.html">
+						<img src="img/mos.png" alt="" />
+						<p>
+							Московский<br />Кремль
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="point piter" id="piter">
+				<a href="objects/petergof.html">
+				<img src="img/piter.png" alt="" class="normal" />
+				<img src="img/piter_active.png" alt="" class="current" />
+			</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Санкт-Петербург
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one" >
+						<a href="objects/petergof.html">
+						<img src="img/piter.png" alt="" />
+						<p>
+							Государственный <br /> музей-заповедник «Петергоф»
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="point rodina" id="rodina">
+				<a href="objects/rodina.html">
+					<img src="img/rodina.png" alt="" class="normal" />
+					<img src="img/rodina_active.png" alt="" class="current" />
+				</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Волгоград
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one"  >
+						<a href="objects/rodina.html">
+						<img src="img/rodina.png" alt="" />
+						<p>
+							Мамаев курган <br /> и Родина-мать
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="point vlad" id="vlad">
+				<a href="objects/vladivostok.html">
+				<img src="img/vlad.png" alt="" class="normal" />
+				<img src="img/vlad_active.png" alt="" class="current" />
+				</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Владивосток
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one" >
+						<a href="objects/vladivostok.html">
+						<img src="img/vlad.png" alt="" />
+						<p>
+							Владивостокская <br /> крепость
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="point astra" id="astra">
+				<a href="objects/astrahan.html">
+				<img src="img/astrahan.png" alt="" class="normal" />
+				<img src="img/astrahan_active.png" alt="" class="current" />
+				</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Астрахань
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one"  >
+						<a href="objects/astrahan.html">
+						<img src="img/astrahan.png" alt="" />
+						<p>
+							Ансамбль<br />Астраханского Кремля
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="point arch" id="arch">
+				<a href="objects/arkaim.html">
+				<img src="img/arch.png" alt="" class="normal" />
+				<img src="img/arch_active.png" alt="" class="current" />
+				</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Челябинск
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one"  >
+						<a href="objects/arkaim.html">
+						<img src="img/arch.png" alt="" />
+						<p>
+							 Аркаим
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="point dacan" id="dacan">
+				<a href="objects/dazan.html">
+				<img src="img/dacan.png" alt="" class="normal" />
+				<img src="img/dacan_active.png" alt="" class="current" />
+			</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Улан-Уде
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one"  >
+						<a href="objects/dazan.html">
+						<img src="img/dacan.png" alt="" />
+						<p>
+							Иволгинский<br />дацан
+						</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="point kul" id="kul">
+				<a href="objects/kul-sharif.html">
+				<img src="img/kul.png" alt="" class="normal" />
+				<img src="img/kul_active.png" alt="" class="current" />
+				</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						 Казань 
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one">
+						<a href="objects/kul-sharif.html">
+							<img src="img/kul.png" alt="" />
+							<p>
+								 Мечеть<br />Кул-Шариф
+							</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="point nev" id="nev">
+				<a href="objects/nevyansk.html">
+				<img src="img/nev.png" alt="" class="normal" />
+				<img src="img/nev_active.png" alt="" class="current" />
+			</a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Невьянск
+					</div>
+				</div>
+				<div style="display:none;" class="for-slider">
+					<div class="object-icon object-icon-one"  >
+						<a href="objects/nevyansk.html">
+							<img src="img/nev.png" alt="" />
+							<p>
+								 Невьянская<br />башня
+							</p>
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="point krasnoyarsk" id="krasnoyarsk">
+				<a href="objects/krasnoyarsk.html">
+                    <img src="img/krasnoyarsk.png" alt="" class="normal" />
+                    <img src="img/krasnoyarsk_active.png" alt="" class="current" />
+                </a>
+				<div class="lenta">
+					<div class="lenta-wrap">
+						Красноярск
+					</div>
+				</div>
+			
+            </div>
+		
+		
+		<div  id="window" >
+			<div class="compass">
+				<img src="img/compass.png" width="103" height="130" />
+			</div>
+			<!--div class="lenta-big">
+				<div class="lenta-big-wrap">
+					 Москва
+				</div>
+			</div>
+			<div class="objects-slider">
+				<div class="object-slider-content" >
+					<div class="object-icon">
+						<a href="objects/tretyakovf.html">
+						<img src="img/tret.png" alt="" />
+						<p>
+							Третьяковская<br />галерея
+						</p>
+						</a>
+					</div><div class="object-icon">
+						<a href="objects/index.html">
+						<img src="img/mos.png" alt="" />
+						<p>
+							Московский<br />Кремль
+						</p>
+						</a>
+					</div>
+				</div>
+				
+			</div>
+		</div-->
+		</div>
+		
+	</div>
+
+    <script type="text/javascript" src="js/cutext-all.min.js"></script>
+    <script src="js/jquery.fancybox-1.3.4.js"></script>
+    
+    <script type="text/javascript" src="js/kids_map_new.js"></script>
+
+   
+
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="feedback-popup" id="feedback-popup">
+            <div class="feedback-popup-container">
+                <form action="">
+                    <div class="form-group">
+                        <label for="from">Кому: </label>
+                        <input type="text" name="from" id="from" readonly value="portal@mkrf.ru" />
+                    </div>
+                    <div class="form-group">
+                        <label for="from">От кого: </label>
+                        <input type="text" name="from" id="from" value="" required placeholder="НАПИШИ СВОЙ ЭЛЕКТРОННЫЙ АДРЕС" />
+                    </div>
+                    <div class="form-textarea">
+                        <textarea name="message" id="message" cols="30" rows="10" required placeholder="А здесь можно писать письмо!"></textarea>
+                    </div>
+                    <div class="captcha-group">
+                        <div class="captcha-block">
+                            <img src="img/captcha.png" alt="" />
+                            <input type="text" id="captcha" value="" required class="captcha" />
+                        </div>
+                        <label for="captcha">Набери цифры, которые<br />ты видишь<br />на картинке</label>
+                    </div>
+                    <div class="captcha-group captch-reload">
+                        <p>Не выходит?<br />Попробуй<br />еще раз!</p>
+                        <a href="#">Сменить картинку</a>
+                    </div>
+                    <input type="submit" value="Отправить" id="submit-btn" class="submit-btn submit-btn-inactive" />
+                </form>
+            </div>
+        </div>
+
+   </div>
+    
+</body>
+</html>
