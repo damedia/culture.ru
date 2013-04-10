@@ -59,6 +59,9 @@ class DefaultController extends Controller
                 $searchResultLecture = array();
                 $searchResultAtlas = array();
                 $searchResultVirtualMuseum = array();
+                $searchResultPerfomance = array();
+                $searchResultTheater = array();
+                
                 foreach ($res['All']['matches'] as $id => $data) {
                     if (isset($data['attrs']['object_type'])) {
                         if ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_NEWS) {
@@ -82,6 +85,16 @@ class DefaultController extends Controller
                             if ($searchResult) {
                                 $searchResultVirtualMuseum[] = $searchResult;
                             }
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_PERFOMANCE) {
+                            $searchResult = $this->getPerfomanceInfo($id - SearchEnum::START_INDEX_PERFOMANCE);
+                            if ($searchResult) {
+                                $searchResultPerfomance[] = $searchResult;
+                            }
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_THEATER) {
+                            $searchResult = $this->getTheaterInfo($id - SearchEnum::START_INDEX_THEATER);
+                            if ($searchResult) {
+                                $searchResultTheater[] = $searchResult;
+                            }
                         }
                     }
                 }
@@ -90,7 +103,9 @@ class DefaultController extends Controller
                     $searchResultAtlas,
                     $searchResultVirtualMuseum,
                     $searchResultLecture,
-                    $searchResultNews
+                    $searchResultNews,
+                    $searchResultPerfomance,
+                    $searchResultTheater
                 );
                 // use $pagination only to display page navigation bar because data is already cut
                 $paginator = $this->container->get('knp_paginator');
@@ -248,5 +263,77 @@ class DefaultController extends Controller
         }
 
         return $museumInfo;
+    }
+    
+    protected function getPerfomanceInfo($id)
+    {
+        $perfomance = $this->getDoctrine()->getManager()->getRepository('ArmdPerfomanceBundle:Perfomance')->find($id);
+        $perfomanceInfo = false;
+        if (!empty($perfomance)) {
+            $perfomanceInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_perfomance_item',
+                        array('id' => $id)
+                    ),
+                    'date' => $perfomance->getCreatedAt(),
+                    'title' => strip_tags($perfomance->getTitle()),
+                    'announce' => '',
+                ),
+                'section' => array(
+                    'name' => 'Спектакль',
+                )                
+            );
+
+            $mediaImage = false;
+            if ($perfomance->getPerfomanceVideo()) {
+                $mediaImage = $perfomance->getPerfomanceVideo()->getImageMedia();
+            } elseif ($perfomance->getImage()) {
+                $mediaImage = $perfomance->getImage();
+            } 
+
+            $perfomanceInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                $mediaImage,
+                'perfomance_searchAllResult'
+            );
+        }
+
+        return $perfomanceInfo;
+    }    
+    
+    protected function getTheaterInfo($id)
+    {
+        $theater = $this->getDoctrine()->getManager()->getRepository('ArmdTheaterBundle:Theater')->find($id);
+        $theaterInfo = false;
+        
+        if (!empty($theater)) {
+            $theaterInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_theater_item',
+                        array('id' => $id)
+                    ),
+                    'date' => $theater->getCreatedAt(),
+                    'title' => strip_tags($theater->getTitle()),
+                    'announce' => '',
+                ),
+                'section' => array(
+                    'name' => 'Театр',
+                )                
+            );
+
+            $mediaImage = false;
+            
+            if ($perfomance->getImage()) {
+                $mediaImage = $theater->getImage();
+            } 
+
+            $perfomanceInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                $mediaImage,
+                'perfomance_searchAllResult'
+            );
+        }
+
+        return $theaterInfo;
     }
 }

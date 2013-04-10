@@ -100,6 +100,13 @@ class Builder extends ContainerAware
                 )
             );
 
+//            $mainMenu->addChild(
+//                'menu.theaters',
+//                array(
+//                    'route' => 'armd_theater_list'
+//                )
+//            );
+
             //--- /Main
 
 
@@ -211,6 +218,14 @@ class Builder extends ContainerAware
                     'route' => 'armd_lecture_top100_index',
                 )
             );
+
+//            $videoMenu->addChild(
+//                'menu.perfomance',
+//                array(
+//                    'route' => 'armd_perfomance_list'
+//                )
+//            );
+            
 
 
             //--- /Video

@@ -1,0 +1,106 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block left_column %}
+	{#<div class="sort-filter" id="perfomance-sort-filter">
+		<span>Сортировать</span>
+		<a href="" data-sort-by="date" class="active">по дате</a>
+		<a href="" data-sort-by="abc">по алфавиту</a>
+		<a href="" data-sort-by="popular">по популярности</a>
+	</div>#}
+	
+    <div class="sort-filter" id="perfomance-abc-filter">
+			<a href="#" class="active">Все</a>
+            {% for l in abc %}
+                <a href="#" data-letter="{{ l }}">{{ l }}</a>
+            {% endfor %}
+        </ul>
+    </div>	
+	
+	<div class="plitka perfomances-list" id="perfomance-container">
+		
+        {% render url('armd_perfomance_list_content', {
+                'limit': load_count,
+                'search_query': searchQuery,
+                'ganre_id' : ganreId
+            })
+        %}		
+		
+	</div>
+	
+	{% if list|length == load_count %}
+	    <div id="perfomance-more-container" class="more more2">
+	        <p><a id="perfomance-more-button" href="#">{{ "show_more"|trans }}</a></p>
+	    </div>	
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdperfomance/js/perfomance.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            armdMkPerfomance.init({{ load_count }});
+        });
+    </script>
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category">
+
+        <form id="perfomance-filter" method="post">
+        
+            <span class="search-dates-label">Театр</span>
+            <div class="search-category-selects">
+                <select id="perfomance_theater" name="perfomance_theater" class="uni">
+                    <option value="0">
+                        {{ "All"|trans }}
+                        {% for theater in theaters %}
+                            <option value="{{ theater.id }}" {% if theater.id == theaterId %}selected="selected"{% endif %}>
+                                {{ theater.title }}
+                            </option>
+                        {% endfor %}
+                    </option>                  
+                </select>
+            </div>
+                    
+            <span class="search-dates-label">Жанр</span>
+            <div class="search-category-selects">
+                <select id="perfomance_ganre" name="perfomance_ganre" class="uni">
+                    <option value="0">
+                        {{ "All"|trans }}
+                    </option>
+                    {% for ganre in ganres %}
+                        <option value="{{ ganre.id }}" {% if ganre.id == ganreId %}selected="selected"{% endif %}>
+                            {{ ganre.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{% block right_column %}
+
+    {% render url('armd_news_memorial_events') %}
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+    <div class="right-video-block">
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+    </div>
+
+{% endblock %}
+
+{% block search_query %}{{ searchQuery }}{% endblock %}
+
+{% block page_header_title %}
+	Спектакли
+{% endblock %}

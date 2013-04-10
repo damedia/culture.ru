@@ -1,0 +1,309 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{#{% block stylesheets %}#}
+
+{#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
+
+{#{{ parent() }}#}
+
+{#{% endblock %}#}
+
+
+{% block title %}{{ parent() }} — {{ 'Театры'|trans }}{% endblock %}
+
+{% block page_header_title %}
+    Театры
+{% endblock %}
+
+{#
+{% block page_header_search %}
+    <div class="search-category wide-search">
+        <form id="lectures-filter" method="post">
+            <span class="search-dates-label">Город</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+#}
+{% block search_query %}{#{ searchQuery }#}{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{{ path('armd_theater_list') }}">Театры</a></li>
+        <li><span>{{ object.title }}</span></li>
+    </ul>
+
+    
+    <div class="theatre-one">
+        <section class="theatre-one-main clearfix">
+            <h1>{{ object.title }}</h1>
+            <div class="theatre-one-stats">
+                <div class="theatre-tags">
+                    {% for category in object.categories %}                      
+                        <span style="white-space: nowrap;">
+                            <a href="{{ path('armd_theater_list', { 'category': category.id }) }}" data-category-id="{{ category.id }}">{{ category.title }}</a>
+                            {{ not loop.last ? ', ' : '' }}
+                        </span>
+                    {% endfor %}                   
+                </div>
+                <div class="theatre-stats-contacts">
+                    <p>
+                        {{ object.address }}<br />
+                        {{ object.phone }}<br />
+                        <a href="{{ object.url }}" target="_blank" class="external">{{ object.url }}</a>
+                    </p>
+                </div>
+                <div class="theatre-stats-head">
+                    <p>
+                        Художественный руководитель,<br />директор театра: 
+                        <b>{{ object.director }}</b>
+                    </p>
+                </div>
+            </div>
+            <div class="theatre-one-image">
+                <img src="{% path object.image, 'item' %}" alt="" />                                        
+            </div>
+            
+        </section>    
+        <div class="theatre-one-description">
+            {{ object.description|raw }}
+        </div>
+        
+        <div class="content-tabs">
+            {% if object.performances|length > 0 %}
+                <a href="#c-tab1" class="active">Спектакли театра</a>
+            {% endif %}
+                
+            <a href="#c-tab2" {{ object.performances|length > 0 ? '' : 'class="active"' }}>Как нас найти</a>
+            
+            {% if billboards|length > 0 %}
+                <a href="#c-tab3">афиша</a>
+            {% endif %}
+            <a href="#c-tab4">Оставить комментарий</a>
+        </div>
+            
+        {% if object.performances|length > 0 %}    
+            {# Спектакли театра  #}
+            <div class="content-tab" id="c-tab1">
+                <div id="performance-container" class="plitka perfomances-list">
+                    {% render url('armd_theater_performance_list_data', { 'theater_id': object.id, 'limit': 12 }) %}
+                </div>
+                {% if object.performances|length > 12 %}
+                    <div id="lecture-more-container" class="more more2">
+                        <p><a id="show-more" href="#">Ещё спектакли</a></p>
+                    </div> 
+                {% endif %}
+
+            </div>
+        {% endif %}
+            
+        {# Контакты #}
+        <div class="content-tab" id="c-tab2" {{ object.performances|length > 0 ? 'style="display: none"' : '' }}>
+            <div class="theater-contacts-map-wrap">
+                <div class="theater-contacts-map">
+                    {% if object.latitude and object.longitude %}
+                        <!--<img src="http://maps.googleapis.com/maps/api/staticmap?markers=55.760169,37.618645&zoom=16&size=278x200&sensor=false" alt="" />-->
+                        <img src="http://static-maps.yandex.ru/1.x/?l=map&pt={{ object.longitude }},{{ object.latitude }},pm2blm&z=15&size=278,200" alt="" />
+                    {% endif %}
+                </div>
+            </div>
+            <div class="theater-contacts-wrap">
+                <table class="theater-contacts">
+                    <caption>{{ object.title }}</caption>
+                    <tr>
+                        <td class="label">
+                            Адрес: 
+                        </td>
+                        <td>
+                            {{ object.address }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Метро:</td>
+                        <td>{{ object.metro }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Телефон:</td>
+                        <td>{{ object.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Режим работы кассы:</td>
+                        <td>{{ object.ticketOfficeMode }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email:</td>
+                        <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Сайт:</td>
+                        <td><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        {# Афиша #}
+        {% if billboards|length > 0 %}
+            <div class="content-tab" id="c-tab3"  style="display:none;">
+                <div class="sub-tabs">
+                    {% for i, month in billboards %}
+                        <a href="#s-tab{{ i }}" class="{{ loop.first ? 'active' : '' }}">{{ month[0].date|date('F')|trans }}</a>
+                    {% endfor %}               
+                </div>
+                {% for i, month in billboards %}
+                    <div class="sub-tab" id="s-tab{{ i }}" {{ not loop.first ? 'style="display: none;"' : '' }}>
+                        <table class="afisha-table">
+                            {% for b in month %}
+                                <tr>
+                                    <td class="at-name">
+                                        <b>{{ b.title }}</b>
+                                        <!--<i>Драматические спектакли</i>-->        
+                                    </td>
+                                    <td class="at-day">
+                                        {{ b.date|date('l')|trans }}
+                                    </td>
+                                    <td class="at-date">
+                                        {{ b.date|date('F')|trans ~ ' ' ~ b.date|date('d, H:i') }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endfor %}                      
+            </div>
+        {% endif %}
+        
+        {# Комментарий #}
+        <div class="content-tab" id="c-tab4"  style="display:none;">           
+            <div class="more-comments-show">
+                <div class="comments comments-gray clearfix">
+                    {% set comment_thread_id = app.request.locale ~ '_theater_' ~ object.id %}
+                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                    {% if not is_granted('ROLE_USER') %}
+                        <div class="comments-auth-block">
+                            <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                            {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>                          
+        <div class="back-link"><p><a href="{{ referer }}">Назад</a></p></div>
+        <div class="event-one_footer clearfix">
+            <!--
+            <div href="#" class="print-link">
+                <a target="_blank" href="/app_dev.php/press-centre/news/5829/print"></a> Распечатать материал: 
+            </div>
+            -->
+            <div href="#" class="publish-links">Опубликовать в социальных сетях: <span id="yandex-share"><span class="b-share"><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link b-share-btn__vkontakte" href="http://share.yandex.ru/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span></a><a rel="nofollow" target="_blank" title="LiveJournal" class="b-share__handle b-share__link b-share-btn__lj" href="http://share.yandex.ru/go.xml?service=lj&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="lj"><span class="b-share-icon b-share-icon_lj"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link b-share-btn__twitter" href="http://share.yandex.ru/go.xml?service=twitter&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link b-share-btn__facebook" href="http://share.yandex.ru/go.xml?service=facebook&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link b-share-btn__odnoklassniki" href="http://share.yandex.ru/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span></a></span></span></div>
+        </div>                      
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block right_column %}
+
+    {# % render url('armd_news_memorial_events') % #}
+    {# % render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) % #}
+    {% if object.interviews|length > 0 or object.gallery|length > 0 %}
+        {% if object.interviews|length > 0 %}
+            <div class="orange-slider-block orange-slider-first">
+                <h3 class="o-slider-header">{{ "Interview"|trans }}</h3>
+                <div class="flexslider">
+                    <ul class="slides">
+                        {% for i, video in object.interviews %}
+                            <li>
+                                <article class="period-block">
+                                    <a href="#interview-{{ i }}" class="period-block_image fancybox">
+                                        <img width="306" height="179" src="{{ video.image }}"  />
+                                        <span class="play"></span>
+                                    </a>
+                                    <div class="period-block_text">
+                                        <h4>{{ video.title }}</h4>
+                                        <p>{{ video.description }}</p>
+                                    </div>
+
+                                </article>
+                            </li>                        
+                        {% endfor %}
+                    </ul>            
+                </div>
+            </div> 
+            {% for i, video in object.interviews %}
+                <div id="interview-{{ i }}" style="display: none;">
+                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                        {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if object.gallery and object.gallery|length > 0 %}
+            <div class="orange-slider-block">
+                <h3 class="o-slider-header">{{ "Photo gallery"|trans }}</h3>
+                <div class="flexslider">              
+                    <ul class="slides">
+                        {% for image in object.gallery.galleryHasMedias %}
+                            <li>
+                                <article class="period-block">
+                                    <a href="{% path image.media, 'item' %}" rel="images_group" class="period-block_image in-fancybox">
+                                        <img width="306" height="179" src="{% path image.media, 'thumbnail' %}"  />
+                                    </a>
+                                    <div class="period-block_text">
+                                        <h4>{{ image.media.title }}</h4>
+                                        <p>{{ image.media.description }}</p>
+                                    </div>
+                                </article>
+                            </li>                               
+                        {% endfor %}               
+                    </ul>            
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+    {% endif %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdtheater/js/theater_item.js') }}"></script>
+    <script type="text/javascript">
+        armdMkTheaterItem.init({{ object.id }});      
+    </script>
+{% endblock %}

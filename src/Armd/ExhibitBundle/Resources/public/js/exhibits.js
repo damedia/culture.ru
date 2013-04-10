@@ -23,31 +23,22 @@ var exhibit = {
         
         $(function() {
             exhibit.setCount(data.count);
-            exhibit.setExhibits(exhibit.objects);
-            exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
-            exhibit.api = exhibit.scrollPane.data('jsp');
-            exhibit.apiReinitialise();
+            //exhibit.setExhibits(exhibit.objects);
+            //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
+            //exhibit.api = exhibit.scrollPane.data('jsp');
+            //exhibit.apiReinitialise();
+            exhibit.resizeExhibits();
             
             exhibit.setFilters();         
         });
+
         $(window).load(function() {           
             //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
             //exhibit.api = exhibit.scrollPane.data('jsp');
             //exhibit.apiReinitialise();
             var throttleTimeout;
             $(window).bind('resize', function() {
-                if ($.browser.msie) {
-                    if (!throttleTimeout) {
-                        throttleTimeout = setTimeout(function() {
-                                    exhibit.api.reinitialise();
-                                    throttleTimeout = null;
-                        }, 
-                        50
-                        );
-                    }
-                } else {
-                    exhibit.api.reinitialise();
-                }
+                exhibit.resizeExhibits();               
             });
             $('#scroll-right').bind('click', function() {
                 exhibit.api.scrollByX(200);
@@ -226,7 +217,11 @@ var exhibit = {
     },
     replaceExhibits: function () {
         $('.exponats-scroll .line > div').remove();
-        exhibit.api.scrollToX(0, false);
+        
+        if (exhibit.api) {
+            exhibit.api.scrollToX(0, false);
+        }
+        
         exhibit.firstLineWidth = exhibit.secondLineWidth = exhibit.thirdLineWidth = 0;
         exhibit.setExhibits(exhibit.objects);
     },
@@ -263,7 +258,39 @@ var exhibit = {
         }
         
         return exhibit.activeFilters[fId][fItemId];
-    },    
+    },   
+    resizeExhibits: function() {
+        /*
+        var exScroll = $('.exponats-scroll').clone();
+        $('.exponats-scroll-pane').empty();
+        exhibit.api = undefined;
+        $('.exponats-scroll-pane').append(exScroll);
+        */
+        if (exhibit.api) {
+            exhibit.api.destroy();
+            exhibit.api = undefined;
+        }
+        
+        if($(window).height() > 500){
+            var viewportH = $(window).height()-100;
+            $('.exponats-scroll').height(viewportH);
+            exhibit.oneLineImgHeight = viewportH - 60;
+            exhibit.twoLineImgHeight = Math.round(viewportH/2) - 40;
+            exhibit.threeLineImgHeight = Math.round(viewportH/3) - 40;          
+        }
+        else{
+            $('.exponats-scroll').height(400);
+            exhibit.oneLineImgHeight = 340;
+            exhibit.twoLineImgHeight = 160;
+            exhibit.threeLineImgHeight = 93;
+        }
+        
+        exhibit.replaceExhibits();
+        
+        exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
+        exhibit.api = exhibit.scrollPane.data('jsp');
+        //exhibit.apiReinitialise();
+    },
     setExhibits: function(objects) {
         if ($.isEmptyObject(objects)) {
             exhibit.stopLoad = true;
@@ -274,7 +301,7 @@ var exhibit = {
         if (!exhibit.stopLoad && exhibit.getObjectsCount(exhibit.objects) >= exhibit.fullCount) {
             exhibit.stopLoad = true;           
         }
-
+        
         var elAppend, w, h, el, c = 0,
             elClone = $('#el-one-blank').eq(0),
             type = $('#exp-types li.active a').attr('href').substr(1);                                         
@@ -349,7 +376,7 @@ var exhibit = {
             
         }
 
-        exhibit.setObjectListeners();                
+        exhibit.setObjectListeners();  
     },
     getObjectsCount: function(objects) {
         var count = 0;
