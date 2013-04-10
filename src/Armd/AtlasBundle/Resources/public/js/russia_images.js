@@ -9,11 +9,12 @@ var armdMkRussiaImages = {
 
     init: function () {
         armdMkRussiaImages.refreshVisibleCount();
+        armdMkRussiaImages.totalCount();
 
         // init "more" click
         $('#show-more').bind('click', function(event) {
             event.preventDefault();
-            armdMkRussiaImages.loadList(true);
+            armdMkRussiaImages.loadList(true, false);
         });
 
         // russia images search button
@@ -22,7 +23,7 @@ var armdMkRussiaImages = {
 
             armdMkRussiaImages.readFilter();
             armdMkRussiaImages.resetTextFilter();
-            armdMkRussiaImages.loadList(false);
+            armdMkRussiaImages.loadList(false, false);
         });
 
         // object region click
@@ -35,7 +36,7 @@ var armdMkRussiaImages = {
             $('#object-region').val(regionId).selectgroup('refresh');
             armdMkRussiaImages.readFilter();
 
-            armdMkRussiaImages.loadList(false);
+            armdMkRussiaImages.loadList(false, false);
         });
 
         // init search
@@ -44,8 +45,13 @@ var armdMkRussiaImages = {
                 event.preventDefault();
                 armdMkRussiaImages.resetFilter();
                 armdMkRussiaImages.readTextFilter();
-                armdMkRussiaImages.loadList(false);
+                armdMkRussiaImages.loadList(false, false);
             }
+        });
+        
+        $('#show-all').on('click', $(this), function (event) {
+            armdMkRussiaImages.loadList(false, true);
+            return false;
         });
 
     },
@@ -101,8 +107,46 @@ var armdMkRussiaImages = {
         armdMkRussiaImages.visibleCount = $('.plitka-one-wrap').length;
         $('#found-objects-count').text(armdMkRussiaImages.visibleCount);
     },
+    
+    totalCount: function(found){
+        
+        $('#found-objects-total').addClass('loading');
+        $('#found-objects-total span').html('');
+        
+        if (found || found === 0) {
+            $('#found-objects-total').removeClass('loading'); 
+            $('#found-objects-total span').html(found); 
+        } else {
+            var data = {
+                region_id: armdMkRussiaImages.regionId,
+                category_ids: armdMkRussiaImages.categoryIds,
+                search_text: armdMkRussiaImages.searchText
+            };
 
-    loadList: function (append) {
+            var countTotal = {
+                url: Routing.generate('armd_atlas_russia_images_list', {
+                    'templateName': 'short-list',
+                    'offset': 0,
+                    'limit': 10000
+                }),
+                cache: false,
+                dataType: 'html',
+                type: 'get',
+                data: data,
+                success: function (data) {
+                    var length = $(data).filter('.full-list-one').length;
+                    $('#found-objects-total').removeClass('loading'); 
+                    $('#found-objects-total span').html(length);
+                                   
+                }
+            };  
+            $.ajax(countTotal);
+        }    
+    },
+    
+    
+
+    loadList: function (append, fullList) {
         var data = {
             region_id: armdMkRussiaImages.regionId,
             category_ids: armdMkRussiaImages.categoryIds,
@@ -110,33 +154,50 @@ var armdMkRussiaImages = {
         };
 
         var offset = append ? armdMkRussiaImages.visibleCount : 0;
-
+        var limit = fullList ?  10000 : (armdMkRussiaImages.loadByCount + 1);   
+        
         // tile append
         var tileParams = {
             url: Routing.generate('armd_atlas_russia_images_list', {
                 'templateName': 'tile',
                 'offset': offset,
-                'limit': armdMkRussiaImages.loadByCount
+                'limit': limit
             }),
             cache: false,
             dataType: 'html',
             type: 'get',
             data: data,
             success: function (data) {
-                var count = $(data).filter('.plitka-one-wrap').length;
-                 console.log(count);
+                var length = $(data).filter('.plitka-one-wrap').length,
+                    count,
+                    newData = $(data);
+                    
+                if (length > limit - 1) {
+                    count = length - 1;
+                    newData = $(data).filter('.plitka-one-wrap:lt('+count+')');
+                    armdMkRussiaImages.totalCount(false);
+                } else {
+                    armdMkRussiaImages.totalCount(length);
+                }    
+                
                 if (append) {
                     if (count) {
-                        $('.obrazy-plitka').append(data);
+                        $('.obrazy-plitka').append(newData);
                     }
                 }
                 else {
-                    $('.obrazy-plitka').html(data);
+                    $('.obrazy-plitka').html(newData);
                 }
-                if (!count || count < armdMkRussiaImages.loadByCount) {
+
+                if (!count || length <= armdMkRussiaImages.loadByCount) {
                     $('.more').hide();
+                    $('#show-all').hide();
+                } else {
+                    $('.more').show();
+                    $('#show-all').show();
                 }
                 armdMkRussiaImages.refreshVisibleCount();
+                
             }
         };
 
@@ -145,7 +206,7 @@ var armdMkRussiaImages = {
             url: Routing.generate('armd_atlas_russia_images_list', {
                 'templateName': 'full-list',
                 'offset': offset,
-                'limit': armdMkRussiaImages.loadByCount
+                'limit': limit
             }),
             cache: false,
             dataType: 'html',
@@ -169,7 +230,7 @@ var armdMkRussiaImages = {
             url: Routing.generate('armd_atlas_russia_images_list', {
                 'templateName': 'short-list',
                 'offset': offset,
-                'limit': armdMkRussiaImages.loadByCount
+                'limit': limit
             }),
             cache: false,
             dataType: 'html',
@@ -187,6 +248,8 @@ var armdMkRussiaImages = {
                 }
             }
         };
+        
+          
 
 
         armdMkRussiaImages.startLoading();

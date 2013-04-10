@@ -72,46 +72,45 @@
 
 {% block right_column %}
 	{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
-		<div class="right-video-block separate-video-block">
-		
-			{% if entity.interviewVideo %}
+		<div class="buffer" style="height:40px;"></div>
+        <div class="orange-slider-block">
+            <h3 class="o-slider-header">Интервью</h3>
+            {% if entity.interviewVideo %}
 		        <div class="flexslider">
 		            <ul class="slides">
 		                <li>
-		                    <article class="period-block">
-		                        <h2>{{ entity.interviewTitle}}</h2>
-		                        <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
-		                        	{% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape} %}
-		                            <span class="play"></span>
-		                        </a>
-		                        <div class="period-block_text">
-		                            <p>{{ entity.interviewDescription|raw }}</p>
-		                        </div>
-		                        <footer class="period-block_footer">
-	                            </footer>
-		                    </article>
+                            <article class="period-block">
+                                <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image fancybox">
+                                    {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
+                                    <span class="play"></span>
+                                </a>
+                                <div class="period-block_text">
+                                    <h4>{{ entity.interviewTitle}}</h4>
+                                    <p>{{ entity.interviewDescription|raw }}</p>
+                                </div>
+                            </article>
 		                </li>
 		            </ul>
 		        </div>			
 			{% endif %}
-		
-			{% if entity.gallery and entity.gallery|length > 0 %}
+		</div>
+    
+        <div class="orange-slider-block">
+			<h3 class="o-slider-header">фотогалерея</h3>
+            {% if entity.gallery and entity.gallery|length > 0 %}
 				<div class="flexslider">
 		            <ul class="slides">
 						{% for img in entity.gallery.galleryHasMedias %}
 			                <li>
-			                    <article class="period-block">
-			                        <h2>{{ entity.gallery.name }}</h2>
-									<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}">
-		                                {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape} %}
-									</a>
-			                        <div class="period-block_text">
-			                            <p>{{ img.media.name }}</p>
-			                        </div>
-			                        <footer class="period-block_footer">
-			                                
-			                        </footer>
-			                    </article>
+                                <article class="period-block">
+                                    <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}" class="period-block_image in-fancybox">
+                                        {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
+                                    </a>
+                                    <div class="period-block_text">
+                                        <h4>{{ entity.gallery.name }}</h4>
+                                        <p>{{ img.media.name }}</p>
+                                    </div>
+                                </article>
 			                </li>
 						{% endfor %}	            	                
 		            </ul>				
@@ -140,17 +139,25 @@
 			
 			//просмотр интервью
 			$('a.tvigle-player-fancybox').fancybox({
-						'padding'		: 0,
-						'autoScale'		: false,
-						'transitionIn'	: 'none',
-						'transitionOut'	: 'none',
-						'width'		: 680,
-						'height'		: 495,
-						'type'			: 'swf',
-						'swf'			: {
-						   	 'wmode'		: 'transparent'
-						}
-					});
+                'padding'		: 0,
+                'autoScale'		: false,
+                'transitionIn'	: 'none',
+                'transitionOut'	: 'none',
+                'width'		: 680,
+                'height'		: 495,
+                'type'			: 'swf',
+                'swf'			: {
+                     'wmode'		: 'transparent'
+                },
+                beforeShow: function(){
+                    $('.left-column iframe').hide();
+                },
+                afterClose: function(){
+                    $('.left-column iframe').show();
+                }
+                
+            });
+            
 			
 			//переключение видео							
 			$('#switch_view a').click(function(){

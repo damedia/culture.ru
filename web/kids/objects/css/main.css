@@ -345,6 +345,15 @@ body {
                 
                 }
                 
+            .kras .l-more-link  {
+                left: 78px;
+                top: 208px;
+                text-align:center;
+            }            
+                .kras .l-more-link b {
+                   left:-17px;
+                }      
+                
 		       
     
     /*MAIN BLOCK*/
@@ -389,6 +398,11 @@ body {
             top:12px;
             left:-147px;
         }
+        .kras .main-description-block  {
+            top:448px;
+            left:-147px;
+        }
+        
             
         .main-image {
 			float:left;
@@ -424,6 +438,11 @@ body {
         .vlad .main-image {
             margin-top:-204px;
             margin-right:15px;
+        }
+        .kras .main-image {
+            margin-top: 16px;
+            margin-right: 17px;
+            margin-left: 160px;
         }
         .kremlin .main-image {
             margin-top:-266px;
@@ -483,6 +502,13 @@ body {
 				color:#7C5968;
                 width: 360px;
                 font-size: 15px;
+                line-height: 18px;
+                padding-top:26px;
+			}
+			.kras  .main-description  {
+				color:#c16825;
+                width: 280px;
+                font-size: 16px;
                 line-height: 18px;
                 padding-top:26px;
 			}
@@ -560,6 +586,9 @@ body {
     }
 
     .vlad .case-1 {
+        margin-top:0;
+    }
+    .kras .case-1 {
         margin-top:0;
     }
     .kremlin  .case-1 {
@@ -821,6 +850,9 @@ body {
     .vlad .state  {
         background:url(../img/vladivostok/child-bg-main-vladivostok.jpg) no-repeat 0 -760px;
     }
+    .kras .state  {
+        background:url(../img/kras/child-bg-main.jpg) no-repeat 0 0;
+    }
 
 	
          
@@ -869,6 +901,10 @@ body {
         }
         
         .vlad .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .kras .content {
             padding-top:240px;
             padding-left:40px;
         }
@@ -935,6 +971,9 @@ body {
                 /*font-size: 17px;*/
                 line-height: 19px;
                 color:#a50a0a;
+            }
+            .kras .puzzle-description-text p {
+                color:#456333;
             }
             
 
@@ -1946,6 +1985,22 @@ body {
             }  
             .want-more-vlad-container .jspTrack {
                 background:#f9f5cf;
+            }
+            
+        .want-more-kras {
+             background:url(../img/kras/window_bg.png) no-repeat 0 0;
+        }
+            .want-more-kras  .main-site-link {
+                width: 392px;
+                top: 95px;
+            }  
+            .want-more-kras .window-text {
+                height:230px;
+                color:#c46d0e;
+                top:196px;
+            }  
+            .want-more-kras-container .jspTrack {
+                background:#ddedd9;
             }
             
         .want-more-kul {
@@ -3478,6 +3533,9 @@ body {
     margin-left: 77px;
 margin-top: 79px;
     height: 603px;
+}
+.kras .footer-menu {
+    top: -96px;
 }
 
 

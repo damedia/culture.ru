@@ -8,9 +8,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=1400">
 	<title></title>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="js/kids_map.js"></script>
+    
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script>var jqOLD = jQuery.noConflict(true);</script> 
+    
+	
+    
+	
+	
 	<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/cutext.css" media="all" />
+    
+    <link rel="stylesheet" href="objects/css/jquery.jscrollpane.css">
+    <link rel="stylesheet" href="objects/js/fancybox/jquery.fancybox-1.3.4.css"> 
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+    
+    
 </head>
 <body>
 	<div class="map" style=" ">
@@ -25,7 +40,7 @@
 				<img src="img/symb-active.png" alt="" />
 				<img src="objects/img/blank.png" class="ie-dum" alt="" />
 			</a>
-			<a href="mailto:portal@mkrf.ru" class="feedback-link" target="_blank">
+			<a href="#feedback-popup" class="feedback-link modal" >
 				<img src="img/feedback-active.png" alt="" />
 				<img src="objects/img/blank.png" class="ie-dum" alt="" />
 			</a>
@@ -254,7 +269,7 @@
 		
 		<div  id="window" >
 			<div class="compass">
-				<img src="img/compass.png" width="103" height="130"
+				<img src="img/compass.png" width="103" height="130" />
 			</div>
 			<!--div class="lenta-big">
 				<div class="lenta-big-wrap">
@@ -282,9 +297,49 @@
 				
 			</div>
 		</div-->
-		
+		</div>
 		
 	</div>
 
+    <script type="text/javascript" src="js/cutext-all.min.js"></script>
+    <script src="js/jquery.fancybox-1.3.4.js"></script>
+    
+    <script type="text/javascript" src="js/kids_map_new.js"></script>
+
+   
+
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="feedback-popup" id="feedback-popup">
+            <div class="feedback-popup-container">
+                <form action="">
+                    <div class="form-group">
+                        <label for="from">Кому: </label>
+                        <input type="text" name="from" id="from" readonly value="portal@mkrf.ru" />
+                    </div>
+                    <div class="form-group">
+                        <label for="from">От кого: </label>
+                        <input type="text" name="from" id="from" value="" required placeholder="НАПИШИ СВОЙ ЭЛЕКТРОННЫЙ АДРЕС" />
+                    </div>
+                    <div class="form-textarea">
+                        <textarea name="message" id="message" cols="30" rows="10" required placeholder="А здесь можно писать письмо!"></textarea>
+                    </div>
+                    <div class="captcha-group">
+                        <div class="captcha-block">
+                            <img src="img/captcha.png" alt="" />
+                            <input type="text" id="captcha" value="" required class="captcha" />
+                        </div>
+                        <label for="captcha">Набери цифры, которые<br />ты видишь<br />на картинке</label>
+                    </div>
+                    <div class="captcha-group captch-reload">
+                        <p>Не выходит?<br />Попробуй<br />еще раз!</p>
+                        <a href="#">Сменить картинку</a>
+                    </div>
+                    <input type="submit" value="Отправить" id="submit-btn" class="submit-btn submit-btn-inactive" />
+                </form>
+            </div>
+        </div>
+
+   </div>
+    
 </body>
 </html>

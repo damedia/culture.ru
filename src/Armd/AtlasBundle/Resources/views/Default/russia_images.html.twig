@@ -57,8 +57,10 @@
 {% endblock %}
 
 {% block body %}
-    <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span></p>
-
+    <div  class="russia-top-found">
+        <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span> <span id="found-objects-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
+        <a href="#" id="show-all" class="button show-all-btn">Показать все</a>
+    </div>
     <div id="plitka" class="tab plitka-list">
         <ul class="plitka obrazy-plitka">
             {% render url('armd_atlas_russia_images_list', { 'templateName': 'tile', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
