@@ -269,7 +269,14 @@ $(function () {
         'prevSpeed' : 1000
     })
 
-    $('.in-fancybox').fancybox();
+    $('.in-fancybox').fancybox({
+        beforeShow: function(){
+            $('.left-column iframe').hide();
+        },
+        afterClose: function(){
+            $('.left-column iframe').show();
+        }
+    });
 	
 	if($('.museum-instr-link').length > 0) {
 		$('.museum-instr-link').fancybox({

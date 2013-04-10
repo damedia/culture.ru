@@ -2714,6 +2714,12 @@ body {
                 width: 250px;
                 margin: 5px 20px 0 0;
             }
+            #alphabet-filter {
+                float:none;
+                clear:both;
+                display:block;
+            }
+            
         }
         @media screen and (max-width: 1090px) {
             .mg-new-header {
