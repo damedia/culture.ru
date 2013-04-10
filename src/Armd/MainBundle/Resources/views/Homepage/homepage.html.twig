@@ -44,7 +44,7 @@
                     {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
                     <h2><a href="{{ newsCategoryHref }}">Статьи</a></h2>
                     <a href="{{ newsArticleHref }}">
-                        {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}
+                        {% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image', 'height': 'auto'} %}
                         {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
                     </a>
 
@@ -61,7 +61,7 @@
 
                     <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
                     <a href="{{ newsArticleHref }}">
-                        {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}
+                        {% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image', 'height': 'auto'} %}
                         {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
                     </a>
 

@@ -1,0 +1,16 @@
+	
+	
+		{% for entity in list %}
+			<li>
+            	{% media entity.image, 'small' with {'alt': entity.title|escape, 'class' : 'me-list-image'} %}
+                <div class="me-list-text">
+                	<h3><a href="{{ path('armd_lesson_item', {'id': entity.id }) }}" class="me-list-title">{{ entity.title }}</a></h3>
+                    <span class="me-list-dates">03.10.12 – 09.02.13, каждую среду  15:00–19:00</span>
+                    <span class="me-list-place">{{ entity.place }}</span>
+                    {% if entity.city %}<a href="{{ path('armd_lesson_list', {'lesson_city': entity.city.id }) }}" class="me-list-region">{{ entity.city.title }}</a>{% endif %}
+                    <p>
+                    	{{ entity.announce|raw }}
+                    </p>
+                </div>
+            </li>		
+		{% endfor %}

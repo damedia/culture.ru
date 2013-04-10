@@ -275,6 +275,17 @@ sonata_media:
                 smallThumbnail: { width: 40 }
                 smallZoom: { width: 127 }
                 small: { width: 200 }
+                
+        lesson:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http        
+            providers:
+                - sonata.media.provider.image
+            formats:
+                searchAllResult: { width: 160, height: 107 }
+                big: { width: 370 }
+                small: { width: 125, height: 138 }        
 
     cdn:
         server:
@@ -398,6 +409,8 @@ armd_sphinx_search:
             %sphinxsearch_index_museums%: ~
         News:
             %sphinxsearch_index_news%: ~
+        Lessons:
+            %sphinxsearch_index_lessons%: ~            
 
     searchd:
         host:   %sphinxsearch_host%

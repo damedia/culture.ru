@@ -4,3 +4,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Directories, label: CountryDistrict, show_in_dashboard: true }
         arguments: [null, Armd\AddressBundle\Entity\CountryDistrict, SonataAdminBundle:CRUD]
+        
+    armd_address.sonata_admin.city:
+        class: Armd\AddressBundle\Admin\CityAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Directories, label: City, show_in_dashboard: true }
+        arguments: [null, Armd\AddressBundle\Entity\City, SonataAdminBundle:CRUD]        
