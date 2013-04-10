@@ -11,8 +11,10 @@ armd_main_about:
     defaults: { _controller: ArmdMainBundle:Main:about }
 
 armd_main_services:
-    pattern:  /services/
-    defaults: { _controller: ArmdMainBundle:Main:services }
+    pattern:  /services/{id}
+    defaults: { _controller: ArmdMainBundle:Main:services, id: null }
+    requirements:
+        id:  \d+
 
 armd_main_library:
     pattern:  /library/

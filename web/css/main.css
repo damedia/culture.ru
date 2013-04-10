@@ -5024,14 +5024,29 @@ a.appstore-link {
 .gosuslugi-info section{
   margin-bottom:40px;
   }
-.gosuslugi-info .block h1, .gosuslugi-info .block h2 {
+.headline{
+    font:normal 32px 'Trebuchet MS', sans-serif;
+    line-height:38px;
+    color:#000;
+    margin:0 0 30px 0;
+    padding:0;
+    border:0;
+    }
+.gosuslugi-info .block h1{
+    font:normal 22px 'Trebuchet MS', sans-serif;
+    line-height:26px;
+    color:#7e7e7e;
+    margin:30px 0 20px 0;
+    padding:0;
+    border:0;
+}
+.gosuslugi-info .block h2{
   font:normal 25px 'Trebuchet MS', sans-serif;
   border-bottom:1px solid #d9d9d9;
   color:#154060;
   margin:0;
   padding:0;
-  
-}
+  }
 
 .gosuslugi-info .block h1 span, .gosuslugi-info .block h2 span {
   display:inline-block;
@@ -5132,8 +5147,15 @@ a.appstore-link {
 .gosuslugi-info table ul{
   list-style:none;
   }
+.gosuslugi-info table ul li ul{
+  margin-top:10px;
+  margin-bottom:10px;
+  }
 .gosuslugi-info table ul li:before{
   content:'— ';
+  }
+.gosuslugi-info table ol li:before{
+  content:'' !important;
   }
 .gosuslugi-info table h4{
   margin:0 0 10px 0;
