@@ -27,7 +27,7 @@ class Builder extends ContainerAware
 
             $menu->addChild('menu.atlas',            array('route' => 'armd_atlas_index'));
             $menu->addChild('menu.russia_images',    array('route' => 'armd_atlas_russia_images'));
-            $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_index'));
+            $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
 
             //--- Events
             $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
@@ -61,7 +61,7 @@ class Builder extends ContainerAware
             $mainMenu->addChild(
                 'menu.virtual_museums',
                 array(
-                    'route' => 'armd_museum_index'
+                    'route' => 'armd_museum_virtual'
                 )
             );
             

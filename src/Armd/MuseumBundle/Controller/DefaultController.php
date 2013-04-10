@@ -9,12 +9,18 @@ use Armd\MuseumBundle\Entity\MuseumManager;
 
 class DefaultController extends Controller
 {
+
     /**
-     * @Route("/", name="armd_museum_index")
-     * @Template()
+     * @Route("/virtual/", name="armd_museum_virtual")
+     * @Template("ArmdMuseumBundle:Default:virtual.html.twig")
      */
-    public function indexAction()
+    public function virtualAction()
     {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_museum_virtual')
+        );
+
         $regionId = (int) $this->getRequest()->get('region', 0);
         $regions = $this->getMuseumManager()->getDistinctRegions();
         $categories = $this->getMuseumManager()->getCategories();
@@ -25,23 +31,10 @@ class DefaultController extends Controller
             'categories' => $categories,
         );
     }
-    
-    /**
-     * @Route("/virtual/", name="armd_museum_virtual")
-     * @Template("ArmdMuseumBundle:Default:index.html.twig")
-     */
-    public function virtualAction()
-    {
-        // fix menu
-        $this->get('armd_main.menu.main')->setCurrentUri(
-            $this->get('router')->generate('armd_museum_virtual')
-        );        
-        return $this->indexAction();
-    }    
 
     /**
      * @Route("/list", name="armd_museum_list", options={"expose"=true})
-     * @Template("ArmdMuseumBundle:Default:list.html.twig")
+     * @Template("ArmdMuseumBundle:Default:virtual_list.html.twig")
      */
     public function listAction()
     {
