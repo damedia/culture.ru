@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SearchController extends Controller
 {
     /**
-     * @Route("/results", name="armd_external_search_results")
+     * @Route("", name="armd_external_search_results")
      * @Template
      */
     public function resultListAction()

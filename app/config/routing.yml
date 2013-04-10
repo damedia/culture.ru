@@ -162,4 +162,4 @@ armd_online_translation:
 armd_external_search:
     resource: '@ArmdExternalSearchBundle/Controller/'
     type:     annotation
-    prefix:   /external-search
+    prefix:   /external
