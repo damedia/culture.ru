@@ -10,7 +10,43 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Museums, label: Museums Categories }
         arguments: [null, Armd\MuseumBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
-
+        
     armd_museum.manager.museum:
         class: Armd\MuseumBundle\Entity\MuseumManager
         arguments: [@armd_event.entity_manager,  @fpn_tag.tag_manager, @search.sphinxsearch.search]
+        
+    armd_museum.admin.lesson:
+        class: Armd\MuseumBundle\Admin\LessonAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: Lesson }
+        arguments: [null, Armd\MuseumBundle\Entity\Lesson, SonataAdminBundle:CRUD, @service_container]         
+        
+    armd_museum.admin.education:
+        class: Armd\MuseumBundle\Admin\EducationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: Education }
+        arguments: [null, Armd\MuseumBundle\Entity\Education, SonataAdminBundle:CRUD, @service_container]   
+        
+    armd_museum.admin.lesson_skill:
+        class: Armd\MuseumBundle\Admin\LessonSkillAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: Lesson Skill }
+        arguments: [null, Armd\MuseumBundle\Entity\LessonSkill, SonataAdminBundle:CRUD, @service_container]   
+
+    armd_museum.admin.lesson_subject:
+        class: Armd\MuseumBundle\Admin\LessonSubjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: Lesson Subject }
+        arguments: [null, Armd\MuseumBundle\Entity\LessonSubject, SonataAdminBundle:CRUD, @service_container]     
+
+    armd_museum.listener.lesson:
+        class: Armd\MuseumBundle\EventListener\LessonListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@service_container]   
+
+    armd_museum.manager.lesson:
+        class: Armd\MuseumBundle\Entity\LessonManager
+        arguments:  [@doctrine.orm.entity_manager, @fpn_tag.tag_manager, @search.sphinxsearch.search]               
+        
+        

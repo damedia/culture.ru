@@ -1,0 +1,61 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block stylesheets %}
+	<link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.onload = function() {
+           window.print();
+        }
+    </script>
+{% endblock %}
+
+{% block page_header %}
+    <div class="print-header">
+        <table>
+            <tr>
+                <td class="print-header-logo">
+                    <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
+                </td>
+                <td>
+                    <div class="print-header-title">
+                        
+                        <h2>Музейное образование</h2>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div class="museum-education museum-education-one">
+		<h2>{{ entity.title }}</h2>
+		{% media entity.image, 'big' with {'alt': entity.title|escape, 'class' : 'edu-one-image'} %}
+		<div class="edu-one-stats">
+			<p><b>Дата проведения:</b> {{ entity.dates }}</p>
+			{% if entity.time %}<p><b>Время проведения:</b> {{ entity.time }}</p>{% endif %}
+			{% if entity.maxMembers %}<p><b>Максимальное количество участников:</b> {{ entity.maxMembers }}</p>{% endif %}
+			{% if entity.place %}<p><b>Место проведения:</b> {{ entity.place }}</p>{% endif %}
+			{% if entity.subject %}<p><b>Предмет:</b> {{ entity.subject }}</p>{% endif %}
+			{% if entity.education %}<p><b>Образование:</b> {{ entity.education }}</p>{% endif %}
+			{% if entity.age %}<p><b>Рекомендуемый возраст:</b> {{ entity.age }}</p>{% endif %}
+			{% if entity.skills|length > 0 %}<p><b>Навыки:</b> 
+				{% for skill in entity.skills %}
+					{{ skill.title }}{% if not loop.last %}, {% endif %}
+				{% endfor %}
+			</p>{% endif %}
+			{% if entity.format %}<p><b>Форма проведения:</b> {{ entity.format }}</p>{% endif %}
+			{% if entity.url %}<p><b>Ссылка на сайт:</b> <a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></p>{% endif %}
+			
+		</div>
+		<div class="edu-main-text">
+			<div class="edu-main-anons">
+				<p>{{ entity.announce|raw }}</p>
+			</div>
+			{{ entity.description|raw }}
+		</div>
+	</div>
+{% endblock %}

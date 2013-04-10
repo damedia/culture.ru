@@ -1,0 +1,168 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block left_column %}
+	<div class="museum-education museum-education-one">
+		<h2>{{ entity.title }}</h2>
+		{% media entity.image, 'big' with {'alt': entity.title|escape, 'class' : 'edu-one-image'} %}
+		<div class="edu-one-stats">
+			<p><b>Дата проведения:</b> {{ entity.dates }}</p>
+			{% if entity.time %}<p><b>Время проведения:</b> {{ entity.time }}</p>{% endif %}
+			{% if entity.maxMembers %}<p><b>Максимальное количество участников:</b> {{ entity.maxMembers }}</p>{% endif %}
+			{% if entity.place %}<p><b>Место проведения:</b> {{ entity.place }}</p>{% endif %}
+			{% if entity.subject %}<p><b>Предмет:</b> {{ entity.subject }}</p>{% endif %}
+			{% if entity.education %}<p><b>Образование:</b> {{ entity.education }}</p>{% endif %}
+			{% if entity.age %}<p><b>Рекомендуемый возраст:</b> {{ entity.age }}</p>{% endif %}
+			{% if entity.skills|length > 0 %}<p><b>Навыки:</b> 
+				{% for skill in entity.skills %}
+					{{ skill.title }}{% if not loop.last %}, {% endif %}
+				{% endfor %}
+			</p>{% endif %}
+			{% if entity.format %}<p><b>Форма проведения:</b> {{ entity.format }}</p>{% endif %}
+			{% if entity.url %}<p><b>Ссылка на сайт:</b> <a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></p>{% endif %}
+			
+		</div>
+		<div class="edu-main-text">
+			<div class="edu-main-anons">
+				<p>{{ entity.announce|raw }}</p>
+			</div>
+			{{ entity.description|raw }}
+		</div>
+		<div class="back-link"><p><a href="javascript:history.back();">Назад</a></p></div>
+		<div class="event-one_footer clearfix">
+			<div class="print-link"><a href="{{ path('armd_lesson_item_print', {'id': entity.id }) }}" target="_blank"></a> Распечатать материал </div>
+			<div class="publish-links"> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block right_column %}
+
+    <div class="right-video-block">
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+        $(function(){
+			initSocialShare();
+			armdMkLesson.init();
+        });
+            
+        function initSocialShare() {
+            new Ya.share({
+                element: 'yandex-share',
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('armd_lesson_item', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}'
+            });
+        }
+        
+		var armdMkLesson = {
+		
+		    init: function() {
+		        $('#search-form').bind('submit', function(event) {
+		            if ($('#search-this-section').prop('checked')) {
+		                event.preventDefault();
+		                window.location = Routing.generate('armd_lesson_list', {
+		                    'search_query': $('#search-txt').val()
+		                })
+		            }
+		        });
+		    }
+		};   
+		        
+    </script>    
+{% endblock %} 
+
+{% block page_header_title %}
+	Музейное образование
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category">
+
+        <form id="museums-filter-form" action="{{ path('armd_lesson_list') }}" method="get">
+        	<span class="search-dates-label">{{ 'search.select'|trans }}</span>
+        	
+            <div class="search-category-selects">
+                <select id="lesson_museum" name="lesson_museum" class="uni">
+                    <option value="0">
+                        {{ "Museum"|trans }}
+                    </option>
+                    {% for museum in museum_list %}
+                        <option value="{{ museum.id }}" {% if museum.id == -1 %}selected="selected"{% endif %}>
+                            {{ museum.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+                
+                <select id="lesson_city" name="lesson_city" class="uni">
+                    <option value="0">
+                        {{ "City"|trans }}
+                    </option>
+                    {% for city in city_list %}
+                        <option value="{{ city.id }}" {% if city.id == -1 %}selected="selected"{% endif %}>
+                            {{ city.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+                
+                <select id="lesson_education" name="lesson_education" class="uni">
+                    <option value="0">
+                        {{ "Education"|trans }}
+                    </option>
+                    {% for edu in education_list %}
+                        <option value="{{ edu.id }}" {% if edu.id == -1 %}selected="selected"{% endif %}>
+                            {{ edu.title }}
+                        </option>
+                    {% endfor %}
+                </select> 
+                
+                <select id="lesson_subject" name="lesson_subject" class="uni">
+                    <option value="0">
+                        {{ "Subject"|trans }}
+                    </option>
+                    {% for subject in subject_list %}
+                        <option value="{{ subject.id }}" {% if subject.id == -1 %}selected="selected"{% endif %}>
+                            {{ subject.title }}
+                        </option>
+                    {% endfor %}
+                </select> 
+
+                <select id="lesson_skill" name="lesson_skill" class="uni">
+                    <option value="0">
+                        {{ "Skills"|trans }}
+                    </option>
+                    {% for skill in skill_list %}
+                        <option value="{{ skill.id }}" {% if skill.id == -1 %}selected="selected"{% endif %}>
+                            {{ skill.title }}
+                        </option>
+                    {% endfor %}
+                </select>                               
+                    
+                          
+            </div>
+            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>                    
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}

@@ -1995,7 +1995,114 @@ body {
 					.museum-chapter-label:hover {
 						text-decoration:none !important;
 					}
-		
+
+        /*museum-education*/
+        
+        .museum-education {
+            margin-top:14px;
+            float:left;
+            width:100%;
+        }    
+            .museum-education-list {
+                list-style:none;
+                margin-bottom:20px;
+            }
+                .museum-education-list li {
+                    margin-bottom: 48px;
+                    overflow: hidden;
+                }
+                    .me-list-image {
+                        float:left;
+                        margin:0 34px 0 0;
+                    }
+                    .me-list-text {
+                        overflow:hidden;
+                        
+                    }
+                         .me-list-dates, .me-list-place, .me-list-region {
+                            display:block;
+                        }
+                        .me-list-text h3 {
+                            margin: 0 0 4px;
+                            line-height: 20px;
+                        }
+                        .me-list-title {
+                            font-size:18px;
+                            color:#000;
+                        }
+                        .me-list-dates {
+                            font-size:14px;
+                            font-weight:bold;
+                        }
+                        .me-list-place {
+                            font-size:13px;
+                        }
+                        .me-list-region {
+                            font-size:13px;
+                            color:#7791a4;
+                        }
+                        .me-list-text p {
+                            margin-top:6px;
+                        }
+            
+           
+        .museum-education-one h2 {
+            font-size:32px;
+            line-height:36px;
+            font-weight:normal;
+            margin:-12px 0 20px;
+        }  
+            .edu-one-image {
+                float:left;
+                margin-right:30px;
+            }
+            .edu-one-stats {
+                overflow:hidden;
+                font-size:14px;
+                line-height:20px;
+            } 
+            .edu-main-text {
+                clear:both;
+                padding:47px 0 40px;
+            }
+                 .edu-main-text p {
+                    margin-bottom:19px;
+                 }
+                .edu-main-anons {
+                    font-weight:bold;
+                    margin-right:20%;
+                }
+
+           
+                
+        @media screen and (max-width: 1150px) {
+            .mg-new-header {
+                margin-bottom:10px;
+            }
+            .mg-new-text {
+                width: 250px;
+                margin: 5px 20px 0 0;
+            }
+        }
+        @media screen and (max-width: 1090px) {
+            .mg-new-header {
+                margin-bottom:5px;
+            }
+            .mg-new-text p {
+                margin-bottom:7px;
+            }
+            .mg-new-title {
+                margin-bottom:7px;
+            }
+            .mg-new-text {
+                width: 270px;
+                margin: 5px 10px 0 0;
+            }
+        }
+        
+        
+        
+        					
 	/*RELIGION*/		
 	.plitka-religion {
 		margin-bottom:20px;
