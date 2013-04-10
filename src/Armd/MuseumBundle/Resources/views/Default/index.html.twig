@@ -19,11 +19,17 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_title %}
-    {{ "Museums"|trans }}
+    {{ "Virtual museums"|trans }}
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_search %}
+    {% spaceless %}
+    <div class="category-chooser" id="category-chooser">
+        <a href="#plitka" class="mus-plitka-icon active" title="Плитка">Плитка</a>
+        <a href="#list" class="mus-list-icon" title="Список">Список</a>
+    </div>
+    {% endspaceless %}
     <div class="search-category">
         <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
             <span class="search-dates-label">{{ "search.select"|trans }}</span>
@@ -54,5 +60,7 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    {% render url('armd_museum_list', { region:regionId }) %}
+    <div id="museums-container">
+        {% render url('armd_museum_list', { region:regionId }) %}
+    </div>
 {% endblock %}

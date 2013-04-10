@@ -13,6 +13,7 @@ var armdMuseums = {
             },
             success: function(data) {
                 $('#museums-container').html(data);
+                $('#category-chooser a.active').trigger('click');
                 armdMuseums.stopLoading();
                 armdMuseums.initLoadedUi();
                 armdMk.stopLoading();
@@ -84,6 +85,7 @@ var armdMuseums = {
                 method: 'get',
                 success: function(data) {
                     $('#museums-container').html(data);
+                    $('#category-chooser a.active').trigger('click');
                 },
                 complete: function() {
                     armdMk.stopLoading();

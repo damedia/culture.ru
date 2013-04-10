@@ -25,6 +25,19 @@ class DefaultController extends Controller
             'categories' => $categories,
         );
     }
+    
+    /**
+     * @Route("/virtual/", name="armd_museum_virtual")
+     * @Template("ArmdMuseumBundle:Default:index.html.twig")
+     */
+    public function virtualAction()
+    {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_museum_virtual')
+        );        
+        return $this->indexAction();
+    }    
 
     /**
      * @Route("/list", name="armd_museum_list", options={"expose"=true})
@@ -32,34 +45,54 @@ class DefaultController extends Controller
      */
     public function listAction()
     {
-//        try {
-            $regionId = $this->getRequest()->get('region');
-            $categoryId = $this->getRequest()->get('category');
-            $searchText = $this->getRequest()->get('search_query');
 
-            $criteria = array();
+        $regionId = $this->getRequest()->get('region');
+        $categoryId = $this->getRequest()->get('category');
+        $searchText = $this->getRequest()->get('search_query');
 
-            if (!empty($categoryId)) {
-                $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
+        $criteria = array();
+        
+        if (!empty($categoryId)) {
+            $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
+        }
+
+        if (!empty($regionId)) {
+            $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($regionId);
+        }
+        
+        if (!empty($searchText)) {
+            $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
+        }
+
+        $museums = $this->getMuseumManager()->findObjects($criteria);
+        
+        if (count($museums)) {
+            $by_region = array();
+            $regions = $this->getMuseumManager()->getDistinctRegions();
+            
+            foreach ($regions as $region) {
+                $by_region[$region['id']] = array(
+                    'region' => $region,
+                    'list' => array()
+                );
             }
-
-            if (!empty($regionId)) {
-                $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($regionId);
+            
+            foreach ($museums as $museum) {
+                if ($museum->getRegion())
+                    array_push($by_region[$museum->getRegion()->getId()]['list'], $museum);
             }
-
-            if (!empty($searchText)) {
-                $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
+            
+            foreach ($by_region as $key => $region) {
+                if (!count($region['list']))
+                    unset($by_region[$key]);
             }
+        }
 
-            $museums = $this->getMuseumManager()->findObjects($criteria);
+        return array(
+            'museums' => $museums,  
+            'by_region' => $by_region
+        );
 
-            return array(
-                'museums' => $museums,  
-            );
-//        }
-//        catch (\Exception $e) {
-//            $this->createNotFoundException('Not found');
-//        }
     }
 
     /**
