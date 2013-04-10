@@ -61,6 +61,26 @@ class DefaultController extends Controller
 //            $this->createNotFoundException('Not found');
 //        }
     }
+    
+    /**
+     * @Route("/guide/", name="armd_museum_guide_index")
+     * @Template()
+     */
+    public function guideIndexAction()
+    {
+        return array();
+    }
+    
+    /**
+     * @Route("/guide/list", name="armd_museum_guide_list", options={"expose"=true})
+     * @Template("ArmdMuseumBundle:Default:guideList.html.twig")
+     */
+    public function guideListAction()
+    {
+            return array(
+                'museumGuides' => $this->findMuseumGuides(),  
+            );
+    }
 
     /**
      * @return \Armd\MuseumBundle\Entity\MuseumManager
@@ -70,4 +90,9 @@ class DefaultController extends Controller
         return $this->get('armd_museum.manager.museum');
     }
 
+    protected function findMuseumGuides($criteria = array())
+    {
+        return $this->getDoctrine()->getEntityManager()
+                ->getRepository('ArmdMuseumBundle:MuseumGuide')->findBy($criteria, array('title' => 'ASC'));
+    }
 }
