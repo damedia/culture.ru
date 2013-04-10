@@ -400,3 +400,152 @@ a img {
 	-webkit-box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
 	box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
+
+
+.overlay {
+    background:rgba(0,0,0,0.5);
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+}
+    
+.feedback-popup {
+   background:url(../img/feed-bg.jpg) repeat;
+   
+    width:965px;
+    height:584px;
+   
+}
+    .feedback-popup-container {
+        padding: 27px 35px 15px 85px;
+    }
+        .form-group {
+            margin-bottom: 23px;
+        }
+            .form-group  label, .form-group  input {
+                display:inline-block;
+                vertical-align:top;
+            }
+            .form-group  label {
+                margin-right:20px;
+                background:#f7bd55;
+                color:#fff;
+                text-transform:uppercase;
+                text-align:center;
+                width:108px;
+                border-radius:10px;
+                height: 27px;
+                margin-top:3px;
+                font: bold 15px/26px Arial black, helvetica, sans-serif;
+            }
+            .form-group  input {
+                background:#fff;
+                color:#f7bd55;
+                height:35px;
+                padding:0 10px;
+                margin:0;
+                border:0;
+                border-radius:10px;
+                width:360px;
+                font:bold 15px/35px Arial black, helvetica, sans-serif;
+            }
+            
+        .form-textarea {
+            margin-bottom: 17px;
+        
+            margin-top: -5px;
+}    
+            
+        .captcha-group {
+            background:#fff;
+            border-radius:7px;
+            display:inline-block;
+            vertical-align:top;
+            width:240px;
+            padding: 15px 13px;
+            font:bold 13px Arial black, helvetica, sans-serif;
+            color:#a1d1c2;
+            text-transform:uppercase;
+            margin-right:20px;
+            height: 80px;
+        }
+            .captcha-block {
+                float:left;
+                width:126px;
+                margin-top:3px;
+            }
+                .captcha-block img {
+                    width:126px;
+                    height:32px;
+                    background:#a1d1c2;
+                    margin-bottom: 14px;
+                }
+                
+                .captcha-block  input {
+                    width:116px;
+                    height:28px;
+                    background:#a1d1c2;
+                    color:#fff;
+                    padding:0 5px;
+                    border:0;
+                    font:bold 15px/28px Arial black, helvetica, sans-serif;
+                    border-radius:7px;
+                }
+                .captcha-group  label {
+                    text-align:center;
+                    display:block;
+                    overflow:hidden;
+                    font-size:12px;
+                    margin-left:140px;
+                
+                    margin-top: -2px;
+                    line-height: 16px;
+}
+                
+            .captch-reload {
+                width:169px;
+            }   
+                 .captch-reload p {
+                    color:#a0d1c2;
+                    text-align:center;
+                 
+                    margin-top: -4px;
+                    line-height: 16px;
+}
+                .captch-reload  a {
+                    background:#a0d1c2;
+                    color:#fff;
+                    text-transform:uppercase;
+                    font-weight:bold;
+                    display:block;
+                    text-decoration:none;
+                    padding: 5px 0;
+                    text-align:center;
+                    border-radius:5px;
+                    margin-top: 6px;
+                }    
+                
+                
+            .submit-btn {
+                clear:both;
+                display:block;
+                background:#ac72af; 
+                color:#fff;
+                text-transform:uppercase;
+                font-size:30px;
+                border-radius:10px;
+                border:0;
+                font: 26px/33px Arial black, helvetica, sans-serif;
+                letter-spacing: -0.5px;
+                margin-top: 15px;
+                height: 46px;
+                padding: 2px 13px 1px;
+                cursor:pointer;
+            }    
+            .submit-btn-inactive {
+                color:#ac72af; 
+                background:#fff;
+                cursor:default;
+            }
