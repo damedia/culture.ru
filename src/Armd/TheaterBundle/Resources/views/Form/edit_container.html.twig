@@ -1,0 +1,167 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block form %}
+    {{ parent() }}
+    <div id="dialog">
+        <div class="map-outer">
+            <style type="text/css">
+                #ymap{ width:720px; height:400px; }
+                #ymap img{ max-width:none; }
+                #open-dialog{ margin-left:10px; border-bottom:dashed 1px #0069D6; }
+                #open-dialog:hover{ text-decoration:none; }
+            </style>
+            <div id="ymap"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+    <script type="text/javascript">
+
+        var myMap, markers = [], droppedPin, inputLat, inputLon;
+
+        ymaps.ready(function(){
+
+            var inputLat = $('input.geopicker.lat'),
+                inputLon = $('input.geopicker.lon');
+
+            var defaultLat = inputLat.val(),
+                defaultLon = inputLon.val();
+
+            if (inputLat && inputLon) {
+                // init
+                initMap();
+
+                $('<a id="open-dialog" href="#">Карта</a>').insertAfter(inputLon);
+
+                $("#dialog:ui-dialog").dialog("destroy");
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    width: 750,
+                    height: 500,
+                    modal: false,
+                    close: function(event, ui) {
+                    },
+                    buttons: {
+                        "Сохранить": function() {
+                            $(this).dialog("close");
+                        },
+                        "Отменить": function() {
+                            inputLat.val(defaultLat);
+                            inputLon.val(defaultLon);
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+                $('#open-dialog').on('click', function(e){
+                    //e.preventDefault();
+                    $("#dialog").dialog('open');
+                    return false;
+                });
+            }
+
+
+            //
+            function initMap() {
+                var defaultLat = parseFloat(inputLat.val()) ? parseFloat(inputLat.val()) : 55,
+                    defaultLon = parseFloat(inputLon.val()) ? parseFloat(inputLon.val()) : 38;
+
+                myMap = new ymaps.Map("ymap", {
+                    type: 'yandex#map',
+                    center: [defaultLat, defaultLon],
+                    zoom: 3,
+                    behaviors: ["default", "drag", "scrollZoom", "zoomControl", "mapTools"]
+                });
+
+                var searchControl = new ymaps.control.SearchControl({ noPlacemark:true });
+                myMap.controls
+                     .add('zoomControl') // Кнопка изменения масштаба
+                     .add('typeSelector') // Список типов карты
+                     .add('mapTools') // Стандартный набор кнопок
+                     .add(new ymaps.control.ScaleLine())
+                     .add(searchControl);
+
+                // Получить выбранный из списка геообъект
+                searchControl.events.add('resultselect', function (result) {
+                    var geoPoint = searchControl.getResultsArray()[result.get('resultIndex')]
+                        geoPointCoords = geoPoint.geometry.getCoordinates();
+                    dropPin(geoPointCoords);
+                });
+
+                var center = myMap.getCenter();
+                inputLat.on('change', dropPin).val(center[0]);
+                inputLon.on('change', dropPin).val(center[1]);
+                $('#drop-pin').on('click', dropPin);
+                dropPin(center);
+            };
+
+            // Util
+            function isArray(obj) {
+                return obj.constructor == Array;
+            }
+
+            //
+            function dropPin(coords) {
+                if (coords !== undefined && isArray(coords)) {
+                    var gp_lat = inputLat.val(),
+                        gp_lon = inputLon.val(),
+                        position = coords;
+                } else {
+                    var gp_lat = inputLat.val(),
+                        gp_lon = inputLon.val(),
+                        position = [gp_lat, gp_lon];
+                }
+
+                // Если координаты метки за пределами видимой области, подмотать карту к этому месту
+                if (! inBounds(position, myMap.getBounds())) {
+                    myMap.setCenter(position);
+                }
+
+                // Добавляем геообъект на карту
+                if (droppedPin === undefined) {
+                    droppedPin = new ymaps.Placemark(position, {
+                        iconContent: "1",
+                        hintContent: "Метка",
+                        balloonContentHeader: "Hello Yandex!"
+                    }, {
+                        draggable: true,
+                        balloonCloseButton: false,
+                        preset: "twirl#blueDotIcon"
+                    });
+
+                    myMap.geoObjects.add(droppedPin);
+
+                    // Навешиваем событие перетаскивания. Обновляем поля с координатами.
+                    droppedPin.events.add('drag', function(e){
+                        updateCoordsFields(droppedPin.geometry.getCoordinates());
+                    });
+
+                } else {
+                    // Если метка уже на карте, просто переместим ее
+                    droppedPin.geometry.setCoordinates(position);
+                    myMap.setCenter(position);
+                }
+                updateCoordsFields(position);
+            }
+
+            // Обновляет поля с координатами
+            function updateCoordsFields(position) {
+                inputLat.val(position[0]);
+                inputLon.val(position[1]);
+            }
+
+            // Определяет лежит ли точка внутри прямоугольника
+            function inBounds(point, bounds) {
+                return (point[0] > bounds[0][0] && point[0] < bounds[0][0]
+                     && point[1] > bounds[1][0] && point[1] < bounds[1][0]);
+            }
+
+        });
+    </script>
+{% endblock %}

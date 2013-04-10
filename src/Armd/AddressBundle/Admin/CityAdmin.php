@@ -5,17 +5,10 @@ namespace Armd\AddressBundle\Admin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-
 use Sonata\AdminBundle\Admin\Admin;
 
 class CityAdmin extends Admin
 {
-    protected $datagridValues = array(
-        '_sort_by'      => 'title',
-        '_sort_order'   => 'ASC',
-    );
-    	
     protected $translationDomain = 'ArmdAddressBundle';
 
     /**
@@ -38,7 +31,8 @@ class CityAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title');
+            ->add('title')
+            ->add('sortIndex');
     }
 
     /**

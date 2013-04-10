@@ -25,7 +25,8 @@ parameters:
     sphinxsearch_index_atlas: mk_atlas
     sphinxsearch_index_museums: mk_virtual_museums
     sphinxsearch_index_news: mk_news
-
+    sphinxsearch_index_theaters: mk_theaters
+    sphinxsearch_index_perfomances: mk_perfomances
 
     communication_platform_domain: people.culture.ru
     domain: .culture.ru
