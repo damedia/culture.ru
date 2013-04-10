@@ -1616,8 +1616,9 @@ body {
         }
 
     #alphabet-filter {
-        margin: 10px 0 20px;
+        margin: 14px 0 20px;
         float: right;
+        font-size:11px;
     }
 
         #alphabet-filter ul,
@@ -1625,15 +1626,28 @@ body {
             list-style-type: none;
             display: inline;
         }
+        #alphabet-filter li {
+            margin-right:5px;
+        }
+        #alphabet-filter li a {
+           text-decoration: none; 
+           text-transform:uppercase;
+           border-bottom:2px solid #fff;
+           color: #000000;
+           outline: none;
+           font-weight:bold;
+        }
 
         #alphabet-filter li.active a,
-        #alphabet-filter li.active a:hover,
+        #alphabet-filter li a:hover,
         #alphabet-filter li.active a:visited {
-            font-weight: bold;
-            color: #000000;
-            text-decoration: none;
+            border-color:#f5902d;
+        }
+        #alphabet-filter li.active a {
             cursor: default;
-            outline: none;
+        }
+        #alphabet-filter li.all-let {
+            margin-right:8px;
         }
 
     .lecture-homepage-section {
@@ -1878,25 +1892,30 @@ body {
         
     /*Sort Filter*/
     .sort-filter {
-        font-size:12px;
-        margin: 24px 0 2px;
+        font-size:11px;
+        margin: 14px 0 2px;
+        float:left;
     }  
-        .sort-filter span, .sort-filter a {
+        .sort-filter span, .sort-filter li {
             display:inline-block;
             vertical-align:top;
+            list-style:none;
         }
         .sort-filter span {
             color:#989898;
             margin-right:7px;
         }
+        .sort-filter li {
+            text-transform:uppercase;
+        }
         .sort-filter a {
             font-weight:bold;
             text-decoration:none;
-            border-bottom:1px dashed #000;
+            border-bottom:2px dashed #fff;
             color:#000;
             margin-right:7px;
         }
-        .sort-filter a.active {
+        .sort-filter .active a {
             border-bottom:2px solid #f5902d;
         }
     
@@ -2718,6 +2737,7 @@ body {
                 float:none;
                 clear:both;
                 display:block;
+                padding-top:15px;
             }
             
         }
