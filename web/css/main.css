@@ -1226,6 +1226,29 @@ body {
 			margin-bottom:20px;
 			margin-top:10px;
 		}
+            .russia-top-found .search-found, .russia-top-found .button, #found-objects-total.loading  {
+                display:inline-block;
+                vertical-align:top;
+            }
+            .russia-top-found .button {
+                margin:12px 0 0 18px;
+            }
+            
+            #found-objects-total i {
+                font-style:normal;
+            }
+            #found-objects-total.loading {
+                width:16px;
+                height:16px;
+                
+                overflow:hidden;
+                background:url(../img/small_loading.gif) no-repeat 0 0;
+                margin-top:5px;
+            }
+            #found-objects-total.loading  i {
+                display:none;
+            }
+            
 		
 		.search-news-block {
 				padding-top:23px;
