@@ -182,6 +182,8 @@ class NewsManager extends ListManager
 
         if (!empty($criteria[self::CRITERIA_IS_ON_MAP])) {
             $qb->andWhere('_news.isOnMap = TRUE');
+        } else {
+            $qb->andWhere('_news.isOnMap = FALSE');
         }
     }
 
