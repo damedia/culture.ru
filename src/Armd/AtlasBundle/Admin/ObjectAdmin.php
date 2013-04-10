@@ -65,7 +65,9 @@ class ObjectAdmin extends Admin
                 ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('announce')
-                ->add('content')
+                ->add('content', null, array(
+                    'attr' => array('class' => 'tinymce'),
+                ))
 //                ->add('categories', 'sonata_type_model',
 //                    array('multiple' => true, 'expanded' => true)
 //                )
