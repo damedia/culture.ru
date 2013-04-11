@@ -3,8 +3,14 @@
 {% block left_column %}
 	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
 		<div class="sort-filter sort-element-filter" id="switch_view">
-			<a href="#" class="active" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>
-			<a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'perfomance'}) }}">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+			<ul>
+                <li class="active">
+                    <a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>
+                </li>
+                <li>
+                    <a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'perfomance'}) }}">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+                </li>
+            </ul>
 		</div>
 	{% endif %}
 	<div class="perfomance-one">
@@ -80,7 +86,7 @@
 		            <ul class="slides">
 		                <li>
                             <article class="period-block">
-                                <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image fancybox">
+                                <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
                                     {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     <span class="play"></span>
                                 </a>
@@ -96,7 +102,7 @@
 		</div>
     
         <div class="orange-slider-block">
-			<h3 class="o-slider-header">фотогалерея</h3>
+			<h3 class="o-slider-header">фотогалерея спектакля</h3>
             {% if entity.gallery and entity.gallery|length > 0 %}
 				<div class="flexslider">
 		            <ul class="slides">
@@ -107,8 +113,8 @@
                                         {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     </a>
                                     <div class="period-block_text">
-                                        <h4>{{ entity.gallery.name }}</h4>
-                                        <p>{{ img.media.name }}</p>
+                                        {% if entity.gallery.name %}<h4>{{ entity.gallery.name }}</h4>{% endif %}   
+                                        {% if img.media.name %}<p>{{ img.media.name }}</p>{% endif %}   
                                     </div>
                                 </article>
 			                </li>
@@ -139,7 +145,7 @@
 			
 			//просмотр интервью
 			$('a.tvigle-player-fancybox').fancybox({
-                'padding'		: 0,
+                'padding'		: 15,
                 'autoScale'		: false,
                 'transitionIn'	: 'none',
                 'transitionOut'	: 'none',
@@ -162,8 +168,8 @@
 			//переключение видео							
 			$('#switch_view a').click(function(){
 				
-				$('#switch_view a').removeClass('active');
-				$(this).addClass('active');
+				$('#switch_view a').parent().removeClass('active');
+				$(this).parent().addClass('active');
 							                
 				if ($(this).attr('rel')) {
 				

@@ -2032,7 +2032,7 @@ body {
             }
             
         .perfomance-one {
-        
+            clear:both;
         }
              .perfomance-one .video-one-description {
                 padding-bottom: 14px;
