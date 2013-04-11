@@ -72,13 +72,31 @@ class DefaultController extends Controller
     }
     
     /**
+     * @Route("/guide/{id}", requirements={"id" = "\d+"}, name="armd_museum_guide_item")
+     * @Template()
+     */
+    public function guideItemAction($id)
+    {
+        if (null === ($entity = $this->getMuseumGuideRepository()->find($id))) {
+            throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
+        }
+        
+        return array(
+            'entity' => $entity
+        );
+    }
+    
+    /**
      * @Route("/guide/list", name="armd_museum_guide_list", options={"expose"=true})
      * @Template("ArmdMuseumBundle:Default:guideList.html.twig")
      */
     public function guideListAction()
     {
             return array(
-                'museumGuides' => $this->findMuseumGuides(),  
+                'museumGuides' => $this->getMuseumGuideRepository()->findBy(
+                        array(), 
+                        array('title' => 'ASC')
+                    ),  
             );
     }
 
@@ -90,9 +108,8 @@ class DefaultController extends Controller
         return $this->get('armd_museum.manager.museum');
     }
 
-    protected function findMuseumGuides($criteria = array())
+    protected function getMuseumGuideRepository()
     {
-        return $this->getDoctrine()->getEntityManager()
-                ->getRepository('ArmdMuseumBundle:MuseumGuide')->findBy($criteria, array('title' => 'ASC'));
+        return $this->getDoctrine()->getEntityManager()->getRepository('ArmdMuseumBundle:MuseumGuide');
     }
 }
