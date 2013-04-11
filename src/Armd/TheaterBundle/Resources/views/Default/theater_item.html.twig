@@ -87,12 +87,14 @@
                         <a href="{{ object.url }}" target="_blank" class="external">{{ object.url }}</a>
                     </p>
                 </div>
+                {% if object.director %}
                 <div class="theatre-stats-head">
                     <p>
                         Художественный руководитель,<br />директор театра: 
                         <b>{{ object.director }}</b>
                     </p>
                 </div>
+                {% endif %} 
             </div>
             <div class="theatre-one-image">
                 <img src="{% path object.image, 'item' %}" alt="" />                                        
@@ -144,6 +146,7 @@
             <div class="theater-contacts-wrap">
                 <table class="theater-contacts">
                     <caption>{{ object.title }}</caption>
+                    {% if object.address %}
                     <tr>
                         <td class="label">
                             Адрес: 
@@ -152,26 +155,37 @@
                             {{ object.address }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if object.metro %}
                     <tr>
                         <td class="label">Метро:</td>
                         <td>{{ object.metro }}</td>
                     </tr>
+                    {% endif %}
+                    {% if object.phone %}
                     <tr>
                         <td class="label">Телефон:</td>
                         <td>{{ object.phone }}</td>
                     </tr>
+                    {% endif %}
+                    {% if object.ticketOfficeMode %}
                     <tr>
                         <td class="label">Режим работы кассы:</td>
                         <td>{{ object.ticketOfficeMode }}</td>
                     </tr>
+                    {% endif %}
+                    {% if object.email %}
                     <tr>
                         <td class="label">Email:</td>
                         <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
                     </tr>
+                    {% endif %}
+                    {% if object.url %}
                     <tr>
                         <td class="label">Сайт:</td>
                         <td><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></td>
                     </tr>
+                    {% endif %}
                 </table>
             </div>
         </div>

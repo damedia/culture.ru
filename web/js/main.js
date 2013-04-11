@@ -23,7 +23,7 @@ $(function () {
     });
 
     $.datepicker.setDefaults($.datepicker.regional[ $('body').data('locale') ]);
-    $("#datapicker").datepicker({
+    var datapickerOpts = {
         showOn: 'button',
         buttonImage: 'images/button_cal.gif',
         buttonImageOnly: true,
@@ -31,16 +31,21 @@ $(function () {
         showOtherMonths: true,
         selectOtherMonths: true,
         onSelect: function (dateText, inst) {
-            $(this).hide();
+            $("#datapicker").datepicker( "destroy" );
             $('a.clicked').html(dateText).removeClass('clicked');
         }
 
-    }).hide();
+    };
+    
+    
 
     // Show the date picker
     $(".dates-chooser > a").click(function () {
-        $("#datapicker").show();
+        $("#datapicker").datepicker(datapickerOpts).show();
+        $('.search-checkboxes').hide();
+        $('.dates-chooser a.clicked').removeClass('clicked');
         $(this).addClass('clicked');
+        
         return false;
     });
 
@@ -402,20 +407,38 @@ $(function () {
     })
     
     $('body').on('click', $(this), function(e){
+    
         if ($('#datapicker').is(':visible')) {
-            var dp = $('#datapicker'),
-                dWidth = dp.width(),
-                dHeight = dp.height(),
-                dPosTop =  $('body').position().top + $('.nav-header').position().top  + dp.position().top + 145,
-                dPosLeft = $('.container').offset().left +  $('.dates-chooser').position().left,
-                mousePosX = e.pageX,
-                mousePosY = e.pageY;
-              
-            if ( (mousePosX < dPosLeft || mousePosX > (dPosLeft + dWidth)) || (mousePosY < dPosTop) ||  mousePosY > (dPosTop + dHeight))   {
-               dp.hide();
+            var t = $(e.target);
+            
+            if ( !checkPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
+                 $('#datapicker').hide();
+                $('.dates-chooser a').removeClass('clicked');
+            } 
+            
+            if ( !checkPos(t, ['search-checkboxes' ]) ) {
+                 $('.search-checkboxes').hide();
             }
         }
-    });
+    }); 
+
+    function checkPos(element, findClassArr){
+        var found = false;
+        var parents =  element.parents("*");
+        element.parents("*").each(function(){
+            for (var i = 0; i < findClassArr.length; i++) {
+                if ($(this).hasClass(findClassArr[i])) {
+                    found = true;
+                    return;
+                } 
+            }            
+        })
+        if (element.hasClass(findClassArr[0]))
+            found = true;
+            
+        console.log(found);    
+        return found;    
+    }   
     
     
     
