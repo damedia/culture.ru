@@ -1,4 +1,8 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
     "hash": "fe31fa3aa627436350652b65601c9ee1",
     "packages": [
         {
@@ -211,16 +215,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e"
+                "reference": "dd69835e0dcc44f7f0726b105e83ae5013622f5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/fd45c6f6baa618d871f3201fabe76df5043abb1e",
-                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/dd69835e0dcc44f7f0726b105e83ae5013622f5c",
+                "reference": "dd69835e0dcc44f7f0726b105e83ae5013622f5c",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": "2.3.*",
+                "doctrine/common": ">=2.3.0,<2.5-dev",
                 "php": ">=5.3.2"
             },
             "type": "library",
@@ -266,7 +270,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2013-01-20 11:50:36"
+            "time": "2013-03-24 19:16:29"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -508,12 +512,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "fdd0af34e6fced967b8751bc3e4792c11ef86d57"
+                "reference": "86e40a692b5b052942bd655961fed0dd696ef24e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/fdd0af34e6fced967b8751bc3e4792c11ef86d57",
-                "reference": "fdd0af34e6fced967b8751bc3e4792c11ef86d57",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/86e40a692b5b052942bd655961fed0dd696ef24e",
+                "reference": "86e40a692b5b052942bd655961fed0dd696ef24e",
                 "shasum": ""
             },
             "require": {
@@ -570,7 +574,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-01-20 19:35:21"
+            "time": "2013-04-06 17:56:15"
         },
         {
             "name": "fpn/doctrine-extensions-taggable",
