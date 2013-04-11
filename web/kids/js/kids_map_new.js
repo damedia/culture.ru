@@ -73,7 +73,7 @@ $(function(){
     })
     
     jqOLD("a.modal").fancybox({
-        padding: 0,
+        padding: 15,
         autoSize: false,
         width: "965",
         height: "584",
