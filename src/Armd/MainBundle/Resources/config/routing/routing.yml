@@ -76,3 +76,7 @@ armd_main_login_links:
 armd_main_culture_polls:
     pattern: /culture-polls/
     defaults: { _controller: ArmdMainBundle:Main:peopleCulturePolls }
+
+armd_main_intermuseum:
+    pattern:  /intermuseum/
+    defaults: { _controller: ArmdMainBundle:Main:intermuseum }    

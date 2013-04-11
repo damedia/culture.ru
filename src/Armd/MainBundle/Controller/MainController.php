@@ -166,6 +166,12 @@ class MainController extends Controller
         return $this->renderTemplate('print');
     }
 
+
+    public function intermuseumAction()
+    {
+        return $this->renderTemplate('intermuseum');
+    }
+   
     public function latestTopicsAction()
     {
         $domain = $this->container->getParameter('communication_platform_domain');
