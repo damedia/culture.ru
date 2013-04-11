@@ -4,7 +4,7 @@ var armdMkRussiaImages = {
     searchText: null,
 
     visibleCount: 0,
-    loadByCount: 24,
+    loadByCount: 30,
 
 
     init: function () {

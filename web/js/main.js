@@ -401,5 +401,22 @@ $(function () {
         $(this).closest('ul').slideUp();
     })
     
+    $('body').on('click', $(this), function(e){
+        if ($('#datapicker').is(':visible')) {
+            var dp = $('#datapicker'),
+                dWidth = dp.width(),
+                dHeight = dp.height(),
+                dPosTop =  $('body').position().top + $('.nav-header').position().top  + dp.position().top + 145,
+                dPosLeft = $('.container').offset().left +  $('.dates-chooser').position().left,
+                mousePosX = e.pageX,
+                mousePosY = e.pageY;
+              
+            if ( (mousePosX < dPosLeft || mousePosX > (dPosLeft + dWidth)) || (mousePosY < dPosTop) ||  mousePosY > (dPosTop + dHeight))   {
+               dp.hide();
+            }
+        }
+    });
+    
+    
     
 })
