@@ -84,4 +84,8 @@ armd_main_theatre:
 armd_main_theatreone:
     pattern:  /theatreone/
     defaults: { _controller: ArmdMainBundle:Main:theatreone }
+
+armd_main_intermuseum:
+    pattern:  /intermuseum/
+    defaults: { _controller: ArmdMainBundle:Main:intermuseum }    
     

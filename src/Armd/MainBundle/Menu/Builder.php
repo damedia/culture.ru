@@ -326,6 +326,13 @@ class Builder extends ContainerAware
                     'routeParameters' => array('category' => 'news', 'id' => 3724)
                 )
             );
+            
+            $specialMenu->addChild(
+                'menu.intermuseum',
+                array(
+                    'route' => 'armd_main_intermuseum'
+                )
+            );
             //--- /Special
 
         }
