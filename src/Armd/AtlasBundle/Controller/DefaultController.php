@@ -790,13 +790,13 @@ class DefaultController extends Controller
     /**
      * Atlas object from QRcodes
      *
-     * @Route("/qrobject/{id}", requirements={"id"="\d+"})
+     * @Route("/qrobject/{filename}", requirements={"filename"="[\da-z]+\.html"})
      * @Template()
      */
-    public function qrobjectAction($id)
+    public function qrobjectAction($filename)
     {
         $locale = $this->getRequest()->getLocale();
-        $docPath = $_SERVER['DOCUMENT_ROOT'] . '/qrcodes/' . $id . $locale . '.html';
+        $docPath = $_SERVER['DOCUMENT_ROOT'] . '/qrcodes/' . $filename;
         if (file_exists($docPath)) {
             $content = file_get_contents($docPath);
             $content = str_replace("/images/", "/qrcodes/images/", $content);
