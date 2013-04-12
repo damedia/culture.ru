@@ -1,10 +1,13 @@
 Museums: Виртуальные туры
 Real museums: Музеи
+Museum Guide: Музейный гид
 
 Museum List: Список виртуальных туров
 Museum Show: Просмотр виртуального тура
 Real Museum List: Список музеев
 Real Museum Show: Просмотр музея
+Museum Guide List: Список музейных гидов
+Museum Guide Show: Просмотр музейного гида
 
 General: Основные
 Media: Медиа
@@ -13,6 +16,9 @@ Body: Описание
 Url: Url
 Published: Опубликован
 Image: Изображение
+Announce: Анонс
+City: Город
+File: Файл
 
 Show On Main: Показывать на главной
 Show On Main Ord: Приоритет на главной
