@@ -1,3 +1,8 @@
+armd_markup:
+    resource: "@ArmdMarkupBundle/Controller/"
+    type:     annotation
+    prefix:   /markup
+
 armd_exhibit:
     resource: "@ArmdExhibitBundle/Controller/"
     type:     annotation

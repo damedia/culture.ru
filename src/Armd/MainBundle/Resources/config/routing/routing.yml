@@ -79,14 +79,6 @@ armd_main_culture_polls:
     pattern: /culture-polls/
     defaults: { _controller: ArmdMainBundle:Main:peopleCulturePolls }
 
-armd_main_theatre:
-    pattern:  /theatre/
-    defaults: { _controller: ArmdMainBundle:Main:theatre }
-    
-armd_main_theatreone:
-    pattern:  /theatreone/
-    defaults: { _controller: ArmdMainBundle:Main:theatreone }
-
 armd_main_intermuseum:
     pattern:  /intermuseum/
     defaults: { _controller: ArmdMainBundle:Main:intermuseum }    
