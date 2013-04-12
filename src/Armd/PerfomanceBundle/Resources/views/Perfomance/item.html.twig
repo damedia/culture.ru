@@ -3,8 +3,14 @@
 {% block left_column %}
 	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
 		<div class="sort-filter sort-element-filter" id="switch_view">
-			<a href="#" class="active" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>
-			<a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'perfomance'}) }}">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+			<ul>
+                <li class="active">
+                    <a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'trailer'}) }}">СМОТРЕТЬ АНОНС</a>
+                </li>
+                <li>
+                    <a href="#" rel="{{ path('armd_perfomance_item_video', {'id' : entity.id, 'mode' : 'perfomance'}) }}">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+                </li>
+            </ul>
 		</div>
 	{% endif %}
 	<div class="perfomance-one">
@@ -72,46 +78,45 @@
 
 {% block right_column %}
 	{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
-		<div class="right-video-block separate-video-block">
-		
-			{% if entity.interviewVideo %}
+		<div class="buffer" style="height:40px;"></div>
+        <div class="orange-slider-block">
+            <h3 class="o-slider-header">Интервью</h3>
+            {% if entity.interviewVideo %}
 		        <div class="flexslider">
 		            <ul class="slides">
 		                <li>
-		                    <article class="period-block">
-		                        <h2>{{ entity.interviewTitle}}</h2>
-		                        <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
-		                        	{% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape} %}
-		                            <span class="play"></span>
-		                        </a>
-		                        <div class="period-block_text">
-		                            <p>{{ entity.interviewDescription|raw }}</p>
-		                        </div>
-		                        <footer class="period-block_footer">
-	                            </footer>
-		                    </article>
+                            <article class="period-block">
+                                <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
+                                    {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
+                                    <span class="play"></span>
+                                </a>
+                                <div class="period-block_text">
+                                    <h4>{{ entity.interviewTitle}}</h4>
+                                    <p>{{ entity.interviewDescription|raw }}</p>
+                                </div>
+                            </article>
 		                </li>
 		            </ul>
 		        </div>			
 			{% endif %}
-		
-			{% if entity.gallery and entity.gallery|length > 0 %}
+		</div>
+    
+        <div class="orange-slider-block">
+			<h3 class="o-slider-header">фотогалерея спектакля</h3>
+            {% if entity.gallery and entity.gallery|length > 0 %}
 				<div class="flexslider">
 		            <ul class="slides">
 						{% for img in entity.gallery.galleryHasMedias %}
 			                <li>
-			                    <article class="period-block">
-			                        <h2>{{ entity.gallery.name }}</h2>
-									<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}">
-		                                {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape} %}
-									</a>
-			                        <div class="period-block_text">
-			                            <p>{{ img.media.name }}</p>
-			                        </div>
-			                        <footer class="period-block_footer">
-			                                
-			                        </footer>
-			                    </article>
+                                <article class="period-block">
+                                    <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}" class="period-block_image in-fancybox">
+                                        {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
+                                    </a>
+                                    <div class="period-block_text">
+                                        {% if entity.gallery.name %}<h4>{{ entity.gallery.name }}</h4>{% endif %}   
+                                        {% if img.media.name %}<p>{{ img.media.name }}</p>{% endif %}   
+                                    </div>
+                                </article>
 			                </li>
 						{% endfor %}	            	                
 		            </ul>				
@@ -140,23 +145,31 @@
 			
 			//просмотр интервью
 			$('a.tvigle-player-fancybox').fancybox({
-						'padding'		: 0,
-						'autoScale'		: false,
-						'transitionIn'	: 'none',
-						'transitionOut'	: 'none',
-						'width'		: 680,
-						'height'		: 495,
-						'type'			: 'swf',
-						'swf'			: {
-						   	 'wmode'		: 'transparent'
-						}
-					});
+                'padding'		: 15,
+                'autoScale'		: false,
+                'transitionIn'	: 'none',
+                'transitionOut'	: 'none',
+                'width'		: 680,
+                'height'		: 495,
+                'type'			: 'swf',
+                'swf'			: {
+                     'wmode'		: 'transparent'
+                },
+                beforeShow: function(){
+                    $('.left-column iframe').hide();
+                },
+                afterClose: function(){
+                    $('.left-column iframe').show();
+                }
+                
+            });
+            
 			
 			//переключение видео							
 			$('#switch_view a').click(function(){
 				
-				$('#switch_view a').removeClass('active');
-				$(this).addClass('active');
+				$('#switch_view a').parent().removeClass('active');
+				$(this).parent().addClass('active');
 							                
 				if ($(this).attr('rel')) {
 				

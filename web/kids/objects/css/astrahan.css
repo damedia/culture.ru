@@ -1,0 +1,618 @@
+.astr .main-header {
+        background: url(../img/kremlin/sky-clouds.png) no-repeat 50% 29px;
+        height:782px;
+    }
+    
+   
+.astr .riddle-cloud {
+    background:url(../img/kremlin/cloud-1.png) no-repeat 0 0;
+}
+    .astr  .riddle-cloud  a {
+        color:#994c44;
+        margin-top: 20px;
+    }
+.astr .difference-cloud   {
+    background:url(../img/kremlin/cloud-4.png) no-repeat 0 0;
+}
+    .astr .difference-cloud  a {
+        color:#a02e1c;
+        margin-top: 34px;
+    }
+.astr .quizes-cloud   {
+    background:url(../img/kremlin/cloud-5.png) no-repeat 0 0;
+}
+    .astr .quizes-cloud a {
+        color:#08697f;
+        margin-right: 24px;
+        margin-top:14px;
+    }
+    
+    .astr .test-cloud a {
+        margin-top:43px;
+    }
+   
+
+    .astr .l-more-link {
+        left:107px;
+    }
+        .astr .l-more-link b {
+            text-align: center;
+            left:-16px;
+            font-size: 16px;
+        } 
+
+    
+.astr .main-description-block {
+    top: 462px;
+}
+    .astr .main-description {
+        width: 262px;
+        color:#c4513f;
+        font-size:16px;
+        line-height:18px;
+    }
+    .astr .main-image {
+       margin: -81px 17px 0 178px;
+    }
+    
+    
+.astr .state {
+    width:1397px;
+    background:url(../img/astrahan/bg.png) no-repeat 0 0;
+}    
+
+    .astr .road-block {
+        width:1397px;
+    }
+        .astr .road-left {
+            background-position:100% 1px;
+            background-color:#FFF1B8;
+            
+        }
+    
+    .astr .case-1 {
+        
+        padding-top:154px;
+        width: 765px;
+        margin: 0 0 0 268px;
+    }
+        .astr .puzzle-header {
+            margin-top: 24px;
+            margin-left: 9px;
+        }
+        .astr .puzzle-tip {
+            left: 27px;
+            top: 6px;
+        }
+        .astr .puzzle-description-text {
+            font-size: 15px;
+            color:#517558;
+            font-weight: bold;
+            margin-top:19px;
+            
+        }
+        
+    
+    
+    .astr .case-2	{
+        margin: 129px 0 0 303px;
+        width:886px;
+        position:relative;
+    } 
+    
+        .astr .test-sign {
+            float:left;
+        
+            margin-left: -2px;
+}
+        .astr .test-link   {
+            float:left;
+            padding: 0px 0 120px 55px;
+            margin-left: -5px;
+            color:#517558;
+            background: url(../img/astrahan/test-arrow.png) no-repeat 48px 100%;
+        
+            margin-top: -18px;
+            position:relative;
+            z-index:5;
+}
+        
+        .astr .quiz-link {
+            position:absolute;
+            top:-110px;
+        }
+        
+        
+    
+    
+    
+    
+    .astr .case-3	 {
+        width: 974px;
+        margin-left: 156px;
+        margin-top: 64px;
+        height:600px;
+        position:relative;
+
+    }
+        
+       .image-qiuz {
+        
+        }
+            .image-qiuz .choice-result img {
+                margin-left: 34px;
+            }
+            .image-qiuz  .choice-result > div {
+                width:306px;
+            }
+            .image-qiuz  .choice-result p {
+                margin-top:14px;
+                color:#517558;
+            }
+            .image-qiuz .cbv-question-column {
+                margin-top:60px;
+            }
+            
+            .image-qiuz .cbv-choices {
+                background:url(../img/astrahan/quiz-1/quiz-1-bg.png) no-repeat 0 0;
+                width:644px;
+                height:663px;
+                position:relative;
+                margin: 0 0 0 286px;
+                top: -116px;
+                border:0;
+            }   
+                .image-qiuz  .choice div {
+                    position:absolute;
+                    
+                    cursor:pointer;
+                    color:#c13061;
+                    font-size:12px;
+                    text-transform:uppercase;
+                    text-align:center;
+                }
+                    .image-qiuz .choice div p {
+                        position:absolute;
+                        font-weight:bold;
+                        line-height: 15px;
+                    }
+                    .image-qiuz  .selected div  {
+                        background-image:url(../img/astrahan/quiz-1/all-active.png);
+                        background-repeat:no-repeat;
+                    }
+                    
+                    .image-qiuz  .choice-1 {
+                        top: 282px;
+                        left: 0px;
+                        width:110px;
+                        height:113px;
+                    }
+                    .image-qiuz  .selected .choice-1 {
+                        background-position:0 0;
+                    } 
+                        .image-qiuz  .choice-1 p {
+                            top: -54px;
+                            left: 10px;
+                        }
+                        
+                        
+                    .image-qiuz  .choice-2 {
+                        top: 123px;
+                        left: 251px;
+                        width:110px;
+                        height:113px;
+                    }
+                    .image-qiuz  .selected .choice-2 {
+                        background-position:-200px 0;
+                    }
+                        .image-qiuz  .choice-2 p {
+                            top: -54px;
+                            left: 27px;
+                        }
+                    .image-qiuz  .choice-3 {
+                        top: 0px;
+                        left: 522px;
+                         width:110px;
+                        height:113px;
+                    }
+                    .image-qiuz  .selected .choice-3 {
+                        background-position: -401px 0;
+                    }
+                        .image-qiuz  .choice-3 p {
+                            top: 17px;
+                            left: -75px;
+                        }
+                        
+                    .image-qiuz  .choice-4 {
+                        top: 118px;
+                        left: 522px;
+                        width:122px;
+                        height:128px;
+                    }
+                    .image-qiuz  .selected .choice-4 {
+                        background-position: -600px 0;
+                    }
+                        .image-qiuz  .choice-4 p {
+                            top: 113px;
+                            left: 86px;
+                        }
+                    .image-qiuz  .choice-5 {
+                        top: 401px;
+                        left: 498px;
+                        width:116px;
+                        height:121px;
+                    }
+                    .image-qiuz  .selected .choice-5 {
+                        background-position: 0 -201px;
+                    }
+                        .image-qiuz  .choice-5 p {
+                            top: 116px;
+                            left: 39px;
+                        }
+                     .image-qiuz  .choice-6 {
+                        top: 543px;
+                        left: 353px;
+                        width:116px;
+                        height:121px;
+                    }
+                    .image-qiuz  .selected .choice-6 {
+                        background-position: -201px -201px;
+                    }
+                        .image-qiuz  .choice-6 p {
+                            top: 124px;
+                            left: 5px;
+                        }
+                    .image-qiuz  .choice-7 {
+                        top: 339px;
+                        left: 148px;
+                        width:184px;
+                        height:190px;
+                    }
+                     .image-qiuz  .selected .choice-7 {
+                        background-position: -402px -202px;
+                    }
+                        .image-qiuz  .choice-7 p {
+                            top: 186px;
+                            left: 29px;
+                        }
+        
+        .astr  .case-3 .choice-1-result  img {
+            margin-left: 7px; 
+        }
+        .astr  .case-3 .choice-2-result  img {
+            margin-left: 43px; 
+        }
+        .astr  .case-3 .choice-3-result  img {
+            margin-left: 41px; 
+        }
+        .astr  .case-3 .choice-4-result  img {
+            margin-left:44px; 
+        }
+        .astr  .case-3 .choice-5-result  img {
+            margin-left: 25px; 
+        }
+        .astr  .case-3 .choice-6-result  img {
+            margin-left: -14px; 
+        }
+        .astr  .case-3 .choice-7-result  img {
+            margin-left: 2px; 
+        }   
+    
+    
+    
+    
+    .astr .case-4 {
+        position: relative;
+        margin: -51px 0 0 322px;
+        padding-top: 272px;
+       
+    }
+        .astr .compare-side {
+            position: absolute;
+            top: 0;
+            left: -54px;
+        }
+        .astr .compare {
+            position: static;
+        }
+        
+            .astr  .compare-images {
+                width:1000px;
+                height:auto;
+                position:static;
+                margin-left: 0;
+                padding-top: 21px;
+            }
+                .astr .compare-image {
+                    width:420px;
+                    height:318px;
+                    position:relative;
+                    margin-bottom: 25px;
+                    padding:0;
+                    display:inline-block;
+                    vertical-align:top;
+                }
+                    .compare-image > img {
+                        left: 21px;
+                        top: 21px;
+                    }
+        
+                    .astr .compare-found {
+                        top: 197px;
+                        left: 300px;
+                        width:217px;
+                        right:auto;
+                        bottom:auto;
+                        color:#ba7f7a;
+                        text-align:center;
+                    }
+                        .astr #compare-found {
+                            color:#91dbf2;
+                        }
+                        .astr  .all-found {
+                            background:#e55c65;
+                            color:#fff;
+                        }
+                            .astr  .all-found  #compare-found {
+                                color:#d1e2b5;
+                            }
+                    .astr .hidden-parts {
+                        width: 378px;
+                        height: 289px;
+                        left:21px;
+                        top:21px;
+                    }
+                    .astr  .hidden-parts  div {
+                        background-image:url(../img/astrahan/compare/all_diff.png);
+                        background-repeat:no-repeat;
+                        z-index: 700;
+                    }
+                        .astr_first_1 {
+                            width:74px;
+                            height:60px;
+                            top: 10px;
+                            left:100px;
+                            background-position:-21px -86px;
+                        }
+                        .astr_first_2 {
+                            width:92px;
+                            height:104px;
+                            top: 169px;
+                            left: 95px;
+                            background-position:-132px 0;
+                        }
+                        
+                        .astr_sec_1 {
+                            width:41px;
+                            height:68px;
+                            top: 108px;
+                            left: 84px;
+                            background-position:-87px -161px;
+                        }
+                        .astr_sec_2 {
+                            width:109px;
+                            height:65px;
+                            top: 205px;
+                            left: 93px;
+                            background-position:0 0;
+                        }
+                        .astr_sec_3 {
+                            width: 52px;
+                            height: 131px;
+                            top: 79px;
+                            left: 326px;
+                            background-position: -168px -106px;
+                        }
+                    
+                    
+                    
+                    
+
+    .astr .case-5 {
+        position: relative;
+        margin: -141px 0 0 347px;
+        height: 467px;
+    }
+    
+        .choose-block-horizontal {
+            
+        }
+            .choose-block-horizontal .cbv-choices {
+                position: relative;
+                border:0;
+                padding-bottom:0;
+            }
+           
+                .choose-block-horizontal .cbv-choices:after, .lt-ie9  .choose-block-horizontal .cbv-choices .ie-after {
+                    content:'';
+                    position: absolute;
+                    bottom:0;
+                    left:0;
+                    width:100%;
+                    height:15px;
+                    z-index:100;
+                    background:#6bab68;
+                    
+                }
+                
+                
+            .lt-ie9  .choose-block-horizontal .cbv-choices:after {
+                display:none;
+            }    
+               
+            
+            .choose-block-horizontal  .choice {
+                display: inline-block;
+                vertical-align: baseline;
+            }
+                .choose-block-horizontal .choice-2    {
+                    margin: 0 27px;
+                }
+            
+        .choose-block-horizontal-left {
+            
+        }
+            .choose-block-horizontal-left .cbv-choices {
+                margin-left:0;
+            }
+            .choose-block-horizontal-left .cbv-question-column {
+                float:right;
+            }
+            
+            
+        .choose-block-smart {
+            
+        } 
+            .choose-block-smart .choice {
+                position: relative;
+            } 
+                .choose-block-smart .choice p {
+                    position: absolute;
+                    bottom:-50px;
+                    width:100%;
+                    text-align: center;
+                    text-transform: uppercase;
+                    color:#546fb5;
+                    font-size: 14px;
+                    font-weight:bold;
+                }
+                    .choose-block-smart .selected p {
+                        color:#fff;
+                        text-shadow: -1px -1px 0 #edf38e,  
+                            1px -1px 0 #edf38e,
+                            -1px 1px 0 #edf38e,
+                             1px 1px 0 #edf38e;
+                    }
+            
+    
+        
+        
+        
+        
+        
+        
+        .astr  .case-5  .choice-result > div {
+            width: 641px;
+        }
+        .astr .case-5  .choice-result img {
+            float:left;
+            margin-left:-85px;
+        }
+        .astr .case-5  .choice-3-result img   {
+            margin-left:-73px;
+        }
+        
+        .astr .case-5 .choice-no-result img {
+            margin-left: -74px;
+        }    
+        
+        .astr .case-5  .choice-result p {
+            margin-left: 192px;
+            margin-top: 47px;
+            color:#517558;
+            font-size: 15px;
+            line-height:18px;
+        }
+         .astr .case-5  .choice-1-result p,  .astr .case-5  .choice-2-result p  {
+            margin-top:30px;
+         }
+        
+        
+        
+        .astr .case-5  .choose-block-horizontal .cbv-choices {
+            margin-left: 31px;
+            width: 722px;
+            padding-top: 199px;
+            
+        }
+        
+        .astr .case-5  .choose-block-horizontal .cbv-choices:after,  .astr .case-5  .choose-block-horizontal .cbv-choices .ie-after {
+            bottom: -27px;
+        }
+        .astr .case-5 .choose-block-smart .choice p {
+            bottom:auto;
+            top:240px;
+            color:#7d5b8c;
+        }
+        .astr .case-5  .choose-block-smart .selected p {
+            color:#7d5b8c;
+            text-shadow: none;
+        }
+        
+        .astr .case-5  .choose-block-horizontal .choice-2 {
+            margin: 0 43px;
+        }
+        .astr .choose-block-horizontal .cbv-choices:after, .lt-ie9  .astr .choose-block-horizontal .cbv-choices .ie-after {
+                    background:#cc7266;
+                }
+        
+        
+        
+.astr .elki-left {
+    background: url(../img/astrahan/elki-left.png) no-repeat 0 0;
+    top:47px;
+    height:3192px;
+    left:0;
+}
+.astr .elki-right {
+    background: url(../img/astrahan/elki-right.png) no-repeat 0 0;
+    right:-9px;
+    top:5px;
+    height:3217px;
+}
+.astr .elki-bottom {
+    background: url(../img/kremlin/elki-bottom.png) no-repeat 0 0;
+    height:121px;
+}
+
+.astr .footer-back-link {
+    top: -307px;
+    left: 25px;
+    z-index:100;
+}
+
+
+.astr  .footer-menu {
+    height: 709px;
+    margin-left: -14px;
+    background: url(../img/kremlin/choose-dest.png) no-repeat 678px 221px;
+}
+.astr .footer-top-link {
+    background:url(../img/kremlin/footer-arrow-6.png) no-repeat 0 0;
+    top:130px;
+}
+.astr  .footer-purple-link {
+    top:375px;
+}
+    
+ /*WANT MORE*/      
+    .whant-more-container {
+        width: 963px;
+        position: relative;
+        height: 580px;
+       
+	}
+        .want-more-astr {
+             background:url(../img/astrahan/window_bg.png) no-repeat 0 0;
+        }
+        
+            .want-more-astr .window-text {
+                height:220px;
+                color:#5baab2;
+            }
+            
+            .want-more-astr-container .jspTrack {
+                background:#f9f5cf;
+            }    
+    
+        .want-more-astr-container .main-site-link {
+            width: 325px;
+            left: 440px;
+            top: 69px;
+        }
+    
+    
+
+    
+        
+        

@@ -27,7 +27,7 @@ class Builder extends ContainerAware
 
             $menu->addChild('menu.atlas',            array('route' => 'armd_atlas_index'));
             $menu->addChild('menu.russia_images',    array('route' => 'armd_atlas_russia_images'));
-            $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_index'));
+            $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
 
             //--- Events
             $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
@@ -55,13 +55,6 @@ class Builder extends ContainerAware
                 'menu.russia_images',
                 array(
                     'route' => 'armd_atlas_russia_images'
-                )
-            );
-
-            $mainMenu->addChild(
-                'menu.virtual_museums',
-                array(
-                    'route' => 'armd_museum_index'
                 )
             );
             
@@ -182,7 +175,23 @@ class Builder extends ContainerAware
 
             //--- /Events
 
-
+            //--- Museums
+            $museumMenu = $menu->addChild(
+                'menu.museum',
+                array(
+                    'route' => 'armd_museum_virtual'
+                )
+            );
+            
+            $museumMenu->addChild(
+                'menu.virtual_museum',
+                array(
+                    'route' => 'armd_museum_virtual'
+                )
+            );            
+            
+            //--- /Museums
+            
             //--- Video
             $videoMenu = $menu->addChild(
                 'menu.video',
@@ -272,6 +281,13 @@ class Builder extends ContainerAware
                 'menu.government_control',
                 array(
                     'uri' => 'http://people.culture.ru/forum_private/'
+                )
+            );
+
+            $communicationMenu->addChild(
+                'menu.culture_sites',
+                array(
+                    'route' => 'armd_external_search_results'
                 )
             );
 

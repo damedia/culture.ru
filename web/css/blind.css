@@ -25,6 +25,9 @@ body {
     line-height: 1.4;
 }
 a {color:#000;}
+a:hover {
+    text-decoration:none;
+}
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection declarations have to be separate.
@@ -118,7 +121,7 @@ body {
 	max-width:1360px;
 	margin:auto;
 	min-height: 100%;
-    margin-bottom: -5.4375em;
+    margin-bottom: -8.4375em;
 	
 	
 } 
@@ -126,7 +129,7 @@ body {
     height: 100%;
 }
 .push {
-	height:5.4375em;
+	height:8.4375em;
 }
 .main-footer {
 	height:8.4375em;
@@ -252,6 +255,7 @@ body {
 		.search {
 			float:left;
 			margin-bottom:1.3em;
+            position:relative;
 		}
 			.search-input {
 				border:1px solid #000;
@@ -269,6 +273,81 @@ body {
 				padding:0 1em;
 				text-transform:uppercase;
 			}
+            
+            
+            	
+            .search-checkboxes {
+                display:none;
+                position:absolute;
+                top:1.7em;
+                left:0;
+                background:#fff;
+                border:1px solid #000;
+                margin-top:2px;
+                padding-bottom:0.2em;
+                padding-top: 0.2em;
+                padding-left: 0.2em;
+                padding-right: 1.2em;
+            }
+            .search-checkboxes label {
+                display:block;
+                position:relative;
+                padding-left:1.5em;
+                margin:0 0.1em;
+                            
+            }
+            .search-checkboxes input {
+                position:absolute;
+                top:0.1em;
+                left:0;
+                margin:0;
+                padding:0;
+                width:1em;
+                height:1em;
+                visibility:hidden;
+            }
+            .lt-ie8 .search-checkboxes input{
+                visibility:visible;
+            }
+            .search-checkboxes span {
+                color:#000;
+                text-transform:uppercase;
+                font-size: 1em;
+                font-weight:bold;
+            }	
+            
+            .search-checkboxes label:before {
+                content:'';
+                position:absolute;
+                top:0.1em;
+                left:0;
+                margin:0;
+                padding:0;
+                width:1em;
+                height:1em;
+                background:url(../img/check-small.png) no-repeat 0 -21px;
+            }
+            .search-checkboxes label.checked:before {
+                background-position:0 0;
+            }
+            .big-font .search-checkboxes label:before  {
+                background:url(../img/check-big.png) no-repeat 0 -28px;
+            }
+            .big-font .search-checkboxes label.checked:before  {
+                background:url(../img/check-big.png) no-repeat 0 0;
+            }
+            .huge-font .search-checkboxes label:before  {
+                background: url(../img/check-huge.png) no-repeat 0 -40px;
+                width: 1.2em;
+                height: 1.2em;
+                top: 0;
+            }
+            .huge-font .search-checkboxes label.checked:before  {
+                background:url(../img/check-huge.png) no-repeat 0 0;
+            }
+                
+            
+            
 	
 		.quick-links {
 			float:right;
@@ -315,6 +394,9 @@ body {
 					color:#000;*/
                     text-decoration:underline;
 				}
+                .main-navigation li.active a:hover {
+                    text-decoration:none;
+                }
 
 
 	.content {
@@ -360,10 +442,25 @@ body {
             .obj-back-link {
                 margin-left:0;
             }
-                .back-link  a {
+                .back-link a {
                     font-weight:bold;
-                    font-size:1.3em;
+                    font-size: 1.5em;
+                    text-transform: uppercase;
                 }
+                
+            .print-link {
+                text-align:right;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 1.5em;
+                margin-top: -0.6em;
+                margin-bottom:1em;
+            }  
+            .obj-print-link {
+                float: right;
+                margin-bottom:0;
+            }
+            
 		
 							
 		/*text*/
@@ -415,6 +512,15 @@ body {
 						.rusObr-list-one img {
 							width:100%;
 						}
+                        
+                    .plitka-type {
+                        font-size:1em;
+                        white-space:nowrap;
+                        display:block;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
+                        margin-bottom:1em;
+                    }    
 				
 					.rusObr-list-text {
 						min-height:7.5em;
@@ -613,6 +719,48 @@ body {
                 }
     
 
+        /*Search Results*/
+        .search-results-special {
+        
+        }
+            .search-query {
+               font-size:1.3em; 
+               font-weight:bold;
+            }
+                .search-query span {
+                    font-weight:normal;
+                }
+                
+                
+            .search-result-one {
+                margin-bottom:1.4em;
+                padding-bottom:1.3em;
+                border-bottom:1px solid #000;
+            }    
+                .search-result-type {
+                    font-size:1em;
+                    display:block;
+                    font-weight:bold;
+                }
+                .search-result-title {
+                    font-size:1.4em;
+                     display:block;
+                     margin:0;
+                     line-height:1.6em;
+                }
+                .search-result-date {
+                    font-size:0.8em;
+                    display:block;
+                    margin-bottom:1em;
+                }
+                    .search-result-date i {
+                        font-style:normal;
+                    }
+                .search-result-one p {
+                    margin:0.2em 0 0;
+                }
+    
+    
     /*Community*/
     .community-tabs {
 			margin-top: 1em;
@@ -863,6 +1011,10 @@ body {
 		.black-color  .settings-types span.active {
 			box-shadow:0 0 0 3px #fff;
 		}
+        .black-color  #white-color span {
+            color:#000;
+            background:#fff;
+        }
 		
 		.black-color .tabs-labels a, .black-color .expand-handle  a {
 			border-color:#fff;
@@ -914,7 +1066,10 @@ body {
 		.black-color .virtual-anons-header,.black-color  .obj-o-infograph-header, .black-color .link_header a, .black-color .obj-o-contacts-header, .black-color  .obj-o-contacts-main{
 			color:#fff;
 		}
-		
+	
+	        
+        
+        
 
 /*big font*/
 .big-font {
@@ -1132,29 +1287,23 @@ width:50%;
         box-shadow:none !important;
         text-shadow: none !important;
     }
-
+    
     a,
     a:visited {
         text-decoration: underline;
     }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
+    /*
+    
 
     abbr[title]:after {
         content: " (" attr(title) ")";
     }
-
+*/
     /*
      * Don't show links for images, or javascript/internal links
      */
 
-    .ir a:after,
-    a[href^="javascript:"]:after,
-    a[href^="#"]:after {
-        content: "";
-    }
+   
 
     pre,
     blockquote {
@@ -1190,4 +1339,39 @@ width:50%;
     h3 {
         page-break-after: avoid;
     }
+    
+    
+    .object-one-text.content #full-text, .expand-text {
+        display:block !important;
+    }
+     .settings-wrap, .back-link, .print-link, .special-counters, .btn-more, .search, .quick-links, .sf-toolbarreset{
+        display:none;
+    } 
+    .object-one-col3 {
+        display:none;
+    }
+    .object-one-col12 {
+        float:none !important;
+        width:100% !important;
+        margin-right:0 !important;
+    }
+    .object-one-text {
+        padding:0 !important; 
+    }
+    
+    .block {
+        page-break-inside: avoid;
+    }
+    
+    .gos-links a[href]:after {
+        content: " (" attr(href) ")";
+        text-transform:none;
+        display:block;
+        marign:0.3em 0 1em;
+    }
+    #gos_tab, .gosuslugi {
+        margin-bottom:0 !important; 
+        padding-bottom:0 !important; 
+    }
+    
 }

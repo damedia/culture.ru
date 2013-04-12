@@ -1,9 +1,19 @@
 Museums: Museums
+Museum Guide: Museum Guide
 visit_museum: Visit Virtual<br/> museum
 manual_instruction: How to use Virtual tour
 museums_not_found: No museums was found
+MuseumEdu: Museum Education
+MuseumGuide: Museum Guide
+museum_guides_not_found: No museum guides was found
 
 search.select: Select
 search.region: Region
 search.category: Category
+search.museum: Museums
+search.place: City
+search.edu: Education
+search.subject: Subject
+search.skills: Skills
+search.author: Author
 search.show: Show

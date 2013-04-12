@@ -1,0 +1,120 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block left_column %}
+	
+	<div class="museum-education" id="museum-education">
+		<ul class="museum-education-list">
+	        {% render url('armd_lesson_list_content', {
+	                'limit': load_count
+	            })
+	        %}		
+		</ul>
+	</div>
+	
+	
+	<div id="lesson-more-container" class="more more2">
+		<p><a id="lesson-more-button" href="#">{{ "show_more"|trans }}</a></p>
+	</div>	
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/lesson.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            armdMkLesson.init({{ load_count }});
+        });
+    </script>
+{% endblock %}
+
+{% block search_query %}{{ searchQuery }}{% endblock %}
+
+{% block page_header_title %}
+	Музейное образование
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category">
+
+        <form id="museums-filter-form" method="post">
+        	<span class="search-dates-label">{{ 'search.select'|trans }}</span>
+        	
+            <div class="search-category-selects">
+                <select id="lesson_museum" name="lesson_museum" class="uni">
+                    <option value="0">
+                        {{ "Museum"|trans }}
+                    </option>
+                    {% for museum in museum_list %}
+                        <option value="{{ museum.id }}" {% if museum.id == lesson_museum %}selected="selected"{% endif %}>
+                            {{ museum.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+                
+                <select id="lesson_city" name="lesson_city" class="uni">
+                    <option value="0">
+                        {{ "City"|trans }}
+                    </option>
+                    {% for city in city_list %}
+                        <option value="{{ city.id }}" {% if city.id == lesson_city %}selected="selected"{% endif %}>
+                            {{ city.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+                
+                <select id="lesson_education" name="lesson_education" class="uni">
+                    <option value="0">
+                        {{ "Education"|trans }}
+                    </option>
+                    {% for edu in education_list %}
+                        <option value="{{ edu.id }}" {% if edu.id == lesson_education %}selected="selected"{% endif %}>
+                            {{ edu.title }}
+                        </option>
+                    {% endfor %}
+                </select> 
+                
+                <select id="lesson_subject" name="lesson_subject" class="uni">
+                    <option value="0">
+                        {{ "Subject"|trans }}
+                    </option>
+                    {% for subject in subject_list %}
+                        <option value="{{ subject.id }}" {% if subject.id == lesson_subject %}selected="selected"{% endif %}>
+                            {{ subject.title }}
+                        </option>
+                    {% endfor %}
+                </select> 
+
+                <select id="lesson_skill" name="lesson_skill" class="uni">
+                    <option value="0">
+                        {{ "Skills"|trans }}
+                    </option>
+                    {% for skill in skill_list %}
+                        <option value="{{ skill.id }}" {% if skill.id == lesson_skill %}selected="selected"{% endif %}>
+                            {{ skill.title }}
+                        </option>
+                    {% endfor %}
+                </select>                               
+                                
+            </div>
+                    
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{% block right_column %}
+
+    <div class="right-video-block">
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+    </div>
+
+{% endblock %}
