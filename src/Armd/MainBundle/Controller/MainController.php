@@ -44,7 +44,7 @@ class MainController extends Controller
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => 30
+                NewsManager::CRITERIA_LIMIT => 30,
             )
         );
 
@@ -175,7 +175,7 @@ class MainController extends Controller
     {
         return $this->renderTemplate('theatreone');
     }
- 
+
     public function intermuseumAction()
     {
         return $this->renderTemplate('intermuseum');

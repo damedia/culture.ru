@@ -71,7 +71,7 @@ abstract class ListManager
         } else {
             $qb = $this->getQueryBuilder();
             $this->setCriteria($qb, $criteria);
-            $paginator = new Paginator($qb, $fetchJoinCollection = true);
+            $paginator = new Paginator($qb, $fetchJoinCollection = false);
             $objects = array();
             foreach($paginator as $item) {
                 $objects[] = $item;
