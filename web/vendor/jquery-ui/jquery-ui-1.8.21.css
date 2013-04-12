@@ -88,6 +88,10 @@
 .ui-datepicker-calendar thead {
 
 }
+.dates-chooser  a.clicked {
+	border-bottom:0;
+}
+
 /* Icons
 ----------------------------------*/
 

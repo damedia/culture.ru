@@ -37,8 +37,6 @@ $(function () {
 
     };
     
-    
-
     // Show the date picker
     $(".dates-chooser > a").click(function () {
         $("#datapicker").datepicker(datapickerOpts).show();
@@ -407,22 +405,21 @@ $(function () {
     })
     
     $('body').on('click', $(this), function(e){
-    
         if ($('#datapicker').is(':visible')) {
             var t = $(e.target);
             
-            if ( !checkPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
+            if ( !checkClassPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
                  $('#datapicker').hide();
                 $('.dates-chooser a').removeClass('clicked');
             } 
             
-            if ( !checkPos(t, ['search-checkboxes' ]) ) {
+            if ( !checkClassPos(t, ['search-checkboxes' ]) ) {
                  $('.search-checkboxes').hide();
             }
         }
     }); 
 
-    function checkPos(element, findClassArr){
+    function checkClassPos(element, findClassArr){
         var found = false;
         var parents =  element.parents("*");
         element.parents("*").each(function(){
