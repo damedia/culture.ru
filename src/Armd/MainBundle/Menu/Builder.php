@@ -57,13 +57,6 @@ class Builder extends ContainerAware
                     'route' => 'armd_atlas_russia_images'
                 )
             );
-
-            $mainMenu->addChild(
-                'menu.virtual_museums',
-                array(
-                    'route' => 'armd_museum_virtual'
-                )
-            );
             
 //            $mainMenu->addChild(
 //                'menu.art_objects',
