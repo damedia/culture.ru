@@ -25,6 +25,9 @@ class ObjectRepository extends EntityRepository
             case 'filter_tourist_clusters':
                 $qb->innerJoin('o.touristCluster', 'c');
                 break;
+            default:
+                $qb->innerJoin('o.secondaryCategories', 'c');
+                break;
         }
             $qb->where('o.published = TRUE')
                ->andWhere($qb->expr()->orX(
