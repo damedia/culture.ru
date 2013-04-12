@@ -46,6 +46,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Translations, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+        calls:
+            - [ setContainer, [ @service_container ] ]
 
     # cinema
     armd_lecture.sonata_admin.lecture_cinema_category:
