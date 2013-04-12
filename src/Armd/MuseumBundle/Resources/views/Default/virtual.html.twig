@@ -60,7 +60,5 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    <div id="museums-container">
-        {% render url('armd_museum_list', { region:regionId }) %}
-    </div>
+    {% render url('armd_museum_list', { region:regionId }) %}
 {% endblock %}
