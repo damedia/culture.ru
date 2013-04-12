@@ -269,11 +269,13 @@ $(function(){
             
             this.jsaw = new jigsaw.Jigsaw({
                 defaultImage: imageSrc,
-                piecesNumberTmpl: "%d элементов",
+                piecesNumberTmpl: "%d",
                 redirect: null,
                 shuffled: true,
                 rotatePieces: false      
             });
+            
+            
             
             
             $('#chosen-option').click(function(){

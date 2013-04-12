@@ -1804,7 +1804,6 @@ body {
 
                                 float:left;
                                 padding:0 40px 3px 0;
-
                             }
                                 .print-link a {
                                     background:url(../img/print.png) no-repeat 100% 0;
@@ -2267,7 +2266,7 @@ body {
             height:40px;
             top:0px;
         }
-        
+
     /*Sort Filter*/
     .sort-filter {
         font-size:11px;
@@ -2707,7 +2706,6 @@ body {
         display: block;
         margin-bottom: 10px;
     }
-
 
 	/*--- OBRAZY ---*/
 	.category-chooser {

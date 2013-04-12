@@ -43,7 +43,7 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
-    <div id="lecture-container" class="plitka">
+    <div id="lecture-container">
         {% for superType in superTypes %}
             <section class="lecture-homepage-section clearfix block">
                 {% if superType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
@@ -65,7 +65,7 @@
                 {% endif %}
 
                 <h2><span>{{ sectionTitle }}</span></h2>
-
+                <div class="plitka perfomances-list video-plitka">
                 {% for lecture in lecturesBySuperType[superType.code] %}
                     <div class="plitka-one-wrap">
                         <div class="plitka-one">
@@ -83,22 +83,32 @@
                                         {{ lecture.title|truncate(50) }}
                                     </a>
                                 </span>
+                                {% if lecture.productionYear or lecture.timeLength %}
+                                    <span  class="two-row-link">
+                                        {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                                        {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
+                                    </span>
+                                {% endif %}
 
-                                {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
-                                {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
-
-                                {% for lectureCategory in lecture.categories %}
-                                    <span><nobr>
+                              
+                                
+                            </div>
+                            <div class="plitka-footer">
+                                <div class="tags">
+                                    {% for lectureCategory in lecture.categories %}
+                                    <nobr>
                                         <a href="{{ path('armd_lecture_default_index', {
                                                     'lectureSuperTypeCode': lecture.lectureSuperType.code,
                                                     'category_id': lectureCategory.id}) }}"
                                                 >
                                             {{ lectureCategory.title }}
-                                        </a>
-                                    </nobr></span>{% if not loop.last %},{% endif %}
-                                {% endfor %}
-                            </div>
-
+                                        </a>{% if not loop.last %},{% endif %}
+                                    </nobr>
+                                    {% endfor %}
+                                </div>
+                                <p class="views">Просмотров: {{ lecture.viewCount }}</p>
+                            </div>    
+                            
                             {#<div class="plitka-footer">#}
                                 {#<a href="{{ path('armd_lecture_default_index', { 'lectureSuperTypeCode': lecture.lectureSuperType.code }) }}">#}
                                     {#{{ lecture.lectureSuperType.name }}#}
@@ -108,9 +118,11 @@
                         </div>
                     </div>
                 {% endfor %}
+                </div>
                 <div class="show-all">
                     <a href="{{ showAllPath }}">Смотреть все</a>
                 </div>
+                
             </section>
         {% endfor %}
 

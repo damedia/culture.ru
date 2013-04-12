@@ -73,10 +73,11 @@ $(function(){
     })
     
     jqOLD("a.modal").fancybox({
-        padding: 0,
-        autoDimensions: false,
-        width: "auto",
-        height: "auto"
+        padding: 15,
+        autoSize: false,
+        width: "965",
+        height: "584",
+        fitToView: false
     });
     
     $('.fancy-hide').css('visibility','visible').hide();
