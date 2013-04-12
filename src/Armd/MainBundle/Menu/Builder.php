@@ -284,6 +284,13 @@ class Builder extends ContainerAware
                 )
             );
 
+            $communicationMenu->addChild(
+                'menu.culture_sites',
+                array(
+                    'route' => 'armd_external_search_results'
+                )
+            );
+
             //--- /Communication
 
 

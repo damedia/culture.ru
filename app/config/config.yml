@@ -423,6 +423,9 @@ armd_tvigle_video:
     api_login: Stella_l
     api_password: armada
 
+armd_external_search:
+    yandex_search_id: 2039240
+
 armd_sphinx_search:
     indexes:
         All:
