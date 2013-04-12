@@ -27,6 +27,25 @@
 		})
 	})
 </script>
+<script type="text/javascript">
+  $(function () {
+      initUi();
+  });
+
+  function initUi() {
+      $('#show-services').parent().parent().click(function(){
+          $('#services').parent().removeClass('collapsed');
+          $(this).hide();
+          return false;
+      });
+
+      $('#show-regions').parent().parent().click(function(){
+          $('#regions').parent().removeClass('collapsed');
+          $(this).hide();
+          return false;
+      });
+  }
+</script>
 {% endblock %}
 
 {% block title %}{{ parent() }} — {{ 'Navigation.Public services'|trans }}{% endblock %}
@@ -34,8 +53,151 @@
 {% block page_header_title %}{{ 'Navigation.Public services'|trans }}{% endblock %}
  {% block body%}
 
+<p style="margin-bottom:15px; font-size:14px;">Данный раздел обеспечивает доступ к государственным услугам сферы культуры.<br />
+В соответствии с законодательством Российской Федерации информация об услугах и ведомствах предоставлена из федерального реестра госуслуг. При оказании электронных услуг используется система межведомственного взаимодействия и информационная система ведомств для обработки электронного заявления.<br />                    
+Для быстрого поиска информации весь список государственных услуг разделен на федеральные услуги и региональные.
+</p>
 
+<div class="inner-columns inner-columns-2 clearfix">
+  <div class="i-col block">
+    <h1><span>Федеральные государственные услуги</span></h1>
+    <div class="content collapsed">
+    <div class="b-services bordered" id="services">
+      <p class="goslink"><span><a href="http://epgu.gosuslugi.ru/pgu/service/10001763400_.html#_description" target="_blank" title="Страница Минкультуры России на портале госуслуг">Страница Минкультуры России на портале госуслуг</a><em><a href="http://www.gosuslugi.ru/pgu/stateStructure/10000001188.html"></a></em></span></p>
+    <div class="sections-wrap">
+    <section><a href="{{ path('armd_main_services', {'id': 8}) }}"><span>Государственная услуга по&nbsp;выдаче разрешения и&nbsp;задания на&nbsp;проведение работ по&nbsp;сохранению объекта культурного наследия (памятника истории и&nbsp;культуры) народов Российской Федерации</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 10}) }}"><span>Лицензирование деятельности по&nbsp;сохранению объектов культурного наследия (памятников истории и&nbsp;культуры) народов Российской Федерации</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 5}) }}"><span>Осуществление приема граждан, обеспечение своевременного и&nbsp;в&nbsp;полном объеме рассмотрения устных и&nbsp;письменных обращений граждан, принятие по&nbsp;ним решений и&nbsp;направление заявителям ответов в&nbsp;установленный законодательством Российской Федерации срок</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 6}) }}"><span>Ведение реестра книжных памятников</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 7}) }}"><span>Выдача в&nbsp;порядке и&nbsp;на&nbsp;основаниях, которые установлены законодательством Российской Федерации, свидетельства на&nbsp;право вывоза, временного ввоза культурных ценностей с&nbsp;территории Российской Федерации</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 9}) }}"><span>Выдача разрешений (открытых листов) на&nbsp;право проведения работ по&nbsp;выявлению и&nbsp;изучению объектов археологического наследия</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 11}) }}"><span>Оказание в&nbsp;соответствии с&nbsp;законодательством Российской Федерации и&nbsp;международными договорами Российской Федерации содействия законным собственникам в&nbsp;восстановлении их&nbsp;прав на&nbsp;культурные ценности при незаконных вывозе, ввозе культурных ценностей и&nbsp;передаче права собственности на&nbsp;них, содействие возвращению культурных ценностей в&nbsp;Российскую Федерацию в&nbsp;случае незаконного вывоза</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 12}) }}"><span>Осуществление регистрации культурных ценностей, ввезенных и&nbsp;временно ввезенных на&nbsp;территорию Российской Федерации</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 13}) }}"><span>Согласование проектной документации по&nbsp;сохранению объектов культурного наследия, проектов их&nbsp;зон охраны, градостроительной документации и&nbsp;градостроительных регламентов, устанавливаемых в&nbsp;границах территорий объектов культурного наследия федерального значения, расположенных в&nbsp;исторических поселениях и&nbsp;границах зон их&nbsp;охраны</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 14}) }}"><span>Регистрация фактов пропажи, утраты, хищения культурных ценностей, организация и&nbsp;обеспечение оповещения государственных органов и&nbsp;общественности в&nbsp;Российской Федерации и&nbsp;за&nbsp;ее&nbsp;пределами об&nbsp;этих фактах</span></a></section>
+    <!--
+    <section><a href="{{ path('armd_main_services', {'id': 0}) }}"><span>Изменения в порядке предоставления заявителем документов, необходимых для получения государственной услуги</span></a></section>
+    -->
+    <section><a href="{{ path('armd_main_services', {'id': 1}) }}"><span>Получение библиографической информации из&nbsp;государственных библиотечных фондов</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 2}) }}"><span>Предоставление информации из государственных библиотечных фондов в части, не касающейся авторских прав</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 3}) }}"><span>Предоставление государственной услуги по&nbsp;выдаче прокатных удостоверений на&nbsp;фильмы, созданные в&nbsp;Российской Федерации или приобретенные за&nbsp;рубежом для проката на&nbsp;ее&nbsp;территории, и&nbsp;по&nbsp;ведению Государственного регистра фильмов</span></a></section>
+    <section><a href="{{ path('armd_main_services', {'id': 4}) }}"><span>Предоставление государственной услуги по&nbsp;выдаче удостоверений национального фильма</span></a></section>
+    </div>
+    </div><!-- /bordered -->
+    </div><!-- /content -->
+    <div class="more more3">
+      <p>
+        <a href="#" id="show-services">Все услуги</a>
+      </p>
+    </div>
+  </div><!-- /i-col -->
+  <div class="i-col block">
+    <h1><span>Региональные государственные услуги</span></h1>
+    <div class="content collapsed">
+    <div class="b-regions bordered" id="regions">
+      <form>
+        <div class="inp-wrap"><input type="text" class="textinput" /></div>
+      </form>
+      <div class="no-ul">
+      <ul class="clearfix">
+        <li class="r_msk"><a href="http://pgu.mos.ru/ru/services/">Москва</a></li>
+        <li class="r_spb"><a href="http://www.gu.spb.ru/services/section.php?SECTION_ID=477&IBLOCK_ID=29&adr=76">Санкт-Петербург</a></li>
+      </ul>
+      <ul class="clearfix">
+        <li class="r_altay"><a href="http://gosuslugi22.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Алтайский край</a></li>
+        <li class="r_amur"><a href="http://www.gu.amurobl.ru/wps/portal/GU/Main/Register/Category?categoryId=760">Амурская область</a></li>
+        <li class="r_arhangelsk"><a href="http://pgu.dvinaland.ru/?m=5&sm=2&cat=760">Архангельская область</a></li>
+        <li class="r_astrahan"><a href="http://gosuslugi.astrobl.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_cat_filter=all">Астраханская область</a></li>
+        <li class="r_belgorod"><a href="http://gosuslugi31.ru/web/guest/main">Белгородская область</a></li>
+        <li class="r_bryansk"><a href="http://www.pgu.bryanskobl.ru/">Брянская область</a></li>
+        <li class="r_vladimir"><a href="http://rgu.avo.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_cat_filter=all">Владимирская область</a></li>
+        <li class="r_volgograd"><a href="http://www.gos-uslugi.gov35.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Волгоградская область</a></li>
+        <li class="r_vologda"><a href="http://www.gos-uslugi.gov35.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Вологодская область</a></li>
+        <li class="r_voronezh"><a href="http://svc.govvrn.ru/wps/portal/GOVSVC/El_uslugi/Kulture">Воронежская область</a></li>
+        <li class="r_evrei"><a href="http://www.pgu.eao.ru/web/guest/by_service_category?p_auth=5mGjgJxf&p_p_id=FavourCatalogue_WAR_favourcatalogue&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=2&_FavourCatalogue_WAR_favourcatalogue_execution=e1s1&_FavourCatalogue_WAR_favourcatalogue__eventId=do.openCategory&_FavourCatalogue_WAR_favourcatalogue_parentCategoryId=141">Еврейская автономная область</a></li>
+        <li class="r_zabaikal"><a href="http://www.pgu.e-zab.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Забайкальский край</a></li>
+        <li class="r_ivanovo"><a href="http://37.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Ивановская область</a></li>
+        <li class="r_irkutsk"><a href="http://pgu.irkobl.ru/">Иркутская область</a></li>
+        <li class="r_kabardino-bal"><a href="http://gosuslugi.economykbr.ru/">Кабардино-Балкарская Республика</a></li>
+        <li class="r_kaliningrad"><a href="http://39.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html#online">Калининградская область</a></li>
+        <li class="r_kaluga"><a href="http://gosuslugi.admoblkaluga.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Калужская область</a></li>
+        <li class="r_kamchatka"><a href="http://pgu.kamchatka.gov.ru">Камчатский край</a></li>
+        <li class="r_karachaevo-cher"><a href="http://www.gosuslugi.ru/">Карачаево-Черкесская Республика</a></li>
+        <li class="r_kemerovo"><a href="http://42.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html#list">Kемеровская область</a></li>
+        <li class="r_kirov"><a href="http://www.pgmu.ako.kirov.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Кировская область</a></li>
+        <li class="r_kostroma"><a href="http://gosuslugi.region.kostroma.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Костромская область</a></li>
+        <li class="r_krasnodar"><a href="http://pgu.krasnodar.ru/web/guest/main">Краснодарский край</a></li>
+        <li class="r_krasnoyarsk"><a href="http://www.gosuslugi.krskstate.ru/web/guest/service_cat?recipientCategoryId=1">Красноярский край</a></li>
+        <li class="r_kurgan"><a href="https://www.gosuslugi.ru/">Курганская область</a></li>
+        <li class="r_kursk"><a href="http://pgu.rkursk.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_cat_filter=all">Курская область</a></li>
+        <li class="r_len"><a href="http://gu.lenobl.ru/catalog.php?r=760">Ленинградская область</a></li>
+        <li class="r_lipetsk"><a href="http://pgu.admlr.lipetsk.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_cat_filter=all">Липецкая область</a></li>
+        <li class="r_magadan"><a href="http://pgu.magadan.ru">Магаданская область</a></li>
+        <li class="r_mos"><a href="http://pgu.mosreg.ru/mo/servicelist.htm?cCode=910.020.100.145&cp=i">Московская область</a></li>
+        <li class="r_murmansk"><a href="http://51.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Мурманская область</a></li>
+        <li class="r_nenetskii"><a href="http://uslugi.adm-nao.ru/services.htm">Ненецкий автономный округ</a></li>
+        <li class="r_nnovgorod"><a href="http://gu.nnov.ru/online/1525.html">Нижегородская область</a></li>
+        <li class="r_novgorod"><a href="http://pgu.nov.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Новгородская область</a></li>
+        <li class="r_novosibirsk"><a href="http://54.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Новосибирская область</a></li>
+        <li class="r_omsk"><a href="http://pgu.omskportal.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Омская область</a></li>
+        <li class="r_orenburg"><a href="http://56.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Оренбургская область</a></li>
+        <li class="r_orel"><a href="http://pgu.57ru.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Орловская область</a></li>
+        <li class="r_penza"><a href="http://pgu.pnzreg.ru/web/guest/by_service_category?p_auth=67BHOaar&p_p_id=FavourCatalogue_WAR_favourcatalogue&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_count=1&_FavourCatalogue_WAR_favourcatalogue_execution=e1s1&_FavourCatalogue_WAR_favourcatalogue__eventId=do.openCategory&_FavourCatalogue_WAR_favourcatalogue_parentCategoryId=141">Пензенская область</a></li>
+        <li class="r_perm"><a href="http://gosuslugi.permkrai.ru/catalog-common?recipient=50&id=4">Пермский край</a></li>
+        <li class="r_primorie"><a href="http://gosuslugi.primorsky.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Приморский край</a></li>
+        <li class="r_pskov"><a href="http://www.gosuslugi.pskov.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Псковская область</a></li>
+        <li class="r_adigeya"><a href="http://pgu.adygresp.ru/">Республика Адыгея</a></li>
+        <li class="r_res_altay"><a href="http://altai-mfc.ru/index.php?option=com_sobi2&catid=3&Itemid=92">Республика Алтай</a></li>
+        <li class="r_bashkortostan"><a href="http://pgu.bashkortostan.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Республика Башкортостан</a></li>
+        <li class="r_buryatiya"><a href="http://pgu.govrb.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Республика Бурятия</a></li>
+        <li class="r_dagestan"><a href="http://05.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Республика Дагестан</a></li>
+        <li class="r_ingushetiya"><a href="http://epgu.gosuslugi.ru/pgu/">Республика Ингушетия</a></li>
+        <li class="r_kalmykiya"><a href="http://pgu.egov08.ru/web/guest/by_service_category?p_auth=WjOzJ55r&p_p_id=FavourCatalogue_WAR_favourcatalogue&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_count=1&_FavourCatalogue_WAR_favourcatalogue_execution=e1s1&_FavourCatalogue_WAR_favourcatalogue__eventId=do.openCategory&_FavourCatalogue_WAR_favourcatalogue_parentCategoryId=141">Республика Калмыкия</a></li>
+        <li class="r_kareliya"><a href="http://service.karelia.ru/category/index/id/33">Республика Карелия</a></li>
+        <li class="r_komi"><a href="http://pgu.rkomi.ru/ru/">Республика Коми</a></li>
+        <li class="r_mariiel"><a href="http://pgu.gov.mari.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Республика Марий Эл</a></li>
+        <li class="r_mordoviya"><a href="http://gosuslugi.e-mordovia.ru/web/guest/by_category?p_auth=QF6s0yZD&p_p_id=FavourCatalogue_WAR_favourcatalogue&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_FavourCatalogue_WAR_favourcatalogue_execution=e1s1&_FavourCatalogue_WAR_favourcatalogue__eventId=do.openCategory&_FavourCatalogue_WAR_favourcatalogue_parentCategoryId=517">Республика Мордовия</a></li>
+        <li class="r_yakutiya"><a href="http://pgusakha.ru/web/guest/by_service_category?p_auth=bKhAL0Dd&p_p_id=FavourCatalogue_WAR_favourcatalogue&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=5&_FavourCatalogue_WAR_favourcatalogue_execution=e4665s5687&_FavourCatalogue_WAR_favourcatalogue_interportlet=true&_FavourCatalogue_WAR_favourcatalogue_qName=http%3A%2F%2Fwww.kck.ru%2Fpgmu&_FavourCatalogue_WAR_favourcatalogue_localPart=openCategory&_FavourCatalogue_WAR_favourcatalogue_passedParameters=parentCategoryId%3A%3AregionCode&_FavourCatalogue_WAR_favourcatalogue_parentCategoryId=546&_FavourCatalogue_WAR_favourcatalogue_=&_FavourCatalogue_WAR_favourcatalogue_regionCode=521">Республика Саха</a></li>
+        <li class="r_sevosetiya"><a href="http://www.pgu15.ru">Республика Северная Осетия-Алания</a></li>
+        <li class="r_tatarstan"><a href="https://uslugi.tatar.ru/service/rubric/2030?is_parent=Y">Республика Татарстан</a></li>
+        <li class="r_tiva"><a href="http://gosuslugi.tuva.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Республика Тыва</a></li>
+        <li class="r_hakasiya"><a href="http://pgu.r-19.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Pеспублика Хакасия</a></li>
+        <li class="r_chuvashiya"><a href="http://gosuslugi.cap.ru/ServiceGroups.aspx?sg=8">Республика Чувашия</a></li>
+        <li class="r_rostov"><a href="http://www.pgu.donland.ru/?m=3&sm=1&cat=760">Ростовская область</a></li>
+        <li class="r_ryazan"><a href="http://62.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Рязанская область</a></li>
+        <li class="r_samara"><a href="http://www.gosuslugi.samregion.ru/kiosk/welcome.do;jsessionid=32F2DCBAC772641426CAE2C60A1553C8?start=true&NoRedirectOnCardPresentEvent=1&medicalid=&paperend=1&locationokato=36000000000&serialnumber=0&showpayforrent=0&showpayforgas=0&showtransportapp=0&usecashcodepayfortransport=0&usecardpayfortransport=0&usecashcodepayforrent=0&usecashcodepayforgas=0&directPrint=0&usemagneticreader=0&usepinpad=0&status=ok">Самарская область</a></li>
+        <li class="r_saratov"><a href="http://pgu.saratov.gov.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Саратовская область</a></li>
+        <li class="r_sahalin"><a href="http://rgu.admsakhalin.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Сахалинская область</a></li>
+        <li class="r_sverdlovsk"><a href="http://pgu.midural.ru">Свердловская область</a></li>
+        <li class="r_smolensk"><a href="http://pgu.admin-smolensk.ru/">Смоленская область</a></li>
+        <li class="r_stavropol"><a href="http://26.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html#list">Ставропольский край</a></li>
+        <li class="r_tambov"><a href="http://pgu.tambov.gov.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_cat_filter=all">Тамбовская область</a></li>
+        <li class="r_tver"><a href="http://www.gosuslugi.ru/">Тверская область</a></li>
+        <li class="r_tomsk"><a href="http://pgs.tomsk.gov.ru/portal/classifier/clr.cult.media">Томская область</a></li>
+        <li class="r_tula"><a href="http://pgu.tula.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Тульская область</a></li>
+        <li class="r_tumen"><a href="http://uslugi.admtyumen.ru/gov_services_to/reestr/list2/services.htm?id=9461@egClassification&fid=5&link=9461@egClassification&blk=10764035&g=grpMO">Тюменская область</a></li>
+        <li class="r_udmurtiya"><a href="http://mfc18.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Удмуртская Республика</a></li>
+        <li class="r_ulianovsk"><a href="http://gosuslugi.ulgov.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Ульяновская область</a></li>
+        <li class="r_habarovsk"><a href="http://www.27.gosuslugi.ru/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_cat_filter=all">Хабаровский край</a></li>
+        <li class="r_hanti-man"><a href="http://pgu.admhmao.ru/pgu/main/reestr/cat/list.htm?id=10325975@SXFolderAttrSearch&fid=0&link=10325975@SXFolderAttrSearch$10325976@SXTuneAttrSearch$-1379442985&blk=10325977&pgu_mode=f">Ханты-Мансийский автономный округ</a></li>
+        <li class="r_chelyabinsk"><a href="http://74.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Челябинская область</a></li>
+        <li class="r_chechnya"><a href="http://pgu.gov-chr.ru/rgu/index.php?filter=sphere&psph=760">Чеченская Республика</a></li>
+        <li class="r_chukotka"><a href="http://gosuslugi.chukotka.org/web/guest/state_services?p_p_id=stateservices_WAR_portal&p_p_action=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_stateservices_WAR_portal_action=services&_stateservices_WAR_portal_catType=cat&_stateservices_WAR_portal_cat=760&_stateservices_WAR_portal_cat_filter=all">Чукотский автономный округ</a></li>
+        <li class="r_yamalo-nen"><a href="http://pgu-yamal.ru/wps/portal/root/yamal/menu/favour/!ut/p/c5/hZHbjptADIafJQ9QjcNxuBzOE47DOdwgtmxSKCGkRKHM0y_V9qaVqtryjT_r_20Z1WjPqX311_bZ36d2RBWqlUbBhkR1LGAADYNQRFGEbVcQUhWVqAKpSQc8B9uz8rnxygbOtmBgwpMkuiHEWmV1dsLI1PMh3ufrPxUZtndFHDIqZiKA8B8On9xwiCupPgCWHAAq6VHoGuwIVPzk8I8ggEL3fntHZ1SrTWDEWDJlCaKCykCT2Av9jIlAlb-4Y5-MX5xKmabspirKft-9zV72VVo2i4eeaEe-NYZ8-_LQLJ4MPEt0vOTjxsrxbRjl0-VHIp_zsW0NnSxpr5mF853ms3C5yXyaZiV7JPKjVqKudfYazeVBrvrZWKwOnVB9He9v-0fK3Tcf8Hr30tuaDwUL0-vL1y5-tqilt81FmH6jfBOLAeZ9nynYcvzKLoXPrb3X6NyMQ-hW_lOL3_1ODAK84rCfOsF07aO2NltHxJLDWBWEEeinKCKHA5pvr9lKMD3i9fABNp3HNg!!/">Ямало-Ненецкий автономный округ</a></li>
+        <li class="r_yaroslavl"><a href="http://76.gosuslugi.ru/pgu/cat/STATE_STRUCTURE.html">Ярославская область</a></li>
+      </ul>
+      </div>
+    </div><!-- /bordered -->
+    </div><!-- /content -->
+    <div class="more more3">
+      <p>
+        <a href="#" id="show-regions">Все регионы</a>
+      </p>
+    </div>
+  </div><!-- /i-col -->
+</div><!-- /inner-columns -->
 
+<!--
 <div class="gos-buttons-wrap">
 				<ul class="gos-buttons clearfix">
 					<li id="cult">
@@ -288,7 +450,7 @@
 				</li>
 				
 			</ul>
-			
+
 			<ul class="gos-prims">
 				<li class="gos-prim">
 					<span class="gosuslugi-link"></span> 
@@ -299,6 +461,6 @@
 					На официальном сайте Министерства Культуры Российской Федерации
 				</li>
 			</ul>
-			
+		-->				
 
 			{% endblock %}

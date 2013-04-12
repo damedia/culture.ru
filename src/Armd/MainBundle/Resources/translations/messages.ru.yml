@@ -41,6 +41,9 @@ menu.social_council: Общественный совет
 menu.government_control: Форум по госнадзору
 menu.online_translation: Онлайн трансляции
 menu.perfomance: Спектакли
+menu.museum: Музеи
+menu.virtual_museum: Виртуальные музеи
+menu.culture_sites: Сайты культуры
 #---------------- /menu -------------------------
 
 
@@ -137,6 +140,7 @@ Special:
     BodyClass: ru
     AllNews: Посмотреть все
     BackLink: Назад
+    PrintLink: Печать
     AllRussiaImages: Все образы
     Color: Цвет
     Background:
@@ -146,15 +150,16 @@ Special:
         Size:
             Title: Размер шрифта
             Huge: Огромный шрифт
-            Big: Огромный шрифт
-            Normal: Огромный шрифт
+            Big: Большой шрифт
+            Normal: Нормальный шрифт
         Family:
             Title: Вид шрифта
-            Sans Serif : шрифт Arial
+            Sans serif: шрифт Arial
             Serif: шрифт Times New Roman
     Settings: Настройка
     Address: культура.рф
     Search: Поиск
+    SearchThisSection: Искать в текущем разделе
     Date: Дата
     Images of Russia:
         More: Далее

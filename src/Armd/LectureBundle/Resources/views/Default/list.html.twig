@@ -1,39 +1,46 @@
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
-{% for lecture in lectures if lectures|length %}
-    <div class="plitka-one-wrap">
-        <div class="plitka-one">
-            <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                <div class="plitka-one-image">
-                    {% if lecture.isTop100Film %}
-                        <div class="cinema-top100-icon"></div>
-                    {% endif %}
-                    {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 'auto'}) }}
-                    {#{% thumbnail thumbnailMedia, 'lectureW160H120' with { 'alt': lecture.title, 'height': 'auto' } %}#}
-                </div>
-            </a>
-            <div class="plitka-text">
-                <span class="plitka-name">
-                    <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
-                        {{ lecture.title|truncate(50) }}
-                    </a>
-                </span>
-
-                {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
-                {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
-
-                {% for lectureCategory in lecture.categories %}
-                    <span><nobr><a href="#" class="cinema-category-link" data-category-id="{{ lectureCategory.id }}">{{ lectureCategory.title }}</a></nobr></span>{% if not loop.last %},{% endif %}
-                {% endfor %}
-            </div>
-            <div class="plitka-footer">
-                <a href="{{ path('armd_lecture_default_index', { 'lectureSuperTypeCode': lecture.lectureSuperType.code }) }}">
-                    {{ lecture.lectureSuperType.name }}
+<div class="plitka perfomances-list video-plitka">
+    {% for lecture in lectures if lectures|length %}
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                    <div class="plitka-one-image">
+                        {% if lecture.isTop100Film %}
+                            <div class="cinema-top100-icon"></div>
+                        {% endif %}
+                        {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 'auto'}) }}
+                        {#{% thumbnail thumbnailMedia, 'lectureW160H120' with { 'alt': lecture.title, 'height': 'auto' } %}#}
+                    </div>
                 </a>
-                <span class="lecture-view-counter">Просмотров: {{ lecture.viewCount }}</span>
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                        <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}">
+                            {{ lecture.title|truncate(50) }}
+                        </a>
+                    </span>
+                    {% if lecture.productionYear or lecture.timeLength %}
+                        <span  class="two-row-link">
+                            {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                            {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
+                        </span>
+                    {% endif %}
+
+                </div>
+                <div class="plitka-footer">
+                    <div class="tags">
+                        {% for lectureCategory in lecture.categories %}
+                            <nobr><a href="#" class="cinema-category-link" data-category-id="{{ lectureCategory.id }}">{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}</nobr>
+                        {% endfor %}
+                        {#<a href="{{ path('armd_lecture_default_index', { 'lectureSuperTypeCode': lecture.lectureSuperType.code }) }}">
+                            {{ lecture.lectureSuperType.name }}
+                        </a>#}
+                    </div>
+                    <p class="views">Просмотров: {{ lecture.viewCount }}</p>
+                </div>
             </div>
+            {# Пока отключим рейтинг
+            <span class="star-mark">7,5</span>
+            #}
         </div>
-        {# Пока отключим рейтинг
-        <span class="star-mark">7,5</span>
-        #}
-    </div>
-{% endfor %}
+    {% endfor %}
+</div>

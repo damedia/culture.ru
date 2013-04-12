@@ -13,12 +13,14 @@ var armdMuseums = {
             },
             success: function(data) {
                 $('#museums-container').html(data);
+                $('#category-chooser a.active').trigger('click');
                 armdMuseums.stopLoading();
-                armdMuseums.initLoadedUi();
                 armdMk.stopLoading();
             }
         });
 
+        armdMuseums.initLoadedUi();
+        
         // init search
         $('#search-form').bind('submit', function(event) {
             if ($('#search-this-section').prop('checked')) {
@@ -29,8 +31,43 @@ var armdMuseums = {
     },
 
     initLoadedUi: function() {
-        $('.museum-image, .plitka-name').on('click', $(this), function(){
-            $(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
+        
+       $('.museum-image, .plitka-name').on('click', $(this), function(){
+		
+        var block = $(this).closest('.plitka-one-wrap'),
+            newBlock,
+            blockPosTop = 0,
+            blockPosLeft = 0;
+            
+        blockPosTop = block.position().top;
+        blockPosLeft = block.position().left;
+        
+        block.find('.museum-image').animate({
+                height: '274px'
+            }, 400, function(){
+                newBlock = block
+                                .clone()
+                                    .addClass('plitka-one-wrap-opened')
+                                    .attr('id', 'newBlock')
+                                    .css({'position':'absolute', 'top':blockPosTop, 'left':blockPosLeft, height:'291px'});
+                
+                $('#museums-container').append('<div class="overlay museum-overlay"></div>')
+                                       .append(newBlock);
+                
+                block.css('visibility', 'hidden');
+               
+                $('.museum-overlay').on('click', $(this), function(){
+                    newBlock.remove();
+                    $(this).remove();
+                    
+                    block.css({'visibility': 'visible'})
+                         .find('.museum-image').animate({'height':'78px'}, 400);
+                })
+            });
+
+            
+            
+            
         })
 
         if ($('.vob').length) {
@@ -84,6 +121,7 @@ var armdMuseums = {
                 method: 'get',
                 success: function(data) {
                     $('#museums-container').html(data);
+                    $('#category-chooser a.active').trigger('click');
                 },
                 complete: function() {
                     armdMk.stopLoading();

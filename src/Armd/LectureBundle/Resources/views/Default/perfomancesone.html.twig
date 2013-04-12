@@ -1,0 +1,308 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block page_header_title %}
+    {{ "LECTURE_SUPER_TYPE_PERFOMANCES"|trans }}
+{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-category wide-search">
+        <form id="lectures-filter" method="post">
+            <span class="search-dates-label">Театр</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+            <span class="search-dates-label">&nbsp;&nbsp;Жанр</span>
+            <div class="search-category-selects">
+                <select id="lecture_category" name="lecture_category" class="uni">
+                    <option value="0">все</option>
+                        <option value="95" >Астрономия</option>
+                        <option value="103" >Биология</option>
+                        <option value="112" >Востоковедение</option>
+                        <option value="91" >Генетика</option>
+                        <option value="113" >География</option>
+                        <option value="97" >Глобальные проблемы</option>
+                        <option value="108" >ЖЗЛ</option>
+                </select>
+            </div>
+            
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+{% block search_query %}{#{ searchQuery }#}{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block left_column %}
+    {#
+    <ul class="breadcrumbs">
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Видеотека</a></li>
+        <li><a href="#">Спектакли</a></li>
+        <li><span>Митина любовь</span></li>
+    </ul>
+    #}
+    
+    
+    
+    <div class="sort-filter sort-element-filter">
+        <a href="#" class="active">СМОТРЕТЬ АНОНС</a>
+        <a href="#">СМОТРЕТЬ СПЕКТАКЛЬ</a>
+    </div>
+    <div class="perfomance-one">
+        <section class="video-one">
+            <div class="video-one_container">
+                    
+                <iframe id="0" src="http://player.rutv.ru/index/iframe/video_id/158820/start_zoom/true/showZoomBtn/false/sid/kultura/?acc_video_id=video_id/158820/brand_id/20898" width="100%" height="506" frameborder="0">
+                </iframe>                    
+                                                                
+            </div>
+            <div class="video-one-description">
+                <h2 class="video-one-name">Митина любовь</h2>
+                <div class="video-one-source">
+                    <a href="#">Театр Содружество актеров Таганки</a>
+                </div>
+                <div class="video-one-tags">
+                    <a href="#">Музыкальные</a>, <a href="#">Комедия</a>, <a href="#">Драма</a>
+                </div>
+                <div class="video-one-views">
+                    Просмотров: 4
+                </div>
+            </div>
+                <div class="video-one-full-text">
+                    <p>
+                    <b>Год</b>: 2013<br />
+                    <b>Режиссёр, художник, композитор и автор инсценировки</b>: Владислав Наставшев<br />
+                    <b>Конструктор и технолог</b>: Руслан Некрасов<br />
+                    <b>Реквизиторы</b>: Анна Валова, Максим Пархоменко<br />
+                    <b>Свет</b>: Ильхан Закоряев<br />
+                    <b>Звук</b>: Артур Габриелян<br />
+                    <b>Костюмер</b>: Марина Колин<br />
+                    <b>Исполнительный продюсер</b>: Сюзанна Акежева<br />
+                    <b>Краткое описание</b>: Первой премьерой на малой сцене «Гоголь-центра» после открытия стал спектакль Владислава Наставшева «Митина любовь». Спектакль по одноимённой повести Ивана Бунина уже был некогда поставлен Наставшевым в латышском Dirty Deal Teatro, но постановка в «Гоголь-центре» — это не ремейк, а совершенно иное произведение. История про любовь молодого человека и начинающей актрисы оказывается изъята из пространства и времени, бытовые элементы заменяются эмоциональными, а сценография больше напоминает состояние растерянной молодой души, летающей между небом и землёй.<br />
+                    В спектакле живут только двое: Митя и его любовь — девушка Катя, которая является для заглавного героя всем: она и воздух, и лес, и вседругие персонажи. В Митином мире нет больше места ни для кого.
+                    </p>
+                </div>
+            
+        </section>
+        <div class="back-link"><p><a href="/app_dev.php/press-centre/news/">Назад</a></p></div>
+        <div class="event-one_footer clearfix">
+        <div href="#" class="print-link"><a target="_blank" href="/app_dev.php/press-centre/news/5829/print"></a> Распечатать материал: </div>
+            <div href="#" class="publish-links">Опубликовать в социальных сетях: <span id="yandex-share"><span class="b-share"><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link b-share-btn__vkontakte" href="http://share.yandex.ru/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span></a><a rel="nofollow" target="_blank" title="LiveJournal" class="b-share__handle b-share__link b-share-btn__lj" href="http://share.yandex.ru/go.xml?service=lj&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="lj"><span class="b-share-icon b-share-icon_lj"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link b-share-btn__twitter" href="http://share.yandex.ru/go.xml?service=twitter&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link b-share-btn__facebook" href="http://share.yandex.ru/go.xml?service=facebook&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link b-share-btn__odnoklassniki" href="http://share.yandex.ru/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fmk.dev.armd.ru%2Fapp_dev.php%2Fpress-centre%2Fnews%2F5829%2F&amp;title=%D0%9D%D0%B0%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D0%B8%20%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%20%D0%B7%D0%B8%D0%BC%D1%83&amp;description=%D0%9D%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B5%20%D0%B3%D1%83%D0%BB%D1%8F%D0%BD%D0%B8%D1%8F%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%B8%20%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%B4%D0%BD%D1%8F%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%87%D0%BD%D0%BE%D0%B9%20%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8.%20%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9%20%D0%BF%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%20%D1%81%D0%BE%D0%B1%D1%80%D0%B0%D0%BB%20%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%D1%85%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%20%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA." data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span></a></span></span></div>
+        </div>
+        
+        
+        <div class="more-comments-show">
+            <div class="comments comments-gray clearfix">
+                <div id="fos_comment_thread" data-thread="ru_lecture_443">
+                    <div class="fos_comment_comment_form_holder">
+                        <h3>Написать рецензию</h3>
+                        <form class="fos_comment_comment_new_form" action="http://mk.dev.armd.ru/app_dev.php/comment/api/threads/ru_lecture_443/comments" data-parent="" method="POST">
+                            <div class="fos_comment_form_errors"></div>
+                            <textarea id="fos_comment_comment_body" name="fos_comment_comment[body]" required="required"></textarea>
+                            <input type="hidden" id="fos_comment_comment__token" name="fos_comment_comment[_token]" value="aa66e3f1472acd9a0e773776f51ef409903f97c1">
+                            <div class="fos_comment_submit">
+                                <input type="submit" value="Опубликовать" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block right_column %}
+
+    {# % render url('armd_news_memorial_events') % #}
+    {# % render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) % #}
+    <div class="buffer" style="height:40px;"></div>
+    <div class="orange-slider-block">
+        <h3 class="o-slider-header">Интервью</h3>
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <article class="period-block">
+                        <a href="#data1" class="period-block_image fancybox">
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Бриллиантовая рука (1968)</h4>
+                            <p>Режиссер: Леонид Гайдай<br />
+                             Жанр: Комедия / Режиссер: Леонид Гайдай</p>
+                        </div>
+                        
+                    </article>
+                </li>
+                <li>
+                    <article class="period-block">
+                        <a href="#data1" class="period-block_image fancybox">
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Мир, в котором я живу: Юлия Снигирь</h4>
+                            <p>Описание интервю, если есть.. Например, интервью с главной актрисой театра</p>
+                        </div>
+                        
+                    </article>
+                </li><li>
+                    <article class="period-block">
+                        <a href="#data1" class="period-block_image fancybox">
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Мир, в котором я живу: Юлия Снигирь</h4>
+                            <p>Описание интервю, если есть.. Например, интервью с главной актрисой театра</p>
+                        </div>
+                        
+                    </article>
+                </li><li>
+                    <article class="period-block">
+                        <a href="#data1" class="period-block_image fancybox">
+                            <img width="306" height="179" src="/img/theatre-video-anons.jpg"  />
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Мир, в котором я живу: Юлия Снигирь</h4>
+                            <p>Описание интервю, если есть.. Например, интервью с главной актрисой театра</p>
+                        </div>
+                        
+                    </article>
+                </li>
+            </ul>            
+        </div>  
+    </div>
+    
+    <div class="orange-slider-block">
+        <h3 class="o-slider-header">фотогалерея</h3>
+        <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <article class="period-block">
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
+                        </div>
+                        
+                    </article>
+                </li><li>
+                    <article class="period-block">
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
+                        </div>
+                        
+                    </article>
+                </li><li>
+                    <article class="period-block">
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
+                        </div>
+                        
+                    </article>
+                </li><li>
+                    <article class="period-block">
+                        <a href="/img/theatre-photo-anons.jpg" class="period-block_image in-fancybox">
+                            <img width="306" height="179" src="/img/theatre-photo-anons.jpg"  />
+                        </a>
+                        <div class="period-block_text">
+                            <h4>Название фотографии</h4>
+                            <p>Описание фотографии, если есть..</p>
+                        </div>
+                        
+                    </article>
+                </li>
+    
+            </ul>            
+        </div>
+    </div>
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lectures.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+           {# armdMkLectures.init('{{ lectureSuperType.code }}'); #}
+           function initFancybox() {
+            $('.fancybox').fancybox({
+                autoResize: true,
+                prevEffect: 'none',
+		        nextEffect: 'none'
+            });
+
+            $('.zoom-fancybox').fancybox({
+                 autoResize:true,
+                 afterShow:function ()
+                 {
+                     var innerWidth = $('.fancybox-inner').width();
+                     var innerHeight = $('.fancybox-inner').height();
+
+                     var newContent = $('<a id="zoom" href="/uploads/media/atlas/0001/09/a3dd55e8a1be10487f3a21af855e67072373beae.jpeg"><img class="zoom-img" src="/uploads/media/atlas/0001/09/a3dd55e8a1be10487f3a21af855e67072373beae.jpeg" height="' + innerHeight + '"></img></a><div class="info-line"><a href="/uploads/media/atlas/0001/09/a3dd55e8a1be10487f3a21af855e67072373beae.jpeg" target="_blank">Скачать</a><a href="/uploads/media/atlas/0001/09/a3dd55e8a1be10487f3a21af855e67072373beae.jpeg" id="fancy_print">Распечатать</a></div>');
+                     $('.fancybox-inner').html(newContent);
+                     $('#zoom').jqzoom({
+                         zoomType:'innerzoom',
+                         lens:false,
+                         title:false,
+                         preloadImages:false,
+                         alwaysOn:false
+                     })
+
+                     $('#fancy_print').bind("click", function ()
+                     {
+                         var win = null;
+                         var content = $('#zoom');
+                         win = window.open("width=200,height=200");
+                         self.focus();
+                         win.document.open();
+                         win.document.write('<' + 'html' + '><' + 'head' + '><' + 'style' + '>');
+                         win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+                         win.document.write('<' + '/' + 'style' + '><' + '/' + 'head' + '><' + 'body' + '>');
+                         win.document.write(content.html());
+                         win.document.write('<' + '/' + 'body' + '><' + '/' + 'html' + '>');
+                         win.document.close();
+                         win.print();
+                         win.close();
+
+                         return false;
+                     }); // bind
+
+                 }
+             });
+            }
+            initFancybox();
+           
+        });
+    </script>
+{% endblock %}

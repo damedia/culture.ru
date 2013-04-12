@@ -1,0 +1,5 @@
+parameters:
+
+services:
+    armd_external_search.search_engine.yandex:
+        class: Armd\ExternalSearchBundle\SearchEngine\Yandex

@@ -1,0 +1,52 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block title %}
+    {{ parent() }} — {{ 'Navigation.Virtual museums.Guide'|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museumGuides.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseumGuides.init();
+        });
+    </script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_title %}
+    {{ "Museum Guide"|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_guide_list') }}">
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
+            <div class="search-category-selects">
+                <select name="region" id="filter-region" class="uni">
+                    <option value="">{{ "search.region"|trans }}</option>
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.category"|trans }}</option>
+                </select>
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block one_column %}
+    {% render url('armd_museum_guide_list') %}
+{% endblock %}

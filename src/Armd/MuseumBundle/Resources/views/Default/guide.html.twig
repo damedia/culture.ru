@@ -1,0 +1,244 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block title %}
+    {{ parent() }} — {{ 'Navigation.Virtual museums.Title'|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museums.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseums.init();
+        });
+    </script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_title %}
+    {{ "MuseumGuide"|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    {#
+    <div class="category-chooser" id="category-chooser">
+        <a href="#plitka" class="mus-plitka-icon active" title="Плитка">Плитка</a><a href="#list" class="mus-list-icon" title="Список">Список</a>
+    </div>
+    #}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
+            <div class="search-category-selects">
+                <select name="region" id="filter-region" class="uni">
+                    <option value="">{{ "search.author"|trans }}</option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.category"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>Искать в текущем разделе</span></label>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block one_column %}
+    <div class="right-column">
+            
+        <section class="block">
+            <h2><span>Рекомендуем</span></h2>
+                <div class="recommend-block">
+                    <a href="/atlas/object/811"><img width="308" src="/img/museum-temp/rec.jpg"></a>
+
+                    <div class="recommend-over">
+                        <div class="recommend_name">
+                            <p><a href="/atlas/object/811">Серия акварелей Бёзана Хирасавы</a></p>
+                        </div>
+                        <p class="recommend-type"><a href="/atlas/russia-images/">МУЗЕЙНЫЙ ГИД</a></p>
+                    </div>
+                </div>
+        </section>
+        
+        <div class="block">
+            <section class="static-block virt-anons-black">
+                <h2>Виртуальный тур</h2>
+                <a href="http://eyera.dev.armd.ru/merc/peterhof/virtualtour.html" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                    <img src="/uploads/media/museum/0001/05/3e1a13da6d60956b01cb3ea812c5c3ed3879caab.jpeg" alt="" width="280">
+                    <span class="virt-tour-anons-over"></span>
+                </a>
+            </section>
+        </div>
+        
+        <div class="block">
+            <section class="static-block darker-anons">
+                <h2>Инфографика</h2>
+                <a class="fancybox" href="#infographics">
+                    <img width="280" src="/uploads/media/atlas/0001/08/thumb_7779_atlas_image3d.jpeg" alt="">
+                </a>
+            </section>
+        </div>
+        
+        <div class="block object-videos">
+            <div class="block">
+                <article class="static-block video-block">
+                    <h2>Видео</h2>
+                                            <a class="block-image fancybox" href="#data-1">
+                            <img style="max-width: 100%;" src="http://photo.tvigle.ru/res/prt/85deec0537d438363b1c3b54dbe222e8/02/98/000002130298/pub.jpg" alt="">
+                            <span class="play"></span>
+                        </a>
+                </article>
+            </div>
+            <div id="data-1" style="display: none;">
+                <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                <iframe width="640" height="360" src="http://pub.tvigle.ru/frame/p.htm?prt=85deec0537d438363b1c3b54dbe222e8&amp;id=2130298&amp;srv=pub.tvigle.ru&amp;modes=1&amp;nl=1&amp;dopparam=armada_skin" style="border: 0px;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="block">
+            <section class="static-block object-archives yellow-block">
+                <h2>Архивы</h2>
+
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li>
+                            <article class="period-block archive-block">
+                                <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/atlas/0001/07/4f96f83b94b0ec6cf416c6db84560d63843f12ef.jpeg"><img alt="" class="period-block_image" src="http://culture.ru/ru/uploads/media/atlas/0001/07/4f96f83b94b0ec6cf416c6db84560d63843f12ef.jpeg"></a>
+
+                                <div class="period-block_text">
+                                    <p><strong>В.М. Васнецов, «Призвание варягов», 1884</strong></p>
+
+                                    <p>По легенде, по приезду на Русь варягов княжить в Изборске определили Трувора, брата Рюрика. Место расположения древней крепости Изборска носит имя Труворово городище, сохранился могильный крест князя.</p>
+                                </div>
+
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+
+                        <li>
+                            <article class="period-block archive-block">
+                                <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/atlas/0001/07/4e77b0224261b3addf8a916cb3e7469a7a302e41.jpeg"><img alt="" class="period-block_image" src="http://culture.ru/ru/uploads/media/atlas/0001/07/4e77b0224261b3addf8a916cb3e7469a7a302e41.jpeg"></a>
+
+                                <div class="period-block_text">
+                                    <p><strong>Изборск, фрагмент крепостной стены, начало XX в.</strong></p>
+
+                                    <p>Древние крепостные стены, остатки которых можно увидеть на Труворовом городище, выдержали множество осад. В 1510 г. в составе Псковской земли Изборск был присоединен к Московскому царству.</p>
+                                </div>
+
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+
+                        <li>
+                            <article class="period-block archive-block">
+                                <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/atlas/0001/07/c03d475a16f818d6caaa9836326eeb3a4a12faf2.jpeg"><img alt="" class="period-block_image" src="http://culture.ru/ru/uploads/media/atlas/0001/07/c03d475a16f818d6caaa9836326eeb3a4a12faf2.jpeg"></a>
+
+                                <div class="period-block_text">
+                                    <p><strong>Псков-Изборск, открытка, конец XIX в.</strong></p>
+
+                                    <p>В эпоху княжения Ольги Изборск был пригородом Пскова и оборонительным форпостом Псковской земли. Сыграл важную роль в защите Руси в войнах с крестоносцами. Сохранившуюся крепость построили в XV в.</p>
+                                </div>
+
+                                <div class="period-block_footer"></div>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+                
+        
+    </div>
+
+    <div class="left-column">
+        <div class="museum-guide">
+            <div class="mg-new">
+                <div class="mg-new-text">
+                    <span class="mg-new-header">Новинки</span>
+                    <a href="#" class="mg-new-title">Егорьевские диковины</a>
+                    <p>Сокровища, редкости, курьёзы и прочие замечательные вещи из коллекции М.Н. Бардыгина, ныне собрания Егорьевского историко-художественного музея.</p>
+                    <p class="mg-izd">М.: Издательская программа «Интерроса», 2008. 384 с.: ил.</p>
+                </div>
+                <div class="mg-new-image">
+                    <img src="/img/museum-temp/guide-big.jpg" alt="" />
+                </div>
+                
+            </div>
+            <ul class="mg-guide-list">
+                <li>
+                    <img src="/img/museum-temp/guide1.jpg" alt="" class="mg-list-image" />
+                    <div class="mg-list-text">
+                        <a href="#" class="mg-list-title">Дейнека. Графика</a>
+                        <p>В рамках проекта «Александр Дейнека. Исследования, книги, выставки. 2008–2011».</p>
+                        <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/guide2.jpg" alt="" class="mg-list-image" />
+                    <div class="mg-list-text">
+                        <a href="#" class="mg-list-title">Небеса и окрестности Кенозерья</a>
+                        <p>Расписные потолки, иконы, деревенские часовни, церкви, составляющие историко-культурный ландшафт Национального парка «Кенозерский». </p>
+                        <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/guide3.jpg" alt="" class="mg-list-image" />
+                    <div class="mg-list-text">
+                        <a href="#" class="mg-list-title">Дейнека. Живопись</a>
+                        <p>В рамках проекта Издательской программы «Интерроса» и Государственной Третьяковской галереи «Александр Дейнека. Исследования, книги, выставки. 2009–2011».</p>
+                        <p class="mg-izd">М.: Издательская программа «Интерроса», 2010, 496 с.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/guide1.jpg" alt="" class="mg-list-image" />
+                    <div class="mg-list-text">
+                        <a href="#" class="mg-list-title">Дейнека. Графика</a>
+                        <p>В рамках проекта «Александр Дейнека. Исследования, книги, выставки. 2008–2011».</p>
+                        <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/guide2.jpg" alt="" class="mg-list-image" />
+                    <div class="mg-list-text">
+                        <a href="#" class="mg-list-title">Небеса и окрестности Кенозерья</a>
+                        <p>Расписные потолки, иконы, деревенские часовни, церкви, составляющие историко-культурный ландшафт Национального парка «Кенозерский». </p>
+                        <p class="mg-izd">М.: Издательская программа «Интерроса», 2009. 496 с., ил.</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="/img/museum-temp/guide3.jpg" alt="" class="mg-list-image" />
+                    <div class="mg-list-text">
+                        <a href="#" class="mg-list-title">Дейнека. Живопись</a>
+                        <p>В рамках проекта Издательской программы «Интерроса» и Государственной Третьяковской галереи «Александр Дейнека. Исследования, книги, выставки. 2009–2011».</p>
+                        <p class="mg-izd">М.: Издательская программа «Интерроса», 2010, 496 с.</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="more more3">
+                <p><a href="#">Смотреть дальше</a></p>
+            </div>
+        </div>
+    
+    </div>
+    
+
+    
+{% endblock %}

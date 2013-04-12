@@ -118,7 +118,7 @@ $(function(){
                 
             })
             
-        },
+        }
     }
     chooseGame.start();
     
@@ -163,7 +163,7 @@ $(function(){
                 
                 return false;
             })
-        },
+        }
         
     };
     compareGame.start();
@@ -174,7 +174,28 @@ $(function(){
 
    
    // Fancyboxes
-    $('a.fancybox').fancybox();
+    $('a.fancybox').fancybox({
+        
+    });
+    
+    
+    $("a.modal").fancybox({
+        padding: 20,
+        autoDimensions: false,
+        width: "auto",
+        height: "auto",
+        onStart: function() {
+            $("body").css({'overflow':'hidden'});
+        },
+        onComplete: function() {
+            this.fancyboxScrollpane = $("#fancybox-content .scroll-pane").jScrollPane().data().jsp;
+        },
+        onClosed: function() {
+            this.fancyboxScrollpane.destroy();
+            $("body").css({"overflow":"visible"});
+        }
+    });
+    
     $('a.fancybox-inframe').fancybox({
         type: 'iframe',
         autoSize : false,
@@ -184,7 +205,16 @@ $(function(){
         this.width  = parseInt(this.element.data('fancybox-width'));  
         this.height = parseInt(this.element.data('fancybox-height'));
         }
+        
     });
+    
+    $('.not-fancybox').click(function(){
+        blockId = $(this).attr('href');
+        console.log(blockId);
+        $(blockId).addClass('not-fancybox-visible').show();
+        return false;
+    })
+    
     
     
     // Print
@@ -197,6 +227,7 @@ $(function(){
         return false;
     })
    
+
     $('.fancy-hide').css('visibility','visible').hide();
     
     
@@ -205,8 +236,11 @@ $(function(){
         $('.choose-block-horizontal .cbv-choices').append('<span class="ie-after"></span>');
     }
     
-    
+  
    // PUZZLE
+    
+    
+    
     var puzzleGame = {
         windowWidth: $(window).width(), //retrieve current window width
         windowHeight: $(window).height(), //retrieve current window height
@@ -219,20 +253,29 @@ $(function(){
                 this.start();
         },
         
-         load: function(container) {
+        load: function(container) {
+            var imageSrc = '';
             $(window).load(function(){
                 $('.puzzle-setka-wrap', container).each(function(){
                     var imageheight = $(this).find('img.puzzle').height();
                     $(this).height(imageheight).css('marginTop', -imageheight/2);
                 })
             });
+            
+            
+            if ( !jQuery.browser.msie || jQuery.browser.version > 8.0) {
+                imageSrc = $('img.puzzle', container).attr('src');
+            }
+            
             this.jsaw = new jigsaw.Jigsaw({
-                defaultImage: "img/arkaim/puzzle.jpg",
-                piecesNumberTmpl: "%d элементов",
+                defaultImage: imageSrc,
+                piecesNumberTmpl: "%d",
                 redirect: null,
                 shuffled: true,
                 rotatePieces: false      
             });
+            
+            
             
             
             $('#chosen-option').click(function(){
@@ -273,7 +316,25 @@ $(function(){
             
             $('body, html').css('overflow', 'hidden');
             
-            self.jsaw.set_image(object.prev().attr('src'));
+             self.jsaw.set_image(object.prev().attr('src'));
+           
+            
+            if ( jQuery.browser.msie && jQuery.browser.version <= 8.0) {
+                var jqImageSrc = object.prev('.puzzle').attr('src');
+                var jqImageWidth = object.prev('.puzzle').width();
+                var jqImageHeight = object.prev('.puzzle').height();
+                jQuery('#image-preview').html('<img  src="'+jqImageSrc+'" alt="" />').css({'width':620, 'height':455});
+            }    
+            
+            
+            if (jQuery.browser.msie && jQuery.browser.version <= 8.0) {
+                self.jsaw.clear();
+               
+                setTimeout(function(){
+                    jQuery('#select-options .active a').click();
+                },500);
+               
+            }
             
             $('#puzzle-block').css({
                 'width':self.windowWidth,
@@ -292,8 +353,10 @@ $(function(){
             })
         },
         close: function() {
+             var self = this;
              $('a#CLOSE_PUZZLE').click(function(){
                 $('#puzzle-block').hide();
+                
                 $('body, html').css('overflow', 'visible').scrollTop(self.docScrollTop).scrollLeft(self.docScrollLeft);
                 
                 return false;
@@ -302,6 +365,81 @@ $(function(){
     };
 
     puzzleGame.init($('.puzzle-init'));	
+    
+    
+    
+    
+    // Quiz game. "Image Quiz" (Астрахань)
+    var ImageGame = {
+        
+        /** Выделить элемент
+         *  @param {object} image
+         */
+        hilightImage: function(image){
+            image.parent().addClass('selected');
+        },
+        
+        /** Убрать выделение с элемента
+         *  @param {object} image
+         */
+        deHilightImage: function(image){
+            
+           image.parent().removeClass('selected');
+        },
+        
+        /** Показать результат
+         *  @param {object} object
+         */
+        showResult: function(object){
+           if (object.hasClass('invisible'))  {
+                object.removeClass('invisible')
+                      .addClass('show')
+                      .siblings().addClass('invisible');
+            }
+        },
+        
+        /** Запуск
+         *  
+         */
+        start: function(){
+            var self = this;
+           
+            $('.choice div').click(function(){
+                var block = $(this),
+                    otherBlocks = block.parent().siblings('.choice'),
+                    choiseRes = block.closest('article').find('.choice-result'),
+                    choiceNoRes = choiseRes.find('.choice-no-result'),
+                    choiceYesRes = choiseRes.find('.'+$(this).attr('id')+'-result');
+                
+                if (block.data('clicked')) {
+                    block.data('clicked', false);
+                    
+                    self.deHilightImage(block);
+                    self.showResult(choiceNoRes)
+                    
+                } else {
+                    block.data('clicked', true);
+
+                    self.hilightImage(block);
+                    self.showResult(choiceYesRes);
+                    
+                    otherBlocks.each(function(){
+                        var otherBlock = $(this).find('div');
+                        
+                        if (otherBlock.data('clicked')) {
+                            otherBlock.data('clicked', false);
+                            self.deHilightImage(otherBlock);
+                        }
+                    })
+                }
+
+                return false;
+                
+            })
+            
+        }
+    }
+    ImageGame.start();
     
     
 })

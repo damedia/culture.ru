@@ -57,23 +57,25 @@
 {% endblock %}
 
 {% block body %}
-    <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span></p>
-
+    <div  class="russia-top-found">
+        <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span> <span id="found-objects-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
+        <a href="#" id="show-all" class="button show-all-btn">Показать все</a>
+    </div>
     <div id="plitka" class="tab plitka-list">
         <ul class="plitka obrazy-plitka">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'tile', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'tile', 'limit': 30, 'region_id': regionId, 'search_text': searchQuery }) %}
         </ul>
     </div>
 
     <div id="full-list" class="tab" style="display:none">
         <ul class="full-list">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'full-list', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'full-list', 'limit': 30, 'region_id': regionId, 'search_text': searchQuery }) %}
         </ul>
     </div>
 
     <div id="short-list" class="tab"  style="display:none">
         <ul class="short-list">
-            {% render url('armd_atlas_russia_images_list', { 'templateName': 'short-list', 'limit': 24, 'region_id': regionId, 'search_text': searchQuery }) %}
+            {% render url('armd_atlas_russia_images_list', { 'templateName': 'short-list', 'limit': 30, 'region_id': regionId, 'search_text': searchQuery }) %}
         </ul>
     </div>
 

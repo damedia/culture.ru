@@ -1,41 +1,48 @@
-{% extends ':Frontend:layout_one_column.html.twig' %}
+{% extends ':Frontend:layout_two_column.html.twig' %}
+{% set year2012 = 1 %}
+{% set year2013 = 1 %}
+{% import _self as archive %}
 
 {% block page_header_title %}
     {{ ('paper.'~category)|trans }}
 {% endblock %}
 
-{% block one_column %}
+{% block left_column %}
+    <div class="years-tabs-selector">
+        <p class="years-tabs-selector_header">Выберите год</p>
+        <ul>
+            <li  class="active"><a href="#year2013">2013</a></li>
+            <li><a href="#year2012">2012</a></li>
+        </ul>
+    </div>
+
     <div class="years-tabs">
-        <div class="years-tab" id="year2012">
-            <ul class="archive-list">
+        <div class="years-tab" id="year2013">
+            <ul class="archive-list"><!--
                 {% for item in items %}
-                <li class="{% if loop.index < 3 %}big{% else %}small{% endif %}">
-                    {#<a title="{{ item.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{{ "#{app.request.scheme}://#{app.request.host}" }}{% path item.file, 'reference' %}{% endfilter %}&embedded=true">#}
-                    <a title="{{ item.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{% path item.file, 'reference' %}{% endfilter %}&embedded=true">
-                        {% if loop.index < 3 %}
-                            <img src="{% path item.image, 'big' %}" alt="" title="{{ item.title }}" class="arch-image" />
-                        {% else %}
-                            <img src="{% path item.image, 'small' %}" alt="" title="{{ item.title }}" class="arch-image" />
-                        {% endif %}
-                    </a>
-                    <div class="text-overflow">
-                        <span class="arch-name">{{ item.title }}</span>
-                        <span class="arch-date">{{ item.date|date('d.m.Y') }}</span>
-                        <a title="{{ item.title }}" href="{% path item.file, 'reference' %}" class="arch-pdf-link"  target="_blank">
-                            <span class="arch-pdf-label">{{ 'Download'|trans }}</span>
-                            <span class="arch-size">
-                                <script type="text/javascript">
-                                    document.write(bytesToSize({{ item.file.size }}, 2));
-                                </script>
-                            </span>
-                        </a>
-                    </div>
-                </li>
-				{% if loop.index == 2 %}<li class="archive-separator"></li>{% endif %}	
+                    {% if  item.date|date('Y') == '2013' %}
+                        --><li class="{% if year2013 < 4 %}big{% else %}small{% endif %}">
+                            {{ archive.archive_wrap(item.title, item.file, item.image, item.date) }}
+                        </li><!--
+                        {% set year2013 = year2013 + 1 %}
+                    {% endif %}
                 {% endfor %}
+                -->
             </ul>
         </div>
-        <div class="years-tab" id="year2011" style="display:none"></div>
+        <div class="years-tab" id="year2012"  style="display:none;">
+            <ul class="archive-list"><!--
+                {% for item in items %}
+                    {% if  item.date|date('Y') == '2012' %}
+                        --><li class="{% if year2012 < 4 %}big{% else %}small{% endif %}">
+                            {{ archive.archive_wrap(item.title, item.file, item.image, item.date) }}
+                        </li><!--
+                        {% set year2012 = year2012 + 1 %}
+                    {% endif %}
+                {% endfor %}
+               -->
+            </ul>
+        </div>
     </div>
 {% endblock %}
 
@@ -68,6 +75,14 @@
                 return bytes + ' B';
             }
         }
+        
+        function issueNumber(issue){
+            if (issue.indexOf('Выпуск') != -1) {
+                return '№ ' + issue.split(' ')[1];
+            } else {
+                return issue;
+            }
+        }
 
         $(document).ready(function(){
             $(".pdf-view-trigger").fancybox({
@@ -79,6 +94,96 @@
                 openEffect : 'none',
                 closeEffect : 'none'
             });
+            
+           
+            
+            $('.years-tabs-selector').on('click', 'a', function(){
+                var tabId = $(this).attr('href');    
+                $(tabId).show()
+                        .siblings().hide();
+                $(this).parent().addClass('active')
+                       .siblings().removeClass('active');        
+                return false;
+            })
         })
     </script>
 {% endblock %}
+
+{% block right_column %}
+ 
+    <section class="block">
+        <h2><span>Рекомендуем</span></h2>
+            <div class="recommend-block">
+                <a href="/atlas/object/811"><img width="308" src="/img/museum-temp/rec.jpg"></a>
+
+                <div class="recommend-over">
+                    <div class="recommend_name">
+                        <p><a href="/atlas/object/811">Серия акварелей Бёзана Хирасавы</a></p>
+                    </div>
+                    <p class="recommend-type"><a href="/atlas/russia-images/">МУЗЕЙНЫЙ ГИД</a></p>
+                </div>
+            </div>
+    </section>
+
+    <div class="block">
+        <section class="static-block virt-anons-black">
+            <h2>Виртуальный тур</h2>
+            <a href="http://eyera.dev.armd.ru/merc/peterhof/virtualtour.html" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                <img src="/uploads/media/museum/0001/05/3e1a13da6d60956b01cb3ea812c5c3ed3879caab.jpeg" alt="" width="280">
+                <span class="virt-tour-anons-over"></span>
+            </a>
+        </section>
+    </div>
+
+    <div class="block object-videos">
+        <div class="block">
+            <article class="static-block video-block">
+                <h2>Видео</h2>
+                <a class="block-image fancybox" href="#data-1">
+                    <img style="max-width: 100%;" src="http://photo.tvigle.ru/res/prt/85deec0537d438363b1c3b54dbe222e8/07/81/000001910781/pub.jpg" alt="">
+                    <span class="play"></span>                            
+                </a>
+                <div class="period-block_text">
+                    <p><b>Ростовский кремль</b></p>
+                </div>
+            </article>
+        </div>
+        <div id="data-1" style="display: none;">
+            <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                    
+                <iframe width="640" height="360" src="http://pub.tvigle.ru/frame/p.htm?prt=85deec0537d438363b1c3b54dbe222e8&amp;id=1910781&amp;srv=pub.tvigle.ru&amp;modes=1&amp;nl=1&amp;dopparam=armada_skin" style="border: 0px;"></iframe>
+            
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% macro archive_date(value) %}
+    {{ value|date('j ')}}{{ ('calendar.full.'~value|date('M'))|trans }}{{ value|date(' Y') }}
+{% endmacro %}
+
+{% macro archive_wrap(title, file, image, date) %}
+    {% import _self as arch %}
+    <div class="archive-wrap">
+        <a title="{{ title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{% path file, 'reference' %}{% endfilter %}&embedded=true">
+            <img src="{% path image, 'big' %}" alt="" title="{{ title }}" class="arch-image" />
+        </a>
+        <div class="arch-descr">
+            <a title="{{ title }}" href="{% path file, 'reference' %}" class="arch-pdf-link"  target="_blank">
+                
+                <span class="arch-size">
+                    <script type="text/javascript">
+                        document.write(bytesToSize({{ file.size }}, 2));
+                    </script>
+                </span>
+            </a>
+            <span class="arch-name">
+                <script type="text/javascript">
+                    document.write(issueNumber('{{ title }}'));
+                </script>
+            </span>
+            <span class="arch-date">{{ arch.archive_date(date)}}</span>
+        </div>
+    </div>
+{% endmacro %}                            

@@ -1,0 +1,64 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block title %}
+    {{ parent() }} — {{ 'Navigation.Virtual museums.Title'|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museums.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseums.init();
+        });
+    </script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_title %}
+    {{ "Virtual museums"|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    {% spaceless %}
+    <div class="category-chooser" id="category-chooser">
+        <a href="#plitka" class="mus-plitka-icon active" title="Плитка">Плитка</a>
+        <a href="#list" class="mus-list-icon" title="Список">Список</a>
+    </div>
+    {% endspaceless %}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
+            <div class="search-category-selects">
+                <select name="region" id="filter-region" class="uni">
+                    <option value="">{{ "search.region"|trans }}</option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}" {% if region.id == regionId %}selected="selected"{% endif %}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.category"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block one_column %}
+    {% render url('armd_museum_list', { region:regionId }) %}
+{% endblock %}

@@ -261,6 +261,12 @@ class Object implements Taggable
      */
     private $stuff;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\Armd\AtlasBundle\Entity\TouristCluster")
+     * @ORM\JoinTable(name="atlas_object_tourist_cluster")
+     */
+    private $touristCluster;
+    
     public function __toString()
     {
         return $this->getTitle();
@@ -288,6 +294,7 @@ class Object implements Taggable
         $this->createdAt = $this->updatedAt = new \DateTime("now");
         $this->virtualTours = new ArrayCollection();
         $this->stuff = new ArrayCollection();
+        $this->touristCluster = new ArrayCollection();
     }
 
     public function setStuff($stuff)
@@ -1347,4 +1354,15 @@ class Object implements Taggable
         return $this;
     }    
 
+    public function getTouristCluster()
+    {
+        return $this->touristCluster;
+    }
+
+    public function setTouristCluster(TouristCluster $touristCluster = null)
+    {
+        $this->touristCluster = $touristCluster;
+
+        return $this;
+    }
 }
