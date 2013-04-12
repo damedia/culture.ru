@@ -170,16 +170,6 @@ class MainController extends Controller
         return $this->renderTemplate('print');
     }
 
-    public function theatreAction()
-    {
-        return $this->renderTemplate('theatre');
-    }
-    
-    public function theatreoneAction()
-    {
-        return $this->renderTemplate('theatreone');
-    }
-
     public function intermuseumAction()
     {
         return $this->renderTemplate('intermuseum');

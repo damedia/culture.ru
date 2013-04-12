@@ -162,26 +162,7 @@ class DefaultController extends Controller
         );
 
     }
-    
-    
-    /**
-     * @Route("/perfomances/", name="armd_lecture_perfomances")
-     * @Template("ArmdLectureBundle:Default:perfomances.html.twig")
-     */
-    public function perfomancesAction()
-    {
-        return $this->render('ArmdLectureBundle:Default:perfomances.html.twig');
-    }
-    
-    /**
-     * @Route("/perfomancesone/", name="armd_lecture_perfomancesone")
-     * @Template("ArmdLectureBundle:Default:perfomancesone.html.twig")
-     */
-    public function perfomancesoneAction()
-    {
-        return $this->render('ArmdLectureBundle:Default:perfomancesone.html.twig');
-    }
-    
+
 
     /**
      * @Route("/list/{lectureSuperTypeCode}/", name="armd_lecture_list", options={"expose"=true})
