@@ -389,4 +389,64 @@ class DefaultController extends Controller
         return $this->get('fpn_tag.tag_manager');
     }
 
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        if ($action) {
+            switch ($action) {
+                case 'cinemaIndexAction': {
+                    $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_CINEMA';
+
+                    break;
+                }
+
+                case 'lectureIndexAction': {
+                    $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_LECTURE';
+
+                    break;
+                }
+
+                case 'translationIndex': {
+                    $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION';
+
+                    break;
+                }
+
+                case 'top100IndexAction': {
+                    $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_CINEMA';
+                    $cinemaTop100 = 1;
+
+                    break;
+                }
+            }
+
+            if (isset($lectureSuperTypeCode)) {
+                $criteria = array(
+                    LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($lectureSuperTypeCode),
+                    LectureManager::CRITERIA_ORDER_BY => array('createdAt' => 'DESC')
+                );
+
+                if (isset($cinemaTop100)) {
+                    $criteria[LectureManager::CRITERIA_IS_TOP_100_FILM] = true;
+                }
+
+                if ($lectures = $this->getLectureManager()->findObjects($criteria)) {
+                    foreach ($lectures as $l) {
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_lecture_view', array('id' => $l->getId())),
+                            'lastmod' => $l->getCreatedAt()
+                        );
+                    }
+                }
+            }
+        }
+
+        return $items;
+    }
 }
