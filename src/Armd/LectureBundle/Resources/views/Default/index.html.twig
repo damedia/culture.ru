@@ -69,23 +69,23 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
     <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
-        <div id="sort-list">
-            <span>Сортировать по:</span>
+        <div  class="sort-filter" id="sort-filter">
             <ul>
-                <li class="active"><a href="#" data-sort-by="date">дате</a></li>
-                <li><a href="#" data-sort-by="popularity">популярности</a></li>
-                <li><a href="#" data-sort-by="title">алфавиту</a></li>
+                <li class="active"><a href="#" data-sort-by="date">по дате</a></li>
+                <li><a href="#" data-sort-by="popularity">по популярности</a></li>
+                <li><a href="#" data-sort-by="title">по алфавиту</a></li>
             </ul>
         </div>
         <div id="alphabet-filter">
             <ul>
-                <li class="active"><a href="#">Все</a></li>
+                <li class="all-let active"><a href="#">Все</a></li>
                 {% for l in alphabet %}
                     <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
                 {% endfor %}
             </ul>
         </div>
     </section>
+    
 
     {% if tag is not empty %}
         <section id="tag-filter-panel">

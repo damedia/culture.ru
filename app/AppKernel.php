@@ -75,6 +75,7 @@ class AppKernel extends Kernel
             new Armd\PerfomanceBundle\ArmdPerfomanceBundle(),
 
             new Armd\SitemapBundle\ArmdSitemapBundle(),
+            new Armd\ExternalSearchBundle\ArmdExternalSearchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {

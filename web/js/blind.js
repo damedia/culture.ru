@@ -21,7 +21,9 @@ $(function(){
 		var bodyOption = $(this),
 			bodyClass = bodyOption.attr('id'),
 			otherOptions = $(this).siblings(),
-			otherOptionsClasses = [];
+			otherOptionsClasses = [],
+            found = false; 
+            
 		
 		$(otherOptions).each(function(){
 			otherOptionsClasses.push($.trim($(this).attr('id')));
@@ -31,9 +33,8 @@ $(function(){
 		if (cookie != null) {
 			indexes = cookie.split(',');
 		}
-		var found = false; 
 		
-		if(!bodyOption.find('span').hasClass('active')) {
+		if (!bodyOption.find('span').hasClass('active')) {
 			if (cookie != null) {
 				for (var i in indexes) {
 					if(indexes[i] == bodyClass) {
@@ -41,7 +42,7 @@ $(function(){
 					}
 				}
 
-				if(otherOptionsClasses.length > 0) {
+				if (otherOptionsClasses.length > 0) {
 					for (var i in indexes) {
 						for (var j in otherOptionsClasses) {
 							if(indexes[i] == otherOptionsClasses[j]) {
@@ -52,15 +53,15 @@ $(function(){
 				}
 			}
 			
-			if(!found) {
-					indexes.push($.trim(bodyClass));
-					$('body').removeClass();
-					for (var i in indexes) {
-						$('body').addClass(indexes[i]);
-					}
-					indexesStr=indexes.join(',');
-					$.cookie('settings', indexesStr);
-				}	
+			if (!found) {
+                indexes.push($.trim(bodyClass));
+                $('body').removeClass();
+                for (var i in indexes) {
+                    $('body').addClass(indexes[i]);
+                }
+                indexesStr=indexes.join(',');
+                $.cookie('settings', indexesStr);
+            }	
 		}
 		
 		bodyOption.find('span').addClass('active');
@@ -72,13 +73,13 @@ $(function(){
 	//$.cookie('settings', null);
 	
 	
-	if($.cookie('settings-hidden') != null) {
+	if ($.cookie('settings-hidden') != null) {
 		$('.settings-handler').addClass('settings-hidden');
 		$('#settings').hide();
 	}
 	
 	$('.settings-handler').click(function(){
-		if(!$(this).hasClass('settings-hidden')) {
+		if (!$(this).hasClass('settings-hidden')) {
 			$.cookie('settings-hidden', true);
 		} else {
 			$.cookie('settings-hidden', null);
@@ -96,12 +97,13 @@ $(function(){
 		return false;
 	})
 	
+    // РўР°Р±С‹
 	$('#tabs-selector a').click(function(){
 		var tab = $(this).attr('href');
 		$(this).parent().addClass('active')
 						.siblings().removeClass('active');
-		$(tab).show();
-		$(tab).siblings('.tab').hide();
+		$(tab).show()
+              .siblings('.tab').hide();
 		return false;
 	})
 
@@ -113,11 +115,13 @@ $(function(){
 		 return false;
 	});
 	
+    // РљРѕРјРїР»РѕС‰Р°РґРєР°
     $('.tabs-headers').on('click', 'a', function(){
 		var tabId = $(this).attr('href');
 		$(this).addClass('active')
-				.parent().siblings().find('a').removeClass('active');
-		$(tabId).show().siblings('.tab').hide();
+			   .parent().siblings().find('a').removeClass('active');
+		$(tabId).show()
+                .siblings('.tab').hide();
 		return false;
 	})
     
@@ -129,10 +133,21 @@ $(function(){
              'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
          },
          link: 'http://culture.ru/',
-         title: 'Портал культурного наследия России',
-         description: 'Портал культурного наследия России'
+         title: 'РџРѕСЂС‚Р°Р» РєСѓР»СЊС‚СѓСЂРЅРѕРіРѕ РЅР°СЃР»РµРґРёСЏ Р РѕСЃСЃРёРё',
+         description: 'РџРѕСЂС‚Р°Р» РєСѓР»СЊС‚СѓСЂРЅРѕРіРѕ РЅР°СЃР»РµРґРёСЏ Р РѕСЃСЃРёРё'
      });
 	
+    
+    $('.search-checkboxes label').click(function(e){
+        if (e.target.nodeName == 'INPUT') {
+            if ($(this).hasClass('checked')) {
+                $(this).removeClass('checked');
+            } else {
+                $(this).addClass('checked');
+            }
+        }
+    })
+   $( "#search-this-section:checked" ).parent().addClass('checked');
 		
 	
 })

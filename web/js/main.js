@@ -23,7 +23,7 @@ $(function () {
     });
 
     $.datepicker.setDefaults($.datepicker.regional[ $('body').data('locale') ]);
-    $("#datapicker").datepicker({
+    var datapickerOpts = {
         showOn: 'button',
         buttonImage: 'images/button_cal.gif',
         buttonImageOnly: true,
@@ -31,16 +31,21 @@ $(function () {
         showOtherMonths: true,
         selectOtherMonths: true,
         onSelect: function (dateText, inst) {
-            $(this).hide();
+            $("#datapicker").datepicker( "destroy" );
             $('a.clicked').html(dateText).removeClass('clicked');
         }
 
-    }).hide();
+    };
+    
+    
 
     // Show the date picker
     $(".dates-chooser > a").click(function () {
-        $("#datapicker").show();
+        $("#datapicker").datepicker(datapickerOpts).show();
+        $('.search-checkboxes').hide();
+        $('.dates-chooser a.clicked').removeClass('clicked');
         $(this).addClass('clicked');
+        
         return false;
     });
 
@@ -245,10 +250,10 @@ $(function () {
 		return false;
 	})
 	
-	
+	/*
 	$('.museum-image, .plitka-name').on('click', $(this), function(){
 		$(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
-	})
+	})*/
 	
 	if($(".iframe").length > 0) {
 		$(".iframe").fancybox({
@@ -269,7 +274,14 @@ $(function () {
         'prevSpeed' : 1000
     })
 
-    $('.in-fancybox').fancybox();
+    $('.in-fancybox').fancybox({
+        beforeShow: function(){
+            $('.left-column iframe').hide();
+        },
+        afterClose: function(){
+            $('.left-column iframe').show();
+        }
+    });
 	
 	if($('.museum-instr-link').length > 0) {
 		$('.museum-instr-link').fancybox({
@@ -393,6 +405,41 @@ $(function () {
     $('.app_store-block ul a').click(function(){
         $(this).closest('ul').slideUp();
     })
+    
+    $('body').on('click', $(this), function(e){
+    
+        if ($('#datapicker').is(':visible')) {
+            var t = $(e.target);
+            
+            if ( !checkPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
+                 $('#datapicker').hide();
+                $('.dates-chooser a').removeClass('clicked');
+            } 
+            
+            if ( !checkPos(t, ['search-checkboxes' ]) ) {
+                 $('.search-checkboxes').hide();
+            }
+        }
+    }); 
+
+    function checkPos(element, findClassArr){
+        var found = false;
+        var parents =  element.parents("*");
+        element.parents("*").each(function(){
+            for (var i = 0; i < findClassArr.length; i++) {
+                if ($(this).hasClass(findClassArr[i])) {
+                    found = true;
+                    return;
+                } 
+            }            
+        })
+        if (element.hasClass(findClassArr[0]))
+            found = true;
+            
+        console.log(found);    
+        return found;    
+    }   
+    
     
     
 })

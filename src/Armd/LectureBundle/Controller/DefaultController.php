@@ -87,7 +87,7 @@ class DefaultController extends Controller
             )
         );
     }
-
+    
 
     /**
      * @Route("/index/{lectureSuperTypeCode}/", name="armd_lecture_default_index", options={"expose": true})
@@ -162,6 +162,26 @@ class DefaultController extends Controller
         );
 
     }
+    
+    
+    /**
+     * @Route("/perfomances/", name="armd_lecture_perfomances")
+     * @Template("ArmdLectureBundle:Default:perfomances.html.twig")
+     */
+    public function perfomancesAction()
+    {
+        return $this->render('ArmdLectureBundle:Default:perfomances.html.twig');
+    }
+    
+    /**
+     * @Route("/perfomancesone/", name="armd_lecture_perfomancesone")
+     * @Template("ArmdLectureBundle:Default:perfomancesone.html.twig")
+     */
+    public function perfomancesoneAction()
+    {
+        return $this->render('ArmdLectureBundle:Default:perfomancesone.html.twig');
+    }
+    
 
     /**
      * @Route("/list/{lectureSuperTypeCode}/", name="armd_lecture_list", options={"expose"=true})
@@ -347,6 +367,31 @@ class DefaultController extends Controller
         );
 
         return array('lectures' => $lectures);
+    }
+    
+    /**
+     * @Route("/related_new", name="armd_lecture_related_lectures_new")
+     * @Template("ArmdLectureBundle:Default:related_lectures_new.html.twig")
+     */
+    public function relatedLecturesNewAction()
+    {
+        $request = $this->getRequest();
+        $tags = $request->get('tags', array());
+        $limit = $request->get('limit');
+        $superTypeCode = $request->get('superTypeCode');
+        $id = $request->get('id');
+
+        $lectures = $this->getLectureManager()->findObjects(
+            array(
+                LectureManager::CRITERIA_LIMIT => $limit,
+                LectureManager::CRITERIA_TAGS => $tags,
+                LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($superTypeCode),
+                LectureManager::CRITERIA_NOT_IDS => array($id),
+                LectureManager::CRITERIA_RANDOM => true,
+            )
+        );
+
+        return array('lectures' => $lectures, 'superTypeCode' => $superTypeCode);
     }
 
     public function getMenuUri($lectureSuperTypeCode, $request)

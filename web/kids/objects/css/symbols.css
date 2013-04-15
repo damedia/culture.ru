@@ -4,7 +4,7 @@ body {
 	width: auto;
 	}
 
-.state-wrapper { background: url("../img/symbol/bg-curcles.png") no-repeat scroll 165px 740px transparent; }
+.state-wrapper { background: url("../img/symbol/bg-curcles.png") no-repeat scroll 146px 743px transparent; }
 
 .symbol .main-menu {
 	margin-left: 0;
@@ -22,35 +22,39 @@ body {
 }
 
 .symbol .case-2 {
-	margin-top: 100px
+	margin-top: 131px
 }
 
 .symbol .case-3 {
-	margin-top: 140px
+	margin-top: 116px
 }
 
 .symbol .case-4 {
-	margin-top: 200px
+	margin-top: 258px;
+    margin-left: 61px;
 }
 
 
 
 
 	.symbol .case-1 .raduga {
-		margin-left: 80px;
+		margin-left: 64px;
 		width:750px;
+        margin-top:5px;
 	}
 
 	.symbol .case-1 .text {
 		width: 470px;
-		margin-top: 105px;
+		margin-top: 112px;
 		margin-left: 20px;
 	}
 
 		.symbol .case-1 .text p {
 			color: #92599A;
-			font-size: 18px;
-			margin-bottom: 10px
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 20px;
+            margin-top: 0;
 		}
 
 		.symbol .text p:first-child {
@@ -77,7 +81,7 @@ body {
 
 
 		.symbol .big-gerb {
-		margin-left: 80px;
+		margin-left: 155px;
 		width:367px;
 	}
 
@@ -108,9 +112,13 @@ body {
 
 		.symbol .case-3 .content {
 			width: 700px;
-			margin-left: 50px;
+			margin-left: 96px;
 
 		}
+        .symbol .case-3 .content  .text {
+            color:#8e3257;
+        }
+        
 
 		.symbol .case-3 .head {
 			margin-bottom: -30px;
@@ -120,12 +128,41 @@ body {
 
 		.symbol .big-gimn {
 			
-			width:548px;			
+			width:526px;			
 		}
+            .gimn-head {
+                
+            }
+                 .gimn-head a {
+                    text-decoration:none;
+                    outline:none;
+                 }
+                .gimn-sound {
+                    display:inline-block;
+                    vertical-align:middle;
+                    width:107px;
+                    height:107px;
+                    margin-top:22px;
+                    background:url(../img/symbol/gimn-btn-3.png) no-repeat 0 0;
+                }
+                    
+                .sm2_paused {
+                   
+                } 
+                
+                .sm2_playing span {
+                    background:url(../img/symbol/gimn-btn-3_pause.png) no-repeat 0 0;
+                }                 
+                    
 
 		.symbol .case-4 .content {
 			width: 680px;
+            margin-top: -47px;
+            
 		}
+        .symbol .case-4 .content .text {
+            color:#683290;
+        }
 
 		.symbol .case-4 .head {
 			margin-bottom: -10px;

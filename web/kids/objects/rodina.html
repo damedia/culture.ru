@@ -12,16 +12,19 @@
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
 		
 		<link rel="stylesheet" href="js/canvas-puzzle/css/modal.css" type="text/css" charset="utf-8" />
 		<link rel="stylesheet" href="js/canvas-puzzle/css/style.css" type="text/css" charset="utf-8" />
 		<link rel="stylesheet" href="js/canvas-puzzle/css/buttons.css" type="text/css" charset="utf-8" />
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-		
-		 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
-
+        
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/bin/flashcanvas.js"></script><![endif]-->
+        
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -29,29 +32,26 @@
         <![endif]-->
 
       
-<div class="wrapper rodina" id="wrapper">
-    
-
+<div class="wrapper  temp rodina" id="wrapper">
+   
     <div class="header-sky-bg">
         <header class="main-header">
-            <section class="main-menu">
-                <nav>
-           <img src="img/child-main-menu.png" alt="" usemap="#Map">
-          <map name="Map">
-             <area shape="rect" coords="28,56,364,155" href="#9">
-              <area shape="circle" coords="100,229,36" href="../children.html">
-             <area shape="poly" coords="311,196,330,196,331,211,336,213,342,217,345,219,348,221,351,222,355,223,358,224,361,224,364,223,367,222,370,221,373,219,376,217,377,215,379,214,380,213,382,209,383,206,383,201,384,199,385,196,404,195,403,183,383,184,380,179,376,176,375,173,372,171,369,169,364,168,360,168,354,169,348,170,344,172,340,176,337,179,335,182,331,183,326,183,323,184,321,184,319,181,310,181" href="nevyansk.html" >
-             <area shape="poly" coords="467,89,480,88,486,89,488,81,490,77,492,73,494,69,497,67,502,64,508,61,511,61,516,61,521,61,524,62,529,64,533,67,536,71,537,74,539,79,541,84,542,89,542,90,545,91,555,91,560,93,563,96,563,104,543,104,539,105,537,106,535,108,532,110,530,112,528,113,526,114,522,116,519,116,513,117,509,116,505,115,502,114,501,112,499,111,496,108,493,106,493,103,490,103,486,103,483,103,477,105,467,104" href="index.html">
-             <area shape="poly" coords="687,143,687,156,706,157,713,162,717,164,720,165,725,167,727,168,731,168,735,167,737,167,743,164,746,161,748,159,749,158,751,157,757,157,762,157,766,157,772,157,775,156,775,150,775,145,767,143,760,141,758,133,755,129,751,125,750,122,748,119,746,117,742,115,738,114,734,113,729,112,723,113,716,114,712,116,708,120,706,123,703,129,702,135,701,141" href="kul-sharif.html">
-             <area shape="poly" coords="832,35,845,35,859,34,865,31,869,28,873,26,876,25,879,24,885,23,890,24,896,26,901,30,905,33,906,36,915,38,924,38,932,37,936,37,941,38,941,41,941,47,941,49,933,50,921,52,915,52,919,60,919,64,917,66,908,68,906,68,901,73,898,76,894,77,890,78,877,78,869,74,864,72,862,69,858,66,857,59,857,54,847,52,833,53" href="astrahan.html">
-             <area shape="poly" coords="1120,148,1120,136,1122,135,1132,137,1140,137,1148,137,1157,132,1162,128,1167,126,1173,124,1177,124,1182,124,1188,127,1191,128,1195,132,1196,135,1198,137,1214,138,1225,138,1234,139,1236,147,1236,158,1236,166,1226,167,1219,167,1201,168,1198,167,1194,172,1193,173,1189,175,1186,177,1181,178,1177,179,1174,178,1168,177,1162,174,1159,172,1156,168,1155,167,1150,167,1137,169,1119,167" href="rodina.html">
-             <area shape="poly" coords="870,215,869,202,879,203,897,203,902,198,909,193,913,191,916,189,920,188,926,188,931,189,934,190,938,193,940,197,941,198,943,200,946,202,954,203,967,204,971,204,972,215,952,215,948,222,946,226,946,229,945,231,942,235,939,238,937,240,930,242,926,243,922,243,917,243,914,242,910,240,907,238,905,236,899,229,898,226,897,225,897,222,896,219,897,216" href="dazan.html">
-             <area shape="poly" coords="973,329,973,317,981,317,991,318,996,318,999,313,1005,309,1007,308,1010,307,1014,306,1017,305,1020,305,1023,305,1028,306,1031,307,1033,308,1036,310,1039,312,1041,315,1042,316,1048,318,1061,317,1069,318,1068,332,1047,333,1045,345,1044,345,1041,349,1039,353,1037,355,1033,357,1029,358,1025,359,1018,359,1012,359,1011,359,1007,357,1005,354,1002,350,999,346,998,344,996,340,996,336,996,334,995,331" href="#7">
-             <area shape="circle" coords="633,372,30" href="arkaim.html">
-           </map>
-      </nav>
-
-            </section>
+            <nav class="top-menu">
+                <ul>
+                    <li class="culture-cloud"><a href="../children.html">Культура России</a></li>
+                    <li class="test-cloud temp-test-cloud"><a href="#puzzle1">Паззл</a></li>
+                    <li class="riddle-cloud"><a href="#puzzle2">Паззл</a></li>
+                    <li class="puzzle-cloud"><a href="#puzzle3">Паззл</a></li>
+                    <li class="difference-cloud temp-difference-cloud"><a href="#puzzle4">Паззл</a></li>
+                    <li class="top-back-link"><a href="../children.html">Обратно на карту</a></li>
+                </ul>
+            </nav>
+            <a href="#whant-more" class="fancybox l-more-link">
+                <span>Хочешь знать больше?</span>
+               <!-- <a href="#whant-more" class="fancybox">-->
+                   <b class="descr">Тогда почитай<br />о Мамаевом кургане</b>
+               <!-- </a>-->
+            </a> 
             
             
             <div class="main-description-block clearfix">
@@ -71,13 +71,13 @@
     </div> 
 <div class="state ">
         <div class="content">
-            <article class="case-1 clearfix">
+            <article class="case-1 clearfix" id="puzzle1">
                 <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-1.png" alt="" />
 					<div class="puzzle-description-text"></div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/kurgan/1.jpg" width="320"  class="puzzle"/>
@@ -88,13 +88,13 @@
 				
             </article>
 
-            <article class="case-2 clearfix">
+            <article class="case-2 clearfix"  id="puzzle2">
                 <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-2.png" alt="" />
 					<div class="puzzle-description-text"></div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/kurgan/2.jpg" width="320"  class="puzzle"/>
@@ -104,7 +104,7 @@
 				</div>
             </article> 
 
-            <article class="case-3 clearfix">
+            <article class="case-3 clearfix" id="puzzle3">
                  <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-3.png" alt="" />
 					<div class="puzzle-description-text">
@@ -112,7 +112,7 @@
 					</div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/kurgan/3.jpg" width="320"  class="puzzle"/>
@@ -122,13 +122,13 @@
 				</div>
             </article> 
 
-            <article class="case-4 clearfix">
+            <article class="case-4 clearfix" id="puzzle4">
                <div class="puzzle-description">
 					<img src="img/kremlin/child-puzzles-kremlin-4.png" alt="" />
 					<div class="puzzle-description-text"></div>
 					
 				</div>
-				<div class="puzzle-slider">
+				<div class="puzzle-slider puzzle-init">
 					<div class="puzzle-wrap">
 						<div class="puzzle-setka-wrap">
 							<img src="images/kurgan/4.jpg" width="320"  class="puzzle"/>
@@ -140,17 +140,17 @@
 
         </div><!-- //content-->
 
-        <nav class="footer-menu">
-            <img src="img/child-footer-menu.png" alt="" usemap="#Map2">
-            <map name="Map2">
-              <area shape="rect" coords="8,116,186,240" href="astrahan.html">
-              <area shape="rect" coords="217,133,381,245" href="arkaim.html">
-              <area shape="rect" coords="329,2,498,125" href="index.html">
-              <area shape="rect" coords="852,21,1023,198" href="#wrapper">
-              <area shape="rect" coords="1015,223,1189,350" href="#5">
-              <area shape="rect" coords="891,383,1070,569" href="dazan.html">
-              <area shape="rect" coords="289,278,476,431" href="rodina.html">
-            </map>
+        <nav class="footer-menu temp-footer-menu">
+            <ul>
+                <li class="footer-back-link return"><a href="../children.html">Обратно на карту</a></li>
+                <li class="footer-red-link a-kreml"><a href="astrahan.html">Астраханский<br />кремль</a></li>
+                <li class="footer-green-link a-kreml"><a href="arkaim.html">Аркаим</a></li>
+                <li class="footer-purple-link peter"><a href="petergof.html">Петергоф</a></li>
+                <li class="footer-blue-link kulsharif"><a href="index.html">Московский<br />кремль</a></li>
+                <li class="footer-top-link top"><a href="#">Наверх</a></li>
+                <li class="footer-pink-link krstolb"><a href="nevyansk.html">Невьянская<br />башня</a></li>
+                <li class="footer-greenlight-link vlad"><a href="vladivostok.html">Владивостокская крепость</a></li>
+            </ul>
         </nav>
 
     </div><!-- //state kremlin-->
@@ -158,8 +158,7 @@
 </div> <!-- //state-wrapper-->
 
 
-
-	<div id="puzzle-block" style="display:none;">
+	<div id="puzzle-block" class="mk-puzzle-block" style="display:none;">
 		<!-- JIGSAW CANVAS -->
 		<div id="canvas-wrap">
 		    <canvas id="canvas"></canvas>
@@ -170,24 +169,28 @@
 		<!-- GAME OPTIONS -->
 		<div id="game-options">
 		<ul>
-		    <li><b id="clock" class="button">00:00:00</b></li>
-		    <li><a href="#" id="SHOW_EDGE" class="button left" title="Показать крайние элементы">Боковые</a></li>
-		    <li><a href="#" id="SHOW_MIDDLE" class="button middle" title="Показать центральные элементы">Центральные</a></li>
-		    <li><a href="#" id="SHOW_ALL" class="button right" title="Показать все элементы">Все</a></li>
-		    <li><a href="#" id="JIGSAW_SHUFFLE" class="button left" title="Перемешать">Перемешать</a></li>
-		  <li><a href="#" id="SHOW_PREVIEW" class="button middle" title="Подсказка">Подсказка</a></li> 
-		    <li><a href="#" id="SHOW_HELP" class="button help right" title="Помощь">Помощь</a></li>
+		    <li class="game-button clock-counter"><b id="clock">00:00:00</b></li>
+		    <li class="game-button puzzle-elements edge-el"><a href="#" id="SHOW_EDGE" class=" " title="Показать крайние элементы">Боковые</a></li>
+		    <li class="game-button puzzle-elements midl-el"><a href="#" id="SHOW_MIDDLE" class=" " title="Показать центральные элементы">Центральные</a></li>
+		    <li class="game-button puzzle-elements all-el"><a href="#" id="SHOW_ALL" class=" " title="Показать все элементы">Все</a></li>
+		    <li class="game-button puzzle-shuffle"><a href="#" id="JIGSAW_SHUFFLE" class=" " title="Перемешать">Перемешать!</a></li>
+		    <li class="game-button puzzle-preview"><a href="#" id="SHOW_PREVIEW" class=" " title="Подсказка">Подсказка</a></li> 
+		    <li class="game-button puzzle-help"><a href="#" id="SHOW_HELP" class="" title="Как играть">Как играть</a></li>
 		    <!-- INSERT CUSTOM BUTTONS -->
 		    
 		    <!-- END INSERT CUSTOM BUTTONS -->
 		    <li>
-		        <div class="styled-select">
-		            <select id="set-parts" selected-index="8">
-		            </select>
-		        </div>
+		        
+                <select id="set-parts" selected-index="8" class="hide">
+                </select>
+		        <div class="set-parts-select" id="set-parts-select">
+                    <p class="chosen-option" id="chosen-option">12 элементов</p>
+                    <ul class="select-options" id="select-options" style="display:none;"></ul>
+                </div>
+                
 		    </li>
 		    <!-- Insert custom buttons here -->
-		    <li><a href="#" class="button" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
+		    <li><a href="#" class="" id="CLOSE_PUZZLE" title="Закрыть" >Закрыть</a></li>
 		   <li style="display:none;"> <ul><li id="create" ><a href="#" class="button add" id="SHOW_FILEPICKER" title="Create puzzle" >Create puzzle</a></li></ul></li>
 		</ul>
 		<br class="clear"/>
@@ -196,8 +199,11 @@
 		<!-- MODAL WINDOW -->
 		<div class="hide" id="overlay"></div>
 		<div id="modal-window" class="hide">
-		    <div id="modal-window-msg"></div>
-		    <a href="#" id="modal-window-close" class="button">Закрыть</a>
+		    <div id="modal-window-msg">
+				
+			
+			</div>
+		    <a href="#" id="modal-window-close" class="close-button">Закрыть</a>
 		</div>
 		
 		<!-- CREATE PUZZLE -->
@@ -213,7 +219,7 @@
 		<!-- CONGRATULATION -->
 		<div id="congrat" class="hide">
 		    <h1>Поздравляем!</h1>
-		    <h2>Вы собрали пазл!</h2>
+		    <p>Вы собрали пазл!</p>
 		    <h3><span id="time"></span></h3>
 		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
 		        <label>
@@ -227,26 +233,33 @@
 		
 		
 		<!-- HELP -->
-		<div id="help" class="hide">
-		    <h2>Как играть</h2>
-		    <ul>
-		        <li>Выберите количество элементов с помощью селектора<br/>
-		            <img src="js/canvas-puzzle/images/selector.png"/>
-		        </li>
-		        
-		        <li>
-					Для того что бы начать заново, используйте кнопку «Перемешать».
+		<div id="help"  class="hide" >
+			<ul  class="mk-help">
+				<li>
+					<p class="mk-help-count">
+						ВЫБЕРИ КОЛИЧЕСТВО ЭЛЕМЕНТОВ С ПОМОЩЬЮ СЕЛЕКТОРА
+					</p>	
+				</li>
+				
+				<li>
+					<p class="mk-help-mix">
+						ХОЧЕШЬ НАЧАТЬ ЗАНОВО? НАЖМИ КНОПКУ «ПЕРЕМЕШАТЬ!»
+					</p>	
 				</li>
 				<li>
-                    Используйте подсказку.
-                </li>
+					<p class="mk-help-prev">
+						НЕ ПОЛУЧАЕТСЯ? НЕ БЕДА! ИСПОЛЬЗУЙ ПОДСКАЗКУ
+					</p>	
+				</li>
 		
-		        <li>Переключайтесь между центральными и боковыми элементами:<br>
-		            <img src="js/canvas-puzzle/images/toggle.png"/>
-		        </li>
-		    </ul>
-		    
-		    <h3>Удачи.</h3>
+				<li>
+					<p class="mk-help-el">
+						ТЫ МОЖЕШЬ ПОСМОТРЕТЬ ОТДЕЛЬНО БОКОВЫЕ И ЦЕНТРАЛЬНЫЕ ЭЛЕМЕНТЫ
+					</p>
+				</li>
+			</ul>
+			
+			<h3  class="mk-help-msg">Удачи!</h3>
 		</div>
 		
 		<form class="hide" method="post" id="redirect-form">
@@ -254,66 +267,100 @@
 		    <input type="text" name="parts" id="p" />
 		</form>
 		<iframe class="hide" src="about:blank" id="save-score" name="save-score"></iframe>
-		<!-- SCRIPTS ROMPECABEZAS -->
-		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
-		<script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
-		<script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="/static/children/puzzle/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
-		<script>
 		
-		$(document).ready(function(){
-			
-			var windowWidth = $(window).width(); //retrieve current window width
-			var windowHeight = $(window).height(); //retrieve current window height
-			var docScrollTop, docScrollLeft;	
-		
-			$(window).load(function(){
-				$('.puzzle-setka-wrap').each(function(){
-					var imageheight = $(this).find('img.puzzle').height();
-					$(this).height(imageheight).css('marginTop', -imageheight/2);
-				})
-			})	
-		
-		
-			var jsaw = new jigsaw.Jigsaw({
-		        defaultImage: "images/1.jpg",
-		        piecesNumberTmpl: "%d элементов",
-		        redirect: null,
-		        shuffled: true        
-		    });			
-			
-			$('img.puzzle-setka').click(function(){
-				docScrollTop = $(document).scrollTop();	
-			    docScrollLeft = $(document).scrollLeft();
-				$('body, html').css('overflow', 'hidden');
-				windowWidth = $(window).width();
-			    windowHeight = $(window).height();
-				
-				jsaw.set_image($(this).prev().attr('src'));
-				$('#puzzle-block').css({
-					'width':windowWidth,
-					'height':windowHeight
-				}).show();
-				//$('#puzzle-block-wrapper').show();
-				document.location.href = '#';
-				
-			});
-			
-			$('a#CLOSE_PUZZLE').click(function(){
-				$('#puzzle-block').hide();
-				$('body, html').css('overflow', 'visible').scrollTop(docScrollTop).scrollLeft(docScrollLeft);
-				
-				return false;
-			});
-		})
-		</script>
 	</div>
 
+    
+    <div style="visibility:hidden" class="fancy-hide">
+        <div class="whant-more want-more-rodina" id="whant-more">
+            <div class="whant-more-container want-more-rodina-container">
+                <a href="http://culture.ru/atlas/object/731" class="main-site-link" title="Узнать больше"></a>
+                <div class="window-text scroll-pane">
+                  <p>
+                Возвышенность в&nbsp;центральной части Волгограда&nbsp;&mdash; между Центральным
+                и&nbsp;Краснооктябрьским районами&nbsp;&mdash; священная высота, ставшая местом самых
+                ожесточенных боев в&nbsp;истории Второй мировой войны. Бои на&nbsp;Мамаевом кургане
+                были самыми кровопролитными во&nbsp;время самой продолжительной битвы войны &mdash;
+                Сталинградской. Мужество героев, чей подвиг стал переломным эпизодом в&nbsp;борьбе
+                с&nbsp;фашистской Германией, увековечено в&nbsp;мемориальном памятнике &laquo;Героям
+                Сталинградской битвы&raquo;&nbsp;&mdash; одном из&nbsp;семи чудес России.
+                </p> <p>
+                Историки безоговорочно признают важнейшую роль Сталинградской битвы&nbsp;&mdash; крупный
+                промышленный город открывал доступ к&nbsp;важным транспортным маршрутам, захват
+                которых привел&nbsp;бы к&nbsp;серьезным проблемам снабжения нашей армии боеприпасами
+                и&nbsp;продовольствием. Попытки захвата Сталинграда начались в&nbsp;июле 1942 года
+                и&nbsp;продолжались 200&nbsp;дней.&nbsp;135 из&nbsp;них бои велись на&nbsp;Мамаевом кургане. По&nbsp;некоторым
+                оценкам, потери обеих сторон составили около двух миллионов человек.
+                </p> <p>
+                Сразу после окончания военных действий в&nbsp;Сталинграде курган стал местом захоронения
+                воинов. От&nbsp;подножия к&nbsp;вершине кургана, в&nbsp;котором были перезахоронены 34&nbsp;505
+                сражавшихся за&nbsp;город солдат, ведут 200 гранитных ступеней, символизирующих 200
+                дней кровопролитной битвы. Здесь&nbsp;же расположены 35&nbsp;гранитных надгробий Героев
+                Советского Союза.
+                </p> <p>
+                Аллегорическое изображение Родины-матери призывает своих сынов к&nbsp;победе над
+                врагом. Развивающиеся одежды взлетают как крылья античной богини победы Ники
+                за&nbsp;плечами воительницы. Необычный для скульптурных изображений открытый рот.
+                Эта деталь скульптуры послужила предметом долгих обсуждений. Чиновники как-то
+                спросили Вучетича: &laquo;Почему у&nbsp;нее рот открыт?&raquo;. На&nbsp;что он&nbsp;ответил: &laquo;А&nbsp;она кричит &mdash;
+                за&nbsp;Родину ... вашу мать!&raquo;. После вопросов об&nbsp;этом больше не&nbsp;задавали. Сталинградская
+                битва была важнейшей, но&nbsp;не&nbsp;финальной победой над немецкой армией,&nbsp;&mdash; этот призыв,
+                вырывающийся из&nbsp;уст каменного изваяния, демонстрирует решительность, которая
+                требовалась от&nbsp;советского народа для продолжения борьбы. Общая высота скульптуры &mdash;
+                85&nbsp;метров (из&nbsp;них 52&nbsp;метра&nbsp;&mdash; высота самой скульптуры, 33&nbsp;метра&nbsp;&mdash; длина меча).
+                Общий вес&nbsp;&mdash; 8&nbsp;тонн&nbsp;&mdash; поддерживается за&nbsp;счет пьедестала длиной 16&nbsp;метров, лишь
+                два метра из&nbsp;которых располагаются над землей. На&nbsp;постройку монумента ушло 5500
+                тонн бетона и&nbsp;2400 тонн металла, для укрепления фундамента было насыпано 150 тысяч
+                тонн земли. Железобетонный каркас, внутри состоящий из&nbsp;отдельных ячеек-камер,
+                поддерживается за&nbsp;счет натяжения канатов весом 60&nbsp;тонн каждый, размещенных внутри
+                скульптуры. Ее&nbsp;устойчивость была важнейшей задачей, решение которой взял на&nbsp;себя
+                Николай Васильевич Никитин, разрабатывавший несущие конструкции и&nbsp;фундаменты
+                Останкинской телебашни и&nbsp;здания МГУ в&nbsp;Москве.
+                </p> <p>
+                Однако некоторых просчетов в&nbsp;конструкции избежать не&nbsp;удалось&nbsp;&mdash; первоначальный
+                меч из&nbsp;нержавеющей стали и&nbsp;титановой обшивки потребовал замены спустя несколько
+                лет из-за сильных вибраций и&nbsp;парусности, создаваемых ветром. В&nbsp;новом мече были
+                сделаны специальные отверстия для уменьшения напора ветра и&nbsp;обеспечения большей
+                безопасности всей скульптуры.
+                </p> <p>
+                В&nbsp;2005 году на&nbsp;Мамаевом кургане было реконструировано Воинское мемориальное
+                кладбище в&nbsp;рамках мероприятий, посвященных <nobr>60-летию</nobr> Победы. В&nbsp;2008 году курган
+                по&nbsp;результатам народного голосования был включен в&nbsp;число семи чудес России. В&nbsp;том&nbsp;же
+                году ансамбль был назван федеральным памятником и&nbsp;объединен с&nbsp;другим значимым
+                историческим объектом Волгограда&nbsp;&mdash; музеем-панорамой &laquo;Сталинградская битва&raquo;.
+                Ежегодно свыше трех миллионов человек приезжают в&nbsp;Волгоград, чтобы пройти
+                на&nbsp;вершину Мамаева кургана по&nbsp;стопам героических защитников. В&nbsp;2045&nbsp;году, в&nbsp;день
+                столетия победы в&nbsp;Великой Отечественной войне, мы&nbsp;сможем узнать, какое послание
+                оставили своим потомкам герои Сталинградской битвы,&nbsp;&mdash; именно тогда будет вскрыта 
+                капсула с&nbsp;обращением, заложенная в&nbsp;1970 году ветеранами войны на&nbsp;территории
+                мемориала.
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-       
+    
+    
+
+        <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.mousewheel.js"></script>
+        <script src="js/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="js/vendor/slides.min.jquery.js"></script>
+        <script src="js/vendor/cufon-yui.js"></script>
+        <script src="js/adventure_400.font.js"></script>            
+        <script src="js/quiz.js"></script>
         <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-
+        
+        
+        <!-- SCRIPTS ROMPECABEZAS -->
+		<script src="js/canvas-puzzle/js/event-emiter.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-event.min.js"></script>
+        <script src="js/canvas-puzzle/js/canvas-puzzle.min.js"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="js/canvas-puzzle/js/canvas-puzzle.ie.min.js"></script><![endif]-->
+		<script src="../js/main.js"></script>
+        
+        
          <!--LiveInternet counter--><script type="text/javascript"><!--
 new Image().src = "//counter.yadro.ru/hit?r"+
 escape(document.referrer)+((typeof(screen)=="undefined")?"":

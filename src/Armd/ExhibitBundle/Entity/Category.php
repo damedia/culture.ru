@@ -40,9 +40,9 @@ class Category implements Node
     private $description;
     
     /**
-     * @ORM\Column(type="boolean", nullable=false, options={"default"=false})
+     * @ORM\Column(type="boolean", nullable=false)
      */        
-    protected $published;
+    protected $published = false;
 
     /**
      * @Gedmo\TreeRoot

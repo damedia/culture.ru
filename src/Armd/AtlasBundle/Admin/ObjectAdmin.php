@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 use Armd\AtlasBundle\Entity\Category;
+use Armd\AtlasBundle\Entity\TouristCluster;
 
 class ObjectAdmin extends Admin
 {
@@ -49,7 +50,8 @@ class ObjectAdmin extends Admin
             ->add('image3d')
             ->add('virtualTour')
             ->add('showOnMain')
-            ->add('showOnMainOrd');
+            ->add('showOnMainOrd')
+            ->add('touristCluster');
     }
 
 
@@ -65,7 +67,9 @@ class ObjectAdmin extends Admin
                 ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('announce')
-                ->add('content')
+                ->add('content', null, array(
+                    'attr' => array('class' => 'tinymce'),
+                ))
 //                ->add('categories', 'sonata_type_model',
 //                    array('multiple' => true, 'expanded' => true)
 //                )
@@ -91,7 +95,11 @@ class ObjectAdmin extends Admin
                 ->add('tags', 'armd_tag', array(
                     'required' => false,
                 ))
-            ->add('isOfficial', null, array('required' => false))
+                ->add('touristCluster', null, array(
+                    'required' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                ))
+                ->add('isOfficial', null, array('required' => false))
             ->end()
             ->with('Moderation')
                 ->add('status')
@@ -270,9 +278,9 @@ class ObjectAdmin extends Admin
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
-            ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
+            ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
+            ->add('touristCluster', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
     }
-
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {

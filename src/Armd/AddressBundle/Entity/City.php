@@ -29,7 +29,6 @@ class City
      */
     private $sortIndex = 500;
 
-
     /**
      * @return string
      */
@@ -53,7 +52,7 @@ class City
      * Set title
      *
      * @param string $title
-     * @return Region
+     * @return City
      */
     public function setTitle($title)
     {
@@ -80,5 +79,6 @@ class City
     public function setSortIndex($sortIndex)
     {
         $this->sortIndex = $sortIndex;
+        return $this;
     }
 }

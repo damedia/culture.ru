@@ -1,0 +1,25 @@
+<div id="museums-container" class="plitka">
+    {% if museumGuides|length > 0 %}
+        {% for m in museumGuides %}
+            <div class="plitka-one-wrap">
+                <div class="plitka-one clearfix">
+                    <div class="plitka-text">
+                        <span class="plitka-name">
+                            {{ m.title|raw }}
+                        </span>
+                        {% if m.city %}
+                            {{ m.city }}
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if m.image is not empty %}
+                            <img src="{% path m.image, 'preview' %}" />
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <strong>{{ "museum_guides_not_found"|trans }}</strong>
+    {% endif %}
+</div>

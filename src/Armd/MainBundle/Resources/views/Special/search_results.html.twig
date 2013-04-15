@@ -3,27 +3,27 @@
 
 
 {% block body %}
+<h1>{{ 'Special.Search'|trans }}</h1>
+<div class="text search-results-special">
 <p class="search-query"><span>{{ 'Query'|trans }}:</span> {{ searchQuery }}</p>
 
 {% if searchResults|length > 0 %}
 
     {% for searchResult in searchResults %}
         {% spaceless %}
-            <article class="event-anons">
-            	{% if searchResult.object.date is defined and searchResult.object.date is not empty %}
-            		<span class="date" title="{{ 'Special.Date'|trans }}"><i>{{ armd_date.news_date(searchResult.object.date) }}</i>
-            	{% endif %}	
-            	<div class="text-overflow">
+            <div class="search-result-one">
+                {% if searchResult.section is defined %} 
+                    <span class="search-result-type">{{ searchResult.section.name }}</span>
+                {% endif %}
+                <a href="{{ searchResult.object.url }}" class="search-result-title">
+                    {{ searchResult.object.title }}
+                </a>
+                {% if searchResult.object.date is defined and searchResult.object.date is not empty %}
+                    <span class="search-result-date" title="{{ 'Special.Date'|trans }}"><i>{{ armd_date.news_date(searchResult.object.date) }}</i></span>
+                {% endif %}	
 
-	                <h1>{% if searchResult.section is defined %} {{ searchResult.section.name }}:{% endif %}
-		                <a href="{{ searchResult.object.url }}">
-		                    {{ searchResult.object.title }}
-		                </a>
-	                </h1>
-	
-                    <p>{{ searchResult.object.announce|raw }}</p>
-				</div>
-            </article>
+                <p>{{ searchResult.object.announce|raw }}</p>
+            </div>
         {% endspaceless %}
     {% endfor %}
 
@@ -31,10 +31,6 @@
 {% else %}
     {{ 'Not found'|trans }}
 {% endif %}
-
+</div>
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdsearch/css/search.css') }}">
-{% endblock %}

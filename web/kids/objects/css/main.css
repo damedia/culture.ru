@@ -95,6 +95,10 @@ body {
         .arkaim .main-header {
             background: url(../img/sky-clouds.png) no-repeat 50% 29px;
         }
+        .temp .main-header {
+            background: url(../img/kremlin/sky-clouds.png) no-repeat 50% 29px;
+            height:782px;
+        }
             
         .top-menu {
             
@@ -130,6 +134,13 @@ body {
                     text-indent:-9999em;
                     overflow:hidden;
                 }
+                    .culture-cloud a {
+                        margin:0;
+                        display:block;
+                        height:119px;
+                        width:100%;
+                    }
+                
                 .test-cloud {
                     top: 37px;
                     left: 481px;
@@ -141,6 +152,10 @@ body {
                     .test-cloud a {
                         color:#165b16;
                     }
+                .temp-test-cloud a {
+                    margin-top:44px;
+                }    
+                    
                     
                 .riddle-cloud {
                     top: 176px;
@@ -179,6 +194,11 @@ body {
                         color:#a02e1c;
                         margin-top:24px;
                     } 
+                    .temp-difference-cloud a {
+                        margin-top:33px;
+                        padding-right:10px;
+                    } 
+                    
                     
                 .quizes-cloud {
                     top: 215px;
@@ -207,6 +227,11 @@ body {
                         padding-right: 25px;
                         line-height: 18px;
                     }
+                    
+                .kul-sharif .top-back-link {
+                    top: 181px;
+                    left: 522px;
+                }    
                     
                   
 
@@ -268,6 +293,7 @@ body {
                     line-height:19px;
                     margin-top:272px;
                 }
+               
 
                 .l-more-link  a {
                     color:#5b185b;
@@ -284,6 +310,50 @@ body {
                     .ios .l-more-link span {
                         font-family: impactregular;
                     }
+                    
+                    
+            .dazan .l-more-link {
+                top: 211px;
+                left: 85px;
+            } 
+                .dazan .l-more-link b {
+                    font-size: 12px;
+                    left: -38px;
+                    width: 239px;
+                }
+            
+            .vlad .l-more-link  {
+                left: 78px;
+                top: 208px;
+            }            
+                .vlad .l-more-link b {
+                    width: 255px;
+                    left: -38px;
+                }    
+            .kul-sharif .l-more-link  {
+                left: 134px;
+            }            
+                .kul-sharif  .l-more-link b {
+                    left:-17px;
+                    width:190px;
+                } 
+            
+            .rodina .l-more-link {
+                left:170px;
+            }
+                .rodina  .l-more-link b {
+                
+                }
+                
+            .kras .l-more-link  {
+                left: 78px;
+                top: 208px;
+                text-align:center;
+            }            
+                .kras .l-more-link b {
+                   left:-17px;
+                }      
+                
 		       
     
     /*MAIN BLOCK*/
@@ -304,29 +374,35 @@ body {
             left:-147px;
         }
         .dazan  .main-description-block  {
-            top:12px;
+            top:479px;
             left:-147px;
         }
+        
         .kul-sharif  .main-description-block  {
-            top:-4px;
-            left:-147px;
+            top:456px;
+            left:-174px;
         }
         .rodina .main-description-block  {
-            top:12px;
+            top:471px;
             left:-147px;
         }
         .tretyakovf .main-description-block  {
             top: 10px;
             left: -87px;
         }
-        .vladivostok .main-description-block  {
-            top:-14px;
+        .vlad .main-description-block  {
+            top:448px;
             left:-147px;
         }
         .kremlin  .main-description-block  {
             top:12px;
             left:-147px;
         }
+        .kras .main-description-block  {
+            top:448px;
+            left:-147px;
+        }
+        
             
         .main-image {
 			float:left;
@@ -351,7 +427,7 @@ body {
         }
         
         .dazan .main-image {
-            margin-top: -263px;
+            margin-top: -268px;
             margin-right: 34px;
         }
 
@@ -359,8 +435,14 @@ body {
             margin-top:-232px;
         }
 
-        .vladivostok .main-image {
+        .vlad .main-image {
             margin-top:-204px;
+            margin-right:15px;
+        }
+        .kras .main-image {
+            margin-top: 16px;
+            margin-right: 17px;
+            margin-left: 160px;
         }
         .kremlin .main-image {
             margin-top:-266px;
@@ -388,11 +470,14 @@ body {
 			.datzan .main-description  {
 				color:#257773;
 			}
-			.dazan .main-description  {
+			.temp .main-description  {
 				color:#257773;
 			}
 			.kul-sharif  .main-description  {
 				color:#5E67A5;
+                font-size:15px;
+                line-height:18px;
+                width:360px;
 			}
 			.nevyansk   .main-description {
 				color:#237A76;
@@ -403,14 +488,29 @@ body {
 
 
 			
-			.rodina  .main-description  {
+			.rodina .main-description  {
 				color:#2F4EB2;
+                width: 360px;
+                font-size: 15px;
+                line-height: 18px;
+                
 			}
 			.tretyakovf  .main-description  {
 				color:#C16825;
 			}
-			.vladivostok  .main-description  {
+			.vlad  .main-description  {
 				color:#7C5968;
+                width: 360px;
+                font-size: 15px;
+                line-height: 18px;
+                padding-top:26px;
+			}
+			.kras  .main-description  {
+				color:#c16825;
+                width: 280px;
+                font-size: 16px;
+                line-height: 18px;
+                padding-top:26px;
 			}
     
         .decor {
@@ -472,7 +572,7 @@ body {
         margin-top:0;
     }
    
-    .dazan .case-1 {
+    .temp .case-1 {
         margin-top:0;
     }
     .kul-sharif .case-1 {
@@ -485,7 +585,10 @@ body {
         margin-top:0;
     }
 
-    .vladivostok .case-1 {
+    .vlad .case-1 {
+        margin-top:0;
+    }
+    .kras .case-1 {
         margin-top:0;
     }
     .kremlin  .case-1 {
@@ -731,7 +834,7 @@ body {
         background:url(../img/astrahan/child-bg-main-astrahan.jpg) no-repeat 0 -757px;
          height:auto;
     }
-    .dazan .state {
+    .temp .state {
         background:url(../img/dazan/child-bg-main-dazan.jpg) no-repeat 0 -761px;
     }
     .kul-sharif .state {
@@ -744,8 +847,11 @@ body {
     .tretyakovf .state {
         background:url(../img/tretyakovf/child-bg-main-tretyakovf.jpg) no-repeat 0 -759px;
     }
-    .vladivostok .state  {
+    .vlad .state  {
         background:url(../img/vladivostok/child-bg-main-vladivostok.jpg) no-repeat 0 -760px;
+    }
+    .kras .state  {
+        background:url(../img/kras/child-bg-main.jpg) no-repeat 0 0;
     }
 
 	
@@ -777,7 +883,7 @@ body {
             padding-top:240px;
             padding-left:40px;
         }
-        .dazan .content {
+        .temp .content {
             padding-top:240px;
             padding-left:40px;
         }
@@ -794,7 +900,11 @@ body {
             padding-left:40px;
         }
         
-        .vladivostok .content {
+        .vlad .content {
+            padding-top:240px;
+            padding-left:40px;
+        }
+        .kras .content {
             padding-top:240px;
             padding-left:40px;
         }
@@ -861,6 +971,9 @@ body {
                 /*font-size: 17px;*/
                 line-height: 19px;
                 color:#a50a0a;
+            }
+            .kras .puzzle-description-text p {
+                color:#456333;
             }
             
 
@@ -1255,9 +1368,9 @@ body {
                         background:#fff;
                         color:#c4513f;
                         text-transform:uppercase;
-                        padding:4px 13px;
+                        padding:5px 13px 6px;
                         display:inline-block;
-                        font:bold 15px Arial black, Helvetica, sans-serif;
+                        font:bold 15px/17px Arial black, Helvetica, sans-serif;
                         border-radius:5px;
                         float:right;
                         position:absolute;
@@ -1573,15 +1686,15 @@ body {
                     }
 
                     .petergof .nev-riddle-1 .choice-result .choice-1-result p {
-                        left: -105px;
+                        left: -44px;
                     }
 
                     .petergof .nev-riddle-1 .choice-result .choice-2-result p {
-                        left: -105px;
+                        left: -44px;
                     }
 
                     .petergof .nev-riddle-1 .choice-result .choice-3-result p {
-                        left: -105px;
+                        left: -44px;
                     }
 
 
@@ -1844,6 +1957,85 @@ body {
             .want-more-arkaim-container .jspTrack {
                 background:#f9f5cf;
             }
+            
+        .want-more-dazan {
+             background:url(../img/dazan/window_bg.png) no-repeat 0 0;
+        }
+            .want-more-dazan  .main-site-link {
+                width:250px;
+            }  
+            .want-more-dazan .window-text {
+                height:230px;
+                color:#d7332d;
+            } 
+            
+            .want-more-dazan-container .jspTrack {
+                background:#f9f5cf;
+            }
+
+        .want-more-vlad {
+             background:url(../img/vladivostok/window_bg.png) no-repeat 0 0;
+        }
+            .want-more-vlad  .main-site-link {
+                width:330px;
+            }  
+            .want-more-vlad .window-text {
+                height:230px;
+                color:#747f47;
+            }  
+            .want-more-vlad-container .jspTrack {
+                background:#f9f5cf;
+            }
+            
+        .want-more-kras {
+             background:url(../img/kras/window_bg.png) no-repeat 0 0;
+        }
+            .want-more-kras  .main-site-link {
+                width: 392px;
+                top: 95px;
+            }  
+            .want-more-kras .window-text {
+                height:230px;
+                color:#c46d0e;
+                top:196px;
+            }  
+            .want-more-kras-container .jspTrack {
+                background:#ddedd9;
+            }
+            
+        .want-more-kul {
+             background:url(../img/kul-sharif/window_bg.png) no-repeat 0 0;
+        }
+            .want-more-kul  .main-site-link {
+                width:250px;
+            }  
+            .want-more-kul .window-text {
+                height:250px;
+                color:#5671a8;
+                left:210px;
+            }  
+            .want-more-kul-container .jspTrack {
+                background:#f9f5cf;
+            }    
+           
+        .want-more-rodina {
+             background:url(../img/rodina/window_bg.png) no-repeat 0 0;
+        }
+            .want-more-rodina  .main-site-link {
+                width: 330px;
+                left: 436px;
+                top: 70px;
+            }  
+            .want-more-rodina .window-text {
+                height:250px;
+                color:#a35950;
+                
+            }  
+            .want-more-rodina-container .jspTrack {
+                background:#f9f5cf;
+            }      
+        
+                        
 
 	
     
@@ -1868,6 +2060,10 @@ body {
     }
     .quiz-kremlin {
         background:url(../img/kremlin/quiz/bg.jpg) no-repeat;
+        height:578px;
+    }
+    .quiz-astr {
+        background:url(../img/astrahan/quiz/bg.gif) repeat;
         height:578px;
     }
     
@@ -1901,6 +2097,9 @@ body {
         .quiz-kremlin .quiz-content .baloons  {
             background:url(../img/kremlin/quiz/baloons.png) no-repeat 0 0;
         }
+        .quiz-astr .quiz-content .baloons  {
+            background:url(../img/astrahan/quiz/baloons.png) no-repeat 0 0;
+        }
 
             .quiz-window .quiz-content .baloons li {
                 position: absolute;
@@ -1926,6 +2125,9 @@ body {
                     .quiz-kremlin .quiz-content .baloons .first  {
                          background:none;
                     }
+                    .quiz-astr .quiz-content .baloons .first  {
+                         background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .first.active {
                     background:url(../img/petergof/quiz/baloon-step-1-active.png) no-repeat 0 0;
@@ -1940,6 +2142,11 @@ body {
                     }
                     .quiz-kremlin .quiz-content .baloons .first.active {
                         background:url(../img/kremlin/quiz/baloon-step-1-active.png) no-repeat 0 0;
+                        top: 0px;
+                        left: 206px;
+                    }
+                    .quiz-astr .quiz-content .baloons .first.active {
+                        background:url(../img/astrahan/quiz/baloon-step-1-active.png) no-repeat 0 0;
                         top: 0px;
                         left: 206px;
                     }
@@ -1959,6 +2166,9 @@ body {
                         background:none;
                     }
                     .quiz-kremlin .quiz-content .baloons .second  {
+                        background:none;
+                    }
+                    .quiz-astr .quiz-content .baloons .second  {
                         background:none;
                     }
                 
@@ -1981,6 +2191,12 @@ body {
                         top: 2px;
                         width: 120px;
                     }
+                    .quiz-astr .quiz-content .baloons .second.active {
+                        background:url(../img/astrahan/quiz/baloon-step-2-active.png) no-repeat 0 0;
+                        left: 381px;
+                        top: 2px;
+                        width: 120px;
+                    }
 
                 .quiz-window .quiz-content .baloons .third {
                     width: 109px;
@@ -1998,6 +2214,9 @@ body {
                     .quiz-kremlin .quiz-content .baloons .third {
                         background:none;
                     }
+                    .quiz-astr .quiz-content .baloons .third {
+                        background:none;
+                    }
 
                 .quiz-window .quiz-content .baloons .third.active {
                     background:url(../img/petergof/quiz/baloon-step-3-active.png) no-repeat 0 0;
@@ -2011,6 +2230,9 @@ body {
                     }
                     .quiz-kremlin .quiz-content .baloons .third.active {
                         background:url(../img/kremlin/quiz/baloon-step-3-active.png) no-repeat 0 5px;
+                    }
+                    .quiz-astr .quiz-content .baloons .third.active {
+                        background:url(../img/astrahan/quiz/baloon-step-3-active.png) no-repeat 0 5px;
                     }
 
 
@@ -2059,8 +2281,6 @@ body {
                             top: 308px;
                            
                         }
-
-
                         .arkaim .name-text input {
                             display: block;
                             z-index: 9000;
@@ -2106,6 +2326,13 @@ body {
                                 width: 305px;
                                 text-align: center;
                             }
+                            .astr .winner-name {
+                                top: 300px;
+                                left: 318px;
+                                width: 305px;
+                                text-align: center;
+                            }
+                            
 
                     .to-print {
                         position:absolute;
@@ -2133,6 +2360,9 @@ body {
                 .quiz-content .sertificat img {
                     position: relative;
                     z-index: 10;
+                }
+                .quiz-astr .sertificat img{
+                    top:9px;            
                 }
 
                 .quiz-content .sertificat {
@@ -2196,6 +2426,9 @@ body {
             .quiz-kremlin .next {
              color:#739b51;
             }
+            .quiz-astr .next {
+                color:#83b2ea;
+            }
         
         .quiz-window .next.first_slide {
             bottom:133px;
@@ -2215,6 +2448,9 @@ body {
             }
             .quiz-kremlin .next.first_slide {
                 color:#739b51;
+            }
+            .quiz-astr .next.first_slide {
+                color:#e25959;
             }
             .quiz-nav li.start,
             .quiz-nav li.next {
@@ -2268,6 +2504,9 @@ body {
             .quiz-kremlin .q-case-intro h1 {
                 color:#ea9b9b;
             }
+            .quiz-astr .q-case-intro h1 {
+                color:#57b7c1;
+            }
 
         .q-case-intro p {
             display: inline-block;
@@ -2311,6 +2550,13 @@ body {
                 color:#739b51;
                 margin-top:13px;
             }
+            .quiz-astr .question p {
+                color:#529ca0;
+                margin-top: 18px;
+                line-height: 17px;
+                margin-bottom: 40px;
+               
+            }
 
         .quiz-content .question p:first-child,
         .quiz-content .answers ul li:first-child {
@@ -2345,6 +2591,10 @@ body {
                 width: 280px;
                 padding: 0;
             }
+            .quiz-astr .answers ul {
+                margin: 0 17px 0 0;
+                width: 326px;
+            }
 
                 .quiz-content .answers ul li {
                     list-style: none;
@@ -2361,6 +2611,9 @@ body {
                         -moz-border-radius: 6px;
                         border-radius: 6px;
                     }
+                    .quiz-astr .answers ul li a {
+                        padding:8px 5px 8px 9px;
+                    }
 
             .quiz-content .answers .description div {
                 padding: 13px 13px 13px 34px;
@@ -2372,6 +2625,10 @@ body {
                 margin-top: -1px;
                 margin-bottom: -1px;
                 position: absolute;
+            }
+            .quiz-astr .answers .description div {
+                width: 315px;
+                padding:13px 13px 25px 17px;
             }
 
             .ios .quiz-content .answers .description div { position: absolute; }
@@ -2385,6 +2642,9 @@ body {
             .quiz-kremlin .answers .description h4 {
                 text-align:center;
             }
+            
+            
+            
 
 /*CASE 1*/            
     
@@ -2419,6 +2679,9 @@ body {
         .quiz-kremlin .q-case-1 .answers ul li.first a {
             color:#db5d96;
         }
+        .quiz-astr .q-case-1 .answers ul li.first a {
+            color:#9b9b49;
+        }
 
     .quiz-content .q-case-1 .answers.first  ul li.first a,
     .quiz-content .q-case-1 .answers.first .description .first {
@@ -2446,6 +2709,13 @@ body {
         .quiz-kremlin .q-case-1 .first .description h4 {
             color:#f4dda8;
         }
+        .quiz-astr .q-case-1 .answers.first  ul li.first a,
+        .quiz-astr .q-case-1 .answers.first .description .first {
+            background:#9b9b49;
+        }
+        .quiz-astr .q-case-1 .first .description h4 {
+            color:#f9eebb;
+        }
         
         
 
@@ -2460,6 +2730,9 @@ body {
         }
         .quiz-kremlin .q-case-1 .answers ul li.second a {
             color: #f77c7c;
+        }
+        .quiz-astr .q-case-1 .answers ul li.second a {
+            color: #c68dc6;
         }
 
     .quiz-content .q-case-1 .answers.second ul li.second a,
@@ -2489,6 +2762,14 @@ body {
         .quiz-kremlin .q-case-1 .second .description h4 {
             color:#dbf2aa;
         }
+        
+        .quiz-astr .q-case-1 .answers.second ul li.second a,
+        .quiz-astr .q-case-1 .answers.second .description .second {
+            background: #c68dc6;
+        }
+        .quiz-astr .q-case-1 .second .description h4 {
+            color:#d7e2c7;
+        }
 
     .quiz-content .q-case-1 .answers ul li.third a {
         color: #B97EC0;
@@ -2501,6 +2782,9 @@ body {
         }
         .quiz-kremlin .q-case-1 .answers ul li.third a {
             color: #e29847;
+        }
+        .quiz-astr .q-case-1 .answers ul li.third a {
+            color: #7ccecc;
         }
 
     .quiz-content .q-case-1 .answers.third ul li.third a,
@@ -2530,6 +2814,15 @@ body {
         .quiz-kremlin .q-case-1 .third .description h4 {
             color:#dceeff;
         }
+        .quiz-astr .q-case-1 .answers.third ul li.third a,
+        .quiz-astr .q-case-1 .answers.third .description .third {
+            background: #6cbcb8;
+        }
+        .quiz-astr .q-case-1 .third .description h4 {
+            color:#ffebe9;
+        }
+        
+        
 
 /*CASE 2*/
     
@@ -2547,11 +2840,16 @@ body {
         margin: 0 18px 0 0;
         width: 361px;
     }
+    .quiz-astr .q-case-2 .answers ul {
+        margin: 0 17px 0 0;
+        width: 326px;
+    }
     
     .quiz-kremlin .q-case-2 .answers .description div {
         width: 290px;
         padding-left:13px;
     }    
+    
     
     .quiz-nevyansk .q-case-2  .answers .description p {
         
@@ -2582,6 +2880,9 @@ body {
         .quiz-kremlin .q-case-2 .answers ul li.first a {
             color: #a1b721;
         }
+        .quiz-astr .q-case-2 .answers ul li.first a {
+            color: #fcb663;
+        }
 
     .quiz-content .q-case-2 .answers.first ul li.first a,
     .quiz-content .q-case-2 .answers.first .description .first {
@@ -2607,6 +2908,13 @@ body {
         .quiz-kremlin .q-case-2 .first .description h4 {
             color:#ffdef9;
         }
+        .quiz-astr .q-case-2 .answers.first ul li.first a,
+        .quiz-astr .q-case-2 .answers.first .description .first {
+            background: #f7aa54;
+        }
+        .quiz-astr .q-case-2 .first .description h4 {
+            color:#d9f9ec;
+        }
 
     .quiz-content .q-case-2 .answers ul li.second a {
         color: #7166C2;
@@ -2619,6 +2927,9 @@ body {
         }
         .quiz-kremlin .q-case-2 .answers ul li.second a {
             color: #a385c6;
+        }
+        .quiz-astr .q-case-2 .answers ul li.second a {
+            color: #db86a2;
         }
 
     .quiz-content .q-case-2 .answers.second ul li.second a,
@@ -2643,6 +2954,13 @@ body {
          .quiz-kremlin .q-case-2 .second .description h4 {
             color:#e1f4ff;
         }
+        .quiz-astr .q-case-2 .answers.second ul li.second a,
+        .quiz-astr .q-case-2 .answers.second .description .second {
+            background: #db86a2;
+        }
+         .quiz-astr .q-case-2 .second .description h4 {
+            color:#ebfffe;
+        }
 
     .quiz-content .q-case-2 .answers ul li.third a {
         color: #B97EC0;
@@ -2655,6 +2973,9 @@ body {
         }
         .quiz-kremlin .q-case-2 .answers ul li.third a {
             color: #7992d8;
+        }
+        .quiz-astr .q-case-2 .answers ul li.third a {
+            color: #5b81af;
         }
 
     .quiz-content .q-case-2 .answers.third ul li.third a,
@@ -2681,6 +3002,13 @@ body {
         }  
         .quiz-kremlin .q-case-2 .third .description h4 {
             color:#f9ecb7;
+        }
+        .quiz-astr .q-case-2 .answers.third ul li.third a,
+        .quiz-astr .q-case-2 .answers.third .description .third {
+            background: #5b81af;
+        }  
+        .quiz-astr .q-case-2 .third .description h4 {
+            color:#f9eeff;
         }
 
 
@@ -2719,6 +3047,9 @@ body {
         .quiz-kremlin .q-case-3 .answers ul li.first a {
             color: #4ca4d6;
         }
+        .quiz-astr .q-case-3 .answers ul li.first a {
+            color: #7db785;
+        }
 
     .quiz-content .q-case-3 .answers.first ul li.first a,
     .quiz-content .q-case-3 .answers.first .description .first {
@@ -2740,6 +3071,13 @@ body {
         .quiz-kremlin .q-case-3 .first .description h4 {
             color:#f1deff;
         }
+        .quiz-astr .q-case-3 .answers.first ul li.first a,
+        .quiz-astr .q-case-3 .answers.first .description .first {
+            background: #7db785;
+        }
+        .quiz-astr .q-case-3 .first .description h4 {
+            color:#fff0fd;
+        }
 
     .quiz-content .q-case-3 .answers ul li.second a {
         color: #C9809E;
@@ -2749,6 +3087,9 @@ body {
         }
         .quiz-kremlin .q-case-3 .answers ul li.second a {
             color: #e26e5a;
+        }
+        .quiz-astr .q-case-3 .answers ul li.second a {
+            color: #ef81bd;
         }
 
     .quiz-content .q-case-3 .answers.second ul li.second a,
@@ -2770,6 +3111,13 @@ body {
         }
         .quiz-kremlin .q-case-3 .second .description h4 {
             color:#e1fff0;
+        }    
+        .quiz-astr .q-case-3 .answers.second ul li.second a,
+        .quiz-astr .q-case-3 .answers.second .description .second {
+            background: #d68bb8;
+        }
+        .quiz-astr .q-case-3 .second .description h4 {
+            color:#fff0fd;
         }        
 
     .quiz-content .q-case-3 .answers ul li.third a {
@@ -2780,6 +3128,9 @@ body {
         }
         .quiz-kremlin .q-case-3 .answers ul li.third a {
             color: #529e8a;
+        }
+        .quiz-astr .q-case-3 .answers ul li.third a {
+            color: #bf9562;
         }
 
     .quiz-content .q-case-3 .answers.third ul li.third a,
@@ -2802,6 +3153,13 @@ body {
         .quiz-kremlin .q-case-3 .third .description h4 {
             color:#f9cb98;
         }  
+        .quiz-astr .q-case-3 .answers.third ul li.third a,
+        .quiz-astr .q-case-3 .answers.third .description .third {
+            background: #bf9562;
+        } 
+        .quiz-asrt .q-case-3 .third .description h4 {
+            color:#fff9de;
+        }  
         
         
 /* SERTIFICAT*/
@@ -2812,14 +3170,28 @@ body {
     .quiz-kremlin .name-text input {
         left: 536px;
         top: 311px;
-    }        
+    } 
+
+    .quiz-astr .name-text input {
+        left: 536px;
+        top: 311px;
+    }         
 
     .quiz-kremlin .get-diplom {
         bottom: 20px;
         right: 30px;
-        background:none;
+        background:url(../img/blank.png) repeat !important;
     }
     .quiz-kremlin .to-print {
+        bottom: 12px;
+    }
+    
+    .quiz-astr .get-diplom {
+        bottom: 20px;
+        right: 30px;
+        background:url(../img/blank.png) repeat !important;
+    }
+    .quiz-astr .to-print {
         bottom: 12px;
     }
     
@@ -2830,7 +3202,8 @@ body {
     height:689px;
     position:relative;
    
-}		
+}	
+
 
 
     .footer-menu ul {
@@ -2882,6 +3255,9 @@ body {
             height:90px;
             background:url(../img/footer-arrows/3.png) no-repeat 0 0;
         } 
+            .temp .footer-green-link  a{
+                padding-top:28px;
+            }
 
         
 
@@ -2973,12 +3349,14 @@ body {
 
 
     .arkaim .footer-menu {
-         background: url(../img/choose-dest.png) no-repeat 678px 221px;
+        background: url(../img/choose-dest.png) no-repeat 678px 221px;
     }
 
     .nevyansk .footer-menu {
-         background: url(../img/choose-dest.png) no-repeat 590px 240px;
-        }
+        background: url(../img/choose-dest.png) no-repeat 590px 240px;
+    }
+    
+    
 
     .nevyansk .footer-green-link {
             top: 249px;
@@ -3078,7 +3456,32 @@ body {
         }          
         
 
-        
+    .temp-footer-menu {
+        top: -93px;
+        left: -91px;
+        background: url(../img/kremlin/choose-dest.png) no-repeat 682px 226px;
+    }	
+        .temp-footer-menu .footer-back-link {
+            top:-303px;
+        }
+        .temp-footer-menu .footer-top-link {
+            top:128px;
+        }
+        .red-footer-blue-link {
+            background: url(../img/footer-arrows/5-red.png) no-repeat 0 0;
+            top:95px;
+        }
+            .red-footer-blue-link  a {
+                color:#ce5241;
+                padding-top:23px;
+            }
+            
+        .footer-pink-short-link  a {
+            padding-top:35px;
+        } 
+        .footer-purple-long-link a  {
+            padding-top:28px;
+        }    
 
 
        
@@ -3100,19 +3503,19 @@ body {
     margin-top: 50px;
     height: 613px;
 }
-.dazan .footer-menu {
+.temp .footer-menu {
     margin-left: 74px;
     margin-top: 80px;
     height: 613px;
 }
 .kul-sharif .footer-menu {
-    margin-left: 73px;
-    margin-top: 81px;
+    margin-left: 77px;
+    margin-top: 79px;
     height: 613px;
 }
 .rodina .footer-menu {
-    margin-left: 73px;
-    margin-top: 79px;
+    margin-left: 74px;
+    margin-top: 76px;
     height: 613px;
 }
 .tretyakovf .footer-menu {
@@ -3121,8 +3524,8 @@ body {
     height: 613px;
 }
 
-.vladivostok .footer-menu {
-    margin-left: 73px;
+.vlad .footer-menu {
+    margin-left: 80px;
     margin-top: 80px;
     height: 613px;
 }
@@ -3130,6 +3533,9 @@ body {
     margin-left: 77px;
 margin-top: 79px;
     height: 603px;
+}
+.kras .footer-menu {
+    top: -96px;
 }
 
 

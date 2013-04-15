@@ -141,9 +141,13 @@ class MainController extends Controller
         return $this->renderTemplate('about');
     }
 
-    public function servicesAction()
+    public function servicesAction($id = null)
     {
-        return $this->renderTemplate('services');
+      if (empty($id)) {
+          return $this->renderTemplate('services');
+      } else {
+          return $this->render("ArmdMainBundle:Services:service_$id.html.twig");
+      }
     }
 
     public function libraryAction()
@@ -166,6 +170,15 @@ class MainController extends Controller
         return $this->renderTemplate('print');
     }
 
+    public function theatreAction()
+    {
+        return $this->renderTemplate('theatre');
+    }
+    
+    public function theatreoneAction()
+    {
+        return $this->renderTemplate('theatreone');
+    }
 
     public function intermuseumAction()
     {

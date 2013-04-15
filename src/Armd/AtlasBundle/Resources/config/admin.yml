@@ -36,3 +36,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Atlas, label: CustomObjects, show_in_dashboard: true }
         arguments: [null, Armd\AtlasBundle\Entity\Object, ArmdAtlasBundle:ObjectCustom, @service_container]
+
+    armd_atlas.sonata_admin.tourist_cluster:
+        class: Armd\AtlasBundle\Admin\TouristClusterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Atlas, label: TouristClusters, show_in_dashboard: true }
+        arguments: [null, Armd\AtlasBundle\Entity\TouristCluster, SonataAdminBundle:CRUD]
