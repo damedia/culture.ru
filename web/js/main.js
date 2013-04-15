@@ -437,6 +437,31 @@ $(function () {
         return found;    
     }   
     
+    $(window).load(function(){
     
+    
+        /*News Image 2:3 Crop*/
+        $('.news-image-crop img').each(function(){
+            var image  = $(this),
+                defaultWidth = image.width(),
+                defaultHeight = image.height(),
+                proportion  = 1.5,
+                type = 'vertical',
+                topMargin = 0,
+                leftMargin = 0;
+                
+                if (defaultWidth / 1.5 < defaultHeight) {
+                    topMargin = (defaultHeight - defaultWidth / 1.5)/2;
+                    $('.news-image-crop').css({'width':defaultWidth,'height':defaultWidth/1.5});
+                    image.css({'top':-topMargin});
+                } else {
+                    leftMargin = (defaultHeight - defaultWidth / 1.5)/2;
+                    $('.news-image-crop').css({'width':defaultHeight*1.5,'height':defaultHeight});
+                    image.css({'left':-leftMargin});
+                }
+                
+                
+        })
+    })
     
 })

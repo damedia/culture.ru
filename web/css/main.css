@@ -7056,3 +7056,14 @@ a.appstore-link {
 			.exponat-text-wrap .gray {
 				color:#717171;
 			}                                      
+
+            
+            
+/*News Crop*/
+    .news-image-crop {
+        overflow:hidden;
+        position:relative;
+    }
+        .news-image-crop  img {
+            position:relative;
+        }
