@@ -10,6 +10,18 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Museums, label: Museums Categories }
         arguments: [null, Armd\MuseumBundle\Entity\Category, SonataAdminBundle:CRUD, @service_container]
+        
+    armd_museum.admin.real_museum:
+        class: Armd\MuseumBundle\Admin\RealMuseum
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: Real Museums }
+        arguments: [null, Armd\MuseumBundle\Entity\RealMuseum, SonataAdminBundle:CRUD, @service_container]        
+        
+    armd_museum.listener.real_museum:
+        class: Armd\MuseumBundle\EventListener\RealMuseumListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+        arguments: [@service_container]        
 
     armd_museum.manager.museum:
         class: Armd\MuseumBundle\Entity\MuseumManager

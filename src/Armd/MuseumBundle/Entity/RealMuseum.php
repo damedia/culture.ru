@@ -5,6 +5,7 @@ namespace Armd\MuseumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
