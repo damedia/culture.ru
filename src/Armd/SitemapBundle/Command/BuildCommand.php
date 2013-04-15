@@ -101,11 +101,20 @@ class BuildCommand extends ContainerAwareCommand
      */
     protected function getUrls()
     {
-        $urls = array();
-
         if ($menu = $this->getMenu()) {
             $urls = $this->getMenuUrls($menu);
         }
+
+        $urls[] = array(
+            'loc' => $this->getHost(),
+            'lastmod' => null
+        );
+
+        $urls = array_unique($urls, SORT_REGULAR);
+        
+        usort($urls, function($a, $b) {
+            return strcmp($a['loc'], $b['loc']);
+        });
 
         return $urls;
     }
@@ -118,18 +127,23 @@ class BuildCommand extends ContainerAwareCommand
         $locales       = $this->getLocales();
         $defaultLocale = $this->getDefaultLocale();
         $menuBuilder   = $this->getContainer()->get('armd_main.menu_builder');
-        $request       = new Request();
-
+        
+        $request = new Request();
         $request->setLocale($defaultLocale);
-        $menu        = $menuBuilder->createMainMenu($request);
+        $menu = $menuBuilder->createMainMenu($request);
 
         if ($locales) {
             foreach ($locales as $locale) {
                 if ($locale !== $defaultLocale) {
+                    $request = new Request();
                     $request->setLocale($locale);
                 
                     if ($localeMenu = $menuBuilder->createMainMenu($request) and $localeChildren = $localeMenu->getChildren()) {
-                        $menu->addChild($localeMenu);
+                        foreach ($localeChildren as $child) {
+                            $child->setParent(null);
+                            $child->setUri('/' .$locale .$child->getUri());
+                            $menu->addChild($child);
+                        }
                     }
                 }
             }
@@ -201,7 +215,7 @@ class BuildCommand extends ContainerAwareCommand
             }
         }
 
-        return array_unique($urls, SORT_REGULAR);
+        return $urls;
     }
 
     /**
@@ -268,9 +282,17 @@ class BuildCommand extends ContainerAwareCommand
         $urlParts = parse_url($url);
 
         if (!isset($urlParts['host'])) {
-            $url = $this->getContainer()->getParameter('armd_sitemap.scheme') .'://' .$this->getContainer()->getParameter('armd_sitemap.host') .$url;
+            $url = $this->getHost() .$url;
         }
 
         return $url;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHost()
+    {
+        return $this->getContainer()->getParameter('armd_sitemap.scheme') .'://' .$this->getContainer()->getParameter('armd_sitemap.host');
     }
 }
