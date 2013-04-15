@@ -216,6 +216,7 @@ class DefaultController extends Controller
         }
 
         return $items;
+    }
 
 
     protected function getMuseumGuideRepository()
