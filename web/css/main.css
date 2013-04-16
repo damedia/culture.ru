@@ -8305,6 +8305,7 @@ color:#f79016;
   font-size: 14px;
   margin-bottom: 20px;
 }
+
 .sort-filter a.active {
   border-bottom: 2px solid #F5902D;
 }
@@ -8324,4 +8325,13 @@ color:#f79016;
   display: inline-block;
   vertical-align: top;
 }
+
+/*News Crop*/
+    .news-image-crop {
+        overflow:hidden;
+        position:relative;
+    }
+        .news-image-crop  img {
+            position:relative;
+        }
 
