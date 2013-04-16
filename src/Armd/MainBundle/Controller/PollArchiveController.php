@@ -16,7 +16,11 @@ class PollArchiveController extends Controller {
      */
     public function pollArchiveAction($page)
     {
-        
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_homepage')
+        );
+
         $poll_controller = $this -> get('armd_poll.controller.poll');
         return $poll_controller -> pollArchiveAction($page);
         
@@ -28,6 +32,11 @@ class PollArchiveController extends Controller {
      */
     public function pollResultAction($pollId)
     {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_homepage')
+        );
+
         $poll_controller = $this -> get('armd_poll.controller.poll');
         
         $result = array();

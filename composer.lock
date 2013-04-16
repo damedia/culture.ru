@@ -34,7 +34,7 @@
             "source": {
                 "type": "git",
                 "url": "git@git.armd.ru:armdpollbundle.git",
-                "reference": "3807f91494b62222875ee497a187e88e6e169dd7"
+                "reference": "67e8e50fa61387e3dae8690837ace6aba5e39e9c"
             },
             "require": {
                 "knplabs/knp-paginator-bundle": "*",
@@ -48,7 +48,7 @@
                 }
             },
             "description": "Poll Bundle",
-            "time": "2013-04-05 22:01:10"
+            "time": "2013-04-16 14:56:17"
         },
         {
             "name": "armd/sphinx-search-bundle",

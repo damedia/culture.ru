@@ -4270,12 +4270,7 @@ body {
         }
 
 
-        #homepage-polls .poll-results-description {
-            text-transform: uppercase;
-            font-size: 1em;
-            margin: 1.33em 0;
-            font-weight: bold;
-        }
+
 
         #homepage-polls .controls label {
             color: #000000;
@@ -4284,10 +4279,6 @@ body {
             line-height: 16px;
             margin-bottom: 16px;
             display: block;
-        }
-
-        #homepage-polls .form-actions .poll-results-links {
-            display: none;
         }
 
         #homepage-polls .form-actions a {
@@ -4308,53 +4299,84 @@ body {
         
 
 
-        #homepage-polls .poll-results-row {
-            color: #000000;
-            font-size: 12px;
-            font-weight: bold;
-            line-height: 16px;
-            margin-bottom: 16px;
-        }
-
-            #homepage-polls .progress {
-                width: 80%;
-                overflow: visible;
-                white-space: nowrap;
-            }
-
-            #homepage-polls .progress .bar {
-                background-color: #d9d9d9;
-                height: 10px;
-                position: static;
-                box-shadow: none;
-                float: left;
-            }
-
-            #homepage-polls .poll-results-row.max .progress .bar {
-                background-color: #F79017;
-            }
-            #homepage-polls .poll-results-row.max .progress-vote-count {
-                color: #F79017;
-            }
-
-            #homepage-polls .progress-vote-count {
-                color: #d9d9d9;
-                font-size: 18px;
-                position: relative;
-                top: -4px;
-                left: 5px;
-            }
 
 
-            #homepage-polls .poll-results-row-answer {
-                clear: both;
-            }
 
-            #homepage-polls .poll-results-row-answer .vote-count {
-                display: none;
-            }
+/*--- Poll archive ---*/
+.poll-archive {
+    margin-bottom: 20px;
+}
 
-	
+    .poll-archive-dates {
+        font-weight: bold;
+        font-size: 11px;
+    }
+
+    .poll-results-links {
+        list-style-type: none;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .poll-results-links li {
+        list-style-type: none;
+    }
+
+
+.poll-results .poll-results-row {
+    color: #000000;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-bottom: 16px;
+}
+
+    .poll-results .progress {
+        width: 80%;
+        overflow: visible;
+        white-space: nowrap;
+    }
+
+    .poll-results .progress .bar {
+        background-color: #d9d9d9;
+        height: 10px;
+        position: static;
+        box-shadow: none;
+        float: left;
+    }
+
+    .poll-results .poll-results-row.max .progress .bar {
+        background-color: #F79017;
+    }
+    .poll-results .poll-results-row.max .progress-vote-count {
+        color: #F79017;
+    }
+
+    .poll-results .progress-vote-count {
+        color: #d9d9d9;
+        font-size: 18px;
+        position: relative;
+        top: -4px;
+        left: 5px;
+    }
+
+
+    .poll-results .poll-results-row-answer {
+        clear: both;
+    }
+
+    .poll-results .poll-results-row-answer .vote-count {
+        display: none;
+    }
+
+.poll-results-description {
+    text-transform: uppercase;
+    font-size: 1em;
+    margin: 1.33em 0;
+    font-weight: bold;
+}
+/*--- /Poll archive ---*/
+
 /*Timeline*/
 .time-line {
     
