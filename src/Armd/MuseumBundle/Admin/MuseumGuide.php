@@ -37,6 +37,7 @@ class MuseumGuide extends Admin
         $showMapper
             ->add('title')
             ->add('city')
+            ->add('museum')
             ->add('announce')
         ;
         
@@ -56,6 +57,7 @@ class MuseumGuide extends Admin
                 ->add('announce')
                 ->add('body')
                 ->add('city')
+                ->add('museum')
             ->end()
             ->with('Media')
                 ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'museum_guide', 'provider' => 'sonata.media.provider.image')))
@@ -74,7 +76,8 @@ class MuseumGuide extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('city')            
+            ->add('city')
+            ->add('museum')
             ->add('announce')
         ;
         
@@ -86,6 +89,7 @@ class MuseumGuide extends Admin
         $datagridMapper
             ->add('title')
             ->add('city')
+            ->add('museum')
         ;
     }    
 }

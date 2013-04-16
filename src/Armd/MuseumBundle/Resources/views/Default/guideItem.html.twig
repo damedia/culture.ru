@@ -12,10 +12,27 @@
     <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            armdMuseumGuide.initPdf("{% path entity.file, 'reference' %}");
+            armdMuseumGuide.init();
         });
     </script>
-    <script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script>
+    
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex-share',
+                elementStyle:{
+                    'type':'none',
+                    'border':false,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                {% if entity.image %}image:'{% path entity.image, 'preview' %}',{% endif %}
+                link:'{{ url('armd_museum_guide_item', { 'id': entity.id }) }}',
+                title:'{{ entity.title }}',
+                description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+        });
+    </script>
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
@@ -25,15 +42,21 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_search %}
-    <div class="search-category">
+   <div class="search-category">
         <form id="museums-filter-form" action="{{ path('armd_museum_guide_list') }}">
             <span class="search-dates-label">{{ "search.select"|trans }}</span>
             <div class="search-category-selects">
-                <select name="region" id="filter-region" class="uni">
-                    <option value="">{{ "search.region"|trans }}</option>
+                <select name="city" id="filter-city" class="uni">
+                    <option value="">{{ "search.place"|trans }}</option>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}" {% if city.id == cityId %}selected="selected"{% endif %}>{{ city.title }}</option>
+                    {% endfor %}
                 </select>
-                <select name="category" id="filter-category" class="uni">
-                    <option value="">{{ "search.category"|trans }}</option>
+                <select name="museum" id="filter-museum" class="uni">
+                    <option value="">{{ "search.museum"|trans }}</option>
+                    {% for museum in museums %}
+                        <option value="{{ museum.id }}">{{ museum.title }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
@@ -49,45 +72,41 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
-<article class="event-one clearfix">
-    <h2>
-        {{ entity.title|raw }}
-    </h2>
-    <div class="event-one_anons">
-        <p>
-            {{ entity.city|raw }}
-        </p>
-    </div>   
-
+<article class="event-one guide-one">
+    <h2>{{ entity.title|raw }}<br /><span>{{ entity.city|raw }}</span></h2>    
+    <p class="additional-info">{{entity.announce|raw}}</p>
     {% if entity.file %}
-        <canvas id="pdf-canvas-h" style="display:none;"></canvas>
-        <div class="clearfix">
-            <button id="pdf-prev" onclick="pdfViewer.goPrev();"><</button>
-            <canvas id="pdf-canvas" style="border:1px solid black"></canvas>
-            <button id="pdf-next" onclick="pdfViewer.goNext();">></button>
+        <div class="pdf-lister"> {# {% path entity.file, 'reference' %} #}
+            <h3>
+                <a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}https://github.com/mozilla/pdf.js/blob/master/web/compressed.tracemonkey-pldi-09.pdf?raw=true{% endfilter %}&embedded=true">
+                    Полистать интерактивную версию книги
+                </a>
+            </h3>
+            <div class="pdf-content"><!--
+                <iframe src="http://docs.google.com/viewer?url={% filter url_encode() %}https://github.com/mozilla/pdf.js/blob/master/web/compressed.tracemonkey-pldi-09.pdf?raw=true{% endfilter %}&embedded=true&minimal=true" style="width:720px; height:525px;" frameborder="0"></iframe>
+            !--></div>
+            <p class="item-title">Open publication - Free publishing - More guide</p>
         </div>
     {% endif %}
-
     {{ entity.body|raw }}
-
+    {% if entity.file %}
+        <a class="button button-orange button-download" href="{% path entity.file, 'reference' %}">
+            <span>{{ "Download pdf"|trans }}</span>
+        </a>
+    {% endif %}
+    <div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
+    <div class="event-one_footer clearfix">
+        <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+    </div>
 </article>
 
-{% if entity.file %}
-    <div><p><a href="{% path entity.file, 'reference' %}">{{ "Download pdf"|trans }}</a></p></div>
-{% endif %}
-<div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
-<div class="event-one_footer clearfix">
-    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+<div class="block">
+    {% render url('armd_museum_guide_see_also', { 'id':entity.id, 'limit':3 }) %}
 </div>
-
-<section class="block">
-    {#% render url("armd_news_read_also_news", { "id":entity.id, "limit":2 }) %#}
-</section>
 
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-    {% render url('armd_news_memorial_events') %}
-    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+    
 {% endblock %}
