@@ -81,18 +81,23 @@
 		<div class="buffer" style="height:40px;"></div>
         <div class="orange-slider-block">
             <h3 class="o-slider-header">Интервью</h3>
-            {% if entity.interviewVideo %}
+            {% if entity.interviewVideo is not empty %}
 		        <div class="flexslider">
 		            <ul class="slides">
 		                <li>
                             <article class="period-block">
-                                <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
+                                <a href="#interview-{{ entity.id }}" class="period-block_image in-fancybox">
                                     {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     <span class="play"></span>
                                 </a>
                                 <div class="period-block_text">
                                     <h4>{{ entity.interviewTitle}}</h4>
                                     <p>{{ entity.interviewDescription|raw }}</p>
+                                </div>
+                                <div id="interview-{{ entity.id }}" style="display: none;">
+                                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                        {{ armd_tvigle_video_player(entity.interviewVideo, 640, 360)|raw }}
+                                    </div>
                                 </div>
                             </article>
 		                </li>
@@ -109,7 +114,7 @@
 						{% for img in entity.gallery.galleryHasMedias %}
 			                <li>
                                 <article class="period-block">
-                                    <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}" class="period-block_image in-fancybox">
+                                    <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'xxbig' %}" data-fancy-image="{% path img.media, 'xxbig' %}" class="period-block_image in-fancybox">
                                         {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     </a>
                                     <div class="period-block_text">
@@ -144,7 +149,7 @@
 			initSocialShare();
 			
 			//просмотр интервью
-			$('a.tvigle-player-fancybox').fancybox({
+			/*$('a.tvigle-player-fancybox').fancybox({
                 'padding'		: 15,
                 'autoScale'		: false,
                 'transitionIn'	: 'none',
@@ -162,7 +167,7 @@
                     $('.left-column iframe').show();
                 }
                 
-            });
+            });*/
             
 			
 			//переключение видео							
@@ -234,11 +239,11 @@
                     <option value="0">
                         {{ "All"|trans }}
                     </option>
-                    {#{% for theater in theaters %}
+                    {% for theater in theaters %}
                         <option value="{{ theater.id }}">
                             {{ theater.title }}
                         </option>
-                    {% endfor %}#}
+                    {% endfor %}
                 </select>
             </div>
                     

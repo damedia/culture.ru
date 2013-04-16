@@ -305,6 +305,7 @@ sonata_media:
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.youtube
             formats:
+                xxbig: { width: 1200, height: 900 }
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
                 tile: {width: 295, height: 228 }

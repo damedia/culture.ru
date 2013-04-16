@@ -69,7 +69,8 @@
         {% render url('armd_perfomance_list_content', {
                 'limit': load_count,
                 'search_query': searchQuery,
-                'ganre_id' : ganreId
+                'ganre_id' : ganreId,
+                'theater_id' : theaterId
             })
         %}		
 		
@@ -103,7 +104,7 @@
     <div class="orange-slider-block">
         {% render url('armd_lecture_related_lectures_new', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
     </div>
-
+    
 {% endblock %}
 
 {% block search_query %}{{ searchQuery }}{% endblock %}
