@@ -35,9 +35,9 @@ var armdMkLectures = {
         });
 
         // sort
-        $('#sort-list a').bind('click', function(event) {
+        $('#sort-filter a').bind('click', function(event) {
             event.preventDefault();
-            $('#sort-list li').removeClass('active');
+            $('#sort-filter li').removeClass('active');
             $(this).closest('li').addClass('active');
             armdMkLectures.loadList(armdMkLectures.isSearch, false);
         });
@@ -139,7 +139,7 @@ var armdMkLectures = {
             }
         }
 
-        data['sort_by'] = $('#sort-list li.active a').data('sort-by');
+        data['sort_by'] = $('#sort-filter li.active a').data('sort-by');
 
         $.ajax({
             url: Routing.generate('armd_lecture_list', {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode}),
