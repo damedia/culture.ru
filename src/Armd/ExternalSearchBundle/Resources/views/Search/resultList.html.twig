@@ -1,0 +1,531 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ "External Search"|trans }} &mdash; {{ parent() }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block page_header_title %}
+    {{ "External Search"|trans }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .b-head__logo {
+            vertical-align: baseline;
+        }
+    </style>
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block left_column %}
+
+    
+    <script type="text/javascript">
+        $('body').addClass('external-page');
+      $(function() {
+        $('.content-tabs').on('click', 'a', function(){
+          var tabId = $(this).attr('href');
+          $(this).addClass('active')
+                  .siblings().removeClass('active');
+          $(tabId).show().siblings('.content-tab').hide();        
+          return false;
+        })
+      });
+    </script>
+    <div class="content-tabs">
+        <a href="#c-tab1" class="active">Поиск по сайтам учреждений культуры</a>
+        <a href="#c-tab2">Каталог сайтов о культуре</a>
+    </div>
+    <div class="content-tab content-tabs-norm-pad" id="c-tab1">
+      {# Search form code from Yandex. #}
+      <div
+          class="ya-site-form ya-site-form_inited_no"
+          onclick="return {'bg': 'transparent', 'target': '_self', 'language': 'ru', 'suggest': true, 'tld': 'ru', 'site_suggest': true, 'action': '{{ url('armd_external_search_results') }}', 'webopt': false, 'fontsize': 12, 'arrow': false, 'fg': '#000000', 'searchid': '{{ yandexSearchId }}', 'logo': 'rb', 'websearch': false, 'type': 2}">
+          <form action="http://yandex.ru/sitesearch" method="get" target="_self">
+              <input type="hidden" name="searchid" value="{{ yandexSearchId }}" />
+              <input type="hidden" name="l10n" value="ru" />
+              <input type="hidden" name="reqenc" value="utf-8" />
+              <input type="text" name="text" value="" />
+              <input type="submit" value="Найти" />
+          </form>
+      </div>
+      <style type="text/css">
+          .ya-page_js_yes .ya-site-form_inited_no { display: none; }
+
+          .external-page .content-tabs a,
+          .external-page .main-menu a,
+          .external-page .footer-center a,
+          .external-page .lk-top a,
+          .external-page .content-tabs a:hover,
+          .external-page .main-menu a:hover,
+          .external-page .footer-center a:hover,
+          .external-page .lk-top a:hover,
+          .external-page .content-tabs a:visited,
+          .external-page .main-menu a:visited,
+          .external-page .footer-center a:visited,
+          .external-page .lk-top a:visited{
+              color: #000 !important;
+          }
+          .external-page .footer-copyright,
+          .external-page .footer-copyright:hover
+          .external-page .footer-copyright:visited{color:#154060}
+      </style>
+      <script type="text/javascript">
+          (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;(' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1&&(e.className+=' ya-page_js_yes');s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');
+      </script>
+
+      {# Search result list code from Yandex. #}
+      <div
+          id="ya-site-results"
+          onclick="return {'tld': 'ru', 'language': 'ru', 'encoding': 'utf-8', 'htmlcss': '1.x', 'updatehash': true}"></div>
+      <script type="text/javascript">
+          (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src='http://site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init()})})(window,document,'yandex_site_callbacks');
+      </script>
+    </div><!--/content-tab -->
+    <div class="content-tab content-tabs-norm-pad" id="c-tab2" style="display:none;">
+      <table class="thetable">
+      <tr>
+        <th>Описание</th>
+        <th>Ссылка</th>
+      </tr>
+      <tr>
+        <td>Министерство культуры</td>
+        <td><a target="_blank" href="http://mkrf.ru/">http://mkrf.ru</a></td>
+      </tr>
+      <tr>
+        <td>Подведомственные организации</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>Федеральное архивное агентство</td>
+        <td><a target="_blank" href="http://archives.ru/">http://archives.ru/</a></td>
+      </tr>
+      <tr>
+        <td>Федеральное агентство по    туризму (РОСТУРИЗМ)</td>
+        <td><a target="_blank" href="http://www.russiatourism.ru/">http://www.russiatourism.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Территориальные органы</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <th>Управление    Минкультуры России по Центральному федеральному округу</th>
+        <td><a target="_blank" href="http://www.rosohrancult-cfo.ru/">http://www.rosohrancult-cfo.ru</a></td>
+      </tr>
+      <tr>
+        <td>1.Управление    культуры Белгородской области</td>
+        <td><a target="_blank" href="http://www.belkult.ru/">http://www.belkult.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.    Управление культуры Брянской области</td>
+        <td><a target="_blank" href="http://управление-культуры-брянск.рф">управление-культуры-брянск.рф</a></td>
+      </tr>
+      <tr>
+        <td>3.    Депратамент по культуре Владимирской области</td>
+        <td><a target="_blank" href="http://culture.avo.ru">culture.avo.ru</a></td>
+      </tr>
+      <tr>
+        <td>4.  Департамент культуры, Воронежская область</td>
+        <td><a target="_blank" href="http://vrn-uk.ru/">http://vrn-uk.ru/</a></td>
+      </tr>
+      <tr>
+        <td>5.    Департамент культуры, Ивановская область</td>
+        <td><a target="_blank" href="http://culture.ivanovoobl.ru/">http://culture.ivanovoobl.ru/</a></td>
+      </tr>
+      <tr>
+        <td>6.Министерство    культуры Калужская область</td>
+        <td><a target="_blank" href="http://www.admoblkaluga.ru/sub/minkult/">http://www.admoblkaluga.ru/sub/minkult/</a></td>
+      </tr>
+      <tr>
+        <td>7.Департамент    культуры Костромская область</td>
+        <td><a target="_blank" href="http://www.dkko.ru/">http://www.dkko.ru/</a></td>
+      </tr>
+      <tr>
+        <td>8.    Комитет по культуре Курская область</td>
+        <td><a target="_blank" href="http://adm.rkursk.ru/index.php?id=330">http://adm.rkursk.ru/index.php?id=330</a></td>
+      </tr>
+      <tr>
+        <td>9.    Управление культуры Липецкая область</td>
+        <td><a target="_blank" href="http://www.kultura48.ru/">http://www.kultura48.ru/</a></td>
+      </tr>
+      <tr>
+        <td>10.Управление    культуры Московская область</td>
+        <td><a target="_blank" href="http://mk.mosreg.ru/">http://mk.mosreg.ru/</a></td>
+      </tr>
+      <tr>
+        <td>11.    Управление культуры Орловская область</td>
+        <td><a target="_blank" href="http://www.rusarchives.ru/state/ydaaoo/index.shtml">http://www.rusarchives.ru/state/ydaaoo/index.shtml</a></td>
+      </tr>
+      <tr>
+        <td>12.    Управление культуры Рязанская область</td>
+        <td><a target="_blank" href="http://kkt62.ru/committee/">http://kkt62.ru/committee/</a></td>
+      </tr>
+      <tr>
+        <td>13.    Департамент культуры Смоленская область</td>
+        <td><a target="_blank" href="http://kultura.admin-smolensk.ru/news/">http://kultura.admin-smolensk.ru/news/</a></td>
+      </tr>
+      <tr>
+        <td>14.    Управление культуры Тамбовская область</td>
+        <td><a target="_blank" href="http://cult.tambov.gov.ru/">http://cult.tambov.gov.ru/</a></td>
+      </tr>
+      <tr>
+        <td>15.    Управление культуры Тверская область</td>
+        <td><a target="_blank" href="http://department.tvercult.ru/">http://department.tvercult.ru/</a></td>
+      </tr>
+      <tr>
+        <td>16.    Управление культуры Тульская область</td>
+        <td><a target="_blank" href="http://www.tulakultura.ru/">http://www.tulakultura.ru/</a></td>
+      </tr>
+      <tr>
+        <td>17.    Управление культуры Ярославская область</td>
+        <td><a target="_blank" href="http://www.adm.yar.ru/culture/main.htm">http://www.adm.yar.ru/culture/main.htm</a></td>
+      </tr>
+      <tr>
+        <td>18.    Управление культуры  Москва</td>
+        <td><a target="_blank" href="http://kultura.mos.ru/">http://kultura.mos.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Управление    Минкультуры России по Северо-Западному федеральному округу</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Карелия</td>
+        <td><a target="_blank" href="http://mincultrk.ru/">http://mincultrk.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.Министерство    культуры, Республика Коми</td>
+        <td><a target="_blank" href="http://www.mincult.rkomi.ru/">http://www.mincult.rkomi.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры, Архангельская область</td>
+        <td><a target="_blank" href="http://culture29.ru/">http://culture29.ru/ </a></td>
+      </tr>
+      <tr>
+        <td>4.    Департамент культуры, Вологодская область</td>
+        <td><a target="_blank" href="http://depcult35.ru/">http://depcult35.ru/</a></td>
+      </tr>
+      <tr>
+        <td>5.    Комитет по культуре, Ленинградская область</td>
+        <td><a target="_blank" href="http://culture.lenobl.ru/">http://culture.lenobl.ru/</a></td>
+      </tr>
+      <tr>
+        <td>6.    Комитет по культуре, Мурманская область</td>
+        <td><a target="_blank" href="http://www.culture51.ru/">http://www.culture51.ru/</a></td>
+      </tr>
+      <tr>
+        <td>7.    Комитет по культуре,  Новгородская    область</td>
+        <td><a target="_blank" href="http://culture.novreg.ru/">http://culture.novreg.ru/</a></td>
+      </tr>
+      <tr>
+        <td>8.    Управление культуры, Псковская область</td>
+        <td><a target="_blank" href="http://gorkultura.ru/">http://gorkultura.ru/</a></td>
+      </tr>
+      <tr>
+        <td>9.    Комитет по культуре Санкт-Петербурга</td>
+        <td><a target="_blank" href="http://www.spbculture.ru/ru/">http://www.spbculture.ru/ru/</a></td>
+      </tr>
+      <tr>
+        <td>10.    Департамент культуры, Ненецкий автономный округ</td>
+        <td><a target="_blank" href="http://www.ogv-nao.ru/ogvnao/ogv/regional/uk/news.htm">http://www.ogv-nao.ru/ogvnao/ogv/regional/uk/news.htm</a></td>
+      </tr>
+      <tr>
+        <th>Управление    Минкультуры России по Уральскому федеральному округу</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Управление Культуры Курганская область</td>
+        <td><a target="_blank" href="http://kultura.kurganobl.ru/">http://kultura.kurganobl.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.    Министерство Культуры Свердловская область</td>
+        <td><a target="_blank" href="http://www.mkso.ru/">http://www.mkso.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Департамент Культуры, Тюменская область</td>
+        <td><a target="_blank" href="http://www.admtyumen.ru/ogv_ru/gov/administrative/culture_department/general_information/telephone.htm">http://www.admtyumen.ru/ogv_ru/gov/administrative/culture_department/general_information/telephone.htm</a></td>
+      </tr>
+      <tr>
+        <td>4.    Министерство культуры Челябинская область</td>
+        <td><a target="_blank" href="http://www.culture-chel.ru">http://www.culture-chel.ru</a></td>
+      </tr>
+      <tr>
+        <td>5.    Департамент культуры, Ханты-Мансийский автономный округ — Югра</td>
+        <td><a target="_blank" href="http://www.kultura.eduhmao.ru/info/2/2791/">http://www.kultura.eduhmao.ru/info/2/2791/</a></td>
+      </tr>
+      <tr>
+        <td>6.    Департамент культуры, Ямало-Ненецкий автономный округ</td>
+        <td><a target="_blank" href="http://cultura-yamala.ru/">http://cultura-yamala.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Управление    Минкультуры России по Приволжскому федеральному округу</th>
+        <td><a target="_blank" href="http://www.kulturapfo.ru/">http://www.kulturapfo.ru/</a></td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Башкортостан</td>
+        <td><a target="_blank" href="http://www.mknprb.ru/">http://www.mknprb.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.    Министерство культуры, Республика Марий Эл</td>
+        <td><a target="_blank" href="http://mincult12.ru/">http://mincult12.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры, Республика Мордовия</td>
+        <td><a target="_blank" href="http://www.mkrm.ru/">http://www.mkrm.ru/</a></td>
+      </tr>
+      <tr>
+        <td>4.    Министерство культуры, Республика Татарстан</td>
+        <td><a target="_blank" href="http://mincult.tatarstan.ru/">http://mincult.tatarstan.ru/</a></td>
+      </tr>
+      <tr>
+        <td>5.    Министерство культуры, Удмуртская Республика</td>
+        <td><a target="_blank" href="http://kultura.udmurt.ru/">http://kultura.udmurt.ru/</a></td>
+      </tr>
+      <tr>
+        <td>6.    Министерство культуры, Чувашская Республика</td>
+        <td><a target="_blank" href="http://gov.cap.ru/main.asp?govid=12">http://gov.cap.ru/main.asp?govid=12</a></td>
+      </tr>
+      <tr>
+        <td>7.    Департамент культуры, Кировская область</td>
+        <td><a target="_blank" href="http://www.депкульт43.рф/">www.депкульт43.рф</a></td>
+      </tr>
+      <tr>
+        <td>8.    Министерство культуры, Нижегородская область</td>
+        <td><a target="_blank" href="http://minkult-nnov.ru/">http://minkult-nnov.ru/</a></td>
+      </tr>
+      <tr>
+        <td>9.    Министерство культуры, Оренбургская область</td>
+        <td><a target="_blank" href="http://www.mininform.orb.ru/">http://www.mininform.orb.ru/</a></td>
+      </tr>
+      <tr>
+        <td>10.    Управление культуры, Пензенская область</td>
+        <td><a target="_blank" href="http://www.mk-penza.ru/">http://www.mk-penza.ru/</a></td>
+      </tr>
+      <tr>
+        <td>11.    Министерство культуры, Пермский край</td>
+        <td><a target="_blank" href="http://mk.permkrai.ru/">http://mk.permkrai.ru/</a></td>
+      </tr>
+      <tr>
+        <td>12.    Министерство культуры Самарская область</td>
+        <td><a target="_blank" href="http://mincult.samregion.ru/">http://mincult.samregion.ru/</a></td>
+      </tr>
+      <tr>
+        <td>13.    Министерство культуры, Саратовская область</td>
+        <td><a target="_blank" href="http://www.mincult.saratov.gov.ru/">http://www.mincult.saratov.gov.ru/</a></td>
+      </tr>
+      <tr>
+        <td>14.    Министерство культуры, Ульяновская область</td>
+        <td><a target="_blank" href="http://www.uprava.mv.ru/">http://www.uprava.mv.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Южное    управление Минкультуры России</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Дагестан</td>
+        <td><a target="_blank" href="http://minkultrd.ru">http://minkultrd.ru</a></td>
+      </tr>
+      <tr>
+        <td>2.    Министерство культуры, Республика Ингушетия</td>
+        <td><a target="_blank" href="http://www.minkuling.ru/">http://www.minkuling.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры Республика Северная Осетия — Алания</td>
+        <td><a target="_blank" href="http://mkrso-a.ru/min/">http://mkrso-a.ru/min/</a></td>
+      </tr>
+      <tr>
+        <td>4.    Министерство культуры, Чеченская Республика</td>
+        <td><a target="_blank" href="http://mkchr.com/">http://mkchr.com/</a></td>
+      </tr>
+      <tr>
+        <td>5.    Министерство культуры, Ставропольский край</td>
+        <td><a target="_blank" href="http://www.mincultsk.ru/">http://www.mincultsk.ru/</a></td>
+      </tr>
+      <tr>
+        <td>6.    Министерство культуры, Ростовская область</td>
+        <td><a target="_blank" href="http://mkro.donland.ru/">http://mkro.donland.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Кубанское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Адыгея</td>
+        <td><a target="_blank" href="http://мкра.рф">мкра.рф</a></td>
+      </tr>
+      <tr>
+        <td>2.    Министерство культуры, Кабардино-Балкарская Республика </td>
+        <td><a target="_blank" href="http://mkkbr.ru/">http://mkkbr.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры     Карачаево-Черкесская Республика </td>
+        <td><a target="_blank" href="http://www.gkk09.ru/">http://www.gkk09.ru/</a></td>
+      </tr>
+      <tr>
+        <td>4.    Министерство культуры, Краснодарский край</td>
+        <td><a target="_blank" href="http://kultura.kubangov.ru/">http://kultura.kubangov.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Нижне-Волжское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Калмыкия</td>
+        <td><a target="_blank" href="http://www.mon-rk.ru">http://www.mon-rk.ru</a></td>
+      </tr>
+      <tr>
+        <td>2.    Министерство культуры, Астраханская область</td>
+        <td><a target="_blank" href="http://minkult.astrobl.ru/">http://minkult.astrobl.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры Волгоградская область</td>
+        <td><a target="_blank" href="http://culture.volganet.ru/">http://culture.volganet.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Сибирское    управление Минкультуры России</th>
+        <td><a target="_blank" href="http://www.sibfo.ru/fsmk/">http://www.sibfo.ru/fsmk/</a></td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Алтай</td>
+        <td><a target="_blank" href="http://www.culture-altai.ru/">http://www.culture-altai.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.Управление    по культуре, Алтайский край</td>
+        <td><a target="_blank" href="http://www.culture22.ru/">http://www.culture22.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Департамент культуры Кемеровская     область</td>
+        <td><a target="_blank" href="http://www.depcult.ru/">http://www.depcult.ru/</a></td>
+      </tr>
+      <tr>
+        <td>4.    Министерство культуры, Новосибирская     область</td>
+        <td><a target="_blank" href="http://mk.nso.ru/Pages/default.aspx">http://mk.nso.ru/Pages/default.aspx</a></td>
+      </tr>
+      <tr>
+        <td>5.    Министерство культуры, Омская  область</td>
+        <td><a target="_blank" href="http://www.sibmincult.ru/index3.php">http://www.sibmincult.ru/index3.php</a></td>
+      </tr>
+      <tr>
+        <td>6.    Департамент по культуре Томская     область</td>
+        <td><a target="_blank" href="http://depculture.tomsk.gov.ru/">http://depculture.tomsk.gov.ru/</a></td>
+      </tr>
+      <tr>
+        <td><strong>Средне-Сибирское    управление Минкультуры России</strong></td>
+        <td><a target="_blank" href="http://www.sibfo.ru/fsmk/">http://www.sibfo.ru/fsmk/</a></td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Тыва</td>
+        <td><a target="_blank" href="http://tuvaculture.ru/">http://tuvaculture.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.Министерство    культуры, Республика Хакасия</td>
+        <td><a target="_blank" href="http://www.r-19.ru/culture.html">http://www.r-19.ru/culture.html</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры,  Красноярский    край</td>
+        <td><a target="_blank" href="http://www.krascult.ru/">http://www.krascult.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Восточно-Сибирское    управление Минкультуры России</th>
+        <td><a target="_blank" href="http://www.sibfo.ru/fsmk/">http://www.sibfo.ru/fsmk/</a></td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Бурятия</td>
+        <td><a target="_blank" href="http://www.minkultrb.ru/">http://www.minkultrb.ru/</a></td>
+      </tr>
+      <tr>
+        <td>2.Министерство    культуры,Иркутская область</td>
+        <td><a target="_blank" href="http://culture.irkobl.ru/">http://culture.irkobl.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры Забайкальский край</td>
+        <td><a target="_blank" href="http://минкультура.забайкальскийкрай.рф">минкультура.забайкальскийкрай.рф</a></td>
+      </tr>
+      <tr>
+        <th>Дальневосточное    управление Минкультуры России</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Республика Саха (Якутия)</td>
+        <td><a target="_blank" href="http://www.sakha.gov.ru/minkult">http://www.sakha.gov.ru/minkult</a></td>
+      </tr>
+      <tr>
+        <td>2.Министерство    культуры, Хабаровский край</td>
+        <td><a target="_blank" href="http://kultura27.ru/">http://kultura27.ru/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры Амурская область</td>
+        <td><a target="_blank" href="http://www.amurcult.ru/">http://www.amurcult.ru/</a></td>
+      </tr>
+      <tr>
+        <td>4.    Управление культуры, Магаданская область</td>
+        <td><a target="_blank" href="http://www.culture.goldkolyma.ru">http://www.culture.goldkolyma.ru</a></td>
+      </tr>
+      <tr>
+        <td>5    Управление культуры, Еврейская автономная область</td>
+        <td><a target="_blank" href="http://kulturaeao.ru/">http://kulturaeao.ru/</a></td>
+      </tr>
+      <tr>
+        <td>6.    Департамент по культуре Чукотский автономный округ</td>
+        <td><a target="_blank" href="http://www.chukotka.org/power/administrative_setting/Dep_obr_molod/">http://www.chukotka.org/power/administrative_setting/Dep_obr_molod/</a></td>
+      </tr>
+      <tr>
+        <th>Приморское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Камчатский край </td>
+        <td><a target="_blank" href="http://www.culture-kam.ipkam.ru/">http://www.culture-kam.ipkam.ru</a></td>
+      </tr>
+      <tr>
+        <td>2.Департамент    культуры, Приморский край</td>
+        <td><a target="_blank" href="http://www.primorsky.ru/authorities/executive-agencies/departments/culture/">http://www.primorsky.ru/authorities/executive-agencies/departments/culture/</a></td>
+      </tr>
+      <tr>
+        <td>3.    Министерство культуры Сахалинская область</td>
+        <td><a target="_blank" href="http://culture.admsakhalin.ru/">http://culture.admsakhalin.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Балтийское    управление Минкультуры России</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>1.    Министерство культуры, Калининградская область</td>
+        <td><a target="_blank" href="http://culart.gov39.ru/">http://culart.gov39.ru/</a></td>
+      </tr>
+      <tr>
+        <th>Дополнительно</th>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>История.РФ</td>
+        <td><a target="_blank" href="http://история.рф/">http://история.рф/</a></td>
+      </tr>
+      <tr>
+        <td>Главный    информационно-вычислительный центр МКРФ</td>
+        <td><a target="_blank" href="http://givc.ru/about/">http://givc.ru/about/</a></td>
+      </tr>
+      <tr>
+        <td>Российский Фонд Культуры</td>
+        <td><a target="_blank" href="http://fond.culture.ru/">http://fond.culture.ru/</a></td>
+      </tr>
+    </table>
+    </div><!--/content-tab -->
+
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block right_column %}
+  {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}

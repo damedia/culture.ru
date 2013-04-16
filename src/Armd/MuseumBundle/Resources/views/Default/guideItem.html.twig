@@ -1,0 +1,93 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block title %}
+    {{ parent() }} — {{ 'Navigation.Virtual museums.Guide'|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museumGuide.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMuseumGuide.initPdf("{% path entity.file, 'reference' %}");
+        });
+    </script>
+    <script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_title %}
+    {{ "Museum Guide"|trans }}
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block page_header_search %}
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_guide_list') }}">
+            <span class="search-dates-label">{{ "search.select"|trans }}</span>
+            <div class="search-category-selects">
+                <select name="region" id="filter-region" class="uni">
+                    <option value="">{{ "search.region"|trans }}</option>
+                </select>
+                <select name="category" id="filter-category" class="uni">
+                    <option value="">{{ "search.category"|trans }}</option>
+                </select>
+            </div>
+            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block left_column %}
+<article class="event-one clearfix">
+    <h2>
+        {{ entity.title|raw }}
+    </h2>
+    <div class="event-one_anons">
+        <p>
+            {{ entity.city|raw }}
+        </p>
+    </div>   
+
+    {% if entity.file %}
+        <canvas id="pdf-canvas-h" style="display:none;"></canvas>
+        <div class="clearfix">
+            <button id="pdf-prev" onclick="pdfViewer.goPrev();"><</button>
+            <canvas id="pdf-canvas" style="border:1px solid black"></canvas>
+            <button id="pdf-next" onclick="pdfViewer.goNext();">></button>
+        </div>
+    {% endif %}
+
+    {{ entity.body|raw }}
+
+</article>
+
+{% if entity.file %}
+    <div><p><a href="{% path entity.file, 'reference' %}">{{ "Download pdf"|trans }}</a></p></div>
+{% endif %}
+<div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
+<div class="event-one_footer clearfix">
+    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+</div>
+
+<section class="block">
+    {#% render url("armd_news_read_also_news", { "id":entity.id, "limit":2 }) %#}
+</section>
+
+{% endblock %}
+
+{#--------------------------------------------------------------------------------------------------------------------#}
+{% block right_column %}
+    {% render url('armd_news_memorial_events') %}
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+{% endblock %}

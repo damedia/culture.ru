@@ -1,3 +1,8 @@
+armd_markup:
+    resource: "@ArmdMarkupBundle/Controller/"
+    type:     annotation
+    prefix:   /markup
+
 armd_exhibit:
     resource: "@ArmdExhibitBundle/Controller/"
     type:     annotation
@@ -183,3 +188,8 @@ armd_theater:
     resource: "@ArmdTheaterBundle/Controller/"
     type:     annotation
     prefix:   /theater
+
+armd_external_search:
+    resource: '@ArmdExternalSearchBundle/Controller/'
+    type:     annotation
+    prefix:   /external

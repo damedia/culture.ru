@@ -59,9 +59,10 @@ class DefaultController extends Controller
                 $searchResultLecture = array();
                 $searchResultAtlas = array();
                 $searchResultVirtualMuseum = array();
+                $searchResultLesson = array();
                 $searchResultPerfomance = array();
                 $searchResultTheater = array();
-                
+
                 foreach ($res['All']['matches'] as $id => $data) {
                     if (isset($data['attrs']['object_type'])) {
                         if ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_NEWS) {
@@ -85,6 +86,11 @@ class DefaultController extends Controller
                             if ($searchResult) {
                                 $searchResultVirtualMuseum[] = $searchResult;
                             }
+                        } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_LESSON) {
+                            $searchResult = $this->getLessonInfo($id - SearchEnum::START_INDEX_LESSON);
+                            if ($searchResult) {
+                                $searchResultLesson[] = $searchResult;
+                            }
                         } elseif ($data['attrs']['object_type'] == SearchEnum::OBJECT_TYPE_PERFOMANCE) {
                             $searchResult = $this->getPerfomanceInfo($id - SearchEnum::START_INDEX_PERFOMANCE);
                             if ($searchResult) {
@@ -104,6 +110,7 @@ class DefaultController extends Controller
                     $searchResultVirtualMuseum,
                     $searchResultLecture,
                     $searchResultNews,
+                    $searchResultLesson,
                     $searchResultPerfomance,
                     $searchResultTheater
                 );
@@ -265,6 +272,37 @@ class DefaultController extends Controller
         return $museumInfo;
     }
     
+    protected function getLessonInfo($id)
+    {
+        $article = $this->getDoctrine()->getManager()->getRepository('ArmdMuseumBundle:Lesson')->find($id);
+        $articleInfo = false;
+        if (!empty($article)) {
+            $articleInfo = array(
+                'object' => array(
+                    'url' => $this->get('router')->generate(
+                        'armd_lesson_item',
+                        array('id' => $id)
+                    ),
+                    'date' => null,
+                    'title' => strip_tags($article->getTitle()),
+                    'announce' => $article->getAnnounce()
+                ),
+                'section' => array(
+                    'name' => 'Музейное образование',
+                )
+            );
+
+            if ($article->getImage()) {
+                $articleInfo['object']['imageUrl'] = $this->get('sonata.media.provider.image')->generatePublicUrl(
+                    $article->getImage(),
+                    'lesson_searchAllResult'
+                );
+            }
+        }
+
+        return $articleInfo;
+    }    
+
     protected function getPerfomanceInfo($id)
     {
         $perfomance = $this->getDoctrine()->getManager()->getRepository('ArmdPerfomanceBundle:Perfomance')->find($id);

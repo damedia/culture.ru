@@ -79,6 +79,7 @@ class LectureTranslationAdmin extends Admin
                 'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
                 'super_type' => $superType
             ))
+            ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
             ->with('Tvigle video')
                 ->add('lectureVideo', 'armd_tvigle_video_selector', array('required' => false))
@@ -128,4 +129,25 @@ class LectureTranslationAdmin extends Admin
         return $themes;
     }
 
+    public function postPersist($object)
+    {
+        parent::postPersist($object);
+        $this->saveTagging($object);
+    }
+
+    public function postUpdate($object)
+    {
+        parent::postUpdate($object);
+        $this->saveTagging($object);
+    }
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    protected function saveTagging($object)
+    {
+        $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
+    }
 }

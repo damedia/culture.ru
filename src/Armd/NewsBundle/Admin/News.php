@@ -65,7 +65,9 @@ class News extends Admin
                 ->add('newsDate')
                 ->add('title')
                 ->add('announce')
-                ->add('body')
+                ->add('body', null, array(
+                    'attr' => array('class' => 'tinymce'),
+                ))
                 ->add('source')
             ->end()
             ->with('Главная')

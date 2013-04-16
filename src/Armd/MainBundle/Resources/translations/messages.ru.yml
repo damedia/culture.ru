@@ -26,7 +26,7 @@ menu.banners: Баннеры
 menu.communication: Сервисы
 menu.special_projects: Спецпроекты
 menu.borodino: Война 1812 года
-menu.intermuseum: Интермузей
+menu.intermuseum: Интермузей 2013
 menu.special_projects_romanov450: Дом Романовых
 menu.special_projects_stanislavski: К. Станиславский
 menu.special_projects_1150: 1150 лет государственности
@@ -41,6 +41,9 @@ menu.social_council: Общественный совет
 menu.government_control: Форум по госнадзору
 menu.online_translation: Онлайн трансляции
 menu.perfomance: Спектакли
+menu.museum: Музеи
+menu.virtual_museum: Виртуальные музеи
+menu.culture_sites: Сайты культуры
 #---------------- /menu -------------------------
 
 
@@ -90,7 +93,7 @@ Navigation:
     Reports: Статьи
     Banners: Баннеры
     ForumGos: Форум по гос.надзору
-    InterMuseum: Интермузей
+    InterMuseum: Интермузей 2013
 
 Mainpage block:
     Communication:

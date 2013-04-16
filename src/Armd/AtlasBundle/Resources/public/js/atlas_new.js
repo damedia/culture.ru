@@ -11,25 +11,17 @@ AT.clusterPoints = null;
 AT.regions = [];
 
 AT.init = function(params) {
-    //console.info('Init Atlas');
-
+//    console.info('Init Atlas');
     this.params = params;
 
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
+    AT.initTabFilters();
     AT.initFilters();
     AT.initHacks();
 
-    // Сабмитим форму (показываем Образы России)
-    var elems = $('#atlas-filter-form').find('.gray-checked');
-    for (var i=0; i<elems.length; i++) {
-        var tagId = $(elems[i]).find('span').data('tag');
-        if (tagId == 74) {
-            $(elems[i]).find('span').click();
-            break;
-        }
-    }
+    AT.selectFirstFilterObject();
 };
 
 AT.initMap = function(params) {
@@ -145,7 +137,6 @@ AT.initUI = function() {
         },
         success: function(responseText, statusText, xhr, $form){
             $('#ajax-loading').hide();
-
             // Если вторая вкладка текущая, не рисуем объекты
             //if ($('.filter-tabs-titles li.active').index())
             //    return;
@@ -276,10 +267,42 @@ AT.initUI = function() {
     });
 
 };
-
+AT.selectFirstFilterObject = function() {
+    var elems = $('#ajax-filter-tabs').find('.gray-checked');
+    $('span', $(elems[0])).click();    
+}
+// Init filters
+AT.initTabFilters = function(){
+    $('#filter-type').val('filter_culture_objects');
+    $('.atlas-tab-filters').on( 'click', function(){
+        AT.clearMap();
+        if( $(this).hasClass('active') ) {
+            return false;
+        }
+        $('#ajax-loading').show();
+        $('.atlas-tab-filters').removeClass('active');
+        $(this).addClass('active');
+        current_sel_tab = $(this).attr('id');
+        
+        $.ajax({
+            url: Routing.generate('armd_atlas_ajax_filters', {
+                'typeTab': current_sel_tab
+            }),
+            cache: false,
+            dataType: 'html',
+            type: 'post',
+            success: function(res){
+                $('#ajax-loading').hide();
+                $('#ajax-filter-tabs').html(res);
+                $('#filter-type').val(current_sel_tab);
+                AT.selectFirstFilterObject();
+            }
+        });
+        return false;
+    });
+}
 // Init filters
 AT.initFilters = function(){
-
     $('.atlas-filter-form .check_all').click(function(){
         var parentDiv = $(this).closest('.simple-filter-block');
         if (!$(this).data('checked')) {
@@ -294,14 +317,19 @@ AT.initFilters = function(){
         }
     });
 
-    $('.atlas-filter-form').find('.simple-filter-options > label > span').click(function(e){
+    $('.atlas-filter-form').on('click', '.simple-filter-options > label > span', (function(e){
         // перехват обработчика из function.js
         e.preventDefault();
         e.stopPropagation();
+        switch($('#filter-type').val()) {
+            case 'filter_tourist_clusters':
+                $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
+                break;
+        }
         $(this).closest('label').toggleClass('checked');
         // сбор отмеченных тегов
         AT.submitFiltersForm();
-    });
+    }));
 
     $('.atlas-filter-form').find('.check_all').click(function(e){
         // сбор отмеченных тегов

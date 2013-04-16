@@ -73,6 +73,8 @@ class AppKernel extends Kernel
             new Armd\PersonBundle\ArmdPersonBundle(),            
             new Armd\TheaterBundle\ArmdTheaterBundle(),
             new Armd\PerfomanceBundle\ArmdPerfomanceBundle(),
+            new Armd\ExternalSearchBundle\ArmdExternalSearchBundle(),
+            new Armd\MarkupBundle\ArmdMarkupBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {

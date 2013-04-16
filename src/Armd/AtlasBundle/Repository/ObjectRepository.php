@@ -18,12 +18,22 @@ class ObjectRepository extends EntityRepository
     {
         $categoryIds = $params['category'];
         $qb = $this->createQueryBuilder('o');
-        $qb->innerJoin('o.secondaryCategories', 'c')
-            ->where('o.published = TRUE')
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->in('c', $categoryIds),
-                $qb->expr()->in('o.primaryCategory', $categoryIds)
-            ));
+        switch($params['filter_type']) {
+            case 'filter_culture_objects':
+                $qb->innerJoin('o.secondaryCategories', 'c');
+                break;
+            case 'filter_tourist_clusters':
+                $qb->innerJoin('o.touristCluster', 'c');
+                break;
+            default:
+                $qb->innerJoin('o.secondaryCategories', 'c');
+                break;
+        }
+            $qb->where('o.published = TRUE')
+               ->andWhere($qb->expr()->orX(
+                    $qb->expr()->in('c', $categoryIds),
+                    $qb->expr()->in('o.primaryCategory', $categoryIds)
+                ));
         $rows = $qb->getQuery()->getResult();
         return $rows;
     }
