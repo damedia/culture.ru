@@ -56,6 +56,8 @@ class RealMuseum extends Admin
             ->with('General')
                 ->add('title')
                 ->add('address')
+                ->add('phone')
+                ->add('email','email', array('required' => false))
                 ->add('url', 'url', array('required' => false))
                 ->add('description')
                 ->add('category')
@@ -70,6 +72,7 @@ class RealMuseum extends Admin
                         return $qb;
                     }
                 ))
+                ->add('schedule')
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))             
             ->end()
             ->with('Images of Russia')

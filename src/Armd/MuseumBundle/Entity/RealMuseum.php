@@ -70,6 +70,21 @@ class RealMuseum implements Taggable
      */
     private $virtualTours;
     
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $email;    
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $phone;    
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $schedule;      
+    
     private $tags;
 
     public function __toString()
@@ -342,5 +357,74 @@ class RealMuseum implements Taggable
     public function getVirtualTours()
     {
         return $this->virtualTours;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return RealMuseum
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return RealMuseum
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set schedule
+     *
+     * @param string $schedule
+     * @return RealMuseum
+     */
+    public function setSchedule($schedule)
+    {
+        $this->schedule = $schedule;
+    
+        return $this;
+    }
+
+    /**
+     * Get schedule
+     *
+     * @return string 
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
     }
 }
