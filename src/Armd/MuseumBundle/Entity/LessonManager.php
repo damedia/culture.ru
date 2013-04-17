@@ -18,14 +18,14 @@ class LessonManager extends ListManager
     /** example: array(1, 2) */
     const CRITERIA_SKILL_IDS_OR = 'CRITERIA_SKILL_IDS_OR';    
     
+    /** example: array(1, 2) */
+    const CRITERIA_SUBJECT_IDS_OR = 'CRITERIA_SUBJECT_IDS_OR';        
+    
     /** example: 1 */
     const CRITERIA_MUSEUM_ID = 'CRITERIA_MUSEUM_ID';    
     
     /** example: 1 */
     const CRITERIA_CITY_ID = 'CRITERIA_CITY_ID';        
-    
-    /** example: 1 */
-    const CRITERIA_SUBJECT_ID = 'CRITERIA_SUBJECT_ID';        
     
     /** example: 1 */
     const CRITERIA_EDUCATION_ID = 'CRITERIA_EDUCATION_ID';        
@@ -61,6 +61,12 @@ class LessonManager extends ListManager
                 ->andWhere('_lessonSkills IN (:skill_ids_or)')
                 ->setParameter('skill_ids_or', $criteria[self::CRITERIA_SKILL_IDS_OR]);
         }
+        
+        if (!empty($criteria[self::CRITERIA_SUBJECT_IDS_OR])) {
+            $qb->innerJoin('_lesson.subjects', '_lessonSubjects')
+                ->andWhere('_lessonSubjects IN (:subject_ids_or)')
+                ->setParameter('subject_ids_or', $criteria[self::CRITERIA_SUBJECT_IDS_OR]);
+        }         
 
         if (!empty($criteria[self::CRITERIA_MUSEUM_ID])) {
             $qb->andWhere("_lesson.museum = :museum_id")
@@ -77,10 +83,7 @@ class LessonManager extends ListManager
                 ->setParameter('education_id', $criteria[self::CRITERIA_EDUCATION_ID]);
         }                       
         
-        if (!empty($criteria[self::CRITERIA_SUBJECT_ID])) {
-            $qb->andWhere("_lesson.subject = :subject_id")
-                ->setParameter('subject_id', $criteria[self::CRITERIA_SUBJECT_ID]);
-        }                       
+                    
     }
 
     public function findObjectsWithSphinx($criteria) {
@@ -100,6 +103,13 @@ class LessonManager extends ListManager
                 'values' => $criteria[self::CRITERIA_SKILL_IDS_OR]
             );
         }
+        
+        if (!empty($criteria[self::CRITERIA_SUBJECT_IDS_OR])) {
+            $searchParams['Lessons']['filters'][] = array(
+                'attribute' => 'lessonsubject_id',
+                'values' => $criteria[self::CRITERIA_SUBJECT_IDS_OR]
+            );
+        }        
         
         if (!empty($criteria[self::CRITERIA_MUSEUM_ID])) {
             $searchParams['Lessons']['filters'][] = array(
@@ -121,13 +131,6 @@ class LessonManager extends ListManager
                 'values' => $criteria[self::CRITERIA_EDUCATION_ID]
             );
         }   
-
-        if (!empty($criteria[self::CRITERIA_SUBJECT_ID])) {
-            $searchParams['Lessons']['filters'][] = array(
-                'attribute' => 'subject_id',
-                'values' => $criteria[self::CRITERIA_SUBJECT_ID]
-            );
-        }        
 
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 

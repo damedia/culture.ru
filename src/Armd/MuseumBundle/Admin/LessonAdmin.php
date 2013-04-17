@@ -46,7 +46,7 @@ class LessonAdmin extends Admin
             ->add('maxMembers')
             ->add('place')
             ->add('education')
-            ->add('subject')
+            ->add('subjects')
             ->add('skills')
             ->add('age')
             ->add('format')
@@ -77,7 +77,7 @@ class LessonAdmin extends Admin
 	            ->add('maxMembers')
 	            ->add('place')
 	            ->add('education')
-	            ->add('subject')
+	            ->add('subjects')
 	            ->add('skills')
 	            ->add('age')
 	            ->add('format')
@@ -121,7 +121,7 @@ class LessonAdmin extends Admin
             ->add('title')
             ->add('city')
             ->add('museum')
-            ->add('subject')
+            ->add('subjects')
             ->add('skills')
         ;
     }    

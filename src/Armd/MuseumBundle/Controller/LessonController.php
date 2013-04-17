@@ -11,7 +11,7 @@ use Armd\MuseumBundle\Entity\LessonManager;
 class LessonController extends Controller
 {
 
-	static $count = 1;
+	static $count = 20;
 	
     /**
      * @Route("/lesson/list/", name="armd_lesson_list", options={"expose"=true})
@@ -19,6 +19,7 @@ class LessonController extends Controller
      */		
 	public function listAction() {
 
+	    $list = $this -> getLessonList(self::$count+1);
 		return array(
 			'load_count' => self::$count,
 			'searchQuery' => $this -> getRequest() -> get('search_query'),
@@ -31,7 +32,8 @@ class LessonController extends Controller
 			'lesson_museum' => $this -> getRequest() -> get('lesson_museum'),
 			'lesson_education' => $this -> getRequest() -> get('lesson_education'),
 			'lesson_subject' => $this -> getRequest() -> get('lesson_subject'),
-			'lesson_skill' => $this -> getRequest() -> get('lesson_skill')
+			'lesson_skill' => $this -> getRequest() -> get('lesson_skill'),
+			'list_count' => count($list)
 		);
 	}
 	
@@ -42,65 +44,8 @@ class LessonController extends Controller
      */	
     public function listContentAction()
     {
-    	$request = $this -> getRequest();
-    	$criteria = array();
-    	
-    	$order_by = array('createdAt' => 'DESC');
-    	
-        //слово для поиска
-        if ($request->query->has('search_query')) {
-            $criteria[LessonManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
-        }    	
-    	
-    	//навыки 
-        if ($request->query->has('lesson_skill')) {
-
-            if ( $request->get('lesson_skill') ) {
-                $criteria[LessonManager::CRITERIA_SKILL_IDS_OR] = array($request->get('lesson_skill'));
-            }
-        }  
-        
-    	//музей
-        if ($request->query->has('lesson_museum')) {
-
-            if ( $request->get('lesson_museum') ) {
-                $criteria[LessonManager::CRITERIA_MUSEUM_ID] = array($request->get('lesson_museum'));
-            }
-        }          
-        
-    	//город
-        if ($request->query->has('lesson_city')) {
-
-            if ( $request->get('lesson_city') ) {
-                $criteria[LessonManager::CRITERIA_CITY_ID] = array($request->get('lesson_city'));
-            }
-        }                  
-        
-    	//Образование
-        if ($request->query->has('lesson_education')) {
-
-            if ( $request->get('lesson_education') ) {
-                $criteria[LessonManager::CRITERIA_EDUCATION_ID] = array($request->get('lesson_education'));
-            }
-        }     
-
-    	//предмет
-        if ($request->query->has('lesson_subject')) {
-
-            if ( $request->get('lesson_subject') ) {
-                $criteria[LessonManager::CRITERIA_SUBJECT_ID] = array($request->get('lesson_subject'));
-            }
-        }                         
-            	
-        $list = $this -> getLessonManager() -> findObjects(
-    		array(
-    			LessonManager::CRITERIA_LIMIT => self::$count, 
-    			LessonManager::CRITERIA_OFFSET => $request->get('offset') ? $request->get('offset') : 0, 
-    			LessonManager::CRITERIA_ORDER_BY => $order_by
-    		) + $criteria
-    	);
     	    	
-		return array('list' => $list);
+		return array('list' => $this -> getLessonList(self::$count));
     	
     }  	
     
@@ -138,7 +83,125 @@ class LessonController extends Controller
 			'subject_list' => $this -> getSubjectList(),
 			'skill_list' => $this -> getSkillList()            
         );
-    }     
+    }    
+    
+    /**
+    * @Route("/lesson/filter-adjust/", name="armd_lesson_filter_adjust", options={"expose"=true})
+    *
+    */
+    public function filterAdjustAction() {
+        
+        $list = $this -> getLessonList();
+        
+        $res = array(
+            'museum' => array(),
+            'city' => array(),
+            'education' => array(),
+            'subject' => array(),
+            'skill' => array()
+        );
+        
+        if (count($list)) {
+            
+            foreach ($list as $item) {
+                if ($item->getMuseum()) {
+                    if (!isset($res['museum'][$item->getMuseum()->getId()]))
+                        $res['museum'][$item->getMuseum()->getId()] = $item->getMuseum()->getId();
+                }
+                if ($item->getEducation()) {
+                    if (!isset($res['education'][$item->getEducation()->getId()]))
+                        $res['education'][$item->getEducation()->getId()] = $item->getEducation() -> getId();
+                }                
+                if ($item->getCity()) {
+                    if (!isset($res['city'][$item->getCity()->getId()]))
+                        $res['city'][$item->getCity()->getId()] = $item->getCity() -> getId();
+                }                                
+                if (count($item -> getSkills())) {
+                    foreach ($item -> getSkills() as $skill) {
+                        if (!isset($res['skill'][$skill->getId()]))
+                            $res['skill'][$skill->getId()] = $skill -> getId();
+                    }
+                }
+                if (count($item -> getSubjects())) {
+                    foreach ($item -> getSubjects() as $subject) {
+                        if (!isset($res['subject'][$subject->getId()]))
+                            $res['subject'][$subject->getId()] = $subject -> getId();
+                    }
+                }
+            }
+        }
+        
+        echo json_encode($res);
+        exit();
+    }
+    
+    public function getLessonList($limit = null) {
+        
+    	$request = $this -> getRequest();
+    	$criteria = array();
+    	
+    	$order_by = array('createdAt' => 'DESC');
+    	
+        //слово для поиска
+        if ($request->query->has('search_query')) {
+            $criteria[LessonManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
+        }    	
+    	
+    	//навыки 
+        if ($request->query->has('lesson_skill')) {
+
+            if ( $request->get('lesson_skill') ) {
+                $criteria[LessonManager::CRITERIA_SKILL_IDS_OR] = array($request->get('lesson_skill'));
+            }
+        } 
+        
+    	//предмет
+        if ($request->query->has('lesson_subject')) {
+
+            if ( $request->get('lesson_subject') ) {
+                $criteria[LessonManager::CRITERIA_SUBJECT_IDS_OR] = array($request->get('lesson_subject'));
+            }
+        }          
+        
+    	//музей
+        if ($request->query->has('lesson_museum')) {
+
+            if ( $request->get('lesson_museum') ) {
+                $criteria[LessonManager::CRITERIA_MUSEUM_ID] = $request->get('lesson_museum');
+            }
+        }          
+        
+    	//город
+        if ($request->query->has('lesson_city')) {
+
+            if ( $request->get('lesson_city') ) {
+                $criteria[LessonManager::CRITERIA_CITY_ID] = $request->get('lesson_city');
+            }
+        }                  
+        
+    	//Образование
+        if ($request->query->has('lesson_education')) {
+
+            if ( $request->get('lesson_education') ) {
+                $criteria[LessonManager::CRITERIA_EDUCATION_ID] = $request->get('lesson_education');
+            }
+        }
+        
+        if ($limit) {
+            $criteria[LessonManager::CRITERIA_LIMIT] = $limit;
+        }
+
+                 
+            	
+        $list = $this -> getLessonManager() -> findObjects(
+    		array(
+    			LessonManager::CRITERIA_OFFSET => $request->get('offset') ? $request->get('offset') : 0, 
+    			LessonManager::CRITERIA_ORDER_BY => $order_by
+    		) + $criteria
+    	);      
+    	
+    	return $list;  
+    }
     
     public function getMuseumList() {
     	
