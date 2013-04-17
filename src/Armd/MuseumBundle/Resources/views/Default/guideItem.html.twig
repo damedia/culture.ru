@@ -10,9 +10,11 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museumGuide.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script>
     <script type="text/javascript">
         $(function () {
             armdMuseumGuide.init();
+            armdMuseumGuide.initPdf("{% path entity.file, 'reference' %}");
         });
     </script>
     
@@ -42,24 +44,23 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_search %}
-   <div class="search-category">
-        <form id="museums-filter-form" action="{{ path('armd_museum_guide_list') }}">
+    <div class="search-category">
+        <form id="museums-filter-form" action="{{ path('armd_museum_guide_index') }}" method="POST">
             <span class="search-dates-label">{{ "search.select"|trans }}</span>
             <div class="search-category-selects">
-                <select name="city" id="filter-city" class="uni">
+                <select name="cityId" id="filter-city" class="uni">
                     <option value="">{{ "search.place"|trans }}</option>
                     {% for city in cities %}
-                        <option value="{{ city.id }}" {% if city.id == cityId %}selected="selected"{% endif %}>{{ city.title }}</option>
+                        <option value="{{ city.id }}">{{ city.title }}</option>
                     {% endfor %}
                 </select>
-                <select name="museum" id="filter-museum" class="uni">
+                <select name="museumId" id="filter-museum" class="uni">
                     <option value="">{{ "search.museum"|trans }}</option>
                     {% for museum in museums %}
                         <option value="{{ museum.id }}">{{ museum.title }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
         </form>
     </div>
 {% endblock %}
@@ -76,15 +77,27 @@
     <h2>{{ entity.title|raw }}<br /><span>{{ entity.city|raw }}</span></h2>    
     <p class="additional-info">{{entity.announce|raw}}</p>
     {% if entity.file %}
-        <div class="pdf-lister"> {# {% path entity.file, 'reference' %} #}
+        <div class="pdf-lister">
             <h3>
                 <a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}https://github.com/mozilla/pdf.js/blob/master/web/compressed.tracemonkey-pldi-09.pdf?raw=true{% endfilter %}&embedded=true">
                     Полистать интерактивную версию книги
                 </a>
             </h3>
-            <div class="pdf-content"><!--
-                <iframe src="http://docs.google.com/viewer?url={% filter url_encode() %}https://github.com/mozilla/pdf.js/blob/master/web/compressed.tracemonkey-pldi-09.pdf?raw=true{% endfilter %}&embedded=true&minimal=true" style="width:720px; height:525px;" frameborder="0"></iframe>
-            !--></div>
+            <div id="pdf-viewerContainer" class="pdf-content clearfix">
+                <canvas id="pdf-canvas-h" style="display:none;"></canvas>
+                <div>
+                    <button id="pdf-zoomin" onclick="pdfViewer.zoomIn();" >+</button>
+                    <button id="pdf-zoomout" onclick="pdfViewer.zoomOut();" >-</button>
+                    <button id="pdf-zoomout" onclick="pdfViewer.fullscreen();" >f</button>
+                </div>
+                <div id="pdf-viewer" class="clearfix" style="min-width:800px; height:545px;text-align:center;">
+                    <button id="pdf-prev" onclick="pdfViewer.goPrev();" style="float:left;height:100%; vertical-align:top;background-color:transparent;border:1px solid gray;width:5%;"><</button>
+                    <div id="pdf-canvas-container" style="overflow:auto; max-width:740px;height:100%;float:left;">
+                        <canvas id="pdf-canvas"></canvas>
+                    </div>
+                    <button id="pdf-next" onclick="pdfViewer.goNext();" style="float:right;height:100%; vertical-align:top;background-color:transparent;border:1px solid gray;width:5%;">></button>
+                </div>
+            </div>
             <p class="item-title">Open publication - Free publishing - More guide</p>
         </div>
     {% endif %}

@@ -91,19 +91,21 @@ class DefaultController extends Controller
 
     
     /**
-     * @Route("/guide/", name="armd_museum_guide_index")
+     * @Route("/guide", name="armd_museum_guide_index")
      * @Template()
      */
     public function guideIndexAction()
     {
         $cityId = (int) $this->getRequest()->get('cityId', 0);
+        $museumId = (int) $this->getRequest()->get('museumId', 0);
         $cities = $this->getGuideCities();
-        $museums = $this->getGuideMuseums($cityId);
+        $museums = $this->getGuideMuseums();
         
         return array(
             'museums' => $museums,
             'cities' => $cities,
             'cityId' => $cityId,
+            'museumId' => $museumId,
         );
     }
     
@@ -120,15 +122,13 @@ class DefaultController extends Controller
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
         
-        $cityId = (int) $this->getRequest()->get('cityId', 0);
         $cities = $this->getGuideCities();
-        $museums = $this->getGuideMuseums($cityId);
+        $museums = $this->getGuideMuseums();
         
         return array(
             'entity' => $entity,
             'museums' => $museums,
             'cities' => $cities,
-            'cityId' => $cityId,
         );
     }
     
@@ -138,12 +138,18 @@ class DefaultController extends Controller
      */
     public function guideListAction()
     {
-            return array(
-                'museumGuides' => $this->getMuseumGuideRepository()->findBy(
-                        array(), 
-                        array('title' => 'ASC')
-                    ),  
-            );
+        $findBy = array();
+        if(($cityId = (int)$this->getRequest()->get('cityId')) > 0) {
+            $findBy['city'] = $cityId;
+        }
+        if(($museumId = (int)$this->getRequest()->get('museumId')) > 0) {
+            $findBy['museum'] = $museumId;
+        }
+        
+        $museumGuides = $this->getMuseumGuideRepository()->findBy($findBy, array('title' => 'ASC'));
+        return array(
+            'museumGuides' => $museumGuides,  
+        );
     }
     
     /**
@@ -234,10 +240,12 @@ class DefaultController extends Controller
     {
         $qb = $this->getDoctrine()->getEntityManager()->getRepository('ArmdMuseumBundle:RealMuseum')->createQueryBuilder('m');
         $qb->select('m')->join('ArmdMuseumBundle:MuseumGuide', 'g', 'WITH', 'g.museum = m.id');
+        /*
         if((int)$cityId > 0) {
             $qb->andWhere('g.city = :cityId');
             $qb->setParameter(':cityId', $cityId);
         }
+        */
         $qb->orderBy('m.title');
         return $qb->getQuery()->getResult();
     }

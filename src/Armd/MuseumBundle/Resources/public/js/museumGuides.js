@@ -1,21 +1,14 @@
 var armdMuseumGuides = {
 
     init: function () {
-        armdMuseumGuides.initUi();
-    },
-
-    initUi: function () {
         $('#museums-filter-form').ajaxForm({
             beforeSubmit: function(){
-                armdMk.startLoading();
                 armdMuseumGuides.resetTextFilter();
                 armdMuseumGuides.startLoading();
             },
             success: function(data) {
                 $('#museums-container').html(data);
                 armdMuseumGuides.stopLoading();
-                //armdMuseumGuides.initLoadedUi();
-                armdMk.stopLoading();
             }
         });
         // filter
@@ -23,9 +16,6 @@ var armdMuseumGuides = {
             function (event) {
                 armdMuseumGuides.resetTextFilter();
                 armdMuseumGuides.isSearch = false;
-                if ($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-filter-city') {
-                    armdMuseumGuides.loadMuseumList();
-                }
                 armdMuseumGuides.loadList(false, false);
 
             });
@@ -96,33 +86,8 @@ var armdMuseumGuides = {
                 }
             },
             complete: function() {
-                armdMk.stopLoading();
+                armdMuseumGuides.stopLoading();
             }
         });
-    },
-    
-    loadMuseumList: function () {
-        var select = $('#filter-museum');
-        if (select.length) {
-            var cityId = $('#filter-city').val();
-            select.html('<option value="0">Все</option>');
-            if (cityId > 0) {
-                armdMuseumGuides.startLoading();
-                $.ajax({
-                    url: Routing.generate('armd_museum_guide_museums', {'cityId': cityId}),
-                    dataType: 'json',
-                    success: function (data) {
-                        for (var i in data) {
-                            select.append($('<option>', {value: data[i].id}).text(data[i].title));
-                        }
-                        select.selectgroup('refresh');
-                    },
-                    complete: function () {
-                        armdMuseumGuides.stopLoading();
-                    }
-                });
-            }
-        }
     }
-
 };
