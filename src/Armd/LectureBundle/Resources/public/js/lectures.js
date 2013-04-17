@@ -153,7 +153,7 @@ var armdMkLectures = {
                     $('#lecture-container').html(data);
                 }
 
-                if ($(data).filter('.plitka-one-wrap').length < armdMkLectures.loadByCount) {
+                if ($(data).find('.plitka-one-wrap').length < armdMkLectures.loadByCount) {
                     armdMkLectures.hideMore();
                 } else {
                     armdMkLectures.showMore();
@@ -163,6 +163,7 @@ var armdMkLectures = {
                     $('#lecture-container').html('<h2>Не найдено</h2>');
                 }
             },
+
             complete: function() {
                 armdMk.stopLoading();
             }
