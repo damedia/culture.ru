@@ -1,5 +1,6 @@
 Museums: Виртуальные туры
 Real museums: Музеи
+Real Museums: Музеи
 Museum Guide: Музейный гид
 
 Museum List: Список виртуальных туров
@@ -22,13 +23,10 @@ File: Файл
 
 Show On Main: Показывать на главной
 Show On Main Ord: Приоритет на главной
-
 Education: Образование
 Education List: Образование
-
 Lesson Skill: Навыки
 Lesson Skill List: Навыки
-
 Lesson Subject: Предметы
 Lesson Subject List: Предметы
 
@@ -47,3 +45,14 @@ Format: Форма проведения
 Url: Ссылка на сайт
 Announce: Краткое описание
 Description: Полное описание
+Address: Адрес
+Url: Сайт
+Category: Категория
+Region: Регион
+Phone: Телефон
+Schedule: Расписание работы
+Images of Russia: Образы России
+Atlas Object: Объект
+Virtual Tour: Виртуальный тур
+Virtual Tours: Виртуальные туры
+Tags: Теги
