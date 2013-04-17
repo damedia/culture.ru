@@ -123,8 +123,11 @@
     </script>
     <script type="text/javascript">
     
-        var infographic_img_width = 800;
-        var infographic_img_height = 560;
+        var infographic_img_width = 800,
+            infographic_img_height = 560,
+			//текущие размеры изображения
+			prev_img_width = infographic_img_width,
+			prev_img_height = infographic_img_height;
         
         $(function () {
             initUi();
@@ -162,6 +165,7 @@
                     resizeInfographics(this);
 			     },
 			     onUpdate: function(){
+			         
 			        resizeInfographics(this); 
 			        
 			     }
@@ -176,9 +180,6 @@
 			    //предполагаемые размеры изображения (800 х 560)
 			    img_width = infographic_img_width,
 			    img_height = infographic_img_height,
-			    //текущие размеры изображения
-			    prev_img_width = $('img#shiftzoom').width(),
-			    prev_img_height = $('img#shiftzoom').height(),
 			    //ресайз
 			    by_height = null,
 			    by_width = null,
@@ -221,30 +222,73 @@
               
            }
            
-         console.log(by_width + ' - ' + by_height);
-         console.log(area_width + ' - ' + block_width + ' - ' + img_width);
-         console.log(area_height + ' - ' + block_height + ' - ' + img_height);
-           $('img#shiftzoom').css({'width' : img_width, 'height': img_height});  
-           
-           if (!zoomer_)
-                initInfographics2(img_width, img_height);           
+
+
+           //$('img#shiftzoom').css({'width' : img_width, 'height': img_height});  
+           //
            
            if (prev_img_width != img_width || prev_img_height != img_height) {
 
+               
+               //$('img#shiftzoom').css( {'transform' : 'scale(1,1)', 'width' : null, 'height' : null});  
+               $('img#shiftzoom').css( {'width' : null, 'height' : null});  
+               $('img#shiftzoom').attr( {'width' : null, 'height' : null});  
+               
+               if (!zoomer_) {
+                   
+                    initInfographics2(img_width, img_height);   
+                    console.log("--");
+               }
+               else {               
+
+                   //zoomer_.destroy();
+                   //console.log(zoomer_);                   
+                   zoomer_.sW = img_width;
+                   zoomer_.sH = img_height;
+                   zoomer_.$holder.width(img_width);
+                   zoomer_.$holder.height(img_height);
+                   zoomer_.dX = 0;
+                   zoomer_.dY = 0;
+                   scale = img_width/3507;
+
+                   zoomer_.rA = scale;
+                   zoomer_.rF = scale;
+                   zoomer_._sc = scale;     
+                   zoomer_.init_zoom = scale;              
+                   
+                   //console.log(scale);
+                   initInfographics2(img_width, img_height, Math.floor(scale*100));
+                    
+
+               }
+               //initInfographics2(img_width, img_height); 
+               
+               
+                          
                $('#infographics').width(img_width);
                $('#infographics').height(img_height+ bottom_text_height);
 
-               zoomer_.rA = 1;
-               zoomer_.rF = 1;
-               zoomer_._sc = 1;
-               zoomer_.resize({width : img_width, height: img_height});
-               zoomer_.focusTo({x: 0,y: 0,zoom: 100,speed: 10});
-
+               //zoomer_.rA = 1;
+               //zoomer_.rF = 1;
+               //zoomer_._sc = 1;
+               //zoomer_.sW = img_width;
+               //zoomer_.sH = img_height;
+               //zoomer_.resize({width : img_width, height: img_height});
+               //zoomer_.focusTo({x: 0,y: 0,zoom: 100,speed: 10});
+               
+               prev_img_width = img_width;
+               prev_img_height = img_height;
                 
                fb.width = img_width;                   
                fb.height = img_height + bottom_text_height;    
                $.fancybox.update();
-               console.log('resize');
+        
+               
+           }
+           else {
+               if (!zoomer_) {
+                    initInfographics2(img_width, img_height);                
+               }
            }
            
            
@@ -308,14 +352,16 @@
         }
         #}
 
-        function initInfographics2(width,height) {
+        function initInfographics2(width,height, zoom) {
             $("#shiftzoom").z({
                 width: width,
                 height: height,
+                initial_POSITION: "0,0",
+                initial_ZOOM: zoom,
                 responsive: true,
                 responsive_maintain_ratio: true,
-                max_WIDTH: '',
-                max_HEIGHT: '',
+                max_WIDTH: 3507,
+                max_HEIGHT: 2480,
                 button_ICON_IMAGE: '{{ asset('vendor/zp/zoom_assets/icons.png') }}'
             });
         }
@@ -438,7 +484,7 @@
                 </a>
                 <div id="infographics" style="display:none; ">
                     {% set popupWidth = 800 %}
-                    <img id="shiftzoom" class="shiftzoom" width="{{ popupWidth }}" height="{{ popupWidth * entity.image3d.height / entity.image3d.width }}" src="{% path entity.image3d, 'reference' %}" alt=""/>
+                    <img id="shiftzoom" class="shiftzoom" {#width="{{ popupWidth }}" height="{{ popupWidth * entity.image3d.height / entity.image3d.width }}"#} src="{% path entity.image3d, 'reference' %}" alt=""/>
                     <div style="margin-top:5px; font-size:13px; height: 20px; overflow: hidden; ">
                         <a target="_blank" href="{% path entity.image3d, 'reference' %}">{{ "infographics_open_original"|trans }}</a>
                     </div>
