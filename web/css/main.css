@@ -4704,7 +4704,738 @@ body {
                 .text-overflow {
                         overflow:hidden;
                     }    
-        
+
+/*--- gos uslugi ---*/
+.inner-columns {
+    margin-bottom: 30px;
+}
+
+.inner-columns .i-col {
+    float: left;
+}
+
+.inner-columns .bordered {
+    padding: 10px 0;
+    border: 1px solid #dfdfdf;
+    border-top: 0;
+}
+
+/* 2 cols */
+.inner-columns-2 .i-col {
+    width: 48%;
+}
+
+.inner-columns-2 .i-col {
+    margin-left: 2%;
+}
+
+.inner-columns-2 .i-col:first-child {
+    margin-left: 0;
+    margin-right: 2%;
+}
+
+.b-services {
+    font-size: 14px;
+}
+
+.b-services section {
+
+}
+
+.b-services section:hover {
+    background: rgb(255, 255, 255);
+    background-image: linear-gradient(bottom, rgb(241, 244, 246) 20%, rgb(255, 255, 255) 80%);
+    background-image: -o-linear-gradient(bottom, rgb(241, 244, 246) 20%, rgb(255, 255, 255) 80%);
+    background-image: -moz-linear-gradient(bottom, rgb(241, 244, 246) 20%, rgb(255, 255, 255) 80%);
+    background-image: -webkit-linear-gradient(bottom, rgb(241, 244, 246) 20%, rgb(255, 255, 255) 80%);
+    background-image: -ms-linear-gradient(bottom, rgb(241, 244, 246) 20%, rgb(255, 255, 255) 80%);
+
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.2, rgb(241, 244, 246)), color-stop(0.8, rgb(255, 255, 255)));
+}
+
+.b-services section a,
+.b-services section a span {
+    display: block;
+}
+
+.b-services section a span {
+    padding: 15px 0;
+    background: url(../img/b-dotted.png) repeat-x 0 0;
+}
+
+.b-services .sections-wrap section:first-child a span {
+    background: none;
+}
+
+.b-services section a {
+    padding: 0 20px;
+    color: #000;
+    background: url(../img/btn-go.png) no-repeat -500% 50%;
+    text-decoration: none;
+    outline: 0;
+}
+
+.b-services section:hover a {
+    color: #154060;
+    background-position: 99% 50%;
+}
+
+.b-services .goslink {
+    margin: 0 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.b-services .goslink span {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 55px;
+    height: 32px;
+    background: url(../img/gos-links.png) no-repeat 6px 0;
+}
+
+.b-services .goslink span a {
+
+}
+
+.b-services .goslink em {
+    position: relative;
+    vertical-align: top;
+    background: red;
+}
+
+.b-services .goslink em a {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+    text-decoration: none;
+    width: 7px;
+    height: 5px;
+    background: url(../img/ex-link.png) no-repeat 0 0;
+}
+
+.b-regions {
+}
+
+.b-regions.bordered {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.b-regions form {
+    padding: 15px 0 20px 0;
+}
+
+.b-regions .inp-wrap {
+    border: 1px solid #e4e4e4;
+}
+
+.b-regions .textinput {
+    display: block;
+    margin: 0;
+    padding: 5px 0;
+    width: 98%;
+    border: 0;
+    outline: 0;
+    font-size: 14px;
+    color: #6b6b6b;
+}
+
+.b-regions ul {
+    margin-bottom: 10px;
+    padding-top: 15px;
+    background: url(../img/b-dotted.png) repeat-x 0 0;
+    font-size: 14px;
+}
+
+.b-regions ul:first-child {
+    padding-top: 0;
+    background: none;
+}
+
+.b-regions li {
+    float: left;
+    width: 50%;
+    height: 39px;
+}
+
+.b-regions li a {
+    display: table-cell;
+    padding-left: 40px;
+    height: 39px;
+    vertical-align: middle;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    color: #7791a4;
+}
+
+.b-regions li.r_msk a {
+    background-image: url('../img/regions/msk.png');
+}
+
+.b-regions li.r_spb a {
+    background-image: url('../img/regions/spb.png');
+}
+
+.b-regions li.r_altay a {
+    background-image: url('../img/regions/altay.png');
+}
+
+.b-regions li.r_amur a {
+    background-image: url('../img/regions/amur.png');
+}
+
+.b-regions li.r_arhangelsk a {
+    background-image: url('../img/regions/arhangelsk.png');
+}
+
+.b-regions li.r_astrahan a {
+    background-image: url('../img/regions/astrahan.png');
+}
+
+.b-regions li.r_belgorod a {
+    background-image: url('../img/regions/belgorod.png');
+}
+
+.b-regions li.r_bryansk a {
+    background-image: url('../img/regions/bryansk.png');
+}
+
+.b-regions li.r_vladimir a {
+    background-image: url('../img/regions/vladimir.png');
+}
+
+.b-regions li.r_volgograd a {
+    background-image: url('../img/regions/volgograd.png');
+}
+
+.b-regions li.r_vologda a {
+    background-image: url('../img/regions/vologda.png');
+}
+
+.b-regions li.r_voronezh a {
+    background-image: url('../img/regions/voronezh.png');
+}
+
+.b-regions li.r_evrei a {
+    background-image: url('../img/regions/evrei.png');
+}
+
+.b-regions li.r_zabaikal a {
+    background-image: url('../img/regions/zabaikal.png');
+}
+
+.b-regions li.r_ivanovo a {
+    background-image: url('../img/regions/ivanovo.png');
+}
+
+.b-regions li.r_irkutsk a {
+    background-image: url('../img/regions/irkutsk.png');
+}
+
+.b-regions li.r_kabardino-bal a {
+    background-image: url('../img/regions/kabardino-bal.png');
+}
+
+.b-regions li.r_kaliningrad a {
+    background-image: url('../img/regions/kaliningrad.png');
+}
+
+.b-regions li.r_kaluga a {
+    background-image: url('../img/regions/kaluga.png');
+}
+
+.b-regions li.r_kamchatka a {
+    background-image: url('../img/regions/kamchatka.png');
+}
+
+.b-regions li.r_karachaevo-cher a {
+    background-image: url('../img/regions/karachaevo-cher.png');
+}
+
+.b-regions li.r_kemerovo a {
+    background-image: url('../img/regions/kemerovo.png');
+}
+
+.b-regions li.r_kirov a {
+    background-image: url('../img/regions/kirov.png');
+}
+
+.b-regions li.r_kostroma a {
+    background-image: url('../img/regions/kostroma.png');
+}
+
+.b-regions li.r_krasnodar a {
+    background-image: url('../img/regions/krasnodar.png');
+}
+
+.b-regions li.r_krasnoyarsk a {
+    background-image: url('../img/regions/krasnoyarsk.png');
+}
+
+.b-regions li.r_kurgan a {
+    background-image: url('../img/regions/kurgan.png');
+}
+
+.b-regions li.r_kursk a {
+    background-image: url('../img/regions/kursk.png');
+}
+
+.b-regions li.r_len a {
+    background-image: url('../img/regions/len.png');
+}
+
+.b-regions li.r_lipetsk a {
+    background-image: url('../img/regions/lipetsk.png');
+}
+
+.b-regions li.r_magadan a {
+    background-image: url('../img/regions/magadan.png');
+}
+
+.b-regions li.r_mos a {
+    background-image: url('../img/regions/mos.png');
+}
+
+.b-regions li.r_murmansk a {
+    background-image: url('../img/regions/murmansk.png');
+}
+
+.b-regions li.r_nenetskii a {
+    background-image: url('../img/regions/nenetskii.png');
+}
+
+.b-regions li.r_nnovgorod a {
+    background-image: url('../img/regions/nnovgorod.png');
+}
+
+.b-regions li.r_novgorod a {
+    background-image: url('../img/regions/novgorod.png');
+}
+
+.b-regions li.r_novosibirsk a {
+    background-image: url('../img/regions/novosibirsk.png');
+}
+
+.b-regions li.r_omsk a {
+    background-image: url('../img/regions/omsk.png');
+}
+
+.b-regions li.r_orenburg a {
+    background-image: url('../img/regions/orenburg.png');
+}
+
+.b-regions li.r_orel a {
+    background-image: url('../img/regions/orel.png');
+}
+
+.b-regions li.r_penza a {
+    background-image: url('../img/regions/penza.png');
+}
+
+.b-regions li.r_perm a {
+    background-image: url('../img/regions/perm.png');
+}
+
+.b-regions li.r_primorie a {
+    background-image: url('../img/regions/primorie.png');
+}
+
+.b-regions li.r_pskov a {
+    background-image: url('../img/regions/pskov.png');
+}
+
+.b-regions li.r_adigeya a {
+    background-image: url('../img/regions/adigeya.png');
+}
+
+.b-regions li.r_res_altay a {
+    background-image: url('../img/regions/res_altay.png');
+}
+
+.b-regions li.r_bashkortostan a {
+    background-image: url('../img/regions/bashkortostan.png');
+}
+
+.b-regions li.r_buryatiya a {
+    background-image: url('../img/regions/buryatiya.png');
+}
+
+.b-regions li.r_dagestan a {
+    background-image: url('../img/regions/dagestan.png');
+}
+
+.b-regions li.r_ingushetiya a {
+    background-image: url('../img/regions/ingushetiya.png');
+}
+
+.b-regions li.r_kalmykiya a {
+    background-image: url('../img/regions/kalmykiya.png');
+}
+
+.b-regions li.r_kareliya a {
+    background-image: url('../img/regions/kareliya.png');
+}
+
+.b-regions li.r_komi a {
+    background-image: url('../img/regions/komi.png');
+}
+
+.b-regions li.r_mariiel a {
+    background-image: url('../img/regions/mariiel.png');
+}
+
+.b-regions li.r_mordoviya a {
+    background-image: url('../img/regions/mordoviya.png');
+}
+
+.b-regions li.r_yakutiya a {
+    background-image: url('../img/regions/yakutiya.png');
+}
+
+.b-regions li.r_sevosetiya a {
+    background-image: url('../img/regions/sevosetiya.png');
+}
+
+.b-regions li.r_tatarstan a {
+    background-image: url('../img/regions/tatarstan.png');
+}
+
+.b-regions li.r_tiva a {
+    background-image: url('../img/regions/tiva.png');
+}
+
+.b-regions li.r_hakasiya a {
+    background-image: url('../img/regions/hakasiya.png');
+}
+
+.b-regions li.r_chuvashiya a {
+    background-image: url('../img/regions/chuvashiya.png');
+}
+
+.b-regions li.r_rostov a {
+    background-image: url('../img/regions/rostov.png');
+}
+
+.b-regions li.r_ryazan a {
+    background-image: url('../img/regions/ryazan.png');
+}
+
+.b-regions li.r_samara a {
+    background-image: url('../img/regions/samara.png');
+}
+
+.b-regions li.r_saratov a {
+    background-image: url('../img/regions/saratov.png');
+}
+
+.b-regions li.r_sahalin a {
+    background-image: url('../img/regions/sahalin.png');
+}
+
+.b-regions li.r_sverdlovsk a {
+    background-image: url('../img/regions/sverdlovsk.png');
+}
+
+.b-regions li.r_smolensk a {
+    background-image: url('../img/regions/smolensk.png');
+}
+
+.b-regions li.r_stavropol a {
+    background-image: url('../img/regions/stavropol.png');
+}
+
+.b-regions li.r_tambov a {
+    background-image: url('../img/regions/tambov.png');
+}
+
+.b-regions li.r_tver a {
+    background-image: url('../img/regions/tver.png');
+}
+
+.b-regions li.r_tomsk a {
+    background-image: url('../img/regions/tomsk.png');
+}
+
+.b-regions li.r_tula a {
+    background-image: url('../img/regions/tula.png');
+}
+
+.b-regions li.r_tumen a {
+    background-image: url('../img/regions/tumen.png');
+}
+
+.b-regions li.r_udmurtiya a {
+    background-image: url('../img/regions/udmurtiya.png');
+}
+
+.b-regions li.r_ulianovsk a {
+    background-image: url('../img/regions/ulianovsk.png');
+}
+
+.b-regions li.r_habarovsk a {
+    background-image: url('../img/regions/habarovsk.png');
+}
+
+.b-regions li.r_hanti-man a {
+    background-image: url('../img/regions/hanti-man.png');
+}
+
+.b-regions li.r_chelyabinsk a {
+    background-image: url('../img/regions/chelyabinsk.png');
+}
+
+.b-regions li.r_chechnya a {
+    background-image: url('../img/regions/chechnya.png');
+}
+
+.b-regions li.r_chukotka a {
+    background-image: url('../img/regions/chukotka.png');
+}
+
+.b-regions li.r_yamalo-nen a {
+    background-image: url('../img/regions/yamalo-nen.png');
+}
+
+.b-regions li.r_yaroslavl a {
+    background-image: url('../img/regions/yaroslavl.png');
+}
+
+.inner-columns .content.collapsed {
+    height: 600px;
+    overflow: hidden;
+}
+
+.gosuslugi-info {
+}
+
+.gosuslugi-info .gcol-1,
+.gosuslugi-info .gcol-2 {
+    float: left;
+}
+
+.gosuslugi-info .gcol-1 {
+    padding-right: 3%;
+    width: 77%;
+}
+
+.gosuslugi-info .gcol-2 {
+    width: 20%;
+}
+
+.gosuslugi-info section {
+    margin-bottom: 40px;
+}
+
+.headline {
+    font: normal 32px 'Trebuchet MS', sans-serif;
+    line-height: 38px;
+    color: #000;
+    margin: 0 0 30px 0;
+    padding: 0;
+    border: 0;
+}
+
+.gosuslugi-info .block h1 {
+    font: normal 22px 'Trebuchet MS', sans-serif;
+    line-height: 26px;
+    color: #7e7e7e;
+    margin: 30px 0 20px 0;
+    padding: 0;
+    border: 0;
+}
+
+.gosuslugi-info .block h2 {
+    font: normal 25px 'Trebuchet MS', sans-serif;
+    border-bottom: 1px solid #d9d9d9;
+    color: #154060;
+    margin: 0;
+    padding: 0;
+}
+
+.gosuslugi-info .block h1 span, .gosuslugi-info .block h2 span {
+    display: inline-block;
+    border-bottom: 3px solid #7791a4;
+    padding-bottom: 4px;
+}
+
+.gosuslugi-info .block h2 {
+    margin-bottom: 25px;
+    border-bottom-width: 0;
+}
+
+.gosuslugi-info .block h2.a-collapse {
+    border-bottom-width: 1px;
+}
+
+.gosuslugi-info .block h2 a {
+    display: block;
+    margin-left: -30px;
+    padding-left: 30px;
+    text-decoration: none;
+    outline: 0;
+}
+
+.gosuslugi-info .block h2 span {
+    padding-bottom: 6px;
+    border-bottom-style: none;
+    background: url(../img/b-dashed2px.gif) repeat-x 0 100%;
+}
+
+.gosuslugi-info .block h2.a-collapse span {
+    padding-bottom: 4px;
+    border-bottom-style: solid;
+    background: none;
+}
+
+.gosuslugi-info .block h2 a {
+    background: url(../img/a-expand.gif) no-repeat 4px 55%;
+}
+
+.gosuslugi-info .block h2.a-collapse a {
+    background: url(../img/a-collapse.gif) no-repeat 0 55%;
+}
+
+.gosuslugi-info p,
+.gosuslugi-info ul,
+.gosuslugi-info ol {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+}
+
+.gosuslugi-info ul {
+    list-style: none;
+}
+
+.gosuslugi-info ul li:before {
+    content: '— ';
+}
+
+.gosuslugi-info table {
+    width: 100%;
+    font-size: 13px;
+}
+
+.gosuslugi-info table th,
+.gosuslugi-info table td {
+    padding: 0 25px 15px 0;
+    vertical-align: top;
+    text-align: left;
+}
+
+.gosuslugi-info table th {
+    width: 25%;
+    color: #7791a4;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.gosuslugi-info table td {
+    padding-right: 0;
+    width: 75%;
+}
+
+/* inner table */
+.gosuslugi-info table td table {
+    margin-top: 25px;
+}
+
+.gosuslugi-info table td table:first-child {
+    margin-top: 0;
+}
+
+.gosuslugi-info table table caption {
+    padding: 0 0 5px 0;
+    border-bottom: 3px solid #ececec;
+    font-size: 14px;
+    color: #f79016;
+    font-weight: bold;
+    text-align: left;
+}
+
+.gosuslugi-info table table th,
+.gosuslugi-info table table td {
+    padding: 10px 15px 10px 0;
+    background: url(../img/b-dotted2.png) repeat-x 0 100%;
+}
+
+.gosuslugi-info table table th {
+    color: #7e7e7e;
+    font-weight: bold;
+    text-transform: none;
+}
+
+.gosuslugi-info table ul {
+    list-style: none;
+}
+
+.gosuslugi-info table ul li ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.gosuslugi-info table ul li:before {
+    content: '— ';
+}
+
+.gosuslugi-info table ol li:before {
+    content: '' !important;
+}
+
+.gosuslugi-info table h4 {
+    margin: 0 0 10px 0;
+}
+
+.gosuslugi-info table li p,
+.gosuslugi-info table li ul {
+    margin: 0 0 0 30px;
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+.gosuslugi-info table li strong {
+    color: #000;
+}
+
+.gosuslugi-info table li li:before {
+    content: '• ';
+}
+
+.gosuslugi-info .g-collapsed {
+    display: none;
+}
+
+.gosuslugi-info .go-to-gos {
+    padding: 20px;
+    background: #f6f6f6;
+    border: 1px solid #ededed;
+    text-align: center;
+    font-size: 13px;
+    -webkit-box-shadow: 0px 0px 8px 10px rgba(246, 246, 246, .7);
+    box-shadow: 0px 0px 8px 10px rgba(246, 246, 246, .7);
+}
+
+.gosuslugi-info .go-to-gos p {
+    margin: 0 0 10px 0;
+    color: #7e7e7e;
+}
+
+.gosuslugi-info .go-to-gos a {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    background: rgb(143, 167, 182);
+    background-image: linear-gradient(bottom, rgb(96, 124, 147) 28%, rgb(143, 167, 182) 76%);
+    background-image: -o-linear-gradient(bottom, rgb(96, 124, 147) 28%, rgb(143, 167, 182) 76%);
+    background-image: -moz-linear-gradient(bottom, rgb(96, 124, 147) 28%, rgb(143, 167, 182) 76%);
+    background-image: -webkit-linear-gradient(bottom, rgb(96, 124, 147) 28%, rgb(143, 167, 182) 76%);
+    background-image: -ms-linear-gradient(bottom, rgb(96, 124, 147) 28%, rgb(143, 167, 182) 76%);
+
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.28, rgb(96, 124, 147)), color-stop(0.76, rgb(143, 167, 182)));
+}
+
+/*--- /gosuslugi ---*/
     
 /*News Archive*/    
 .years-tabs-selector {
