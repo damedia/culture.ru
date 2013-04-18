@@ -55,7 +55,9 @@ class MuseumGuide extends Admin
             ->with('General')
                 ->add('title')
                 ->add('announce')
-                ->add('body')
+                ->add('body', null, array(
+                    'attr' => array('class' => 'tinymce'),
+                ))
                 ->add('city')
                 ->add('museum')
             ->end()
