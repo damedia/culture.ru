@@ -228,6 +228,16 @@ sonata_media:
                 banner: { width: 922 }
                 realSmall: { width: 285 }
 
+        museum_guide:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                preview: { width: 105 }
+
         gallery:
             download:
                 strategy: sonata.media.security.public_strategy
