@@ -1,6 +1,13 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
+
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{{ path('armd_lesson_list') }}">Музейное образование</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
+    
 	<div class="museum-education museum-education-one">
 		<h2>{{ entity.title }}</h2>
 		{% media entity.image, 'big' with {'alt': entity.title|escape, 'class' : 'edu-one-image'} %}
@@ -85,6 +92,11 @@
 		                })
 		            }
 		        });
+		        
+                $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lesson_museum"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_city"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_education"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_subject"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_skill"] a',
+                    function (event) {
+                        $('#museums-filter-form').submit();        
+                });		        
 		    }
 		};   
 		        
@@ -159,7 +171,7 @@
                     
                           
             </div>
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>                    
+                   
         </form>
 
     </div>
