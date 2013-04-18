@@ -1930,9 +1930,10 @@ body {
             
         }
             .perfomances-list .plitka-one-image {
-                display:block;
+                display: table-cell;
                 height: 121px;
                 overflow:hidden;
+                *display: block;
             }
             .perfomances-list img  {
                 width:165px;
