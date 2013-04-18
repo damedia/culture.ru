@@ -114,7 +114,6 @@
                 </div>
             </div>
         </section>
-        <!--[if lte IE 8]><div class="iebugfixxer"><![endif]-->
         {% if app.request.locale == 'ru' %}
             <section class="block social-widget-block">
                 {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
@@ -123,7 +122,6 @@
                 {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
             </section>
         {% endif %}
-        <!--[if lte IE 8]></div><![endif]-->
 
     </section>
 {% endblock %}
