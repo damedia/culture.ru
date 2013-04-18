@@ -888,6 +888,49 @@ body {
                 color:#a3a3a3;
                 font-size:12px;
              }
+             .pdf-lister .pdf-content .pdf-btn button, .pdf-lister .pdf-content button.pdf-btn{
+                background-color:transparent;
+                border:0px;
+                position:relative;
+                top:0px;
+                vertical-align:top;
+             }
+             .pdf-lister .pdf-content .pdf-btn button:hover, .pdf-lister .pdf-content button.pdf-btn:hover{
+                background-color:rgba(0,0,0,.03);
+                color:#D12426;
+             }
+             .pdf-lister .pdf-content div.pdf-btn button {
+                border:1px solid gray;
+             }
+             .pdf-lister .pdf-content-border {
+                -moz-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                -webkit-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                -o-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                -ms-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+             }
+             .pdf-lister .pdf-content .pdf-viewer{
+                min-width:800px;
+                height:545px;
+                text-align:center;
+             }
+             .pdf-lister .pdf-content .pdf-viewer .pdf-canvas{
+                overflow:auto;
+                width:90%;
+                max-width:90%;
+             }
+             .pdf-lister .pdf-content .pdf-viewer button, .pdf-lister .pdf-content .pdf-viewer div{
+                float:left;
+                height:100%;
+             }
+             .pdf-prev{
+                left:0px;
+                width:5%;
+             }
+             .pdf-next{
+                right:0px;
+                width:5%;
+             }
 								
 						.event-one_footer {
 							font-size:9px;
