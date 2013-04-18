@@ -1,0 +1,82 @@
+{% block armd_point_collection_widget_row %}
+{% spaceless %}
+    <div class="sonata-collection-row" style="display:none;">
+        {% if allow_delete %}
+            <a href="#" class="btn sonata-collection-delete"><i class="icon-remove"></i></a>
+        {% endif %}
+
+        {{ form_row(child) }}
+    </div>
+{% endspaceless %}
+{% endblock %}
+
+{% block armd_point_collection_widget %}
+{% spaceless %}
+    <link type="text/stylesheet" rel="http://js.tmcrussia.com/css/PGmap.css"/>
+    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=0.1.10"></script>
+    <script>
+        var proMap    = null,
+            proPoints = {};
+
+        $(function() {
+            proMap = new PGmap($("#{{ form.vars.id }}_map")[0]);
+
+            $("#{{ form.vars.id }} .sonata-collection-add").click(function() {
+                var $containers = $("div[id^='{{ form.vars.id }}_']").not("#{{ form.vars.id }}_map");
+
+                if ($containers.length) {
+                    var idParts = $containers.last().attr("id").split("_"),
+                        number  = parseInt(idParts.pop(), 10) + 1;
+
+                    id = idParts.join("_") + "_" + number;
+
+                } else {
+                    id = "{{ form.vars.id }}_1";
+                }
+
+                proPoints[id] = new PGmap.Point({
+                    coord:     proMap.getBboxCoords().coord,
+                    draggable: 1
+                });
+
+                $(proPoints[id].element).bind("click", function() {
+                    console.log(this);
+                });
+
+                console.log(proPoints[id]);
+
+                proMap.geometry.add(proPoints[id]);
+            });
+        });
+    </script>
+
+    {% if prototype is defined %}
+        {% set child = prototype %}
+        {% set attr = attr|merge({'data-prototype': block('armd_point_collection_widget_row'), 'class': attr.class|default('') ~ ' controls' }) %}
+    {% endif %}
+
+    <div {{ block('widget_container_attributes') }}>
+        {{ form_errors(form) }}
+
+        {% if allow_add %}
+        <div>
+            <a href="#" class="btn sonata-collection-add">
+                <i class="icon-plus-sign"></i>
+                {{ 'Add point'|trans({}, 'ArmdTouristRouteBundle') }}
+            </a>
+        </div>
+        {% endif %}
+        <div id="{{ form.vars.id }}_map" class="route-map"></div>
+        
+        {% for child in form %}
+            {{ block('armd_point_collection_widget_row', {'form': child}) }}
+        {% endfor %}
+        
+        {{ form_rest(form) }}
+    </div>
+{% endspaceless %}
+{% endblock %}
+
+{% block armd_point_widget %}
+{{ form_widget(form) }}
+{% endblock %}

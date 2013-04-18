@@ -1,0 +1,10 @@
+services:
+    armd_tourist_route.listener.media:
+        class: Armd\TouristRouteBundle\EventListener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
+
+    armd_tourist_route.listener.category:
+        class: Armd\TouristRouteBundle\EventListener\CategoryListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
