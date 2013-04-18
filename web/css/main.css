@@ -1855,25 +1855,30 @@ body {
         
     /*Sort Filter*/
     .sort-filter {
-        font-size:12px;
-        margin: 24px 0 2px;
-    }  
-        .sort-filter span, .sort-filter a {
+        font-size:11px;
+        margin: 14px 0 2px;
+        float:left;
+    }
+        .sort-filter span, .sort-filter li {
             display:inline-block;
             vertical-align:top;
+            list-style:none;
         }
         .sort-filter span {
             color:#989898;
             margin-right:7px;
         }
+        .sort-filter li {
+            text-transform:uppercase;
+        }
         .sort-filter a {
             font-weight:bold;
             text-decoration:none;
-            border-bottom:1px dashed #000;
+            border-bottom:2px dashed #fff;
             color:#000;
             margin-right:7px;
         }
-        .sort-filter a.active {
+        .sort-filter .active a {
             border-bottom:2px solid #f5902d;
         }
     
