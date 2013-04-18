@@ -12,6 +12,7 @@ var armdMkLesson = {
             function (event) {
                 armdMkLesson.resetSearchForm();
                 armdMkLesson.isSearch = false;
+                //armdMkLesson.loadFilter();
                 armdMkLesson.loadList(false, false);
 
         });
@@ -48,6 +49,31 @@ var armdMkLesson = {
 
     resetSearchForm: function() {
         $('#search-txt').val('');
+    },
+    
+    loadFilter: function() {
+        
+        var data = new Array();
+        
+        data['lesson_museum'] = $('#lesson_museum').val();
+        data['lesson_city'] = $('#lesson_city').val();
+        data['lesson_education'] = $('#lesson_education').val();
+        data['lesson_subject'] = $('#lesson_subject').val();
+		data['lesson_skill'] = $('#lesson_skill').val();        
+		
+
+        $.ajax({
+            url: Routing.generate('armd_lesson_filter_adjust'),
+            data: data,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+
+            },
+            complete: function() {
+
+            }
+        });		
     },
 
     loadList: function(isSearch, append) {
