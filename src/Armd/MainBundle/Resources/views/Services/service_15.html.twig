@@ -1,0 +1,52 @@
+{% extends ':Frontend:base.html.twig' %}
+
+
+
+{#{% block stylesheets %}#}
+
+{#{{ parent() }}#}
+
+{#<link href="{{ asset('css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
+
+
+{#{% endblock %}#}
+
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+  $(function () {
+      collapseExpand();
+  });
+
+  function collapseExpand() {
+      $('.gosuslugi-info h2 a').click(function(){
+        $(this).parent().parent().toggleClass('a-collapse');
+        $(this).parents('section').find('.g-content').slideToggle();
+         return false;
+      }).filter(':first').click();
+  }
+</script>
+{% endblock %}
+
+{% block title %}{{ parent() }} — {{ 'Navigation.Public services'|trans }}{% endblock %}
+
+{% block page_header_title %}{{ 'Navigation.Public services'|trans }}{% endblock %}
+ {% block body%}
+
+<!-- контент страницы -->
+<h1>Книжные памятники</h1>
+<div class="clearfix gosuslugi-info">
+
+<p><a href="http://kp.rsl.ru/" target="_blank"><img src="http://culture.ru/ru/uploads/media/atlas/0001/16/360c5e103b1750e5f6761d61e47c27f30c0802e8.jpeg" style="float:left; margin:0 10px 5px 0; width:300px; heigh:211px;"></a>Книжные памятники&nbsp;&ndash; это рукописные книги или печатные издания, которые обладают выдающейся духовной, материальной ценностью, имеют особое историческое, культурное значение и&nbsp;в&nbsp;отношении которых установлен особый режим учета, хранения и&nbsp;использования (<a href="http://kp.rsl.ru/assets/files/documents/No78-FZ.pdf" target="_blank">Федеральный закон «О&nbsp;библиотечном деле», ст.&nbsp;1</a>).</p>
+
+<p>Работа по&nbsp;выявлению, изучению и&nbsp;описанию книжных памятников Российской Федерации ведется в&nbsp;соответствии с&nbsp;Основными направлениями развития деятельности по&nbsp;сохранению библиотечных фондов в&nbsp;Российской Федерации на&nbsp;<nobr>2011–2020</nobr> годы при финансовой поддержке из&nbsp;средств федеральной целевой программы «Культура России <nobr>(2012–2018 годы)»</nobr> <a href="http://kp.rsl.ru/assets/files/documents/main-directions.pdf" target="_blank"> (Скачать pdf,&nbsp;0.7&nbsp;Мб)</a>. Ранее работа велась в&nbsp;рамках подпрограммы «Книжные памятники России» Национальной программы сохранения библиотечных фондов Российской Федерации.</p>
+
+<p>За&nbsp;<nobr>2000–2011</nobr> годы были собраны сведения о&nbsp;фондах 542&nbsp;учреждений, в&nbsp;которых хранятся книжные памятники, (204&nbsp;библиотек, 148&nbsp;музеев, 69&nbsp;архивов, 27&nbsp;научных учреждений, 94&nbsp;учебных заведений) и&nbsp;519&nbsp;коллекциях, обладающих признаками книжных памятников, подготовлены описания 120&nbsp;000&nbsp;изданий, все экземпляры которых могут быть отнесены к&nbsp;единичным книжным памятникам.</p>
+
+<p>С&nbsp;2010 года Общероссийский свод книжных памятников представляет собой банк данных библиографического и&nbsp;книговедческого характера о&nbsp;книжных памятниках Российской Федерации и&nbsp;является основой для централизованного государственного учета книжных памятников. Координатор по&nbsp;формированию Свода&nbsp;&ndash; Российская государственная библиотека (НИО редких книг). Участники формирования Свода&nbsp;&ndash; сертифицированные специалисты библиотек и&nbsp;музеев федерального уровня, владеющих крупными собраниями книжных памятников, и&nbsp;сотрудники региональных центров по&nbsp;работе с&nbsp;книжными памятниками. Создание записей ведется в&nbsp;режиме онлайн.</p>
+</div><!-- /gosuslugi-info -->
+<!-- /контент страницы -->
+
+			{% endblock %}
