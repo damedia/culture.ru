@@ -5,7 +5,11 @@ var armdMkLecture = {
         $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_category"] a, .ui-selectgroup-list[aria-labelledby="ui-lecture_sub_category"] a', 
             function (event) {
                 if ($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-lecture_category') {
-                    armdMkLecture.loadSubCategories();
+                    if($('#lecture_sub_category').length) {
+                        armdMkLecture.loadSubCategories();
+                    } else {
+                        $('#lectures-filter').submit();
+                    }
                 }
                 if($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-lecture_sub_category') {
                     $('#lectures-filter').submit();

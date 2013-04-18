@@ -125,7 +125,7 @@ class DefaultController extends Controller
             $tag = false;
         }
 
-        $data = $this->getCategoryData($lectureSuperType);
+        $data = $this->getCategoryData($lectureSuperType, $request->get('cinema_top100'));
 
         return array(
             'lectureSuperType' => $lectureSuperType,
@@ -276,7 +276,7 @@ class DefaultController extends Controller
         $manager = $this->get('armd_lecture.manager.lecture');
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
         $lectureSuperType = $lecture->getLectureSuperType();
-        $data = $this->getCategoryData($lectureSuperType);
+        $data = $this->getCategoryData($lectureSuperType, $lecture->getIsTop100Film());
         
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'referer' => $this->getRequest()->headers->get('referer'),
@@ -287,7 +287,7 @@ class DefaultController extends Controller
             'selectedCategory' => $data['selectedCategory'],
             'lectureVersion' => $version,
             'lectureRolesPersons' => $rolesPersons,
-            'cinemaTop100' => $this->getRequest()->get('cinema_top100'),
+            'cinemaTop100' => $lecture->getIsTop100Film(),
         ));
     }
 
@@ -376,13 +376,13 @@ class DefaultController extends Controller
      * @param Armd\LectureBundle\Entity\LectureSuperType $lectureSuperType
      * @return array
      */
-    protected function getCategoryData($lectureSuperType)
+    protected function getCategoryData($lectureSuperType, $cinemaTop100 = false)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $translator = $this->get('translator');
-        
-        $cinemaTop100 = $request->get('cinema_top100');
+
+        $specialCategories = array();
         if ($cinemaTop100) {
             $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
                         ->findOneBySystemSlug('CINEMA_TOP_100');
@@ -393,7 +393,6 @@ class DefaultController extends Controller
         } else {
             $categories = $this->getLectureManager()->getCategoriesBySuperType($lectureSuperType);
 
-            $specialCategories = array();
             if ($lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_CINEMA') {
                 $top100Category = $em->getRepository('ArmdLectureBundle:LectureCategory')
                             ->findOneBySystemSlug('CINEMA_TOP_100');

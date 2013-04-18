@@ -69,7 +69,7 @@
                     {% endfor %}
                     {% for category in specialCategories %}
                         <option value="0"
-                                {% if cinemaTop100 and category.id == selectedCategory.id %}selected="selected"{% endif %}
+                                {% if cinemaTop100 and selectedCategory and category.id == selectedCategory.id %}selected="selected"{% endif %}
                                 data-system-slug="{{ category.systemSlug }}"
                                 >
                             {{ category.title }}
