@@ -31,16 +31,23 @@ class ArtObject implements Taggable
     private $title;
 
     /**
-     * @var date $event_date
+     * @var date $date
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date;
+    
+    /**
+     * @var string $textDate
+     *
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $textDate;
 
     /**
-     * @var integer $century
+     * @var text $description
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
     
@@ -77,6 +84,7 @@ class ArtObject implements Taggable
     /**
      * @ORM\ManyToMany(targetEntity="\Armd\PersonBundle\Entity\Person")
      * @ORM\JoinTable(name="art_object_person")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $authors;
     
@@ -184,6 +192,29 @@ class ArtObject implements Taggable
     public function getDate()
     {
         return $this->date;
+    }
+    
+    /**
+     * Set textDate
+     *
+     * @param string $textDate
+     * @return ArtObject
+     */
+    public function setTextDate($textDate)
+    {
+        $this->textDate = $textDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get textDate
+     *
+     * @return string 
+     */
+    public function getTextDate()
+    {
+        return $this->textDate;
     }
 
     /**

@@ -12,8 +12,12 @@ class DefaultController extends Controller
 {
     protected $limit = 50;
     
-    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
+    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image = null, $format = 'reference')
     {
+        if (!$image) {
+            return '';
+        }
+        
         $mediaPool = $this->get('sonata.media.pool');
         $provider = $mediaPool->getProvider($image->getProviderName());
         
@@ -173,7 +177,13 @@ class DefaultController extends Controller
             }
             
             foreach ($e->getAuthors() as $a) {
-                $data['objects']["'{$e->getId()}'"]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+                $data['objects']["'{$e->getId()}'"]['authors'][] = array(
+                    'id' => $a->getId(), 
+                    'title' => $a->getName(),
+                    'description' => $a->getDescription(),
+                    'life_dates' => $a->getLifeDates(),
+                    'image' => $this->getImageSrc($a->getImage(), 'small')
+                );
             }
             
             if ($e->getVideos()->count()) {
@@ -200,7 +210,7 @@ class DefaultController extends Controller
             'museum' => array('title' => 'Музей')
         );
         
-        $this->get('session')->remove('exhibits-filters');
+        $activeFilters = $this->get('session')->get('exhibits-filters', array());
         
         $authors = $this->getDoctrine()->getRepository('ArmdPersonBundle:Person')
             ->createQueryBuilder('a')
@@ -209,14 +219,14 @@ class DefaultController extends Controller
             ->getQuery()->getResult();       
         
         foreach ($authors as $a) {
-            $filters['author']['data'][] = array('id' => $a->getId(), 'title' => $a->getName());
+            $filters['author']['data']["{$a->getId()}"] = array('id' => $a->getId(), 'title' => $a->getName());
         }
         
         $museums = $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')
             ->findBy(array(), array('title' => 'ASC'));
         
         foreach ($museums as $m) {
-            $filters['museum']['data'][] = array('id' => $m->getId(), 'title' => $m->getTitle());
+            $filters['museum']['data']["{$m->getId()}"] = array('id' => $m->getId(), 'title' => $m->getTitle());
         }
         
         $categories = $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree();
@@ -229,16 +239,17 @@ class DefaultController extends Controller
                 );
 
                 foreach ($c['children'] as $ch) {
-                    $filters[$c['id']]['data'][] = array('id' => $ch['id'], 'title' => $ch['title']);
+                    $filters[$c['id']]['data']["{$ch['id']}"] = array('id' => $ch['id'], 'title' => $ch['title']);
                 }
             }
         }
         
-        $objects = $this->getObjects(array(), $this->limit);
+        $objects = $this->getObjects($activeFilters, $this->limit);
         
         return array(
             'data' => array('objects' => $objects['objects'], 'count' => $objects['count'], 'offset' => $this->limit),
-            'filters' => $filters
+            'filters' => $filters,
+            'activeFilters' => $activeFilters
         );
     }
     

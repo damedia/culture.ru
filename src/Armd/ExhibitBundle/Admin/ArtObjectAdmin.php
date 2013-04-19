@@ -11,7 +11,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class ArtObjectAdmin extends Admin
 {    
-    protected $translationDomain = 'ArmdExhibitBundle';
     protected $container;
 
     public function __construct($code, $class, $baseControllerName, $container)
@@ -30,6 +29,7 @@ class ArtObjectAdmin extends Admin
         $showMapper
             ->add('published')
             ->add('title')
+            ->add('textDate')
             ->add('date')
             ->add('description')
             ->add('image')   
@@ -52,6 +52,7 @@ class ArtObjectAdmin extends Admin
             ->with('General')
                 ->add('published', null, array('required' => false))
                 ->add('title')
+                ->add('textDate')
                 ->add('date', null, array('widget' => 'single_text'))
                 ->add('description')  
                 ->add('authors', null,
@@ -73,7 +74,7 @@ class ArtObjectAdmin extends Admin
                     )
                 )
                 ->add('categories', 'armd_art_object_categories', array(
-                    'required' => true,
+                    'required' => false,
                     'attr' => array('class' => 'chzn-select span5')
                 ))
                 ->add('tags', 'armd_tag', array(

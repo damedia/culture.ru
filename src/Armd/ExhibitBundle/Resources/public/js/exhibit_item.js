@@ -146,11 +146,7 @@ var exhibitItem = {
         $('.exponats-top-line').css('visibility', 'hidden');
         exhibitItem.activeId = id;
         img.parent().append(imgBorder).siblings().find('i').remove();
-        img.addClass('active').parent().siblings().find('img').removeClass('active');
-
-        $('#exp-one-category').text(exhibitItem.objects[id]['museum']['title']);
-        $('#exp-one-name').text(exhibitItem.objects[id]['title']);
-        $('#exp-one-date').text(exhibitItem.objects[id]['date']);
+        img.addClass('active').parent().siblings().find('img').removeClass('active');       
 
         exhibitItem.setPrimaryImage(id);
         exhibitItem.setPageData(id);
@@ -237,7 +233,7 @@ var exhibitItem = {
             $('.zoom-thumb-border').draggable('destroy');
             $('.zoom-thumb-border').hide();
 
-            img.mousewheel(function(event, delta) {
+            $('.main-zoomed-image, .zoom-thumb').mousewheel(function(event, delta) {
                 if (delta < 0) {
                     exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.resizeStep);                   
                 } else if (delta > 0) {
@@ -276,36 +272,42 @@ var exhibitItem = {
         zh.offset({ left: pos });
     },    
     resizePrimaryImage: function(width) {
-        var x, y, dx, dy, x1, y1, x2, y2,
+        var x, y, dx, dy, x1, y1, x2, y2, k,
             containerOffset = $('.main-zoomed-image').offset(),
             containerWidth = $('.main-zoomed-image').width(),
-            containerHeight = $('.main-zoomed-image').height();
+            containerHeight = $('.main-zoomed-image').height(),
+            oldWidth = exhibitItem.primaryImg.width(),
+            oldHeight = exhibitItem.primaryImg.height();
             
         if (width < exhibitItem.imgStartWidth) {
             exhibitItem.primaryImg.width(exhibitItem.imgStartWidth);
             exhibitItem.primaryImg.height(exhibitItem.imgStartHeight);
             exhibitItem.primaryImg.offset(containerOffset);
-        } else if (width > exhibitItem.imgRealWidth) {
-            exhibitItem.primaryImg.width(exhibitItem.imgRealWidth);
-            exhibitItem.primaryImg.height(exhibitItem.imgRealHeight);
         } else {
-            exhibitItem.primaryImg.width(width);
-            exhibitItem.primaryImg.height(Math.floor((width) * exhibitItem.imgRealHeight / exhibitItem.imgRealWidth));
+            if (width > exhibitItem.imgRealWidth) {
+                exhibitItem.primaryImg.width(exhibitItem.imgRealWidth);
+                exhibitItem.primaryImg.height(exhibitItem.imgRealHeight);
+            } else {
+                exhibitItem.primaryImg.width(width);
+                exhibitItem.primaryImg.height(Math.floor((width) * exhibitItem.imgRealHeight / exhibitItem.imgRealWidth));
+            }
             
-            if (exhibitItem.primaryImg.offset().left + exhibitItem.primaryImg.width() < containerOffset.left + containerWidth) {
+            k = oldWidth - containerWidth <= 0 ? 0.5 : (containerOffset.left - exhibitItem.primaryImg.offset().left + containerWidth / 2) / oldWidth;
+            x = Math.floor(exhibitItem.primaryImg.offset().left - (exhibitItem.primaryImg.width() - oldWidth) * k);
+            
+            if (x + exhibitItem.primaryImg.width() < containerOffset.left + containerWidth) {
                 x = containerOffset.left + containerWidth - exhibitItem.primaryImg.width();
                 x = x > containerOffset.left ? containerOffset.left : x;
-            } else {
-                x = exhibitItem.primaryImg.offset().left;
             }
 
-            if (exhibitItem.primaryImg.offset().top + exhibitItem.primaryImg.height() < containerOffset.top + containerHeight) {
+            k = oldHeight - containerHeight <= 0 ? 0.5 : (containerOffset.top - exhibitItem.primaryImg.offset().top + containerHeight / 2) / oldHeight;           
+            y = Math.floor(exhibitItem.primaryImg.offset().top - (exhibitItem.primaryImg.height() - oldHeight) * k);
+            
+            if (y + exhibitItem.primaryImg.height() < containerOffset.top + containerHeight) {
                 y = containerOffset.top + containerHeight - exhibitItem.primaryImg.height();
                 y = y > containerOffset.top ? containerOffset.top : y;
-            } else {
-                y = exhibitItem.primaryImg.offset().top;
             }
-            
+
             exhibitItem.primaryImg.offset({left: x, top: y});
         }                  
 
@@ -386,9 +388,18 @@ var exhibitItem = {
         ztb.height(height - 3);
     },
     setPageData: function(id) {
-        var vBlock = $('#exhibit-video');
+        var authorClone, authorBlank = $('#author-blank'),
+            vBlock = $('#exhibit-video');
 
-        $('#exp-one-category').text(exhibitItem.objects[id]['museum']['title']);
+        if (exhibitItem.objects[id]['museum']['title']) {
+            $('#exp-one-category').text(exhibitItem.objects[id]['museum']['title']);
+            $('#exp-one-category').show();
+        } else {
+            $('#exp-one-category').hide();
+        }
+        
+        $('#exp-one-name').text(exhibitItem.objects[id]['title']);
+        $('#exp-one-date').text(exhibitItem.objects[id]['date']);
         $('.exhibit-title').text(exhibitItem.objects[id]['title']);
         $('.exhibit-date').text(exhibitItem.objects[id]['date']);
         $('.exhibit-authors').empty();
@@ -399,47 +410,68 @@ var exhibitItem = {
             }
 
             $('.exhibit-authors').append(exhibitItem.objects[id]['authors'][i]['title']);
+            
+            if (exhibitItem.objects[id]['description']) {                
+                $('.author-block:visible').remove();
+                authorClone = authorBlank.clone();  
+                authorClone.find('img').attr('src', exhibitItem.objects[id]['authors'][i]['image']);
+                authorClone.find('.author-block-title').text(exhibitItem.objects[id]['authors'][i]['title']);
+                
+                if (exhibitItem.objects[id]['authors'][i]['life_dates']) {
+                    authorClone.find('.author-block-title').text(authorClone.find('.author-block-title').text() + ', ' + exhibitItem.objects[id]['authors'][i]['life_dates']);
+                }
+                
+                authorClone.find('.author-block-body').text(exhibitItem.objects[id]['authors'][i]['description']);
+                authorClone.show();
+                authorBlank.before(authorClone);                
+            }
         }
 
-        $('#exhibit-description').text(exhibitItem.objects[id]['description']);
-        $('#exhibit-detail-img').attr('src', exhibitItem.objects[id]['img']);
+        if (exhibitItem.objects[id]['description']) {
+            $('#exhibit-description').text(exhibitItem.objects[id]['description']);
+            $('#exhibit-detail-img').attr('src', exhibitItem.objects[id]['img']);
 
-        if (exhibitItem.objects[id]['video']['frame'] != undefined) {
-            vBlock.find('iframe').attr('src', exhibitItem.objects[id]['video']['frame'] + '&dopparam=armada_skin');
-            vBlock.find('img').attr('src', exhibitItem.objects[id]['video']['img']);
-            vBlock.find('.fancybox').fancybox({
-                autoResize: true,
-                prevEffect: 'none',
-                nextEffect: 'none'
-            });
-            vBlock.show();
-        } else {
-            vBlock.hide();
-        }
-        
-        if (exhibitItem.objects[id]['museum']['id']) {
-            $('#exhibit-museum-img').attr('src', exhibitItem.objects[id]['museum']['img']);
-            $('#exhibit-museum-title').text(exhibitItem.objects[id]['museum']['title']);
-            
-            if (exhibitItem.objects[id]['museum']['address']) {
-                $('#exhibit-museum-address').text(exhibitItem.objects[id]['museum']['address']);
-            }
-            
-            if (exhibitItem.objects[id]['museum']['url']) {
-                $('#exhibit-museum-url').attr('href', exhibitItem.objects[id]['museum']['url']);
-                $('#exhibit-museum-url').text(exhibitItem.objects[id]['museum']['url']);
-            }
-
-            if (exhibitItem.objects[id]['museum']['vtour']['url'] != undefined) {
-                $('#exhibit-museum-vtour').attr('href', exhibitItem.objects[id]['museum']['vtour']['url']);
-                $('#exhibit-museum-vtour').show();
+            if (exhibitItem.objects[id]['video']['frame'] != undefined) {
+                vBlock.find('iframe').attr('src', exhibitItem.objects[id]['video']['frame'] + '&dopparam=armada_skin');
+                vBlock.find('img').attr('src', exhibitItem.objects[id]['video']['img']);
+                vBlock.find('.fancybox').fancybox({
+                    autoResize: true,
+                    prevEffect: 'none',
+                    nextEffect: 'none'
+                });
+                vBlock.show();
             } else {
-                $('#exhibit-museum-vtour').hide();
+                vBlock.hide();
+            }
+
+            if (exhibitItem.objects[id]['museum']['id']) {
+                $('#exhibit-museum-img').attr('src', exhibitItem.objects[id]['museum']['img']);
+                $('#exhibit-museum-title').text(exhibitItem.objects[id]['museum']['title']);
+
+                if (exhibitItem.objects[id]['museum']['address']) {
+                    $('#exhibit-museum-address').text(exhibitItem.objects[id]['museum']['address']);
+                }
+
+                if (exhibitItem.objects[id]['museum']['url']) {
+                    $('#exhibit-museum-url').attr('href', exhibitItem.objects[id]['museum']['url']);
+                    $('#exhibit-museum-url').text(exhibitItem.objects[id]['museum']['url']);
+                }
+
+                if (exhibitItem.objects[id]['museum']['vtour']['url'] != undefined) {
+                    $('#exhibit-museum-vtour').attr('href', exhibitItem.objects[id]['museum']['vtour']['url']);
+                    $('#exhibit-museum-vtour').show();
+                } else {
+                    $('#exhibit-museum-vtour').hide();
+                }
+
+                $('#exhibit-museum').show();
+            } else {
+                $('#exhibit-museum').hide();
             }
             
-            $('#exhibit-museum').show();
+            $('#details-btn').show();
         } else {
-            $('#exhibit-museum').hide();
+            $('#details-btn').hide();
         }
     },
     loadExhibits: function() {
