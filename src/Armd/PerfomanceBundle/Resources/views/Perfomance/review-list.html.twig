@@ -1,0 +1,30 @@
+                {% if reviews|length > 0 %}
+                    <h3>Рецензии</h3>
+                    
+                    
+                    {% for review in reviews %}
+                        <div class="review-one">
+                            <p><strong>{{ review.author.username }}, {{ review.createdAt|date("d.m.Y") }}</strong></p>
+                            <div class="review-body">{{ review.body }}</div>
+                            
+                            {% if not is_granted('ROLE_USER') %}
+                                <div class="comments-auth-block">
+                                    <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                                    {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                                </div>
+                                
+                            {% else %}
+                                <div class="review-comments">
+                                    {% if review.commentCount > 0 %}
+                                        <a href="{{ path('armd_perfomance_review_comment', {'review_id' : review.id }) }}" class="ajax_load" rel="comment_holder_{{ review.id }}">Комментарии</a>
+                                    {% else %}
+                                        <a href="{{ path('armd_perfomance_review_comment', {'review_id' : review.id }) }}" class="ajax_load" rel="comment_holder_{{ review.id }}">Комментировать</a>
+                                    {% endif %}
+                                    <div class="comment_holder" id="comment_holder_{{ review.id }}"></div>
+                                </div>
+                            {% endif %}        
+                        </div>  
+                    {% endfor %}
+                   
+
+                {% endif %}  

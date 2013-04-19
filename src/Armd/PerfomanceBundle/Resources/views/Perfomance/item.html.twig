@@ -62,15 +62,21 @@
         
         <div class="more-comments-show">
             <div class="comments comments-gray clearfix">
-                {% set comment_thread_id = app.request.locale ~ '_content_perfomance_' ~ entity.id %}
-                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
-                {% if not is_granted('ROLE_USER') %}
-                    <div class="comments-auth-block">
-                        <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
-                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
-                    </div>
-                {% endif %}
+                <div id="review_form_container">
+                    {% render url('armd_perfomance_review', {
+                            'perfomance_id' : entity.id
+                        })
+                    %}
+                </div>
+                <div id="review_list_container">
+                    {% render url('armd_perfomance_review_list', {
+                            'perfomance_id' : entity.id
+                        })
+                    %}                
+                </div>
+
+           
             </div>
         </div>        	
 	</div>
@@ -191,6 +197,72 @@
 				
 				return false;
 				
+			});
+			
+			//загрузка комментариев
+			$(document).on('click','.ajax_load',function(){
+			   
+			    $('.comment_holder').html('');
+			    if ($(this).attr('rel')) {
+			        
+			        var container = $('#' + $(this).attr('rel')),
+			             url = $(this).attr('href');
+			             
+			        if ($(container).length) {
+			            
+			            armdMk.startLoading();
+			            
+    					$.ajax({
+    						'url' : url,
+    						'dataType' : 'html',
+    						'success' : function(data, textStatus, jqXHR ){
+    							$(container).html(data);
+    						},
+    			            'complete': function() {
+    							armdMk.stopLoading();
+    			            }						
+    					});			            
+			        }
+			    }
+			    return false; 
+			});
+			
+			//отправка формы с рецензией
+			$(document).on('submit','#review_form', function(){
+			   
+			    armdMk.startLoading();
+			    var url = $(this).attr('action'),
+			        container = $('#review_form_container'),
+			        form_data = $(this).serialize(),
+			        form = $(this);
+			     
+                $.ajax({
+                    'url' : url,
+    				'dataType' : 'html',
+    				'data' : form_data,
+    				'type' : 'post',
+    				'success' : function(data, textStatus, jqXHR ){
+    				    $(container).html(data);
+    				    $(form).find('#form_body').val(null);
+    				    //обновить список комментариев
+    				    $.ajax({
+    				       'url' :  Routing.generate('armd_perfomance_review_list', {'perfomance_id': $(form).find('#form_perfomance_id').val()}),
+            			   'dataType' : 'html',
+            			   'type' : 'post',
+            			   'success' : function(data, textStatus, jqXHR ){    				       
+            			     $('#review_list_container').html(data);
+            			   },
+            			   'complete' : function(){
+            			       armdMk.stopLoading();
+            			   }
+    				    });
+    				},
+    			    'complete': function() {
+    				    //armdMk.stopLoading();
+    			    }						
+    			});
+
+                return false;
 			});
 			
         });
