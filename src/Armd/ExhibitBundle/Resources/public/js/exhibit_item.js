@@ -388,7 +388,8 @@ var exhibitItem = {
         ztb.height(height - 3);
     },
     setPageData: function(id) {
-        var vBlock = $('#exhibit-video');
+        var authorClone, authorBlank = $('#author-blank'),
+            vBlock = $('#exhibit-video');
 
         if (exhibitItem.objects[id]['museum']['title']) {
             $('#exp-one-category').text(exhibitItem.objects[id]['museum']['title']);
@@ -409,6 +410,21 @@ var exhibitItem = {
             }
 
             $('.exhibit-authors').append(exhibitItem.objects[id]['authors'][i]['title']);
+            
+            if (exhibitItem.objects[id]['description']) {                
+                $('.author-block:visible').remove();
+                authorClone = authorBlank.clone();  
+                authorClone.find('img').attr('src', exhibitItem.objects[id]['authors'][i]['image']);
+                authorClone.find('.author-block-title').text(exhibitItem.objects[id]['authors'][i]['title']);
+                
+                if (exhibitItem.objects[id]['authors'][i]['life_dates']) {
+                    authorClone.find('.author-block-title').text(authorClone.find('.author-block-title').text() + ', ' + exhibitItem.objects[id]['authors'][i]['life_dates']);
+                }
+                
+                authorClone.find('.author-block-body').text(exhibitItem.objects[id]['authors'][i]['description']);
+                authorClone.show();
+                authorBlank.before(authorClone);                
+            }
         }
 
         if (exhibitItem.objects[id]['description']) {

@@ -84,6 +84,7 @@ class ArtObject implements Taggable
     /**
      * @ORM\ManyToMany(targetEntity="\Armd\PersonBundle\Entity\Person")
      * @ORM\JoinTable(name="art_object_person")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $authors;
     

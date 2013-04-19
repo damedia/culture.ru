@@ -74,7 +74,7 @@ class ArtObjectAdmin extends Admin
                     )
                 )
                 ->add('categories', 'armd_art_object_categories', array(
-                    'required' => true,
+                    'required' => false,
                     'attr' => array('class' => 'chzn-select span5')
                 ))
                 ->add('tags', 'armd_tag', array(

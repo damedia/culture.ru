@@ -12,8 +12,12 @@ class DefaultController extends Controller
 {
     protected $limit = 50;
     
-    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
+    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image = null, $format = 'reference')
     {
+        if (!$image) {
+            return '';
+        }
+        
         $mediaPool = $this->get('sonata.media.pool');
         $provider = $mediaPool->getProvider($image->getProviderName());
         
@@ -173,7 +177,13 @@ class DefaultController extends Controller
             }
             
             foreach ($e->getAuthors() as $a) {
-                $data['objects']["'{$e->getId()}'"]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+                $data['objects']["'{$e->getId()}'"]['authors'][] = array(
+                    'id' => $a->getId(), 
+                    'title' => $a->getName(),
+                    'description' => $a->getDescription(),
+                    'life_dates' => $a->getLifeDates(),
+                    'image' => $this->getImageSrc($a->getImage(), 'small')
+                );
             }
             
             if ($e->getVideos()->count()) {
