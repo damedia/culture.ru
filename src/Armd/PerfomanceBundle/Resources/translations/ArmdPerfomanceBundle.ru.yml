@@ -1,9 +1,11 @@
 Perfomance: Спектакли
 Perfomances: Спектакли
 Perfomance ganres: Жанры
+Perfomance reviews: Рецензии
 
 Perfomance List: Список спектаклей
 Perfomance Ganre List: Список жанров
+Perfomance Review List: Рецензии
 
 General: Общие
 Title: Название
@@ -24,3 +26,9 @@ External: Внешний источник
 External Url: Ссылка на внешний источник
 Image: Превью
 Interview Description: Описание интервью
+
+Author: Автор
+Body: Текст
+
+state_publish: Опубликовать
+state_unpublish: Снять с публикации
