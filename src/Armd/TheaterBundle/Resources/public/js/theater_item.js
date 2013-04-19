@@ -34,6 +34,15 @@ var armdMkTheaterItem = {
                 event.preventDefault();
                 armdMkTheaterItem.loadList(true);
             });
+            
+		    $('#search-form').bind('submit', function(event) {
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+		            window.location = Routing.generate('armd_theater_list', {
+		                'search_query': $('#search-txt').val()
+		            })
+		        }
+		    });            
         });
         
         

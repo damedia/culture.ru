@@ -33,22 +33,24 @@ var armdMkPerfomance = {
         // sort
         $('#perfomance-sort-filter a').bind('click', function(event) {
             event.preventDefault();
-            $('#perfomance-sort-filter a').removeClass('active');
-            $(this).addClass('active');
+            $('#perfomance-sort-filter li').removeClass('active');
+            $(this).closest('li').addClass('active');
             armdMkPerfomance.loadList(armdMkPerfomance.isSearch, false);
             return false;
         });
+      
         
-        // abc filter
-        $('#perfomance-abc-filter a').on('click', function(event) {
+        // alphabet filter
+        $('#alphabet-filter a').on('click', function(event) {
             event.preventDefault();
+            var li = $(this).closest('li');
 
-            if (!$(this).hasClass('active')) {
-                $('#perfomance-abc-filter a').removeClass('active');
-                $(this).addClass('active');
+            if (!li.hasClass('active')) {
+                $('#alphabet-filter li').removeClass('active');
+                li.addClass('active');
                 armdMkPerfomance.loadList(false, false);
             }
-        });        
+        });                
 
     },
 
@@ -89,9 +91,11 @@ var armdMkPerfomance = {
             data['theater_id'] = $('#perfomance_theater').val();
             $('#perfomance-abc-filter').show();   
             
-            if ($('#perfomance-abc-filter a.active').data('letter')) {
-                data['first_letter'] = $('#perfomance-abc-filter a.active').data('letter');
-            }                 	
+            var firstLetter = $('#alphabet-filter li.active a').data('letter');
+            if (firstLetter) {
+                data['first_letter'] = firstLetter;
+            }            
+              	
         }
 
         data['sort_by'] = $('#perfomance-sort-filter a.active').data('sort-by');

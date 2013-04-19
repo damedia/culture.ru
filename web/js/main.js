@@ -278,7 +278,9 @@ $(function () {
         },
         afterClose: function(){
             $('.left-column iframe').show();
-        }
+        },
+        nextEffect: 'fade',
+        prevEffect: 'fade'
     });
 	
 	if($('.museum-instr-link').length > 0) {
