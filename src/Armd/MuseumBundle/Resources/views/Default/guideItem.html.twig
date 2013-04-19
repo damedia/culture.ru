@@ -10,12 +10,32 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museumGuide.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/compatibility.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/pdf.js') }}"></script>
     <script type="text/javascript">
         $(function () {
+            armdMuseumGuide.init();
             armdMuseumGuide.initPdf("{% path entity.file, 'reference' %}");
         });
     </script>
-    <script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script>
+    
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex-share',
+                elementStyle:{
+                    'type':'none',
+                    'border':false,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                {% if entity.image %}image:'{% path entity.image, 'preview' %}',{% endif %}
+                link:'{{ url('armd_museum_guide_item', { 'id': entity.id }) }}',
+                title:'{{ entity.title }}',
+                description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+        });
+    </script>
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
@@ -26,17 +46,22 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block page_header_search %}
     <div class="search-category">
-        <form id="museums-filter-form" action="{{ path('armd_museum_guide_list') }}">
+        <form id="museums-filter-form" action="{{ path('armd_museum_guide_index') }}" method="POST">
             <span class="search-dates-label">{{ "search.select"|trans }}</span>
             <div class="search-category-selects">
-                <select name="region" id="filter-region" class="uni">
-                    <option value="">{{ "search.region"|trans }}</option>
+                <select name="cityId" id="filter-city" class="uni">
+                    <option value="">{{ "search.place"|trans }}</option>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}">{{ city.title }}</option>
+                    {% endfor %}
                 </select>
-                <select name="category" id="filter-category" class="uni">
-                    <option value="">{{ "search.category"|trans }}</option>
+                <select name="museumId" id="filter-museum" class="uni">
+                    <option value="">{{ "search.museum"|trans }}</option>
+                    {% for museum in museums %}
+                        <option value="{{ museum.id }}">{{ museum.title }}</option>
+                    {% endfor %}
                 </select>
             </div>
-            <button type="submit" class="button search-dates-button">{{ "search.show"|trans }}</button>
         </form>
     </div>
 {% endblock %}
@@ -49,45 +74,51 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
-<article class="event-one clearfix">
-    <h2>
-        {{ entity.title|raw }}
-    </h2>
-    <div class="event-one_anons">
-        <p>
-            {{ entity.city|raw }}
-        </p>
-    </div>   
-
+<article class="event-one guide-one">
+    <h2>{{ entity.title|raw }}<br /><span>{{ entity.city|raw }}</span></h2>    
+    <p class="additional-info">{{entity.announce|raw}}</p>
     {% if entity.file %}
-        <canvas id="pdf-canvas-h" style="display:none;"></canvas>
-        <div class="clearfix">
-            <button id="pdf-prev" onclick="pdfViewer.goPrev();"><</button>
-            <canvas id="pdf-canvas" style="border:1px solid black"></canvas>
-            <button id="pdf-next" onclick="pdfViewer.goNext();">></button>
+        <div id="pdf-lister" class="pdf-lister">
+            <h3>{{"Browse pdf"|trans}}</h3>
+            <div id="pdf-viewerContainer" class="pdf-lister clearfix" style="background-color:white;">
+                <div class="pdf-content pdf-content-border">
+                    <canvas id="pdf-canvas-h" style="display:none;"></canvas>
+                    <div class="pdf-btn">
+                        <button id="pdf-zoomin" onclick="pdfViewer.zoomIn();" >+</button>
+                        <button id="pdf-zoomout" onclick="pdfViewer.zoomOut();" >-</button>
+                        <button id="pdf-fullscreen" onclick="pdfViewer.fullscreen();">f</button>
+                    </div>
+                    <div id="pdf-viewer" class="pdf-viewer clearfix">
+                        <button id="pdf-prev" class="pdf-btn pdf-prev" onclick="pdfViewer.goPrev();"><</button>
+                        <div id="pdf-canvas-container" class="pdf-canvas">
+                            <canvas id="pdf-canvas"></canvas>
+                        </div>
+                        <button id="pdf-next" class="pdf-btn pdf-next" onclick="pdfViewer.goNext();">></button>
+                    </div>
+                </div>
+            </div>
+            <p class="item-title">Open publication - Free publishing - More guide</p>
         </div>
     {% endif %}
-
     {{ entity.body|raw }}
-
+    {% if entity.file %}
+        <a class="button button-orange button-download" href="{% path entity.file, 'reference' %}">
+            <span>{{ "Download pdf"|trans }}</span>
+        </a>
+    {% endif %}
+    <div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
+    <div class="event-one_footer clearfix">
+        <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+    </div>
 </article>
 
-{% if entity.file %}
-    <div><p><a href="{% path entity.file, 'reference' %}">{{ "Download pdf"|trans }}</a></p></div>
-{% endif %}
-<div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
-<div class="event-one_footer clearfix">
-    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+<div class="block">
+    {% render url('armd_museum_guide_see_also', { 'id':entity.id, 'limit':3 }) %}
 </div>
-
-<section class="block">
-    {#% render url("armd_news_read_also_news", { "id":entity.id, "limit":2 }) %#}
-</section>
 
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-    {% render url('armd_news_memorial_events') %}
-    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+    
 {% endblock %}

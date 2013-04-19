@@ -36,6 +36,7 @@ menu.open_government: Open government
 menu.social_council: Social council
 menu.government_control: State control
 menu.online_translation: Online translation
+menu.museum_guide: Museum guide
 #---------------- /menu -------------------------
 
 
@@ -57,6 +58,7 @@ Navigation:
     Virtual museums:
         Title: Virtual Museums
         Search: Search Museums
+        Guide: Museum guide
     Cinema: Cinema
     Translations: Broadcasts
     Lectures: Lectures

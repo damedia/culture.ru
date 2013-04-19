@@ -44,6 +44,7 @@ menu.perfomance: Спектакли
 menu.museum: Музеи
 menu.virtual_museum: Виртуальные музеи
 menu.culture_sites: Сайты культуры
+menu.museum_guide: Музейный гид
 #---------------- /menu -------------------------
 
 
@@ -65,6 +66,7 @@ Navigation:
     Virtual museums:
         Title: Виртуальные музеи
         Search: Поиск по музеям
+        Guide: Музейный гид
     Cinema: Кинозал
     Translations: Трансляции
     Lectures: Лекции
@@ -94,6 +96,7 @@ Navigation:
     Banners: Баннеры
     ForumGos: Форум по гос.надзору
     InterMuseum: Интермузей 2013
+    PollArchive: Архив опросов
 
 Mainpage block:
     Communication:
