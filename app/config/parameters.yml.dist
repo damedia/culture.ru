@@ -11,6 +11,7 @@ parameters:
     mailer_host:       localhost
     mailer_user:       ~
     mailer_password:   ~
+    mail_from:         no-reply@culture.ru
 
     locale:            ru
     secret:            ThisTokenIsNotSoSecretC
