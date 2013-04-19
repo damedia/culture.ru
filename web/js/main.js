@@ -1,3 +1,8 @@
+jQuery(document).ready(function(){
+    if($.browser.msie && jQuery.browser.version <= "9.0"){
+        $('.breadcrumbs li').last().addClass('last-child');
+    }
+}); //ready
 $(function () {
     $('.flexslider').flexslider({
         animation: "slide",

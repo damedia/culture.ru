@@ -1760,7 +1760,10 @@ body {
 						border:2px solid #fff;
 					}
 		
-    /*PERFOMANCES*/    
+    /*PERFOMANCES*/ 
+
+    /* this breadcrumbs styles have ie9 and ff bug */
+    /*
     .breadcrumbs { 
         list-style: none; 
         overflow: hidden; 
@@ -1824,7 +1827,81 @@ body {
          }
 		.breadcrumbs li a:hover { background: #f5902d; color:#fff;}
 		.breadcrumbs li a:hover:after { border-left-color: #f5902d !important; }
-		
+*/
+
+/* /this breadcrumbs styles have ie9 and ff bug */
+
+        .breadcrumbs{
+            font-size:10px;
+            text-transform:uppercase;
+            margin-left: -29px;
+            margin-top: 6px;
+        }
+        .breadcrumbs li{
+            position:relative;
+            display:inline-block;
+            margin-left:-12px;
+            padding-left:9px;
+            height:21px;
+            line-height:21px;
+            background:url(../img/breadcrumbs-l.png) no-repeat 0 50%
+        }
+        .lt-ie9 .breadcrumbs li{
+            display:inline;
+        }
+        .breadcrumbs li:first-child{
+            margin-left:0;
+            padding-left:0;
+            background:#f0f0f0;
+        }
+        .breadcrumbs li:hover,
+        .breadcrumbs li.active,
+        .breadcrumbs li:last-child,
+        .breadcrumbs li.last-child{
+            background-image:url(../img/breadcrumbs-l-a.png);
+        }
+        .breadcrumbs li,
+        .breadcrumbs a{
+            color:#989898;
+        }
+        .breadcrumbs li:hover,
+        .breadcrumbs li:hover a,
+        .breadcrumbs li.active,
+        .breadcrumbs li.active a,
+        .breadcrumbs li.active span,
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            color:#fff;
+        }
+        .breadcrumbs a,
+        .breadcrumbs span{
+            display:block;
+            padding:0 14px 0 5px;
+            text-decoration:none;
+            background:#f0f0f0 no-repeat 100% 50%;
+            border:0;
+        }
+        .breadcrumbs span{cursor:default;}
+        .breadcrumbs li:hover a,
+        .breadcrumbs li.active a,
+        .breadcrumbs li.active span,
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            background-color:#f79016;
+        }
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            background-image:url(../img/breadcrumbs-r.png);
+        }
+        .breadcrumbs li.active a,
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            background-image:url(../img/breadcrumbs-r-a.png);
+        }
     /*Select Filter*/        
 	
     #perfomance_ganre {
@@ -6552,6 +6629,8 @@ a.appstore-link {
             }
                 .theater-contacts {
                     margin: 0;
+                    max-width:495px;
+                    overflow:hidden;
                 }
                     .theater-contacts  caption {
                         color:#f79016;
@@ -6569,9 +6648,8 @@ a.appstore-link {
                     .theater-contacts td.label {
                         font-weight:bold;
                         color:#7e7e7e;
-                        padding-right:50px;
+                        padding-right:30px;
                     }
-
 
             .sub-tabs {
                 margin: 18px 0 0;

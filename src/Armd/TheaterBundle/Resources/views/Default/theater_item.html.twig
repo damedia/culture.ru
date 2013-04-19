@@ -60,12 +60,15 @@
 {% block search_query %}{#{ searchQuery }#}{% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
+{% block pre_content %}
+<ul class="breadcrumbs">
+    <li><a href="/">Главная</a></li>
+    <li><a href="{{ path('armd_theater_list') }}">Театры</a></li>
+    <li><span>{{ object.title }}</span></li>
+</ul>
+{% endblock %}
 {% block left_column %}
-    <ul class="breadcrumbs">
-        <li><a href="/">Главная</a></li>
-        <li><a href="{{ path('armd_theater_list') }}">Театры</a></li>
-        <li><span>{{ object.title }}</span></li>
-    </ul>
+    
 
     
     <div class="theatre-one">
@@ -251,7 +254,7 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-
+    <div class="buffer"  style="height:35px;"></div>
     {# % render url('armd_news_memorial_events') % #}
     {# % render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) % #}
     {% if object.interviews|length > 0 or object.gallery|length > 0 %}
@@ -277,7 +280,7 @@
                         {% endfor %}
                     </ul>            
                 </div>
-            </div> 
+            </div>
             {% for i, video in object.interviews %}
                 <div id="interview-{{ i }}" style="display: none;">
                     <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
