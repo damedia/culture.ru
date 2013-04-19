@@ -14,8 +14,9 @@ class Version20130419132842 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql", "Migration can only be executed safely on 'postgresql'.");
-                
-        $this->addSql("ALTER TABLE art_object ADD textDate VARCHAR(255) NOT NULL");
+
+        $this->addSql("ALTER TABLE art_object ADD textDate VARCHAR(255) NOT NULL DEFAULT ''");
+        $this->addSql("ALTER TABLE art_object ALTER textDate DROP DEFAULT");
         $this->addSql("ALTER TABLE art_object ALTER date DROP NOT NULL");
         $this->addSql("ALTER TABLE art_object ALTER description DROP NOT NULL");
         $this->addSql("ALTER TABLE armd_person ADD image_id INT DEFAULT NULL");
