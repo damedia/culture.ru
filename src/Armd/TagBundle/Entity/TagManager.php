@@ -64,8 +64,6 @@ class TagManager extends BaseTagManager
             $loadedNames[] = mb_strtolower($tag->getName(), mb_detect_encoding($tag->getName()));
         }
 
-        \gFuncs::dbgWriteLogVar($names, false, 'names'); // DBG:
-        \gFuncs::dbgWriteLogVar($loadedNames, false, 'loadedNames'); // DBG:
         foreach ($names as $name) {
             if (!in_array(mb_strtolower($name, mb_detect_encoding($name)), $loadedNames)) {
                 $tag = $this->createTag($name);
