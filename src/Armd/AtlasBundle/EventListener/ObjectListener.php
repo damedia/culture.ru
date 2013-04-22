@@ -129,7 +129,7 @@ class ObjectListener
             $tag = $tagManager->loadOrCreateTag('o' . $entity->getId());
             $tag->setIsTechnical(true);
             $tagManager->addTag($tag, $entity);
-            $tagManager->saveTagging($entity);                      
+            $tagManager->saveTagging($entity);
         }
     }
 }
