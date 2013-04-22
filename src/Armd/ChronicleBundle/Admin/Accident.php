@@ -51,7 +51,7 @@ class Accident extends Admin
             ->with('General')
                 ->add('event', null, array('required' => false))
                 ->add('announce')
-                ->add('date', null, array('widget' => 'single_text'))                                                    
+                ->add('date', 'armd_simple_date')
             ->end();
 
         parent::configureFormFields($formMapper);
