@@ -49,11 +49,12 @@ class Event extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+
         $formMapper
             ->with('General')
                 ->add('title')
                 ->add('body')
-                ->add('date', null, array('widget' => 'single_text'))
+                ->add('date', 'armd_simple_date')
 //                ->add('decade')
 //                ->add('year')                                                    
 //                ->add('accidents', 'sonata_type_collection', array('required' => false, 'by_reference' => false), array('edit' => 'inline', 'inline' => 'table'))                
