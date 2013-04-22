@@ -21,11 +21,15 @@
                 {% if searchResult.object.date is not empty %}
                     <span class="search-result-date">,{{ armd_date.news_date(searchResult.object.date) }} </span>
                 {% endif %}
-                <a class="search-result-title" href="{{ searchResult.object.url }}">
+                <a class="search-result-title" href="{{ searchResult.object.url }}"
+                        {% if searchResult.object.target_blank|default(false) %}target="_blank"{% endif %}
+                        >
                     {{ searchResult.object.title|raw }}
                 </a>
 
-                <a class="search-result-image" href="{{ searchResult.object.url }}">
+                <a class="search-result-image" href="{{ searchResult.object.url }}"
+                        {% if searchResult.object.target_blank|default(false) %}target="_blank"{% endif %}
+                        >
                     {% if searchResult.object.imageUrl is defined %}
                         <img src="{{ searchResult.object.imageUrl }}" />
                     {% endif %}

@@ -247,14 +247,12 @@ class DefaultController extends Controller
         if (!empty($museum)) {
             $museumInfo = array(
                 'object' => array(
-                    'url' => $this->get('router')->generate(
-                        'armd_news_item_by_category',
-                        array('category' => 'news', 'id' => $id)
-                    ),
+                    'url' => $museum->getUrl(),
                     'date' => null,
                     'title' => strip_tags($museum->getTitle()),
                     'announce' => '',
-                    'imageUrl' => false
+                    'imageUrl' => false,
+                    'target_blank' => true
                 ),
                 'section' => array(
                     'name' => 'Виртуальные музеи',
