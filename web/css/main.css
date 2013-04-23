@@ -2136,7 +2136,125 @@ body {
             .separate-video-block .period-block_footer {
                 margin-top:0;
             }
-        
+     
+
+    /*TOURIST*/
+    .tourist-one{}
+    .tourist-one_map{
+        margin:0 0 25px 0;
+    }
+    .tourist-one_map .img{
+        float:left;
+        width:541px;
+        border:1px solid #ededed;
+    }
+    .tourist-one_map .img img{
+        width:100%;
+    }
+    .tourist-one_map .summary{
+        padding:0 0 0 567px;
+        color:#7e7e7e;
+    }
+    .tourist-one_map .tags{
+        margin-bottom:20px;
+    }
+    .tourist-one_map .tags a{color:#7791a4;}
+    
+    .route{
+        margin:0 0 20px 0;
+    }
+    .route p{
+        margin:0 0 15px 0;
+    }
+    .route ul{
+        position:relative;
+        padding:12px;
+        -webkit-box-shadow: inset 0px 0px 15px 1px rgba(237, 237, 237, 1);
+        box-shadow: inset 0px 0px 15px 1px rgba(237, 237, 237, 1);
+    }
+    .route ul:before{ 
+        content: ""; 
+        display: block; 
+        width: 16px; 
+        height: 5px;
+        /*
+        border-top: 15px solid transparent;           
+        border-bottom: 15px solid #ededed;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        */
+        position: absolute;
+        top: -5px;
+        left: 22px;
+        z-index: 2;
+        background:url(../img/route.png) no-repeat 0 0px;
+    }
+    .route li{
+        margin:0 0 7px 0;
+        list-style:none;
+    }
+    .route a{
+        padding-left:20px;
+        color:#000;
+        text-decoration:none;
+        background:url(../img/map-bullets.png) no-repeat 0 3px;
+    }
+    .route a span{
+        border-bottom:1px dashed #7791a4;
+    }
+    .route a:hover{
+        color:#f58f2c;
+        background-position:0 -47px;
+    }
+    .route a:hover span{
+        border-bottom:1px dashed #f58f2c;
+    }
+
+    .tourist-one_text{}
+    .tourist-one_text p{
+        font-size:14px;
+    }
+    .tourist-one_text h3{
+        margin:20px 0 12px 0;
+        color:#f5902d;
+    }
+    .tourist-one_text h4{
+        margin-bottom:7px;
+    }
+    .tourist-one_text blockquote{
+        position:relative;
+        margin:25px 10%;
+        padding:12px 0;
+        color:#7e7e7e;
+        font-style:italic;
+        font-size:16px;
+    }
+    .tourist-one_text blockquote:before {
+        content:'';
+        position:absolute;
+        top:0px;
+        left:0;
+        display:block;
+        height:1px;
+        width:100%;
+        background:url(../img/more-dots.gif) repeat-x 0 100%;
+    }
+    .tourist-one_text blockquote:after {
+        content:'';
+        position:absolute;
+        bottom:0px;
+        left:0;
+        display:block;
+        height:1px;
+        width:100%;
+        background:url(../img/more-dots.gif) repeat-x 0 100%;
+    }
+    .lt-ie9 .tourist-one_text blockquote {
+        border:dotted #919191;
+        border-width:1px 0;
+    }
+
+
     /*THEATRE*/
      .theatre-plitka {
         margin-top: 31px;
