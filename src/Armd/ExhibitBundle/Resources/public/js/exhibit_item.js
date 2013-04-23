@@ -455,18 +455,19 @@ var exhibitItem = {
                 if (exhibitItem.objects[id]['museum']['url']) {
                     $('#exhibit-museum-url').attr('href', exhibitItem.objects[id]['museum']['url']);
                     $('#exhibit-museum-url').text(exhibitItem.objects[id]['museum']['url']);
-                }
-
-                if (exhibitItem.objects[id]['museum']['vtour']['url'] != undefined) {
-                    $('#exhibit-museum-vtour').attr('href', exhibitItem.objects[id]['museum']['vtour']['url']);
-                    $('#exhibit-museum-vtour').show();
-                } else {
-                    $('#exhibit-museum-vtour').hide();
-                }
+                }               
 
                 $('#exhibit-museum').show();
             } else {
                 $('#exhibit-museum').hide();
+            }
+            
+            if (exhibitItem.objects[id]['virtual_tour']) {
+                $('#exhibit-virtual-tour').find('a').attr('href', exhibitItem.objects[id]['virtual_tour']['url']);
+                $('#exhibit-virtual-tour').find('img').attr('src', exhibitItem.objects[id]['virtual_tour']['img']);
+                $('#exhibit-virtual-tour').show();
+            } else {
+                $('#exhibit-virtual-tour').hide();
             }
             
             $('#details-btn').show();
