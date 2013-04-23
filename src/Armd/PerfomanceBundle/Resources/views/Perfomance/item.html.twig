@@ -88,27 +88,27 @@
         {% if entity.interviewVideo is not empty %}
             <div class="orange-slider-block">
                 <h3 class="o-slider-header">Интервью</h3>
-                    <div class="flexslider">
-                        <ul class="slides">
-                            <li>
-                                <article class="period-block">
-                                    <a href="#interview-{{ entity.id }}" class="period-block_image in-fancybox">
-                                        {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
-                                        <span class="play"></span>
-                                    </a>
-                                    <div class="period-block_text">
-                                        <h4>{{ entity.interviewTitle}}</h4>
-                                        <p>{{ entity.interviewDescription|raw }}</p>
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li>
+                            <article class="period-block">
+                                <a href="#interview-{{ entity.id }}" class="period-block_image in-fancybox">
+                                    {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
+                                    <span class="play"></span>
+                                </a>
+                                <div class="period-block_text">
+                                    <h4>{{ entity.interviewTitle}}</h4>
+                                    <p>{{ entity.interviewDescription|raw }}</p>
+                                </div>
+                                <div id="interview-{{ entity.id }}" style="display: none;">
+                                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                        {{ armd_tvigle_video_player(entity.interviewVideo, 640, 360)|raw }}
                                     </div>
-                                    <div id="interview-{{ entity.id }}" style="display: none;">
-                                        <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                                            {{ armd_tvigle_video_player(entity.interviewVideo, 640, 360)|raw }}
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                        </ul>
-                    </div>
+                                </div>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
             </div>
         {% endif %}
 

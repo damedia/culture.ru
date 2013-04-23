@@ -1,7 +1,11 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
-	
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><span>Музейное образование</span></li>
+    </ul>
+
 	<div class="museum-education" id="museum-education">
 		<ul class="museum-education-list">
 	        {% render url('armd_lesson_list_content', {
