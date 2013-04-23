@@ -6635,6 +6635,17 @@ a.appstore-link {
                 height:5px;
                 background:url(../img/ext.gif) no-repeat 0 0;
             }
+
+        .theatre-one #c-tab2 {
+            position: relative;
+        }
+
+            .theatre-one .theater-contacts-wrap {
+                position: absolute;
+                top: 0;
+                left: 330px;
+
+            }
             
             
     .content-tabs {

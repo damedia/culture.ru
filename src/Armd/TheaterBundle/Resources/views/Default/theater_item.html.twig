@@ -139,7 +139,7 @@
         {% endif %}
             
         {# Контакты #}
-        <div class="content-tab" id="c-tab2" {{ object.performances|length > 0 ? 'style="display: none"' : '' }}>
+        <div class="content-tab clearfix" id="c-tab2" {{ object.performances|length > 0 ? 'style="display: none"' : '' }}>
             <div class="theater-contacts-map-wrap">
                 <div class="theater-contacts-map">
                     {% if object.latitude and object.longitude %}
