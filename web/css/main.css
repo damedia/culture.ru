@@ -1741,7 +1741,10 @@ body {
                         display: table-cell;
                         vertical-align:middle;
                     }
-
+                    .plitka-one-image img{
+                      height:120px;
+                      width:160px;
+                      }
                         .plitka-one-image .cinema-top100-icon {
                             right: -26px;
                             top: -12px;
