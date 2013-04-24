@@ -1,0 +1,103 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ entity.seoKeywords|default('') }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ entity.seoDescription|default('') }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.images|length %}
+    <meta property="og:image" content="{% path entity.images[0], 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    <link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    <script type="text/javascript">
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+{% endblock %}
+
+
+{% block page_header %}
+    <div class="print-header">
+        <table>
+            <tr>
+                <td class="print-header-logo">
+                    <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
+                </td>
+                <td class="print-header-no-menu">
+                    <div class="print-header-title">
+                        <h2>{{ 'Tourist routes'|trans }}</h2>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block body%}
+    <div class="news-press clearfix">
+        <div class="news-press-center">
+            <div class="news-one text">
+                <h1 class="big-h1">{{ entity.title|raw }}</h1>
+
+                <div class="block">
+                    <article class="static-block contacts-block">
+                        <h2>{{"Main points"|trans}}</h2>
+
+                        <!--MAP-->
+
+                        <div class="block-text">
+                            <!--POINTS-->
+                        </div>
+                    </article>
+                </div>
+                <div class="clear"></div>
+
+                {{ entity.content|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom_blocks%}
+    &nbsp;
+{% endblock %}
+
+{% block main_footer%}
+    <div class="w" id="footer">
+        <table class="print-footer-table">
+            <tr>
+                <td class="footer-logo">
+                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/print-footer-logo.png') }}" alt="logo" />
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+                </td>
+                <td class="footer-copy">
+                    <p>&copy; Портал культурного наследия России</p>
+                </td>
+            </tr>
+        </table>
+        <div></div>
+    </div>
+{% endblock %}

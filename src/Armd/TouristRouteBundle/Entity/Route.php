@@ -89,7 +89,10 @@ class Route implements Taggable
 
     /**
      * @ORM\ManyToMany(targetEntity="Route")
-     * @ORM\JoinTable(name="tourist_route__tourist_route")
+     * @ORM\JoinTable(name="tourist_route__tourist_route",
+     *     joinColumns={@ORM\JoinColumn(name="route_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="route2_id", referencedColumnName="id")}
+     * )
      */
     private $routes;
 

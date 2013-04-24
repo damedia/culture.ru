@@ -18,7 +18,9 @@
     <meta property="og:title" content="{{ entity.title }}" />
     <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
     <meta property="og:url" content="{{ app.request.uri }}" />
-    <meta property="og:image" content="{% path entity.images[0], 'imagesOfRussia' %}" />
+    {% if entity.images|length %}
+    <meta property="og:image" content="{% path entity.images[0], 'reference' %}" />
+    {% endif %}
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -45,6 +47,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
     <style>
         .content.collapsed{ height:200px; overflow:hidden; }
         .fancybox-video-wrapper iframe{ display:block; }
@@ -55,210 +58,350 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".jp-player").each(function() {
-                $(this).jPlayer({
-                    ready: function(event) {
-                        $(this).jPlayer("setMedia", {
-                            mp3: $(this).attr('data-media-url')
-                        });
-                    },
-                    play: function() { // To avoid both jPlayers playing together.
-                        $(this).jPlayer("pauseOthers");
-                    },
-                    {# Возможно, тут лучше пронать через PHP путь как-то, но assets по смыслу кажется не тем инструментом. #}
-                    swfPath: "/vendor/jquery.jplayer/",
-                    cssSelectorAncestor: "#jp_container_" + $(this).attr('id').replace('jquery_jplayer_', ''),
-                    supplied: "mp3"
-                });
-            });
-        });
-    </script>
-
-    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-    
+    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=1.0.0"></script>
+    <script src="http://yandex.st/share/share.js"></script>
     <script>
-        var sample = 1;
-        var smPos = 153;
-        var spPos = 153;
-        var sW;
-        var sH;
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            initUi();
-            initFancybox();
-            initSlider();
-            initYandexShare();
-            //initInfographics();
-            //initInfographics2();
-            initSearch();
+        $(function() {
+            var map = new PGmap($("#map")[0], {
+                    noWheelZoom:  true,
+                    noSmoothZoom: true
+                }),
+                points = {
+                    {% for point in entity.points %}
+                    "{{ point.id }}": (function() {
+                        var point = new PGmap.Point({
+                                coord: new PGmap.Coord(
+                                    parseFloat("{{ point.lon }}"),
+                                    parseFloat("{{ point.lat }}"),
+                                    true
+                                ){% if point.show %},
+                                url: "http://js.tmcrussia.com/img/cluster_sprite.png",
+                                backpos: "0px -69px",
+                                width: 50,
+                                height: 70{% endif %}
+                            });
 
-//            $('.gallery').show();
-        });
+                        point.show = {{ point.show ? 'true' : 'false' }};
 
+                        {% if point.show %}
+                        $(point.container)
+                            .css("margin", "-65px 0 0 -23px")
+                            .attr('title', "{{ point.title }}")
+                            .hover(
+                                function() {
+                                    $(this).css("background-position", "0px 0px");
+                                    $("#route-points a[href='#point-{{ point.id }}']")
+                                        .addClass("hover");
+                                },
+                                function() {
+                                    $(this).css("background-position", "0px -69px");
+                                    $("#route-points a[href='#point-{{ point.id }}']")
+                                        .removeClass("hover");
+                                }
+                            );
+                        {% endif %}
 
-        function initUi() {
-            $('.more3').click(function(){
-                $('#content-collapsed').removeClass('collapsed');
-                $(this).hide();
-                return false;
-            });
-        }
-
-        function initFancybox() {
-            $('.fancybox').fancybox({
-                autoResize: true,
-                prevEffect: 'none',
-                nextEffect: 'none'
-            });
-
-            $('.zoom-fancybox').fancybox({
-                 autoResize:true,
-                 afterShow:function ()
-                 {
-                     var innerWidth = $('.fancybox-inner').width();
-                     var innerHeight = $('.fancybox-inner').height();
-
-                     $('#zoom').jqzoom({
-                         zoomType:'innerzoom',
-                         lens:false,
-                         title:false,
-                         preloadImages:false,
-                         alwaysOn:false
-                     })
-
-                     $('#fancy_print').bind("click", function ()
-                     {
-                         var win = null;
-                         var content = $('#zoom');
-                         win = window.open("width=200,height=200");
-                         self.focus();
-                         win.document.open();
-                         win.document.write('<' + 'html' + '><' + 'head' + '><' + 'style' + '>');
-                         win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
-                         win.document.write('<' + '/' + 'style' + '><' + '/' + 'head' + '><' + 'body' + '>');
-                         win.document.write(content.html());
-                         win.document.write('<' + '/' + 'body' + '><' + '/' + 'html' + '>');
-                         win.document.close();
-                         win.print();
-                         win.close();
-
-                         return false;
-                     }); // bind
-
-                 }
-             });
-        }
-
-        function initSlider() {
-            $('.flexslider').flexslider({
-                animation: "slide",
-                controlNav: false,
-                slideshow: false
-            });
-
-
-            $('#thumbs-slider').flexslider({
-                animation: "slide",
-
-                slideshow: false,
-                itemWidth: 75,
-                itemMargin: 5,
-                asNavFor: '#image-slider'
-            });
-
-            $('#image-slider').flexslider({
-                animation: "slide",
-
-                slideshow: false,
-                sync: "#thumbs-slider"
-            });
-
-        }
-
-        function initYandexShare() {
-            new Ya.share({
-                element: 'yandex-share',
-                elementStyle: {
-                    'type': 'none',
-                    'border': false,
-                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                        return point;
+                    })(){% if not loop.last %}, {% endif %}
+                    {% endfor %}
                 },
-                image: '{% path entity.images[0], 'big' %}',
-                link: '{{ url('armd_atlas_default_object_view', { 'id': entity.id }) }}',
-                title: '{{ entity.title }}'
-            });
-        }
+                objects = {
+                    {% for object in entity.objects %}
+                    "{{ object.id }}": (function() {
+                        var point = new PGmap.Point({
+                            coord: new PGmap.Coord(
+                                parseFloat("{{ object.lon }}"),
+                                parseFloat("{{ object.lat }}"),
+                                true
+                            ),
+                            innerImage: {
+                                src: "{% path object.primaryImage, 'atlasW63H56' %}",
+                                width: 50
+                            }
+                        });
 
-        {#
-        function initInfographics() {
-            $('#shiftzoom').load(function(){
-                shiftzoom.add(this, {
-                    showcoords: false,
-                    relativecoords: true,
-                    wheelstep: 50,
-                    wheelinvert: true,
-                    millisec: 10,
-                    buttons: false,
-                    zoom: 0
+                        point.name = "" +
+                            "<div class=\"bubble\">" +
+                                "<div class=\"bubble_image\">" +
+                                    "<a href=\"{{ path('armd_atlas_default_object_view', {'id': object.id}) }}\">" +
+                                        "<img src=\"{% path object.primaryImage, 'thumbnail' %}\">" +
+                                    "</a>" +
+                                "</div>" +
+                                "<div class=\"bubble_content\">" +
+                                    "<div class=\"caption clearfix\">" +
+                                        "<a href=\"{{ path('armd_atlas_default_object_view', {'id': object.id}) }}\">" +
+                                            "{{ object.title }}" +
+                                        "</a>" +
+                                    "</div>" +
+                                    "<div class=\"text\">" +
+                                        {% if object.address %}"<p>{{ 'Address'|trans }}: {{ object.address }}</p>" +{% endif %}
+                                        {% if object.siteUrl %}"<p>{{ 'Web site'|trans }}: <a href=\"{{ object.siteUrl }}\" target=\"_blank\">{{ object.siteUrl }}</a></p>" +{% endif %}
+                                        {% if object.email %}"<p>{{ 'Email'|trans }}: <a href=\"mailto:{{ object.email }}\" target=\"_blank\">{{ object.email }}</a></p>" +{% endif %}
+                                        {% if object.phone %}"<p>{{ 'Phone'|trans }}: {{ object.phone }}</p>" +{% endif %}
+                                        {% if object.workTime %}"<p>{{ 'Work time'|trans }}: {{ object.workTime }}</p>" +{% endif %}
+                                    "</div>" +
+                                "</div>" +
+                            "</div>";
+
+                        $(point.container)
+                            .css("margin", "-38px 0 0 -12px")
+                            .attr('title', "{{ object.title }}")
+                            .click(function() {
+                                point.balloon = map.balloon;
+                                point.toggleBalloon();
+                            });
+
+                        return point;
+                    })(){% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                },
+                route  = null,
+                showRoute = function() {
+                    var routePoints = [];
+
+                    for (var x in points) {
+                        var point = points[x],
+                            coord = point.coord,
+                            order = $("#" + point.id + "_order").val();
+
+                        coord.order = order;
+                        routePoints.push(coord);
+                    }
+
+                    routePoints.sort(function(a, b) {
+                        return a.order == b.order ? 0 : (a.order < b.order ? -1 : 1);
+                    });
+
+                    if (route !== null) {
+                        map.geometry.remove(route);
+                    }
+
+                    map.route.remove();
+
+                    switch ("{{ entity.type }}") {
+                        case "route": {
+                            map.route.get({
+                                points:   routePoints,
+                                editable: false
+                            });
+                            map.route.remove();
+                            
+                            break;
+                        }
+
+                        case "polyline": {
+                            route = new PGmap.Polyline({
+                                points: routePoints,
+                                style: {
+                                    color: "rgba(119,145,164,0.7)",
+                                    lineHeight: 4
+                                }
+                            });
+                            map.geometry.add(route);
+
+                            var routeDistance = 0,
+                                prevPoint = null;
+
+                            for (var x in routePoints) {
+                                var point = routePoints[x].getGeo();
+                                
+                                if (prevPoint !== null) {
+                                    routeDistance += parseFloat(PGmap.Utils.distVincenty(prevPoint.lon, prevPoint.lat, point.lon, point.lat));
+                                }
+
+                                prevPoint = point;
+                            }
+
+                            setRouteDistance(routeDistance);
+
+                            break;
+                        }
+                    }
+                },
+                fitMap = function() {
+                    var latArr = [],
+                        lonArr = [];
+
+                    for (var x in points) {
+                        var point = points[x];
+
+                        lonArr.push(point.coord.lon);
+                        latArr.push(point.coord.lat);
+                    }
+
+                    for (var x in objects) {
+                        var point = objects[x];
+
+                        lonArr.push(point.coord.lon);
+                        latArr.push(point.coord.lat);
+                    }
+
+                    map.setCenterByBbox({
+                        lon1: Math.min.apply(null, lonArr),
+                        lon2: Math.max.apply(null, lonArr),
+                        lat1: Math.min.apply(null, latArr),
+                        lat2: Math.max.apply(null, latArr)
+                    });
+                },
+                setRouteDistance = function(distance) {
+                    $("#route-distance").text(distance > 1000 ? (Math.round(distance / 1000) + " {{ 'km'|trans }}") : (Math.round(distance) + " {{ 'm'|trans }}"));
+                }
+
+            map.controls.addControl("slider");
+            map.route.onRouteReceived = function(route) {
+                var routePoints   = [],
+                    routeDistance = route.distance;
+
+                for (var x in route.points) {
+                    var point = route.points[x];
+
+                    routePoints.push(new PGmap.Coord(point[0], point[1], true));
+                }
+
+                route = new PGmap.Polyline({
+                    points: routePoints,
+                    style: {
+                        color: "rgba(119,145,164,1)",
+                        lineHeight: 4
+                    }
                 });
-            });
-        }
-        #}
+                map.geometry.add(route);
+                map.route.remove();
 
-        function initInfographics2() {
-            $("#shiftzoom").z({
-                width: 800,
-                height: 560,
-                responsive: true,
-                responsive_maintain_ratio: true,
-                max_WIDTH: '',
-                max_HEIGHT: '',
-                button_ICON_IMAGE: '{{ asset('vendor/zp/zoom_assets/icons.png') }}'
-            });
-        }
+                setRouteDistance(routeDistance);
+            };
 
-        function initSearch() {
-            // init search
-            $('#search-form').bind('submit', function(event) {
-                if ($('#search-this-section').prop('checked')) {
-                    var searchQuery = $('#search-txt').val();
-                    event.preventDefault();
-                    window.location = Routing.generate('armd_tourist_route_list', {'search_query': searchQuery});
+            for (var x in objects) {
+                map.geometry.add(objects[x]);
+            }
+
+            for (var x in points) {
+                if (points[x].show) {
+                    map.geometry.add(points[x]);
+                }
+            }
+
+            fitMap();
+            showRoute();
+
+            $("#route-points a[href^='#point-']")
+                .click(function() {
+                    return false;
+                })
+                .hover(
+                    function() {
+                        var pointId = $(this).attr("href").split("#point-").pop();
+
+                        $(points[pointId].container).mouseenter();
+                    },
+                    function() {
+                        var pointId = $(this).attr("href").split("#point-").pop();
+
+                        $(points[pointId].container).mouseleave();
+                    }
+                );
+
+            /**
+             * Read more link
+             */
+            $(".more.more3").click(function() {
+                $("#content-collapsed").removeClass("collapsed");
+                $(this).remove();
+            });
+
+            /**
+             * Yandex share
+             */
+            new Ya.share({
+                element: "yandex-share",
+                elementStyle: {
+                    type:   "none",
+                    border: false,
+                    quickServices: ["vkontakte", "lj", "twitter", "facebook", "odnoklassniki"]
+                },
+                image: "{% path entity.images[0], 'big' %}",
+                link:  "{{ url('armd_tourist_route_item', { 'id': entity.id }) }}",
+                title: "{{ entity.title }}",
+            });
+
+            /**
+             * Fancybox
+             */
+            $("a.route-fancybox").fancybox({
+                prevEffect: "none",
+                nextEffect: "none",
+                arrows: true,
+                helpers : {
+                    title: {
+                        type: "outside"
+                    }
                 }
             });
-        }
-
+        });
     </script>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 
 {% block left_column %}
-    <h1 class="obraz-header">{{ entity.title }}</h1>
+    <h1>{{ entity.title }}</h1>
 
-    <!-- Content -->
-    <div id="content-collapsed" class="content {% if entity.content is not empty %}collapsed{% endif %}">
-        {{ entity.content|raw }}
-    </div>
-    {% if entity.content is not empty %}
-        <div class="more more3">
-            <p><a href="#">{{ "read_more"|trans }}</a></p>
+    <div class="tourist-one">
+        <div class="tourist-one_map clearfix">
+            <div class="img">
+                <div id="map" style="height: 400px;"></div>
+            </div>
+
+            <div class="summary">
+                <div class="tags">{{ 'Themes'|trans }}:
+                    {% for category in entity.categories %}
+                    <a href="{{ path('armd_tourist_route_list', {'route_category': category.id}) }}">{{ category.title }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="route">
+                    <p>{{ 'Main route points'|trans }}:</p>
+                    <ul id="route-points">
+                        {% for point in entity.points if point.show %}
+                        <li>
+                            <a href="#point-{{ point.id }}"><span>{{ point.title }}</span></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <p>{{ 'Route distance'|trans }}: <span id="route-distance">---</span></p>
+            </div><!-- /summary -->
         </div>
-    {% endif %}
-    <!-- /Content -->
 
-    <div class="block small-block clearfix">
-        <h2><span>{{ "recommended"|trans }}</span></h2>
-        {{ block('rec_plitka') }}
+        <div class="tourist-one_text">
+            <div id="content-collapsed" class="content{% if entity.content is not empty %} collapsed{% endif %}">
+                {{ entity.content|raw }}
+            </div>
+            {% if entity.content is not empty %}
+            <div class="more more3">
+                <p><a href="#">{{ "read_more"|trans }}</a></p>
+            </div>
+            {% endif %}
+        </div>
     </div>
 
     <!-- Page service -->
+    <div class="back-link">
+        <p>
+            <a href="{{ path('armd_tourist_route_list') }}">
+                {{ 'Back'|trans }}
+            </a>
+        </p>
+    </div>
     <div class="event-one_footer clearfix">
-        {#<div class="print-link"><a href="{{ path('armd_tourist_route_item_print', {  'id':entity.id }) }}" target="_blank"></a> {{ 'Printversion'|trans }} </div>#}
-        <div class="publish-links" href="#">{{ "social_share"|trans }}: <span id="yandex-share"></span></div>
+        <div class="print-link">
+            <a href="{{ path('armd_tourist_route_print_item', {  'id':entity.id }) }}" target="_blank"></a>
+            {{ 'Printversion'|trans }}
+        </div>
+        <div class="publish-links" href="#">
+            {{ "social_share"|trans }}:
+            <span id="yandex-share"></span>
+        </div>
     </div>
     <!-- /Page service -->
 
@@ -267,71 +410,80 @@
 {# ------------------------------------------------------------------------ #}
 {% block right_column %}
     <!-- Video -->
-    {% if entity.videos|length > 0 %}
-        <div class="block object-videos">
-
-            <div class="block">
-                <article class="static-block video-block">
-                    <h2>{{ "video"|trans }}</h2>
-                    {% for video in entity.videos %}
-                        <a class="block-image fancybox" href="#data-{{ loop.index }}">
-                            <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
-                            <span class="play"></span>                            
-                        </a>
-                        <div class="period-block_text">
-                            <p><b>{{ video.title }}</b></p>
-                        </div>
-                    {% endfor %}
-                </article>
-            </div>
-            {% for video in entity.videos %}
-                <div id="data-{{ loop.index }}" style="display: none;">
-                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                        {{ armd_tvigle_video_player(video, 640, 360)|raw }}
-                    </div>
+    {% if entity.videos|length %}
+        <div class="block">
+            <section class="static-block object-archives">
+                <h2>{{ "video"|trans }}</h2>
+                <div class="flexslider">
+                    <ul class="slides">
+                        {% for video in entity.videos %}
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="route-fancybox" href="#data-{{ loop.index }}">
+                                        <img src="{{ video.image }}" alt="" class="period-block_image" />
+                                    </a>
+                                    <div class="period-block_text">
+                                        <p>{{ video.title }}</p>
+                                    </div>
+                                    <div id="data-{{ loop.index }}" style="display: none;">
+                                        <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                            {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
+            </section>
         </div>
     {% endif %}
     <!-- /Video -->
 
-    <!-- Photo gallery -->
-    {% if entity.images|length > 0 %}
-        <div class="gallery"> <!--  style="display: none" -->
-            <div id="image-slider">
-                <ul class="slides image-slider">
-                    {% for h in entity.images %}
-                        <li>
-                            <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
-                                <img src="{% path h, 'atlasW613' %}" alt="{{ entity.title }}" />
-                            </a>
-                            <div class="image-stats">
-                                {#<a href="#" class="image-code-link">Код для вставки</a>#}
-                                <p>
-                                    <span><b>{{ loop.index }}</b> из {{ entity.images|length }}</span>  /
-                                    <a href="{% path h, 'reference' %}" target="_blank">{{ "save_original_photo"|trans }} {#<i>(784 мб.)</i>#}</a>
-                                </p>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div id="thumbs-slider">
-                <ul class="slides thumbs-slider">
-                    {% for h in entity.images %}
-                        <li>
-                            <div class="thumb-image-wrap">
-                                <img src="{% path h, 'atlasW63H56' %}" alt="{{ entity.title }}" />
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+    <!-- Photo -->
+    {% if entity.images|length %}
+        <div class="block">
+            <section class="static-block object-archives">
+                <h2>{{ "Route photo"|trans }}</h2>
+                <div class="flexslider">
+                    <ul class="slides">
+                        {% for h in entity.images %}
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="route-fancybox" href="{% path h, 'reference' %}" title="{{ h.title }}" rel="photos">
+                                        <img src="{% path h, 'photo_thumb' %}" alt="" class="period-block_image" />
+                                    </a>
+                                    <div class="period-block_text">
+                                        <p>{{ h.title }}</p>
+                                    </div>
+                                </article>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
         </div>
     {% endif %}
-    <!-- /Photo gallery -->
+    <!-- /Photo -->
 
+    {% if entity.routes|length %}
+        <section class="block">
+            <h2><span>{{ "recommended"|trans }}</span></h2>
 
+            {% for route in entity.routes %}
+                <div class="recommend-block">
+                    <a href="{{ path('armd_tourist_route_item', {'id': route.id}) }}">{% thumbnail route.banner, 'banner' %}</a>
+
+                    <div class="recommend-over">
+                        <div class="recommend_name">
+                            <p><a href="{{ path('armd_tourist_route_item', {'id': route.id}) }}">{{ route.title }}</a></p>
+                        </div>
+                        <p class="recommend-type"><a href="{{ path('armd_tourist_route_list') }}">{{ "Tourist routes"|trans }}</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}

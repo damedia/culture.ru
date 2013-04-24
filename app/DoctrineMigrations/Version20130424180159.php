@@ -8,7 +8,7 @@ use Doctrine\DBAL\Migrations\AbstractMigration,
 /**
  * Auto-generated Migration: Please modify to your need!
  */
-class Version20130422145408 extends AbstractMigration
+class Version20130424180159 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
@@ -40,8 +40,9 @@ class Version20130422145408 extends AbstractMigration
         $this->addSql("CREATE TABLE tourist_route__tourist_route_point (route_id INT NOT NULL, point_id INT NOT NULL, PRIMARY KEY(route_id, point_id))");
         $this->addSql("CREATE INDEX IDX_1B50AC9634ECB4E6 ON tourist_route__tourist_route_point (route_id)");
         $this->addSql("CREATE INDEX IDX_1B50AC96C028CEA2 ON tourist_route__tourist_route_point (point_id)");
-        $this->addSql("CREATE TABLE tourist_route__tourist_route (route_id INT NOT NULL, PRIMARY KEY(route_id))");
+        $this->addSql("CREATE TABLE tourist_route__tourist_route (route_id INT NOT NULL, route2_id INT NOT NULL, PRIMARY KEY(route_id, route2_id))");
         $this->addSql("CREATE INDEX IDX_C96DBFDF34ECB4E6 ON tourist_route__tourist_route (route_id)");
+        $this->addSql("CREATE INDEX IDX_C96DBFDF8D842984 ON tourist_route__tourist_route (route2_id)");
         $this->addSql("CREATE TABLE tourist_route_point (id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, list_order INT NOT NULL, show BOOLEAN NOT NULL, lat NUMERIC(15, 10) DEFAULT NULL, lon NUMERIC(15, 10) DEFAULT NULL, PRIMARY KEY(id))");
         $this->addSql("CREATE TABLE tourist_route_category (id INT NOT NULL, icon_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))");
         $this->addSql("CREATE INDEX IDX_8DBA71454B9D732 ON tourist_route_category (icon_id)");
@@ -60,7 +61,8 @@ class Version20130422145408 extends AbstractMigration
         $this->addSql("ALTER TABLE tourist_route__atlas_object ADD CONSTRAINT FK_680B9BD0232D562B FOREIGN KEY (object_id) REFERENCES atlas_object (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE");
         $this->addSql("ALTER TABLE tourist_route__tourist_route_point ADD CONSTRAINT FK_1B50AC9634ECB4E6 FOREIGN KEY (route_id) REFERENCES tourist_route (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE");
         $this->addSql("ALTER TABLE tourist_route__tourist_route_point ADD CONSTRAINT FK_1B50AC96C028CEA2 FOREIGN KEY (point_id) REFERENCES tourist_route_point (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE");
-        $this->addSql("ALTER TABLE tourist_route__tourist_route ADD CONSTRAINT FK_C96DBFDF34ECB4E6 FOREIGN KEY (route_id) REFERENCES tourist_route (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE");
+        $this->addSql("ALTER TABLE tourist_route__tourist_route ADD CONSTRAINT FK_C96DBFDF34ECB4E6 FOREIGN KEY (route_id) REFERENCES tourist_route (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
+        $this->addSql("ALTER TABLE tourist_route__tourist_route ADD CONSTRAINT FK_C96DBFDF8D842984 FOREIGN KEY (route2_id) REFERENCES tourist_route (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
         $this->addSql("ALTER TABLE tourist_route_category ADD CONSTRAINT FK_8DBA71454B9D732 FOREIGN KEY (icon_id) REFERENCES media__media (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
     }
 
@@ -76,6 +78,7 @@ class Version20130422145408 extends AbstractMigration
         $this->addSql("ALTER TABLE tourist_route__atlas_object DROP CONSTRAINT FK_680B9BD034ECB4E6");
         $this->addSql("ALTER TABLE tourist_route__tourist_route_point DROP CONSTRAINT FK_1B50AC9634ECB4E6");
         $this->addSql("ALTER TABLE tourist_route__tourist_route DROP CONSTRAINT FK_C96DBFDF34ECB4E6");
+        $this->addSql("ALTER TABLE tourist_route__tourist_route DROP CONSTRAINT FK_C96DBFDF8D842984");
         $this->addSql("ALTER TABLE tourist_route__tourist_route_point DROP CONSTRAINT FK_1B50AC96C028CEA2");
         $this->addSql("ALTER TABLE tourist_route__tourist_route_category DROP CONSTRAINT FK_3062741B12469DE2");
         $this->addSql("DROP SEQUENCE tourist_route_id_seq");

@@ -25,7 +25,7 @@
                 <select name="route_category" id="route-category" class="uni">
                     <option value="">{{ "search_category.category"|trans }}</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.title }}</option>
+                        <option value="{{ category.id }}" {{ categoryId == category.id ? 'selected' : '' }}>{{ category.title }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -61,7 +61,7 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script type="text/javascript" src="{{ asset('bundles/armdtouristroute/js/tourist_routes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdtouristroute/js/tourist-routes.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             armdMkTouristRoutes.init();

@@ -73,6 +73,15 @@ class RouteController extends Controller
     }
 
     /**
+     * @Route("/{id}/print", requirements={"id"="\d+"}, name="armd_tourist_route_print_item")
+     * @Template("ArmdTouristRouteBundle:Default:printItem.html.twig")
+     */
+    public function printItem($id)
+    {
+        return $this->itemAction($id);
+    }
+
+    /**
      * Get entity repository
      *
      * @param  string  $className
