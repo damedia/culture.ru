@@ -54,7 +54,7 @@ class ArtObjectAdmin extends Admin
                 ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('textDate')
-                ->add('date', null, array('years' => range(intval($now->format('Y')), 0)))
+                ->add('date', 'armd_simple_date', array('required' => false))
                 ->add('description')  
                 ->add('authors', null,
                     array(
