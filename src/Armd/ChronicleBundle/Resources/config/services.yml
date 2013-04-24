@@ -17,3 +17,8 @@ services:
         class: Armd\ChronicleBundle\Controller\EventController
         arguments:
             container: "@service_container"
+
+    acme_chronicle.form.type.simple_date:
+        class: Armd\ChronicleBundle\Form\Type\SimpleDateType
+        tags:
+            - { name: form.type, alias: armd_simple_date }

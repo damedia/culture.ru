@@ -12,8 +12,12 @@ class DefaultController extends Controller
 {
     protected $limit = 50;
     
-    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image, $format = 'reference')
+    protected function getImageSrc(\Application\Sonata\MediaBundle\Entity\Media $image = null, $format = 'reference')
     {
+        if (!$image) {
+            return '';
+        }
+        
         $mediaPool = $this->get('sonata.media.pool');
         $provider = $mediaPool->getProvider($image->getProviderName());
         
@@ -84,7 +88,7 @@ class DefaultController extends Controller
                 'img_width' => $e->getImage()->getWidth(),
                 'img_height' => $e->getImage()->getHeight(),
                 'title' => $e->getTitle(),
-                'date' => $e->getDate()->format('Y'),
+                'date' => $e->getTextDate(),
                 'museum' => array('id' => '', 'title' => ''),
                 'authors' => array()
             );
@@ -139,7 +143,7 @@ class DefaultController extends Controller
                 'img' => $this->getImageSrc($e->getImage()),
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallZoom'),
                 'title' => $e->getTitle(),
-                'date' => $e->getDate()->format('Y'),
+                'date' => $e->getTextDate(),
                 'description' => $e->getDescription(),
                 'museum' => array(
                     'id' => '', 
@@ -159,21 +163,34 @@ class DefaultController extends Controller
                     'title' => $e->getMuseum()->getTitle(),
                     'address' => $e->getMuseum()->getAddress(),
                     'url' => $e->getMuseum()->getUrl(),
-                    'img' => $this->getImageSrc($e->getMuseum()->getImage(), 'realSmall'),
-                    'vtour' => array()
-                );
+                    'img' => $this->getImageSrc($e->getMuseum()->getImage(), 'realSmall')
+                );                               
+            }
+            
+            if ($e->getVirtualTour()) {
+                $vTour = $e->getVirtualTour();
                 
-                if ($e->getMuseum()->getVirtualTours()->count()) {
-                    $vTour = $e->getMuseum()->getVirtualTours()->first();
-
-                    if ($vTour->getUrl()) {
-                        $data['objects']["'{$e->getId()}'"]['museum']['vtour']['url'] = $vTour->getUrl();
-                    }
+                if ($e->getVirtualTourUrl()) {
+                    $data['objects']["'{$e->getId()}'"]['virtual_tour']['url'] = $e->getVirtualTourUrl();
+                } else {
+                    $data['objects']["'{$e->getId()}'"]['virtual_tour']['url'] = $vTour->getUrl();
                 }
+                
+                $data['objects']["'{$e->getId()}'"]['virtual_tour']['img'] = $this->getImageSrc($vTour->getImage());
+            } elseif ($e->getMuseum() && $e->getMuseum()->getVirtualTours()->count()) {
+                $vTour = $e->getMuseum()->getVirtualTours()->first();
+                $data['objects']["'{$e->getId()}'"]['virtual_tour']['url'] = $vTour->getUrl();
+                $data['objects']["'{$e->getId()}'"]['virtual_tour']['img'] = $this->getImageSrc($vTour->getImage());
             }
             
             foreach ($e->getAuthors() as $a) {
-                $data['objects']["'{$e->getId()}'"]['authors'][] = array('id' => $a->getId(), 'title' => $a->getName());
+                $data['objects']["'{$e->getId()}'"]['authors'][] = array(
+                    'id' => $a->getId(), 
+                    'title' => $a->getName(),
+                    'description' => $a->getDescription(),
+                    'life_dates' => $a->getLifeDates(),
+                    'image' => $this->getImageSrc($a->getImage(), 'small')
+                );
             }
             
             if ($e->getVideos()->count()) {
@@ -200,7 +217,7 @@ class DefaultController extends Controller
             'museum' => array('title' => 'Музей')
         );
         
-        $this->get('session')->remove('exhibits-filters');
+        $activeFilters = $this->get('session')->get('exhibits-filters', array());
         
         $authors = $this->getDoctrine()->getRepository('ArmdPersonBundle:Person')
             ->createQueryBuilder('a')
@@ -209,14 +226,14 @@ class DefaultController extends Controller
             ->getQuery()->getResult();       
         
         foreach ($authors as $a) {
-            $filters['author']['data'][] = array('id' => $a->getId(), 'title' => $a->getName());
+            $filters['author']['data']["{$a->getId()}"] = array('id' => $a->getId(), 'title' => $a->getName());
         }
         
         $museums = $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')
             ->findBy(array(), array('title' => 'ASC'));
         
         foreach ($museums as $m) {
-            $filters['museum']['data'][] = array('id' => $m->getId(), 'title' => $m->getTitle());
+            $filters['museum']['data']["{$m->getId()}"] = array('id' => $m->getId(), 'title' => $m->getTitle());
         }
         
         $categories = $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree();
@@ -229,16 +246,17 @@ class DefaultController extends Controller
                 );
 
                 foreach ($c['children'] as $ch) {
-                    $filters[$c['id']]['data'][] = array('id' => $ch['id'], 'title' => $ch['title']);
+                    $filters[$c['id']]['data']["{$ch['id']}"] = array('id' => $ch['id'], 'title' => $ch['title']);
                 }
             }
         }
         
-        $objects = $this->getObjects(array(), $this->limit);
+        $objects = $this->getObjects($activeFilters, $this->limit);
         
         return array(
             'data' => array('objects' => $objects['objects'], 'count' => $objects['count'], 'offset' => $this->limit),
-            'filters' => $filters
+            'filters' => $filters,
+            'activeFilters' => $activeFilters
         );
     }
     

@@ -55,7 +55,9 @@
 
     {% if entity.image %}
         <figure class="event-one_image image-left">
-            <img src="{% path entity.image, 'eventsBillboard' %}" alt="{{ entity.image.description }}">
+            <div class="news-image-crop">
+                <img src="{% path entity.image, 'eventsBillboard' %}" alt="{{ entity.image.description }}">
+            </div>
             {#{% thumbnail entity.image, 'eventsBillboard' with {'alt': entity.image.description } %}#}
             {% if entity.image.copyright or entity.image.authorName %}
                 <figcaption>

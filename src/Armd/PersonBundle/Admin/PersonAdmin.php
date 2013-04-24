@@ -5,7 +5,6 @@ namespace Armd\PersonBundle\Admin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Admin\Admin;
 
 class PersonAdmin extends Admin
@@ -20,7 +19,7 @@ class PersonAdmin extends Admin
         $showMapper
             ->add('name')         
             ->add('description')
-            ->add('personTypes')  
+            ->add('lifeDates') 
         ;
         
         parent::configureShowField($showMapper);        
@@ -37,10 +36,22 @@ class PersonAdmin extends Admin
             ->with('General')
                 ->add('name')           
                 ->add('description')
+                ->add('lifeDates')
                 ->add('personTypes', null, array(
                     'attr' => array('class' => 'chzn-select person-person-types-select')
                 ))               
-            ->end();
+            ->end()
+            ->with('Media')
+                ->add('image', 'armd_media_file_type', array( 
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'person',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'small',
+                    'label' => 'Portrait'
+                ))              
+            ->end()
+        ;
 
         parent::configureFormFields($formMapper);
     }

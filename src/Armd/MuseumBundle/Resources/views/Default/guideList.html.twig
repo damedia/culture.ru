@@ -1,23 +1,22 @@
-<div id="museums-container" class="plitka">
+<div class="guide-list clearfix">
     {% if museumGuides|length > 0 %}
         {% for m in museumGuides %}
-            <div class="plitka-one-wrap">
-                <div class="plitka-one clearfix">
-                    <div class="plitka-text">
-                        <span class="plitka-name">
-                            {{ m.title|raw }}
-                        </span>
-                        {% if m.city %}
-                            {{ m.city }}
-                        {% endif %}
+            <section>
+            <a href="{{ url('armd_museum_guide_item', { 'id': m.id })}}" alt="{{ m.title|raw }}">
+                <div class="clearfix">
+                    <div class="summary">
+                        <h3>{{ m.title|raw }}</h3>
+                        <p>{% if m.city %}{{ m.city }}{% endif %}</p>
+                        <div class="fadein"></div>
                     </div>
-                    <div>
-                        {% if m.image is not empty %}
+                    {% if m.image is not empty %}
+                        <div class="img">
                             <img src="{% path m.image, 'preview' %}" />
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
+            </a>
+            </section>
         {% endfor %}
     {% else %}
         <strong>{{ "museum_guides_not_found"|trans }}</strong>

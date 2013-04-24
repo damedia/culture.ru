@@ -28,7 +28,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/list/{category}", name="armd_theater_list",
-     *      requirements={"category"="\d+"}, defaults={"category"=0}
+     *      requirements={"category"="\d+"}, defaults={"category"=0}, options={"expose"=true}
      * )
      * @Template("ArmdTheaterBundle:Default:theater_list.html.twig")
      */
@@ -36,14 +36,25 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
+        $request = $this->getRequest();
+        
+        if ( $request->get('category') ) 
+			$category = $request->get('category');  
+
+	    $city = null;		
+        if ( $request->get('city') ) 
+			$city = $request->get('city');   			  
+        
         return array(
             'orders' => $this->getTheaterOrders(),
             'limit' => self::$limit,
             'category' => $category,
+            'city' => $city,
             'cityList' => $em->getRepository('ArmdAddressBundle:City')
                 ->findBy(array(), array('title' => 'ASC')),
             'categoryList' => $em->getRepository('ArmdTheaterBundle:TheaterCategory')
-                ->findBy(array(), array('title' => 'ASC'))
+                ->findBy(array(), array('title' => 'ASC')),
+            'searchQuery' => $request->get('search_query')
         );
     }
     
@@ -136,10 +147,16 @@ class DefaultController extends Controller
             }
         }
         
+        $em = $this->getDoctrine()->getManager();
+        
         return array(
             'object' => $object,
             'billboards' => $billboards,
-            'referer' => $this->getRequest()->headers->get('referer')
+            'referer' => $this->getRequest()->headers->get('referer'),
+            'cityList' => $em->getRepository('ArmdAddressBundle:City')
+                ->findBy(array(), array('title' => 'ASC')),
+            'categoryList' => $em->getRepository('ArmdTheaterBundle:TheaterCategory')
+                ->findBy(array(), array('title' => 'ASC'))            
         );
     }
     

@@ -31,7 +31,7 @@ class SendingNotificationCommand extends DoctrineCommand
                 $translation = $entity->getOnlineTranslation();
 
                 if ($translation->getDate()->getTimestamp() - $entity->getPeriod() * 60 <= $now->getTimestamp()) {
-                    $emailFrom = 'no-reply@mk.local.armd.ru';
+                    $emailFrom = $this->getContainer()->getParameter('mail_from');
                     $emailTo = $entity->getEmail();
                     $subject = 'Онлайн-трансляция #' . $translation->getTitle() . '# на портале Культура.рф';
                     $body = $this->getContainer()->get('templating')->render('ArmdOnlineTranslationBundle:Email:email.html.twig', array(

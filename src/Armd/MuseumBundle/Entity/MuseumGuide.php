@@ -32,11 +32,18 @@ class MuseumGuide
      * @ORM\Column(type="text", nullable=true)
      */
     protected $body;
-
+    
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\City")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Armd\MuseumBundle\Entity\RealMuseum")
+     * @ORM\JoinColumn(name="museum_id", referencedColumnName="id")
+     */
+    private $museum;
     
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
@@ -101,7 +108,7 @@ class MuseumGuide
     }
 
     /**
-     * Get url
+     * Get announce
      *
      * @return string 
      */
@@ -136,7 +143,7 @@ class MuseumGuide
     /**
      * Set city
      *
-     * @param string $city
+     * @param Armd\AddressBundle\Entity\City $city
      * @return MuseumGuide
      */
     public function setCity($city)
@@ -147,20 +154,43 @@ class MuseumGuide
     }
 
     /**
-     * Get region
+     * Get city
      *
-     * @return string 
+     * @return Armd\AddressBundle\Entity\City 
      */
     public function getCity()
     {
         return $this->city;
+    }
+    
+    /**
+     * Set real museum
+     * 
+     * @param Armd\MuseumBundle\Entity\RealMuseum $museum
+     * @return MuseumGuide
+     */
+    public function setMuseum($museum)
+    {
+        $this->museum = $museum;
+        
+        return $this;
+    }
+    
+    /**
+     * Get real museum
+     *
+     * @return Armd\MuseumBundle\Entity\RealMuseum
+     */
+    public function getMuseum()
+    {
+        return $this->museum;
     }
 
     /**
      * Set image
      *
      * @param Application\Sonata\MediaBundle\Entity\Media $image
-     * @return Museum
+     * @return MuseumGuide
      */
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
     {
@@ -183,7 +213,7 @@ class MuseumGuide
      * Set file
      *
      * @param Application\Sonata\MediaBundle\Entity\Media $file
-     * @return PaperArchive
+     * @return MuseumGuide
      */
     public function setFile(\Application\Sonata\MediaBundle\Entity\Media $file = null)
     {
