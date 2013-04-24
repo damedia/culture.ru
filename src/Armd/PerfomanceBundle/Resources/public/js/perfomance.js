@@ -98,7 +98,7 @@ var armdMkPerfomance = {
               	
         }
 
-        data['sort_by'] = $('#perfomance-sort-filter a.active').data('sort-by');
+        data['sort_by'] = $('#perfomance-sort-filter li.active a').data('sort-by');
 
         $.ajax({
             url: Routing.generate('armd_perfomance_list_content'),
