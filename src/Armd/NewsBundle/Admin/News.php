@@ -60,9 +60,16 @@ class News extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $article = $this->getSubject();
+        if (!empty($article) && $article->getCategory() && !$article->getCategory()->getFiltrable()) {
+            $dateFormType = 'armd_simple_date';
+        } else {
+            $dateFormType = null;
+        }
+
         $formMapper
             ->with('General')
-                ->add('newsDate')
+                ->add('newsDate', $dateFormType)
                 ->add('title')
                 ->add('announce')
                 ->add('body', null, array(
@@ -92,8 +99,8 @@ class News extends Admin
                 ->add('publishToDate')
             ->end()
             ->with('Event date')
-                ->add('date') // , null, array('date_widget' => 'single_text', 'time_widget' => 'single_text')
-                ->add('endDate') // , null, array('date_widget' => 'single_text', 'time_widget' => 'single_text')
+                ->add('date', $dateFormType, array('required' => false)) // , null, array('date_widget' => 'single_text', 'time_widget' => 'single_text')
+                ->add('endDate', $dateFormType, array('required' => false)) // , null, array('date_widget' => 'single_text', 'time_widget' => 'single_text')
             ->end()
             ->with('SEO')
                 ->add('seoTitle')

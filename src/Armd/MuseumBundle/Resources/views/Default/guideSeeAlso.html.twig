@@ -1,0 +1,22 @@
+<div class="guide-list clearfix">
+    {% if museumGuides|length > 0 %}
+        {% for m in museumGuides %}
+            <section>
+            <a href="{{ url('armd_museum_guide_item', { 'id': m.id })}}" alt="{{ m.title|raw }}">
+                <div class="clearfix">
+                    <div class="summary">
+                        <h3>{{ m.title|raw }}</h3>
+                        <p>{% if m.city %}{{ m.city }}{% endif %}</p>
+                        <div class="fadein"></div>
+                    </div>
+                    {% if m.image is not empty %}
+                        <div class="img">
+                            <img src="{% path m.image, 'preview' %}" />
+                        </div>
+                    {% endif %}
+                </div>
+            </a>
+            </section>
+        {% endfor %}
+    {% endif %}
+</div>

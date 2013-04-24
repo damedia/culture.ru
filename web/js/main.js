@@ -1,3 +1,8 @@
+jQuery(document).ready(function(){
+    if($.browser.msie && jQuery.browser.version <= "9.0"){
+        $('.breadcrumbs li').last().addClass('last-child');
+    }
+}); //ready
 $(function () {
     $('.flexslider').flexslider({
         animation: "slide",
@@ -37,8 +42,6 @@ $(function () {
 
     };
     
-    
-
     // Show the date picker
     $(".dates-chooser > a").click(function () {
         $("#datapicker").datepicker(datapickerOpts).show();
@@ -280,7 +283,9 @@ $(function () {
         },
         afterClose: function(){
             $('.left-column iframe').show();
-        }
+        },
+        nextEffect: 'fade',
+        prevEffect: 'fade'
     });
 	
 	if($('.museum-instr-link').length > 0) {
@@ -407,22 +412,21 @@ $(function () {
     })
     
     $('body').on('click', $(this), function(e){
-    
         if ($('#datapicker').is(':visible')) {
             var t = $(e.target);
             
-            if ( !checkPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
+            if ( !checkClassPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
                  $('#datapicker').hide();
                 $('.dates-chooser a').removeClass('clicked');
             } 
             
-            if ( !checkPos(t, ['search-checkboxes' ]) ) {
+            if ( !checkClassPos(t, ['search-checkboxes' ]) ) {
                  $('.search-checkboxes').hide();
             }
         }
     }); 
 
-    function checkPos(element, findClassArr){
+    function checkClassPos(element, findClassArr){
         var found = false;
         var parents =  element.parents("*");
         element.parents("*").each(function(){
@@ -440,6 +444,31 @@ $(function () {
         return found;    
     }   
     
+    $(window).load(function(){
     
+    
+        /*News Image 2:3 Crop*/
+        $('.news-image-crop img').each(function(){
+            var image  = $(this),
+                defaultWidth = image.width(),
+                defaultHeight = image.height(),
+                proportion  = 1.5,
+                type = 'vertical',
+                topMargin = 0,
+                leftMargin = 0;
+                
+                if (defaultWidth / 1.5 < defaultHeight) {
+                    topMargin = (defaultHeight - defaultWidth / 1.5)/2;
+                    $('.news-image-crop').css({'width':defaultWidth,'height':defaultWidth/1.5});
+                    image.css({'top':-topMargin});
+                } else {
+                    leftMargin = (defaultHeight - defaultWidth / 1.5)/2;
+                    $('.news-image-crop').css({'width':defaultHeight*1.5,'height':defaultHeight});
+                    image.css({'left':-leftMargin});
+                }
+                
+                
+        })
+    })
     
 })

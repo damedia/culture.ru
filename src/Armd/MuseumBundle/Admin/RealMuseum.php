@@ -56,7 +56,9 @@ class RealMuseum extends Admin
             ->with('General')
                 ->add('title')
                 ->add('address')
-                ->add('url')
+                ->add('phone')
+                ->add('email','email', array('required' => false))
+                ->add('url', 'url', array('required' => false))
                 ->add('description')
                 ->add('category')
                 ->add('region', null, array(
@@ -69,7 +71,9 @@ class RealMuseum extends Admin
                         $qb->orderBy('r.title', 'ASC');
                         return $qb;
                     }
-                ))             
+                ))
+                ->add('schedule')
+                ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))             
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -79,7 +83,9 @@ class RealMuseum extends Admin
                     'attr' => array('class' => 'chzn-select span5'),
                     'query_builder' => function($er) {
                         $qb = $er->createQueryBuilder('o');
-                        $qb->orderBy('o.title', 'ASC');
+                        $qb->orderBy('o.title', 'ASC')
+                            ->where('o.showAtRussianImage = TRUE')
+                            ->andWhere('o.published = TRUE');
                         return $qb;
                     }
                 ))
@@ -95,13 +101,7 @@ class RealMuseum extends Admin
                 )
             ->end()
             ->with('Media')
-                ->add('image', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'museum',
-                    'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'realSmall'
-                ))                
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'museum')))
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -115,9 +115,22 @@ class RealMuseum extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {        
         $listMapper
-            ->addIdentifier('title')           
+            ->addIdentifier('title')  
+            ->add('category')         
+            ->add('region')
         ;
         
         parent::configureListFields($listMapper);        
-    }    
+    }  
+    
+    /**
+     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('region')
+            ->add('category')
+        ;
+    }      
 }

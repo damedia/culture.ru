@@ -103,6 +103,6 @@
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/mwheelIntent.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/exhibits.js') }}"></script>
 <script type="text/javascript">
-    exhibit.init({{ data|json_encode()|raw }}, {{ filters|json_encode()|raw }});
+    exhibit.init({{ data|json_encode()|raw }}, {{ filters|json_encode()|raw }}, {{ activeFilters|json_encode()|raw }});
 </script>
 {% endblock %}

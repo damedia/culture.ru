@@ -12,6 +12,7 @@
 {# ------------------------------------------------------------------------ #}
 {% block one_column %}
     {% include "ArmdChronicleBundle:Event:centuries_all.html.twig" with {"centuries": centuries, "activeCentury": activeCentury, "activePart": activePart} %}
+    <div class="link-chronicle-all"> <a href="{{ path('armd_chronicle_index')}}">Лента времени</a></div>
      {% for c in centuries %}
         <div class="time-line-content clearfix" id="{{ c.name }}">
             <div class="time-line-header">{{ c.name }}<br />

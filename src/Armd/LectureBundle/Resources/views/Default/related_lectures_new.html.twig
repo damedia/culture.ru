@@ -1,12 +1,12 @@
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 
-<h3 class="o-slider-header">{{ superTypeCode }}</h3>
+<h3 class="o-slider-header">{{ superTypeCode|trans }}</h3>
 <div class="flexslider">
 	<ul class="slides">
         {% for lecture in lectures %}
             <li>
                 <article class="period-block">
-                    <a href="data-{{ loop.index }}" class="period-block_image fancybox">
+                    <a href="#data-{{ lecture.id }}" class="period-block_image in-fancybox">
                         {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': '179', 'width': '306'}) }}
                         <span class="play"></span>
                     </a>
@@ -17,9 +17,37 @@
                          Жанр: Комедия / Режиссер: Леонид Гайдай</p>#}
                     </div>
                     
-                        <div id="data-{{ loop.index }}" style="display: none;">
+                        <div id="data-{{ lecture.id }}" style="display: none;">
                             <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                                {#{ armd_tvigle_video_player(lecture.lectureVideo, 640, 360)|raw }#}
+                                {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                
+                                    {% if lecture.lectureVideo is not empty %}
+                                        {% set lectureVideo = lecture.lectureVideo %}
+                                        {{ armd_tvigle_video_player(lectureVideo, 640, 360)|raw }}
+                                    {% elseif lecture.mediaLectureVideo is not empty
+                                            and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
+                                        {% set lectureVideo = lecture.mediaLectureVideo %}
+                                        {% media lectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
+                                    {% elseif lecture.trailerVideo is not empty %}
+                                        {% set lectureVideo = lecture.trailerVideo %}
+                                        {{ armd_tvigle_video_player(lectureVideo, 640, 360)|raw }}
+                                    {% elseif lecture.mediaTrailerVideo is not empty %}
+                                        {% set lectureVideo = lecture.mediaTrailerVideo %}
+                                        {% media lectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
+                                    {% elseif lecture.externalUrl is not empty %}
+                                        <a target="_blank" href="{{ lecture.externalUrl }}">
+                                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
+                                        </a>
+                                    {% endif %}
+                
+               
+                                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
+                                    {% if lecture.lectureFile is not empty %}
+                                        <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
+                                    {% endif %}
+                
+                                {% endif %}                            
+                                
                             </div>
                         </div>
                     

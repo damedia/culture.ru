@@ -85,36 +85,35 @@
         </section>
     {% endif %}
 
-    <section class="index-block index-museum-block clearfix">
-        <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2>
+        <section class="index-block index-museum-block clearfix">
+            <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2>
 
-        <div class="plitka-one-wrap plitka-one-wrap-opened">
-            <div class="plitka-one clearfix">
-                <div class="museum-image-container">
-                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
-                    <div class="museum-image-over">
-                        <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
-                            <span class="museum-image-text">
-                                {{ "visit_museum"|trans|raw }}
-                            </span>
-                        </a>
-                        <a href="#instruction" class="museum-instr-link">
-                            {{ "manual_instruction"|trans|raw }}
-                        </a>
+            <div class="plitka-one-wrap plitka-one-wrap-opened">
+                <div class="plitka-one clearfix">
+                    <div class="museum-image-container">
+                        <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                        <div class="museum-image-over">
+                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                                <span class="museum-image-text">
+                                    {{ "visit_museum"|trans|raw }}
+                                </span>
+                            </a>
+                            <a href="#instruction" class="museum-instr-link">
+                                {{ "manual_instruction"|trans|raw }}
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="instruction" style="display:none;">
-                <div class="window">
-                    <div class="block window-content">
-                        {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-                    </div>
-               </div>
+                <div id="instruction" style="display:none;">
+                    <div class="window">
+                        <div class="block window-content">
+                            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+                        </div>
+                   </div>
+                </div>
             </div>
-
         </section>
-
         {% if app.request.locale == 'ru' %}
             <section class="block social-widget-block">
                 {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
