@@ -48,12 +48,13 @@ class ArtObjectAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $now = new \DateTime();
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
                 ->add('title')
                 ->add('textDate')
-                ->add('date', null, array('widget' => 'single_text'))
+                ->add('date', 'armd_simple_date', array('required' => false))
                 ->add('description')  
                 ->add('authors', null,
                     array(
@@ -72,7 +73,7 @@ class ArtObjectAdmin extends Admin
                         'required' => false,
                         'attr' => array('class' => 'chzn-select span5')
                     )
-                )
+                )               
                 ->add('categories', 'armd_art_object_categories', array(
                     'required' => false,
                     'attr' => array('class' => 'chzn-select span5')
@@ -81,6 +82,15 @@ class ArtObjectAdmin extends Admin
                     'required' => false,
                     'attr' => array('class' => 'select2-tags'),
                 ))
+            ->end()
+            ->with('Virtual Tour')
+                ->add('virtualTour', null,
+                    array(
+                        'required' => false,
+                        'attr' => array('class' => 'chzn-select span5')
+                    )
+                )
+                ->add('virtualTourUrl')
             ->end()
             ->with('Media')
                 ->add('image', 'armd_media_file_type', array( 

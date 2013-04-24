@@ -88,7 +88,7 @@ class DefaultController extends Controller
                 'img_width' => $e->getImage()->getWidth(),
                 'img_height' => $e->getImage()->getHeight(),
                 'title' => $e->getTitle(),
-                'date' => $e->getDate()->format('Y'),
+                'date' => $e->getTextDate(),
                 'museum' => array('id' => '', 'title' => ''),
                 'authors' => array()
             );
@@ -143,7 +143,7 @@ class DefaultController extends Controller
                 'img' => $this->getImageSrc($e->getImage()),
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallZoom'),
                 'title' => $e->getTitle(),
-                'date' => $e->getDate()->format('Y'),
+                'date' => $e->getTextDate(),
                 'description' => $e->getDescription(),
                 'museum' => array(
                     'id' => '', 
@@ -163,17 +163,24 @@ class DefaultController extends Controller
                     'title' => $e->getMuseum()->getTitle(),
                     'address' => $e->getMuseum()->getAddress(),
                     'url' => $e->getMuseum()->getUrl(),
-                    'img' => $this->getImageSrc($e->getMuseum()->getImage(), 'realSmall'),
-                    'vtour' => array()
-                );
+                    'img' => $this->getImageSrc($e->getMuseum()->getImage(), 'realSmall')
+                );                               
+            }
+            
+            if ($e->getVirtualTour()) {
+                $vTour = $e->getVirtualTour();
                 
-                if ($e->getMuseum()->getVirtualTours()->count()) {
-                    $vTour = $e->getMuseum()->getVirtualTours()->first();
-
-                    if ($vTour->getUrl()) {
-                        $data['objects']["'{$e->getId()}'"]['museum']['vtour']['url'] = $vTour->getUrl();
-                    }
+                if ($e->getVirtualTourUrl()) {
+                    $data['objects']["'{$e->getId()}'"]['virtual_tour']['url'] = $e->getVirtualTourUrl();
+                } else {
+                    $data['objects']["'{$e->getId()}'"]['virtual_tour']['url'] = $vTour->getUrl();
                 }
+                
+                $data['objects']["'{$e->getId()}'"]['virtual_tour']['img'] = $this->getImageSrc($vTour->getImage());
+            } elseif ($e->getMuseum() && $e->getMuseum()->getVirtualTours()->count()) {
+                $vTour = $e->getMuseum()->getVirtualTours()->first();
+                $data['objects']["'{$e->getId()}'"]['virtual_tour']['url'] = $vTour->getUrl();
+                $data['objects']["'{$e->getId()}'"]['virtual_tour']['img'] = $this->getImageSrc($vTour->getImage());
             }
             
             foreach ($e->getAuthors() as $a) {

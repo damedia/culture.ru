@@ -324,6 +324,17 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 perfomanceW160H120: { width: 160, height: 120 }
                 perfomanceH228: { height: 228 }
+                
+        person:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                big: { width: 600 }              
+                small: { width: 200 }
+                
     cdn:
         server:
             path: %sonata_media_cdn%
