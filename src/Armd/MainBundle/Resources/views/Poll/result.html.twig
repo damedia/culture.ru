@@ -1,0 +1,48 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block title %}{{ parent() }} — {{ 'Navigation.PollArchive'|trans }}{% endblock %}
+
+{% block page_header_title %}
+    {{ 'Navigation.PollArchive'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="poll-results-container">
+        <div class="poll-results-description">{{ poll.description }}</div>
+        <div class="poll-results">
+            {% if poll is defined %}
+            {% for answer in poll.answers %}
+                {% if poll.maxVoteAnswer is not empty and poll.maxVoteAnswer.id == answer.id %}
+                    {% set maxVoteClass = 'max' %}
+                {% else %}
+                    {% set maxVoteClass = '' %}
+                {% endif %}
+                <div class="poll-results-row {{ maxVoteClass }}">
+                    <div class="progress">
+                        {% set votePercent = answer.voteCountPercent|number_format(0) %}
+                        {% if votePercent == 0 %}
+                            {% set votePercent = 1 %}
+                        {% endif %}
+                        <div class="bar" style="width: {{ votePercent }}%"></div>
+                        <div class="progress-vote-count">{{ answer.voteCount }}</div>
+                    </div>
+                    <div class="poll-results-row-answer">
+                        {{ answer.answerText }}<span class="vote-count"> - {{ answer.voteCount }} ({{ answer.voteCountPercent|number_format(0) }}%)</span>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+    
+            {% if message is defined %}
+            <strong>{{ message }}</strong>
+            {% endif %}
+        </div>
+        <div class="form-actions">
+            <ul class="poll-results-links">
+                <li><a id="poll_archive_link" href="{{ path('armd_poll_archive') }}">Архив опросов</a></li>
+            </ul>
+        </div>
+    </div>
+    
+{% endblock %}    

@@ -201,20 +201,27 @@
             </div>
 
             <div class="footer-center">
-                <p>{{ "copyright"|trans }}</p>
-                <ul>
-                    <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
-                    <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
-                    <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
-                </ul>
-                {% if app.request.locale == 'ru' %}
-                    <p class="footer-fond-link">
-                        <ul>
-                            <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
-                            <li><a href="http://dnk.culture.ru/" target="_blank">ДНК Live</a></li>
-                        </ul>
-                    </p>
-                {% endif %}
+                <div class="clearfix fc-col-block">
+                    <div class="fc-col fc-links">
+                    <p>{{ "copyright"|trans }}</p>
+                    <ul>
+                        <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
+                        <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
+                    </ul>
+                    {% if app.request.locale == 'ru' %}
+                        <p class="footer-fond-link">
+                            <ul>
+                                <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
+                                <li><a href="http://dnk.culture.ru/" target="_blank">ДНК Live</a></li>
+                            </ul>
+                        </p>
+                    {% endif %}
+                    </div>
+                    <div class="fc-col fc-copyright">
+                        <p>При цитировании и&nbsp;копировании материалов с&nbsp;портала активная гиперссылка обязательна</p>
+                    </div>
+                </div>
             </div>
         </footer>
 		{% endblock %}

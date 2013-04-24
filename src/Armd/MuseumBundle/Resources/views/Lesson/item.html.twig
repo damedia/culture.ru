@@ -1,6 +1,13 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
 {% block left_column %}
+
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{{ path('armd_lesson_list') }}">Музейное образование</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
+    
 	<div class="museum-education museum-education-one">
 		<h2>{{ entity.title }}</h2>
 		{% media entity.image, 'big' with {'alt': entity.title|escape, 'class' : 'edu-one-image'} %}
@@ -9,7 +16,11 @@
 			{% if entity.time %}<p><b>Время проведения:</b> {{ entity.time }}</p>{% endif %}
 			{% if entity.maxMembers %}<p><b>Максимальное количество участников:</b> {{ entity.maxMembers }}</p>{% endif %}
 			{% if entity.place %}<p><b>Место проведения:</b> {{ entity.place }}</p>{% endif %}
-			{% if entity.subject %}<p><b>Предмет:</b> {{ entity.subject }}</p>{% endif %}
+			{% if entity.subjects|length > 0 %}<p><b>Предметы:</b> 
+				{% for subject in entity.subjects %}
+					{{ subject.title }}{% if not loop.last %}, {% endif %}
+				{% endfor %}			
+			</p>{% endif %}
 			{% if entity.education %}<p><b>Образование:</b> {{ entity.education }}</p>{% endif %}
 			{% if entity.age %}<p><b>Рекомендуемый возраст:</b> {{ entity.age }}</p>{% endif %}
 			{% if entity.skills|length > 0 %}<p><b>Навыки:</b> 
@@ -81,6 +92,11 @@
 		                })
 		            }
 		        });
+		        
+                $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lesson_museum"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_city"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_education"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_subject"] a, .ui-selectgroup-list[aria-labelledby="ui-lesson_skill"] a',
+                    function (event) {
+                        $('#museums-filter-form').submit();        
+                });		        
 		    }
 		};   
 		        
@@ -155,7 +171,7 @@
                     
                           
             </div>
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>                    
+                   
         </form>
 
     </div>

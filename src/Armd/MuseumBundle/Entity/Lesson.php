@@ -83,10 +83,10 @@ class Lesson implements Taggable {
     private $education;  
 
     /**
-     * @ORM\ManyToOne(targetEntity="Armd\MuseumBundle\Entity\LessonSubject", cascade={"all"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
-     */
-    private $subject;        
+     * @ORM\ManyToMany(targetEntity="\Armd\MuseumBundle\Entity\LessonSubject", inversedBy="lessons")
+     * @ORM\JoinTable(name="armd_lesson_lesson_subject")
+     */        
+    private $subjects;        
     
     /**
      * @ORM\ManyToMany(targetEntity="\Armd\MuseumBundle\Entity\LessonSkill", inversedBy="lessons")
@@ -469,30 +469,6 @@ class Lesson implements Taggable {
     }
 
     /**
-     * Set subject
-     *
-     * @param \Armd\MuseumBundle\Entity\LessonSubject $subject
-     * @return Lesson
-     */
-    public function setSubject(\Armd\MuseumBundle\Entity\LessonSubject $subject = null)
-    {
-        $this->subject = $subject;
-    
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return \Armd\MuseumBundle\Entity\LessonSubject 
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -634,4 +610,37 @@ class Lesson implements Taggable {
             $this->createdAt = new \DateTime();
         }
     }     
+
+    /**
+     * Add subjects
+     *
+     * @param \Armd\MuseumBundle\Entity\LessonSubject $subjects
+     * @return Lesson
+     */
+    public function addSubject(\Armd\MuseumBundle\Entity\LessonSubject $subjects)
+    {
+        $this->subjects[] = $subjects;
+    
+        return $this;
+    }
+
+    /**
+     * Remove subjects
+     *
+     * @param \Armd\MuseumBundle\Entity\LessonSubject $subjects
+     */
+    public function removeSubject(\Armd\MuseumBundle\Entity\LessonSubject $subjects)
+    {
+        $this->subjects->removeElement($subjects);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
+    }
 }

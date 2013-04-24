@@ -5,16 +5,25 @@
 	<div class="museum-education" id="museum-education">
 		<ul class="museum-education-list">
 	        {% render url('armd_lesson_list_content', {
-	                'limit': load_count
+	                'limit': load_count,
+	                'lesson_city': lesson_city,
+	                'lesson_museum': lesson_museum,
+	                'lesson_education': lesson_education,
+	                'lesson_subject': lesson_subject,
+	                'lesson_skill': lesson_skill,
+	                'search_query' : searchQuery
 	            })
 	        %}		
+	        {% if not(list_count) %}
+	           <li><h2>Не найдено</h2></li>
+	        {% endif %}
 		</ul>
 	</div>
 	
+	<div id="lesson-more-container" class="more more2" {% if (list_count < load_count) %}style="display:none;"{% endif %}>
+        <p><a id="lesson-more-button" href="#">{{ "show_more"|trans }}</a></p>
+    </div>	
 	
-	<div id="lesson-more-container" class="more more2">
-		<p><a id="lesson-more-button" href="#">{{ "show_more"|trans }}</a></p>
-	</div>	
 
 {% endblock %}
 
@@ -112,6 +121,7 @@
 
 {% block right_column %}
 
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
