@@ -227,18 +227,15 @@ class PerfomanceController extends Controller
             $request = $this -> getRequest();
             
             $review = new \Armd\PerfomanceBundle\Entity\PerfomanceReview();
+            $review -> setPerfomance($perfomance);            
             
-            $form = $this->createFormBuilder($review)
-                ->add('body', 'textarea', array('required' => true))
-                ->add('perfomance_id', 'hidden', array('data' => $perfomance_id))
-                ->getForm();
+            $form = $this -> getReviewForm($review);
             
             if ($request->isMethod('POST')) {
                 $form->bind($request);
         
                 if ($form->isValid()) {
                     
-                    $review -> setPerfomance($perfomance);
                     $review -> setAuthor($author);
                     $review -> setCreatedAt(new \DateTime());
                     $review -> setPublished(true);
@@ -247,6 +244,11 @@ class PerfomanceController extends Controller
                     $em -> flush();
                     
                     $this -> notify();
+                    
+                    $review = new \Armd\PerfomanceBundle\Entity\PerfomanceReview();
+                    $review -> setPerfomance($perfomance);            
+                    
+                    $form = $this -> getReviewForm($review);                    
                     
                 }
             }
@@ -287,7 +289,18 @@ class PerfomanceController extends Controller
             'id' => $this -> getRequest() -> getLocale() . '_perfomance_review_' . $review_id
         );
     }
+    
+    public function getReviewForm($review) {
         
+        $form = $this->createFormBuilder($review)
+            ->add('body', 'textarea', array('required' => true))
+            ->add('perfomance_id', 'hidden', array('data' => $review -> getPerfomance() -> getId()))
+            ->getForm();       
+            
+        return $form; 
+    }
+    
+    
     /**
      * @return \Armd\PerfomanceBundle\Entity\PerfomanceManager
      */    

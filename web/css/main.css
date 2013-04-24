@@ -1636,8 +1636,9 @@ body {
         }
 
     #alphabet-filter {
-        margin: 10px 0 20px;
+        margin: 14px 0 20px;
         float: right;
+        font-size:11px;
     }
 
         #alphabet-filter ul,
@@ -1645,15 +1646,28 @@ body {
             list-style-type: none;
             display: inline;
         }
+        #alphabet-filter li {
+            margin-right:5px;
+        }
+        #alphabet-filter li a {
+           text-decoration: none; 
+           text-transform:uppercase;
+           border-bottom:2px solid #fff;
+           color: #000000;
+           outline: none;
+           font-weight:bold;
+        }
 
         #alphabet-filter li.active a,
-        #alphabet-filter li.active a:hover,
+        #alphabet-filter li a:hover,
         #alphabet-filter li.active a:visited {
-            font-weight: bold;
-            color: #000000;
-            text-decoration: none;
+            border-color:#f5902d;
+        }
+        #alphabet-filter li.active a {
             cursor: default;
-            outline: none;
+        }
+        #alphabet-filter li.all-let {
+            margin-right:8px;
         }
 
     .lecture-homepage-section {
@@ -2118,7 +2132,7 @@ body {
             }
             
         .perfomance-one {
-        
+            clear:both;
         }
              .perfomance-one .video-one-description {
                 padding-bottom: 14px;
@@ -2818,6 +2832,12 @@ body {
             .mg-new-text {
                 width: 250px;
                 margin: 5px 20px 0 0;
+            }
+            #alphabet-filter {
+                float:none;
+                clear:both;
+                display:block;
+                padding-top:15px;
             }
         }
         @media screen and (max-width: 1090px) {
