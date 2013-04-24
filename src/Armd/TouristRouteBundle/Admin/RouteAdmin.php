@@ -37,6 +37,7 @@ class RouteAdmin extends Admin
             ->add('categories')
             ->add('regions')
             ->add('objects')
+            ->add('points')
             ->add('images')
             ->add('videos')
             ->add('routes')
@@ -72,6 +73,12 @@ class RouteAdmin extends Admin
                 ->add('objects', null, array(
                     'required' => true,
                     'attr' => array('class' => 'chzn-select tourist-route-atlas-object-select')
+                ))
+                ->add('type', 'choice', array(
+                    'choices' => array(
+                        'route'    => $this->trans('Route'),
+                        'polyline' => $this->trans('Polyline')
+                    )
                 ))
                 ->add('points', 'armd_point_collection', array(
                     'allow_add' => true,

@@ -18,8 +18,9 @@ class PointType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('show')
+            ->add('title', null, array('required' => false))
+            ->add('order', null, array('required' => false))
+            ->add('show', null, array('required' => false))
             ->add('lat', 'hidden')
             ->add('lon', 'hidden')
         ;

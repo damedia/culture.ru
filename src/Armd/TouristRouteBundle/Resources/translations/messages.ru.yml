@@ -1,1 +1,9 @@
 Tourist routes: Туристические маршруты
+menu:
+    tourist_routes: Туристические маршруты
+Navigation:
+    Tourist routes:
+        Title: Туристические маршруты
+search_category:
+    category: Тематика
+Show all: Показать все

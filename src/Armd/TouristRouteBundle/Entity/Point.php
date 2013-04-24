@@ -29,6 +29,11 @@ class Point
     private $title;
 
     /**
+     * @ORM\Column(name="list_order", type="integer")
+     */
+    private $order = 0;
+
+    /**
      * @ORM\Column(name="show", type="boolean")
      */
     private $show = true;
@@ -80,6 +85,29 @@ class Point
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     * @return Point
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
 
         return $this;
     }

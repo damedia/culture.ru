@@ -44,5 +44,10 @@ Coordinates: Координаты
 Lat: Широта
 Lon: Долгота
 Add point: Добавить точку
+Point properties: Свойства точки
+Delete: Удалить
+Type: Тип
+Route: По городам
+Polyline: По объектам
 
 You must select at least one image: Необходимо выбрать хотя бы одно изображение

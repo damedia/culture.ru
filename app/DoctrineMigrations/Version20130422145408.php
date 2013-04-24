@@ -8,7 +8,7 @@ use Doctrine\DBAL\Migrations\AbstractMigration,
 /**
  * Auto-generated Migration: Please modify to your need!
  */
-class Version20130417103540 extends AbstractMigration
+class Version20130422145408 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
@@ -18,7 +18,7 @@ class Version20130417103540 extends AbstractMigration
         $this->addSql("CREATE SEQUENCE tourist_route_id_seq INCREMENT BY 1 MINVALUE 1 START 1");
         $this->addSql("CREATE SEQUENCE tourist_route_point_id_seq INCREMENT BY 1 MINVALUE 1 START 1");
         $this->addSql("CREATE SEQUENCE tourist_route_category_id_seq INCREMENT BY 1 MINVALUE 1 START 1");
-        $this->addSql("CREATE TABLE tourist_route (id INT NOT NULL, banner_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, published BOOLEAN NOT NULL, title VARCHAR(255) NOT NULL, content TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))");
+        $this->addSql("CREATE TABLE tourist_route (id INT NOT NULL, banner_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, published BOOLEAN NOT NULL, title VARCHAR(255) NOT NULL, content TEXT DEFAULT NULL, type VARCHAR(10) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))");
         $this->addSql("CREATE INDEX IDX_A130300F684EC833 ON tourist_route (banner_id)");
         $this->addSql("CREATE INDEX IDX_A130300FDE12AB56 ON tourist_route (created_by)");
         $this->addSql("CREATE INDEX IDX_A130300F16FE72E1 ON tourist_route (updated_by)");
@@ -42,7 +42,7 @@ class Version20130417103540 extends AbstractMigration
         $this->addSql("CREATE INDEX IDX_1B50AC96C028CEA2 ON tourist_route__tourist_route_point (point_id)");
         $this->addSql("CREATE TABLE tourist_route__tourist_route (route_id INT NOT NULL, PRIMARY KEY(route_id))");
         $this->addSql("CREATE INDEX IDX_C96DBFDF34ECB4E6 ON tourist_route__tourist_route (route_id)");
-        $this->addSql("CREATE TABLE tourist_route_point (id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, show BOOLEAN NOT NULL, lat NUMERIC(15, 10) DEFAULT NULL, lon NUMERIC(15, 10) DEFAULT NULL, PRIMARY KEY(id))");
+        $this->addSql("CREATE TABLE tourist_route_point (id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, list_order INT NOT NULL, show BOOLEAN NOT NULL, lat NUMERIC(15, 10) DEFAULT NULL, lon NUMERIC(15, 10) DEFAULT NULL, PRIMARY KEY(id))");
         $this->addSql("CREATE TABLE tourist_route_category (id INT NOT NULL, icon_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))");
         $this->addSql("CREATE INDEX IDX_8DBA71454B9D732 ON tourist_route_category (icon_id)");
         $this->addSql("ALTER TABLE tourist_route ADD CONSTRAINT FK_A130300F684EC833 FOREIGN KEY (banner_id) REFERENCES media__media (id) NOT DEFERRABLE INITIALLY IMMEDIATE");

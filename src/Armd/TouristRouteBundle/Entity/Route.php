@@ -76,11 +76,16 @@ class Route implements Taggable
     private $objects;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Point")
+     * @ORM\ManyToMany(targetEntity="Point", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="tourist_route__tourist_route_point")
      * @ORM\OrderBy({"id" = "ASC"})
      */
     private $points;
+
+    /**
+     * @ORM\Column(name="type", type="string", length=10, nullable=true)
+     */
+    private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="Route")
@@ -520,6 +525,29 @@ class Route implements Taggable
     public function removePoint(Point $point)
     {
         $this->points->removeElement($point);
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Route
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     /**

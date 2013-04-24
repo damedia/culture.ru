@@ -93,6 +93,13 @@ class Builder extends ContainerAware
                 )
             );
 
+            $mainMenu->addChild(
+                'menu.tourist_routes',
+                array(
+                    'route' => 'armd_tourist_route_list'
+                )
+            );
+
 //            $mainMenu->addChild(
 //                'menu.theaters',
 //                array(
