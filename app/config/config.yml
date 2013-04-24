@@ -228,6 +228,16 @@ sonata_media:
                 banner: { width: 922 }
                 realSmall: { width: 285 }
 
+        museum_guide:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                preview: { width: 105 }
+
         gallery:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -305,6 +315,7 @@ sonata_media:
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.youtube
             formats:
+                xxbig: { width: 1200, height: 900 }
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
                 tile: {width: 295, height: 228 }

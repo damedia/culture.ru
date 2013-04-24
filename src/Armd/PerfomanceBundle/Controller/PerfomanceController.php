@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Armd\PerfomanceBundle\Entity\PerfomanceManager;
 use Armd\PerfomanceBundle\Entity\PerfomanceGanre;
+use Armd\UserBundle\Entity\UserManager;
 
 class PerfomanceController extends Controller
 {
@@ -177,10 +178,11 @@ class PerfomanceController extends Controller
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_perfomance_list')
         );
-
+        
         return array(
             'entity' => $entity,
-            'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll()
+            'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll(),
+            'theaters' => $this->getEntityManager()->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC')),
         );
     }       
     
@@ -206,8 +208,99 @@ class PerfomanceController extends Controller
 		echo $tvigle_twig_extension -> videoPlayerFunction(($mode == 'trailer' ? $entity->getTrailerVideo() : $entity->getPerfomanceVideo()), '100%', 506);
 		exit();        
 
-    }    
+    }
+
+    /**
+     * @Route("/review/{perfomance_id}/", requirements={"perfomance_id"="\d+"}, name="armd_perfomance_review")
+     * @Template("ArmdPerfomanceBundle:Perfomance:review.html.twig")
+     */
+    public function reviewAction($perfomance_id) {
+
+        $em = $this->getEntityManager();
+        $perfomance = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($perfomance_id);            
+            
+        if (!$perfomance)
+            return ;
+                        
+        if ($author = $this -> getAuthUser()) {
+            
+            $request = $this -> getRequest();
+            
+            $review = new \Armd\PerfomanceBundle\Entity\PerfomanceReview();
+            $review -> setPerfomance($perfomance);            
+            
+            $form = $this -> getReviewForm($review);
+            
+            if ($request->isMethod('POST')) {
+                $form->bind($request);
         
+                if ($form->isValid()) {
+                    
+                    $review -> setAuthor($author);
+                    $review -> setCreatedAt(new \DateTime());
+                    $review -> setPublished(true);
+                    
+                    $em -> persist($review);
+                    $em -> flush();
+                    
+                    $this -> notify();
+                    
+                    $review = new \Armd\PerfomanceBundle\Entity\PerfomanceReview();
+                    $review -> setPerfomance($perfomance);            
+                    
+                    $form = $this -> getReviewForm($review);                    
+                    
+                }
+            }
+                    
+        }
+        
+        return array(
+            'form' => isset($form) ? $form -> createView() : null,
+            'perfomance_id' => $perfomance_id
+        );
+                
+    }
+    
+    /**
+     * @Route("/review/list/{perfomance_id}/", requirements={"perfomance_id"="\d+"}, name="armd_perfomance_review_list", options={"expose"=true})
+     * @Template("ArmdPerfomanceBundle:Perfomance:review-list.html.twig")
+     */
+    public function reviewListAction($perfomance_id) {
+        
+        $em = $this->getEntityManager();
+        $perfomance = $em->getRepository('ArmdPerfomanceBundle:Perfomance')->find($perfomance_id);            
+            
+        if (!$perfomance)
+            return ;
+                    
+        return array(
+            'reviews' => $this -> getReviewList($perfomance)        
+        );
+    }
+    
+    /**
+     * @Route("/review/comment/{review_id}/", requirements={"review_id"="\d+"}, name="armd_perfomance_review_comment")
+     * @Template("FOSCommentBundle:Thread:async.html.twig")
+     */    
+    public function reviewCommentAction($review_id) {
+        
+        return array(
+            'id' => $this -> getRequest() -> getLocale() . '_perfomance_review_' . $review_id
+        );
+    }
+    
+    public function getReviewForm($review) {
+        
+        $form = $this->createFormBuilder($review)
+            ->add('body', 'textarea', array('required' => true))
+            ->add('perfomance_id', 'hidden', array('data' => $review -> getPerfomance() -> getId()))
+            ->getForm();       
+            
+        return $form; 
+    }
+    
+    
     /**
      * @return \Armd\PerfomanceBundle\Entity\PerfomanceManager
      */    
@@ -221,7 +314,15 @@ class PerfomanceController extends Controller
     public function getPerfomanceManager()
     {
         return $this->get('armd_perfomance.manager.perfomance');
-    }    
+    }   
+    
+    /**
+     * @return \Armd\UserBundle\Entity\UserManager
+     */
+    public function getUserManager()
+    {
+        return $this->get('fos_user.user_manager.default');
+    }      
     
     /**
      * @return \Armd\TagBundle\Entity\TagManager
@@ -230,4 +331,79 @@ class PerfomanceController extends Controller
     {
         return $this->get('fpn_tag.tag_manager');
     }    
+    
+	/**
+    * Получить авторизованного пользователя
+    */
+    public function getAuthUser() 
+    {
+        if ($user = $this->get('security.context')->getToken()->getUser()) {
+            if (is_object($user))
+                return $user;	
+        }
+        return null;	
+    } 
+    
+    /**
+     * Список рецензий
+     */
+    public function getReviewList($perfomance) {
+
+        $list = $this->getEntityManager()->getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceReview')->findBy(array('perfomance' => $perfomance, 'published' => true), array('createdAt' => 'DESC'));
+        
+        if (count($list)) {
+            foreach ($list as $review) {
+                
+                $review->setCommentCount($this -> getReviewCommentCount($review));
+            }
+        }
+        
+        return $list;
+    }
+    
+    /**
+     * 
+     */
+    public function getReviewCommentCount($review) {
+        
+        $id = $this -> getRequest() -> getLocale() . '_perfomance_review_' . $review -> getId();
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
+        if ($thread) {
+            $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);   
+    
+            return count($comments);
+        }
+    
+        return 0;
+    }
+    
+    /**
+     * 
+     */
+    public function notify() {
+        
+        $um = $this -> getUserManager();
+        $moderatos = $um -> getModerators();
+
+
+        if (count($moderatos)) {
+            
+            $to = array();
+            foreach ($moderatos as $moderator) 
+                $to[$moderator -> getEmail()] = $moderator -> getUsername();
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Опубликована рецензия')
+                ->setFrom('noreplay@culture.ru')
+                ->setTo($to)
+                ->setBody(
+                    $this->render('ArmdPerfomanceBundle:Perfomance:notify.html.twig')
+                )
+            ;
+            
+            $this->get('mailer')->send($message);            
+            
+        }
+        
+    }
 }

@@ -2,14 +2,14 @@
 
 <div  class="community-tabs">
     <ul class="tabs-headers community-tabs-headers">
-        <li><a href="#community-tab1" class="active">Предложения</a></li>
-        <li><a href="#community-tab2">Открытый форум</a></li>
+        <li><a href="#community-tab1">Предложения</a></li>
+        <li><a href="#community-tab2" class="active">Открытый форум</a></li>
     </ul>
 </div>
 
 {% if topics is not empty %}
     {% for t in topics %}
-        <div class="tab community-tab" id="community-tab{{ loop.index }}" {% if loop.index == 2 %}style="display:none;"{% endif %}>
+        <div class="tab community-tab" id="community-tab{{ loop.index }}" {% if loop.index == 1 %}style="display:none;"{% endif %}>
             {% for i in t.items %}
                 {% set raiting = i.count_like - i.count_dislike %}
                 {% if loop.first %}

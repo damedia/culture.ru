@@ -888,6 +888,49 @@ body {
                 color:#a3a3a3;
                 font-size:12px;
              }
+             .pdf-lister .pdf-content .pdf-btn button, .pdf-lister .pdf-content button.pdf-btn{
+                background-color:transparent;
+                border:0px;
+                position:relative;
+                top:0px;
+                vertical-align:top;
+             }
+             .pdf-lister .pdf-content .pdf-btn button:hover, .pdf-lister .pdf-content button.pdf-btn:hover{
+                background-color:rgba(0,0,0,.03);
+                color:#D12426;
+             }
+             .pdf-lister .pdf-content div.pdf-btn button {
+                border:1px solid gray;
+             }
+             .pdf-lister .pdf-content-border {
+                -moz-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                -webkit-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                -o-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                -ms-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+                box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,.3), 0 0 0 #FFF;
+             }
+             .pdf-lister .pdf-content .pdf-viewer{
+                min-width:800px;
+                height:545px;
+                text-align:center;
+             }
+             .pdf-lister .pdf-content .pdf-viewer .pdf-canvas{
+                overflow:auto;
+                width:90%;
+                max-width:90%;
+             }
+             .pdf-lister .pdf-content .pdf-viewer button, .pdf-lister .pdf-content .pdf-viewer div{
+                float:left;
+                height:100%;
+             }
+             .pdf-prev{
+                left:0px;
+                width:5%;
+             }
+             .pdf-next{
+                right:0px;
+                width:5%;
+             }
 								
 						.event-one_footer {
 							font-size:9px;
@@ -1593,8 +1636,9 @@ body {
         }
 
     #alphabet-filter {
-        margin: 10px 0 20px;
+        margin: 14px 0 20px;
         float: right;
+        font-size:11px;
     }
 
         #alphabet-filter ul,
@@ -1602,15 +1646,28 @@ body {
             list-style-type: none;
             display: inline;
         }
+        #alphabet-filter li {
+            margin-right:5px;
+        }
+        #alphabet-filter li a {
+           text-decoration: none; 
+           text-transform:uppercase;
+           border-bottom:2px solid #fff;
+           color: #000000;
+           outline: none;
+           font-weight:bold;
+        }
 
         #alphabet-filter li.active a,
-        #alphabet-filter li.active a:hover,
+        #alphabet-filter li a:hover,
         #alphabet-filter li.active a:visited {
-            font-weight: bold;
-            color: #000000;
-            text-decoration: none;
+            border-color:#f5902d;
+        }
+        #alphabet-filter li.active a {
             cursor: default;
-            outline: none;
+        }
+        #alphabet-filter li.all-let {
+            margin-right:8px;
         }
 
     .lecture-homepage-section {
@@ -1760,7 +1817,10 @@ body {
 						border:2px solid #fff;
 					}
 		
-    /*PERFOMANCES*/    
+    /*PERFOMANCES*/ 
+
+    /* this breadcrumbs styles have ie9 and ff bug */
+    /*
     .breadcrumbs { 
         list-style: none; 
         overflow: hidden; 
@@ -1824,7 +1884,81 @@ body {
          }
 		.breadcrumbs li a:hover { background: #f5902d; color:#fff;}
 		.breadcrumbs li a:hover:after { border-left-color: #f5902d !important; }
-		
+*/
+
+/* /this breadcrumbs styles have ie9 and ff bug */
+
+        .breadcrumbs{
+            font-size:10px;
+            text-transform:uppercase;
+            margin-left: -29px;
+            margin-top: 6px;
+        }
+        .breadcrumbs li{
+            position:relative;
+            display:inline-block;
+            margin-left:-12px;
+            padding-left:9px;
+            height:21px;
+            line-height:21px;
+            background:url(../img/breadcrumbs-l.png) no-repeat 0 50%
+        }
+        .lt-ie9 .breadcrumbs li{
+            display:inline;
+        }
+        .breadcrumbs li:first-child{
+            margin-left:0;
+            padding-left:0;
+            background:#f0f0f0;
+        }
+        .breadcrumbs li:hover,
+        .breadcrumbs li.active,
+        .breadcrumbs li:last-child,
+        .breadcrumbs li.last-child{
+            background-image:url(../img/breadcrumbs-l-a.png);
+        }
+        .breadcrumbs li,
+        .breadcrumbs a{
+            color:#989898;
+        }
+        .breadcrumbs li:hover,
+        .breadcrumbs li:hover a,
+        .breadcrumbs li.active,
+        .breadcrumbs li.active a,
+        .breadcrumbs li.active span,
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            color:#fff;
+        }
+        .breadcrumbs a,
+        .breadcrumbs span{
+            display:block;
+            padding:0 14px 0 5px;
+            text-decoration:none;
+            background:#f0f0f0 no-repeat 100% 50%;
+            border:0;
+        }
+        .breadcrumbs span{cursor:default;}
+        .breadcrumbs li:hover a,
+        .breadcrumbs li.active a,
+        .breadcrumbs li.active span,
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            background-color:#f79016;
+        }
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            background-image:url(../img/breadcrumbs-r.png);
+        }
+        .breadcrumbs li.active a,
+        .breadcrumbs li:last-child a,
+        .breadcrumbs li:last-child span,
+        .breadcrumbs li.last-child span{
+            background-image:url(../img/breadcrumbs-r-a.png);
+        }
     /*Select Filter*/        
 	
     #perfomance_ganre {
@@ -1855,25 +1989,30 @@ body {
         
     /*Sort Filter*/
     .sort-filter {
-        font-size:12px;
-        margin: 24px 0 2px;
-    }  
-        .sort-filter span, .sort-filter a {
+        font-size:11px;
+        margin: 14px 0 2px;
+        float:left;
+    }
+        .sort-filter span, .sort-filter li {
             display:inline-block;
             vertical-align:top;
+            list-style:none;
         }
         .sort-filter span {
             color:#989898;
             margin-right:7px;
         }
+        .sort-filter li {
+            text-transform:uppercase;
+        }
         .sort-filter a {
             font-weight:bold;
             text-decoration:none;
-            border-bottom:1px dashed #000;
+            border-bottom:2px dashed #fff;
             color:#000;
             margin-right:7px;
         }
-        .sort-filter a.active {
+        .sort-filter .active a {
             border-bottom:2px solid #f5902d;
         }
     
@@ -1925,9 +2064,10 @@ body {
             
         }
             .perfomances-list .plitka-one-image {
-                display:block;
+                display: table-cell;
                 height: 121px;
                 overflow:hidden;
+                *display: block;
             }
             .perfomances-list img  {
                 width:165px;
@@ -1992,7 +2132,7 @@ body {
             }
             
         .perfomance-one {
-        
+            clear:both;
         }
              .perfomance-one .video-one-description {
                 padding-bottom: 14px;
@@ -2609,7 +2749,7 @@ body {
         /*museum-education*/
         
         .museum-education {
-            margin-top:14px;
+            margin-top:31px;
             float:left;
             width:100%;
         }    
@@ -2692,6 +2832,12 @@ body {
             .mg-new-text {
                 width: 250px;
                 margin: 5px 20px 0 0;
+            }
+            #alphabet-filter {
+                float:none;
+                clear:both;
+                display:block;
+                padding-top:15px;
             }
         }
         @media screen and (max-width: 1090px) {
@@ -6509,6 +6655,17 @@ a.appstore-link {
                 height:5px;
                 background:url(../img/ext.gif) no-repeat 0 0;
             }
+
+        .theatre-one #c-tab2 {
+            position: relative;
+        }
+
+            .theatre-one .theater-contacts-wrap {
+                position: absolute;
+                top: 0;
+                left: 330px;
+
+            }
             
             
     .content-tabs {
@@ -6552,6 +6709,8 @@ a.appstore-link {
             }
                 .theater-contacts {
                     margin: 0;
+                    max-width:495px;
+                    overflow:hidden;
                 }
                     .theater-contacts  caption {
                         color:#f79016;
@@ -6569,9 +6728,8 @@ a.appstore-link {
                     .theater-contacts td.label {
                         font-weight:bold;
                         color:#7e7e7e;
-                        padding-right:50px;
+                        padding-right:30px;
                     }
-
 
             .sub-tabs {
                 margin: 18px 0 0;

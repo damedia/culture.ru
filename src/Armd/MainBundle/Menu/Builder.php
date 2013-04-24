@@ -188,7 +188,15 @@ class Builder extends ContainerAware
                 array(
                     'route' => 'armd_museum_virtual'
                 )
-            );            
+            );  
+
+            $museumMenu->addChild(
+                'menu.museum_guide',
+                array(
+                    'route' => 'armd_museum_guide_index'
+                )
+            );
+
             
             //--- /Museums
             

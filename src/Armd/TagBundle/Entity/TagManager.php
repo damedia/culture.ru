@@ -1,6 +1,7 @@
 <?php
 namespace Armd\TagBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FPN\TagBundle\Entity\TagManager as BaseTagManager;
 use DoctrineExtensions\Taggable\Taggable;
 
@@ -30,6 +31,71 @@ class TagManager extends BaseTagManager
         return $resourceIds;
     }
 
+    /**
+     * Loads or creates multiples tags from a list of tag names.
+     * Overriden for case insensitive tag search.
+     *
+     * @param array  $names   Array of tag names
+     * @return Tag[]
+     */
+    public function loadOrCreateTags(array $names)
+    {
+        if (empty($names)) {
+            return array();
+        }
+
+        $names = array_unique($names);
+        $lowerNames = array_map(function($v) { return mb_strtolower($v, mb_detect_encoding($v)); }, $names);
+
+        $builder = $this->em->createQueryBuilder();
+
+        $tags = $builder
+            ->select('t')
+            ->from($this->tagClass, 't')
+
+            ->where($builder->expr()->in('LOWER(t.name)', $lowerNames))
+
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $loadedNames = array();
+        foreach ($tags as $tag) {
+            $loadedNames[] = mb_strtolower($tag->getName(), mb_detect_encoding($tag->getName()));
+        }
+
+        foreach ($names as $name) {
+            if (!in_array(mb_strtolower($name, mb_detect_encoding($name)), $loadedNames)) {
+                $tag = $this->createTag($name);
+                $this->em->persist($tag);
+
+                $tags[] = $tag;
+            }
+
+            $this->em->flush();
+        }
+
+        return $tags;
+    }
+
+    /**
+     * Saves tags for the given taggable resource
+     *
+     * @param Taggable  $resource   Taggable resource
+     */
+    public function saveTagging(Taggable $resource)
+    {
+        $tags = $resource->getTags();
+        $uniqueTags = new ArrayCollection();
+        foreach ($tags as $tag) {
+            if ($uniqueTags->indexOf($tag) === false) {
+                $uniqueTags->add($tag);
+            }
+        }
+        $resource->setTags($uniqueTags);
+        parent::saveTagging($resource);
+    }
+
     public function getTaggingClass()
     {
         return $this->taggingClass;
@@ -40,100 +106,6 @@ class TagManager extends BaseTagManager
         return $this->tagClass;
     }
 
-//
-//    public function loadOrCreateTag($name, $doFlush = true)
-//    {
-//        $tags = $this->loadOrCreateTags(array($name), $doFlush);
-//        return $tags[0];
-//    }
-//
-//    public function loadOrCreateTags(array $names, $doFlush = true)
-//    {
-//        if (empty($names)) {
-//            return array();
-//        }
-//
-//        $names = array_unique($names);
-//
-//        $builder = $this->em->createQueryBuilder();
-//
-//        $tags = $builder
-//            ->select('t')
-//            ->from($this->tagClass, 't')
-//
-//            ->where($builder->expr()->in('t.name', $names))
-//
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//
-//        $loadedNames = array();
-//        foreach ($tags as $tag) {
-//            $loadedNames[] = $tag->getName();
-//        }
-//
-//        $missingNames = array_udiff($names, $loadedNames, 'strcasecmp');
-//        if (sizeof($missingNames)) {
-//            foreach ($missingNames as $name) {
-//                $tag = $this->createTag($name);
-//                $this->em->persist($tag);
-//
-//                $tags[] = $tag;
-//            }
-//
-//            if ($doFlush) {
-//                $this->em->flush();
-//            }
-//        }
-//
-//        return $tags;
-//    }
-//
-//    public function saveTagging(Taggable $resource, $doFlush = true)
-//    {
-//        $oldTags = $this->getTagging($resource);
-//        $newTags = $resource->getTags();
-//        $tagsToAdd = $newTags;
-//
-//        if ($oldTags !== null and is_array($oldTags) and !empty($oldTags)) {
-//            $tagsToRemove = array();
-//
-//            foreach ($oldTags as $oldTag) {
-//                if ($newTags->exists(function ($index, $newTag) use ($oldTag) {
-//                    return $newTag->getName() == $oldTag->getName();
-//                })) {
-//                    $tagsToAdd->removeElement($oldTag);
-//                } else {
-//                    $tagsToRemove[] = $oldTag->getId();
-//                }
-//            }
-//
-//            if (sizeof($tagsToRemove)) {
-//                $builder = $this->em->createQueryBuilder();
-//                $builder
-//                    ->delete($this->taggingClass, 't')
-//                    ->where('t.tag_id')
-//                    ->where($builder->expr()->in('t.tag', $tagsToRemove))
-//                    ->andWhere('t.resourceType = :resourceType')
-//                    ->setParameter('resourceType', $resource->getTaggableType())
-//                    ->andWhere('t.resourceId = :resourceId')
-//                    ->setParameter('resourceId', $resource->getTaggableId())
-//                    ->getQuery()
-//                    ->getResult()
-//                ;
-//            }
-//        }
-//
-//        foreach ($tagsToAdd as $tag) {
-//            $this->em->persist($tag);
-//            $this->em->persist($this->createTagging($tag, $resource));
-//        }
-//
-//        if (count($tagsToAdd)) {
-//            if ($doFlush) {
-//                $this->em->flush();
-//            }
-//        }
-//    }
+
 
 }

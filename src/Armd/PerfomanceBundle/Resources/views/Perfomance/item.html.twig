@@ -1,5 +1,13 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
+{% block pre_content %}
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{{ path('armd_perfomance_list') }}">Спектакли</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
+{% endblock %}
+
 {% block left_column %}
 	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
 		<div class="sort-filter sort-element-filter" id="switch_view">
@@ -62,15 +70,21 @@
         
         <div class="more-comments-show">
             <div class="comments comments-gray clearfix">
-                {% set comment_thread_id = app.request.locale ~ '_content_perfomance_' ~ entity.id %}
-                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
-                {% if not is_granted('ROLE_USER') %}
-                    <div class="comments-auth-block">
-                        <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
-                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
-                    </div>
-                {% endif %}
+                <div id="review_form_container">
+                    {% render url('armd_perfomance_review', {
+                            'perfomance_id' : entity.id
+                        })
+                    %}
+                </div>
+                <div id="review_list_container">
+                    {% render url('armd_perfomance_review_list', {
+                            'perfomance_id' : entity.id
+                        })
+                    %}                
+                </div>
+
+           
             </div>
         </div>        	
 	</div>
@@ -78,15 +92,15 @@
 
 {% block right_column %}
 	{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
-		<div class="buffer" style="height:40px;"></div>
-        <div class="orange-slider-block">
-            <h3 class="o-slider-header">Интервью</h3>
-            {% if entity.interviewVideo %}
-		        <div class="flexslider">
-		            <ul class="slides">
-		                <li>
+		<div class="buffer" style="height:6px;"></div>
+        {% if entity.interviewVideo is not empty %}
+            <div class="orange-slider-block">
+                <h3 class="o-slider-header">Интервью</h3>
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li>
                             <article class="period-block">
-                                <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
+                                <a href="#interview-{{ entity.id }}" class="period-block_image in-fancybox">
                                     {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     <span class="play"></span>
                                 </a>
@@ -94,13 +108,18 @@
                                     <h4>{{ entity.interviewTitle}}</h4>
                                     <p>{{ entity.interviewDescription|raw }}</p>
                                 </div>
+                                <div id="interview-{{ entity.id }}" style="display: none;">
+                                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                        {{ armd_tvigle_video_player(entity.interviewVideo, 640, 360)|raw }}
+                                    </div>
+                                </div>
                             </article>
-		                </li>
-		            </ul>
-		        </div>			
-			{% endif %}
-		</div>
-    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="orange-slider-block">
 			<h3 class="o-slider-header">фотогалерея спектакля</h3>
             {% if entity.gallery and entity.gallery|length > 0 %}
@@ -109,7 +128,7 @@
 						{% for img in entity.gallery.galleryHasMedias %}
 			                <li>
                                 <article class="period-block">
-                                    <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}" class="period-block_image in-fancybox">
+                                    <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'xxbig' %}" data-fancy-image="{% path img.media, 'xxbig' %}" class="period-block_image in-fancybox">
                                         {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     </a>
                                     <div class="period-block_text">
@@ -144,7 +163,7 @@
 			initSocialShare();
 			
 			//просмотр интервью
-			$('a.tvigle-player-fancybox').fancybox({
+			/*$('a.tvigle-player-fancybox').fancybox({
                 'padding'		: 15,
                 'autoScale'		: false,
                 'transitionIn'	: 'none',
@@ -162,7 +181,7 @@
                     $('.left-column iframe').show();
                 }
                 
-            });
+            });*/
             
 			
 			//переключение видео							
@@ -191,6 +210,72 @@
 				
 				return false;
 				
+			});
+			
+			//загрузка комментариев
+			$(document).on('click','.ajax_load',function(){
+			   
+			    $('.comment_holder').html('');
+			    if ($(this).attr('rel')) {
+			        
+			        var container = $('#' + $(this).attr('rel')),
+			             url = $(this).attr('href');
+			             
+			        if ($(container).length) {
+			            
+			            armdMk.startLoading();
+			            
+    					$.ajax({
+    						'url' : url,
+    						'dataType' : 'html',
+    						'success' : function(data, textStatus, jqXHR ){
+    							$(container).html(data);
+    						},
+    			            'complete': function() {
+    							armdMk.stopLoading();
+    			            }						
+    					});			            
+			        }
+			    }
+			    return false; 
+			});
+			
+			//отправка формы с рецензией
+			$(document).on('submit','#review_form', function(){
+			   
+			    armdMk.startLoading();
+			    var url = $(this).attr('action'),
+			        container = $('#review_form_container'),
+			        form_data = $(this).serialize(),
+			        form = $(this);
+			     
+                $.ajax({
+                    'url' : url,
+    				'dataType' : 'html',
+    				'data' : form_data,
+    				'type' : 'post',
+    				'success' : function(data, textStatus, jqXHR ){
+    				    $(container).html(data);
+    				    $(form).find('#form_body').val(null);
+    				    //обновить список комментариев
+    				    $.ajax({
+    				       'url' :  Routing.generate('armd_perfomance_review_list', {'perfomance_id': $(form).find('#form_perfomance_id').val()}),
+            			   'dataType' : 'html',
+            			   'type' : 'post',
+            			   'success' : function(data, textStatus, jqXHR ){    				       
+            			     $('#review_list_container').html(data);
+            			   },
+            			   'complete' : function(){
+            			       armdMk.stopLoading();
+            			   }
+    				    });
+    				},
+    			    'complete': function() {
+    				    //armdMk.stopLoading();
+    			    }						
+    			});
+
+                return false;
 			});
 			
         });
@@ -228,17 +313,17 @@
     <div class="search-category">
         <form id="lectures-filter" action="{{ path('armd_perfomance_list') }}" method="get">
         
-            <span class="search-dates-label">Театр</span>
+          {#<span class="search-dates-label">Театр</span>
             <div class="search-category-selects">
                 <select id="perfomance_theater" name="theater_id" class="uni">
                     <option value="0">
                         {{ "All"|trans }}
                     </option>
-                    {#{% for theater in theaters %}
+                    {% for theater in theaters %}
                         <option value="{{ theater.id }}">
                             {{ theater.title }}
                         </option>
-                    {% endfor %}#}
+                    {% endfor %}
                 </select>
             </div>
                     
@@ -257,7 +342,7 @@
             </div>        
 
             <button id="lectures-filter-submit" type="submit" class="button search-dates-button">Показать</button>
-        </form>
+        </form>#}
     </div>
 {% endblock %}
 
