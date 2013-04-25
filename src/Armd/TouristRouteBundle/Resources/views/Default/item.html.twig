@@ -58,8 +58,8 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=1.0.0"></script>
     <script src="http://yandex.st/share/share.js"></script>
+    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=1.0.0"></script>
     <script>
         $(function() {
             var map = new PGmap($("#map")[0], {
@@ -81,7 +81,8 @@
                                 height: 70{% endif %}
                             });
 
-                        point.show = {{ point.show ? 'true' : 'false' }};
+                        point.show  = {{ point.show ? 'true' : 'false' }};
+                        point.order = parseInt("{{ point.order }}", 10);
 
                         {% if point.show %}
                         $(point.container)
@@ -161,10 +162,9 @@
 
                     for (var x in points) {
                         var point = points[x],
-                            coord = point.coord,
-                            order = $("#" + point.id + "_order").val();
+                            coord = point.coord;
 
-                        coord.order = order;
+                        coord.order = point.order;
                         routePoints.push(coord);
                     }
 

@@ -63,7 +63,10 @@ class RouteController extends Controller
         $entity = $this->getDoctrine()
             ->getEntityManager()
                 ->getRepository('ArmdTouristRouteBundle:Route')
-                    ->findOneById($id);
+                    ->findOneBy(array(
+                        'id'        => $id,
+                        'published' => true
+                    ));
 
         if (!$entity) {
             throw new NotFoundHttpException("Tourist route with ID = {$id} not found");
@@ -148,6 +151,10 @@ class RouteController extends Controller
         foreach ($criteria as $key=>$val) {
             if (!empty($val)) {
                 switch ($key) {
+                    case 'published': {
+                        $queryBuilder->andWhere('t.published = true');
+                        break;
+                    }
                     case 'region_id': {
                         $queryBuilder
                             ->leftJoin('t.regions', 'r')
@@ -166,8 +173,8 @@ class RouteController extends Controller
 
                     case 'search_text': {
                         $queryBuilder->andWhere(
-                            (new Expr())->like(
-                                (new Expr())->lower('t.title'),
+                            $queryBuilder->expr()->like(
+                                $queryBuilder->expr()->lower('t.title'),
                                 '\'%' .mb_strtolower($val, 'UTF8') .'%\''
                             )
                         );
