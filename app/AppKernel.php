@@ -73,6 +73,8 @@ class AppKernel extends Kernel
             new Armd\PersonBundle\ArmdPersonBundle(),            
             new Armd\TheaterBundle\ArmdTheaterBundle(),
             new Armd\PerfomanceBundle\ArmdPerfomanceBundle(),
+
+            new Armd\SitemapBundle\ArmdSitemapBundle(),
             new Armd\ExternalSearchBundle\ArmdExternalSearchBundle(),
             new Armd\MarkupBundle\ArmdMarkupBundle(),
         );

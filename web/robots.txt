@@ -1,6 +1,9 @@
 User-agent: Yandex
 Host: culture.ru
+Disallow: /app_dev.php*
 
 User-agent: *
 Host: culture.ru
+Disallow: /app_dev.php*
 
+Sitemap: http://culture.ru/sitemap/sitemap-index.xml

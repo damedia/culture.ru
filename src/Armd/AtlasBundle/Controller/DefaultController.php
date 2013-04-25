@@ -836,4 +836,33 @@ class DefaultController extends Controller
         }
     }
 
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'indexAction': {
+                if ($objects = $this->getObjectManager()->findObjects(array())) {
+                    foreach ($objects as $o) {
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_atlas_default_object_view', array(
+                                'id' => $o->getId()
+                            )),
+                            'lastmod' => $o->getUpdatedAt()
+                        );
+                    }
+                }
+                
+                break;
+            }
+        }
+
+        return $items;
+    }
+
 }

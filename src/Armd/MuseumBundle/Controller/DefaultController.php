@@ -199,6 +199,38 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'indexAction': {
+                if ($museums = $this->getMuseumManager()->findObjects(array())) {
+                    foreach ($museums as $m) {
+                        $atlasObject = $m->getAtlasObject();
+
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_atlas_default_object_view', array(
+                                'id' => $m->getAtlasObject()->getId()
+                            )),
+                            'lastmod' => $atlasObject ? $atlasObject->getUpdatedAt() : null
+                        );
+                    }
+                }
+
+                break;
+            }
+        }
+
+        return $items;
+    }
+
+
+    /**
      * @return \Doctrine\ORM\EntityRepository
      */
     protected function getMuseumGuideRepository()

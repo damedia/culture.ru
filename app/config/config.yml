@@ -519,3 +519,10 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+
+armd_sitemap:
+    host: culture.ru
+    default_locale: ru
+    locales: [ru, en]
+    directory: sitemap # relative to server document_root (web)
+    urls_per_file: 10000
