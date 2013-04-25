@@ -1,37 +1,38 @@
 {% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
+<div class="orange-slider-block">
+    <div class="flexslider">
+        <ul class="slides">
+            {% for entity in list %}
+                <li>
+                    <article class="period-block">
+                        <h2>{{ entity.title }}</h2>
+                        <a href="{{ path('armd_perfomance_item', {'id': entity.id}) }}" class="period-block_image">
+                        
+                            {% if entity.perfomanceVideo %}
+                                {{ perfomanceMacro.perfomanceThumbnail(entity, 'big', {'alt': entity.title|escape}) }}
+                            {% elseif entity.image %}
+                                {% media entity.image, 'big' with {'alt': entity.title|escape} %}
+                            {% endif %}
 
-<div class="flexslider">
-	<ul class="slides">
-        {% for entity in list %}
-            <li>
-                <article class="period-block">
-                    <h2>{{ entity.title }}</h2>
-                    <a href="{{ path('armd_perfomance_item', {'id': entity.id}) }}" class="period-block_image">
-                    
-						{% if entity.perfomanceVideo %}
-							{{ perfomanceMacro.perfomanceThumbnail(entity, 'big', {'alt': entity.title|escape}) }}
-						{% elseif entity.image %}
-							{% media entity.image, 'big' with {'alt': entity.title|escape} %}
-						{% endif %}
+                            <span class="play"></span>
+                        </a>
+                        <div class="period-block_text">
+                            <p>
+                                <a href="#">Театр</a><br/>
+                                {% if entity.ganres|length > 0 %}
+                                    {% for ganre in entity.ganres %}
+                                        <a href="{{ path('armd_perfomance_list', {'ganreId': ganre.id }) }}">{{ ganre.title }}</a>{% if entity.ganres|length > 1 and not(loop.last) %}, {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <footer class="period-block_footer">
 
-                        <span class="play"></span>
-                    </a>
-                    <div class="period-block_text">
-                        <p>
-                            <a href="#">Театр</a><br/>
-							{% if entity.ganres|length > 0 %}
-								{% for ganre in entity.ganres %}
-									<a href="{{ path('armd_perfomance_list', {'ganreId': ganre.id }) }}">{{ ganre.title }}</a>{% if entity.ganres|length > 1 and not(loop.last) %}, {% endif %}
-								{% endfor %}
-							{% endif %}
-                        </p>
-                    </div>
-                    <footer class="period-block_footer">
+                        </footer>
 
-                    </footer>
-
-                </article>
-            </li>
-        {% endfor %}
-	</ul>
+                    </article>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>

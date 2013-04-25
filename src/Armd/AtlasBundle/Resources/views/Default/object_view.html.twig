@@ -421,23 +421,25 @@
         <div class="block">
             <section class="static-block object-archives">
                 <h2>{{ "archives"|trans }}</h2>
-                <div class="flexslider">
-                    <ul class="slides">
-                        {% for h in entity.archiveImages %}
-                            <li>
-                                <article class="period-block  archive-block ">
-                                    <a class="in-fancybox" href="{% path h, 'reference' %}">
-                                        <img src="{% path h, 'reference' %}" alt="" class="period-block_image" />
-                                    </a>
-                                    <div class="period-block_text">
-                                        <p><b>{{ h.title|default('archive_document'|trans) }}</b></p>
-                                        <p>{{ h.description }}</p>
-                                    </div>
-                                    <div class="period-block_footer"></div>
-                                </article>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            {% for h in entity.archiveImages %}
+                                <li>
+                                    <article class="period-block  archive-block ">
+                                        <a class="in-fancybox" href="{% path h, 'reference' %}">
+                                            <img src="{% path h, 'reference' %}" alt="" class="period-block_image" />
+                                        </a>
+                                        <div class="period-block_text">
+                                            <p><b>{{ h.title|default('archive_document'|trans) }}</b></p>
+                                            <p>{{ h.description }}</p>
+                                        </div>
+                                        <div class="period-block_footer"></div>
+                                    </article>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </section>
         </div>

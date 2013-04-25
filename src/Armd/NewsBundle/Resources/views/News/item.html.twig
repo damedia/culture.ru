@@ -264,29 +264,33 @@
 
 		<div class="photo-gallery">
             <h3>{{entity.gallery.name}}</h3>
-            <div id="slider" class="flexslider">
-				<ul class="slides">
-					{% for gal_img in entity.gallery.galleryHasMedias %}
-						<li>
-							<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" data-fancy-image="{% path gal_img.media, 'reference' %}">
-                                <img src="{% path gal_img.media, 'big' %}" />
-								<span>{{gal_img.media.name}}</span>
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
+            <div class="orange-slider-block">
+                <div id="slider" class="flexslider">
+                    <ul class="slides">
+                        {% for gal_img in entity.gallery.galleryHasMedias %}
+                            <li>
+                                <a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" data-fancy-image="{% path gal_img.media, 'reference' %}">
+                                    <img src="{% path gal_img.media, 'big' %}" />
+                                    <span>{{gal_img.media.name}}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
 			<div class="nav-wrap">
 				<div class="nav">
-					<div id="carousel" class="flexslider ">
-					  <ul class="slides">
-						{% for gal_img in entity.gallery.galleryHasMedias %}
-							<li>
-								<img src="{% path gal_img.media, 'thumbnail' %}" />
-							</li>
-						{% endfor %}
-					  </ul>
-					</div>
+                    <div class="orange-slider-block">
+                        <div id="carousel" class="flexslider ">
+                          <ul class="slides">
+                            {% for gal_img in entity.gallery.galleryHasMedias %}
+                                <li>
+                                    <img src="{% path gal_img.media, 'thumbnail' %}" />
+                                </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                    </div>
 				</div>
 			</div>
         </div>

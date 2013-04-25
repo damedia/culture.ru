@@ -80,47 +80,51 @@
 		<div class="right-video-block separate-video-block">
 		
 			{% if entity.interviewVideo %}
-		        <div class="flexslider">
-		            <ul class="slides">
-		                <li>
-		                    <article class="period-block">
-		                        <h2>{{ entity.interviewTitle}}</h2>
-		                        <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
-		                        	{% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape} %}
-		                            <span class="play"></span>
-		                        </a>
-		                        <div class="period-block_text">
-		                            <p>{{ entity.interviewDescription|raw }}</p>
-		                        </div>
-		                        <footer class="period-block_footer">
-	                            </footer>
-		                    </article>
-		                </li>
-		            </ul>
-		        </div>			
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <article class="period-block">
+                                    <h2>{{ entity.interviewTitle}}</h2>
+                                    <a href="{{ entity.interviewVideo.swf }}&dopparam=armada_skin" class="period-block_image tvigle-player-fancybox">
+                                        {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape} %}
+                                        <span class="play"></span>
+                                    </a>
+                                    <div class="period-block_text">
+                                        <p>{{ entity.interviewDescription|raw }}</p>
+                                    </div>
+                                    <footer class="period-block_footer">
+                                    </footer>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 			{% endif %}
 		
 			{% if entity.gallery and entity.gallery|length > 0 %}
-				<div class="flexslider">
-		            <ul class="slides">
-						{% for img in entity.gallery.galleryHasMedias %}
-			                <li>
-			                    <article class="period-block">
-			                        <h2>{{ entity.gallery.name }}</h2>
-									<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}">
-		                                {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape} %}
-									</a>
-			                        <div class="period-block_text">
-			                            <p>{{ img.media.name }}</p>
-			                        </div>
-			                        <footer class="period-block_footer">
-			                                
-			                        </footer>
-			                    </article>
-			                </li>
-						{% endfor %}	            	                
-		            </ul>				
-				</div>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            {% for img in entity.gallery.galleryHasMedias %}
+                                <li>
+                                    <article class="period-block">
+                                        <h2>{{ entity.gallery.name }}</h2>
+                                        <a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'reference' %}" data-fancy-image="{% path img.media, 'reference' %}">
+                                            {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape} %}
+                                        </a>
+                                        <div class="period-block_text">
+                                            <p>{{ img.media.name }}</p>
+                                        </div>
+                                        <footer class="period-block_footer">
+                                                
+                                        </footer>
+                                    </article>
+                                </li>
+                            {% endfor %}	            	                
+                        </ul>				
+                    </div>
+                </div>
 			{% endif %}
 		
 		</div>

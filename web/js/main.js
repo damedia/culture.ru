@@ -21,7 +21,7 @@ $(function () {
         slideshow: false,
         sync: "#thumbs-slider"
     });
-
+    
     $.datepicker.setDefaults($.datepicker.regional[ $('body').data('locale') ]);
     $("#datapicker").datepicker({
         showOn: 'button',
@@ -385,6 +385,21 @@ $(function () {
     $('.app_store-block ul a').click(function(){
         $(this).closest('ul').slideUp();
     })
-    
-    
+
+  
 })
+
+$(window).load(function(){
+    $('.orange-slider-block .period-block').each(function(){
+        var h = $(this).find('h2');
+        var blockPad = parseFloat($(this).css("padding-top"));
+        var hPad = parseFloat(h.css("padding-top")) + parseFloat(h.css("padding-bottom")) + parseFloat(h.css("margin-top")) + parseFloat(h.css("margin-bottom"));
+        var hHeight = h.height();
+        var imgHeight = Math.round($(this).find('.period-block_image').height()/2);
+        var fdnavHeight = Math.round($('.flex-direction-nav').height()/2);
+
+        // console.log(blockPad, hPad, hHeight, imgHeight, fdnavHeight);
+        $('.orange-slider-block .flex-direction-nav').css({'top': blockPad + hPad + hHeight +imgHeight - fdnavHeight});
+
+    });
+});
