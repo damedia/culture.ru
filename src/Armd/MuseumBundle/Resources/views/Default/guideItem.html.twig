@@ -10,12 +10,9 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/museumGuide.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.form.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/compatibility.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdmuseum/js/pdf.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             armdMuseumGuide.init();
-            armdMuseumGuide.initPdf("{% path entity.file, 'reference' %}");
         });
     </script>
     
@@ -78,33 +75,24 @@
     <h2>{{ entity.title|raw }}<br /><span>{{ entity.city|raw }}</span></h2>    
     <p class="additional-info">{{entity.announce|raw}}</p>
     {% if entity.file %}
-        <div id="pdf-lister" class="pdf-lister">
-            <h3>{{"Browse pdf"|trans}}</h3>
-            <div id="pdf-viewerContainer" class="pdf-lister clearfix" style="background-color:white;">
-                <div class="pdf-content pdf-content-border">
-                    <canvas id="pdf-canvas-h" style="display:none;"></canvas>
-                    <div class="pdf-btn">
-                        <button id="pdf-zoomin" onclick="pdfViewer.zoomIn();" >+</button>
-                        <button id="pdf-zoomout" onclick="pdfViewer.zoomOut();" >-</button>
-                        <button id="pdf-fullscreen" onclick="pdfViewer.fullscreen();">f</button>
-                    </div>
-                    <div id="pdf-viewer" class="pdf-viewer clearfix">
-                        <button id="pdf-prev" class="pdf-btn pdf-prev" onclick="pdfViewer.goPrev();"><</button>
-                        <div id="pdf-canvas-container" class="pdf-canvas">
-                            <canvas id="pdf-canvas"></canvas>
-                        </div>
-                        <button id="pdf-next" class="pdf-btn pdf-next" onclick="pdfViewer.goNext();">></button>
-                    </div>
-                </div>
-            </div>
-            <p class="item-title">Open publication - Free publishing - More guide</p>
+    <div id="pdf-lister" class="pdf-lister">
+        <h3>{{"Browse pdf"|trans}}</h3>
+        <div class="pdf-viewer clearfix">
+            <a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}http://cdn.mozilla.net/pdfjs/tracemonkey.pdf{% endfilter %}&embedded=true">
+            {#<a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{% path entity.file, 'reference' %}{% endfilter %}&embedded=true">#}
+                <img src="{% path entity.image, 'reference' %}" alt="" title="{{ entity.title }}" class="pdf-image" />
+            </a>
         </div>
+        <p class="item-title">Open publication - Free publishing - More guide</p>
+    </div>
     {% endif %}
     {{ entity.body|raw }}
     {% if entity.file %}
+    <p>
         <a class="button button-orange button-download" href="{% path entity.file, 'reference' %}">
             <span>{{ "Download pdf"|trans }}</span>
         </a>
+    </p>
     {% endif %}
     <div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
     <div class="event-one_footer clearfix">
@@ -120,5 +108,9 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-    
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+    <div class="right-video-block">
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+    </div>
 {% endblock %}
