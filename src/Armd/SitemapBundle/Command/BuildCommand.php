@@ -28,7 +28,7 @@ class BuildCommand extends ContainerAwareCommand
     /**
      * @var int
      */
-    protected $urlsPerFile = 5000;
+    protected $urlsPerFile = 10000;
 
     /**
      * {@inheritdoc}
@@ -200,6 +200,8 @@ class BuildCommand extends ContainerAwareCommand
                                     }
                                 }
                             }
+
+                            unset($controller, $params, $items);
                         }
                     }
 
@@ -210,6 +212,8 @@ class BuildCommand extends ContainerAwareCommand
                             $c['loc'] = $this->getAbsoluteUrl($c['loc']);
                             $urls[] = $c;
                         }
+
+                        unset($childs);
                     }
                 }
             }
