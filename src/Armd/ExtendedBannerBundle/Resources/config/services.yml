@@ -1,0 +1,22 @@
+parameters:
+  armd.banner.banner.class: Armd\ExtendedBannerBundle\Entity\BaseBanner
+
+services:
+  armd.banner.twig.banner_extension:
+    class: Armd\ExtendedBannerBundle\Twig\BannerExtension
+    arguments: [@doctrine.orm.entity_manager, @router, @sonata.media.pool]
+    tags:
+      - { name: twig.extension }
+
+  sonata.admin.armd.banner:
+      class: Armd\ExtendedBannerBundle\Admin\BannerAdmin
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Banners, label: Banners }
+      arguments: [null, Armd\ExtendedBannerBundle\Entity\BaseBanner, SonataAdminBundle:CRUD, @service_container]
+
+  sonata.admin.armd.banner_type:
+      class: Armd\ExtendedBannerBundle\Admin\BannerTypeAdmin
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Banners, label: Banner types }
+      arguments: [null, Armd\ExtendedBannerBundle\Entity\BaseBannerType, SonataAdminBundle:CRUD, @service_container]
+

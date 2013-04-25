@@ -332,9 +332,18 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                big: { width: 600 }              
+                big: { width: 600 }
                 small: { width: 200 }
-                
+
+        banner:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                item: { height: 120 }
+
     cdn:
         server:
             path: %sonata_media_cdn%
