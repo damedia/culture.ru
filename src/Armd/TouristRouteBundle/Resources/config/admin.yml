@@ -8,7 +8,7 @@ services:
     armd_tourist_route.sonata_admin.point:
         class: Armd\TouristRouteBundle\Admin\PointAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Tourist routes, label: Tourist route points, show_in_dashboard: true }
+            - { name: sonata.admin, manager_type: orm, label: Tourist route points, show_in_dashboard: false }
         arguments: [null, Armd\TouristRouteBundle\Entity\Point, SonataAdminBundle:CRUD, @service_container]
 
     armd_tourist_route.sonata_admin.route:

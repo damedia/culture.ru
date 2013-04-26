@@ -66,13 +66,25 @@ class RouteAdmin extends Admin
                 ))
             ->end()
             ->with('Geo')
-                ->add('regions', null, array(
+                ->add('regions', 'armd_entity_ajax', array(
                     'required' => true,
-                    'attr' => array('class' => 'chzn-select tourist-route-region-select')
+                    'multiple' => true,
+                    'class'    => 'ArmdAtlasBundle:Region',
+                    'property' => 'title',
+                    'configs'  => array(
+                        'width'       => 470,
+                        'placeholder' => $this->trans('Select regions')
+                    )
                 ))
-                ->add('objects', null, array(
-                    'required' => true,
-                    'attr' => array('class' => 'chzn-select tourist-route-atlas-object-select')
+                ->add('objects', 'armd_entity_ajax', array(
+                    'required' => false,
+                    'multiple' => true,
+                    'class'    => 'ArmdAtlasBundle:Object',
+                    'property' => 'title',
+                    'configs'  => array(
+                        'width'       => 470,
+                        'placeholder' => $this->trans('Select objects')
+                    )
                 ))
                 ->add('type', 'choice', array(
                     'choices' => array(
@@ -111,9 +123,15 @@ class RouteAdmin extends Admin
                 ))
             ->end()
             ->with('Recommendations')
-                ->add('routes', null, array(
+                ->add('routes', 'armd_entity_ajax', array(
                     'required' => false,
-                    'attr' => array('class' => 'chzn-select tourist-route-route-select')
+                    'multiple' => true,
+                    'class'    => 'ArmdTouristRouteBundle:Route',
+                    'property' => 'title',
+                    'configs'  => array(
+                        'width'       => 470,
+                        'placeholder' => $this->trans('Select routes')
+                    )
                 ))
                 ->add('banner', 'armd_media_file_type', array(
                     'required' => false,

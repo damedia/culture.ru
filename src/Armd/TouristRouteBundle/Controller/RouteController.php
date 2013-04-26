@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Doctrine\ORM\Query\Expr;
 
 class RouteController extends Controller
 {
@@ -17,11 +16,7 @@ class RouteController extends Controller
      */
     public function listAction()
     {
-        $entities = $this->getRoutes();
-
-        if (!$entities) {
-            throw new NotFoundHttpException("No tourist route found");
-        }
+        $entities = $this->getRoutes(array('published' => true));
 
         return array(
             'entities'    => $entities,
@@ -45,6 +40,7 @@ class RouteController extends Controller
         );
 
         $entities = $this->getObjects('ArmdTouristRouteBundle:Route', array(
+            'published'   => true,
             'region_id'   => $this->getRequest()->get('region_id'),
             'category_id' => $this->getRequest()->get('category_id'),
             'search_text' => $this->getRequest()->get('search_text')
@@ -152,7 +148,9 @@ class RouteController extends Controller
             if (!empty($val)) {
                 switch ($key) {
                     case 'published': {
-                        $queryBuilder->andWhere('t.published = true');
+                        $queryBuilder
+                            ->andWhere('t.published = :published')
+                            ->setParameter('published', $val);
                         break;
                     }
                     case 'region_id': {

@@ -43,7 +43,10 @@
 {% block body %}
     <div class="russia-top-found">
         <p class="search-found">{{ "search_found"|trans }}: <span id="found-routes-count"></span> <span id="found-routes-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
+        
+        {% if entities|length %}
         <a href="#" id="show-all" class="button show-all-btn">{{ 'Show all'|trans }}</a>
+        {% endif %}
     </div>
     <div id="plitka" class="tab plitka-list">
         <ul class="plitka obrazy-plitka">
@@ -51,11 +54,13 @@
         </ul>
     </div>
 
+    {% if entities|length %}
     <div class="more more2">
         <p>
             <a href="#" id="show-more">{{ "show_more"|trans }}</a>
         </p>
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

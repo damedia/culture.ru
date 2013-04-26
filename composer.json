@@ -48,7 +48,8 @@
         "friendsofsymfony/rest-bundle": "*",
         "armd/twig-bundle": "*",
         "fpn/tag-bundle": "dev-master",
-        "gregwar/captcha": "dev-master"
+        "gregwar/captcha": "dev-master",
+        "genemu/form-bundle": "master"
     },
     "scripts": {
         "post-install-cmd": [

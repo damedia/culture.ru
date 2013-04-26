@@ -1,0 +1,63 @@
+{% block armd_entity_ajax_row %}
+    {{ block('field_row') }}
+{% endblock %}
+
+{% block armd_entity_ajax_javascript %}
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $field = $('#{{ id }}');
+
+        var config = $.extend({{ configs|json_encode|raw }}, {
+            ajax: {
+                url: Routing.generate("armd_util_ajax_list", {
+                    class:    "{{ form.vars.class }}",
+                    property: "{{ form.vars.property }}"
+                }),
+                dataType: "json",
+                quietMillis: 100,
+                data: function (term, page) {
+                    var data = {
+                        page: page,
+                        q:    term
+                    };
+
+                    return data;
+                },
+                results: function (response, page) {
+                    var more = page < response.pages;
+
+                    return {results: response.entities, more: more};
+                }
+            },
+            initSelection: function(element, callback) {
+                var ids = $(element).val().split(',');
+
+                if (ids) {
+                    var url = Routing.generate("armd_util_ajax_list_by_ids", {
+                            class:    "{{ form.vars.class }}",
+                            property: "{{ form.vars.property }}",
+                            ids:       ids
+                        });
+
+                    $.getJSON(url).done(function(response) {
+                        callback(response.entities);
+                    });
+                }
+            },
+            formatResult: function(media) {
+                var markup = "<div class=\"media-result clearfix\">";
+
+                markup += "<div class=\"media-title\">" + media["{{ form.vars.property }}"] + "</div>";
+                markup += "</div>";
+
+                return markup;
+            },
+            formatSelection: function(media) {
+                return media["{{ form.vars.property }}"];
+            }
+        });
+
+        $field.select2(config);
+    });
+    </script>
+{% endblock %}
