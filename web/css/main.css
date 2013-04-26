@@ -4970,6 +4970,12 @@ body {
                     }    
 
 /*--- gos uslugi ---*/
+.no-ul ul, .no-ul li{
+	margin:0;
+	padding:0;
+	list-style:none;
+	background:none;
+	}
 .inner-columns {
     margin-bottom: 30px;
 }
