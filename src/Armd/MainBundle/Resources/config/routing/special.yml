@@ -23,6 +23,10 @@ armd_main_special_news_item_by_category_print:
 armd_main_special_services:
     pattern:  /services/
     defaults: { _controller: ArmdMainBundle:Special:services }
+
+armd_main_special_museum_reserve:
+    pattern:  /museum_reserve/
+    defaults: { _controller: ArmdMainBundle:Special:museum_reserve }
     
 armd_main_special_about:
     pattern:  /about/

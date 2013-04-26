@@ -141,6 +141,11 @@ class MainController extends Controller
         return $this->renderTemplate('about');
     }
 
+    public function museum_reserveAction()
+    {
+        return $this->renderTemplate('museum_reserve');
+    }
+
     public function servicesAction($id = null)
     {
       if (empty($id)) {
