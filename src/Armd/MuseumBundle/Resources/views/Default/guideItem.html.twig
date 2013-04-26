@@ -78,8 +78,7 @@
     <div id="pdf-lister" class="pdf-lister">
         <h3>{{"Browse pdf"|trans}}</h3>
         <div class="pdf-viewer clearfix">
-            <a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}http://cdn.mozilla.net/pdfjs/tracemonkey.pdf{% endfilter %}&embedded=true">
-            {#<a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{% path entity.file, 'reference' %}{% endfilter %}&embedded=true">#}
+            <a title="{{ entity.title }}" class="pdf-view-trigger fancybox.iframe" href="http://docs.google.com/viewer?url={% filter url_encode() %}{% path entity.file, 'reference' %}{% endfilter %}&embedded=true">
                 <img src="{% path entity.image, 'reference' %}" alt="" title="{{ entity.title }}" class="pdf-image" />
             </a>
         </div>

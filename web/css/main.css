@@ -843,6 +843,7 @@ body {
             .guide-list .img{
               float:right;
               width:104px;
+              overflow:hidden;
               }
             .guide-list .img img{
               display:block;
