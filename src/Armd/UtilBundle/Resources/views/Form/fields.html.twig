@@ -7,7 +7,8 @@
     jQuery(document).ready(function($) {
         $field = $('#{{ id }}');
 
-        var config = $.extend({{ configs|json_encode|raw }}, {
+        var configs = {{ configs|json_encode|raw }},
+            config = $.extend(configs, {
             ajax: {
                 url: Routing.generate("armd_util_ajax_list", {
                     class:    "{{ form.vars.class }}",
@@ -40,7 +41,7 @@
                         });
 
                     $.getJSON(url).done(function(response) {
-                        callback(response.entities);
+                        callback(configs.multiple ? response.entities : response.entities.pop());
                     });
                 }
             },
