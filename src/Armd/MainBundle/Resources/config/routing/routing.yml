@@ -17,7 +17,7 @@ armd_main_services:
         id:  \d+
 
 armd_main_museum_reserve:
-    pattern:  /museum_reserve/
+    pattern:  /museums/museum_reserve/
     defaults: { _controller: ArmdMainBundle:Main:museum_reserve }
 
 armd_main_library:

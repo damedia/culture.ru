@@ -8014,10 +8014,16 @@ a.appstore-link {
 }
 .events-list h3{
     margin:20px 0 10px 0;
-    font-size:14px;
+    font-size:18px;
     color:#f79016;
 }
+.events-list h4{
+    margin:15px 0 5px 0;
+    font-size:14px;
+    font-weight:bold;
+}
 .events-list table{
+    margin-bottom:20px;
     width:100%;
     font-size:12px;   
 }
