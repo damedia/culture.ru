@@ -40,7 +40,7 @@ class ArtObject implements Taggable
     /**
      * @var string $textDate
      *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $textDate;
 

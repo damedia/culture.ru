@@ -223,8 +223,11 @@ class Person implements Taggable
      */
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
     {
-        $this->image = $image;
-    
+
+        if (is_null($image) || $image->isUploaded()) {
+            $this->image = $image;
+        }
+
         return $this;
     }
 

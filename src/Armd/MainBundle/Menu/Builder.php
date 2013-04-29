@@ -190,14 +190,19 @@ class Builder extends ContainerAware
                 )
             );  
 
+//            $museumMenu->addChild(
+//                'menu.museum_guide',
+//                array(
+//                    'route' => 'armd_museum_guide_index'
+//                )
+//            );
+
             $museumMenu->addChild(
-                'menu.museum_guide',
+                'menu.museum_lesson',
                 array(
-                    'route' => 'armd_museum_guide_index'
+                    'route' => 'armd_lesson_list'
                 )
             );
-
-            
             //--- /Museums
             
             //--- Video

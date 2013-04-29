@@ -10,3 +10,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Persons, label: PersonType, show_in_dashboard: true }
         arguments: [null, Armd\PersonBundle\Entity\PersonType, SonataAdminBundle:CRUD]
+
+    armd_person.listener.media:
+        class: Armd\PersonBundle\EventListener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
