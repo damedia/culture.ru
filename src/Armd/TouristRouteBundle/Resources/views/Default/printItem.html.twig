@@ -49,10 +49,12 @@
                                     parseFloat("{{ point.lat }}"),
                                     true
                                 ){% if point.show %},
-                                url: "http://js.tmcrussia.com/img/cluster_sprite.png",
-                                backpos: "0px -69px",
-                                width: 50,
-                                height: 70{% endif %}
+                                innerImage: {
+                                    src:    "{{ asset('bundles/armdtouristroute/img/route-marker.png') }}",
+                                    width:  60,
+                                    height: 70
+                                }
+                                {% endif %}
                             });
 
                         point.show  = {{ point.show ? 'true' : 'false' }};
@@ -60,8 +62,10 @@
 
                         {% if point.show %}
                         $(point.container)
-                            .css("margin", "-65px 0 0 -23px")
-                            .attr('title', "{{ point.title }}");
+                            .css("margin", "-28px 0 0 8px")
+                            .attr('title', "{{ point.title }}")
+                            .find("img")
+                                .css("border", "none");
                         {% endif %}
 
                         return point;

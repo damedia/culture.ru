@@ -75,7 +75,7 @@
                                     parseFloat("{{ point.lat }}"),
                                     true
                                 ){% if point.show %},
-                                url: "http://js.tmcrussia.com/img/cluster_sprite.png",
+                                url: "{{ asset('bundles/armdtouristroute/img/cluster_sprite.png') }}",
                                 backpos: "0px -69px",
                                 width: 50,
                                 height: 70{% endif %}
