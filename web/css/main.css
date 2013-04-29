@@ -4170,6 +4170,9 @@ body {
                 }
                 .index-block .block-left-image-wrap img{
                     max-width: 100%;
+                    width: 100%;
+                    min-width: 90px;
+                    height: auto;
                 }
 
                 .obraz-index {
@@ -4327,6 +4330,8 @@ body {
 
 				.index-video-list img {
 					margin-bottom:10px;
+                    width:308px;
+                    height:228px;
 				}
 				.index-video-name {
 					text-transform:uppercase;
