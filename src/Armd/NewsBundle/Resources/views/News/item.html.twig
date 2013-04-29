@@ -80,6 +80,25 @@
         </p>
     </div>
     {{ entity.body|raw }}
+
+    {% if entity.video or entity.mediaVideo %}
+    <div class="block news-gallery-block">
+        <h2><span>Видео</span></h2>
+        {% if entity.video %}
+            <div class="news-one-image">
+                <h3>{{ entity.video.title }}</h3>
+                {{ armd_tvigle_video_player(entity.video, "100%", 506)|raw }}
+            </div>
+        {% endif %}
+
+        {% if entity.mediaVideo %}
+            <div class="news-one-image">
+                <h3>{{ emtity.mediaVideo.title }}</h3>
+                {% media entity.mediaVideo, 'noformat' with {'width': '100%', 'height': '506'} %}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
 </article>
 
 {% if entity.gallery is not empty and entity.gallery.galleryHasMedias|length > 0 %}
