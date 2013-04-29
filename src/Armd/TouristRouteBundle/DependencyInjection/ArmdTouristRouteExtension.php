@@ -1,6 +1,6 @@
 <?php
 
-namespace Armd\UtilBundle\DependencyInjection;
+namespace Armd\TouristRouteBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class ArmdUtilExtension extends Extension
+class ArmdTouristRouteExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -24,6 +24,7 @@ class ArmdUtilExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('admin.yml');
         $loader->load('forms.yml');
     }
 }

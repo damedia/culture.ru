@@ -1,0 +1,6 @@
+services:
+    form.type.armd_entity_ajax:
+        class: Armd\UtilBundle\Form\Type\ArmdEntityAjaxType
+        tags:
+            - { name: form.type, alias: armd_entity_ajax }
+        arguments: ["@doctrine.orm.entity_manager"]

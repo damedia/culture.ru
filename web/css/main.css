@@ -2269,11 +2269,13 @@ body {
     .route a span{
         border-bottom:1px dashed #7791a4;
     }
-    .route a:hover{
+    .route a:hover,
+    .route a.hover {
         color:#f58f2c;
         background-position:0 -47px;
     }
-    .route a:hover span{
+    .route a:hover span,
+    .route a.hover span {
         border-bottom:1px dashed #f58f2c;
     }
 

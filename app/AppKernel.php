@@ -33,6 +33,8 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -77,7 +79,8 @@ class AppKernel extends Kernel
             new Armd\SitemapBundle\ArmdSitemapBundle(),
             new Armd\ExternalSearchBundle\ArmdExternalSearchBundle(),
             new Armd\MarkupBundle\ArmdMarkupBundle(),
-            new Armd\ExtendedBannerBundle\ArmdExtendedBannerBundle()
+            new Armd\ExtendedBannerBundle\ArmdExtendedBannerBundle(),
+            new Armd\TouristRouteBundle\ArmdTouristRouteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {

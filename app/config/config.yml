@@ -29,7 +29,9 @@ twig:
         progorod_api_key: %progorod_api_key%
     form:
         resources:
-             - 'ArmdMediaHelperBundle:Form:fields.html.twig'
+            - 'ArmdMediaHelperBundle:Form:fields.html.twig'
+            - 'ArmdTouristRouteBundle:Form:fields.html.twig'
+            - 'ArmdUtilBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -344,6 +346,27 @@ sonata_media:
             formats:
                 item: { height: 120 }
 
+
+        route:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                big: { width: 920 }
+                thumbnail: { width: 85, height: 85 }
+                photo_thumb: { width: 254 }
+                banner: { width: 308 }
+
+        route_category:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: {width: 27, height: 45}
     cdn:
         server:
             path: %sonata_media_cdn%

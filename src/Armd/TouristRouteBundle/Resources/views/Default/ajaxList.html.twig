@@ -1,0 +1,23 @@
+{% for entity in entities %}
+    <li class="plitka-one-wrap fix-height">
+        <div class="plitka-one">
+            <a href="{{ path('armd_tourist_route_item', {id: entity.id} ) }}" class="image-link">
+                {% thumbnail entity.images[0], 'searchAllResult' with {'alt': entity.images[0].description, 'class': 'plitka-image'} %}
+            
+                <div class="plitka-text">
+                    <span class="plitka-name">
+                         {{ entity.title|truncate(50) }}
+                    </span>
+
+                </div>
+            </a>
+            <div class="plitka-footer">
+                {% for region in entity.regions %}
+                    <a href="#" class="route-region" data-region-id="{{ region.id }}">{{ region.title }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </li>
+{% else %}
+    <strong>По Вашему запросу объектов не найдено</strong>
+{% endfor %}

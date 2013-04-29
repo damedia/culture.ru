@@ -1,0 +1,304 @@
+{% block armd_point_collection_widget_row %}
+{% spaceless %}
+    <div class="sonata-collection-row hide">
+        {% if allow_delete %}
+        <a href="#" class="btn sonata-collection-delete"><i class="icon-remove"></i></a>
+        {% endif %}
+
+        {{ form_row(child) }}
+    </div>
+
+    {% if (noAdd is not defined or not noAdd) and (child.lat.vars.value and child.lon.vars.value) %}
+    <script>
+        $(function() {
+            addProMapPoint(
+                "{{ child.vars.id }}",
+                new PGmap.Coord(
+                    parseFloat("{{ child.lon.vars.value }}"),
+                    parseFloat("{{ child.lat.vars.value }}"),
+                    true
+                )
+            );
+        });
+    </script>
+    {% endif %}
+{% endspaceless %}
+{% endblock %}
+
+{% block armd_point_collection_widget %}
+{% spaceless %}
+    <style>
+        .popover-content input[type=text],
+        .popover-content input[type=number] {
+            box-sizing: border-box;
+            height: auto;
+        }
+        .popover-content input[type=number] {
+            width: 70px;
+        }
+    </style>
+
+    {% if prototype is defined %}
+        {% set child = prototype %}
+        {% set attr = attr|merge({'data-prototype': block('armd_point_collection_widget_row', {'noAdd': true}), 'class': attr.class|default('') ~ ' controls' }) %}
+    {% endif %}
+
+    <div {{ block('widget_container_attributes') }}>
+        {{ form_errors(form) }}
+        {% for child in form %}
+            {{ block('armd_point_collection_widget_row') }}
+            {% if loop.last %}
+            <script>
+                $(function() {
+                    fitMap();
+                    setTimeout(showRoute, 500);
+                });
+            </script>
+            {% endif %}
+        {% endfor %}
+
+        {{ form_rest(form) }}
+        
+        {% if allow_add %}
+            <div>
+                <a href="#" class="btn sonata-collection-add">
+                    <i class="icon-map-marker"></i>
+                    {{ 'Add point'|trans({}, 'ArmdTouristRouteBundle') }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="{{ form.vars.id }}_map" class="controls route-map"></div>
+
+    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=1.0.0"></script>
+    <script>
+        var proMap = new PGmap($("#{{ form.vars.id }}_map")[0], {
+                noWheelZoom:  true,
+                noSmoothZoom: true
+            }),
+            proPoints = {},
+            proRoute  = null,
+            addProMapPoint = function(id, coord) {
+                var point = new PGmap.Point({coord: coord});
+
+                point.id = id;
+                point.draggable = new PGmap.Events.Draggable([point, point], {
+                    dragStart: function() {
+                        for (var x in proPoints) {
+                            $(proPoints[x].container)
+                                .popover("destroy")
+                                .removeData("has-popover");
+                        }
+                    },
+                    dragEnd: function(e) {
+                        var pointId = this[1].id,
+                            coords  = this[1].coord.getGeo();
+
+                        $("#" + pointId + "_lon").val(parseFloat(coords.lon));
+                        $("#" + pointId + "_lat").val(parseFloat(coords.lat));
+
+                        showRoute();
+                    },
+                    drag: function(pos) {
+                        this[1].coord = this[1].globals.xyToLonLat(pos.x, pos.y);
+                    },
+                    click: function(e) {
+                        e && PGmap.Events.fixEvent(e);
+
+                        for (var x in proPoints) {
+                            if (proPoints[x] !== this[1]) {
+                                $(proPoints[x].container)
+                                    .popover("destroy")
+                                    .removeData("has-popover");
+                            }
+                        }
+
+                        if ($(this[1].container).data("has-popover")) {
+                            $(this[1].container)
+                                .popover("destroy")
+                                .removeData("has-popover");
+                            
+                            showRoute();
+
+                        } else {
+                            var title = $("#" + this[1].id + "_title").val(),
+                                order = $("#" + this[1].id + "_order").val(),
+                                show  = $("#" + this[1].id + "_show").attr("checked");
+
+                            $(this[1].container)
+                                .popover("destroy")
+                                .popover({
+                                    trigger: "manual",
+                                    title: "" +
+                                        "<i class=\"icon-edit\"></i> " +
+                                        "{{ 'Point properties'|trans({}, 'ArmdTouristRouteBundle') }}" +
+                                        "<a href=\"#close\" onclick=\"$(proPoints['" + this[1].id + "'].container).popover('destroy').removeData('has-popover'); showRoute(); return false;\" class=\"close\">&times;</a>",
+                                    content: "" +
+                                        "<input type=\"text\" name=\"title\" value=\"" + title + "\" placeholder=\"{{ 'Title'|trans({}, 'ArmdTouristRouteBundle') }}\" onchange=\"$('#" + this[1].id + "_title').val($(this).val());\"/>" +
+                                        "<input type=\"number\" name=\"order\" value=\"" + order + "\" placeholder=\"{{ 'Order'|trans({}, 'ArmdTouristRouteBundle') }}\" onchange=\"$('#" + this[1].id + "_order').val($(this).val());\"/>" +
+                                        "<label class=\"checkbox\">" +
+                                            "<input type=\"checkbox\" name=\"show\"" + (show ? " checked" : "") + " onchange=\"$('#" + this[1].id + "_show').prop('checked', $(this).prop('checked'));\"/>" +
+                                            "{{ 'Show'|trans({}, 'ArmdTouristRouteBundle') }}" +
+                                        "</label>" +
+                                        "<hr style=\"margin: 10px 0;\">" +
+                                        "<a href=\"#delete\" class=\"btn btn-danger\" onclick=\"$('a.sonata-collection-delete', $('#" + this[1].id + "').parent().parent()).click(); return false;\">" +
+                                            "<i class=\"icon-remove icon-white\"></i> " +
+                                            "{{ 'Delete'|trans({}, 'ArmdTouristRouteBundle') }}" +
+                                        "</a>",
+                                    html: true
+                                })
+                                .popover("toggle")
+                                .data("has-popover", true);
+                        }
+
+                        e && e.stopPropagation();
+                    }
+                });
+
+                proMap.geometry.add(point);
+                proPoints[id] = point;
+            },
+            showRoute = function() {
+                var routePoints = [],
+                    type = $("#{{ form.vars.id|split('_')[0] }}_type").val();
+
+                for (var x in proPoints) {
+                    var point = proPoints[x],
+                        coord = point.coord,
+                        order = $("#" + point.id + "_order").val();
+
+                    coord.order = order;
+                    routePoints.push(coord);
+                }
+
+                routePoints.sort(function(a, b) {
+                    return a.order == b.order ? 0 : (a.order < b.order ? -1 : 1);
+                });
+
+                if (proRoute !== null) {
+                    proMap.geometry.remove(proRoute);
+                }
+
+                proMap.route.remove();
+
+                switch (type) {
+                    case "route": {
+                        proMap.route.get({
+                            points:   routePoints,
+                            editable: false
+                        });
+                        proMap.route.remove();
+                        
+                        break;
+                    }
+
+                    case "polyline": {
+                        proRoute = new PGmap.Polyline({
+                            points: routePoints,
+                            style: {
+                                color: "rgba(3,10,103,0.7)",
+                                lineHeight: 4
+                            }
+                        });
+                        proMap.geometry.add(proRoute);
+
+                        break;
+                    }
+                }
+            },
+            fitMap = function() {
+                var latArr = [],
+                    lonArr = [];
+
+                for (var x in proPoints) {
+                    var point = proPoints[x];
+
+                    lonArr.push(point.coord.lon);
+                    latArr.push(point.coord.lat);
+                }
+
+                proMap.setCenterByBbox({
+                    lon1: Math.min.apply(null, lonArr),
+                    lon2: Math.max.apply(null, lonArr),
+                    lat1: Math.min.apply(null, latArr),
+                    lat2: Math.max.apply(null, latArr)
+                });
+            };
+
+        proMap.controls.addControl("slider");
+        proMap.event.user(PGmap.Events.MAP_MOVE, function() {
+            for (var x in proPoints) {
+                $(proPoints[x].container)
+                    .popover("destroy")
+                    .removeData("has-popover");
+            }
+        });
+        proMap.route.onRouteReceived = function(route) {
+            var routePoints = [];
+
+            for (var x in route.points) {
+                var point = route.points[x];
+
+                routePoints.push(new PGmap.Coord(point[0], point[1], true));
+            }
+
+            proRoute = new PGmap.Polyline({
+                points: routePoints,
+                style: {
+                    color: "rgba(3,10,103,0.7)",
+                    lineHeight: 4
+                }
+            });
+            proMap.geometry.add(proRoute);
+
+            proMap.route.remove();
+        };
+        
+        $(function() {
+            $("#{{ form.vars.id }} .sonata-collection-add").on("click", function() {
+                var $container = $(this).closest("[data-prototype]"),
+                    id = $container.attr("id") + "_" + ($container.children().length - 1),
+                    proMapCoords = proMap.globals.getCoords().getGeo(),
+                    maxOrder = 0;
+
+                $container.find("input[id$='_order']").each(function() {
+                    var value = $(this).val();
+
+                    if (value > maxOrder) {
+                        maxOrder = value;
+                    }
+                });
+
+                setTimeout(function() {
+                    $("#" + id + "_order").val(parseInt(maxOrder / 10, 10) * 10 + 10);
+                    $("#" + id + "_lon").val(proMapCoords.lon);
+                    $("#" + id + "_lat").val(proMapCoords.lat);
+                }, 500);
+
+                addProMapPoint(id, new PGmap.Coord(
+                    proMapCoords.lon,
+                    proMapCoords.lat,
+                    true
+                ));
+            });
+
+            $("#{{ form.vars.id }} .sonata-collection-delete").live("click", function() {
+                var id = $("div[id^='{{ form.vars.id }}_']", $(this).parent()).attr("id");
+                
+                if (proPoints[id]) {
+                    $(proPoints[id].container)
+                        .popover("destroy")
+                        .removeData("has-popover");
+
+                    proMap.geometry.remove(proPoints[id]);
+                }
+            });
+
+            $("#{{ form.vars.id|split('_')[0] }}_type").change(function() {
+                showRoute();
+            });
+        });
+    </script>
+{% endspaceless %}
+{% endblock %}

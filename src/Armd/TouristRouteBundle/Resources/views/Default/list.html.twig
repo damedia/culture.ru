@@ -1,0 +1,75 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} &mdash; {{ 'Navigation.Tourist routes.Title'|trans }}
+{% endblock %}
+
+{% block page_header_title %}
+    {{ 'Navigation.Tourist routes.Title'|trans }}
+{% endblock %}
+
+{% block search_query %}{{ searchQuery }}{% endblock %}
+
+{% block page_header_search %}
+    {% spaceless %}
+        <div class="search-category">
+            <span class="search-dates-label">{{ "search_category.select"|trans }}</span>
+
+            <div class="search-category-selects">
+                <select name="route_region" id="route-region" class="uni">
+                    <option value="">{{ "search_category.region"|trans }}</option>
+                    {% for region in regions %}
+                        <option value="{{ region.id }}" {{ regionId == region.id ? 'selected' : '' }}>{{ region.title }}</option>
+                    {% endfor %}
+                </select>
+                <select name="route_category" id="route-category" class="uni">
+                    <option value="">{{ "search_category.category"|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {{ categoryId == category.id ? 'selected' : '' }}>{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <a href="#" id="search-routes-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="russia-top-found">
+        <p class="search-found">{{ "search_found"|trans }}: <span id="found-routes-count"></span> <span id="found-routes-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
+        
+        {% if entities|length %}
+        <a href="#" id="show-all" class="button show-all-btn">{{ 'Show all'|trans }}</a>
+        {% endif %}
+    </div>
+    <div id="plitka" class="tab plitka-list">
+        <ul class="plitka obrazy-plitka">
+            {% render url('armd_tourist_route_ajax_list', {'limit': 30, 'route_region': regionId, 'route_category': categoryId, 'search_query': searchQuery }) %}
+        </ul>
+    </div>
+
+    {% if entities|length %}
+    <div class="more more2">
+        <p>
+            <a href="#" id="show-more">{{ "show_more"|trans }}</a>
+        </p>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('bundles/armdtouristroute/js/tourist-routes.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            armdMkTouristRoutes.init();
+        });
+    </script>
+{% endblock %}
