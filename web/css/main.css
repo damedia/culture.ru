@@ -4162,11 +4162,15 @@ body {
                     color:#818181;
                 }
 
-                .index-block .block-left-image {
+                .index-block .block-left-image-wrap {
                     float: left;
                     margin: 5px 10px 10px 0;
                     width: 31%;
-                    height:auto;
+
+                }
+                .index-block .block-left-image-wrap img{
+                    width:100%;
+                    border:1px solid green;
                 }
 
                 .obraz-index {
