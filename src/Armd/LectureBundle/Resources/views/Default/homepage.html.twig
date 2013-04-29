@@ -43,6 +43,11 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><span>{{ 'menu.video'|trans }}</span></li>
+    </ul>
+
     <div id="lecture-container">
         {% for superType in superTypes %}
             <section class="lecture-homepage-section clearfix block">

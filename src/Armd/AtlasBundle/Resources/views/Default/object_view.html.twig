@@ -279,6 +279,11 @@
 {# ------------------------------------------------------------------------ #}
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_atlas_index') }}">{{ 'menu.atlas'|trans }}</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
 
     <h1 class="obraz-header">{{ entity.title }}</h1>
 

@@ -74,6 +74,13 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+    <li><a href="{{ path('armd_museum_guide_index') }}">{{ 'menu.museum_guide'|trans }}</a></li>
+    <li><span>{{ entity.title }}</span></li>
+</ul>
+
 <article class="event-one guide-one">
     <h2>{{ entity.title|raw }}<br /><span>{{ entity.city|raw }}</span></h2>    
     <p class="additional-info">{{entity.announce|raw}}</p>

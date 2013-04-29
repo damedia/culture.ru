@@ -3,8 +3,9 @@
 {% block left_column %}
 
     <ul class="breadcrumbs">
-        <li><a href="/">Главная</a></li>
-        <li><a href="{{ path('armd_lesson_list') }}">Музейное образование</a></li>
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><a href="{{ path('armd_lesson_list') }}">{{ 'menu.museum_lesson'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
     
