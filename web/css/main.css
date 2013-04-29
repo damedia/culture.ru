@@ -4169,7 +4169,7 @@ body {
 
                 }
                 .index-block .block-left-image-wrap img{
-                    border:1px solid yellow;
+                    max-width: 100%;
                 }
 
                 .obraz-index {
