@@ -17,6 +17,10 @@ class AjaxController extends Controller
      */
     public function listAction($class, $property, $page, $limit)
     {
+        if (false === $this->isGranted('ROLE_ADMIN')) {
+            return array('error' => '401 Access denied');
+        }
+
         $term         = $this->getRequest()->get('q');
         $fields       = array_merge(array('id'), $this->parsePropertiesString($property));
         $queryBuilder = $this->getRepository($class)->createQueryBuilder('t');
@@ -62,6 +66,10 @@ class AjaxController extends Controller
      */
     public function listByIdsAction($class, $property, $ids)
     {
+        if (false === $this->isGranted('ROLE_ADMIN')) {
+            return array('error' => '401 Access denied');
+        }
+
         if (is_string($ids)) {
             $ids = array_map('trim', explode(',', $ids));
         }
@@ -87,6 +95,10 @@ class AjaxController extends Controller
      */
     public function itemAction($class, $property, $id)
     {
+        if (false === $this->isGranted('ROLE_ADMIN')) {
+            return array('error' => '401 Access denied');
+        }
+
         $fields       = array_merge(array('id'), $this->parsePropertiesString($property));
         $queryBuilder = $this->getRepository($class)->createQueryBuilder('t');
 
@@ -97,7 +109,7 @@ class AjaxController extends Controller
         $entity = $queryBuilder->getQuery()->getOneOrNullResult();
 
         if (!$entity) {
-            return array('error' => 'Not found');
+            return array('error' => '404 Not found');
         }
 
         return array('entity' => $entity);
@@ -120,5 +132,14 @@ class AjaxController extends Controller
     protected function parsePropertiesString($property)
     {
         return array_map('trim', explode(',', $property));
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function isGranted($role)
+    {
+        return $this->container->get('security.context')->isGranted($role);
     }
 }
