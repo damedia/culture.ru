@@ -296,6 +296,7 @@
 
 		<div class="photo-gallery">
             <h3>{{entity.gallery.name}}</h3>
+            <div class="orange-slider-block">
             <div id="slider" class="flexslider">
 				<ul class="slides">
 					{% for gal_img in entity.gallery.galleryHasMedias %}
@@ -308,8 +309,10 @@
 					{% endfor %}
 				</ul>
 			</div>
+            </div>
 			<div class="nav-wrap">
 				<div class="nav">
+                    <div class="orange-slider-block">
 					<div id="carousel" class="flexslider ">
 					  <ul class="slides">
 						{% for gal_img in entity.gallery.galleryHasMedias %}
@@ -321,6 +324,7 @@
 					</div>
 				</div>
 			</div>
+        </div>
         </div>
 
 

@@ -269,7 +269,7 @@
                                     </a>
                                     <div class="period-block_text">
                                         <h4>{{ video.title }}</h4>
-                                        <p>{{ video.description }}</p>
+                                        <p>{{ video.description[:120] ~ (video.description|length > 120 ? '...' : '') }}</p>
                                     </div>
 
                                 </article>

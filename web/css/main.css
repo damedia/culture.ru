@@ -6081,7 +6081,15 @@ body {
             
         }
         .orange-slider-block  .period-block {
-            padding:0;
+            padding:14px 0;
+        }
+            .orange-slider-block  h2{
+                height:auto;
+                }
+            .orange-slider-block  h2,
+            .orange-slider-block .period-block_footer{
+                padding-left:12px;
+                padding-right:12px;
         }
             .orange-slider-block  .period-block_text {
                 padding:0 12px 20px;
@@ -6105,26 +6113,24 @@ body {
                 .orange-slider-block .flex-direction-nav {
                     background:none;
                     position:absolute;
-                    top:57px;
+                    top:83px;
                     left:0;
                     width:100%;
-                    height:71px;
+                    height:100px;
                     bottom:auto;
                     right:auto;
-                    
-                    
                 }
                     .orange-slider-block .flex-direction-nav li {
-                        width:35px;
-                        height:71px;
+                        width:30px;
+                        height:100px;
                         position:absolute;
                         top:0;
                         z-index:10;
                     }
                         .orange-slider-block .flex-direction-nav li a {
-                            width:35px;
-                            height:71px;
-                            background:url(../img/orange-slider-icons.png) no-repeat 0 0;
+                            width:30px;
+                            height:100px;
+                            background:url(../img/index-video-slider.png) no-repeat 0 0;
                             
                         }
                     .orange-slider-block  .flex-direction-nav li:first-child {
@@ -6134,16 +6140,19 @@ body {
                         right:0;
                         
                     }
+                    /*
                         .orange-slider-block .flex-direction-nav li a.flex-prev:hover {
                             background-position:0 -200px;
                         }
+                    */
                         .orange-slider-block .flex-direction-nav li a.flex-next {
-                            background-position:0 -100px;
+                            background-position:100% 0;
                         }
+                    /*
                         .orange-slider-block .flex-direction-nav li a.flex-next:hover  {
                             background-position:0 -300px;
                         }
-                    
+                    */
                     .orange-slider-block .flexslider .slides .period-block_image {
                         width:306px;
                         height:179px;
@@ -6161,7 +6170,9 @@ body {
                         
                     }
                        
+    .restyle-arrows{
                     
+    }                
    
    /*POPup Instruction*/
     

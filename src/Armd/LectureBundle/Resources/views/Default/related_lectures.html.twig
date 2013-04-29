@@ -1,45 +1,46 @@
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+<div class="orange-slider-block">
+    <div class="flexslider">
+        <ul class="slides">
+            {% for lecture in lectures%}
+                <li>
+                    <article class="period-block">
+                        <h2>{{ lecture.title }}</h2>
+                        <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="period-block_image">
+                            {% if lecture.isTop100Film %}
+                                <div class="cinema-top100-icon"></div>
+                            {% endif %}
+                            {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': 'auto'}) }}
 
-<div class="flexslider">
-	<ul class="slides">
-        {% for lecture in lectures%}
-            <li>
-                <article class="period-block">
-                    <h2>{{ lecture.title }}</h2>
-                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="period-block_image">
-                        {% if lecture.isTop100Film %}
-                            <div class="cinema-top100-icon"></div>
-                        {% endif %}
-                        {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': 'auto'}) }}
+                            {#{% if lecture.lectureVideo.imageMedia is defined %}#}
+                                {#{% set thumbnailMedia = lecture.lectureVideo.imageMedia %}#}
+                            {#{% elseif lecture.mediaLectureVideo is not empty %}#}
+                                {#{% set thumbnailMedia = lecture.mediaLectureVideo %}#}
+                            {#{% else %}#}
+                                {#{% set thumbnailMedia = null %}#}
+                            {#{% endif %}#}
 
-                        {#{% if lecture.lectureVideo.imageMedia is defined %}#}
-                            {#{% set thumbnailMedia = lecture.lectureVideo.imageMedia %}#}
-                        {#{% elseif lecture.mediaLectureVideo is not empty %}#}
-                            {#{% set thumbnailMedia = lecture.mediaLectureVideo %}#}
-                        {#{% else %}#}
-                            {#{% set thumbnailMedia = null %}#}
-                        {#{% endif %}#}
+                            {#{% if thumbnailMedia is not null %}#}
+                                {#{% thumbnail thumbnailMedia, 'big' %}#}
+                            {#{% endif %}#}
+                            {#<img src="images/period_1.jpg" alt=""  />#}
+                            <span class="play"></span>
+                        </a>
+                        {#<div class="period-block_text">#}
+                            {#<p>#}
+                                {#Режиссер: Леонид Гайдай <br />#}
+                                {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                            {#</p>#}
+                        {#</div>#}
+                        <footer class="period-block_footer">
+                            <div class="tags">
+                                <a href="{{ path('armd_lecture_default_index', {'lectureSuperTypeCode': lecture.lectureSuperType.code}) }}">{{ lecture.lectureSuperType.name }}</a>
+                            </div>
+                        </footer>
 
-                        {#{% if thumbnailMedia is not null %}#}
-                            {#{% thumbnail thumbnailMedia, 'big' %}#}
-                        {#{% endif %}#}
-                        {#<img src="images/period_1.jpg" alt=""  />#}
-                        <span class="play"></span>
-                    </a>
-                    {#<div class="period-block_text">#}
-                        {#<p>#}
-                            {#Режиссер: Леонид Гайдай <br />#}
-                            {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
-                        {#</p>#}
-                    {#</div>#}
-                    <footer class="period-block_footer">
-                        <div class="tags">
-                            <a href="{{ path('armd_lecture_default_index', {'lectureSuperTypeCode': lecture.lectureSuperType.code}) }}">{{ lecture.lectureSuperType.name }}</a>
-                        </div>
-                    </footer>
-
-                </article>
-            </li>
-        {% endfor %}
-	</ul>
+                    </article>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
