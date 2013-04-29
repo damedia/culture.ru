@@ -109,8 +109,8 @@ security:
                             app_id: 3276497
                             secret: 2L2fi5wkrYoVfJCKWQOn
                         facebook:
-                            app_id: 311159245666039
-                            secret: 83031657f94992d513406cb66f4165c6
+                            app_id: 549475125075147
+                            secret: 89ac4602917e536d69d8fabdca55413e
 
                     roskult.ru:
                         vkontakte:
