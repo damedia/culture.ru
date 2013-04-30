@@ -207,7 +207,7 @@ class Builder extends ContainerAware
             $museumMenu = $menu->addChild(
                 'menu.museum',
                 array(
-                    'route' => 'armd_museum_reserve'
+                    'route' => 'armd_main_museum_reserve'
                 )
             );
 
