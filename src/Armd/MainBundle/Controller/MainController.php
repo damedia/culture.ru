@@ -141,7 +141,7 @@ class MainController extends Controller
         return $this->renderTemplate('about');
     }
 
-    public function museum_reserveAction()
+    public function museumReserveAction()
     {
         return $this->renderTemplate('museum_reserve');
     }

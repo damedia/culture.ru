@@ -16,39 +16,9 @@
 {{ parent() }}
 
 <script src="{{ asset('js/function.js') }}"></script>
-<script type="text/javascript">
-	$(function(){
-		/*Gov*/
-		$('.gos-buttons a').click(function(){
-			var blockId = $(this).parent('li').attr('id');
-			$(this).parent('li').addClass('active').siblings().removeClass('active');
-			$('.gos-list li#'+blockId+'_block').show().siblings().hide();
-			$('.gos-prims').show();
-		})
-	})
-</script>
-<script type="text/javascript">
-  $(function () {
-      initUi();
-  });
-
-  function initUi() {
-      $('#show-services').parent().parent().click(function(){
-          $('#services').parent().removeClass('collapsed');
-          $(this).hide();
-          return false;
-      });
-
-      $('#show-regions').parent().parent().click(function(){
-          $('#regions').parent().removeClass('collapsed');
-          $(this).hide();
-          return false;
-      });
-  }
-</script>
 {% endblock %}
 
-{% block title %}{{ parent() }} — {{ 'Navigation.Public services'|trans }}{% endblock %}
+{% block title %}{{ parent() }} — {{ 'Navigation.Museum reserve'|trans }}{% endblock %}
 
 {% block page_header_title %}{{ 'Navigation.Museum reserve'|trans }}{% endblock %}
 {% block body%}

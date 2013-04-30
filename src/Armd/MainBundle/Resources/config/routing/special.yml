@@ -26,7 +26,7 @@ armd_main_special_services:
 
 armd_main_special_museum_reserve:
     pattern:  /museums/museum_reserve/
-    defaults: { _controller: ArmdMainBundle:Special:museum_reserve }
+    defaults: { _controller: ArmdMainBundle:Special:museumReserve }
     
 armd_main_special_about:
     pattern:  /about/
