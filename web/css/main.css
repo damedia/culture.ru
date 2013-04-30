@@ -4164,10 +4164,17 @@ body {
                     color:#818181;
                 }
 
-                .index-block .block-left-image {
+                .index-block .block-left-image-wrap {
                     float: left;
                     margin: 5px 10px 10px 0;
                     width: 31%;
+
+                }
+                .index-block .block-left-image-wrap img{
+                    max-width: 100%;
+                    width: 100%;
+                    min-width: 90px;
+                    height: auto;
                 }
 
                 .obraz-index {
@@ -4325,7 +4332,10 @@ body {
 
 				.index-video-list img {
 					margin-bottom:10px;
+                    width:308px;
+                    height:228px;
 				}
+
 				.index-video-name {
 					text-transform:uppercase;
 					font-size:13px;
