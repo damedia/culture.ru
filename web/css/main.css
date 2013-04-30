@@ -3428,8 +3428,11 @@ body {
 				border-bottom:1px dashed #222;
 			}
 			.image-stats  p {
-				
+				float: right;
 			}
+            .image-stats  p.image-title {
+                float: left;
+            }
 				.image-stats b {
 					color:#5c7487;
 				}

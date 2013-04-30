@@ -292,9 +292,9 @@
                             <a class="fancybox" rel="slider" href="{% path h, 'reference' %}">
                                 <img src="{% path h, 'atlasW613' %}" alt="{{ entity.title }}" />
                             </a>
-                            <div class="image-stats">
-                                {#<a href="#" class="image-code-link">Код для вставки</a>#}
-                                <p>
+                            <div class="image-stats clearfix">
+                                <p class="image-title" title="{{ h.title }}">{{ h.title|truncate(80) }}</p>
+                                <p class="image-counter">
                                     <span><b>{{ loop.index }}</b> из {{ entity.images|length }}</span>  /
                                     <a href="{% path h, 'reference' %}" target="_blank">{{ "save_original_photo"|trans }} {#<i>(784 мб.)</i>#}</a>
                                 </p>
