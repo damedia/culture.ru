@@ -4068,6 +4068,9 @@ body {
                             .event-tab-news-one  img {
                                 float:left;
                                 margin:0 13px 10px 0;
+                                width:85px; height:auto;
+                                border:0;
+                                outline:0;
                             }
                             .event-tab-text {
                                 font-size:11px;
