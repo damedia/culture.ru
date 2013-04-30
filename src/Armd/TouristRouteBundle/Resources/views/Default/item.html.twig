@@ -121,6 +121,7 @@
                             }
                         });
 
+                        point.show  = {{ object.lon and object.lat ? 'true' : 'false' }};
                         point.name = "" +
                             "<div class=\"bubble\">" +
                                 "<div class=\"bubble_image\">" +
@@ -232,8 +233,10 @@
                     for (var x in objects) {
                         var point = objects[x];
 
-                        lonArr.push(point.coord.lon);
-                        latArr.push(point.coord.lat);
+                        if (point.show) {
+                            lonArr.push(point.coord.lon);
+                            latArr.push(point.coord.lat);
+                        }
                     }
 
                     map.setCenterByBbox({
@@ -272,7 +275,9 @@
             };
 
             for (var x in objects) {
-                map.geometry.add(objects[x]);
+                if (objects[x].show) {
+                    map.geometry.add(objects[x]);
+                }
             }
 
             for (var x in points) {
@@ -344,6 +349,12 @@
 {# ------------------------------------------------------------------------ #}
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_tourist_route_list') }}">{{ 'menu.tourist_routes'|trans }}</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
+    
     <h1>{{ entity.title }}</h1>
 
     <div class="tourist-one">

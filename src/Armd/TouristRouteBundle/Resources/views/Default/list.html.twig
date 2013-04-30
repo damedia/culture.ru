@@ -29,7 +29,6 @@
                     {% endfor %}
                 </select>
             </div>
-            <a href="#" id="search-routes-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
         </div>
     {% endspaceless %}
 {% endblock %}
@@ -41,6 +40,11 @@
 {% endblock %}
 
 {% block body %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><span>{{ 'menu.tourist_routes'|trans }}</span></li>
+    </ul>
+
     <div class="russia-top-found">
         <p class="search-found">{{ "search_found"|trans }}: <span id="found-routes-count"></span> <span id="found-routes-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
         
