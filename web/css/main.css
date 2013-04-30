@@ -1364,14 +1364,21 @@ body {
 						text-transform:uppercase;
 					}
 			
-			
+		.russia-top-found{
+            margin-bottom:15px;
+        }	
 		.search-found {
+            display:inline;
 			color:#f79016;
 			font-size:19px;
 			margin-bottom:20px;
 			margin-top:10px;
 		}
-		
+		.russia-top-found .button{
+            position:relative;
+            top:-3px;
+            margin:0 0 0 15px;
+        }
 		.search-news-block {
 				padding-top:23px;
 				border:0;
