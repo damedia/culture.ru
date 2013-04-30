@@ -759,7 +759,7 @@ body {
 								font-size:11px;
 								margin-top:6px;
 							}
-							
+							.event-one_image .news-image-crop{overflow:hidden;}
 							.event-one  p {
 								margin-bottom:20px;
 								line-height:16px;
