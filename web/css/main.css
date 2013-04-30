@@ -6431,6 +6431,16 @@ body {
     /*padding-top: 3px;*/
     display: block;
 }
+.social-auth p {
+    float: left;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+/*.social-auth .social-auth-links {*/
+    /*position: relative;*/
+/*}*/
+
 .social-auth-links a {
     display: inline-block;
     width: 16px;
