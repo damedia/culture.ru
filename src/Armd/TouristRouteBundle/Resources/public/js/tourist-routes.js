@@ -23,23 +23,31 @@ var armdMkTouristRoutes = {
             armdMkTouristRoutes.loadList(true, false);
         });
 
-        // search button
-        $('#search-routes-button').bind('click', function(event) {
-            event.preventDefault();
+        $("#route-region").chosen({
+            no_results_text: "Не найдено"
+        });
 
+        // filters
+        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-route-category"] a', function(event) {
+                armdMkTouristRoutes.readFilter();
+                armdMkTouristRoutes.resetTextFilter();
+                armdMkTouristRoutes.loadList(false, false);
+        });
+
+        $("#route-region").change(function(event) {
             armdMkTouristRoutes.readFilter();
             armdMkTouristRoutes.resetTextFilter();
             armdMkTouristRoutes.loadList(false, false);
-        });
+        })
 
-        // region click
-        $('.main').on('click', '.route-region', function (event) {
+        // category click
+        $('.main').on('click', '.route-category', function (event) {
             event.preventDefault();
-            var regionId = $(this).data('region-id');
+            var categoryId = $(this).data('category-id');
 
             armdMkTouristRoutes.resetFilter();
             armdMkTouristRoutes.resetTextFilter();
-            $('#route-region').val(regionId).selectgroup('refresh');
+            $('#route-category').val(categoryId).selectgroup('refresh');
             armdMkTouristRoutes.readFilter();
 
             armdMkTouristRoutes.loadList(false, false);
@@ -87,12 +95,10 @@ var armdMkTouristRoutes = {
 
     startLoading: function () {
         armdMk.startLoadingBlock('body');
-        $('#search-routes-button').addClass('loading');
     },
 
     stopLoading: function () {
         armdMk.stopLoadingBlock('body');
-        $('#search-routes-button').removeClass('loading');
     },
 
     refreshVisibleCount: function() {

@@ -13,23 +13,25 @@
 {% block page_header_search %}
     {% spaceless %}
         <div class="search-category">
-            <span class="search-dates-label">{{ "search_category.select"|trans }}</span>
-
-            <div class="search-category-selects">
-                <select name="route_region" id="route-region" class="uni">
-                    <option value="">{{ "search_category.region"|trans }}</option>
+            <span class="search-dates-label">{{ 'search_category.region'|trans }}</span>
+            <span class="route-region-selector">
+                <select name="route_region" id="route-region" data-placeholder="{{ "atlas.choose_region"|trans }}" class="chzn-select">
+                    <option value="">{{ 'All'|trans }}</option>
                     {% for region in regions %}
-                        <option value="{{ region.id }}" {{ regionId == region.id ? 'selected' : '' }}>{{ region.title }}</option>
+                        <option value="{{ region.id }}"{{ regionId == region.id ? ' selected' : '' }}>{{ region.title }}</option>
                     {% endfor %}
                 </select>
+            </span>
+
+            <span class="search-dates-label">&nbsp;&nbsp;{{ 'search_category.category'|trans }}</span>
+            <div class="search-category-selects">
                 <select name="route_category" id="route-category" class="uni">
-                    <option value="">{{ "search_category.category"|trans }}</option>
+                    <option value="">{{ "All"|trans }}</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}" {{ categoryId == category.id ? 'selected' : '' }}>{{ category.title }}</option>
+                        <option value="{{ category.id }}"{{ categoryId == category.id ? ' selected' : '' }}>{{ category.title }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <a href="#" id="search-routes-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
         </div>
     {% endspaceless %}
 {% endblock %}
@@ -41,6 +43,11 @@
 {% endblock %}
 
 {% block body %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><span>{{ 'menu.tourist_routes'|trans }}</span></li>
+    </ul>
+
     <div class="russia-top-found">
         <p class="search-found">{{ "search_found"|trans }}: <span id="found-routes-count"></span> <span id="found-routes-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
         

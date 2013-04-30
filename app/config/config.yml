@@ -358,6 +358,7 @@ sonata_media:
                 thumbnail: { width: 85, height: 85 }
                 photo_thumb: { width: 254 }
                 banner: { width: 308 }
+                searchAllResult: { width: 160, height: 107 }
 
         route_category:
             download:

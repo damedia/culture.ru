@@ -29,6 +29,7 @@ Content: Описание
 Categories: Категории
 Media:  Медиа
 Icon: Иконка
+Primary Image: Главное изображение
 Images: Изображения
 Videos: Видео (Tvigle ID)
 Geo: Гео-привязка
@@ -50,7 +51,7 @@ Type: Тип
 Route: По городам
 Polyline: По объектам
 
-You must select at least one image: Необходимо выбрать хотя бы одно изображение
+Primary image is required: Не выбрано главное изображение
 Select regions: Выберите регионы
 Select objects: Выберите объекты атласа
 Select routes: Выберите маршруты

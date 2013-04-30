@@ -18,7 +18,9 @@
     <meta property="og:title" content="{{ entity.title }}" />
     <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
     <meta property="og:url" content="{{ app.request.uri }}" />
-    {% if entity.images|length %}
+    {% if entity.primaryImage %}
+    <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length %}
     <meta property="og:image" content="{% path entity.images[0], 'reference' %}" />
     {% endif %}
 {% endblock %}

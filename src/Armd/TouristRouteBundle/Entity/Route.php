@@ -50,6 +50,12 @@ class Route implements Taggable
     private $categories;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="primary_image_id", referencedColumnName="id")
+     */
+    private $primaryImage;
+
+    /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="tourist_route__media_image")
      * @ORM\OrderBy({"id" = "ASC"})
@@ -288,6 +294,27 @@ class Route implements Taggable
     public function removeCategory($category)
     {
         $this->categories->removeElement($category);
+    }
+
+    /**
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getPrimaryImage()
+    {
+        return $this->primaryImage;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $primaryImage
+     * @return Route
+     */
+    public function setPrimaryImage(\Application\Sonata\MediaBundle\Entity\Media $primaryImage = null)
+    {
+        if (is_null($primaryImage) || $primaryImage->isUploaded()) {
+            $this->primaryImage = $primaryImage;
+        }
+
+        return $this;
     }
 
     /**
