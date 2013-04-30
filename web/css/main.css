@@ -8046,3 +8046,72 @@ a.appstore-link {
 
     margin-top: 5px;
 }
+
+
+/* events-list */
+.events-list{}
+.events-list h2 {
+    font:normal 25px 'Trebuchet MS', sans-serif;
+    border-bottom:1px solid #d9d9d9;
+    color:#154060;
+    margin:0;
+    padding:0;
+    
+}
+
+.events-list h2 span {
+    display:inline-block;
+    border-bottom:3px solid #7791a4;
+    padding-bottom:4px;
+}
+.events-list h3{
+    margin:20px 0 10px 0;
+    font-size:18px;
+    color:#f79016;
+}
+.events-list h4{
+    margin:15px 0 5px 0;
+    font-size:14px;
+    font-weight:bold;
+}
+.events-list table{
+    margin-bottom:20px;
+    width:100%;
+    font-size:12px;   
+}
+.events-list td{
+    padding:5px;
+    vertical-align:top;
+    }
+.events-list table tr:first-child td{
+    background:#ededed !important;
+}
+.events-list table tr:nth-child(odd) td{
+    background:#fafafa;
+}
+.events-list table tr:nth-child(even) td{
+    background:#fff;
+}
+.events-list .col1{width:1%;}
+.events-list .col2{width:5%;}
+.events-list .col3{width:35%;}
+.events-list .col4{width:10%;}
+.events-list .col5{width:4%;}
+.events-list .col6{width:10%;}
+.events-list .col7{width:20%;}
+.events-list .col8{width:5%;}
+.events-list .col9{width:5%;}
+.events-list .col10{width:5%;}
+
+.events-list table ul{
+    margin:0;
+    list-style:none;
+    font-size:11px;
+}
+.events-list table li{
+    margin:0;
+}
+.events-list table li:before{
+    content:'— ';
+}
+

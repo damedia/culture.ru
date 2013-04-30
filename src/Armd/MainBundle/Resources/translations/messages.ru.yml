@@ -47,6 +47,7 @@ menu.virtual_museum: Виртуальные музеи
 menu.culture_sites: Сайты культуры
 menu.museum_guide: Музейный гид
 menu.museum_lesson: Музейное образование
+menu.museum_reserve: Музеи-заповедники
 #---------------- /menu -------------------------
 
 
@@ -89,6 +90,7 @@ Navigation:
     Traditions: Духовные традиции
     Public council: Общественный совет
     Public services: Госуслуги
+    Museum reserve: Музеи-заповедники
     Closed forum: Закрытый форум
     goverment_services: Госуслуги
     About: О проекте
