@@ -98,6 +98,12 @@ class RouteAdmin extends Admin
                 ))
             ->end()
             ->with('Media')
+                ->add('primaryImage', 'armd_media_file_type', array(
+                    'required'       => false,
+                    'media_context'  => 'route',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format'   => 'thumbnail'
+                ))
                 ->add('images', 'collection', array(
                     'type'    => 'armd_media_file_type',
                     'options' => array(
@@ -183,8 +189,8 @@ class RouteAdmin extends Admin
 
     public function validate(ErrorElement $errorElement, $object)
     {
-        if (!$this->getSubject()->getImages()->count()) {
-            $errorElement->addViolation($this->trans('You must select at least one image'));
+        if (!$this->getSubject()->getPrimaryImage()) {
+            $errorElement->addViolation('Primary image is required');
         }
     }
 

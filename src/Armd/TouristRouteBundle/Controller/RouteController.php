@@ -114,8 +114,15 @@ class RouteController extends Controller
      */
     protected function getRegions()
     {
-        return $this->getRepository('ArmdAtlasBundle:Region')
-            ->findAll();
+        $routeRepository = $this->getRepository('ArmdTouristRouteBundle:Route');
+        $queryBuilder    = $routeRepository->createQueryBuilder('r');
+
+        $queryBuilder
+            ->select('DISTINCT reg.id, reg.title')
+            ->leftJoin('r.regions', 'reg')
+            ->orderBy('reg.title');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**

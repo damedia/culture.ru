@@ -64,8 +64,6 @@ class CollectionToStringTransformer implements DataTransformerInterface
                 ->findBy(array('id' => $ids))
         ;
 
-        print_r($ids);
-
         return $entities;
     }
 }

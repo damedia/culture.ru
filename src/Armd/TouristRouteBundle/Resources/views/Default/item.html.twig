@@ -18,7 +18,9 @@
     <meta property="og:title" content="{{ entity.title }}" />
     <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
     <meta property="og:url" content="{{ app.request.uri }}" />
-    {% if entity.images|length %}
+    {% if entity.primaryImage %}
+    <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length %}
     <meta property="og:image" content="{% path entity.images[0], 'reference' %}" />
     {% endif %}
 {% endblock %}
@@ -59,7 +61,7 @@
     {{ parent() }}
 
     <script src="http://yandex.st/share/share.js"></script>
-    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=1.0.0"></script>
+    <script src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&amp;version=1.0.0"></script>
     <script>
         $(function() {
             var map = new PGmap($("#map")[0], {
@@ -324,7 +326,7 @@
                     border: false,
                     quickServices: ["vkontakte", "lj", "twitter", "facebook", "odnoklassniki"]
                 },
-                image: "{% path entity.images[0], 'big' %}",
+                image: "{% path entity.primaryImage, 'big' %}",
                 link:  "{{ url('armd_tourist_route_item', { 'id': entity.id }) }}",
                 title: "{{ entity.title }}",
             });
@@ -477,7 +479,7 @@
     {% endif %}
     <!-- /Photo -->
 
-    {% if entity.routes|length %}
+    {% if not entity.images|length and not entity.videos|length and entity.routes|length %}
         <section class="block">
             <h2><span>{{ "recommended"|trans }}</span></h2>
 
@@ -496,26 +498,3 @@
         </section>
     {% endif %}
 {% endblock %}
-
-{# ------------------------------------------------------------------------ #}
-{% block rec_plitka %}
-    {% if entity.routes is not empty %}
-        <ul class="plitka rec-plitka">
-            {% for route in entity.routes %}
-                <li class="plitka-one-wrap">
-                    <div class="plitka-one">
-                        <a href="{{ path('armd_tourist_route_item', {'id': route.id}) }}">
-                            {% thumbnail route.banner|default(route.images[0]), 'searchAllResult' with { 'class': 'plitka-image' } %}
-                            {#<img alt="" class="plitka-image" src="">#}
-                        </a>
-                        <div class="plitka-text">
-                            <span class="plitka-name"> <a href="{{ path('armd_tourist_route_item', {'id': route.id}) }}" class="no-decoration">{{ route.title }}</a> </span>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------ #}
