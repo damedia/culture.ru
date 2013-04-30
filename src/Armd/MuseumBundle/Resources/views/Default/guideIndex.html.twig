@@ -53,6 +53,12 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><span>{{ 'menu.museum_guide'|trans }}</span></li>
+    </ul>
+
     <div class="guide-text">
         <div class="guide-text_anons">
             <p>{{"museum_guides_anons"|trans}}</p>
