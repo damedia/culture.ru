@@ -13,7 +13,7 @@ menu.news_index: Медиа
 menu.news: Новости
 menu.events: Анонсы
 
-menu.reportage: Статьи
+menu.reportage: Репортажи
 menu.interview: Интервью
 menu.about: Информация
 menu.events_on_map: Карта мероприятий
@@ -93,7 +93,7 @@ Navigation:
     About: О проекте
     Add: Еще
     Library: Библиотека
-    Reports: Статьи
+    Reports: Репортажи
     Banners: Баннеры
     ForumGos: Форум по гос.надзору
     InterMuseum: Интермузей 2013
