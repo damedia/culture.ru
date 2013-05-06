@@ -123,8 +123,8 @@
         
         $(function () {
             initUi();
-            initFancybox();
             initSlider();
+            initFancybox();
             initYandexShare();
             //initInfographics();
             //initInfographics2(800, 560);
@@ -143,6 +143,11 @@
         }
 
         function initFancybox() {
+            $('.fancybox').each(function() {
+                if ($(this).parent().hasClass('clone') === true) {
+                    $(this).removeClass('fancybox');
+                }
+            });
             $('.fancybox').fancybox({
                 prevEffect: 'none',
                 nextEffect: 'none'
