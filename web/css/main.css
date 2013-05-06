@@ -232,6 +232,7 @@ body {
 			padding-bottom:31px;
 			background:url(../img/header-bg.png) no-repeat 50% 100%;
 			position:relative;
+            z-index:110;
 
 		}
 			.logo {
@@ -242,13 +243,32 @@ body {
 				margin:25px 0 0 14px;
 			}
 			
-					
+			.main-title{
+                position:absolute;
+                left: 123px;
+                top:34px;
+                color:#575757;
+                text-transform:uppercase;
+                font: 29px Tahoma, Arial, sans-serif;
+                font-weight:normal;
+            }
+            .main-title span{
+                color:#ff8c15;
+            }
+            
 			.header-top-right {
 				position:absolute;
 				top:19px;
 				right:8px;
 				
-			}		
+			}
+            .header-top-right .htr-top{
+                height:20px;
+            }
+            .header-top-right .htr-bottom{
+                padding-top:8px;
+                text-align:right;
+            }
 				.lk-top {
 					float:left;
 					font-size:11px;
@@ -273,18 +293,18 @@ body {
 				.lang-chooser-en,
                 .lang-chooser-ru {
 					float:left;
-					width:15px;
-					height:14px;
-					margin-top: 4px;
+					width:30px;
+					height:20px;
+					margin-top: 1px;
 					margin-right: 13px;
 				}
 
                 .lang-chooser-en {
-                    background:url(../img/flag.png) no-repeat 0 0;
+                    background:url(../img/flag_ru.gif) no-repeat 0 0;
                 }
 
                 .lang-chooser-ru {
-                    background:url(../img/flag_en.jpg) no-repeat 0 0;
+                    background:url(../img/flag_en.gif) no-repeat 0 0;
                 }
 			
 					
@@ -295,50 +315,69 @@ body {
 				/*margin-top:51px;*/
 
                 position: absolute;
-                top: 51px;
+                top: 97px;
                 left: 123px;
+                z-index:1;
 			}
                 .main-menu ul {
 					list-style:none;
-
+                    font: 21px Tahoma, Arial, sans-serif;
 				}
                     .main-menu ul li {
-						display:inline;
+                        position:relative;
+                        float:left;
 						margin-right:8px;
 					}
                     .main-menu ul a {
-						font: 21px Tahoma, Arial, sans-serif;
 						text-decoration:none;
 						text-transform:uppercase;
-						color:#000;
+						color:#6a6a6a;
 					}
-                    .main-menu ul li.active a {
-						border-bottom:3px solid #f79016;
+                    .main-menu ul li.active>a,
+                    .main-menu a:hover{
+                        color:#f79016;
 					}
 
-                .main-menu ul.main-menu-level1 {
-					list-style:none;
-					margin-top:7px;
+                .main-menu ul ul.main-menu-level1 {
+                    position:absolute;
+                    left:0; top:25px;
                     display: none;
+                    width:215px;
+					list-style:none;
+					margin-top:0px;
+                    border-top:3px solid #f79016;
+                    font: 14px Tahoma, Arial, sans-serif;
+                    background:#fff;
+                    -webkit-box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, .4);
+                    box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, .4);
 				}
-                    .main-menu ul.main-menu-level1.active {
+                    .main-menu ul li:hover ul.main-menu-level1 {
                         display: block;
                     }
 
                     .main-menu ul.main-menu-level1 li {
-						display:inline;
-						margin-right:8px;
+                        float:none;
+						display:block;
+						margin-right:0px;
+                        border-bottom:1px solid #e5e5e5;
 					}
                     .main-menu ul.main-menu-level1 a {
-						font: 14px Tahoma, Arial, sans-serif;
+                        display:block;
+                        padding:12px 15px;
+						
 						text-decoration:none;
 						text-transform:uppercase;
 						color:#3f3f3f;
 					}
+                    .main-menu ul.main-menu-level1 a:hover {
+						color:#7a8fa0;
+                        background:#edf1f4;
+					}
+                    /*
                     .main-menu ul.main-menu-level1  li.active a {
 						border-bottom:2px solid #3f3f3f;
 					}
-
+                    */
 /*
             .main-menu {
                 float:left;

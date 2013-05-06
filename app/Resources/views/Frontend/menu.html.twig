@@ -1,5 +1,3 @@
-{#{% extends 'knp_menu.html.twig' %}#}
-
 {% macro attributes(attributes) %}
 {% for name, value in attributes %}
     {%- if value is not none and value is not sameas(false) -%}
@@ -17,23 +15,6 @@
 {% block root %}
 {% set listAttributes = item.childrenAttributes %}
 {{ block('list') -}}
-
-{% set currentItem = item %}
-{% for item in currentItem.children %}
-    {# render the list of children#}
-    {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
-    {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
-    {%- set childrenClasses = childrenClasses|merge(['main-menu-level' ~ item.level]) %}
-    {%- if item.current %}
-        {%- set childrenClasses = childrenClasses|merge([options.currentClass]) %}
-    {%- elseif item.currentAncestor %}
-        {%- set childrenClasses = childrenClasses|merge([options.ancestorClass]) %}
-    {% endif %}
-    {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
-
-    {{ block('list') }}
-{% endfor %}
-
 {% endblock %}
 
 {% block list %}
@@ -86,6 +67,11 @@
         {%- else %}
         {{ block('spanElement') }}
         {%- endif %}
+{# render the list of children#}
+        {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+        {%- set childrenClasses = childrenClasses|merge(['main-menu-level' ~ item.level]) %}
+        {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+        {{ block('list') }}
     </li>
 {% endif %}
 {% endblock %}
@@ -93,6 +79,5 @@
 {% block linkElement %}<a href="{{ item.uri }}"{{ _self.attributes(item.linkAttributes) }}>{{ block('label') }}</a>{% endblock %}
 
 {% block spanElement %}<span{{ _self.attributes(item.labelAttributes) }}>{{ block('label') }}</span>{% endblock %}
-
 
 {% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|trans|raw }}{% else %}{{ item.label|trans }}{% endif %}{% endblock %}

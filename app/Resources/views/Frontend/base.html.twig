@@ -89,6 +89,18 @@
                  title: '{{ 'Portal title'|trans }}',
                  description: '{{ 'Portal title'|trans }}'
              });
+
+             new Ya.share({
+                 element: 'yandex-share-global-copy',
+                 elementStyle: {
+                     'type': 'none',
+                     'border': false,
+                     'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                 },
+                 link: '{{ url('armd_main_homepage') }}',
+                 title: '{{ 'Portal title'|trans }}',
+                 description: '{{ 'Portal title'|trans }}'
+             });
          });
 
 
@@ -109,30 +121,35 @@
     <div class="container">
         <header class="main-header clearfix">
             <a class="logo" title="{{ 'Portal title'|trans }}" href="{{ path('armd_main_homepage') }}"></a>
-
+            <h1 class="main-title">Портал культурного наследия России <span>Культура.рф</span></h1>
             <div class="header-top-right clearfix">
-                {% render url('armd_main_login_links') %}
-                {% if app.request.locale == 'ru' %}
-                    <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
-                {% else %}
-                    <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
-                {% endif %}
+                <div class="htr-top">
+                    {# {% render url('armd_main_login_links') %} #}
+                    {% if app.request.locale == 'ru' %}
+                        <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
+                    {% else %}
+                        <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
+                    {% endif %}
 
-                <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
+                    <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
 
-                
-                <div class="app_store-block">
-                    <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
+                    
+                    <div class="app_store-block">
+                        <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
 
-                    <ul style="display:none;">
-                        <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
-                        {% if app.request.locale == 'ru' %}
-                            <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
-                            <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
+                        <ul style="display:none;">
+                            <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
+                            {% if app.request.locale == 'ru' %}
+                                <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
+                                <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
+                            {% endif %}
+                        </ul>
+                    </div><!-- /app_store-block -->
+                </div><!-- /htr-top -->
+                <div class="htr-bottom">
+                    <span id="yandex-share-global-copy"></span>
+                </div><!-- /htr-bottom -->
+            </div><!-- /header-top-right -->
             <nav class="main-menu">
                 {{ knp_menu_render('main', {
                     'template':      ':Frontend:menu.html.twig',
