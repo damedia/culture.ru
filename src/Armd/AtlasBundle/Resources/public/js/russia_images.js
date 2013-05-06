@@ -9,7 +9,7 @@ var armdMkRussiaImages = {
 
     init: function () {
         armdMkRussiaImages.refreshVisibleCount();
-        armdMkRussiaImages.totalCount();
+        //armdMkRussiaImages.totalCount();
 
         // init "more" click
         $('#show-more').bind('click', function(event) {

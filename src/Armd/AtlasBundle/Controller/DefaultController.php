@@ -129,7 +129,12 @@ class DefaultController extends Controller
             'types' => $typesRoot->getChildren(),
             'regions' => $regions,
             'regionId' => $this->getRequest()->get('region_id'),
-            'searchQuery' => $this->getRequest()->get('search_query')
+            'searchQuery' => $this->getRequest()->get('search_query'),
+            'totalCount' => $this->getRussiaImagesCount(array(
+                'region_id' => $this->getRequest()->get('region_id'),
+                'category_ids' => $this->getRequest()->get('category_ids'),
+                'search_text' => $this->getRequest()->get('search_query')
+            ))
         );
     }
 
@@ -187,6 +192,39 @@ class DefaultController extends Controller
             )
         );
     }
+
+    /**
+     * Get russia images objects count.
+     *
+     * @param array $params
+     * @return integer
+     */
+    public function getRussiaImagesCount($params)
+    {
+        $criteria = array();
+
+        $categoryIds = $params['category_ids'];
+        if (!empty($categoryIds)) {
+            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
+        }
+
+        $regionId = $params['region_id'];
+        if (!empty($regionId)) {
+            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
+        }
+
+        $searchText = $params['search_text'];
+        if (!empty($searchText)) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        }
+
+        $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
+        $criteria[ObjectManager::CRITERIA_LIMIT] = 10000;
+        $criteria[ObjectManager::CRITERIA_OFFSET] = 0;
+
+        return count($this->getObjectManager()->findObjects($criteria));
+    }
+
 
     /**
      * @Route("/object/balloon", name="armd_atlas_default_objectballoon", options={"expose"=true})
