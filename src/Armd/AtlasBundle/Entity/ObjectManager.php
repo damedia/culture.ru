@@ -60,6 +60,22 @@ class ObjectManager extends ListManager
         }
     }
 
+    /**
+     * Get objects count.
+     *
+     * @param array $criteria
+     * @return integer
+     */
+    public function findObjectsCount(array $criteria)
+    {
+        if (!empty($criteria[self::CRITERIA_SEARCH_STRING])) {
+            return $this->findObjectsWithSphinxCount($criteria);
+
+        } else {
+            return parent::findObjectsCount($criteria);
+        }
+    }
+
     public function getQueryBuilder()
     {
         $qb = $this->em->getRepository('ArmdAtlasBundle:Object')->createQueryBuilder('o')
@@ -187,6 +203,38 @@ class ObjectManager extends ListManager
         }
 
         return $result;
+    }
+
+    /**
+     * Get objects count.
+     *
+     * @param array $criteria
+     * @retirn integer
+     */
+    public function findObjectsWithSphinxCount(array $criteria)
+    {
+        $searchParams = array('Atlas' => array('filters' => array()));
+
+        if (isset($criteria[self::CRITERIA_RUSSIA_IMAGES])) {
+            $searchParams['Atlas']['filters'][] = array(
+                'attribute' => 'show_at_russian_image',
+                'values' => array(1)
+            );
+        }
+
+        $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
+
+        if (!empty($searchResult['Atlas']['matches'])) {
+            $qb = $this->getQueryBuilder();
+            list($alias) = $qb->getRootAliases();
+            $qb->select('COUNT(' .$alias .'.id) as total');
+            $qb->andWhere($qb->expr()->in($alias. '.id', array_keys($searchResult['Atlas']['matches'])));
+            $total = $qb->getQuery()->getSingleResult();
+
+            return $total['total'];
+        }
+
+        return 0;
     }
 
     public function getRussiaImagesList($searchString)
