@@ -16,6 +16,10 @@ armd_main_services:
     requirements:
         id:  \d+
 
+armd_main_may9:
+    pattern:  /may9/
+    defaults: { _controller: ArmdMainBundle:Main:may9 }
+
 armd_main_library:
     pattern:  /library/
     defaults: { _controller: ArmdMainBundle:Main:library }

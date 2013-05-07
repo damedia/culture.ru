@@ -694,7 +694,25 @@ body {
 				width:308px;
 				margin-right:7px;
 			}
+
+            .right-column-media{}
+            .right-column-media .block-left-image{
+                float:left;
+                margin:0 10px 7px 0;
+                width:100px;
+            }
+            .right-column-media .text-overflow,
+            .right-column-media .text-overflow p{
+                font-size:11px;
+            }
+            .right-column-media .text-overflow p{
+                margin-bottom:7px;
+            }
 			
+            .may9 .content.collapsed {
+                height: 500px;
+                overflow: hidden;
+            }
 				.block {
 					margin-bottom:21px;
 				}

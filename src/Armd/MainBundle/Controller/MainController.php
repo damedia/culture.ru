@@ -141,6 +141,11 @@ class MainController extends Controller
         return $this->renderTemplate('about');
     }
 
+    public function may9Action()
+    {
+        return $this->renderTemplate('may9');
+    }
+
     public function servicesAction($id = null)
     {
       if (empty($id)) {
