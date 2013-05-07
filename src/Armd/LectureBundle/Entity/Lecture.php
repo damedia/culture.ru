@@ -75,11 +75,6 @@ class Lecture implements Taggable
      */
     private $mediaTrailerVideo;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
-     * @ORM\JoinColumn(name="lecture_file_id", referencedColumnName="id")
-     */
-    private $lectureFile;
 
     /**
      * @ORM\ManyToOne(targetEntity="LectureSuperType", fetch="EAGER")
@@ -87,17 +82,18 @@ class Lecture implements Taggable
      */
     private $lectureSuperType;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="LectureType", fetch="EAGER")
-     * @ORM\JoinColumn(name="lecture_type_id", referencedColumnName="id")
-     */
-    private $lectureType;
 
     /**
      * @ORM\ManyToMany(targetEntity="LectureCategory", inversedBy="lectures")
      * @ORM\JoinTable(name="lecture_category_lecture")
      */
     private $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="LectureGenre")
+     * @ORM\JoinTable(name="lecture_genre_lecture")
+     */
+    private $genres;
 
     /**
      * @ORM\Column(name="seo_title", type="string", nullable=true)
@@ -161,7 +157,6 @@ class Lecture implements Taggable
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
-    
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -174,6 +169,7 @@ class Lecture implements Taggable
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->genres = new ArrayCollection();
         $this->rolesPersons = new ArrayCollection();
         $this->stuff = new ArrayCollection();
     }
@@ -413,6 +409,30 @@ class Lecture implements Taggable
     public function removeCategory(\Armd\LectureBundle\Entity\LectureCategory $category)
     {
         $this->categories->removeCategory($category);
+    }
+
+    public function getGenres()
+    {
+        return $this->genres;
+    }
+
+    public function setGenres($genres)
+    {
+        $this->genres = $genres;
+
+        return $this;
+    }
+
+    public function addGenre(LectureGenre $genre)
+    {
+        if ($this->genres->indexOf($genre) === false) {
+            $this->genres[] = $genre;
+        }
+    }
+
+    public function removeGenre(LectureGenre $genre)
+    {
+        $this->genres->removeElement($genre);
     }
 
     /**

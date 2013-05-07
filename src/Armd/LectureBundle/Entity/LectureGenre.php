@@ -5,6 +5,7 @@ namespace Armd\LectureBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Entity()
  * @ORM\Table(name="lecture_genre")
  */
 class LectureGenre
@@ -23,7 +24,7 @@ class LectureGenre
     private $title;
 
     /**
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */
     private $slug;
 
