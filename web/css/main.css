@@ -266,7 +266,7 @@ body {
                 height:20px;
             }
             .header-top-right .htr-bottom{
-                padding-top:8px;
+                padding-top:15px;
                 text-align:right;
             }
 				.lk-top {
@@ -327,6 +327,7 @@ body {
                         position:relative;
                         float:left;
 						margin-right:8px;
+                        padding-bottom:10px;
 					}
                     .main-menu ul a {
 						text-decoration:none;
@@ -334,23 +335,35 @@ body {
 						color:#6a6a6a;
 					}
                     .main-menu ul li.active>a,
-                    .main-menu a:hover{
+                    .main-menu li:hover a{
                         color:#f79016;
 					}
 
                 .main-menu ul ul.main-menu-level1 {
                     position:absolute;
-                    left:0; top:25px;
+                    left:0; top:30px;
                     display: none;
+                    margin-top:0px;
+                    padding:0px 0 0 0;
                     width:215px;
-					list-style:none;
-					margin-top:0px;
-                    border-top:3px solid #f79016;
+                    list-style:none;
                     font: 14px Tahoma, Arial, sans-serif;
-                    background:#fff;
                     -webkit-box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, .4);
                     box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, .4);
 				}
+                .no-boxshadow .main-menu ul ul.main-menu-level1{
+                    border-left:1px solid #e5e5e5;
+                    border-right:1px solid #e5e5e5;
+                 }
+                .main-menu ul ul.main-menu-level1:before{
+                    position:absolute;
+                    left:22px; top:-5px;
+                    content:' ';
+                    display:block;
+                    width:11px;
+                    height:6px;
+                    background:transparent url(../img/main-menu-sub.png) no-repeat 0px 0;
+                }
                     .main-menu ul li:hover ul.main-menu-level1 {
                         display: block;
                     }
@@ -359,19 +372,21 @@ body {
                         float:none;
 						display:block;
 						margin-right:0px;
+                        padding:0;
                         border-bottom:1px solid #e5e5e5;
 					}
+                    .main-menu ul.main-menu-level1 li:first-child{border-top:3px solid #f79016;}
                     .main-menu ul.main-menu-level1 a {
                         display:block;
                         padding:12px 15px;
-						
+						background:#fff;
 						text-decoration:none;
 						text-transform:uppercase;
-						color:#3f3f3f;
+						color:#4e4e4e;
 					}
                     .main-menu ul.main-menu-level1 a:hover {
-						color:#7a8fa0;
-                        background:#edf1f4;
+						color:#7791a4;
+                        background:#eef3f6;
 					}
                     /*
                     .main-menu ul.main-menu-level1  li.active a {
@@ -433,6 +448,7 @@ body {
         .nav-header {
             background:#f79016;
             position:relative;
+            z-index:1;
             height:33px;
             margin:0 -20px;
             
@@ -712,6 +728,7 @@ body {
             /*height:356px;*/
             background-size:100%;
             position: relative;
+            z-index:1;
             overflow: hidden;
         }
   
@@ -6268,7 +6285,7 @@ body {
 	.main-footer {
 		border-top:1px solid #e7e7e7;
 		padding:15px 0;
-		margin-top:38px;
+		/* margin-top:38px; */
 		font-size:11px;
 		
 	}
@@ -6413,9 +6430,26 @@ body {
     }           
                 
 
-
-
-
+.bottom-menu{
+    border-top: 1px solid #e7e7e7;
+    padding: 10px 15px;
+    margin-top: 38px;
+    color:#818181;
+    text-transform:uppercase;
+    font-size:12px;
+}
+.bottom-menu li{
+    display:inline;
+    margin:0 20px 0 0;
+    list-style:none; 
+}
+.bottom-menu a{
+    color:#818181;
+    text-decoration:none;
+}
+.bottom-menu a:hover{
+    color:#000;
+}
 /*--- login form ---*/
 .lk.form {
     width: 320px;

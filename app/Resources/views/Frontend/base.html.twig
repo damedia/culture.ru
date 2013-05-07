@@ -121,7 +121,7 @@
     <div class="container">
         <header class="main-header clearfix">
             <a class="logo" title="{{ 'Portal title'|trans }}" href="{{ path('armd_main_homepage') }}"></a>
-            <h1 class="main-title">Портал культурного наследия России <span>Культура.рф</span></h1>
+            <h1 class="main-title">Портал <span>Культура.рф</span></h1>
             <div class="header-top-right clearfix">
                 <div class="htr-top">
                     {# {% render url('armd_main_login_links') %} #}
@@ -187,7 +187,13 @@
             {% block body %}{% endblock %}
         </div>
         <!-- /Main block -->
-
+        <div class="bottom-menu">
+            <ul>
+                <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
+                <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
+                <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
+            </ul>
+        </div><!-- /bottom-menu -->
         <!-- Footer block -->
 		{% block main_footer%}
         <footer class="main-footer clearfix">
