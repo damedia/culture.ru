@@ -353,7 +353,11 @@ var exhibit = {
             el.find('a img').height(h);
             el.find('.el-one-title').html('<a href="' + Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}) + '">' + objects[i]['title'] + '</a>');
             el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
-            el.find('.el-one-year').text(objects[i]['date']);
+            
+            if (objects[i]['date']) {
+                el.find('.el-one-year').text(objects[i]['date']);
+            }
+            
             el.find('.el-one-museum').attr('data-fid', 'museum');
             el.find('.el-one-museum').attr('data-fitemid', objects[i]['museum']['id']);
             el.find('.el-one-museum').text(objects[i]['museum']['title']);

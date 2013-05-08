@@ -142,6 +142,7 @@ class DefaultController extends Controller
                 'id' => $e->getId(),
                 'img' => $this->getImageSrc($e->getImage()),
                 'img_thumb' => $this->getImageSrc($e->getImage(), 'smallZoom'),
+                'img_small' => $this->getImageSrc($e->getImage(), 'small'),
                 'title' => $e->getTitle(),
                 'date' => $e->getTextDate(),
                 'description' => $e->getDescription(),
