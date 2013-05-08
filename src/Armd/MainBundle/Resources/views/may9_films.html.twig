@@ -13,8 +13,9 @@
 {% block page_header_title %}{{ 'menu.may9'|trans }}{% endblock %}
 
 {% block left_column %}
-<section class="lecture-homepage-section clearfix block">
-    <h2><span>Трансляции</span></h2>
+<div id="lecture-container" class="plitka">
+<div class="plitka perfomances-list video-plitka">
+    <h2><span>Фильмы о войне</span></h2>
     
     <div class="plitka-one-wrap">
     <div class="plitka-one">
@@ -540,8 +541,98 @@
     </div>
     </div>
     </div><!-- /plitka-one-wrap -->
-</section>
+</div>
+</div>
 {% endblock %}
 {% block right_column %}
+
+<div class="right-column">
+<section class="block">
+    <h2><span>Рекомендуем</span></h2>
+
+    <div class="recommend-block">
+    <a href="/atlas/object/798"><img width="308" src="http://culture.ru/ru/uploads/media/atlas/0001/13/thumb_12511_atlas_sideBanner.jpeg"></a>
+
+    <div class="recommend-over">
+    <div class="recommend_name">
+    <p><a href="/atlas/object/798">Общенациональный мемориал воинской славы</a></p>
+    </div>
+    <p class="recommend-type"><a href="/atlas/russia-images/">Образы России</a></p>
+    </div>
+    </div>
+</section>
+
+<div class="right-video-block">
+
+<div class="flexslider">
+
+<div class="flex-viewport" style="overflow: hidden; position: relative;">
+<ul class="slides" style="width: 1200%; -webkit-transition: 0s; transition: 0s; -webkit-transform: translate3d(-308px, 0, 0);">
+<li style="width: 308px; float: left; display: block;" class="flex-active-slide">
+<article class="period-block">
+<h2>Летят журавли</h2>
+<a href="/lecture/view/577" class="period-block_image">
+<div class="cinema-top100-icon"></div>
+
+
+<img width="335" height="auto" alt="Летят журавли" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12284_lecture_big.png">            
+
+
+<span class="play"></span>
+</a>
+<footer class="period-block_footer">
+<div class="tags">
+<a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+</div>
+</footer>
+
+</article>
+</li>
+<li style="width: 308px; float: left; display: block;">
+<article class="period-block">
+<h2>Друг мой, Колька!</h2>
+<a href="/lecture/view/566" class="period-block_image">
+<div class="cinema-top100-icon"></div>
+
+
+<img width="335" height="auto" alt="Друг мой, Колька!" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12258_lecture_big.png">            
+
+
+<span class="play"></span>
+</a>
+<footer class="period-block_footer">
+<div class="tags">
+<a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+</div>
+</footer>
+
+</article>
+</li>
+<li style="width: 308px; float: left; display: block;">
+<article class="period-block">
+<h2>Добровольцы Урала</h2>
+<a href="/lecture/view/625" class="period-block_image">
+
+
+<img width="335" height="auto" alt="Добровольцы Урала" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12860_lecture_big.jpeg">            
+
+
+<span class="play"></span>
+</a>
+<footer class="period-block_footer">
+<div class="tags">
+<a href="/lecture/index/LECTURE_SUPER_TYPE_CINEMA/">Кинозал</a>
+</div>
+</footer>
+
+</article>
+</li>
+</ul>
+</div>
+<ul class="flex-direction-nav"><li><a class="flex-prev" href="#">Previous</a></li><li><a class="flex-next" href="#">Next</a></li></ul>
+</div>
+
+</div>
+</div>
 
 {% endblock %}

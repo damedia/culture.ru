@@ -725,6 +725,17 @@ body {
                 -moz-column-gap: 20px;
                 -moz-column-width: 200px;
             }
+            .may9 .index-block .block-left-image-wrap {
+                float: left;
+                margin: 0px 10px 10px 0;
+                width: 31%;
+            }
+            .may9 .index-block .block-left-image-wrap img {
+                max-width: 100%;
+                width: 100%;
+                min-width: 90px;
+                height: auto;
+            }
 				.block {
 					margin-bottom:21px;
 				}
