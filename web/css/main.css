@@ -7493,6 +7493,7 @@ a.appstore-link {
 							.el-one-text  a {
 								color:#f17100;
 								text-decoration:none;
+                                                                white-space: pre-wrap;
 							}                                                      
                                                         .el-one-text  a.el-one-museum {
 								color:#000;
