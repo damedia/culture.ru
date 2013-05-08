@@ -73,35 +73,17 @@ class LectureAdmin extends Admin
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
-                ->add('categories', 'armd_lecture_categories',
+//                ->add('categories', 'armd_lecture_categories',
+//                    array(
+//                        'required' => false,
+//                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+//                        'super_type' => $superType
+//                    )
+//                )
+                ->add('genres', null,
                     array(
-                        'required' => false,
-                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                        'super_type' => $superType
-                    )
-                )
-                ->add('genres', 'entity',
-                    array(
-                        'class' => 'ArmdLectureBundle:LectureGenre',
                         'multiple' => 'true',
-                        'query_builder' => function (EntityRepository $er) use ($superType) {
-                            return $er->createQueryBuilder('g')
-                                ->where('g.level = 1')
-                                ->andWhere('g.lectureSuperType = :lecture_super_type')
-                                ->setParameter('lecture_super_type', $superType);
-                        }
-                    )
-                )
-                ->add('genres', 'entity',
-                    array(
-                        'class' => 'ArmdLectureBundle:LectureGenre',
-                        'multiple' => 'true',
-                        'query_builder' => function (EntityRepository $er) use ($superType) {
-                            return $er->createQueryBuilder('g')
-                                ->where('g.level = 2')
-                                ->andWhere('g.lectureSuperType = :lecture_super_type')
-                                ->setParameter('lecture_super_type', $superType);
-                        }
+                        'attr' => array('class' => 'chzn-select')
                     )
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))

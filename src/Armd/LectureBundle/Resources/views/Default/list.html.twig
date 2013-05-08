@@ -28,12 +28,10 @@
                 </div>
                 <div class="plitka-footer">
                     <div class="tags">
-                        {% for lectureCategory in lecture.categories %}
-                            <nobr><a href="#" class="cinema-category-link" data-category-id="{{ lectureCategory.id }}">{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}</nobr>
+                        {% for genre in lecture.filtrableGenres %}
+                            <nobr><a href="#" class="cinema-genre-link" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}</nobr>
                         {% endfor %}
-                        {#<a href="{{ path('armd_lecture_default_index', { 'lectureSuperTypeCode': lecture.lectureSuperType.code }) }}">
-                            {{ lecture.lectureSuperType.name }}
-                        </a>#}
+
                     </div>
                     <p class="views">Просмотров: {{ lecture.viewCount }}</p>
                 </div>

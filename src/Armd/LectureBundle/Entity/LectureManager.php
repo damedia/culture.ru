@@ -31,6 +31,8 @@ class LectureManager extends ListManager
     /** example: true */
     const CRITERIA_IS_TOP_100_FILM = 'CRITERIA_IS_TOP_100_FILM';
 
+    const CRITERIA_GENRE_IDS_AND = 'CRITERIA_GENRE_IDS_AND';
+
     /** example: 'A' */
     const CRITERIA_FIRST_LETTER = 'CRITERIA_FIRST_LETTER';
 
@@ -104,6 +106,17 @@ class LectureManager extends ListManager
             $qb->andWhere("SUBSTRING(TRIM(LEADING ' .\"«' FROM _lecture.title), 1, 1) = :first_letter")
                 ->setParameter('first_letter', $criteria[self::CRITERIA_FIRST_LETTER]);
         }
+
+        if (!empty($criteria[self::CRITERIA_GENRE_IDS_AND])) {
+            foreach ($criteria[self::CRITERIA_GENRE_IDS_AND] as $i => $genreId) {
+                $aliasName = '_lectureGenreIdsAnd' . $i;
+                $parameterName = 'lecture_genre_ids_and' . $i;
+                $qb->innerJoin('_lecture.genres', $aliasName)
+                    ->andWhere($aliasName . ' = :' . $parameterName)
+                    ->setParameter($parameterName, $genreId);
+
+            }
+        }
     }
 
     public function findObjectsWithSphinx($criteria) {
@@ -175,37 +188,37 @@ class LectureManager extends ListManager
         return $res;
     }
 
-    public function getCategoriesBySuperType(LectureSuperType $superType, LectureCategory $parentCategory = null)
-    {
-        $qb = $this->em->getRepository('ArmdLectureBundle:LectureCategory')->createQueryBuilder('t');
-
-        $qbRoot = clone($qb);
-        $rootCategory = $qbRoot
-            ->where('t.lectureSuperType = :superType')
-            ->andWhere('t.lvl = 0')
-            ->setParameter('superType', $superType)
-            ->getQuery()
-            ->getSingleResult();
-
-        $qb->where('t.root = :root')
-            ->setParameter('root', $rootCategory->getRoot())
-            ->orderBy('t.title', 'ASC')
-        ;
-
-        if ($parentCategory) {
-            $qb->andWhere('t.parent = :parent_category')
-                ->andWhere('t.lvl = :category_level')
-                ->setParameter('parent_category', $parentCategory)
-                ->setParameter('category_level', $parentCategory->getLvl() + 1);
-        } else {
-            $qb->andWhere('t.lvl = 1');
-        }
-
-        $categories = $qb->getQuery()->getResult();
-
-        return $categories;
-    }
-
+//    public function getCategoriesBySuperType(LectureSuperType $superType, LectureCategory $parentCategory = null)
+//    {
+//        $qb = $this->em->getRepository('ArmdLectureBundle:LectureCategory')->createQueryBuilder('t');
+//
+//        $qbRoot = clone($qb);
+//        $rootCategory = $qbRoot
+//            ->where('t.lectureSuperType = :superType')
+//            ->andWhere('t.lvl = 0')
+//            ->setParameter('superType', $superType)
+//            ->getQuery()
+//            ->getSingleResult();
+//
+//        $qb->where('t.root = :root')
+//            ->setParameter('root', $rootCategory->getRoot())
+//            ->orderBy('t.title', 'ASC')
+//        ;
+//
+//        if ($parentCategory) {
+//            $qb->andWhere('t.parent = :parent_category')
+//                ->andWhere('t.lvl = :category_level')
+//                ->setParameter('parent_category', $parentCategory)
+//                ->setParameter('category_level', $parentCategory->getLvl() + 1);
+//        } else {
+//            $qb->andWhere('t.lvl = 1');
+//        }
+//
+//        $categories = $qb->getQuery()->getResult();
+//
+//        return $categories;
+//    }
+//
 
     public function getClassName()
     {

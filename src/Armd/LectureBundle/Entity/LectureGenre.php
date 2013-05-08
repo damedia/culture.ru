@@ -29,6 +29,11 @@ class LectureGenre
     private $slug;
 
     /**
+     * @ORM\Column(name="sort_index", type="integer")
+     */
+    private $sortIndex = 500;
+
+    /**
      * @ORM\ManyToOne(targetEntity="LectureSuperType")
      * @ORM\JoinColumn(name="lecture_super_type_id", referencedColumnName="id")
      */
@@ -38,6 +43,10 @@ class LectureGenre
      * @ORM\Column(name="level", type="integer")
      */
     private $level = 1;
+
+    public function __toString() {
+        return $this->title;
+    }
 
     public function getId()
     {
@@ -68,6 +77,16 @@ class LectureGenre
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    public function getSortIndex()
+    {
+        return $this->sortIndex;
+    }
+
+    public function setSortIndex($sortIndex)
+    {
+        $this->sortIndex = $sortIndex;
     }
 
     public function getLectureSuperType()

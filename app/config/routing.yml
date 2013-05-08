@@ -143,7 +143,7 @@ armd_media_helper:
 armd_lecture:
     resource: "@ArmdLectureBundle/Controller/"
     type:     annotation
-    prefix:   /lecture
+    prefix:   /
     
 armd_perfomance:
     resource: "@ArmdPerfomanceBundle/Controller/"

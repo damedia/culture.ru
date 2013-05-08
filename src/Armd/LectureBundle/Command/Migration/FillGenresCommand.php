@@ -171,10 +171,10 @@ class FillGenresCommand  extends DoctrineCommand {
                 $qb->expr()->eq('cp.title', ':category_name'),
                 $qb->expr()->eq('c.title', ':category_name')
             ))
-            ->andWhere('c.title <> :category_mult')
+            ->andWhere('c.title NOT IN (:not_cinema_category_names)')
             ->andWhere("st.code = 'LECTURE_SUPER_TYPE_CINEMA'")
             ->setParameter('category_name', 'Кинофильмы')
-            ->setParameter('category_mult', 'Мультфильмы');
+            ->setParameter('not_cinema_category_names', array('Мультфильмы', 'Документальное', 'Сказка', 'Фильм-сказка'));
 
         $cinemas = $qb->getQuery()->getResult();
         echo 'cinema ' . count($cinemas);
@@ -212,6 +212,29 @@ class FillGenresCommand  extends DoctrineCommand {
             $em->persist($cinema);
         }
 
+        // set documentary 1 level genre
+        $qb = $em->getRepository('ArmdLectureBundle:Lecture')
+            ->createQueryBuilder('l');
+
+        $qb->innerJoin('l.categories', 'c')
+            ->innerJoin('l.lectureSuperType', 'st')
+            ->where($qb->expr()->orX(
+                $qb->expr()->eq('c.title', ':category_name')
+            ))
+            ->andWhere("st.code = 'LECTURE_SUPER_TYPE_CINEMA'")
+            ->setParameter('category_name', 'Документальное');
+
+        $cinemas = $qb->getQuery()->getResult();
+        echo 'cartoon ' . count($cinemas);
+
+        $genre = $em->getRepository('ArmdLectureBundle:LectureGenre')
+            ->findOneByTitle('Документальные фильмы');
+
+        foreach($cinemas as $cinema) {
+            $cinema->addGenre($genre);
+            $em->persist($cinema);
+        }
+
         // set top 100 1 level genre
         $qb = $em->getRepository('ArmdLectureBundle:Lecture')
             ->createQueryBuilder('l')
@@ -230,7 +253,7 @@ class FillGenresCommand  extends DoctrineCommand {
         echo 'school ' . count($cinemas);
 
         $genre = $em->getRepository('ArmdLectureBundle:LectureGenre')
-            ->findOneByTitle('Детские и мультфильмы');
+            ->findOneByTitle('100 фильмов для школьников');
 
         foreach($cinemas as $cinema) {
             $cinema->addGenre($genre);
@@ -261,6 +284,18 @@ class FillGenresCommand  extends DoctrineCommand {
                         $genre = $em->getRepository('ArmdLectureBundle:LectureGenre')
                             ->findOneByTitle('100 зарубежных фильмов');
                         $cinema->addGenre($genre);
+
+                    } elseif  ($genre->getTitle() === 'Документальное') {
+                        $genre = $em->getRepository('ArmdLectureBundle:LectureGenre')
+                            ->findOneByTitle('Документальные фильмы');
+                        $cinema->addGenre($genre);
+
+                    } elseif ($genre->getTitle() === 'Сказка' || $genre->getTitle() === 'Фильма-сказка') {
+                        $cinema->addGenre($genre);
+                        $genre = $em->getRepository('ArmdLectureBundle:LectureGenre')
+                            ->findOneByTitle('Детские и мультфильмы');
+                        $cinema->addGenre($genre);
+
                     } else {
                         $cinema->addGenre($genre);
                     }

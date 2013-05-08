@@ -7,13 +7,10 @@ var armdMkLectures = {
         armdMkLectures.lectureSuperTypeCode = lectureSuperTypeCode;
 
         // filter
-        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_category"] a, .ui-selectgroup-list[aria-labelledby="ui-lecture_sub_category"] a',
+        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_genre"] a',
             function (event) {
                 armdMkLectures.resetSearchForm();
                 armdMkLectures.isSearch = false;
-                if ($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-lecture_category') {
-                    armdMkLectures.loadSubCategories();
-                }
                 armdMkLectures.loadList(false, false);
 
             });
@@ -55,6 +52,7 @@ var armdMkLectures = {
         });
 
         // category filter when clicking on tile
+        // MYTODO: change category logic to genre logic
         $('#lecture-container').on('click', '.cinema-category-link', function(event) {
             event.preventDefault();
             var categoryId = $(this).data('category-id');
@@ -99,7 +97,7 @@ var armdMkLectures = {
     },
 
     resetFilterForm: function() {
-        $('#lecture_category, #lecture_sub_category').val('').selectgroup('refresh');
+        $('#lecture_genre').val('').selectgroup('refresh');
     },
 
     resetSearchForm: function() {
@@ -125,13 +123,18 @@ var armdMkLectures = {
         } else {
             armdMkLectures.showSortPanel();
             armdMkLectures.hideTagFilterPanel();
-            var categoryId = $('#lecture_category').val();
-            var subCategoryId = $('#lecture_sub_category').val();
-            data['category_id'] = parseInt(subCategoryId) > 0 ? subCategoryId : categoryId;
 
-            if ($('#lecture_category option:selected').data('system-slug') === 'CINEMA_TOP_100') {
-                data['cinema_top100'] = 1;
+            data['genre_ids'] = [];
+
+            if ($('#genre1_id').length) {
+                data['genre_ids'].push($('#genre1_id').val());
             }
+
+            var genreId = $('#lecture_genre').val();
+            if (genreId > 0) {
+                data['genre_ids'].push(genreId);
+            }
+
 
             var firstLetter = $('#alphabet-filter li.active a').data('letter');
             if (firstLetter) {
@@ -170,30 +173,4 @@ var armdMkLectures = {
         });
     },
 
-    loadSubCategories: function () {
-        var select = $('#lecture_sub_category');
-        if (select.length) {
-            var parentCategoryId = $('#lecture_category').val();
-            select.html('<option value="0">Все</option>');
-            if (parentCategoryId > 0) {
-                armdMk.startLoading();
-                $.ajax({
-                    url: Routing.generate(
-                        'armd_lecture_categories',
-                        {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode, 'parentId': parentCategoryId}
-                    ),
-                    dataType: 'json',
-                    success: function (data) {
-                        for (var i in data) {
-                            select.append($('<option>', {value: data[i].id}).text(data[i].title));
-                        }
-                        select.selectgroup('refresh');
-                    },
-                    complete: function () {
-                        armdMk.stopLoading();
-                    }
-                });
-            }
-        }
-    }
 };
