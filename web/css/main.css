@@ -714,6 +714,8 @@ body {
                 overflow: hidden;
             }
             .may9 .split-text {
+                margin-left:auto;
+                margin-right:auto;
                 width:480px;
                 column-count: 2;
                 column-gap: 20px;
