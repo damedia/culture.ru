@@ -6,6 +6,19 @@
 
 <script src="{{ asset('js/function.js') }}"></script>
 
+<script type="text/javascript">
+    $(function () {
+      initFancybox();
+  });
+
+    function initFancybox() {
+        $(".fancybox").fancybox({
+            openEffect	: 'none',
+            closeEffect	: 'none'
+        });
+    }
+</script>
+
 {% endblock %}
 
 {% block title %}{{ parent() }} — {{ 'menu.may9'|trans }}{% endblock %}
@@ -18,7 +31,7 @@
     <li><a href="{{ path('armd_main_may9') }}">{{ 'menu.may9'|trans }}</a></li>
     <li><span>{{ 'menu.may9_day'|trans }}</span></li>
 </ul>
-<div class="block">
+<div class="block" style="margin-bottom:35px;">
     <h1 style="margin-bottom:15px;"><span>{{ 'menu.may9_day'|trans }}</span></h1>
     <div class="video-one_container" style="margin-bottom:20px;">
     <object id="v2330332_1" name="vjs2330332_1" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="825" height="506" >
@@ -36,32 +49,154 @@
     </embed>
     </object>
     </div>
-
-    <div class="content">
-        <p>Игорь Гринякин: &laquo;День Победы&raquo;&nbsp;&mdash; фильм, который должен снять каждый </p>
-        <p> Я&nbsp;это сделал в&nbsp;компании своих друзей, за&nbsp;свой счет, полагаясь только на&nbsp;собственные силы. В&nbsp;<nobr>2010-м</nobr> году Россия отмечала 65&nbsp;лет Великой Победы. Очень хотелось поучаствовать, пережить и&nbsp;как-то запечатлеть великий праздник. По&nbsp;телевидению говорили о&nbsp;небывалом торжестве, о&nbsp;танках, самолетах&nbsp;и, конечно, о&nbsp;ветеранах. 1&nbsp;мая, валяясь на&nbsp;диване, решил написать сценарий. Придумал историю, персонажи, конфликты, но&nbsp;диалоги писать не&nbsp;получалось, не&nbsp;верил словам. Решил делать фильм по&nbsp;законам документального проживания. Берем камеру, артистов заводим в&nbsp;толпу, наделяем их&nbsp;полномочиями и&nbsp;задачами. Вешаем звук, выдаем реквизит. Камера, мотор, начали. </p>
-        <p> Съемочная группа&nbsp;&mdash; все мои друзья, 15&nbsp;человек. Маленькая группа позволяет быстро двигаться, умело справляясь с&nbsp;разными трудностями. Мы&nbsp;двигались от&nbsp;объекта к&nbsp;объекту, встречая на&nbsp;пути разных людей, пропускали их&nbsp;через себя и&nbsp;снимали. </p>
-        <p> День был жаркий. У&nbsp;любого дела, если оно настоящее, настоящие сложности. Сложно все&nbsp;&mdash; ходить, дышать, работать. Жара, милиция, проверки, жажда, перезарядки пленки, отправка материала, необходимый отдых артистов, на&nbsp;который нет времени, и&nbsp;все это пешком и&nbsp;на&nbsp;себе. Маленькая фронтовая операция. </p>
-        <p> Закончили снимать в&nbsp;полночь на&nbsp;Красной площади. Измотанные, голодные, обгоревшие на&nbsp;солнце, но&nbsp;счастливые. После съемок&nbsp;&mdash; новые трудности и&nbsp;новые решения. Спустя два года фильм на&nbsp;экране. Я&nbsp;очень рад, что он&nbsp;у&nbsp;меня есть, что мне удалось его снять. </p>
-        <p> &laquo;День Победы&raquo; побывал более, чем на&nbsp;тридцати кинофестивалях, получил более, чем десять призов, и&nbsp;надеюсь, что на&nbsp;этом его жизнь не&nbsp;заканчивается. Я&nbsp;верю в&nbsp;его потенциал. Настоящие победы&nbsp;&mdash; еще впереди.</p>
-        <p> В&nbsp;фильме снимались: <br>
-        Александра Ребенок, Владислав Ветров, Иван Добронравов.</p>
-        <p>Сценарист и&nbsp;режиссер&nbsp;&mdash; Игорь Гринякин</p>
-    </div><!-- /content -->
 </div><!-- /block -->
+<div class="content">
+    <h1 class="obraz-header" style="margin-bottom:20px;"><span>Игорь Гринякин: &laquo;День Победы&raquo;&nbsp;&mdash; фильм, который должен снять каждый</span></h1>
+    <figure class="event-one_image image-left">
+        <a class="fancybox" rel="may9-gallery" href="/img/may9/day/full/0.jpg"><img src="/img/may9/day/thumbs/0.jpg"></a>
+    </figure>
+    <p> Я&nbsp;это сделал в&nbsp;компании своих друзей, за&nbsp;свой счет, полагаясь только на&nbsp;собственные силы. В&nbsp;<nobr>2010-м</nobr> году Россия отмечала 65&nbsp;лет Великой Победы. Очень хотелось поучаствовать, пережить и&nbsp;как-то запечатлеть великий праздник. По&nbsp;телевидению говорили о&nbsp;небывалом торжестве, о&nbsp;танках, самолетах&nbsp;и, конечно, о&nbsp;ветеранах. 1&nbsp;мая, валяясь на&nbsp;диване, решил написать сценарий. Придумал историю, персонажи, конфликты, но&nbsp;диалоги писать не&nbsp;получалось, не&nbsp;верил словам. Решил делать фильм по&nbsp;законам документального проживания. Берем камеру, артистов заводим в&nbsp;толпу, наделяем их&nbsp;полномочиями и&nbsp;задачами. Вешаем звук, выдаем реквизит. Камера, мотор, начали. </p>
+    <p> Съемочная группа&nbsp;&mdash; все мои друзья, 15&nbsp;человек. Маленькая группа позволяет быстро двигаться, умело справляясь с&nbsp;разными трудностями. Мы&nbsp;двигались от&nbsp;объекта к&nbsp;объекту, встречая на&nbsp;пути разных людей, пропускали их&nbsp;через себя и&nbsp;снимали. </p>
+    <p> День был жаркий. У&nbsp;любого дела, если оно настоящее, настоящие сложности. Сложно все&nbsp;&mdash; ходить, дышать, работать. Жара, милиция, проверки, жажда, перезарядки пленки, отправка материала, необходимый отдых артистов, на&nbsp;который нет времени, и&nbsp;все это пешком и&nbsp;на&nbsp;себе. Маленькая фронтовая операция. </p>
+    <p> Закончили снимать в&nbsp;полночь на&nbsp;Красной площади. Измотанные, голодные, обгоревшие на&nbsp;солнце, но&nbsp;счастливые. После съемок&nbsp;&mdash; новые трудности и&nbsp;новые решения. Спустя два года фильм на&nbsp;экране. Я&nbsp;очень рад, что он&nbsp;у&nbsp;меня есть, что мне удалось его снять. </p>
+    <p> &laquo;День Победы&raquo; побывал более, чем на&nbsp;тридцати кинофестивалях, получил более, чем десять призов, и&nbsp;надеюсь, что на&nbsp;этом его жизнь не&nbsp;заканчивается. Я&nbsp;верю в&nbsp;его потенциал. Настоящие победы&nbsp;&mdash; еще впереди.</p>
+    <p> В&nbsp;фильме снимались: <br>
+    Александра Ребенок, Владислав Ветров, Иван Добронравов.</p>
+    <p>Сценарист и&nbsp;режиссер&nbsp;&mdash; Игорь Гринякин</p>
+</div><!-- /content -->
+
+<div id="lecture-container" class="plitka">
+    <div class="plitka perfomances-list video-plitka">
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/1.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/1.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/2.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/2.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/3.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/3.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/4.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/4.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/5.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/5.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/7.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/7.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/8.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/8.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/10.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/10.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/11.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/11.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/12.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/12.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/13.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/13.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/9.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/9.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+            <a class="plitka-one-image-wrapper fancybox" rel="may9-gallery" href="/img/may9/day/full/6.jpg">
+            <div class="plitka-one-image">
+            <img src="/img/may9/day/thumbs/6.jpg">           
+            </div>
+            </a>
+            </div>
+        </div><!-- /plitka-one-wrap -->
+    </div>
+</div>
 {% endblock %}
 {% block right_column %}
 
 <div class="right-column">
 <section class="block">
-    <h2><span>Рекомендуем</span></h2>
-
     <div class="recommend-block">
     <a href="/atlas/object/798"><img width="308" src="http://culture.ru/ru/uploads/media/atlas/0001/13/thumb_12511_atlas_sideBanner.jpeg"></a>
 
     <div class="recommend-over">
     <div class="recommend_name">
-    <p><a href="/atlas/object/798">Общенациональный мемориал воинской славы</a></p>
+    <p><a href="/atlas/object/798">Общенациональный мемориал воинской славы, Москва</a></p>
     </div>
     <p class="recommend-type"><a href="/atlas/russia-images/">Образы России</a></p>
     </div>

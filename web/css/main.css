@@ -759,7 +759,7 @@ body {
                 background: url(../img/b-dotted.png) repeat-x 0 100%;
             }
             .may9 .text-author{
-                text-align:right;
+                text-align:left;
                 font-style:italic;
                 color:#a6a6a6;
             }
