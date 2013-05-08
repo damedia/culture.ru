@@ -115,3 +115,8 @@
 }
 
 /*--- /icons ---*/
+
+.sonata-bc textarea.tinymce {
+    width: 700px;
+    height: 350px;
+}
