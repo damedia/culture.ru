@@ -710,8 +710,20 @@ body {
             }
 			
             .may9 .content.collapsed {
-                height: 500px;
+                height: 450px;
                 overflow: hidden;
+            }
+            .may9 .split-text {
+                width:480px;
+                column-count: 2;
+                column-gap: 20px;
+                column-width: 200px;
+                -webkit-column-count: 2;
+                -webkit-column-gap: 20px;
+                -webkit-column-width: 200px;
+                -moz-column-count: 2;
+                -moz-column-gap: 20px;
+                -moz-column-width: 200px;
             }
 				.block {
 					margin-bottom:21px;

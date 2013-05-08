@@ -146,6 +146,16 @@ class MainController extends Controller
         return $this->renderTemplate('may9');
     }
 
+    public function may9_filmsAction()
+    {
+        return $this->renderTemplate('may9_films');
+    }
+
+    public function may9_dayAction()
+    {
+        return $this->renderTemplate('may9_day');
+    }
+
     public function servicesAction($id = null)
     {
       if (empty($id)) {

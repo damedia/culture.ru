@@ -94,6 +94,20 @@ class Builder extends ContainerAware
             );
 
             $mainMenu->addChild(
+                'menu.may9_films',
+                array(
+                    'route' => 'armd_main_may9_films'
+                )
+            );
+
+            $mainMenu->addChild(
+                'menu.may9_day',
+                array(
+                    'route' => 'armd_main_may9_day'
+                )
+            );
+
+            $mainMenu->addChild(
                 'menu.spiritual_traditions',
                 array(
                     'route' => 'armd_main_project_traditions'
