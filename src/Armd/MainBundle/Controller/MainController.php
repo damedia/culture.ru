@@ -148,11 +148,19 @@ class MainController extends Controller
 
     public function may9_filmsAction()
     {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_may9')
+        );
         return $this->renderTemplate('may9_films');
     }
 
     public function may9_dayAction()
     {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_may9')
+        );
         return $this->renderTemplate('may9_day');
     }
 
