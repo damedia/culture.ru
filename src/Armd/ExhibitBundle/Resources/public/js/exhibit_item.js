@@ -13,8 +13,13 @@ var exhibitItem = {
     imgStartHeight: 0,
     dx: 0,
     dy: 0,
-    resizeStep: 40,
+    resizeStepPercent: 20,
     fullCount: 0,
+    touches: [],
+    dragX1: null,
+    dragY1: null,
+    dragX2: null,
+    dragY2: null,
     init: function(data) {
         $(function() {
             exhibitItem.currentId = data.id;
@@ -139,9 +144,14 @@ var exhibitItem = {
 
         exhibitItem.setObjectListeners();
     },
+    resetActiveExhibit: function() {
+        exhibitItem.dragX1 = exhibitItem.dragY1 = exhibitItem.dragX2 = exhibitItem.dragY2 = null;
+    },
     activeExhibit: function(img) {
         var imgBorder = $('<i style="width:' + 36 + 'px; height:' + 48 + 'px; "></i>'),
                 id = img.attr('data-id');
+        
+        exhibitItem.resetActiveExhibit();
         
         $('.exponats-top-line').css('visibility', 'hidden');
         exhibitItem.activeId = id;
@@ -153,21 +163,21 @@ var exhibitItem = {
         $('.exponats-top-line').css('visibility', 'visible');
     },
     setPrimaryImage: function(id) {
+        armdMk.startLoadingBlock($('#exponat-main-container'));
         exhibitItem.resizeExhibits();
         var img, nativeImg, imgRealWidth, imgRealHeight,
                 imgStartWidth, imgStartHeight,
-                src = exhibitItem.objects[id]['img'],
                 containerWidth = $('.main-zoomed-image').width(),
                 containerHeight = $('.main-zoomed-image').height();
 
         $('.zoom-thumb').hide();
         $('.main-zoomed-image').empty();
         nativeImg = new Image();
-        nativeImg.src = src;
+        nativeImg.src = exhibitItem.objects[id]['img'];
         img = $(nativeImg);
         img.hide();
         img.off();
-        $('.zoom-out, .zoom-in').off();
+        $('.main-zoomed-image, .main-zoomed-image img, .zoom-thumb, .zoom-out, .zoom-in').off();
         $('.main-zoomed-image').append(img);
         exhibitItem.primaryImg = img;
         img.load(function() {
@@ -187,7 +197,7 @@ var exhibitItem = {
                 img.css({cursor: 'move'});
 
                 $('.zoom-thumb img').width(200);
-                $('.zoom-thumb img').attr('src', src);
+                $('.zoom-thumb img').attr('src', exhibitItem.objects[id]['img_small']);
                 $('.zoom-thumb').show();
                 
                 $('.zoom-handle').offset({ left: $('.zoom-line').offset().left });
@@ -199,14 +209,14 @@ var exhibitItem = {
                 });
                 
                 $('.zoom-out').click(function() {
-                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.resizeStep * 2);
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());
                     exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                     
                     return false;
                 });
                 
                 $('.zoom-in').click(function() {
-                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.resizeStep * 2);
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());
                     exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                     
                     return false;
@@ -235,16 +245,101 @@ var exhibitItem = {
 
             $('.main-zoomed-image, .zoom-thumb').mousewheel(function(event, delta) {
                 if (delta < 0) {
-                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.resizeStep);                   
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());                   
                 } else if (delta > 0) {
-                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.resizeStep);                   
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());                   
                 } 
                 
                 exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
 
                 return false;
-            });            
+            });
+            
+            $('.main-zoomed-image img')
+                .on("touchmove", function (event) {
+                    event.preventDefault();
+                    event.originalEvent.preventDefault();
+                    
+                    var x0 = event.originalEvent.touches[0].pageX,
+                        y0 = event.originalEvent.touches[0].pageY,
+                        x0old = exhibitItem.touches[0].pageX,
+                        y0old = exhibitItem.touches[0].pageY;                       
+
+                    if (event.originalEvent.touches.length === 2) {
+                        // zoom
+                        var x1 = event.originalEvent.touches[1].pageX,
+                            y1 = event.originalEvent.touches[1].pageY,
+                            x1old = exhibitItem.touches[1].pageX,
+                            y1old = exhibitItem.touches[1].pageY,
+                            delta = Math.sqrt(Math.abs(x0 - x1) * Math.abs(x0 - x1) + Math.abs(y0 - y1) * Math.abs(y0 - y1)),
+                            deltaOld = Math.sqrt(Math.abs(x0old - x1old) * Math.abs(x0old - x1old) + Math.abs(y0old - y1old) * Math.abs(y0old - y1old));
+                        
+                        if (Math.abs(delta - deltaOld) > 10) {
+                            if (delta > deltaOld) {
+                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());
+                                exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+                            } else if (delta < deltaOld) {
+                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());
+                                exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+                            }
+                            
+                            exhibitItem.touches = event.originalEvent.touches;
+                        }                                             
+                    } else if (event.originalEvent.touches.length === 1) {
+                        // drag
+                        
+                        if (Math.abs(x0 - x0old) > 10 || Math.abs(y0 - y0old) > 10) {
+                            exhibitItem.touchDragPrimaryImage(x0, y0, x0old, y0old);
+                            exhibitItem.touches = event.originalEvent.touches;
+                        }
+                    }                                   
+                    
+                    return false;
+                })
+                .on("touchstart", function (event) {
+                    event.preventDefault();
+                    exhibitItem.touches = event.originalEvent.touches;
+                });
+                
+            armdMk.stopLoadingBlock($('#exponat-main-container'));
         });
+    },
+    getDeltaWidth: function() {
+        return Math.floor(exhibitItem.primaryImg.width() * exhibitItem.resizeStepPercent / 100);
+    },
+    touchDragPrimaryImage: function(x, y, xOld, yOld) {
+        var dx = x - xOld,
+            dy = y - yOld,
+            left = exhibitItem.primaryImg.offset().left,
+            top = exhibitItem.primaryImg.offset().top,
+            newLeft, newTop;
+    
+        if ((dx == 0 && dy == 0) || exhibitItem.dragX1 == null) {
+            return;
+        }
+        
+        if (left + dx > exhibitItem.dragX1) {
+            if (left + dx < exhibitItem.dragX2) {
+                newLeft = left + dx;
+            } else {
+                newLeft = exhibitItem.dragX2;
+            }
+        } else {
+            newLeft = exhibitItem.dragX1;
+        }
+        
+        if (top + dy > exhibitItem.dragY1) {
+            if (top + dy < exhibitItem.dragY2) {
+                newTop = top + dy;
+            } else {
+                newTop = exhibitItem.dragY2;
+            }
+        } else {
+            newTop = exhibitItem.dragY1;
+        }
+        
+        exhibitItem.primaryImg.offset({ left: newLeft, top: newTop });
+        exhibitItem.setZoomThumbBorder();
     },
     zoomHandleAction: function() {
         var zhContainer = $('.zoom-line'),
@@ -328,11 +423,11 @@ var exhibitItem = {
         }
 
         x1 = containerOffset.left + containerWidth - exhibitItem.primaryImg.width();
-        x1 = (x1 > containerOffset.left ? containerOffset.left : x1) + dx;
+        exhibitItem.dragX1 = x1 = (x1 > containerOffset.left ? containerOffset.left : x1) + dx;
         y1 = containerOffset.top + containerHeight - exhibitItem.primaryImg.height();
-        y1 = (y1 > containerOffset.top ? containerOffset.top : y1) + dy;
-        x2 = containerOffset.left + dx;
-        y2 = containerOffset.top + dy;
+        exhibitItem.dragY1 = y1 = (y1 > containerOffset.top ? containerOffset.top : y1) + dy;
+        exhibitItem.dragX2 = x2 = containerOffset.left + dx;
+        exhibitItem.dragY2 = y2 = containerOffset.top + dy;
         exhibitItem.primaryImg.draggable('destroy');
         exhibitItem.primaryImg.draggable({
             containment: [x1, y1, x2, y2],
@@ -398,10 +493,14 @@ var exhibitItem = {
             $('#exp-one-category').hide();
         }
         
-        $('#exp-one-name').text(exhibitItem.objects[id]['title']);
-        $('#exp-one-date').text(exhibitItem.objects[id]['date']);
+        $('#exp-one-name').text(exhibitItem.objects[id]['title']);        
         $('.exhibit-title').text(exhibitItem.objects[id]['title']);
-        $('.exhibit-date').text(exhibitItem.objects[id]['date']);
+        
+        if (exhibitItem.objects[id]['date']) {
+            $('#exp-one-date').text(exhibitItem.objects[id]['date']);
+            $('.exhibit-date').text(exhibitItem.objects[id]['date']);
+        }
+        
         $('.exhibit-authors').empty();
 
         for (var i in exhibitItem.objects[id]['authors']) {
