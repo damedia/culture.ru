@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MailingList
 {
+    const TYPE_NEW_NEWS = 'new_news';
+    const TYPE_NEW_CONTENT = 'new_content';
+    const TYPE_CUSTOM = 'custom';
+    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -27,18 +31,11 @@ class MailingList
      *
      * @todo Разбить на два флага...
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      *
      * @var bool
      */
     private $periodically;
-
-    /**
-     * Периодичность выхода выпусков в рассылке.
-     *
-     * @var \DateInterval
-     */
-    private $interval;
 
     /**
      * Название рассылки.
@@ -68,6 +65,20 @@ class MailingList
     private $issueSignature;
 
     /**
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    private $type;
+    
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * 
+     * @var boolean
+     */
+    private $enabled;
+    
+    /**
      * @ORM\ManyToMany(targetEntity="\Armd\UserBundle\Entity\User", mappedBy="subscriptions")
      *
      * @var \Doctrine\Common\Collections\Collection
@@ -80,31 +91,23 @@ class MailingList
      * @var \Doctrine\Common\Collections\Collection
      */
     private $issues;
-
+    
     /**
-     * @ORM\Column(type="string")
+     * Периодичность выхода выпусков в рассылке.
      *
-     * @var string
+     * @var \DateInterval
      */
-    private $type;
-
-    const TYPE_NEW_NEWS = 'new_news';
-
-    const TYPE_NEW_CONTENT = 'new_content';
-
-    const TYPE_CUSTOM = 'custom';
+    private $interval;
 
     public function __construct($title = '')
     {
-        $this->title = $title;
-
-        $this->type = self::TYPE_CUSTOM;
-
+        $this->title          = $title;
+        $this->type           = self::TYPE_CUSTOM;
         $this->description    = '';
         $this->issueSignature = '';
-
-        $this->periodically = false;
-        $this->interval     = new \DateInterval('P1D');
+        $this->periodically   = false;
+        $this->enabled        = false;
+        $this->interval       = new \DateInterval('P1D');
     }
 
     public function __toString()
@@ -142,6 +145,22 @@ class MailingList
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+    
+    /**
+     * @param boolean $periodically
+     */
+    public function setPeriodically($periodically)
+    {
+        $this->periodically = $periodically;
+    }
+    
+    /**
+     * @param boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
     /**
@@ -182,5 +201,21 @@ class MailingList
     public function getSubscribers()
     {
         return $this->subscribers;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function isPeriodically()
+    {
+        return $this->periodically;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
     }
 }

@@ -38,4 +38,4 @@ services:
         class: Armd\SubscriptionBundle\Admin\MailingListAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Subscriptions, label: Mailing Lists}
-        arguments: [null, Armd\SubscriptionBundle\Entity\MailingList, SonataAdminBundle:CRUD, @service_container]
+        arguments: [null, Armd\SubscriptionBundle\Entity\MailingList, ArmdSubscriptionBundle:MailingListAdmin, @service_container]

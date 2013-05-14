@@ -1,6 +1,4 @@
-Последние обновления на сайте culture.ru
-
-Новости культуры
+Новости культуры на сайте culture.ru
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 {% for news in latestNews %}
@@ -11,3 +9,6 @@
 
 {% endfor %}
 {{ mailingList.issueSignature }}
+
+
+{{ 'subscriptions.unsubscribe'|trans({'%path%' : url('sonata_user_profile_edit')}) }}

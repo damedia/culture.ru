@@ -56,6 +56,7 @@ class MailingListManager
         /* @var $mailingLists \Armd\SubscriptionBundle\Entity\MailingList[] */
         $mailingLists = $this->entityManager->getRepository('ArmdSubscriptionBundle:MailingList')->createQueryBuilder('ml')
             ->where('ml.periodically = true')
+            ->andWhere('ml.enabled = true')
             ->getQuery()
             ->getResult();
 
@@ -123,7 +124,9 @@ class MailingListManager
     public function findIssueForSending()
     {
         $issue = $this->entityManager->getRepository('ArmdSubscriptionBundle:Issue')->createQueryBuilder('i')
+            ->leftJoin('i.mailingList', 'ml', \Doctrine\ORM\Query\Expr\Join::ON)
             ->where('i.sendedAt IS NULL')
+            ->andWhere('ml.enabled = true')
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
@@ -151,7 +154,7 @@ class MailingListManager
 
         $mailTemplate->setSubject($issue->getMailingList()->getTitle());
 
-        $mailTemplate->setBody($issue->getContent());
+        $mailTemplate->setBody(nl2br(htmlspecialchars_decode($issue->getContent())), 'text/html');
 
         foreach ($subscribers as $subscriber) {
             $mail = clone $mailTemplate;

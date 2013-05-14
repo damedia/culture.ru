@@ -21,9 +21,9 @@ class MailingListAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
-            ->remove('create')
+            //->remove('create')
             ->remove('delete')
-        ;
+            ->add('toggleEnabled', $this->getRouterIdParameter().'/toggleEnabled');
     }
 
     public function __construct($code, $class, $baseControllerName, $container)
@@ -43,6 +43,8 @@ class MailingListAdmin extends Admin
             ->add('title')
             ->add('description')
             ->add('issueSignature')
+            ->add('periodically')
+            ->add('enabled', null, array('label' => $this->trans('subscriptions.enabled')))
         ;
 
         parent::configureShowField($showMapper);
@@ -60,6 +62,8 @@ class MailingListAdmin extends Admin
                 ->add('title')
                 ->add('description')
                 ->add('issueSignature')
+                ->add('periodically')
+                ->add('enabled', null, array('label' => $this->trans('subscriptions.enabled')))
             ->end()
         ;
 
@@ -77,6 +81,13 @@ class MailingListAdmin extends Admin
             ->addIdentifier('title')
             ->add('description')
             ->add('issueSignature')
+            ->add('periodically')
+            ->add('enabled', null, array('label' => $this->trans('subscriptions.enabled')))
+            ->add('_action', 'actions', array(
+                    'actions' => array( 
+                        'toggleEnabled' => array('template' => 'ArmdSubscriptionBundle:Admin:mailinglist_enable.html.twig'),
+                    )
+                ))
         ;
 
         parent::configureListFields($listMapper);

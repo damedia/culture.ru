@@ -9,3 +9,14 @@ Sended At: Отправлено
 Mailing List: Рассылка
 Id: ID
 Content: Содержимое
+Periodically: Периодическая
+subscriptions.enabled: Включена
+
+subscriptions.action.enable: Включить
+subscriptions.action.disable: Выключить
+subscriptions.unsubscribe: Отписаться от получения этой рассылки можно в личном <a href="%path%">кабинете</a>
+Mailing List was enabled: Рассылка была включена
+Mailing list was disabled: Рассылка была выключена
+
+Mailing List List: Список рассылок
+Issue List: Список выпусков

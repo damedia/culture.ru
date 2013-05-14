@@ -1,4 +1,5 @@
 Последние обновления на сайте culture.ru
+{% if latestNews|length > 0 %}
 
 Новости культуры
 
@@ -10,6 +11,8 @@
     {{ news.announce }}
 
 {% endfor %}
+{%endif %}
+{% if latestLectures|length > 0 %}
 
 Лекции
 
@@ -19,6 +22,8 @@
     {{ lecture.description }}
 
 {% endfor %}
+{%endif %}
+{% if latestObjects|length > 0 %}
 
 Атлас
 
@@ -28,4 +33,9 @@
     {{ object.announce }}
 
 {% endfor %}
+{%endif %}
+
 {{ mailingList.issueSignature }}
+
+
+{{ 'subscriptions.unsubscribe'|trans({'%path%' : url('sonata_user_profile_edit')}) }}
