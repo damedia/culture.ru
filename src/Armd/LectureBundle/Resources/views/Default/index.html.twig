@@ -30,7 +30,7 @@
                 <input type="hidden" id="genre1_id" name="genre1_id" value="{{ genre1.id }}" />
             {% endif %}
 
-            <button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>
+            {#<button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>#}
         </form>
 
     </div>
@@ -54,7 +54,6 @@
         {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
             <li><span>{{ 'menu.lectures'|trans }}</span></li>
         {% endif %}
-        </span></li>
     </ul>
 
     <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
@@ -88,7 +87,8 @@
                 'limit': 32,
                 'search_query': searchQuery,
                 'genre_ids': selectedGenreIds,
-                'tag_id': (tag is empty ? 0 : tag.id)
+                'tag_id': (tag is empty ? 0 : tag.id),
+                'genre1_id': (genre1 is empty ? 0 : genre1.id)
             })
         %}
     </div>

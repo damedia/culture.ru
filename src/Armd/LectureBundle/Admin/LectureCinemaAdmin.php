@@ -160,7 +160,7 @@ class LectureCinemaAdmin extends Admin
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('createdAt')
-            ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+            ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('isTop100Film')
         ;
     }

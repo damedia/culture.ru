@@ -7,32 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\LectureBundle\Entity\LectureManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
-
-//    /**
-//     * @Route(
-//     *  "/cinema/test/"
-//     * )
-//     */
-//    public function cinemaTestAction()
-//    {
-//        $lectures = $this->getLectureManager()->findObjects(
-//            array(
-//                LectureManager::CRITERIA_GENRE_IDS_AND => array(10, 3, 1)
-//            )
-//        );
-//
-//        foreach($lectures as $lecture) {
-//            echo $lecture->getId() . '<br>';
-//        }
-//
-//        return new Response('OK');
-//    }
 
     /**
      * @Route(
@@ -127,6 +108,11 @@ class DefaultController extends Controller
             $genre1 = false;
         }
 
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->getMenuUri($lectureSuperTypeCode, $request)
+        );
+
         return array(
             'lectureSuperType' => $lectureSuperType,
             'genres' => $this->getGenres($lectureSuperType),
@@ -191,8 +177,17 @@ class DefaultController extends Controller
 
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
+        // for breadcrumbs
+        if ($request->query->has('genre1_id')) {
+            $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
+                ->find($request->get('genre1_id'));
+        } else {
+            $genre1 = false;
+        }
+
         return array(
-            'lectures' => $lectures
+            'lectures' => $lectures,
+            'genre1' => $genre1
         );
     }
 
@@ -208,6 +203,7 @@ class DefaultController extends Controller
     public function lectureDetailsAction($id, $version)
     {
         $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
         $lecture = $em->getRepository('ArmdLectureBundle:Lecture')->find($id);
 
         if(!$lecture || !$lecture->getPublished()) {
@@ -227,9 +223,18 @@ class DefaultController extends Controller
         $rolesPersons = $manager->getStructuredRolesPersons($lecture);
         $lectureSuperType = $lecture->getLectureSuperType();
 
+        // for breadcrumbs
+        if ($request->query->has('genre1_id')) {
+            $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
+                ->find($request->get('genre1_id'));
+        } else {
+            $genre1 = false;
+        }
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
-            'referer' => $this->getRequest()->headers->get('referer'),
+            'referer' => $request->headers->get('referer'),
             'lecture' => $lecture,
+            'genres' => $this->getGenres($lectureSuperType),
+            'genre1' => $genre1,
             'lectureSuperType' => $lectureSuperType,
             'lectureVersion' => $version,
             'lectureRolesPersons' => $rolesPersons,
@@ -332,6 +337,39 @@ class DefaultController extends Controller
     public function getTagManager()
     {
         return $this->get('fpn_tag.tag_manager');
+    }
+
+    public function getMenuUri($superTypeCode, Request $request)
+    {
+        $router = $this->get('router');
+
+        if ($superTypeCode === 'LECTURE_SUPER_TYPE_CINEMA') {
+
+            if ($request->query->has('genre1_id')) {
+                $genre = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
+                    ->find($request->get('genre1_id'));
+
+            } else {
+                $lecture = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')
+                    ->find($request->get('id'));
+
+                foreach ($lecture->getGenres() as $genre) {
+                    if ($genre->getLevel() == 1) {
+                        break;
+                    }
+                }
+            }
+            if ($genre) {
+                $uri = $router->generate('armd_lecture_cinema_index', array('genreSlug' => $genre->getSlug()));
+            } else {
+                $uri = $router->generate('armd_lecture_cinema_index');
+            }
+
+        } elseif ($superTypeCode === 'LECTURE_SUPER_TYPE_LECTURE') {
+            $uri = $router->generate('armd_lecture_lecture_index');
+        }
+
+        return $uri;
     }
 
 

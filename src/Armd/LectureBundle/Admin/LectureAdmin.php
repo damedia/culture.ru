@@ -173,7 +173,7 @@ class LectureAdmin extends Admin
             ->add('published')
             ->add('createdAt')
             ->add('lectureType')
-            ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+            ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('lecturer');
     }
 

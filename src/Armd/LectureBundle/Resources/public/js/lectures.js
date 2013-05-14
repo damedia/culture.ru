@@ -52,22 +52,8 @@ var armdMkLectures = {
         });
 
         // category filter when clicking on tile
-        // MYTODO: change category logic to genre logic
-        $('#lecture-container').on('click', '.cinema-category-link', function(event) {
-            event.preventDefault();
-            var categoryId = $(this).data('category-id');
-
-            // get right sel ect
-            var select = $('#lecture_sub_category');
-            if (select.length === 0) {
-                select = $('#lecture_category');
-            }
-
-            // add value if not exists
-            if (select.find('option[value=' + categoryId + ']').length === 0) {
-                select.append('<option value="' + categoryId + '">' + $(this).text() + '</option>');
-            }
-            select.val(categoryId).selectgroup('refresh');
+        $('#lecture-container').on('click', '.cinema-genre-link', function(event) {
+            $('#lecture_genre').val($(this).data('genre-id')).selectgroup('refresh');
             armdMkLectures.loadList(false, false);
         });
     },
@@ -114,6 +100,11 @@ var armdMkLectures = {
             data['offset'] = $('#lecture-container .plitka-one-wrap').length;
         } else {
             data['offset'] = 0;
+        }
+
+        var genre1Id = $('#genre1_id').val();
+        if (genre1Id > 0) {
+            data['genre1_id'] = genre1Id;
         }
 
         if (isSearch) {
