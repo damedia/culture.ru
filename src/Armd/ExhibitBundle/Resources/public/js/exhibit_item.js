@@ -21,32 +21,34 @@ var exhibitItem = {
     dragX2: null,
     dragY2: null,
     init: function(data) {
-        $(function() {
-            exhibitItem.currentId = data.id;
-            exhibitItem.fullCount = data.count;
-            exhibitItem.setExhibits(data.objects, data.offset);            
-            $('#carousel li img:first').addClass('active');
+        exhibitItem.objects = {};
+        exhibitItem.offset = 0;
+        exhibitItem.stopLoad = false;
+        exhibitItem.loading = false;
+        exhibitItem.start = 1;
+        exhibitItem.activeId = 0;
+        exhibitItem.currentId = data.id;
+        exhibitItem.fullCount = data.count;
+        exhibitItem.setExhibits(data.objects, data.offset);            
+        $('#carousel li img:first').addClass('active');
 
-            $(window).load(function() {
-                exhibitItem.activeExhibit($('#carousel img.active'));
-            });
-            exhibitItem.resizeExhibits();
+        exhibitItem.activeExhibit($('#carousel img.active'));
+        exhibitItem.resizeExhibits();
 
 
-            $('#details-btn').on('click', function() {
-                if (!$(this).data('opened')) {
-                    $('#exponats-details').show();
-                    $('#exponat-main-container').hide();
-                    $(this).data('opened', true);
-                    $(this).text('Спрятать детали');
-                } else {
-                    $('#exponats-details').hide();
-                    $('#exponat-main-container').show();
-                    $(this).data('opened', false);
-                    $(this).text('Детали');
-                }
-                return false;
-            });
+        $('#details-btn').on('click', function() {
+            if (!$(this).data('opened')) {
+                $('#exponats-details').show();
+                $('#exponat-main-container').hide();
+                $(this).data('opened', true);
+                $(this).text('Спрятать детали');
+            } else {
+                $('#exponats-details').hide();
+                $('#exponat-main-container').show();
+                $(this).data('opened', false);
+                $(this).text('Детали');
+            }
+            return false;
         });
         $(window).bind('resize', function() {
           // exhibitItem.resizeExhibits();
