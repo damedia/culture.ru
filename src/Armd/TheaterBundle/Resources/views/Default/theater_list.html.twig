@@ -16,14 +16,14 @@
 {% endblock %}
 
 {% block page_header_search %}
-    <div class="search-category wide-search">
+    <div class="search-category">
         <span class="search-dates-label">Регион</span>
             <div class="search-category-selects">
                 <select id="filter-city" class="uni">
                     <option value="0">все</option>
                     
                     {% for value in cityList %}
-                        <option value="{{ value.id }}">{{ value.title }}</option>
+                        <option value="{{ value.id }}" {% if value.id == city %}selected="selected"{% endif %}>{{ value.title }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -38,7 +38,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <a href="#" id="search-russia-images-button" class="button search-dates-button">{{ "search_category.show"|trans }}</a>
+
     </div>
 {% endblock %}
 
@@ -69,7 +69,12 @@
 -->
     
 <ul class="plitka obrazy-plitka theatre-plitka">
-    {% render url('armd_theater_list_data', { 'category': category, 'limit': limit }) %}
+    {% render url('armd_theater_list_data', { 
+        'category': category, 
+        'city' : city, 
+        'limit': limit,
+        'search_text': searchQuery
+    }) %}
 </ul>
 
 <div  class="more more2" style="display: none;">
@@ -88,3 +93,5 @@
         });
     </script>
 {% endblock %}
+
+{% block search_query %}{{ searchQuery }}{% endblock %}

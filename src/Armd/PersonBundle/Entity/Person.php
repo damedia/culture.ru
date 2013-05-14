@@ -37,6 +37,18 @@ class Person implements Taggable
     private $description;
     
     /**
+     * @var string $lifeDates
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lifeDates;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     */
+    private $image;
+    
+    /**
      * @ORM\ManyToMany(targetEntity="PersonType")
      * @ORM\JoinTable(name="person_person_type")
      * @ORM\OrderBy({"title" = "ASC"})
@@ -178,5 +190,54 @@ class Person implements Taggable
     public function getPersonTypes()
     {
         return $this->personTypes;
+    }
+
+    /**
+     * Set lifeDates
+     *
+     * @param string $lifeDates
+     * @return Person
+     */
+    public function setLifeDates($lifeDates)
+    {
+        $this->lifeDates = $lifeDates;
+    
+        return $this;
+    }
+
+    /**
+     * Get lifeDates
+     *
+     * @return string 
+     */
+    public function getLifeDates()
+    {
+        return $this->lifeDates;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     * @return Person
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+
+        if (is_null($image) || $image->isUploaded()) {
+            $this->image = $image;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

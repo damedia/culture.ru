@@ -8,6 +8,16 @@
 {% endblock %}
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+
+        {% if category == 'archive' %}
+            <li><span>{{ 'menu.culture_magazine'|trans }}</span></li>
+        {% elseif category == 'litnews' %}
+            <li><span>{{ 'menu.literature_magazine'|trans }}</span></li>
+        {% endif %}
+    </ul>
+
     <div class="years-tabs-selector">
         <p class="years-tabs-selector_header">Выберите год</p>
         <ul>

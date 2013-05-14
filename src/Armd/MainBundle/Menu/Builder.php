@@ -93,6 +93,13 @@ class Builder extends ContainerAware
                 )
             );
 
+            $mainMenu->addChild(
+                'menu.tourist_routes',
+                array(
+                    'route' => 'armd_tourist_route_list'
+                )
+            );
+
 //            $mainMenu->addChild(
 //                'menu.theaters',
 //                array(
@@ -190,14 +197,27 @@ class Builder extends ContainerAware
                 )
             );  
 
+//            $museumMenu->addChild(
+//                'menu.museum_guide',
+//                array(
+//                    'route' => 'armd_museum_guide_index'
+//                )
+//            );
+
             $museumMenu->addChild(
-                'menu.museum_guide',
+                'menu.museum_lesson',
                 array(
-                    'route' => 'armd_museum_guide_index'
+                    'route' => 'armd_lesson_list'
+                )
+            );
+            
+            $museumMenu->addChild(
+                'menu.museum_reserve',
+                array(
+                    'route' => 'armd_main_museum_reserve'
                 )
             );
 
-            
             //--- /Museums
             
             //--- Video

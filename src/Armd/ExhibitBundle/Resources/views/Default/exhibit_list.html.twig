@@ -58,8 +58,8 @@
                         <table>
                             <td><a class="el-one-img-link" href="#"><img src=""></a></td>
                             <td class="el-one-text">
-                                <h4 class="el-one-title">Флора</h4>
-                                <i class="el-note el-one-year">1634</i>
+                                <h4 class="el-one-title"></h4>
+                                <i class="el-note el-one-year"></i>
                                 <div class="el-one-authors"></div>
                                 <div><a class="el-one-museum" href="#"></a></div>
                             </td>
@@ -103,6 +103,6 @@
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/mwheelIntent.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/exhibits.js') }}"></script>
 <script type="text/javascript">
-    exhibit.init({{ data|json_encode()|raw }}, {{ filters|json_encode()|raw }});
+    exhibit.init({{ data|json_encode()|raw }}, {{ filters|json_encode()|raw }}, {{ activeFilters|json_encode()|raw }});
 </script>
 {% endblock %}

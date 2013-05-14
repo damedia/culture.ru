@@ -13,7 +13,7 @@ class TagController extends Controller{
      */
     public function getTagsAction() {
 
-        $term = $this->getRequest()->get('term');
+        $term = mb_strtolower($this->getRequest()->get('term'), 'UTF-8');
 
         $qb = $this->getDoctrine()->getManager()
             ->getRepository('ArmdTagBundle:Tag')
@@ -22,7 +22,7 @@ class TagController extends Controller{
             ->setMaxResults(30);
 
         if (!empty($term)) {
-            $qb->where('t.name LIKE :term')->setParameter('term', "$term%");
+            $qb->where('LOWER(t.name) LIKE :term')->setParameter('term', "$term%");
         }
 
         $tags = $qb->getQuery()

@@ -16,7 +16,7 @@ var exhibit = {
     twoLineImgHeight: 318,
     threeLineImgHeight: 180,
     fullCount: 0,
-    init: function(data, filters) {
+    init: function(data, filters, activeFilters) {
         exhibit.objects = data.objects;
         exhibit.offset = data.offset;
         exhibit.filters = filters;
@@ -27,9 +27,9 @@ var exhibit = {
             //exhibit.scrollPane = $('.exponats-scroll-pane').jScrollPane({animateScroll: true});
             //exhibit.api = exhibit.scrollPane.data('jsp');
             //exhibit.apiReinitialise();
-            exhibit.resizeExhibits();
-            
-            exhibit.setFilters();         
+            exhibit.resizeExhibits();           
+            exhibit.setFilters();             
+            exhibit.setActiveFilters(activeFilters);
         });
 
         $(window).load(function() {           
@@ -157,8 +157,9 @@ var exhibit = {
             $(this).removeClass('el-one-hovered');
         });
         
-        $('.el-one-text a').click(function() {
+        $('.el-one-text a').click(function(event) {
             if ($(this).attr('href') == '#') {
+                event.preventDefault();
                 exhibit.clearFilters();
                 exhibit.setActiveFilterTag($(this));
                 exhibit.searchClear();
@@ -166,10 +167,15 @@ var exhibit = {
             }
         });
     },
-    setActiveFilterTag: function(tag) {
-        var newTag, cl = '',
-            fId = tag.attr('data-fid'),
-            fItemId = tag.attr('data-fitemid');
+    setActiveFilters: function(activeFilters) {
+        for (var id in activeFilters) {
+            for (var itemId in activeFilters[id]) {
+                exhibit.setActiveFilter(id, itemId, exhibit.filters[id]['data'][itemId]['title']);
+            }
+        }
+    },
+    setActiveFilter: function(fId, fItemId, text) {
+        var newTag, cl = '';
     
         exhibit.activeFilters['search'] = undefined;
         
@@ -183,7 +189,7 @@ var exhibit = {
             cl = 'big-tag';
         }
 
-        newTag = $('<li data-fid="' + fId + '" data-fitemid="' + fItemId + '" class="' + cl + '"><a href="#">' + tag.text() + '</a><span class="delete"></span></li>');
+        newTag = $('<li data-fid="' + fId + '" data-fitemid="' + fItemId + '" class="' + cl + '"><a href="#">' + text + '</a><span class="delete"></span></li>');
 
         if ($('#exponats-tags li[data-fid="' + fId + '"]').size()) {
             $('#exponats-tags li[data-fid="' + fId + '"]:last').after(newTag);
@@ -198,6 +204,9 @@ var exhibit = {
         $('.fiter-results a').filter(function(index) {
             return ($(this).attr('data-fid') == fId && $(this).attr('data-fitemid') == fItemId);
         }).addClass('active');
+    },
+    setActiveFilterTag: function(tag) {
+        exhibit.setActiveFilter(tag.attr('data-fid'), tag.attr('data-fitemid'), tag.text());
     },
     unsetActiveFilterTag: function(tag) {
         var fId = tag.attr('data-fid'),
@@ -344,7 +353,11 @@ var exhibit = {
             el.find('a img').height(h);
             el.find('.el-one-title').html('<a href="' + Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}) + '">' + objects[i]['title'] + '</a>');
             el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
-            el.find('.el-one-year').text(objects[i]['date']);
+            
+            if (objects[i]['date']) {
+                el.find('.el-one-year').text(objects[i]['date']);
+            }
+            
             el.find('.el-one-museum').attr('data-fid', 'museum');
             el.find('.el-one-museum').attr('data-fitemid', objects[i]['museum']['id']);
             el.find('.el-one-museum').text(objects[i]['museum']['title']);

@@ -460,4 +460,41 @@ class NewsController extends Controller
     {
         return 'ArmdNewsBundle:News';
     }
+
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'newsIndexAction': {
+                isset($params['category']) or $params['category'] = null;
+
+                $criteria = array(
+                    NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $params['category'],
+                    NewsManager::CRITERIA_NEWS_DATE_TILL => new \DateTime()
+                );
+
+                if ($news = $this->getNewsManager()->findObjects($criteria)) {
+                    foreach ($news as $n) {
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_news_item_by_category', array(
+                                'id' => $n->getId(),
+                                'category' => $n->getCategory()->getSlug()
+                            )),
+                            'lastmod' => $n->getPublishedAt()
+                        );
+                    }
+                }
+
+                break;
+            }
+        }
+
+        return $items;
+    }
 }

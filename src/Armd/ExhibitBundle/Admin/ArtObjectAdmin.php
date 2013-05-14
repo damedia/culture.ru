@@ -11,7 +11,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class ArtObjectAdmin extends Admin
 {    
-    protected $translationDomain = 'ArmdExhibitBundle';
     protected $container;
 
     public function __construct($code, $class, $baseControllerName, $container)
@@ -30,6 +29,7 @@ class ArtObjectAdmin extends Admin
         $showMapper
             ->add('published')
             ->add('title')
+            ->add('textDate')
             ->add('date')
             ->add('description')
             ->add('image')   
@@ -48,11 +48,13 @@ class ArtObjectAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $now = new \DateTime();
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
                 ->add('title')
-                ->add('date', null, array('widget' => 'single_text'))
+                ->add('textDate')
+                ->add('date', 'armd_simple_date', array('required' => false))
                 ->add('description')  
                 ->add('authors', null,
                     array(
@@ -71,15 +73,24 @@ class ArtObjectAdmin extends Admin
                         'required' => false,
                         'attr' => array('class' => 'chzn-select span5')
                     )
-                )
+                )               
                 ->add('categories', 'armd_art_object_categories', array(
-                    'required' => true,
+                    'required' => false,
                     'attr' => array('class' => 'chzn-select span5')
                 ))
                 ->add('tags', 'armd_tag', array(
                     'required' => false,
                     'attr' => array('class' => 'select2-tags'),
                 ))
+            ->end()
+            ->with('Virtual Tour')
+                ->add('virtualTour', null,
+                    array(
+                        'required' => false,
+                        'attr' => array('class' => 'chzn-select span5')
+                    )
+                )
+                ->add('virtualTourUrl')
             ->end()
             ->with('Media')
                 ->add('image', 'armd_media_file_type', array( 

@@ -8,10 +8,10 @@ var armdMkTheaterItem = {
         $(function() {      
             armdMkTheaterItem.refreshVisibleCount();
             armdMkTheaterItem.theaterId = theaterId;
-            $('.fancybox').fancybox({
+            $('.in-fancybox').fancybox({
                 autoResize: true,
-                prevEffect: 'none',
-                nextEffect: 'none'
+                prevEffect: 'fade',
+                nextEffect: 'fade'
             });
                        
             $('.content-tabs').on('click', 'a', function(){
@@ -34,6 +34,15 @@ var armdMkTheaterItem = {
                 event.preventDefault();
                 armdMkTheaterItem.loadList(true);
             });
+            
+		    $('#search-form').bind('submit', function(event) {
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+		            window.location = Routing.generate('armd_theater_list', {
+		                'search_query': $('#search-txt').val()
+		            })
+		        }
+		    });            
         });
         
         

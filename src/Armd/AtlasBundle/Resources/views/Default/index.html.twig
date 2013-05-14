@@ -19,6 +19,11 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block one_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><span>{{ 'menu.atlas'|trans }}</span></li>
+    </ul>
+
     <div class="blocksection w {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}logged-in{% endif %}" id="map-section">
         <div class="filter checks-filter sidebar">
 

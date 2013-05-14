@@ -22,7 +22,7 @@
                         <li class="event-tab-news-one first-news">
                             {% if n.image %}
                                 <a href="{{ articleHref }}">
-                                    {% thumbnail n.image, 'latest' with {'alt': n.image.description, 'height': 'auto' } %}
+                                    {% thumbnail n.image, 'latest' with {'alt': n.image.description } %}
                                 </a>
                             {% endif %}
                             <div class="event-tab-text">

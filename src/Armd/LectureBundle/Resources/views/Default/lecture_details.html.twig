@@ -102,6 +102,12 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_lecture_home') }}">{{ 'menu.video'|trans }}</a></li>
+        <li><span>{{ lecture.title }}</span></li>
+    </ul>
+
     <div class="left-column-content">
         <section class="video-one">
             <div class="video-one_container">

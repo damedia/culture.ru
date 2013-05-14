@@ -125,7 +125,7 @@ class MainController extends Controller
         }
 
         $banner = $this->getDoctrine()->getManager()
-            ->getRepository('ArmdBannerBundle:Banner')
+            ->getRepository('ArmdExtendedBannerBundle:BaseBanner')
             ->getBanner($bannerCode);
 
         return $this->render('ArmdMainBundle:Main:background_banner.html.twig', array('banner' => $banner));
@@ -139,6 +139,11 @@ class MainController extends Controller
     public function aboutAction()
     {
         return $this->renderTemplate('about');
+    }
+
+    public function museumReserveAction()
+    {
+        return $this->renderTemplate('museum_reserve');
     }
 
     public function servicesAction($id = null)

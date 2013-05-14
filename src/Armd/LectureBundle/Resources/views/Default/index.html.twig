@@ -68,6 +68,24 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_lecture_home') }}">{{ 'menu.video'|trans }}</a></li>
+        <li><span>
+            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+                {% if cinemaTop100 %}
+                    {{ 'menu.top100'|trans }}
+                {% else %}
+                    {{ 'menu.cinema'|trans }}
+                {% endif %}
+            {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+            {{ 'menu.lectures'|trans }}
+            {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
+            {{ 'menu.translations'|trans }}
+            {% endif %}
+        </span></li>
+    </ul>
+
     <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
         <div  class="sort-filter" id="sort-filter">
             <ul>

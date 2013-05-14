@@ -23,15 +23,17 @@ var armdMkTheaterList = {
             armdMkTheaterList.readFilter();
             armdMkTheaterList.loadList(true);
         });
+        
+        // filter
+        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-filter-city"] a, .ui-selectgroup-list[aria-labelledby="ui-filter-category"] a',
+            function (event) {
+                event.preventDefault();
+    
+                armdMkTheaterList.readFilter();
+                armdMkTheaterList.resetTextFilter();
+                armdMkTheaterList.loadList(false);
 
-        // search button
-        $('#search-russia-images-button').bind('click', function(event) {
-            event.preventDefault();
-
-            armdMkTheaterList.readFilter();
-            armdMkTheaterList.resetTextFilter();
-            armdMkTheaterList.loadList(false);
-        });
+        });        
 
         // object region click
         $('.main').on('click', '.object-region', function (event) {
@@ -120,7 +122,7 @@ var armdMkTheaterList = {
         var offset = append ? armdMkTheaterList.visibleCount : 0;
         
         armdMkTheaterList.startLoading();
-        console.log(armdMkTheaterList.searchText);
+
         var jqxhr = $.ajax({
             url: Routing.generate('armd_theater_list_data', {
                 'offset': offset,

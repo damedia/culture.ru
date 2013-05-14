@@ -12,7 +12,6 @@ class CategoryAdmin extends Admin
 {
     protected $maxPerPage = 2500;
     protected $maxPageLinks = 2500;
-    protected $translationDomain = 'ArmdExhibitBundle';
     protected $container;
 
     protected $datagridValues = array(

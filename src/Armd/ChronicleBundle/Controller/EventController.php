@@ -299,4 +299,33 @@ class EventController extends ListController
 
         return $provider->generatePublicUrl($media, $format);
     }
+
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'indexAction': {
+                $events = $this->getListRepository()->orderByDate('DESC')->getQuery()->getResult();
+                
+                if ($events) {
+                    foreach ($events as $e) {
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_chronicle_all') .'#event_' .$e->getId(),
+                            'lastmod' => null
+                        );
+                    }
+                }
+
+                break;
+            }
+        }
+
+        return $items;
+    }
 }

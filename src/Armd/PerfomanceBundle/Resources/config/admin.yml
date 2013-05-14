@@ -12,4 +12,10 @@ services:
         class: Armd\PerfomanceBundle\Admin\PerfomanceGanreAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Perfomance, label: Perfomance ganres, show_in_dashboard: true }
-        arguments: [null, Armd\PerfomanceBundle\Entity\PerfomanceGanre, SonataAdminBundle:CRUD]            
+        arguments: [null, Armd\PerfomanceBundle\Entity\PerfomanceGanre, SonataAdminBundle:CRUD]    
+
+    armd_perfomance.sonata_admin.perfomance_review:
+        class: Armd\PerfomanceBundle\Admin\PerfomanceReviewAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Perfomance, label: Perfomance reviews, show_in_dashboard: true }
+        arguments: [null, Armd\PerfomanceBundle\Entity\PerfomanceReview, ArmdPerfomanceBundle:CRUDPerfomanceReview]                   

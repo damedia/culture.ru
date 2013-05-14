@@ -39,6 +39,17 @@
 {% endblock %}
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_news_list_index') }}">{{ 'menu.news_index'|trans }}</a></li>
+
+        {% if entity.category %}
+            <li><a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}">{{ entity.category.title }}</a></li>
+        {% endif %}
+
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
+
 <article class="event-one clearfix">
     <div class="event-one_top">
         <span class="date">{{ armd_news.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }} </span>
@@ -80,6 +91,25 @@
         </p>
     </div>
     {{ entity.body|raw }}
+
+    {% if entity.video or entity.mediaVideo %}
+    <div class="block news-gallery-block">
+        <h2><span>Видео</span></h2>
+        {% if entity.video %}
+            <div class="news-one-image">
+                <h3>{{ entity.video.title }}</h3>
+                {{ armd_tvigle_video_player(entity.video, "100%", 506)|raw }}
+            </div>
+        {% endif %}
+
+        {% if entity.mediaVideo %}
+            <div class="news-one-image">
+                <h3>{{ emtity.mediaVideo.title }}</h3>
+                {% media entity.mediaVideo, 'noformat' with {'width': '100%', 'height': '506'} %}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
 </article>
 
 {% if entity.gallery is not empty and entity.gallery.galleryHasMedias|length > 0 %}
@@ -277,6 +307,7 @@
 
 		<div class="photo-gallery">
             <h3>{{entity.gallery.name}}</h3>
+            <div class="orange-slider-block">
             <div id="slider" class="flexslider">
 				<ul class="slides">
 					{% for gal_img in entity.gallery.galleryHasMedias %}
@@ -289,8 +320,10 @@
 					{% endfor %}
 				</ul>
 			</div>
+            </div>
 			<div class="nav-wrap">
 				<div class="nav">
+                    <div class="orange-slider-block">
 					<div id="carousel" class="flexslider ">
 					  <ul class="slides">
 						{% for gal_img in entity.gallery.galleryHasMedias %}
@@ -302,6 +335,7 @@
 					</div>
 				</div>
 			</div>
+        </div>
         </div>
 
 

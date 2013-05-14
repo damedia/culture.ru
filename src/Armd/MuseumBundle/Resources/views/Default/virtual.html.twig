@@ -60,5 +60,11 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><span>{{ 'menu.virtual_museum'|trans }}</span></li>
+    </ul>
+
     {% render url('armd_museum_list', { region:regionId }) %}
 {% endblock %}

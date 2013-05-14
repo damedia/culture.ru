@@ -29,7 +29,9 @@ twig:
         progorod_api_key: %progorod_api_key%
     form:
         resources:
-             - 'ArmdMediaHelperBundle:Form:fields.html.twig'
+            - 'ArmdMediaHelperBundle:Form:fields.html.twig'
+            - 'ArmdTouristRouteBundle:Form:fields.html.twig'
+            - 'ArmdUtilBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -315,6 +317,7 @@ sonata_media:
                 - sonata.media.provider.culturetv
                 - sonata.media.provider.youtube
             formats:
+                xxbig: { width: 1200, height: 900 }
                 xbig: { width: 670, height: 378 }
                 big: { width: 335, height: 189 }
                 tile: {width: 295, height: 228 }
@@ -323,6 +326,48 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 perfomanceW160H120: { width: 160, height: 120 }
                 perfomanceH228: { height: 228 }
+                
+        person:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                big: { width: 600 }
+                small: { width: 200 }
+
+        banner:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                item: { height: 120 }
+
+
+        route:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                big: { width: 920 }
+                thumbnail: { width: 85, height: 85 }
+                photo_thumb: { width: 254 }
+                banner: { width: 308 }
+                searchAllResult: { width: 160, height: 107 }
+
+        route_category:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: {width: 27, height: 45}
     cdn:
         server:
             path: %sonata_media_cdn%
@@ -507,3 +552,10 @@ fpn_tag:
 
 parameters:
     sonata.user.admin.user.class: Armd\UserBundle\Admin\Entity\UserAdmin
+
+armd_sitemap:
+    host: culture.ru
+    default_locale: ru
+    locales: [ru, en]
+    directory: sitemap # relative to server document_root (web)
+    urls_per_file: 10000

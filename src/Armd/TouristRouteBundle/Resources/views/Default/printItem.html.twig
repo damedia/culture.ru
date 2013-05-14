@@ -1,0 +1,317 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{# ------------------------------------------------------------------------ #}
+{% block title %}
+    {{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ entity.seoKeywords|default('') }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ entity.seoDescription|default('') }}
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.primaryImage %}
+    <meta property="og:image" content="{% path entity.primaryImage, 'reference' %}" />
+    {% elseif entity.images|length %}
+    <meta property="og:image" content="{% path entity.images[0], 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
+
+{# ------------------------------------------------------------------------ #}
+{% block stylesheets %}
+    <link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
+{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block javascripts %}
+    <script src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+    <script src="http://js.tmcrussia.com/map.js?e316fab34585f12b5506493c1c17d41c&amp;version=1.0.0"></script>
+    <script>
+        $(function() {
+            var map = new PGmap($("#map")[0], {
+                    noWheelZoom:  true,
+                    noSmoothZoom: true
+                }),
+                points = {
+                    {% for point in entity.points %}
+                    "{{ point.id }}": (function() {
+                        var point = new PGmap.Point({
+                                coord: new PGmap.Coord(
+                                    parseFloat("{{ point.lon }}"),
+                                    parseFloat("{{ point.lat }}"),
+                                    true
+                                ){% if point.show %},
+                                innerImage: {
+                                    src:    "{{ asset('bundles/armdtouristroute/img/route-marker.png') }}",
+                                    width:  60,
+                                    height: 70
+                                }
+                                {% endif %}
+                            });
+
+                        point.show  = {{ point.show ? 'true' : 'false' }};
+                        point.order = parseInt("{{ point.order }}", 10);
+
+                        {% if point.show %}
+                        $(point.container)
+                            .css("margin", "-28px 0 0 8px")
+                            .attr('title', "{{ point.title }}")
+                            .find("img")
+                                .css("border", "none");
+                        {% endif %}
+
+                        return point;
+                    })(){% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                },
+                objects = {
+                    {% for object in entity.objects %}
+                    "{{ object.id }}": (function() {
+                        var point = new PGmap.Point({
+                            coord: new PGmap.Coord(
+                                parseFloat("{{ object.lon }}"),
+                                parseFloat("{{ object.lat }}"),
+                                true
+                            ),
+                            innerImage: {
+                                src: "{% path object.primaryImage, 'atlasW63H56' %}",
+                                width: 50
+                            }
+                        });
+
+                        $(point.container)
+                            .css("margin", "-38px 0 0 -12px")
+                            .attr('title', "{{ object.title }}");
+
+                        return point;
+                    })(){% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                },
+                route  = null,
+                showRoute = function() {
+                    var routePoints = [];
+
+                    for (var x in points) {
+                        var point = points[x],
+                            coord = point.coord;
+
+                        coord.order = point.order;
+                        routePoints.push(coord);
+                    }
+
+                    routePoints.sort(function(a, b) {
+                        return a.order == b.order ? 0 : (a.order < b.order ? -1 : 1);
+                    });
+
+                    if (route !== null) {
+                        map.geometry.remove(route);
+                    }
+
+                    map.route.remove();
+
+                    switch ("{{ entity.type }}") {
+                        case "route": {
+                            map.route.get({
+                                points:   routePoints,
+                                editable: false
+                            });
+                            map.route.remove();
+                            
+                            break;
+                        }
+
+                        case "polyline": {
+                            route = new PGmap.Polyline({
+                                points: routePoints,
+                                style: {
+                                    color: "rgba(119,145,164,0.7)",
+                                    lineHeight: 4
+                                }
+                            });
+                            map.geometry.add(route);
+
+                            var routeDistance = 0,
+                                prevPoint = null;
+
+                            for (var x in routePoints) {
+                                var point = routePoints[x].getGeo();
+                                
+                                if (prevPoint !== null) {
+                                    routeDistance += parseFloat(PGmap.Utils.distVincenty(prevPoint.lon, prevPoint.lat, point.lon, point.lat));
+                                }
+
+                                prevPoint = point;
+                            }
+
+                            setRouteDistance(routeDistance);
+
+                            break;
+                        }
+                    }
+                },
+                fitMap = function() {
+                    var latArr = [],
+                        lonArr = [];
+
+                    for (var x in points) {
+                        var point = points[x];
+
+                        lonArr.push(point.coord.lon);
+                        latArr.push(point.coord.lat);
+                    }
+
+                    for (var x in objects) {
+                        var point = objects[x];
+
+                        lonArr.push(point.coord.lon);
+                        latArr.push(point.coord.lat);
+                    }
+
+                    map.setCenterByBbox({
+                        lon1: Math.min.apply(null, lonArr),
+                        lon2: Math.max.apply(null, lonArr),
+                        lat1: Math.min.apply(null, latArr),
+                        lat2: Math.max.apply(null, latArr)
+                    });
+                },
+                setRouteDistance = function(distance) {
+                    $("#route-distance").text(distance > 1000 ? (Math.round(distance / 1000) + " {{ 'km'|trans }}") : (Math.round(distance) + " {{ 'm'|trans }}"));
+                }
+
+            map.route.onRouteReceived = function(route) {
+                var routePoints   = [],
+                    routeDistance = route.distance;
+
+                for (var x in route.points) {
+                    var point = route.points[x];
+
+                    routePoints.push(new PGmap.Coord(point[0], point[1], true));
+                }
+
+                route = new PGmap.Polyline({
+                    points: routePoints,
+                    style: {
+                        color: "rgba(119,145,164,1)",
+                        lineHeight: 4
+                    }
+                });
+                map.geometry.add(route);
+                map.route.remove();
+
+                setRouteDistance(routeDistance);
+            };
+
+            for (var x in objects) {
+                map.geometry.add(objects[x]);
+            }
+
+            for (var x in points) {
+                if (points[x].show) {
+                    map.geometry.add(points[x]);
+                }
+            }
+
+            fitMap();
+            showRoute();
+        });
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+{% endblock %}
+
+
+{% block page_header %}
+    <div class="print-header">
+        <table>
+            <tr>
+                <td class="print-header-logo">
+                    <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
+                </td>
+                <td class="print-header-no-menu">
+                    <div class="print-header-title">
+                        <h2>{{ 'Tourist routes'|trans }}</h2>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block body%}
+    <div class="news-press clearfix">
+        <div class="news-press-center">
+            <div class="news-one text">
+                <h1 class="big-h1">{{ entity.title|raw }}</h1>
+
+                <div>
+                    <div style="float: left;">
+                        <div id="map" style="width: 400px; height: 400px;"></div>
+                    </div>
+
+                    <div style="float: left; margin-left: 30px;">
+                        <article class="static-block contacts-block">
+                            <h2>{{"Main route points"|trans}}</h2>
+
+                            <div class="block-text">
+                                <div class="tags">{{ 'Themes'|trans }}:
+                                    {% for category in entity.categories %}
+                                    <a href="{{ path('armd_tourist_route_list', {'route_category': category.id}) }}">{{ category.title }}</a>{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="route">
+                                    <p>{{ 'Main route points'|trans }}:</p>
+                                    <ul id="route-points">
+                                        {% for point in entity.points if point.show %}
+                                        <li>
+                                            <a href="#point-{{ point.id }}"><span>{{ point.title }}</span></a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <p>{{ 'Route distance'|trans }}: <span id="route-distance">---</span></p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="clear" style="margin-bottom: 30px;"></div>
+
+                {{ entity.content|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom_blocks%}
+    &nbsp;
+{% endblock %}
+
+{% block main_footer%}
+    <div class="w" id="footer">
+        <table class="print-footer-table">
+            <tr>
+                <td class="footer-logo">
+                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/print-footer-logo.png') }}" alt="logo" />
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+                </td>
+                <td class="footer-copy">
+                    <p>&copy; Портал культурного наследия России</p>
+                </td>
+            </tr>
+        </table>
+        <div></div>
+    </div>
+{% endblock %}
