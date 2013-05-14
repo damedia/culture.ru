@@ -1,0 +1,238 @@
+
+.kras .m-cloud-no {
+    width:147px; height:64px;
+    background: url(../img/cloud-blue-no.png);
+}
+
+
+.kras .riddle-cloud.riddle-cloud-right {
+    width:158px; height:74px;
+    left: 1160px; top:220px;
+    background: url(../img/cloud-blue-right.png);
+}
+
+.kras .riddle-cloud.riddle-cloud-right a { margin-top:26px; }
+
+.kras .main-image { position: relative; }
+
+.kras .main-image .birds {
+    position: absolute; left:300px; top:-90px;
+}
+
+.kras .puzzle-header {
+    margin-top: 24px;
+    margin-left: 9px; }
+
+.kras .puzzle-tip {
+    left: 27px;
+    top: 6px; }
+
+
+.kras .case-2 {
+        position: relative;
+        margin: 100px 0 0 335px;
+        height: 467px;
+    }
+
+         .choose-block-horizontal .cbv-choices {
+                position: relative;
+                border:0;
+                padding-bottom:0;
+            }
+           
+                .choose-block-horizontal .cbv-choices:after, .lt-ie9  .choose-block-horizontal .cbv-choices .ie-after {
+                    content:'';
+                    position: absolute;
+                    bottom:0;
+                    left:0;
+                    width:100%;
+                    height:15px;
+                    z-index:100;
+                    background:#6bab68;
+                    
+                }
+                
+                
+            .lt-ie9  .choose-block-horizontal .cbv-choices:after {
+                display:none;
+            }    
+               
+            
+            .choose-block-horizontal  .choice {
+                display: inline-block;
+                vertical-align: baseline;
+            }
+                .choose-block-horizontal .choice-2    {
+                    margin: 0 27px;
+                }
+            
+        .choose-block-horizontal-left {
+            
+        }
+            .choose-block-horizontal-left .cbv-choices {
+                margin-left:0;
+            }
+            .choose-block-horizontal-left .cbv-question-column {
+                float:right;
+            }
+            
+            
+        .choose-block-smart {
+            
+        } 
+            .choose-block-smart .choice {
+                position: relative;
+            } 
+                .choose-block-smart .choice p {
+                    position: absolute;
+                    bottom:-50px;
+                    width:100%;
+                    text-align: center;
+                    text-transform: uppercase;
+                    color:#546fb5;
+                    font-size: 14px;
+                    font-weight:bold;
+                }
+                    .choose-block-smart .selected p {
+                        color:#fff;
+                        text-shadow: -1px -1px 0 #edf38e,  
+                            1px -1px 0 #edf38e,
+                            -1px 1px 0 #edf38e,
+                             1px 1px 0 #edf38e;
+                    }
+
+        .kras  .case-2  .choice-result > div {
+            width: 800px;
+        }
+        .kras .case-2  .choice-result img {
+            float:left;
+            margin-left:-108px;
+        }
+        .kras .case-2  .choice-2-result img   {
+            margin-left:-82px;
+        }
+        
+        .kras .case-2 .choice-no-result img {
+            margin-left: -74px;
+        }    
+        
+        .kras .case-2  .choice-result p {
+            margin-left: 172px;
+            margin-right: 0;
+            margin-top: 55px;
+            color:#456333;
+            font-size: 15px;
+            line-height:18px;
+        }
+
+        
+        .kras .case-2  .choice-p {
+           position:absolute;
+           left:-120px; bottom:0;
+        }
+        
+        .kras .case-2  .choose-block-horizontal .cbv-choices {
+            margin-left: 31px;
+            width: 772px;
+            padding-top: 225px;
+            padding-left:185px;
+        }
+        
+        .kras .case-2  .choose-block-horizontal .cbv-choices:after,
+        .kras .case-2  .choose-block-horizontal .cbv-choices .ie-after {
+            bottom: -9px;
+        }
+        .kras .case-2 .choose-block-smart .choice p {
+            bottom:auto;
+            top:160px;
+            color:#ad361a;
+        }
+        .kras .case-2  .choose-block-smart .selected p {
+            text-shadow: none;
+        }
+        
+        .kras .case-2  .choose-block-horizontal .choice-2 {
+            margin: 0 43px;
+        }
+        .kras .case-2 .choose-block-horizontal .cbv-choices:after,
+        .lt-ie9  .kras .case-2 .choose-block-horizontal .cbv-choices .ie-after {
+                    background:#456333;
+                    left:-150px;
+                }
+
+
+
+.kras .case-3 {
+    width:auto;
+    margin:75px 0 0 695px;
+}
+
+.kras .test-yourself img {
+    margin-right:20px;
+    display:inline-block; vertical-align:top;
+}
+.kras .test-link {
+    width:200px;
+    padding-top:15px; padding-bottom:130px; padding-right:0;
+    display:inline-block; vertical-align:top;
+    background: url(../img/kras/arrow.png) 30px bottom no-repeat;
+    color:#456333; }
+
+
+.kras .case-4 {
+    margin: 0 0 0 210px;
+    padding-top:160px;
+    position: relative;
+    
+}
+
+.kras .case-4 .cbv-question-column {
+    position: absolute; left:0; top:-130px;
+    
+}
+
+
+.kras .case-4 .choice-result p {
+    margin-top: 20px;
+    color:#456333; }
+
+.kras .case-4 .cbv-choices {
+    width: auto;
+    margin-left: 0; margin-right: 100px;
+    padding-left: 40px;
+}
+
+.kras .case-4 .choice-result > div {
+    width: 400px;
+}
+
+.kras .case-4 .choose-block-horizontal .cbv-choices::after,
+.lt-ie9 .kras .case-4 .choose-block-horizontal .cbv-choices .ie-after {
+    background:#456333;
+    bottom:-35px;
+}
+
+.kras .case-4 .choose-block-horizontal .choice {
+    margin-top: 45px;
+}
+
+.kras .case-4 .choose-block-smart .choice p {
+    bottom: -90px;
+    color:#ad361a;
+}
+
+.kras .footer-menu { margin-top: 167px !important; }
+
+
+.quiz-krasnoyarsk .quiz-content .baloons {
+    background: url(../img/kras/quiz/baloons.png ) !important;
+}
+
+
+
+.lt-ie8 .kras .choose-block-horizontal  .choice,
+.lt-ie8 .kras .test-yourself img,
+.lt-ie8 .kras .test-link {
+  _overflow:hidden;
+  *zoom:1;
+  *display:inline; }
