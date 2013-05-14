@@ -8116,3 +8116,94 @@ a.appstore-link {
     content:'— ';
 }
 
+
+/* Ekaterina Moiseeva. Virtual Museums */
+.virt-museum-new-list {
+    margin-top:30px;
+}
+    .virt-museum-new-list-one {
+        height:340px;
+        overflow:hidden;
+        position:relative;
+        margin-bottom:10px;
+    }
+    .virt-museum-new-list-one:before {
+        content:'';
+        position:absolute;
+        z-index:2;
+        left:0;
+        top:0;
+        width:200px;
+        height:340px;
+        background: -moz-linear-gradient(left,  rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 100%);
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0.28)), color-stop(100%,rgba(0,0,0,0)));
+        background: -webkit-linear-gradient(left,  rgba(0,0,0,0.28) 0%,rgba(0,0,0,0) 100%);
+        background: -o-linear-gradient(left,  rgba(0,0,0,0.28) 0%,rgba(0,0,0,0) 100%);
+        background: -ms-linear-gradient(left,  rgba(0,0,0,0.28) 0%,rgba(0,0,0,0) 100%);
+        background: linear-gradient(to right,  rgba(0,0,0,0.28) 0%,rgba(0,0,0,0) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47000000', endColorstr='#00000000',GradientType=1 );
+
+
+    }
+        .virt-museum-new-list-one img {
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:auto;
+            z-index:1;
+        }
+    .virt-museum-circle {
+        width:289px;
+        height:289px;
+        background:url(../img/virtual-circle-visible.png) no-repeat 0 0;
+        position:absolute;
+        left:60px;
+        top:26px;
+        z-index:3;
+    }
+        .virt-museum-circle h2 {
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            width: 184px;
+            margin:29px 0 0 67px;
+            display:table;
+            height:85px;
+        }
+            .virt-museum-circle h2 span {
+                display:table-cell;
+                vertical-align:middle;
+            }
+            .virt-museum-list-one-descr {
+                width:107px;
+                text-align:right;
+                margin:10px 0 0 20px;
+            }
+                .virt-museum-city {
+                    color:#000;
+                    font-size:11px;
+                    display:block;
+                    line-height:12px;
+                }
+                .virt-museum-link {
+                    display: block;
+                    margin: 9px 0 5px;
+                    color: #000;
+                    text-transform: uppercase;
+                    font-size: 13px;
+                    text-decoration: none;
+                    line-height: 15px;
+                    font-weight: bold;
+                }
+                .virt-museum-instr {
+                    color: #000;
+                    text-transform: uppercase;
+                    font-size: 8px;
+                    line-height: 13px;
+                    display: block;
+                }
+    
+    
+
+/* /Ekaterina Moiseeva. Virtual Museums */
