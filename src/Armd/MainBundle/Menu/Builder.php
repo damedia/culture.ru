@@ -42,8 +42,9 @@ class Builder extends ContainerAware
             );
 
         } else {
-
+            /*
             //--- Main
+
             $mainMenu = $menu->addChild(
                 'menu.homepage',
                 array(
@@ -101,7 +102,6 @@ class Builder extends ContainerAware
 //            );
 
             //--- /Main
-
 
             //--- Events
             $eventsMenu = $menu->addChild(
@@ -174,6 +174,45 @@ class Builder extends ContainerAware
 //            );
 
             //--- /Events
+            */
+            
+            //--- News
+            $newsMenu = $menu->addChild(
+                'menu.news',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'news')
+                )
+            );
+            //--- /News
+
+            //--- Opinion
+
+            $opinionMenu = $menu->addChild(
+                'menu.opinion',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'reportages')
+                )
+            );
+
+            $opinionMenu->addChild(
+                'menu.reportage',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'reportages')
+                )
+            );
+
+            $opinionMenu->addChild(
+                'menu.interview',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'interviews')
+                )
+            );
+
+            //--- /Opinion
 
             //--- Museums
             $museumMenu = $menu->addChild(
@@ -205,6 +244,7 @@ class Builder extends ContainerAware
             );
             //--- /Museums
             
+            
             //--- Video
             $videoMenu = $menu->addChild(
                 'menu.video',
@@ -212,7 +252,7 @@ class Builder extends ContainerAware
                     'route' => 'armd_lecture_home',
                 )
             );
-
+            /*
             $videoMenu->addChild(
                 'menu.cinema',
                 array(
@@ -233,7 +273,7 @@ class Builder extends ContainerAware
                     'route' => 'armd_lecture_translation_index',
                 )
             );
-
+            */
             $videoMenu->addChild(
                 'menu.top100',
                 array(
@@ -252,16 +292,46 @@ class Builder extends ContainerAware
 
             //--- /Video
 
+            //--- Lecture
 
+            $lectureMenu = $menu->addChild(
+                'menu.lectures',
+                array(
+                    'route' => 'armd_lecture_lecture_index',
+                )
+            );
+            
+            //--- /Lecture
+
+            //--- russiaimages
+            $russiaimagesMenu = $menu->addChild(
+                'menu.russia_images',
+                array(
+                    'route' => 'armd_atlas_russia_images'
+                )
+            );
+            //--- /russiaimages
+
+            //--- atlas
+            $atlasMenu = $menu->addChild(
+                'menu.atlas',
+                array(
+                    'route' => 'armd_atlas_index'
+                )
+            );
+            
+            //--- /atlas
+
+            
             //--- Communication
 
             $communicationMenu = $menu->addChild(
                 'menu.communication',
                 array(
-                    'uri' => 'http://people.culture.ru/opengov/expert/'
+                    'uri' => 'http://people.culture.ru/forum/'
                 )
             );
-
+            
             $communicationMenu->addChild(
                 'menu.forum',
                 array(
@@ -270,16 +340,24 @@ class Builder extends ContainerAware
             );
 
             $communicationMenu->addChild(
-                'menu.government_services',
+                'menu.government_control',
                 array(
-                    'route' => 'armd_main_services'
+                    'uri' => 'http://people.culture.ru/forum_private/'
                 )
             );
-
+             
             $communicationMenu->addChild(
                 'menu.open_government',
                 array(
                     'uri' => 'http://people.culture.ru/opengov/expert/'
+                )
+            );
+            
+            /*
+            $communicationMenu->addChild(
+                'menu.government_services',
+                array(
+                    'route' => 'armd_main_services'
                 )
             );
 
@@ -291,22 +369,16 @@ class Builder extends ContainerAware
             );
 
             $communicationMenu->addChild(
-                'menu.government_control',
-                array(
-                    'uri' => 'http://people.culture.ru/forum_private/'
-                )
-            );
-
-            $communicationMenu->addChild(
                 'menu.culture_sites',
                 array(
                     'route' => 'armd_external_search_results'
                 )
             );
+            */
 
             //--- /Communication
 
-
+            /*
             //--- Kids
             $kidsMenu = $menu->addChild(
                 'menu.kids',
@@ -363,8 +435,12 @@ class Builder extends ContainerAware
                 )
             );
             //--- /Special
+            */
+
 
         }
+
+
 
         $menu->setCurrentUri($request->getRequestUri());
 

@@ -2,6 +2,10 @@ armd_main_homepage:
     pattern:  /
     defaults: { _controller: ArmdMainBundle:Main:homepage }
 
+armd_main_opinion:
+    pattern:  /opinion/
+    defaults: { _controller: ArmdMainBundle:Main:opinion }
+
 armd_main_banner:
     pattern:  /banner/
     defaults: { _controller: ArmdMainBundle:Main:banner }
@@ -47,7 +51,6 @@ armd_main_project_events:
 armd_main_project_news:
     pattern: /project-news/
     defaults: { _controller: ArmdMainBundle:Project:news }
-
 
 armd_main_online_translation:
     pattern:  /online-translation/
