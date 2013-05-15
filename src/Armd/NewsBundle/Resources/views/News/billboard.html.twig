@@ -1,12 +1,44 @@
 {% if entities %}
-
+    <div class="news-slider-body">
+        <div id="news-slider-wrapper" class="news-slider-wrapper">
+            {% set length = entities|length is even ? entities|length : entities|length - 1 %}
+            <div id="carousel" class="news-slider-carousel">
+                {% for n in entities|slice(0, length) %}
+                    {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
+                    <a href="{{ href }}">
+                        <img src="http://culture.ru/ru/{% path n.image, 'news_big' %}" border="0" />
+                        {#% thumbnail n.image, 'news_big' %#}
+                        <div class="info">
+                            <div class="info-text">
+                                <h2>{{ n.title|raw }}</h2>
+                                <p>{{ n.announce|raw }} </p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <div id="thumbs" class="news-slider-thumbs">
+                <div id="thumbscarousel" class="news-slider-thumbscarousel">
+                    {% for n in entities|slice(0, length) %}
+                        <i>
+                            <img src="http://culture.ru/ru/{% path n.image, 'news_list' %}"  border="0" />
+                            {#% thumbnail n.image, 'news_list' %#}
+                        </i>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="pager"></div>
+        </div>
+    </div>
+    
+    {#
     <div id="featured" class="featured">
         {% set length = entities|length is even ? entities|length : entities|length - 1 %}
         {% for n in entities|slice(0, length) %}
             {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
-            <div id="fragment-{{ loop.index }}" class="ui-tabs-panel" style="">
+            <div id="fragment-{{ loop.index }}" class="ui-tabs-panel" style="">#}
                 {#<img src="{% path n.image, 'eventsBillboard' %}">#}
-                <a href="{{ href }}">{% thumbnail n.image, 'billboard' %}</a>
+                {#<a href="{{ href }}">{% thumbnail n.image, 'billboard' %}</a>
                 <div class="info">
                     <div class="info-text">
                         <h2><a href="{{ href }}">{{ n.title|raw }}</a></h2>
@@ -28,7 +60,7 @@
                 </li>
             {% endfor %}
         </ul>
-    </div>
+    </div>#}
 {% endif %}
 
 

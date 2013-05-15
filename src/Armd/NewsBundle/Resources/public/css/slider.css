@@ -1,0 +1,87 @@
+.news-slider-body {
+    margin:30px 0 40px;
+}
+.news-slider-wrapper {
+    width: 100%;
+    position:relative;
+    box-shadow: 0 5px 15px #000;
+    
+}
+.news-slider-carousel {
+    overflow: hidden;
+}
+    .news-slider-carousel a {
+        float: left;
+        position:relative;
+    }
+    .news-slider-carousel .info {
+        position:absolute; 
+        bottom:0; 
+        left:0; 
+        background:url(/img/featured-over.png) repeat-x 0 0;
+        width:100%;
+        height:191px;
+        text-align: left;
+        color:#fff;
+    }
+         .news-slider-carousel .info-text {
+            margin:0 20px;
+            font-size:12px;
+            width:auto;
+        }
+            .news-slider-carousel .info-text h2 {
+                font-size:15px;
+                margin-bottom:5px;
+            }
+            .news-slider-carousel .info-text p {
+                max-height:4em;
+                overflow:hidden;
+            }
+        
+   
+
+#pager {
+    text-align: right;
+    padding: 20px 45px 0 0;
+}
+    #pager a {
+        background-color: #555;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin-right: 6px;
+        border-radius: 10px;
+    }
+    #pager a.selected {
+        background-color: #000;
+    }
+        #pager a span {
+            display: none;
+        }
+
+.news-slider-thumbs {
+    display: none;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+}
+    .news-slider-thumbs div {
+        display: block;
+        float: left;
+    }
+    .news-slider-thumbscarousel i {
+        width: 100px;
+        height: 50px;
+        display:inline-block;
+        vertical-align:top;
+    }   
+    .news-slider-thumbscarousel i img {
+        width:100px;
+        height:auto;
+    }
