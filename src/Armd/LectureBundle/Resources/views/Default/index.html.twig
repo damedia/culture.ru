@@ -50,7 +50,9 @@
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
             <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ 'menu.cinema'|trans }}</a></li>
-            <li><span>{{ genre1.title }}</span></li>
+            {% if genre1 is not empty %}
+                <li><span>{{ genre1.title }}</span></li>
+            {% endif %}
         {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
             <li><span>{{ 'menu.lectures'|trans }}</span></li>
         {% endif %}

@@ -153,13 +153,20 @@ class LectureManager extends ListManager
             }
         }
 
-        if (!empty($criteria[self::CRITERIA_CATEGORY_IDS_OR])) {
+        if (!empty($criteria[self::CRITERIA_GENRE_IDS_AND])) {
             $searchParams['Lectures']['filters'][] = array(
-                'attribute' => 'lecturecategory_id',
-                'values' => $criteria[self::CRITERIA_CATEGORY_IDS_OR]
+                'attribute' => 'lecturegenre_id',
+                'values' => $criteria[self::CRITERIA_GENRE_IDS_AND]
             );
+//            foreach ($criteria[self::CRITERIA_GENRE_IDS_AND] as $genreId) {
+//                $searchParams['Lectures']['filters'][] = array(
+//                    'attribute' => 'lecturegenre_id',
+//                    'values' => $genreId
+//                );
+//            }
         }
 
+        \gFuncs::dbgWriteLogVar($searchParams, false, 'searchParams'); // DBG:
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 
         $result = array();

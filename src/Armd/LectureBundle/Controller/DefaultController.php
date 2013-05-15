@@ -33,9 +33,14 @@ class DefaultController extends Controller
         if ($genreSlug) {
             $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')
                 ->findOneBySlug($genreSlug);
-            if ($genre1) {
-                $genreIds[] = $genre1->getId();
-            }
+        }
+        if (empty($genre1)) {
+            $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')
+                ->findOneBySlug('feature-film');
+        }
+
+        if ($genre1) {
+            $genreIds[] = $genre1->getId();
         }
 
         // second level slug
@@ -228,12 +233,7 @@ class DefaultController extends Controller
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
         } else {
-            $genre1Candidates = $lecture->getGenresByLevel(1);
-            if (!empty($genre1Candidates)) {
-                $genre1  = $genre1Candidates[0];
-            } else {
-                $genre1 = false;
-            }
+            $genre1 = $lecture->getGenreByLevel(1);
         }
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'referer' => $request->headers->get('referer'),
@@ -354,7 +354,7 @@ class DefaultController extends Controller
                 $genre = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                     ->find($request->get('genre1_id'));
 
-            } else {
+            } elseif ($request->query->has('id')) {
                 $lecture = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture')
                     ->find($request->get('id'));
 
@@ -364,10 +364,10 @@ class DefaultController extends Controller
                     }
                 }
             }
-            if ($genre) {
-                $uri = $router->generate('armd_lecture_cinema_index', array('genreSlug' => $genre->getSlug()));
-            } else {
+            if (empty($genre)) {
                 $uri = $router->generate('armd_lecture_cinema_index');
+            } else {
+                $uri = $router->generate('armd_lecture_cinema_index', array('genreSlug' => $genre->getSlug()));
             }
 
         } elseif ($superTypeCode === 'LECTURE_SUPER_TYPE_LECTURE') {
