@@ -8180,13 +8180,13 @@ a.appstore-link {
                 text-align:right;
                 margin:10px 0 0 20px;
             }
-                .virt-museum-city {
+                a.virt-museum-city {
                     color:#000;
                     font-size:11px;
                     display:block;
                     line-height:12px;
                 }
-                .virt-museum-link {
+                a.virt-museum-link {
                     display: block;
                     margin: 9px 0 5px;
                     color: #000;
@@ -8196,7 +8196,7 @@ a.appstore-link {
                     line-height: 15px;
                     font-weight: bold;
                 }
-                .virt-museum-instr {
+                a.virt-museum-instr {
                     color: #000;
                     text-transform: uppercase;
                     font-size: 8px;
@@ -8204,6 +8204,12 @@ a.appstore-link {
                     display: block;
                 }
     
-    
+    .museum-top-found {
+        font-size:12px;
+        margin-top:25px;
+    }
+    .virt-museum-new-list-text .museum-list-level2 li:before {
+        display:none;
+    }
 
 /* /Ekaterina Moiseeva. Virtual Museums */
