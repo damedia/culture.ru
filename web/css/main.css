@@ -267,8 +267,32 @@ body {
             }
             .header-top-right .htr-bottom{
                 padding-top:15px;
-                text-align:right;
+                text-align:left;
             }
+
+                .social-external-links{}
+                .social-external-links ul,
+                .social-external-links li{
+                    margin:0;
+                    padding:0;
+                    list-style:none;
+                    background:none;
+                }
+                .social-external-links li{
+                    float:left;
+                    margin-right:5px;
+                }
+                .social-external-links a{
+                    display:block;
+                    width:16px;
+                    height:16px;
+                    background:url(../img/b-share-icon.png) no-repeat 0 0;
+                }
+                .social-external-links .ex-fb a{background-position:0 -68px;}
+                .social-external-links .ex-vk a{background-position:0 0;}
+                .social-external-links .ex-twitter a{background-position:0 -51px;}
+                .social-external-links .ex-youtube a{background-position:0 -493px;}
+
 				.lk-top {
 					float:left;
 					font-size:11px;
@@ -4052,7 +4076,9 @@ body {
 
 
     .index-main {
-            
+        margin-bottom:30px;
+        padding-bottom:15px;
+        border-bottom:1px solid #d5d4d4;    
     }    
         .index-main .left-column {
             padding-right:363px;
@@ -4449,8 +4475,10 @@ body {
         }
 
         .index-video-block {
+        /*
             background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
             padding-bottom: 20px;
+        */
         }
 
             .index-video-block h2 {
@@ -4462,8 +4490,10 @@ body {
             }
 
         .index-news-block {
+        /*
             background: url("../img/more-dots.gif") repeat-x scroll 0 100% transparent;
             padding-bottom: 20px;
+        */
         }
 
         .index-block.index-museum-block {
@@ -6600,7 +6630,7 @@ body {
 }
 .bottom-menu li{
     display:inline;
-    margin:0 20px 0 0;
+    margin:0 12px 0 0;
     list-style:none; 
 }
 .bottom-menu a{

@@ -133,8 +133,11 @@
                     </div><!-- /app_store-block -->
                 </div><!-- /htr-top -->
                 <div class="htr-bottom">
-                    <ul>
-                        <li><a href="#"></a></li>
+                    <ul class="social-external-links clearfix">
+                        <li class="ex-fb"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>
+                        <li class="ex-vk"><a target="_blank" href="http://vk.com/kulturarf"></a></li>
+                        <li class="ex-twitter"><a target="_blank" href="https://twitter.com/cultureru"></a></li>
+                        <li class="ex-youtube"><a target="_blank" href="http://www.youtube.com/results?search_query=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&oq=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&gs_l=youtube.3..0l8j0i5l2.1530.3406.0.4081.8.8.0.0.0.0.129.626.4j3.7.0...0.0...1ac.1.11.youtube.AtdpPkVFP3A"></a></li> 
                     </ul>
                 </div><!-- /htr-bottom -->
             </div><!-- /header-top-right -->
@@ -193,17 +196,12 @@
                 <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
                 <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
                 <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
-
                 <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li>
-                <li><a href="{{ path('armd_news_item_by_category') }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
+                <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 955} ) }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
                 <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
-                {# <li><a href="{{ path('armd_news_item_by_category') }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li> #}
+                <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 3724}) }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li> 
                 <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
-                <!--
-                <li><a href="#">ДОМ РОМАНОВЫХ</a></li>
-                <li><a href="#">К. СТАНИСЛАВСКИЙ</a></li>
-                <li><a href="#">День победы</a></li>
-                -->
+                {# <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li> #}
             </ul>
         </div><!-- /bottom-menu -->
         <!-- Footer block -->
