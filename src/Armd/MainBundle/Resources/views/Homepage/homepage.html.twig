@@ -152,12 +152,15 @@
 {% endblock %}
 
 {% block after_body %}
-<div class="right-column">
+<div class="right-column" style="padding-top:38px;">
+
+    <section class="newspaper newspaper-culture"><a href="{{ path('armd_paper_edition', {'slug': 'archive'}) }}" title='{{ "menu.culture_magazine"|trans }}'></section>
+    <section class="newspaper newspaper-literature"><a href="{{ path('armd_paper_edition', {'slug': 'litnews'}) }}" title='{{ "menu.literature_magazine"|trans }}'></a></section>
+{#
 {% if app.request.locale == 'ru' %}
     <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
         <img src="{{ asset('img/read_yandex.jpg') }}">
     </a>
-    {#
     <section id="homepage-social-widgets">
         {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
         {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
@@ -167,8 +170,9 @@
         <h3><span>Опрос</span></h3>
         {% render url('armd_poll_poll') %}
     </section>
-    #}
+
 {% endif %}
+#}
 </div><!-- /right-column -->
 <div class="left-column">
     <div class="left-column-content">

@@ -239,7 +239,7 @@ body {
 				float:left;
 				width:99px;
 				height:101px;
-				background:url(../img/logo.jpg) no-repeat 0 0;
+				background:url(../img/logo_anim.gif) no-repeat 0 0;
 				margin:25px 0 0 14px;
 			}
 			
@@ -267,7 +267,7 @@ body {
             }
             .header-top-right .htr-bottom{
                 padding-top:15px;
-                text-align:left;
+                text-align:right;
             }
 
                 .social-external-links{}
@@ -279,8 +279,8 @@ body {
                     background:none;
                 }
                 .social-external-links li{
-                    float:left;
-                    margin-right:5px;
+                    display:inline-block;
+                    margin-left:5px;
                 }
                 .social-external-links a{
                     display:block;
@@ -842,6 +842,27 @@ body {
         }
         .scrollblock-right:hover{
             background-image:url(../img/scrollblock-right-a.png);
+        }
+
+        .newspaper{
+            margin-bottom:25px;
+        }
+        .newspaper a{
+            display:block;
+            text-decoration:none;
+            outline:0;
+            background-position:0 0;
+            background-repeat:no-repeat;
+        }
+        .newspaper-literature a{
+            width:270px;
+            height:79px;
+            background-image:url(../img/newspaper-literature.jpg);
+        }
+        .newspaper-culture a{
+            width:267px;
+            height:74px;
+            background-image:url(../img/newspaper-culture.jpg);
         }
 
 		.main {
