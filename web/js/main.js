@@ -305,14 +305,14 @@ $(function () {
 		
 	});
 	
-	
+/*	
 		$('#video-list').flexslider({
 			animation: "slide",
 			slideshow: false,
 			itemWidth: 281,
 			itemMargin: 37
 		  });
-
+*/
 
 		  
 	$('.tabs-headers').on('click', 'a', function(){

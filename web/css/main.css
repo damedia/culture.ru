@@ -326,7 +326,7 @@ body {
                     .main-menu ul li {
                         position:relative;
                         float:left;
-						margin-right:8px;
+						margin-right:14px;
                         padding-bottom:10px;
                         zoom:1;
 					}
@@ -727,14 +727,99 @@ body {
   
   
         .index-map {
-            margin:0 -20px;
+            margin:0 -20px 20px;
             /*height:356px;*/
             background-size:100%;
             position: relative;
             z-index:1;
             overflow: hidden;
         }
-  
+
+        .map-lister{
+            position:absolute;
+            left:50px;
+            top:30px;
+            z-index:100;
+            width:310px;
+        }
+        .map-lister .scrollblock-content{
+            padding-bottom:10px;
+        }
+        .map-lister-image{
+            margin-bottom:10px;
+            text-align:center;
+            overflow:hidden;
+            background:#f3f3f3;
+        }
+        .map-lister-image img{
+            height:207px;
+            border:0;
+            outline:0;
+        }
+        .map-lister-overflow{
+            height:115px;
+            overflow:hidden;
+        }
+        .map-lister-title,
+        .map-lister-text{
+            padding-left:10px;
+            padding-right:10px;
+        }
+        .map-lister-title{
+            margin-bottom:10px;
+            text-transform:uppercase;
+        }
+        .map-lister-title h3{
+            margin:0;
+            font-size:14px;
+        }
+        .map-lister-title a{
+            text-decoration:none;
+            color:#030303;
+        }
+        .map-lister-text{
+            font-size:11px;
+            color:#4f5050;
+        }
+        .map-lister .all{
+            margin-top:10px;
+            padding:0 10px;
+        }
+
+        .scrollblock{}
+        .scrollblock-content{
+            padding:0 0 1px 0;
+            background-color:rgba(255,255,255,0.95);
+        }
+        .scrollblock-a{
+            width:50%;
+            height:35px;
+            background-color:rgba(255,255,255,0.75);
+            background-repeat:no-repeat;
+            text-decoration:none;
+            outline:0;
+            cursor:pointer;
+        }
+        .scrollblock-a:hover{
+            background-color:#f88d15;
+        }
+        .scrollblock-left{
+            float:left;
+            background-image:url(../img/scrollblock-left.png);
+            background-position:50% 50%;
+        }
+        .scrollblock-right{
+            float:right;
+            background-image:url(../img/scrollblock-right.png);
+            background-position:50% 50%;
+        }
+        .scrollblock-left:hover{
+            background-image:url(../img/scrollblock-left-a.png);
+        }
+        .scrollblock-right:hover{
+            background-image:url(../img/scrollblock-right-a.png);
+        }
+
 		.main {
 			margin-top:0;
 			margin:24px 0 0 15px;
@@ -2701,34 +2786,66 @@ body {
             }
             
 				.plitka-one-wrap-opened  .museum-image {
-					height:273px;
+					height:340px;
 				}
 				.plitka-one-wrap-opened  .museum-image-over {
 					display:block;
 					position:absolute;
-					left:0;
-					bottom:0;
-					width:100%;
-					height:112px;
+					left:55px;
+					top:25px;
+					width:290px;
+					height:290px;
 					background:rgba(255,255,255,0.6);
+                    -webkit-border-radius: 145px;
+                    -moz-border-radius: 145px;
+                    border-radius: 145px;
 				}
+                    .museum-image-title{
+                        position:absolute;
+                        right:25px;
+                        bottom:185px;
+                        width:220px;
+                        height:50px;
+                        overflow:hidden;
+                        font-size:18px;
+                        color:#323232;
+                    }
+                    .museum-image-title span{
+                        float:right;
+                    }
+                    .museum-image-image{
+                        position:absolute;
+                        top:120px;
+                        right:38px;
+                        width:104px;
+                        height:133px;
+                        background:url(../img/360-black-big.png) no-repeat 0 0;
+                    }
+                    .museum-image-text-wrap{
+                        position:absolute;
+                        top:115px;
+                        right:155px;
+                        width:90px;
+                        text-align:right;
+                    }
+                    .museum-image-over .museum-town{
+                        display:block;
+                        margin-bottom:5px;
+                        font-size:12px;
+                        color:#fff;
+                        text-decoration:underline;
+                    }
+                    .museum-town:hover{
+                        text-decoration:none;
+                    }
 					.museum-image-link {
 						display:block;
-						position:absolute;
-						left:0;
-						bottom:0;
-						width:100%;
-						height:112px;
-						background:url(../img/360-black.png) no-repeat 50% 50%;
+                        text-transform: uppercase;
 					}
 						.museum-image-text {
 							display:block;
-							position:absolute;
-							left:50%;
-							top:50%;
-							color:#000;
-							text-transform: uppercase;
-							margin: -13px 0 0 -170px;
+                            margin-bottom:5px;
+							color:#020202;
 							font-size: 13px;
 							line-height: 17px;
                             font-weight:bold;
@@ -2736,18 +2853,11 @@ body {
 						}
 						.museum-instr-link {
 							display: block;
-							position: absolute;
-							left: 50%;
-							top: 50%;
-							color: #000;
+							color: #020202;
 							text-transform: uppercase;
-							margin: -9px 0 0 77px;
-							font-size: 9px;
-							line-height: 12px;
+							font-size: 8px;
+							line-height: 11px;
 							text-decoration: underline !important;
-							padding: 6px 10px 0 0;
-							background:url(../img/new-window.png) no-repeat 100% 0;
-						
 							font-weight: bold;
 						}
 						.museum-instr-link:hover {
@@ -4371,18 +4481,34 @@ body {
 		}
 			.index-video-list  li {
 				float:left;
-				width:281px;
+                margin:0 0px 0 15px;
+                padding: 14px;
+				width:162px;
+                border:1px solid #ededed;
                 overflow: hidden;
-                text-align: center;
-				margin:0 37px 0 0;
+                text-align: left;
 			}
+            .index-video-list  li:first-child{
+                margin-left:0;
+            }
                 .index-video-list .index-video-one {
                     position: relative;
                 }
 
 				.index-video-list img {
-					margin-bottom:10px;
+					
 				}
+                .index-video-image{
+                    margin-bottom:10px;
+                    border:1px solid #f0efeb;
+                    text-align:center;
+                    background:#f0efeb;
+                    overflow:hidden;
+                }
+                .index-video-image img{
+                    height:200px;
+                    width:auto;
+                }
 				.index-video-name {
 					text-transform:uppercase;
 					font-size:13px;
@@ -4397,6 +4523,14 @@ body {
 					line-height:13px;
 				}
 				
+                .index-video-info{
+                    display:block;
+                    padding-top:10px;
+                    border-top:1px solid #d1d1d1;
+                    color:#808080;
+                    font-family:Arial;
+                    font-size:12px;
+                }
 				
 				#video-list .flex-direction-nav {
 					background:none;

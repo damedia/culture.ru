@@ -6,37 +6,86 @@
 
 {% block body_class %}index-main{% endblock %}
 
-{% block sub_header %}
-    <div class="index-map">
-        <div class="bar bar-top"></div>
-        <div class="bar bar-right"></div>
-        <div class="bar bar-bottom"></div>
-        <div class="bar bar-left"></div>
-        <div id="map"></div>
-    </div>
+{% block sub_header %} 
+    <section class="index-block index-museum-block clearfix">
+        {# <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2> #}
 
-    <!-- Асинхронная загрузка jsapi -->
-    <div id="script_block" class="script_block"></div>
-    <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.10"></script>
-        {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.10"></script> #}
-    </div>
-    <script type="text/javascript">
-        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
-        document.getElementById('script_ad').style.display = 'block';
-    </script>
-    <!-- /Асинхронная загрузка jsapi -->
+        <div class="plitka-one-wrap plitka-one-wrap-opened">
+            <div class="plitka-one clearfix">
+                <div class="museum-image-container">
+                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                    <div class="museum-image-over">
+                        <div class="museum-image-title clearfix"><span>ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ</span></div>
+                        <div class="museum-image-text-wrap">
+                            <a href="#" class="museum-town">Москва</a>
+                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                                <span class="museum-image-text">
+                                    {{ "visit_museum"|trans|raw }}
+                                </span>
+                            </a>
+                            <a href="#instruction" class="museum-instr-link">
+                                {{ "manual_instruction"|trans|raw }}
+                            </a>
+                        </div>
+                        <div class="museum-image-image"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="instruction" style="display:none;">
+                <div class="window">
+                    <div class="block window-content">
+                        {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+                    </div>
+               </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- begin-->
+        <div class="index-map">
+            <div class="bar bar-top"></div>
+            <div class="bar bar-right"></div>
+            <div class="bar bar-bottom"></div>
+            <div class="bar bar-left"></div>
+            <div id="map"></div>
+            <div class="map-lister scrollblock">
+                <div class="scrollblock-content">
+                    <div class="map-lister-image"><a href="#"><img src="http://culture.ru/ru/uploads/media/atlas/0001/13/thumb_12210_atlas_atlasW613.jpeg" /></a></div>
+                    <div class="map-lister-overflow">
+                        <div class="map-lister-title"><h3><a href="#">Кирилло-Белозерский монастырь</a></h3></div>
+                        <div class="map-lister-text">Кирилло-Белозерский монастырь был основан в конце ХIV столетия на землях бывшего Белозерского княжества, потерявшего к тому времени независимость и ставшего уделом сына Дмитрия Донского Андрея. Основатель Успенского, впоследствии</div>
+                    </div>
+                    <p class="all"><a href="#">подробнее</a></p>
+                </div>
+                <div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left"></a><a class="scrollblock-a scrollblock-right"></a></div>
+            </div><!-- /map-lister -->
+        </div>
+
+        <!-- Асинхронная загрузка jsapi -->
+        <div id="script_block" class="script_block"></div>
+        <div id="script_ad" class="script_ad" style="display:none;">
+            <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.10"></script>
+            {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.10"></script> #}
+        </div>
+        <script type="text/javascript">
+            document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
+            document.getElementById('script_ad').style.display = 'block';
+        </script>
+        <!-- /Асинхронная загрузка jsapi -->
+    <!-- /end -->
 {% endblock %}
 
 {% block left_column %}
     <section class="block new-on-site">
+        {#
         <h1><span>{{ "Mainpage block.New on portal"|trans }}</span></h1>
         <section class="index-block clearfix index-russia-images-block">
             <h2><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.Title"|trans }}</a></h2>
             {% include 'ArmdMainBundle:Homepage:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
             <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.All"|trans }}</a></p>
         </section>
-
+        #}
         {% if app.request.locale == 'ru' %}
             <section class="index-block two-column-block clearfix index-news-block">
                 <section class="index-block">
@@ -85,35 +134,6 @@
         </section>
     {% endif %}
 
-        <section class="index-block index-museum-block clearfix">
-            <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2>
-
-            <div class="plitka-one-wrap plitka-one-wrap-opened">
-                <div class="plitka-one clearfix">
-                    <div class="museum-image-container">
-                        <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
-                        <div class="museum-image-over">
-                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
-                                <span class="museum-image-text">
-                                    {{ "visit_museum"|trans|raw }}
-                                </span>
-                            </a>
-                            <a href="#instruction" class="museum-instr-link">
-                                {{ "manual_instruction"|trans|raw }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="instruction" style="display:none;">
-                    <div class="window">
-                        <div class="block window-content">
-                            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-                        </div>
-                   </div>
-                </div>
-            </div>
-        </section>
         {% if app.request.locale == 'ru' %}
             <section class="block social-widget-block">
                 {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
@@ -139,20 +159,23 @@
         <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
             <img src="{{ asset('img/read_yandex.jpg') }}">
         </a>
-        
+        {#
         <section id="homepage-social-widgets">
             {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
             {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
         </section>
-
+        
         <section id="homepage-polls">
             <h3><span>Опрос</span></h3>
             {% render url('armd_poll_poll') %}
         </section>
+        #}
     {% endif %}
 
 
 {% endblock %}
+
+{% block qwerty %}<div style="height:10px; background:red;">sadf </div>{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
