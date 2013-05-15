@@ -7,10 +7,12 @@ use Armd\LectureBundle\Entity\LectureManager;
 use Armd\LectureBundle\Entity\LectureSuperType;
 use Doctrine\Bundle\MigrationsBundle\Command\DoctrineCommand;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FillGenresCommand  extends DoctrineCommand {
+
     protected function configure()
     {
         $this
@@ -129,30 +131,41 @@ class FillGenresCommand  extends DoctrineCommand {
         $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
 
-        $rootCategory = $em->getRepository('ArmdLectureBundle:LectureCategory')
-            ->findOneBy(array('lectureSuperType' => $lectureSuperType));
-
-        $categories = $em->getRepository('ArmdLectureBundle:LectureCategory')
-            ->createQueryBuilder('c')
-            ->where('c.lft > :lft')
-            ->andWhere('c.rgt < :rgt')
-            ->setParameters(
-                array(
-                    'lft' => $rootCategory->getLft(),
-                    'rgt' => $rootCategory->getRgt()
-                )
-            )->getQuery()->getResult();
-
-        foreach ($categories as $category) {
+        $genresData = array('Мастер-классы', 'Гуманитарные', 'Технические', 'Естественные науки');
+        foreach ($genresData as $genreData) {
             $genre = new LectureGenre();
-            $genre->setTitle($category->getTitle());
-            $genre->setLectureSuperType($lectureSuperType);
+            $genre->setTitle($genreData);
             $genre->setLevel(1);
-
+            $genre->setLectureSuperType($lectureSuperType);
             $em->persist($genre);
         }
 
         $em->flush();
+
+//        $rootCategory = $em->getRepository('ArmdLectureBundle:LectureCategory')
+//            ->findOneBy(array('lectureSuperType' => $lectureSuperType));
+//
+//        $categories = $em->getRepository('ArmdLectureBundle:LectureCategory')
+//            ->createQueryBuilder('c')
+//            ->where('c.lft > :lft')
+//            ->andWhere('c.rgt < :rgt')
+//            ->setParameters(
+//                array(
+//                    'lft' => $rootCategory->getLft(),
+//                    'rgt' => $rootCategory->getRgt()
+//                )
+//            )->getQuery()->getResult();
+//
+//        foreach ($categories as $category) {
+//            $genre = new LectureGenre();
+//            $genre->setTitle($category->getTitle());
+//            $genre->setLectureSuperType($lectureSuperType);
+//            $genre->setLevel(1);
+//
+//            $em->persist($genre);
+//        }
+//
+//        $em->flush();
 
 
     }
@@ -310,29 +323,71 @@ class FillGenresCommand  extends DoctrineCommand {
     protected function specifyLectureGenres() {
         $em = $this->getEntityManager('default');
 
-        $qb = $em->getRepository('ArmdLectureBundle:Lecture')
+        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')
             ->createQueryBuilder('l')
             ->innerJoin('l.categories', 'c')
             ->innerJoin('l.lectureSuperType', 'st')
-            ->where("st.code = 'LECTURE_SUPER_TYPE_LECTURE'");
+            ->where("st.code = 'LECTURE_SUPER_TYPE_LECTURE'")
+            ->getQuery()->getResult()
+        ;
 
-        $lectures = $qb->getQuery()->getResult();
+        $genres = $em->createQuery("
+            SELECT g
+                FROM ArmdLectureBundle:LectureGenre g INDEX BY g.title
+                INNER JOIN g.lectureSuperType st
+                WHERE st.code = 'LECTURE_SUPER_TYPE_LECTURE'
+        ")->getResult();
+
+        $conversions = array(
+            'Гуманитарные' => array(
+                'Востоковедение',
+                'Зарубежная история',
+                'Зарубежная литература',
+                'Лингвистика',
+                'Искусство',
+                'История России',
+                'Психология',
+                'Философия',
+                'ЖЗЛ',
+                'Религия',
+                'Русская литература',
+                'Русский язык',
+                'Мифология',
+                'Музыка',
+                'Человек',
+                'Экономика'
+            ),
+            'Технические' => array(
+                'Современные технологии'
+            ),
+            'Естественные науки' => array(
+                'Биология',
+                'Генетика',
+                'География',
+                'Планета Земля',
+                'Глобальные проблемы',
+                'Астрономия',
+                'Математика',
+                'Физика',
+                'Химия'
+            )
+        );
 
         foreach ($lectures as $lecture) {
-            foreach ($lecture->getCategories() as $category) {
-                $genre = $em->getRepository('ArmdLectureBundle:LectureGenre')
-                    ->createQueryBuilder('g')
-                    ->innerJoin('g.lectureSuperType', 'st')
-                    ->where("st.code = 'LECTURE_SUPER_TYPE_LECTURE'")
-                    ->andWhere('g.title = :genre_title')
-                    ->setParameter('genre_title', $category->getTitle())
-                    ->getQuery()->getOneOrNullResult();
-
-                if ($genre) {
-                    $lecture->addGenre($genre);
-                    $em->persist($lecture);
-                }
+            if (mb_stripos($lecture->getTitle(), 'Мастер-класс', null, 'utf-8') !== false) {
+                $lecture->addGenre($genres['Мастер-классы']);
             }
+
+            foreach ($lecture->getCategories() as $category) {
+                foreach ($conversions as $genreTitle => $categoryTitles) {
+                    foreach ($categoryTitles as $categoryTitle) {
+                        if ($category->getTitle() === $categoryTitle) {
+                            $lecture->addGenre($genres[$genreTitle]);
+                        }
+                    }
+                }
+           }
+            $em->persist($lecture);
         }
 
         $em->flush();

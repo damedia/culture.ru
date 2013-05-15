@@ -170,20 +170,6 @@ class Lecture implements Taggable
      */
     private $stuff;
 
-    public function getFiltrableGenres() {
-        if ($this->lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_CINEMA') {
-            $genres = array();
-            foreach ($this->getGenres() as $genre) {
-                if ($genre->getLevel() === 2) {
-                    $genres[] = $genre;
-                }
-            }
-            return $genres;
-        } else {
-            return $this->getGenres();
-        }
-    }
-
 
     public function __construct()
     {
@@ -477,6 +463,21 @@ class Lecture implements Taggable
         }
         return $genres;
     }
+
+    public function getFiltrableGenres() {
+        if ($this->lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_CINEMA') {
+            $genres = array();
+            foreach ($this->getGenres() as $genre) {
+                if ($genre->getLevel() === 2) {
+                    $genres[] = $genre;
+                }
+            }
+            return $genres;
+        } else {
+            return $this->getGenres();
+        }
+    }
+
 
     /**
      * @return string|null

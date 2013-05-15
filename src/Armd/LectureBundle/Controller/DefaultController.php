@@ -159,7 +159,7 @@ class DefaultController extends Controller
                 break;
             default:
                 // sort by date (default)
-                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('createdAt' => 'DESC');
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('viewCount' => 'DESC');
         }
 
 
@@ -228,7 +228,12 @@ class DefaultController extends Controller
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
         } else {
-            $genre1 = false;
+            $genre1Candidates = $lecture->getGenresByLevel(1);
+            if (!empty($genre1Candidates)) {
+                $genre1  = $genre1Candidates[0];
+            } else {
+                $genre1 = false;
+            }
         }
         return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
             'referer' => $request->headers->get('referer'),
