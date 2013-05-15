@@ -46,7 +46,19 @@ class Perfomance implements Taggable
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="trailer_video_id", referencedColumnName="id", nullable=true)
      */
-    private $trailerVideo;  
+    private $trailerVideo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="perfomance_media_video_id", referencedColumnName="id")
+     */
+    private $mediaPerfomanceVideo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="trailer_media_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $mediaTrailerVideo;
 
     /**
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -75,7 +87,13 @@ class Perfomance implements Taggable
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="interview_video_id", referencedColumnName="id", nullable=true)
      */
-    private $interviewVideo;   
+    private $interviewVideo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="interview_media_video_id", referencedColumnName="id", nullable=true)
+     */
+    private $mediaInterviewVideo;
     
     /**
      * @ORM\Column(name="interview_title", type="string", length=255, nullable=true)
@@ -290,6 +308,52 @@ class Perfomance implements Taggable
         return $this->trailerVideo;
     }
 
+    /**
+     * Set mediaPerfomanceVideo
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $mediaPerfomanceVideo
+     * @return Perfomance
+     */
+    public function setMediaPerfomanceVideo(Media $mediaPerfomanceVideo = null)
+    {
+        $this->mediaPerfomanceVideo = $mediaPerfomanceVideo;
+    
+        return $this;
+    }
+
+    /**
+     * Get mediaPerfomanceVideo
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getMediaPerfomanceVideo()
+    {
+        return $this->mediaPerfomanceVideo;
+    }
+
+    /**
+     * Set mediaTrailerVideo
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $mediaTrailerVideo
+     * @return Perfomance
+     */
+    public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
+    {
+        $this->mediaTrailerVideo = $mediaTrailerVideo;
+    
+        return $this;
+    }
+
+    /**
+     * Get mediaTrailerVideo
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getMediaTrailerVideo()
+    {
+        return $this->mediaTrailerVideo;
+    }
+
     
     public function __toString()
     {
@@ -441,6 +505,29 @@ class Perfomance implements Taggable
     public function getInterviewVideo()
     {
         return $this->interviewVideo;
+    }
+
+     /**
+     * Set mediaInterviewVideo
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $mediaInterviewVideo
+     * @return Perfomance
+     */
+    public function setMediaInterviewVideo(Media $mediaInterviewVideo = null)
+    {
+        $this->mediaInterviewVideo = $mediaInterviewVideo;
+    
+        return $this;
+    }
+
+    /**
+     * Get mediaInterviewVideo
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getMediaInterviewVideo()
+    {
+        return $this->mediaInterviewVideo;
     }
 
     /**

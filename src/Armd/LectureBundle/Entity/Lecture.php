@@ -53,7 +53,7 @@ class Lecture implements Taggable
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="lecture_video_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="lecture_video_id", referencedColumnName="id", nullable=true)
      */
     private $lectureVideo;
 
@@ -337,7 +337,7 @@ class Lecture implements Taggable
     /**
      * @param \Application\Sonata\MediaBundle\Entity\Media $mediaTrailerVideo
      */
-    public function setMediaTrailerVideo(Media $mediaTrailerVideo)
+    public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
     {
         $this->mediaTrailerVideo = $mediaTrailerVideo;
     }

@@ -73,7 +73,7 @@ class PerfomanceAdmin extends Admin
                 ))
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->end()
-            ->with('Tvigle Video')
+            /*->with('Tvigle Video')
                 ->add('trailerVideo', 'armd_tvigle_video_selector',
                     array(
                         'required' => false
@@ -83,6 +83,21 @@ class PerfomanceAdmin extends Admin
                     array(
                         'required' => false
                     )
+                )*/
+            ->with('Video')
+                ->add('mediaTrailerVideo', 'sonata_type_model_list',
+                    array('required' => false),
+                    array('link_parameters' => array(
+                        'context'  => 'perfomance',
+                        'provider' => 'sonata.media.provider.tvigle'
+                    ))
+                )
+                ->add('mediaPerfomanceVideo', 'sonata_type_model_list',
+                    array('required' => false),
+                    array('link_parameters' => array(
+                        'context'  => 'perfomance',
+                        'provider' => 'sonata.media.provider.tvigle'
+                    ))
                 )
             ->end()
             ->with('External')
@@ -90,10 +105,17 @@ class PerfomanceAdmin extends Admin
 				->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
             ->end()             
             ->with('Interview')
-                ->add('interviewVideo', 'armd_tvigle_video_selector',
+                /*->add('interviewVideo', 'armd_tvigle_video_selector',
                     array(
                         'required' => false
                     )
+                )*/
+                ->add('mediaInterviewVideo', 'sonata_type_model_list',
+                    array('required' => false),
+                    array('link_parameters' => array(
+                        'context'  => 'perfomance',
+                        'provider' => 'sonata.media.provider.tvigle'
+                    ))
                 )
 				->add('interviewTitle')
                 ->add('interviewDescription', null, array(

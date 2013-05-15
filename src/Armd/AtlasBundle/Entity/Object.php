@@ -137,6 +137,13 @@ class Object implements Taggable
     private $videos;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="atlas_object_media_video")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $mediaVideos;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
      * @ORM\JoinColumn(name="image3d_id", referencedColumnName="id")
      */
@@ -287,6 +294,7 @@ class Object implements Taggable
         $this->weekends = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->mediaVideos = new ArrayCollection();
         $this->archiveImages = new ArrayCollection();
         $this->literatures = new ArrayCollection();
         $this->objectHints = new ArrayCollection();
@@ -876,6 +884,27 @@ class Object implements Taggable
     public function addImage($image)
     {
         $this->images[] = $image;
+    }
+
+
+    public function getMediaVideos()
+    {
+        return $this->mediaVideos;
+    }
+
+    public function setMediaVideos($mediaVideos)
+    {
+        $this->mediaVideos = $mediaVideos;
+    }
+
+    public function removeMediaVideo($mediaVideo)
+    {
+        $this->mediaVideos->removeElement($mediaVideo);
+    }
+
+    public function addMediaVideo($mediaVideo)
+    {
+        $this->mediaVideos[] = $mediaVideo;
     }
 
     public function getArchiveImages()

@@ -199,14 +199,17 @@ class PerfomanceController extends Controller
             throw $this->createNotFoundException('Perfomance not found');
         }
         
-        if ($mode == 'trailer' && !$entity->getTrailerVideo()) {
+        if ($mode == 'trailer' && !$entity->getMediaTrailerVideo()) {
         	throw $this->createNotFoundException('Video not found');
         }
 
-		$tvigle_twig_extension = $this -> get('armd_tvigle_video.twig.tvigle_video_extension');
-		$tvigle_twig_extension -> initRuntime($this -> get('twig'));
-		echo $tvigle_twig_extension -> videoPlayerFunction(($mode == 'trailer' ? $entity->getTrailerVideo() : $entity->getPerfomanceVideo()), '100%', 506);
-		exit();        
+        $media = ($mode == 'trailer') ? $entity->getMediaTrailerVideo() : $entity->getMediaPerfomanceVideo();
+
+		$media_twig_extension = $this->get('sonata.media.twig.extension');
+		$media_twig_extension->initRuntime($this->get('twig'));
+		
+        echo $media_twig_extension->media($media, 'reference', array('width' => '100%', 'height' => 506));
+		exit();
 
     }
 

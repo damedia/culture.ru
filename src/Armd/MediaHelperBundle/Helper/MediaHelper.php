@@ -29,4 +29,3 @@ class MediaHelper
         return $file;
     }
 }
-

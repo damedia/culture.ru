@@ -81,14 +81,14 @@ class LectureTop100Admin extends Admin
             ))
             ->add('recommended')
             ->add('isTop100Film')
-            ->with('Tvigle Video')
+            /*->with('Tvigle Video')
                 ->add('lectureVideo', 'armd_tvigle_video_selector',
                     array(
                         'required' => false
                     )
                 )
-            ->end()
-            ->with('Other video')
+            ->end()*/
+            ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
             ->with('External Video')
