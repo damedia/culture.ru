@@ -4554,7 +4554,7 @@ body {
 			.index-video-list  li {
 				float:left;
                 margin:0 0px 0 15px;
-                padding: 14px;
+                padding: 14px 14px 5px 14px;
 				width:162px;
                 border:1px solid #ededed;
                 overflow: hidden;
@@ -4599,6 +4599,8 @@ body {
 				
                 .index-video-info{
                     display:block;
+                    height:26px;
+                    overflow:hidden;
                     padding-top:10px;
                     border-top:1px solid #d1d1d1;
                     color:#808080;
