@@ -238,7 +238,7 @@ body {
 				float:left;
 				width:99px;
 				height:101px;
-				background:url(../img/logo.jpg) no-repeat 0 0;
+				background:url(../img/logo_anim.gif) no-repeat 0 0;
 				margin:25px 0 0 14px;
 			}
 			
@@ -694,7 +694,86 @@ body {
 				width:308px;
 				margin-right:7px;
 			}
+
+            .right-column-media{}
+            .right-column-media .block-left-image{
+                float:left;
+                margin:0 10px 7px 0;
+                width:100px;
+            }
+            .right-column-media .text-overflow,
+            .right-column-media .text-overflow p{
+                font-size:11px;
+            }
+            .right-column-media .text-overflow p{
+                margin-bottom:7px;
+            }
 			
+            .may9 .content.collapsed {
+                height: 1000px;
+                overflow: hidden;
+            }
+            .may9 .content.bordered{
+                padding-bottom:15px;
+                background: url(../img/b-dotted.png) repeat-x 0 100%;
+            }
+            .may9 .split-text {
+                margin-left:auto;
+                margin-right:auto;
+                width:480px;
+                color:#000;
+                column-count: 2;
+                column-gap: 20px;
+                column-width: 200px;
+                -webkit-column-count: 2;
+                -webkit-column-gap: 20px;
+                -webkit-column-width: 200px;
+                -moz-column-count: 2;
+                -moz-column-gap: 20px;
+                -moz-column-width: 200px;
+            }
+            .may9 .important-text{
+                font-weight:bold;
+                font-size:15px;
+                color:#a6a6a6;
+            }
+            .may9 blockquote{
+                margin-left:0;
+                margin-right:0;
+                padding:0;
+                font-style:italic;
+                color:#000;
+            }
+            .may9 blockquote:before{
+                display:block;
+                content:' ';
+                height:15px;
+                width:100%;
+                background: url(../img/b-dotted.png) repeat-x 0 0;
+            }
+            .may9 blockquote:after{
+                display:block;
+                content:' ';
+                height:15px;
+                width:100%;
+                background: url(../img/b-dotted.png) repeat-x 0 100%;
+            }
+            .may9 .text-author{
+                text-align:left;
+                font-style:italic;
+                color:#000;
+            }
+            .may9 .index-block .block-left-image-wrap {
+                float: left;
+                margin: 0px 10px 10px 0;
+                width: 31%;
+            }
+            .may9 .index-block .block-left-image-wrap img {
+                max-width: 100%;
+                width: 100%;
+                min-width: 90px;
+                height: auto;
+            }
 				.block {
 					margin-bottom:21px;
 				}
@@ -759,7 +838,7 @@ body {
 								font-size:11px;
 								margin-top:6px;
 							}
-							
+							.event-one_image .news-image-crop{overflow:hidden;}
 							.event-one  p {
 								margin-bottom:20px;
 								line-height:16px;
@@ -2766,6 +2845,7 @@ body {
                         position:relative;
                         margin-bottom:7px;
                     }
+                    /*
                         .museum-list-level2 li:before {
                             content:'тАв';
                             position:absolute;
@@ -2775,6 +2855,7 @@ body {
                             font-size:23px;
                             line-height:23px;
                         }
+                    */
                         .museum-list-level2 li a {
                             text-decoration:none;
                             color:#262626;
@@ -6456,6 +6537,16 @@ body {
     /*padding-top: 3px;*/
     display: block;
 }
+.social-auth p {
+    float: left;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+/*.social-auth .social-auth-links {*/
+    /*position: relative;*/
+/*}*/
+
 .social-auth-links a {
     display: inline-block;
     width: 16px;
@@ -8115,4 +8206,3 @@ a.appstore-link {
 .events-list table li:before{
     content:'— ';
 }
-

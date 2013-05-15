@@ -87,6 +87,13 @@ class Builder extends ContainerAware
             );
 
             $mainMenu->addChild(
+                'menu.may9',
+                array(
+                    'route' => 'armd_main_may9'
+                )
+            );
+
+            $mainMenu->addChild(
                 'menu.spiritual_traditions',
                 array(
                     'route' => 'armd_main_project_traditions'

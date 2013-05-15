@@ -20,6 +20,18 @@ armd_main_museum_reserve:
     pattern:  /museums/museum_reserve/
     defaults: { _controller: ArmdMainBundle:Main:museumReserve }
 
+armd_main_may9:
+    pattern:  /may9/
+    defaults: { _controller: ArmdMainBundle:Main:may9 }
+
+armd_main_may9_films:
+    pattern:  /may9/may9_films/
+    defaults: { _controller: ArmdMainBundle:Main:may9_films }
+
+armd_main_may9_day:
+    pattern:  /may9/may9_day/
+    defaults: { _controller: ArmdMainBundle:Main:may9_day }
+
 armd_main_library:
     pattern:  /library/
     defaults: { _controller: ArmdMainBundle:Main:library }

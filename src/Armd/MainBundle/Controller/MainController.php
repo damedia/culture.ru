@@ -146,6 +146,29 @@ class MainController extends Controller
         return $this->renderTemplate('museum_reserve');
     }
 
+    public function may9Action()
+    {
+        return $this->renderTemplate('may9');
+    }
+
+    public function may9_filmsAction()
+    {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_may9')
+        );
+        return $this->renderTemplate('may9_films');
+    }
+
+    public function may9_dayAction()
+    {
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_main_may9')
+        );
+        return $this->renderTemplate('may9_day');
+    }
+
     public function servicesAction($id = null)
     {
       if (empty($id)) {

@@ -544,6 +544,8 @@ stfalcon_tinymce:
         simple:
             mode: "textareas"
             theme: "advanced"
+            plugins: "paste,fullscreen,inlinepopups"
+            theme_advanced_buttons1_add: "fullscreen,|,pastetext,pasteword"
 
 fpn_tag:
     model:
