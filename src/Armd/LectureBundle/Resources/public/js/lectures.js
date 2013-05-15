@@ -107,6 +107,15 @@ var armdMkLectures = {
             data['genre1_id'] = genre1Id;
         }
 
+        data['genre_ids'] = [];
+        if ($('#genre1_id').length) {
+            data['genre_ids'].push($('#genre1_id').val());
+        }
+        var genreId = $('#lecture_genre').val();
+        if (genreId > 0) {
+            data['genre_ids'].push(genreId);
+        }
+
         if (isSearch) {
             armdMkLectures.hideSortPanel();
             armdMkLectures.hideTagFilterPanel();
@@ -115,16 +124,6 @@ var armdMkLectures = {
             armdMkLectures.showSortPanel();
             armdMkLectures.hideTagFilterPanel();
 
-            data['genre_ids'] = [];
-
-            if ($('#genre1_id').length) {
-                data['genre_ids'].push($('#genre1_id').val());
-            }
-
-            var genreId = $('#lecture_genre').val();
-            if (genreId > 0) {
-                data['genre_ids'].push(genreId);
-            }
 
 
             var firstLetter = $('#alphabet-filter li.active a').data('letter');

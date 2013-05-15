@@ -41,7 +41,11 @@
     {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
         {% set lecturesFilterPath = path('armd_lecture_lecture_index') %}
     {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-        {% set lecturesFilterPath = path('armd_lecture_cinema_index', {'genreSlug': genre1.slug}) %}
+        {% if genre1 is not empty %}
+            {% set lecturesFilterPath = path('armd_lecture_cinema_index', {'genreSlug': genre1.slug}) %}
+        {% else %}
+            {% set lecturesFilterPath = path('armd_lecture_cinema_index') %}
+        {% endif %}
     {% endif %}
     <div class="search-category">
         <form id="lectures-filter" action="{{ lecturesFilterPath }}" method="get">
@@ -71,7 +75,11 @@
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-            <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': genre1.slug}) }}">{{ genre1.title }}</a></li>
+            {% if genre1 is not empty %}
+                <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': genre1.slug}) }}">{{ genre1.title }}</a></li>
+            {% else %}
+                <li><a href="{{ path('armd_lecture_cinema_index')}}">{{ 'menu.cinema'|trans }}</a></li>
+            {% endif %}
         {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
             <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'menu.lectures'|trans }}</a></li>
         {% endif %}

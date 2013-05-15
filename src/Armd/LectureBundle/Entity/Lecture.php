@@ -464,6 +464,15 @@ class Lecture implements Taggable
         return $genres;
     }
 
+    public function getGenreByLevel($level) {
+        foreach ($this->genres as $genre) {
+            if ($genre->getLevel() == $level) {
+                return $genre;
+            }
+        }
+        return false;
+    }
+
     public function getFiltrableGenres() {
         if ($this->lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_CINEMA') {
             $genres = array();
