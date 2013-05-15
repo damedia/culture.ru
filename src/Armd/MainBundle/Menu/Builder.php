@@ -1,7 +1,9 @@
 <?php
 namespace Armd\MainBundle\Menu;
 
+use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
@@ -9,12 +11,15 @@ class Builder extends ContainerAware
 {
     private $factory;
 
+    private $em;
+
     /**
      * @param FactoryInterface $factory
      */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory, EntityManager $em)
     {
         $this->factory = $factory;
+        $this->em = $em;
     }
 
     public function createMainMenu(Request $request)
@@ -227,52 +232,26 @@ class Builder extends ContainerAware
 
             //--- /Museums
             
-            //--- Video
-            $videoMenu = $menu->addChild(
-                'menu.video',
-                array(
-                    'route' => 'armd_lecture_home',
-                )
-            );
-
-            $videoMenu->addChild(
+            //--- Cinema
+            $cinemaMenu = $menu->addChild(
                 'menu.cinema',
                 array(
                     'route' => 'armd_lecture_cinema_index',
+                    'routeParameters' => array('genreSlug' => 'feature-film')
                 )
             );
 
-            $videoMenu->addChild(
+            $this->addCinemaMenuItems($cinemaMenu);
+            //--- /Cinema
+
+            //--- Lectures
+            $lectureMenu = $menu->addChild(
                 'menu.lectures',
                 array(
-                    'route' => 'armd_lecture_lecture_index',
+                    'route' => 'armd_lecture_lecture_index'
                 )
             );
-
-            $videoMenu->addChild(
-                'menu.translations',
-                array(
-                    'route' => 'armd_lecture_translation_index',
-                )
-            );
-
-            $videoMenu->addChild(
-                'menu.top100',
-                array(
-                    'route' => 'armd_lecture_top100_index',
-                )
-            );
-
-//            $videoMenu->addChild(
-//                'menu.perfomance',
-//                array(
-//                    'route' => 'armd_perfomance_list'
-//                )
-//            );
-            
-
-
-            //--- /Video
+            //--- /Lectures
 
 
             //--- Communication
@@ -391,6 +370,35 @@ class Builder extends ContainerAware
         $menu->setCurrentUri($request->getRequestUri());
 
         return $menu;
+    }
+
+
+    public function addCinemaMenuItems(ItemInterface $item) {
+        $genres = $this->em->getRepository('ArmdLectureBundle:LectureGenre')
+            ->createQueryBuilder('g')
+            ->innerJoin('g.lectureSuperType', 'st')
+            ->where('st.code = :super_type_code')
+            ->andWhere('g.level = :level')
+            ->orderBy('g.sortIndex',  'ASC')
+            ->addOrderBy('g.id',  'ASC')
+            ->setParameters(
+                array(
+                    'super_type_code' => 'LECTURE_SUPER_TYPE_CINEMA',
+                    'level' => 1
+                )
+            )
+            ->getQuery()->getResult();
+
+        foreach ($genres as $genre) {
+            $item->addChild(
+                $genre->getTitle(),
+                array(
+                    'route' => 'armd_lecture_cinema_index',
+                    'routeParameters' => array('genreSlug' => $genre->getSlug())
+                )
+            );
+        }
+
     }
 
 }

@@ -22,7 +22,7 @@ services:
 
     armd_main.menu_builder:
         class: Armd\MainBundle\Menu\Builder
-        arguments: [@knp_menu.factory]
+        arguments: [@knp_menu.factory, @doctrine.orm.entity_manager]
 
     armd_main.menu.main:
         class: Knp\Menu\MenuItem # the service definition requires setting the class

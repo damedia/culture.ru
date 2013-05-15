@@ -1773,18 +1773,18 @@ body {
             height: 226px;
         }
 
-    #lecture_category {
+    #lecture_genre {
         width: 300px;
     }
-        #ui-lecture_category {
+        #ui-lecture_genre {
             width: 204px;
         }
 
-        #ui-lecture_category .ui-selectgroup-copy {
+        #ui-lecture_genre .ui-selectgroup-copy {
             width: 173px;
         }
 
-        .ui-selectgroup-list[aria-labelledby=ui-lecture_category] {
+        .ui-selectgroup-list[aria-labelledby=ui-lecture_genre] {
             width: 204px;
         }
 

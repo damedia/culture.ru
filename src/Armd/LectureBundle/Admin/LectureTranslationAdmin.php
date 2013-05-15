@@ -61,12 +61,7 @@ class LectureTranslationAdmin extends Admin
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_VIDEO_TRANSLATION');
 
-        $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
-            ->getRepository('ArmdLectureBundle:LectureType')
-            ->findOneByCode('LECTURE_TYPE_VIDEO');
-
         $lecture->setLectureSuperType($superType);
-        $lecture->setLectureType($type);
 
 
         $formMapper

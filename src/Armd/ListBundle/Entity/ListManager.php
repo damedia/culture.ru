@@ -76,7 +76,6 @@ abstract class ListManager
             foreach($paginator as $item) {
                 $objects[] = $item;
             }
-//            $objects = $paginator; //$qb->getQuery()->getResult();
         }
 
         return $objects;

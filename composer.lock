@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "77ec88630fae3eaa842b245007fa5672",
+    "hash": "0ac72f83190e69072f49cbd7997fd1d2",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -12,11 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@git.armd.ru:armdbannerbundle.git",
-                "reference": "1f3a34bc8b7d5fb3c68a7fa6c42a91a89f4c86de"
-            },
-            "require": {
-                "sonata-project/admin-bundle": "*",
-                "sonata-project/doctrine-orm-admin-bundle": "*"
+                "reference": "9e41b9794fe21715bd7cf6c936e69495331ba5e9"
             },
             "type": "armd-cms-bundle",
             "autoload": {
@@ -25,7 +21,7 @@
                 }
             },
             "description": "Banner Bundle",
-            "time": "2012-09-03 14:32:54"
+            "time": "2013-05-06 14:56:01"
         },
         {
             "name": "armd/poll-bundle",
