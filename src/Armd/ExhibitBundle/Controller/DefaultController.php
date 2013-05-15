@@ -283,7 +283,6 @@ class DefaultController extends Controller
     
     /**
      * @Route("item/{id}", requirements={"offset"="\d+"}, name="armd_exhibit_item", options={"expose"=true})
-     * @Template("ArmdExhibitBundle:Default:exhibit_item.html.twig")
      */
     public function itemAction($id)
     {       
@@ -292,10 +291,10 @@ class DefaultController extends Controller
             $this->limit,
             0,
             $id
-        );
+        );               
         
-        return array(
-            'data' => array(
+        return new JsonResponse(
+            array(
                 'objects' => $objects['objects'],
                 'count' => $objects['count'],
                 'offset' => $this->limit,

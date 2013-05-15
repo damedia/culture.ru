@@ -21,32 +21,34 @@ var exhibitItem = {
     dragX2: null,
     dragY2: null,
     init: function(data) {
-        $(function() {
-            exhibitItem.currentId = data.id;
-            exhibitItem.fullCount = data.count;
-            exhibitItem.setExhibits(data.objects, data.offset);            
-            $('#carousel li img:first').addClass('active');
+        exhibitItem.objects = {};
+        exhibitItem.offset = 0;
+        exhibitItem.stopLoad = false;
+        exhibitItem.loading = false;
+        exhibitItem.start = 1;
+        exhibitItem.activeId = 0;
+        exhibitItem.currentId = data.id;
+        exhibitItem.fullCount = data.count;
+        exhibitItem.setExhibits(data.objects, data.offset);            
+        $('#carousel li img:first').addClass('active');
 
-            $(window).load(function() {
-                exhibitItem.activeExhibit($('#carousel img.active'));
-            });
-            exhibitItem.resizeExhibits();
+        exhibitItem.activeExhibit($('#carousel img.active'));
+        exhibitItem.resizeExhibits();
 
 
-            $('#details-btn').on('click', function() {
-                if (!$(this).data('opened')) {
-                    $('#exponats-details').show();
-                    $('#exponat-main-container').hide();
-                    $(this).data('opened', true);
-                    $(this).text('Спрятать детали');
-                } else {
-                    $('#exponats-details').hide();
-                    $('#exponat-main-container').show();
-                    $(this).data('opened', false);
-                    $(this).text('Детали');
-                }
-                return false;
-            });
+        $('#details-btn').on('click', function() {
+            if (!$(this).data('opened')) {
+                $('#exponats-details').show();
+                $('#exponat-main-container').hide();
+                $(this).data('opened', true);
+                $(this).text('Спрятать детали');
+            } else {
+                $('#exponats-details').hide();
+                $('#exponat-main-container').show();
+                $(this).data('opened', false);
+                $(this).text('Детали');
+            }
+            return false;
         });
         $(window).bind('resize', function() {
           // exhibitItem.resizeExhibits();
@@ -258,7 +260,6 @@ var exhibitItem = {
             $('.main-zoomed-image img')
                 .on("touchmove", function (event) {
                     event.preventDefault();
-                    event.originalEvent.preventDefault();
                     
                     var x0 = event.originalEvent.touches[0].pageX,
                         y0 = event.originalEvent.touches[0].pageY,
@@ -276,21 +277,21 @@ var exhibitItem = {
                         
                         if (Math.abs(delta - deltaOld) > 10) {
                             if (delta > deltaOld) {
-                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());
+                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth() / 2);
                                 exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                             } else if (delta < deltaOld) {
-                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());
+                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth() / 2);
                                 exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                             }
                             
-                            exhibitItem.touches = event.originalEvent.touches;
+                            exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);
                         }                                             
                     } else if (event.originalEvent.touches.length === 1) {
                         // drag
                         
                         if (Math.abs(x0 - x0old) > 10 || Math.abs(y0 - y0old) > 10) {
                             exhibitItem.touchDragPrimaryImage(x0, y0, x0old, y0old);
-                            exhibitItem.touches = event.originalEvent.touches;
+                            exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);                           
                         }
                     }                                   
                     
@@ -298,7 +299,10 @@ var exhibitItem = {
                 })
                 .on("touchstart", function (event) {
                     event.preventDefault();
-                    exhibitItem.touches = event.originalEvent.touches;
+                    
+                    exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);
+                    
+                    return false;
                 });
                 
             armdMk.stopLoadingBlock($('#exponat-main-container'));
@@ -373,6 +377,8 @@ var exhibitItem = {
             containerHeight = $('.main-zoomed-image').height(),
             oldWidth = exhibitItem.primaryImg.width(),
             oldHeight = exhibitItem.primaryImg.height();
+    
+        width = Math.floor(width);
             
         if (width < exhibitItem.imgStartWidth) {
             exhibitItem.primaryImg.width(exhibitItem.imgStartWidth);

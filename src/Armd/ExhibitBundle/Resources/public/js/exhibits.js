@@ -16,6 +16,7 @@ var exhibit = {
     twoLineImgHeight: 318,
     threeLineImgHeight: 180,
     fullCount: 0,
+    exhibitItemHtml: '',
     init: function(data, filters, activeFilters) {
         exhibit.objects = data.objects;
         exhibit.offset = data.offset;
@@ -30,6 +31,7 @@ var exhibit = {
             exhibit.resizeExhibits();           
             exhibit.setFilters();             
             exhibit.setActiveFilters(activeFilters);
+            exhibit.exhibitItemHtml = $('#exhibit-item-section').html();
         });
 
         $(window).load(function() {           
@@ -147,6 +149,12 @@ var exhibit = {
                     exhibit.searchLoadExhibits($.trim($('#search_text').val()));
                     event.preventDefault();
                 }               
+            });
+            
+            $('body').on('click', '#exhibit-back-btn', function(event) {
+                event.preventDefault();
+                $('#exhibit-item-section').empty().hide();
+                $('#exhibit-list-section').show();               
             });
         });
     },
@@ -351,9 +359,32 @@ var exhibit = {
             el.attr('style', '');
             el.find('a img').attr('src', objects[i]['img']);  
             el.find('a img').height(h);
-            el.find('.el-one-title').html('<a href="' + Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}) + '">' + objects[i]['title'] + '</a>');
-            el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
-            
+            el.find('.el-one-title a').text(objects[i]['title']);
+            //el.find('.el-one-img-link').attr('href', Routing.generate('armd_exhibit_item', {'id': objects[i]['id']}));
+            el.find('.el-one-img-link, .el-one-title a').click(function(event) {
+                var id = objects[i]['id'];               
+                
+                return function(event) {
+                    event.preventDefault();
+                    $('#exhibit-list-section').hide();
+                    $('#exhibit-item-section').html(exhibit.exhibitItemHtml);
+                    $('#exhibit-item-section').show();       
+                    armdMk.startLoadingBlock($('#exponat-main-container'));
+
+                    $.ajax({
+                        url: Routing.generate('armd_exhibit_item', {'id': id}),
+                        type: 'get',
+                        dataType: 'json'
+                    })
+                    .done(function(data) { 
+                        exhibitItem.init(data);         
+                    })
+                    .always(function() {
+                        armdMk.stopLoadingBlock($('#exponat-main-container'));           
+                    });
+                };
+            }());
+                    
             if (objects[i]['date']) {
                 el.find('.el-one-year').text(objects[i]['date']);
             }
