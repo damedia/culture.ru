@@ -84,14 +84,22 @@
                                 true
                             ),
                             innerImage: {
-                                src: "{% path object.primaryImage, 'atlasW63H56' %}",
-                                width: 50
+                                {% if object.primaryImage %}
+                                    src: "{% path object.primaryImage, 'atlasW63H56' %}",
+                                    width: 50
+                                {% else %}
+                                    src: "{% path object.icon, 'reference' %}",
+                                    width: 27
+                                {% endif %}
                             }
                         });
 
                         $(point.container)
                             .css("margin", "-38px 0 0 -12px")
-                            .attr('title', "{{ object.title }}");
+                            .attr('title', "{{ object.title }}")
+                            {% if not object.primaryImage %}
+                            .addClass("icon")
+                            {% endif %};
 
                         return point;
                     })(){% if not loop.last %}, {% endif %}

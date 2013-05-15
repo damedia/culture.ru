@@ -117,10 +117,17 @@
                                 parseFloat("{{ object.lat }}"),
                                 true
                             ),
+                            {% if object.primaryImage %}
                             innerImage: {
                                 src: "{% path object.primaryImage, 'atlasW63H56' %}",
                                 width: 50
                             }
+                            {% else %}
+                            url: "{% path object.icon, 'reference' %}",
+                            backpos: "0 0",
+                            width: 27,
+                            height: 39
+                            {% endif %}
                         });
 
                         point.show  = {{ object.lon and object.lat ? 'true' : 'false' }};
