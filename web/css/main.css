@@ -4608,6 +4608,16 @@ body {
                     font-size:12px;
                 }
 				
+                .index-video-list.index-video-list-fluid{}
+                .index-video-list.index-video-list-fluid li{
+                    border:0;
+                    margin:0;
+                    padding-left:2%;
+                    padding-right:2%;
+                    width:29.3%;
+                }
+
+
 				#video-list .flex-direction-nav {
 					background:none;
 					top:0;
