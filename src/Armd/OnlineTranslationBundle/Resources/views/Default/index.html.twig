@@ -13,7 +13,7 @@
         {% if entity.type == 1 %}
             {{ entity.dataCode|raw }}
         {% else %}
-            {% thumbnail entity.image, 'reference' with {'width': '100%', 'height': 'auto'} %}
+            {% thumbnail entity.image, 'reference' with {'width': '100%', 'height': 'auto', 'style': 'height: auto'} %}
         {% endif %}
 
         <div class="translation-desc">
@@ -53,7 +53,7 @@
                     <div class="plitka-one">
                         <a href="{{ translationHref }}" class="plitka-one-image-wrapper">
                             <div class="plitka-one-image">
-                                {{ lectureMacro.lectureThumbnail(translation, 'lectureW160H120', {'alt': translation.title, 'height': 'auto'}) }}
+                                {{ lectureMacro.lectureThumbnail(translation, 'lectureW160H120', {'alt': translation.title, 'height': 'auto', 'style': 'height: auto'}) }}
                             </div>
                             {#{% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}#}
                         </a>
