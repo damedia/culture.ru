@@ -13,7 +13,8 @@
         <div class="plitka-one-wrap plitka-one-wrap-opened">
             <div class="plitka-one clearfix">
                 <div class="museum-image-container">
-                    <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
+                    {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
+                    <div class="museum-image" style="background-image:url(/uploads/7-istoricheskii.jpg);"></div>
                     <div class="museum-image-over">
                         <div class="museum-image-title clearfix"><span>ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ</span></div>
                         <div class="museum-image-text-wrap">
@@ -100,15 +101,98 @@
                  {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
             </div>
             #}
+
+<!-- static sample -->
+<div id="video-list">
+<div class="plitka perfomances-list video-plitka">
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Курьер" href="http://culture.ru/lecture/view/576">
+<div class="plitka-one-image">
+<img title="Курьер" alt="Курьер" src="/uploads/video-kurier.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Курьер" href="http://culture.ru/lecture/view/576">
+Курьер
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Мосфильм, 1986</p>
+</div>    
+</div>
+</div>
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Земля" href="http://culture.ru/lecture/view/600">
+<div class="plitka-one-image">
+<img title="Земля" alt="Земля" src="/uploads/video-zemlya.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Земля" href="http://culture.ru/lecture/view/600">
+Земля
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Всеукраинское фотокиноуправление, 1930</p>
+</div>    
+</div>
+</div>
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Летят журавли" href="http://culture.ru/lecture/view/577">
+<div class="plitka-one-image">
+<img title="Летят журавли" alt="Летят журавли" src="/uploads/video-letyat_zhuravli.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Летят журавли" href="http://culture.ru/lecture/view/577">
+Летят журавли
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Мосфильм, 1957</p>
+</div>    
+</div>
+</div>
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Летят журавли" href="http://culture.ru/lecture/view/577">
+<div class="plitka-one-image">
+<img title="Летят журавли" alt="Летят журавли" src="/uploads/video-letyat_zhuravli.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Летят журавли" href="http://culture.ru/lecture/view/577">
+Летят журавли copy
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Мосфильм, 1957</p>
+</div>    
+</div>
+</div>
+</div>
+</div>
+<!-- /static sample -->
 {#
 <!-- static sample -->
 <div id="video-list">
-<ul class="slides index-video-list" style="width:606px; margin-left:auto; margin-right:auto;">
+<ul class="slides index-video-list">
 <li>
 <div class="index-video-one">
 <a href="http://culture.ru/lecture/view/576">
 <div class="index-video-image">
-<img height="auto" alt="Курьер" width="auto" class="lecture-tile-list-image" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12283_lecture_lectureW160H120.png">            
+<img height="auto" alt="Курьер" width="auto" class="lecture-tile-list-image" src="/uploads/video-kurier.jpg">            
 </div>
 </a>
 <a href="http://culture.ru/lecture/view/576" class="index-video-name">Курьер</a>
@@ -120,7 +204,7 @@
 <div class="index-video-one">
 <a href="http://culture.ru/lecture/view/600">
 <div class="index-video-image">
-<img height="auto" alt="Земля" width="auto" class="lecture-tile-list-image" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12632_lecture_lectureW160H120.jpeg">            
+<img height="auto" alt="Земля" width="auto" class="lecture-tile-list-image" src="/uploads/video-zemlya.jpg">            
 </div>
 </a>
 <a href="http://culture.ru/lecture/view/600" class="index-video-name">Земля</a>
@@ -132,60 +216,28 @@
 <div class="index-video-one">
 <a href="http://culture.ru/lecture/view/577">
 <div class="index-video-image">
-<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12284_lecture_lectureW160H120.png">            
+<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/uploads/video-letyat_zhuravli.jpg">            
 </div>
 </a>
 <a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли</a>
+<span class="index-video-info">Мосфильм, 1957</span>
+</div>
+</li>
+<li>
+<div class="index-video-one">
+<a href="http://culture.ru/lecture/view/577">
+<div class="index-video-image">
+<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/uploads/video-letyat_zhuravli.jpg">            
+</div>
+</a>
+<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли copy</a>
 <span class="index-video-info">Мосфильм, 1957</span>
 </div>
 </li>
 </ul>
 </div>
 <!-- /static sample -->
-<br><br>
 #}
-<!-- static sample fluid -->
-<div id="video-list">
-<ul class="slides index-video-list index-video-list-fluid">
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/576">
-<div class="index-video-image">
-<img height="auto" alt="Курьер" width="auto" class="lecture-tile-list-image" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12283_lecture_lectureW160H120.png">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/576" class="index-video-name">Курьер</a>
-<span class="index-video-info">Мосфильм, 1986</span>
-</div>
-</li>
-
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/600">
-<div class="index-video-image">
-<img height="auto" alt="Земля" width="auto" class="lecture-tile-list-image" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12632_lecture_lectureW160H120.jpeg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/600" class="index-video-name">Земля</a>
-<span class="index-video-info">Всеукраинское фотокиноуправление, 1930</span>
-</div>
-</li>
-
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/577">
-<div class="index-video-image">
-<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="http://culture.ru/ru/uploads/media/lecture/0001/13/thumb_12284_lecture_lectureW160H120.png">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли</a>
-<span class="index-video-info">Мосфильм, 1957</span>
-</div>
-</li>
-</ul>
-</div>
-<!-- /static sample fluid -->
-
             <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
         </section>
     {% endif %}
@@ -291,6 +343,15 @@
     <script type="text/javascript">
         $(function () {
             armdMainPage.init();
+        });
+        $(window).resize(function() {
+          var videoWidth = $('.left-column-content').width();
+          if(videoWidth <= 800){
+            $('#video-list').css( "width", "590px" );
+          }
+          else{
+            $('#video-list').css( "width", "auto" );
+          }
         });
     </script>
 {% endblock %}

@@ -1,0 +1,27 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{#{% block stylesheets %}#}
+
+{#<link href="{{ asset('main/common/css/sm.css') }}" rel="stylesheet" type="text/css" media="screen" />#}
+
+{#{{ parent() }}#}
+
+{#{% endblock %}#}
+
+
+{% block title %}{{ parent() }} — {{ 'menu.underconstraction'|trans }}{% endblock %}
+
+{% block page_header_title %}
+    {{ 'menu.underconstraction'|trans }}
+{% endblock %}
+
+{% block body%}
+
+
+
+
+<div class="content">
+	<img src="/img/underconstarction.png">
+</div>
+    
+{% endblock %}

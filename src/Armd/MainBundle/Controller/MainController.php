@@ -130,6 +130,11 @@ class MainController extends Controller
 
         return $this->render('ArmdMainBundle:Main:background_banner.html.twig', array('banner' => $banner));
     }
+    
+    public function underconstractionAction()
+    {
+        return $this->renderTemplate('underconstraction');
+    }
 
     public function bannerAction()
     {

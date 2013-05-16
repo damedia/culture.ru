@@ -227,6 +227,7 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 banner: { width: 922 }
                 realSmall: { width: 285 }
+                bannerW1232: { width:1232 }
 
         museum_guide:
             download:
