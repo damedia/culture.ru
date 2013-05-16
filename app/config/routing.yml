@@ -143,7 +143,7 @@ armd_media_helper:
 armd_lecture:
     resource: "@ArmdLectureBundle/Controller/"
     type:     annotation
-    prefix:   /lecture
+    prefix:   /
     
 armd_perfomance:
     resource: "@ArmdPerfomanceBundle/Controller/"
@@ -198,3 +198,8 @@ armd_external_search:
     resource: '@ArmdExternalSearchBundle/Controller/'
     type:     annotation
     prefix:   /external
+
+armd_tourist_route_bundle:
+    resource: "@ArmdTouristRouteBundle/Controller/"
+    type:     annotation
+    prefix:   /routes

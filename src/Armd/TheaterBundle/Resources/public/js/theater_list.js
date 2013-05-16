@@ -122,7 +122,7 @@ var armdMkTheaterList = {
         var offset = append ? armdMkTheaterList.visibleCount : 0;
         
         armdMkTheaterList.startLoading();
-        console.log(armdMkTheaterList.searchText);
+
         var jqxhr = $.ajax({
             url: Routing.generate('armd_theater_list_data', {
                 'offset': offset,

@@ -44,32 +44,34 @@
 		
 		
 		<div class="right-video-block translations-block">
-			<div class="flexslider">
-				<ul class="slides">
-					{% for v in videos %}
-					<li>
-						<article class="period-block">
-							<h2>{{ v.title|raw }}</h2>
-							<a href="{{ v.url }}" class="period-block_image">
-								<img src="{{ v.img }}" alt=""  />
-								<span class="play"></span>
-							</a>
-							<div class="period-block_text">
-								<p>
-									{{ v.title|raw }}
-								</p>
-							</div>
-							<footer class="period-block_footer">
-								<div class="tags">
-									<a href="{{ v.url }}">Трансляции</a>
-								</div>
-							</footer>
-							
-						</article>
-					</li>
-					{% endfor %}
-				</ul>
-			</div>
+            <div class="orange-slider-block">
+                <div class="flexslider">
+                    <ul class="slides">
+                        {% for v in videos %}
+                        <li>
+                            <article class="period-block">
+                                <h2>{{ v.title|raw }}</h2>
+                                <a href="{{ v.url }}" class="period-block_image">
+                                    <img src="{{ v.img }}" alt=""  />
+                                    <span class="play"></span>
+                                </a>
+                                <div class="period-block_text">
+                                    <p>
+                                        {{ v.title|raw }}
+                                    </p>
+                                </div>
+                                <footer class="period-block_footer">
+                                    <div class="tags">
+                                        <a href="{{ v.url }}">Трансляции</a>
+                                    </div>
+                                </footer>
+                                
+                            </article>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
 		</div>
 
 		

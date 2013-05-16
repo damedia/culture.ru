@@ -12,46 +12,24 @@
     <div class="search-category">
 
         <form id="lectures-filter" method="post">
+
             <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
-                <select id="lecture_category" name="lecture_category" class="uni">
-                    <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
-                        {{ "All"|trans }}
-                    </option>
+                <select id="lecture_genre" name="lecture_genre" class="uni">
+                    <option value="0">{{ "All"|trans }}</option>
                     {% set selectedCategoryFound = false %}
-                    {% for category in categories %}
-                        <option value="{{ category.id }}"
-                                {% if category.id == selectedCategory.id|default(0) %}
-                                    {% set selectedCategoryFound = true %}
-                                    selected="selected"
-                                {% endif %}
-                                {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}
-                                >
-                            {{ category.title }}
-                        </option>
-                    {% endfor %}
-                    {% for category in specialCategories %}
-                        <option value="0"
-                                {% if category.id == selectedCategory.id|default(0) %}selected="selected"{% endif %}
-                                data-system-slug="{{ category.systemSlug }}"
-                                >
-                            {{ category.title }}
+                    {% for genre in genres %}
+                        <option value="{{ genre.id }}" {% if genre.id in selectedGenreIds %} selected="selected" {% endif %} >
+                            {{ genre.title }}
                         </option>
                     {% endfor %}
                 </select>
             </div>
 
-            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and not cinemaTop100 %}
-                <span class="search-dates-label">Жанр</span>
-                <div class="search-category-selects">
-                    <select id="lecture_sub_category" name="lecture_sub_category" class="uni">
-                        <option value="0">{{ "All"|trans }}</option>
-                        {% if not selectedCategoryFound and selectedCategory is not empty%}
-                            <option value="{{ selectedCategory.id }}" selected="selected">{{ selectedCategory.title }}</option>
-                        {% endif %}
-                    </select>
-                </div>
+            {% if genre1 is not empty %}
+                <input type="hidden" id="genre1_id" name="genre1_id" value="{{ genre1.id }}" />
             {% endif %}
+
             {#<button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>#}
         </form>
 
@@ -68,11 +46,23 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+            <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ 'menu.cinema'|trans }}</a></li>
+            {% if genre1 is not empty %}
+                <li><span>{{ genre1.title }}</span></li>
+            {% endif %}
+        {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+            <li><span>{{ 'menu.lectures'|trans }}</span></li>
+        {% endif %}
+    </ul>
+
     <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
         <div  class="sort-filter" id="sort-filter">
             <ul>
-                <li class="active"><a href="#" data-sort-by="date">по дате</a></li>
-                <li><a href="#" data-sort-by="popularity">по популярности</a></li>
+                {#<li class="active"><a href="#" data-sort-by="date">по дате</a></li>#}
+                <li class="active"><a href="#" data-sort-by="popularity">по популярности</a></li>
                 <li><a href="#" data-sort-by="title">по алфавиту</a></li>
             </ul>
         </div>
@@ -98,9 +88,9 @@
                 'lectureSuperTypeCode': lectureSuperType.code,
                 'limit': 32,
                 'search_query': searchQuery,
-                'category_id': selectedCategory.id|default(0),
-                'cinema_top100': cinemaTop100,
-                'tag_id': (tag is empty ? 0 : tag.id)
+                'genre_ids': selectedGenreIds,
+                'tag_id': (tag is empty ? 0 : tag.id),
+                'genre1_id': (genre1 is empty ? 0 : genre1.id)
             })
         %}
     </div>

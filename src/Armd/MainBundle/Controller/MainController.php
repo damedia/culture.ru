@@ -44,7 +44,7 @@ class MainController extends Controller
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => 30,
+                NewsManager::CRITERIA_LIMIT => 7,
             )
         );
 
@@ -125,10 +125,15 @@ class MainController extends Controller
         }
 
         $banner = $this->getDoctrine()->getManager()
-            ->getRepository('ArmdBannerBundle:Banner')
+            ->getRepository('ArmdExtendedBannerBundle:BaseBanner')
             ->getBanner($bannerCode);
 
         return $this->render('ArmdMainBundle:Main:background_banner.html.twig', array('banner' => $banner));
+    }
+    
+    public function underconstractionAction()
+    {
+        return $this->renderTemplate('underconstraction');
     }
 
     public function bannerAction()
@@ -139,6 +144,11 @@ class MainController extends Controller
     public function aboutAction()
     {
         return $this->renderTemplate('about');
+    }
+
+    public function museumReserveAction()
+    {
+        return $this->renderTemplate('museum_reserve');
     }
 
     public function may9Action()

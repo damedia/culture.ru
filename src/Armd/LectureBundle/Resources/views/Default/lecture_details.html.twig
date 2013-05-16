@@ -31,8 +31,6 @@
 {% block page_header_title %}
     {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
         {{ 'Lecture'|trans }}
-    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-        {{ 'Translations'|trans }}
     {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
         {{ "Cinema Hall"|trans }}
     {% endif %}
@@ -41,54 +39,26 @@
 {% block page_header_search %}
     {% set lecturesFilterPath = 'armd_lecture_default_index' %}
     {% if lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-        {% set lecturesFilterPath = 'armd_lecture_lecture_index' %}
-    {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_VIDEO_TRANSLATION' %}
-        {% set lecturesFilterPath = 'armd_lecture_translation_index' %}
+        {% set lecturesFilterPath = path('armd_lecture_lecture_index') %}
     {% elseif lecture.lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-        {% set lecturesFilterPath = 'armd_lecture_cinema_index' %}
+        {% if genre1 is not empty %}
+            {% set lecturesFilterPath = path('armd_lecture_cinema_index', {'genreSlug': genre1.slug}) %}
+        {% else %}
+            {% set lecturesFilterPath = path('armd_lecture_cinema_index') %}
+        {% endif %}
     {% endif %}
     <div class="search-category">
-        <form id="lectures-filter" action="{{ path(lecturesFilterPath, {'category_id': selectedCategory.id|default(0)}) }}" method="get">
+        <form id="lectures-filter" action="{{ lecturesFilterPath }}" method="get">
             <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
-                <select id="lecture_category" name="category_id" class="uni">
-                    <option value="0" {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}>
-                        {{ "All"|trans }}
-                    </option>
-                    {% set selectedCategoryFound = false %}
-                    {% for category in categories %}
-                        <option value="{{ category.id }}"
-                                {% if category.id == selectedCategory.id|default(0) %}
-                                    {% set selectedCategoryFound = true %}
-                                    selected="selected"
-                                {% endif %}
-                                {% if cinemaTop100 %}data-system-slug="CINEMA_TOP_100"{% endif %}
-                                >
-                            {{ category.title }}
-                        </option>
-                    {% endfor %}
-                    {% for category in specialCategories %}
-                        <option value="0"
-                                {% if cinemaTop100 and selectedCategory and category.id == selectedCategory.id %}selected="selected"{% endif %}
-                                data-system-slug="{{ category.systemSlug }}"
-                                >
-                            {{ category.title }}
-                        </option>
+                <select id="lecture_genre" name="genre_id" class="uni">
+                    <option value="0"> {{ "All"|trans }} </option>
+                    {% for genre in genres %}
+                        <option value="{{ genre.id }}"> {{ genre.title }} </option>
                     {% endfor %}
                 </select>
             </div>
 
-            {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' and not cinemaTop100 %}
-                <span class="search-dates-label">Жанр</span>
-                <div class="search-category-selects">
-                    <select id="lecture_sub_category" name="sub_category" class="uni">
-                        <option value="0">{{ "All"|trans }}</option>
-                        {% if not selectedCategoryFound and selectedCategory is not empty%}
-                            <option value="{{ selectedCategory.id }}">{{ selectedCategory.title }}</option>
-                        {% endif %}
-                    </select>
-                </div>
-            {% endif %}
             {#<button id="lectures-filter-submit" type="submit" class="button search-dates-button">{{ "search_show"|trans }}</button>#}
         </form>
     </div>
@@ -102,60 +72,67 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
+            {% if genre1 is not empty %}
+                <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': genre1.slug}) }}">{{ genre1.title }}</a></li>
+            {% else %}
+                <li><a href="{{ path('armd_lecture_cinema_index')}}">{{ 'menu.cinema'|trans }}</a></li>
+            {% endif %}
+        {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
+            <li><a href="{{ path('armd_lecture_lecture_index') }}">{{ 'menu.lectures'|trans }}</a></li>
+        {% endif %}
+        <li><span>{{ lecture.title }}</span></li>
+    </ul>
+
     <div class="left-column-content">
         <section class="video-one">
             <div class="video-one_container">
-                {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
-
-                    {% if lecture.lectureVideo is not empty %}
-                        {% set lectureVideo = lecture.lectureVideo %}
-                        {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-                    {% elseif lecture.mediaLectureVideo is not empty
-                            and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
-                        {% set lectureVideo = lecture.mediaLectureVideo %}
-                        {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
-                    {% elseif lecture.trailerVideo is not empty %}
-                        {% set lectureVideo = lecture.trailerVideo %}
-                        {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-                    {% elseif lecture.mediaTrailerVideo is not empty %}
-                        {% set lectureVideo = lecture.mediaTrailerVideo %}
-                        {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
-                    {% elseif lecture.externalUrl is not empty %}
-                        <a target="_blank" href="{{ lecture.externalUrl }}">
-                            <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
-                        </a>
-                    {% endif %}
-
-                    {# отключено #}
-                    {% if false %}
-                        {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
-                            {# tvigle video #}
-                            {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
-                                {% set lectureVideo = lecture.trailerVideo %}
-                            {% else %}
-                                {% set lectureVideo = lecture.lectureVideo %}
-                            {% endif %}
-                            {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-
-                        {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
-                            {# media video #}
-                            {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
-                                {% set lectureVideo = lecture.mediaTrailerVideo %}
-                            {% else %}
-                                {% set lectureVideo = lecture.mediaLectureVideo %}
-                            {% endif %}
-                            {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
-
-                        {% endif %}
-                    {% endif %}
-                    {# /отключено #}
-
-                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
-                    {% if lecture.lectureFile is not empty %}
-                        <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
-                    {% endif %}
-
+                {% if lecture.lectureVideo is not empty %}
+                    {% set lectureVideo = lecture.lectureVideo %}
+                    {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+                {% elseif lecture.mediaLectureVideo is not empty
+                        and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
+                    {% set lectureVideo = lecture.mediaLectureVideo %}
+                    {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                {% elseif lecture.trailerVideo is not empty %}
+                    {% set lectureVideo = lecture.trailerVideo %}
+                    {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+                {% elseif lecture.mediaTrailerVideo is not empty %}
+                    {% set lectureVideo = lecture.mediaTrailerVideo %}
+                    {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                {% elseif lecture.externalUrl is not empty %}
+                    <a target="_blank" href="{{ lecture.externalUrl }}">
+                        <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">
+                    </a>
                 {% endif %}
+
+                {# отключено #}
+{#
+                {% if false %}
+                    {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
+                        &#123;&#35; tvigle video &#35;&#125;
+                        {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
+                            {% set lectureVideo = lecture.trailerVideo %}
+                        {% else %}
+                            {% set lectureVideo = lecture.lectureVideo %}
+                        {% endif %}
+                        {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
+
+                    {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
+                        &#123;&#35; media video &#35;&#125;
+                        {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
+                            {% set lectureVideo = lecture.mediaTrailerVideo %}
+                        {% else %}
+                            {% set lectureVideo = lecture.mediaLectureVideo %}
+                        {% endif %}
+                        {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+
+                    {% endif %}
+                {% endif %}#}
+                {# /отключено #}
+
             </div>
             <div class="video-one-description">
 
@@ -178,11 +155,8 @@
                     <span>Категории:</span>
                         {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
                         {% if lecture.timeLength %}{{ lecture.timeLength~' мин. /' }}{% endif %}
-                        {% for lectureCategory in lecture.categories %}
-                            <a href="{{ path('armd_lecture_default_index', {
-                                        'lectureSuperTypeCode': lecture.lectureSuperType.code,
-                                        'category_id': lectureCategory.id }) }}"
-                                    >{{ lectureCategory.title }}</a>{% if not loop.last %},{% endif %}
+                        {% for genre in lecture.genres %}
+                            <a href="#" class="genre-link" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}
                         {% endfor %}
                 </span>
 

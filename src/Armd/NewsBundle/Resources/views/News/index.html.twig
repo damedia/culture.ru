@@ -32,6 +32,16 @@
 
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        {% if categoryEntity %}
+            <li><a href="{{ path('armd_news_list_index') }}">{{ 'menu.news_index'|trans }}</a></li>
+            <li><span>{{ categoryEntity.title }}</span></li>
+        {% else %}
+            <li><span>{{ 'menu.news_index'|trans }}</span></li>
+        {% endif %}
+    </ul>
+
     {% if not category and searchQuery is empty %}
         {% render url('armd_news_billboard_slider') %}
     {% endif %}
@@ -70,7 +80,9 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/jquery.carouFredSel-6.2.1-packed.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_slider.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             armdMkNews.init('{{ category }}');
@@ -79,6 +91,11 @@
             {% endif %}
         });
     </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/armdnews/css/slider.css') }}" media="all" />
 {% endblock %}
 
 {#{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}#}

@@ -440,7 +440,7 @@ body {
             margin-right:15px;
         }
         .kras .main-image {
-            margin-top: 16px;
+            margin-top: 18px;
             margin-right: 17px;
             margin-left: 160px;
         }
@@ -510,7 +510,7 @@ body {
                 width: 280px;
                 font-size: 16px;
                 line-height: 18px;
-                padding-top:26px;
+                padding-top:46px;
 			}
     
         .decor {
@@ -972,8 +972,12 @@ body {
                 line-height: 19px;
                 color:#a50a0a;
             }
+
+            .kras .puzzle-description-text {
+                 margin-right:45px;
+            }
             .kras .puzzle-description-text p {
-                color:#456333;
+                color:#456333; letter-spacing:1px;
             }
             
 
@@ -2068,6 +2072,8 @@ body {
     }
     
     
+   .quiz-krasnoyarsk {
+        background: url(../img/kras/quiz/bg-quiz.png); }
     
     .kreml-window {
         background:none;
@@ -2129,6 +2135,10 @@ body {
                          background:none;
                     }
 
+                    .quiz-krasnoyarsk .quiz-content .baloons .first  {
+                         background:none;
+                    }
+
                 .quiz-window .quiz-content .baloons .first.active {
                     background:url(../img/petergof/quiz/baloon-step-1-active.png) no-repeat 0 0;
                 }
@@ -2149,6 +2159,11 @@ body {
                         background:url(../img/astrahan/quiz/baloon-step-1-active.png) no-repeat 0 0;
                         top: 0px;
                         left: 206px;
+                    }
+                    .quiz-krasnoyarsk .quiz-content .baloons .first.active {
+                        background:url(../img/kras/quiz/baloon-step-1-active.png) no-repeat;
+                        top: -1px;
+                        left: 205px;
                     }
 
 
@@ -2171,7 +2186,11 @@ body {
                     .quiz-astr .quiz-content .baloons .second  {
                         background:none;
                     }
-                
+
+                    .quiz-krasnoyarsk .quiz-content .baloons .second  {
+                        background:none;
+                    }
+
 
                 .quiz-window .quiz-content .baloons .second.active {
                     background:url(../img/petergof/quiz/baloon-step-2-active.png) no-repeat 0 0;
@@ -2198,6 +2217,13 @@ body {
                         width: 120px;
                     }
 
+                    .quiz-krasnoyarsk .quiz-content .baloons .second.active {
+                        background:url(../img/kras/quiz/baloon-step-2-active.png) no-repeat;
+                        top: 2px;
+                        left: 381px;
+                    }
+
+
                 .quiz-window .quiz-content .baloons .third {
                     width: 109px;
                     height: 130px;
@@ -2218,6 +2244,10 @@ body {
                         background:none;
                     }
 
+                    .quiz-krasnoyarsk .quiz-content .baloons .third {
+                        background:none;
+                    }
+
                 .quiz-window .quiz-content .baloons .third.active {
                     background:url(../img/petergof/quiz/baloon-step-3-active.png) no-repeat 0 0;
                 } 
@@ -2233,6 +2263,10 @@ body {
                     }
                     .quiz-astr .quiz-content .baloons .third.active {
                         background:url(../img/astrahan/quiz/baloon-step-3-active.png) no-repeat 0 5px;
+                    }
+                    .quiz-krasnoyarsk .quiz-content .baloons .third.active {
+                        background:url(../img/kras/quiz/baloon-step-3-active.png) no-repeat 0 0;
+                        left: 556px; top: 3px;
                     }
 
 
@@ -2297,6 +2331,10 @@ body {
                         background:url(../img/nevyansk/quiz/sert-button.gif) no-repeat 0 0;
                         text-indent:-9999px;
                     }
+                    .quiz-krasnoyarsk .get-diplom {
+                        background:url(../img/kras/quiz/sert-button.png)
+                    }
+                    
                         .sertificat img {
                             display:block;
                             margin:auto;
@@ -2430,6 +2468,10 @@ body {
                 color:#83b2ea;
             }
         
+            .quiz-krasnoyarsk .next {
+                color:#97ccb8;
+            }
+        
         .quiz-window .next.first_slide {
             bottom:133px;
             left:215px;
@@ -2451,6 +2493,9 @@ body {
             }
             .quiz-astr .next.first_slide {
                 color:#e25959;
+            }
+            .quiz-krasnoyarsk .next.first_slide {
+                color:#76b4d3;
             }
             .quiz-nav li.start,
             .quiz-nav li.next {
@@ -2508,6 +2553,8 @@ body {
                 color:#57b7c1;
             }
 
+            .quiz-krasnoyarsk .q-case-intro h1 { color:#a88cba; }
+
         .q-case-intro p {
             display: inline-block;
             color: #B773B7;
@@ -2556,6 +2603,13 @@ body {
                 line-height: 17px;
                 margin-bottom: 40px;
                
+            }
+
+            .quiz-krasnoyarsk .question {
+                padding-bottom: 30px;
+            }
+            .quiz-krasnoyarsk .question p {
+               color:#599683;
             }
 
         .quiz-content .question p:first-child,
@@ -2821,8 +2875,57 @@ body {
         .quiz-astr .q-case-1 .third .description h4 {
             color:#ffebe9;
         }
-        
-        
+
+        .quiz-krasnoyarsk .q-case-1 .answers ul li.first a {
+            color: #e57a89; text-transform: uppercase;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers.first ul li.first a {
+            color: #fff;
+            background: #e57a89;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers.first .description .first {
+            width: 270px;
+            padding: 13px 13px 13px 14px;
+            background: #e57a89;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers .description .first h4 { color:#f4e2c1; }
+
+        .quiz-krasnoyarsk .q-case-1 .answers ul li.second a {
+            color: #e8c76b; text-transform: uppercase;
+        }
+
+       .quiz-krasnoyarsk .q-case-1 .answers.second ul li.second a {
+            color: #fff;
+            background: #dd9f4e;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers.second .description .second {
+            width: 270px;
+            padding: 13px 13px 13px 14px;
+            background: #dd9f4e;
+            top: -15px;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers ul li.third a {
+            color: #c2c671; text-transform: uppercase;
+        }
+
+
+        .quiz-krasnoyarsk .q-case-1 .answers.third ul li.third a {
+            color: #fff;
+            background: #c2c671;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers.third .description .third {
+            width: 270px;
+            padding: 13px 13px 13px 14px;
+            background: #c2c671;
+        }
+
+        .quiz-krasnoyarsk .q-case-1 .answers .description .third h4 { color: #dcf5f9; }
 
 /*CASE 2*/
     
@@ -3012,6 +3115,52 @@ body {
         }
 
 
+        .quiz-krasnoyarsk .q-case-2 .answers ul li.first a {
+            color: #d88d9e; text-transform: uppercase;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers.first ul li.first a {
+            color: #fff;
+            background: #e57a89;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers.first .description .first {
+            background: #e57a89;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers .description .first h4 { color:#dcf7da; }
+
+        .quiz-krasnoyarsk .q-case-2 .answers ul li.second a {
+            color: #91a586; text-transform: uppercase;
+        }
+
+       .quiz-krasnoyarsk .q-case-2 .answers.second ul li.second a {
+            color: #fff;
+            background: #91a586;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers.second .description .second {
+            background: #91a586;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers .description .second h4 { color: #dcf5f9; }
+
+        .quiz-krasnoyarsk .q-case-2 .answers ul li.third a {
+            color: #af5c37; text-transform: uppercase;
+        }
+
+
+        .quiz-krasnoyarsk .q-case-2 .answers.third ul li.third a {
+            color: #fff;
+            background: #af5c37;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers.third .description .third {
+            background: #af5c37;
+        }
+
+        .quiz-krasnoyarsk .q-case-2 .answers .description .third h4 { color: #ffe7b3; }
+
 
 /*CASE 3*/
     .quiz-arkaim .q-case-3 .answers {
@@ -3160,6 +3309,52 @@ body {
         .quiz-asrt .q-case-3 .third .description h4 {
             color:#fff9de;
         }  
+
+
+        .quiz-krasnoyarsk .q-case-3 .answers ul li.first a {
+            color: #cebb5b; text-transform: uppercase;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers.first ul li.first a {
+            color: #fff;
+            background: #cebb5b;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers.first .description .first {
+            background: #cebb5b;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers .description .first h4 { color:#f7f2dc; }
+
+        .quiz-krasnoyarsk .q-case-3 .answers ul li.second a {
+            color: #c48a7a; text-transform: uppercase;
+        }
+
+       .quiz-krasnoyarsk .q-case-3 .answers.second ul li.second a {
+            color: #fff;
+            background: #c48a7a;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers.second .description .second {
+            background: #c48a7a;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers .description .second h4 { color: #f7f2dc; }
+
+        .quiz-krasnoyarsk .q-case-3 .answers ul li.third a {
+            color: #97ccce; text-transform: uppercase;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers.third ul li.third a {
+            color: #fff;
+            background: #8eb2b2;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers.third .description .third {
+            background: #8eb2b2;
+        }
+
+        .quiz-krasnoyarsk .q-case-3 .answers .description .third h4 { color: #fce3ed; }
         
         
 /* SERTIFICAT*/
@@ -3535,7 +3730,7 @@ margin-top: 79px;
     height: 603px;
 }
 .kras .footer-menu {
-    top: -96px;
+    top: -95px;
 }
 
 

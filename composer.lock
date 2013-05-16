@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fe31fa3aa627436350652b65601c9ee1",
+    "hash": "0ac72f83190e69072f49cbd7997fd1d2",
     "packages": [
         {
             "name": "armd/banner-bundle",
@@ -12,11 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@git.armd.ru:armdbannerbundle.git",
-                "reference": "1f3a34bc8b7d5fb3c68a7fa6c42a91a89f4c86de"
-            },
-            "require": {
-                "sonata-project/admin-bundle": "*",
-                "sonata-project/doctrine-orm-admin-bundle": "*"
+                "reference": "9e41b9794fe21715bd7cf6c936e69495331ba5e9"
             },
             "type": "armd-cms-bundle",
             "autoload": {
@@ -25,7 +21,7 @@
                 }
             },
             "description": "Banner Bundle",
-            "time": "2012-09-03 14:32:54"
+            "time": "2013-05-06 14:56:01"
         },
         {
             "name": "armd/poll-bundle",
@@ -1165,6 +1161,75 @@
                 "uploadable"
             ],
             "time": "2013-02-13 19:35:33"
+        },
+        {
+            "name": "genemu/form-bundle",
+            "version": "dev-master",
+            "target-dir": "Genemu/Bundle/FormBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/genemu/GenemuFormBundle.git",
+                "reference": "d88d0dd0cf932814952b6cdf194ac2031999157e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/d88d0dd0cf932814952b6cdf194ac2031999157e",
+                "reference": "d88d0dd0cf932814952b6cdf194ac2031999157e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/form": ">=2.1,<3.0",
+                "symfony/framework-bundle": ">=2.1,<3.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "1.*",
+                "doctrine/mongodb-odm-bundle": "*",
+                "doctrine/orm": "2.*",
+                "propel/propel-bundle": "*",
+                "symfony/finder": "2.*"
+            },
+            "suggest": {
+                "symfony/doctrine-bundle": "In order to use some form types with Doctrine",
+                "symfony/finder": "For an image type",
+                "symfony/mongodb-odm-bundle": "For MongoDB integration",
+                "symfony/twig-bridge": "For integration into Twig templates"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Genemu\\Bundle\\FormBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Chauvel",
+                    "email": "olivier@generation-multiple.com"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/genemu/GenemuFormBundle/contributors"
+                },
+                {
+                    "name": "Bilal Amarni",
+                    "email": "bilal.amarni@gmail.com"
+                }
+            ],
+            "description": "Extra form types for your Symfony2 projects",
+            "keywords": [
+                "extra form",
+                "form"
+            ],
+            "time": "2013-04-24 17:37:05"
         },
         {
             "name": "gregwar/captcha",

@@ -55,7 +55,7 @@ class TvigleVideoTwigExtension extends Twig_Extension
         if($video->getFrame()) {
             $html = '
                 <iframe width="'.$width.'" height="' . $height . '"
-                    src="'.$video->getFrame().'&dopparam=armada_skin" style="border: 0px;"></iframe>
+                    src="'.$video->getFrame().'&dopparam=armada_skin&wmode=transparent" style="border: 0px;" wmode="Opaque"></iframe>
                 ';
 
         } else {

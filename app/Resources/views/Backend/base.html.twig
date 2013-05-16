@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('vendor/select2/select2.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('vendor/chosen/chosen.css') }}" type="text/css" media="all" />
+
+    {% if form is defined %}{{ form_stylesheet(form) }}{% endif %}
 {% endblock%}
 
 {% block sonata_top_bar_nav %}
@@ -27,6 +29,7 @@
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2_locale_' ~ app.request.locale ~ '.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
 
     <script type="text/javascript">
@@ -34,10 +37,10 @@
             $('.chzn-select').chosen();
 
             $('.select2').select2();
-
         });
     </script>
 
+    {% if form is defined %}{{ form_javascript(form) }}{% endif %}
 {% endblock %}
 
 {% block footer %}

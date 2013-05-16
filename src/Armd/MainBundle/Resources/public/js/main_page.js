@@ -1,6 +1,7 @@
 var fetchMarkersUri = Routing.generate('armd_atlas_default_filter'),
     fetchMarkerDetailUri = Routing.generate('armd_atlas_default_objectballoon'),
     fetchClusterDetailUri = Routing.generate('armd_atlas_default_clusterballoon'),
+    fetchSideDetailUri = Routing.generate('armd_atlas_default_objectside'),
     bundleImagesUri = armdMk.asset('bundles/armdatlas/images'),
     obrazCategoryId = 74;
 

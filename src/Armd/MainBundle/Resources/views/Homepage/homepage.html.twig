@@ -6,37 +6,55 @@
 
 {% block body_class %}index-main{% endblock %}
 
-{% block sub_header %}
-    <div class="index-map">
-        <div class="bar bar-top"></div>
-        <div class="bar bar-right"></div>
-        <div class="bar bar-bottom"></div>
-        <div class="bar bar-left"></div>
-        <div id="map"></div>
-    </div>
+{% block sub_header %} 
+    <section class="index-block index-museum-block clearfix">
+        {# <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2> #}
 
-    <!-- Асинхронная загрузка jsapi -->
-    <div id="script_block" class="script_block"></div>
-    <div id="script_ad" class="script_ad" style="display:none;">
-        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.10"></script>
-        {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.10"></script> #}
-    </div>
-    <script type="text/javascript">
-        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
-        document.getElementById('script_ad').style.display = 'block';
-    </script>
-    <!-- /Асинхронная загрузка jsapi -->
+        <div class="plitka-one-wrap plitka-one-wrap-opened">
+            <div class="plitka-one clearfix">
+                <div class="museum-image-container">
+                    {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
+                    <div class="museum-image" style="background-image:url(/img/museum-temp/7-istoricheskii.jpg);"></div>
+                    <div class="museum-image-over">
+                        <div class="museum-image-title clearfix"><span>ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ</span></div>
+                        <div class="museum-image-text-wrap">
+                            <a href="#" class="museum-town">Москва</a>
+                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                                <span class="museum-image-text">
+                                    {{ "visit_museum"|trans|raw }}
+                                </span>
+                            </a>
+                            <a href="#instruction" class="museum-instr-link">
+                                {{ "manual_instruction"|trans|raw }}
+                            </a>
+                        </div>
+                        <div class="museum-image-image"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="instruction" style="display:none;">
+                <div class="window">
+                    <div class="block window-content">
+                        {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+                    </div>
+               </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
 
 {% block left_column %}
     <section class="block new-on-site">
+        {#
         <h1><span>{{ "Mainpage block.New on portal"|trans }}</span></h1>
         <section class="index-block clearfix index-russia-images-block">
             <h2><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.Title"|trans }}</a></h2>
             {% include 'ArmdMainBundle:Homepage:new_russia_images.html.twig' with {'objects': newRussiaImages} %}
             <p class="all"><a href="{{ path('armd_atlas_russia_images') }}">{{ "Mainpage block.Images of Russia.All"|trans }}</a></p>
         </section>
-
+        #}
         {% if app.request.locale == 'ru' %}
             <section class="index-block two-column-block clearfix index-news-block">
                 <section class="index-block">
@@ -77,51 +95,152 @@
 
     {% if app.request.locale == 'ru' %}
         <section class="index-block index-video-block clearfix">
-            <h2><a href="{{ path('armd_lecture_cinema_index') }}">Видеотека</a></h2>
+            <h2><a href="{{ path('armd_lecture_cinema_index') }}">Кинозал</a></h2>
+            {#
             <div id="video-list">
-                {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
+                 {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}
             </div>
+            #}
+
+<!-- static sample -->
+<div id="video-list">
+<div class="plitka perfomances-list video-plitka">
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Курьер" href="http://culture.ru/lecture/view/576">
+<div class="plitka-one-image">
+<img title="Курьер" alt="Курьер" src="/img/video/video-kurier.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Курьер" href="http://culture.ru/lecture/view/576">
+Курьер
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Мосфильм, 1986</p>
+</div>    
+</div>
+</div>
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Земля" href="http://culture.ru/lecture/view/600">
+<div class="plitka-one-image">
+<img title="Земля" alt="Земля" src="/img/video/video-zemlya.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Земля" href="http://culture.ru/lecture/view/600">
+Земля
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Всеукраинское фотокиноуправление, 1930</p>
+</div>    
+</div>
+</div>
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Летят журавли" href="http://culture.ru/lecture/view/577">
+<div class="plitka-one-image">
+<img title="Летят журавли" alt="Летят журавли" src="/img/video/video-letyat_zhuravli.jpg">            
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Летят журавли" href="http://culture.ru/lecture/view/577">
+Летят журавли
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Мосфильм, 1957</p>
+</div>    
+</div>
+</div>
+<div class="plitka-one-wrap">
+<div class="plitka-one">
+<a class="plitka-one-image-wrapper" title="Летят журавли" href="http://culture.ru/lecture/view/577">
+<div class="plitka-one-image">
+<img title="Летят журавли" alt="Летят журавли" src="/img/video/video-groznyi.jpg">
+</div>
+</a>
+<div class="plitka-text">
+<span class="plitka-name">
+<a title="Летят журавли" href="http://culture.ru/lecture/view/1023">
+Иван Грозный
+</a>
+</span>
+</div>
+<div class="plitka-footer">
+<p class="views">Мосфильм, 1944</p>
+</div>    
+</div>
+</div>
+</div>
+</div>
+<!-- /static sample -->
+{#
+<!-- static sample -->
+<div id="video-list">
+<ul class="slides index-video-list">
+<li>
+<div class="index-video-one">
+<a href="http://culture.ru/lecture/view/576">
+<div class="index-video-image">
+<img height="auto" alt="Курьер" width="auto" class="lecture-tile-list-image" src="/img/video/video-kurier.jpg">            
+</div>
+</a>
+<a href="http://culture.ru/lecture/view/576" class="index-video-name">Курьер</a>
+<span class="index-video-info">Мосфильм, 1986</span>
+</div>
+</li>
+
+<li>
+<div class="index-video-one">
+<a href="http://culture.ru/lecture/view/600">
+<div class="index-video-image">
+<img height="auto" alt="Земля" width="auto" class="lecture-tile-list-image" src="/img/video/video-zemlya.jpg">            
+</div>
+</a>
+<a href="http://culture.ru/lecture/view/600" class="index-video-name">Земля</a>
+<span class="index-video-info">Всеукраинское фотокиноуправление, 1930</span>
+</div>
+</li>
+
+<li>
+<div class="index-video-one">
+<a href="http://culture.ru/lecture/view/577">
+<div class="index-video-image">
+<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/img/video/video-letyat_zhuravli.jpg">            
+</div>
+</a>
+<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли</a>
+<span class="index-video-info">Мосфильм, 1957</span>
+</div>
+</li>
+<li>
+<div class="index-video-one">
+<a href="http://culture.ru/lecture/view/577">
+<div class="index-video-image">
+<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/img/video/video-letyat_zhuravli.jpg">            
+</div>
+</a>
+<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли copy</a>
+<span class="index-video-info">Мосфильм, 1957</span>
+</div>
+</li>
+</ul>
+</div>
+<!-- /static sample -->
+#}
             <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
         </section>
     {% endif %}
-
-        <section class="index-block index-museum-block clearfix">
-            <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2>
-
-            <div class="plitka-one-wrap plitka-one-wrap-opened">
-                <div class="plitka-one clearfix">
-                    <div class="museum-image-container">
-                        <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div>
-                        <div class="museum-image-over">
-                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
-                                <span class="museum-image-text">
-                                    {{ "visit_museum"|trans|raw }}
-                                </span>
-                            </a>
-                            <a href="#instruction" class="museum-instr-link">
-                                {{ "manual_instruction"|trans|raw }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="instruction" style="display:none;">
-                    <div class="window">
-                        <div class="block window-content">
-                            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-                        </div>
-                   </div>
-                </div>
-            </div>
-        </section>
-        {% if app.request.locale == 'ru' %}
-            <section class="block social-widget-block">
-                {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
-            </section>
-            <section class="block twitter-widget-block">
-                {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
-            </section>
-        {% endif %}
 
     </section>
 {% endblock %}
@@ -135,23 +254,72 @@
     
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
-    {% if app.request.locale == 'ru' %}
-        <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
-            <img src="{{ asset('img/read_yandex.jpg') }}">
-        </a>
-        
-        <section id="homepage-social-widgets">
-            {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
-            {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
+{% endblock %}
+
+{% block wide_body %}
+<!-- begin-->
+    <div class="index-map">
+        <div class="bar bar-top"></div>
+        <div class="bar bar-right"></div>
+        <div class="bar bar-bottom"></div>
+        <div class="bar bar-left"></div>
+        <div id="map"></div>
+        <div class="map-lister scrollblock">
+            <div id="map-scrollblock" class="scrollblock-content"></div>
+            <div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left" onclick="return AT.prevPoint();"></a><a class="scrollblock-a scrollblock-right" onclick="return AT.nextPoint();"></a></div>
+        </div><!-- /map-lister -->
+    </div>
+
+    <!-- Асинхронная загрузка jsapi -->
+    <div id="script_block" class="script_block"></div>
+    <div id="script_ad" class="script_ad" style="display:none;">
+        <script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.10"></script>
+        {# <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.10"></script> #}
+    </div>
+    <script type="text/javascript">
+        document.getElementById('script_block').appendChild(document.getElementById('script_ad'));
+        document.getElementById('script_ad').style.display = 'block';
+    </script>
+    <!-- /Асинхронная загрузка jsapi -->
+<!-- /end -->
+{% endblock %}
+
+{% block after_body %}
+<div class="right-column" style="padding-top:38px;">
+    <section class="newspaper newspaper-culture"><a href="{{ path('armd_paper_edition', {'slug': 'archive'}) }}" title='{{ "menu.culture_magazine"|trans }}'></a></section>
+    <section class="newspaper newspaper-literature"><a href="{{ path('armd_paper_edition', {'slug': 'litnews'}) }}" title='{{ "menu.literature_magazine"|trans }}'></a></section>
+{#
+{% if app.request.locale == 'ru' %}
+    <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
+        <img src="{{ asset('img/read_yandex.jpg') }}">
+    </a>
+    <section id="homepage-social-widgets">
+        {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
+        {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
+    </section>
+    
+    <section id="homepage-polls">
+        <h3><span>Опрос</span></h3>
+        {% render url('armd_poll_poll') %}
+    </section>
+
+{% endif %}
+#}
+</div><!-- /right-column -->
+<div class="left-column">
+    <div class="left-column-content">
+        <section class="block new-on-site">
+            {% if app.request.locale == 'ru' %}
+                <section class="block social-widget-block">
+                    {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
+                </section>
+                <section class="block twitter-widget-block">
+                    {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
+                </section>
+            {% endif %}
         </section>
-
-        <section id="homepage-polls">
-            <h3><span>Опрос</span></h3>
-            {% render url('armd_poll_poll') %}
-        </section>
-    {% endif %}
-
-
+    </div>
+</div><!-- /left-column -->
 {% endblock %}
 
 {% block stylesheets %}
@@ -168,6 +336,15 @@
     <script type="text/javascript">
         $(function () {
             armdMainPage.init();
+        });
+        $(window).resize(function() {
+          var videoWidth = $('.left-column-content').width();
+          if(videoWidth <= 800){
+            $('#video-list').css( "width", "590px" );
+          }
+          else{
+            $('#video-list').css( "width", "auto" );
+          }
         });
     </script>
 {% endblock %}
