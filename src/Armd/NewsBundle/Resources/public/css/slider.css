@@ -29,9 +29,17 @@
             font-size:12px;
             width:auto;
         }
+            
             .news-slider-carousel .info-text h2 {
                 font-size:15px;
                 margin-bottom:5px;
+                
+            }
+            .news-slider-carousel .info-text h2  i {
+                font-size:12px;
+                font-style:normal;
+                float:right;
+                margin-top:3px;
             }
             .news-slider-carousel .info-text p {
                 max-height:4em;

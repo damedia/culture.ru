@@ -10,7 +10,9 @@
                         {#% thumbnail n.image, 'news_big' %#}
                         <div class="info">
                             <div class="info-text">
-                                <h2>{{ n.title|raw }}</h2>
+                                
+                                <h2><i>{{ n.category|raw }}</i> {{ n.title|raw }}</h2>
+                                
                                 <p>{{ n.announce|raw }} </p>
                             </div>
                         </div>
