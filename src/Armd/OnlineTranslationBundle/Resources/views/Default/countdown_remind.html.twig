@@ -31,15 +31,13 @@ var countdownTimestamp = {{ entity.date.getTimestamp() }};
 
 function countdown()
 {
-    var diffSec, days, hours, minutes, now,
+    var diffSec, days, hours, minutes, now = new Date(),
         date = new Date(countdownTimestamp * 1000);
 
-    // fix date to use UTC
-    now = moment();
-    now = now.subtract('minutes', now.zone()).toDate();
+    var zoneCorrection = -1 * moment().zone() - 240; // 240 - MSK offset in minutes
 
     if (date > now) {
-        diffSec = Math.floor((date.getTime() - now.getTime()) / 1000);
+        diffSec = Math.floor((date.getTime() - now.getTime()) / 1000) - zoneCorrection * 60;
         days = Math.floor(diffSec / 60 / 60 / 24);
         hours = Math.floor((diffSec - days * 60 * 60 * 24) / 60 / 60);
         minutes = Math.floor((diffSec - days * 60 * 60 * 24 - hours * 60 * 60) / 60);                
