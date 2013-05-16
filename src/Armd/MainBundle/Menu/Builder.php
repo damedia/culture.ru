@@ -314,34 +314,34 @@ class Builder extends ContainerAware
             
             //--- Communication
 
-            $communicationMenu = $menu->addChild(
-                'menu.communication',
-                array(
-                    'uri' => 'http://people.culture.ru/forum/'
-                )
-            );
-            
-            $communicationMenu->addChild(
-                'menu.forum',
-                array(
-                    'uri' => 'http://people.culture.ru/forum/'
-                )
-            );
-
-            $communicationMenu->addChild(
-                'menu.government_control',
-                array(
-                    'uri' => 'http://people.culture.ru/forum_private/'
-                )
-            );
-             
-            $communicationMenu->addChild(
-                'menu.open_government',
-                array(
-                    'uri' => 'http://people.culture.ru/opengov/expert/'
-                )
-            );
-            
+//            $communicationMenu = $menu->addChild(
+//                'menu.communication',
+//                array(
+//                    'uri' => 'http://people.culture.ru/forum/'
+//                )
+//            );
+//
+//            $communicationMenu->addChild(
+//                'menu.forum',
+//                array(
+//                    'uri' => 'http://people.culture.ru/forum/'
+//                )
+//            );
+//
+//            $communicationMenu->addChild(
+//                'menu.government_control',
+//                array(
+//                    'uri' => 'http://people.culture.ru/forum_private/'
+//                )
+//            );
+//
+//            $communicationMenu->addChild(
+//                'menu.open_government',
+//                array(
+//                    'uri' => 'http://people.culture.ru/opengov/expert/'
+//                )
+//            );
+//
             /*
             $communicationMenu->addChild(
                 'menu.government_services',
