@@ -1,0 +1,57 @@
+Tourist routes: Туристические маршруты
+Route List: Туристические маршруты
+Route Create: Создать маршрут
+Route Edit: Редактировать маршрут
+Route Show: Просмотр маршрута
+Route Delete: Удалить маршрут
+
+Tourist route categories: Категории маршрутов
+Route Category List: Категории туристических маршрутов
+Route Category Create: Создать категорию
+Route Category Edit: Редактировать категорию
+Route Category Show: Просмотр категории
+Route Category Delete: Удалить категорию
+
+Tourist route points: Маршрутные точки
+Point List: Маршрутные точки
+Point Create: Создать точку
+Point Edit: Редактировать точку
+Point Show: Просмотр точки
+point Delete: Удалить точку
+
+Publish: Опубликовать
+Unpublish: Снять публикацию
+Published: Опубликовано
+
+General: Основные
+Title: Заголовок
+Content: Описание
+Categories: Категории
+Media:  Медиа
+Icon: Иконка
+Primary Image: Главное изображение
+Images: Изображения
+Videos: Видео (Tvigle ID)
+Geo: Гео-привязка
+Regions: Регионы
+Objects: Объекты атласа
+Points: Маршрутные точки
+Recommendations: Рекомендации
+Routes: Туристические маршруты
+Banner: Баннер
+
+Show: Показать в маршруте
+Coordinates: Координаты
+Lat: Широта
+Lon: Долгота
+Add point: Добавить точку
+Point properties: Свойства точки
+Delete: Удалить
+Type: Тип
+Route: По городам
+Polyline: По объектам
+
+Primary image is required: Не выбрано главное изображение
+Select regions: Выберите регионы
+Select objects: Выберите объекты атласа
+Select routes: Выберите маршруты

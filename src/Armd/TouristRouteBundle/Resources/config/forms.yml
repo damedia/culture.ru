@@ -1,0 +1,12 @@
+services:
+    form.type.armd_point:
+        class: Armd\TouristRouteBundle\Form\Type\PointType
+        tags:
+            - { name: form.type, alias: armd_point }
+        arguments: [@service_container]
+
+    form.type.armd_point_collection:
+        class: Armd\TouristRouteBundle\Form\Type\PointCollectionType
+        tags:
+            - { name: form.type, alias: armd_point_collection }
+        arguments: [@service_container]

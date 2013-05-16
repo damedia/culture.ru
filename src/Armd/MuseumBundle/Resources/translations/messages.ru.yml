@@ -3,7 +3,7 @@ Virtual museums: Виртуальные музеи
 Museums Categories: Категории музеев
 Museum Guide: Музейный гид
 visit_museum: Посетить<br />виртуальный<br />музей
-manual_instruction: инструкция по использованию<br />виртуального тура
+manual_instruction: инструкция<br />по&nbsp;использованию<br />виртуального<br />тура
 museums_not_found: Виртуальных музеев удовлетворяющих запросу не найдено
 MuseumEdu: Музейное образование
 MuseumGuide: Музейный гид
@@ -28,7 +28,8 @@ City: Город
 Education: Образование
 Subject: Предмет
 Skills: Навыки
-Download pdf: Скачать книгу в формате pdf
-S1ee also: Смотреть также
-Browse pdf: Полистать интерактивную версию книги
+Download pdf: Скачать PDF
+See also: Смотреть также
+Browse pdf: Нажмите для интерактивного просмотра публикации
+search_museum_found: Выбрано музеев
 

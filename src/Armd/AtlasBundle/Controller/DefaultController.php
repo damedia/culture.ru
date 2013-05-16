@@ -129,7 +129,12 @@ class DefaultController extends Controller
             'types' => $typesRoot->getChildren(),
             'regions' => $regions,
             'regionId' => $this->getRequest()->get('region_id'),
-            'searchQuery' => $this->getRequest()->get('search_query')
+            'searchQuery' => $this->getRequest()->get('search_query'),
+            'totalCount' => $this->getRussiaImagesCount(array(
+                'region_id' => $this->getRequest()->get('region_id'),
+                'category_ids' => $this->getRequest()->get('category_ids'),
+                'search_text' => $this->getRequest()->get('search_query')
+            ))
         );
     }
 
@@ -189,6 +194,55 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/russia-images-count",
+     *      name="armd_atlas_russia_images_count",
+     *      options={"expose"=true},
+     *      defaults={"_format"="json"}
+     * )
+     */
+    public function getRussiaImagesCountAction()
+    {
+        return array(
+            'count' => $this->getRussiaImagesCount(array(
+                'region_id' => $this->getRequest()->get('region_id'),
+                'category_ids' => $this->getRequest()->get('category_ids'),
+                'search_text' => $this->getRequest()->get('search_query')
+            ))
+        );
+    }
+
+    /**
+     * Get russia images objects count.
+     *
+     * @param array $params
+     * @return integer
+     */
+    public function getRussiaImagesCount($params)
+    {
+        $criteria = array();
+
+        $categoryIds = $params['category_ids'];
+        if (!empty($categoryIds)) {
+            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
+        }
+
+        $regionId = $params['region_id'];
+        if (!empty($regionId)) {
+            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
+        }
+
+        $searchText = $params['search_text'];
+        if (!empty($searchText)) {
+            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
+        }
+
+        $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
+        
+        return $this->getObjectManager()->findObjectsCount($criteria);
+    }
+
+
+    /**
      * @Route("/object/balloon", name="armd_atlas_default_objectballoon", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:object_balloon.html.twig")
      */
@@ -228,6 +282,27 @@ class DefaultController extends Controller
             return array(
                 'entities' => $entities,
             );
+        }
+    }
+
+    /**
+     * @Route("/object/side", name="armd_atlas_default_objectside", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Default:object_side.html.twig")
+     */
+    public function objectSideAction()
+    {
+        $id = (int)$this->getRequest()->query->get('id');
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $currentUser = $this->get('security.context')->getToken()->getUser();
+        if ($id) {
+            $entity = $repo->findOneBy(array('id' => $id, 'published' => true));
+            if ($entity)
+                return array(
+                    'entity' => $entity,
+                    'editable' => ($entity->getCreatedBy() == $currentUser),
+                );
+            else
+                throw new NotFoundHttpException("Page not found");
         }
     }
 
@@ -315,6 +390,7 @@ class DefaultController extends Controller
             if (!$objects)
                 throw new \Exception('Not found');
 
+            $currentUser = $this->get('security.context')->getToken()->getUser();
             $allCategoriesIds = $repo->fetchObjectsCategories($objects);
 
             $rows = array();
@@ -328,11 +404,16 @@ class DefaultController extends Controller
 
                 $obraz = false;
                 $imageUrl = '';
+                $sideDetails = '';
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getId() == 74) {
                         $obraz = true;
                         $image = $obj->getPrimaryImage(); // @TODO Много запросов
                         $imageUrl = $twigExtension->path($image, 'thumbnail');
+                        $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
+                            'entity' => $obj,
+                            'editable' => ($obj->getCreatedBy() == $currentUser),
+                        ));
                     }
                 }
 
@@ -345,6 +426,7 @@ class DefaultController extends Controller
                     'icon' => $iconUrl,
                     'obraz' => $obraz,
                     'imageUrl' => $imageUrl,
+                    'sideDetails' => $sideDetails,
                 );
             }
 
@@ -834,6 +916,35 @@ class DefaultController extends Controller
         } else {
             throw new NotFoundHttpException('Not found.');
         }
+    }
+
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'indexAction': {
+                if ($objects = $this->getObjectManager()->findObjects(array())) {
+                    foreach ($objects as $o) {
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_atlas_default_object_view', array(
+                                'id' => $o->getId()
+                            )),
+                            'lastmod' => $o->getUpdatedAt()
+                        );
+                    }
+                }
+                
+                break;
+            }
+        }
+
+        return $items;
     }
 
 }

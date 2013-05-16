@@ -9,6 +9,11 @@
 {% endblock %}
 
 {% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{{ path('armd_perfomance_list') }}">Спектакли</a></li>
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
 	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
 		<div class="sort-filter sort-element-filter" id="switch_view">
 			<ul>
@@ -123,6 +128,7 @@
         <div class="orange-slider-block">
 			<h3 class="o-slider-header">фотогалерея спектакля</h3>
             {% if entity.gallery and entity.gallery|length > 0 %}
+                <div class="orange-slider-block">
 				<div class="flexslider">
 		            <ul class="slides">
 						{% for img in entity.gallery.galleryHasMedias %}
@@ -140,6 +146,7 @@
 						{% endfor %}	            	                
 		            </ul>				
 				</div>
+                </div>
 			{% endif %}
 		
 		</div>

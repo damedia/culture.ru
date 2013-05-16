@@ -28,4 +28,42 @@ class DefaultController extends Controller
             'items'       => $items,
         ));
     }
+
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    /*public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'indexAction': {
+                isset($params['slug']) or $params['slug'] = null;
+
+                $edition = $this->getDoctrine()->getRepository('ArmdPaperArchiveBundle:PaperEdition')->findOneBy(
+                    array('slug' => $params['slug'])
+                );
+
+                $papers = $this->getDoctrine()->getRepository('ArmdPaperArchiveBundle:PaperArchive')->findBy(
+                    array('edition' => $edition),
+                    array('date' => 'DESC')
+                );
+
+                if ($papers) {
+                    foreach ($papers as $p) {
+                        $items[] = array(
+                            'loc' => $this->container->get('sonata.media.twig.extension')->path($p->getFile(), 'reference'),
+                            'lastmod' => null
+                        );
+                    }
+                }
+
+                break;
+            }
+        }
+
+        return $items;
+    }*/
 }

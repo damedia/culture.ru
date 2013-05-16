@@ -1,0 +1,28 @@
+{% if museums|length > 0 %}
+
+        <div class="museum-list-wrapper">
+            {% set num_in_col = by_region|length//2 %}
+            {% if by_region|length%2 %}{% set num_in_col = num_in_col + 1 %}{% endif %}
+            {% for region in by_region %}
+                {% if loop.first %}<ul class="museum-list">
+                {% elseif loop.index == num_in_col %}</ul><ul class="museum-list">{% endif %}
+                
+                    <li>
+                        <section class="block">
+                            <h1 class="long-border"><span>{{ region.region.title }}</span></h1>
+                            <ul class="museum-list-level2">
+                                {% for entity in region.list %}
+                                    <li><a class="vob iframe" data-fancybox-type="iframe" href="{{ entity.url }}">{{ entity.title|raw }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </section>
+                    </li>                
+                {% if loop.last %}</ul>{% endif %}
+            {% endfor %}
+        </div>
+
+{% else %}
+    <strong>{{ "museums_not_found"|trans }}</strong>
+{% endif %}
+
+

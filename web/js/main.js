@@ -102,7 +102,7 @@ $(function () {
         var startTabs = false; // Don't Init Tabs until Panel Heights are set.
         var firstPanel = $('.ui-tabs-panel:first');
 
-        $('#featured').css({'height': $('img', firstPanel).height()});
+        //$('#featured').css({'height': $('img', firstPanel).height()});
 
         /*Find Max Image Height*/
         $(window).load(function () {
@@ -111,17 +111,28 @@ $(function () {
                 imgArray.push(thisImage.height());
                 if (imgArray.length == tabsCount) {
 
-                    var maxHeight = $('.ui-tabs-nav').height();
+                    /*var maxHeight = $('.ui-tabs-nav').height();
                     for (var im = 0; im < imgArray.length; im++) {
                         maxHeight = imgArray[im] > maxHeight ? imgArray[im] : maxHeight;
-                    }
+                    }*/
                     ;
-                    $('.ui-tabs-panel').height(maxHeight);
-                    $('.ui-tabs-panel').width($('.ui-tabs-panel').width());
-                    $('#featured').css('height', maxHeight);
+                    //$('.ui-tabs-panel').height(maxHeight);
+                    //$('.ui-tabs-panel').width($('.ui-tabs-panel').width());
+                    //$('#featured').css('height', maxHeight);
 
                     startTabs = true;
                 }
+
+                maxHeight = ($(".right-column section.block").height() || 486) - 16;
+                $('.ui-tabs-panel').each(function() {
+                    var $panel = $(this),
+                        $image = $("img", this);
+
+                    $panel.height(maxHeight);
+                    $image.css("margin-top", ($panel.height() - $image.height()) / 2);
+                });
+                $("#featured").height(maxHeight);
+                startTabs = true;
             });
         })
         /*Tabs*/
@@ -145,10 +156,10 @@ $(function () {
                                 $(ui.panel)
                                     .hide()
                                     .css({
-                                        'z-index': 2
+                                        'z-index': 1
                                     })
                                     .fadeIn(1000, function () {
-                                        $(this).css('z-index', '');
+                                        $(this).css('z-index', 0);
 
                                         lastOpenedPanel
                                             .toggleClass("ui-tabs-hide")
@@ -288,8 +299,8 @@ $(function () {
         prevEffect: 'fade'
     });
 	
-	if($('.museum-instr-link').length > 0) {
-		$('.museum-instr-link').fancybox({
+	if($('.virt-museum-instr').length > 0) {
+		$('.virt-museum-instr').fancybox({
 			'width':900,
 			'height':900,
 			'autoSize':false,
@@ -305,14 +316,14 @@ $(function () {
 		
 	});
 	
-	
+/*	
 		$('#video-list').flexslider({
 			animation: "slide",
 			slideshow: false,
 			itemWidth: 281,
 			itemMargin: 37
 		  });
-
+*/
 
 		  
 	$('.tabs-headers').on('click', 'a', function(){
@@ -472,3 +483,18 @@ $(function () {
     })
     
 })
+
+$(window).load(function(){
+    $('.orange-slider-block .period-block').each(function(){
+        var h = $(this).find('h2');
+        var blockPad = parseFloat($(this).css("padding-top"));
+        var hPad = parseFloat(h.css("padding-top")) + parseFloat(h.css("padding-bottom")) + parseFloat(h.css("margin-top")) + parseFloat(h.css("margin-bottom"));
+        var hHeight = h.height();
+        var imgHeight = Math.round($(this).find('.period-block_image').height()/2);
+        var fdnavHeight = Math.round($('.flex-direction-nav').height()/2);
+
+        // console.log(blockPad, hPad, hHeight, imgHeight, fdnavHeight);
+        $('.orange-slider-block .flex-direction-nav').css({'top': blockPad + hPad + hHeight +imgHeight - fdnavHeight});
+
+    });
+});

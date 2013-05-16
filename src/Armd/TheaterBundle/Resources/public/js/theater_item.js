@@ -8,10 +8,10 @@ var armdMkTheaterItem = {
         $(function() {      
             armdMkTheaterItem.refreshVisibleCount();
             armdMkTheaterItem.theaterId = theaterId;
-            $('.fancybox').fancybox({
+            $('.in-fancybox').fancybox({
                 autoResize: true,
-                prevEffect: 'none',
-                nextEffect: 'none'
+                prevEffect: 'fade',
+                nextEffect: 'fade'
             });
                        
             $('.content-tabs').on('click', 'a', function(){

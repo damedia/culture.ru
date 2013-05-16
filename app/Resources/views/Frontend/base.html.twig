@@ -89,9 +89,7 @@
                  title: '{{ 'Portal title'|trans }}',
                  description: '{{ 'Portal title'|trans }}'
              });
-         });
-
-
+        });
         </script>
     {% endblock %}
     <!-- /Javascripts block -->
@@ -109,30 +107,40 @@
     <div class="container">
         <header class="main-header clearfix">
             <a class="logo" title="{{ 'Portal title'|trans }}" href="{{ path('armd_main_homepage') }}"></a>
-
+            <h1 class="main-title">Портал <span>Культура.рф</span></h1>
             <div class="header-top-right clearfix">
-                {% render url('armd_main_login_links') %}
-                {% if app.request.locale == 'ru' %}
-                    <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
-                {% else %}
-                    <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
-                {% endif %}
+                <div class="htr-top">
+                    {# {% render url('armd_main_login_links') %} #}
+                    {% if app.request.locale == 'ru' %}
+                        <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
+                    {% else %}
+                        <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
+                    {% endif %}
 
-                <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
+                    <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
 
-                
-                <div class="app_store-block">
-                    <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
+                    
+                    <div class="app_store-block">
+                        <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
 
-                    <ul style="display:none;">
-                        <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
-                        {% if app.request.locale == 'ru' %}
-                            <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
-                            <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
-                        {% endif %}
+                        <ul style="display:none;">
+                            <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
+                            {% if app.request.locale == 'ru' %}
+                                <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
+                                <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
+                            {% endif %}
+                        </ul>
+                    </div><!-- /app_store-block -->
+                </div><!-- /htr-top -->
+                <div class="htr-bottom">
+                    <ul class="social-external-links clearfix">
+                        <li class="ex-fb"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>
+                        <li class="ex-vk"><a target="_blank" href="http://vk.com/kulturarf"></a></li>
+                        <li class="ex-twitter"><a target="_blank" href="https://twitter.com/cultureru"></a></li>
+                        <li class="ex-youtube"><a target="_blank" href="http://www.youtube.com/results?search_query=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&oq=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&gs_l=youtube.3..0l8j0i5l2.1530.3406.0.4081.8.8.0.0.0.0.129.626.4j3.7.0...0.0...1ac.1.11.youtube.AtdpPkVFP3A"></a></li> 
                     </ul>
-                </div>
-            </div>
+                </div><!-- /htr-bottom -->
+            </div><!-- /header-top-right -->
             <nav class="main-menu">
                 {{ knp_menu_render('main', {
                     'template':      ':Frontend:menu.html.twig',
@@ -171,6 +179,31 @@
         </div>
         <!-- /Main block -->
 
+        <!-- main-wide block -->
+        <div class="main-wide clearfix">
+            {% block wide_body %}{% endblock %}
+        </div>
+        <!-- /main-wide block -->
+
+        <!-- main-after block -->
+        <div class="main-after clearfix">
+            {% block after_body %}{% endblock %}
+        </div>
+        <!-- /main-after block -->
+
+        <div class="bottom-menu">
+            <ul>
+                <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
+                <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
+                <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
+                {# <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li> #}
+                <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 955} ) }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
+                <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
+                {# <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 3724}) }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li> #} 
+                <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
+                {# <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li> #}
+            </ul>
+        </div><!-- /bottom-menu -->
         <!-- Footer block -->
 		{% block main_footer%}
         <footer class="main-footer clearfix">

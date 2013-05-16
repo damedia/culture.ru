@@ -1,5 +1,6 @@
 #---------------- menu -------------------------
 menu.homepage: Главное
+menu.mainpage: Главная
 menu.atlas: Атлас
 menu.russia_images: Образы России
 menu.virtual_museums: Музеи
@@ -12,6 +13,8 @@ menu.kids: Детям
 menu.news_index: Медиа
 menu.news: Новости
 menu.events: Анонсы
+menu.opinion: Мнения
+menu.communication: Общение
 
 menu.reportage: Репортажи
 menu.interview: Интервью
@@ -46,9 +49,13 @@ menu.virtual_museum: Виртуальные музеи
 menu.culture_sites: Сайты культуры
 menu.museum_guide: Музейный гид
 menu.museum_lesson: Музейное образование
+menu.museum_reserve: Музеи-заповедники
 menu.may9: День Победы-2013
 menu.may9_films: Классика военного кино
 menu.may9_day: Короткометражный фильм «День победы»
+menu.music: Музыка
+menu.theatre: Театры
+menu.underconstraction: Страница в разработке
 #---------------- /menu -------------------------
 
 
@@ -91,6 +98,7 @@ Navigation:
     Traditions: Духовные традиции
     Public council: Общественный совет
     Public services: Госуслуги
+    Museum reserve: Музеи-заповедники
     Closed forum: Закрытый форум
     goverment_services: Госуслуги
     About: О проекте

@@ -31,7 +31,7 @@
     </div>
     {% endspaceless %}
     <div class="search-category">
-        <form id="museums-filter-form" action="{{ path('armd_museum_list') }}">
+        <form id="museums-filter-form" action="{#{ path('armd_museum_list') }#}">
             <span class="search-dates-label">{{ "search.select"|trans }}</span>
             <div class="search-category-selects">
                 <select name="region" id="filter-region" class="uni">
@@ -60,5 +60,35 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    {% render url('armd_museum_list', { region:regionId }) %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><span>{{ 'menu.virtual_museum'|trans }}</span></li>
+    </ul>
+    <div  class="russia-top-found museum-top-found">
+        <p class="search-found">{{ "search_museum_found"|trans }}: <span id="found-objects-count"></span> <span id="found-objects-total"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
+        <a href="#" id="show-all" class="button show-all-btn">Показать все</a>
+    </div>
+    <div class="tab active" id="plitka">
+        <div class="virt-museum-new-list">
+            {% render url('armd_museum_list', { 'templateName':'virtual_list', 'region':regionId, 'limit': 10 }) %}
+        </div>
+    </div>
+    <div class="tab" id="list" style="display:none">
+        <div class="virt-museum-new-list-text">
+            {% render url('armd_museum_list', { 'templateName':'virtual_list_text', 'region':regionId, 'limit': 10 }) %}
+        </div>
+    </div>
+    <div class="more more2">
+        <p>
+            <a href="#" id="show-more">{{ "show_more"|trans }}</a>
+        </p>
+    </div>
+    <div id="instruction" style="display:none;">
+        <div class="window">
+            <div class="block window-content">
+                {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

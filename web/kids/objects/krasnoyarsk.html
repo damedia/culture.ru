@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/kras.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/jquery.jscrollpane.css">
         <link rel="stylesheet" href="js/vendor/fancybox/jquery.fancybox.css">  
@@ -39,10 +40,11 @@
             <nav class="top-menu">
                 <ul>
                     <li class="culture-cloud"><a href="../children.html">Культура России</a></li>
-                    <li class="test-cloud temp-test-cloud"><a href="#puzzle1">Паззл</a></li>
-                    <li class="riddle-cloud"><a href="#puzzle2">Паззл</a></li>
-                    <li class="puzzle-cloud"><a href="#puzzle3">Паззл</a></li>
-                    <li class="difference-cloud temp-difference-cloud"><a href="#puzzle4">Паззл</a></li>
+                    <li class="test-cloud temp-test-cloud"><a href="#quiz">Угадай!</a></li>
+                    <li class="riddle-cloud m-cloud-no"></li>
+                    <li class="puzzle-cloud"><a href="#puzzle1">Паззлы</a></li>
+                    <li class="difference-cloud temp-difference-cloud"><a href="#quiz3">Загадки</a></li>
+                    <li class="riddle-cloud riddle-cloud-right"><a href="#tests">Тесты</a></li>
                     <li class="top-back-link"><a href="../children.html">Обратно на карту</a></li>
                 </ul>
             </nav>
@@ -60,9 +62,16 @@
             <div class="main-description-block clearfix">
                 <div class="main-image">
                  <img src="img/kras/child-main-img.png" alt="" />
+                 <img src="img/kras/birds.png" class="birds" alt="" />
                 </div>
                 <div class="main-description">
-                    <p>&laquo;Музей&raquo; нерукотворных каменных исполинов носит довольно прозаичное название &laquo;Столбы&raquo;. Находится он&nbsp;в&nbsp;северо-западных отрогах Восточного Саяна, всего в&nbsp;семи километрах от&nbsp;города-миллионника Красноярска. <br /><br /> Несмотря на&nbsp;соседство с&nbsp;промышленным центром Сибири, цивилизация не&nbsp;тронула первозданную красоту этих мест.</p>
+                    <p>Государственный природный заповедник &laquo;Столбы&raquo;
+                      &mdash; это уникальный природный заповедник, находящийся
+                      неподалеку от Красноярска.
+                    <br><br>
+                      Столбами называют скалы, возвышающиеся над тайгой.
+                      Некоторые достигают в высоту<br>до 100 метров!
+                    </p>
                 </div>
             
             </div>
@@ -73,70 +82,139 @@
         <div class="content">
             <article class="case-1 clearfix" id="puzzle1">
                 <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-1.png" alt="" />
-					<div class="puzzle-description-text">
-					  
-					</div>
-					
-				</div>
-				<div class="puzzle-slider puzzle-init">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="img/kras/puzzle-1.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-				
+                    <img src="img/kras/puzzle-header.png" alt="" class="puzzle-header">
+                    <img src="img/kras/puzzle-tip.png" alt="" class="puzzle-tip">
+                    <div class="puzzle-description-text">
+                        <p>
+                           Поставь все фрагменты картинки на свои места, и
+                           тогда ты узнаешь, как называется самая популярная
+                           скала заповедника! 
+                        </p>
+                    </div>
+                    
+                </div>
+                <div class="puzzle-slider puzzle-init">
+                  <div class="puzzle-wrap">
+                     <div class="puzzle-setka-wrap">
+                        <img src="img/kras/puzzle-1.jpg" width="320"  class="puzzle"/>
+                        <img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
+                     </div>
+                  </div>
+                </div>
             </article>
 
-            <article class="case-2 clearfix" id="puzzle2">
-                <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-2.png" alt="" />
-					<div class="puzzle-description-text"></div>
-					
-				</div>
-				<div class="puzzle-slider puzzle-init">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="img/kras/puzzle-2.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-            </article> 
+            <article class="case-2 count-block clearfix" id="quiz">
+                <div class="choose-block-horizontal choose-block-smart">
+                    <div class="choice-result cbv-question-column">
+                        <div class="choice-no-result">
+                            <img src="img/kras/choose-one-1/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>Попробуй угадать, как называется<br>
+                               самый маленький из Красноярских<br>
+                               столбов, высотой всего 4,5 метра?</p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/kras/choose-one-1/choose-wrong.png" alt="" />
+                            <p>
+                                Скала по имени Жаба в заповеднике<br>
+                                тоже есть. Но самый маленький<br>
+                                столбик ласково зовут Слоником.
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/kras/choose-one-1/choose-right.png" alt=""  />
+                            <p>
+                                Столб высотой 4,5 метра называется Слоник. На него обязательно<br>
+                                поднимаются все спортсмены-скалолазы. Иногда даже проводятся<br>
+                                шуточные состязания по подъему на эту скалу. 
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/kras/choose-one-1/choose-wrong.png" alt=""  />
+                            <p>
+                                Цыпа &mdash; одна из труднодоступных<br>скал в заповеднике.
+                                А самый маленький<br>столбик ласково зовут<br>Слоником. 
+                            </p>
+                            
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        <img src="img/kras/choose-one-1/p.png" alt="" class="choice-p" />
+                        <div class="choice">
+                            <img src="img/kras/choose-one-1/1.png" alt="" class="choice-1" id="choice-1" />
+                            <p>Жаба</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kras/choose-one-1/2.png" alt="" class="choice-2" id="choice-2" />
+                            <p>Слоник</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kras/choose-one-1/3.png" alt="" class="choice-3" id="choice-3" />
+                             <p>Цыпа</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
-            <article class="case-3 clearfix" id="puzzle3">
-                 <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-3.png" alt="" />
-					<div class="puzzle-description-text"></div>
-					
-				</div>
-				<div class="puzzle-slider puzzle-init">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="img/kras/puzzle-3.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-            </article> 
+            <article class="case-3 clearfix" id="tests">
+                <div class="test-yourself">
+                    <img src="img/kras/test.png" alt="" class="test-sign" />
+                    <a data-fancybox-type="iframe" data-fancybox-width="960" data-fancybox-height="580" href="krasnoyarsk-quiz.html" class="test-link fancybox-inframe" >
+                        Пройди тест<br>
+                        и&nbsp;узнай все тайны<br>
+                        Красноярских столбов!  
+                    </a>
+                </div>
+            </article>
 
-            <article class="case-4 clearfix" id="puzzle4">
-               <div class="puzzle-description">
-					<img src="img/kremlin/child-puzzles-kremlin-4.png" alt="" />
-					<div class="puzzle-description-text"></div>
-					
-				</div>
-				<div class="puzzle-slider puzzle-init">
-					<div class="puzzle-wrap">
-						<div class="puzzle-setka-wrap">
-							<img src="img/kras/puzzle-4.jpg" width="320"  class="puzzle"/>
-							<img src="img/child-puzzles-mask.png" class="puzzle-setka"/>
-						</div>
-					</div>
-				</div>
-            </article>                                  
+            <article class="case-4 count-block clearfix">
+                <div class="choose-block-horizontal choose-block-smart">
+                    <div class="choice-result cbv-question-column" id="quiz3">
+                        <div class="choice-no-result">
+                            <img src="img/kras/choose-one-2/choose-start.png" alt="" class="cbv-question-header" />
+                            <p>Как ты думешь, что за птицы<br>приземлились в тайге?
+                              Как<br>называют эти скалы? </p>
+                        </div>
+                        <div class="choice-1-result invisible">
+                            <img src="img/kras/choose-one-2/choose-right.png" alt="" />
+                            <p>
+                                Эти скалы называют Воробушками,<br>
+                                потому что издали они напоминают<br>сидящих на земле птиц.
+                            </p>
+                        </div>
+                        <div class="choice-2-result invisible">
+                            <img src="img/kras/choose-one-2/choose-wrong.png" alt=""  />
+                            <p>
+                                Ворон &mdash; это одна из скал на Развалах
+                                (гряда крупных скал) в заповеднике.&nbsp;А&nbsp;на&nbsp;картинке &mdash;<br>
+                                скальный массив Воробушки. Издали эти скалы напоминают сидящих на земле птиц.
+                            </p>
+                        </div>
+                        <div class="choice-3-result invisible">
+                            <img src="img/kras/choose-one-2/choose-wrong.png" alt=""  />
+                            <p>
+                                На Развалах (гряда крупных скал) есть
+                                скала<br>под названием Утиный нос. А на картинке &mdash; скальный массив
+                                Воробушки. Издали эти<br>скалы напоминают сидящих на земле птиц.
+                            </p>
+                        </div>  
+                    </div>
+                    <div class="cbv-choices">
+                        <img src="img/kras/choose-one-2/p.png" alt="" class="choice-p" />
+                        <div class="choice">
+                            <img src="img/kras/choose-one-2/1.png" alt="" class="choice-1" id="choice-1" />
+                            <p>воробушки</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kras/choose-one-2/2.png" alt="" class="choice-2" id="choice-2" />
+                            <p>вороны</p>
+                        </div>
+                        <div class="choice">
+                            <img src="img/kras/choose-one-2/3.png" alt="" class="choice-3" id="choice-3" />
+                             <p>утки</p>
+                        </div>
+                    </div>
+                </div>
+            </article>                                 
 
         </div><!-- //content-->
 
@@ -147,10 +225,10 @@
                 <li class="footer-red-link a-kreml"><a href="astrahan.html">Астраханский<br />кремль</a></li>
                 <li class="footer-green-link a-kreml"><a href="arkaim.html">Аркаим</a></li>
                 <li class="footer-purple-link peter footer-purple-long-link"><a href="rodina.html">Мамаев курган<br />и Родина-мать</a></li>
-                <li class="footer-blue-link kulsharif"><a href="index.html">Московский<br />кремль</a></li>
+                <li class="footer-blue-link footer-pink-short-link"><a href="petergof.html">Петергоф</a></li>
                 <li class="footer-top-link top"><a href="#">Наверх</a></li>
-                <li class="footer-pink-link krstolb footer-pink-short-link"><a href="petergof.html">Петергоф</a></li>
-                <li class="footer-greenlight-link vlad"><a href="nevyansk.html">Невьянская<br />башня</a></li>
+                <li class="footer-pink-link krstolb"><a href="kul-sharif.html">Мечеть<br>Кул-Шариф</a></li>
+                <li class="footer-greenlight-link vlad"><a href="dazan.html">Иволгинский<br />дацан</a></li>
             </ul>
         </nav>
 
@@ -220,7 +298,7 @@
 		<!-- CONGRATULATION -->
 		<div id="congrat" class="hide">
 		    <h1>Поздравляем!</h1>
-		    <p>Вы собрали пазл!</p>
+		    <p>Название этого сорокаметрового столба – Перья.</p>
 		    <h3><span id="time"></span></h3>
 		    <form method="post" class="hide" action="" target="save-score" onsubmit="jigsaw.UI.close_lightbox();">
 		        <label>
@@ -277,21 +355,66 @@
             <div class="whant-more-container want-more-kras-container">
                 <a href="http://culture.ru/atlas/object/720" class="main-site-link" title="Узнать больше"></a>
                 <div class="window-text scroll-pane">
-                 <p>
-                    &laquo;Музей&raquo; нерукотворных каменных исполинов носит довольно прозаичное название &laquo;Столбы&raquo;. Находится он&nbsp;в&nbsp;северо-западных отрогах Восточного Саяна, всего в&nbsp;семи километрах от&nbsp;города-миллионника Красноярска. Несмотря на&nbsp;соседство с&nbsp;промышленным центром Сибири, цивилизация не&nbsp;тронула первозданную красоту этих мест. На&nbsp;страже ее&nbsp;стоят столбисты&nbsp;&mdash; так называют себя скалолазы, которые без страховочного снаряжения, буквально с&nbsp;закрытыми глазами, могут подняться на&nbsp;любую из&nbsp;здешних скал.
-                </p><p>    
-                    История Столбов начинается в&nbsp;кайнозое, около 50&nbsp;миллионов лет назад. Из-за мощных тектонических процессов в&nbsp;земной коре появились разломы, в&nbsp;толще мягких осадочных пород образовались пустоты, которые заполнила сиенитовая магма. Она так и&nbsp;не&nbsp;прорвалась на&nbsp;поверхность Земли, застыла в&nbsp;недрах. На&nbsp;рубеже третичного и&nbsp;четвертичного периодов, примерно 2&nbsp;миллиона лет назад, началось сводообразное поднятие Восточного Саяна, а&nbsp;вместе с&nbsp;ним и&nbsp;остывшей магмы&nbsp;&mdash; интрузии. Завершили дело искусные скульпторы&nbsp;&mdash; ветер, вода и&nbsp;солнце. Достаточно было убрать лишнее&nbsp;&mdash; глинистые сланцы и&nbsp;известняки&nbsp;&mdash; и&nbsp;вот, многовековая работа закончена: невероятной красоты причудливые розово-серые скалы возвышаются над тайгой. Самые высокие достигают 100&nbsp;метров.
-                </p><p>   
-                    Долгое время это место, богатое зверьем, было известно лишь охотникам. Подходы к&nbsp;нему они держали в&nbsp;тайне. Первым обнаружил заповедную территорию рудознатец Прохор Селезнев. В&nbsp;его отчете, написанном в&nbsp;1823&nbsp;году, находим такие строки: &laquo;Зело превелико и&nbsp;пречудесно сотворены скалы. Только попасть туда трудно, конный не&nbsp;проедет, пеший не&nbsp;пройдет. Разно рассказывают о&nbsp;них. Пожалуй, правду говорят, что в&nbsp;других землях не&nbsp;увидать такого. И&nbsp;залезти на&nbsp;сии скалы никто не&nbsp;сможет, и&nbsp;какие они, неизвестно&raquo;.
-</p><p>   
-                    Рассекретил Столбы Петр Чихачев&nbsp;&mdash; один из&nbsp;основателей Русского географического общества. В&nbsp;1842 году он&nbsp;прибыл сюда изучать геологическое строение скал, а&nbsp;затем написал об&nbsp;этом в&nbsp;книге &laquo;Научное путешествие по&nbsp;Восточному Алтаю и&nbsp;южным районам Сибири&raquo;, изданной во&nbsp;Франции. И&nbsp;тут&nbsp;же нашлось немало желающих посмотреть на&nbsp;чудо собственными глазами. А&nbsp;увидев каменных исполинов, многие не&nbsp;устояли перед соблазном&nbsp;&mdash; надо&nbsp;же влезть, покорить.&nbsp;1851 год вошел в&nbsp;историю скалолазания как дата возникновения красноярского столбизма&nbsp;&mdash; воспитатель Владимирского приюта Вениамин Капин организовывает подъем на&nbsp;Первый столб своих учеников.
-</p><p>   
-                    Фантастические формы скал будили народную фантазию, за&nbsp;многими из&nbsp;них закрепились говорящие названия: Китайская стена, Пагода, Беркут, Перья, Воробушки, Волчий лоб, Кабарга, Монах, Грешник. Есть даже целая семья: Дед, Прадед, Бабушка и&nbsp;Внучка. Четыре столба имеют только порядковые номера, для них почему-то имен не&nbsp;нашлось. Скалолазы давно покорили все без исключения столбы&nbsp;&mdash; была&nbsp;бы достаточная техническая подготовка. Но&nbsp;даже опытные спортсмены не&nbsp;обходят вниманием самый маленький столбик&nbsp;&mdash; Слоника, высота которого всего 4,5&nbsp;метра.
-</p><p>   
-                    Для красноярских скалолазов Столбы&nbsp;&mdash; дом родной, они даже строят среди скал избушки. Первую поставили на&nbsp;косогоре рядом с&nbsp;Третьим столбом еще в&nbsp;1892&nbsp;году. Гостеприимная изба быстро стала объединяющим центром. Именно тогда закладывались первые традиции столбизма: гостеприимство, взаимовыручка, дружба. Весной 1906 года жандармы сожгли первую столбовскую избушку&nbsp;&mdash; якобы, там собиралась революционно настроенная молодежь. Примерно в&nbsp;то&nbsp;же время на&nbsp;одной из&nbsp;скал появилась огромная надпись&nbsp;&mdash; &laquo;Свобода&raquo;. С&nbsp;тех пор много воды утекло, но&nbsp;слово это сохранилось по&nbsp;сей день, его постоянно обновляют старожилы. Настоящие столбисты верны традициям: начало было положено, и&nbsp;после неудачи с&nbsp;первым домиком избушки стали расти среди скал как грибы после дождя. Вокруг&nbsp;&mdash; всегда чистота и&nbsp;порядок: место уникальное, это здесь все понимают. Несмотря на&nbsp;то, что у&nbsp;каждой избушки есть хозяева, гостям всегда рады, в&nbsp;еде и&nbsp;ночлеге не&nbsp;откажут. Это тоже закон. Когда в&nbsp;1925 году по&nbsp;инициативе красноярцев Столбы и&nbsp;близлежащая территория были объявлены государственным заповедником, обучать правилам поведения в&nbsp;охраняемой зоне особо и&nbsp;не&nbsp;пришлось. Во&nbsp;многом благодаря &laquo;зеленым&raquo; столбистам в&nbsp;заповеднике (около 500&nbsp;м&sup2; горной тайги между притоками Енисея Маной и&nbsp;Базаихой) удалось сохранить животных и&nbsp;растения, занесенные в&nbsp;Красную книгу России.
-</p><p>   
-                    Несмотря на&nbsp;высокий природоохранный статус, скалы могут увидеть все желающие. И&nbsp;пока одни любуются фантастическими пейзажами и&nbsp;причудливыми очертаниями загадочных исполинов, другие их&nbsp;покоряют, цепляясь за&nbsp;выступы сиенитовых столбов.</p>
-                </p>
+                   <p>Неподалеку от города Красноярска между двумя притоками
+                     Енисея, Маной и Базаихой, есть необычный заповедник. В нем
+                     живут  около 60 видов животных и почти 200 видов птиц.
+                     Некоторые из них – очень редкие и занесены в Красную книгу.
+                     Еще в заповеднике растет 150 видов редких растений. Но
+                     самое интересное в этих краях – вовсе не живая природа,
+                     а скалы, которые называют Столбами.</p> 
+ 
+                   <p>Эти скалы появились очень давно, примерно 50 миллионов лет
+                      назад, задолго до того, как на Земле появились люди. В недрах
+                      нашей планеты постоянно что-то сдвигалось, менялось, ломалось
+                      и трескалось. Трещины в земной коре на месте будущих Столбов
+                      заполнились сиенитовой магмой, которая так и застыла под землей.
+                      Примерно 2 миллиона лет назад Восточный Саян
+                      (это такая горная система на юге Сибири) начал подниматься
+                      из-под земли. Вместе с ним на поверхность вышла и застывшая магма.
+                      Со временем солнце, ветер, дожди и снег постепенно обточили ее,
+                      создав чудо природы – те самые красноярские каменные столбы.
+                      В высоту некоторые из них достигают 100 метров.
+                   </p>
+
+                   <p>До начала 19 века о заповедном месте мало кто знал. Здесь
+                     водилось много ценных промысловых животных, и охотники ревниво
+                     охраняли свои угодья, никому не рассказывали о пути к причудливым скалам.
+                     В 1823 году рудознатец Прохор Селезнев обнаружил это место и написал
+                     о нем в отчете о путешествии. Он считал, что забраться на вершину Столбов никому не под силу. 
+                   </p>
+
+                   <p>Почти 20 лет спустя географ Петр Чихачев приехал сюда  изучать
+                      строение скал, а потом написал об этом в своей книжке. После этого
+                      многие люди заинтересовались этим чудом природы. Нашлись и желающие
+                      покорить неприступные скалы, забраться на них. 
+                   </p>
+
+                   <p>Многие скалы-Столбы в заповеднике очень необычные. Одни по
+                      форме похожи на людей, другие – на птиц или животных. Они даже
+                      получили имена –  их называют Дед, Прадед, Бабушка и Внучка, Монах,
+                      Грешник, Слоник, Беркут, Перья, Воробушки, Волчий лоб, Кабарга...
+                      Безымянными остались лишь несколько Столбов, их различают по номерам. 
+                   </p>
+
+                   <p>Несмотря на высоту Столбов, людям все-таки удалось покорить их.
+                      Спортсмены-скалолазы, которые поднимаются на скалы безо всякой страховки,
+                      цепляясь за выступы в скалах руками и ногами, смогли забраться на самую
+                      вершину скал. Те, кому удалось это сделать теперь называют себя &laquo;столбистами&raquo;. 
+                   </p>
+
+                   <p>Движение столбистов появилось еще в 1851 году. Тогда,
+                      в конце 19 века, скалолазы построили себе на вершине Столбов избушку.
+                      В революционные годы у Столбов собирались молодые революционеры.
+                      Один из них написал на скале слово &laquo;Свобода&raquo;. Эта надпись
+                      сохранилась и по сей день. Когда краска выцветает или стирается,
+                      столбисты забираются наверх и обновляют эту надпись. 
+                   </p>
+
+                   <p>Самым главным для столбистов всегда были дружба, гостеприимство и взаимовыручка.
+                      Вместе они следят за порядком в заповедном месте, оберегают
+                      чудо природы и учат туристов вести себя в заповеднике правильно,
+                      ценить окружающую их красоту.
+                   </p>
                 </div>
             </div>
         </div>

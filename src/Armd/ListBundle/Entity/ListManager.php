@@ -76,10 +76,28 @@ abstract class ListManager
             foreach($paginator as $item) {
                 $objects[] = $item;
             }
-//            $objects = $paginator; //$qb->getQuery()->getResult();
         }
 
         return $objects;
+    }
+
+    /**
+     * Get objects count.
+     *
+     * @param array $criteria
+     * @return integer
+     */
+    public function findObjectsCount(array $criteria)
+    {
+        unset($criteria[self::CRITERIA_OFFSET], $criteria[self::CRITERIA_LIMIT]);
+
+        $qb = $this->getQueryBuilder();
+        list($alias) = $qb->getRootAliases();
+        $qb->select('COUNT(' .$alias .'.id) as total');
+        $this->setCriteria($qb, $criteria);
+        $total = $qb->getQuery()->getSingleResult();
+
+        return $total['total'];
     }
 
     /**

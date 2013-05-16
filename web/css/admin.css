@@ -116,6 +116,28 @@
 
 /*--- /icons ---*/
 
+
+/**
+ * TouristRouteBundle
+ */
+.sonata-bc .form-horizontal .tourist-route-region-select,
+.sonata-bc .form-horizontal .tourist-route-atlas-object-select,
+.sonata-bc .form-horizontal .tourist-route-route-select {
+    width: 470px;
+}
+
+.sonata-bc .form-horizontal .route-map {
+    position: relative;
+    width: 480px;
+    height: 300px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.sonata-bc .form-horizontal .route-map .PGmap-copyright,
+.sonata-bc .form-horizontal .route-map .PGmap-bottomcenter-container {
+    display: none;
+}
 .sonata-bc textarea.tinymce {
     width: 700px;
     height: 350px;

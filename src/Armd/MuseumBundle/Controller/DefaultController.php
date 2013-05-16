@@ -34,12 +34,25 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/list", name="armd_museum_list", options={"expose"=true})
-     * @Template("ArmdMuseumBundle:Default:virtual_list.html.twig")
+     * @Route("/list/{templateName}/{offset}/{limit}", 
+            name="armd_museum_list", 
+            options={"expose"=true},
+            defaults={"offset"="0", "limit"="10"}
+        )
+     * 
      */
-    public function listAction()
+    public function listAction($templateName, $offset = 0, $limit = 10)
     {
 
+        $templates = array(
+            'virtual_list' => 'ArmdMuseumBundle:Default:virtual_list.html.twig',
+            'virtual_list_text' => 'ArmdMuseumBundle:Default:virtual_list_text.html.twig'
+        );
+        
+        if (in_array($templateName, $templates)) {
+            throw new \InvalidArgumentException('Unknow template name ' . $templateName);
+        }
+        
         $regionId = $this->getRequest()->get('region');
         $categoryId = $this->getRequest()->get('category');
         $searchText = $this->getRequest()->get('search_query');
@@ -58,6 +71,9 @@ class DefaultController extends Controller
             $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
+        $criteria[MuseumManager::CRITERIA_LIMIT] = $limit;
+        $criteria[MuseumManager::CRITERIA_OFFSET] = $offset;
+        
         $museums = $this->getMuseumManager()->findObjects($criteria);
         
         if (count($museums)) {
@@ -82,11 +98,14 @@ class DefaultController extends Controller
             }
         }
 
-        return array(
-            'museums' => $museums,  
-            'by_region' => $by_region
+        return $this->render(
+            $templates[$templateName],
+            array(
+                'museums' => $museums,  
+                'by_region' => $by_region
+            )
         );
-
+       
     }
 
     
@@ -197,6 +216,38 @@ class DefaultController extends Controller
     {
         return $this->get('armd_museum.manager.museum');
     }
+
+    /**
+     * @param string $action
+     * @param array $params
+     * @return array
+     */
+    public function getItemsSitemap($action = null, $params = array())
+    {
+        $items = array();
+
+        switch ($action) {
+            case 'indexAction': {
+                if ($museums = $this->getMuseumManager()->findObjects(array())) {
+                    foreach ($museums as $m) {
+                        $atlasObject = $m->getAtlasObject();
+
+                        $items[] = array(
+                            'loc' => $this->generateUrl('armd_atlas_default_object_view', array(
+                                'id' => $m->getAtlasObject()->getId()
+                            )),
+                            'lastmod' => $atlasObject ? $atlasObject->getUpdatedAt() : null
+                        );
+                    }
+                }
+
+                break;
+            }
+        }
+
+        return $items;
+    }
+
 
     /**
      * @return \Doctrine\ORM\EntityRepository

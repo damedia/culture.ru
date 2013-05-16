@@ -2,6 +2,14 @@ armd_main_homepage:
     pattern:  /
     defaults: { _controller: ArmdMainBundle:Main:homepage }
 
+armd_main_underconstraction:
+    pattern:  /underconstraction/
+    defaults: { _controller: ArmdMainBundle:Main:underconstraction }
+
+armd_main_opinion:
+    pattern:  /opinion/
+    defaults: { _controller: ArmdMainBundle:Main:opinion }
+
 armd_main_banner:
     pattern:  /banner/
     defaults: { _controller: ArmdMainBundle:Main:banner }
@@ -15,6 +23,10 @@ armd_main_services:
     defaults: { _controller: ArmdMainBundle:Main:services, id: null }
     requirements:
         id:  \d+
+
+armd_main_museum_reserve:
+    pattern:  /museums/museum_reserve/
+    defaults: { _controller: ArmdMainBundle:Main:museumReserve }
 
 armd_main_may9:
     pattern:  /may9/
@@ -59,7 +71,6 @@ armd_main_project_events:
 armd_main_project_news:
     pattern: /project-news/
     defaults: { _controller: ArmdMainBundle:Project:news }
-
 
 armd_main_online_translation:
     pattern:  /online-translation/

@@ -42,14 +42,13 @@ class LectureAdmin extends Admin
         $showMapper
             ->add('published')
             ->add('title')
-            ->add('lectureType')
             ->add('categories')
+            ->add('genres')
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
             ->add('trailerVideo')
-            ->add('lectureVideo')
-            ->add('lectureFile');
+            ->add('lectureVideo');
     }
 
     /**
@@ -63,12 +62,8 @@ class LectureAdmin extends Admin
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
-        $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
-            ->getRepository('ArmdLectureBundle:LectureType')
-            ->findOneByCode('LECTURE_TYPE_VIDEO');
 
         $lecture->setLectureSuperType($superType);
-        $lecture->setLectureType($type);
 
 
         $formMapper
@@ -78,11 +73,17 @@ class LectureAdmin extends Admin
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
-                ->add('categories', 'armd_lecture_categories',
+//                ->add('categories', 'armd_lecture_categories',
+//                    array(
+//                        'required' => false,
+//                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+//                        'super_type' => $superType
+//                    )
+//                )
+                ->add('genres', null,
                     array(
-                        'required' => false,
-                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                        'super_type' => $superType
+                        'multiple' => 'true',
+                        'attr' => array('class' => 'chzn-select')
                     )
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
@@ -109,17 +110,6 @@ class LectureAdmin extends Admin
             ->with('Other video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
                 ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
-            ->end()
-            ->with('Lecture file')
-                ->add('lectureFile', 'armd_media_file_type',
-                    array(
-                        'required' => false,
-                        'with_remove' => true,
-                        'media_context' => 'lecture',
-                        'media_provider' => 'sonata.media.provider.file',
-                        'media_format' => 'default'
-                    )
-                )
             ->end()
             ->with('External Video')
                 ->add('externalUrl', null, array('required' => false))
@@ -183,7 +173,7 @@ class LectureAdmin extends Admin
             ->add('published')
             ->add('createdAt')
             ->add('lectureType')
-            ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+            ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('lecturer');
     }
 

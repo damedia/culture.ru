@@ -1,11 +1,11 @@
 services:
-
-    # lecture
-    armd_lecture.sonata_admin.lecture_category:
-        class: Armd\LectureBundle\Admin\LectureCategoryAdmin
+    armd_lecture.sonata_admin.lecture_cinema:
+        class: Armd\LectureBundle\Admin\LectureCinemaAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Video, label: Lecture Categories, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, ArmdLectureBundle:LectureCinemaCrud]
+        calls:
+            - [ setContainer, [ @service_container ] ]
 
     armd_lecture.sonata_admin.lecture:
         class: Armd\LectureBundle\Admin\LectureAdmin
@@ -14,6 +14,12 @@ services:
         arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
         calls:
             - [ setContainer, [ @service_container ] ]
+
+    armd_lecture.sonata_admin.lecture_genre:
+        class: Armd\LectureBundle\Admin\LectureGenreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: LectureGenres, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\LectureGenre, SonataAdminBundle:CRUD]
 
     armd_lecture.sonata_admin.lecture_roles_persons:
         class: Armd\LectureBundle\Admin\LectureRolesPersonsAdmin
@@ -33,33 +39,30 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Roles, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\LectureRole, SonataAdminBundle:CRUD]
 
-    # translation
-    armd_lecture.sonata_admin.lecture_translation_category:
-        class: Armd\LectureBundle\Admin\LectureTranslationCategoryAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Video, label: Translation Categories, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+#    armd_lecture.sonata_admin.lecture_category:
+#        class: Armd\LectureBundle\Admin\LectureCategoryAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Video, label: Lecture Categories, show_in_dashboard: true }
+#        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+
+#    armd_lecture.sonata_admin.lecture_translation_category:
+#        class: Armd\LectureBundle\Admin\LectureTranslationCategoryAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Video, label: Translation Categories, show_in_dashboard: true }
+#        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
 
 
-    armd_lecture.sonata_admin.lecture_translation:
-        class: Armd\LectureBundle\Admin\LectureTranslationAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Video, label: Translations, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
-        calls:
-            - [ setContainer, [ @service_container ] ]
+#    armd_lecture.sonata_admin.lecture_translation:
+#        class: Armd\LectureBundle\Admin\LectureTranslationAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Video, label: Translations, show_in_dashboard: true }
+#        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+#        calls:
+#            - [ setContainer, [ @service_container ] ]
 
-    # cinema
-    armd_lecture.sonata_admin.lecture_cinema_category:
-        class: Armd\LectureBundle\Admin\LectureCinemaCategoryAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema Categories, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
+#    armd_lecture.sonata_admin.lecture_cinema_category:
+#        class: Armd\LectureBundle\Admin\LectureCinemaCategoryAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema Categories, show_in_dashboard: true }
+#        arguments: [null, Armd\LectureBundle\Entity\LectureCategory, SonataAdminBundle:CRUD]
 
-    armd_lecture.sonata_admin.lecture_cinema:
-        class: Armd\LectureBundle\Admin\LectureCinemaAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Video, label: Cinema, show_in_dashboard: true }
-        arguments: [null, Armd\LectureBundle\Entity\Lecture, ArmdLectureBundle:LectureCinemaCrud]
-        calls:
-            - [ setContainer, [ @service_container ] ]
