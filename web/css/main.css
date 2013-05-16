@@ -282,6 +282,9 @@ body {
                     display:inline-block;
                     margin-left:5px;
                 }
+                .lt-ie8 .social-external-links li{
+                    display:inline;
+                }
                 .social-external-links a{
                     display:block;
                     width:16px;
@@ -2838,12 +2841,15 @@ body {
 					position:absolute;
 					left:55px;
 					top:25px;
-					width:290px;
-					height:290px;
+					width:289px;
+					height:289px;
+                    background: url('../img/museum-circle.png') no-repeat 50% 50%;
+                    /*
 					background:rgba(255,255,255,0.6);
                     -webkit-border-radius: 145px;
                     -moz-border-radius: 145px;
                     border-radius: 145px;
+                    */
 				}
                     .museum-image-title{
                         position:absolute;
@@ -4608,13 +4614,25 @@ body {
                     font-size:12px;
                 }
 				
-                .index-video-list.index-video-list-fluid{}
+                .index-video-list.index-video-list-fluid{
+                    min-width:599px;
+                }
                 .index-video-list.index-video-list-fluid li{
                     border:0;
                     margin:0;
                     padding-left:2%;
                     padding-right:2%;
                     width:29.3%;
+                }
+
+                .lt-ie8 .index-video-list.index-video-list-fluid li{
+                    width:29%;
+                    }
+
+                .index-video-list.index-video-list-fluid .index-video-one{
+                    border:1px solid #ededed;
+                    padding: 14px 14px 5px 14px;
+                    overflow: hidden;
                 }
 
 
