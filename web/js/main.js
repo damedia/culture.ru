@@ -299,8 +299,8 @@ $(function () {
         prevEffect: 'fade'
     });
 	
-	if($('.museum-instr-link').length > 0) {
-		$('.museum-instr-link').fancybox({
+	if($('.virt-museum-instr').length > 0) {
+		$('.virt-museum-instr').fancybox({
 			'width':900,
 			'height':900,
 			'autoSize':false,

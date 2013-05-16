@@ -1,3 +1,24 @@
+{% if museums|length > 0 %}
+    {% for m in museums %}
+        <div class="virt-museum-new-list-one">
+            <a class="vob iframe" href="{{ m.url }}" data-fancybox-type="iframe"><img src="{% path m.bannerImage, 'banner' %}" alt="" /></a>
+            <div class="virt-museum-circle">
+                <h2><span>{{ m.title|raw }}</span></h2>
+                <div class="virt-museum-list-one-descr">
+                    {% if m.region %}
+                            <a href="{{ path('armd_museum_virtual', { region:m.region.id }) }}" class="virt-museum-city">{{ m.region.title }}</a>
+                        {% endif %}
+                    <a class="virt-museum-link vob iframe" href="{{ m.url }}" data-fancybox-type="iframe">{{ "visit_museum"|trans|raw }}</a>
+                    <a href="#instruction" class="virt-museum-instr">{{ "manual_instruction"|trans|raw }}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <strong>{{ "museums_not_found"|trans }}</strong>
+{% endif %}
+
+{#
 <div class="tab active" id="plitka">
     <div id="museums-container" class="plitka wide-plitka">
         {% if museums|length > 0 %}
@@ -67,14 +88,6 @@
         {% endfor %}
     </div>
 </div>
+#}
 
-<div id="instruction" style="display:none;">
-    <div class="window">
-        <div class="block window-content">
-    
-            {% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}
-    
-    	</div>
-    </div>
-</div>
 
