@@ -61,10 +61,10 @@ AT.initUI = function() {
             }
             if (objects && objects.length) {
                 for (i in objects) {
-                    AT.objects[objects[i].id] = {
-                        prev: objects[parseInt(i)-1] != null ? objects[parseInt(i)-1].id : objects[objects.length-1].id,
-                        next: objects[parseInt(i)+1] != null ? objects[parseInt(i)+1].id : objects[0].id
-                    };
+                    var oid = objects[i].id;
+                    AT.objects[oid] = objects[i];
+                    AT.objects[oid].prev = objects[parseInt(i)-1] != null ? objects[parseInt(i)-1].id : objects[objects.length-1].id;
+                    AT.objects[oid].next = objects[parseInt(i)+1] != null ? objects[parseInt(i)+1].id : objects[0].id;
                     AT.placePoint(objects[i]);
                 }
                 AT.showPoint(objects[Math.floor(Math.random() * objects.length)].id);
@@ -117,6 +117,8 @@ AT.placePoint = function(object) {
 AT.showPoint = function(uid) {
     if(AT.currentPoint !== uid) {
         AT.currentPoint = uid;
+        $('#map-scrollblock').html(AT.objects[uid].sideDetails);
+        /*
         $.ajax({
             url: fetchSideDetailUri,
             data: { id: uid },
@@ -124,6 +126,7 @@ AT.showPoint = function(uid) {
                 $('#map-scrollblock').html(res);
             }
         });
+        */
     }
 };
 
