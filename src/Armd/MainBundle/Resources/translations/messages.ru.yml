@@ -58,8 +58,10 @@ menu.theatre: Театры
 menu.underconstraction: Страница в разработке
 #---------------- /menu -------------------------
 
+virtual_museum_tour: Виртуальный тур по музеям
 
-Portal title: Портал культурного наследия России
+Portal title: Портал культурного наследия России Культура.рф
+Portal title highlighted: Портал культурного наследия России <span>Культура.рф</span>
 Open Government: Открытое правительство
 Special version: Версия для слабовидящих
 Ministry of Culture: Министерство культуры

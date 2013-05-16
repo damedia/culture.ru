@@ -40,8 +40,11 @@ menu.museum_guide: Museum guide
 menu.museum_lesson: Study
 #---------------- /menu -------------------------
 
+virtual_museum_tour: Virtual museums tour
+
 
 Portal title: Russian Cultural Heritage Web Portal
+Portal title highlighted: Russian Cultural Heritage Web Portal <span>culture.ru</span>
 Open Government: Open Government
 Special version: Contrast version
 Ministry of Culture: Ministry of Culture

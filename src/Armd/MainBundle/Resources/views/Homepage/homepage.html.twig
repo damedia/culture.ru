@@ -2,7 +2,7 @@
 
 {% block title %}{{ 'Portal title'|trans }}{% endblock %}
 
-{% block page_header_title %}{{ 'Portal title'|trans }}{% endblock %}
+{% block page_header_title %}{{ 'virtual_museum_tour'|trans }}{% endblock %}
 
 {% block body_class %}index-main{% endblock %}
 
@@ -14,7 +14,7 @@
             <div class="plitka-one clearfix">
                 <div class="museum-image-container">
                     {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
-                    <div class="museum-image" style="background-image:url(/img/museum-temp/7-istoricheskii.jpg);"></div>
+                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url(/img/museum-temp/7-istoricheskii.jpg);"></div></a>
                     <div class="museum-image-over">
                         <div class="museum-image-title clearfix"><span>ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ</span></div>
                         <div class="museum-image-text-wrap">
