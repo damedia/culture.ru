@@ -166,7 +166,6 @@ class LectureManager extends ListManager
 //            }
         }
 
-        \gFuncs::dbgWriteLogVar($searchParams, false, 'searchParams'); // DBG:
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 
         $result = array();
