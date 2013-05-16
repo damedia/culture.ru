@@ -469,10 +469,6 @@ knp_paginator:
     template: 
         pagination: ":Frontend:pagination.html.twig"
 
-knp_menu:
-    twig:
-        template: :Frontend:menu.html.twig
-
 armd_tvigle_video:
     api_service_url: http://pub.tvigle.ru/soap/index.php?wsdl
     api_login: Stella_l

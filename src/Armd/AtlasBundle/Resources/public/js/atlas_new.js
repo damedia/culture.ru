@@ -372,7 +372,7 @@ AT.placePoint = function(object) {
                 backpos: '0 0',
                 innerImage: {
                     src: object.imageUrl,
-                    width: 50
+                    width: 17
                 }
             });
     } else {
@@ -394,6 +394,15 @@ AT.placePoint = function(object) {
 
     AT.map.geometry.add(point);
 
+    PGmap.EventFactory.eventsType.mouseover = 'mouseover';
+    PGmap.EventFactory.eventsType.mouseout = 'mouseout';
+    // наведение на точку
+    PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseover, function(e) {
+        $('img', point.container).css({width:50});
+    });
+    PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseout, function(e) {
+        $('img', point.container).css({width:17});
+    });
     // клик по точке
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, function(){
         //console.log('Click point', point);

@@ -286,6 +286,27 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/object/side", name="armd_atlas_default_objectside", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Default:object_side.html.twig")
+     */
+    public function objectSideAction()
+    {
+        $id = (int)$this->getRequest()->query->get('id');
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        $currentUser = $this->get('security.context')->getToken()->getUser();
+        if ($id) {
+            $entity = $repo->findOneBy(array('id' => $id, 'published' => true));
+            if ($entity)
+                return array(
+                    'entity' => $entity,
+                    'editable' => ($entity->getCreatedBy() == $currentUser),
+                );
+            else
+                throw new NotFoundHttpException("Page not found");
+        }
+    }
+
+    /**
      * @Route("/", name="armd_atlas_index")
      * @Template()
      */
