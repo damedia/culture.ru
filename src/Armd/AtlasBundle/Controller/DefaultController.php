@@ -336,6 +336,7 @@ class DefaultController extends Controller
             if (!$objects)
                 throw new \Exception('Not found');
 
+            $currentUser = $this->get('security.context')->getToken()->getUser();
             $allCategoriesIds = $repo->fetchObjectsCategories($objects);
 
             $rows = array();
@@ -349,11 +350,16 @@ class DefaultController extends Controller
 
                 $obraz = false;
                 $imageUrl = '';
+                $sideDetails = '';
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getId() == 74) {
                         $obraz = true;
                         $image = $obj->getPrimaryImage(); // @TODO Много запросов
                         $imageUrl = $twigExtension->path($image, 'thumbnail');
+                        $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
+                            'entity' => $obj,
+                            'editable' => ($obj->getCreatedBy() == $currentUser),
+                        ));
                     }
                 }
 
@@ -366,6 +372,7 @@ class DefaultController extends Controller
                     'icon' => $iconUrl,
                     'obraz' => $obraz,
                     'imageUrl' => $imageUrl,
+                    'sideDetails' => $sideDetails,
                 );
             }
 
