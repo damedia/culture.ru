@@ -292,6 +292,28 @@ class Builder extends ContainerAware
             );
             //--- /Lectures
 
+            //--- Music
+
+            $musicMenu = $menu->addChild(
+                'menu.music',
+                array(
+                    'route' => 'armd_main_underconstraction',
+                )
+            );
+            
+            //--- /Music
+
+            //--- Theatre
+
+            $theatreMenu = $menu->addChild(
+                'menu.theatre',
+                array(
+                    'route' => 'armd_main_underconstraction',
+                )
+            );
+            
+            //--- /Theatre
+
             //--- russiaimages
             $russiaimagesMenu = $menu->addChild(
                 'menu.russia_images',

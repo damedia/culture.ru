@@ -353,10 +353,13 @@ body {
                     .main-menu ul li {
                         position:relative;
                         float:left;
-						margin-right:14px;
+						margin-right:12px;
                         padding-bottom:10px;
                         zoom:1;
 					}
+                    .main-menu ul li.last{
+                        margin-right:0;
+                    }
                     .main-menu ul a {
 						text-decoration:none;
 						text-transform:uppercase;
@@ -369,6 +372,7 @@ body {
 
                 .main-menu ul ul.main-menu-level1 {
                     position:absolute;
+                    z-index:3;
                     left:0; top:30px;
                     display: none;
                     margin-top:0px;
@@ -381,6 +385,9 @@ body {
                     zoom:1;
                     background:#fff;
 				}
+                .main-menu ul li.last ul.main-menu-level1{
+                    left:-123px;
+                }
                 .no-boxshadow .main-menu ul ul.main-menu-level1{
                     border-left:1px solid #e5e5e5;
                     border-right:1px solid #e5e5e5;
@@ -393,6 +400,9 @@ body {
                     width:11px;
                     height:6px;
                     background:transparent url(../img/main-menu-sub.png) no-repeat 0px 0;
+                }
+                .main-menu ul li.last ul.main-menu-level1:before{
+                    left:183px;
                 }
                     .main-menu ul li:hover ul.main-menu-level1 {
                         display: block;
@@ -2396,6 +2406,28 @@ body {
                     padding-bottom: 0;
                 }
         
+        .index-video-block .plitka-one-wrap{
+            width:187px;
+        }
+        .index-video-block .perfomances-list{
+            width:800px;
+        }
+        .index-video-block .plitka-one-wrap{
+            float:left;
+        }
+        .index-video-block .plitka-one-image-wrapper{
+            width:157px;
+            height:209px;
+            overflow:hidden;
+        }
+        .index-video-block .perfomances-list img{
+            width:157px;
+            height:209px;
+        }
+        .index-video-block .perfomances-list .views{
+            height:30px;
+            overflow:hidden;
+        }
         /*Perfomance Element*/    
 
 
@@ -4656,6 +4688,7 @@ body {
 
 		#video-list {
 			position:relative;
+            overflow:hidden;
 		}
 		.index-video-list {
 			list-style:none;
@@ -4665,7 +4698,7 @@ body {
 				float:left;
                 margin:0 0px 0 15px;
                 padding: 14px 14px 5px 14px;
-				width:162px;
+				width:141px;
                 border:1px solid #ededed;
                 overflow: hidden;
                 text-align: left;
