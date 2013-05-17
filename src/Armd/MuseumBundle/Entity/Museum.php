@@ -77,6 +77,11 @@ class Museum
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
+    
+    /**
+     * @ORM\Column(name="sort", type="integer", nullable=false, options={"default"=0})
+     */
+    private $sort = 0;
 
     public function __toString()
     {
@@ -323,5 +328,20 @@ class Museum
         $this->showOnMainOrd = $showOnMainOrd;
 
         return $this;
-    }    
+    }
+    
+    /**
+     * @return integer
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }  
 }

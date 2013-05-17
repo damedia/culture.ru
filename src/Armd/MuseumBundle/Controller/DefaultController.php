@@ -71,6 +71,7 @@ class DefaultController extends Controller
             $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
+        $criteria[MuseumManager::CRITERIA_ORDER_BY] = array('sort' => 'DESC', 'title' => 'ASC');
         $criteria[MuseumManager::CRITERIA_LIMIT] = $limit;
         $criteria[MuseumManager::CRITERIA_OFFSET] = $offset;
         
