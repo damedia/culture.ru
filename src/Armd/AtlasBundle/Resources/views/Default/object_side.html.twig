@@ -22,8 +22,5 @@
         {% if entity.address %}{{ entity.address }}{% endif %}
     </div>
     {% endif %}
-    {% if editable %}
-        <a href="#" class="edit" data-id="{{ entity.id }}">{{ "atlas.edit"|trans }}</div>
-    {% endif %}
 </div>
 <p class="all"><a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">подробнее</a></p>
