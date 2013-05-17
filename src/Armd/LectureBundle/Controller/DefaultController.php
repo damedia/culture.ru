@@ -71,7 +71,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/cinema/", name="armd_lecture_cinema_index")
-     */
+     
     public function cinemaIndexAction()
     {
         return $this->forward('ArmdLectureBundle:Default:index', array(
@@ -81,6 +81,51 @@ class DefaultController extends Controller
             'category_id' => $this->getRequest()->get('category_id'),
             'sub_category_id' => $this->getRequest()->get('sub_category_id'),
         ));
+    }
+    */
+    
+    
+    /**
+     * @Route("/cinema/", name="armd_lecture_cinema_index")
+     * @Template("ArmdLectureBundle:Default:cinema.html.twig")
+     */
+    public function cinemaAction()
+    {
+        
+        $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_CINEMA';
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->getMenuUri($lectureSuperTypeCode, $request)
+        );
+
+
+        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneByCode($lectureSuperTypeCode);
+
+        $alphabet = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О',
+            'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
+
+        if ($request->query->has('tag_id')) {
+            $tag = $em->getRepository('ArmdTagBundle:Tag')->find($request->get('tag_id'));
+        } else {
+            $tag = false;
+        }
+
+        $data = $this->getCategoryData($lectureSuperType, $request->get('cinema_top100'));
+
+        return array(
+            'lectureSuperType' => $lectureSuperType,
+            'categories' => $data['categories'],
+            'specialCategories' => $data['specialCategories'],
+            'selectedCategory' => $data['selectedCategory'],
+            'searchQuery' => $request->get('search_query'),
+            'cinemaTop100' => $request->get('cinema_top100'),
+            'alphabet' => $alphabet,
+            'tag' => $tag
+        );
     }
 
     /**
@@ -141,11 +186,25 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/list/{lectureSuperTypeCode}/", name="armd_lecture_list", options={"expose"=true})
+     * @Route("/list/{templateName}/{lectureSuperTypeCode}/", 
+                name="armd_lecture_list", 
+                options={"expose"=true},
+                defaults={"templateName"="lecture_list"}
+            )
      * @Template("ArmdLectureBundle:Default:list.html.twig")
      */
-    public function lectureListAction($lectureSuperTypeCode)
+    public function lectureListAction($lectureSuperTypeCode, $templateName='lecture_list')
     {
+        $templates = array(
+            'lecture_list' => 'ArmdLectureBundle:Default:list.html.twig',
+            'lecture_top_slider' => 'ArmdLectureBundle:Default:top_slider_list.html.twig',
+            'lecture_featured' => 'ArmdLectureBundle:Default:featured_list.html.twig',
+            'lecture_index' => 'ArmdLectureBundle:Default:index_list.html.twig'
+        );
+        if (in_array($templateName, $templates)) {
+            throw new \InvalidArgumentException('Unknow template name ' . $templateName);
+        }
+        
         $request = $this->getRequest();
         $criteria = array(
             LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($lectureSuperTypeCode)
@@ -205,10 +264,14 @@ class DefaultController extends Controller
 
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
-        return array(
-            'lectures' => $lectures,
-            'selectedCategory' => $request->get('category_id'),
+        return $this->render(
+            $templates[$templateName],
+            array(
+                'lectures' => $lectures,
+                'selectedCategory' => $request->get('category_id'),
+            )
         );
+        
     }
 
 
