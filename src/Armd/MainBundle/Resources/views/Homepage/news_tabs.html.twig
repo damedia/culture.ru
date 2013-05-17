@@ -12,7 +12,7 @@
             </h3>
             <ul class="event-tab-news">
                 {% set prevDate = null %}
-                {% set enNewsLimit = 16 %}
+                {% set enNewsLimit = 10 %}
                 {#{% for n in news if app.request.locale == 'ru' or loop.index < enNewsLimit %}#}
                 {% for i in 0..enNewsLimit if i < news|length %}
                     {% set n = news[i] %}

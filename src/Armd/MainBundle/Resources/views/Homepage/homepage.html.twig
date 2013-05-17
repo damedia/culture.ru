@@ -57,13 +57,16 @@
         #}
         {% if app.request.locale == 'ru' %}
             <section class="index-block two-column-block clearfix index-news-block">
-                <section class="index-block">
+                <h2><a href="{{ path('armd_news_list_index_by_category', {'category': 'news', }) }}">Медиа</a></h2>
+                {% render url('armd_news_billboard_slider') %}
+
+{#                <section class="index-block">
                     {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
                     {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
                     <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
                     <a href="{{ newsArticleHref }}">
                         <div class="block-left-image-wrap">{% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}</div>
-                        {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
+                        &#123;&#35;<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">&#35;&#125;
                     </a>
 
                     <div class="text-overflow">
@@ -80,7 +83,7 @@
                     <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
                     <a href="{{ newsArticleHref }}">
                         <div class="block-left-image-wrap">{% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}</div>
-                        {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
+                        &#123;&#35;<img class="block-left-image" alt="" src="images/index-interview.jpg">&#35;&#125;
                     </a>
 
                     <div class="text-overflow">
@@ -88,7 +91,7 @@
                         <p>{{ lastInterview.announce|striptags|truncate(200)|raw }}</p>
                         <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
                     </div>
-                </section>
+                </section>#}
             </section>
         </section>
     {% endif %}
@@ -184,61 +187,7 @@
 </div>
 </div>
 <!-- /static sample -->
-{#
-<!-- static sample -->
-<div id="video-list">
-<ul class="slides index-video-list">
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/576">
-<div class="index-video-image">
-<img height="auto" alt="Курьер" width="auto" class="lecture-tile-list-image" src="/img/video/video-kurier.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/576" class="index-video-name">Курьер</a>
-<span class="index-video-info">Мосфильм, 1986</span>
-</div>
-</li>
-
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/600">
-<div class="index-video-image">
-<img height="auto" alt="Земля" width="auto" class="lecture-tile-list-image" src="/img/video/video-zemlya.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/600" class="index-video-name">Земля</a>
-<span class="index-video-info">Всеукраинское фотокиноуправление, 1930</span>
-</div>
-</li>
-
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/577">
-<div class="index-video-image">
-<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/img/video/video-letyat_zhuravli.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли</a>
-<span class="index-video-info">Мосфильм, 1957</span>
-</div>
-</li>
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/577">
-<div class="index-video-image">
-<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/img/video/video-letyat_zhuravli.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли copy</a>
-<span class="index-video-info">Мосфильм, 1957</span>
-</div>
-</li>
-</ul>
-</div>
-<!-- /static sample -->
-#}
-            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
+            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">{{ "mainpage.all_video"|trans }}</a></p>
         </section>
     {% endif %}
 
@@ -248,6 +197,22 @@
 
 {% block right_column %}
     <span class="helper-top-orange-line"></span>
+
+    <div class="tabs events-tabs video-tabs">
+        <h2>Сегодня - Всемирный день музеев</h2>
+        <h3>Актуальное видео</h3>
+        <div class="video-tabs-item">
+            <iframe width="100%" height="162" src="http://pub.tvigle.ru/frame/p.htm?vote=0&srv=pub.tvigle.ru&prt=85deec0537d438363b1c3b54dbe222e8&id=2333629&w=720&h=540&type=&dopparam=armada_skin&modes=1&nl=1" style="border: 0px;" wmode="Opaque"></iframe>
+        </div>
+        <p class="video-tabs-title">Андрей Караулов о новом подходе министра культуры РФ Владимира Мединского к сохранению культурного наследия России. Программа "Момент истины" (эфир 13.05.13)</p>
+        
+        {#
+        <p class="all">
+            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ "menu.video_all"|trans }}</a>
+        </p>
+        #}
+    </div>
+
     <section id="homepage-online-translation">
         {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
     </section>
@@ -257,18 +222,20 @@
 {% endblock %}
 
 {% block wide_body %}
-<!-- begin-->
-    <div class="index-map">
-        <div class="bar bar-top"></div>
-        <div class="bar bar-right"></div>
-        <div class="bar bar-bottom"></div>
-        <div class="bar bar-left"></div>
-        <div id="map"></div>
-        <div class="map-lister scrollblock">
-            <div id="map-scrollblock" class="scrollblock-content"></div>
-            <div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left" onclick="return AT.prevPoint();"></a><a class="scrollblock-a scrollblock-right" onclick="return AT.nextPoint();"></a></div>
-        </div><!-- /map-lister -->
-    </div>
+    <section class="block atlas-block">
+        <h1><span>{{ "Navigation.Atlas"|trans}}</span></h1>
+        <div class="index-map">
+            <div class="bar bar-top"></div>
+            <div class="bar bar-right"></div>
+            <div class="bar bar-bottom"></div>
+            <div class="bar bar-left"></div>
+            <div id="map"></div>
+            <div class="map-lister scrollblock">
+                <div id="map-scrollblock" class="scrollblock-content"></div>
+                <div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left" onclick="return AT.prevPoint();"></a><a class="scrollblock-a scrollblock-right" onclick="return AT.nextPoint();"></a></div>
+            </div><!-- /map-lister -->
+        </div>
+    </section>
 
     <!-- Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
@@ -281,7 +248,6 @@
         document.getElementById('script_ad').style.display = 'block';
     </script>
     <!-- /Асинхронная загрузка jsapi -->
-<!-- /end -->
 {% endblock %}
 
 {% block after_body %}
@@ -326,12 +292,15 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdmain/css/atlas_obrazy.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/armdnews/css/slider.css') }}" media="all" />
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/jquery.carouFredSel-6.2.1-packed.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_slider.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {

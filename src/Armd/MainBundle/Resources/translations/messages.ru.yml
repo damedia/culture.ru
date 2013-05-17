@@ -32,10 +32,11 @@ menu.special_projects: Спецпроекты
 menu.borodino: Отечественная война 1812
 menu.intermuseum: Интермузей-2013
 menu.special_projects_romanov450: 400-летие дома Романовых
-menu.special_projects_stanislavski: 150 со дня рождения К.С.&nbsp;Станиславского
+menu.special_projects_stanislavski: 150 со дня рождения К.С. Станиславского
 menu.special_projects_1150: 1150 лет государственности
 menu.online_translation: Онлайн трансляции
 menu.video: Видеотека
+menu.video_all: Все видео
 menu.lectures: Лекции
 menu.translations: Трансляции
 menu.top100: 100 фильмов для школьников
@@ -147,6 +148,7 @@ mainpage.show_all_lectures: Посмотреть все лекции
 mainpage.cinema: Кино
 mainpage.show_all_cinema: Посмотреть все фильмы
 mainpage.russian_culture_events: События культуры России
+mainpage.all_video: Все фильмы
 
 Projects:
     Region: Регион

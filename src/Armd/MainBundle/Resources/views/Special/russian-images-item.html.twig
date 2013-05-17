@@ -273,7 +273,7 @@
 
 {% block rec_objects %}
     {% if relatedObjects is not empty %}
-        <h2>{{'Mainpage block.Recommended.Title'|trans}}</h2>
+        {# <h2>{{'Mainpage block.Recommended.Title'|trans}}</h2> #}
         <div class="rusObr-block index-rusObr-block" style="margin-bottom:3em;">
             <ul class="rusObr-list clearfix">
             {% for object in relatedObjects|slice(0, 4) %}<li>
