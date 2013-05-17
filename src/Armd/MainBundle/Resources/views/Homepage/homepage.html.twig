@@ -238,7 +238,7 @@
 </div>
 <!-- /static sample -->
 #}
-            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
+            <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">{{ "mainpage.all_video"|trans }}</a></p>
         </section>
     {% endif %}
 
@@ -257,18 +257,20 @@
 {% endblock %}
 
 {% block wide_body %}
-<!-- begin-->
-    <div class="index-map">
-        <div class="bar bar-top"></div>
-        <div class="bar bar-right"></div>
-        <div class="bar bar-bottom"></div>
-        <div class="bar bar-left"></div>
-        <div id="map"></div>
-        <div class="map-lister scrollblock">
-            <div id="map-scrollblock" class="scrollblock-content"></div>
-            <div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left" onclick="return AT.prevPoint();"></a><a class="scrollblock-a scrollblock-right" onclick="return AT.nextPoint();"></a></div>
-        </div><!-- /map-lister -->
-    </div>
+    <section class="block atlas-block">
+        <h1><span>{{ "Navigation.Atlas"|trans}}</span></h1>
+        <div class="index-map">
+            <div class="bar bar-top"></div>
+            <div class="bar bar-right"></div>
+            <div class="bar bar-bottom"></div>
+            <div class="bar bar-left"></div>
+            <div id="map"></div>
+            <div class="map-lister scrollblock">
+                <div id="map-scrollblock" class="scrollblock-content"></div>
+                <div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left" onclick="return AT.prevPoint();"></a><a class="scrollblock-a scrollblock-right" onclick="return AT.nextPoint();"></a></div>
+            </div><!-- /map-lister -->
+        </div>
+    </section>
 
     <!-- Асинхронная загрузка jsapi -->
     <div id="script_block" class="script_block"></div>
@@ -281,7 +283,6 @@
         document.getElementById('script_ad').style.display = 'block';
     </script>
     <!-- /Асинхронная загрузка jsapi -->
-<!-- /end -->
 {% endblock %}
 
 {% block after_body %}
