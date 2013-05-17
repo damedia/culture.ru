@@ -205,9 +205,9 @@ class Builder extends ContainerAware
             );
             //--- /News
 
-            //--- Opinion
+            //--- Media
 
-            $opinionMenu = $menu->addChild(
+            $mediaMenu = $menu->addChild(
                 'menu.media',
                 array(
                     'route' => 'armd_news_list_index_by_category',
@@ -215,7 +215,7 @@ class Builder extends ContainerAware
                 )
             );
 
-            $opinionMenu->addChild(
+            $mediaMenu->addChild(
                 'menu.reportage',
                 array(
                     'route' => 'armd_news_list_index_by_category',
@@ -223,7 +223,7 @@ class Builder extends ContainerAware
                 )
             );
 
-            $opinionMenu->addChild(
+            $mediaMenu->addChild(
                 'menu.interview',
                 array(
                     'route' => 'armd_news_list_index_by_category',
@@ -231,7 +231,16 @@ class Builder extends ContainerAware
                 )
             );
 
-            //--- /Opinion
+            //--- /Media
+
+            //--- russiaimages
+            $russiaimagesMenu = $menu->addChild(
+                'menu.russia_images',
+                array(
+                    'route' => 'armd_atlas_russia_images'
+                )
+            );
+            //--- /russiaimages
 
             //--- Museums
             $museumMenu = $menu->addChild(
@@ -283,14 +292,16 @@ class Builder extends ContainerAware
             $this->addCinemaMenuItems($cinemaMenu);
             //--- /Cinema
 
-            //--- Lectures
-            $lectureMenu = $menu->addChild(
-                'menu.lectures',
+            //--- Theatre
+
+            $theatreMenu = $menu->addChild(
+                'menu.theatre',
                 array(
-                    'route' => 'armd_lecture_lecture_index'
+                    'route' => 'armd_main_underconstraction',
                 )
             );
-            //--- /Lectures
+            
+            //--- /Theatre
 
             //--- Music
 
@@ -303,25 +314,14 @@ class Builder extends ContainerAware
             
             //--- /Music
 
-            //--- Theatre
-
-            $theatreMenu = $menu->addChild(
-                'menu.theatre',
+            //--- Lectures
+            $lectureMenu = $menu->addChild(
+                'menu.lectures',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_lecture_lecture_index'
                 )
             );
-            
-            //--- /Theatre
-
-            //--- russiaimages
-            $russiaimagesMenu = $menu->addChild(
-                'menu.russia_images',
-                array(
-                    'route' => 'armd_atlas_russia_images'
-                )
-            );
-            //--- /russiaimages
+            //--- /Lectures
 
             //--- atlas
             $atlasMenu = $menu->addChild(
