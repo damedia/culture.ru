@@ -862,19 +862,20 @@ body {
         }
         .newspaper a{
             display:block;
+            margin:0 auto;
             text-decoration:none;
             outline:0;
             background-position:0 0;
             background-repeat:no-repeat;
         }
         .newspaper-literature a{
-            width:270px;
-            height:79px;
+            width:220px;
+            height:64px;
             background-image:url(../img/newspaper-literature.jpg);
         }
         .newspaper-culture a{
-            width:267px;
-            height:74px;
+            width:220px;
+            height:61px;
             background-image:url(../img/newspaper-culture.jpg);
         }
 
@@ -6726,7 +6727,7 @@ body {
             .fc-col-block{
                 padding:0 40px;
 			border:solid #e9e9e9;
-			border-width:0 1px;
+			border-width:0 0 0 1px;
             }
             .fc-col{
                 float:left;
