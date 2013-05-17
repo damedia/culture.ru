@@ -208,7 +208,7 @@ class Builder extends ContainerAware
             //--- Opinion
 
             $opinionMenu = $menu->addChild(
-                'menu.opinion',
+                'menu.media',
                 array(
                     'route' => 'armd_news_list_index_by_category',
                     'routeParameters' => array('category' => 'reportages')
@@ -332,6 +332,16 @@ class Builder extends ContainerAware
             );
             
             //--- /atlas
+
+            //--- Kids
+            $kidsMenu = $menu->addChild(
+                'menu.kids',
+                array(
+                    'uri' => '/kids/children.html'
+                )
+            );
+
+            //--- /Kids
 
             
             //--- Communication

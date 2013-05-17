@@ -293,13 +293,11 @@ class DefaultController extends Controller
     {
         $id = (int)$this->getRequest()->query->get('id');
         $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
-        $currentUser = $this->get('security.context')->getToken()->getUser();
         if ($id) {
             $entity = $repo->findOneBy(array('id' => $id, 'published' => true));
             if ($entity)
                 return array(
                     'entity' => $entity,
-                    'editable' => ($entity->getCreatedBy() == $currentUser),
                 );
             else
                 throw new NotFoundHttpException("Page not found");
@@ -390,7 +388,6 @@ class DefaultController extends Controller
             if (!$objects)
                 throw new \Exception('Not found');
 
-            $currentUser = $this->get('security.context')->getToken()->getUser();
             $allCategoriesIds = $repo->fetchObjectsCategories($objects);
 
             $rows = array();
@@ -412,7 +409,6 @@ class DefaultController extends Controller
                         $imageUrl = $twigExtension->path($image, 'thumbnail');
                         $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
                             'entity' => $obj,
-                            'editable' => ($obj->getCreatedBy() == $currentUser),
                         ));
                     }
                 }
