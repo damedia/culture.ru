@@ -95,7 +95,7 @@
 
     {% if app.request.locale == 'ru' %}
         <section class="index-block index-video-block clearfix">
-            <h2><a href="{{ path('armd_lecture_cinema_index') }}">Кинозал</a></h2>
+            <h2><a href="{{ path('armd_lecture_cinema_index') }}">{{ "mainpage.cinema"|trans }}</a></h2>
             {#
             <div id="video-list">
                  {% include 'ArmdMainBundle:Homepage:new_video.html.twig' with {'videos': newVideos} %}

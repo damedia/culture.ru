@@ -5,7 +5,7 @@ menu.atlas: Атлас
 menu.russia_images: Образы России
 menu.virtual_museums: Музеи
 menu.art_objects: Экспонаты
-menu.cinema: Кинозал
+menu.cinema: Кино
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
 menu.theaters: Театры
@@ -81,7 +81,7 @@ Navigation:
         Title: Виртуальные музеи
         Search: Поиск по музеям
         Guide: Музейный гид
-    Cinema: Кинозал
+    Cinema: Кино
     Translations: Трансляции
     Lectures: Лекции
     Timeline : Лента времени
@@ -143,7 +143,7 @@ mainpage.russia_images: Образы России
 mainpage.show_all_russia_images: Посмотреть все Образы России
 mainpage.lectures: Лекции
 mainpage.show_all_lectures: Посмотреть все лекции
-mainpage.cinema: Кинозал
+mainpage.cinema: Кино
 mainpage.show_all_cinema: Посмотреть все фильмы
 mainpage.russian_culture_events: События культуры России
 
