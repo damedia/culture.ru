@@ -4764,11 +4764,7 @@ body {
             }
             .time-line-nav li.inactive a {
                 color:#d4d4d4;
-            }
-            
-            .time-line-nav li ul {
-                display:none;
-            }
+            }                        
 
             .time-line-nav li ul a {
                 font-weight: normal;               
@@ -4887,7 +4883,19 @@ body {
                         margin-top:10px;                        
                     }   
                     
+                    .timeline-link {
+                        text-align: right;
+                        color: #999999;
+                        font-size: 14px;
+                        margin-top: 20px;
+                    }  
                     
+                    .timeline-link img {
+                        border: none !important;
+                        width: 16px !important;
+                        margin-right: 4px !important;
+                        opacity: 0.7;
+                    }
 
         
 /*GOVERMENT SERVICE*/
