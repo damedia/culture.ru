@@ -13,7 +13,7 @@ menu.kids: Детям
 menu.news_index: Медиа
 menu.news: Новости
 menu.events: Анонсы
-menu.opinion: Мнения
+menu.media: Медиа
 menu.communication: Общение
 
 menu.reportage: Репортажи
@@ -29,9 +29,9 @@ menu.banners: Баннеры
 menu.communication: Сервисы
 menu.special_projects: Спецпроекты
 menu.borodino: Отечественная война 1812
-menu.intermuseum: Интермузей 2013
-menu.special_projects_romanov450: Дом Романовых
-menu.special_projects_stanislavski: К. Станиславский
+menu.intermuseum: Интермузей-2013
+menu.special_projects_romanov450: 400-летие дома Романовых
+menu.special_projects_stanislavski: 150 со дня рождения К.С.&nbsp;Станиславского
 menu.special_projects_1150: 1150 лет государственности
 menu.online_translation: Онлайн трансляции
 menu.video: Видеотека
