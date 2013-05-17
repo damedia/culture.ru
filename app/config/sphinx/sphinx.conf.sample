@@ -2,11 +2,11 @@ source mk_news_source_all
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
     
     sql_query       = \
         SELECT \
@@ -17,18 +17,17 @@ source mk_news_source_all
         '' ftsrch4, \
         '' ftsrch5, \
         'news' AS object_type, \
-         date_part('epoch', cn.news_date)::int8 AS date_from, \
-         CASE WHEN published THEN 1 ELSE 0 END AS published \
+         date_part('epoch', cn.news_date)::int8 AS date_from \
     FROM \
         content_news cn, \
         content_news_category cnc \
     WHERE \
         cn.category_id = cnc.id \
-         and cnc.filtrable = 't'
+        AND cnc.filtrable = TRUE \
+        AND cn.published = TRUE
 
     sql_attr_string = object_type
     sql_attr_bigint  = date_from
-    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM content_news WHERE id=$id
 }
@@ -37,28 +36,27 @@ source mk_lectures_source_all
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
     
     sql_query       = \
         SELECT \
-        l.id + 1000000000, \
-        l.title ftsrch1, \
-        l.lecturer ftsrch2, \
-        '' ftsrch3, \
-        '' ftsrch4, \
-        '' ftsrch5, \
-        'lecture' AS object_type, \
-        date_part('epoch', l.created_at)::int8 AS date_from, \
-        1 AS published \
+            l.id + 1000000000, \
+            l.title ftsrch1, \
+            l.lecturer ftsrch2, \
+            '' ftsrch3, \
+            '' ftsrch4, \
+            '' ftsrch5, \
+            'lecture' AS object_type, \
+            date_part('epoch', l.created_at)::int8 AS date_from \
         FROM lecture l \
+        WHERE published = TRUE
 
     sql_attr_string = object_type
     sql_attr_bigint  = date_from
-    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM lecture WHERE id=$id
 }
@@ -67,28 +65,27 @@ source mk_atlas_source_all
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
     
     sql_query       = \
         SELECT \
-        o.id + 2000000000, \
-        o.title ftsrch1, \
-        o.announce ftsrch2, \
-        o.content ftsrch3, \
-        o.phone ftsrch4, \
-        o.address ftsrch5, \
-        'atlas_object' AS object_type, \
-        NOW() AS date_from, \
-        CASE WHEN published THEN 1 ELSE 0 END AS published \
+            o.id + 2000000000, \
+            o.title ftsrch1, \
+            o.announce ftsrch2, \
+            o.content ftsrch3, \
+            o.phone ftsrch4, \
+            o.address ftsrch5, \
+            'atlas_object' AS object_type, \
+            NOW() AS date_from \
         FROM atlas_object o \
+        WHERE published = TRUE
 
     sql_attr_string = object_type
     sql_attr_bigint  = date_from
-    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM atlas_object WHERE id=$id
 }
@@ -97,41 +94,131 @@ source mk_virtual_museums_source_all
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
     
     sql_query       = \
         SELECT \
-        m.id + 3000000000, \
-        m.title ftsrch1, \
-        m.body ftsrch2, \
-        '' ftsrch3, \
+            m.id + 3000000000, \
+            m.title ftsrch1, \
+            m.body ftsrch2, \
+            '' ftsrch3, \
+            '' ftsrch4, \
+            '' ftsrch5, \
+            'virtual_museum' AS object_type, \
+            NOW() AS date_from \
+        FROM armd_museum m \
+        WHERE published = TRUE
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+
+    sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
+}
+
+source mk_lessons_source_all
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        l.id + 3500000000, \
+        l.title ftsrch1, \
+        l.announce ftsrch2, \
+        l.description ftsrch3, \
         '' ftsrch4, \
         '' ftsrch5, \
-        'virtual_museum' AS object_type, \
-        NOW() AS date_from, \
-        CASE WHEN published THEN 1 ELSE 0 END AS published \
-        FROM armd_museum m \
+        'lesson' AS object_type, \
+        date_part('epoch', l.created_at)::int8 AS date_from, \
+        l AS published \
+        FROM armd_lesson l \
 
     sql_attr_string = object_type
     sql_attr_bigint  = date_from
     sql_attr_uint = published
 
-    sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
+    sql_query_info      = SELECT * FROM armd_lesson WHERE id=$id
 }
+
+source mk_perfomances_source_all
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        p.id + 4000000000, \
+        p.title ftsrch1, \
+        '' ftsrch2, \
+        '' ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'perfomance' AS object_type, \
+        date_part('epoch', p.created_at)::int8 AS date_from, \
+        p AS published \
+        FROM content_perfomance p \
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM content_perfomance WHERE id=$id
+}
+
+source mk_theaters_source_all
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        t.id + 5000000000, \
+        t.title ftsrch1, \
+        '' ftsrch2, \
+        '' ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'theater' AS object_type, \
+        date_part('epoch', t.created_at)::int8 AS date_from, \
+        p AS published \
+        FROM armd_theater t \
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM armd_theater WHERE id=$id
+}
+
 
 source mk_lectures_source
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
 
     sql_query       = \
         SELECT \
@@ -140,19 +227,17 @@ source mk_lectures_source
         l.lecturer, \
         'lecture' AS object_type, \
         date_part('epoch', l.created_at)::int8 AS date_from, \
-        lt.id lecture_type_id, \
         lst.id lecture_super_type_id \
         FROM lecture l \
-    INNER JOIN lecture_type lt ON lt.id = l.lecture_type_id \
-        INNER JOIN lecture_super_type lst ON lst.id = l.lecture_super_type_id
+        INNER JOIN lecture_super_type lst ON lst.id = l.lecture_super_type_id \
+        WHERE l.published = TRUE
 
     sql_attr_string     = object_type
     sql_attr_bigint     = date_from
-    sql_attr_bigint     = lecture_type_id
     sql_attr_bigint     = lecture_super_type_id
-    sql_attr_multi      = bigint lecturecategory_id from query; \
-        SELECT lecture_id, lecturecategory_id \
-            FROM lecture_category_lecture
+    sql_attr_multi      = bigint lecturegenre_id from query; \
+        SELECT lecture_id, lecturegenre_id \
+            FROM lecture_genre_lecture
 
     sql_query_info      = SELECT * FROM lecture WHERE id=$id
 }
@@ -162,11 +247,11 @@ source mk_atlas_source
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
 
     sql_query  = SELECT \
         o.id, \
@@ -174,7 +259,6 @@ source mk_atlas_source
         o.announce, \
         o.content, \
         o.phone, \
-        o.published, \
         o.address, \
         RADIANS(o.lon) as rad_lon, \
         RADIANS(o.lat) as rad_lat, \
@@ -183,8 +267,9 @@ source mk_atlas_source
         NOW() date_from \
     FROM \
         atlas_object o \
+    WHERE \
+        o.published = TRUE
 
-    sql_attr_bool       = published
     sql_attr_string     = object_type
     sql_attr_timestamp  = date_from
     sql_attr_uint       = show_at_russian_image
@@ -201,31 +286,151 @@ source mk_virtual_museums_source
 {
     type       = pgsql
 
-    sql_host   = dbro
+    sql_host   = 192.168.56.1
     sql_port   = 5432
-    sql_db     = w3mk
-    sql_user   = w3mk
-    sql_pass   = ohch8aiB
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
     
     sql_query       = \
         SELECT \
-        m.id, \
-        m.title ftsrch1, \
-        m.body ftsrch2, \
-        '' ftsrch3, \
-        '' ftsrch4, \
-        '' ftsrch5, \
-        'virtual_museum' AS object_type, \
-        NOW() AS date_from, \
-        CASE WHEN published THEN 1 ELSE 0 END AS published \
+            m.id, \
+            m.title ftsrch1, \
+            m.body ftsrch2, \
+            '' ftsrch3, \
+            '' ftsrch4, \
+            '' ftsrch5, \
+            'virtual_museum' AS object_type, \
+            NOW() AS date_from, \
+            CASE WHEN published THEN 1 ELSE 0 END AS published \
         FROM armd_museum m \
+        WHERE published = TRUE
 
     sql_attr_string = object_type
     sql_attr_timestamp  = date_from
-    sql_attr_uint = published
 
     sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
 }
+
+source mk_news_source
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query  = \
+        SELECT \
+            n.id, \
+            n.title, \
+            n.announce, \
+            n.body, \
+            n.news_date, \
+            c.id category_id \
+        FROM content_news n \
+            INNER JOIN content_news_category c ON c.id = n.category_id \
+        WHERE published = TRUE
+
+    sql_attr_bigint = category_id
+    sql_attr_timestamp = news_date
+}
+
+source mk_lessons_source
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        l.id, \
+        l.title, \
+        l.announce, \
+        l.description, \
+        l.museum_id, \
+        l.city_id, \
+        l.education_id, \
+        'lesson' AS object_type, \
+        date_part('epoch', l.created_at)::int8 AS date_from \
+        FROM armd_lesson l \
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_bigint     = museum_id
+    sql_attr_bigint     = city_id
+    sql_attr_bigint     = education_id
+    sql_attr_bigint     = subject_id            
+    sql_attr_multi      = bigint lessonskill_id from query; \
+        SELECT lesson_id, lessonskill_id \
+            FROM armd_lesson_lesson_skill
+    sql_attr_multi      = bigint lessonsubject_id from query; \
+        SELECT lesson_id, lessonsubject_id \
+            FROM armd_lesson_lesson_subject            
+
+    sql_query_info      = SELECT * FROM armd_lesson WHERE id=$id
+}
+
+source mk_perfomances_source
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        p.id, \
+        p.title, \
+        'perfomance' AS object_type, \
+        date_part('epoch', p.created_at)::int8 AS date_from \
+        FROM content_perfomance p \
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_multi      = bigint perfomanceganre_id from query; \
+        SELECT perfomance_id, perfomanceganre_id \
+            FROM content_perfomance_perfomance_ganre
+
+    sql_query_info      = SELECT * FROM content_perfomance WHERE id=$id
+}
+
+source mk_theaters_source
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        t.id, \
+        t.title, \
+        'theater' AS object_type, \
+        date_part('epoch', t.created_at)::int8 AS date_from \
+        FROM armd_theater t \
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_multi      = bigint theatercategory_id from query; \
+        SELECT theater_id, theatercategory_id \
+            FROM armd_theater_theater_category
+
+    sql_query_info      = SELECT * FROM armd_theater WHERE id=$id
+}
+
 
 index mk_all
 {
@@ -233,7 +438,7 @@ index mk_all
     source          = mk_atlas_source_all
     source          = mk_lectures_source_all
     source          = mk_virtual_museums_source_all
-    path            = /var/lib/sphinxsearch/data/mk_all
+    path            = /usr/local/sphinx/var/data/mk/mk_all
     docinfo         = extern
     charset_type    = utf-8
     morphology      = stem_ru, stem_en
@@ -244,7 +449,7 @@ index mk_all
 index mk_lectures
 {
     source          = mk_lectures_source
-    path            = /var/lib/sphinxsearch/data/mk_lectures
+    path            = /usr/local/sphinx/var/data/mk/mk_lectures
     docinfo         = extern
     charset_type    = utf-8
     morphology      = stem_ru, stem_en  
@@ -255,7 +460,7 @@ index mk_lectures
 index mk_atlas
 {
     source          = mk_atlas_source
-    path            = /var/lib/sphinxsearch/data/mk_atlas
+    path            = /usr/local/sphinx/var/data/mk/mk_atlas
     docinfo         = extern
     charset_type    = utf-8
     morphology      = stem_ru, stem_en  
@@ -264,7 +469,46 @@ index mk_atlas
 
 index mk_virtual_museums {
     source          = mk_virtual_museums_source
-    path            = /var/lib/sphinxsearch/data/mk_virtual_museum
+    path            = /usr/local/sphinx/var/data/mk/mk_virtual_museum
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_news {
+    source          = mk_news_source
+    path            = /usr/local/sphinx/var/data/mk/mk_news
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_lessons
+{
+    source          = mk_lessons_source
+    path            = /usr/local/sphinx/var/data/mk/mk_lessons
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_perfomances
+{
+    source          = mk_perfomances_source
+    path            = /usr/local/sphinx/var/data/mk/mk_perfomances
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_theaters
+{
+    source          = mk_theaters_source
+    path            = /usr/local/sphinx/var/data/mk/mk_theaters
     docinfo         = extern
     charset_type    = utf-8
     morphology      = stem_ru, stem_en  
@@ -273,269 +517,23 @@ index mk_virtual_museums {
 
 indexer
 {
-	# memory limit, in bytes, kiloytes (16384K) or megabytes (256M)
-	# optional, default is 32M, max is 2047M, recommended is 256M to 1024M
-	mem_limit		= 32M
-
-	# maximum IO calls per second (for I/O throttling)
-	# optional, default is 0 (unlimited)
-	#
-	# max_iops		= 40
-
-
-	# maximum IO call size, bytes (for I/O throttling)
-	# optional, default is 0 (unlimited)
-	#
-	# max_iosize		= 1048576
-
-
-	# maximum xmlpipe2 field length, bytes
-	# optional, default is 2M
-	#
-	# max_xmlpipe2_field	= 4M
-
-
-	# write buffer size, bytes
-	# several (currently up to 4) buffers will be allocated
-	# write buffers are allocated in addition to mem_limit
-	# optional, default is 1M
-	#
-	# write_buffer		= 1M
-
-
-	# maximum file field adaptive buffer size
-	# optional, default is 8M, minimum is 1M
-	#
-	# max_file_field_buffer	= 32M
+	mem_limit		= 100M
 }
 
-#############################################################################
-## searchd settings
-#############################################################################
 
 searchd
 {
-	# [hostname:]port[:protocol], or /unix/socket/path to listen on
-	# known protocols are 'sphinx' (SphinxAPI) and 'mysql41' (SphinxQL)
-	#
-	# multi-value, multiple listen points are allowed
-	# optional, defaults are 9312:sphinx and 9306:mysql41, as below
-	#
-	# listen			= 127.0.0.1
-	# listen			= 192.168.0.1:9312
-	# listen			= 9312
-	# listen			= /var/run/searchd.sock
 	listen			= 9312
 	listen			= 9306:mysql41
-
-	# log file, searchd run info is logged here
-	# optional, default is 'searchd.log'
-	log			= /var/log/sphinxsearch/searchd.log
-
-	# query log file, all search queries are logged here
-	# optional, default is empty (do not log queries)
-	query_log		= /var/log/sphinxsearch/query.log
-
-	# client read timeout, seconds
-	# optional, default is 5
+	log			= /usr/local/sphinx/var/log/searchd.log
+	query_log		= /usr/local/sphinx/var/log/query.log
 	read_timeout		= 5
-
-	# request timeout, seconds
-	# optional, default is 5 minutes
-	client_timeout		= 300
-
-	# maximum amount of children to fork (concurrent searches to run)
-	# optional, default is 0 (unlimited)
 	max_children		= 30
-
-	# PID file, searchd process ID file name
-	# mandatory
-	pid_file		= /var/run/searchd.pid
-
-	# max amount of matches the daemon ever keeps in RAM, per-index
-	# WARNING, THERE'S ALSO PER-QUERY LIMIT, SEE SetLimits() API CALL
-	# default is 1000 (just like Google)
+	pid_file		= /usr/local/sphinx/var/log/searchd.pid
 	max_matches		= 1000
-
-	# seamless rotate, prevents rotate stalls if precaching huge datasets
-	# optional, default is 1
 	seamless_rotate		= 1
-
-	# whether to forcibly preopen all indexes on startup
-	# optional, default is 1 (preopen everything)
 	preopen_indexes		= 1
-
-	# whether to unlink .old index copies on succesful rotation.
-	# optional, default is 1 (do unlink)
 	unlink_old		= 1
-
-	# attribute updates periodic flush timeout, seconds
-	# updates will be automatically dumped to disk this frequently
-	# optional, default is 0 (disable periodic flush)
-	#
-	# attr_flush_period	= 900
-
-
-	# instance-wide ondisk_dict defaults (per-index value take precedence)
-	# optional, default is 0 (precache all dictionaries in RAM)
-	#
-	# ondisk_dict_default	= 1
-
-
-	# MVA updates pool size
-	# shared between all instances of searchd, disables attr flushes!
-	# optional, default size is 1M
-	mva_updates_pool	= 1M
-
-	# max allowed network packet size
-	# limits both query packets from clients, and responses from agents
-	# optional, default size is 8M
-	max_packet_size		= 8M
-
-	# crash log path
-	# searchd will (try to) log crashed query to 'crash_log_path.PID' file
-	# optional, default is empty (do not create crash logs)
-	#
-	# crash_log_path		= /var/log/sphinxsearch/crash
-
-
-	# max allowed per-query filter count
-	# optional, default is 256
-	max_filters		= 256
-
-	# max allowed per-filter values count
-	# optional, default is 4096
-	max_filter_values	= 4096
-
-
-	# socket listen queue length
-	# optional, default is 5
-	#
-	# listen_backlog		= 5
-
-
-	# per-keyword read buffer size
-	# optional, default is 256K
-	#
-	# read_buffer		= 256K
-
-
-	# unhinted read size (currently used when reading hits)
-	# optional, default is 32K
-	#
-	# read_unhinted		= 32K
-
-
-	# max allowed per-batch query count (aka multi-query count)
-	# optional, default is 32
-	max_batch_queries	= 32
-
-
-	# max common subtree document cache size, per-query
-	# optional, default is 0 (disable subtree optimization)
-	#
-	# subtree_docs_cache	= 4M
-
-
-	# max common subtree hit cache size, per-query
-	# optional, default is 0 (disable subtree optimization)
-	#
-	# subtree_hits_cache	= 8M
-
-
-	# multi-processing mode (MPM)
-	# known values are none, fork, prefork, and threads
-	# optional, default is fork
-	#
 	workers			= threads # for RT to work
-
-
-	# max threads to create for searching local parts of a distributed index
-	# optional, default is 0, which means disable multi-threaded searching
-	# should work with all MPMs (ie. does NOT require workers=threads)
-	#
-	# dist_threads		= 4
-
-
-	# binlog files path; use empty string to disable binlog
-	# optional, default is build-time configured data directory
-	#
-	# binlog_path		= # disable logging
-	# binlog_path		= /var/lib/sphinxsearch/data # binlog.001 etc will be created there
-
-
-	# binlog flush/sync mode
-	# 0 means flush and sync every second
-	# 1 means flush and sync every transaction
-	# 2 means flush every transaction, sync every second
-	# optional, default is 2
-	#
-	# binlog_flush		= 2
-
-
-	# binlog per-file size limit
-	# optional, default is 128M, 0 means no limit
-	#
-	# binlog_max_log_size	= 256M
-
-
-	# per-thread stack size, only affects workers=threads mode
-	# optional, default is 64K
-	#
-	# thread_stack			= 128K
-
-
-	# per-keyword expansion limit (for dict=keywords prefix searches)
-	# optional, default is 0 (no limit)
-	#
-	# expansion_limit		= 1000
-
-
-	# RT RAM chunks flush period
-	# optional, default is 0 (no periodic flush)
-	#
-	# rt_flush_period		= 900
-
-
-	# query log file format
-	# optional, known values are plain and sphinxql, default is plain
-	#
-	# query_log_format		= sphinxql
-
-
-	# version string returned to MySQL network protocol clients
-	# optional, default is empty (use Sphinx version)
-	#
-	# mysql_version_string	= 5.0.37
-
-
-	# trusted plugin directory
-	# optional, default is empty (disable UDFs)
-	#
-	# plugin_dir			= /usr/local/sphinx/lib
-
-
-	# default server-wide collation
-	# optional, default is libc_ci
-	#
-	# collation_server		= utf8_general_ci
-
-
-	# server-wide locale for libc based collations
-	# optional, default is C
-	#
-	# collation_libc_locale	= ru_RU.UTF-8
-
-
-	# threaded server watchdog (only used in workers=threads mode)
-	# optional, values are 0 and 1, default is 1 (watchdog on)
-	#
-	# watchdog				= 1
-
-	
-	# SphinxQL compatibility mode (legacy columns and their names)
-	# optional, default is 0 (SQL compliant syntax and result sets)
-	#
-	# compat_sphinxql_magics	= 1
+	binlog_path		= /usr/local/sphinx/var/data
 }
-
