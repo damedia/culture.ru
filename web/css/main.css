@@ -4551,6 +4551,11 @@ body {
                     min-width: 90px;
                     height: auto;
                 }
+                
+                .atlas-block h1{
+                    margin:0 0 20px 0;
+                    border-bottom: 1px solid #d9d9d9;
+                }
 
                 .obraz-index {
                     border:0;
