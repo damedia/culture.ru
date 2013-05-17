@@ -57,13 +57,15 @@
         #}
         {% if app.request.locale == 'ru' %}
             <section class="index-block two-column-block clearfix index-news-block">
-                <section class="index-block">
+                {% render url('armd_news_billboard_slider') %}
+
+{#                <section class="index-block">
                     {% set newsCategoryHref = path('armd_news_list_index_by_category', {'category': 'reportages'}) %}
                     {% set newsArticleHref = path('armd_news_item_by_category', {'id': lastReportage.id, 'category': lastReportage.category.slug }) %}
                     <h2><a href="{{ newsCategoryHref }}">Репортажи</a></h2>
                     <a href="{{ newsArticleHref }}">
                         <div class="block-left-image-wrap">{% thumbnail lastReportage.image, 'list' with {'class': 'block-left-image'} %}</div>
-                        {#<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">#}
+                        &#123;&#35;<img class="block-left-image" alt=""~ src="{{ newsArticleHref. }}">&#35;&#125;
                     </a>
 
                     <div class="text-overflow">
@@ -80,7 +82,7 @@
                     <h2><a href="{{ newsCategoryHref }}">Интервью</a></h2>
                     <a href="{{ newsArticleHref }}">
                         <div class="block-left-image-wrap">{% thumbnail lastInterview.image, 'list' with {'class': 'block-left-image'} %}</div>
-                        {#<img class="block-left-image" alt="" src="images/index-interview.jpg">#}
+                        &#123;&#35;<img class="block-left-image" alt="" src="images/index-interview.jpg">&#35;&#125;
                     </a>
 
                     <div class="text-overflow">
@@ -88,7 +90,7 @@
                         <p>{{ lastInterview.announce|striptags|truncate(200)|raw }}</p>
                         <p class="all"><a href="{{ newsCategoryHref }}">все интервью</a></p>
                     </div>
-                </section>
+                </section>#}
             </section>
         </section>
     {% endif %}
@@ -195,19 +197,19 @@
 {% block right_column %}
     <span class="helper-top-orange-line"></span>
 
-    <div class="tabs events-tabs video-tabs">
+{#    <div class="tabs events-tabs video-tabs">
         <h2>Видео</h2>
         <div class="video-tabs-item">
             <iframe width="100%" height="162" src="http://pub.tvigle.ru/frame/p.htm?vote=0&srv=pub.tvigle.ru&prt=85deec0537d438363b1c3b54dbe222e8&id=2333629&w=720&h=540&type=&dopparam=armada_skin&modes=1&nl=1" style="border: 0px;" wmode="Opaque"></iframe>
         </div>
         <h3 class="video-tabs-title">Архитектурный ансамбль троицко-сергиевой лавры</h3>
         
-        {#
+        &#123;&#35;
         <p class="all">
             <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ "menu.video_all"|trans }}</a>
         </p>
-        #}
-    </div>
+        &#35;&#125;
+    </div>#}
 
     <section id="homepage-online-translation">
         {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
@@ -288,12 +290,15 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/armdmain/css/atlas_obrazy.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/armdnews/css/slider.css') }}" media="all" />
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/jquery.carouFredSel-6.2.1-packed.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_slider.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {

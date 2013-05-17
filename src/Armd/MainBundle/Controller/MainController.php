@@ -24,13 +24,13 @@ class MainController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
-            array(
-                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
-                ObjectManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'),
-                ObjectManager::CRITERIA_LIMIT => 7
-            )
-        );
+//        $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
+//            array(
+//                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
+//                ObjectManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'),
+//                ObjectManager::CRITERIA_LIMIT => 7
+//            )
+//        );
 
         $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findBy(
             array(
@@ -44,33 +44,33 @@ class MainController extends Controller
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => 2,
+                NewsManager::CRITERIA_LIMIT => 15,
             )
         );
 
-        $lastReportage = $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_LIMIT => 1,
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('reportages'),
-                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
-                NewsManager::CRITERIA_HAS_IMAGE => true
-            )
-        );
-        if (!empty($lastReportage)) {
-            $lastReportage = $lastReportage[0];
-        }
-
-        $lastInterview = $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_LIMIT => 1,
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('interviews'),
-                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
-                NewsManager::CRITERIA_HAS_IMAGE => true
-            )
-        );
-        if (!empty($lastInterview)) {
-            $lastInterview = $lastInterview[0];
-        }
+//        $lastReportage = $this->getNewsManager()->findObjects(
+//            array(
+//                NewsManager::CRITERIA_LIMIT => 1,
+//                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('reportages'),
+//                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
+//                NewsManager::CRITERIA_HAS_IMAGE => true
+//            )
+//        );
+//        if (!empty($lastReportage)) {
+//            $lastReportage = $lastReportage[0];
+//        }
+//
+//        $lastInterview = $this->getNewsManager()->findObjects(
+//            array(
+//                NewsManager::CRITERIA_LIMIT => 1,
+//                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('interviews'),
+//                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC'),
+//                NewsManager::CRITERIA_HAS_IMAGE => true
+//            )
+//        );
+//        if (!empty($lastInterview)) {
+//            $lastInterview = $lastInterview[0];
+//        }
 
         $museums =  $this->getMuseumManager()->findObjects(
             array(
@@ -94,10 +94,10 @@ class MainController extends Controller
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
                 'news' => $news,
-                'newRussiaImages' => $newRussiaImages,
+//                'newRussiaImages' => $newRussiaImages,
                 'newVideos' => $lectures,
-                'lastReportage' => $lastReportage,
-                'lastInterview' => $lastInterview,
+//                'lastReportage' => $lastReportage,
+//                'lastInterview' => $lastInterview,
                 'museum' => $museum
             )
         );
