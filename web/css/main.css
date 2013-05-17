@@ -4392,15 +4392,16 @@ body {
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f5f6',GradientType=0 ); /* IE6-8 */
         }
         .video-tabs-item{}
+        .video-tabs h3 {
+            color: #154060;
+            font-size: 18px;
+            padding-bottom: 1px;
+            margin: 0 0 5px 0;
+        }
         .video-tabs-title{
-            margin-top: 10px 0 5px 0;
-            padding:0;
-            line-height: 14px;
-            font-size: 12px;
-            text-transform: uppercase;
-            display: block;
-            font-weight: bold;
-            color: #000;
+            line-height: 13px;
+            margin-bottom: 7px;
+            font-size: 11px;
         }
         .video-tabs .all{
             margin-top:10px;
