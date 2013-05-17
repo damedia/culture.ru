@@ -88,8 +88,8 @@ AT.placePoint = function(object) {
         $(point.container)
             .data('uid', object.id)
             .css({
-                'margin-left': '-12px',
-                'margin-top': '-38px'
+                'margin-left': '-4px',
+                'margin-top': '-12px'
             })
             .attr('title', object.title);
 
@@ -101,10 +101,12 @@ AT.placePoint = function(object) {
         // наведение на точку
         PGmap.Events.addHandler(point.container, eventT.mouseover, function(e) {
             $('img', point.container).css({width:50});
+            $(point.container).css({marginLeft:-18, marginTop:-24});
             AT.showPoint($(point.container).data('uid'));
         });
         PGmap.Events.addHandler(point.container, eventT.mouseout, function(e) {
             $('img', point.container).css({width:17});
+            $(point.container).css({marginLeft:-4, marginTop:-12});
         });
         // клик по точке
         PGmap.Events.addHandler(point.container, eventT.click, function(e) {
