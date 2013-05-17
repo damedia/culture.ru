@@ -44,7 +44,7 @@ class MainController extends Controller
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => 7,
+                NewsManager::CRITERIA_LIMIT => 2,
             )
         );
 
