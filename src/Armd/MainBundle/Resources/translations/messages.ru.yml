@@ -14,7 +14,7 @@ menu.news_index: Медиа
 menu.news: Новости
 menu.media: Медиа
 menu.events: Анонсы
-menu.opinion: Мнения
+menu.media: Медиа
 menu.communication: Общение
 
 menu.reportage: Репортажи
@@ -29,10 +29,10 @@ menu.library: Библиотека
 menu.banners: Баннеры
 menu.communication: Сервисы
 menu.special_projects: Спецпроекты
-menu.borodino: Война 1812 года
-menu.intermuseum: Интермузей 2013
-menu.special_projects_romanov450: Дом Романовых
-menu.special_projects_stanislavski: К. Станиславский
+menu.borodino: Отечественная война 1812
+menu.intermuseum: Интермузей-2013
+menu.special_projects_romanov450: 400-летие дома Романовых
+menu.special_projects_stanislavski: 150 со дня рождения К.С.&nbsp;Станиславского
 menu.special_projects_1150: 1150 лет государственности
 menu.online_translation: Онлайн трансляции
 menu.video: Видеотека
@@ -57,6 +57,7 @@ menu.may9_day: Короткометражный фильм «День побед
 menu.music: Музыка
 menu.theatre: Театры
 menu.underconstraction: Страница в разработке
+menu.contacts: Контакты
 #---------------- /menu -------------------------
 
 virtual_museum_tour: Виртуальный тур по музеям

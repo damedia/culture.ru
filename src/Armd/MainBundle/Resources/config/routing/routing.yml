@@ -6,6 +6,10 @@ armd_main_underconstraction:
     pattern:  /underconstraction/
     defaults: { _controller: ArmdMainBundle:Main:underconstraction }
 
+armd_main_contacts:
+    pattern:  /contacts/
+    defaults: { _controller: ArmdMainBundle:Main:contacts }
+
 armd_main_opinion:
     pattern:  /opinion/
     defaults: { _controller: ArmdMainBundle:Main:opinion }

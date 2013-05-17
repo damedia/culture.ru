@@ -196,12 +196,17 @@
                 <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
                 <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
                 <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
-                {# <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li> #}
-                <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 955} ) }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
-                <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
-                {# <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 3724}) }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li> #} 
-                <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
-                {# <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li> #}
+                <li><a href="{{ path('armd_chronicle_index') }}">Спецпроекты</a>
+                    <ul>
+                        <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
+                        <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 955} ) }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
+                        <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 3724}) }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li>
+                        {# <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li> #}
+                        <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('armd_main_contacts') }}">{{ "menu.contacts"|trans }}</a></li>
             </ul>
         </div><!-- /bottom-menu -->
         <!-- Footer block -->
