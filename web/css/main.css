@@ -4377,7 +4377,35 @@ body {
             #online_translation_notification_form .otnf_email {
                 float: left;
             }
-                                  
+
+        .tabs.video-tabs {
+            padding-bottom:15px;
+            background: #ffffff; /* Old browsers */
+            /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI4NiUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjJmNWY2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+            background: -moz-linear-gradient(top,  #ffffff 86%, #f2f5f6 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(86%,#ffffff), color-stop(100%,#f2f5f6)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  #ffffff 86%,#f2f5f6 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #ffffff 86%,#f2f5f6 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #ffffff 86%,#f2f5f6 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  #ffffff 86%,#f2f5f6 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f5f6',GradientType=0 ); /* IE6-8 */
+        }
+        .video-tabs-item{}
+        .video-tabs-title{
+            margin-top: 10px 0 5px 0;
+            padding:0;
+            line-height: 14px;
+            font-size: 12px;
+            text-transform: uppercase;
+            display: block;
+            font-weight: bold;
+            color: #000;
+        }
+        .video-tabs .all{
+            margin-top:10px;
+        }   
+        
         .events-tabs {
             margin:0 auto;
             width:288px;
