@@ -38,6 +38,7 @@ class Museum extends Admin
             ->add('title')
             ->add('showOnMain')
             ->add('showOnMainOrd')
+            ->add('sort')
         ;
         
         parent::configureShowFields($showMapper);
@@ -68,6 +69,7 @@ class Museum extends Admin
                     }
                 ))
                 ->add('published', null, array('required' => false))
+                ->add('sort', null, array('required' => false))
             ->end()
             ->with('Главная')
                 ->add('showOnMain', null, array(
@@ -114,6 +116,7 @@ class Museum extends Admin
             ->add('published')            
             ->add('showOnMain')
             ->add('showOnMainOrd')
+            ->add('sort')
         ;
         
         parent::configureListFields($listMapper);        
@@ -126,6 +129,7 @@ class Museum extends Admin
             ->add('title')
             ->add('showOnMain')
             ->add('showOnMainOrd')
+            ->add('sort')
         ;
     }    
 
