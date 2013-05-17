@@ -184,60 +184,6 @@
 </div>
 </div>
 <!-- /static sample -->
-{#
-<!-- static sample -->
-<div id="video-list">
-<ul class="slides index-video-list">
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/576">
-<div class="index-video-image">
-<img height="auto" alt="Курьер" width="auto" class="lecture-tile-list-image" src="/img/video/video-kurier.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/576" class="index-video-name">Курьер</a>
-<span class="index-video-info">Мосфильм, 1986</span>
-</div>
-</li>
-
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/600">
-<div class="index-video-image">
-<img height="auto" alt="Земля" width="auto" class="lecture-tile-list-image" src="/img/video/video-zemlya.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/600" class="index-video-name">Земля</a>
-<span class="index-video-info">Всеукраинское фотокиноуправление, 1930</span>
-</div>
-</li>
-
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/577">
-<div class="index-video-image">
-<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/img/video/video-letyat_zhuravli.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли</a>
-<span class="index-video-info">Мосфильм, 1957</span>
-</div>
-</li>
-<li>
-<div class="index-video-one">
-<a href="http://culture.ru/lecture/view/577">
-<div class="index-video-image">
-<img height="auto" alt="Летят журавли" width="auto" class="lecture-tile-list-image" src="/img/video/video-letyat_zhuravli.jpg">            
-</div>
-</a>
-<a href="http://culture.ru/lecture/view/577" class="index-video-name">Летят журавли copy</a>
-<span class="index-video-info">Мосфильм, 1957</span>
-</div>
-</li>
-</ul>
-</div>
-<!-- /static sample -->
-#}
             <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">Все видео</a></p>
         </section>
     {% endif %}
@@ -248,6 +194,31 @@
 
 {% block right_column %}
     <span class="helper-top-orange-line"></span>
+
+    <div class="tabs events-tabs video-tabs">
+        <h2>Видео</h2>
+        <div class="video-tabs-item">
+            <object id="v2333629_1" name="vjs2333629_1" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="288" height="162" >
+            <param name="FlashVars" value="vote=0&srv=pub.tvigle.ru&prt=85deec0537d438363b1c3b54dbe222e8&id=2333629&w=720&h=540&type=&dopparam=armada_skin&modes=1&nl=1" />
+            <param name="allowFullScreen" value="true" />
+            <param name="movie" value="http://pub.tvigle.ru/swf/tvigle_single_v2.swf" />
+            <param name="quality" value="high" />
+            <param name="bgcolor" value="#000000" />
+            <param name="allowscriptaccess" value="always" />
+            <embed id="vjs2333629_1" src="http://pub.tvigle.ru/swf/tvigle_single_v2.swf" allowscriptaccess="always" 
+            quality="high" width="288" height="162" bgcolor="#000000" 
+            allowfullscreen="true" flashvars="vote=0&srv=pub.tvigle.ru&prt=85deec0537d438363b1c3b54dbe222e8&id=2333629&w=720&h=540&type=&dopparam=armada_skin&modes=1&nl=1"
+            type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" >
+            <a style="display:none;" href='http://www.tvigle.ru/'>Tvigle</a>
+            </embed>
+            </object>
+        </div>
+        <h3 class="video-tabs-title">Архитектурный ансамбль троицко-сергиевой лавры</h3>
+        <p class="all">
+            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ "menu.video_all"|trans }}</a>
+        </p>
+    </div>
+
     <section id="homepage-online-translation">
         {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
     </section>
