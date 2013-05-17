@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Armd\ExhibitBundle\Repository\ArtObjectRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
@@ -67,8 +68,7 @@ class DefaultController extends Controller
         $this->setFilters($repository, $filters);              
         
         if ($offset == 0) {
-            $repoCount = clone $repository;
-            $data['count'] = $repoCount->getCount();
+            $data['count'] = $repository->getCount();
         }
                               
         $entities = $repository
@@ -260,10 +260,26 @@ class DefaultController extends Controller
             'activeFilters' => $activeFilters
         );
     }
+
+    /**
+     * @Route("item/{id}", name="armd_exhibit_item", options={"expose"=true})
+     */
+    public function itemAction($id)
+    {
+        $repository = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject');
+        $repository->createQueryBuilder('o');
+        $repository->setPublished();
+
+        if (!$repository->findOneById($id)) {
+            throw $this->createNotFoundException('ArtObject not found');
+        }
+
+        return new RedirectResponse($this->generateUrl('armd_exhibit_list') ."#{$id}");
+    }
     
     /**
      * @Route("load-exhibits/{offset}", requirements={"offset"="\d+"}, 
-     *      defaults={"offset"=0}, name="armd_load_exhibits", options={"expose"=true}
+     *      defaults={"offset"=0}, name="armd_exhibit_load_exhibits", options={"expose"=true}
      * )
      */
     public function loadExhibitsAction($offset = 0)
@@ -282,9 +298,9 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("item/{id}", requirements={"offset"="\d+"}, name="armd_exhibit_item", options={"expose"=true})
+     * @Route("load-exhibit/{id}", requirements={"id"="\d+"}, name="armd_exhibit_load_item", options={"expose"=true})
      */
-    public function itemAction($id)
+    public function loadItemAction($id)
     {       
         $objects = $this->getItemObjects(
             $this->get('session')->get('exhibits-filters', array()),
@@ -304,11 +320,11 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("load-item-exhibits/{id}/{offset}", requirements={"offset"="\d+", "id"="\d+"}, 
-     *      defaults={"offset"=0, "id"=0}, name="armd_load_item_exhibits", options={"expose"=true}
+     * @Route("load-exhibit-objects/{id}/{offset}", requirements={"offset"="\d+", "id"="\d+"}, 
+     *      defaults={"offset"=0, "id"=0}, name="armd_exhibit_load_item_objects", options={"expose"=true}
      * )
      */
-    public function loadItemExhibitsAction($id = 0, $offset = 0)
+    public function loadItemObjectsAction($id = 0, $offset = 0)
     {            
         $objects = $this->getItemObjects(
             $this->get('session')->get('exhibits-filters', array()),

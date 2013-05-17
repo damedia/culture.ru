@@ -589,7 +589,7 @@ var exhibitItem = {
         armdMk.startLoadingBlock($('#exponat-main-container'));
 
         var jqxhr = $.ajax({
-            url: Routing.generate('armd_load_item_exhibits', {'id': exhibitItem.currentId, 'offset': exhibitItem.offset}),
+            url: Routing.generate('armd_load_item_objects', {'id': exhibitItem.currentId, 'offset': exhibitItem.offset}),
             type: 'post',
             data: {
             },
