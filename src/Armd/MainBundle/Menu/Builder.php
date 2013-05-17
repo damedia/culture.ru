@@ -333,6 +333,16 @@ class Builder extends ContainerAware
             
             //--- /atlas
 
+            //--- Kids
+            $kidsMenu = $menu->addChild(
+                'menu.kids',
+                array(
+                    'uri' => '/kids/children.html'
+                )
+            );
+
+            //--- /Kids
+
             
             //--- Communication
 
