@@ -4241,7 +4241,7 @@ body {
     .index-main {
         margin-bottom:30px;
         padding-bottom:15px;
-        border-bottom:1px solid #d5d4d4;    
+        /*border-bottom:1px solid #d5d4d4;    */
     }    
         .index-main .left-column {
             padding-right:363px;
