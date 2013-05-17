@@ -488,7 +488,7 @@
 
     {% if not entity.images|length and not entity.videos|length and entity.routes|length %}
         <section class="block">
-            <h2><span>{{ "recommended"|trans }}</span></h2>
+            {# <h2><span>{{ "recommended"|trans }}</span></h2> #}
 
             {% for route in entity.routes %}
                 <div class="recommend-block">
