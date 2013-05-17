@@ -136,6 +136,11 @@ class MainController extends Controller
         return $this->renderTemplate('underconstraction');
     }
 
+    public function contactsAction()
+    {
+        return $this->renderTemplate('contacts');
+    }
+
     public function bannerAction()
     {
         return $this->renderTemplate('banner');
