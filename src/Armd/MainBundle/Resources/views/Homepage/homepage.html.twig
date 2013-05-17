@@ -57,6 +57,7 @@
         #}
         {% if app.request.locale == 'ru' %}
             <section class="index-block two-column-block clearfix index-news-block">
+                <h2><a href="{{ path('armd_news_list_index_by_category', {'category': 'news', }) }}">Медиа</a></h2>
                 {% render url('armd_news_billboard_slider') %}
 
 {#                <section class="index-block">
