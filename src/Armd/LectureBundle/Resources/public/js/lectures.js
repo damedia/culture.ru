@@ -111,10 +111,7 @@ var armdMkLectures = {
         if ($('#genre1_id').length) {
             data['genre_ids'].push($('#genre1_id').val());
         }
-        var genreId = $('#lecture_genre').val();
-        if (genreId > 0) {
-            data['genre_ids'].push(genreId);
-        }
+
 
         if (isSearch) {
             armdMkLectures.hideSortPanel();
@@ -124,7 +121,10 @@ var armdMkLectures = {
             armdMkLectures.showSortPanel();
             armdMkLectures.hideTagFilterPanel();
 
-
+            var genreId = $('#lecture_genre').val();
+            if (genreId > 0) {
+                data['genre_ids'].push(genreId);
+            }
 
             var firstLetter = $('#alphabet-filter li.active a').data('letter');
             if (firstLetter) {
