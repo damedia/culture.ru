@@ -220,21 +220,35 @@ class DefaultController extends Controller
         
         $activeFilters = $this->get('session')->get('exhibits-filters', array());
         
-        $authors = $this->getDoctrine()->getRepository('ArmdPersonBundle:Person')
-            ->createQueryBuilder('a')
-            ->join('a.personTypes', 't')
-            ->andWhere('t.slug = :slug')->setParameter('slug', 'art_gallery_author')
-            ->getQuery()->getResult();       
-        
+        $authors = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject')
+            ->createQueryBuilder('o')
+                ->select('distinct a.id, a.name')
+                ->join('o.authors', 'a')
+                ->join('a.personTypes', 't')
+                    ->andWhere('t.slug = :slug')
+                    ->setParameter('slug', 'art_gallery_author')
+                ->getQuery()->getResult();
+
         foreach ($authors as $a) {
-            $filters['author']['data']["{$a->getId()}"] = array('id' => $a->getId(), 'title' => $a->getName());
+            $filters['author']['data']["{$a['id']}"] = array(
+                'id' => $a['id'],
+                'title' => $a['name']
+            );
         }
         
-        $museums = $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')
-            ->findBy(array(), array('title' => 'ASC'));
+        $museums = $this->getDoctrine()->getRepository('ArmdExhibitBundle:ArtObject')
+            ->createQueryBuilder('o')
+                ->select('distinct m.id, m.title')
+                ->join('o.museum', 'm')
+                ->getQuery()->getResult();
         
         foreach ($museums as $m) {
-            $filters['museum']['data']["{$m->getId()}"] = array('id' => $m->getId(), 'title' => $m->getTitle());
+            $mTitle = $m['title'];
+            $filters['museum']['data']["{$m['id']}"] = array(
+                'id' => $m['id'],
+                'title' => htmlspecialchars($mTitle),
+                'shortTitle' => htmlspecialchars(mb_strlen($mTitle, 'UTF8') > 80 ? (mb_substr($mTitle, 0, 80, 'UTF8') .'...') : '')
+            );
         }
         
         $categories = $this->getDoctrine()->getRepository('ArmdExhibitBundle:Category')->getArrayTree();

@@ -7950,7 +7950,7 @@ a.appstore-link {
 							
 			.exponats-categories .exp-filter {
 				position:absolute;
-				width:680px;
+				width:649px;
 				top:33px;
 				left:0;
 				z-index:10;
@@ -7961,7 +7961,12 @@ a.appstore-link {
 				
 			}
             .exponats-categories .exp-filter a {
-                    display:inline;
+                    display: -moz-inline-stack;
+                    display: inline-block;
+                    zoom: 1;
+                    *display: inline;
+                    vertical-align: top;
+
 					color:#fff;
 					text-decoration:none;
 					white-space:nowrap;
@@ -7973,8 +7978,9 @@ a.appstore-link {
 						background:#f18800;
 					}
 					
-				.alphabet {
-					
+				.exponats-categories .exp-filter .alphabet {
+					margin-top: 0;
+                    height: 30px;
 				}	
 					.exponats-categories .exp-filter .alphabet a {
 						padding:0 5px;
@@ -7987,11 +7993,15 @@ a.appstore-link {
 					
 				.fiter-results {
 					margin-top:3px;
-					line-height:23px;
+					/*line-height:23px;*/
+                    width: 649px;
+                    height: 250px;
+                    overflow: hidden;
+                    outline: none;
 				}	
 					.fiter-results a {
 						font-size:14px;
-						margin-right:10px;
+						margin: 0 10px 5px 0;
 						padding:0 5px;
 						
 					}
@@ -8106,6 +8116,12 @@ a.appstore-link {
 		.exp-one-details-button:hover, .orange-btn:hover {
 			text-decoration:none;
 		}
+
+    #exhibit-clear-tags-btn {
+        float: right;
+        margin: 0 0 0 13px;
+        display: none;
+    }
 			
 			
 /*images carousel*/	
