@@ -14,25 +14,30 @@ class MediaListener
         $em = $args->getEntityManager();
 
         if ($entity instanceof Media) {
-            \gFuncs::dbgWriteLogVar($entity->getId(), false, 'LectureBundle\MediaListener preRemove '); // DBG:
+            $ids = $em->createQueryBuilder()
+                ->select('l.id')
+                ->from('ArmdLectureBundle:Lecture', 'l')
+                ->where('l.verticalBanner = :media')
+                ->setParameter('media', $entity)
+                ->getQuery()->getScalarResult();
 
-            $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findByVerticalBanner($entity);
-            \gFuncs::dbgWriteLogVar(count($lectures), false, 'LectureBundle\MediaListener preRemove count vertical'); // DBG:
-            if($lectures) {
-                foreach($lectures as $lecture) {
-                    \gFuncs::dbgWriteLogDoctrine($lecture, 2, false, 'preRemove vertical'); // DBG:
-                    $lecture->setVerticalBanner(null);
-                }
+            foreach($ids as $id){
+                $lecture = $em->getRepository('ArmdLectureBundle:Lecture')->find($id);
+                $lecture->setVerticalBanner(null);
             }
 
-            $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findByHorizontalBanner($entity);
-            \gFuncs::dbgWriteLogVar(count($lectures), false, 'LectureBundle\MediaListener preRemove count horizontal'); // DBG:
-            if($lectures) {
-                foreach($lectures as $lecture) {
-                    $lecture->setHorizontalBanner(null);
-                }
-            }
 
+            $ids = $em->createQueryBuilder()
+                ->select('l.id')
+                ->from('ArmdLectureBundle:Lecture', 'l')
+                ->where('l.horizontalBanner = :media')
+                ->setParameter('media', $entity)
+                ->getQuery()->getScalarResult();
+
+            foreach($ids as $id){
+                $lecture = $em->getRepository('ArmdLectureBundle:Lecture')->find($id);
+                $lecture->setHorizontalBanner(null);
+            }
 
         }
     }

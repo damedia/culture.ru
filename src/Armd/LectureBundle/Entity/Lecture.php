@@ -835,10 +835,7 @@ class Lecture implements Taggable
      */
     public function setHorizontalBanner(\Application\Sonata\MediaBundle\Entity\Media $horizontalBanner = null)
     {
-        \gFuncs::dbgWriteLogVar('setHorizontalBanner call', false, ''); // DBG:
         if (is_null($horizontalBanner) || $horizontalBanner->isUploaded()) {
-            \gFuncs::dbgWriteLogDoctrine($horizontalBanner, 2, false, 'setHorizontalBanner'); // DBG:
-            \gFuncs::dbgWriteLogDoctrine(debug_backtrace(0), 2, false, 'setHorizontalBanner backtrace'); // DBG:
             $this->horizontalBanner = $horizontalBanner;
         }
     }
