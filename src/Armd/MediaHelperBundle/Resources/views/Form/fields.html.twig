@@ -14,3 +14,14 @@
 {% endblock %}
 
 
+{% block armd_media_video_type_widget %}
+{% spaceless %}
+<div class="armd-sonata-media-video">
+    {% if form.vars.value is not empty %}
+        {% media form.vars.value, media_format with { 'style': 'float: left; padding: 0 0 10px 10px;'} %}
+    {% endif %}
+
+    {{ form_widget(form) }}
+</div>
+{% endspaceless %}
+{% endblock %}

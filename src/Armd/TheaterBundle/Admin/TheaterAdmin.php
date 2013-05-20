@@ -90,7 +90,7 @@ class TheaterAdmin extends Admin
                 ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'theater')))
             ->end()
             ->with('Tvigle Video')                      
-                ->add('interviews', 'collection', array(
+                /*->add('interviews', 'collection', array(
                     'required' => false,
                     'type' => 'armd_tvigle_video_selector',
                     'by_reference' => false,
@@ -99,6 +99,21 @@ class TheaterAdmin extends Admin
                     'attr' => array('class' => 'armd-sonata-tvigle-collection'),
                     'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
                     'label' => 'Interviews'
+                ))*/
+                ->add('mediaInterviews', 'collection', array(
+                    'type' => 'armd_media_video_type',
+                    'options' => array(
+                        'media_context' => 'theater',
+                        'media_provider' => 'sonata.media.provider.tvigle',
+                        'media_format' => 'thumbnail',
+                        'with_title' => true
+                    ),
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required' => false,
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                    'label' => 'Видео (Tvigle ID)'
                 ))
             ->end()            
             ;
