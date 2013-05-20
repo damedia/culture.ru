@@ -2965,7 +2965,7 @@ body {
 					top:25px;
 					width:289px;
 					height:289px;
-                    background: url('../img/museum-circle.png') no-repeat 50% 50%;
+                    background: url('../img/museum-circle.png') no-repeat 0 0;
                     /*
 					background:rgba(255,255,255,0.6);
                     -webkit-border-radius: 145px;
@@ -2973,6 +2973,9 @@ body {
                     border-radius: 145px;
                     */
 				}
+                .plitka-one-wrap-opened  .museum-image-over:hover{
+                    background-position:0 -289px;
+                }
                     .museum-image-title{
                         position:absolute;
                         right:25px;
@@ -4447,8 +4450,11 @@ body {
                         }
 
                         .event-tab-news-one {
-                            margin-bottom:10px;
+                            padding:5px 0;
                             overflow: hidden;
+                        }
+                        .event-tab-news-one:hover{
+                            background:#eef3f6;
                         }
                             .event-tab-news-one  img {
                                 float:left;
@@ -4495,7 +4501,7 @@ body {
                             padding-bottom: 1px;
                             color: #154060;
                             border-bottom: 2px solid #7C95A7;
-                            margin: 15px 0 7px;
+                            margin: 15px 0 2px;
                         }
                         .all {
                             text-align:right;
