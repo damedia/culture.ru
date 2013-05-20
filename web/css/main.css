@@ -249,7 +249,7 @@ body {
                 top:34px;
                 color:#575757;
                 text-transform:uppercase;
-                font: 29px Tahoma, Arial, sans-serif;
+                font: 25px Tahoma, Arial, sans-serif;
                 font-weight:normal;
             }
             .main-title span{
@@ -348,7 +348,7 @@ body {
 			}
                 .main-menu ul {
 					list-style:none;
-                    font: 21px Tahoma, Arial, sans-serif;
+                    font: 17px Tahoma, Arial, sans-serif;
 				}
                     .main-menu ul li {
                         position:relative;
@@ -869,13 +869,13 @@ body {
             background-repeat:no-repeat;
         }
         .newspaper-literature a{
-            width:220px;
-            height:64px;
+            width:190px;
+            height:55px;
             background-image:url(../img/newspaper-literature.jpg);
         }
         .newspaper-culture a{
-            width:220px;
-            height:61px;
+            width:190px;
+            height:53px;
             background-image:url(../img/newspaper-culture.jpg);
         }
 
@@ -2965,7 +2965,7 @@ body {
 					top:25px;
 					width:289px;
 					height:289px;
-                    background: url('../img/museum-circle.png') no-repeat 50% 50%;
+                    background: url('../img/museum-circle.png') no-repeat 0 0;
                     /*
 					background:rgba(255,255,255,0.6);
                     -webkit-border-radius: 145px;
@@ -2973,6 +2973,9 @@ body {
                     border-radius: 145px;
                     */
 				}
+                .plitka-one-wrap-opened  .museum-image-over:hover{
+                    background-position:0 -289px;
+                }
                     .museum-image-title{
                         position:absolute;
                         right:25px;
@@ -4398,6 +4401,10 @@ body {
             padding-bottom: 1px;
             margin: 0 0 5px 0;
         }
+        .video-tabs h4 {
+            margin: 0 0 8px 0;
+            font-size: 12px;    
+        }
         .video-tabs-title{
             line-height: 13px;
             margin-bottom: 7px;
@@ -4447,8 +4454,11 @@ body {
                         }
 
                         .event-tab-news-one {
-                            margin-bottom:10px;
+                            padding:5px 0;
                             overflow: hidden;
+                        }
+                        .event-tab-news-one:hover{
+                            background:#eef3f6;
                         }
                             .event-tab-news-one  img {
                                 float:left;
@@ -4495,7 +4505,7 @@ body {
                             padding-bottom: 1px;
                             color: #154060;
                             border-bottom: 2px solid #7C95A7;
-                            margin: 15px 0 7px;
+                            margin: 15px 0 2px;
                         }
                         .all {
                             text-align:right;
@@ -8726,3 +8736,286 @@ a.appstore-link {
     }
 
 /* /Ekaterina Moiseeva. Virtual Museums */
+
+/* Ekaterina Moiseeva. Kinozal */
+.kinozal-slider {
+    margin:-24px -20px 0 -36px;
+    position:relative;
+}
+    .kinozal-slider-list {
+        
+    }
+        .kinozal-slider-one {
+            height:404px;
+            list-style:none;
+            
+            
+            
+        }
+        .slides  .kinozal-slider-one {
+            display:none;
+        }
+            .kinozal-slider-block {
+                width:483px;
+                height:230px;
+                position:relative;
+                top:90px;
+                left:30px;
+            }
+                .kinozal-slider-header {
+                    background:#585857;
+                    color:#fff;
+                    font-size:18px;
+                    text-transform:uppercase;
+                    margin:0;
+                    padding:9px 10px 6px;
+                    font-weight:normal;
+                    line-height:20px;
+                    
+                    overflow:hidden;
+                    /*text-overflow:ellipsis;*/
+                }
+                .kinozal-slider-content {
+                    padding:9px 15px 15px;
+                    background:#fefefd;
+                }
+                    .ksc-left-column, .ksc-right-column {
+                        display:inline-block;
+                        vertical-align:top;
+                        width:50%;
+                        line-height:14px;
+                        height:138px;
+                        overflow:hidden;
+                        
+                    }
+                        .autoscrolling-wrap, .autoscrolling, .autoscrollingHor {
+                            position:relative;
+                        }
+                        .autoscrolling-wrap {
+                            overflow:hidden;
+                        }
+                            span.autoscrolling-wrap {
+                                display:block;
+                            }
+                        .autoscrolling {
+                            top:0;
+                        }
+                        .autoscrollingHor {
+                            left:0;
+                            white-space:nowrap;
+                        }
+                   
+                    .ksc-right-column {
+                                               
+                    }
+                    .kinozal-slider-content p {
+                        font-size:10px; 
+                        line-height:12px;                        
+                    }
+                    .kinozal-slider-content b, .kinozal-slider-content strong {
+                        font-weight:bold;
+                        font-size:11px;
+                    }
+                    .ksc-right-column  p {
+                        margin-left:20px;
+                    }
+                    
+                .kinozal-slider-footer {
+                    background:#fefefd;
+                    font-size:12px;
+                    
+                }
+                    .ksf-watch-button {
+                        float:right;
+                        padding:9px 32px;
+                        background:#f7992a;
+                        color:#fff;
+                        text-transform:uppercase;
+                        text-decoration:none;
+                    }
+                    .ksf-views {
+                        text-align:center;
+                        width:300px;
+                        margin:12px auto 0;
+                        text-transform:uppercase;
+                    }
+                    
+            .kinozal-slider .flex-direction-nav {
+                left: 48px;
+                top: 298px;
+                bottom:auto;
+                right:auto;
+                background:url(../img/slider-arrows2.png) no-repeat 0 0;
+                width:64px;
+                height:18px;
+            }   
+                .kinozal-slider .flex-direction-nav li {
+                    width:31px;
+                    height:18px;
+                }    
+                
+                
+    .kinozal-featured {
+        position:relative;
+        margin-left:-10px;
+    }  
+        .kinozal-featured-list {
+            list-style:none;
+            margin:22px 0 17px;
+        }
+            .kfl-one {
+                display:inline-block;
+                vertical-align:top;
+                width:182px;
+                margin-right:17px;
+                
+            }
+                .kfl-block {
+                    border:1px solid #ededed;
+                    padding:14px;
+                    
+                    
+                }
+                    .kfl-image-link {
+                        height:202px;
+                        width:152px;
+                        overflow:hidden;
+                        display:block;
+                    }
+                    .kfl-image {
+                        border:1px solid #efebec;
+                    }
+                    .kfl-header {
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        margin: 9px 0 4px;
+                        font-weight: bold;
+                        letter-spacing: -0.1em;
+                        /*text-overflow: ellipsis;*/
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    .kfl-stats {
+                        color: #7e7e7e;
+                        margin-top: 4px;
+                        padding-top: 7px;
+                        font-size: 13px;
+                        border-top: 1px solid #d1d1d1;
+                        line-height: 15px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    
+                    .kinozal-featured .flex-direction-nav {
+                        background:none;
+                        position:absolute;
+                        top:100px;
+                        left:0;
+                        width:100%;
+                        height:100px;
+                        bottom:auto;
+                        right:auto;
+                    }
+                        .kinozal-featured .flex-direction-nav li {
+                            width:30px;
+                            height:100px;
+                            position:absolute;
+                            top:0;
+                            z-index:10;
+                        }
+                            .kinozal-featured .flex-direction-nav li a {
+                                width:30px;
+                                height:100px;
+                                background:url(../img/index-video-slider.png) no-repeat 0 0;
+                                
+                            }
+                        .kinozal-featured  .flex-direction-nav li:first-child {
+                            left:0px;
+                        }
+                        .kinozal-featured  .flex-direction-nav li:last-child {
+                            right:0px;
+                            
+                        }
+                            .kinozal-featured .flex-direction-nav li a.flex-next {
+                                background-position:100% 0;
+                            }
+                            
+                    .kinozal-filters {
+                        background:url(../img/more-dots.gif) repeat-x 0 0;
+                        margin-left:-10px;
+                    }    
+                        .kinozal-filters-panel {
+                            background:url(../img/more-dots.gif) repeat-x 0 100%;
+                        }
+                            
+                        .kinozal-filters .sort-filter {
+                            font-size:15px;
+                            font-weight:bold;
+                        } 
+
+                        .kinozal-filters #alphabet-filter {
+                            font-size:15px;
+                            font-weight:bold;
+                            margin-bottom:15px;
+                        } 
+
+            .kinozal-other {
+                 margin:15px 0 0 -10px;
+            }
+            .kinozal-other-list {
+                list-style:none;
+                margin-right:-13px;
+            }
+                .kol-one {
+                    display:inline-block;
+                    vertical-align:top;
+                    width:138px;
+                    margin:0 11px 10px 0;
+                    float:none;
+                    height:auto !important;
+                    border:0;
+                }
+                    .kol-block {
+                        border:1px solid #ededed;
+                        padding:11px;
+                    }
+                        .kol-image-link {
+                            height:151px;
+                            width:114px;
+                            overflow:hidden;
+                            display:block;
+                        }
+                        .kol-image {
+                            border:1px solid #efebec;
+                        }
+                        .kol-header {
+                            font-size: 11px;
+                            text-transform: uppercase;
+                            margin: 9px 0 4px;
+                            font-weight: bold;
+                            letter-spacing: -0.1em;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                        .kol-stats {
+                            color: #7e7e7e;
+                            margin-top: 4px;
+                            padding-top: 7px;
+                            font-size: 12px;
+                            border-top: 1px solid #d1d1d1;
+                            line-height: 15px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+  
+
+/* /Ekaterina Moiseeva. Kinozal */
+
+
+.m-main_en {
+  min-height:0px;
+  padding-bottom:0!important;
+}
