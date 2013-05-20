@@ -249,7 +249,7 @@ body {
                 top:34px;
                 color:#575757;
                 text-transform:uppercase;
-                font: 29px Tahoma, Arial, sans-serif;
+                font: 25px Tahoma, Arial, sans-serif;
                 font-weight:normal;
             }
             .main-title span{
@@ -348,7 +348,7 @@ body {
 			}
                 .main-menu ul {
 					list-style:none;
-                    font: 21px Tahoma, Arial, sans-serif;
+                    font: 17px Tahoma, Arial, sans-serif;
 				}
                     .main-menu ul li {
                         position:relative;
@@ -869,13 +869,13 @@ body {
             background-repeat:no-repeat;
         }
         .newspaper-literature a{
-            width:220px;
-            height:64px;
+            width:190px;
+            height:55px;
             background-image:url(../img/newspaper-literature.jpg);
         }
         .newspaper-culture a{
-            width:220px;
-            height:61px;
+            width:190px;
+            height:53px;
             background-image:url(../img/newspaper-culture.jpg);
         }
 
