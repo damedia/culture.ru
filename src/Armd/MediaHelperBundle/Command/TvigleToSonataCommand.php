@@ -2,6 +2,7 @@
 namespace Armd\MediaHelperBundle\Command;
 
 use Doctrine\Bundle\MigrationsBundle\Command\DoctrineCommand;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,6 +20,10 @@ class TvigleToSonataCommand  extends DoctrineCommand {
         ClassMetadataInfo::MANY_TO_ONE  => 'ManyToOne',
         ClassMetadataInfo::MANY_TO_MANY => 'ManyToMany'
     );
+
+    protected $input;
+
+    protected $output;
 
     /**
      * Media context map.
@@ -50,6 +55,9 @@ class TvigleToSonataCommand  extends DoctrineCommand {
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->input = $input;
+        $this->output = $output;
+
         $em = $this->getEntityManager('default');
         $metadata = $em->getMetadataFactory()->getAllMetadata();
 
@@ -150,7 +158,9 @@ class TvigleToSonataCommand  extends DoctrineCommand {
             $toGetMethodName   = 'get' .ucfirst($toField['fieldName']);
             $toSetMethodName   = 'set' .ucfirst($toField['fieldName']);
 
+            $i = 0;
             foreach ($entities as $entity) {
+                $this->output->writeln('Entity ' . $i++ . '/' . count($entities));
                 if ($tvigleEntity = $entity->$fromGetMethodName()) {
                     if (
                         $context     = $this->contextMap[$class] and
@@ -200,7 +210,9 @@ class TvigleToSonataCommand  extends DoctrineCommand {
             $toGetMethodName   = 'get' .ucfirst($toField['fieldName']);
             $toSetMethodName   = 'set' .ucfirst($toField['fieldName']);
 
+            $i = 0;
             foreach ($entities as $entity) {
+                $this->output->writeln('Entity ' . $i++ . '/' . count($entities));
                 if ($tvigleEntities = $entity->$fromGetMethodName()) {
                     $mediaEntities = array();
 
@@ -220,9 +232,12 @@ class TvigleToSonataCommand  extends DoctrineCommand {
                     }
 
                     if ($mediaEntities) {
+//                        \gFuncs::dbgWriteLogDoctrine($tvigleEntities, 2, false, ''); // DBG:
+//                        \gFuncs::dbgWriteLogDoctrine($mediaEntities, 2, false, ''); // DBG:
                         $entity->$fromSetMethodName($tvigleEntities);
                         $entity->$toSetMethodName($mediaEntities);
                         $em->persist($entity);
+//                        $em->flush();
                     }
                 }
             }

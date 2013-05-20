@@ -1,20 +1,11 @@
 {% macro lectureThumbnail(entity, format, attributes) %}
-    {% if entity.lectureVideo.imageMedia is defined %}
-        {% set thumbnailMedia = entity.lectureVideo.imageMedia %}
-    {% elseif entity.mediaLectureVideo is not empty %}
-        {% set thumbnailMedia = entity.mediaLectureVideo %}
-    {% else %}
-        {% set thumbnailMedia = null %}
-    {% endif %}
+    {% if entity.mediaLectureVideo is not null %}
+        {% set attributesActual = {'alt': entity.title} %}
+        {% if attributes is iterable %}
+            {% set attributesActual = attributesActual|merge(attributes) %}
+        {% endif %}
 
-    {% set attributesActual = {'alt': entity.title} %}
-    {% if attributes is iterable %}
-        {% set attributesActual = attributesActual|merge(attributes) %}
-    {% endif %}
-
-    {% if thumbnailMedia is not null %}
-        {% thumbnail thumbnailMedia, format with attributesActual %}
-        {#<img alt="{{ entity.title }}" src="{% path thumbnailMedia, 'searchAllResult' %}"/>#}
+        {% thumbnail entity.mediaLectureVideo, format with attributesActual %}
     {% endif %}
 {% endmacro %}
 
