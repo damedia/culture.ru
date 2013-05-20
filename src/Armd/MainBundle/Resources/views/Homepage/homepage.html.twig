@@ -16,9 +16,22 @@
                     {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
                     <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url(/img/museum-temp/7-istoricheskii.jpg);"></div></a>
                     <div class="museum-image-over">
-                        <div class="museum-image-title clearfix"><span>ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ</span></div>
+                        <div class="museum-image-title clearfix">
+                          <span>
+                          {% if app.request.locale == 'ru' %}
+                             ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ
+                          {% else %}
+                             STATE HISTORICAL MUSEUM
+                          {% endif %}
+                          </span></div>
                         <div class="museum-image-text-wrap">
-                            <a href="#" class="museum-town">Москва</a>
+                            <a href="#" class="museum-town">
+                              {% if app.request.locale == 'ru' %}
+                                Москва
+                              {% else %}
+                                Moscow
+                              {% endif %}
+                            </a>
                             <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
                                 <span class="museum-image-text">
                                     {{ "visit_museum"|trans|raw }}
@@ -198,6 +211,7 @@
 {% block right_column %}
     <span class="helper-top-orange-line"></span>
 
+{% if app.request.locale == 'ru' %}
     <div class="tabs events-tabs video-tabs">
         {#<h2>Сегодня - Всемирный день музеев</h2>#}
         {#<h3>Актуальное видео</h3>#}
@@ -213,7 +227,7 @@
         </p>
         #}
     </div>
-
+{% endif %}
     <section id="homepage-online-translation">
         {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
     </section>
@@ -253,8 +267,10 @@
 
 {% block after_body %}
 <div class="right-column" style="padding-top:38px;">
-    <section class="newspaper newspaper-culture"><a href="{{ path('armd_paper_edition', {'slug': 'archive'}) }}" title='{{ "menu.culture_magazine"|trans }}'></a></section>
-    <section class="newspaper newspaper-literature"><a href="{{ path('armd_paper_edition', {'slug': 'litnews'}) }}" title='{{ "menu.literature_magazine"|trans }}'></a></section>
+    {% if app.request.locale == 'ru' %}
+      <section class="newspaper newspaper-culture"><a href="{{ path('armd_paper_edition', {'slug': 'archive'}) }}" title='{{ "menu.culture_magazine"|trans }}'></a></section>
+      <section class="newspaper newspaper-literature"><a href="{{ path('armd_paper_edition', {'slug': 'litnews'}) }}" title='{{ "menu.literature_magazine"|trans }}'></a></section>
+    {% endif %}
 {#
 {% if app.request.locale == 'ru' %}
     <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">

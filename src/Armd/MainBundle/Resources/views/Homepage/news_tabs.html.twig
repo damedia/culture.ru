@@ -12,6 +12,7 @@
             </h3>
             <ul class="event-tab-news">
                 {% set prevDate = null %}
+                {% if app.request.locale == 'ru' %}
                 {% for n in news %}
                     {% set articleHref = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
                     {% set articleCategoryHref = path('armd_news_list_index_by_category', {'category': n.category.slug}) %}
@@ -64,6 +65,61 @@
                     {% endif %}
                     {% set prevDate = n.newsDate|date('d') %}
                 {% endfor %}
+                {% else %}
+                    {% for i in 0..2 %}
+                    {% set n = news[i] %}
+                    {% set articleHref = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
+                    {% set articleCategoryHref = path('armd_news_list_index_by_category', {'category': n.category.slug}) %}
+                    {% if loop.first %}
+                        <li class="event-tab-news-one first-news">
+                            {% if n.image %}
+                                <a href="{{ articleHref }}">
+                                    {% thumbnail n.image, 'latest' with {'alt': n.image.description } %}
+                                </a>
+                            {% endif %}
+                            <div class="event-tab-text">
+                                <span class="event-tab-text">
+                                    {{ n.newsDate|date('H:i') }} /
+                                    <a href="{{ articleCategoryHref }}">{{ n.category.title }}</a>
+                                </span>
+
+                                <p>
+                                    {% if n.date %}
+                                        {{ n.date|date('d.m.Y') }}
+                                        {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                    {% endif %}
+                                    <a href="{{ articleHref }}" class="no-decoration">{{ n.title|raw }}</a>
+                                </p>
+                            </div>
+                        </li>
+                    {% else %}
+                        {% if n.newsDate|date('d') != prevDate or prevDate is empty %}
+                            </ul>
+                            <h3>{{ armd_news.news_date_short(n.newsDate) }}</h3>
+                            <ul class="event-tab-news">
+                        {% endif %}
+                        <li class="event-tab-news-one">
+                             <div class="event-tab-text">
+                                 <span class="event-tab-text">
+                                     {{ n.newsDate|date('H:i') }} /
+                                     <a href="{{ articleCategoryHref }}">{{ n.category.title }}</a>
+                                 </span>
+
+                                 <p>
+                                     <a href="{{ articleHref }}">
+                                         {% if n.date %}
+                                             {{ n.date|date('d.m.Y') }}
+                                             {% if n.endDate %} - {{ n.endDate|date('d.m.Y') }}{% endif %}
+                                         {% endif %}
+                                         {{ n.title|raw }}
+                                     </a>
+                                 </p>
+                             </div>
+                         </li>
+                    {% endif %}
+                    {% set prevDate = n.newsDate|date('d') %}
+                {% endfor %}
+                {% endif %}
             </ul>
         {% endif %}
         <p class="all">
