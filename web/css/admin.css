@@ -138,3 +138,7 @@
 .sonata-bc .form-horizontal .route-map .PGmap-bottomcenter-container {
     display: none;
 }
+.sonata-bc textarea.tinymce {
+    width: 700px;
+    height: 350px;
+}

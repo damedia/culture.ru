@@ -66,12 +66,8 @@ class LectureCinemaAdmin extends Admin
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_CINEMA');
 
-        $type = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureType')
-            ->getRepository('ArmdLectureBundle:LectureType')
-            ->findOneByCode('LECTURE_TYPE_VIDEO');
 
         $lecture->setLectureSuperType($superType);
-        $lecture->setLectureType($type);
 
 
         $formMapper
@@ -80,11 +76,37 @@ class LectureCinemaAdmin extends Admin
             ->add('description', null, array(
                 'attr' => array('class' => 'tinymce'),
             ))
-            ->add('categories', 'armd_lecture_categories', array(
-                'required' => false,
-                'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                'super_type' => $superType
-            ))
+//            ->add('categories', 'armd_lecture_categories', array(
+//                'required' => false,
+//                'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+//                'super_type' => $superType
+//            ))
+            ->add('genres1', 'entity',
+                array(
+                    'class' => 'ArmdLectureBundle:LectureGenre',
+                    'multiple' => 'true',
+                    'query_builder' => function (EntityRepository $er) use ($superType) {
+                        return $er->createQueryBuilder('g')
+                            ->where('g.level = 1')
+                            ->andWhere('g.lectureSuperType = :lecture_super_type')
+                            ->setParameter('lecture_super_type', $superType);
+                    },
+                    'attr' => array('class' => 'chzn-select')
+                )
+            )
+            ->add('genres2', 'entity',
+                array(
+                    'class' => 'ArmdLectureBundle:LectureGenre',
+                    'multiple' => 'true',
+                    'query_builder' => function (EntityRepository $er) use ($superType) {
+                        return $er->createQueryBuilder('g')
+                            ->where('g.level = 2')
+                            ->andWhere('g.lectureSuperType = :lecture_super_type')
+                            ->setParameter('lecture_super_type', $superType);
+                    },
+                    'attr' => array('class' => 'chzn-select')
+                )
+            )
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
             ->add('isTop100Film', null, array('required' => false))
@@ -138,7 +160,7 @@ class LectureCinemaAdmin extends Admin
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('createdAt')
-            ->add('categories', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
+            ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('isTop100Film')
         ;
     }

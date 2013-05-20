@@ -34,7 +34,7 @@
                         {#</div>#}
                         <footer class="period-block_footer">
                             <div class="tags">
-                                <a href="{{ path('armd_lecture_default_index', {'lectureSuperTypeCode': lecture.lectureSuperType.code}) }}">{{ lecture.lectureSuperType.name }}</a>
+                                {{ lectureMacro.lectureSuperTypeLink(lecture.lectureSuperType) }}
                             </div>
                         </footer>
 

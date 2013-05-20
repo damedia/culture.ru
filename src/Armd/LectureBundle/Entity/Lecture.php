@@ -75,11 +75,6 @@ class Lecture implements Taggable
      */
     private $mediaTrailerVideo;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
-     * @ORM\JoinColumn(name="lecture_file_id", referencedColumnName="id")
-     */
-    private $lectureFile;
 
     /**
      * @ORM\ManyToOne(targetEntity="LectureSuperType", fetch="EAGER")
@@ -87,17 +82,22 @@ class Lecture implements Taggable
      */
     private $lectureSuperType;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="LectureType", fetch="EAGER")
-     * @ORM\JoinColumn(name="lecture_type_id", referencedColumnName="id")
-     */
-    private $lectureType;
 
     /**
      * @ORM\ManyToMany(targetEntity="LectureCategory", inversedBy="lectures")
      * @ORM\JoinTable(name="lecture_category_lecture")
      */
     private $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="LectureGenre")
+     * @ORM\JoinTable(name="lecture_genre_lecture")
+     */
+    private $genres;
+
+//    private $genres1;
+//
+//    private $genres2;
 
     /**
      * @ORM\Column(name="seo_title", type="string", nullable=true)
@@ -161,7 +161,6 @@ class Lecture implements Taggable
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
-    
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -171,32 +170,15 @@ class Lecture implements Taggable
      */
     private $stuff;
 
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->genres = new ArrayCollection();
         $this->rolesPersons = new ArrayCollection();
         $this->stuff = new ArrayCollection();
     }
 
-    public function setStuff($stuff)
-    {
-        $this->stuff = $stuff;
-    }
-
-    public function addStuff(Media $stuff)
-    {
-        $this->stuff->add($stuff);
-    }
-
-    public function removeStuff(Media $stuff)
-    {
-        $this->stuff->removeElement($stuff);
-    }
-
-    public function getStuff()
-    {
-        return $this->stuff;
-    }
 
     public function __toString()
     {
@@ -212,6 +194,16 @@ class Lecture implements Taggable
             $this->createdAt = new \DateTime();
         }
     }
+
+//    /**
+//     * @ORM\PostLoad
+//     */
+//    public function postLoad()
+//    {
+//        $this->genres1 = $this->getGenres1();
+//        $this->genres2 = $this->getGenres2();
+//    }
+
 
     public function getId()
     {
@@ -378,22 +370,6 @@ class Lecture implements Taggable
         return $this;
     }
 
-    /**
-     * @return \Armd\LectureBundle\Entity\LectureType
-     */
-    public function getLectureType()
-    {
-        return $this->lectureType;
-    }
-
-    /**
-     * @param LectureType $lectureType
-     */
-    public function setLectureType(\Armd\LectureBundle\Entity\LectureType $lectureType)
-    {
-        $this->lectureType = $lectureType;
-    }
-
 
     public function getCategories()
     {
@@ -414,6 +390,103 @@ class Lecture implements Taggable
     {
         $this->categories->removeCategory($category);
     }
+
+    public function getGenres()
+    {
+        return $this->genres;
+    }
+
+    public function setGenres($genres)
+    {
+        $this->genres = $genres;
+
+        return $this;
+    }
+
+    public function addGenre(LectureGenre $genre)
+    {
+        if ($this->genres->indexOf($genre) === false) {
+            $this->genres->add($genre);
+        }
+    }
+
+    public function removeGenre(LectureGenre $genre)
+    {
+        $this->genres->removeElement($genre);
+    }
+
+    public function setGenres1($genres) {
+        $this->setGenresByLevel($genres, 1);
+    }
+
+    public function getGenres1() {
+        return $this->getGenresByLevel(1);
+    }
+
+    public function setGenres2($genres) {
+        $this->setGenresByLevel($genres, 2);
+    }
+
+    public function getGenres2() {
+        return $this->getGenresByLevel(2);
+    }
+
+    public function setGenresByLevel($genres, $level) {
+        // add genres
+        foreach ($genres as $genre) {
+            if ($genre->getLevel() == $level && !$this->genres->contains($genre)) {
+                $this->genres->add($genre);
+            }
+        }
+
+        // remove excess genres
+        $elementsToRemove = array();
+        foreach ($this->genres as $genre) {
+            if ($genre->getLevel() == $level && !$genres->contains($genre)) {
+                $elementsToRemove[] = $genre;
+            }
+        }
+
+        foreach ($elementsToRemove as $element) {
+            $this->genres->removeElement($element);
+        }
+
+
+    }
+
+    public function getGenresByLevel($level) {
+        $genres = new ArrayCollection();
+        foreach ($this->genres as $genre) {
+            if ($genre->getLevel() == $level) {
+                $genres->add($genre);
+            }
+        }
+        return $genres;
+    }
+
+    public function getGenreByLevel($level) {
+        foreach ($this->genres as $genre) {
+            if ($genre->getLevel() == $level) {
+                return $genre;
+            }
+        }
+        return false;
+    }
+
+    public function getFiltrableGenres() {
+        if ($this->lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_CINEMA') {
+            $genres = array();
+            foreach ($this->getGenres() as $genre) {
+                if ($genre->getLevel() === 2) {
+                    $genres[] = $genre;
+                }
+            }
+            return $genres;
+        } else {
+            return $this->getGenres();
+        }
+    }
+
 
     /**
      * @return string|null
@@ -714,5 +787,25 @@ class Lecture implements Taggable
         $this->showOnMainOrd = $showOnMainOrd;
 
         return $this;
+    }
+
+    public function setStuff($stuff)
+    {
+        $this->stuff = $stuff;
+    }
+
+    public function addStuff(Media $stuff)
+    {
+        $this->stuff->add($stuff);
+    }
+
+    public function removeStuff(Media $stuff)
+    {
+        $this->stuff->removeElement($stuff);
+    }
+
+    public function getStuff()
+    {
+        return $this->stuff;
     }
 }

@@ -6,7 +6,7 @@
                 {% for n in entities|slice(0, length) %}
                     {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
                     <a href="{{ href }}">
-                        <img src="http://culture.ru/ru/{% path n.image, 'news_big' %}" border="0" />
+                        <img src="{% path n.image, 'news_big' %}" border="0" />
                         {#% thumbnail n.image, 'news_big' %#}
                         <div class="info">
                             <div class="info-text">
@@ -23,7 +23,7 @@
                 <div id="thumbscarousel" class="news-slider-thumbscarousel">
                     {% for n in entities|slice(0, length) %}
                         <i>
-                            <img src="http://culture.ru/ru/{% path n.image, 'news_list' %}"  border="0" />
+                            <img src="{% path n.image, 'news_list' %}"  border="0" />
                             {#% thumbnail n.image, 'news_list' %#}
                         </i>
                     {% endfor %}

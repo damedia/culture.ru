@@ -1,0 +1,26 @@
+﻿{% if entity.images|length > 0 %}
+<div class="map-lister-image">
+    <a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">
+        <img src="{% path entity.images[0], 'sideBanner' %}" />
+    </a>
+</div>
+{% endif %}
+<div class="map-lister-overflow">
+    <div class="map-lister-title">
+        <h3>
+        {% if entity.images|length %}
+            <a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">{{ entity.title }}</a>
+        {% else %}
+            {{ entity.title }}
+        {% endif  %}
+        </h3>
+    </div>
+    <div class="map-lister-text">{{ entity.announce|raw }}</div>
+    {% if not entity.images|length %}
+    <div class="map-lister-text">
+        {% if entity.phone %}{{ entity.phone }}<br/>{% endif %}
+        {% if entity.address %}{{ entity.address }}{% endif %}
+    </div>
+    {% endif %}
+</div>
+<p class="all"><a href="{{ path('armd_atlas_default_object_view', { id:entity.id }) }}">подробнее</a></p>

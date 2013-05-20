@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="blocksection w clearfix" id="f-section">    
+<div class="blocksection w clearfix" id="exhibit-list-section">    
     <div class="exponats-gallery">
         <form action="" class="obr-form exp-form">
             <div class="obr-text-input">
@@ -52,13 +52,13 @@
               $('#exp-menu').appendTo('.nav-header');
             </script>        
             <div class="exponats-content" id="exponats-content">
-                <div id="el-one-blank" class="el-one" style="display: none;">
+                <div id="el-one-blank" class="el-one" rel="0" style="display: none;">
                     <a href="#"><img src=""></a>
                     <div class="el-one-wrap">
                         <table>
                             <td><a class="el-one-img-link" href="#"><img src=""></a></td>
                             <td class="el-one-text">
-                                <h4 class="el-one-title"></h4>
+                                <h4 class="el-one-title"><a href="#"></a></h4>
                                 <i class="el-note el-one-year"></i>
                                 <div class="el-one-authors"></div>
                                 <div><a class="el-one-museum" href="#"></a></div>
@@ -89,11 +89,110 @@
         </div>
     </div>
 </div>
+
+<div class="blocksection w clearfix" id="exhibit-item-section" style="display: none;">    
+    <div class="exponats-gallery">       
+        <div class="exponats-top-line clearfix" style="visibility: hidden;">
+            <a href="#" id="exhibit-back-btn" class="exp-one-details-button">назад</a>
+            <p id="exp-one-category" class="exp-one-category"></p>
+            <p class="exp-one-name"><span class="exhibit-title"></span><i class="exhibit-date"></i><b class="exhibit-authors"></b></p>
+            <a href="#" id="details-btn" class="exp-one-details-button">Детали</a>           
+        </div>
+        <div class="exponats-main exponats-main-one">
+            <div class="exponat-main-container" id="exponat-main-container">
+                <div class="main-zoomed-image">
+                    <img src="">
+                </div>
+                <div class="zoom-thumb" style="display: none;">
+                    <div class="zoom-thumb-image-block">
+                        <div class="zoom-thumb-border" style="display: none;"><div></div></div>
+                        <img id="zoom-img-bg" src="">                        
+                    </div>
+                    <div class="zoom-nav">
+                        <a href="#" class="zoom-out" id="zoom-out">-</a>
+                        <a href="#" class="zoom-in" id="zoom-in">+</a>
+                        <div class="zoom-line">
+                            <div class="zoom-handle"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="images-carousel">
+                    <ul  id="carousel" class="jcarousel">
+                        
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="exponats-details clearfix" id="exponats-details" style="display:none;">
+
+                <div class="text exponat-one-content ">
+                    <div class="exponat-text-wrap">
+                        <h1 class="exhibit-title"></h1>
+                        <p class="exponat-date exhibit-date"></p>
+                        <h2 class="exhibit-authors"></h2>
+                        <p class="exponat-note"></p>
+                        <img id="exhibit-detail-img" src="" alt="" class="image-left" width="127px"/>
+                        <p id="exhibit-description"></p                       
+                        <p class="gray"></p>  
+                        <br clear="all">
+                        <div id="author-blank" class="gray-block author-block" style="display: none;">
+                            <img class="image-right" alt="" src="">
+                            <h2 class="author-block-title"></h2>
+                            <div class="author-block-body"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="exponat-one-right">                   
+                    <div id="exhibit-video" class="exp-block exp-videos" style="display: none;">
+                        <h3>{{ "video"|trans }}</h3>
+                        <div class="exp-video-list-image">
+                            <a class="block-image fancybox" href="#data-video">
+                                <img style="max-width: 100%;" src="" alt=""  />
+                                <span class="play"></span>
+                            </a>
+                        </div>
+                        <div id="data-video" style="display: none;">
+                            <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                <iframe width="640" height="360" src="" style="border: 0px;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="exhibit-virtual-tour" class="exp-block exp-videos" style="display: none;">
+                        <h3>{{ "Virtual tour"|trans }}</h3>
+                        <div class="exp-text-block">
+                            <a href="#" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                                <img src="" alt="" width="280" />
+                                <span class="virt-tour-anons-over"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="exhibit-museum" class="exp-block exp-videos" style="display: none;">
+                        <h3>{{ "Museum"|trans }}</h3>
+                        <div class="exp-text-block">
+                            <a href="#">
+                                <img id="exhibit-museum-img" alt="" src="">
+                            </a>
+                            <p class="main-title">
+                                <a id="exhibit-museum-title" href="#"></a>
+                            </p>
+                            <p>
+                                <span id="exhibit-museum-address"></span><br />
+                                <a id="exhibit-museum-url" target="_blank"></a>	
+                            </p>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-<link rel="stylesheet" href="{{ asset('bundles/armdexhibit/css/jquery.jscrollpane.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdexhibit/css/jquery.jscrollpane.css') }}">
 {% endblock %}
 
 {% block javascripts %}
@@ -101,7 +200,10 @@
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.jscrollpane.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.mousewheel.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/mwheelIntent.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.jcarousel.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.observehashchange.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/exhibits.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/exhibit_item.js') }}"></script>
 <script type="text/javascript">
     exhibit.init({{ data|json_encode()|raw }}, {{ filters|json_encode()|raw }}, {{ activeFilters|json_encode()|raw }});
 </script>

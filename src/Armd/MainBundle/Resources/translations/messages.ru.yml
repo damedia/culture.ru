@@ -5,16 +5,19 @@ menu.atlas: Атлас
 menu.russia_images: Образы России
 menu.virtual_museums: Музеи
 menu.art_objects: Экспонаты
-menu.cinema: Кинозал
+menu.cinema: Кино
 menu.chronicle: Лента времени
 menu.spiritual_traditions: Духовные традиции
 menu.theaters: Театры
 menu.kids: Детям
 menu.news_index: Медиа
 menu.news: Новости
+menu.media: Медиа
 menu.events: Анонсы
+menu.media: Медиа
+menu.communication: Общение
 
-menu.reportage: Статьи
+menu.reportage: Репортажи
 menu.interview: Интервью
 menu.about: Информация
 menu.events_on_map: Карта мероприятий
@@ -26,13 +29,14 @@ menu.library: Библиотека
 menu.banners: Баннеры
 menu.communication: Сервисы
 menu.special_projects: Спецпроекты
-menu.borodino: Война 1812 года
-menu.intermuseum: Интермузей 2013
-menu.special_projects_romanov450: Дом Романовых
-menu.special_projects_stanislavski: К. Станиславский
+menu.borodino: Отечественная война 1812
+menu.intermuseum: Интермузей-2013
+menu.special_projects_romanov450: 400-летие дома Романовых
+menu.special_projects_stanislavski: 150 со дня рождения К.С. Станиславского
 menu.special_projects_1150: 1150 лет государственности
 menu.online_translation: Онлайн трансляции
 menu.video: Видеотека
+menu.video_all: Все видео
 menu.lectures: Лекции
 menu.translations: Трансляции
 menu.top100: 100 фильмов для школьников
@@ -43,15 +47,24 @@ menu.government_control: Форум по госнадзору
 menu.online_translation: Онлайн трансляции
 menu.perfomance: Спектакли
 menu.museum: Музеи
-menu.virtual_museum: Виртуальные музеи
+menu.virtual_museum: Виртуальные туры
 menu.culture_sites: Сайты культуры
 menu.museum_guide: Музейный гид
 menu.museum_lesson: Музейное образование
 menu.museum_reserve: Музеи-заповедники
+menu.may9: День Победы-2013
+menu.may9_films: Классика военного кино
+menu.may9_day: Короткометражный фильм «День победы»
+menu.music: Музыка
+menu.theatre: Театры
+menu.underconstraction: Страница в разработке
+menu.contacts: Контакты
 #---------------- /menu -------------------------
 
+virtual_museum_tour: Виртуальный тур по музеям
 
-Portal title: Портал культурного наследия России
+Portal title: Портал культурного наследия России Культура.рф
+Portal title highlighted: Портал культурного наследия России <span>Культура.рф</span>
 Open Government: Открытое правительство
 Special version: Версия для слабовидящих
 Ministry of Culture: Министерство культуры
@@ -70,7 +83,7 @@ Navigation:
         Title: Виртуальные музеи
         Search: Поиск по музеям
         Guide: Музейный гид
-    Cinema: Кинозал
+    Cinema: Кино
     Translations: Трансляции
     Lectures: Лекции
     Timeline : Лента времени
@@ -96,7 +109,7 @@ Navigation:
     About: О проекте
     Add: Еще
     Library: Библиотека
-    Reports: Статьи
+    Reports: Репортажи
     Banners: Баннеры
     ForumGos: Форум по гос.надзору
     InterMuseum: Интермузей 2013
@@ -132,9 +145,10 @@ mainpage.russia_images: Образы России
 mainpage.show_all_russia_images: Посмотреть все Образы России
 mainpage.lectures: Лекции
 mainpage.show_all_lectures: Посмотреть все лекции
-mainpage.cinema: Кинозал
+mainpage.cinema: Кино
 mainpage.show_all_cinema: Посмотреть все фильмы
 mainpage.russian_culture_events: События культуры России
+mainpage.all_video: Все фильмы
 
 Projects:
     Region: Регион

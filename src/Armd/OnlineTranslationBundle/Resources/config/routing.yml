@@ -9,3 +9,7 @@ armd_online_translation_set_notification:
 armd_online_translation_captcha:
     pattern:  /captcha
     defaults: { _controller: ArmdOnlineTranslationBundle:Default:getCaptcha }
+
+armd_online_translation_homepage_widget:
+    pattern: /homepage-widget
+    defaults: { _controller: ArmdOnlineTranslationBundle:Default:homepageWidget }

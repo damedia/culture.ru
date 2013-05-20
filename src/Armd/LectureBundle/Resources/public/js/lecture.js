@@ -2,21 +2,13 @@ var armdMkLecture = {
     lectureSuperTypeCode: null,
 
     init: function(lectureSuperTypeCode) {
-        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_category"] a, .ui-selectgroup-list[aria-labelledby="ui-lecture_sub_category"] a', 
+        $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_genre"] a',
             function (event) {
-                if ($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-lecture_category') {
-                    if($('#lecture_sub_category').length) {
-                        armdMkLecture.loadSubCategories();
-                    } else {
-                        $('#lectures-filter').submit();
-                    }
-                }
-                if($(event.target).closest('.ui-selectgroup-list').attr('aria-labelledby') === 'ui-lecture_sub_category') {
-                    $('#lectures-filter').submit();
-                }
+                $('#lectures-filter').submit();
             });
 
         armdMkLecture.lectureSuperTypeCode = lectureSuperTypeCode;
+
         $('#search-form').bind('submit', function(event) {
             if ($('#search-this-section').prop('checked')) {
                 event.preventDefault();
@@ -26,32 +18,12 @@ var armdMkLecture = {
                 });
             }
         });
-    },
-    
-    loadSubCategories: function () {
-        var select = $('#lecture_sub_category');
-        if (select.length) {
-            var parentCategoryId = $('#lecture_category').val();
-            select.html('<option value="0">Все</option>');
-            if (parentCategoryId > 0) {
-                armdMk.startLoading();
-                $.ajax({
-                    url: Routing.generate(
-                        'armd_lecture_categories',
-                        {'lectureSuperTypeCode': armdMkLecture.lectureSuperTypeCode, 'parentId': parentCategoryId}
-                    ),
-                    dataType: 'json',
-                    success: function (data) {
-                        for (var i in data) {
-                            select.append($('<option>', {value: data[i].id}).text(data[i].title));
-                        }
-                        select.selectgroup('refresh');
-                    },
-                    complete: function () {
-                        armdMk.stopLoading();
-                    }
-                });
-            }
-        }
+
+        $('.genre-link').on('click', function(event) {
+            event.preventDefault()
+            $('#lecture_genre').val($(this).data('genre-id')).selectgroup('refresh');
+            $('#lectures-filter').submit();
+        });
     }
+    
 };

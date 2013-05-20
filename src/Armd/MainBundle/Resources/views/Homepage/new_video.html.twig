@@ -8,6 +8,7 @@
                     {% if v.isTop100Film %}
                         <div class="cinema-top100-icon"></div>
                     {% endif %}
+                    <div class="index-video-image">
                     {{ lectureMacro.lectureThumbnail(v, 'lectureH228', {
                             'alt': v.title,
                             'height': 'auto',
@@ -15,7 +16,7 @@
                             'class': 'lecture-tile-list-image'
                         })
                     }}
-
+                    </div>
                     {#{% if v.lectureVideo.imageMedia is defined %}#}
                         {#{% set thumbnailMedia = v.lectureVideo.imageMedia %}#}
                     {#{% elseif v.mediaLectureVideo is not empty %}#}
@@ -25,6 +26,7 @@
                          {#class="lecture-tile-list-image"/>#}
                 </a>
                 <a href="{{ path('armd_lecture_view', {'id': v.id}) }}" class="index-video-name">{{ v.title }}</a>
+                <span class="index-video-info">Мосфильм, 1979</span>
                 {#<p>#}
                     {#{{ v.description|raw }}#}
                 {#</p>#}

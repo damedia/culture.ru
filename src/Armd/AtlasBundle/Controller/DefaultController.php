@@ -286,6 +286,25 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/object/side", name="armd_atlas_default_objectside", options={"expose"=true})
+     * @Template("ArmdAtlasBundle:Default:object_side.html.twig")
+     */
+    public function objectSideAction()
+    {
+        $id = (int)$this->getRequest()->query->get('id');
+        $repo = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
+        if ($id) {
+            $entity = $repo->findOneBy(array('id' => $id, 'published' => true));
+            if ($entity)
+                return array(
+                    'entity' => $entity,
+                );
+            else
+                throw new NotFoundHttpException("Page not found");
+        }
+    }
+
+    /**
      * @Route("/", name="armd_atlas_index")
      * @Template()
      */
@@ -382,11 +401,15 @@ class DefaultController extends Controller
 
                 $obraz = false;
                 $imageUrl = '';
+                $sideDetails = '';
                 if ($obj->getPrimaryCategory()) {
                     if ($obj->getPrimaryCategory()->getId() == 74) {
                         $obraz = true;
                         $image = $obj->getPrimaryImage(); // @TODO Много запросов
                         $imageUrl = $twigExtension->path($image, 'thumbnail');
+                        $sideDetails = $this->renderView('ArmdAtlasBundle:Default:object_side.html.twig', array(
+                            'entity' => $obj,
+                        ));
                     }
                 }
 
@@ -399,6 +422,7 @@ class DefaultController extends Controller
                     'icon' => $iconUrl,
                     'obraz' => $obraz,
                     'imageUrl' => $imageUrl,
+                    'sideDetails' => $sideDetails,
                 );
             }
 

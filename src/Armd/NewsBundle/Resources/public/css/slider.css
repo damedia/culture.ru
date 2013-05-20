@@ -33,7 +33,8 @@
             .news-slider-carousel .info-text h2 {
                 font-size:15px;
                 margin-bottom:5px;
-                
+                border-bottom: 0;
+                color: #ffffff;
             }
             .news-slider-carousel .info-text h2  i {
                 font-size:12px;

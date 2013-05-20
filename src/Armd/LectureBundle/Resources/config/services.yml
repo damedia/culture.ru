@@ -12,11 +12,6 @@ services:
         tags:
             - { name: form.type, alias: armd_lecture_roles_persons }
 
-    armd_lecture.listener.media:
-        class: Armd\LectureBundle\EventListener\MediaListener
-        tags:
-            - { name: doctrine.event_listener, event: preRemove }
-            
     armd_lecture.listener.lecture:
         class: Armd\LectureBundle\EventListener\LectureListener
         tags:

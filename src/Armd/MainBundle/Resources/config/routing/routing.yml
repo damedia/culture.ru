@@ -2,6 +2,18 @@ armd_main_homepage:
     pattern:  /
     defaults: { _controller: ArmdMainBundle:Main:homepage }
 
+armd_main_underconstraction:
+    pattern:  /underconstraction/
+    defaults: { _controller: ArmdMainBundle:Main:underconstraction }
+
+armd_main_contacts:
+    pattern:  /contacts/
+    defaults: { _controller: ArmdMainBundle:Main:contacts }
+
+armd_main_opinion:
+    pattern:  /opinion/
+    defaults: { _controller: ArmdMainBundle:Main:opinion }
+
 armd_main_banner:
     pattern:  /banner/
     defaults: { _controller: ArmdMainBundle:Main:banner }
@@ -19,6 +31,18 @@ armd_main_services:
 armd_main_museum_reserve:
     pattern:  /museums/museum_reserve/
     defaults: { _controller: ArmdMainBundle:Main:museumReserve }
+
+armd_main_may9:
+    pattern:  /may9/
+    defaults: { _controller: ArmdMainBundle:Main:may9 }
+
+armd_main_may9_films:
+    pattern:  /may9/may9_films/
+    defaults: { _controller: ArmdMainBundle:Main:may9_films }
+
+armd_main_may9_day:
+    pattern:  /may9/may9_day/
+    defaults: { _controller: ArmdMainBundle:Main:may9_day }
 
 armd_main_library:
     pattern:  /library/
@@ -51,7 +75,6 @@ armd_main_project_events:
 armd_main_project_news:
     pattern: /project-news/
     defaults: { _controller: ArmdMainBundle:Project:news }
-
 
 armd_main_online_translation:
     pattern:  /online-translation/

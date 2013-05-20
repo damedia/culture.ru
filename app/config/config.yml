@@ -229,6 +229,7 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 banner: { width: 922 }
                 realSmall: { width: 285 }
+                bannerW1232: { width:1232 }
 
         museum_guide:
             download:
@@ -469,10 +470,6 @@ knp_paginator:
     template: 
         pagination: ":Frontend:pagination.html.twig"
 
-knp_menu:
-    twig:
-        template: :Frontend:menu.html.twig
-
 armd_tvigle_video:
     api_service_url: http://pub.tvigle.ru/soap/index.php?wsdl
     api_login: Stella_l
@@ -544,6 +541,8 @@ stfalcon_tinymce:
         simple:
             mode: "textareas"
             theme: "advanced"
+            plugins: "paste,fullscreen,inlinepopups"
+            theme_advanced_buttons1_add: "fullscreen,|,pastetext,pasteword"
 
 fpn_tag:
     model:
