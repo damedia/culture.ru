@@ -90,8 +90,7 @@
         <section class="video-one">
             <div id="video-container" class="video-one_container"></div>
 
-            {% if lecture.series and lecture.series.galleryHasMedias|length %}
-            <ul id="video-series-{{ lecture.id }}" class="video-series">
+            <ul id="video-series-{{ lecture.id }}" class="video-series"{% if not lecture.series or not lecture.series.galleryHasMedias|length %} style="display: none;"{% endif %}>
                 {% if lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
                     {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
                         {% set lectureVideo = lecture.mediaTrailerVideo %}
@@ -104,14 +103,15 @@
                         <div id="video-media" style="display: none;">{% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}</div>
                     </li>
                 {% endif %}
-                {% for ser in lecture.series.galleryHasMedias %}
-                <li>
-                    <a href="#video-ser-{{ ser.id }}">{% thumbnail ser.media, 'lectureW160H120' %}</a>
-                    <div id="video-ser-{{ ser.id }}" style="display: none;">{% media ser.media, 'reference' with { 'width': '100%', 'height': 506 } %}</div>
-                </li>
-                {% endfor %}
+                {% if lecture.series and lecture.series.galleryHasMedias|length %}
+                    {% for ser in lecture.series.galleryHasMedias %}
+                    <li>
+                        <a href="#video-ser-{{ ser.id }}">{% thumbnail ser.media, 'lectureW160H120' %}</a>
+                        <div id="video-ser-{{ ser.id }}" style="display: none;">{% media ser.media, 'reference' with { 'width': '100%', 'height': 506 } %}</div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
-            {% endif %}
 
             <div class="video-one-description">
 
