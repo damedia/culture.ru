@@ -253,8 +253,8 @@
 
 {% block after_body %}
 <div class="right-column" style="padding-top:38px;">
-    <section class="newspaper newspaper-culture"><a href="{{ path('armd_paper_edition', {'slug': 'archive'}) }}" title='{{ "menu.culture_magazine"|trans }}'></a></section>
-    <section class="newspaper newspaper-literature"><a href="{{ path('armd_paper_edition', {'slug': 'litnews'}) }}" title='{{ "menu.literature_magazine"|trans }}'></a></section>
+    <section class="newspaper newspaper-culture"><a target="_blank" href="http://portal-kultura.ru/" title='{{ "menu.culture_magazine"|trans }}'></a></section>
+    <section class="newspaper newspaper-literature"><a target="_blank" href="http://lgz.ru/" title='{{ "menu.literature_magazine"|trans }}'></a></section>
 {#
 {% if app.request.locale == 'ru' %}
     <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
