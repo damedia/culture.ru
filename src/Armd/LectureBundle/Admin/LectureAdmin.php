@@ -47,8 +47,8 @@ class LectureAdmin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
-            ->add('trailerVideo')
-            ->add('lectureVideo');
+            ->add('mediaTrailerVideo')
+            ->add('mediaLectureVideo');
     }
 
     /**
@@ -110,6 +110,7 @@ class LectureAdmin extends Admin
             ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
                 ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+                ->add('series', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
             ->with('External Video')
                 ->add('externalUrl', null, array('required' => false))
