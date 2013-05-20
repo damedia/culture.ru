@@ -171,6 +171,19 @@ class Lecture implements Taggable
     private $stuff;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="vertical_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $verticalBanner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="horizontal_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $horizontalBanner;
+
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -332,24 +345,6 @@ class Lecture implements Taggable
     public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
     {
         $this->mediaTrailerVideo = $mediaTrailerVideo;
-    }
-
-    /**
-     * @return \Application\Sonata\MediaBundle\Entity\Media
-     */
-    public function getLectureFile()
-    {
-        return $this->lectureFile;
-    }
-
-    /**
-     * @param \Application\Sonata\MediaBundle\Entity\Media $lectureFile
-     */
-    public function setLectureFile(\Application\Sonata\MediaBundle\Entity\Media $lectureFile = null)
-    {
-        if (is_null($lectureFile) || $lectureFile->isUploaded()) {
-            $this->lectureFile = $lectureFile;
-        }
     }
 
     /**
@@ -807,5 +802,44 @@ class Lecture implements Taggable
     public function getStuff()
     {
         return $this->stuff;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVerticalBanner()
+    {
+        return $this->verticalBanner;
+    }
+
+    /**
+     * @param mixed $verticalBanner
+     */
+    public function setVerticalBanner(\Application\Sonata\MediaBundle\Entity\Media $verticalBanner = null)
+    {
+        if (is_null($verticalBanner) || $verticalBanner->isUploaded()) {
+            $this->verticalBanner = $verticalBanner;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHorizontalBanner()
+    {
+        return $this->horizontalBanner;
+    }
+
+    /**
+     * @param mixed $horizontalBanner
+     */
+    public function setHorizontalBanner(\Application\Sonata\MediaBundle\Entity\Media $horizontalBanner = null)
+    {
+        \gFuncs::dbgWriteLogVar('setHorizontalBanner call', false, ''); // DBG:
+        if (is_null($horizontalBanner) || $horizontalBanner->isUploaded()) {
+            \gFuncs::dbgWriteLogDoctrine($horizontalBanner, 2, false, 'setHorizontalBanner'); // DBG:
+            \gFuncs::dbgWriteLogDoctrine(debug_backtrace(0), 2, false, 'setHorizontalBanner backtrace'); // DBG:
+            $this->horizontalBanner = $horizontalBanner;
+        }
     }
 }

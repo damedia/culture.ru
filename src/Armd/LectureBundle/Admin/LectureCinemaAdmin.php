@@ -107,6 +107,26 @@ class LectureCinemaAdmin extends Admin
                     'attr' => array('class' => 'chzn-select')
                 )
             )
+            ->add('verticalBanner',
+                'armd_media_file_type',
+                array('required' => false,
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'medium',
+                    'media_context' => 'lecture',
+                    'with_remove' => true,
+//                    'by_reference' => false
+                )
+            )
+            ->add('horizontalBanner',
+                'armd_media_file_type',
+                array('required' => false,
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'medium',
+                    'media_context' => 'lecture',
+                    'with_remove' => true,
+//                    'by_reference' => false
+                )
+            )
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
             ->add('isTop100Film', null, array('required' => false))

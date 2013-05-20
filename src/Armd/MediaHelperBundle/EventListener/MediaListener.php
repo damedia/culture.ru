@@ -37,15 +37,18 @@ class MediaListener
             if($media->getRemoveMedia()) {
                 $this->pendingForRemovalMedias[] = $media;
             }
+            \gFuncs::dbgWriteLogDoctrine($this->pendingForRemovalMedias, 2, false, 'MediaHelperBundle\MediaListener.php preUpdate'); // DBG:
         }
     }
 
     public function postFlush(PostFlushEventArgs $args)
     {
+        \gFuncs::dbgWriteLogVar('', false, 'YMediaHelperBundle\MediaListener.php postFlush'); // DBG:
         if(count($this->pendingForRemovalMedias)) {
             $em = $args->getEntityManager();
             foreach($this->pendingForRemovalMedias as $media)
             {
+                \gFuncs::dbgWriteLogVar($media->getId(), false, 'MediaHelperBundle\EventListener\MediaListener.php postFlush Remove'); // DBG:
                 $em->remove($media);
             }
             $this->pendingForRemovalMedias = array();

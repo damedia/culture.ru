@@ -48,7 +48,8 @@ class LectureAdmin extends Admin
             ->add('lecturer')
             ->add('recommended')
             ->add('trailerVideo')
-            ->add('lectureVideo');
+            ->add('lectureVideo')
+        ;
     }
 
     /**

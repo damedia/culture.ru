@@ -18,6 +18,11 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
         arguments: [@service_container]
 
+    armd_lecture.listener.media:
+        class: Armd\LectureBundle\EventListener\MediaListener
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
+
     armd_lecture.manager.lecture:
         class: Armd\LectureBundle\Entity\LectureManager
         arguments:  [@doctrine.orm.entity_manager, @fpn_tag.tag_manager, @search.sphinxsearch.search]
