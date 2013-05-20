@@ -9,6 +9,12 @@
 {% endblock %}
 
 {% block body %}
+<ul class="breadcrumbs" style="margin-bottom: 25px;">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li id="exhibits-breadcrumb-link" style="display: none;"><a href="{{ path('armd_exhibit_list') }}">{{ 'menu.art_objects'|trans }}</a></li>
+    <li id="exhibits-breadcrumb-title"><span data-title="{{ 'menu.art_objects'|trans }}">{{ 'menu.art_objects'|trans }}</span></li>
+</ul>
+
 <div class="blocksection w clearfix" id="exhibit-list-section">    
     <div class="exponats-gallery">
         <form action="" class="obr-form exp-form">

@@ -23,7 +23,7 @@ var exhibit = {
         exhibit.filters = filters;
 
         if (window.location.hash) {
-            data.id = "'" + document.location.hash.substr(1) + "'";
+            data.id = "'" + window.location.hash.substr(1) + "'";
         }
         
         $(function() {
@@ -165,6 +165,19 @@ var exhibit = {
                 $('#exhibit-list-section').show();  
 
                 window.location.hash = "";
+
+                $("#exhibits-breadcrumb-title span").html($("#exhibits-breadcrumb-title span").data("title"));
+                $("#exhibits-breadcrumb-link").hide();
+            });
+
+            $("#exhibit-clear-tags-btn").click(function() {
+                $("#exponats-tags li .delete").click();
+                return false;
+            });
+
+            $("#exhibits-breadcrumb-link").click(function() {
+                window.location.hash = "";
+                return false;
             });
 
             if (data.id) {
@@ -180,11 +193,6 @@ var exhibit = {
             } else {
                 $("#exhibit-back-btn").click();
             }
-
-            $("#exhibit-clear-tags-btn").click(function() {
-                $("#exponats-tags li .delete").click();
-                return false;
-            });
         });
     },
     showObjectDetails: function(id) {
@@ -198,6 +206,9 @@ var exhibit = {
 
         if (exhibit.objects[id]) {
             $(".exponats-content .el-one[rel=" + id + "] .el-one-title a").click();
+
+            $("#exhibits-breadcrumb-title span").html(exhibit.objects[id].title);
+            $("#exhibits-breadcrumb-link").show();
         }
     },
     setObjectListeners: function() {
