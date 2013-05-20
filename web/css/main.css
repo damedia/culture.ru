@@ -4398,6 +4398,10 @@ body {
             padding-bottom: 1px;
             margin: 0 0 5px 0;
         }
+        .video-tabs h4 {
+            margin: 0 0 8px 0;
+            font-size: 12px;    
+        }
         .video-tabs-title{
             line-height: 13px;
             margin-bottom: 7px;
