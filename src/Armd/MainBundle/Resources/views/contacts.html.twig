@@ -18,22 +18,40 @@
 {% block left_column %}
 <div class="content">
 	<div class="block contacts">
-        <h2><span>Адрес:</span></h2>
-        <p>125993&nbsp;ГСП-3, Москва, Малый Гнездниковский&nbsp;пер., д.&nbsp;7/6, стр.&nbsp;1,&nbsp;2<br>
-        Телефон: <span class="nowrap">+7 (495)629 1629</span>, <span class="nowrap">+ 7 (495) 629 4664</span><br>
-        Вопросы и&nbsp;предложения просим присылать по&nbsp;адресу:<br>
-        <a href="mailto:portal@culture.ru">portal@culture.ru</a></p>
+        {% if app.request.locale == 'ru' %}
+            <h2><span>Адрес:</span></h2>
+            <p>125993&nbsp;ГСП-3, Москва, Малый Гнездниковский&nbsp;пер., д.&nbsp;7/6, стр.&nbsp;1,&nbsp;2<br>
+            Телефон: <span class="nowrap">+7 (495)629 1629</span>, <span class="nowrap">+ 7 (495) 629 4664</span><br>
+            Вопросы и&nbsp;предложения просим присылать по&nbsp;адресу:<br>
+            <a href="mailto:portal@culture.ru">portal@culture.ru</a></p>
 
-        <h2><span>Контакты:</span></h2>
-        <h3>Руководитель проекта:</h3>
-        <p>Калачева Дарья Константиновна<br>
-        <a href="mailto:Daria.kalacheva@culture.ru">Daria.kalacheva@culture.ru</a><br>
-        Моб.&nbsp;<span class="nowrap">+7 (903) 7204302</span></p>
+            <h2><span>Контакты:</span></h2>
+            <h3>Руководитель проекта</h3>
+            <p>Калачева Дарья Константиновна<br>
+            <a href="mailto:Daria.kalacheva@culture.ru">Daria.kalacheva@culture.ru</a><br>
+            Моб.&nbsp;<span class="nowrap">+7 (903) 7204302</span></p>
 
-        <h3>Главный редактор</h3>
-        <p>Завьялова Наталия Вениаминовна<br>
-        <a href="mailto:Natalia.zavyalova@culture.ru">Natalia.zavyalova@culture.ru</a><br>
-        Моб:&nbsp;<span class="nowrap">+7 (910) 402 3412</span></p>
+            <h3>Главный редактор</h3>
+            <p>Завьялова Наталия Вениаминовна<br>
+            <a href="mailto:Natalia.zavyalova@culture.ru">Natalia.zavyalova@culture.ru</a><br>
+            Моб:&nbsp;<span class="nowrap">+7 (910) 402 3412</span></p>
+        {% else %}
+            <h2><span>Address:</span></h2>
+            <p>7/6 bldg 1-2, Maly Gnezdnikovsky per., Moscow, Russia 125993<br>
+            Tel: <span class="nowrap">+7 (495)629 1629</span>, <span class="nowrap">+ 7 (495) 629 4664</span><br>
+            Requests and proposals <a href="mailto:portal@culture.ru">portal@culture.ru</a></p>
+
+            <h2><span>Contacts:</span></h2>
+            <h3>General Producer</h3>
+            <p>Daria Kalacheva<br>
+            <a href="mailto:Daria.kalacheva@culture.ru">Daria.kalacheva@culture.ru</a><br>
+            Mob:&nbsp;<span class="nowrap">+7 (903) 7204302</span></p>
+
+            <h3>Editor-in-Chief</h3>
+            <p>Natalia Zavyalova<br>
+            <a href="mailto:Natalia.zavyalova@culture.ru">Natalia.zavyalova@culture.ru</a><br>
+            Mob:&nbsp;<span class="nowrap">+7 (910) 402 3412</span></p>
+        {% endif %}
     </div>
 </div> 
 {% endblock %}
