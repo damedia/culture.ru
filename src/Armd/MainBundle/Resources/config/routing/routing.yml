@@ -108,5 +108,12 @@ armd_main_culture_polls:
 
 armd_main_intermuseum:
     pattern:  /intermuseum/
-    defaults: { _controller: ArmdMainBundle:Main:intermuseum }    
-    
+    defaults: { _controller: ArmdMainBundle:Main:intermuseum }
+
+armd_main_romanov450:
+    pattern:  /romanov450/
+    defaults: { _controller: ArmdMainBundle:Main:specialProjectsRomanov450 }
+
+armd_main_stanislavski:
+    pattern:  /stanislavski/
+    defaults: { _controller: ArmdMainBundle:Main:specialProjectsStanislavski }

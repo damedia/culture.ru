@@ -12,14 +12,7 @@
             </h3>
             <ul class="event-tab-news">
                 {% set prevDate = null %}
-                {% if app.request.locale == 'ru' %}
-                    {% set newsCount = news|length - 1 %}
-                 {% else %}
-                     {% set newsCount = 2 %}
-                 {% endif %}
-
-                {% for i in 0..newsCount %}
-                    {% set n = news[i] %}
+                {% for n in news %}
                     {% set articleHref = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
                     {% set articleCategoryHref = path('armd_news_list_index_by_category', {'category': n.category.slug}) %}
                     {% if loop.first %}

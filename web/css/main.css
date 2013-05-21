@@ -6638,6 +6638,7 @@ body {
                         height:179px;
                         overflow:hidden;
                     }
+                    /*
                     .orange-slider-block .flexslider .slides .period-block_image:after {
                        content:'';
                         position:absolute;
@@ -6649,7 +6650,7 @@ body {
                        background:rgba(255,255,255,0.35);
                         
                     }
-                       
+                     */  
     .restyle-arrows{
                     
     }                
@@ -8618,15 +8619,16 @@ a.appstore-link {
 }
 .events-list .col1{width:1%;}
 .events-list .col2{width:5%;}
-.events-list .col3{width:35%;}
+.events-list .col3{width:40%;}
 .events-list .col4{width:10%;}
 .events-list .col5{width:4%;}
 .events-list .col6{width:10%;}
-.events-list .col7{width:20%;}
+.events-list .col7{width:25%;}
 .events-list .col8{width:5%;}
+/*
 .events-list .col9{width:5%;}
 .events-list .col10{width:5%;}
-
+*/
 .events-list table ul{
     margin:0;
     list-style:none;
@@ -9014,8 +9016,45 @@ a.appstore-link {
 
 /* /Ekaterina Moiseeva. Kinozal */
 
+.thetable{
+    margin: 0;
+    width:100%;
+}
+.thetable caption{
+    color:#f79016;
+    font-weight:bold;
+    border-bottom:3px solid #ececec; 
+    text-align:left;
+    padding-bottom:6px;
+    font-size:14px;
+}
+.thetable td{
+    background: url(../img/table-dots.gif) repeat-x 0 100%;
+    padding:7px 30px 8px 0;
+    vertical-align:top;
+}
+.thetable td.label{
+    font-weight:bold;
+    color:#7e7e7e;
+    padding-right:50px;
+}
+
+.thetable th{
+    padding:7px 30px 8px 0;
+    vertical-align:top;
+    background: url(../img/table-dots.gif) repeat-x 0 100%;
+    text-transform:uppercase;
+    text-align:left;
+    font-size:12px;
+}
+
+.content-tabs-norm-pad{
+    padding-top:20px;
+}
 
 .m-main_en {
   min-height:0px;
   padding-bottom:0!important;
 }
+
+.m-top-0 { margin-top:0; }
