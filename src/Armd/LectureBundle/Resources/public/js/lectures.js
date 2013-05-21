@@ -2,10 +2,15 @@ var armdMkLectures = {
     loadByCount: 32,
     isSearch: false,
     lectureSuperTypeCode: null,
+    lectureTemplate: 'lecture_list',
 
-    init: function(lectureSuperTypeCode) {
+    init: function(lectureSuperTypeCode, lectureTemplate) {
         armdMkLectures.lectureSuperTypeCode = lectureSuperTypeCode;
 
+        if (typeof(lectureTemplate) != 'undefined') {
+            armdMkLectures.lectureTemplate = lectureTemplate;
+        }
+        
         // filter
         $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_genre"] a',
             function (event) {
@@ -135,7 +140,7 @@ var armdMkLectures = {
         data['sort_by'] = $('#sort-filter li.active a').data('sort-by');
 
         $.ajax({
-            url: Routing.generate('armd_lecture_list', {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode}),
+            url: Routing.generate('armd_lecture_list', {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode, 'templateName':armdMkLectures.lectureTemplate}),
             data: data,
             type: 'get',
             dataType: 'html',

@@ -174,7 +174,7 @@
         {% block sub_header %}{% endblock %}
 
         <!-- Main block -->
-        <div class="main clearfix {% block body_class %}{% endblock %}">
+        <div class="main clearfix {% block body_class %}{% endblock %} {% if app.request.locale == 'en' %}m-main_en{% endif %}">
             {% block body %}{% endblock %}
         </div>
         <!-- /Main block -->
@@ -193,6 +193,7 @@
 
         <div class="bottom-menu">
             <ul>
+                {% if app.request.locale == 'ru' %}
                 <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
                 <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
                 <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
@@ -207,6 +208,10 @@
                     </ul>
                 </li>
                 <li><a href="{{ path('armd_main_contacts') }}">{{ "menu.contacts"|trans }}</a></li>
+                {% endif %}
+                {% if app.request.locale == 'en' %}
+                  <li><a href="{{ path('armd_main_contacts') }}">Contacts</a></li>
+                {% endif %}
             </ul>
         </div><!-- /bottom-menu -->
         <!-- Footer block -->
