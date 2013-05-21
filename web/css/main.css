@@ -9014,6 +9014,41 @@ a.appstore-link {
 
 /* /Ekaterina Moiseeva. Kinozal */
 
+.thetable{
+    margin: 0;
+    width:100%;
+}
+.thetable caption{
+    color:#f79016;
+    font-weight:bold;
+    border-bottom:3px solid #ececec; 
+    text-align:left;
+    padding-bottom:6px;
+    font-size:14px;
+}
+.thetable td{
+    background: url(../img/table-dots.gif) repeat-x 0 100%;
+    padding:7px 30px 8px 0;
+    vertical-align:top;
+}
+.thetable td.label{
+    font-weight:bold;
+    color:#7e7e7e;
+    padding-right:50px;
+}
+
+.thetable th{
+    padding:7px 30px 8px 0;
+    vertical-align:top;
+    background: url(../img/table-dots.gif) repeat-x 0 100%;
+    text-transform:uppercase;
+    text-align:left;
+    font-size:12px;
+}
+
+.content-tabs-norm-pad{
+    padding-top:20px;
+}
 
 .m-main_en {
   min-height:0px;
