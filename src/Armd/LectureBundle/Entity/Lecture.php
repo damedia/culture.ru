@@ -47,6 +47,11 @@ class Lecture implements Taggable
     private $recommended = false;
 
     /**
+     * @ORM\Column(name="recommended1", type="boolean", nullable=true)
+     */
+    private $recommended1 = false;
+
+    /**
      * @ORM\Column(name="published", type="boolean", nullable=true)
      */
     private $published = true;
@@ -94,10 +99,6 @@ class Lecture implements Taggable
      * @ORM\JoinTable(name="lecture_genre_lecture")
      */
     private $genres;
-
-//    private $genres1;
-//
-//    private $genres2;
 
     /**
      * @ORM\Column(name="seo_title", type="string", nullable=true)
@@ -182,7 +183,6 @@ class Lecture implements Taggable
      * @ORM\JoinColumn(name="horizontal_banner_id", referencedColumnName="id", nullable=true)
      */
     private $horizontalBanner;
-
 
     public function __construct()
     {
@@ -272,6 +272,22 @@ class Lecture implements Taggable
     {
         $this->recommended = $recommended;
     }
+
+    /**
+      * @return mixed
+      */
+     public function getRecommended1()
+     {
+         return $this->recommended1;
+     }
+
+     /**
+      * @param mixed $recommended1
+      */
+     public function setRecommended1($recommended1)
+     {
+         $this->recommended1 = $recommended1;
+     }
 
     public function getPublished()
     {
@@ -839,4 +855,5 @@ class Lecture implements Taggable
             $this->horizontalBanner = $horizontalBanner;
         }
     }
+
 }
