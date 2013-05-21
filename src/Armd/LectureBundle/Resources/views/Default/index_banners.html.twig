@@ -46,29 +46,19 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    {#
-    <ul class="breadcrumbs">
-        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-        {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-            <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ 'menu.cinema'|trans }}</a></li>
-            {% if genre1 is not empty %}
-                <li><span>{{ genre1.title }}</span></li>
-            {% endif %}
-        {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-            <li><span>{{ 'menu.lectures'|trans }}</span></li>
-        {% endif %}
-    </ul>
-#}
 
     {% render url('armd_lecture_list', {
-            'templateName':'lecture_top_slider',
+            'templateName':'top_slider_list',
             'lectureSuperTypeCode': lectureSuperType.code,
+            'recommended': 1,
             'limit': 5
         })
     %}
+
     {% render url('armd_lecture_list', {
-            'templateName':'lecture_featured',
+            'templateName':'featured_list',
             'lectureSuperTypeCode': lectureSuperType.code,
+            'recommended1': 1,
             'limit': 15
         })
     %}
@@ -128,6 +118,9 @@
         $(function() {
             armdMkLectures.init('{{ lectureSuperType.code }}');
 
+            $('.kinozal-slider').flexslider({
+                slideshow: false
+            });
             $('.kinozal-featured').flexslider({
                 animation: "slide",
                 slideshow: false,

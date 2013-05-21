@@ -46,6 +46,7 @@ class LectureCinemaAdmin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
+            ->add('recommended1')
             ->add('isTop100Film')
             ->add('lectureVideo')
             ->add('lectureFile')
@@ -129,6 +130,7 @@ class LectureCinemaAdmin extends Admin
             )
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
+            ->add('recommended1')
             ->add('isTop100Film', null, array('required' => false))
             ->with('Главная')
                 ->add('showOnMain', null, array(
@@ -163,7 +165,10 @@ class LectureCinemaAdmin extends Admin
             ->add('categories')
             ->add('isTop100Film')
             ->add('showOnMain')
-            ->add('showOnMainOrd');
+            ->add('showOnMainOrd')
+            ->add('recommended')
+            ->add('recommended1')
+        ;
     }
 
 
@@ -182,6 +187,8 @@ class LectureCinemaAdmin extends Admin
             ->add('createdAt')
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('isTop100Film')
+            ->add('recommended')
+            ->add('recommended1')
         ;
     }
 
@@ -201,7 +208,6 @@ class LectureCinemaAdmin extends Admin
         
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
-            // /*
             $actions['ShowOnMain']=array(
                 'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
                 'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
@@ -210,7 +216,22 @@ class LectureCinemaAdmin extends Admin
                 'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
                 'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
             );
-            // */
+            $actions['SetRecommended']=array(
+                'label'            => 'Установить "Рекомендована"',
+                'ask_confirmation' => false
+            );
+            $actions['ResetRecommended']=array(
+                'label'            => 'Сбросить "Рекомендована"',
+                'ask_confirmation' => false
+            );
+            $actions['SetRecommended1']=array(
+                'label'            => 'Установить "Рекомендована1"',
+                'ask_confirmation' => false
+            );
+            $actions['ResetRecommended1']=array(
+                'label'            => 'Сбросить "Рекомендована1"',
+                'ask_confirmation' => false
+            );
         }
         
         return $actions;

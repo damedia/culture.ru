@@ -110,7 +110,7 @@ class DefaultController extends Controller
             $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
         } else {
-            $genre1 = false;
+            $genre1 = null;
         }
 
         // fix menu
@@ -191,16 +191,30 @@ class DefaultController extends Controller
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
         } else {
-            $genre1 = false;
+            $genre1 = null;
         }
 
-        $lectureSuperType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
-            ->findOneByCode($lectureSuperTypeCode);
+        if ($request->query->has('recommended')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
+        }
 
-        $templates = $this->getTemplates($lectureSuperType, $genre1);
+        if ($request->query->has('recommended1')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED1] = true;
+        }
 
+        if ($request->query->has('templateName')) {
+            $template = 'ArmdLectureBundle:Default:' . $request->get('templateName') . '.html.twig';
+        } else {
+            $lectureSuperType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
+                ->findOneByCode($lectureSuperTypeCode);
+
+            $templates = $this->getTemplates($lectureSuperType, $genre1);
+            $template = $templates['list_template'];
+        }
+
+        echo count($lectures);
         return $this->render(
-            $templates['list_template'],
+            $template,
             array(
                 'lectures' => $lectures,
                 'genre1' => $genre1
