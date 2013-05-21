@@ -1,9 +1,9 @@
-{% import 'ArmdLectureBundle::lecture_bg_macro.html.twig' as lectureMacro %}
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 
 <div class="kinozal-slider">
     <ul class="slides kinozal-slider-list">
         {% for lecture in lectures if lectures|length %}
-            <li class="kinozal-slider-one" style="background:url({{ lectureMacro.lectureThumbnail(lecture, 'xbig') }}) no-repeat 50% 50%; background-size: cover;">
+            <li class="kinozal-slider-one" style="background:url({{ lectureMacro.lectureThumbnail(lecture, 'xbig', {}, true) }}) no-repeat 50% 50%; background-size: cover;">
                 <div class="kinozal-slider-block">
                     <h2 class="kinozal-slider-header">
                         <p class="autoscrolling-wrap">
