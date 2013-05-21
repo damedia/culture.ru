@@ -245,7 +245,7 @@
 
             <div class="footer-center">
                 <div class="clearfix fc-col-block">
-                    <div class="fc-col fc-links">
+                    <div class="fc-col fc-links" {% if app.request.locale == 'en' %}style="width: 300px;"{% endif %}>
                     <p>{{ "copyright"|trans }}</p>
                     <ul>
                         <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
@@ -261,9 +261,11 @@
                         </p>
                     {% endif %}
                     </div>
+                    {% if app.request.locale == 'ru' %}
                     <div class="fc-col fc-copyright">
                         <p>При цитировании и&nbsp;копировании материалов с&nbsp;портала активная гиперссылка обязательна</p>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </footer>
