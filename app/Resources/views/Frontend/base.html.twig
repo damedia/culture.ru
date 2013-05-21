@@ -112,7 +112,7 @@
                 <div class="htr-top">
                     {# {% render url('armd_main_login_links') %} #}
                     {% if app.request.locale == 'ru' %}
-                        {#<a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>#}
+                        <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
                     {% else %}
                         <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
                     {% endif %}
