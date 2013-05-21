@@ -308,5 +308,14 @@ class MainController extends Controller
         return 'ArmdMainBundle:Main';
     }
 
+    public function specialProjectsRomanov450Action()
+    {
+        return $this->render('ArmdMainBundle::special_projects_romanov450.html.twig');
+    }
+
+    public function specialProjectsStanislavskiAction()
+    {
+        return $this->render('ArmdMainBundle::special_projects_stanislavski150.html.twig');
+    }
 
 }
