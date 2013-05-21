@@ -9,11 +9,6 @@
 {% endblock %}
 
 {% block left_column %}
-    <ul class="breadcrumbs">
-        <li><a href="/">Главная</a></li>
-        <li><a href="{{ path('armd_perfomance_list') }}">Спектакли</a></li>
-        <li><span>{{ entity.title }}</span></li>
-    </ul>
 	{% if entity.trailerVideo is not empty and entity.perfomanceVideo is not empty %}
 		<div class="sort-filter sort-element-filter" id="switch_view">
 			<ul>
@@ -109,10 +104,12 @@
                                     {% media entity.interviewVideo.imageMedia, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     <span class="play"></span>
                                 </a>
+                                {#
                                 <div class="period-block_text">
                                     <h4>{{ entity.interviewTitle}}</h4>
                                     <p>{{ entity.interviewDescription|raw }}</p>
                                 </div>
+                                #}
                                 <div id="interview-{{ entity.id }}" style="display: none;">
                                     <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
                                         {{ armd_tvigle_video_player(entity.interviewVideo, 640, 360)|raw }}
@@ -137,10 +134,12 @@
                                     <a rel="gallery" name="leaf" title="{{img.media.name}}" href="{% path img.media, 'xxbig' %}" data-fancy-image="{% path img.media, 'xxbig' %}" class="period-block_image in-fancybox">
                                         {% media img.media, 'big' with {'alt' : entity.interviewTitle|escape, 'height':'179', 'width':'306'} %}
                                     </a>
+                                    {#
                                     <div class="period-block_text">
                                         {% if entity.gallery.name %}<h4>{{ entity.gallery.name }}</h4>{% endif %}   
                                         {% if img.media.name %}<p>{{ img.media.name }}</p>{% endif %}   
                                     </div>
+                                    #}
                                 </article>
 			                </li>
 						{% endfor %}	            	                
