@@ -230,6 +230,14 @@ class Builder extends ContainerAware
                     'routeParameters' => array('category' => 'interviews')
                 )
             );
+            
+            $mediaMenu->addChild(
+                'menu.article',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'articles')
+                )
+            );
 
             $mediaMenu->addChild(
                 'menu.events',
