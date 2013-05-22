@@ -212,7 +212,6 @@ class DefaultController extends Controller
             $template = $templates['list_template'];
         }
 
-        echo count($lectures);
         return $this->render(
             $template,
             array(
