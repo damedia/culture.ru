@@ -2989,7 +2989,7 @@ body {
                     .museum-image-title span{
                         float:right;
                     }
-                    .museum-image-image{
+                    .museum-image-over .museum-image-image{
                         position:absolute;
                         top:120px;
                         right:38px;
@@ -8686,11 +8686,22 @@ a.appstore-link {
     .virt-museum-circle {
         width:289px;
         height:289px;
-        background:url(../img/virtual-circle-visible.png) no-repeat 0 0;
+        background: url('../img/museum-circle.png') no-repeat 0 0;
         position:absolute;
         left:60px;
         top:26px;
         z-index:3;
+    }
+    .virt-museum-circle .museum-image-image{
+        position:absolute;
+        top:120px;
+        right:38px;
+        width:104px;
+        height:133px;
+        background:url(../img/360-black-big.png) no-repeat 0 0;
+    }
+    .virt-museum-circle:hover{
+        background-position:0 -289px;
     }
         .virt-museum-circle h2 {
             text-transform: uppercase;
