@@ -90,16 +90,7 @@
         <section class="video-one">
             <div class="video-one_container">
 
-                {% if lecture.trailerVideo is not empty or lecture.lectureVideo is not empty %}
-                    {# tvigle video #}
-                    {% if lectureVersion == 'trailer' and lecture.trailerVideo is not empty %}
-                        {% set lectureVideo = lecture.trailerVideo %}
-                    {% else %}
-                        {% set lectureVideo = lecture.lectureVideo %}
-                    {% endif %}
-                    {{ armd_tvigle_video_player(lectureVideo, '100%', 506)|raw }}
-
-                {% elseif lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
+                {% if lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
                     {# media video #}
                     {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
                         {% set lectureVideo = lecture.mediaTrailerVideo %}
