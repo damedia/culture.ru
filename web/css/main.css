@@ -4069,10 +4069,11 @@ body {
                         .right-video-block  .flexslider:last-child:after {
                             display:none;
                         }
-                        
+                        /*
                         .right-video-block .period-block_image img {
                             opacity:0.5;
                         }
+                        */
                         .no-opacity  .period-block_image img {
                             opacity:1;
                         }
