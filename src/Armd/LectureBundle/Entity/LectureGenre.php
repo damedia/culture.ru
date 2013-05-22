@@ -44,6 +44,11 @@ class LectureGenre
      */
     private $level = 1;
 
+    /**
+     * @ORM\Column(name="template", type="string", length=255, nullable=true)
+     */
+    private $template;
+
     public function __toString() {
         return $this->title;
     }
@@ -107,6 +112,22 @@ class LectureGenre
     public function setLevel($level)
     {
         $this->level = $level;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param mixed $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
     }
 
 }

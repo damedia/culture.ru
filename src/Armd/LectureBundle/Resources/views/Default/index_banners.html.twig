@@ -1,4 +1,4 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
+{% extends ':Frontend:layout_one_column.html.twig' %}
 
 {% block page_header_title %}
     {% if lectureSuperType %}
@@ -45,37 +45,44 @@
 {% block search_query %}{{ searchQuery }}{% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block left_column %}
-    <ul class="breadcrumbs">
-        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-        {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
-            <li><a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ 'menu.cinema'|trans }}</a></li>
-            {% if genre1 is not empty %}
-                <li><span>{{ genre1.title }}</span></li>
-            {% endif %}
-        {% elseif lectureSuperType.code == 'LECTURE_SUPER_TYPE_LECTURE' %}
-            <li><span>{{ 'menu.lectures'|trans }}</span></li>
-        {% endif %}
-    </ul>
+{% block one_column %}
 
-    <section id="sort-panel" class="clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
-        <div  class="sort-filter" id="sort-filter">
-            <ul>
-                {#<li class="active"><a href="#" data-sort-by="date">по дате</a></li>#}
-                <li{% if filter.sortBy != 'title' %} class="active"{% endif %}><a href="#" data-sort-by="popularity">по популярности</a></li>
-                <li{% if filter.sortBy == 'title' %} class="active"{% endif %}><a href="#" data-sort-by="title">по алфавиту</a></li>
-            </ul>
-        </div>
-        <div id="alphabet-filter">
-            <ul>
-                <li class="all-let{% if not filter.letter %} active{% endif %}"><a href="#">Все</a></li>
-                {% for l in filter.alphabet %}
-                    <li{% if filter.letter == l %} class="active"{% endif %}><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </section>
-    
+    {% render url('armd_lecture_list', {
+            'templateName':'top_slider_list',
+            'lectureSuperTypeCode': lectureSuperType.code,
+            'recommended': 1,
+            'limit': 5
+        })
+    %}
+
+    {% render url('armd_lecture_list', {
+            'templateName':'featured_list',
+            'lectureSuperTypeCode': lectureSuperType.code,
+            'recommended1': 1,
+            'limit': 15
+        })
+    %}
+
+    <div class="kinozal-filters">
+        <section id="sort-panel" class="kinozal-filters-panel clearfix" {% if tag is not empty %}style="display:none"{% endif %}>
+            <div  class="sort-filter" id="sort-filter">
+                <ul>
+                    {#<li class="active"><a href="#" data-sort-by="date">по дате</a></li>#}
+                    <li class="active"><a href="#" data-sort-by="popularity">по популярности</a></li>
+                    <li><a href="#" data-sort-by="title">по алфавиту</a></li>
+                </ul>
+            </div>
+            <div id="alphabet-filter">
+                <ul>
+                    <li class="all-let active"><a href="#">Все</a></li>
+                    {% for l in alphabet %}
+                        <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+
 
     {% if tag is not empty %}
         <section id="tag-filter-panel">
@@ -83,46 +90,47 @@
         </section>
     {% endif %}
 
-    <div id="lecture-container" class="plitka">
+    <div id="lecture-container" class="plitka  kinozal-other">
         {% render url('armd_lecture_list', {
                 'lectureSuperTypeCode': lectureSuperType.code,
                 'limit': 32,
                 'search_query': searchQuery,
                 'genre_ids': selectedGenreIds,
                 'tag_id': (tag is empty ? 0 : tag.id),
-                'genre1_id': (genre1 is empty ? 0 : genre1.id),
-                'first_letter': filter.letter,
-                'offset': filter.offset,
-                'sort_by': filter.sortBy
+                'genre1_id': (genre1 is empty ? 0 : genre1.id)
             })
         %}
     </div>
     <div id="lecture-more-container" class="more more2">
         <p><a id="lecture-more-button" href="#">{{ "show_more"|trans }}</a></p>
     </div>
-    <script>if ($('#lecture-container').find('.plitka-one-wrap').length < armdMkLectures.loadByCount) { armdMkLectures.hideMore();}</script>
 
 {% endblock %}
 
 {#--------------------------------------------------------------------------------------------------------------------#}
-{% block right_column %}
-
-    {% render url('armd_news_memorial_events') %}
-    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
-    <div class="right-video-block">
-        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
-        {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
-    </div>
-
-{% endblock %}
 
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/lectures.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdlecture/js/autoscroll.js') }}"></script>
     <script type="text/javascript">
         $(function() {
             armdMkLectures.init('{{ lectureSuperType.code }}');
+
+            $('.kinozal-slider').flexslider({
+                slideshow: false
+            });
+            $('.kinozal-featured').flexslider({
+                animation: "slide",
+                slideshow: false,
+                itemWidth: 182,
+                itemMargin: 17
+            });
+
+            autoScrolling.init();
+
         });
+
     </script>
 {% endblock %}

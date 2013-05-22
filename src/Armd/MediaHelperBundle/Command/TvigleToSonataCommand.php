@@ -232,12 +232,9 @@ class TvigleToSonataCommand  extends DoctrineCommand {
                     }
 
                     if ($mediaEntities) {
-//                        \gFuncs::dbgWriteLogDoctrine($tvigleEntities, 2, false, ''); // DBG:
-//                        \gFuncs::dbgWriteLogDoctrine($mediaEntities, 2, false, ''); // DBG:
                         $entity->$fromSetMethodName($tvigleEntities);
                         $entity->$toSetMethodName($mediaEntities);
                         $em->persist($entity);
-//                        $em->flush();
                     }
                 }
             }

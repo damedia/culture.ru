@@ -2,6 +2,7 @@
 
 namespace Armd\LectureBundle\Controller;
 
+use Armd\LectureBundle\Entity\LectureGenre;
 use Armd\LectureBundle\Entity\LectureSuperType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,7 +27,7 @@ class DefaultController extends Controller
     public function cinemaIndexAction($genreSlug = null)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $request = $this->getRequest();
         $genreIds = array();
 
         // first level genre
@@ -44,7 +45,7 @@ class DefaultController extends Controller
         }
 
         // second level slug
-        $genre2Id = $this->getRequest()->get('genre_id');
+        $genre2Id = $request->get('genre_id');
         if ($genre2Id) {
             $genreIds[] = $genre2Id;
         }
@@ -55,8 +56,12 @@ class DefaultController extends Controller
                 'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_CINEMA',
             ),
             array(
-                'genre1_id' => $genre1->getId(), // for breadcrumbs
-                'genre_ids' => $genreIds
+                'genre1_id' => is_object($genre1) ? $genre1->getId() : 0, // for breadcrumbs
+                'genre_ids' => $genreIds,
+                'first_letter' => $request->get('first_letter'),
+                'sort_by' => $request->get('sort_by'),
+                'offset' => $request->get('offset'),
+                'search_query' => $request->get('search_query')
             )
         );
     }
@@ -66,8 +71,9 @@ class DefaultController extends Controller
      */
     public function lectureIndexAction()
     {
+        $request = $this->getRequest();
         $genreIds = array();
-        $genreId = $this->getRequest()->get('genre_id');
+        $genreId = $request->get('genre_id');
         if ($genreId) {
             $genreIds[] = $genreId;
         }
@@ -78,7 +84,11 @@ class DefaultController extends Controller
                 'lectureSuperTypeCode' => 'LECTURE_SUPER_TYPE_LECTURE'
             ),
             array(
-                'genre_ids' => $genreIds
+                'genre_ids' => $genreIds,
+                'first_letter' => $request->get('first_letter'),
+                'sort_by' => $request->get('sort_by'),
+                'offset' => $request->get('offset'),
+                'search_query' => $request->get('search_query')
             )
         );
     }
@@ -86,7 +96,6 @@ class DefaultController extends Controller
 
     /**
      * @Route("/lecture/index/{lectureSuperTypeCode}/", name="armd_lecture_default_index", options={"expose": true})
-     * @Template("ArmdLectureBundle:Default:index.html.twig")
      */
     public function indexAction($lectureSuperTypeCode)
     {
@@ -95,9 +104,6 @@ class DefaultController extends Controller
 
         $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode($lectureSuperTypeCode);
-
-        $alphabet = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О',
-            'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
 
         if ($request->query->has('tag_id')) {
             $tag = $em->getRepository('ArmdTagBundle:Tag')->find($request->get('tag_id'));
@@ -110,7 +116,7 @@ class DefaultController extends Controller
             $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
         } else {
-            $genre1 = false;
+            $genre1 = null;
         }
 
         // fix menu
@@ -118,14 +124,18 @@ class DefaultController extends Controller
             $this->getMenuUri($lectureSuperTypeCode, $request)
         );
 
-        return array(
-            'lectureSuperType' => $lectureSuperType,
-            'genres' => $this->getGenres($lectureSuperType),
-            'genre1' => $genre1,
-            'selectedGenreIds' => $request->get('genre_ids'),
-            'searchQuery' => $request->get('search_query'),
-            'alphabet' => $alphabet,
-            'tag' => $tag
+        $templates = $this->getTemplates($lectureSuperType, $genre1);
+        return $this->render(
+            $templates['index_template'],
+            array(
+                'lectureSuperType' => $lectureSuperType,
+                'genres' => $this->getGenres($lectureSuperType),
+                'genre1' => $genre1,
+                'selectedGenreIds' => $request->get('genre_ids'),
+                'searchQuery' => $request->get('search_query'),
+                'tag' => $tag,
+                'filter' => $this->getFilter()
+            )
         );
 
     }
@@ -187,12 +197,33 @@ class DefaultController extends Controller
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
         } else {
-            $genre1 = false;
+            $genre1 = null;
         }
 
-        return array(
-            'lectures' => $lectures,
-            'genre1' => $genre1
+        if ($request->query->has('recommended')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
+        }
+
+        if ($request->query->has('recommended1')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED1] = true;
+        }
+
+        if ($request->query->has('templateName')) {
+            $template = 'ArmdLectureBundle:Default:' . $request->get('templateName') . '.html.twig';
+        } else {
+            $lectureSuperType = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureSuperType')
+                ->findOneByCode($lectureSuperTypeCode);
+
+            $templates = $this->getTemplates($lectureSuperType, $genre1);
+            $template = $templates['list_template'];
+        }
+
+        return $this->render(
+            $template,
+            array(
+                'lectures' => $lectures,
+                'genre1' => $genre1
+            )
         );
     }
 
@@ -344,6 +375,29 @@ class DefaultController extends Controller
         return $this->get('fpn_tag.tag_manager');
     }
 
+    public function getTemplates(LectureSuperType $lectureSuperType, LectureGenre $genre1 = null)
+    {
+        $templateName = false;
+        if ($genre1 && $genre1->getTemplate()) {
+            $templateName = $genre1->getTemplate();
+        } elseif ($lectureSuperType->getTemplate()) {
+            $templateName = $lectureSuperType->getTemplate();
+        }
+
+        if ($templateName) {
+            $indexTemplate = 'ArmdLectureBundle:Default:index_' . $templateName . '.html.twig';
+            $listTemplate =  'ArmdLectureBundle:Default:list_' . $templateName . '.html.twig';
+        } else {
+            $indexTemplate = 'ArmdLectureBundle:Default:index.html.twig';
+            $listTemplate =  'ArmdLectureBundle:Default:list.html.twig';
+        }
+
+        return array(
+            'index_template' => $indexTemplate,
+            'list_template' => $listTemplate
+        );
+    }
+
     public function getMenuUri($superTypeCode, Request $request)
     {
         $router = $this->get('router');
@@ -385,6 +439,7 @@ class DefaultController extends Controller
      */
     public function getItemsSitemap($action = null, $params = array())
     {
+        // MYTODO: fix according to genres
         $items = array();
 
         if ($action) {
@@ -439,4 +494,18 @@ class DefaultController extends Controller
         return $items;
     }
 
+    protected function getFilter()
+    {
+        $request = $this->getRequest();
+        $filter = array(
+            'alphabet' => array(
+                'А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О',
+                'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я'
+            ));
+        $filter['letter'] = ($letter = $request->get('first_letter')) && in_array($letter, $filter['alphabet']) ? $letter : false;
+        $filter['sortBy'] = $request->get('sort_by');
+        $filter['offset'] = (int)$request->get('offset');
+
+        return $filter;
+    }
 }

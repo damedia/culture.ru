@@ -47,6 +47,11 @@ class Lecture implements Taggable
     private $recommended = false;
 
     /**
+     * @ORM\Column(name="recommended1", type="boolean", nullable=true)
+     */
+    private $recommended1 = false;
+
+    /**
      * @ORM\Column(name="published", type="boolean", nullable=true)
      */
     private $published = true;
@@ -94,10 +99,6 @@ class Lecture implements Taggable
      * @ORM\JoinTable(name="lecture_genre_lecture")
      */
     private $genres;
-
-//    private $genres1;
-//
-//    private $genres2;
 
     /**
      * @ORM\Column(name="seo_title", type="string", nullable=true)
@@ -170,6 +171,18 @@ class Lecture implements Taggable
      */
     private $stuff;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="vertical_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $verticalBanner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="horizontal_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $horizontalBanner;
 
     public function __construct()
     {
@@ -260,6 +273,22 @@ class Lecture implements Taggable
         $this->recommended = $recommended;
     }
 
+    /**
+      * @return mixed
+      */
+     public function getRecommended1()
+     {
+         return $this->recommended1;
+     }
+
+     /**
+      * @param mixed $recommended1
+      */
+     public function setRecommended1($recommended1)
+     {
+         $this->recommended1 = $recommended1;
+     }
+
     public function getPublished()
     {
         return $this->published;
@@ -332,24 +361,6 @@ class Lecture implements Taggable
     public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
     {
         $this->mediaTrailerVideo = $mediaTrailerVideo;
-    }
-
-    /**
-     * @return \Application\Sonata\MediaBundle\Entity\Media
-     */
-    public function getLectureFile()
-    {
-        return $this->lectureFile;
-    }
-
-    /**
-     * @param \Application\Sonata\MediaBundle\Entity\Media $lectureFile
-     */
-    public function setLectureFile(\Application\Sonata\MediaBundle\Entity\Media $lectureFile = null)
-    {
-        if (is_null($lectureFile) || $lectureFile->isUploaded()) {
-            $this->lectureFile = $lectureFile;
-        }
     }
 
     /**
@@ -808,4 +819,41 @@ class Lecture implements Taggable
     {
         return $this->stuff;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getVerticalBanner()
+    {
+        return $this->verticalBanner;
+    }
+
+    /**
+     * @param mixed $verticalBanner
+     */
+    public function setVerticalBanner(\Application\Sonata\MediaBundle\Entity\Media $verticalBanner = null)
+    {
+        if (is_null($verticalBanner) || $verticalBanner->isUploaded()) {
+            $this->verticalBanner = $verticalBanner;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHorizontalBanner()
+    {
+        return $this->horizontalBanner;
+    }
+
+    /**
+     * @param mixed $horizontalBanner
+     */
+    public function setHorizontalBanner(\Application\Sonata\MediaBundle\Entity\Media $horizontalBanner = null)
+    {
+        if (is_null($horizontalBanner) || $horizontalBanner->isUploaded()) {
+            $this->horizontalBanner = $horizontalBanner;
+        }
+    }
+
 }
