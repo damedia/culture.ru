@@ -3226,9 +3226,14 @@ body {
                     margin-bottom: 48px;
                     overflow: hidden;
                 }
-                    .me-list-image {
+                    .me-list-image-wrap{
                         float:left;
                         margin:0 34px 0 0;
+                        width:125px;
+                        text-align:center;
+                    }
+                    .me-list-image {
+                        margin:0 auto;
                     }
                     .me-list-text {
                         overflow:hidden;
