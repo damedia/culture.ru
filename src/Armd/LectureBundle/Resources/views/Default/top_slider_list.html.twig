@@ -12,12 +12,7 @@
                         </h2>
                         <div class="kinozal-slider-content">
                             <div class="ksc-left-column">
-                                <p>
-                                    <b>Категории:</b>
-                                   {% for genre in lecture.genres %}
-                                        <a href="#" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}
-                                    {% endfor %}
-                                </p>
+                               {% thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' } %}
                                 {% if lecture.productionYear %}
                                     <p>
                                         <b>Год:</b> {{ lecture.productionYear }}
@@ -35,6 +30,12 @@
                                 </p>#}
                             </div><div class="ksc-right-column autoscrolling-wrap">
                                 <div class="autoscrolling">
+                                    <p class="ksc-categories">
+                                        <b>Категории:</b>
+                                        {% for genre in lecture.filtrableGenres %}
+                                            <a href="#" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}
+                                        {% endfor %}
+                                    </p>
                                     {% if lecture.description %}
                                         {{ lecture.description|raw  }}
                                     {% endif %}

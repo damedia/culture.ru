@@ -8772,11 +8772,13 @@ a.appstore-link {
                     .ksc-left-column, .ksc-right-column {
                         display:inline-block;
                         vertical-align:top;
-                        width:50%;
                         line-height:14px;
                         height:138px;
                         overflow:hidden;
                         
+                    }
+                    .ksc-left-column {
+                        width: 110px;
                     }
                         .autoscrolling-wrap, .autoscrolling, .autoscrollingHor {
                             position:relative;
@@ -8796,7 +8798,7 @@ a.appstore-link {
                         }
                    
                     .ksc-right-column {
-                                               
+                        width: 310px;
                     }
                     .kinozal-slider-content p {
                         font-size:10px; 
@@ -8808,6 +8810,9 @@ a.appstore-link {
                     }
                     .ksc-right-column  p {
                         margin-left:20px;
+                    }
+                    .ksc-categories {
+                        margin-bottom: 5px;
                     }
                     
                 .kinozal-slider-footer {
@@ -8871,6 +8876,16 @@ a.appstore-link {
                         width:152px;
                         overflow:hidden;
                         display:block;
+                        position: relative;
+                    }
+                    .kfl-image-link .top100-corner, .kol-image-link .top100-corner  {
+                        background: url('../img/top100_grey.png');
+                        width: 43px;
+                        height: 49px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        z-index: 100;
                     }
                     .kfl-image {
                         border:1px solid #efebec;
@@ -8975,6 +8990,7 @@ a.appstore-link {
                             width:114px;
                             overflow:hidden;
                             display:block;
+                            position: relative;
                         }
                         .kol-image {
                             border:1px solid #efebec;

@@ -3,6 +3,7 @@
         --><li class="plitka-one-wrap kol-one">
             <div class="kol-block">
                 <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="kol-image-link">
+                    {% if lecture.isTop100Film %}<div class="top100-corner"></div>{% endif %}
                     {%  thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' } %}
 
                     {#{{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' }) }}#}
@@ -14,7 +15,7 @@
                             {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
                         </p>
                     {% endif % #}
-                <p class="kol-stats">Мосфильм, 1979</p>
+                <p class="kol-stats">Просмотров: {{ lecture.viewCount }}</p>
             </div>
         </li><!--
     {% endfor %}
