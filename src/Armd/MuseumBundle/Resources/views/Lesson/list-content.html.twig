@@ -1,7 +1,7 @@
 	
 		{% for entity in list %}
 			<li>
-            	{% media entity.image, 'small' with {'alt': entity.title|escape, 'class' : 'me-list-image'} %}
+            	<div class="me-list-image-wrap">{% if entity.image %}{% media entity.image, 'small' with {'alt': entity.title|escape, 'class' : 'me-list-image'} %}{% else %}<img src="/img/me-list-image.png" class="me-list-image">{% endif %}</div>
                 <div class="me-list-text">
                 	<h3><a href="{{ path('armd_lesson_item', {'id': entity.id }) }}" class="me-list-title">{{ entity.title }}</a></h3>
                     <span class="me-list-dates">{{ entity.dates }}{% if entity.time %}, {{ entity.time }}{% endif %}</span>
