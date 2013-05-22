@@ -9102,3 +9102,7 @@ a.appstore-link {
 }
 
 .m-top-0 { margin-top:0; }
+
+@media (max-width: 1024px) {
+  .search-category-selects .ui-selectgroup{width:20%;}
+}
