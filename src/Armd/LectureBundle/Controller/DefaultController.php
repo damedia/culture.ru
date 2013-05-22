@@ -190,6 +190,14 @@ class DefaultController extends Controller
             $criteria[LectureManager::CRITERIA_GENRE_IDS_AND] = $request->get('genre_ids');
         }
 
+        if ($request->query->has('recommended')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
+        }
+
+        if ($request->query->has('recommended1')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED1] = true;
+        }
+
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
         // for breadcrumbs
@@ -198,14 +206,6 @@ class DefaultController extends Controller
                 ->find($request->get('genre1_id'));
         } else {
             $genre1 = null;
-        }
-
-        if ($request->query->has('recommended')) {
-            $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
-        }
-
-        if ($request->query->has('recommended1')) {
-            $criteria[LectureManager::CRITERIA_RECOMMENDED1] = true;
         }
 
         if ($request->query->has('templateName')) {

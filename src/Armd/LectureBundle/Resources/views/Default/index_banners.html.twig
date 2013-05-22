@@ -50,16 +50,14 @@
     {% render url('armd_lecture_list', {
             'templateName':'top_slider_list',
             'lectureSuperTypeCode': lectureSuperType.code,
-            'recommended': 1,
-            'limit': 5
+            'recommended': 1
         })
     %}
 
     {% render url('armd_lecture_list', {
             'templateName':'featured_list',
             'lectureSuperTypeCode': lectureSuperType.code,
-            'recommended1': 1,
-            'limit': 15
+            'recommended1': 1
         })
     %}
 
