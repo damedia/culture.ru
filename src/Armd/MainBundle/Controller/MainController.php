@@ -41,10 +41,20 @@ class MainController extends Controller
             )
         );
 
+        if ($this->getRequest()->getLocale() === 'en') {
+            $newsCount = 3;
+        } else {
+            $newsCount = 16;
+            $activeTranslation = $this->get('armd_online_translation.manager.online_translation')
+                                 ->getActiveTranslation();
+            if (!empty($activeTranslation)) {
+                $newsCount -= 9;
+            }
+        }
         $news = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => 15,
+                NewsManager::CRITERIA_LIMIT => $newsCount,
             )
         );
 
@@ -308,5 +318,14 @@ class MainController extends Controller
         return 'ArmdMainBundle:Main';
     }
 
+    public function specialProjectsRomanov450Action()
+    {
+        return $this->render('ArmdMainBundle::special_projects_romanov450.html.twig');
+    }
+
+    public function specialProjectsStanislavskiAction()
+    {
+        return $this->render('ArmdMainBundle::special_projects_stanislavski150.html.twig');
+    }
 
 }

@@ -29,26 +29,12 @@ class DefaultController extends Controller
             10 => '10 мин'
         );
     }
-    
-    protected function getActiveTranslation()
-    {
-        $entities = $this->getDoctrine()
-            ->getRepository('ArmdOnlineTranslationBundle:OnlineTranslation')
-            ->findBy(array('published' => 1), array('date' => 'DESC'), 1);
-        
-        if (isset($entities[0])) {
-            $entity = $entities[0];           
-        } else {
-            $entity = false;
-        }
-        
-        return $entity;
-    }
+
     
     public function indexAction()
     {
         $params = array();      
-        $entity = $this->getActiveTranslation();
+        $entity = $this->getTranslationManager()->getActiveTranslation();
         
         if ($entity) {        
             $params['date'] = $this->getFormatDate($entity->getDate());
@@ -73,7 +59,7 @@ class DefaultController extends Controller
     public function homepageWidgetAction()
     {
         $params = array();      
-        $entity = $this->getActiveTranslation();
+        $entity = $this->getTranslationManager()->getActiveTranslation();
         
         if (!$entity) {
             return new Response();
@@ -156,5 +142,10 @@ class DefaultController extends Controller
         $this->getRequest()->getSession()->set('online-translation-captcha', $builder->getPhrase());
         
         return new Response($builder->get(), 200, array('Content-type' => 'image/jpeg'));
+    }
+
+    public function getTranslationManager()
+    {
+        return $this->get('armd_online_translation.manager.online_translation');
     }
 }

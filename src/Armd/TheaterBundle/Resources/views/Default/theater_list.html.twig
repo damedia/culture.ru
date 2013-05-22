@@ -1,4 +1,4 @@
-{% extends ':Frontend:base.html.twig' %}
+{% extends ':Frontend:layout_two_column.html.twig' %}
 
 {#{% block stylesheets %}#}
 
@@ -49,7 +49,7 @@
 {% endblock %}
 
 
-{% block body%}
+{% block left_column %}
 
 
 
@@ -82,7 +82,10 @@
 </div>
     
 {% endblock %}
-    
+   
+{% block right_column %}
+    {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
 
