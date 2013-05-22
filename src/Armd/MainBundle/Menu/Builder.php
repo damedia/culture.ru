@@ -231,6 +231,14 @@ class Builder extends ContainerAware
                 )
             );
 
+            $mediaMenu->addChild(
+                'menu.events',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'events')
+                )
+            );
+
             //--- /Media
 
             //--- russiaimages
