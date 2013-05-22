@@ -249,7 +249,7 @@ body {
                 top:34px;
                 color:#575757;
                 text-transform:uppercase;
-                font: 29px Tahoma, Arial, sans-serif;
+                font: 25px Tahoma, Arial, sans-serif;
                 font-weight:normal;
             }
             .main-title span{
@@ -348,7 +348,7 @@ body {
 			}
                 .main-menu ul {
 					list-style:none;
-                    font: 21px Tahoma, Arial, sans-serif;
+                    font: 17px Tahoma, Arial, sans-serif;
 				}
                     .main-menu ul li {
                         position:relative;
@@ -869,13 +869,13 @@ body {
             background-repeat:no-repeat;
         }
         .newspaper-literature a{
-            width:220px;
-            height:64px;
+            width:190px;
+            height:55px;
             background-image:url(../img/newspaper-literature.jpg);
         }
         .newspaper-culture a{
-            width:220px;
-            height:61px;
+            width:190px;
+            height:53px;
             background-image:url(../img/newspaper-culture.jpg);
         }
 
@@ -2965,7 +2965,7 @@ body {
 					top:25px;
 					width:289px;
 					height:289px;
-                    background: url('../img/museum-circle.png') no-repeat 50% 50%;
+                    background: url('../img/museum-circle.png') no-repeat 0 0;
                     /*
 					background:rgba(255,255,255,0.6);
                     -webkit-border-radius: 145px;
@@ -2973,6 +2973,9 @@ body {
                     border-radius: 145px;
                     */
 				}
+                .plitka-one-wrap-opened  .museum-image-over:hover{
+                    background-position:0 -289px;
+                }
                     .museum-image-title{
                         position:absolute;
                         right:25px;
@@ -4398,6 +4401,10 @@ body {
             padding-bottom: 1px;
             margin: 0 0 5px 0;
         }
+        .video-tabs h4 {
+            margin: 0 0 8px 0;
+            font-size: 12px;    
+        }
         .video-tabs-title{
             line-height: 13px;
             margin-bottom: 7px;
@@ -4447,8 +4454,11 @@ body {
                         }
 
                         .event-tab-news-one {
-                            margin-bottom:10px;
+                            padding:5px 0;
                             overflow: hidden;
+                        }
+                        .event-tab-news-one:hover{
+                            background:#eef3f6;
                         }
                             .event-tab-news-one  img {
                                 float:left;
@@ -4495,7 +4505,7 @@ body {
                             padding-bottom: 1px;
                             color: #154060;
                             border-bottom: 2px solid #7C95A7;
-                            margin: 15px 0 7px;
+                            margin: 15px 0 2px;
                         }
                         .all {
                             text-align:right;
@@ -8777,9 +8787,11 @@ a.appstore-link {
                         overflow:hidden;
                         
                     }
+
                     .ksc-left-column {
                         width: 110px;
                     }
+
                         .autoscrolling-wrap, .autoscrolling, .autoscrollingHor {
                             position:relative;
                         }
@@ -8814,7 +8826,7 @@ a.appstore-link {
                     .ksc-categories {
                         margin-bottom: 5px;
                     }
-                    
+
                 .kinozal-slider-footer {
                     background:#fefefd;
                     font-size:12px;
@@ -9021,6 +9033,7 @@ a.appstore-link {
 /* /Ekaterina Moiseeva. Kinozal */
 
 
-.m-main_en { 
+.m-main_en {
   min-height:0px;
-  padding-bottom:0!important;  }
+  padding-bottom:0!important;
+}
