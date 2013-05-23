@@ -23,10 +23,24 @@ class MediaProviderPass implements CompilerPassInterface
             $providers = $configPool->getOption('providers');
 
             $container->getDefinition('sonata.media.provider.culturetv')
-                ->replaceArgument(1,  new Reference($providers['culturetv']['filesystem']))
-                ->replaceArgument(3,  new Reference($providers['culturetv']['generator']))
-                ->replaceArgument(4,  new Reference($providers['culturetv']['thumbnail']))
+                ->replaceArgument(1, new Reference($providers['culturetv']['filesystem']))
+                ->replaceArgument(3, new Reference($providers['culturetv']['generator']))
+                ->replaceArgument(4, new Reference($providers['culturetv']['thumbnail']))
                 ->addMethodCall('setResizer', array(new Reference($providers['culturetv']['resizer'])))
+            ;
+        }
+
+        if($container->hasDefinition('sonata.media.provider.tvigle')) {
+            $configPool = $container->get('armd_media_helper.configuration_pool');
+
+            $providers = $configPool->getOption('providers');
+
+            $container->getDefinition('sonata.media.provider.tvigle')
+                ->replaceArgument(1, new Reference($providers['tvigle']['filesystem']))
+                ->replaceArgument(3, new Reference($providers['tvigle']['generator']))
+                ->replaceArgument(4, new Reference($providers['tvigle']['thumbnail']))
+                ->replaceArgument(6, $providers['tvigle']['api'])
+                ->addMethodCall('setResizer', array(new Reference($providers['tvigle']['resizer'])))
             ;
         }
     }

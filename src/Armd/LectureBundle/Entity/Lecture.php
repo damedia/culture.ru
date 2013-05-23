@@ -5,6 +5,7 @@ namespace Armd\LectureBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -47,13 +48,18 @@ class Lecture implements Taggable
     private $recommended = false;
 
     /**
+     * @ORM\Column(name="recommended1", type="boolean", nullable=true)
+     */
+    private $recommended1 = false;
+
+    /**
      * @ORM\Column(name="published", type="boolean", nullable=true)
      */
     private $published = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="lecture_video_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="lecture_video_id", referencedColumnName="id", nullable=true)
      */
     private $lectureVideo;
 
@@ -75,6 +81,11 @@ class Lecture implements Taggable
      */
     private $mediaTrailerVideo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery", cascade={"persist"}, fetch="EAGER")
+     */
+    private $series;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="LectureSuperType", fetch="EAGER")
@@ -94,10 +105,6 @@ class Lecture implements Taggable
      * @ORM\JoinTable(name="lecture_genre_lecture")
      */
     private $genres;
-
-//    private $genres1;
-//
-//    private $genres2;
 
     /**
      * @ORM\Column(name="seo_title", type="string", nullable=true)
@@ -170,6 +177,18 @@ class Lecture implements Taggable
      */
     private $stuff;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="vertical_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $verticalBanner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="horizontal_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $horizontalBanner;
 
     public function __construct()
     {
@@ -260,6 +279,22 @@ class Lecture implements Taggable
         $this->recommended = $recommended;
     }
 
+    /**
+      * @return mixed
+      */
+     public function getRecommended1()
+     {
+         return $this->recommended1;
+     }
+
+     /**
+      * @param mixed $recommended1
+      */
+     public function setRecommended1($recommended1)
+     {
+         $this->recommended1 = $recommended1;
+     }
+
     public function getPublished()
     {
         return $this->published;
@@ -329,27 +364,25 @@ class Lecture implements Taggable
     /**
      * @param \Application\Sonata\MediaBundle\Entity\Media $mediaTrailerVideo
      */
-    public function setMediaTrailerVideo(Media $mediaTrailerVideo)
+    public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
     {
         $this->mediaTrailerVideo = $mediaTrailerVideo;
     }
 
     /**
-     * @return \Application\Sonata\MediaBundle\Entity\Media
+     * @return Gallery|null
      */
-    public function getLectureFile()
+    public function getSeries()
     {
-        return $this->lectureFile;
+        return $this->series;
     }
 
     /**
-     * @param \Application\Sonata\MediaBundle\Entity\Media $lectureFile
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $series
      */
-    public function setLectureFile(\Application\Sonata\MediaBundle\Entity\Media $lectureFile = null)
+    public function setSeries(Gallery $series = null)
     {
-        if (is_null($lectureFile) || $lectureFile->isUploaded()) {
-            $this->lectureFile = $lectureFile;
-        }
+        $this->series = $series;
     }
 
     /**
@@ -808,4 +841,41 @@ class Lecture implements Taggable
     {
         return $this->stuff;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getVerticalBanner()
+    {
+        return $this->verticalBanner;
+    }
+
+    /**
+     * @param mixed $verticalBanner
+     */
+    public function setVerticalBanner(\Application\Sonata\MediaBundle\Entity\Media $verticalBanner = null)
+    {
+        if (is_null($verticalBanner) || $verticalBanner->isUploaded()) {
+            $this->verticalBanner = $verticalBanner;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHorizontalBanner()
+    {
+        return $this->horizontalBanner;
+    }
+
+    /**
+     * @param mixed $horizontalBanner
+     */
+    public function setHorizontalBanner(\Application\Sonata\MediaBundle\Entity\Media $horizontalBanner = null)
+    {
+        if (is_null($horizontalBanner) || $horizontalBanner->isUploaded()) {
+            $this->horizontalBanner = $horizontalBanner;
+        }
+    }
+
 }

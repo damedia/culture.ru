@@ -118,7 +118,7 @@ class RouteAdmin extends Admin
                     'required'     => false,
                     'attr'         => array('class' => 'armd-sonata-images-collection'),
                 ))
-                ->add('videos', 'collection', array(
+                /*->add('videos', 'collection', array(
                     'type' => 'armd_tvigle_video_selector',
                     'by_reference' => false,
                     'allow_add' => true,
@@ -126,6 +126,21 @@ class RouteAdmin extends Admin
                     'required'     => false,
                     'attr' => array('class' => 'armd-sonata-tvigle-collection'),
                     'options' => array('attr' => array('class' => 'armd-sonata-tvigle-form')),
+                ))*/
+                ->add('mediaVideos', 'collection', array(
+                    'type' => 'armd_media_video_type',
+                    'options' => array(
+                        'media_context' => 'route',
+                        'media_provider' => 'sonata.media.provider.tvigle',
+                        'media_format' => 'thumbnail',
+                        'with_title' => true
+                    ),
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required' => false,
+                    'attr' => array('class' => 'armd-sonata-images-collection'),
+                    'label' => 'Видео (Tvigle ID)'
                 ))
             ->end()
             ->with('Recommendations')

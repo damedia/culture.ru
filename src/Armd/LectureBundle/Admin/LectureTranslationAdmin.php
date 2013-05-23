@@ -76,10 +76,10 @@ class LectureTranslationAdmin extends Admin
             ))
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
-            ->with('Tvigle video')
+            /*->with('Tvigle video')
                 ->add('lectureVideo', 'armd_tvigle_video_selector', array('required' => false))
-            ->end()
-            ->with('Other video')
+            ->end()*/
+            ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
             ->with('External Video')

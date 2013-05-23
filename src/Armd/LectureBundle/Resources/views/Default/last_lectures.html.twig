@@ -9,9 +9,7 @@
                         <tr>
                             <td>
                                 <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="">
-                                    {% if lecture.lectureVideo.imageMedia is defined %}
-                                        {% set thumbnailMedia = lecture.lectureVideo.imageMedia %}
-                                    {% elseif lecture.mediaLectureVideo is not empty %}
+                                    {% if lecture.mediaLectureVideo is not empty %}
                                         {% set thumbnailMedia = lecture.mediaLectureVideo %}
                                     {% endif %}
                                     <img src="{% path thumbnailMedia, 'tile' %}" alt="{{ lecture.title }}"

@@ -1738,6 +1738,22 @@ body {
 				height:128px;
 				margin:-64px 0 0 -64px;
 			}
+
+        .video-one .video-series {
+            list-style: none;
+            margin: 9px 0;
+        }
+            .video-one .video-series li {
+                display: -moz-inline-stack;
+                display: inline-block;
+                zoom: 1;
+                *display: inline;
+                vertical-align: top;
+                padding: 5px;
+            }
+            .video-one .video-series li.active {
+                background: #f79016;
+            }
 		
 		.video-one-description {
 			margin-top:9px;
@@ -2989,7 +3005,7 @@ body {
                     .museum-image-title span{
                         float:right;
                     }
-                    .museum-image-image{
+                    .museum-image-over .museum-image-image{
                         position:absolute;
                         top:120px;
                         right:38px;
@@ -3226,9 +3242,14 @@ body {
                     margin-bottom: 48px;
                     overflow: hidden;
                 }
-                    .me-list-image {
+                    .me-list-image-wrap{
                         float:left;
                         margin:0 34px 0 0;
+                        width:125px;
+                        text-align:center;
+                    }
+                    .me-list-image {
+                        margin:0 auto;
                     }
                     .me-list-text {
                         overflow:hidden;
@@ -4069,10 +4090,11 @@ body {
                         .right-video-block  .flexslider:last-child:after {
                             display:none;
                         }
-                        
+                        /*
                         .right-video-block .period-block_image img {
                             opacity:0.5;
                         }
+                        */
                         .no-opacity  .period-block_image img {
                             opacity:1;
                         }
@@ -5156,11 +5178,7 @@ body {
             }
             .time-line-nav li.inactive a {
                 color:#d4d4d4;
-            }
-            
-            .time-line-nav li ul {
-                display:none;
-            }
+            }                        
 
             .time-line-nav li ul a {
                 font-weight: normal;               
@@ -5279,7 +5297,19 @@ body {
                         margin-top:10px;                        
                     }   
                     
+                    .timeline-link {
+                        text-align: right;
+                        color: #999999;
+                        font-size: 14px;
+                        margin-top: 20px;
+                    }  
                     
+                    .timeline-link img {
+                        border: none !important;
+                        width: 16px !important;
+                        margin-right: 4px !important;
+                        opacity: 0.7;
+                    }
 
         
 /*GOVERMENT SERVICE*/
@@ -6898,6 +6928,7 @@ body {
 .bottom-menu ul ul{
     display:none;
     position:absolute;
+    z-index:10;
     left:0; bottom:99%;
     padding:5px 8px;
     width:255px;
@@ -8041,7 +8072,7 @@ a.appstore-link {
 							
 			.exponats-categories .exp-filter {
 				position:absolute;
-				width:680px;
+				width:649px;
 				top:33px;
 				left:0;
 				z-index:10;
@@ -8052,7 +8083,12 @@ a.appstore-link {
 				
 			}
             .exponats-categories .exp-filter a {
-                    display:inline;
+                    display: -moz-inline-stack;
+                    display: inline-block;
+                    zoom: 1;
+                    *display: inline;
+                    vertical-align: top;
+
 					color:#fff;
 					text-decoration:none;
 					white-space:nowrap;
@@ -8064,8 +8100,9 @@ a.appstore-link {
 						background:#f18800;
 					}
 					
-				.alphabet {
-					
+				.exponats-categories .exp-filter .alphabet {
+					margin-top: 0;
+                    height: 30px;
 				}	
 					.exponats-categories .exp-filter .alphabet a {
 						padding:0 5px;
@@ -8078,11 +8115,15 @@ a.appstore-link {
 					
 				.fiter-results {
 					margin-top:3px;
-					line-height:23px;
+					/*line-height:23px;*/
+                    width: 649px;
+                    height: 250px;
+                    overflow: hidden;
+                    outline: none;
 				}	
 					.fiter-results a {
 						font-size:14px;
-						margin-right:10px;
+						margin: 0 10px 5px 0;
 						padding:0 5px;
 						
 					}
@@ -8197,6 +8238,12 @@ a.appstore-link {
 		.exp-one-details-button:hover, .orange-btn:hover {
 			text-decoration:none;
 		}
+
+    #exhibit-clear-tags-btn {
+        float: right;
+        margin: 0 0 0 13px;
+        display: none;
+    }
 			
 			
 /*images carousel*/	
@@ -8681,11 +8728,22 @@ a.appstore-link {
     .virt-museum-circle {
         width:289px;
         height:289px;
-        background:url(../img/virtual-circle-visible.png) no-repeat 0 0;
+        background: url('../img/museum-circle.png') no-repeat 0 0;
         position:absolute;
         left:60px;
         top:26px;
         z-index:3;
+    }
+    .virt-museum-circle .museum-image-image{
+        position:absolute;
+        top:120px;
+        right:38px;
+        width:104px;
+        height:133px;
+        background:url(../img/360-black-big.png) no-repeat 0 0;
+    }
+    .virt-museum-circle:hover{
+        background-position:0 -289px;
     }
         .virt-museum-circle h2 {
             text-transform: uppercase;
@@ -8784,12 +8842,16 @@ a.appstore-link {
                     .ksc-left-column, .ksc-right-column {
                         display:inline-block;
                         vertical-align:top;
-                        width:50%;
                         line-height:14px;
                         height:138px;
                         overflow:hidden;
                         
                     }
+
+                    .ksc-left-column {
+                        width: 110px;
+                    }
+
                         .autoscrolling-wrap, .autoscrolling, .autoscrollingHor {
                             position:relative;
                         }
@@ -8808,7 +8870,7 @@ a.appstore-link {
                         }
                    
                     .ksc-right-column {
-                                               
+                        width: 310px;
                     }
                     .kinozal-slider-content p {
                         font-size:10px; 
@@ -8821,7 +8883,10 @@ a.appstore-link {
                     .ksc-right-column  p {
                         margin-left:20px;
                     }
-                    
+                    .ksc-categories {
+                        margin-bottom: 5px;
+                    }
+
                 .kinozal-slider-footer {
                     background:#fefefd;
                     font-size:12px;
@@ -8883,6 +8948,16 @@ a.appstore-link {
                         width:152px;
                         overflow:hidden;
                         display:block;
+                        position: relative;
+                    }
+                    .kfl-image-link .top100-corner, .kol-image-link .top100-corner  {
+                        background: url('../img/top100_grey.png');
+                        width: 43px;
+                        height: 49px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        z-index: 100;
                     }
                     .kfl-image {
                         border:1px solid #efebec;
@@ -8987,6 +9062,7 @@ a.appstore-link {
                             width:114px;
                             overflow:hidden;
                             display:block;
+                            position: relative;
                         }
                         .kol-image {
                             border:1px solid #efebec;
@@ -9058,3 +9134,7 @@ a.appstore-link {
 }
 
 .m-top-0 { margin-top:0; }
+
+@media (max-width: 1024px) {
+  .search-category-selects .ui-selectgroup{width:20%;}
+}

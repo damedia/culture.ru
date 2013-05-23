@@ -401,27 +401,27 @@
     <!-- /Infographics -->
 
     <!-- Video -->
-    {% if entity.videos|length > 0 %}
+    {% if entity.mediaVideos|length > 0 %}
         <div class="block object-videos">
 
             <div class="block">
                 <article class="static-block video-block">
                     <h2>{{ "video"|trans }}</h2>
-                    {% for video in entity.videos %}
+                    {% for video in entity.mediaVideos %}
                         <a class="block-image fancybox" href="#data-{{ loop.index }}">
-                            <img style="max-width: 100%;" src="{{ video.image }}" alt=""  />
+                            <img style="max-width: 100%;" src="{{ video.providerMetadata.thumbnail_url }}" alt=""  />
                             <span class="play"></span>                            
                         </a>
                         <div class="period-block_text">
-                            <p><b>{{ video.title }}</b></p>
+                            <p><b>{{ video.name }}</b></p>
                         </div>
                     {% endfor %}
                 </article>
             </div>
-            {% for video in entity.videos %}
+            {% for video in entity.mediaVideos %}
                 <div id="data-{{ loop.index }}" style="display: none;">
                     <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                        {{ armd_tvigle_video_player(video, 640, 360)|raw }}
+                        {% media video, 'reference' with { 'width': 640, 'height': 360} %}
                     </div>
                 </div>
             {% endfor %}

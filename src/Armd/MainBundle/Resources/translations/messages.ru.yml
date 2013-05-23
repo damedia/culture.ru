@@ -19,6 +19,7 @@ menu.communication: Общение
 
 menu.reportage: Репортажи
 menu.interview: Интервью
+menu.article: Статьи
 menu.about: Информация
 menu.events_on_map: Карта мероприятий
 menu.information: Информация
@@ -223,3 +224,7 @@ search: Поиск
 search__: Поиск...
 culture: Культура
 Today: Сегодня
+
+Show on main: Показывать на главной
+Virtualtours: Виртуальные туры
+Objects: Атлас

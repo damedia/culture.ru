@@ -127,6 +127,7 @@ sonata_media:
                 - sonata.media.provider.image
                 - sonata.media.provider.file
                 - sonata.media.provider.culturetv
+                - sonata.media.provider.tvigle
 
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
@@ -138,6 +139,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.file
                 - sonata.media.provider.culturetv
+                - sonata.media.provider.tvigle
                 - sonata.media.provider.youtube
             formats:
                 original: { }
@@ -149,6 +151,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
                 - sonata.media.provider.culturetv
+                - sonata.media.provider.tvigle
                 - sonata.media.provider.youtube
 
             formats:
@@ -177,6 +180,7 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
+                - sonata.media.provider.tvigle
             formats:
                 image3d: { width: 405 }
                 big: { width: 920 }
@@ -207,6 +211,7 @@ sonata_media:
                 - sonata.media.provider.file
                 - sonata.media.provider.image
                 - sonata.media.provider.culturetv
+                - sonata.media.provider.tvigle
                 - sonata.media.provider.youtube
             formats:
                 xbig: { width: 670, height: 378 }
@@ -316,6 +321,7 @@ sonata_media:
                 - sonata.media.provider.file
                 - sonata.media.provider.image
                 - sonata.media.provider.culturetv
+                - sonata.media.provider.tvigle
                 - sonata.media.provider.youtube
             formats:
                 xxbig: { width: 1200, height: 900 }
@@ -354,6 +360,7 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
+                - sonata.media.provider.tvigle
             formats:
                 big: { width: 920 }
                 thumbnail: { width: 85, height: 85 }
@@ -513,6 +520,15 @@ armd_media_helper:
             resizer: sonata.media.resizer.simple
             generator: sonata.media.generator.default
             thumbnail: sonata.media.thumbnail.format
+        tvigle:
+            filesystem: sonata.media.filesystem.local
+            resizer: sonata.media.resizer.simple
+            generator: sonata.media.generator.default
+            thumbnail: sonata.media.thumbnail.format
+            api:
+                url:      http://pub.tvigle.ru/soap/index.php?wsdl
+                login:    Stella_l
+                password: armada
 
 stfalcon_tinymce:
     include_jquery: false
