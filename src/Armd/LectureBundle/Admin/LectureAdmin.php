@@ -42,7 +42,7 @@ class LectureAdmin extends Admin
         $showMapper
             ->add('published')
             ->add('title')
-            ->add('categories')
+            ->add('genres')
             ->add('genres')
             ->add('createdAt')
             ->add('lecturer')
@@ -179,7 +179,7 @@ class LectureAdmin extends Admin
         $datagridMapper
             ->add('published')
             ->add('title')
-            ->add('categories')
+            ->add('genres')
             ->add('lecturer')
             ->add('recommended')
             ->add('recommended1')

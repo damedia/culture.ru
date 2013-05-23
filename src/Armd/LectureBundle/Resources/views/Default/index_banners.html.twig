@@ -50,6 +50,7 @@
     {% render url('armd_lecture_list', {
             'templateName':'top_slider_list',
             'lectureSuperTypeCode': lectureSuperType.code,
+            'genre_ids': genre1 is empty ? [] : [genre1.id],
             'recommended': 1
         })
     %}
@@ -57,6 +58,7 @@
     {% render url('armd_lecture_list', {
             'templateName':'featured_list',
             'lectureSuperTypeCode': lectureSuperType.code,
+            'genre_ids': genre1 is empty ? [] : [genre1.id],
             'recommended1': 1
         })
     %}
