@@ -39,3 +39,5 @@ armd_media_helper:
     providers:
         culturetv:
             filesystem: sonata.media.filesystem.ftp
+        tvigle:
+            filesystem: sonata.media.filesystem.ftp
