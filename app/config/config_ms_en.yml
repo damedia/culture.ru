@@ -17,3 +17,22 @@ sonata_media:
     filesystem:
         ftp:
             directory: %sonata_media_ftp_directory_en%
+
+armd_sphinx_search:
+    indexes:
+        All:
+            %sphinxsearch_index_all_en%: ~
+        Lectures:
+            %sphinxsearch_index_lectures_en%: ~
+        Atlas:
+            %sphinxsearch_index_atlas_en%: ~
+        Museums:
+            %sphinxsearch_index_museums_en%: ~
+        News:
+            %sphinxsearch_index_news_en%: ~
+        Lessons:
+            %sphinxsearch_index_lessons_en%: ~
+        Theaters:
+            %sphinxsearch_index_theaters_en%: ~
+        Perfomances:
+            %sphinxsearch_index_perfomances_en%: ~
