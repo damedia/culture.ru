@@ -17,3 +17,22 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+
+armd_sphinx_search:
+    indexes:
+        All:
+            %sphinxsearch_index_all%: ~
+        Lectures:
+            %sphinxsearch_index_lectures%: ~
+        Atlas:
+            %sphinxsearch_index_atlas%: ~
+        Museums:
+            %sphinxsearch_index_museums%: ~
+        News:
+            %sphinxsearch_index_news%: ~
+        Lessons:
+            %sphinxsearch_index_lessons%: ~
+        Theaters:
+            %sphinxsearch_index_theaters%: ~
+        Perfomances:
+            %sphinxsearch_index_perfomances%: ~
