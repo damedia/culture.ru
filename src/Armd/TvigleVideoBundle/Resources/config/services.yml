@@ -20,13 +20,13 @@ services:
         arguments: [@armd_tvigle_video.configuration_pool, @doctrine.orm.entity_manager]
 
 
-    armd_tvigle_video.listener.tvigle_video:
-        class: Armd\TvigleVideoBundle\EventListener\TvigleVideoListener
-        tags:
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
-        calls:
-            - [ setContainer, [@service_container] ]
+#    armd_tvigle_video.listener.tvigle_video:
+#        class: Armd\TvigleVideoBundle\EventListener\TvigleVideoListener
+#        tags:
+#            - { name: doctrine.event_listener, event: prePersist }
+#            - { name: doctrine.event_listener, event: preUpdate }
+#        calls:
+#            - [ setContainer, [@service_container] ]
 
     armd_tvigle_video.listener.media:
         class: Armd\TvigleVideoBundle\EventListener\MediaListener

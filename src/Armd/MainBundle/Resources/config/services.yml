@@ -1,6 +1,8 @@
 parameters:
     armd_news.admin.subject.class:  Armd\MainBundle\Admin\Subject
     armd_news.admin.subject.entity: Armd\MainBundle\Entity\Subject
+    armd_news.admin.show_on_main.class:  Armd\MainBundle\Admin\ShowOnMain
+    armd_news.admin.show_on_main.entity: Armd\MainBundle\Entity\ShowOnMain
 
 services:
 
@@ -35,3 +37,9 @@ services:
 
     armd_main.menu_finder:
         class: Armd\MainBundle\Menu\MenuFinder
+        
+    armd_news.admin.show_on_main:
+        class: %armd_news.admin.show_on_main.class%
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Main, label: Show on main }
+        arguments: [null, %armd_news.admin.show_on_main.entity%, SonataAdminBundle:CRUD, @service_container]

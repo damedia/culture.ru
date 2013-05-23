@@ -4,6 +4,7 @@ namespace Armd\TheaterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * @ORM\Entity()
@@ -104,6 +105,12 @@ class Theater
     private $interviews;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="armd_theater_media_interviews")
+     */
+    private $mediaInterviews;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\City")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
@@ -140,6 +147,7 @@ class Theater
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->billboards = new \Doctrine\Common\Collections\ArrayCollection();
         $this->performances = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mediaInterviews = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -650,5 +658,38 @@ class Theater
     public function getInterviews()
     {
         return $this->interviews;
+    }
+
+    /**
+     * Add mediaInterview
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $mediaInterview
+     * @return Theater
+     */
+    public function addMediaInterview(Media $mediaInterview)
+    {
+        $this->mediaInterviews[] = $mediaInterview;
+    
+        return $this;
+    }
+
+    /**
+     * Remove mediaInterview
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $mediaInterview
+     */
+    public function removeMediaInterview(Media $mediaInterview)
+    {
+        $this->mediaInterviews->removeElement($mediaInterview);
+    }
+
+    /**
+     * Get mediaInterviews
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getMediaInterviews()
+    {
+        return $this->mediaInterviews;
     }
 }

@@ -21,19 +21,10 @@
                             <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
                                 {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
                 
-                                    {% if lecture.lectureVideo is not empty %}
-                                        {% set lectureVideo = lecture.lectureVideo %}
-                                        {{ armd_tvigle_video_player(lectureVideo, 640, 360)|raw }}
-                                    {% elseif lecture.mediaLectureVideo is not empty
-                                            and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
-                                        {% set lectureVideo = lecture.mediaLectureVideo %}
-                                        {% media lectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
-                                    {% elseif lecture.trailerVideo is not empty %}
-                                        {% set lectureVideo = lecture.trailerVideo %}
-                                        {{ armd_tvigle_video_player(lectureVideo, 640, 360)|raw }}
+                                    {% if lecture.mediaLectureVideo is not empty and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
+                                        {% media lecture.mediaLectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
                                     {% elseif lecture.mediaTrailerVideo is not empty %}
-                                        {% set lectureVideo = lecture.mediaTrailerVideo %}
-                                        {% media lectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
+                                        {% media lecture.mediaTrailerVideo, 'reference' with { 'width': 640, 'height': 360 } %}
                                     {% elseif lecture.externalUrl is not empty %}
                                         <a target="_blank" href="{{ lecture.externalUrl }}">
                                             <img width="100%" src="{% path lecture.mediaLectureVideo, 'xbig' %}" alt="">

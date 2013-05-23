@@ -1,0 +1,11 @@
+{% if options.src %}
+<iframe
+    id="{{ options.id }}"
+    src="{{ options.src }}&amp;dopparam=armada_skin&amp;wmode={{ options.wmode }}"
+    width="{{ options.width }}"
+    height="{{ options.height }}"
+    frameborder="{{ options.frameborder }}"
+    wmode="{{ options.wmode }}"
+    {% if options.style %}style="{{ options.style}}"{% endif %}>
+</iframe>
+{% endif %}

@@ -92,20 +92,13 @@
     </div>
     {{ entity.body|raw }}
 
-    {% if entity.video or entity.mediaVideo %}
+    {% if entity.mediaVideo %}
     <div class="block news-gallery-block">
         <h2><span>Видео</span></h2>
-        {% if entity.video %}
-            <div class="news-one-image">
-                <h3>{{ entity.video.title }}</h3>
-                {{ armd_tvigle_video_player(entity.video, "100%", 506)|raw }}
-            </div>
-        {% endif %}
-
         {% if entity.mediaVideo %}
             <div class="news-one-image">
                 <h3>{{ emtity.mediaVideo.title }}</h3>
-                {% media entity.mediaVideo, 'noformat' with {'width': '100%', 'height': '506'} %}
+                {% media entity.mediaVideo, 'noformat' with {'width': '100%', 'height': 506} %}
             </div>
         {% endif %}
     </div>
@@ -282,15 +275,9 @@
 		</div>
     {% endif %}
 
-	{% if entity.video %}
-		<div class="news-one-image">
-            {{ armd_tvigle_video_player(entity.video, 366, 261)|raw }}
-		</div>
-    {% endif %}
-
-    {% if entity.mediaVideo %}
+	{% if entity.mediaVideo %}
         <div class="news-one-image">
-            {% media entity.mediaVideo, 'noformat' with {'width': '366', 'height': '261'} %}
+            {% media entity.mediaVideo, 'noformat' with {'width': 366, 'height': 261} %}
         </div>
     {% endif %}
 

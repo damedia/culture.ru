@@ -45,7 +45,7 @@ class ArtObject implements Taggable
     private $textDate;
 
     /**
-     * @var text $description
+     * @var text $description
      *
      * @ORM\Column(type="text", nullable=true)
      */
@@ -68,6 +68,13 @@ class ArtObject implements Taggable
      * @ORM\OrderBy({"id" = "ASC"})
      */
     private $videos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="art_object_media_video")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $mediaVideos;
     
     /**
      * @ORM\ManyToOne(targetEntity="Armd\MuseumBundle\Entity\RealMuseum")
@@ -112,6 +119,7 @@ class ArtObject implements Taggable
     public function __construct()
     {
         $this->videos = new ArrayCollection();
+        $this->mediaVideos = new ArrayCollection();
         $this->authors = new ArrayCollection();
         $this->categories = new ArrayCollection();
     }
@@ -328,6 +336,26 @@ class ArtObject implements Taggable
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    public function getMediaVideos()
+    {
+        return $this->mediaVideos;
+    }
+
+    public function setMediaVideos($mediaVideos)
+    {
+        $this->mediaVideos = $mediaVideos;
+    }
+
+    public function removeMediaVideo($mediaVideo)
+    {
+        $this->mediaVideos->removeElement($mediaVideo);
+    }
+
+    public function addMediaVideo($mediaVideo)
+    {
+        $this->mediaVideos[] = $mediaVideo;
     }
 
     /**
