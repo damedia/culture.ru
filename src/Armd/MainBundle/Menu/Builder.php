@@ -297,15 +297,15 @@ class Builder extends ContainerAware
 
 
             //--- Cinema
-            $cinemaMenu = $menu->addChild(
-                'menu.cinema',
-                array(
-                    'route' => 'armd_lecture_cinema_index',
-                    'routeParameters' => array('genreSlug' => 'feature-film')
-                )
-            );
-
-            $this->addCinemaMenuItems($cinemaMenu);
+//            $cinemaMenu = $menu->addChild(
+//                'menu.cinema',
+//                array(
+//                    'route' => 'armd_lecture_cinema_index',
+//                    'routeParameters' => array('genreSlug' => 'feature-film')
+//                )
+//            );
+//
+//            $this->addCinemaMenuItems($cinemaMenu);
             //--- /Cinema
 
             //--- Theatre
@@ -331,12 +331,12 @@ class Builder extends ContainerAware
             //--- /Music
 
             //--- Lectures
-            $lectureMenu = $menu->addChild(
-                'menu.lectures',
-                array(
-                    'route' => 'armd_lecture_lecture_index'
-                )
-            );
+//            $lectureMenu = $menu->addChild(
+//                'menu.lectures',
+//                array(
+//                    'route' => 'armd_lecture_lecture_index'
+//                )
+//            );
             //--- /Lectures
 
             //--- atlas
