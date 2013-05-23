@@ -30,111 +30,64 @@ class AdminShowOnMainFormSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function preSetData(DataEvent $event)
+    protected function getFields()
     {
-        $form = $event->getForm();
-        
-        if (null === $event->getData()) {
-            return;
-        }
-        
-        $doctrine = $this->container->get('doctrine');       
-        $data = new ArrayCollection($doctrine->getRepository('ArmdMuseumBundle:Museum')->findby(array('showOnMain' => true, 'published' => true)));
-        
-        $form->add($this->factory->createNamed('virtualTours', 'entity', $data, 
-            array(
-                'class' => 'ArmdMuseumBundle:Museum',
-                'multiple' => 'true',
-                'required' => false,
-                'property' => 'title',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('t')
-                        ->select('partial t.{id, title}')
-                        ->andWhere('t.published = TRUE');
-                },
-                'attr' => array('class' => 'select2 span5'),
-                'mapped' => false,
-        )));   
-                
-        $data = new ArrayCollection($doctrine->getRepository('ArmdLectureBundle:Lecture')->findby(array('showOnMain' => true, 'published' => true)));
-        
-        $form->add($this->factory->createNamed('lectures', 'entity', $data, 
-            array(
-                'class' => 'ArmdLectureBundle:Lecture',
-                'multiple' => 'true',
-                'required' => false,
-                'property' => 'title',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('t')
-                        ->select('partial t.{id, title}')
-                        ->andWhere('t.published = TRUE');
-                },
-                'attr' => array('class' => 'select2 span5'),
-                'mapped' => false,
-        )));
-        
-        
-        $data = new ArrayCollection($doctrine->getRepository('ArmdNewsBundle:News')->findby(array('showOnMain' => true, 'published' => true)));
-        
-        $form->add($this->factory->createNamed('news', 'entity', $data, 
-            array(
-                'class' => 'ArmdNewsBundle:News',
-                'multiple' => 'true',
-                'required' => false,
-                'property' => 'title',
-                'query_builder' => function (EntityRepository $er) {
-                    $newsDateFrom = new \DateTime();
-                    $newsDateFrom->modify('-1 month');
-                    
-                    return $er->createQueryBuilder('t')
-                        ->select('partial t.{id, title}')
-                        ->andWhere('t.published = TRUE')
-                        ->andWhere('t.newsDate >= :newsDate')->setParameter('newsDate', $newsDateFrom);
-                },
-                'attr' => array('class' => 'select2 span5'),
-                'mapped' => false,
-        )));
-               
-                
-        $data = new ArrayCollection($doctrine->getRepository('ArmdAtlasBundle:Object')->findby(array('showOnMain' => true, 'published' => true)));
-        
-        $form->add($this->factory->createNamed('objects', 'entity', $data, 
-            array(
-                'class' => 'ArmdAtlasBundle:Object',
-                'multiple' => 'true',
-                'required' => false,
-                'property' => 'title',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('t')
-                        ->select('partial t.{id, title}')
-                        ->where('t.published = TRUE')
-                        ->andWhere('t.showAtRussianImage = TRUE');
-                },
-                'attr' => array('class' => 'select2 span5'),
-                'mapped' => false,
-        )));
-    }
-    
-    public function postBind(DataEvent $event)
-    {                
-        $entities = array(
+        return array(
             'virtualTours' => 'Armd\MuseumBundle\Entity\Museum',
             'lectures' => 'Armd\LectureBundle\Entity\Lecture',
             'news' => 'Armd\NewsBundle\Entity\News',
             'objects' => 'Armd\AtlasBundle\Entity\Object',
         );
+    }
+    public function preSetData(DataEvent $event)
+    {              
+        $form = $event->getForm();
+        
+        if (null === $event->getData()) {
+            return;
+        }
+         
+        $em = $this->container->get('doctrine')->getEntityManager();
+        
+        foreach ($this->getFields() as $name => $class) {
+            $choises = $data = array();
+            $choicesResult = $em
+                ->createQuery('SELECT t.id, t.title, t.showOnMain FROM ' . $class . ' t WHERE t.published = TRUE ORDER BY t.title')
+                ->getScalarResult();      
+
+            foreach ($choicesResult as $row) {
+                $choises[$row['id']] = $row['title'];
+
+                if ($row['showOnMain']) {
+                    $data[] = $row['id'];
+                }
+            }
+
+            $form->add($this->factory->createNamed($name, 'choice', $data, 
+                array(
+                    'choices'   => $choises,
+                    'multiple' => 'true',
+                    'required'  => false,
+                    'attr' => array('class' => 'select2 span5'),
+                    'virtual' => true,
+            )));
+        }                   
+    }
+    
+    public function postBind(DataEvent $event)
+    {                       
         $form = $event->getForm();
         $em = $this->container->get('doctrine')->getEntityManager();
         $em->getConnection()->beginTransaction();
         
         try {                      
-            foreach ($entities as $name => $class) {
+            foreach ($this->getFields() as $name => $class) {
                 if ($form->has($name)) {
                     $em->createQuery('UPDATE ' . $class . ' t set t.showOnMain = FALSE')->execute();
                     
-                    foreach ($form->get($name)->getData() as $e) {
+                    foreach ($form->get($name)->getData() as $id) {                       
                         $em->createQuery('UPDATE ' . $class . ' t set t.showOnMain = TRUE WHERE t.id = :id')
-                            ->setParameter('id', $e->getId())->execute();                                               
+                            ->setParameter('id', $id)->execute();                                               
                     }
                 }
             }

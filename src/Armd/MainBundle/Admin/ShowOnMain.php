@@ -47,5 +47,17 @@ class ShowOnMain extends Admin
         $collection->remove('edit');
         $collection->add('list', 'create');
         $collection->add('edit', 'create');
-    }    
+    }  
+    
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'ArmdMainBundle:CRUD:show_on_main_edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
 }
