@@ -3209,7 +3209,57 @@ body {
             background:#f4f1ea !important;
         }        
             
-          
+        /*theme-news-newblock*/
+        
+        .theme-news-newblock {
+            margin-top:31px;
+            float:left;
+            width:100%;
+        }    
+            .theme-news-newblock-list {
+                list-style:none;
+                margin-bottom:20px;
+            }
+                .theme-news-newblock-list li {
+                    margin-bottom: 48px;
+                    overflow: hidden;
+                }
+                    .tn-list-image-wrap {
+                        float:left;
+                        margin:0 34px 0 0;
+                    }
+                    .tn-list-image {
+                        width:125px;
+                    }
+                    .tn-list-text {
+                        overflow:hidden;
+                        
+                    }
+                         .tn-list-dates, .tn-list-place, .tn-list-region {
+                            display:block;
+                        }
+                        .tn-list-text h3 {
+                            margin: 0 0 4px;
+                            line-height: 20px;
+                        }
+                        .tn-list-title {
+                            font-size:18px;
+                            color:#000;
+                        }
+                        .tn-list-dates {
+                            font-size:14px;
+                            font-weight:bold;
+                        }
+                        .tn-list-place {
+                            font-size:13px;
+                        }
+                        .tn-list-region {
+                            font-size:13px;
+                            color:#7791a4;
+                        }
+                        .tn-list-text p {
+                            margin-top:6px;
+                        }          
                     
         /*museum-education*/
         
