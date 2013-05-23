@@ -5,6 +5,7 @@ namespace Armd\LectureBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -79,6 +80,11 @@ class Lecture implements Taggable
      * @ORM\JoinColumn(name="media_trailer_video_id", referencedColumnName="id", nullable=true)
      */
     private $mediaTrailerVideo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery", cascade={"persist"}, fetch="EAGER")
+     */
+    private $series;
 
 
     /**
@@ -361,6 +367,22 @@ class Lecture implements Taggable
     public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
     {
         $this->mediaTrailerVideo = $mediaTrailerVideo;
+    }
+
+    /**
+     * @return Gallery|null
+     */
+    public function getSeries()
+    {
+        return $this->series;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $series
+     */
+    public function setSeries(Gallery $series = null)
+    {
+        $this->series = $series;
     }
 
     /**

@@ -88,19 +88,46 @@
 
     <div class="left-column-content">
         <section class="video-one">
-            <div class="video-one_container">
-
+            <div id="video-container" class="video-one_container"></div>
+            <ul id="video-series-{{ lecture.id }}" class="video-series"{% if not lecture.series or not lecture.series.galleryHasMedias|length %} style="display: none;"{% endif %}>
                 {% if lecture.mediaTrailerVideo is not empty or lecture.mediaLectureVideo is not empty %}
-                    {# media video #}
                     {% if lectureVersion == 'trailer' and lecture.mediaTrailerVideo is not empty %}
                         {% set lectureVideo = lecture.mediaTrailerVideo %}
                     {% else %}
                         {% set lectureVideo = lecture.mediaLectureVideo %}
                     {% endif %}
-                    {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                    
+                    <li class="active">
+                        <a href="#video-media">{% thumbnail lectureVideo, 'lectureW160H120' %}</a>
+                        <div id="video-media" style="display: none;">
+                            {% if lectureVideo.providerName == 'sonata.media.provider.image' and lecture.externalUrl %}
+                            <a href="{{ lecture.externalUrl }}" target="_blank">
+                                {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                            </a>
+                            {% else %}
+                                {% media lectureVideo, 'reference' with { 'width': '100%', 'height': 506 } %}
+                            {% endif %}
+                        </div>
+                    </li>
                 {% endif %}
+                {% if lecture.series and lecture.series.galleryHasMedias|length %}
+                    {% for ser in lecture.series.galleryHasMedias %}
+                    <li>
+                        <a href="#video-ser-{{ ser.id }}">{% thumbnail ser.media, 'lectureW160H120' %}</a>
+                        <div id="video-ser-{{ ser.id }}" style="display: none;">
+                            {% if ser.media.providerName == 'sonata.media.provider.image' and ser.media.copyright %}
+                            <a href="{{ ser.media.copyright }}" target="_blank">
+                                {% media ser.media, 'reference' with { 'width': '100%', 'height': 506 } %}
+                            </a>
+                            {% else %}
+                                {% media ser.media, 'reference' with { 'width': '100%', 'height': 506 } %}
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
 
-            </div>
             <div class="video-one-description">
 
                 {# Пока отключим рейтинг
@@ -387,5 +414,27 @@
                 {#description: '{{ lecture.description|escape }}'#}
             });
         }
+    </script>
+
+    <script>
+        $(function() {
+            $("#video-series-{{ lecture.id }} li a").click(function() {
+                var $target = $("#video-container"),
+                    $source = $($(this).attr("href"));
+                
+                if ($source.length) {
+                    $target.html($source.html());
+
+                    $source.parent()
+                        .addClass("active")
+                        .siblings()
+                            .removeClass("active");
+                }
+
+                return false;
+            });
+
+            $("#video-series-{{ lecture.id }} li a:first").click();
+        });
     </script>
 {% endblock %}
