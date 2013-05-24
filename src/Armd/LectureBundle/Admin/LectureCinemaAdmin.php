@@ -96,6 +96,7 @@ class LectureCinemaAdmin extends Admin
             )
             ->add('genres2', 'entity',
                 array(
+                    'required' => false,
                     'class' => 'ArmdLectureBundle:LectureGenre',
                     'multiple' => 'true',
                     'query_builder' => function (EntityRepository $er) use ($superType) {
@@ -144,6 +145,8 @@ class LectureCinemaAdmin extends Admin
             ->end()*/
             ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+                ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+                ->add('series', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
             ->with('External Video')
                 ->add('externalUrl', null, array('required' => false))

@@ -1738,6 +1738,28 @@ body {
 				height:128px;
 				margin:-64px 0 0 -64px;
 			}
+
+        .video-one .video-series {
+            list-style: none;
+            margin: 9px 0;
+            display: table;
+        }
+            .video-one .video-series li {
+                display: -moz-inline-stack;
+                display: inline-block;
+                zoom: 1;
+                *display: inline;
+                padding: 5px;
+            }
+            .video-one .video-series li a {
+                display: table-cell;
+                vertical-align: middle;
+                height: 120px;
+                background: #000000;
+            }
+            .video-one .video-series li.active {
+                background: #f79016;
+            }
 		
 		.video-one-description {
 			margin-top:9px;
