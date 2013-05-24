@@ -239,9 +239,9 @@ class NewsController extends Controller
 //        $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
 //            ->findOneBySlug($category);
 //
-        if (empty($categoryEntity)) {
-            throw new \RuntimeException('Cant find category ' . $category);
-        }
+//        if (empty($categoryEntity)) {
+//            throw new \RuntimeException('Cant find category ' . $category);
+//        }
 
         if ($request->query->has('to_date') || $request->query->has('from_date')) {
             $limit = $limit ? $limit : 100;
