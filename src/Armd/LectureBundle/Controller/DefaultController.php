@@ -194,13 +194,25 @@ class DefaultController extends Controller
             $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
         }
 
-        if ($request->query->has('recommended1')) {
-            $criteria[LectureManager::CRITERIA_RECOMMENDED1] = true;
+        if ($request->query->has('show_at_featured')) {
+            $criteria[LectureManager::CRITERIA_SHOW_AT_FEATURED] = true;
+        }
+
+        if ($request->query->has('show_at_slider')) {
+            $criteria[LectureManager::CRITERIA_SHOW_AT_SLIDER] = true;
+        }
+
+        if ($request->query->has('limit_slider_genre_ids')) {
+            $criteria[LectureManager::CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS] = $request->get('limit_slider_genre_ids');
+        }
+
+        if ($request->query->has('limit_featured_genre_ids')) {
+            $criteria[LectureManager::CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS] = $request->get('limit_featured_genre_ids');
         }
 
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
-        // for breadcrumbs
+            // for breadcrumbs
         if ($request->query->has('genre1_id')) {
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
