@@ -255,7 +255,7 @@ class NewsController extends Controller
                 $criteria[NewsManager::CRITERIA_NEWS_DATE_TILL] = new \DateTime($request->get('to_date'));
             }
             $news = $newsManager->findObjects($criteria);
-            $newsByDate = $newsManager->getNewsGroupedByNewsDate($news);
+            $newsByDate = $this->getDateGroupedNews($category, $news);
 
         } else {
             // at first get minimal date
@@ -282,7 +282,7 @@ class NewsController extends Controller
                 // now get news
                 unset($criteria[NewsManager::CRITERIA_LIMIT]);
                 $news = $newsManager->findObjects($criteria);
-                $newsByDate = $newsManager->getNewsGroupedByNewsDate($news);
+                $newsByDate = $this->getDateGroupedNews($category, $news);
             }
         }
 
@@ -295,7 +295,8 @@ class NewsController extends Controller
         return $this->render(
             $template,
             array(
-                'newsByDate' => $newsByDate
+                'newsByDate' => $newsByDate,
+                'category' => $category
             )
         );
     }
@@ -474,6 +475,18 @@ class NewsController extends Controller
     protected function getControllerName()
     {
         return 'ArmdNewsBundle:News';
+    }
+
+    public function getDateGroupedNews($categories, $news) {
+        $newsManager = $this->getNewsManager();
+
+        if (in_array('news', $categories) || 'news' === $categories) {
+            $groupedNews = $newsManager->getNewsGroupedByNewsDate($news);
+        } else {
+            $groupedNews = $newsManager->getNewsGroupedByNewsMonth($news);
+        }
+
+        return $groupedNews;
     }
 
     /**
