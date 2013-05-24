@@ -56,7 +56,12 @@
 
     <div class="more">
         <p>
-            <a href="#" id="more-news">{{ "More events"|trans }}</a>
+            {% if categoryEntity %}
+                {% set moreTitle = ("more_" ~ categoryEntity.slug)|trans %}
+            {% else %}
+                {% set moreTitle = "More events"|trans %}
+            {% endif %}
+            <a href="#" id="more-news">{{ moreTitle }}</a>
         </p>
     </div>
 

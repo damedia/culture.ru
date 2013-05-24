@@ -243,6 +243,20 @@ class NewsManager extends ListManager
         return $newsByDate;
     }
 
+    public function getNewsGroupedByNewsMonth($news)
+    {
+        $newsByMonth = array();
+        foreach ($news as $n) {
+            $date = $n->getNewsDate()->format('Y-m');
+            if (!isset($newsByMonth[$date])) {
+                $newsByMonth[$date] = array();
+            }
+            $newsByMonth[$date][] = $n;
+        }
+
+        return $newsByMonth;
+    }
+
     public function getCategories()
     {
         return $this->em->getRepository('ArmdNewsBundle:Category')->findBy(

@@ -45,7 +45,8 @@ class LectureCinemaAdmin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
             ->add('isTop100Film')
             ->add('lectureVideo')
             ->add('lectureFile')
@@ -65,11 +66,14 @@ class LectureCinemaAdmin extends Admin
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_CINEMA');
+        
+        if (!$lecture->getId()) {
+            $lecture->setLectureSuperType($superType);
 
-
-        $lecture->setLectureSuperType($superType);
-
-
+        } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
+            throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
+        }
+        
         $formMapper
             ->add('published')
             ->add('title')
@@ -130,7 +134,36 @@ class LectureCinemaAdmin extends Admin
             )
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+            ->add('limitSliderForGenres', 'entity',
+                array(
+                    'class' => 'ArmdLectureBundle:LectureGenre',
+                    'required' => false,
+                    'multiple' => true,
+                    'attr' => array('class' => 'chzn-select'),
+                    'query_builder' => function (EntityRepository $er) use ($superType) {
+                        return $er->createQueryBuilder('g')
+                            ->where('g.level = 1')
+                            ->andWhere('g.lectureSuperType = :lecture_super_type')
+                            ->setParameter('lecture_super_type', $superType);
+                    },
+                )
+            )
+            ->add('limitFeaturedForGenres', 'entity',
+                array(
+                    'class' => 'ArmdLectureBundle:LectureGenre',
+                    'required' => false,
+                    'multiple' => true,
+                    'attr' => array('class' => 'chzn-select'),
+                    'query_builder' => function (EntityRepository $er) use ($superType) {
+                        return $er->createQueryBuilder('g')
+                            ->where('g.level = 1')
+                            ->andWhere('g.lectureSuperType = :lecture_super_type')
+                            ->setParameter('lecture_super_type', $superType);
+                    },
+                )
+            )
             ->add('isTop100Film', null, array('required' => false))
             ->with('Главная')
                 ->add('showOnMain', null, array(
@@ -169,7 +202,8 @@ class LectureCinemaAdmin extends Admin
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
         ;
     }
 
@@ -190,7 +224,10 @@ class LectureCinemaAdmin extends Admin
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('isTop100Film')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+            ->add('limitSliderForGenres')
+            ->add('limitFeaturedForGenres')
         ;
     }
 
@@ -207,7 +244,7 @@ class LectureCinemaAdmin extends Admin
         // retrieve the default (currently only the delete action) actions
         $actions = parent::getBatchActions();
 
-        
+
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
             $actions['ShowOnMain']=array(
@@ -226,16 +263,24 @@ class LectureCinemaAdmin extends Admin
                 'label'            => 'Сбросить "Рекомендована"',
                 'ask_confirmation' => false
             );
-            $actions['SetRecommended1']=array(
-                'label'            => 'Установить "Рекомендована1"',
+            $actions['SetShowAtSlider']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Slider'),
                 'ask_confirmation' => false
             );
-            $actions['ResetRecommended1']=array(
-                'label'            => 'Сбросить "Рекомендована1"',
+            $actions['ResetShowAtSlider']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtFeatured']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtFeatured']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Featured'),
                 'ask_confirmation' => false
             );
         }
-        
+
         return $actions;
     }
     
