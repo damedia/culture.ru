@@ -70,6 +70,13 @@ class Route implements Taggable
     private $videos;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinTable(name="tourist_route__media_video")
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $mediaVideos;
+
+    /**
      * @ORM\ManyToMany(targetEntity="\Armd\AtlasBundle\Entity\Region")
      * @ORM\JoinTable(name="tourist_route__atlas_region")
      */
@@ -139,6 +146,7 @@ class Route implements Taggable
     {
         $this->categories = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->mediaVideos = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->regions = new ArrayCollection();
         $this->objects = new ArrayCollection();
@@ -411,6 +419,54 @@ class Route implements Taggable
     public function removeVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $video)
     {
         $this->videos->removeElement($video);
+    }
+
+    /**
+     * Get mediaVideos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMediaVideos()
+    {
+        return $this->mediaVideos;
+    }
+
+    /**
+     * Set mediaVideos
+     *
+     * @param \Doctrine\Common\Collections\Collection $mediaVideos
+     * @return Route
+     */
+    public function setMediaVideos($mediaVideos)
+    {
+        $this->mediaVideos = $mediaVideos;
+
+        return $this;
+    }
+
+    /**
+     * Add video
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $video
+     * @return Route
+     */
+    public function addMediaVideo(Media $video)
+    {
+        if (!$this->mediaVideos->contains($video)) {
+            $this->mediaVideos[] = $video;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove video
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Media $video
+     */
+    public function removeMediaVideo(Media $video)
+    {
+        $this->mediaVideos->removeElement($video);
     }
 
     /**

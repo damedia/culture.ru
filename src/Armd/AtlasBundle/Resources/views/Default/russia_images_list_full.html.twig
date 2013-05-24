@@ -15,7 +15,7 @@
 		<div class="plitka-footer">
 			<div class="types-icons">
                 <a href="{{ path('armd_atlas_default_object_view', {id: object.id} ) }}" class="no-decoration">
-                <span title="{{ "types_icons.video"|trans }}" class="ti-video {% if object.videos is not empty %}active{% endif %}"></span>
+                <span title="{{ "types_icons.video"|trans }}" class="ti-video {% if object.mediaVideos is not empty %}active{% endif %}"></span>
                     <span title="{{ "types_icons.virtual_tour"|trans }}" class="ti-360 {% if object.virtualTours is not empty %}active{% endif %}"></span>
                     <span title="{{ "types_icons.infographics"|trans }}" class="ti-info {% if object.image3d is not empty %}active{% endif %}"></span>
                     <span title="{{ "types_icons.photo_gallery"|trans }}" class="ti-photo  {% if object.images is not empty %}active{% endif %}"></span>

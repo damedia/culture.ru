@@ -1,3 +1,6 @@
+
+##################   RUSSIAN VERSION #############################
+
 source mk_news_source_all
 {
     type       = pgsql
@@ -366,7 +369,6 @@ source mk_lessons_source
     sql_attr_bigint     = museum_id
     sql_attr_bigint     = city_id
     sql_attr_bigint     = education_id
-    sql_attr_bigint     = subject_id            
     sql_attr_multi      = bigint lessonskill_id from query; \
         SELECT lesson_id, lessonskill_id \
             FROM armd_lesson_lesson_skill
@@ -514,6 +516,530 @@ index mk_theaters
     morphology      = stem_ru, stem_en  
     min_stemming_len = 4
 }
+
+
+
+##################   ENGLISH VERSION #############################
+
+source mk_news_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        cn.id, \
+        cn.title ftsrch1, \
+        cn.announce ftsrch2, \
+        cn.body ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'news' AS object_type, \
+         date_part('epoch', cn.news_date)::int8 AS date_from \
+    FROM \
+        content_news cn, \
+        content_news_category cnc \
+    WHERE \
+        cn.category_id = cnc.id \
+        AND cnc.filtrable = TRUE \
+        AND cn.published = TRUE
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+
+    sql_query_info      = SELECT * FROM content_news WHERE id=$id
+}
+
+source mk_lectures_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+            l.id + 1000000000, \
+            l.title ftsrch1, \
+            l.lecturer ftsrch2, \
+            '' ftsrch3, \
+            '' ftsrch4, \
+            '' ftsrch5, \
+            'lecture' AS object_type, \
+            date_part('epoch', l.created_at)::int8 AS date_from \
+        FROM lecture l \
+        WHERE published = TRUE
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+
+    sql_query_info      = SELECT * FROM lecture WHERE id=$id
+}
+
+source mk_atlas_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+            o.id + 2000000000, \
+            o.title ftsrch1, \
+            o.announce ftsrch2, \
+            o.content ftsrch3, \
+            o.phone ftsrch4, \
+            o.address ftsrch5, \
+            'atlas_object' AS object_type, \
+            NOW() AS date_from \
+        FROM atlas_object o \
+        WHERE published = TRUE
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+
+    sql_query_info      = SELECT * FROM atlas_object WHERE id=$id
+}
+
+source mk_virtual_museums_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+            m.id + 3000000000, \
+            m.title ftsrch1, \
+            m.body ftsrch2, \
+            '' ftsrch3, \
+            '' ftsrch4, \
+            '' ftsrch5, \
+            'virtual_museum' AS object_type, \
+            NOW() AS date_from \
+        FROM armd_museum m \
+        WHERE published = TRUE
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+
+    sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
+}
+
+source mk_lessons_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        l.id + 3500000000, \
+        l.title ftsrch1, \
+        l.announce ftsrch2, \
+        l.description ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'lesson' AS object_type, \
+        date_part('epoch', l.created_at)::int8 AS date_from, \
+        l AS published \
+        FROM armd_lesson l \
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM armd_lesson WHERE id=$id
+}
+
+source mk_perfomances_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        p.id + 4000000000, \
+        p.title ftsrch1, \
+        '' ftsrch2, \
+        '' ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'perfomance' AS object_type, \
+        date_part('epoch', p.created_at)::int8 AS date_from, \
+        p AS published \
+        FROM content_perfomance p \
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM content_perfomance WHERE id=$id
+}
+
+source mk_theaters_source_all_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+        t.id + 5000000000, \
+        t.title ftsrch1, \
+        '' ftsrch2, \
+        '' ftsrch3, \
+        '' ftsrch4, \
+        '' ftsrch5, \
+        'theater' AS object_type, \
+        date_part('epoch', t.created_at)::int8 AS date_from, \
+        p AS published \
+        FROM armd_theater t \
+
+    sql_attr_string = object_type
+    sql_attr_bigint  = date_from
+    sql_attr_uint = published
+
+    sql_query_info      = SELECT * FROM armd_theater WHERE id=$id
+}
+
+
+source mk_lectures_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        l.id, \
+        l.title, \
+        l.lecturer, \
+        'lecture' AS object_type, \
+        date_part('epoch', l.created_at)::int8 AS date_from, \
+        lst.id lecture_super_type_id \
+        FROM lecture l \
+        INNER JOIN lecture_super_type lst ON lst.id = l.lecture_super_type_id \
+        WHERE l.published = TRUE
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_bigint     = lecture_super_type_id
+    sql_attr_multi      = bigint lecturegenre_id from query; \
+        SELECT lecture_id, lecturegenre_id \
+            FROM lecture_genre_lecture
+
+    sql_query_info      = SELECT * FROM lecture WHERE id=$id
+}
+
+
+source mk_atlas_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query  = SELECT \
+        o.id, \
+        o.title, \
+        o.announce, \
+        o.content, \
+        o.phone, \
+        o.address, \
+        RADIANS(o.lon) as rad_lon, \
+        RADIANS(o.lat) as rad_lat, \
+        CASE WHEN o.show_at_russian_image THEN 1 ELSE 0 END show_at_russian_image, \
+        'atlas_object' AS object_type, \
+        NOW() date_from \
+    FROM \
+        atlas_object o \
+    WHERE \
+        o.published = TRUE
+
+    sql_attr_string     = object_type
+    sql_attr_timestamp  = date_from
+    sql_attr_uint       = show_at_russian_image
+    sql_attr_float      = rad_lon
+    sql_attr_float      = rad_lat
+
+    sql_ranged_throttle  = 0
+
+    sql_query_info      = SELECT * FROM lecture WHERE id=$id
+}
+
+
+source mk_virtual_museums_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+    
+    sql_query       = \
+        SELECT \
+            m.id, \
+            m.title ftsrch1, \
+            m.body ftsrch2, \
+            '' ftsrch3, \
+            '' ftsrch4, \
+            '' ftsrch5, \
+            'virtual_museum' AS object_type, \
+            NOW() AS date_from, \
+            CASE WHEN published THEN 1 ELSE 0 END AS published \
+        FROM armd_museum m \
+        WHERE published = TRUE
+
+    sql_attr_string = object_type
+    sql_attr_timestamp  = date_from
+
+    sql_query_info      = SELECT * FROM armd_museum WHERE id=$id
+}
+
+source mk_news_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query  = \
+        SELECT \
+            n.id, \
+            n.title, \
+            n.announce, \
+            n.body, \
+            n.news_date, \
+            c.id category_id \
+        FROM content_news n \
+            INNER JOIN content_news_category c ON c.id = n.category_id \
+        WHERE published = TRUE
+
+    sql_attr_bigint = category_id
+    sql_attr_timestamp = news_date
+}
+
+source mk_lessons_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        l.id, \
+        l.title, \
+        l.announce, \
+        l.description, \
+        l.museum_id, \
+        l.city_id, \
+        l.education_id, \
+        'lesson' AS object_type, \
+        date_part('epoch', l.created_at)::int8 AS date_from \
+        FROM armd_lesson l \
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_bigint     = museum_id
+    sql_attr_bigint     = city_id
+    sql_attr_bigint     = education_id
+    sql_attr_multi      = bigint lessonskill_id from query; \
+        SELECT lesson_id, lessonskill_id \
+            FROM armd_lesson_lesson_skill
+    sql_attr_multi      = bigint lessonsubject_id from query; \
+        SELECT lesson_id, lessonsubject_id \
+            FROM armd_lesson_lesson_subject            
+
+    sql_query_info      = SELECT * FROM armd_lesson WHERE id=$id
+}
+
+source mk_perfomances_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        p.id, \
+        p.title, \
+        'perfomance' AS object_type, \
+        date_part('epoch', p.created_at)::int8 AS date_from \
+        FROM content_perfomance p \
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_multi      = bigint perfomanceganre_id from query; \
+        SELECT perfomance_id, perfomanceganre_id \
+            FROM content_perfomance_perfomance_ganre
+
+    sql_query_info      = SELECT * FROM content_perfomance WHERE id=$id
+}
+
+source mk_theaters_source_en
+{
+    type       = pgsql
+
+    sql_host   = 192.168.56.1
+    sql_port   = 5432
+    sql_db     = mk
+    sql_user   = mk
+    sql_pass   = Fa3Sheer
+
+    sql_query       = \
+        SELECT \
+        t.id, \
+        t.title, \
+        'theater' AS object_type, \
+        date_part('epoch', t.created_at)::int8 AS date_from \
+        FROM armd_theater t \
+
+    sql_attr_string     = object_type
+    sql_attr_bigint     = date_from
+    sql_attr_multi      = bigint theatercategory_id from query; \
+        SELECT theater_id, theatercategory_id \
+            FROM armd_theater_theater_category
+
+    sql_query_info      = SELECT * FROM armd_theater WHERE id=$id
+}
+
+
+index mk_all_en
+{
+    source          = mk_news_source_all_en
+    source          = mk_atlas_source_all_en
+    source          = mk_lectures_source_all_en
+    source          = mk_virtual_museums_source_all_en
+    path            = /usr/local/sphinx/var/data/mk/mk_all_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en
+    min_stemming_len = 4
+}
+
+
+index mk_lectures_en
+{
+    source          = mk_lectures_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_lectures_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+
+index mk_atlas_en
+{
+    source          = mk_atlas_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_atlas_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_virtual_museums_en
+{
+    source          = mk_virtual_museums_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_virtual_museum_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_news_en
+{
+    source          = mk_news_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_news_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_lessons_en
+{
+    source          = mk_lessons_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_lessons_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_perfomances_en
+{
+    source          = mk_perfomances_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_perfomances_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+index mk_theaters_en
+{
+    source          = mk_theaters_source_en
+    path            = /usr/local/sphinx/var/data/mk/mk_theaters_en
+    docinfo         = extern
+    charset_type    = utf-8
+    morphology      = stem_ru, stem_en  
+    min_stemming_len = 4
+}
+
+###############################  PROGRAM CONFIG #####################################
 
 indexer
 {

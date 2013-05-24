@@ -1,0 +1,43 @@
+imports:
+    - { resource: config_prod_inc.yml }
+
+doctrine:
+    dbal:
+        wrapper_class: Armd\MainBundle\Doctrine\DBAL\MasterSlaveConnection
+        slaves:
+            slave1:
+                host:     %slave_database_host%
+                port:     %slave_database_port%
+                dbname:   %slave_database_name%
+                user:     %slave_database_user%
+                password: %slave_database_password%
+                charset:  UTF8
+
+
+sonata_media:
+
+    filesystem:
+        ftp:
+            directory: %sonata_media_ftp_directory%
+            host: %sonata_media_ftp_host%
+            username: %sonata_media_ftp_username%
+            password: %sonata_media_ftp_password%
+            port:     %sonata_media_ftp_port%
+            passive:  false
+            create:   true
+
+
+    providers:
+        file:
+            filesystem: sonata.media.filesystem.ftp
+        image:
+            filesystem: sonata.media.filesystem.ftp
+        youtube:
+            filesystem: sonata.media.filesystem.ftp
+
+armd_media_helper:
+    providers:
+        culturetv:
+            filesystem: sonata.media.filesystem.ftp
+        tvigle:
+            filesystem: sonata.media.filesystem.ftp

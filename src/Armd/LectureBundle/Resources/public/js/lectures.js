@@ -12,7 +12,7 @@ var armdMkLectures = {
                 armdMkLectures.resetSearchForm();
                 armdMkLectures.isSearch = false;
                 armdMkLectures.loadList(false, false);
-
+                window.history.pushState(null, '', armdMkLectures.modifyQueryString({'genre_id': $('#lecture_genre').val()}));
             });
 
         // search
@@ -37,6 +37,7 @@ var armdMkLectures = {
             $('#sort-filter li').removeClass('active');
             $(this).closest('li').addClass('active');
             armdMkLectures.loadList(armdMkLectures.isSearch, false);
+            window.history.pushState(null, '', armdMkLectures.modifyQueryString({'sort_by': $(this).data()['sortBy']}));
         });
 
         // alphabet filter
@@ -48,6 +49,7 @@ var armdMkLectures = {
                 $('#alphabet-filter li').removeClass('active');
                 li.addClass('active');
                 armdMkLectures.loadList(false, false);
+                window.history.pushState(null, '', armdMkLectures.modifyQueryString({'first_letter': $(this).data()['letter']}));
             }
         });
 
@@ -163,4 +165,24 @@ var armdMkLectures = {
         });
     },
 
+    parseParams: function(query) {
+        var re = /([^&=]+)=?([^&]*)/g;
+        var decodeRE = /\+/g; // Regex for replacing addition symbol with a space
+        var decode = function (str) {return decodeURIComponent( str.replace(decodeRE, " ") );};
+        var params = {}, e;
+        while (e = re.exec(query)) {
+            var k = decode( e[1] ), v = decode( e[2] );
+            if (k.substring(k.length - 2) === '[]') {
+                k = k.substring(0, k.length - 2);
+                (params[k] || (params[k] = [])).push(v);
+            }
+            else params[k] = v;
+        }
+        return params;
+    },
+    modifyQueryString: function(params) {
+        var vars = armdMkLectures.parseParams(window.location.search.replace('?', ''));
+        $.each(params, function(k, v){ vars[k] = v; });
+        return '?' + $.param(vars);
+    },
 };

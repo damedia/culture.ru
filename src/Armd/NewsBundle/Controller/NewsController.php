@@ -24,7 +24,7 @@ class NewsController extends Controller
     {
         return $this->getNewsManager()->findObjects(
             array(
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages'),
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'interviews', 'reportages', 'articles'),
                 NewsManager::CRITERIA_LIMIT => $count
             )
         );
@@ -232,7 +232,7 @@ class NewsController extends Controller
      */
     function twoColumnNewsListAction($category = null, $limit = null)
     {
-        $category = $category ? array($category) : array('news', 'interviews', 'reportages');
+        $category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles');
         $request = $this->getRequest();
         $newsManager = $this->get('armd_news.manager.news');
 
