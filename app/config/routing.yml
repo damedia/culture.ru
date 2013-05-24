@@ -188,6 +188,11 @@ armd_poll_archive:
     resource: "@ArmdMainBundle/Controller/PollArchiveController.php"
     type: annotation
     prefix: /
+    
+armd_show_on_main:
+    resource: "@ArmdMainBundle/Controller/ShowOnMainController.php"
+    type: annotation
+    prefix: /show-on-main
 
 armd_theater:
     resource: "@ArmdTheaterBundle/Controller/"
