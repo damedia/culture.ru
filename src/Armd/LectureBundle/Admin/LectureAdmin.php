@@ -65,8 +65,12 @@ class LectureAdmin extends Admin
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
 
-        $lecture->setLectureSuperType($superType);
+        if (!$lecture->getId()) {
+            $lecture->setLectureSuperType($superType);
 
+        } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
+            throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
+        }
 
         $formMapper
             ->with('General')
