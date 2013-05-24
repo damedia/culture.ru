@@ -1,37 +1,6 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as news_date%}
 {% import _self as self %}
 
-{% macro article(article) %}
-    <span class="date">{{ article.newsDate|date('H:i') }} / <a href="{{ path('armd_news_list_index_by_category', {'category': article.category.slug}) }}">{{ article.category.title }}</a></span>
-    <a href="{{ path('armd_news_item_by_category', {'id': article.id, 'category': article.category.slug }) }}">{{ article.title}}</a>
-{% endmacro %}
-
-{% for date, news in newsByDate %}
-    <section class="block">
-        <h1 class="long-border"><span>{{ news_date.news_date_short(news[0].newsDate) }}</span></h1>
-
-        <div class="theme-news-block search-news-block clearfix">
-            <ul class="theme-news-list">
-                {% set lasti = 0 %}
-                {% for i in 0..(news|length-1)//2 if (i < news|length) %}
-                    <li>{{ self.article(news[i]) }}</li>
-                    {% set lasti = i %}
-                {% endfor %}
-            </ul>
-
-            <ul class="theme-news-list search-news-list">
-                {% if lasti + 1 <=  news|length - 1 %}
-                    {% for i in lasti+1..(news|length-1) if (i < news|length) %}
-                        <li>{{ self.article(news[i]) }}</li>
-                    {% endfor %}
-                {% endif %}
-            </ul>
-
-        </div>
-    </section>
-{% endfor %}
-
-{#
 <div class="theme-news-newblock">
     <ul class="theme-news-newblock-list">
         {% for date, news in newsByDate %}
@@ -48,7 +17,7 @@
         {% endfor %}
     </ul>
 </div>
-#}
+
 <script type="text/javascript">
     {% if newsByDate is not empty %}
         var firstLoadedDate = '{{ newsByDate|keys[newsByDate|keys|length - 1] }}';
