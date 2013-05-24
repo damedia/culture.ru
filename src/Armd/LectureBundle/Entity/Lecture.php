@@ -48,11 +48,6 @@ class Lecture implements Taggable
     private $recommended = false;
 
     /**
-     * @ORM\Column(name="recommended1", type="boolean", nullable=true)
-     */
-    private $recommended1 = false;
-
-    /**
      * @ORM\Column(name="published", type="boolean", nullable=true)
      */
     private $published = true;
@@ -190,12 +185,36 @@ class Lecture implements Taggable
      */
     private $horizontalBanner;
 
+    /**
+     * @ORM\Column(name="show_at_slider", type="boolean", nullable=true)
+     */
+    private $showAtSlider = false;
+
+    /**
+     * @ORM\Column(name="show_at_featured", type="boolean", nullable=true)
+     */
+    private $showAtFeatured = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="LectureGenre")
+     * @ORM\JoinTable(name="lecture_limit_slider_genre")
+     */
+    private $limitSliderForGenres;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="LectureGenre")
+     * @ORM\JoinTable(name="lecture_limit_featured_genre")
+     */
+    private $limitFeaturedForGenres;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->rolesPersons = new ArrayCollection();
         $this->stuff = new ArrayCollection();
+        $this->limitSliderForGenres = new ArrayCollection();
+        $this->limitFeaturedForGenres = new ArrayCollection();
     }
 
 
@@ -278,22 +297,6 @@ class Lecture implements Taggable
     {
         $this->recommended = $recommended;
     }
-
-    /**
-      * @return mixed
-      */
-     public function getRecommended1()
-     {
-         return $this->recommended1;
-     }
-
-     /**
-      * @param mixed $recommended1
-      */
-     public function setRecommended1($recommended1)
-     {
-         $this->recommended1 = $recommended1;
-     }
 
     public function getPublished()
     {
@@ -876,6 +879,70 @@ class Lecture implements Taggable
         if (is_null($horizontalBanner) || $horizontalBanner->isUploaded()) {
             $this->horizontalBanner = $horizontalBanner;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShowAtSlider()
+    {
+        return $this->showAtSlider;
+    }
+
+    /**
+     * @param mixed $showAtSlider
+     */
+    public function setShowAtSlider($showAtSlider)
+    {
+        $this->showAtSlider = $showAtSlider;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShowAtFeatured()
+    {
+        return $this->showAtFeatured;
+    }
+
+    /**
+     * @param mixed $showAtFeatured
+     */
+    public function setShowAtFeatured($showAtFeatured)
+    {
+        $this->showAtFeatured = $showAtFeatured;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimitSliderForGenres()
+    {
+        return $this->limitSliderForGenres;
+    }
+
+    /**
+     * @param mixed $limitSliderForGenres
+     */
+    public function setLimitSliderForGenres($limitSliderForGenres)
+    {
+        $this->limitSliderForGenres = $limitSliderForGenres;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimitFeaturedForGenres()
+    {
+        return $this->limitFeaturedForGenres;
+    }
+
+    /**
+     * @param mixed $limitFeaturedForGenres
+     */
+    public function setLimitFeaturedForGenres($limitFeaturedForGenres)
+    {
+        $this->limitFeaturedForGenres = $limitFeaturedForGenres;
     }
 
 }

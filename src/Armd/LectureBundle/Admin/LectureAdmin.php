@@ -46,7 +46,8 @@ class LectureAdmin extends Admin
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
             ->add('trailerVideo')
             ->add('lectureVideo')
             ->add('mediaTrailerVideo')
@@ -110,7 +111,8 @@ class LectureAdmin extends Admin
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
                 ->add('lecturer')
                 ->add('recommended')
-                ->add('recommended1')
+                ->add('showAtSlider')
+                ->add('showAtFeatured')
             ->end()
             ->with('SEO')
                 ->add('seoTitle')
@@ -170,7 +172,8 @@ class LectureAdmin extends Admin
             ->add('genres')
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
         ;
     }
 
@@ -190,7 +193,8 @@ class LectureAdmin extends Admin
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
         ;
     }
 
@@ -225,12 +229,20 @@ class LectureAdmin extends Admin
                 'label'            => 'Сбросить "Рекомендована"',
                 'ask_confirmation' => false
             );
-            $actions['SetRecommended1']=array(
-                'label'            => 'Установить "Рекомендована1"',
+            $actions['SetShowAtSlider']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Slider'),
                 'ask_confirmation' => false
             );
-            $actions['ResetRecommended1']=array(
-                'label'            => 'Сбросить "Рекомендована1"',
+            $actions['ResetShowAtSlider']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtFeatured']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtFeatured']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Featured'),
                 'ask_confirmation' => false
             );
         }
