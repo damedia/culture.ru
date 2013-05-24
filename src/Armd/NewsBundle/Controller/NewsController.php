@@ -229,13 +229,19 @@ class NewsController extends Controller
 
     /**
      * @Route("/two-column-news-list/{category}", name="armd_news_two_column_list", defaults={"category"=null}, options={"expose"=true})
-     * @Template("ArmdNewsBundle:News:two-column-list.html.twig")
      */
     function twoColumnNewsListAction($category = null, $limit = null)
     {
         $category = $category ? array($category) : array('news', 'interviews', 'reportages', 'articles');
         $request = $this->getRequest();
         $newsManager = $this->get('armd_news.manager.news');
+
+//        $categoryEntity = $this->getDoctrine()->getRepository('ArmdNewsBundle:Category')
+//            ->findOneBySlug($category);
+//
+//        if (empty($categoryEntity)) {
+//            throw new \RuntimeException('Cant find category ' . $category);
+//        }
 
         if ($request->query->has('to_date') || $request->query->has('from_date')) {
             $limit = $limit ? $limit : 100;
@@ -280,8 +286,17 @@ class NewsController extends Controller
             }
         }
 
-        return array(
-            'newsByDate' => $newsByDate
+        if (in_array('articles', $category)) {
+            $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
+        } else {
+            $template = 'ArmdNewsBundle:News:two-column-list.html.twig';
+        }
+
+        return $this->render(
+            $template,
+            array(
+                'newsByDate' => $newsByDate
+            )
         );
     }
 
