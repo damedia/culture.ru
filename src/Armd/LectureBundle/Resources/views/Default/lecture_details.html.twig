@@ -72,7 +72,7 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block left_column %}
-    <ul class="breadcrumbs">
+    <ul class="breadcrumbs" style="margin-bottom:20px;">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         {% if lectureSuperType.code == 'LECTURE_SUPER_TYPE_CINEMA' %}
             {% if genre1 is not empty %}
@@ -357,13 +357,15 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
+    <div style="height:53px; font-size:0; line-height:0;"></div>
     {% render url('armd_news_memorial_events') %}
 
     {% render url('armd_atlas_related_objects', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 1}) %}
 
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'id': lecture.id }) %}
-
+    </div>
+    <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'id': lecture.id }) %}
     </div>
 {% endblock %}

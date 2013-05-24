@@ -5,7 +5,7 @@
             {% for lecture in lectures%}
                 <li>
                     <article class="period-block">
-                        <h2>{{ lecture.title }}</h2>
+                        <h2>{{ lectureMacro.lectureSuperTypeLink(lecture.lectureSuperType) }}</h2>
                         <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="period-block_image">
                             {% if lecture.isTop100Film %}
                                 <div class="cinema-top100-icon"></div>
@@ -14,18 +14,20 @@
 
                             <span class="play"></span>
                         </a>
-                        {#<div class="period-block_text">#}
+                        <div class="period-block_text">
+                            <h4>{{ lecture.title }}</h4>
                             {#<p>#}
                                 {#Режиссер: Леонид Гайдай <br />#}
                                 {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
                             {#</p>#}
-                        {#</div>#}
+                        </div>
+                        {#
                         <footer class="period-block_footer">
                             <div class="tags">
-                                {{ lectureMacro.lectureSuperTypeLink(lecture.lectureSuperType) }}
+                                
                             </div>
                         </footer>
-
+                        #}
                     </article>
                 </li>
             {% endfor %}
