@@ -250,16 +250,10 @@
                     <ul>
                         <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
                         <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
-                        {# <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li> #}
+                        {% if app.request.locale == 'ru' %}
+                            <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
+                        {% endif %}
                     </ul>
-                    {% if app.request.locale == 'ru' %}
-                        <p class="footer-fond-link">
-                            <ul>
-                                <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
-                                {# <li><a href="http://dnk.culture.ru/" target="_blank">ДНК Live</a></li> #}
-                            </ul>
-                        </p>
-                    {% endif %}
                     </div>
                     {% if app.request.locale == 'ru' %}
                     <div class="fc-col fc-copyright">
