@@ -96,6 +96,7 @@ class LectureCinemaAdmin extends Admin
             )
             ->add('genres2', 'entity',
                 array(
+                    'required' => false,
                     'class' => 'ArmdLectureBundle:LectureGenre',
                     'multiple' => 'true',
                     'query_builder' => function (EntityRepository $er) use ($superType) {
