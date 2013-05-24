@@ -43,7 +43,6 @@ class LectureAdmin extends Admin
             ->add('published')
             ->add('title')
             ->add('genres')
-            ->add('genres')
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
@@ -76,17 +75,18 @@ class LectureAdmin extends Admin
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
-//                ->add('categories', 'armd_lecture_categories',
-//                    array(
-//                        'required' => false,
-//                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-//                        'super_type' => $superType
-//                    )
-//                )
-                ->add('genres', null,
+                ->add('genres', 'entity',
                     array(
+                        'class' => 'ArmdLectureBundle:LectureGenre',
+                        'required' => 'false',
                         'multiple' => 'true',
-                        'attr' => array('class' => 'chzn-select')
+                        'attr' => array('class' => 'chzn-select'),
+                        'query_builder' => function (EntityRepository $er) use ($superType) {
+                            return $er->createQueryBuilder('g')
+                                ->where('g.level = 2')
+                                ->andWhere('g.lectureSuperType = :lecture_super_type')
+                                ->setParameter('lecture_super_type', $superType);
+                        },
                     )
                 )
                 ->add('verticalBanner',
@@ -96,7 +96,6 @@ class LectureAdmin extends Admin
                         'media_format' => 'medium',
                         'media_context' => 'lecture',
                         'with_remove' => true,
-        //                    'by_reference' => false
                     )
                 )
                 ->add('horizontalBanner',
@@ -106,7 +105,6 @@ class LectureAdmin extends Admin
                         'media_format' => 'medium',
                         'media_context' => 'lecture',
                         'with_remove' => true,
-        //                    'by_reference' => false
                     )
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
@@ -119,18 +117,6 @@ class LectureAdmin extends Admin
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
-            /*->with('Tvigle Video')
-                ->add('trailerVideo', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )
-                ->add('lectureVideo', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )
-            ->end()*/
             ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
                 ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
