@@ -36,7 +36,7 @@ var exhibitItem = {
         exhibitItem.resizeExhibits();
 
 
-        $('#details-btn').on('click', function() {
+        $('#details-btn').off('click').on('click', function() {
             if (!$(this).data('opened')) {
                 $('#exponats-details').show();
                 $('#exponat-main-container').hide();

@@ -112,7 +112,7 @@
                 <div class="htr-top">
                     {# {% render url('armd_main_login_links') %} #}
                     {% if app.request.locale == 'ru' %}
-                        {#<a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>#}
+                        <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
                     {% else %}
                         <a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}" class="lang-chooser-en"></a>
                     {% endif %}
@@ -174,7 +174,7 @@
         {% block sub_header %}{% endblock %}
 
         <!-- Main block -->
-        <div class="main clearfix {% block body_class %}{% endblock %}">
+        <div class="main clearfix {% block body_class %}{% endblock %} {% if app.request.locale == 'en' %}m-main_en{% endif %}">
             {% block body %}{% endblock %}
         </div>
         <!-- /Main block -->
@@ -193,20 +193,25 @@
 
         <div class="bottom-menu">
             <ul>
+                {% if app.request.locale == 'ru' %}
                 <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
                 <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
                 <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
                 <li><a href="{{ path('armd_chronicle_index') }}">Спецпроекты</a>
                     <ul>
                         <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
-                        <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 955} ) }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
-                        <li><a href="{{ path('armd_news_item_by_category', {'category': 'news', 'id': 3724}) }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_romanov450') }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_stanislavski') }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li>
                         {# <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li> #}
                         <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
                         <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ path('armd_main_contacts') }}">{{ "menu.contacts"|trans }}</a></li>
+                {% endif %}
+                {% if app.request.locale == 'en' %}
+                  <li><a href="{{ path('armd_main_contacts') }}">Contacts</a></li>
+                {% endif %}
             </ul>
         </div><!-- /bottom-menu -->
         <!-- Footer block -->
@@ -240,25 +245,21 @@
 
             <div class="footer-center">
                 <div class="clearfix fc-col-block">
-                    <div class="fc-col fc-links">
+                    <div class="fc-col fc-links" {% if app.request.locale == 'en' %}style="width: 300px;"{% endif %}>
                     <p>{{ "copyright"|trans }}</p>
                     <ul>
                         <li><a href="{{ path('armd_main_about') }}">{{ "about_project"|trans }}</a></li>
                         <li><a href="{{ path('armd_main_banners') }}">{{ "banners"|trans }}</a></li>
-                        <li><a href="mailto:portal@mkrf.ru">portal@mkrf.ru</a></li>
+                        {% if app.request.locale == 'ru' %}
+                            <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
+                        {% endif %}
                     </ul>
-                    {% if app.request.locale == 'ru' %}
-                        <p class="footer-fond-link">
-                            <ul>
-                                <li><a href="http://fond.culture.ru/" target="_blank">Российский Фонд Культуры</a></li>
-                                <li><a href="http://dnk.culture.ru/" target="_blank">ДНК Live</a></li>
-                            </ul>
-                        </p>
-                    {% endif %}
                     </div>
+                    {% if app.request.locale == 'ru' %}
                     <div class="fc-col fc-copyright">
                         <p>При цитировании и&nbsp;копировании материалов с&nbsp;портала активная гиперссылка обязательна</p>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </footer>

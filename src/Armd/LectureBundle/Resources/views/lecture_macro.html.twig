@@ -1,11 +1,15 @@
-{% macro lectureThumbnail(entity, format, attributes) %}
+{% macro lectureThumbnail(entity, format, attributes, pathOnly) %}
     {% if entity.mediaLectureVideo is not null %}
         {% set attributesActual = {'alt': entity.title} %}
         {% if attributes is iterable %}
             {% set attributesActual = attributesActual|merge(attributes) %}
         {% endif %}
 
-        {% thumbnail entity.mediaLectureVideo, format with attributesActual %}
+        {% if pathOnly %}
+            {% path entity.mediaLectureVideo, format %}
+        {% else %}
+            {% thumbnail entity.mediaLectureVideo, format with attributesActual %}
+        {% endif %}
     {% endif %}
 {% endmacro %}
 

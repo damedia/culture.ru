@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Sonata\MediaBundle\Model\Media;
 
 class EventController extends ListController
-{  
+{
+    static $part_count = 100; 
+            
     function __construct(ContainerInterface $container = null)
     {
         $this->setContainer($container);    
@@ -43,7 +45,7 @@ class EventController extends ListController
         }                       
         
         foreach ($centuriesResult as $c) {
-            if ($c['eventsCount'] > 100) {
+            if ($c['eventsCount'] > self::$part_count) {
                 $c['parts'] = array(
                     0 => array('value' => 2, 'name' => Converter::toRoman(2) . ' половина'),
                     1 => array('value' => 1, 'name' => Converter::toRoman(1) . ' половина')
@@ -89,7 +91,96 @@ class EventController extends ListController
             'start_zoom_adjust' => 0
         ));
     }
-
+    
+    /**
+     * @Route("/item/{id}/{accidents}", defaults={"id"=0, "accidents"=0}, 
+     * requirements={"id"="\d+", "accidents"="\d+"}, name="armd_chronicle_item")     
+     */
+    public function itemAction($id = 0, $accidents = 0)
+    {
+        $startAtSlide = 0;
+        $centuries = array();
+        $activeCentury = $activePart = false;
+        
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri(
+            $this->get('router')->generate('armd_chronicle_index')
+        );              
+        
+        $centuriesResult = $this->getCenturiesList();                                    
+        
+        foreach ($centuriesResult as $c) {
+            if ($c['eventsCount'] > self::$part_count) {
+                $c['parts'] = array(
+                    0 => array('value' => 2, 'name' => Converter::toRoman(2) . ' половина'),
+                    1 => array('value' => 1, 'name' => Converter::toRoman(1) . ' половина')
+                );
+            }                                                     
+            
+            $centuries[$c['value']] = $c;
+            $i = 0;
+            
+            if (!$startAtSlide) {
+                foreach ($c['events'] as $event) { 
+                    $i++;                                      
+                    
+                    if ($event->getId() == $id 
+                        && ((!$accidents && $event instanceof \Armd\ChronicleBundle\Entity\Event)
+                            || ($accidents && $event instanceof \Armd\ChronicleBundle\Entity\Accident))
+                    ) {                       
+                        $activeCentury = $c;
+                        
+                        if (isset($c['parts'])) {
+                            $partsCount = $this->getPartsCount($c['events']);
+                            
+                            if ($i > $partsCount[0]) {
+                                $startAtSlide = $i - $partsCount[0] - 1;
+                                $activePart = $c['parts'][0];
+                            } else {
+                                $startAtSlide = $i - 1;
+                                $activePart = $c['parts'][1];
+                            }
+                        } else {
+                            $startAtSlide = $i - 1;
+                        }
+                        
+                        break;                       
+                    }                                    
+                }
+            }
+        }
+        
+        if ($startAtSlide === false) {                     
+            throw $this->createNotFoundException(sprintf('Unable to find item %d', $id));
+        }              
+        
+        return $this->render($this->getTemplateName('chronicle'), array( 
+            'centuries' => $centuries,
+            'activeCentury' => $activeCentury,
+            'activePart' => $activePart,
+            'width' => '100%',
+            'height' => 600,
+            'lang' => 'ru',
+            'start_at_end' => 'false',
+            'start_at_slide' => $startAtSlide,
+            'start_zoom_adjust' => 0
+        ));
+    }
+    
+    protected function getPartsCount($events)
+    {
+        $partsCount = array(0, 0);
+        
+        foreach ($events as $event) {
+            if (intval($event->getDate()->format('y')) < 50) {
+                $partsCount[0]++;
+            } else {
+                $partsCount[1]++;
+            }
+        }
+        
+        return $partsCount;
+    }
 
     /**
      * @Route("/all/", name="armd_chronicle_all")
@@ -129,11 +220,14 @@ class EventController extends ListController
         $events = $this->getEventsList($century, $part);
         
         foreach ($events as $event) {
-            if (get_class($event) == 'Armd\ChronicleBundle\Entity\Event') {
+            $imgSrc = $this->container->get('templating.helper.assets')->getUrl('/img/link.png', null);
+            
+            if (get_class($event) == 'Armd\ChronicleBundle\Entity\Event') {                
+                $link = '<span>http://</span><span>' . preg_replace('~http://~', '', $this->get('router')->generate('armd_chronicle_item', array('id' => $event->getId()), true)) . '</span>';
                 $result['timeline']['date'][] = array(
                     'startDate' => $event->getDate()->format('Y,n,j'),
                     'headline' => $event->getTitle(),
-                    'text' => $event->getBody(),
+                    'text' => $event->getBody() . '<div class="timeline-link"><img src="' . $imgSrc . '">' . $link . '</div>',                   
                     'accident' => '',
                     'asset' => array(
                         'media' => $event->getImage() ? $this->getMediaUrl($event->getImage(), 'list') : '',
@@ -143,10 +237,11 @@ class EventController extends ListController
                     )
                 );
             } else {
+                $link = '<span>http://</span><span>' . preg_replace('~http://~', '', $this->get('router')->generate('armd_chronicle_item', array('id' => $event->getId(), 'accidents' => 1), true)) . '</span>';
                 $result['timeline']['date'][] = array(
                     'startDate' => $event->getDate()->format('Y,n,j'),
                     'headline' => 'В мире',
-                    'text' => $event->getAnnounce(),
+                    'text' => $event->getAnnounce() . '<div class="timeline-link"><img src="' . $imgSrc . '">' . $link . '</div>',
                     'accident' => 'accident',
                     'asset' => array(
                         'media' => '',
@@ -164,17 +259,17 @@ class EventController extends ListController
     function getCenturiesList()
     {
         $result = array();
-        $centuries = $this->getCenturiesRepository()->getQuery()->getArrayResult();
+        $centuries = $this->getCenturiesRepository()->getQuery()->getArrayResult();       
         
         foreach ($centuries as $c) {
             $century = $c['century'];
+            $events = $this->getEventsList($century);
             
             $result[] = array(
                 'value'     => $century,
                 'name'      => Converter::toRoman($century),
-                'eventsCount'    => $this->getEventsCount($century),
-                'events' => $this->getEventsListAll($century),
- 	  	'accidents' => $this->getAccidentsList($century),
+                'eventsCount'    => count($events),
+                'events' => $events,
             );
         }
         
@@ -236,9 +331,13 @@ class EventController extends ListController
         
         usort($eventsAccidents, function ($a, $b) {
             if ($a->getDate() > $b->getDate()) {
-                return -1;
-            } elseif ($a->getDate() < $b->getDate()) {
                 return 1;
+            } elseif ($a->getDate() < $b->getDate()) {
+                return -1;
+            } elseif ($a->getId() > $b->getId()) {
+                return 1;
+            } elseif ($a->getId() < $b->getId()) {
+                return -1;
             } else {
                 return 0;
             }

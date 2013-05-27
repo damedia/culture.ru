@@ -19,6 +19,7 @@ Lecture Super Type: Раздел
 Lecture Type: Тип лекций
 Categories: Категории
 Recommended: Рекомендована
+Recommended1:  Рекомендована1
 Is Top100 Film: Топ 100 фильмов
 Published: Опубликована
 Trailer Video: Трейлер (Tvigle ID)
@@ -26,6 +27,8 @@ Lecture Video: Видео (Tvigle ID)
 Lecture File: Файл
 Tags: Теги
 Stuff: Материалы для скачивания
+Vertical Banner: Вертикальный баннер
+Horizontal Banner: Горизонтальный баннер
 
 Translations: Трансляции
 Translation List: Список Трансляций
@@ -57,7 +60,7 @@ Videos Create: Создать Видео
 Videos Edit: Изменить Видео
 Videos Delete: Удалить Видео
 
-Is Featured: Заглавное видео
+Is Headline: Заглавное видео
 
 Roles: Роли
 Persons: Персоны
@@ -71,3 +74,8 @@ Show On Main Ord: Приоритет на главной
 Genres: Жанры
 Genres1: Жанры 1
 Genres2: Жанры 2
+Show At Slider: Показывать на верхнем слайдере
+Show At Featured: Показывать на нижнем слайдере
+Limit Slider For Genres: Ограничить показ на верхнем слайдере
+Limit Featured For Genres: Ограничить показ на нижнем слайдере
+

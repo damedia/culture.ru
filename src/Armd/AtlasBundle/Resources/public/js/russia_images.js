@@ -178,8 +178,7 @@ var armdMkRussiaImages = {
                 else {
                     $('.obrazy-plitka').html(newData);
                 }
-
-                if (!count || length <= armdMkRussiaImages.loadByCount) {
+                if (!count || length < armdMkRussiaImages.loadByCount) {
                     $('.more').hide();
                     $('#show-all').hide();
                 } else {

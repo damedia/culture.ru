@@ -62,7 +62,9 @@ class ArtObjectRepository extends BaseRepository
     function setSearch($text)
     {
         $this->qb
-            ->andWhere("LOWER({$this->alias}.title) LIKE LOWER(:text)")->setParameter('text', '%' . $text . '%');
+            ->leftJoin("{$this->alias}.authors", 'a')
+            ->andWhere("LOWER({$this->alias}.title) LIKE LOWER(:text)")->setParameter('text', '%' . $text . '%')
+            ->orWhere("LOWER(a.name) LIKE LOWER(:text)")->setParameter('text', '%' . $text . '%');
             
         return $this;
     }

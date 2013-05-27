@@ -101,10 +101,6 @@ class Lecture implements Taggable
      */
     private $genres;
 
-//    private $genres1;
-//
-//    private $genres2;
-
     /**
      * @ORM\Column(name="seo_title", type="string", nullable=true)
      */
@@ -169,9 +165,9 @@ class Lecture implements Taggable
     private $showOnMainOrd = 0;
     
     /**
-     * @ORM\Column(name="is_featured", type="boolean", nullable=false)
+     * @ORM\Column(name="is_headline", type="boolean", nullable=false)
      */
-    private $isFeatured = false;
+    private $isHeadline = false;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -182,12 +178,48 @@ class Lecture implements Taggable
     private $stuff;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="vertical_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $verticalBanner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="horizontal_banner_id", referencedColumnName="id", nullable=true)
+     */
+    private $horizontalBanner;
+
+    /**
+     * @ORM\Column(name="show_at_slider", type="boolean", nullable=true)
+     */
+    private $showAtSlider = false;
+
+    /**
+     * @ORM\Column(name="show_at_featured", type="boolean", nullable=true)
+     */
+    private $showAtFeatured = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="LectureGenre")
+     * @ORM\JoinTable(name="lecture_limit_slider_genre")
+     */
+    private $limitSliderForGenres;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="LectureGenre")
+     * @ORM\JoinTable(name="lecture_limit_featured_genre")
+     */
+    private $limitFeaturedForGenres;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->rolesPersons = new ArrayCollection();
         $this->stuff = new ArrayCollection();
+        $this->limitSliderForGenres = new ArrayCollection();
+        $this->limitFeaturedForGenres = new ArrayCollection();
     }
 
 
@@ -359,24 +391,6 @@ class Lecture implements Taggable
     public function setSeries(Gallery $series = null)
     {
         $this->series = $series;
-    }
-
-    /**
-     * @return \Application\Sonata\MediaBundle\Entity\Media
-     */
-    public function getLectureFile()
-    {
-        return $this->lectureFile;
-    }
-
-    /**
-     * @param \Application\Sonata\MediaBundle\Entity\Media $lectureFile
-     */
-    public function setLectureFile(\Application\Sonata\MediaBundle\Entity\Media $lectureFile = null)
-    {
-        if (is_null($lectureFile) || $lectureFile->isUploaded()) {
-            $this->lectureFile = $lectureFile;
-        }
     }
 
     /**
@@ -836,13 +850,120 @@ class Lecture implements Taggable
         return $this->stuff;
     }
     
-    public function setIsFeatured($isFeatured)
+    /**
+     * @param boolean $isHeadline
+     */
+    public function setIsHeadline($isHeadline)
     {
-        $this->isFeatured = $isFeatured;
+        $this->isHeadline = $isHeadline;
     }
-    
-    public function getIsFeatured()
+  
+    /**
+     * @return boolean
+     */
+    public function getIsHeadline()
     {
-        return $this->isFeatured;
+        return $this->isHeadline;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getVerticalBanner()
+    {
+        return $this->verticalBanner;
+    }
+
+    /**
+     * @param mixed $verticalBanner
+     */
+    public function setVerticalBanner(\Application\Sonata\MediaBundle\Entity\Media $verticalBanner = null)
+    {
+        if (is_null($verticalBanner) || $verticalBanner->isUploaded()) {
+            $this->verticalBanner = $verticalBanner;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHorizontalBanner()
+    {
+        return $this->horizontalBanner;
+    }
+
+    /**
+     * @param mixed $horizontalBanner
+     */
+    public function setHorizontalBanner(\Application\Sonata\MediaBundle\Entity\Media $horizontalBanner = null)
+    {
+        if (is_null($horizontalBanner) || $horizontalBanner->isUploaded()) {
+            $this->horizontalBanner = $horizontalBanner;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShowAtSlider()
+    {
+        return $this->showAtSlider;
+    }
+
+    /**
+     * @param mixed $showAtSlider
+     */
+    public function setShowAtSlider($showAtSlider)
+    {
+        $this->showAtSlider = $showAtSlider;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShowAtFeatured()
+    {
+        return $this->showAtFeatured;
+    }
+
+    /**
+     * @param mixed $showAtFeatured
+     */
+    public function setShowAtFeatured($showAtFeatured)
+    {
+        $this->showAtFeatured = $showAtFeatured;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimitSliderForGenres()
+    {
+        return $this->limitSliderForGenres;
+    }
+
+    /**
+     * @param mixed $limitSliderForGenres
+     */
+    public function setLimitSliderForGenres($limitSliderForGenres)
+    {
+        $this->limitSliderForGenres = $limitSliderForGenres;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimitFeaturedForGenres()
+    {
+        return $this->limitFeaturedForGenres;
+    }
+
+    /**
+     * @param mixed $limitFeaturedForGenres
+     */
+    public function setLimitFeaturedForGenres($limitFeaturedForGenres)
+    {
+        $this->limitFeaturedForGenres = $limitFeaturedForGenres;
+    }
+
 }

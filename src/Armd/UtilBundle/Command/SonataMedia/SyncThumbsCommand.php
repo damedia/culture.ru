@@ -38,6 +38,7 @@ class SyncThumbsCommand extends BaseCommand
             ->setDefinition(array(
                 new InputArgument('providerName', InputArgument::OPTIONAL, 'The provider'),
                 new InputArgument('context', InputArgument::OPTIONAL, 'The context'),
+                new InputArgument('mediaId', InputArgument::OPTIONAL, 'Media ID'),
             )
         );
     }
@@ -49,6 +50,7 @@ class SyncThumbsCommand extends BaseCommand
     {
         $provider = $input->getArgument('providerName');
         $context  = $input->getArgument('context');
+        $mediaId =  $input->getArgument('mediaId');
 
         $this->quiet = $input->getOption('quiet');
         $this->output = $output;
@@ -59,6 +61,9 @@ class SyncThumbsCommand extends BaseCommand
         }
         if (!empty($context)) {
             $filter['context'] = $context;
+        }
+        if (!empty($mediaId)) {
+            $filter['id'] = $mediaId;
         }
 
         $medias = $this->getMediaManager()->findBy($filter);

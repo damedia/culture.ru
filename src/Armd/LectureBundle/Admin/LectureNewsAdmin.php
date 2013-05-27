@@ -49,7 +49,7 @@ class LectureNewsAdmin extends Admin
             ->add('lectureFile')
             ->add('showOnMain')
             ->add('showOnMainOrd')
-            ->add('isFeatured')
+            ->add('isHeadline')
             ;
     }
 
@@ -107,7 +107,7 @@ class LectureNewsAdmin extends Admin
                 )
             )*/
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
-            ->add('isFeatured', null, array('required' => false))
+            ->add('isHeadline', null, array('required' => false))
             ->with('Главная')
                 ->add('showOnMain', null, array(
                     'required' => false
@@ -141,7 +141,7 @@ class LectureNewsAdmin extends Admin
             ->add('categories')
             ->add('showOnMain')
             ->add('showOnMainOrd')
-            ->add('isFeatured');
+            ->add('isHeadline');
     }
 
 
@@ -197,14 +197,14 @@ class LectureNewsAdmin extends Admin
     {
         parent::postPersist($object);
         $this->saveTagging($object);
-        $this->clearFeatured($object);
+        $this->clearHeadline($object);
     }
 
     public function postUpdate($object)
     {
         parent::postUpdate($object);
         $this->saveTagging($object);
-        $this->clearFeatured($object);
+        $this->clearHeadline($object);
     }
 
     public function setContainer($container)
@@ -218,15 +218,15 @@ class LectureNewsAdmin extends Admin
     }
     
     /**
-     * Updates all LECTURE_SUPER_TYPE_NEWS to set $object the only featured
+     * Updates all LECTURE_SUPER_TYPE_NEWS to set $object the only headline
      */
-    protected function clearFeatured($object)
+    protected function clearHeadline($object)
     {
         $this->modelManager
                 ->getEntityManager('ArmdLectureBundle:Lecture')
                 ->createQuery('UPDATE ArmdLectureBundle:Lecture l 
-                                SET l.isFeatured = false 
-                                WHERE l.lectureSuperType = :lst AND l.id <> :oid AND l.isFeatured = true')
+                                SET l.isHeadline = false 
+                                WHERE l.lectureSuperType = :lst AND l.id <> :oid AND l.isHeadline = true')
                 ->execute(array(
                     ':lst' => $object->getLectureSuperType()->getId(),
                     ':oid' => $object->getId(),

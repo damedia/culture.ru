@@ -42,11 +42,14 @@ class LectureAdmin extends Admin
         $showMapper
             ->add('published')
             ->add('title')
-            ->add('categories')
             ->add('genres')
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+            ->add('trailerVideo')
+            ->add('lectureVideo')
             ->add('mediaTrailerVideo')
             ->add('mediaLectureVideo');
     }
@@ -63,8 +66,12 @@ class LectureAdmin extends Admin
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
 
-        $lecture->setLectureSuperType($superType);
+        if (!$lecture->getId()) {
+            $lecture->setLectureSuperType($superType);
 
+        } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
+            throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
+        }
 
         $formMapper
             ->with('General')
@@ -73,40 +80,49 @@ class LectureAdmin extends Admin
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
-//                ->add('categories', 'armd_lecture_categories',
-//                    array(
-//                        'required' => false,
-//                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-//                        'super_type' => $superType
-//                    )
-//                )
-                ->add('genres', null,
+                ->add('genres', 'entity',
                     array(
+                        'class' => 'ArmdLectureBundle:LectureGenre',
+                        'required' => 'false',
                         'multiple' => 'true',
-                        'attr' => array('class' => 'chzn-select')
+                        'attr' => array('class' => 'chzn-select'),
+                        'query_builder' => function (EntityRepository $er) use ($superType) {
+                            return $er->createQueryBuilder('g')
+                                ->where('g.level = 2')
+                                ->andWhere('g.lectureSuperType = :lecture_super_type')
+                                ->setParameter('lecture_super_type', $superType);
+                        },
+                    )
+                )
+                ->add('verticalBanner',
+                    'armd_media_file_type',
+                    array('required' => false,
+                        'media_provider' => 'sonata.media.provider.image',
+                        'media_format' => 'medium',
+                        'media_context' => 'lecture',
+                        'with_remove' => true,
+                    )
+                )
+                ->add('horizontalBanner',
+                    'armd_media_file_type',
+                    array('required' => false,
+                        'media_provider' => 'sonata.media.provider.image',
+                        'media_format' => 'medium',
+                        'media_context' => 'lecture',
+                        'with_remove' => true,
                     )
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
                 ->add('lecturer')
                 ->add('recommended')
+                ->add('showAtSlider')
+                ->add('showAtFeatured')
             ->end()
             ->with('SEO')
                 ->add('seoTitle')
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
-            /*->with('Tvigle Video')
-                ->add('trailerVideo', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )
-                ->add('lectureVideo', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )
-            ->end()*/
             ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
                 ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
@@ -157,8 +173,12 @@ class LectureAdmin extends Admin
         $datagridMapper
             ->add('published')
             ->add('title')
-            ->add('categories')
-            ->add('lecturer');
+            ->add('genres')
+            ->add('lecturer')
+            ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+        ;
     }
 
 
@@ -175,7 +195,11 @@ class LectureAdmin extends Admin
             ->add('createdAt')
             ->add('lectureType')
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
-            ->add('lecturer');
+            ->add('lecturer')
+            ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+        ;
     }
 
     public function getFormTheme()
@@ -183,6 +207,51 @@ class LectureAdmin extends Admin
         $themes = parent::getFormTheme();
         $themes[] = 'ArmdLectureBundle:Form:fields.html.twig';
         return $themes;
+    }
+
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = parent::getBatchActions();
+
+
+        // check user permissions
+        if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
+            $actions['ShowOnMain']=array(
+                'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['NotShowOnMain']=array(
+                'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+                'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+            );
+            $actions['SetRecommended']=array(
+                'label'            => 'Установить "Рекомендована"',
+                'ask_confirmation' => false
+            );
+            $actions['ResetRecommended']=array(
+                'label'            => 'Сбросить "Рекомендована"',
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtSlider']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtSlider']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtFeatured']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtFeatured']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
+        }
+
+        return $actions;
     }
 
     public function postPersist($object)

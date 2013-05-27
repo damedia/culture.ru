@@ -1,0 +1,59 @@
+{% if lectures is not empty %}
+    <div class="kinozal-slider">
+        <ul class="slides kinozal-slider-list">
+            {% for lecture in lectures if lectures|length %}
+                <li class="kinozal-slider-one" style="background: url({% path lecture.horizontalBanner, 'xbig' %}) no-repeat 50% 50%; background-size: cover;">
+                    <div class="kinozal-slider-block">
+                        <h2 class="kinozal-slider-header">
+                            <p class="autoscrolling-wrap">
+                                <span class="autoscrollingHor">{{ lecture.title }}</span>
+                            </p>
+
+                        </h2>
+                        <div class="kinozal-slider-content">
+                            <div class="ksc-left-column">
+                               {% thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' } %}
+                                {% if lecture.productionYear %}
+                                    <p>
+                                        <b>Год:</b> {{ lecture.productionYear }}
+                                        {#% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %#}
+                                    </p>
+                                {% endif %}
+                                {#<p>
+                                    <b>Производитель:</b> Мосфильм
+                                </p>
+                                <p>
+                                    <b>Режиссёр:</b> <i>Бондарчук Сергей</i>
+                                </p>
+                                <p>
+                                    <b>В главных ролях:</b> <i>Шукшин Василий, Тихонов Вячеслав, Бондарчук Сергей, Бурков Георгий, Никулин Юрий, Лапиков Иван, Губенко Николай, Ростоцкий Андрей, Волков Николай, Шутько Николай, Самойлов Евгений, Мордюкова Нонна Смоктуновский Иннокентий</i>
+                                </p>#}
+                            </div><div class="ksc-right-column autoscrolling-wrap">
+                                <div class="autoscrolling">
+                                    <p class="ksc-categories">
+                                        <b>Категории:</b>
+                                        {% for genre in lecture.filtrableGenres %}
+                                            <a href="#" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    {% if lecture.description %}
+                                        {{ lecture.description|raw  }}
+                                    {% endif %}
+                                </div>
+                                {#<p>
+                                    <b>Краткое описание:</b> <i>Экранизация одноименного романа М.Шолохова. Фильм рассказывает о нескольких днях жестоких боев, когда стояла насмерть под непрерывными бомбежками и танковыми атаками горсточка храбрецов... <br />они люди ярких характеров, разные по профессии, возрасту, темпераменту и национальности. В коротких передышках между боями, говорят они </i>
+                                </p>#}
+                            </div>
+                        </div>
+                        <div class="kinozal-slider-footer clearfix">
+                            <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="ksf-watch-button">Смотреть</a>
+                            <p class="ksf-views">Просмотров: {{ lecture.viewCount }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+

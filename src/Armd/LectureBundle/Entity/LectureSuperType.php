@@ -27,6 +27,11 @@ class LectureSuperType
      */
     private $code;
 
+    /**
+     * @ORM\Column(name="template", type="string", length=255, nullable=true)
+     */
+    private $template;
+
     public function __toString()
     {
         return $this->name;
@@ -55,5 +60,21 @@ class LectureSuperType
     public function setCode($code)
     {
         $this->code = $code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param mixed $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
     }
 }

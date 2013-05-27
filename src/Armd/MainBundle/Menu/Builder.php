@@ -232,6 +232,22 @@ class Builder extends ContainerAware
             );
             
             $mediaMenu->addChild(
+                'menu.article',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'articles')
+                )
+            );
+
+            $mediaMenu->addChild(
+                'menu.events',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'events')
+                )
+            );
+            
+            $mediaMenu->addChild(
                 'menu.lectures_news',
                 array(
                     'route' => 'armd_lecture_news_index',

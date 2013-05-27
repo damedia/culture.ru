@@ -42,10 +42,11 @@ class LectureCinemaAdmin extends Admin
             ->add('published')
             ->add('title')
             ->add('description')
-            ->add('categories')
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
             ->add('isTop100Film')
             ->add('lectureVideo')
             ->add('lectureFile')
@@ -65,11 +66,14 @@ class LectureCinemaAdmin extends Admin
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_CINEMA');
+        
+        if (!$lecture->getId()) {
+            $lecture->setLectureSuperType($superType);
 
-
-        $lecture->setLectureSuperType($superType);
-
-
+        } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
+            throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
+        }
+        
         $formMapper
             ->add('published')
             ->add('title')
@@ -96,6 +100,7 @@ class LectureCinemaAdmin extends Admin
             )
             ->add('genres2', 'entity',
                 array(
+                    'required' => false,
                     'class' => 'ArmdLectureBundle:LectureGenre',
                     'multiple' => 'true',
                     'query_builder' => function (EntityRepository $er) use ($superType) {
@@ -107,8 +112,58 @@ class LectureCinemaAdmin extends Admin
                     'attr' => array('class' => 'chzn-select')
                 )
             )
+            ->add('verticalBanner',
+                'armd_media_file_type',
+                array('required' => false,
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'medium',
+                    'media_context' => 'lecture',
+                    'with_remove' => true,
+//                    'by_reference' => false
+                )
+            )
+            ->add('horizontalBanner',
+                'armd_media_file_type',
+                array('required' => false,
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'medium',
+                    'media_context' => 'lecture',
+                    'with_remove' => true,
+//                    'by_reference' => false
+                )
+            )
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+            ->add('limitSliderForGenres', 'entity',
+                array(
+                    'class' => 'ArmdLectureBundle:LectureGenre',
+                    'required' => false,
+                    'multiple' => true,
+                    'attr' => array('class' => 'chzn-select'),
+                    'query_builder' => function (EntityRepository $er) use ($superType) {
+                        return $er->createQueryBuilder('g')
+                            ->where('g.level = 1')
+                            ->andWhere('g.lectureSuperType = :lecture_super_type')
+                            ->setParameter('lecture_super_type', $superType);
+                    },
+                )
+            )
+            ->add('limitFeaturedForGenres', 'entity',
+                array(
+                    'class' => 'ArmdLectureBundle:LectureGenre',
+                    'required' => false,
+                    'multiple' => true,
+                    'attr' => array('class' => 'chzn-select'),
+                    'query_builder' => function (EntityRepository $er) use ($superType) {
+                        return $er->createQueryBuilder('g')
+                            ->where('g.level = 1')
+                            ->andWhere('g.lectureSuperType = :lecture_super_type')
+                            ->setParameter('lecture_super_type', $superType);
+                    },
+                )
+            )
             ->add('isTop100Film', null, array('required' => false))
             ->with('Главная')
                 ->add('showOnMain', null, array(
@@ -123,6 +178,8 @@ class LectureCinemaAdmin extends Admin
             ->end()*/
             ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+                ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
+                ->add('series', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
             ->end()
             ->with('External Video')
                 ->add('externalUrl', null, array('required' => false))
@@ -140,10 +197,14 @@ class LectureCinemaAdmin extends Admin
             ->add('id')
             ->add('published')
             ->add('title')
-            ->add('categories')
+            ->add('genres')
             ->add('isTop100Film')
             ->add('showOnMain')
-            ->add('showOnMainOrd');
+            ->add('showOnMainOrd')
+            ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+        ;
     }
 
 
@@ -162,6 +223,11 @@ class LectureCinemaAdmin extends Admin
             ->add('createdAt')
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('isTop100Film')
+            ->add('recommended')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
+            ->add('limitSliderForGenres')
+            ->add('limitFeaturedForGenres')
         ;
     }
 
@@ -178,10 +244,9 @@ class LectureCinemaAdmin extends Admin
         // retrieve the default (currently only the delete action) actions
         $actions = parent::getBatchActions();
 
-        
+
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
-            // /*
             $actions['ShowOnMain']=array(
                 'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
                 'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
@@ -190,9 +255,32 @@ class LectureCinemaAdmin extends Admin
                 'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
                 'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
             );
-            // */
+            $actions['SetRecommended']=array(
+                'label'            => 'Установить "Рекомендована"',
+                'ask_confirmation' => false
+            );
+            $actions['ResetRecommended']=array(
+                'label'            => 'Сбросить "Рекомендована"',
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtSlider']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtSlider']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtFeatured']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtFeatured']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
         }
-        
+
         return $actions;
     }
     

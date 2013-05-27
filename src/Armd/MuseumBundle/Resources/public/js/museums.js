@@ -160,7 +160,7 @@ var armdMuseums = {
                 else {
                     $('.virt-museum-new-list').html(newData);
                 }
-                if (!count || length <= armdMuseums.loadByCount || fullList) {
+                if (!count || length < armdMuseums.loadByCount || fullList) {
 
                     $('.more').hide();
                     $('#show-all').hide();

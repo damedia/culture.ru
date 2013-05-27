@@ -1,0 +1,53 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block title %}
+    {{ "Show on main"|trans({}, 'SonataAdminBundle') }}
+{% endblock%}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+     <script type="text/javascript">
+        $(function(){
+            $(".select2-show-on-main").val('0');
+            $(".select2-show-on-main").select2({
+                placeholder: "",
+                minimumInputLength: 0,
+                multiple : true,
+                ajax: {
+                    url: Routing.generate('armd_show_on_main_list'),
+                    dataType: 'json',
+                    quietMillis: 1000,
+                    data: function (term, page) {
+                        return {
+                            search: term,
+                            pageLimit: 20,
+                            page: page,
+                            field: $(this).data('field')
+                        };
+                    },
+                    results: function (data, page) {
+                        var more = (page * 20) < data.total;
+                 
+                        return {results: data.result, more: more};
+                    }
+                },
+                initSelection: function(element, callback) {                                   
+                    var field = $(element).data('field');
+                    $(element).val('');
+                    
+                    if (field !== '') {
+                        $.ajax(Routing.generate('armd_show_on_main_values', {'field': field}), {                   
+                            dataType: "json"
+                        }).done(function(data) {
+                            if (data.length) {
+                                callback(data); 
+                            }
+                        });
+                    }
+                    
+                },
+            });
+        });
+    </script>
+{% endblock %}

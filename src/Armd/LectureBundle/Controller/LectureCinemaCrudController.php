@@ -21,4 +21,47 @@ class LectureCinemaCrudController extends BaseCrudController
                 $object->setShowOnMain(false);
             });
     }
+
+    public function batchActionSetRecommended(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setRecommended(true);
+            });
+    }
+
+    public function batchActionResetRecommended(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setRecommended(false);
+            });
+    }
+
+    public function batchActionSetShowAtSlider(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setShowAtSlider(true);
+            });
+    }
+
+    public function batchActionResetShowAtSlider(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setShowAtSlider(false);
+            });
+    }
+
+    public function batchActionSetShowAtFeatured(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setShowAtFeatured(true);
+            });
+    }
+
+    public function batchActionResetShowAtFeatured(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function ($object) {
+                $object->setShowAtFeatured(false);
+            });
+    }
+
 }
