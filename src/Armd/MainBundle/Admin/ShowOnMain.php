@@ -11,9 +11,7 @@
 
 namespace Armd\MainBundle\Admin;
 
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Admin\Admin;
 use Armd\MainBundle\EventListener\AdminShowOnMainFormSubscriber;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -27,6 +25,16 @@ class ShowOnMain extends Admin
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
     }
+    
+    public static function getFields()
+    {
+        return array(
+            'virtualTours' => 'Armd\MuseumBundle\Entity\Museum',
+            'lectures' => 'Armd\LectureBundle\Entity\Lecture',
+            'news' => 'Armd\NewsBundle\Entity\News',
+            'objects' => 'Armd\AtlasBundle\Entity\Object',
+        );
+    }
 
     /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -37,7 +45,22 @@ class ShowOnMain extends Admin
     {
         $builder = $formMapper->getFormBuilder();
         $builder->addEventSubscriber(new AdminShowOnMainFormSubscriber($builder->getFormFactory(), $this->container));        
-
+        
+        $formMapper->with('General');
+        
+        foreach (self::getFields() as $name => $class) {
+            $formMapper->add($name, 'text', array(
+                'required' => false,
+                'virtual' => true,
+                'attr' => array(
+                    'class' => 'select2-show-on-main span5', 
+                    'data-field' => $name                      
+                ),
+            ));
+        } 
+        
+        $formMapper->end();
+                    
         parent::configureFormFields($formMapper);
     }   
     
