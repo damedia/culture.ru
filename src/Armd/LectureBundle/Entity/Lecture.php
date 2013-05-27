@@ -167,6 +167,11 @@ class Lecture implements Taggable
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
+    
+    /**
+     * @ORM\Column(name="is_featured", type="boolean", nullable=false)
+     */
+    private $isFeatured = false;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -829,5 +834,15 @@ class Lecture implements Taggable
     public function getStuff()
     {
         return $this->stuff;
+    }
+    
+    public function setIsFeatured($isFeatured)
+    {
+        $this->isFeatured = $isFeatured;
+    }
+    
+    public function getIsFeatured()
+    {
+        return $this->isFeatured;
     }
 }

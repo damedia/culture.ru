@@ -82,6 +82,24 @@ class DefaultController extends Controller
             )
         );
     }
+    
+    /**
+     * @Route("/press-centre/news-video/", name="armd_lecture_news_index")
+     * @Template("ArmdLectureBundle:Default:news_index.html.twig")
+     */
+    public function newsIndexAction()
+    {
+        $genreIds = array();
+        $genreId = $this->getRequest()->get('genre_id');
+        if ($genreId) {
+            $genreIds[] = $genreId;
+        }
+
+        $this->getRequest()->query->set('genre_ids', $genreIds);
+        $res = $this->indexAction('LECTURE_SUPER_TYPE_NEWS');
+        $res['lecture'] = $this->getDoctrine()->getManager()->getRepository('ArmdLectureBundle:Lecture')->findOneBy(array('isFeatured' => true));
+        return $res;
+    }
 
 
     /**
@@ -196,7 +214,14 @@ class DefaultController extends Controller
         );
     }
 
-
+    /**
+     * @Route("/press-centre/news-video/list", name="armd_lecture_news_list")
+     * @Template("ArmdLectureBundle:Default:news_two_column_list.html.twig")
+     */
+    public function newsListAction()
+    {
+        return $this->lectureListAction('LECTURE_SUPER_TYPE_NEWS');
+    }
 
     /**
      * View lecture details.
@@ -372,6 +397,8 @@ class DefaultController extends Controller
 
         } elseif ($superTypeCode === 'LECTURE_SUPER_TYPE_LECTURE') {
             $uri = $router->generate('armd_lecture_lecture_index');
+        } elseif ($superTypeCode === 'LECTURE_SUPER_TYPE_NEWS') {
+            $uri = $router->generate('armd_lecture_news_index');
         }
 
         return $uri;
