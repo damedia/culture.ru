@@ -7983,7 +7983,8 @@ a.appstore-link {
 				}	
 						
 				.el-one-hovered {
-					
+					position:relative;
+                    z-index:9999;
 				}
 					.el-one-hovered .el-one-wrap {
 						display:block;
@@ -7991,7 +7992,7 @@ a.appstore-link {
 						position:absolute;
 						top:-1px;
 						left:-1px;
-						z-index:5;
+						z-index:5000;
 						background:#fff url('../img/exp-hover-bg.png') no-repeat 0 0;
 						
 					}
