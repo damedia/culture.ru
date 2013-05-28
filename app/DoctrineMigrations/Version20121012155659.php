@@ -24,7 +24,7 @@ class Version20121012155659 extends AbstractMigration
         $this->addSql(
             $sql,
             array(
-                'name' => 'Кинозал',
+                'name' => 'Кино',
                 'code' => 'LECTURE_SUPER_TYPE_CINEMA'
             )
         );
@@ -45,7 +45,7 @@ class Version20121012155659 extends AbstractMigration
             :rgt
         )";
         $this->addSql($sql, array(
-                'title' => '== Корневая категория (Кинозал) ==',
+                'title' => '== Корневая категория (Кино) ==',
                 'root' => 3,
                 'lvl' => 0,
                 'lft' => 0,

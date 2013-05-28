@@ -8,7 +8,7 @@
                         <h2>{{ lectureMacro.lectureSuperTypeLink(lecture.lectureSuperType) }}</h2>
                         <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="period-block_image">
                             {% if lecture.isTop100Film %}
-                                <div class="cinema-top100-icon"></div>
+                                <div class="top100-corner"></div>
                             {% endif %}
                             {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': 'auto'}) }}
 

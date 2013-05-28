@@ -6748,6 +6748,16 @@ body {
                     
     }                
    
+    .orange-slider-block .top100-corner{
+        background: url('../img/top100_grey.png');
+        width: 43px;
+        height: 49px;
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 100;
+    }
+
    /*POPup Instruction*/
     
     .window {
