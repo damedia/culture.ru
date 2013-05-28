@@ -7,6 +7,26 @@
     {% else %}
         {% set lectureHref = path('armd_lecture_view', {'id': lecture.id}) %}
     {% endif %}
+    
+    <li class="video-time-one">
+        <div class="video-time-one-block">
+            <h3 class="video-time-header">
+                {{ lecture.title|truncate(50) }}
+            </h3>
+            <div class="video-time-image">
+                <a href="{{ lectureHref }}" title="{{ lecture.title }}">
+                    {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': '137', 'width': '243'}) }}
+                    <span class="play"></span>
+                </a>
+            </div>
+            <div class="video-time-descr">
+                <p>
+                    {{ lecture.description|truncate(80)|raw }}
+                </p>
+            </div>
+        </div>
+    </li>
+    {#
     <div class="plitka-one-wrap">
         <div class="plitka-one">
             <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ lectureHref }}">
@@ -37,10 +57,23 @@
                 <p class="views">Просмотров: {{ lecture.viewCount }}</p>
             </div>
         </div>
-    </div>
+    </div>#}
+    
 {% endmacro %}
 
 
+
+<div class="video-time-block">
+    <h2><span>Май</span></h2>
+    <div class="video-time-slider">
+        <ul class="slides video-time-list">
+            {% for lecture in lectures %}
+                {{ self.lecture(lectureMacro, genre1, lecture) }}
+            {% endfor %}
+        </ul>
+    </div>    
+</div> 
+{#
 <section class="block">
     <div class="plitka perfomances-list video-plitka">
         <ul class="theme-news-list">
@@ -61,3 +94,4 @@
         </ul>
     </div>
 </section>
+#}
