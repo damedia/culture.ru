@@ -1,20 +1,32 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as news_date%}
 {% import _self as self %}
 
-{% macro article(article) %}
-    <span class="date">{{ article.newsDate|date('H:i') }} / <a href="{{ path('armd_news_list_index_by_category', {'category': article.category.slug}) }}">{{ article.category.title }}</a></span>
+{% macro article(article, category) %}
+    {% import 'ArmdNewsBundle::date_macro.html.twig' as news_date%}
+    {% if 'news' in category %}
+        {% set newsDate = article.newsDate|date('H:i') %}
+    {% else %}
+        {% set newsDate = news_date.news_date_short(article.newsDate) %}
+    {% endif %}
+
+    <span class="date">{{ newsDate }} / <a href="{{ path('armd_news_list_index_by_category', {'category': article.category.slug}) }}">{{ article.category.title }}</a></span>
     <a href="{{ path('armd_news_item_by_category', {'id': article.id, 'category': article.category.slug }) }}">{{ article.title}}</a>
 {% endmacro %}
 
 {% for date, news in newsByDate %}
     <section class="block">
-        <h1 class="long-border"><span>{{ news_date.news_date_short(news[0].newsDate) }}</span></h1>
+        {% if 'news' in category %}
+            {% set blockDate = news_date.news_date_short(news[0].newsDate) %}
+        {% else %}
+            {% set blockDate = news_date.news_month(news[0].newsDate) %}
+        {% endif %}
+        <h1 class="long-border"><span>{{ blockDate }}</span></h1>
 
         <div class="theme-news-block search-news-block clearfix">
             <ul class="theme-news-list">
                 {% set lasti = 0 %}
                 {% for i in 0..(news|length-1)//2 if (i < news|length) %}
-                    <li>{{ self.article(news[i]) }}</li>
+                    <li>{{ self.article(news[i], category) }}</li>
                     {% set lasti = i %}
                 {% endfor %}
             </ul>
@@ -22,7 +34,7 @@
             <ul class="theme-news-list search-news-list">
                 {% if lasti + 1 <=  news|length - 1 %}
                     {% for i in lasti+1..(news|length-1) if (i < news|length) %}
-                        <li>{{ self.article(news[i]) }}</li>
+                        <li>{{ self.article(news[i], category) }}</li>
                     {% endfor %}
                 {% endif %}
             </ul>
@@ -31,6 +43,24 @@
     </section>
 {% endfor %}
 
+{#
+<div class="theme-news-newblock">
+    <ul class="theme-news-newblock-list">
+        {% for date, news in newsByDate %}
+            {% for entity in news %}
+                <li>
+                   <div class="tn-list-image-wrap">{% if entity.image %}<img class="tn-list-image" src="{% path entity.image, 'small' %}" alt="{{ entity.title|escape }}">{% else %}<img class="tn-list-image" src="/img/temp_125_125.png" alt="">{% endif %}</div>
+                    <div class="tn-list-text">
+                        <h3><a href="{{ path('armd_news_item_by_category', {'id': entity.id, 'category': entity.category.slug }) }}" class="tn-list-title">{{ entity.title}}</a></h3>
+                        <span class="tn-list-dates">{{ news_date.news_date_short(news[0].newsDate) }}, {{ entity.newsDate|date('H:i') }}</span>
+                        <p>{{ entity.announce|raw }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+#}
 <script type="text/javascript">
     {% if newsByDate is not empty %}
         var firstLoadedDate = '{{ newsByDate|keys[newsByDate|keys|length - 1] }}';

@@ -43,11 +43,11 @@ class LectureAdmin extends Admin
             ->add('published')
             ->add('title')
             ->add('genres')
-            ->add('genres')
             ->add('createdAt')
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
             ->add('trailerVideo')
             ->add('lectureVideo')
             ->add('mediaTrailerVideo')
@@ -66,8 +66,12 @@ class LectureAdmin extends Admin
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_LECTURE');
 
-        $lecture->setLectureSuperType($superType);
+        if (!$lecture->getId()) {
+            $lecture->setLectureSuperType($superType);
 
+        } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
+            throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
+        }
 
         $formMapper
             ->with('General')
@@ -76,17 +80,18 @@ class LectureAdmin extends Admin
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
-//                ->add('categories', 'armd_lecture_categories',
-//                    array(
-//                        'required' => false,
-//                        'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-//                        'super_type' => $superType
-//                    )
-//                )
-                ->add('genres', null,
+                ->add('genres', 'entity',
                     array(
+                        'class' => 'ArmdLectureBundle:LectureGenre',
+                        'required' => 'false',
                         'multiple' => 'true',
-                        'attr' => array('class' => 'chzn-select')
+                        'attr' => array('class' => 'chzn-select'),
+                        'query_builder' => function (EntityRepository $er) use ($superType) {
+                            return $er->createQueryBuilder('g')
+                                ->where('g.level = 2')
+                                ->andWhere('g.lectureSuperType = :lecture_super_type')
+                                ->setParameter('lecture_super_type', $superType);
+                        },
                     )
                 )
                 ->add('verticalBanner',
@@ -96,7 +101,6 @@ class LectureAdmin extends Admin
                         'media_format' => 'medium',
                         'media_context' => 'lecture',
                         'with_remove' => true,
-        //                    'by_reference' => false
                     )
                 )
                 ->add('horizontalBanner',
@@ -106,31 +110,19 @@ class LectureAdmin extends Admin
                         'media_format' => 'medium',
                         'media_context' => 'lecture',
                         'with_remove' => true,
-        //                    'by_reference' => false
                     )
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
                 ->add('lecturer')
                 ->add('recommended')
-                ->add('recommended1')
+                ->add('showAtSlider')
+                ->add('showAtFeatured')
             ->end()
             ->with('SEO')
                 ->add('seoTitle')
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
-            /*->with('Tvigle Video')
-                ->add('trailerVideo', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )
-                ->add('lectureVideo', 'armd_tvigle_video_selector',
-                    array(
-                        'required' => false
-                    )
-                )
-            ->end()*/
             ->with('Video')
                 ->add('mediaLectureVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
                 ->add('mediaTrailerVideo', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lecture')))
@@ -184,7 +176,8 @@ class LectureAdmin extends Admin
             ->add('genres')
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
         ;
     }
 
@@ -204,7 +197,8 @@ class LectureAdmin extends Admin
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
             ->add('lecturer')
             ->add('recommended')
-            ->add('recommended1')
+            ->add('showAtSlider')
+            ->add('showAtFeatured')
         ;
     }
 
@@ -239,12 +233,20 @@ class LectureAdmin extends Admin
                 'label'            => 'Сбросить "Рекомендована"',
                 'ask_confirmation' => false
             );
-            $actions['SetRecommended1']=array(
-                'label'            => 'Установить "Рекомендована1"',
+            $actions['SetShowAtSlider']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Slider'),
                 'ask_confirmation' => false
             );
-            $actions['ResetRecommended1']=array(
-                'label'            => 'Сбросить "Рекомендована1"',
+            $actions['ResetShowAtSlider']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Slider'),
+                'ask_confirmation' => false
+            );
+            $actions['SetShowAtFeatured']=array(
+                'label'            => 'Установить ' . $this->trans('Show At Featured'),
+                'ask_confirmation' => false
+            );
+            $actions['ResetShowAtFeatured']=array(
+                'label'            => 'Сбросить ' . $this->trans('Show At Featured'),
                 'ask_confirmation' => false
             );
         }
