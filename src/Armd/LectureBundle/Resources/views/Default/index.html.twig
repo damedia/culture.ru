@@ -62,15 +62,15 @@
         <div  class="sort-filter" id="sort-filter">
             <ul>
                 {#<li class="active"><a href="#" data-sort-by="date">по дате</a></li>#}
-                <li class="active"><a href="#" data-sort-by="popularity">по популярности</a></li>
-                <li><a href="#" data-sort-by="title">по алфавиту</a></li>
+                <li{% if filter.sortBy != 'title' %} class="active"{% endif %}><a href="#" data-sort-by="popularity">по популярности</a></li>
+                <li{% if filter.sortBy == 'title' %} class="active"{% endif %}><a href="#" data-sort-by="title">по алфавиту</a></li>
             </ul>
         </div>
         <div id="alphabet-filter">
             <ul>
-                <li class="all-let active"><a href="#">Все</a></li>
-                {% for l in alphabet %}
-                    <li><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
+                <li class="all-let{% if not filter.letter %} active{% endif %}"><a href="#">Все</a></li>
+                {% for l in filter.alphabet %}
+                    <li{% if filter.letter == l %} class="active"{% endif %}><a href="#" data-letter="{{ l }}">{{ l }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -90,13 +90,17 @@
                 'search_query': searchQuery,
                 'genre_ids': selectedGenreIds,
                 'tag_id': (tag is empty ? 0 : tag.id),
-                'genre1_id': (genre1 is empty ? 0 : genre1.id)
+                'genre1_id': (genre1 is empty ? 0 : genre1.id),
+                'first_letter': filter.letter,
+                'offset': filter.offset,
+                'sort_by': filter.sortBy
             })
         %}
     </div>
     <div id="lecture-more-container" class="more more2">
         <p><a id="lecture-more-button" href="#">{{ "show_more"|trans }}</a></p>
     </div>
+    <script>if ($('#lecture-container').find('.plitka-one-wrap').length < armdMkLectures.loadByCount) { armdMkLectures.hideMore();}</script>
 
 {% endblock %}
 

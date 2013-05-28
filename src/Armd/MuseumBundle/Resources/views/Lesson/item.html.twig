@@ -1,13 +1,15 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
-{% block left_column %}
-
+{% block pre_content %}
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
         <li><a href="{{ path('armd_lesson_list') }}">{{ 'menu.museum_lesson'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
+{% endblock %}
+
+{% block left_column %}
     
 	<div class="museum-education museum-education-one">
 		<h2>{{ entity.title }}</h2>
@@ -49,7 +51,7 @@
 
 
 {% block right_column %}
-
+    <div style="height:25px; gont-size:0; line-height:0;"></div>
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}

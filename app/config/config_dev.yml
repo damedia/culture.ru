@@ -22,5 +22,24 @@ monolog:
 assetic:
     use_controller: true
 
+armd_sphinx_search:
+    indexes:
+        All:
+            %sphinxsearch_index_all%: ~
+        Lectures:
+            %sphinxsearch_index_lectures%: ~
+        Atlas:
+            %sphinxsearch_index_atlas%: ~
+        Museums:
+            %sphinxsearch_index_museums%: ~
+        News:
+            %sphinxsearch_index_news%: ~
+        Lessons:
+            %sphinxsearch_index_lessons%: ~
+        Theaters:
+            %sphinxsearch_index_theaters%: ~
+        Perfomances:
+            %sphinxsearch_index_perfomances%: ~
+
 #swiftmailer:
 #    delivery_address: me@example.com

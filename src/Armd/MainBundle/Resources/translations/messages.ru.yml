@@ -19,6 +19,7 @@ menu.communication: Общение
 
 menu.reportage: Репортажи
 menu.interview: Интервью
+menu.article: Статьи
 menu.about: Информация
 menu.events_on_map: Карта мероприятий
 menu.information: Информация
@@ -37,6 +38,7 @@ menu.special_projects_1150: 1150 лет государственности
 menu.online_translation: Онлайн трансляции
 menu.video: Видеотека
 menu.video_all: Все видео
+menu.lectures_news: Видео
 menu.lectures: Лекции
 menu.translations: Трансляции
 menu.top100: 100 фильмов для школьников
@@ -223,3 +225,7 @@ search: Поиск
 search__: Поиск...
 culture: Культура
 Today: Сегодня
+
+Show on main: Показывать на главной
+Virtual Tours: Виртуальные туры
+Objects: Атлас

@@ -11,6 +11,11 @@ services:
         tags:
             - { name: form.type, alias: armd_media_file_type }
 
+    armd_media_helper.type.armd_media_video_type:
+        class: Armd\MediaHelperBundle\Form\Type\MediaVideoType
+        tags:
+            - { name: form.type, alias: armd_media_video_type }
+
     armd_media_helper.twig_extension.media_helper:
         class: Armd\MediaHelperBundle\Twig\MediaHelperExtension
         arguments: [@sonata.media.pool]
@@ -40,5 +45,18 @@ services:
         calls:
             - [ setTemplates, [ { helper_thumbnail: ArmdMediaHelperBundle:Provider:thumbnail_culturetv.html.twig, helper_view: ArmdMediaHelperBundle:Provider:view_culturetv.html.twig } ] ]
 #            - [ setResizer, [%armd_media_helper.providers.culturetv.resizer%] ]
-
-
+    
+    sonata.media.provider.tvigle:
+        class: Armd\MediaHelperBundle\Provider\TvigleProvider
+        tags:
+            - { name: sonata.media.provider }
+        arguments:
+            - sonata.media.provider.tvigle
+            - null
+            - @sonata.media.cdn.server
+            - null
+            - null
+            - @sonata.media.buzz.browser
+            - null
+        calls:
+            - [ setTemplates, [ { helper_thumbnail: ArmdMediaHelperBundle:Provider:thumbnail_tvigle.html.twig, helper_view: ArmdMediaHelperBundle:Provider:view_tvigle.html.twig } ] ]

@@ -36,6 +36,24 @@ class LectureManager extends ListManager
     /** example: 'A' */
     const CRITERIA_FIRST_LETTER = 'CRITERIA_FIRST_LETTER';
 
+    /** example: true */
+    const CRITERIA_RECOMMENDED = 'CRITERIA_RECOMMENDED';
+
+    /** example: true */
+    const CRITERIA_RECOMMENDED1 = 'CRITERIA_RECOMMENDED1';
+
+    /** example: true */
+    const CRITERIA_SHOW_AT_SLIDER = 'CRITERIA_SHOW_AT_SLIDER';
+
+    /** example: true */
+    const CRITERIA_SHOW_AT_FEATURED = 'CRITERIA_SHOW_AT_FEATURED';
+
+    /** example: array(1, 2) */
+    const CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS = 'CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS';
+
+    /** example: array(1, 2) */
+    const CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS = 'CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS';
+
     public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
     {
         parent::__construct($em, $tagManager);
@@ -102,6 +120,39 @@ class LectureManager extends ListManager
             $qb->andWhere('_lecture.isTop100Film = TRUE');
         }
 
+        if (!empty($criteria[self::CRITERIA_RECOMMENDED])) {
+            $qb->andWhere('_lecture.recommended = TRUE');
+        }
+
+        if (!empty($criteria[self::CRITERIA_SHOW_AT_SLIDER])) {
+            $qb->andWhere('_lecture.showAtSlider = TRUE');
+        }
+
+        if (!empty($criteria[self::CRITERIA_SHOW_AT_FEATURED])) {
+            $qb->andWhere('_lecture.showAtFeatured = TRUE');
+        }
+
+        if (!empty($criteria[self::CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS])) {
+            $qb->leftJoin('_lecture.limitSliderForGenres', '_limitSliderGenres');
+            $qb->andWhere($qb->expr()->orX(
+                    $qb->expr()->in('_limitSliderGenres', ':limit_slider_genres'),
+                    $qb->expr()->isNull('_limitSliderGenres')
+                )
+            )
+            ->setParameter('limit_slider_genres', $criteria[self::CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS]);
+        }
+
+        if (!empty($criteria[self::CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS])) {
+            $qb->leftJoin('_lecture.limitFeaturedForGenres', '_limitFeaturedGenres');
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->in('_limitFeaturedGenres', ':limit_featured_genres'),
+                    $qb->expr()->isNull('_limitFeaturedGenres')
+                )
+            )
+            ->setParameter('limit_featured_genres', $criteria[self::CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS]);
+        }
+
         if (!empty($criteria[self::CRITERIA_FIRST_LETTER])) {
             $qb->andWhere("SUBSTRING(TRIM(LEADING ' .\"«' FROM _lecture.title), 1, 1) = :first_letter")
                 ->setParameter('first_letter', $criteria[self::CRITERIA_FIRST_LETTER]);
@@ -117,6 +168,10 @@ class LectureManager extends ListManager
 
             }
         }
+
+        \gFuncs::dbgWriteLogDoctrine($criteria, 2, false, 'criteria'); // DBG:
+        \gFuncs::dbgWriteLogDoctrine($qb->getDQL(), 2, false, 'dql'); // DBG:
+        \gFuncs::dbgWriteLogDoctrine($qb->getParameters(), 3, false, 'parameters    '); // DBG:
     }
 
     public function findObjectsWithSphinx($criteria) {

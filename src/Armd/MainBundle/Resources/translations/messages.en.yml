@@ -13,6 +13,7 @@ menu.media: Media
 menu.events: Events
 menu.reportage: Reportage
 menu.interview: Interview
+menu.article: Article
 menu.events_on_map: Events on map
 menu.about: About
 menu.information: Info
@@ -30,6 +31,7 @@ menu.special_projects_stanislavski: Stanislavski
 menu.special_projects_1150: 1150 years of statehood
 menu.online_translation: Online translation
 menu.video: Video
+menu.lectures_news: Video
 menu.lectures: Lectures
 menu.translations: Translations
 menu.forum: Forum

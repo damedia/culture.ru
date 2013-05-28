@@ -12,18 +12,6 @@
                             {% endif %}
                             {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': 'auto'}) }}
 
-                            {#{% if lecture.lectureVideo.imageMedia is defined %}#}
-                                {#{% set thumbnailMedia = lecture.lectureVideo.imageMedia %}#}
-                            {#{% elseif lecture.mediaLectureVideo is not empty %}#}
-                                {#{% set thumbnailMedia = lecture.mediaLectureVideo %}#}
-                            {#{% else %}#}
-                                {#{% set thumbnailMedia = null %}#}
-                            {#{% endif %}#}
-
-                            {#{% if thumbnailMedia is not null %}#}
-                                {#{% thumbnail thumbnailMedia, 'big' %}#}
-                            {#{% endif %}#}
-                            {#<img src="images/period_1.jpg" alt=""  />#}
                             <span class="play"></span>
                         </a>
                         {#<div class="period-block_text">#}

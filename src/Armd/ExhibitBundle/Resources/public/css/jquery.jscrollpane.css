@@ -25,7 +25,15 @@
 	left: 0;
 	width: 100%;
 	height: 14px;
-	background: red;
+}
+
+.jspVerticalBar
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 14px;
+	height: 100%;
 }
 
 .jspVerticalBar *,
@@ -47,8 +55,13 @@
 
 .jspTrack
 {
-	background: #fff;
+	background: transparent;
 	position: relative;
+}
+
+.filter-results .jspTrack
+{
+	background: transparent;
 }
 
 .jspDrag
@@ -60,7 +73,7 @@
 	cursor: pointer;
 }
 
-.jspDrag:hover {
+.jspHorizontalBar .jspDrag:hover {
 	background: #fcc57e;
 	background: -moz-linear-gradient(top,  #fcc57e 0%, #f39a26 8%, #f39a26 46%, #f18800 62%, #f18800 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcc57e), color-stop(8%,#f39a26), color-stop(46%,#f39a26), color-stop(62%,#f18800), color-stop(100%,#f18800));
@@ -69,7 +82,17 @@
 	background: -ms-linear-gradient(top,  #fcc57e 0%,#f39a26 8%,#f39a26 46%,#f18800 62%,#f18800 100%);
 	background: linear-gradient(to bottom,  #fcc57e 0%,#f39a26 8%,#f39a26 46%,#f18800 62%,#f18800 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcc57e', endColorstr='#f18800',GradientType=0 );
+}
 
+.jspVerticalBar .jspDrag:hover {
+	background: #fcc57e;
+	background: -moz-linear-gradient(left,  #fcc57e 0%, #f39a26 8%, #f39a26 46%, #f18800 62%, #f18800 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fcc57e), color-stop(8%,#f39a26), color-stop(46%,#f39a26), color-stop(62%,#f18800), color-stop(100%,#f18800));
+	background: -webkit-linear-gradient(left,  #fcc57e 0%,#f39a26 8%,#f39a26 46%,#f18800 62%,#f18800 100%);
+	background: -o-linear-gradient(left,  #fcc57e 0%,#f39a26 8%,#f39a26 46%,#f18800 62%,#f18800 100%);
+	background: -ms-linear-gradient(left,  #fcc57e 0%,#f39a26 8%,#f39a26 46%,#f18800 62%,#f18800 100%);
+	background: linear-gradient(to right,  #fcc57e 0%,#f39a26 8%,#f39a26 46%,#f18800 62%,#f18800 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcc57e', endColorstr='#f18800',GradientType=1 );
 }
 
 .jspHorizontalBar .jspTrack,

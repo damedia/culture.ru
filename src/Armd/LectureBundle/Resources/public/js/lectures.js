@@ -2,22 +2,17 @@ var armdMkLectures = {
     loadByCount: 32,
     isSearch: false,
     lectureSuperTypeCode: null,
-    lectureTemplate: 'lecture_list',
 
-    init: function(lectureSuperTypeCode, lectureTemplate) {
+    init: function(lectureSuperTypeCode) {
         armdMkLectures.lectureSuperTypeCode = lectureSuperTypeCode;
 
-        if (typeof(lectureTemplate) != 'undefined') {
-            armdMkLectures.lectureTemplate = lectureTemplate;
-        }
-        
         // filter
         $('body').on('click', '.ui-selectgroup-list[aria-labelledby="ui-lecture_genre"] a',
             function (event) {
                 armdMkLectures.resetSearchForm();
                 armdMkLectures.isSearch = false;
                 armdMkLectures.loadList(false, false);
-
+                window.history.pushState(null, '', armdMkLectures.modifyQueryString({'genre_id': $('#lecture_genre').val()}));
             });
 
         // search
@@ -42,6 +37,7 @@ var armdMkLectures = {
             $('#sort-filter li').removeClass('active');
             $(this).closest('li').addClass('active');
             armdMkLectures.loadList(armdMkLectures.isSearch, false);
+            window.history.pushState(null, '', armdMkLectures.modifyQueryString({'sort_by': $(this).data()['sortBy']}));
         });
 
         // alphabet filter
@@ -53,6 +49,7 @@ var armdMkLectures = {
                 $('#alphabet-filter li').removeClass('active');
                 li.addClass('active');
                 armdMkLectures.loadList(false, false);
+                window.history.pushState(null, '', armdMkLectures.modifyQueryString({'first_letter': $(this).data()['letter']}));
             }
         });
 
@@ -140,7 +137,7 @@ var armdMkLectures = {
         data['sort_by'] = $('#sort-filter li.active a').data('sort-by');
 
         $.ajax({
-            url: Routing.generate('armd_lecture_list', {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode, 'templateName':armdMkLectures.lectureTemplate}),
+            url: Routing.generate('armd_lecture_list', {'lectureSuperTypeCode': armdMkLectures.lectureSuperTypeCode}),
             data: data,
             type: 'get',
             dataType: 'html',
@@ -168,4 +165,24 @@ var armdMkLectures = {
         });
     },
 
+    parseParams: function(query) {
+        var re = /([^&=]+)=?([^&]*)/g;
+        var decodeRE = /\+/g; // Regex for replacing addition symbol with a space
+        var decode = function (str) {return decodeURIComponent( str.replace(decodeRE, " ") );};
+        var params = {}, e;
+        while (e = re.exec(query)) {
+            var k = decode( e[1] ), v = decode( e[2] );
+            if (k.substring(k.length - 2) === '[]') {
+                k = k.substring(0, k.length - 2);
+                (params[k] || (params[k] = [])).push(v);
+            }
+            else params[k] = v;
+        }
+        return params;
+    },
+    modifyQueryString: function(params) {
+        var vars = armdMkLectures.parseParams(window.location.search.replace('?', ''));
+        $.each(params, function(k, v){ vars[k] = v; });
+        return '?' + $.param(vars);
+    },
 };

@@ -7,7 +7,7 @@ parameters:
     database_user:     mk
     database_password: Fa3Sheer
 
-    mailer_transport:  smtp
+    mailer_transport:  sendmail
     mailer_host:       localhost
     mailer_user:       ~
     mailer_password:   ~
@@ -19,8 +19,9 @@ parameters:
     progorod_api_key:  e316fab34585f12b5506493c1c17d41c
 
     sphinxsearch_indexer_bin: c:/sphinx/bin/indexer.exe
-    sphinxsearch_host: localhost
+    sphinxsearch_host: 192.168.56.101
     sphinxsearch_port: 9312
+
     sphinxsearch_index_all: mk_all
     sphinxsearch_index_lectures: mk_lectures
     sphinxsearch_index_atlas: mk_atlas
@@ -30,25 +31,36 @@ parameters:
     sphinxsearch_index_perfomances: mk_perfomances
     sphinxsearch_index_lessons: mk_lessons
 
+    sphinxsearch_index_all_en: mk_all_en
+    sphinxsearch_index_lectures_en: mk_lectures_en
+    sphinxsearch_index_atlas_en: mk_atlas_en
+    sphinxsearch_index_museums_en: mk_virtual_museums_en
+    sphinxsearch_index_news_en: mk_news_en
+    sphinxsearch_index_theaters_en: mk_theaters_en
+    sphinxsearch_index_perfomances_en: mk_perfomances_en
+    sphinxsearch_index_lessons_en: mk_lessons_en
+
     communication_platform_domain: people.culture.ru
-    domain: .culture.ru
+    domain:
 
     sonata_media_filesystem_path: %kernel.root_dir%/../web/uploads/media
-    sonata_media_cdn: http://roskult.ru/ru/uploads/media
-    sonata_media_cdn_en: http://roskult.ru/en/uploads/media
+    sonata_media_cdn: /uploads/media
+    sonata_media_cdn_en: /uploads/media
+#    sonata_media_cdn: http://culture.ru/ru/uploads/media
+#    sonata_media_cdn_en: http://culture.ru/en/uploads/media
 
     ######################################################################
     ## multi-server config (used only in app_ms.php frontend controller)
 
     slave_database_host:     localhost
     slave_database_port:     ~
-    slave_database_name:     mk_slave
-    slave_database_name_en:  mk_slave_en
+    slave_database_name:     mk
+    slave_database_name_en:  mk
     slave_database_user:     mk
     slave_database_password: Fa3Sheer
 
-    sonata_media_ftp_directory: /ru/uploads/media
-    sonata_media_ftp_directory_en: /en/uploads/media
+    sonata_media_ftp_directory: /media
+    sonata_media_ftp_directory_en: /media
     sonata_media_ftp_host: localhost
     sonata_media_ftp_username: mk
     sonata_media_ftp_password: 111111

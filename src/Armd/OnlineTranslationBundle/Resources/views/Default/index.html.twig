@@ -44,6 +44,7 @@
     </div>
 {% endif %}
 
+{#
     <section class="block">
         <h2 class="long-border type-1"><span>Архив трансляций</span></h2>
         <div class="plitka">
@@ -55,12 +56,12 @@
                             <div class="plitka-one-image">
                                 {{ lectureMacro.lectureThumbnail(translation, 'lectureW160H120', {'alt': translation.title, 'height': 'auto', 'style': 'height: auto'}) }}
                             </div>
-                            {#{% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}#}
+                            {% thumbnail translation.image, 'broadcastW600' with {'class': 'plitka-image'} %}
                         </a>
                         <div class="plitka-text">
                             <span class="plitka-name">{{ translation.title|truncate(30) }}</span>
 
-{#
+
                             {% if translation.productionYear is not empty %}
                                 {{ translation.productionYear }} /
                             {% endif %}
@@ -68,7 +69,7 @@
                             {% if translation.timeLength is not empty %}
                                 {{ translation.timeLength }} мин. /
                             {% endif %}
-#}
+
 
                             {% if translation.categories[0] is defined %}
                                 {{ translation.categories[0].title }}
@@ -76,8 +77,6 @@
                             {% if translation.categories[1] is defined %}
                                 / {{ translation.categories[1].title }}
                             {% endif %}
-                            {#1969 / 81 мин. / <a href="#">Приключения</a><br>#}
-                            {#Режиссер: Мотыль Владимир#}
                         </div>
                         <div class="plitka-footer">
                             <a href="{{ translationHref }}">{{ translation.lectureSuperType.name }}</a>
@@ -86,6 +85,7 @@
                 </div>
 
             {% endfor %}
+#}
  {#           <div class="plitka-one-wrap">
                 <div class="plitka-one">
                     <a href="#">
@@ -133,7 +133,7 @@
                         Режиссер: Мотыль Владимир
                     </div>
                     <div class="plitka-footer">
-                        <a href="#">Кинозал</a>
+                        <a href="#">Кино</a>
                     </div>
                 </div>
 
@@ -152,7 +152,7 @@
                         Продолжительность: 44 мин.
                     </div>
                     <div class="plitka-footer">
-                        <a href="#">Кинозал</a>
+                        <a href="#">Кино</a>
                     </div>
                 </div>
 
@@ -278,10 +278,11 @@
                 </div>
 
             </div>		#}
+{#
         </div>
 
     </section>
-
+#}
 {% endblock %}
 
 {% block right_column %}
