@@ -485,6 +485,8 @@ armd_tvigle_video:
 armd_external_search:
     yandex_search_id: 2039240
 
+armd_subscription: ~
+
 armd_sphinx_search:
     searchd:
         host:   %sphinxsearch_host%
@@ -556,3 +558,4 @@ armd_sitemap:
     locales: [ru, en]
     directory: sitemap # relative to server document_root (web)
     urls_per_file: 10000
+

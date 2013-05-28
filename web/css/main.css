@@ -7067,6 +7067,11 @@ body {
     /*position: relative;*/
 /*}*/
 
+.lk #fos_user_registration_form_subscriptions label:after, .lk #sonata_user_profile_form_subscriptions label:after {
+    content: "\A";
+    white-space:pre;
+}
+
 .social-auth-links a {
     display: inline-block;
     width: 16px;

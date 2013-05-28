@@ -29,6 +29,8 @@ class UserAdmin extends BaseAdmin {
             ->end()
             ->with('Social')
                 ->add('vkontakteUid')
+            ->with('Mailing Lists')
+                ->add('subscriptions', null, array('expanded' => true))
             ->end()
         ;
 
@@ -38,7 +40,7 @@ class UserAdmin extends BaseAdmin {
             ->remove('gplusUid')
             ->remove('gplusName')
             ->remove('biography')
-            ;
+        ;
     }
 
 }

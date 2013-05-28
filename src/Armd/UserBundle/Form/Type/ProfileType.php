@@ -22,6 +22,7 @@ class ProfileType extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+
         $builder->remove('locale')
             ->remove('timezone')
             ->remove('biography')
@@ -37,7 +38,9 @@ class ProfileType extends BaseType
             ->add('biographyText')
             ->add('vkontakteUid')
             ->add('facebookName')
-            ->add('twitterName');
+            ->add('twitterName')
+            ->add('subscriptions', null, array('expanded' => true))
+        ;
     }
 
     /**
