@@ -1,0 +1,63 @@
+{% import _self as self %}
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+
+{% macro lecture(lectureMacro, genre1, lecture) %}
+    {% if genre1 is not empty %}
+        {% set lectureHref = path('armd_lecture_view', {'id': lecture.id, 'genre1_id': genre1.id}) %}
+    {% else %}
+        {% set lectureHref = path('armd_lecture_view', {'id': lecture.id}) %}
+    {% endif %}
+    <div class="plitka-one-wrap">
+        <div class="plitka-one">
+            <a class="plitka-one-image-wrapper" title="{{ lecture.title }}" href="{{ lectureHref }}">
+                <div class="plitka-one-image">
+                    {{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 'auto'}) }}
+                </div>
+            </a>
+            <div class="plitka-text">
+                <span class="plitka-name">
+                    <a title="{{ lecture.title }}" href="{{ lectureHref }}">
+                        {{ lecture.title|truncate(50) }}
+                    </a>
+                </span>
+                {% if lecture.productionYear or lecture.timeLength %}
+                    <span  class="two-row-link">
+                        {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                        {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
+                    </span>
+                {% endif %}
+
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    {% for genre in lecture.filtrableGenres %}
+                        <nobr><a href="#" class="cinema-genre-link" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}</nobr>
+                    {% endfor %}
+                </div>
+                <p class="views">Просмотров: {{ lecture.viewCount }}</p>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+<section class="block">
+    <div class="plitka perfomances-list video-plitka">
+        <ul class="theme-news-list">
+            {% for i in 0..(lectures|length)//2 %}
+                {% set cur = i * 2 %}
+                {% if cur < lectures|length %}
+                    <li>{{ self.lecture(lectureMacro, genre1, lectures[cur]) }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <ul class="theme-news-list search-news-list">
+            {% for i in 0..(lectures|length)//2 %}
+                {% set cur = i * 2 + 1 %}
+                {% if cur < lectures|length %}
+                    <li>{{ self.lecture(lectureMacro, genre1, lectures[cur]) }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</section>

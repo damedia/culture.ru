@@ -163,6 +163,11 @@ class Lecture implements Taggable
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
+    
+    /**
+     * @ORM\Column(name="is_headline", type="boolean", nullable=false)
+     */
+    private $isHeadline = false;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -843,6 +848,22 @@ class Lecture implements Taggable
     public function getStuff()
     {
         return $this->stuff;
+    }
+    
+    /**
+     * @param boolean $isHeadline
+     */
+    public function setIsHeadline($isHeadline)
+    {
+        $this->isHeadline = $isHeadline;
+    }
+  
+    /**
+     * @return boolean
+     */
+    public function getIsHeadline()
+    {
+        return $this->isHeadline;
     }
 
     /**
