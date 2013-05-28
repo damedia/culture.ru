@@ -8999,7 +8999,7 @@ a.appstore-link {
                 margin-right:17px;
                 
             }
-            .lt-ie8 .kfl-one{display:inline;}
+            .lt-ie8 .kfl-one{display:block !important; float:left}
                 .kfl-block {
                     border:1px solid #ededed;
                     padding:14px;
@@ -9064,6 +9064,7 @@ a.appstore-link {
                             position:absolute;
                             top:0;
                             z-index:10;
+                            right:0px;
                         }
                             .kinozal-featured .flex-direction-nav li a {
                                 width:30px;
@@ -9074,10 +9075,12 @@ a.appstore-link {
                         .kinozal-featured  .flex-direction-nav li:first-child {
                             left:0px;
                         }
+                        /*
                         .kinozal-featured  .flex-direction-nav li:last-child {
                             right:0px;
                             
                         }
+                        */
                             .kinozal-featured .flex-direction-nav li a.flex-next {
                                 background-position:100% 0;
                             }
