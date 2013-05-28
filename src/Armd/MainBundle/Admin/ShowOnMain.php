@@ -31,7 +31,7 @@ class ShowOnMain extends Admin
         return array(
             'virtualTours' => 'Armd\MuseumBundle\Entity\Museum',
             'lectures' => 'Armd\LectureBundle\Entity\Lecture',
-            'news' => 'Armd\NewsBundle\Entity\News',
+            //'news' => 'Armd\NewsBundle\Entity\News',
             'objects' => 'Armd\AtlasBundle\Entity\Object',
         );
     }
@@ -45,6 +45,7 @@ class ShowOnMain extends Admin
     {
         $builder = $formMapper->getFormBuilder();
         $builder->addEventSubscriber(new AdminShowOnMainFormSubscriber($builder->getFormFactory(), $this->container));        
+        $newsCategories = $this->container->get('armd_news.manager.news')->getCategories();
         
         $formMapper->with('General');
         
@@ -58,6 +59,22 @@ class ShowOnMain extends Admin
                 ),
             ));
         } 
+        
+        $formMapper->end();
+        $formMapper->with('Media');
+        
+        foreach ($newsCategories as $category) {
+            $name = 'news-' . $category->getId();
+            $formMapper->add($name, 'text', array(
+                'required' => false,
+                'label' => $category->getTitle(),
+                'virtual' => true,
+                'attr' => array(
+                    'class' => 'select2-show-on-main span5', 
+                    'data-field' => $name                      
+                ),
+            ));
+        }
         
         $formMapper->end();
                     
