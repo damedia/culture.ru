@@ -2310,6 +2310,7 @@ body {
             vertical-align:top;
             list-style:none;
         }
+        .lt-ie8 .sort-filter span, .lt-ie8 .sort-filter li{display:inline;}
         .sort-filter span {
             color:#989898;
             margin-right:7px;
@@ -4030,6 +4031,10 @@ body {
                             margin:1px 0 12px;
                             padding:0;
                         }
+                        .period-block h1 a, .period-block h2 a, .static-block h2 a{
+                            text-decoration:none;
+                            color:#000;
+                        }
                         .period-block_image, .block-image {
                             position:relative;
                             padding:1px;
@@ -4052,7 +4057,7 @@ body {
                         .period-block_text, .block-text {
                             font-size:11px;
                             margin-top:17px;
-                            min-height:3em;
+                            /* min-height:3em; */
                         }
                             .period-block_text b,  .block-text b {
                                 font-size:15px;
@@ -4063,8 +4068,8 @@ body {
                             }
                         
                         .period-block_footer {
-                            border-top:1px solid #c9c9c9;
-                            width:163px;
+                            /* border-top:1px solid #c9c9c9; 
+                            width:163px; */
                             padding-top:12px;
                             font-size:11px;
                             margin-top:13px;
@@ -6660,7 +6665,7 @@ body {
                 padding-right:12px;
         }
             .orange-slider-block  .period-block_text {
-                padding:0 12px 20px;
+                padding:0 12px;
                 margin-top:13px;
             }
                 .orange-slider-block  .period-block_text h4 {
@@ -8990,6 +8995,7 @@ a.appstore-link {
         position:relative;
         margin-left:-10px;
     }  
+    .kinozal-featured .flex-viewport{z-index:10;}
         .kinozal-featured-list {
             list-style:none;
             margin:22px 0 17px;
@@ -9001,6 +9007,7 @@ a.appstore-link {
                 margin-right:17px;
                 
             }
+            .lt-ie8 .kfl-one{display:block !important; float:left}
                 .kfl-block {
                     border:1px solid #ededed;
                     padding:14px;
@@ -9025,6 +9032,7 @@ a.appstore-link {
                     }
                     .kfl-image {
                         border:1px solid #efebec;
+                        width:auto;
                     }
                     .kfl-header {
                         font-size: 12px;
@@ -9064,6 +9072,7 @@ a.appstore-link {
                             position:absolute;
                             top:0;
                             z-index:10;
+                            right:0px;
                         }
                             .kinozal-featured .flex-direction-nav li a {
                                 width:30px;
@@ -9074,10 +9083,12 @@ a.appstore-link {
                         .kinozal-featured  .flex-direction-nav li:first-child {
                             left:0px;
                         }
+                        /*
                         .kinozal-featured  .flex-direction-nav li:last-child {
                             right:0px;
                             
                         }
+                        */
                             .kinozal-featured .flex-direction-nav li a.flex-next {
                                 background-position:100% 0;
                             }
@@ -9117,6 +9128,7 @@ a.appstore-link {
                     height:auto !important;
                     border:0;
                 }
+                .lt-ie8 .kol-one{display:inline;}
                     .kol-block {
                         border:1px solid #ededed;
                         padding:11px;
@@ -9129,6 +9141,7 @@ a.appstore-link {
                             position: relative;
                         }
                         .kol-image {
+                            width:auto;
                             border:1px solid #efebec;
                         }
                         .kol-header {
