@@ -83,12 +83,12 @@ class LectureAdmin extends Admin
                 ->add('genres', 'entity',
                     array(
                         'class' => 'ArmdLectureBundle:LectureGenre',
-                        'required' => 'false',
-                        'multiple' => 'true',
+                        'required' => false,
+                        'multiple' => true,
                         'attr' => array('class' => 'chzn-select'),
                         'query_builder' => function (EntityRepository $er) use ($superType) {
                             return $er->createQueryBuilder('g')
-                                ->where('g.level = 2')
+                                ->where('g.level = 1')
                                 ->andWhere('g.lectureSuperType = :lecture_super_type')
                                 ->setParameter('lecture_super_type', $superType);
                         },
