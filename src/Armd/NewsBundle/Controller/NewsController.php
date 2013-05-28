@@ -383,7 +383,12 @@ class NewsController extends Controller
                     NewsManager::CRITERIA_HAS_IMAGE => true,
                     NewsManager::CRITERIA_CATEGORY_IDS_OR => array($category->getId()),
                     NewsManager::CRITERIA_LIMIT => 1,
-                    NewsManager::CRITERIA_IMPORTANT
+                    NewsManager::CRITERIA_ORDER_BY => array(
+                        'showOnMain' => 'DESC',
+                        'showOnMainOrd' => 'ASC',
+                        'important' => 'DESC',
+                        'newsDate' => 'DESC'
+                    )
                 ));
 
             if (!empty($news)) {
