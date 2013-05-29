@@ -1,0 +1,41 @@
+parameters:
+
+services:
+    armd_subscription.content_filler.new_news:
+        class: Armd\SubscriptionBundle\Service\NewsContentFiller
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    armd_subscription.content_filler.new_lectures:
+        class: Armd\SubscriptionBundle\Service\LectureContentFiller
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    armd_subscription.content_filler.new_atlas_objects:
+        class: Armd\SubscriptionBundle\Service\AtlasContentFiller
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    armd_subscription.content_filler_factory:
+        class: Armd\SubscriptionBundle\Service\ContentFillerFactory
+        calls:
+            - [ setContainer, [ @service_container ] ]
+
+    armd_subscription.mailing_list_manager:
+        class: Armd\SubscriptionBundle\Service\MailingListManager
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - @mailer
+            - @armd_subscription.content_filler_factory
+            - @templating
+
+    armd_subscription.admin.issue:
+        class: Armd\SubscriptionBundle\Admin\IssueAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Subscriptions, label: Issues }
+        arguments: [null, Armd\SubscriptionBundle\Entity\Issue, SonataAdminBundle:CRUD, @service_container]
+    armd_subscription.admin.mailing_list:
+        class: Armd\SubscriptionBundle\Admin\MailingListAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Subscriptions, label: Mailing Lists}
+        arguments: [null, Armd\SubscriptionBundle\Entity\MailingList, ArmdSubscriptionBundle:MailingListAdmin, @service_container]

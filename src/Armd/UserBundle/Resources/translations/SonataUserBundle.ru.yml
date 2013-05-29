@@ -6,5 +6,6 @@ form:
     label_facebook_name: Facebook имя или email
     label_twitter_name: Twitter имя
     label_biography_text: Биография
+    label_subscriptions: Подписка на рассылки
 field:
     label_roles_editable: Выберите роли

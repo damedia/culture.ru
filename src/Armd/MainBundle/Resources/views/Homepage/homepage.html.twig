@@ -15,25 +15,25 @@
             <div class="plitka-one clearfix">
                 <div class="museum-image-container">
                     {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
-                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url(/img/museum-temp/7-istoricheskii.jpg);"></div></a>
+                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url(http://culture.ru/ru/uploads/media/museum/0001/11/thumb_10923_museum_banner.jpeg);"></div></a>
                     <div class="museum-image-over">
                         <div class="museum-image-title clearfix">
                           <span>
                           {% if app.request.locale == 'ru' %}
-                             ГОСУДАРСТВЕННЫЙ ИСТОРИЧЕСКИЙ МУЗЕЙ
+                             Государственный музей-заповедник «Царское&nbsp;Село»
                           {% else %}
-                             STATE HISTORICAL MUSEUM
+                             THE MUSEUM-PRESERVE "TSARSKOYE&nbsp;SELO"
                           {% endif %}
                           </span></div>
                         <div class="museum-image-text-wrap">
                             <a href="#" class="museum-town">
                               {% if app.request.locale == 'ru' %}
-                                Москва
+                                Санкт-Петербург
                               {% else %}
-                                Moscow
+                                St. Petersburg
                               {% endif %}
                             </a>
-                            <a class="museum-image-link vob iframe" href="{{ museum.url }}" data-fancybox-type="iframe">
+                            <a class="museum-image-link vob iframe" href="http://culture.ru/vtour/tsarskoe_selo/tsarskoe_selo_museum.html" data-fancybox-type="iframe">
                                 <span class="museum-image-text">
                                     {{ "visit_museum"|trans|raw }}
                                 </span>
@@ -121,84 +121,52 @@
 
 <!-- static sample -->
 <div id="video-list">
-<div class="plitka perfomances-list video-plitka">
-<div class="plitka-one-wrap">
-<div class="plitka-one">
-<a class="plitka-one-image-wrapper" title="Курьер" href="http://culture.ru/cinema/view/576">
-<div class="plitka-one-image">
-<img title="Курьер" alt="Курьер" src="/img/video/video-kurier.jpg">            
-</div>
-</a>
-<div class="plitka-text">
-<span class="plitka-name">
-<a title="Курьер" href="http://culture.ru/cinema/view/576">
-Курьер
-</a>
-</span>
-</div>
-<div class="plitka-footer">
-<p class="views">Мосфильм, 1986</p>
-</div>    
-</div>
-</div>
-<div class="plitka-one-wrap">
-<div class="plitka-one">
-<a class="plitka-one-image-wrapper" title="Земля" href="http://culture.ru/cinema/view/600">
-<div class="plitka-one-image">
-<img title="Земля" alt="Земля" src="/img/video/video-zemlya.jpg">            
-</div>
-</a>
-<div class="plitka-text">
-<span class="plitka-name">
-<a title="Земля" href="http://culture.ru/cinema/view/600">
-Земля
-</a>
-</span>
-</div>
-<div class="plitka-footer">
-<p class="views">Всеукраинское фотокиноуправление, 1930</p>
-</div>    
-</div>
-</div>
-<div class="plitka-one-wrap">
-<div class="plitka-one">
-<a class="plitka-one-image-wrapper" title="Летят журавли" href="http://culture.ru/cinema/view/577">
-<div class="plitka-one-image">
-<img title="Летят журавли" alt="Летят журавли" src="/img/video/video-letyat_zhuravli.jpg">            
-</div>
-</a>
-<div class="plitka-text">
-<span class="plitka-name">
-<a title="Летят журавли" href="http://culture.ru/cinema/view/577">
-Летят журавли
-</a>
-</span>
-</div>
-<div class="plitka-footer">
-<p class="views">Мосфильм, 1957</p>
-</div>    
-</div>
-</div>
-<div class="plitka-one-wrap">
-<div class="plitka-one">
-<a class="plitka-one-image-wrapper" title="Летят журавли" href="http://culture.ru/cinema/view/1023">
-<div class="plitka-one-image">
-<img title="Иван Грозный" alt="Иван Грозный" src="/img/video/video-groznyi.jpg">
-</div>
-</a>
-<div class="plitka-text">
-<span class="plitka-name">
-<a title="Иван Грозный" href="http://culture.ru/cinema/view/1023">
-Иван Грозный
-</a>
-</span>
-</div>
-<div class="plitka-footer">
-<p class="views">Мосфильм, 1944</p>
-</div>    
-</div>
-</div>
-</div>
+    <div class="plitka perfomances-list video-plitka">
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Мать" href="http://culture.ru/cinema/view/602"><div class="plitka-one-image"><img title="Мать" alt="Мать" src="http://culture.ru/ru/uploads/media/lecture/0001/19/thumb_18987_lecture_lectureH228.jpeg"></div></a>
+                <div class="plitka-text">
+                    <span class="plitka-name"><a title="Мать" href="http://culture.ru/cinema/view/602">Мать</a></span>
+                </div>
+                <div class="plitka-footer">
+                    <p class="views">Межрабпом-Русь, 1926</p>
+                </div>    
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Курьер" href="http://culture.ru/cinema/view/576"><div class="plitka-one-image"><img title="Курьер" alt="Курьер" src="http://culture.ru/ru/uploads/media/lecture/0001/20/thumb_19070_lecture_lectureH228.jpeg"></div></a>
+                <div class="plitka-text">
+                    <span class="plitka-name"><a title="Курьер" href="http://culture.ru/cinema/view/576">Курьер</a></span>
+                </div>
+                <div class="plitka-footer">
+                    <p class="views">Мосфильм, 1986</p>
+                </div>    
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Калина красная" href="http://culture.ru/cinema/view/574"><div class="plitka-one-image"><img title="Калина красная" alt="Калина красная" src="http://culture.ru/ru/uploads/media/lecture/0001/19/thumb_18966_lecture_lectureH228.jpeg"></div></a>
+                <div class="plitka-text">
+                    <span class="plitka-name"><a title="Калина красная" href="http://culture.ru/cinema/view/574">Калина красная</a></span>
+                </div>
+                <div class="plitka-footer">
+                    <p class="views">Мосфильм, 1973</p>
+                </div>    
+            </div>
+        </div><!-- /plitka-one-wrap -->
+        <div class="plitka-one-wrap">
+            <div class="plitka-one">
+                <a class="plitka-one-image-wrapper" title="Новые времена" href="http://culture.ru/cinema/view/1055"><div class="plitka-one-image"><img title="Новые времена" alt="Новые времена" src="http://culture.ru/ru/uploads/media/lecture/0001/20/thumb_19000_lecture_lectureH228.jpeg"></div></a>
+                <div class="plitka-text">
+                    <span class="plitka-name"><a title="Новые времена" href="http://culture.ru/cinema/view/1055">Новые времена</a></span>
+                </div>
+                <div class="plitka-footer">
+                    <p class="views">США, 1936</p>
+                </div>    
+            </div>
+        </div><!-- /plitka-one-wrap -->
+    </div>
 </div>
 <!-- /static sample -->
             <p class="all"><a href="{{ path('armd_lecture_cinema_index') }}">{{ "mainpage.all_video"|trans }}</a></p>

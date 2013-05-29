@@ -6,7 +6,7 @@
             <div class="index-video-one">
                 <a href="{{ path('armd_lecture_view', {'id': v.id}) }}">
                     {% if v.isTop100Film %}
-                        <div class="cinema-top100-icon"></div>
+                        <div class="top100-corner"></div>
                     {% endif %}
                     <div class="index-video-image">
                     {{ lectureMacro.lectureThumbnail(v, 'lectureH228', {

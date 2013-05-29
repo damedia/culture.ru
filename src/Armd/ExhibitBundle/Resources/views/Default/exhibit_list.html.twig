@@ -74,7 +74,7 @@
                     </div>
                 </div>    
                     
-                <div class="exponats-scroll-pane">
+                <div class="exponats-scroll-pane" id="exponats-scroll-pane">
                     <div class="exponats-scroll">
 
                         <div class="line first-line">
@@ -205,6 +205,7 @@
 {% block javascripts %}
     {{ parent() }}
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.jscrollpane.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.overscroll.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.mousewheel.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/mwheelIntent.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.jcarousel.min.js') }}"></script>
