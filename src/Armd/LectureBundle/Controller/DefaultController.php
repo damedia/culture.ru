@@ -197,69 +197,7 @@ class DefaultController extends Controller
     public function lectureListAction($lectureSuperTypeCode)
     {
         $request = $this->getRequest();
-        $criteria = array(
-            LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($lectureSuperTypeCode)
-        );
-
-        if ($request->query->has('offset')) {
-            $criteria[LectureManager::CRITERIA_OFFSET] = $request->get('offset');
-        }
-
-        if ($request->query->has('limit')) {
-            $limit = $request->get('limit');
-            $criteria[LectureManager::CRITERIA_LIMIT] = $limit > 100 ? 100 : $limit;
-        }
-
-        if ($request->query->has('search_query')) {
-            $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
-        }
-
-        $sort = $request->query->get('sort_by');
-        switch ($sort) {
-            case 'popularity':
-                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('viewCount' => 'DESC');
-                break;
-            case 'title':
-                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('title' => 'ASC');
-                break;
-            default:
-                // sort by date (default)
-                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('viewCount' => 'DESC');
-        }
-
-
-        if ($request->query->has('first_letter')) {
-            $criteria[LectureManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
-        }
-
-        if ($request->query->has('tag_id')) {
-            $criteria[LectureManager::CRITERIA_TAG_ID] = $request->get('tag_id');
-        }
-
-        if ($request->query->has('genre_ids')) {
-            $criteria[LectureManager::CRITERIA_GENRE_IDS_AND] = $request->get('genre_ids');
-        }
-
-        if ($request->query->has('recommended')) {
-            $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
-        }
-
-        if ($request->query->has('show_at_featured')) {
-            $criteria[LectureManager::CRITERIA_SHOW_AT_FEATURED] = true;
-        }
-
-        if ($request->query->has('show_at_slider')) {
-            $criteria[LectureManager::CRITERIA_SHOW_AT_SLIDER] = true;
-        }
-
-        if ($request->query->has('limit_slider_genre_ids')) {
-            $criteria[LectureManager::CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS] = $request->get('limit_slider_genre_ids');
-        }
-
-        if ($request->query->has('limit_featured_genre_ids')) {
-            $criteria[LectureManager::CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS] = $request->get('limit_featured_genre_ids');
-        }
-
+        $criteria = $this->getListCriteria($lectureSuperTypeCode);
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
         // for breadcrumbs
@@ -294,8 +232,36 @@ class DefaultController extends Controller
      */
     public function newsListAction()
     {
-        $this->getRequest()->query->set('templateName', 'list_news');
-        return $this->lectureListAction('LECTURE_SUPER_TYPE_NEWS');
+        $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_NEWS';
+        $request = $this->getRequest();
+        $criteria = $this->getListCriteria($lectureSuperTypeCode);
+        $criteria[LectureManager::CRITERIA_ORDER_BY] = array('createdAt' => 'DESC');
+        $lectures = $this->getLectureManager()->findObjects($criteria);
+
+        $lecturesByMonth = array();
+        foreach ($lectures as $n) {
+            $date = $n->getCreatedAt()->format('Y-m');
+            if (!isset($lecturesByMonth[$date])) {
+                $lecturesByMonth[$date] = array();
+            }
+            $lecturesByMonth[$date][] = $n;
+        }
+        
+        // for breadcrumbs
+        if ($request->query->has('genre1_id')) {
+            $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
+                ->find($request->get('genre1_id'));
+        } else {
+            $genre1 = null;
+        }
+
+        return $this->render(
+            'ArmdLectureBundle:Default:list_news.html.twig',
+            array(
+                'lecturesByMonth' => $lecturesByMonth,
+                'genre1' => $genre1
+            )
+        );
     }
 
     /**
@@ -335,7 +301,10 @@ class DefaultController extends Controller
         } else {
             $genre1 = $lecture->getGenreByLevel(1);
         }
-        return $this->render('ArmdLectureBundle:Default:lecture_details.html.twig', array(
+        
+        $template = $lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_NEWS' ? 'item_news' : 'lecture_details';
+        
+        return $this->render('ArmdLectureBundle:Default:'.$template.'.html.twig', array(
             'referer' => $request->headers->get('referer'),
             'lecture' => $lecture,
             'genres' => $this->getGenres($lectureSuperType),
@@ -578,5 +547,74 @@ class DefaultController extends Controller
         $filter['offset'] = (int)$request->get('offset');
 
         return $filter;
+    }
+    
+    protected function getListCriteria($lectureSuperTypeCode)
+    {
+        $request = $this->getRequest();
+        $criteria = array(
+            LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array($lectureSuperTypeCode)
+        );
+
+        if ($request->query->has('offset')) {
+            $criteria[LectureManager::CRITERIA_OFFSET] = $request->get('offset');
+        }
+
+        if ($request->query->has('limit')) {
+            $limit = $request->get('limit');
+            $criteria[LectureManager::CRITERIA_LIMIT] = $limit > 100 ? 100 : $limit;
+        }
+
+        if ($request->query->has('search_query')) {
+            $criteria[LectureManager::CRITERIA_SEARCH_STRING] = $request->get('search_query');
+        }
+
+        $sort = $request->query->get('sort_by');
+        switch ($sort) {
+            case 'popularity':
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('viewCount' => 'DESC');
+                break;
+            case 'title':
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('title' => 'ASC');
+                break;
+            default:
+                // sort by date (default)
+                $criteria[LectureManager::CRITERIA_ORDER_BY] = array('viewCount' => 'DESC');
+        }
+
+
+        if ($request->query->has('first_letter')) {
+            $criteria[LectureManager::CRITERIA_FIRST_LETTER] = $request->get('first_letter');
+        }
+
+        if ($request->query->has('tag_id')) {
+            $criteria[LectureManager::CRITERIA_TAG_ID] = $request->get('tag_id');
+        }
+
+        if ($request->query->has('genre_ids')) {
+            $criteria[LectureManager::CRITERIA_GENRE_IDS_AND] = $request->get('genre_ids');
+        }
+
+        if ($request->query->has('recommended')) {
+            $criteria[LectureManager::CRITERIA_RECOMMENDED] = true;
+        }
+
+        if ($request->query->has('show_at_featured')) {
+            $criteria[LectureManager::CRITERIA_SHOW_AT_FEATURED] = true;
+        }
+
+        if ($request->query->has('show_at_slider')) {
+            $criteria[LectureManager::CRITERIA_SHOW_AT_SLIDER] = true;
+        }
+
+        if ($request->query->has('limit_slider_genre_ids')) {
+            $criteria[LectureManager::CRITERIA_LIMIT_SLIDER_FOR_GENRE_IDS] = $request->get('limit_slider_genre_ids');
+        }
+
+        if ($request->query->has('limit_featured_genre_ids')) {
+            $criteria[LectureManager::CRITERIA_LIMIT_FEATURED_FOR_GENRE_IDS] = $request->get('limit_featured_genre_ids');
+        }
+
+        return $criteria;
     }
 }
