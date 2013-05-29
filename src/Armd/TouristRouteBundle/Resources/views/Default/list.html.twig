@@ -48,14 +48,14 @@
         <li><span>{{ 'menu.tourist_routes'|trans }}</span></li>
     </ul>
 
-    <div class="russia-top-found">
+    <div class="russia-top-found routes-found">
         <p class="search-found">{{ "search_found"|trans }}: <span id="found-routes-count"></span> <span id="found-routes-total" class="loading"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
         
         {% if entities|length %}
         <a href="#" id="show-all" class="button show-all-btn">{{ 'Show all'|trans }}</a>
         {% endif %}
     </div>
-    <div id="plitka" class="tab plitka-list">
+    <div id="plitka" class="tab plitka-list routes-list">
         <ul class="plitka obrazy-plitka">
             {% render url('armd_tourist_route_ajax_list', {'limit': 30, 'route_region': regionId, 'route_category': categoryId, 'search_query': searchQuery }) %}
         </ul>

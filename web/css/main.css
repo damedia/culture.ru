@@ -9377,3 +9377,56 @@ a.appstore-link {
                 }            
 
 /* /Ekaterina Moiseeva. Video */
+
+
+/* /Ekaterina Moiseeva. routes */
+
+.routes-list {
+    
+}
+    .routes-list  .plitka-name {
+      text-transform:uppercase;
+      margin-right:0;
+    }
+    .routes-list .plitka-text {
+        overflow:hidden;
+        height:4.5em;
+    }
+    
+    .routes-list .plitka-one-wrap.fix-height {
+        height:252px;
+        /*height:235px;*/
+    }
+    .routes-list .plitka-one-wrap.fix-height .plitka-footer {
+        min-height:2.5em;
+        overflow:hidden;
+    }
+    
+    .routes-list a.route-category {
+        color:#7691A4;
+    }
+    .routes-found  {
+        margin-top:10px;
+    }
+        .routes-found i {
+            font-style:normal;
+        }
+      /*
+    @media screen and (max-width: 1200px) {    
+        .tourist-one_map .summary {
+            clear:both;
+            padding:30px 0 0;
+        } 
+    } */
+    .tourist-one_map .img {
+        width:66%;
+    }
+    .tourist-one_map .summary {
+        padding:0 0 0 69%;
+    }
+    
+
+/* /Ekaterina Moiseeva. routes */
+
+
+
