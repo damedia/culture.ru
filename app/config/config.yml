@@ -537,12 +537,16 @@ stfalcon_tinymce:
     tinymce_jquery: true
     textarea_class: "tinymce"
     language: %locale%
+    external_plugins:
+        sonatamedia:
+            url: "asset[bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js]"
     theme:
         simple:
             mode: "textareas"
             theme: "advanced"
-            plugins: "paste,fullscreen,inlinepopups"
-            theme_advanced_buttons1_add: "fullscreen,|,pastetext,pasteword"
+            plugins: "advimage,paste,fullscreen,inlinepopups"
+            theme_advanced_buttons1_add: "image,|,pastetext,pasteword"
+            file_browser_callback: SonataMedia.browse
 
 fpn_tag:
     model:
