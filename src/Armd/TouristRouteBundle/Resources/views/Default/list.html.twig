@@ -28,7 +28,7 @@
                 <select name="route_category" id="route-category" class="uni">
                     <option value="">{{ "All"|trans }}</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}"{{ categoryId == category.id ? ' selected' : '' }}>{{ category.title }}</option>
+                        <option value="{{ category.id }}"{{ categoryId == category.id ? ' selected="selected"' : '' }}>{{ category.title }}</option>
                     {% endfor %}
                 </select>
             </div>

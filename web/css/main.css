@@ -9425,6 +9425,21 @@ a.appstore-link {
         padding:0 0 0 69%;
     }
     
+    #route-category {
+        width: 250px;
+    }
+        #ui-route-category {
+            width: 154px; 
+            
+        }
+
+        #ui-route-category .ui-selectgroup-copy {
+            width: 123px;
+        }
+
+        .ui-selectgroup-list[aria-labelledby=ui-route-category] {
+            width: 154px;
+        }
 
 /* /Ekaterina Moiseeva. routes */
 
