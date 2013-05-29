@@ -169,9 +169,6 @@ class LectureManager extends ListManager
             }
         }
 
-        \gFuncs::dbgWriteLogDoctrine($criteria, 2, false, 'criteria'); // DBG:
-        \gFuncs::dbgWriteLogDoctrine($qb->getDQL(), 2, false, 'dql'); // DBG:
-        \gFuncs::dbgWriteLogDoctrine($qb->getParameters(), 3, false, 'parameters    '); // DBG:
     }
 
     public function findObjectsWithSphinx($criteria) {

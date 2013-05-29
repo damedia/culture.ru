@@ -1,0 +1,41 @@
+Последние обновления на сайте culture.ru
+{% if latestNews|length > 0 %}
+
+Новости культуры
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+{% for news in latestNews %}
+    {{ news.title }}
+    {{ armd_news.news_date(news.newsDate) }}
+
+    {{ news.announce }}
+
+{% endfor %}
+{%endif %}
+{% if latestLectures|length > 0 %}
+
+Лекции
+
+{% for lecture in latestLectures %}
+    {{ lecture.title }}
+
+    {{ lecture.description }}
+
+{% endfor %}
+{%endif %}
+{% if latestObjects|length > 0 %}
+
+Атлас
+
+{% for object in latestObjects %}
+    {{ object.title }}
+
+    {{ object.announce }}
+
+{% endfor %}
+{%endif %}
+
+{{ mailingList.issueSignature }}
+
+
+{{ 'subscriptions.unsubscribe'|trans({'%path%' : url('sonata_user_profile_edit')}) }}

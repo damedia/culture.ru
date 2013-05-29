@@ -2310,6 +2310,7 @@ body {
             vertical-align:top;
             list-style:none;
         }
+        .lt-ie8 .sort-filter span, .lt-ie8 .sort-filter li{display:inline;}
         .sort-filter span {
             color:#989898;
             margin-right:7px;
@@ -3003,9 +3004,10 @@ body {
                         right:25px;
                         bottom:185px;
                         width:220px;
-                        height:50px;
+                       /* height:50px; */
                         overflow:hidden;
                         font-size:18px;
+                        line-height:22px;
                         color:#323232;
                     }
                     .museum-image-title span{
@@ -3023,14 +3025,15 @@ body {
                         position:absolute;
                         top:115px;
                         right:155px;
-                        width:90px;
+                        /* width:90px; */
                         text-align:right;
                     }
                     .museum-image-over .museum-town{
                         display:block;
+                        width:120px;
                         margin-bottom:5px;
                         font-size:12px;
-                        color:#fff;
+                        color:#000;
                         text-decoration:underline;
                     }
                     .museum-town:hover{
@@ -4028,6 +4031,10 @@ body {
                             margin:1px 0 12px;
                             padding:0;
                         }
+                        .period-block h1 a, .period-block h2 a, .static-block h2 a{
+                            text-decoration:none;
+                            color:#000;
+                        }
                         .period-block_image, .block-image {
                             position:relative;
                             padding:1px;
@@ -4050,7 +4057,7 @@ body {
                         .period-block_text, .block-text {
                             font-size:11px;
                             margin-top:17px;
-                            min-height:3em;
+                            /* min-height:3em; */
                         }
                             .period-block_text b,  .block-text b {
                                 font-size:15px;
@@ -4061,8 +4068,8 @@ body {
                             }
                         
                         .period-block_footer {
-                            border-top:1px solid #c9c9c9;
-                            width:163px;
+                            /* border-top:1px solid #c9c9c9; 
+                            width:163px; */
                             padding-top:12px;
                             font-size:11px;
                             margin-top:13px;
@@ -6658,7 +6665,7 @@ body {
                 padding-right:12px;
         }
             .orange-slider-block  .period-block_text {
-                padding:0 12px 20px;
+                padding:0 12px;
                 margin-top:13px;
             }
                 .orange-slider-block  .period-block_text h4 {
@@ -6741,6 +6748,16 @@ body {
                     
     }                
    
+    .orange-slider-block .top100-corner{
+        background: url('../img/top100_grey.png');
+        width: 43px;
+        height: 49px;
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 100;
+    }
+
    /*POPup Instruction*/
     
     .window {
@@ -7066,6 +7083,11 @@ body {
 /*.social-auth .social-auth-links {*/
     /*position: relative;*/
 /*}*/
+
+.lk #fos_user_registration_form_subscriptions label:after, .lk #sonata_user_profile_form_subscriptions label:after {
+    content: "\A";
+    white-space:pre;
+}
 
 .social-auth-links a {
     display: inline-block;
@@ -8988,6 +9010,7 @@ a.appstore-link {
         position:relative;
         margin-left:-10px;
     }  
+    .kinozal-featured .flex-viewport{z-index:10;}
         .kinozal-featured-list {
             list-style:none;
             margin:22px 0 17px;
@@ -8999,6 +9022,7 @@ a.appstore-link {
                 margin-right:17px;
                 
             }
+            .lt-ie8 .kfl-one{display:block !important; float:left}
                 .kfl-block {
                     border:1px solid #ededed;
                     padding:14px;
@@ -9023,6 +9047,7 @@ a.appstore-link {
                     }
                     .kfl-image {
                         border:1px solid #efebec;
+                        width:auto;
                     }
                     .kfl-header {
                         font-size: 12px;
@@ -9062,6 +9087,7 @@ a.appstore-link {
                             position:absolute;
                              top:100px;
                             z-index:10;
+                            right:0px;
                         }
                             .kinozal-featured .flex-direction-nav li a {
                                 width:30px;
@@ -9072,10 +9098,12 @@ a.appstore-link {
                         .kinozal-featured  .flex-direction-nav li:first-child {
                             left:0px;
                         }
+                        /*
                         .kinozal-featured  .flex-direction-nav li:last-child {
                             right:0px;
                             
                         }
+                        */
                             .kinozal-featured .flex-direction-nav li a.flex-next {
                                 background-position:100% 0;
                             }
@@ -9115,6 +9143,7 @@ a.appstore-link {
                     height:auto !important;
                     border:0;
                 }
+                .lt-ie8 .kol-one{display:inline;}
                     .kol-block {
                         border:1px solid #ededed;
                         padding:11px;
@@ -9127,6 +9156,7 @@ a.appstore-link {
                             position: relative;
                         }
                         .kol-image {
+                            width:auto;
                             border:1px solid #efebec;
                         }
                         .kol-header {

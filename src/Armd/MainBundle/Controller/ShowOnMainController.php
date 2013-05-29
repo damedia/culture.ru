@@ -29,15 +29,25 @@ class ShowOnMainController extends Controller
         $class = $this->getFieldClass($field);
         
         if (!$class) {
-            return new JsonResponse(array());
+            if (preg_match("~^news-(\d+)$~", $field, $matches)) {
+                $class = 'Armd\NewsBundle\Entity\News';
+                $category = $matches[1];
+            } else {
+                return new JsonResponse(array());
+            }
         }
         
-        $result = $this->getDoctrine()
-            ->getEntityManager()
-            ->createQuery('SELECT t.id, t.title AS text FROM ' . $class . ' t WHERE t.published = TRUE AND t.showOnMain = TRUE ORDER BY t.title')
-            ->getScalarResult();
+        $qb = $this->getDoctrine()->getRepository($class)->createQueryBuilder('t')
+            ->select('t.id, t.title AS text')
+            ->where('t.published = TRUE')
+            ->andWhere('t.showOnMain = TRUE')
+            ->orderBy('t.title', 'ASC');
         
-        return new JsonResponse($result);
+        if (isset($category)) {
+            $qb->andWhere('t.category = :category')->setParameter('category', $category);
+        }
+        
+        return new JsonResponse($qb->getQuery()->getScalarResult());
     }
     
     /**
@@ -53,7 +63,12 @@ class ShowOnMainController extends Controller
         $page = $this->getRequest()->get('page', 1);
         
         if (!$class) {
-            return new JsonResponse(array('result' => array(), 'total' => 0));
+            if (preg_match("~^news-(\d+)$~", $field, $matches)) {
+                $class = 'Armd\NewsBundle\Entity\News';
+                $category = $matches[1];
+            } else {
+                return new JsonResponse(array('result' => array(), 'total' => 0));
+            }           
         }
         
         $qb = $this->getDoctrine()
@@ -63,6 +78,10 @@ class ShowOnMainController extends Controller
         
         if ($search) {
             $qb->andWhere("t.title LIKE :search")->setParameter('search', "%" . $search . "%");
+        }
+        
+        if (isset($category)) {
+            $qb->andWhere('t.category = :category')->setParameter('category', $category);
         }
         
         $qbCount = clone $qb;

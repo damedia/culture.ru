@@ -59,4 +59,5 @@ html[xmlns] .slides {display: block;}
 			display:block;
 			height:22px;
 			text-indent:-9999px;
+            outline:0;
 		}

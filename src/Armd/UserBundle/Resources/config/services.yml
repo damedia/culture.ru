@@ -31,7 +31,7 @@ services:
     
     armd_user.registration.form.type:
         class: Armd\UserBundle\Form\Type\RegistrationFormType
-        arguments: [%fos_user.model.user.class%]
+        arguments: [%fos_user.model.user.class%, @doctrine.orm.entity_manager]
         tags:
             - { name: form.type, alias: armd_user_registration }
 

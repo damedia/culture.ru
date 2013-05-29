@@ -81,6 +81,7 @@ class AppKernel extends Kernel
             new Armd\MarkupBundle\ArmdMarkupBundle(),
             new Armd\ExtendedBannerBundle\ArmdExtendedBannerBundle(),
             new Armd\TouristRouteBundle\ArmdTouristRouteBundle(),
+            new Armd\SubscriptionBundle\ArmdSubscriptionBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {

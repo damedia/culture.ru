@@ -1,6 +1,6 @@
 {% if lectures is not empty %}
     <div class="kinozal-featured">
-        <ul class="slides kinozal-featured-list">
+        <ul class="slides kinozal-featured-list clearfix">
             {% for lecture in lectures if lectures|length %}
                 <li class="kfl-one">
                     <a  href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="autoscrollingHorParent">
@@ -24,3 +24,11 @@
         </ul>
     </div>
 {% endif %}
+{#
+{% block javascripts %}
+    <script type="text/javascript">
+        console.log($('.kinozal-featured').width();)
+        console.log($('.kinozal-featured-list').width();)
+    </script>
+{% endblock %}
+#}
