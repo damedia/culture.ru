@@ -3,20 +3,22 @@
         <ul class="slides kinozal-featured-list">
             {% for lecture in lectures if lectures|length %}
                 <li class="kfl-one">
-                    <div class="kfl-block">
-                        <a title="{{ lecture.title }}" href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="kfl-image-link">
-                            {% if lecture.isTop100Film %}<div class="top100-corner"></div>{% endif %}
-                            {% thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height':202, 'class':'kfl-image'} %}
-                        </a>
-                        <h3 class="kfl-header"><span class="autoscrolling-wrap"><span class="autoscrollingHor">{{ lecture.title }}</span></span></h3>
-                        {#% if lecture.productionYear or lecture.timeLength %}
-                            <p class="kfl-stats">
-                                {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
-                                {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
-                            </p>
-                        {% endif % #}
-                        <p class="kfl-stats">Просмотров: {{ lecture.viewCount }}</p>
-                    </div>
+                    <a  href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="autoscrollingHorParent">
+                        <div class="kfl-block">
+                            <span title="{{ lecture.title }}" class="kfl-image-link">
+                                {% if lecture.isTop100Film %}<div class="top100-corner"></div>{% endif %}
+                                {% thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height':202, 'class':'kfl-image'} %}
+                            </span>
+                            <h3 class="kfl-header"><span class="autoscrolling-wrap"><span class="autoscrollingHorChild">{{ lecture.title }}</span></span></h3>
+                            {#% if lecture.productionYear or lecture.timeLength %}
+                                <p class="kfl-stats">
+                                    {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
+                                    {% if lecture.timeLength %}{{ lecture.timeLength~' мин. ' }}{% endif %}
+                                </p>
+                            {% endif % #}
+                            <p class="kfl-stats">Просмотров: {{ lecture.viewCount }}</p>
+                        </div>
+                    </a>
                 </li>
             {% endfor %}
         </ul>

@@ -8909,7 +8909,7 @@ a.appstore-link {
                         width: 110px;
                     }
 
-                        .autoscrolling-wrap, .autoscrolling, .autoscrollingHor {
+                        .autoscrolling-wrap, .autoscrolling, .autoscrollingHor, .autoscrollingHorChild, .autoscrollingChild {
                             position:relative;
                         }
                         .autoscrolling-wrap {
@@ -8918,12 +8918,16 @@ a.appstore-link {
                             span.autoscrolling-wrap {
                                 display:block;
                             }
-                        .autoscrolling {
+                        .autoscrolling , .autoscrollingChild {
                             top:0;
                         }
-                        .autoscrollingHor {
+                        .autoscrollingHor, .autoscrollingHorChild {
                             left:0;
                             white-space:nowrap;
+                        }
+                        .autoscrollingHorParent {
+                            text-decoration:none;
+                            display:block;
                         }
                    
                     .ksc-right-column {
@@ -8966,14 +8970,15 @@ a.appstore-link {
                     
             .kinozal-slider .flex-direction-nav {
                 left: 48px;
-                top: 298px;
+                top:0;
                 bottom:auto;
                 right:auto;
                 background:url(../img/slider-arrows2.png) no-repeat 0 0;
                 width:64px;
-                height:18px;
+                height:1px;
             }   
                 .kinozal-slider .flex-direction-nav li {
+                    top: 298px;
                     width:31px;
                     height:18px;
                 }    
@@ -9044,10 +9049,10 @@ a.appstore-link {
                     .kinozal-featured .flex-direction-nav {
                         background:none;
                         position:absolute;
-                        top:100px;
+                        top:0;
                         left:0;
                         width:100%;
-                        height:100px;
+                        height:1px;
                         bottom:auto;
                         right:auto;
                     }
@@ -9055,7 +9060,7 @@ a.appstore-link {
                             width:30px;
                             height:100px;
                             position:absolute;
-                            top:0;
+                             top:100px;
                             z-index:10;
                         }
                             .kinozal-featured .flex-direction-nav li a {
