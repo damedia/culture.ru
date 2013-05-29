@@ -92,6 +92,56 @@ class DefaultController extends Controller
             )
         );
     }
+    
+    /**
+     * @Route("/press-centre/news-video/", name="armd_lecture_news_index")
+     */
+    public function newsIndexAction()
+    {   
+        $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_NEWS';
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $lectureSuperType = $em->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findOneByCode($lectureSuperTypeCode);
+
+        if ($request->query->has('tag_id')) {
+            $tag = $em->getRepository('ArmdTagBundle:Tag')->find($request->get('tag_id'));
+        } else {
+            $tag = false;
+        }
+
+        // for breadcrumbs
+        if ($request->query->has('genre1_id')) {
+            $genre1 = $em->getRepository('ArmdLectureBundle:LectureGenre')->find($request->get('genre1_id'));
+        } else {
+            $genre1 = null;
+        }
+
+        // fix menu
+        $this->get('armd_main.menu.main')->setCurrentUri($this->getMenuUri($lectureSuperTypeCode, $request));
+        
+        $genreIds = array();
+        $genreId = $this->getRequest()->get('genre_id');
+        if ($genreId) {
+            $genreIds[] = $genreId;
+        }
+
+        $templates = $this->getTemplates($lectureSuperType, $genre1);
+        return $this->render(
+            $templates['index_template'],
+            array(
+                'lectureSuperType' => $lectureSuperType,
+                'genres' => $this->getGenres($lectureSuperType),
+                'genre1' => $genre1,
+                'selectedGenreIds' => $genreIds,
+                'searchQuery' => $request->get('search_query'),
+                'tag' => $tag,
+                'filter' => $this->getFilter(),
+                'lecture' => $em->getRepository('ArmdLectureBundle:Lecture')->findOneBy(array('isHeadline' => true))
+            )
+        );
+    }
 
 
     /**
@@ -212,7 +262,7 @@ class DefaultController extends Controller
 
         $lectures = $this->getLectureManager()->findObjects($criteria);
 
-            // for breadcrumbs
+        // for breadcrumbs
         if ($request->query->has('genre1_id')) {
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
                 ->find($request->get('genre1_id'));
@@ -239,7 +289,14 @@ class DefaultController extends Controller
         );
     }
 
-
+    /**
+     * @Route("/press-centre/news-video/list", name="armd_lecture_news_list")
+     */
+    public function newsListAction()
+    {
+        $this->getRequest()->query->set('templateName', 'list_news');
+        return $this->lectureListAction('LECTURE_SUPER_TYPE_NEWS');
+    }
 
     /**
      * View lecture details.
@@ -438,6 +495,8 @@ class DefaultController extends Controller
 
         } elseif ($superTypeCode === 'LECTURE_SUPER_TYPE_LECTURE') {
             $uri = $router->generate('armd_lecture_lecture_index');
+        } elseif ($superTypeCode === 'LECTURE_SUPER_TYPE_NEWS') {
+            $uri = $router->generate('armd_lecture_news_index');
         }
 
         return $uri;

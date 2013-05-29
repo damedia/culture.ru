@@ -1,0 +1,14 @@
+Новости культуры на сайте culture.ru
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+{% for news in latestNews %}
+    {{ news.title }}
+    {{ armd_news.news_date(news.newsDate) }}
+
+    {{ news.announce }}
+
+{% endfor %}
+{{ mailingList.issueSignature }}
+
+
+{{ 'subscriptions.unsubscribe'|trans({'%path%' : url('sonata_user_profile_edit')}) }}

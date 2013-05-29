@@ -63,5 +63,4 @@ class LectureCinemaCrudController extends BaseCrudController
                 $object->setShowAtFeatured(false);
             });
     }
-
 }

@@ -33,19 +33,38 @@ class AdminShowOnMainFormSubscriber implements EventSubscriberInterface
         $em = $this->container->get('doctrine')->getEntityManager();
         $em->getConnection()->beginTransaction();
         
-        try {                      
-            foreach (\Armd\MainBundle\Admin\ShowOnMain::getFields() as $name => $class) {
-                if ($form->has($name)) {                   
-                    $em->createQuery('UPDATE ' . $class . ' t set t.showOnMain = FALSE')->execute();
+        try {     
+            $fields = \Armd\MainBundle\Admin\ShowOnMain::getFields();
+            
+            foreach ($form->all() as $name => $field) {
+                if (isset($fields[$name])) {
+                    $class = $fields[$name];
+                    $category = false;
+                } elseif (preg_match("~^news-(\d+)$~", $name, $matches)) {
+                    $class = 'Armd\NewsBundle\Entity\News';
+                    $category = $matches[1];
+                } else {
+                    continue;
+                }
+                
+                 $qb = $em->getRepository($class)->createQueryBuilder('t')->update();
                     
-                    foreach (preg_split('~,~', $form->get($name)->getData()) as $id) {
-                        if ($id) {
-                            $em->createQuery('UPDATE ' . $class . ' t set t.showOnMain = TRUE WHERE t.id = :id')
-                                ->setParameter('id', $id)->execute();                                               
-                        }
+                if ($category) {                      
+                    $qb->where('t.category = :category')->setParameter('category', $category);
+                }
+
+                $qb1 = clone $qb;
+                $qb1->set('t.showOnMain', 'FALSE')->getQuery()->execute();
+
+                foreach (preg_split('~,~', $field->getData()) as $id) {
+                    if ($id) {
+                        $qb2 = clone $qb;
+                        $qb2->set('t.showOnMain', 'TRUE')
+                            ->andWhere('t.id = :id')->setParameter('id', $id)
+                            ->getQuery()->execute();                                                                         
                     }
                 }
-            }
+            }               
             
             $em->getConnection()->commit();    
             $em->getEventManager()->addEventSubscriber(new EntityShowOnMainSubscriber());

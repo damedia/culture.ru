@@ -1,0 +1,11 @@
+{% if object.isEnabled %}
+<a href="{{ admin.generateObjectUrl('toggleEnabled', object) }}" class="btn edit_link" title="{{'subscriptions.action.disable'|trans()}}">
+    <img src="{{ asset('bundles/sonataadmin/famfamfam/cancel.png') }}" alt="{{'subscriptions.action.disable'|trans()}}" />
+    {{'subscriptions.action.disable'|trans()}}
+</a>
+{% else %}
+<a href="{{ admin.generateObjectUrl('toggleEnabled', object) }}" class="btn edit_link" title="{{'subscriptions.action.enable'|trans()}}">
+    <img src="{{ asset('bundles/sonataadmin/famfamfam/accept.png') }}" alt="{{'subscriptions.action.enable'|trans()}}" />
+    {{'subscriptions.action.enable'|trans()}}
+</a>
+{% endif %}

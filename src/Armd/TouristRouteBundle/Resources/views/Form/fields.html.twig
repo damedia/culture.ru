@@ -6,22 +6,22 @@
         {% endif %}
 
         {{ form_row(child) }}
-    </div>
 
-    {% if (noAdd is not defined or not noAdd) and (child.lat.vars.value and child.lon.vars.value) %}
-    <script>
-        $(function() {
-            addProMapPoint(
-                "{{ child.vars.id }}",
-                new PGmap.Coord(
-                    parseFloat("{{ child.lon.vars.value }}"),
-                    parseFloat("{{ child.lat.vars.value }}"),
-                    true
-                )
-            );
-        });
-    </script>
-    {% endif %}
+        {% if (noAdd is not defined or not noAdd) and (child.lat.vars.value and child.lon.vars.value) %}
+        <script>
+            $(function() {
+                addProMapPoint(
+                    "{{ child.vars.id }}",
+                    new PGmap.Coord(
+                        parseFloat("{{ child.lon.vars.value }}"),
+                        parseFloat("{{ child.lat.vars.value }}"),
+                        true
+                    )
+                );
+            });
+        </script>
+        {% endif %}
+    </div>
 {% endspaceless %}
 {% endblock %}
 
@@ -49,15 +49,7 @@
     <div {{ block('widget_container_attributes') }}>
         {{ form_errors(form) }}
         {% for child in form %}
-            {{ block('armd_point_collection_widget_row') }}
-            {% if loop.last %}
-            <script>
-                $(function() {
-                    fitMap();
-                    setTimeout(showRoute, 500);
-                });
-            </script>
-            {% endif %}
+            {{ block('armd_point_collection_widget_row', {'last': loop.last}) }}
         {% endfor %}
 
         {{ form_rest(form) }}
@@ -125,7 +117,7 @@
 
                         } else {
                             var title = $("#" + this[1].id + "_title").val(),
-                                order = $("#" + this[1].id + "_order").val(),
+                                order = parseInt($("#" + this[1].id + "_order").val(), 10),
                                 show  = $("#" + this[1].id + "_show").attr("checked");
 
                             $(this[1].container)
@@ -161,6 +153,39 @@
                 proMap.geometry.add(point);
                 proPoints[id] = point;
             },
+            removeProMapPoint = function(id) {
+                if (proPoints[id]) {
+                    $(proPoints[id].container)
+                        .popover("destroy")
+                        .removeData("has-popover");
+
+                    proMap.geometry.remove(proPoints[id]);
+                    delete proPoints[id];
+                }
+            },
+            reinitMapPoints = function() {
+                var $container   = $("#{{ form.vars.id }}"),
+                    idPrototype  = $container.attr("id") + "_",
+                    id           = idPrototype + 0;
+
+                $container.find("div[id^='" + idPrototype + "']").each(function(idx) {
+                    var thisId  = $(this).attr("id"),
+                        validId = idPrototype + idx;
+
+                    if (thisId !== validId) {
+                        changeGroupId(thisId, validId);
+                                                
+                        if (proPoints[thisId]) {
+                            var coord = proPoints[thisId].coord;
+
+                            removeProMapPoint(thisId);
+                            addProMapPoint(validId, coord);
+                        }
+                    }
+
+                    id = idPrototype + (idx + 1);
+                });
+            },
             showRoute = function() {
                 var routePoints = [],
                     type = $("#{{ form.vars.id|split('_')[0] }}_type").val();
@@ -168,7 +193,7 @@
                 for (var x in proPoints) {
                     var point = proPoints[x],
                         coord = point.coord,
-                        order = $("#" + point.id + "_order").val();
+                        order = parseInt($("#" + point.id + "_order").val(), 10);
 
                     coord.order = order;
                     routePoints.push(coord);
@@ -226,46 +251,73 @@
                     lat1: Math.min.apply(null, latArr),
                     lat2: Math.max.apply(null, latArr)
                 });
+            },
+            changeGroupId = function(fromId, toId) {
+                var getNameFromId = function(id) {
+                        var parts = id.split("_");
+
+                        return parts.shift() + "[" + parts.join("][") + "]";
+                    };
+
+                $("[id^='" + fromId + "']").each(function() {
+                    var fromName = $(this).attr("name"),
+                        toName   = getNameFromId($(this).attr("id").replace(fromId, toId));
+
+                    $(this).attr("id", $(this).attr("id").replace(fromId, toId));
+
+                    $("[for^='" + fromId + "']").each(function() {
+                        $(this).attr("for", $(this).attr("for").replace(fromId, toId));
+                    });
+
+                    if (fromName) {
+                        $("[name^='" + fromName + "']").each(function() {
+                            $(this).attr("name", $(this).attr("name").replace(fromName, toName));
+                        });
+                    }
+                });
             };
 
-        proMap.controls.addControl("slider");
-        proMap.event.user(PGmap.Events.MAP_MOVE, function() {
-            for (var x in proPoints) {
-                $(proPoints[x].container)
-                    .popover("destroy")
-                    .removeData("has-popover");
-            }
-        });
-        proMap.route.onRouteReceived = function(route) {
-            var routePoints = [];
-
-            for (var x in route.points) {
-                var point = route.points[x];
-
-                routePoints.push(new PGmap.Coord(point[0], point[1], true));
-            }
-
-            proRoute = new PGmap.Polyline({
-                points: routePoints,
-                style: {
-                    color: "rgba(3,10,103,0.7)",
-                    lineHeight: 4
+            proMap.controls.addControl("slider");
+            proMap.event.user(PGmap.Events.MAP_MOVE, function() {
+                for (var x in proPoints) {
+                    $(proPoints[x].container)
+                        .popover("destroy")
+                        .removeData("has-popover");
                 }
             });
-            proMap.geometry.add(proRoute);
+            proMap.route.onRouteReceived = function(route) {
+                var routePoints = [];
 
-            proMap.route.remove();
-        };
+                for (var x in route.points) {
+                    var point = route.points[x];
+
+                    routePoints.push(new PGmap.Coord(point[0], point[1], true));
+                }
+
+                proRoute = new PGmap.Polyline({
+                    points: routePoints,
+                    style: {
+                        color: "rgba(3,10,103,0.7)",
+                        lineHeight: 4
+                    }
+                });
+                proMap.geometry.add(proRoute);
+
+                proMap.route.remove();
+            };
         
         $(function() {
             $("#{{ form.vars.id }} .sonata-collection-add").on("click", function() {
-                var $container = $(this).closest("[data-prototype]"),
-                    id = $container.attr("id") + "_" + ($container.children().length - 1),
+                reinitMapPoints();
+
+                var $container   = $(this).closest("[data-prototype]"),
+                    idPrototype  = $container.attr("id") + "_",
+                    id           = idPrototype + $container.find("div[id^='" + idPrototype + "']").length,
                     proMapCoords = proMap.globals.getCoords().getGeo(),
                     maxOrder = 0;
 
                 $container.find("input[id$='_order']").each(function() {
-                    var value = $(this).val();
+                    var value = parseInt($(this).val(), 10);
 
                     if (value > maxOrder) {
                         maxOrder = value;
@@ -288,18 +340,18 @@
             $("#{{ form.vars.id }} .sonata-collection-delete").live("click", function() {
                 var id = $("div[id^='{{ form.vars.id }}_']", $(this).parent()).attr("id");
                 
-                if (proPoints[id]) {
-                    $(proPoints[id].container)
-                        .popover("destroy")
-                        .removeData("has-popover");
-
-                    proMap.geometry.remove(proPoints[id]);
-                }
+                removeProMapPoint(id);
+                reinitMapPoints();
+                showRoute();
             });
 
             $("#{{ form.vars.id|split('_')[0] }}_type").change(function() {
                 showRoute();
             });
+
+            reinitMapPoints();
+            fitMap();
+            setTimeout(showRoute, 500);
         });
     </script>
 {% endspaceless %}

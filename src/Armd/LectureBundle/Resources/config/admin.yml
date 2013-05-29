@@ -39,6 +39,14 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Video, label: Roles, show_in_dashboard: true }
         arguments: [null, Armd\LectureBundle\Entity\LectureRole, SonataAdminBundle:CRUD]
 
+    armd_lecture.sonata_admin.lecture_news:
+        class: Armd\LectureBundle\Admin\LectureNewsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Video, label: Videos, show_in_dashboard: true }
+        arguments: [null, Armd\LectureBundle\Entity\Lecture, SonataAdminBundle:CRUD]
+        calls:
+            - [ setContainer, [ @service_container ] ]
+
 #    armd_lecture.sonata_admin.lecture_category:
 #        class: Armd\LectureBundle\Admin\LectureCategoryAdmin
 #        tags:

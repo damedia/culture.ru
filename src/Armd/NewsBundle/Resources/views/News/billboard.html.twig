@@ -1,7 +1,7 @@
 {% if entities %}
     <div class="news-slider-body">
         <div id="news-slider-wrapper" class="news-slider-wrapper">
-            {% set length = entities|length is even ? entities|length : entities|length - 1 %}
+            {% set length = entities|length %}
             <div id="carousel" class="news-slider-carousel">
                 {% for n in entities|slice(0, length) %}
                     {% set href = path('armd_news_item_by_category', {'id': n.id, 'category': n.category.slug }) %}
