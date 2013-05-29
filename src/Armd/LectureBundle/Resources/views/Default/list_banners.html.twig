@@ -1,14 +1,15 @@
 <ul class="slides kinozal-other-list"><!--
     {% for lecture in lectures if lectures|length %}
         --><li class="plitka-one-wrap kol-one">
+            <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="autoscrollingHorParent">
             <div class="kol-block">
-                <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="kol-image-link">
+                 <span class="kol-image-link">
                     {% if lecture.isTop100Film %}<div class="top100-corner"></div>{% endif %}
                     {%  thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'height': 151, 'class': 'kol-image' } %}
+                    {#{{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' }) }}#}
+                </span>
+                <h3 class="kol-header"><span class="autoscrolling-wrap"><span class="autoscrollingHorChild">{{ lecture.title }}</span></span></h3>
 
-                    {#{{ lectureMacro.lectureThumbnail(lecture, 'lectureW160H120', {'alt': lecture.title, 'height': 151, 'class': 'kol-image' }) }}#}
-                </a>
-                <h3 class="kol-header"><span class="autoscrolling-wrap"><span class="autoscrollingHor">{{ lecture.title }}</span></span></h3>
                 {#% if lecture.productionYear or lecture.timeLength %}
                         <p class="kfl-stats">
                             {% if lecture.productionYear %}{{ lecture.productionYear~' /' }}{% endif %}
@@ -17,6 +18,7 @@
                     {% endif % #}
                 <p class="kol-stats">Просмотров: {{ lecture.viewCount }}</p>
             </div>
+            </a>
         </li><!--
     {% endfor %}
     -->

@@ -8931,7 +8931,7 @@ a.appstore-link {
                         width: 110px;
                     }
 
-                        .autoscrolling-wrap, .autoscrolling, .autoscrollingHor {
+                        .autoscrolling-wrap, .autoscrolling, .autoscrollingHor, .autoscrollingHorChild, .autoscrollingChild {
                             position:relative;
                         }
                         .autoscrolling-wrap {
@@ -8940,12 +8940,16 @@ a.appstore-link {
                             span.autoscrolling-wrap {
                                 display:block;
                             }
-                        .autoscrolling {
+                        .autoscrolling , .autoscrollingChild {
                             top:0;
                         }
-                        .autoscrollingHor {
+                        .autoscrollingHor, .autoscrollingHorChild {
                             left:0;
                             white-space:nowrap;
+                        }
+                        .autoscrollingHorParent {
+                            text-decoration:none;
+                            display:block;
                         }
                    
                     .ksc-right-column {
@@ -8988,14 +8992,15 @@ a.appstore-link {
                     
             .kinozal-slider .flex-direction-nav {
                 left: 48px;
-                top: 298px;
+                top:0;
                 bottom:auto;
                 right:auto;
                 background:url(../img/slider-arrows2.png) no-repeat 0 0;
                 width:64px;
-                height:18px;
+                height:1px;
             }   
                 .kinozal-slider .flex-direction-nav li {
+                    top: 298px;
                     width:31px;
                     height:18px;
                 }    
@@ -9069,10 +9074,10 @@ a.appstore-link {
                     .kinozal-featured .flex-direction-nav {
                         background:none;
                         position:absolute;
-                        top:100px;
+                        top:0;
                         left:0;
                         width:100%;
-                        height:100px;
+                        height:1px;
                         bottom:auto;
                         right:auto;
                     }
@@ -9080,7 +9085,7 @@ a.appstore-link {
                             width:30px;
                             height:100px;
                             position:absolute;
-                            top:0;
+                             top:100px;
                             z-index:10;
                             right:0px;
                         }
@@ -9372,3 +9377,71 @@ a.appstore-link {
                 }            
 
 /* /Ekaterina Moiseeva. Video */
+
+
+/* /Ekaterina Moiseeva. routes */
+
+.routes-list {
+    
+}
+    .routes-list  .plitka-name {
+      text-transform:uppercase;
+      margin-right:0;
+    }
+    .routes-list .plitka-text {
+        overflow:hidden;
+        height:4.5em;
+    }
+    
+    .routes-list .plitka-one-wrap.fix-height {
+        height:252px;
+        /*height:235px;*/
+    }
+    .routes-list .plitka-one-wrap.fix-height .plitka-footer {
+        min-height:2.5em;
+        overflow:hidden;
+    }
+    
+    .routes-list a.route-category {
+        color:#7691A4;
+    }
+    .routes-found  {
+        margin-top:10px;
+    }
+        .routes-found i {
+            font-style:normal;
+        }
+      /*
+    @media screen and (max-width: 1200px) {    
+        .tourist-one_map .summary {
+            clear:both;
+            padding:30px 0 0;
+        } 
+    } */
+    .tourist-one_map .img {
+        width:66%;
+    }
+    .tourist-one_map .summary {
+        padding:0 0 0 69%;
+    }
+    
+    #route-category {
+        width: 250px;
+    }
+        #ui-route-category {
+            width: 154px; 
+            
+        }
+
+        #ui-route-category .ui-selectgroup-copy {
+            width: 123px;
+        }
+
+        .ui-selectgroup-list[aria-labelledby=ui-route-category] {
+            width: 154px;
+        }
+
+/* /Ekaterina Moiseeva. routes */
+
+
+
