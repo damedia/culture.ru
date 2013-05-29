@@ -99,7 +99,7 @@
                     .css("width", "100%");
         },
         selectMedia: function(win, dialog, fieldName, objectData) {
-            $("#" + win.name).contents().find("#" + fieldName).val(objectData);
+            $(win.document).contents().find("input[name='" + fieldName + "']").val(objectData);
 
             if (win.ImageDialog) {
                 if (win.ImageDialog.getImageData) {
