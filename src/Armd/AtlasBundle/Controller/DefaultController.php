@@ -4,6 +4,7 @@ namespace Armd\AtlasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\AtlasBundle\Entity\ObjectManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,6 +100,84 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * @Route("/user-objects", name="armd_atlas_user_objects")
+     * @Template()
+     */
+    public function userObjectsAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $userObjects = $this->getObjectManager()->getUserObjects($user);
+
+        return array(
+            'user' => $user,
+            'userObjects' => $userObjects
+        );
+    }
+
+    /**
+     * @Route("/user-object/{objectId}", requirements={"objectId"="\d+"}, name="armd_atlas_user_object")
+     * @Template()
+     */
+    public function userObjectAction($objectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+
+        // redirect to edit mode
+        if($request->get('btn_return_to_list')) {
+            return $this->redirect($this->generateUrl('armd_atlas_user_objects'));
+        }
+
+        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
+        if(empty($object)) {
+            throw new \InvalidArgumentException('Object not found');
+        }
+
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('EDIT', $object)) {
+            throw new AccessDeniedException();
+        }
+
+        $objectAdmin = $this->get('armd_atlas.sonata_admin.object');
+        if ($request->get('uniqid')) {
+            $objectAdmin->setUniqid($request->get('uniqid'));
+        }
+        $objectAdmin->setSubject($object);
+
+
+        $form = $objectAdmin->getForm();
+        $form->setData($object);
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+
+            $isFormValid = $form->isValid();
+
+            if ($isFormValid) {
+                $objectAdmin->update($object);
+                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
+                $em->flush();
+                return $this->redirect($this->generateUrl('armd_atlas_user_object', array('objectId' => $object->getId())));
+
+            } else {
+                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
+            }
+        }
+
+        $view = $form->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $objectAdmin->getFormTheme());
+
+
+        return array(
+            'form' => $view,
+            'admin' => $objectAdmin,
+            'object' => $object,
+        );
+
+    }
 
     /**
      * @Route("russia-images/", name="armd_atlas_russia_images", options={"expose"=true})
@@ -623,14 +702,14 @@ class DefaultController extends Controller
             );
         }
 
-        return new $res;
+        return $res;
     }
 
     /**
      * Мои объекты. Список моих объектов
      * Если указан id, возвращаем одну запись
      *
-     * @Route("/objects/my", defaults={"_format"="json"})
+     * @Route("/objects/my", defaults={"_format"="json"}, name="armd_atlas_default_objectsmy")
      */
     public function objectsMyAction()
     {
@@ -642,8 +721,7 @@ class DefaultController extends Controller
             $objectId = (int) $request->get('id');
             if ($objectId) {
                 $obj = $repo->findOneBy(
-                    array('createdBy' => $currentUser, 'id' => $objectId),
-                    array('createdBy' => 'ASC')
+                    array('createdBy' => $currentUser, 'id' => $objectId)
                 );
                 $primaryCategory = $obj->getPrimaryCategory();
                 $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
@@ -711,7 +789,7 @@ class DefaultController extends Controller
             );
         }
 
-        return new $res;
+        return $res;
     }
 
     /**

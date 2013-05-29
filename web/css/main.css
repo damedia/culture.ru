@@ -2325,7 +2325,7 @@ body {
             color:#000;
             margin-right:7px;
         }
-        .sort-filter .active a {
+        .sort-filter .active {
             border-bottom:2px solid #f5902d;
         }
     

@@ -35,39 +35,66 @@
                 <div class="simple-search">
                     <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
                 </div>
-                
-                <div id="ajax-filter-tabs" class="ajax-filter-tabs">
-                    {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
+
+
+                <div id="atlas-side-tabs">
+
+                    <div id="ajax-filter-tabs" class="ajax-filter-tabs atlas-side-tab">
+                        {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
+                    </div>
+
+                    <div class="filter-sub-tab atlas-side-tab" id="myobj" style="display:block;">
+                        <ol class="filter-sub-tab-list" id="myobj_list">
+                        </ol>
+
+                        <!-- template -->
+                        <script id="myobj_list_template" type="text/x-jquery-tmpl">
+                            <li data-id="${id}">
+                                <span>${title}</span>
+                                <a class="del" href="#" title="{{ "atlas.delete"|trans }}"></a>
+                                <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
+                                    <span>${status}</span>
+                                </div>
+                                <ins class="edit" title="Редактировать"></ins>
+                            </li>
+                        </script>
+                        <!-- /template -->
+
+                        <input id="atlas-objects-add" type="button" class="button green-button" value="{{ "atlas.object.add"|trans }}" />
+
+                        <div id="atlas-objects-add-hint">{{ "atlas.click_map"|trans }}</div>
+                    </div>
+
                 </div>
+
+{#
                 <div class="filter-tabs">
-                    {# 
                     <ul class="filter-tabs-titles">
                         <li class="active"><a href="#obj">{{ "atlas.objects"|trans }}</a></li>
                         <li class=""><a href="#maps">{{ "atlas.my_map"|trans }}</a></li>
                     </ul>
-                    #}
-                    {# Блок, который был на этом месте перенесен в шаблон src\Armd\AtlasBundle\Resources\views\Default\ajax_filter.html.twig #}
-                    {#
+                    &#123;&#35; Блок, который был на этом месте перенесен в шаблон src\Armd\AtlasBundle\Resources\views\Default\ajax_filter.html.twig &#35;&#125;
+                    &#123;&#35;
                     <div class="filter-tab" id="mrsh">
                         <!-- маршруты -->
                     </div>
-                    #}
+                    &#35;&#125;
                      
                     <div class="filter-tab" id="maps">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <!-- мои карты -->
                             <div class="filter-sub-tabs">
-                                {#<ul class="filter-sub-tabs-titles">
+                                <ul class="filter-sub-tabs-titles">
                                     <li class="active"><a href="#myobj">Мои объекты</a></li>
-                                    <li><a href="#mymrsh">Мои маршруты</a></li>
-                                </ul>#}
+                                    &#123;&#35;<li><a href="#mymrsh">Мои маршруты</a></li>&#35;&#125;
+                                </ul>
                                 <div class="filter-sub-tab" id="myobj" style="display:block;">
                                     <ol class="filter-sub-tab-list" id="myobj_list">
-                                        {#<li>
+                                        &#123;&#35;<li>
                                             <span>Новый объект</span>
                                             <a href="#" class="del" title="Удалить"></a>
                                             <span class="moder"></span>
-                                        </li>#}
+                                        </li>&#35;&#125;
                                     </ol>
 
                                     <!-- template -->
@@ -78,7 +105,7 @@
                                             <div class="moder status${status}" title="${statusTitle}" data-reason="${reason}">
                                                 <span>${status}</span>
                                             </div>
-                                            {#<ins class="edit"></ins>#}
+                                            &#123;&#35;<ins class="edit"></ins>&#35;&#125;
                                         </li>
                                     </script>
                                     <!-- /template -->
@@ -98,6 +125,7 @@
                         {% endif %}
                     </div>
                 </div>
+#}
 
             </form>
         </div>
@@ -105,6 +133,9 @@
             <div class="sort-filter sort-element-filter">
                 <a id="filter_culture_objects" href="#" class="atlas-tab-filters active">Объекты культуры</a>
                 <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters">Туристические кластеры</a>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a id="filter_user_objects" href="#" class="atlas-tab-filters">Мои объекты</a>
+                {% endif %}
             </div>
             <div class="clear"></div>
             <div class="atlas-map">
@@ -297,7 +328,7 @@
     <script type="text/javascript" src="{{ asset('vendor/jquery.tmpl.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/valums-file-uploader/client/fileuploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js') }}"></script>

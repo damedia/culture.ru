@@ -111,23 +111,23 @@ AT.initGeocoder = function() {
 
 AT.initUI = function() {
 
-    // Вкладки. Перехват смены вкладок
-    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
-        var href = $(this).attr('href');
-        if (href == "#maps") {
-            // Переключение на Мои карты. Очистим карту. Отбить AJAX
-            AT.clearMap();
-            if ($('#map-section').hasClass('logged-in')) {
-                AT.initMyObjects();
-            }
-        }
-        else if (href == "#obj") {
-            // Отображаем объекты с примененным фильтром
-            $('#atlas-filter-form').submit();
-        }
-        $(this).blur();
-        return false;
-    });
+//    // Вкладки. Перехват смены вкладок
+//    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
+//        var href = $(this).attr('href');
+//        if (href == "#maps") {
+//            // Переключение на Мои карты. Очистим карту. Отбить AJAX
+//            AT.clearMap();
+//            if ($('#map-section').hasClass('logged-in')) {
+//                AT.initMyObjects();
+//            }
+//        }
+//        else if (href == "#obj") {
+//            // Отображаем объекты с примененным фильтром
+//            $('#atlas-filter-form').submit();
+//        }
+//        $(this).blur();
+//        return false;
+//    });
 
     // Объекты. Фильтр
     $('#atlas-filter-form').ajaxForm({
@@ -267,40 +267,58 @@ AT.initUI = function() {
     });
 
 };
+
+
 AT.selectFirstFilterObject = function() {
     var elems = $('#ajax-filter-tabs').find('.gray-checked');
     $('span', $(elems[0])).click();    
 }
+
+
 // Init filters
 AT.initTabFilters = function(){
     $('#filter-type').val('filter_culture_objects');
     $('.atlas-tab-filters').on( 'click', function(){
-        AT.clearMap();
         if( $(this).hasClass('active') ) {
             return false;
         }
         $('#ajax-loading').show();
         $('.atlas-tab-filters').removeClass('active');
         $(this).addClass('active');
-        current_sel_tab = $(this).attr('id');
-        
-        $.ajax({
-            url: Routing.generate('armd_atlas_ajax_filters', {
-                'typeTab': current_sel_tab
-            }),
-            cache: false,
-            dataType: 'html',
-            type: 'post',
-            success: function(res){
-                $('#ajax-loading').hide();
-                $('#ajax-filter-tabs').html(res);
-                $('#filter-type').val(current_sel_tab);
-                AT.selectFirstFilterObject();
-            }
-        });
+        AT.clearMap();
+
+        var currentTabId = $(this).attr('id');
+        $('#filter-type').val(currentTabId);
+
+        $('.atlas-side-tab').hide();
+
+        if (currentTabId === 'filter_culture_objects' || currentTabId === 'filter_tourist_clusters') {
+            $.ajax({
+                url: Routing.generate('armd_atlas_ajax_filters', {
+                    'typeTab': currentTabId
+                }),
+                cache: false,
+                dataType: 'html',
+                type: 'post',
+                success: function(res){
+                    $('#ajax-loading').hide();
+                    $('#ajax-filter-tabs').html(res);
+                    AT.selectFirstFilterObject();
+                },
+                complete: function() {
+                    $('#ajax-filter-tabs').show();
+                }
+            });
+        } else if (currentTabId === 'filter_user_objects') {
+            $('#myobj').show();
+            AT.initMyObjects();
+        }
+
         return false;
     });
 }
+
+
 // Init filters
 AT.initFilters = function(){
     $('.atlas-filter-form .check_all').click(function(){
@@ -470,19 +488,24 @@ AT.initMyObjects = function() {
         url: AT.params.fetchMyObjectsUri, // /atlas/objects/my
         dataType: 'json',
         success: function(res) {
+            AT.clearMap();
             $('#ajax-loading').hide();
             if (res.success) {
                 $('#myobj_list').empty();
                 for (var i in res.result) {
-                    var object = res.result[i],
-                        jLi = $('#myobj_list_template').tmpl(object);
+                    var object = res.result[i];
+                    var jLi = $('#myobj_list_template').tmpl(object);
                     var point = AT.placePoint(object);
+
                     jLi.data('point', point);
                     $('#myobj_list').append(jLi);
                 }
             } else {
                 alert(res.message);
             }
+        },
+        complete: function() {
+            $('#ajax-loading').hide();
         }
     });
 
@@ -624,7 +647,6 @@ AT.initMyObjects = function() {
 
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
-        //console.log('Click on #atlas-objects-add');
 
         $('#atlas-objects-add-hint').show();
 
@@ -997,9 +1019,9 @@ AT.showObjectForm = function(params) {
         element: document.getElementById('file-uploader'),
         action: AT.params.imageUploadUri, // /objects/my/upload
         template: '<div class="qq-uploader">'
-                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Drop files here</span></div>'
-                + '  <div class="qq-upload-button">Upload photos&hellip;</div>'
-                + '  <ul class="qq-upload-list">Upload photos&hellip;</ul>'
+                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Перетащите файлы сюда</span></div>'
+                + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'
+                + '  <ul class="qq-upload-list">Загрузить фото&hellip;</ul>'
                 + '</div>',
         onComplete: function(id, filename, response) {
             if (response.success) {
