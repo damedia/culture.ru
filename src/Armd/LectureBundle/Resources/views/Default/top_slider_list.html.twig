@@ -12,7 +12,7 @@
                         </h2>
                         <div class="kinozal-slider-content">
                             <div class="ksc-left-column">
-                               {% thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' } %}
+                               {% thumbnail lecture.verticalBanner, 'tile' with {'alt': lecture.title, 'width':'auto', 'height': 151, 'class': 'kol-image' } %}
                                 {% if lecture.productionYear %}
                                     <p>
                                         <b>Год:</b> {{ lecture.productionYear }}
