@@ -27,31 +27,22 @@
     <script type="text/javascript">
         
         $(document).ready( function() {
-
-            // set hash 'c-tab2' to switch tab after search 
-            console.log('hash before:' + window.location.hash);
-
             if(window.location.search && window.location.hash != '#c-tab2') {
                 $('#tab-container').easytabs({
                     defaultTab: "li:last-child"
                 });
-                console.log('href before:' + window.location.href);
-                // window.location.hash = '#c-tab2';
                 location.replace(location.protocol+"//"+location.host+location.pathname+location.search+"#c-tab2");
-                console.log('location.replace:' + location.protocol+"//"+location.host+location.pathname+location.search+"#c-tab2");
-                console.log('href after:' + window.location.href);
             }
             else{
                 $('#tab-container').easytabs({
                     defaultTab: "li:first-child"
                 });
             }
-            console.log('hash after:' + window.location.hash);
         });
         
         $('body').addClass('external-page');
 
-      /*
+      {#
       $(function() {
         var tabContainers = $('#tab-container > div.content-tab'); // получаем массив контейнеров
             tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
@@ -61,7 +52,6 @@
           if(window.location.search && window.location.hash != '#c-tab2') {
             // window.location.hash = '#c-tab2';
             location.replace(location.protocol+"//"+location.host+location.pathname+location.search+"#c-tab2");
-            console.log('location.replace:' + location.protocol+"//"+location.host+location.pathname+location.search+"#c-tab2");
           }
           else{
             window.location.hash = tabId;
@@ -75,7 +65,7 @@
         })
         $('.content-tabs a').filter(':first').click();
       });
-      */
+      #}
       
     </script>
 {% endblock %}
@@ -557,7 +547,7 @@
       {# Search result list code from Yandex. #}
       <div
           id="ya-site-results"
-          onclick="return {'tld': 'ru', 'language': 'ru', 'encoding': 'utf-8', 'htmlcss': '1.x', 'updatehash': true}"></div>
+          onclick="return {'tld': 'ru', 'language': 'ru', 'encoding': 'utf-8', 'htmlcss': '1.x', 'updatehash': false};"></div>
       <script type="text/javascript">
           (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src='http://site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init()})})(window,document,'yandex_site_callbacks');
       </script>
