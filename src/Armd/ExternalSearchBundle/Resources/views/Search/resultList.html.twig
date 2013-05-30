@@ -41,31 +41,6 @@
         });
         
         $('body').addClass('external-page');
-
-      {#
-      $(function() {
-        var tabContainers = $('#tab-container > div.content-tab'); // получаем массив контейнеров
-            tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-        $('.content-tabs a').click(function(){
-          tabContainers.hide();
-          var tabId = $(this).attr('href');
-          if(window.location.search && window.location.hash != '#c-tab2') {
-            // window.location.hash = '#c-tab2';
-            location.replace(location.protocol+"//"+location.host+location.pathname+location.search+"#c-tab2");
-          }
-          else{
-            window.location.hash = tabId;
-          }
-          tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-          $('.content-tabs a').removeClass('active'); // у всех убираем класс 'active'
-          $(this).addClass('active'); // текушей вкладке добавляем класс 'active' 
-          // $(this).addClass('active').parent().siblings().find('a').removeClass('active');
-          // $(tabId).show().siblings('.content-tab').hide();        
-          return false;
-        })
-        $('.content-tabs a').filter(':first').click();
-      });
-      #}
       
     </script>
 {% endblock %}
