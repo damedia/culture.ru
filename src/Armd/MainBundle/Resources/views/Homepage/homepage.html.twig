@@ -15,22 +15,22 @@
             <div class="plitka-one clearfix">
                 <div class="museum-image-container">
                     {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
-                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url(http://culture.ru/ru/uploads/media/museum/0001/11/thumb_10923_museum_banner.jpeg);"></div></a>
+                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div></a>
                     <div class="museum-image-over">
                         <div class="museum-image-title clearfix">
                           <span>
                           {% if app.request.locale == 'ru' %}
-                             Государственный музей-заповедник «Царское&nbsp;Село»
+                             {{ museum.title }}
                           {% else %}
-                             THE MUSEUM-PRESERVE "TSARSKOYE&nbsp;SELO"
+                             {{ museum.title }}
                           {% endif %}
                           </span></div>
                         <div class="museum-image-text-wrap">
                             <a href="#" class="museum-town">
                               {% if app.request.locale == 'ru' %}
-                                Санкт-Петербург
+                                {{ museum.region.title is defined ? museum.region.title : '' }}
                               {% else %}
-                                St. Petersburg
+                                {{ museum.region.title is defined ? museum.region.title : '' }}
                               {% endif %}
                             </a>
                             <a class="museum-image-link vob iframe" href="http://culture.ru/vtour/tsarskoe_selo/tsarskoe_selo_museum.html" data-fancybox-type="iframe">
@@ -122,50 +122,23 @@
 <!-- static sample -->
 <div id="video-list">
     <div class="plitka perfomances-list video-plitka">
-        <div class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-one-image-wrapper" title="Мать" href="http://culture.ru/cinema/view/602"><div class="plitka-one-image"><img title="Мать" alt="Мать" src="http://culture.ru/ru/uploads/media/lecture/0001/19/thumb_18987_lecture_lectureH228.jpeg"></div></a>
-                <div class="plitka-text">
-                    <span class="plitka-name"><a title="Мать" href="http://culture.ru/cinema/view/602">Мать</a></span>
+        {% for cinema in cinemas if cinemas|length %}
+            <div class="plitka-one-wrap">
+                <div class="plitka-one">
+                    <a class="plitka-one-image-wrapper" title="{{ cinema.title }}" href="{{ path('armd_lecture_view', {'id': cinema.id}) }}">
+                        <div class="plitka-one-image">                                                      
+                            {% thumbnail cinema.verticalBanner, 'lectureH228' with {'alt': cinema.title } %}
+                        </div>
+                    </a>
+                    <div class="plitka-text">
+                        <span class="plitka-name"><a title="{{ cinema.title }}" href="{{ path('armd_lecture_view', {'id': cinema.id}) }}">{{ cinema.title }}</a></span>
+                    </div>
+                    <div class="plitka-footer">
+                        <p class="views">Просмотров: {{ cinema.viewCount }}</p>
+                    </div>    
                 </div>
-                <div class="plitka-footer">
-                    <p class="views">Межрабпом-Русь, 1926</p>
-                </div>    
             </div>
-        </div><!-- /plitka-one-wrap -->
-        <div class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-one-image-wrapper" title="Курьер" href="http://culture.ru/cinema/view/576"><div class="plitka-one-image"><img title="Курьер" alt="Курьер" src="http://culture.ru/ru/uploads/media/lecture/0001/20/thumb_19070_lecture_lectureH228.jpeg"></div></a>
-                <div class="plitka-text">
-                    <span class="plitka-name"><a title="Курьер" href="http://culture.ru/cinema/view/576">Курьер</a></span>
-                </div>
-                <div class="plitka-footer">
-                    <p class="views">Мосфильм, 1986</p>
-                </div>    
-            </div>
-        </div><!-- /plitka-one-wrap -->
-        <div class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-one-image-wrapper" title="Калина красная" href="http://culture.ru/cinema/view/574"><div class="plitka-one-image"><img title="Калина красная" alt="Калина красная" src="http://culture.ru/ru/uploads/media/lecture/0001/19/thumb_18966_lecture_lectureH228.jpeg"></div></a>
-                <div class="plitka-text">
-                    <span class="plitka-name"><a title="Калина красная" href="http://culture.ru/cinema/view/574">Калина красная</a></span>
-                </div>
-                <div class="plitka-footer">
-                    <p class="views">Мосфильм, 1973</p>
-                </div>    
-            </div>
-        </div><!-- /plitka-one-wrap -->
-        <div class="plitka-one-wrap">
-            <div class="plitka-one">
-                <a class="plitka-one-image-wrapper" title="Новые времена" href="http://culture.ru/cinema/view/1055"><div class="plitka-one-image"><img title="Новые времена" alt="Новые времена" src="http://culture.ru/ru/uploads/media/lecture/0001/20/thumb_19000_lecture_lectureH228.jpeg"></div></a>
-                <div class="plitka-text">
-                    <span class="plitka-name"><a title="Новые времена" href="http://culture.ru/cinema/view/1055">Новые времена</a></span>
-                </div>
-                <div class="plitka-footer">
-                    <p class="views">США, 1936</p>
-                </div>    
-            </div>
-        </div><!-- /plitka-one-wrap -->
+        {% endfor %}       
     </div>
 </div>
 <!-- /static sample -->
@@ -180,7 +153,8 @@
 {% block right_column %}
     <span class="helper-top-orange-line"></span>
 
-{% if app.request.locale == 'ru' %}
+{% if app.request.locale == 'ru' and videos|length %}
+    {% set video = videos[0] %}
     <div class="tabs events-tabs video-tabs">
         {#<h2>Сегодня - Всемирный день музеев</h2>#}
         <h3>Актуальное видео</h3>
@@ -189,9 +163,15 @@
         {#
             <iframe width="100%" height="162" src="http://pub.tvigle.ru/frame/p.htm?vote=0&srv=pub.tvigle.ru&prt=85deec0537d438363b1c3b54dbe222e8&id=2333629&w=720&h=540&type=&dopparam=armada_skin&modes=1&nl=1" style="border: 0px;" wmode="Opaque"></iframe>
         #}
+        {#
             <iframe width="100%" height="162" src="http://pub.tvigle.ru/frame/p.htm?vote=0&srv=pub.tvigle.ru&prt=85deec0537d438363b1c3b54dbe222e8&id=1908746&w=720&h=405&type=&dopparam=armada_skin&modes=1&nl=1" style="border: 0px;" wmode="Opaque"></iframe>
+        #}
+            <a href="{{ path('armd_lecture_view', {'id': video.id}) }}" class="period-block_image">                               
+                {% thumbnail video.mediaLectureVideo, 'big' with {'alt': video.title, 'width': '100%', 'height': 'auto' } %}
+                <span class="play"></span>
+            </a>
         </div>
-        <p class="video-tabs-title">Российская государственная библиотека</p>
+        <p class="video-tabs-title">{{ video.title }}</p>
         {#
         <p class="all">
             <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ "menu.video_all"|trans }}</a>

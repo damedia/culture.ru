@@ -2954,7 +2954,6 @@ body {
 					height:78px;
 					background-position:50% 50%;
 					cursor:pointer;
-					
 				}
 				.museum-image-over {
 					display:none;
@@ -4479,7 +4478,9 @@ body {
             background: linear-gradient(to bottom,  #ffffff 86%,#f2f5f6 100%); /* W3C */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f5f6',GradientType=0 ); /* IE6-8 */
         }
-        .video-tabs-item{}
+        .video-tabs-item{
+            padding: 0 4px;
+        }
         .video-tabs h3 {
             color: #154060;
             font-size: 18px;
