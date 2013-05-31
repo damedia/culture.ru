@@ -16,7 +16,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\FOSUserEvents;
 
 /**
  * This class is inspirated from the FOS Profile Controller, except :
@@ -56,17 +59,36 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $form = $this->container->get('sonata_user_authentication_form');
-        $formHandler = $this->container->get('sonata_user_authentication_form_handler');
+        $formFactory = $this->container->get('sonata_user_authentication_form_factory');
+        $form = $formFactory->createForm();
+        $form->setData($user);
 
-        $process = $formHandler->process($user);
-        if ($process) {
-            $this->setFlash('fos_user_success', 'profile.flash.updated');
+        $request = $this->getRequest();
 
-            return new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+             if ($form->isValid()) {
+                $userManager = $this->container->get('fos_user.user_manager');
+                $dispatcher = $this->container->get('event_dispatcher');
+
+                $event = new FormEvent($form, $request);
+                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
+
+                $userManager->updateUser($user);
+                $this->setFlash('fos_user_success', 'profile.flash.updated');
+
+                if (null === $response = $event->getResponse()) {
+                    $response = new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
+                }
+
+                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                return $response;
+            }
         }
 
-        return $this->render('ArmdUserBundle:Profile:edit_authentication.html.twig', array(
+        return $this->render('ArmdUserBundle:Profile:edit_authentication' .($this->checkXmlHttpRequest() ? '_form' : '') .'.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -82,7 +104,7 @@ class ProfileController extends Controller
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-
+        
         $form = $this->container->get('sonata.user.profile.form');
         $formHandler = $this->container->get('sonata.user.profile.form.handler');
 
@@ -90,10 +112,10 @@ class ProfileController extends Controller
         if ($process) {
             $this->setFlash('fos_user_success', 'profile.flash.updated');
 
-            return new RedirectResponse($this->generateUrl('sonata_user_profile_edit'));
+            return new RedirectResponse($this->generateUrl('sonata_user_profile_show'));
         }
 
-        return $this->render('ArmdUserBundle:Profile:edit_profile.html.twig', array(
+        return $this->render('ArmdUserBundle:Profile:edit_profile' .($this->checkXmlHttpRequest() ? '_form' : '') .'.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -105,5 +127,15 @@ class ProfileController extends Controller
     protected function setFlash($action, $value)
     {
         $this->container->get('session')->setFlash($action, $value);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function checkXmlHttpRequest()
+    {
+        $request = $this->getRequest();
+        
+        return $request->isXmlHttpRequest() || $request->get('_xml_http_request', false);
     }
 }

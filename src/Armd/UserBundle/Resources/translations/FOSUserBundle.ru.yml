@@ -16,8 +16,8 @@ group:
 
 security:
     login:
-        username: "Имя пользователя:"
-        password: "Пароль:"
+        username: "Имя пользователя"
+        password: "Пароль"
         remember_me: Запомнить меня
         submit: Войти
 
@@ -39,8 +39,8 @@ change_password:
 
 # Registration
 registration:
-    check_email: Письмо отправлено на адрес %email%. В нём содержится ссылка, по которой вы можете подтвердить свою регистрацию.
-    confirmed: Поздравляем %username%, ваш аккаунт подтвержден.
+    check_email: Письмо отправлено на адрес <strong>%email%</strong>. В нём содержится ссылка, по которой вы можете подтвердить свою регистрацию.
+    confirmed: Поздравляем <strong>%username%</strong>, ваш аккаунт подтвержден.
     back: Вернуться на предыдущую страницу.
     submit: Регистрация
     flash:
@@ -58,9 +58,9 @@ registration:
 # Password resetting
 resetting:
     password_already_requested: Пароль для данного пользователя уже запрашивался за последние 24 часа.
-    check_email: Письмо на адрес %email% уже отправлено. Оно содержит ссылку, при переходе по которой ваш пароль будет сброшен.
+    check_email: Письмо на адрес <strong>%email%</strong> отправлено. Оно содержит ссылку, при переходе по которой ваш пароль будет сброшен.
     request:
-        invalid_username: Пользователь "%username%" не существует.
+        invalid_username: Пользователь <strong>%username%</strong> не существует.
         username: "Имя пользователя:"
         submit: Сбросить пароль
     reset:
@@ -86,13 +86,11 @@ layout:
 
 # Form field labels
 form:
-    group_name: "Название группы:"
-    username: "Имя пользователя:"
-    email: "Электронная почта:"
-    current_password: "Текущий пароль:"
-    password: "Пароль:"
-    password_confirmation: "Подтвердите пароль:"
-    new_password: "Новый пароль:"
-    new_password_confirmation: "Подтвердите пароль:"
-
-
+    group_name: "Название группы"
+    username: "Имя пользователя"
+    email: "Электронная почта"
+    current_password: "Текущий пароль"
+    password: "Пароль"
+    password_confirmation: "Подтвердите пароль"
+    new_password: "Новый пароль"
+    new_password_confirmation: "Подтвердите пароль"

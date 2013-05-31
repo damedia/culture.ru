@@ -7074,11 +7074,11 @@ body {
     /*padding-top: 3px;*/
     display: block;
 }
-.social-auth p {
+/*.social-auth p {
     float: left;
     margin-right: 10px;
     font-size: 12px;
-}
+}*/
 
 /*.social-auth .social-auth-links {*/
     /*position: relative;*/
@@ -7370,6 +7370,20 @@ a.appstore-link {
         height:auto;
     }
 
+.appstore-list li {
+    padding: 2px 5px 2px 28px;
+    position: relative;
+    list-style: none;
+    font-size: 12px;
+    line-height: 20px;
+}
+.appstore-list img {
+    position:absolute;
+    left:0;
+    top:2px;
+    width:20px;
+    height:auto;
+}
 
 .footer-banner-1 {
 	display: block;
@@ -9445,3 +9459,189 @@ a.appstore-link {
 
 
 
+
+/**
+ * Profile Forms
+ */
+.lk-form {
+    font-size: 13px;
+    margin: 20px auto;
+    width: 50%;
+}
+    .lk-form dl {
+        margin: 20px 0 0;
+    }
+        .lk-form dl dt, .lk-form dl dd {
+            float: left;
+            margin: 0 0 1em;
+        }
+        .lk-form dl dt {
+            clear: left;
+            width: 30%;
+            text-align: right;
+        }
+            .lk-form dl dt label {
+                position: relative;
+                font-weight: bold;
+            }
+                .lk-form dl dt label span.req {
+                    position: absolute;
+                    top: 0;
+                    right: -10px;
+                    color: #b20018;
+                }
+        .lk-form dl dd {
+            width: 65%;
+            margin-left: 5%;
+        }
+            .lk-form dl dd label {
+                vertical-align: middle;
+            }
+                .lk-form dl dd label input[type='checkbox'] {
+                    vertical-align: middle;
+                    margin-bottom: 3px;
+                }
+            .lk-form dl dd ul {
+                list-style: none;
+            }
+                .lk-form dl dd .input-with-label * {
+                    vertical-align: middle;
+                }
+    .lk-form input[type='text'], .lk-form input[type='email'],
+    .lk-form input[type='password'], .lk-form input[type='submit'],
+    .lk-form input[type='button'], .lk-form textarea, .lk-form select,
+    .lk-form a.button {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        margin: 1px 0;
+        padding: 4px 5px;
+        border: 1px solid #d2d2d2;
+        background: #fff;
+    }
+    .lk-form input[type='text'], .lk-form input[type='email'],
+    .lk-form input[type='password'], .lk-form textarea {
+        width: 85%;
+    }
+    .lk-form input[type='submit'], .lk-form input[type='button'], .lk-form a.button {
+        display: -moz-inline-stack;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        padding: 8px 15px;
+        color: #222;
+        background: #e2e2e2;
+        outline: none;
+    }
+        .lk-form input[type='submit']:hover, .lk-form input[type='button']:hover, .lk-form a.button:hover {
+            background: #d7d7d7;
+        }
+    .lk-form ul.error {
+        color: #b20018;
+    }
+    .lk-form .form-actions {
+        margin: 10px 0;
+        padding: 10px 10px 10px 35%;
+        border-top: 1px solid #d2d2d2;
+    }
+        .lk-form .form-actions input[type='submit'],
+        .lk-form .form-actions input[type='button'],
+        .lk-form .form-actions a {
+            margin-right: 1em;
+        }
+        .lk-form .form-actions ul {
+            display: -mox-inline-stack;
+            display: inline-block;
+            zoom: 1;
+            *display: inline;
+            vertical-align: top;
+        }
+            .lk-form .form-actions ul li {
+                list-style: none;
+                padding: 2px;
+            }
+    .lk-form .social-auth span {
+        vertical-align: top;
+    }
+    .lk-form .social-auth .social-auth-links {
+        display: inline;
+        margin: 0;
+        padding-left: 4px;
+    }
+#login-popup .lk-form {
+    margin: 10px;
+    width: auto;
+    font-size: 12px;
+}
+    #login-popup .lk-form dl {
+        margin: 0;
+    }
+        #login-popup .lk-form dl dt, #login-popup .lk-form dl dd {
+            float: none;
+            clear: none;
+            width: auto;
+            margin: 0 0 0.5em;
+            padding: 0;
+            text-align: left;
+        }
+    #login-popup .lk-form input[type='text'], #login-popup .lk-form input[type='email'],
+    #login-popup .lk-form input[type='password'], #login-popup .lk-form textarea {
+        width: 100%;
+    }
+    #login-popup .lk-form .form-actions {
+        margin: 10px 0;
+        padding: 10px 10px 0;
+    }
+    #login-popup .lk-form .social-auth {
+        margin: 10px 0;
+        padding: 10px 10px 0;
+        border-top: 1px solid #d2d2d2;
+    }
+
+/**
+ * Profile menu
+ */
+.lk-menu {
+    margin: 20px auto;
+    padding: 10px 20px 0;
+    border-bottom: 1px solid #d2d2d2;
+}
+    .lk-menu li {
+        -moz-border-radius: 3px 3px 0 0;
+        -webkit-border-radius: 3px 3px 0 0;
+        border-radius: 3px 3px 0 0;
+        display: -moz-inline-stack;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        vertical-align: bottom;
+        list-style: none;
+        padding: 8px 15px;
+    }
+        .lk-menu li a {
+            color: #222;
+            text-decoration: none;
+        }
+        .lk-menu li.active {
+            font-weight: bold;
+            border: 1px solid #d2d2d2;
+            border-bottom: none;
+            background: #e2e2e2;
+        }
+            .lk-menu li.active:hover {
+                background: #d7d7d7;
+            }
+
+/**
+ * qTip² styles override
+ */
+#qtip-overlay div {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    opacity: 0.2;
+}
