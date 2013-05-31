@@ -241,6 +241,8 @@ AT.initUI = function() {
                     AT.clusterPoints.setClusters();
                 }
             }
+
+            AT.fitMap(objects);
         }
     });
 
@@ -272,8 +274,18 @@ AT.selectFirstFilterObject = function() {
     $('span', $(elems[0])).click();    
 }
 // Init filters
-AT.initTabFilters = function(){
-    $('#filter-type').val('filter_culture_objects');
+AT.initTabFilters = function() {
+    var filter = "filter_culture_objects";
+
+    if (window.location.hash) {
+        var hash = window.location.hash.substr(1).replace("-", "_");
+
+        if ($.inArray(hash, ["culture_objects", "tourist_clusters"]) > -1) {
+            filter = "filter_" + hash;
+        }
+    }
+
+    $('#filter-type').val(filter);
     $('.atlas-tab-filters').on( 'click', function(){
         AT.clearMap();
         if( $(this).hasClass('active') ) {
@@ -298,8 +310,12 @@ AT.initTabFilters = function(){
                 AT.selectFirstFilterObject();
             }
         });
+
+        window.location.hash = $(this).attr("href");
         return false;
     });
+
+    $("#" + filter).click();
 }
 // Init filters
 AT.initFilters = function(){
@@ -1019,3 +1035,29 @@ AT.showObjectForm = function(params) {
 
 };
 
+/**
+ * Fit map.
+ */
+AT.fitMap = function(objects) {
+    if (objects.length) {
+        var latArr = [],
+            lonArr = [];
+
+        for (var x in objects) {
+            var object = objects[x];
+
+            lonArr.push(object.lon);
+            latArr.push(object.lat);
+        }
+
+        AT.map.setCenterByBbox({
+            lon1: PGmap.Utils.mercX(Math.min.apply(null, lonArr)),
+            lon2: PGmap.Utils.mercX(Math.max.apply(null, lonArr)),
+            lat1: PGmap.Utils.mercY(Math.min.apply(null, latArr)),
+            lat2: PGmap.Utils.mercY(Math.max.apply(null, latArr))
+        });
+
+    } else {
+        AT.map.setCenter(new PGmap.Coord(AT.params.center[0], AT.params.center[1], true), AT.params.zoom);
+    }
+};
