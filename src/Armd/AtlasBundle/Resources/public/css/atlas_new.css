@@ -173,9 +173,6 @@
 					color:#000;
 				}
 
-	.filter-tab {
-		display:none;
-	}
 		.filter-sub-tabs-titles {
             display:none;
 			padding:13px 0 13px 13px;
@@ -290,6 +287,7 @@
 			}
 				.add-object-form-fields  li {
 					margin-bottom:15px;
+                    list-style-type: none;
 				}
 				.add-object-form-fields label {
 					display:block;
