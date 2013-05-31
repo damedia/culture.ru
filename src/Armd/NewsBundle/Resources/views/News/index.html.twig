@@ -64,11 +64,16 @@
             <a href="#" id="more-news">{{ moreTitle }}</a>
         </p>
     </div>
-
 {% endblock %}
 
 
 {% block right_column %}
+    {% if category == 'articles' %}
+        <div style="height:78px; font-size:0; line-height:0;"></div>
+    {% else %}
+        <div style="height:54px; font-size:0; line-height:0;"></div>
+    {% endif %}
+    
     {% render url('armd_news_memorial_events') %}
 
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
@@ -76,7 +81,8 @@
     {% if app.request.locale == 'ru' %}
         <div class="right-video-block">
             {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
-
+        </div>
+        <div class="right-video-block">
             {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
         </div>
     {% endif %}
