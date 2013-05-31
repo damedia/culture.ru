@@ -247,12 +247,12 @@ class Builder extends ContainerAware
                 )
             );
             
-            $mediaMenu->addChild(
-                'menu.lectures_news',
-                array(
-                    'route' => 'armd_lecture_news_index',
-                )
-            );
+//            $mediaMenu->addChild(
+//                'menu.lectures_news',
+//                array(
+//                    'route' => 'armd_lecture_news_index',
+//                )
+//            );
 
             //--- /Media
 

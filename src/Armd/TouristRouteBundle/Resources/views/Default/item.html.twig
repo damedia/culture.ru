@@ -51,7 +51,7 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
     <style>
-        .content.collapsed{ height:200px; overflow:hidden; }
+        .content.collapsed{ height:400px; overflow:hidden; }
         .fancybox-video-wrapper iframe{ display:block; }
     </style>
 {% endblock %}
@@ -363,7 +363,6 @@
         <li><a href="{{ path('armd_tourist_route_list') }}">{{ 'menu.tourist_routes'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
-    
     <h1>{{ entity.title }}</h1>
 
     <div class="tourist-one">
@@ -389,12 +388,12 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <p>{{ 'Route distance'|trans }}: <span id="route-distance">---</span></p>
+                <p>{{ 'Route distance'|trans }}: <span id="route-distance" style="white-space:nowrap">---</span></p>
             </div><!-- /summary -->
         </div>
 
         <div class="tourist-one_text">
-            <div id="content-collapsed" class="content{% if entity.content is not empty %} collapsed{% endif %}">
+            <div id="content-collapsed" class="content{% if entity.content is not empty %} collapsed{% endif %}" >
                 {{ entity.content|raw }}
             </div>
             {% if entity.content is not empty %}
@@ -429,69 +428,76 @@
 
 {# ------------------------------------------------------------------------ #}
 {% block right_column %}
+    <div style="height:53px; font-size:0; line-height:0;"></div>
     <!-- Video -->
     {% if entity.mediaVideos|length %}
-        <div class="block">
-            <section class="static-block object-archives">
-                <h2>{{ "video"|trans }}</h2>
-                <div class="flexslider">
-                    <ul class="slides">
-                        {% for video in entity.mediaVideos %}
-                            <li>
-                                <article class="period-block  archive-block ">
-                                    <a class="route-fancybox" href="#data-{{ loop.index }}">
-                                        <img src="{{ video.providerMetadata.thumbnail_url }}" alt="" class="period-block_image" />
-                                    </a>
-                                    <div class="period-block_text">
-                                        <p>{{ video.name }}</p>
+        <div class="orange-slider-block">
+            <div class="flexslider">
+                <ul class="slides">
+                    {% for video in entity.mediaVideos %}
+                        <li>
+                            <article class="period-block">
+                                <h2>{{ "video"|trans }}</h2>
+                                <a href="#data-{{ loop.index }}" class="period-block_image route-fancybox">
+                                    
+                                    <img src="{{ video.providerMetadata.thumbnail_url }}" alt="" class="period-block_image" />
+
+                                    <span class="play"></span>
+                                </a>
+                                <div class="period-block_text">
+                                    <h4>{{ video.name }}</h4>
+                                    {#<p>#}
+                                        {#Режиссер: Леонид Гайдай <br />#}
+                                        {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                                    {#</p>#}
+                                </div>
+                                
+                                
+                                <div id="data-{{ loop.index }}" style="display: none;">
+                                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                        {% media video, 'reference' with {'width': 640, 'height': 360} %}
                                     </div>
-                                    <div id="data-{{ loop.index }}" style="display: none;">
-                                        <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                                            {% media video, 'reference' with {'width': 640, 'height': 360} %}
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
+                                </div>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    {% endif %}
+    {% endif %}    
     <!-- /Video -->
 
     <!-- Photo -->
     {% if entity.images|length %}
-        <div class="block">
-            <section class="static-block object-archives">
-                <h2>{{ "Route photo"|trans }}</h2>
-                <div class="flexslider">
-                    <ul class="slides">
-                        {% for h in entity.images %}
-                            <li>
-                                <article class="period-block  archive-block ">
-                                    <a class="route-fancybox" href="{% path h, 'reference' %}" title="{{ h.title }}" rel="photos">
-                                        <img src="{% path h, 'photo_thumb' %}" alt="" class="period-block_image" />
-                                    </a>
-                                    <div class="period-block_text">
-                                        <p>{{ h.title }}</p>
-                                    </div>
-                                </article>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
+        <div class="orange-slider-block">
+            <div class="flexslider">
+                <ul class="slides">
+                    {% for h in entity.images %}
+                        <li>
+                            <article class="period-block">
+                                <h2>{{ "Route photo"|trans }}</h2>
+                                <a href="{% path h, 'reference' %}" title="{{ h.title }}" rel="photos" class="route-fancybox period-block_image">
+                                    <img src="{% path h, 'photo_thumb' %}" alt="" class="period-block_image" />
+                                </a>
+                                <div class="period-block_text">
+                                    <h4>{{ h.title }}</h4>
+                                </div>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     {% endif %}
     <!-- /Photo -->
 
-    {% if not entity.images|length and not entity.mediaVideos|length and entity.routes|length %}
+    {#% if not entity.images|length and not entity.mediaVideos|length and entity.routes|length %#}
+    {% if entity.routes|length %}
         <section class="block">
             {# <h2><span>{{ "recommended"|trans }}</span></h2> #}
 
             {% for route in entity.routes %}
-                <div class="recommend-block">
+                <div class="recommend-block" style="margin-bottom:20px;">
                     <a href="{{ path('armd_tourist_route_item', {'id': route.id}) }}">{% thumbnail route.banner, 'banner' %}</a>
 
                     <div class="recommend-over">

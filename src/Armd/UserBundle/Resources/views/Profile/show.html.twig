@@ -1,11 +1,95 @@
 {% extends ":Frontend:base.html.twig" %}
 
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
+
 {% block body %}
-<div class="sonata-user-show">
-    <ul class="lk-menu green-lk-menu">
-        <li class="active"><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a></li>
-        <li><a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Edit'|trans }}</a></li>
-        <li><a href="{{ path('armd_atlas_user_objects') }}">{{ 'My objects'|trans }}</a></li>
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><span>{{ 'Account'|trans }}</span></li>
+</ul>
+
+<div class="lk-form profile">
+    <ul class="lk-menu">
+        <li class="active">
+            <a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a>
+        </li>
+        <li>
+            <a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Сredentials'|trans }}</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_change_password') }}">{{ 'Change password'|trans }}</a>
+        </li>
     </ul>
+
+    <dl class="clearfix">
+        {% set no_data = true %}
+
+        {% if app.user.lastname %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Lastname'|trans }}</label></dt>
+        <dd>{{ app.user.lastname }}</dd>
+        {% endif %}
+
+        {% if app.user.firstname %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Firstname'|trans }}</label></dt>
+        <dd>{{ app.user.firstname }}</dd>
+        {% endif %}
+
+        {% if app.user.middlename %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Middlename'|trans }}</label></dt>
+        <dd>{{ app.user.middlename }}</dd>
+        {% endif %}
+
+        {% if app.user.dateOfBirth %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Birth date'|trans }}</label></dt>
+        <dd>{{ app.user.dateOfBirth|date('d.m.Y') }}</dd>
+        {% endif %}
+        
+        {% if app.user.region %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Region'|trans }}</label></dt>
+        <dd>{{ app.user.region.title }}</dd>
+        {% endif %}
+
+        {% if app.user.phone %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Phone'|trans }}</label></dt>
+        <dd>{{ app.user.phone }}</dd>
+        {% endif %}
+
+        {% if app.user.website %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Website'|trans }}</label></dt>
+        <dd>{{ app.user.website }}</dd>
+        {% endif %}
+
+        {% if app.user.biography %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Biography'|trans }}</label></dt>
+        <dd>{{ app.user.biography }}</dd>
+        {% endif %}
+
+        {% if app.user.subscriptions|length %}
+        {% set no_data = false %}
+        <dt><label>{{ 'Subscriptions'|trans }}</label></dt>
+        <dd>
+            {{ app.user.subscriptions|join(', ') }}
+        </dd>
+        {% endif %}
+
+        {% if no_data %}
+        <dt></dt>
+        <dd>
+            <em>{{ 'No profile data'|trans }}</em>
+        </dd>
+        {% endif %}
+    </dl>
+    
+    <div class="form-actions">
+        <a class="button" href="{{ path('sonata_user_profile_edit') }}">{{ 'Edit'|trans }}</a>
+    </div>
 </div>
 {% endblock %}

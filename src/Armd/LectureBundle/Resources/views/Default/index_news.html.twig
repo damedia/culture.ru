@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block page_header_search %}
-{#
-    <div class="search-category">
 
+    <div class="search-category">
+{#
         <form id="lectures-filter" method="post">
             <span class="search-dates-label">Категория</span>
             <div class="search-category-selects">
@@ -27,8 +27,8 @@
                 <input type="hidden" id="genre1_id" name="genre1_id" value="{{ genre1.id }}" />
             {% endif %}
         </form>
-    </div>
 #}
+    </div>
 {% endblock %}
 
 {% block page_header_search_scope %}
@@ -43,6 +43,7 @@
 {% block left_column %}
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><span>{{ 'menu.media'|trans }}</span></li>
         <li><span>{{ 'menu.lectures_news'|trans }}</span></li>
     </ul>
 

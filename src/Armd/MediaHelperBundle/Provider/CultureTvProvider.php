@@ -118,12 +118,13 @@ class CultureTvProvider extends BaseVideoProvider
 
         // get thumbnail url
         $contentIframe = file_get_contents($metadata['player_url']);
-        if (preg_match('~var html5 = \{\"picture\":\"(.+)\"~U', $contentIframe, $matches)) {
+        if (preg_match('~var html5 = \{.+\"picture\":\"(.+)\"~U', $contentIframe, $matches)) {
             $metadata['thumbnail_url'] = stripslashes($matches[1]);
         } else {
             throw new \RuntimeException('Unable to retrieve picture url');
         }
 
+        \gFuncs::dbgWriteLogVar($metadata, false, ''); // DBG:
         return $metadata;
     }
 

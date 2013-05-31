@@ -1,9 +1,14 @@
 Account: Личный кабинет
-Profile: Мой профиль
+Profile: Профиль
+Сredentials: Учетные данные
+Change password: Смена пароля
+Reset password: Сброс пароля
 Edit: Редактировать
 My objects: Мои объекты
 Submit: Отправить
 Gender: Пол
+Male: Мужской
+Female: Женский
 Name: Имя
 Lastname: Фамилия
 Birth date: Дата рождения
@@ -14,3 +19,7 @@ Phone: Телефон
 Vkontakte: Vkontakte ID
 Facebook login: Facebook логин или email
 Twitter login: Twitter логин
+Save changes: Сохранить изменения
+Forgot your password: Забыли пароль
+Auth: Авторизация
+No profile data: Профиль не заполнен

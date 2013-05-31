@@ -34,10 +34,19 @@ class SecurityController extends BaseSecurityController
 
         $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
-        return $this->container->get('templating')->renderResponse('ArmdUserBundle:Security:login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        return $this->container->get('templating')->renderResponse($this->getTemplate(), array(
             'last_username' => $lastUsername,
             'error'         => $error,
             'csrf_token' => $csrfToken,
+        ));
+    }
+
+    protected function getTemplate()
+    {
+        return implode('.', array(
+            'ArmdUserBundle:Security:login' .($this->container->get('request')->get('popup') ? '.popup' : ''),
+            'html',
+            $this->container->getParameter('fos_user.template.engine')
         ));
     }
 }

@@ -1,0 +1,14 @@
+{% extends ":Frontend:base.html.twig" %}
+
+{% block page_header_title %}{{ 'Reset password'|trans }}{% endblock %}
+
+{% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><span>{{ 'Reset password'|trans }}</span></li>
+</ul>
+
+<div class="lk-form profile">
+    {% include 'ArmdUserBundle:Resetting:reset_content.html.twig' %}
+</div>
+{% endblock %}
