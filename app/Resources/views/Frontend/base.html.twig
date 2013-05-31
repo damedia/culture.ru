@@ -36,6 +36,7 @@
         <link rel="stylesheet" href="{{ asset('bundles/armdmkcomment/css/comments.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/chosen/chosen.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('vendor/qtip/jquery.qtip.css') }}"/>
 
         {#<link rel="stylesheet" href="{{ asset('vendor/select2/select2.css') }}">#}
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -51,7 +52,6 @@
         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui-1.8.24.custom.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery.ui.datepicker.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/fancybox/jquery.fancybox.js?v=2.0.6') }}"></script>
-        <script type="text/javascript" src="{{ asset('vendor/jquery.uniform.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery.ajaxmanager.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/selectgroup/jquery.ui.selectgroup.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
@@ -65,6 +65,7 @@
         <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('vendor/qtip/jquery.qtip.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
@@ -110,7 +111,8 @@
             <h1 class="main-title">{{ 'Portal title highlighted'|trans|raw }}</span></h1>
             <div class="header-top-right clearfix">
                 <div class="htr-top">
-                    {# {% render url('armd_main_login_links') %} #}
+                    {% render url('armd_main_login_links') %}
+
                     {% if app.request.locale == 'ru' %}
                         <a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}" class="lang-chooser-ru"></a>
                     {% else %}
@@ -121,15 +123,17 @@
 
                     
                     <div class="app_store-block">
-                        <a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8" target=_blank class="appstore-link" id="appstore-link">AppStore</a>
+                        <a href="#appstore-popup" class="appstore-link" id="appstore-link">AppStore</a>
 
-                        <ul style="display:none;">
-                            <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
-                            {% if app.request.locale == 'ru' %}
-                                <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
-                                <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
-                            {% endif %}
-                        </ul>
+                        <div id="appstore-popup" style="display:none;">
+                            <ul class="appstore-list">
+                                <li class="app_store-link-1"><a href="https://itunes.apple.com/ru/app/museums-of-russia/id587766991?mt=8" target="_blank"><img src="{{ asset('img/app_store_1.jpg') }}" alt="" />Museums of Russia</a></li>
+                                {% if app.request.locale == 'ru' %}
+                                    <li class="app_store-link-2"><a href="https://itunes.apple.com/ru/app/mobil-nyj-gid/id553786184?mt=8"  target="_blank"><img src="{{ asset('img/app_store_2.jpg') }}" alt="" />Мобильный Гид</a></li>
+                                    <li class="app_store-link-3"><a href="https://itunes.apple.com/ru/app/muzei-rossii/id553795199?mt=8"  target="_blank"><img src="{{ asset('img/app_store_3.jpg') }}" alt="" />Музеи России</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div><!-- /app_store-block -->
                 </div><!-- /htr-top -->
                 <div class="htr-bottom">
