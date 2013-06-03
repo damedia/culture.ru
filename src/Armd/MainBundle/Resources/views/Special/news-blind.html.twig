@@ -1,6 +1,6 @@
 
 {% if app.request.locale == 'ru' %}
-{% if showMenu|default(true) %}
+{% if showMenu is not defined or showMenu %}
     <ul class="tabs-labels" id="tabs-selector">
         {#
         {% for c in categories %}
