@@ -243,7 +243,8 @@ class BuildCommand extends ContainerAwareCommand
     protected function dumpXml($urls)
     {
         $webRootDir = $this->getContainer()->get('kernel')->getRootDir() .'/../web';
-        $sitemapDir = $webRootDir .'/' .$this->getContainer()->getParameter('armd_sitemap.directory');
+        $sitemapWebDir = '/' . $this->getContainer()->getParameter('armd_sitemap.directory');
+        $sitemapDir = $webRootDir . $sitemapWebDir;
 
         // Remove old sitemap files.
         $finder     = new Finder();
@@ -256,10 +257,11 @@ class BuildCommand extends ContainerAwareCommand
         $index       = 1;
 
         while ($fileUrls = array_splice($urls, 0, $urlsPerFile)) {
-            $sitemapUrl = '/sitemap-' .$index .'.xml';
-            
+            $sitemapUrl = $sitemapWebDir . '/sitemap-' .$index .'.xml';
+            $sitemapFile = $webRootDir . $sitemapUrl;
+
             file_put_contents(
-                $sitemapDir .$sitemapUrl,
+                $sitemapFile,
                 $this->renderXml(array('urls' => $fileUrls))
             );
 
