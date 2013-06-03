@@ -17,11 +17,11 @@ AT.init = function(params) {
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
-    AT.initTabFilters();
     AT.initFilters();
+    AT.initTabs();
     AT.initHacks();
 
-    AT.selectFirstFilterObject();
+    //AT.selectFirstFilterObject();
 };
 
 AT.initMap = function(params) {
@@ -272,71 +272,66 @@ AT.initUI = function() {
 
 
 AT.selectFirstFilterObject = function() {
-    var elems = $('#ajax-filter-tabs').find('.gray-checked');
-    $('span', $(elems[0])).click();    
+    var elems = $('.ajax-filter-tabs').filter(':visible').find('.gray-checked');
+    if (elems.filter(':checked').length == 0) {
+        $('span', $(elems[0])).click();
+    }
 }
 
 
 // Init filters
-AT.initTabFilters = function() {
-    var filter = "filter_culture_objects";
+AT.initTabs = function() {
 
-    if (window.location.hash) {
-        var hash = window.location.hash.substr(1).replace("-", "_");
+//    if (window.location.hash) {
+//        var filterType = "filter_culture_objects";
+//        var hash = window.location.hash.substr(1).replace("-", "_");
+//
+//        if ($.inArray(hash, ["culture_objects", "tourist_clusters", "user_objects"]) > -1) {
+//            filterType = "filter_" + hash;
+//        }
+//        AT.showTab(filterType);
+//    }
 
-        if ($.inArray(hash, ["culture_objects", "tourist_clusters"]) > -1) {
-            filter = "filter_" + hash;
-        }
+    AT.showTab(AT.params.initialFilterType, true);
+
+    $('.atlas-tab-filters').on( 'click', function(event){
+        event.preventDefault();
+        var filterType = $(this).attr('id');
+        AT.showTab(filterType);
+    });
+}
+
+AT.showTab = function(filterType, force) {
+    if (typeof(force) === 'undefined') {
+        force = false;
+    }
+    if ($('#' + filterType).hasClass('active') && !force) {
+        return;
     }
 
-    $('#filter-type').val(filter);
-    $('.atlas-tab-filters').on( 'click', function(){
-        if( $(this).hasClass('active') ) {
-            return false;
-        }
-        $('#ajax-loading').show();
-        $('.atlas-tab-filters').removeClass('active');
-        $(this).addClass('active');
-        AT.clearMap();
+    var filterTabId = filterType.replace('filter_', '').replace('_', '-') + '-tab';
 
-        var currentTabId = $(this).attr('id');
+    $('.atlas-tab-filters').removeClass('active');
+    $('#' + filterType).addClass('active');
+    $('.atlas-side-tab').hide();
+    $('#' + filterTabId).show();
 
-        $('.atlas-side-tab').hide();
+    $('#ajax-loading').show();
+    $('#filter-type').val(filterType);
 
-        if (currentTabId === 'filter_culture_objects' || currentTabId === 'filter_tourist_clusters') {
-            $.ajax({
-                url: Routing.generate('armd_atlas_ajax_filters', {
-                    'typeTab': currentTabId
-                }),
-                cache: false,
-                dataType: 'html',
-                type: 'post',
-                success: function(res){
-                    $('#ajax-loading').hide();
-                    $('#ajax-filter-tabs').html(res);
-                    $('#filter-type').val(currentTabId);
-                    AT.selectFirstFilterObject();
-                },
-                complete: function() {
-                    $('#ajax-filter-tabs').show();
-                }
-            });
-        } else if (currentTabId === 'filter_user_objects') {
-            $('#myobj').show();
-            AT.initMyObjects();
-        }
+    AT.clearMap();
 
-
-        window.location.hash = $(this).attr("href");
-        return false;
-    });
-
-    $("#" + filter).click();
+    if (filterType === 'filter_culture_objects' || filterType === 'filter_tourist_clusters') {
+        AT.selectFirstFilterObject();
+    } else if (filterType === 'filter_user_objects') {
+        AT.initMyObjects();
+    }
 }
 
 
 // Init filters
 AT.initFilters = function(){
+
     $('.atlas-filter-form .check_all').click(function(){
         var parentDiv = $(this).closest('.simple-filter-block');
         if (!$(this).data('checked')) {
@@ -355,11 +350,11 @@ AT.initFilters = function(){
         // перехват обработчика из function.js
         e.preventDefault();
         e.stopPropagation();
-        switch($('#filter-type').val()) {
-            case 'filter_tourist_clusters':
-                $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
-                break;
+
+        if ($('.sort-filter .active').attr('id') === 'filter_tourist_clusters') {
+            $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
         }
+        console.log('click here'); // DBG:
         $(this).closest('label').toggleClass('checked');
         // сбор отмеченных тегов
         AT.submitFiltersForm();
@@ -1061,7 +1056,7 @@ AT.showObjectForm = function(params) {
  * Fit map.
  */
 AT.fitMap = function(objects) {
-    if (objects.length) {
+    if (typeof(objects) !== 'undefined' && objects.length) {
         var latArr = [],
             lonArr = [];
 

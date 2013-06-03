@@ -384,10 +384,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/", name="armd_atlas_index")
+     * @Route("/{filterType}", name="armd_atlas_index", defaults={"filterType"="filter_culture_objects"})
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($filterType)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
@@ -402,6 +402,7 @@ class DefaultController extends Controller
         return array(
             'categories' => $categories,
             'regions' => $regions,
+            'filterType' => $filterType
         );
     }
     
