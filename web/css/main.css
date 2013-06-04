@@ -6728,7 +6728,7 @@ body {
                     */
                     .orange-slider-block .flexslider .slides .period-block_image {
                         width:306px;
-                        height:179px;
+                        /* height:179px; */
                         overflow:hidden;
                     }
                     /*
