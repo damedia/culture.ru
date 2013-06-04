@@ -1047,7 +1047,11 @@ AT.showObjectForm = function(params) {
                 + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'
                 + '  <ul class="qq-upload-list">Загрузить фото&hellip;</ul>'
                 + '</div>',
+        onSubmit: function(id, name) {
+            armdMk.startLoading();
+        },
         onComplete: function(id, filename, response) {
+            armdMk.stopLoading();
             if (response.success) {
                 var jImageTemplate = $('#added-image-template').tmpl(response.result);
                 jAddedImages.append(jImageTemplate);
