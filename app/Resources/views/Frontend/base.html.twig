@@ -98,6 +98,9 @@
 </head>
 <body class="locale_{{ app.request.locale }}" data-locale="{{ app.request.locale }}">
     <div id="armd_messages" style="display: none;"><a class="armd_messages_close" href="#"></a><span></span></div>
+    
+    {% block container %}
+    
     <div class="header-banner">
         {% render url('armd_main_background_banner') %}
     </div>
@@ -266,5 +269,6 @@
 		{% endblock %}
         <!-- /Footer block -->
     </div>
+    {% endblock %}
 </body>
 </html>
