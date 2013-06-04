@@ -357,7 +357,7 @@ AT.initFilters = function(){
         e.preventDefault();
         e.stopPropagation();
 
-        if ($('.sort-filter .active').attr('id') === 'filter_tourist_clusters') {
+        if ($('.content-tabs .active').attr('id') === 'filter_tourist_clusters') {
             $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
         }
         $(this).closest('label').toggleClass('checked');

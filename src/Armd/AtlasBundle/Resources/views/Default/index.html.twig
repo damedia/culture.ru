@@ -150,8 +150,19 @@
             </div>
             #}
             <div class="content-tabs" style="margin-bottom:20px;">
-                <a id="filter_culture_objects" href="#" class="atlas-tab-filters active">Объекты культуры</a>
-                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters">Туристические кластеры</a>
+                <a id="filter_culture_objects" href="#" class="atlas-tab-filters  {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
+                    Объекты культуры
+                </a>
+
+                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}>
+                    Туристические кластеры
+                </a>
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a id="filter_user_objects" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_user_objects') %}active{% endif %}>
+                        Мои объекты
+                    </a>
+                {% endif %}
             </div>
             <div class="clear"></div>
             <div class="atlas-map">
