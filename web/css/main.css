@@ -7491,6 +7491,10 @@ a.appstore-link {
     .content-tabs {
         margin-top: 25px;
     }   
+        .content-tabs li{
+            display:inline;
+            list-style:none;
+        }
         .content-tabs a {
             text-transform:uppercase;
             color:#000;
