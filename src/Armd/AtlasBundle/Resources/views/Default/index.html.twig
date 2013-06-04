@@ -134,6 +134,7 @@
             </form>
         </div>
         <div class="atlas-center">
+            {#
             <div class="sort-filter sort-element-filter">
                 <a id="filter_culture_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
                     Объекты культуры
@@ -146,6 +147,11 @@
                         Мои объекты
                     </a>
                 {% endif %}
+            </div>
+            #}
+            <div class="content-tabs" style="margin-bottom:20px;">
+                <a id="filter_culture_objects" href="#" class="atlas-tab-filters active">Объекты культуры</a>
+                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters">Туристические кластеры</a>
             </div>
             <div class="clear"></div>
             <div class="atlas-map">
