@@ -87,7 +87,15 @@
     <div class="left-column-content">
         
         <article class="video-one-block">
-            <h1>{{ lecture.title|truncate(45) }}</h1>
+            <h1>
+                {{ lecture.title|truncate(45) }}
+                    
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a class="user-favorites-button" title="Добавить в «Мои интересы»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_LECTURE') }}" data-id="{{ lecture.id }}">
+                        <img alt="*" src="{{ asset('img/favorites.png') }}" />
+                    </a>
+                {% endif %}
+            </h1>
             <div class="video-one-image video-time-image">
                {# <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="video-one-image-link">
                     {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'width': '100%', 'height' : 'auto'}) }}

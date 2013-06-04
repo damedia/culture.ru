@@ -1,4 +1,16 @@
 armd_user_token_login:
     pattern: /login-token/{loginToken}
     defaults: { _controller: ArmdUserBundle:Authentication:authenticateByLoginToken}
+    
+armd_user_favorites:
+    pattern:   /favorites
+    defaults:  { _controller: ArmdUserBundle:Favorites:index }
 
+armd_user_favorites_add:
+    pattern:   /favorites-add
+    defaults:  { _controller: ArmdUserBundle:Favorites:add }
+    options: { expose: true }
+
+armd_user_favorites_del:
+    pattern:   /favorites-del
+    defaults:  { _controller: ArmdUserBundle:Favorites:del }

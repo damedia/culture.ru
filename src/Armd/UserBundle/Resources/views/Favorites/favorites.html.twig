@@ -1,17 +1,17 @@
 {% extends ":Frontend:base.html.twig" %}
 
-{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
+{% block page_header_title %}{{ 'Favorites'|trans }}{% endblock %}
 
 {% block body %}
 <ul class="breadcrumbs">
     <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
     <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
-    <li><span>{{ 'Profile'|trans }}</span></li>
+    <li><span>{{ 'Favorites'|trans }}</span></li>
 </ul>
 
 <div class="lk-form profile">
     <ul class="lk-menu">
-        <li class="active">
+        <li>
             <a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a>
         </li>
         <li>
@@ -20,10 +20,10 @@
         <li>
             <a href="{{ path('fos_user_change_password') }}">{{ 'Change password'|trans }}</a>
         </li>
-        <li>
+        <li class="active">
             <a href="{{ path('armd_user_favorites') }}">{{ 'Favorites'|trans }}</a>
         </li>
     </ul>
-    {% include 'ArmdUserBundle:Profile:edit_profile_form.html.twig' %}
+    {% include 'ArmdUserBundle:Favorites:favorites_content.html.twig' %}
 </div>
 {% endblock %}
