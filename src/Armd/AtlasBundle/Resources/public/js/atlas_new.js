@@ -273,8 +273,10 @@ AT.initUI = function() {
 
 AT.selectFirstFilterObject = function() {
     var elems = $('.ajax-filter-tabs').filter(':visible').find('.gray-checked');
-    if (elems.filter(':checked').length == 0) {
+    if (elems.filter('.checked').length == 0) {
         $('span', $(elems[0])).click();
+    } else {
+        AT.submitFiltersForm();
     }
 }
 
@@ -326,6 +328,10 @@ AT.showTab = function(filterType, force) {
     } else if (filterType === 'filter_user_objects') {
         AT.initMyObjects();
     }
+
+    if (typeof(history.pushState) !== 'undefined') {
+        history.pushState(null, document.title, Routing.generate('armd_atlas_index', {'filterType': filterType}));
+    }
 }
 
 
@@ -354,7 +360,6 @@ AT.initFilters = function(){
         if ($('.sort-filter .active').attr('id') === 'filter_tourist_clusters') {
             $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
         }
-        console.log('click here'); // DBG:
         $(this).closest('label').toggleClass('checked');
         // сбор отмеченных тегов
         AT.submitFiltersForm();
@@ -511,6 +516,14 @@ AT.initMyObjects = function() {
                     jLi.data('point', point);
                     $('#myobj_list').append(jLi);
                 }
+                if (AT.params.objectId) {
+                    AT.showObjectFormById(AT.params.objectId);
+                    AT.params.objectId = null;
+                    $('html, body').animate({
+                        scrollTop: $("#filter_culture_objects").offset().top
+                    }, 500);
+                }
+
             } else {
                 alert(res.message);
             }
@@ -1050,6 +1063,10 @@ AT.showObjectForm = function(params) {
         }
     });
 
+};
+
+AT.showObjectFormById = function(objectId) {
+    $('#myobj_list li[data-id=' + objectId + '] > span').trigger('click');
 };
 
 /**

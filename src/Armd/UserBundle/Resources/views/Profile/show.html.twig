@@ -1,4 +1,5 @@
 {% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
 
 {% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
 
@@ -9,6 +10,10 @@
 </ul>
 
 <div class="lk-form profile">
+
+    {{ profileMenu.user_profile_menu('profile-edit') }}
+
+{#
     <ul class="lk-menu">
         <li class="active">
             <a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a>
@@ -20,6 +25,7 @@
             <a href="{{ path('fos_user_change_password') }}">{{ 'Change password'|trans }}</a>
         </li>
     </ul>
+#}
 
     <dl class="clearfix">
         {% set no_data = true %}

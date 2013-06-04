@@ -115,69 +115,6 @@ class DefaultController extends Controller
         );
     }
 
-    /**
-     * @Route("/user-object/{objectId}", requirements={"objectId"="\d+"}, name="armd_atlas_user_object")
-     * @Template()
-     */
-    public function userObjectAction($objectId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->get('request');
-
-        // redirect to edit mode
-        if($request->get('btn_return_to_list')) {
-            return $this->redirect($this->generateUrl('armd_atlas_user_objects'));
-        }
-
-        $object = $em->getRepository('ArmdAtlasBundle:Object')->find($objectId);
-        if(empty($object)) {
-            throw new \InvalidArgumentException('Object not found');
-        }
-
-        $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('EDIT', $object)) {
-            throw new AccessDeniedException();
-        }
-
-        $objectAdmin = $this->get('armd_atlas.sonata_admin.object');
-        if ($request->get('uniqid')) {
-            $objectAdmin->setUniqid($request->get('uniqid'));
-        }
-        $objectAdmin->setSubject($object);
-
-
-        $form = $objectAdmin->getForm();
-        $form->setData($object);
-
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
-
-            $isFormValid = $form->isValid();
-
-            if ($isFormValid) {
-                $objectAdmin->update($object);
-                $this->get('session')->setFlash('sonata_flash_success', 'flash_edit_success');
-                $em->flush();
-                return $this->redirect($this->generateUrl('armd_atlas_user_object', array('objectId' => $object->getId())));
-
-            } else {
-                $this->get('session')->setFlash('sonata_flash_error', 'flash_edit_error');
-            }
-        }
-
-        $view = $form->createView();
-
-        // set the theme for the current Admin Form
-        $this->get('twig')->getExtension('form')->renderer->setTheme($view, $objectAdmin->getFormTheme());
-
-
-        return array(
-            'form' => $view,
-            'admin' => $objectAdmin,
-            'object' => $object,
-        );
-
-    }
 
     /**
      * @Route("russia-images/", name="armd_atlas_russia_images", options={"expose"=true})
@@ -384,13 +321,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{filterType}", name="armd_atlas_index", defaults={"filterType"="filter_culture_objects"})
+     * @Route("/{filterType}",
+     *  name="armd_atlas_index",
+     *  defaults={"filterType"="filter_culture_objects"},
+     *  options={"expose"=true}
+     * )
      * @Template()
      */
     public function indexAction($filterType)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
+        $request = $this->getRequest();
+
         $categories = $repo->getDataForFilter();
         if (!$categories)
             throw new NotFoundHttpException("Categories not found");
@@ -399,10 +342,18 @@ class DefaultController extends Controller
         if (!$regions)
             throw new NotFoundHttpException("Regions not found");
 
+        if ($request->query->has('object_id')) {
+            $filterType = 'filter_user_objects';
+            $objectId = $request->get('object_id');
+        } else {
+            $objectId = false;
+        }
+
         return array(
             'categories' => $categories,
             'regions' => $regions,
-            'filterType' => $filterType
+            'filterType' => $filterType,
+            'objectId' => $objectId
         );
     }
     

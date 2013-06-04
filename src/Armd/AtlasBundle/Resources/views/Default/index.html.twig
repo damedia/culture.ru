@@ -358,7 +358,8 @@
                 imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
                 bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}',
                 locale:                '{{ app.request.locale }}',
-                initialFilterType:     '{{ filterType }}'
+                initialFilterType:     '{{ filterType }}',
+                objectId:              '{{ objectId }}'
             });
         });
     </script>
