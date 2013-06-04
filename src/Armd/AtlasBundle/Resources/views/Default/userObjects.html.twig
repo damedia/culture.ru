@@ -1,22 +1,16 @@
 {% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'profile.atlas_user_objects'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="title">
-        <h2>Личный кабинет</h2>
-    </div>
+    <div class="lk-form profile">
+        {{ profileMenu.user_profile_menu('atlas-user-objects') }}
 
-<div class="sonata-user-show">
-    <ul class="lk-menu green-lk-menu">
-        <li><a href="{{ path('sonata_user_profile_edit') }}">Мой профиль</a></li>
-        <li><a href="{{ path('sonata_user_profile_edit_authentication') }}">Редактировать</a></li>
-        <li class="active"><a href="{{ path('armd_atlas_user_objects') }}">Мои объекты</a></li>
-    </ul>
-</div>
-<div class="lk-block-wrapper">
-<ul class="lk-list-links green">
-    {% for object in userObjects %}
-        <li><a href="{{ path('armd_atlas_user_object', {'objectId': object.id} ) }}">{{ object.title }}</a></li>
-    {% endfor %}
-</ul>
-</div>
+        <ul {#class="lk-list-links green"#}>
+            {% for object in userObjects %}
+                <li><a href="{{ path('armd_atlas_index', {'object_id': object.id} ) }}">{{ object.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

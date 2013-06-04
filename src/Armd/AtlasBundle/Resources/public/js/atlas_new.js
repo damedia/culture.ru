@@ -17,11 +17,11 @@ AT.init = function(params) {
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
-    AT.initTabFilters();
     AT.initFilters();
+    AT.initTabs();
     AT.initHacks();
 
-    AT.selectFirstFilterObject();
+    //AT.selectFirstFilterObject();
 };
 
 AT.initMap = function(params) {
@@ -241,6 +241,8 @@ AT.initUI = function() {
                     AT.clusterPoints.setClusters();
                 }
             }
+
+            AT.fitMap(objects);
         }
     });
 
@@ -270,57 +272,72 @@ AT.initUI = function() {
 
 
 AT.selectFirstFilterObject = function() {
-    var elems = $('#ajax-filter-tabs').find('.gray-checked');
-    $('span', $(elems[0])).click();    
+    var elems = $('.ajax-filter-tabs').filter(':visible').find('.gray-checked');
+    if (elems.filter('.checked').length == 0) {
+        $('span', $(elems[0])).click();
+    } else {
+        AT.submitFiltersForm();
+    }
 }
 
 
 // Init filters
-AT.initTabFilters = function(){
-    $('#filter-type').val('filter_culture_objects');
-    $('.atlas-tab-filters').on( 'click', function(){
-        if( $(this).hasClass('active') ) {
-            return false;
-        }
-        $('#ajax-loading').show();
-        $('.atlas-tab-filters').removeClass('active');
-        $(this).addClass('active');
-        AT.clearMap();
+AT.initTabs = function() {
 
-        var currentTabId = $(this).attr('id');
-        $('#filter-type').val(currentTabId);
+//    if (window.location.hash) {
+//        var filterType = "filter_culture_objects";
+//        var hash = window.location.hash.substr(1).replace("-", "_");
+//
+//        if ($.inArray(hash, ["culture_objects", "tourist_clusters", "user_objects"]) > -1) {
+//            filterType = "filter_" + hash;
+//        }
+//        AT.showTab(filterType);
+//    }
 
-        $('.atlas-side-tab').hide();
+    AT.showTab(AT.params.initialFilterType, true);
 
-        if (currentTabId === 'filter_culture_objects' || currentTabId === 'filter_tourist_clusters') {
-            $.ajax({
-                url: Routing.generate('armd_atlas_ajax_filters', {
-                    'typeTab': currentTabId
-                }),
-                cache: false,
-                dataType: 'html',
-                type: 'post',
-                success: function(res){
-                    $('#ajax-loading').hide();
-                    $('#ajax-filter-tabs').html(res);
-                    AT.selectFirstFilterObject();
-                },
-                complete: function() {
-                    $('#ajax-filter-tabs').show();
-                }
-            });
-        } else if (currentTabId === 'filter_user_objects') {
-            $('#myobj').show();
-            AT.initMyObjects();
-        }
-
-        return false;
+    $('.atlas-tab-filters').on( 'click', function(event){
+        event.preventDefault();
+        var filterType = $(this).attr('id');
+        AT.showTab(filterType);
     });
+}
+
+AT.showTab = function(filterType, force) {
+    if (typeof(force) === 'undefined') {
+        force = false;
+    }
+    if ($('#' + filterType).hasClass('active') && !force) {
+        return;
+    }
+
+    var filterTabId = filterType.replace('filter_', '').replace('_', '-') + '-tab';
+
+    $('.atlas-tab-filters').removeClass('active');
+    $('#' + filterType).addClass('active');
+    $('.atlas-side-tab').hide();
+    $('#' + filterTabId).show();
+
+    $('#ajax-loading').show();
+    $('#filter-type').val(filterType);
+
+    AT.clearMap();
+
+    if (filterType === 'filter_culture_objects' || filterType === 'filter_tourist_clusters') {
+        AT.selectFirstFilterObject();
+    } else if (filterType === 'filter_user_objects') {
+        AT.initMyObjects();
+    }
+
+    if (typeof(history.pushState) !== 'undefined') {
+        history.pushState(null, document.title, Routing.generate('armd_atlas_index', {'filterType': filterType}));
+    }
 }
 
 
 // Init filters
 AT.initFilters = function(){
+
     $('.atlas-filter-form .check_all').click(function(){
         var parentDiv = $(this).closest('.simple-filter-block');
         if (!$(this).data('checked')) {
@@ -339,10 +356,9 @@ AT.initFilters = function(){
         // перехват обработчика из function.js
         e.preventDefault();
         e.stopPropagation();
-        switch($('#filter-type').val()) {
-            case 'filter_tourist_clusters':
-                $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
-                break;
+
+        if ($('.sort-filter .active').attr('id') === 'filter_tourist_clusters') {
+            $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
         }
         $(this).closest('label').toggleClass('checked');
         // сбор отмеченных тегов
@@ -500,6 +516,14 @@ AT.initMyObjects = function() {
                     jLi.data('point', point);
                     $('#myobj_list').append(jLi);
                 }
+                if (AT.params.objectId) {
+                    AT.showObjectFormById(AT.params.objectId);
+                    AT.params.objectId = null;
+                    $('html, body').animate({
+                        scrollTop: $("#filter_culture_objects").offset().top
+                    }, 500);
+                }
+
             } else {
                 alert(res.message);
             }
@@ -1023,7 +1047,11 @@ AT.showObjectForm = function(params) {
                 + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'
                 + '  <ul class="qq-upload-list">Загрузить фото&hellip;</ul>'
                 + '</div>',
+        onSubmit: function(id, name) {
+            armdMk.startLoading();
+        },
         onComplete: function(id, filename, response) {
+            armdMk.stopLoading();
             if (response.success) {
                 var jImageTemplate = $('#added-image-template').tmpl(response.result);
                 jAddedImages.append(jImageTemplate);
@@ -1041,3 +1069,33 @@ AT.showObjectForm = function(params) {
 
 };
 
+AT.showObjectFormById = function(objectId) {
+    $('#myobj_list li[data-id=' + objectId + '] > span').trigger('click');
+};
+
+/**
+ * Fit map.
+ */
+AT.fitMap = function(objects) {
+    if (typeof(objects) !== 'undefined' && objects.length) {
+        var latArr = [],
+            lonArr = [];
+
+        for (var x in objects) {
+            var object = objects[x];
+
+            lonArr.push(object.lon);
+            latArr.push(object.lat);
+        }
+
+        AT.map.setCenterByBbox({
+            lon1: PGmap.Utils.mercX(Math.min.apply(null, lonArr)),
+            lon2: PGmap.Utils.mercX(Math.max.apply(null, lonArr)),
+            lat1: PGmap.Utils.mercY(Math.min.apply(null, latArr)),
+            lat2: PGmap.Utils.mercY(Math.max.apply(null, latArr))
+        });
+
+    } else {
+        AT.map.setCenter(new PGmap.Coord(AT.params.center[0], AT.params.center[1], true), AT.params.zoom);
+    }
+};

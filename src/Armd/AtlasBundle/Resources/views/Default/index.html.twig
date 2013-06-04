@@ -30,7 +30,7 @@
             <form id="atlas-filter-form" class="atlas-filter-form" action="{{ path('armd_atlas_default_filter') }}" method="POST">
 
                 <input id="category-id" type="hidden" name="category" value="">
-                <input id="filter-type" type="hidden" name="filter_type" value="">
+                <input id="filter-type" type="hidden" name="filter_type" value="{{ filterType }}">
 
                 <div class="simple-search">
                     <input type="text" class="ss-input" id="ss_input" placeholder="{{ "atlas.address"|trans }}"/>
@@ -39,11 +39,15 @@
 
                 <div id="atlas-side-tabs">
 
-                    <div id="ajax-filter-tabs" class="ajax-filter-tabs atlas-side-tab">
+                    <div id="culture-objects-tab" class="ajax-filter-tabs atlas-side-tab">
                         {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_culture_objects' }) %}
                     </div>
 
-                    <div class="filter-sub-tab atlas-side-tab" id="myobj" style="display:block;">
+                    <div id="tourist-clusters-tab" class="ajax-filter-tabs atlas-side-tab">
+                        {% render url('armd_atlas_ajax_filters', {'typeTab': 'filter_tourist_clusters' }) %}
+                    </div>
+
+                    <div id="user-objects-tab" class="filter-sub-tab atlas-side-tab">
                         <ol class="filter-sub-tab-list" id="myobj_list">
                         </ol>
 
@@ -131,10 +135,16 @@
         </div>
         <div class="atlas-center">
             <div class="sort-filter sort-element-filter">
-                <a id="filter_culture_objects" href="#" class="atlas-tab-filters active">Объекты культуры</a>
-                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters">Туристические кластеры</a>
+                <a id="filter_culture_objects" href="#" class="atlas-tab-filters {% if filterType is sameas('filter_culture_objects') %}active{% endif %}">
+                    Объекты культуры
+                </a>
+                <a id="filter_tourist_clusters" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_tourist_clusters') %}active{% endif %}>
+                    Туристические кластеры
+                </a>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a id="filter_user_objects" href="#" class="atlas-tab-filters">Мои объекты</a>
+                    <a id="filter_user_objects" href="#" class="atlas-tab-filters" {% if filterType is sameas('filter_user_objects') %}active{% endif %}>
+                        Мои объекты
+                    </a>
                 {% endif %}
             </div>
             <div class="clear"></div>
@@ -347,7 +357,9 @@
                 deleteMyObjectsUri:    '{{ path('armd_atlas_default_objectsmydelete') }}',
                 imageUploadUri:        '{{ path('armd_atlas_default_objectsmyupload') }}',
                 bundleImagesUri:       '{{ asset('bundles/armdatlas/images') }}',
-                locale:                '{{ app.request.locale }}'
+                locale:                '{{ app.request.locale }}',
+                initialFilterType:     '{{ filterType }}',
+                objectId:              '{{ objectId }}'
             });
         });
     </script>
