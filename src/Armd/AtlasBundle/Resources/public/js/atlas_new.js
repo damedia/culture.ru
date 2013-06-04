@@ -409,6 +409,7 @@ AT.placePoint = function(object) {
                     width: 17
                 }
             });
+        $(point.container).data('uid',object.id).css({'margin-left':'-4px','margin-top':'-12px'});
     } else {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
@@ -417,14 +418,9 @@ AT.placePoint = function(object) {
                 backpos: '0 0',
                 url: object.icon
             });
+        $(point.container).data('uid',object.id).css({'margin-left':'-12px','margin-top':'-40px'});
     }
-    $(point.container)
-        .data('uid', object.id)
-        .css({
-            'margin-left': '-4px',
-            'margin-top': '-12px'
-        })
-        .attr('title', object.title);
+    $(point.container).data('uid', object.id).attr('title', object.title);
 
     AT.map.geometry.add(point);
 
@@ -432,12 +428,18 @@ AT.placePoint = function(object) {
     PGmap.EventFactory.eventsType.mouseout = 'mouseout';
     // наведение на точку
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseover, function(e) {
-        $('img', point.container).css({width:50});
-        $(point.container).css({marginLeft:-18, marginTop:-24});
+        var img = $('img', point.container);
+        if(img.length){
+            img.css({width:50});
+            $(point.container).css({marginLeft:-18, marginTop:-24});
+        }
     });
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseout, function(e) {
-        $('img', point.container).css({width:17});
-        $(point.container).css({marginLeft:-4, marginTop:-12});
+        var img = $('img', point.container);
+        if(img.length){
+            img.css({width:17});
+            $(point.container).css({marginLeft:-4, marginTop:-12});
+        }
     });
     // клик по точке
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, function(){
@@ -474,6 +476,8 @@ AT.initHacks = function() {
         $(this).closest('.b-balloon').data('point').hideBalloon();
         return false;
     });
+    
+    $('div#'+this.params.map+' div.PGmap').css({zIndex:0});
 };
 
 AT.collectTagsValue = function() {
