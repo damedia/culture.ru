@@ -189,6 +189,11 @@ class MainController extends Controller
         return $this->renderTemplate('may9_day');
     }
 
+    public function gallery_of_warAction()
+    {
+        return $this->renderTemplate('gallery_of_war');
+    }
+
     public function servicesAction($id = null)
     {
       if (empty($id)) {

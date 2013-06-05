@@ -44,6 +44,10 @@ armd_main_may9_day:
     pattern:  /may9/may9_day/
     defaults: { _controller: ArmdMainBundle:Main:may9_day }
 
+armd_main_gallery_of_war:
+    pattern:  /gallery_of_war/
+    defaults: { _controller: ArmdMainBundle:Main:gallery_of_war }
+
 armd_main_library:
     pattern:  /library/
     defaults: { _controller: ArmdMainBundle:Main:library }
