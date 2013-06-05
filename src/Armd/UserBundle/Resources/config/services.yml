@@ -44,3 +44,14 @@ services:
     armd_user.manager.acl:
         class: Armd\UserBundle\Security\AclManager
         arguments: [@security.acl.provider]
+
+    armd_user.twig_extension.viewed_content:
+        class: Armd\UserBundle\Twig\ViewedContentExtension
+        arguments: [@service_container]
+        tags:
+          - { name: twig.extension }
+
+    armd_user.command.viewed_content_clear:
+        class: Armd\UserBundle\Command\ViewedContentClearCommand
+        calls:
+            - [setContainer, ["@service_container"] ]

@@ -395,6 +395,7 @@
         <div class="tourist-one_text">
             <div id="content-collapsed" class="content{% if entity.content is not empty %} collapsed{% endif %}" >
                 {{ entity.content|raw }}
+                {{ add_viewed_content(entity, path('armd_tourist_route_item', {id: entity.id})) }}
             </div>
             {% if entity.content is not empty %}
             <div class="more more3">

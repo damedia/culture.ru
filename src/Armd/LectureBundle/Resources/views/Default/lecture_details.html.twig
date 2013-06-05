@@ -191,7 +191,10 @@
                 </span>
 
                 <div class="video-one-anons">
-                    <div>{{ lecture.description|raw }}</div>
+                    <div>
+                        {{ lecture.description|raw }}
+                        {{ add_viewed_content(lecture, path('armd_lecture_view', {id: lecture.id})) }}
+                    </div>
                 </div>
             </div>
             {% if lectureRolesPersons|length > 0 %}

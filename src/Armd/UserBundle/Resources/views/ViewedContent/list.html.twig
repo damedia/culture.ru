@@ -1,0 +1,15 @@
+{% if pagination|length %}
+<ul>
+    {% for item in pagination %}
+    <li>
+        <a href="{{ item.entityUrl }}">{{ item.entityTitle }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>{{ 'Empty'|trans }}</p>
+{% endif %}
+
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>

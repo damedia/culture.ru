@@ -2,3 +2,12 @@ armd_user_token_login:
     pattern: /login-token/{loginToken}
     defaults: { _controller: ArmdUserBundle:Authentication:authenticateByLoginToken}
 
+armd_user_viwed_content:
+    pattern: /profile/viewed-content/{page}
+    defaults: { _controller: ArmdUserBundle:ViewedContent:list, page: 1 }
+    requirements:
+        page: \d+
+
+armd_user_viwed_content_clear:
+    pattern: /profile/viewed-content/clear
+    defaults: { _controller: ArmdUserBundle:ViewedContent:clear }

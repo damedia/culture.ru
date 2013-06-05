@@ -334,6 +334,7 @@
     </div>
     <div id="content-collapsed" class="content {% if entity.content is not empty %}collapsed{% endif %}">
         {{ entity.content|raw }}
+        {{ add_viewed_content(entity, path('armd_atlas_default_object_view', {id: entity.id})) }}
     </div>
     {% if entity.content is not empty %}
         <div class="more more3">
