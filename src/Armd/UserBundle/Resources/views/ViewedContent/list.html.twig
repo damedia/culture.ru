@@ -1,15 +1,58 @@
-{% if pagination|length %}
-<ul>
-    {% for item in pagination %}
-    <li>
-        <a href="{{ item.entityUrl }}">{{ item.entityTitle }}</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>{{ 'Empty'|trans }}</p>
-{% endif %}
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
 
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
+
+{% block body %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+        <li><span>{{ 'Viewed content'|trans }}</span></li>
+    </ul>
+
+    <div class="lk-form profile">
+        {{ profileMenu.user_profile_menu('viewed-content') }}
+
+        <dl class="clearfix">
+        {% if pagination.paginationData.totalCount %}
+            {% for item in pagination %}
+            <dt>
+                <em class="hint">
+                    {% if entityClass is not defined or item.entityClass != entityClass %}
+                    {% set entityClass = item.entityClass %}
+                    {{ entityClass|trans }}
+                    {% endif %}
+                </em>
+            </dt>
+            <dd>
+                <a href="{{ item.entityUrl }}">{{ item.entityTitle }}</a>
+            </dd>
+            {% endfor %}
+        {% else %}
+            <dt></dt>
+            <dd>
+                <em class="hint">
+                    {% if app.user.storeViewedContent %}
+                        {{ 'No viewed content'|trans }}
+                    {% else %}
+                        {{ 'Viewed content storing is off'|trans }}
+                    {% endif %}
+                </em>
+            </dd>
+        {% endif %}
+        </dl>
+
+        {{ knp_pagination_render(pagination, 'ArmdUserBundle:ViewedContent:pagination.html.twig') }}
+
+        <div class="form-actions">
+            {% if pagination.paginationData.totalCount %}
+            <a class="button" href="{{ path('armd_user_viewed_content_clear') }}">{{ 'Clear'|trans }}</a>
+            {% endif %}
+
+            <a href="{{ path('armd_user_viewed_content_' ~ (app.user.storeViewedContent ? 'off' : 'on')) }}">
+                    {{ (app.user.storeViewedContent ? 'off' : 'on')|capitalize|trans }}
+                </a>
+            </label>
+        </div>
+    </div>
+{% endblock %}

@@ -36,10 +36,16 @@ class ViewedContentExtension extends \Twig_Extension
         $user = $this->container->get('security.context')->getToken()->getUser();
         
         if (is_object($user) and $user instanceof UserInterface) {
+            $entityClassParts = array_diff(
+                explode('\\', get_class($entity)),
+                array('')
+            );
+            $entityClass = $entityClassParts[0] .$entityClassParts[1] .':' .$entityClassParts[count($entityClassParts) - 1];
+            
             $viewedContent = $this->getEntityRepository()->findOneBy(array(
                 'user'        => $user,
                 'entityId'    => $entity->getId(),
-                'entityClass' => get_class($entity)
+                'entityClass' => $entityClass
             ));
 
             if (!$viewedContent) {
@@ -47,7 +53,7 @@ class ViewedContentExtension extends \Twig_Extension
                 $viewedContent
                     ->setUser($user)
                     ->setEntityId($entity->getId())
-                    ->setEntityClass(get_class($entity))
+                    ->setEntityClass($entityClass)
                 ;
             }
 

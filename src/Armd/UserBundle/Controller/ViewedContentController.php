@@ -28,13 +28,8 @@ class ViewedContentController extends Controller
             $this->clearOldRecords();
         }
 
-        $user  = $this->getAuthUser();
-        $query = $this->getEntityManager()
-            ->createQuery('SELECT vc FROM Armd\UserBundle\Entity\ViewedContent vc WHERE vc.user = :user ORDER BY vc.date DESC')
-                ->setParameter('user', $user);
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $page, $this->itemsPerPage, array('distinct' => false));
+        $user       = $this->getAuthUser();
+        $pagination = $this->getPagination($page, $user);
 
         return $this->render(
             'ArmdUserBundle:ViewedContent:list.html.twig',
@@ -61,7 +56,26 @@ class ViewedContentController extends Controller
             $em->flush();
         }
 
-        return new RedirectResponse($this->get('router')->generate('armd_user_viwed_content'));
+        return new RedirectResponse($this->get('router')->generate('armd_user_viewed_content'));
+    }
+
+    /**
+     * Settings action
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function updateUserAction($storeViewedContent)
+    {
+        $user        = $this->getAuthUser();
+        $userManager = $this->get('fos_user.user_manager');
+
+        $user->setStoreViewedContent($storeViewedContent == 'on');
+        $userManager->updateUser($user);
+
+        if ($storeViewedContent == 'off') {
+            return $this->clearAction();
+        }
+
+        return new RedirectResponse($this->get('router')->generate('armd_user_viewed_content'));
     }
 
     /**
@@ -96,6 +110,41 @@ class ViewedContentController extends Controller
         }
 
         return $user;
+    }
+
+    /**
+     * Get pagination
+     * @param integer $page
+     * @param Armd\UserBundle\Entity\User $user
+     * @return Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
+     */
+    protected function getPagination($page, $user)
+    {
+        $qb = $this->getEntityRepository()->createQueryBuilder('vc');
+        $qb
+            ->where('vc.user = :user')
+                ->setParameter('user', $user)
+            ->orderBy('vc.date', 'DESC');
+        
+        $countQb = $this->getEntityRepository()->createQueryBuilder('vc');
+        $countQb
+            ->select('COUNT(vc.id) as total')
+            ->where('vc.user = :user')
+                ->setParameter('user', $user);
+
+        $count = $countQb->getQuery()->getSingleResult();
+        
+        if ($count['total'] != 1) {
+            $queryObject = $qb;
+
+        } else {
+            $queryObject = $qb->getQuery()->getResult();
+        }
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($queryObject, $page, $this->itemsPerPage, array('distinct' => false));
+
+        return $pagination;
     }
 
     /**

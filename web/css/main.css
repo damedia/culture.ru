@@ -9470,7 +9470,7 @@ a.appstore-link {
 .lk-form {
     font-size: 13px;
     margin: 20px auto;
-    width: 50%;
+    width: 60%;
 }
     .lk-form dl {
         margin: 20px 0 0;
@@ -9508,9 +9508,12 @@ a.appstore-link {
             .lk-form dl dd ul {
                 list-style: none;
             }
-                .lk-form dl dd .input-with-label * {
-                    vertical-align: middle;
-                }
+    .lk-form .input-with-label * {
+        vertical-align: middle;
+    }
+    .lk-form label input[type='checkbox'], .lk-form label input[type='dadio'] {
+        vertical-align: middle;
+    }
     .lk-form input[type='text'], .lk-form input[type='email'],
     .lk-form input[type='password'], .lk-form input[type='submit'],
     .lk-form input[type='button'], .lk-form textarea, .lk-form select,
@@ -9567,6 +9570,10 @@ a.appstore-link {
                 list-style: none;
                 padding: 2px;
             }
+        .lk-form .form-actions a.as-text {
+            text-decoration: none;
+            color: inherit;
+        }
     .lk-form .social-auth span {
         vertical-align: top;
     }
@@ -9574,6 +9581,9 @@ a.appstore-link {
         display: inline;
         margin: 0;
         padding-left: 4px;
+    }
+    .lk-form .hint {
+        color: #999;
     }
 #login-popup .lk-form {
     margin: 10px;
@@ -9638,6 +9648,32 @@ a.appstore-link {
             .lk-menu li.active:hover {
                 background: #d7d7d7;
             }
+
+/**
+ * Profile pagination
+ */
+.lk-form .pagination {
+    margin: 10px 0;
+    padding: 10px 10px 10px 35%;
+    border-top: 1px solid #d2d2d2;
+}
+    .lk-form .pagination li {
+        display: -moz-inline-stack;
+        display: inline-block;
+        zoom: 1;
+        display: inline;
+        vertical-align: top;
+        text-align: center;
+    }
+        .lk-form .pagination li a, .lk-form .pagination li span {
+            padding: 3px;
+        }
+        .lk-form .pagination li span {
+            color: #ccc;
+        }
+        .lk-form .pagination li.current span {
+            color: #000;
+        }
 
 /**
  * qTip² styles override

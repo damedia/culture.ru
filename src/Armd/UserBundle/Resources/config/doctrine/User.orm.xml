@@ -47,6 +47,8 @@
             </join-table>
         </many-to-many>
 
+        <field name="storeViewedContent" column="store_viewed_content" type="boolean" nullable="true" />
+
     </entity>
 
 </doctrine-mapping>

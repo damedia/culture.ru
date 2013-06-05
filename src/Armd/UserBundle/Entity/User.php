@@ -75,6 +75,11 @@ class User extends BaseUser
     protected $subscriptions;
 
     /**
+     * @var boolean
+     */
+    protected $storeViewedContent;
+
+    /**
      * @param \Doctrine\Common\Collections\Collection $subscriptions
      */
     public function setSubscriptions($subscriptions)
@@ -215,6 +220,7 @@ class User extends BaseUser
         parent:: __construct();
         
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->storeViewedContent = true;
     }
     
     /**
@@ -330,4 +336,24 @@ class User extends BaseUser
         $this->loginTokenExpires = $loginTokenExpires;
     }
 
+    /**
+     * Get storeViewedContent
+     * @return boolean
+     */
+    public function getStoreViewedContent()
+    {
+        return $this->storeViewedContent;
+    }
+
+    /**
+     * Set storeViewedContent
+     * @param boolean $storeViewedContent
+     * @return Armd\UserBundle\Entity\User
+     */
+    public function setStoreViewedContent($storeViewedContent)
+    {
+        $this->storeViewedContent = $storeViewedContent;
+
+        return $this;
+    }
 }
