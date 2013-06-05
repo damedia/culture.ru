@@ -69,110 +69,115 @@ class FavoritesController extends Controller
         foreach ($result as $r) {
             $favoritesIds[$r['resourceType']][] = $r['resourceId'];            
         }
-        
-        foreach ($favoritesIds as $type => $ids) {
-            $entityName = $this->getEntity($type);
-            
-            if (!$entityName) {
-                continue;
-            }
-            
-            $entities = $em->createQuery('SELECT t FROM ' . $entityName . ' t WHERE t.id IN (:ids)')
-                ->setParameter('ids', $ids)
-                ->getResult();
-            
-            if ($type == Favorites::TYPE_ATLAS) {
-                $favorites[Favorites::TYPE_ATLAS]['title'] = 'Образы России';
-                
-                foreach ($entities as $e) {
-                    $favorites[Favorites::TYPE_ATLAS]['list'][] = array(
-                        'image' => $this->getImageSrc($e->getPrimaryImage()),
-                        'title' => $e->getTitle(),
-                        'url' => $this->get('router')->generate('armd_atlas_default_object_view', array('id' => $e->getId())),
-                        'type' => $type,
-                        'id' => $e->getId()
-                    );
+
+        if (!empty($favoritesIds)) {
+
+            foreach ($favoritesIds as $type => $ids) {
+                $entityName = $this->getEntity($type);
+
+                if (!$entityName) {
+                    continue;
                 }
-            } elseif ($type == Favorites::TYPE_MEDIA) {               
-                foreach ($entities as $e) {
-                    if ($e->getCategory()->getSlug()) {
-                        $fId = Favorites::TYPE_MEDIA . '-' . $e->getCategory()->getId();
-                        $favorites[$fId]['title'] = $e->getCategory()->getTitle();
-                        $favorites[$fId]['list'][] = array(
+
+                $entities = $em->createQuery('SELECT t FROM ' . $entityName . ' t WHERE t.id IN (:ids)')
+                            ->setParameter('ids', $ids)
+                            ->getResult();
+
+                if ($type == Favorites::TYPE_ATLAS) {
+                    $favorites[Favorites::TYPE_ATLAS]['title'] = 'Образы России';
+
+                    foreach ($entities as $e) {
+                        $favorites[Favorites::TYPE_ATLAS]['list'][] = array(
+                            'image' => $this->getImageSrc($e->getPrimaryImage()),
+                            'title' => $e->getTitle(),
+                            'url' => $this->get('router')->generate('armd_atlas_default_object_view', array('id' => $e->getId())),
+                            'type' => $type,
+                            'id' => $e->getId()
+                        );
+                    }
+                } elseif ($type == Favorites::TYPE_MEDIA) {
+                    foreach ($entities as $e) {
+                        if ($e->getCategory()->getSlug()) {
+                            $fId = Favorites::TYPE_MEDIA . '-' . $e->getCategory()->getId();
+                            $favorites[$fId]['title'] = $e->getCategory()->getTitle();
+                            $favorites[$fId]['list'][] = array(
+                                'image' => $this->getImageSrc($e->getImage()),
+                                'title' => $e->getTitle(),
+                                'url' => $this->get('router')->generate('armd_news_item_by_category', array('category' => $e->getCategory()->getSlug(), 'id' => $e->getId())),
+                                'type' => $type,
+                                'id' => $e->getId()
+                            );
+                        }
+                    }
+                } elseif ($type == Favorites::TYPE_MUSEUM_LESSON) {
+                    $favorites[Favorites::TYPE_MUSEUM_LESSON]['title'] = 'Музейное образование';
+
+                    foreach ($entities as $e) {
+                        $favorites[Favorites::TYPE_MUSEUM_LESSON]['list'][] = array(
                             'image' => $this->getImageSrc($e->getImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_news_item_by_category', array('category' => $e->getCategory()->getSlug(), 'id' => $e->getId())),
+                            'url' => $this->get('router')->generate('armd_lesson_item', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
-                }
-            } elseif ($type == Favorites::TYPE_MUSEUM_LESSON) {
-                $favorites[Favorites::TYPE_MUSEUM_LESSON]['title'] = 'Музейное образование';
-                
-                foreach ($entities as $e) {
-                    $favorites[Favorites::TYPE_MUSEUM_LESSON]['list'][] = array(
-                        'image' => $this->getImageSrc($e->getImage()),
-                        'title' => $e->getTitle(),
-                        'url' => $this->get('router')->generate('armd_lesson_item', array('id' => $e->getId())),
-                        'type' => $type,
-                        'id' => $e->getId()
-                    );
-                }
-            } elseif ($type == Favorites::TYPE_LECTURE) {               
-                foreach ($entities as $e) {
-                    if ($e->getLectureSuperType()) {
-                        $category = $e->getLectureSuperType();
-                        $fId = Favorites::TYPE_LECTURE . '-' . $category->getId();
-                        $favorites[$fId]['title'] = $category->getName();
-                        $favorites[$fId]['list'][] = array(
-                            'image' => $this->getImageSrc($e->getMediaLectureVideo()),
+                } elseif ($type == Favorites::TYPE_LECTURE) {
+                    foreach ($entities as $e) {
+                        if ($e->getLectureSuperType()) {
+                            $category = $e->getLectureSuperType();
+                            $fId = Favorites::TYPE_LECTURE . '-' . $category->getId();
+                            $favorites[$fId]['title'] = $category->getName();
+                            $favorites[$fId]['list'][] = array(
+                                'image' => $this->getImageSrc($e->getMediaLectureVideo()),
+                                'title' => $e->getTitle(),
+                                'url' => $this->get('router')->generate('armd_lecture_view', array('id' => $e->getId())),
+                                'type' => $type,
+                                'id' => $e->getId()
+                            );
+                        }
+                    }
+                } elseif ($type == Favorites::TYPE_THEATER) {
+                    $favorites[Favorites::TYPE_THEATER]['title'] = 'Театры';
+
+                    foreach ($entities as $e) {
+                        $favorites[Favorites::TYPE_THEATER]['list'][] = array(
+                            'image' => $this->getImageSrc($e->getImage()),
                             'title' => $e->getTitle(),
-                            'url' => $this->get('router')->generate('armd_lecture_view', array('id' => $e->getId())),
+                            'url' => $this->get('router')->generate('armd_theater_item', array('id' => $e->getId())),
                             'type' => $type,
                             'id' => $e->getId()
                         );
                     }
-                }
-            } elseif ($type == Favorites::TYPE_THEATER) {
-                $favorites[Favorites::TYPE_THEATER]['title'] = 'Театры';
-                
-                foreach ($entities as $e) {
-                    $favorites[Favorites::TYPE_THEATER]['list'][] = array(
-                        'image' => $this->getImageSrc($e->getImage()),
-                        'title' => $e->getTitle(),
-                        'url' => $this->get('router')->generate('armd_theater_item', array('id' => $e->getId())),
-                        'type' => $type,
-                        'id' => $e->getId()
-                    );
-                }
-            } elseif ($type == Favorites::TYPE_PERFORMANCE) {
-                $favorites[Favorites::TYPE_PERFORMANCE]['title'] = 'Спектакли';
-                
-                foreach ($entities as $e) {
-                    $favorites[Favorites::TYPE_PERFORMANCE]['list'][] = array(
-                        'image' => $this->getImageSrc($e->getImage()),
-                        'title' => $e->getTitle(),
-                        'url' => $this->get('router')->generate('armd_perfomance_item', array('id' => $e->getId())),
-                        'type' => $type,
-                        'id' => $e->getId()
-                    );
-                }
-            } elseif ($type == Favorites::TYPE_TOURIST_ROUTE) {
-                $favorites[Favorites::TYPE_TOURIST_ROUTE]['title'] = 'Туристические маршруты';
-                
-                foreach ($entities as $e) {
-                    $favorites[Favorites::TYPE_TOURIST_ROUTE]['list'][] = array(
-                        'image' => $this->getImageSrc($e->getPrimaryImage()),
-                        'title' => $e->getTitle(),
-                        'url' => $this->get('router')->generate('armd_tourist_route_item', array('id' => $e->getId())),
-                        'type' => $type,
-                        'id' => $e->getId()
-                    );
+                } elseif ($type == Favorites::TYPE_PERFORMANCE) {
+                    $favorites[Favorites::TYPE_PERFORMANCE]['title'] = 'Спектакли';
+
+                    foreach ($entities as $e) {
+                        $favorites[Favorites::TYPE_PERFORMANCE]['list'][] = array(
+                            'image' => $this->getImageSrc($e->getImage()),
+                            'title' => $e->getTitle(),
+                            'url' => $this->get('router')->generate('armd_perfomance_item', array('id' => $e->getId())),
+                            'type' => $type,
+                            'id' => $e->getId()
+                        );
+                    }
+                } elseif ($type == Favorites::TYPE_TOURIST_ROUTE) {
+                    $favorites[Favorites::TYPE_TOURIST_ROUTE]['title'] = 'Туристические маршруты';
+
+                    foreach ($entities as $e) {
+                        $favorites[Favorites::TYPE_TOURIST_ROUTE]['list'][] = array(
+                            'image' => $this->getImageSrc($e->getPrimaryImage()),
+                            'title' => $e->getTitle(),
+                            'url' => $this->get('router')->generate('armd_tourist_route_item', array('id' => $e->getId())),
+                            'type' => $type,
+                            'id' => $e->getId()
+                        );
+                    }
                 }
             }
+        } else {
+            $favorites = array();
         }
-        
+
         return $this->render('ArmdUserBundle:Favorites:favorites.html.twig', array(
             'favorites' => $favorites
         ));
