@@ -78,6 +78,32 @@
              armdMk.init();
 
              armdMessager.init('#armd_messages');
+             
+             $('.user-favorites-button').click(function(event) {
+                 event.preventDefault();  
+                 
+                 var type = $(this).data('type'),
+                    id = $(this).data('id');
+                    
+                 armdMk.startLoadingBlock();
+                 $.ajax({
+                    url: Routing.generate('armd_user_favorites_add'),
+                    type: 'get',
+                    data: {
+                        'type': type,
+                        'id': id
+                    },
+                    dataType: 'html'
+                })
+                .done(function(data) {
+                    if (data == '1') {
+                        armdMessager.showMessage('Объект добавлен в «Мои интересы»');
+                    }
+                })
+                .always(function() {                   
+                    armdMk.stopLoadingBlock();
+                });
+             });
 
              new Ya.share({
                  element: 'yandex-share-global',

@@ -1,6 +1,10 @@
 armd_user_token_login:
     pattern: /login-token/{loginToken}
     defaults: { _controller: ArmdUserBundle:Authentication:authenticateByLoginToken}
+    
+armd_user_favorites:
+    pattern:   /favorites
+    defaults:  { _controller: ArmdUserBundle:Favorites:index }
 
 armd_user_viewed_content:
     pattern: /profile/viewed-content/{page}
@@ -19,3 +23,13 @@ armd_user_viewed_content_on:
 armd_user_viewed_content_off:
     pattern: /profile/viewed-content/off
     defaults: { _controller: ArmdUserBundle:ViewedContent:updateUser, storeViewedContent: 'off' }
+
+armd_user_favorites_add:
+    pattern:   /favorites-add
+    defaults:  { _controller: ArmdUserBundle:Favorites:add }
+    options: { expose: true }
+
+armd_user_favorites_del:
+    pattern:   /favorites-del
+    defaults:  { _controller: ArmdUserBundle:Favorites:del }
+

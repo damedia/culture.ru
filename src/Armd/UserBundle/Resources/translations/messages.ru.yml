@@ -40,3 +40,6 @@ profile.atlas_user_objects: Мои объекты
 "ArmdTheaterBundle:Theater": Театры
 "ArmdPerfomanceBundle:Perfomance": Cпектакли
 "ArmdTouristRouteBundle:Route": Туристические маршруты
+
+Favorites: Мои интересы
+

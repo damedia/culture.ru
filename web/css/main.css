@@ -9685,3 +9685,44 @@ a.appstore-link {
     -khtml-opacity: 0.2;
     opacity: 0.2;
 }
+
+.user-favorites-button img {
+    width: 14px;
+    vertical-align: 6px;
+    white-space: pre;
+}
+
+.user-favorites-block h2 {
+    margin-bottom: 20px;
+}
+
+.user-favorites-ctegory-block {
+    margin-bottom: 40px;
+}
+
+.user-favorites-block ul {
+    list-style: none;
+}
+
+.user-favorites-block li {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.user-favorites-img-block {
+    float: left;
+}
+
+.user-favorites-img-block img {
+    width: 80px;
+}
+
+.user-favorites-text-block {
+    margin-left: 100px;
+    overflow: hidden;
+}
+
+.user-favorites-text-block img {
+    width: 14px;
+    margin-left: 10px;
+}

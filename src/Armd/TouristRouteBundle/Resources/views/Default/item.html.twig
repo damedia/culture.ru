@@ -363,7 +363,15 @@
         <li><a href="{{ path('armd_tourist_route_list') }}">{{ 'menu.tourist_routes'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
-    <h1>{{ entity.title }}</h1>
+    <h1>
+        {{ entity.title }}
+            
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a class="user-favorites-button" title="Р”РѕР±Р°РІРёС‚СЊ РІ В«РњРѕРё РёРЅС‚РµСЂРµСЃС‹В»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_TOURIST_ROUTE') }}" data-id="{{ entity.id }}">
+                <img alt="*" src="{{ asset('img/favorites.png') }}" />
+            </a>
+        {% endif %}
+    </h1>
 
     <div class="tourist-one">
         <div class="tourist-one_map clearfix">
@@ -448,8 +456,8 @@
                                 <div class="period-block_text">
                                     <h4>{{ video.name }}</h4>
                                     {#<p>#}
-                                        {#Режиссер: Леонид Гайдай <br />#}
-                                        {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                                        {#пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ <br />#}
+                                        {#пїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ#}
                                     {#</p>#}
                                 </div>
                                 
