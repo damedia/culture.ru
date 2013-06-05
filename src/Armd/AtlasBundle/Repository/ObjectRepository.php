@@ -3,6 +3,7 @@
 namespace Armd\AtlasBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
 /**
@@ -17,44 +18,33 @@ class ObjectRepository extends EntityRepository
     public function filter($params = array())
     {
         $categoryIds = array_map('intval', $params['category']);
-        /* old strategy - union by categories `OR`
-        $qb = $this->createQueryBuilder('o');
+
+        $qb = $this->createQueryBuilder('o')
+              ->where('o.published = TRUE');
+
         switch($params['filter_type']) {
-            case 'filter_culture_objects':
-                $qb->innerJoin('o.secondaryCategories', 'c');
-                break;
             case 'filter_tourist_clusters':
                 $qb->innerJoin('o.touristCluster', 'c');
+                foreach ($categoryIds as $i => $clusterId) {
+                    $qb->innerJoin("o.touristCluster", 'tc'.$i);
+                    $parameterName = 'clusterId' . $i;
+                    $qb->andWhere("tc$i = :$parameterName")->setParameter($parameterName, $clusterId);
+                }
                 break;
             default:
-                $qb->innerJoin('o.secondaryCategories', 'c');
+                foreach ($categoryIds as $i => $categoryId) {
+                    $qb->innerJoin("o.secondaryCategories", 'sc'.$i);
+                    $parameterName = 'categoryId' . $i;
+                    $qb->andWhere("sc$i = :$parameterName")->setParameter($parameterName, $categoryId);
+                }
                 break;
         }
-        $qb->where('o.published = TRUE')
-           ->andWhere($qb->expr()->orX(
-                $qb->expr()->in('c', $categoryIds),
-                $qb->expr()->in('o.primaryCategory', $categoryIds)
-            ));
-        $rows = $qb->getQuery()->getResult();
-        */
-        // strategy - intersection by categories `AND`
-        $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
-        $rsm->addScalarResult('id', 'id', 'integer');
-        $q = $this->_em
-                ->createNativeQuery(
-                    'SELECT i.id FROM (
-                        SELECT o.id, (array_agg(c.category_id) @> string_to_array(:ids, \',\')::int[]) as categories FROM atlas_object o       
-                        LEFT JOIN atlas_category_object c ON c.object_id = o.id
-                        WHERE o.published = TRUE
-                        GROUP BY o.id) i
-                    WHERE i.categories = true', 
-                    $rsm)
-                ->setParameter(':ids', $categoryIds, 'simple_array');
 
-        $rows = array();
-        if(($ids = $q->getResult()) && sizeof($ids)) {
-            $rows = $this->createQueryBuilder('o')->where('o.id IN (:ids)')->setParameter(':ids', $ids)->getQuery()->getResult();
-        }
+
+        $rows = $qb->getQuery()->getResult();
+
+
+
         return $rows;
     }
 

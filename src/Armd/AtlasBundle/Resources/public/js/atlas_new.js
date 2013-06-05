@@ -311,7 +311,7 @@ AT.showTab = function(filterType, force) {
         return;
     }
 
-    var filterTabId = filterType.replace('filter_', '').replace('_', '-') + '-tab';
+    var filterTabId = AT.getFilterTabIdByFilterType(filterType);
 
     $('.atlas-tab-filters').removeClass('active');
     $('#' + filterType).addClass('active');
@@ -332,6 +332,11 @@ AT.showTab = function(filterType, force) {
     if (typeof(history.pushState) !== 'undefined') {
         history.pushState(null, document.title, Routing.generate('armd_atlas_index', {'filterType': filterType}));
     }
+}
+
+AT.getFilterTabIdByFilterType = function (filterType) {
+    var filterTabId = filterType.replace('filter_', '').replace('_', '-') + '-tab';
+    return filterTabId;
 }
 
 
@@ -482,7 +487,9 @@ AT.initHacks = function() {
 
 AT.collectTagsValue = function() {
     var filterTags = [];
-    $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
+    var filterTabId = AT.getFilterTabIdByFilterType($('#filter-type').val());
+
+    $('.atlas-filter-form #' + filterTabId).find('.simple-filter-options > label.checked > span').each(function(i,el){
         filterTags.push( $(this).data('tag') );
     });
     $('#category-id').val(filterTags);
