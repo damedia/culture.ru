@@ -90,7 +90,9 @@
             {{ entity.announce|raw }}
         </p>
     </div>
+
     {{ entity.body|raw }}
+    {{ add_viewed_content(entity, path('armd_news_item_by_category', {category: entity.category.slug, id: entity.id})) }}
 
     {% if entity.mediaVideo %}
     <div class="block news-gallery-block">

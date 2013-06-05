@@ -59,6 +59,7 @@
 			
 			<div class="video-one-full-text">
 				{{ entity.description|raw }}
+                {{ add_viewed_content(entity, path('armd_perfomance_item', {id: entity.id })) }}
 			</div>
 		</section>
 		<div class="back-link">

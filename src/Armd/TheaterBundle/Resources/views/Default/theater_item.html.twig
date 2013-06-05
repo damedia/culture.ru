@@ -103,6 +103,7 @@
         </div>#}
         <div id="content-collapsed" class="theatre-one-description content {% if object.description is not empty %}collapsed{% endif %}">
             {{ object.description|raw }}
+            {{ add_viewed_content(object, path('armd_theater_item', {id: object.id})) }}
         </div>
         {% if object.description is not empty %}
             <div class="more more3">

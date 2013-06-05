@@ -2,10 +2,12 @@ Account: Личный кабинет
 Profile: Профиль
 Сredentials: Учетные данные
 Change password: Смена пароля
+Viewed content: Контент
 Reset password: Сброс пароля
 Edit: Редактировать
 My objects: Мои объекты
 Submit: Отправить
+Clear: Очистить
 Gender: Пол
 Male: Мужской
 Female: Женский
@@ -23,5 +25,18 @@ Save changes: Сохранить изменения
 Forgot your password: Забыли пароль
 Auth: Авторизация
 No profile data: Профиль не заполнен
+No viewed content: Нет просмотренного контента
+Viewed content storing is off: Хранение просматриваемого контента отключено
+On: Включить
+Off: Выключить
 
 profile.atlas_user_objects: Мои объекты
+
+# Viewed content types
+"ArmdAtlasBundle:Object": Атлас
+"ArmdNewsBundle:News": Новости
+"ArmdMuseumBundle:Lesson": Музейное образование
+"ArmdLectureBundle:Lecture": Кино и лекции
+"ArmdTheaterBundle:Theater": Театры
+"ArmdPerfomanceBundle:Perfomance": Cпектакли
+"ArmdTouristRouteBundle:Route": Туристические маршруты
