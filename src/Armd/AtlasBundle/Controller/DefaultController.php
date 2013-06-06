@@ -2,8 +2,11 @@
 
 namespace Armd\AtlasBundle\Controller;
 
+use Armd\UserBundle\Security\AclManager;
+use Sonata\MediaBundle\Entity\MediaManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\AtlasBundle\Entity\ObjectManager;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -19,8 +22,10 @@ use Armd\AtlasBundle\Form\ObjectType;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class DefaultController extends Controller
 {
+    const MAX_USER_OBJECTS = 10;
     /**
      * @Route("/objects", defaults={"_format"="json"})
      */
@@ -486,6 +491,15 @@ class DefaultController extends Controller
             $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+
+            // user can't create lot of objects
+            $objectCount = $em->createQuery('SELECT COUNT(o) FROM ArmdAtlasBundle:Object o WHERE o.createdBy = :createdBy')
+                ->setParameter('createdBy', $currentUser)
+                ->getSingleScalarResult();
+            if ($objectCount + 1 >= self::MAX_USER_OBJECTS) {
+                throw new \RuntimeException('Слишком много объектов');
+            }
 
             // Название объекта
             $title = trim($request->get('title'));
@@ -498,7 +512,6 @@ class DefaultController extends Controller
                 throw new \Exception('Заполните анонс');
 
             // Автор
-            $currentUser = $this->get('security.context')->getToken()->getUser();
             if (!$currentUser)
                 throw new \Exception('Пользователь не найден');
 
@@ -670,6 +683,7 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $currentUser = $this->get('security.context')->getToken()->getUser();
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
+
             $objectId = (int) $request->get('id');
             if ($objectId) {
                 $obj = $repo->findOneBy(
@@ -694,6 +708,25 @@ class DefaultController extends Controller
                     'lat' => $obj->getLat(),
                     'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
                 );
+                if ($obj->getPrimaryImage()) {
+                    $result['primaryImage'] = array(
+                        'id' => $obj->getPrimaryImage()->getId(),
+                        'thumbUrl' => $this->get('sonata.media.twig.extension')->path($obj->getPrimaryImage(), 'thumbnail')
+                    );
+                } else {
+                    $result['primaryImage'] = false;
+                }
+
+                $result['images'] = array();
+                if ($obj->getImages()->count()) {
+                    foreach ($obj->getImages() as $image) {
+                        $result['images'][] = array(
+                            'id' => $image->getId(),
+                            'thumbUrl' => $this->get('sonata.media.twig.extension')->path($image, 'thumbnail')
+                        );
+                    }
+                }
+
             } else {
                 $result = array();
                 $entities = $repo->findBy(array('createdBy' => $currentUser), array('updatedAt' => 'DESC'));
@@ -767,6 +800,7 @@ class DefaultController extends Controller
             );
             if (!$entity)
                 throw new \Exception('Объект не найден');
+
             $em->remove($entity);
             $em->flush();
             $result = $entityId;
@@ -793,6 +827,11 @@ class DefaultController extends Controller
     public function objectsMyUploadAction()
     {
         try {
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+            if (!$currentUser) {
+                throw new \Exception('Пользователь не найден');
+            }
+
             // Читаем бинарник картинки, пишем во временный файл
             $input = fopen('php://input', 'r');
             $tempPath = tempnam(sys_get_temp_dir(), 'media');
@@ -808,6 +847,8 @@ class DefaultController extends Controller
             $media->setContext('atlas');
             $media->setProviderName('sonata.media.provider.image');
             $mediaManager->save($media);
+
+            $this->get('armd_user.manager.acl')->grant($currentUser, $media, MaskBuilder::MASK_OWNER);
 
             // Возвращаем инфу добавленной картинки
             $res = array(
@@ -826,6 +867,48 @@ class DefaultController extends Controller
             );
         }
         fclose($tempHandler);
+
+        return $res;
+    }
+
+    /**
+     * Мои объекты. Удаление изображений для объекта
+     *
+     * @Route(
+     *  "/objects/my/delete-image/{mediaId}",
+     *  name="armd_atlas_default_objects_my_delete_image",
+     *  defaults={"_format"="json"},
+     *  options={"expose"=true}
+     * )
+     */
+    public function objectsMyDeleteImageAction($mediaId) {
+        try {
+            /** @var MediaManager $mediaManager */
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $em = $this->getDoctrine()->getManager();
+            $media = $em->getRepository('Application\Sonata\MediaBundle\Entity\Media')->find($mediaId);
+
+            if (!$media) {
+                throw new \InvalidArgumentException('Изображение не найдено');
+            }
+
+            if (!$this->get('security.context')->isGranted('DELETE', $media)) {
+                throw new AccessDeniedException();
+            }
+
+            $mediaManager->delete($media);
+
+            $res = array(
+                'success' => true,
+                'message' => 'Изображение удалено'
+            );
+
+        } catch (Exception $ex) {
+            $res = array(
+                'success' => false,
+                'message' => $ex->getMessage()
+            );
+        }
 
         return $res;
     }

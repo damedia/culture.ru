@@ -20,6 +20,7 @@ AT.init = function(params) {
     AT.initFilters();
     AT.initTabs();
     AT.initHacks();
+    AT.initMyObjects();
 
     //AT.selectFirstFilterObject();
 };
@@ -326,7 +327,7 @@ AT.showTab = function(filterType, force) {
     if (filterType === 'filter_culture_objects' || filterType === 'filter_tourist_clusters') {
         AT.selectFirstFilterObject();
     } else if (filterType === 'filter_user_objects') {
-        AT.initMyObjects();
+        AT.initMyObjectsTab();
     }
 
     if (typeof(history.pushState) !== 'undefined') {
@@ -504,10 +505,25 @@ AT.submitFiltersForm = function() {
     $('#atlas-filter-form').submit();
 };
 
+AT.initMyObjects = function() {
+
+    $('#add-object-form .added-images').on('click', '.del', function(){
+        if (confirm('Удалить?')) {
+            var jImage = $(this).closest('.added-image');
+            var imageId = jImage.data('id');
+            jImage.remove();
+            $.ajax({
+                url: Routing.generate('armd_atlas_default_objects_my_delete_image', {'mediaId': imageId})
+            });
+        }
+    });
+
+}
+
 /**
  * Работа с пользовательскими объектами
  */
-AT.initMyObjects = function() {
+AT.initMyObjectsTab = function() {
 
     // Построение списка моих объектов
     $('#ajax-loading').show();
@@ -569,7 +585,6 @@ AT.initMyObjects = function() {
             success: function(res){
                 $('#ajax-loading').hide();
                 if (res.success) {
-                    // И показываем попап с формой
                     AT.showObjectForm({
                         entity: res.result,
                         coord: coord,
@@ -873,6 +888,20 @@ AT.showObjectForm = function(params) {
         $('#primary-category').select2('val', params.entity.primaryCategory);
         $('#category').select2('val', params.entity.secondaryCategory);
 
+
+        if (params.entity.images.length > 0) {
+            for (var i in params.entity.images) {
+                var image = params.entity.images[i];
+                $('#added-image-template')
+                    .tmpl({
+                        'id': image.id,
+                        'imageUrl': image.thumbUrl
+                    })
+                    .appendTo('#add-object-form .added-images');
+            }
+
+        }
+
         // Включим перетаскивание точки
         var point = myPoint;
         point.draggable = new PGmap.Events.Draggable(point, {
@@ -1066,12 +1095,12 @@ AT.showObjectForm = function(params) {
             if (response.success) {
                 var jImageTemplate = $('#added-image-template').tmpl(response.result);
                 jAddedImages.append(jImageTemplate);
-                jImageTemplate.find('.del').on('click', function(){
-                    if (confirm('Удалить?')) {
-                        $(this).closest('.added-image').remove();
-                        // @TODO: И с сервака удалить тоже
-                    }
-                });
+//                jImageTemplate.find('.del').on('click', function(){
+//                    if (confirm('Удалить?')) {
+//                        $(this).closest('.added-image').remove();
+//                        // @TODO: И с сервака удалить тоже
+//                    }
+//                });
             } else {
                 alert(response.message);
             }
