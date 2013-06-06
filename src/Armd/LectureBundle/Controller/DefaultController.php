@@ -268,7 +268,19 @@ class DefaultController extends Controller
      * View lecture details.
      * Version can be one of these: full, trailer
      *
-     * @Route("/cinema/view/{id}/{version}", requirements={"id"="\d+"}, name="armd_lecture_view", defaults={"version" = "trailer"})
+     * @Route(
+     *  "/cinema/view/{id}/{version}",
+     *  requirements={"id"="\d+"},
+     *  name="armd_lecture_view",
+     *  defaults={"version" = "trailer"}
+     * )
+     *
+     * @Route(
+     *  "/lecture/view/{id}/{version}",
+     *  requirements={"id"="\d+"},
+     *  defaults={"version" = "trailer"}
+     * )
+     *
      *
      */
     public function lectureDetailsAction($id, $version)
