@@ -20,6 +20,12 @@
         <li>
             <a href="{{ path('fos_user_change_password') }}">{{ 'Change password'|trans }}</a>
         </li>
+        <li>
+            <a href="{{ path('armd_user_comments_list') }}">{{ 'My comments'|trans }}</a>
+        </li>
+        <li>
+            <a href="{{ path('armd_user_comments_notice') }}">{{ 'My notices'|trans }}</a>
+        </li>
     </ul>
     {% include 'ArmdUserBundle:Profile:edit_authentication_form.html.twig' %}
 </div>

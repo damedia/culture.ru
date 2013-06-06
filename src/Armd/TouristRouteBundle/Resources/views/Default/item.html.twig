@@ -424,6 +424,19 @@
     </div>
     <!-- /Page service -->
 
+    <div class="more-comments-show">
+        <div id="comments" class="comments comments-gray clearfix">
+            {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_ROUTE')~'_' ~ entity.id %}
+            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+            {% if not is_granted('ROLE_USER') %}
+                <div class="comments-auth-block">
+                    <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                    {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -447,8 +460,8 @@
                                 <div class="period-block_text">
                                     <h4>{{ video.name }}</h4>
                                     {#<p>#}
-                                        {#Режиссер: Леонид Гайдай <br />#}
-                                        {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                                        {#Р РµР¶РёСЃСЃРµСЂ: Р›РµРѕРЅРёРґ Р“Р°Р№РґР°Р№ <br />#}
+                                        {#Р–Р°РЅСЂ: РљРѕРјРµРґРёСЏ / Р РµР¶РёСЃСЃРµСЂ: Р›РµРѕРЅРёРґ Р“Р°Р№РґР°Р№#}
                                     {#</p>#}
                                 </div>
                                 

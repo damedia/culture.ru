@@ -63,7 +63,6 @@ class CommentListener implements EventSubscriberInterface
         $commentBlamerListener = new CommentBlamerListener($securityContext, $logger);
         $event = new CommentEvent($comment);
         $commentBlamerListener->blame($event);
-
     }
 
     protected function autoModerate(Comment $comment)

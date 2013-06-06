@@ -23,3 +23,11 @@ Save changes: Сохранить изменения
 Forgot your password: Забыли пароль
 Auth: Авторизация
 No profile data: Профиль не заполнен
+My comments: Мои комментарии
+My notices: Уведомления
+
+Noticeoncomment: Уведомления
+NOTICE_T_NONE: Не уведомлять о коментариях
+NOTICE_T_REPLY: Уведомлять об ответах на мои комментарии
+NOTICE_T_THREAD: Уведомлять о комментариях в темах, в которых я участвую
+NOTICE_T_ALL: Уведомлять о всех новых комментариях

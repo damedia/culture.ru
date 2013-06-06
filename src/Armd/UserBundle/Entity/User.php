@@ -73,6 +73,11 @@ class User extends BaseUser
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $subscriptions;
+    
+    /**
+     * @var integer
+     */
+    protected $noticeOnComment = 0;
 
     /**
      * @param \Doctrine\Common\Collections\Collection $subscriptions
@@ -328,6 +333,22 @@ class User extends BaseUser
     public function setLoginTokenExpires($loginTokenExpires)
     {
         $this->loginTokenExpires = $loginTokenExpires;
+    }
+    
+    /**
+     * @return integer
+     */
+    public function getNoticeOnComment()
+    {
+        return (int)$this->noticeOnComment;
+    }
+    
+    /**
+     * @param integer $noticeOnComment
+     */
+    public function setNoticeOnComment($noticeOnComment)
+    {
+        $this->noticeOnComment = (int)$noticeOnComment;
     }
 
 }

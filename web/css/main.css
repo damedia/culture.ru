@@ -9463,50 +9463,62 @@ a.appstore-link {
 /**
  * Profile Forms
  */
-.lk-form {
-    font-size: 13px;
-    margin: 20px auto;
-    width: 50%;
-}
+    .lk-form {
+        font-size: 13px;
+        margin: 20px auto;
+        width: 70%;
+    }
     .lk-form dl {
         margin: 20px 0 0;
     }
-        .lk-form dl dt, .lk-form dl dd {
-            float: left;
-            margin: 0 0 1em;
-        }
-        .lk-form dl dt {
-            clear: left;
-            width: 30%;
-            text-align: right;
-        }
-            .lk-form dl dt label {
-                position: relative;
-                font-weight: bold;
-            }
-                .lk-form dl dt label span.req {
-                    position: absolute;
-                    top: 0;
-                    right: -10px;
-                    color: #b20018;
-                }
-        .lk-form dl dd {
-            width: 65%;
-            margin-left: 5%;
-        }
-            .lk-form dl dd label {
-                vertical-align: middle;
-            }
-                .lk-form dl dd label input[type='checkbox'] {
-                    vertical-align: middle;
-                    margin-bottom: 3px;
-                }
-            .lk-form dl dd ul {
-                list-style: none;
-            }
-                .lk-form dl dd .input-with-label * {
-                    vertical-align: middle;
-                }
+    .lk-form dl dt, .lk-form dl dd {
+        float: left;
+        margin: 0 0 1em;
+    }
+    .lk-form dl dt {
+        clear: left;
+        width: 30%;
+        text-align: right;
+    }
+    .lk-form dl dt label {
+        position: relative;
+        font-weight: bold;
+    }
+    .lk-form dl dt label span.req {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        color: #b20018;
+    }
+    .lk-form dl dd {
+        width: 65%;
+        margin-left: 5%;
+    }
+    .lk-form dl dd label {
+        vertical-align: middle;
+    }
+    .lk-form dl dd label input[type='checkbox'] {
+        vertical-align: middle;
+        margin-bottom: 3px;
+    }
+    .lk-form dl dd ul {
+        list-style: none;
+    }
+    .lk-form dl dd .input-with-label * {
+        vertical-align: middle;
+    }
+    .lk-form table {
+        width: 100%;
+    }
+    .lk-form table tr th, .lk-form table tr td:first-child {
+        text-align: center;
+    }
+    .lk-form table tr td {
+        padding: 5px;
+    }
+    .lk-form table tr td:last-child {
+        width: 40%;
+    }
     .lk-form input[type='text'], .lk-form input[type='email'],
     .lk-form input[type='password'], .lk-form input[type='submit'],
     .lk-form input[type='button'], .lk-form textarea, .lk-form select,

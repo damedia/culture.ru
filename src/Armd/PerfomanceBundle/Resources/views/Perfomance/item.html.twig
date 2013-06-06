@@ -3,7 +3,7 @@
 {% block pre_content %}
     <ul class="breadcrumbs">
         <li><a href="/">Главная</a></li>
-        <li><a href="{{ path('armd_perfomance_list') }}">Спектакли</a></li>
+        <li><a href="{{ path('armd_perfomance_list') }}">{{ 'menu.performance'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
 {% endblock %}
@@ -86,8 +86,21 @@
 
            
             </div>
-        </div>        	
-	</div>
+        </div>
+        <div class="more-comments-show">
+            <div id="comments" class="comments comments-gray clearfix">
+                {% set comment_thread_id = app.request.locale~'_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_PERFORMANCE')~'_'~entity.id %}
+                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                {% if not is_granted('ROLE_USER') %}
+                    <div class="comments-auth-block">
+                        <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block right_column %}

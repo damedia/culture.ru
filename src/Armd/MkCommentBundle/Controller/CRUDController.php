@@ -1,30 +1,30 @@
 <?php
 namespace Armd\MkCommentBundle\Controller;
 
-use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentPersistEvent;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use FOS\CommentBundle\Model\CommentInterface;
-use Armd\MkCommentBundle\Entity\Comment;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Controller\CRUDController as BaseController;
+use Armd\MkCommentBundle\Entity\Comment;
+use Armd\MkCommentbundle\Entity\Notice;
 
 class CRUDController extends BaseController
 {
     public function batchActionStatePending(ProxyQueryInterface $selectedModelQuery)
     {
-        return $this->batchChangeState($selectedModelQuery, CommentInterface::STATE_PENDING);
+        return $this->batchChangeState($selectedModelQuery, Comment::STATE_PENDING);
     }
 
     public function batchActionStateDeleted(ProxyQueryInterface $selectedModelQuery)
     {
-        return $this->batchChangeState($selectedModelQuery, CommentInterface::STATE_DELETED);
+        return $this->batchChangeState($selectedModelQuery, Comment::STATE_DELETED);
     }
 
     public function batchActionStateSpam(ProxyQueryInterface $selectedModelQuery)
     {
-        return $this->batchChangeState($selectedModelQuery, CommentInterface::STATE_SPAM);
+        return $this->batchChangeState($selectedModelQuery, Comment::STATE_SPAM);
     }
 
     public function batchActionStateProcessing(ProxyQueryInterface $selectedModelQuery)
@@ -34,7 +34,7 @@ class CRUDController extends BaseController
 
     public function batchActionStateVisible(ProxyQueryInterface $selectedModelQuery)
     {
-        return $this->batchChangeState($selectedModelQuery, CommentInterface::STATE_VISIBLE);
+        return $this->batchChangeState($selectedModelQuery, Comment::STATE_VISIBLE);
     }
 
 
@@ -57,6 +57,10 @@ class CRUDController extends BaseController
 
         try {
             foreach ($selectedModels as $selectedModel) {
+                $isNotice = $state === Comment::STATE_VISIBLE
+                            && ($selectedModel->getState() === Comment::STATE_PENDING 
+                            || $selectedModel->getState() === Comment::STATE_PROCESSING);
+
                 $selectedModel->setState($state);
                 $selectedModel->setModeratedAt(new \DateTime());
                 $selectedModel->setModeratedBy($this->getUser());
@@ -65,16 +69,15 @@ class CRUDController extends BaseController
                 $this->get('event_dispatcher')->dispatch(Events::COMMENT_PRE_PERSIST, $event);
 
                 $modelManager->update($selectedModel);
+                
+                if($isNotice) {
+                    $this->checkNoticeOnStateChange($selectedModel);
+                }
             }
-
+            $this->get('session')->setFlash('sonata_flash_success', 'flash_batch_state_success');
         } catch (\Exception $e) {
             $this->get('session')->setFlash('sonata_flash_error', 'flash_batch_state_error');
-
-            return new RedirectResponse($this->admin->generateUrl('list',$this->admin->getFilterParameters()));
         }
-
-        $this->get('session')->setFlash('sonata_flash_success', 'flash_batch_state_success');
-
         return new RedirectResponse($this->admin->generateUrl('list',$this->admin->getFilterParameters()));
     }
 
@@ -100,4 +103,59 @@ class CRUDController extends BaseController
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
     }
 
+    protected function checkNoticeOnStateChange($model)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        // check `notice_replies_to_comment`
+        if(sizeof($ancestors = $model->getAncestors()) && ($parentId = array_pop($ancestors))){
+            $parent = $em->getRepository('\Armd\MkCommentBundle\Entity\Comment')->find($parentId);
+            if($parent->getAuthor() !== $model->getAuthor() && $parent->getAuthor()->getNoticeOnComment() === Notice::T_REPLY){
+                $em->persist($this->createNotice(Notice::T_REPLY, $model, $parent->getAuthor()));
+            }
+        }
+        
+        // check `notice_replies_to_threads`
+        $qb2 = $em->getRepository('\Armd\MkCommentBundle\Entity\Comment')->createQueryBuilder('c');
+        $qb2->select('IDENTITY(c.author)')->distinct()
+            ->where('c.thread = :tid')
+            ->andWhere('c.state = :state')
+            ->andWhere('c.author <> :uid');
+        $qb = $em->getRepository('\Armd\UserBundle\Entity\User')->createQueryBuilder('u');
+        $qb->select('u')
+            ->where($qb->expr()->in('u.id', $qb2->getDQL()))
+            ->andWhere('u.enabled = true')
+            ->andWhere('u.noticeOnComment = :ctype')
+            ->setParameter('tid', $model->getThread()->getId())
+            ->setParameter('state', Comment::STATE_VISIBLE)
+            ->setParameter('ctype', Notice::T_THREAD)
+            ->setParameter('uid', $model->getAuthor()->getId());
+        $users = $qb->getQuery()->getResult();
+        foreach($users as $user){
+            if($user->getId() !== $model->getAuthor()->getId()){
+                $em->persist($this->createNotice(Notice::T_THREAD, $model, $user));
+            }
+        }
+        
+        // check `notice_all_new_comments`
+        /* Should be much faster if rewrite in native 'INSERT INTO comment_notice SELECT ... FROM fos_user_user WHERE ... ' */
+        $users = $em->getRepository('\Armd\UserBundle\Entity\User')->findBy(array('noticeOnComment' => Notice::T_ALL));
+        foreach($users as $user){
+            if($user->getId() !== $model->getAuthor()->getId()){
+                $em->persist($this->createNotice(Notice::T_ALL, $model, $user));
+            }
+        }
+        
+        $em->flush();
+    }
+    
+    protected function createNotice($type, $comment, $owner)
+    {
+        $notice = new Notice();
+        $notice->setUser($owner);
+        $notice->setType($type);
+        $notice->setCreatedAt(new \DateTime());
+        $notice->setComment($comment);
+        return $notice;
+    }
 }

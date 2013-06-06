@@ -57,7 +57,7 @@
 {% block pre_content %}
 <ul class="breadcrumbs">
     <li><a href="/">Главная</a></li>
-    <li><a href="{{ path('armd_theater_list') }}">Театры</a></li>
+    <li><a href="{{ path('armd_theater_list') }}">{{ 'menu.theaters'|trans }}</a></li>
     <li><span>{{ object.title }}</span></li>
 </ul>
 {% endblock %}
@@ -227,10 +227,10 @@
         {% endif %}
         
         {# Комментарий #}
-        <div class="content-tab" id="c-tab4"  style="display:none;">           
+        <div class="content-tab" id="c-tab4">           
             <div class="more-comments-show">
-                <div class="comments comments-gray clearfix">
-                    {% set comment_thread_id = app.request.locale ~ '_theater_' ~ object.id %}
+                <div id="comments" class="comments comments-gray clearfix">
+                    {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_THEATER')~'_' ~ object.id %}
                     {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
                     {% if not is_granted('ROLE_USER') %}
@@ -245,7 +245,7 @@
         <div class="back-link"><p><a href="{{ referer }}">Назад</a></p></div>
         <div class="event-one_footer clearfix">
             <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
-        </div>            
+        </div>         
     </div>
 {% endblock %}
 
