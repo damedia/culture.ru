@@ -1,19 +1,25 @@
 #---------------- menu -------------------------
 menu.homepage: Main
+menu.mainpage: Main
 menu.atlas: Atlas
 menu.russia_images: Russia Images
 menu.virtual_museums: Museums
+menu.art_objects: Exhibits
 menu.cinema: Cinema
 menu.chronicle: Chronicle
 menu.spiritual_traditions: Spiritual traditions
+menu.theaters: Theatre
 menu.kids: Child
 menu.news_index: News
 menu.news: News
 menu.media: Media
 menu.events: Events
+menu.communication: Communication
+
 menu.reportage: Reportage
 menu.interview: Interview
 menu.article: Article
+menu.about: Information
 menu.events_on_map: Events on map
 menu.about: About
 menu.information: Info
@@ -30,6 +36,9 @@ menu.special_projects_romanov450: The Romanovs
 menu.special_projects_stanislavski: Stanislavski
 menu.special_projects_1150: 1150 years of statehood
 menu.online_translation: Online translation
+menu.perfomance: Performance
+menu.museum: Museums
+menu.virtual_museum: Virtual tour
 menu.video: Video
 menu.lectures_news: Video
 menu.lectures: Lectures

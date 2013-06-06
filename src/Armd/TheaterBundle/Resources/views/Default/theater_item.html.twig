@@ -56,8 +56,8 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block pre_content %}
 <ul class="breadcrumbs">
-    <li><a href="/">Главная</a></li>
-    <li><a href="{{ path('armd_theater_list') }}">Театры</a></li>
+    <li><a href="/">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('armd_theater_list') }}">{{ 'menu.theaters'|trans }}</a></li>
     <li><span>{{ object.title }}</span></li>
 </ul>
 {% endblock %}
@@ -323,6 +323,7 @@
         function initSocialShare() {
             new Ya.share({
                 element: 'yandex-share',
+                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                 elementStyle: {
                     'type': 'none',
                     'border': false,
