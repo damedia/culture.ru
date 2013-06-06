@@ -50,6 +50,8 @@ menu.government_control: State control
 menu.online_translation: Online translation
 menu.museum_guide: Museum guide
 menu.museum_lesson: Study
+menu.underconstraction: Page is under constraction
+menu.contacts: Contacts
 #---------------- /menu -------------------------
 
 virtual_museum_tour: Virtual museums tour
