@@ -2302,10 +2302,13 @@ body {
     /*Sort Filter*/
     .sort-filter {
         font-size:11px;
+        line-height:15px;
         margin: 14px 0 2px;
         float:left;
     }
         .sort-filter span, .sort-filter li {
+            margin-right:7px;
+            padding-bottom:2px;
             display:inline-block;
             vertical-align:top;
             list-style:none;
@@ -2313,7 +2316,7 @@ body {
         .lt-ie8 .sort-filter span, .lt-ie8 .sort-filter li{display:inline;}
         .sort-filter span {
             color:#989898;
-            margin-right:7px;
+           /* margin-right:7px; */
         }
         .sort-filter li {
             text-transform:uppercase;
@@ -2321,12 +2324,12 @@ body {
         .sort-filter a {
             font-weight:bold;
             text-decoration:none;
-            border-bottom:2px dashed #fff;
-            color:#000;
-            margin-right:7px;
+            /* border-bottom:2px dashed #fff; */
+            color:#000; 
         }
         .sort-filter .active {
-            border-bottom:2px solid #f5902d;
+            /* border-bottom:2px solid #f5902d; */
+            background:url(../img/b-dashed2px-orange.gif) repeat-x 0 100%;
         }
     
     /* Alphabet */
@@ -9137,6 +9140,7 @@ a.appstore-link {
                             
                         .kinozal-filters .sort-filter {
                             font-size:15px;
+                            line-height:20px;
                             font-weight:bold;
                         } 
 
@@ -9247,7 +9251,7 @@ a.appstore-link {
 .m-top-0 { margin-top:0; }
 
 @media (max-width: 1024px) {
-  .search-category-selects .ui-selectgroup{width:20%;}
+  .search-category-selects.search-category-selects-5 .ui-selectgroup{width:82px;}
 }
 
 
