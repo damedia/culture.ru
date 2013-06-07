@@ -9009,16 +9009,16 @@ a.appstore-link {
                     }
                     
             .kinozal-slider .flex-direction-nav {
-                left: 48px;
-                top:0;
+                left: 71px;
+                top:298px;
                 bottom:auto;
                 right:auto;
                 background:url(../img/slider-arrows2.png) no-repeat 0 0;
                 width:64px;
-                height:1px;
+                height:18px;
             }   
                 .kinozal-slider .flex-direction-nav li {
-                    top: 298px;
+                    /*top: 298px;*/
                     width:31px;
                     height:18px;
                 }    
