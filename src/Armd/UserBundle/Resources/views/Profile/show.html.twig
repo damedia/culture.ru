@@ -10,25 +10,7 @@
 </ul>
 
 <div class="lk-form profile">
-
     {{ profileMenu.user_profile_menu('profile-edit') }}
-
-{#
-    <ul class="lk-menu">
-        <li class="active">
-            <a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a>
-        </li>
-        <li>
-            <a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Сredentials'|trans }}</a>
-        </li>
-        <li>
-            <a href="{{ path('fos_user_change_password') }}">{{ 'Change password'|trans }}</a>
-        </li>
-        <li>
-            <a href="{{ path('armd_user_favorites') }}">{{ 'Favorites'|trans }}</a>
-        </li>
-    </ul>
-#}
 
     <dl class="clearfix">
         {% set no_data = true %}

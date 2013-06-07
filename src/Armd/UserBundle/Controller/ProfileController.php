@@ -119,6 +119,44 @@ class ProfileController extends Controller
             'form' => $form->createView(),
         ));
     }
+    
+    /**
+     * @return Response
+     *
+     * @throws AccessDeniedException
+     */
+    public function listCommentsAction()
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        
+        $comments = $this->container->get('fos_comment.manager.comment')->findCommentsByUser($user);
+        
+        return $this->render('ArmdUserBundle:Profile:list_comments.html.twig', array(
+            'entities' => $comments,
+        ));
+    }
+    
+    /**
+     * @return Response
+     *
+     * @throws AccessDeniedException
+     */
+    public function listNoticesAction()
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        
+        $notices = $this->container->get('fos_comment.manager.comment')->findNoticesForUser($user);
+        
+        return $this->render('ArmdUserBundle:Profile:list_notices.html.twig', array(
+            'entities' => $notices,
+        ));
+    }
 
     /**
      * @param string $action

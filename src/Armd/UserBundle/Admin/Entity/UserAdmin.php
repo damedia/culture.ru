@@ -6,6 +6,7 @@ use Sonata\UserBundle\Admin\Entity\UserAdmin as BaseAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Armd\MkCommentBundle\Entity\Notice;
 
 class UserAdmin extends BaseAdmin {
 
@@ -29,8 +30,17 @@ class UserAdmin extends BaseAdmin {
             ->end()
             ->with('Social')
                 ->add('vkontakteUid')
+            ->end()
             ->with('Mailing Lists')
                 ->add('subscriptions', null, array('expanded' => true))
+            ->end()
+            ->with('Comments')
+                ->add('noticeOnComment', 'choice', array('required' => false, 'choices' => array(
+                    Notice::T_NONE => $this->trans('NOTICE_T_NONE', array(), 'ArmdMkCommentBundle'),
+                    Notice::T_REPLY => $this->trans('NOTICE_T_REPLY', array(), 'ArmdMkCommentBundle'),
+                    Notice::T_THREAD => $this->trans('NOTICE_T_THREAD', array(), 'ArmdMkCommentBundle'),
+                    Notice::T_ALL => $this->trans('NOTICE_T_ALL', array(), 'ArmdMkCommentBundle'),
+                )))
             ->end()
         ;
 

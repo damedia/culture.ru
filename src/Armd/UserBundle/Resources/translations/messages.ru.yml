@@ -42,4 +42,12 @@ profile.atlas_user_objects: Мои объекты
 "ArmdTouristRouteBundle:Route": Туристические маршруты
 
 Favorites: Мои интересы
+My comments: Мои комментарии
+My notices: Уведомления
+
+Noticeoncomment: Уведомления
+NOTICE_T_NONE: Не уведомлять о коментариях
+NOTICE_T_REPLY: Уведомлять об ответах на мои комментарии
+NOTICE_T_THREAD: Уведомлять о комментариях в темах, в которых я участвую
+NOTICE_T_ALL: Уведомлять о всех новых комментариях
 

@@ -1,0 +1,13 @@
+Новое в Обсуждениях!<br>
+{% for entity in entities %}
+    {{entity.comment.authorName}}, {{entity.comment.createdAt|date('d.m.Y, H:i:s')}}<br/>
+    {% if entity.comment.threadCrumbs %}
+        <a href="{{ path(entity.comment.threadCrumbs.threadPath) }}">{{ entity.comment.threadCrumbs.threadTitle|trans }}</a>
+        » 
+        <a href="{{ path(entity.comment.threadCrumbs.entityPath, {'id': entity.comment.threadCrumbs.id}) }}">{{ entity.comment.threadCrumbs.entityTitle }}</a>
+        <br/>
+    {% endif %}
+    {{entity.comment.body}}
+    <br/>
+    <br/>
+{% endfor %}
