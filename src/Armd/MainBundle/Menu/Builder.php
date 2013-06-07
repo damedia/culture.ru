@@ -320,7 +320,7 @@ class Builder extends ContainerAware
             $theatreMenu = $menu->addChild(
                 'menu.theatre',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_main_underconstruction',
                 )
             );
             
@@ -331,7 +331,7 @@ class Builder extends ContainerAware
             $musicMenu = $menu->addChild(
                 'menu.music',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_main_underconstruction',
                 )
             );
             

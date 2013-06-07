@@ -2,9 +2,9 @@ armd_main_homepage:
     pattern:  /
     defaults: { _controller: ArmdMainBundle:Main:homepage }
 
-armd_main_underconstraction:
-    pattern:  /underconstraction/
-    defaults: { _controller: ArmdMainBundle:Main:underconstraction }
+armd_main_underconstruction:
+    pattern:  /underconstruction/
+    defaults: { _controller: ArmdMainBundle:Main:underconstruction }
 
 armd_main_contacts:
     pattern:  /contacts/
