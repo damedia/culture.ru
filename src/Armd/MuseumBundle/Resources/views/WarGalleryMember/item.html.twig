@@ -1,0 +1,100 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{% block title %}{{ parent() }} — {{ 'menu.galley_of_war'|trans }}{% endblock %}
+
+{% block page_header_title %}{{ 'menu.galley_of_war'|trans }}{% endblock %}
+
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.name }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image %}
+    <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="http://yandex.st/share/share.js"></script>
+    <script>
+        /**
+         * Yandex share
+         */
+        new Ya.share({
+            element: "yandex-share",
+            elementStyle: {
+                type:   "none",
+                border: false,
+                quickServices: ["vkontakte", "lj", "twitter", "facebook", "odnoklassniki"]
+            },
+            image: "{% path entity.image, 'big' %}",
+            link:  "{{ url('armd_war_gallery_member', {id: entity.id}) }}",
+            title: "{{ entity.name }}",
+        });
+
+        /**
+         * FancyBox
+         */
+         $(".fancybox").fancybox();
+    </script>
+{% endblock %}
+
+{% block pre_content %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><a href="{{ path('armd_war_gallery') }}">{{ 'menu.galley_of_war'|trans }}</a></li>
+        <li><span>{{ entity.name }}</span></li>
+    </ul>
+{% endblock %}
+
+{% block one_column %}
+<div class="gallery-of-war-one">
+    <div class="clearfix">
+        {% if entity.image %}
+        <div class="gowo-img">
+            <a class="fancybox" href="{% path entity.image, 'reference' %}">
+                {% media entity.image, 'big' %}
+            </a>
+        </div><!-- /gowo-img -->
+        {% endif %}
+
+        <div class="gowo-summary">
+            <h2>{{ entity.name }}</h2>
+            {% if entity.years or entity.ranks %}
+            <p>
+                {% if entity.years %}{{ entity.years }}<br>{% endif %}
+                {% if entity.ranks %}{{ entity.ranks }}{% endif %}
+            </p>
+            {% endif %}
+        </div><!-- /gowo-summary -->
+    </div><!-- /clearfix -->
+
+    {% if entity.description %}
+    <div class="gowo-text">
+        {{ entity.description|raw }}
+    </div><!-- /gowo-text -->
+    {% endif %}
+
+    <!-- Page service -->
+    <div class="back-link">
+        <p>
+            <a href="{{ path('armd_war_gallery') }}">
+                {{ 'Back'|trans }}
+            </a>
+        </p>
+    </div>
+    <div class="event-one_footer clearfix">
+        <div class="print-link">
+            <a href="{{ path('armd_war_gallery_member_print', {id: entity.id}) }}" target="_blank"></a>
+            {{ 'Printversion'|trans }}
+        </div>
+        <div class="publish-links" href="#">
+            {{ "social_share"|trans }}:
+            <span id="yandex-share"></span>
+        </div>
+    </div>
+    <!-- /Page service -->
+</div><!-- /gallery-of-war-one -->
+{% endblock %}

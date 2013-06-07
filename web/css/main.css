@@ -9450,7 +9450,7 @@ a.appstore-link {
     display:inline-block;
     float:none;
     padding:12px;
-    width:240px;
+    width:158px;
     vertical-align: top;
 }
 .lt-ie8 .gallery-of-war .gow-one{
@@ -9462,7 +9462,7 @@ a.appstore-link {
     color:#000;
 }
 .gallery-of-war .gow-image-link img{
-    width:240px;
+    width:158px;
     height:auto;
 }
 .gallery-of-war .gow-header{
@@ -9482,14 +9482,16 @@ a.appstore-link {
     overflow: hidden;
 }
 
-.gallery-of-war-one{}
+.gallery-of-war-one{
+    margin-top: 20px;
+}
 .gallery-of-war-one .gowo-img{
     float:left;
     margin-right:15px;
-    width:240px;
+    width:352px;
 }
 .gallery-of-war-one .gowo-img img{
-    width:240px;
+    width:352px;
     height:auto;
 }
 .gallery-of-war-one .gowo-summary{

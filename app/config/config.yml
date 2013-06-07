@@ -376,6 +376,17 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 default: {width: 27, height: 45}
+
+        war_gallery:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http        
+            providers:
+                - sonata.media.provider.image
+            formats:
+                searchAllResult: { width: 160, height: 107 }
+                big: { width: 354 }
+                small: { width: 158 }
     cdn:
         server:
             path: %sonata_media_cdn%
