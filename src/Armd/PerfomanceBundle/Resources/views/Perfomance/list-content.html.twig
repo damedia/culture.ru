@@ -5,11 +5,8 @@
 				<div class="plitka-one">
 					<a href="{{ path('armd_perfomance_item', {'id': entity.id }) }}" class="plitka-one-image-wrapper" title="{{ entity.title|escape }}" >
 						<div class="plitka-one-image">
-							{% if entity.perfomanceVideo %}
-								{{ perfomanceMacro.perfomanceThumbnail(entity, 'lectureW160H120', {'alt': entity.title|escape}) }}
-							{% elseif entity.image %}
-								{% media entity.image, 'perfomanceW160H120' with {'alt': entity.title|escape} %}
-							{% endif %}
+							{% set prefomanceMedia = entity.mediaTrailerVideo ? entity.mediaTrailerVideo : (entity.mediaPerfomanceVideo ? entity.mediaPerfomanceVideo : entity.image) %}
+							{% thumbnail prefomanceMedia, 'perfomanceW160H120' with {'alt' : entity.title|escape} %}
 						</div>
 					</a>
 					
