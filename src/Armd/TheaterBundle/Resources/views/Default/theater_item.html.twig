@@ -306,10 +306,12 @@
                                     <a href="{% path image.media, 'item' %}" rel="images_group" class="period-block_image in-fancybox">
                                         <img width="306" height="179" src="{% path image.media, 'thumbnail' %}"  />
                                     </a>
+                                    {#
                                     <div class="period-block_text">
                                         {% if image.media.name %}<h4>{{ image.media.name }}</h4>{% endif %}   
                                         {% if image.media.description %}<p>{{ image.media.description }}</p>{% endif %}   
                                     </div>
+                                    #}
                                 </article>
                             </li>                               
                         {% endfor %}               
