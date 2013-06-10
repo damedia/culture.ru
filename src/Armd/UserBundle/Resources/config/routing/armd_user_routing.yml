@@ -33,3 +33,18 @@ armd_user_favorites_del:
     pattern:   /favorites-del
     defaults:  { _controller: ArmdUserBundle:Favorites:del }
 
+armd_user_subscriptions_edit:
+    pattern:  /profile/edit-subscriptions
+    defaults: { _controller: ArmdUserBundle:Profile:editSubscriptions }
+
+armd_user_profile_check_email:
+    pattern:  /profile/check-email
+    defaults: { _controller: ArmdUserBundle:Profile:checkEmail, _method: GET }
+
+armd_user_profile_confirm:
+    pattern:  /profile/confirm/{token}
+    defaults: { _controller: ArmdUserBundle:Profile:confirm, _method: GET }
+
+armd_user_profile_confirmed:
+    pattern:  /profile/confirmed
+    defaults: { _controller: ArmdUserBundle:Profile:confirmed, _method: GET }

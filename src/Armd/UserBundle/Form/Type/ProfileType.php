@@ -41,7 +41,6 @@ class ProfileType extends BaseType
             ->add('vkontakteUid')
             ->add('facebookName')
             ->add('twitterName')
-            ->add('subscriptions', null, array('expanded' => true))
         ;
     }
 

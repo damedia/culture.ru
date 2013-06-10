@@ -15,17 +15,8 @@
             <em class="hint">{{ user.lastname }} {{ user.firstname }} {{ user.middlename }}</em>
         </dt>
         <dd>
-            <p>{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle')|raw }}</p>
+            <p>{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle')|raw }}</p>
         </dd>
     </dl>
-    
-    {% if app.session is not empty %}
-        {% set targetUrl = app.session.get('_security.target_path') %}
-        {% if targetUrl is not empty %}
-        <div class="form-actions">
-            <a class="button" href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a>
-        </div>
-        {% endif %}
-    {% endif %}
 </div>
 {% endblock %}

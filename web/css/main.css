@@ -9470,10 +9470,9 @@ a.appstore-link {
 .lk-form {
     font-size: 13px;
     margin: 20px auto;
-    width: 60%;
 }
     .lk-form dl {
-        margin: 20px 0 0;
+        margin: 20px 20% 0;
     }
         .lk-form dl dt, .lk-form dl dd {
             float: left;
@@ -9551,7 +9550,7 @@ a.appstore-link {
     }
     .lk-form .form-actions {
         margin: 10px 0;
-        padding: 10px 10px 10px 35%;
+        padding: 10px 10px 10px 41%;
         border-top: 1px solid #d2d2d2;
     }
         .lk-form .form-actions input[type='submit'],
