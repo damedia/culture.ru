@@ -1,0 +1,66 @@
+.archive-header {
+    font: 32px 'Trebuchet MS', sans-serif;
+    border: 0;
+    color: black;
+    margin: 1px 0 16px;
+}
+    .archive-header span {
+        font-size:20px;
+        display:block;
+    }
+    
+.archive-table {
+    width:100%;
+}  
+    .archive-table tr td{
+        cursor:pointer;
+    }
+    .archive-table tr:hover td {
+        background:#eee;
+    }
+    .archive-table  td , .archive-table  th{
+        border:1px solid #aaa;
+        padding:3px 10px;
+        font-size:13px;
+    }
+    .archive-table  th {
+        text-align:left;
+    }
+    .archive-table p {
+        margin:0;
+        padding:0;
+    }
+    
+    .at-1 , .archive-table  th.at-1 {
+        text-align:center;
+        width:30px;
+    }
+    .at-2, .archive-table  th.at-2  {
+        text-align:center;
+        width:80px;
+    }
+    .at-4 {
+        width:90px;
+    }
+        td.at-4  p {
+            white-space:nowrap;
+            
+            
+        }
+        
+    .at-5 {
+        width:150px;
+    }   
+
+.fancybox-nav {
+    width:1px;
+} 
+.fancybox-image {
+    min-height:100%;
+    min-width:100%;
+    width:auto;
+    height:auto;
+    max-width:3000px;
+    max-height:3000px;
+}   
+    

@@ -7,6 +7,241 @@
 {% block page_header_title %}
     {{ 'Art objects'|trans }}
 {% endblock %}
+{% block container %}
+    <div class="exponats-container">
+        <div class="exponats-header clearfix">
+            <div class="exponats-header-left">
+                <a class="logo" title="Портал культурного наследия России Культура.рф" href="/app_dev.php/"></a>
+                <ul class="breadcrumbs" style="margin-bottom: 25px;">
+                    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+                    <li id="exhibits-breadcrumb-link" style="display: none;"><a href="{{ path('armd_exhibit_list') }}">{{ 'menu.art_objects'|trans }}</a></li>
+                    <li id="exhibits-breadcrumb-title"><span data-title="{{ 'menu.art_objects'|trans }}">{{ 'menu.art_objects'|trans }}</span></li>
+                </ul>
+            </div>
+            <div class="exponats-header-right">
+                <div class="nav-header">
+                    
+                    <div class="exponats-menu" id="exp-menu">
+                        <div class="clearfix">
+                            <ul class="exponats-types" id="exp-types">
+                              <!--<li><a href="#oneline" class="one-row"></a></li>-->
+                              <li class="active"><a href="#twolines" class="two-rows"></a></li><li>
+                              <a href="#threelines" class="all-rows"></a></li>
+                          </ul>
+
+                            <ul class="exponats-categories" id="exp-categories"><!--
+                              {% for id, f in filters %}
+                                  --><li class="with-filter">
+                                    <a data-id="fid-{{ id }}" href="#"><span>{{ f.title }}</span></a>
+                                    <div id="exp-filter-blank" class="exp-filter" style="display: none;">
+                                      <div class="alphabet">
+                                          <a href="#" class="active">Все</a><a href="#">А</a><a href="#">Б</a><a href="#">В</a><a href="#">Г</a><a href="#">Д</a><a href="#">Е</a><a href="#">Ё</a><a href="#">Ж</a><a href="#">З</a><a href="#">И</a><a href="#">Й</a><a href="#">К</a><a href="#">Л</a><a href="#">М</a><a href="#">Н</a><a href="#">О</a><a href="#">П</a><a href="#">Р</a><a href="#">С</a><a href="#">Т</a><a href="#">У</a><a href="#">Ф</a><a href="#">Х</a><a href="#">Ц</a><a href="#">Ч</a><a href="#">Ш</a><a href="#">Щ</a><a href="#">Э</a><a href="#">Ю</a><a href="#">Я</a>
+                                      </div>
+                                      <div class="fiter-results"></div>
+                                      <span class="filter-handle" id="filter-handle"></span>
+                                  </div>  
+                                  </li><!--
+                              {% endfor %}               
+                          --></ul>
+                        </div>
+                    </div>
+                        
+                </div>  
+                
+                <div class="exponats-form-line">    
+                    <div class="exp-f-line1">
+                        <p class="exponats-total"></p>
+                        <form action="" class="obr-form exp-form">
+                            <div class="obr-text-input">
+                                <input id="search_text" name="search" type="text" placeholder="Поиск экспоната">
+                            </div>
+                            <input class="obr-submit-input" type="button" value="">
+                        </form>
+                    </div><div class="exp-f-line2">
+                        <div class="exponats-top-line clearfix">
+                            <ul class="exponats-tags" id="exponats-tags">
+                                
+                            </ul>
+                            <a href="#" id="exhibit-clear-tags-btn" class="orange-btn" style="display: none;">Очистить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="blocksection w clearfix" id="exhibit-list-section"> 
+        <div class="exponats-main">
+   
+            <div class="exponats-content" id="exponats-content">
+                <div id="el-one-blank" class="el-one" rel="0" style="display: none;">
+                    <a href="#"><img src="">
+                    <div class="el-one-wrap">
+                        <div class="el-one-image"><span class="el-one-img-link"><img src=""></span></div>
+                        <div class="el-one-text">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h4 class="el-one-title"><span></span></h4>
+                                        <i class="el-note el-one-year"></i>
+                                        <div class="el-one-authors"></div>
+                                        <div><span class="el-one-museum"></span></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    </a>
+                </div>    
+                    
+                <div class="exponats-scroll-pane" id="exponats-scroll-pane">
+                    <div class="exponats-scroll">
+
+                        <div class="line first-line">
+                                                      
+                        </div>
+                        
+                        <div class="line second-line">
+                                                      
+                        </div>
+                        
+                        <div class="line third-line">                           
+
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-left" id="scroll-left"></div>
+                <div class="scroll-right" id="scroll-right"></div>
+            </div>	
+        </div>
+        </div>
+        
+        <div class="blocksection w clearfix" id="exhibit-item-section" style="display: none;">    
+            <div class="exponats-gallery">       
+                
+                <div class="exponats-main exponats-main-one">
+                    <div class="exponat-main-container clearfix" id="exponat-main-container">
+                        <div class="zoomed-content clearfix">
+                            <div class="main-zoomed-side">
+                                <div class="side-block">
+                                    <a href="#" id="exhibit-back-btn" class="orange-btn">назад</a>
+                                    <p class="exp-one-name"><span class="exhibit-title"></span></p>
+                                    <i class="exhibit-one-date"></i>
+                                    
+                                    <b class="exhibit-authors"></b>
+                                    
+                                    <p id="exp-one-category" class="exp-one-category"></p>
+                                    <a href="#exponats-details" id="details-btn" class="exp-one-details-button">Детали</a>   
+                                    <div class="exponats-details clearfix" id="exponats-details" style="display:none;">
+                                        <div class="text exponat-one-content ">
+                                            <div class="exponat-text-wrap">
+                                                <h1 class="exhibit-title"></h1>
+                                                <p class="exponat-date exhibit-date"></p>
+                                                <h2 class="exhibit-authors"></h2>
+                                                <p class="exponat-note"></p>
+                                                <img id="exhibit-detail-img" src="" alt="" class="image-left" width="127px"/>
+                                                <p id="exhibit-description"></p                       
+                                                <p class="gray"></p>  
+                                                <br clear="all">
+                                                <div id="author-blank" class="gray-block author-block" style="display: none;">
+                                                    <img class="image-right" alt="" src="">
+                                                    <h2 class="author-block-title"></h2>
+                                                    <div class="author-block-body"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="exponat-one-right">                   
+                                            <div id="exhibit-video" class="exp-block exp-videos" style="display: none;">
+                                                <h3>Видео</h3>
+                                                <div class="exp-video-list-image">
+                                                    <a class="block-image fancybox" href="#data-video">
+                                                        <img style="max-width: 100%;" src="" alt=""  />
+                                                        <span class="play"></span>
+                                                    </a>
+                                                </div>
+                                                <div id="data-video" style="display: none;">
+                                                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                                        <iframe width="640" height="360" src="" style="border: 0px;"></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="exhibit-virtual-tour" class="exp-block exp-videos" style="display: none;">
+                                                <h3>Виртуальный тур</h3>
+                                                <div class="exp-text-block">
+                                                    <a href="#" data-fancybox-type="iframe" class="virt-tour-anons vob iframe">
+                                                        <img src="" alt="" width="280" />
+                                                        <span class="virt-tour-anons-over"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div id="exhibit-museum" class="exp-block exp-videos" style="display: none;">
+                                                <h3>Музей</h3>
+                                                <div class="exp-text-block">
+                                                    <a href="#">
+                                                        <img id="exhibit-museum-img" alt="" src="">
+                                                    </a>
+                                                    <p class="main-title">
+                                                        <a id="exhibit-museum-title" href="#"></a>
+                                                    </p>
+                                                    <p>
+                                                        <span id="exhibit-museum-address"></span><br />
+                                                        <a id="exhibit-museum-url" target="_blank"></a>	
+                                                    </p>                           
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="exp-one-virt clearfix" id="exp-one-virt" style="display:none;">
+                                    <a href="#">
+                                        <span class="exp-one-virt-left"></span>
+                                        <span class="exp-one-virt-right">виртуальный<br />тур</span>
+                                    </a>
+                                </div>
+                                
+                                
+                                <div class="zoom-thumb" style="display: none;">
+                                    <div class="zoom-thumb-image-block">
+                                        <div class="zoom-thumb-border" style="display: none;"><div></div></div>
+                                        <img id="zoom-img-bg" src="">                        
+                                    </div>
+                                    <div class="zoom-nav">
+                                        <a href="#" class="zoom-out" id="zoom-out">-</a>
+                                        <a href="#" class="zoom-in" id="zoom-in">+</a>
+                                        <div class="zoom-line">
+                                            <div class="zoom-handle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-zoomed-image">
+                                <img src="">
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="images-carousel">
+                            <ul  id="carousel" class="jcarousel">
+                                
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+{% endblock %}
+
+{#
 
 {% block body %}
 <ul class="breadcrumbs" style="margin-bottom: 25px;">
@@ -197,14 +432,19 @@
 </div>
 {% endblock %}
 
+
+#}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/armdexhibit/css/jquery.jscrollpane.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdexhibit/css/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/armdexhibit/css/exponats.css') }}">
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.jscrollpane.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.mCustomScrollbar.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.overscroll.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/jquery.mousewheel.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/armdexhibit/js/mwheelIntent.js') }}"></script>
