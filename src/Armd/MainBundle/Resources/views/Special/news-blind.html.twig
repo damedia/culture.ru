@@ -1,17 +1,17 @@
 
 {% if app.request.locale == 'ru' %}
-{% if showMenu is not defined or showMenu %}
+{#% if showMenu is not defined or showMenu %#}
     <ul class="tabs-labels" id="tabs-selector">
-        {#
+        
         {% for c in categories %}
             <li {% if loop.first %}class="active"{% endif %}><a href="#{{ c.slug }}tab" slug="{{ c.slug }}">{{ c.title }}</a></li>
         {% endfor %}
-        #}
-        <li class="active"><a href="#eventstab">{{ 'menu.events'|trans }}</a></li>
+        
+       {# <li class="active"><a href="#eventstab">{{ 'menu.events'|trans }}</a></li>
         <li><a href="#interviewstab">{{ 'menu.interview'|trans }}</a></li>
-        <li><a href="#reportagestab">{{ 'menu.reportage'|trans }}</a></li>
+        <li><a href="#reportagestab">{{ 'menu.reportage'|trans }}</a></li>#}
     </ul>
-{% endif %}
+{#% endif %#}
 {% endif %}
 
 {% for slug, entities in news %}
@@ -51,7 +51,7 @@
         $(document).ready( function() {
             // set eventstab as default
             $('.tab').hide();
-            $('#eventstab').show();
+            $('#newstab').show();
         });
     </script>
 {% endblock %}
