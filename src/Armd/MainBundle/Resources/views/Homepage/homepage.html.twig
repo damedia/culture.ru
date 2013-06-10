@@ -179,9 +179,13 @@
 
 {% block right_column %}
     <span class="helper-top-orange-line"></span>
-
+    
+    <section id="homepage-online-translation">
+        {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
+    </section>
+    
 {% if app.request.locale == 'ru' %}
-    <div class="tabs events-tabs video-tabs">
+    <div class="tabs events-tabs video-tabs" style="background: #fff url(../img/more-dots.gif) repeat-x 0 100%; margin-bottom:15px;">
         {#<h2>Сегодня - Всемирный день музеев</h2>#}
         <h3>Актуальное видео</h3>
         <h4>Сегодня - 100 лет со дня рождения композитора Тихона Хренникова</h4>
@@ -201,9 +205,7 @@
         #}
     </div>
 {% endif %}
-    <section id="homepage-online-translation">
-        {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
-    </section>
+    
     
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
