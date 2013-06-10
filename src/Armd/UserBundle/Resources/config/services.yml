@@ -1,3 +1,8 @@
+parameters:
+    armd_user.email_change.listener.class:     Armd\UserBundle\Listener\ChangeProfileListener
+    armd_user.profile.confirmation.template:   ArmdUserBundle:Profile:email.txt.twig
+    armd_user.profile.confirmation.from_email: %fos_user.registration.confirmation.from_email%
+
 services:
 #    turn off last activity to reduce write queries
 #    armd_user.activity_listener:
@@ -55,3 +60,24 @@ services:
         class: Armd\UserBundle\Command\ViewedContentClearCommand
         calls:
             - [setContainer, ["@service_container"] ]
+
+    armd_user.email_change.listener:
+        class: %armd_user.email_change.listener.class%
+        arguments: ['@fos_user.mailer', '@fos_user.util.token_generator', '@router', '@session', '@security.context']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    armd_user_mailer:
+        class: Armd\UserBundle\Mailer\Mailer
+        arguments:
+            - @mailer
+            - @router
+            - @templating
+            -
+                confirmation.template:         %fos_user.registration.confirmation.template%
+                profile_confirmation.template: %armd_user.profile.confirmation.template%
+                resetting.template:            %fos_user.resetting.email.template%
+                from_email:
+                    confirmation:         %fos_user.registration.confirmation.from_email%
+                    profile_confirmation: %armd_user.profile.confirmation.from_email%
+                    resetting:            %fos_user.resetting.email.from_email%

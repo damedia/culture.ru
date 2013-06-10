@@ -42,13 +42,6 @@ class ProfileType extends BaseType
             ->add('vkontakteUid')
             ->add('facebookName')
             ->add('twitterName')
-            ->add('subscriptions', null, array('expanded' => true))
-            ->add('noticeOnComment', 'choice', array('choices' => array(
-                    Notice::T_NONE => 'NOTICE_T_NONE',
-                    Notice::T_REPLY => 'NOTICE_T_REPLY',
-                    Notice::T_THREAD => 'NOTICE_T_THREAD',
-                    Notice::T_ALL => 'NOTICE_T_ALL',
-                )))
         ;
     }
 

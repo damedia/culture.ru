@@ -1,0 +1,17 @@
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
+
+{% block body %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+        <li><span>{{ 'My subscriptions'|trans }}</span></li>
+    </ul>
+
+    <div class="lk-form profile">
+        {{ profileMenu.user_profile_menu('subscriptions-edit') }}
+        {% include 'ArmdUserBundle:Profile:edit_subscriptions_form.html.twig' %}
+    </div>
+{% endblock %}

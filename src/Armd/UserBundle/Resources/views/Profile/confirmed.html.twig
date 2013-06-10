@@ -1,11 +1,12 @@
 {% extends ":Frontend:base.html.twig" %}
 
-{% block page_header_title %}{{ 'Registration'|trans }}{% endblock %}
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
 
 {% block body %}
 <ul class="breadcrumbs">
     <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-    <li><span>{{ 'Registration'|trans }}</span></li>
+    <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+    <li><span>{{ 'Profile'|trans }}</span></li>
 </ul>
 
 <div class="lk-form profile">
@@ -15,7 +16,7 @@
             <em class="hint">{{ user.lastname }} {{ user.firstname }} {{ user.middlename }}</em>
         </dt>
         <dd>
-            <p>{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle')|raw }}</p>
+            <p>{{ 'profile.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle')|raw }}</p>
         </dd>
     </dl>
     

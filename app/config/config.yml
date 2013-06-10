@@ -420,8 +420,13 @@ fos_user:
         group_class: Armd\UserBundle\Entity\Group
         
     registration:
+        confirmation:
+            enabled: true
         form:
-            type:   armd_user_registration        
+            type:   armd_user_registration
+
+    service:
+        mailer: armd_user_mailer
 
 fos_comment:
     db_driver: orm
