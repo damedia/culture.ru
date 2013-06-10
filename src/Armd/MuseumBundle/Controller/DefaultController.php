@@ -301,4 +301,14 @@ class DefaultController extends Controller
         $qb->orderBy('m.title');
         return $qb->getQuery()->getResult();
     }
+    
+    /**
+     * @Route("/archive", name="armd_museum_archive")
+     * 
+     */
+    public function archiveAction()
+    {
+        return $this->render("ArmdMuseumBundle:Default:archive.html.twig");
+    }
+    
 }
