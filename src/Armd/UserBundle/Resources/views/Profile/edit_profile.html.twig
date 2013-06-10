@@ -1,81 +1,17 @@
 {% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
 
 {% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
 
 {% block body %}
-
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	if ($('.uniform').length > 0) {
-			$('.uniform').uniform();
-		}
-    })
-    </script>
-
-
-
-<div class="sonata-user-show">
-    <ul class="lk-menu green-lk-menu">
-        <li class="active"><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a></li>
-        <li><a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Edit'|trans }}</a></li>
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+        <li><span>{{ 'Profile'|trans }}</span></li>
     </ul>
-</div>
 
-
-
-<div class="login-page lk form">
-    <div class="sonata-user-edit-profile">
-        <form action="{{ path('sonata_user_profile_edit') }}" method="POST">
-        {{ form_errors(form) }}
-        <div>
-            <label for="sonata_user_profile_form_gender">{{ 'Gender'|trans }}</label>
-            {{ form_widget(form.gender, { 'attr': {'placeholder': 'Gender'|trans} } ) }}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_firstname">{{ 'Name'|trans }}</label>
-            {{ form_widget(form.firstname, { 'attr': {'placeholder': 'Name'|trans} } ) }}
-        </div>
-
-        <div>
-            <label for="sonata_user_profile_form_lastname">{{ 'Lastname'|trans }}</label>
-            {{ form_widget(form.lastname, { 'attr': {'placeholder': 'Lastname'|trans} } ) }}
-        </div>
-        <div>
-            <label for="uniform-sonata_user_profile_form_dateOfBirth">{{ 'Birth date'|trans }}</label>
-            {{ form_widget(form.dateOfBirth) }}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_website">{{ 'Web site'|trans }}</label>
-            {{ form_widget(form.website, { 'attr': {'placeholder': 'Web site'|trans} } ) }}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_biographyText">{{ 'Biography'|trans }}</label>
-            {{ form_widget(form.biographyText, { 'attr': {'placeholder': 'Biography'|trans} } ) }}
-        </div>
-        <div>
-            <label for="uniform-sonata_user_profile_form_locale">{{ 'Region'|trans }}</label>
-            {{ form_widget(form.region ) }}
-            {#, { 'attr': {'class': 'uniform'} }#}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_phone">{{ 'Phone'|trans }}</label>
-            {{ form_widget(form.phone, { 'attr': {'placeholder': 'Phone'|trans} } ) }}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_vkontakteUid">{{ 'Vkontakte'|trans }}</label>
-            {{ form_widget(form.vkontakteUid, { 'attr': {'placeholder': 'Vkontakte'|trans} } ) }}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_facebookName">{{ 'Facebook login'|trans }}</label>
-            {{ form_widget(form.facebookName, { 'attr': {'placeholder': 'Facebook login'|trans} } ) }}
-        </div>
-        <div>
-            <label for="sonata_user_profile_form_twitterName">{{ 'Twitter login'|trans }}</label>
-            {{ form_widget(form.twitterName, { 'attr': {'placeholder': 'Twitter login'|trans} } ) }}
-        </div>
-        {{ form_rest(form) }}
-        <input type="submit" name="submit" value="{{ 'Submit'|trans }}" />
-        </form>
+    <div class="lk-form profile">
+        {{ profileMenu.user_profile_menu('profile-edit') }}
+        {% include 'ArmdUserBundle:Profile:edit_profile_form.html.twig' %}
     </div>
-</div>
 {% endblock %}

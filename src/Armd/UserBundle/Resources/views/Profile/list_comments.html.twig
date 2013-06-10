@@ -1,0 +1,45 @@
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
+
+{% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+    <li><span>{{ 'Profile'|trans }}</span></li>
+</ul>
+
+<div class="lk-form profile">
+    {{ profileMenu.user_profile_menu('comment-list') }}
+
+    <table class="clearfix">
+    {% if entities|length > 0 %}
+        <tr>
+            <th>{{'Date'|trans}}</th>
+            <th>{% trans from 'ArmdMkCommentBundle' %}Comments section{% endtrans %}</th>
+            <th>{{'Comments'|trans}}</th>
+        </tr>
+        {% for entity in entities %}
+        <tr>
+            <td>{{entity.createdAt|date('d.m.Y  H:i')}}</td>
+            {% if entity.threadCrumbs %}
+            <td>
+                <a href="{{ path(entity.threadCrumbs.threadPath) }}">{{ entity.threadCrumbs.threadTitle|trans }}</a>
+                » 
+                <a href="{{ path(entity.threadCrumbs.entityPath, {'id': entity.threadCrumbs.id}) }}">{{ entity.threadCrumbs.entityTitle }}</a>
+            </td>
+            <td><a href="{{ path(entity.threadCrumbs.entityPath, {'id': entity.threadCrumbs.id}) }}#comments">{{entity.body}}</a></td>
+            {% else %}
+            <td colspan="2">
+                » <a href="{{ entity.thread.permalink}}">{{ entity.body }}</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td>{% trans from 'ArmdMkCommentBundle' %}No comments{% endtrans %}</td></tr>
+    {% endif %}
+    </table>
+</div>
+{% endblock %}

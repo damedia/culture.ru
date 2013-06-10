@@ -7,7 +7,7 @@
                         <div class="kfl-block">
                             <span title="{{ lecture.title }}" class="kfl-image-link">
                                 {% if lecture.isTop100Film %}<div class="top100-corner"></div>{% endif %}
-                                {% thumbnail lecture.verticalBanner, 'lectureW160H120' with {'alt': lecture.title, 'width':'auto', 'height':202, 'class':'kfl-image'} %}
+                                {% thumbnail lecture.verticalBanner, 'tile' with {'alt': lecture.title, 'width':'auto', 'height':202, 'class':'kfl-image'} %}
                             </span>
                             <h3 class="kfl-header"><span class="autoscrolling-wrap"><span class="autoscrollingHorChild">{{ lecture.title }}</span></span></h3>
                             {#% if lecture.productionYear or lecture.timeLength %}

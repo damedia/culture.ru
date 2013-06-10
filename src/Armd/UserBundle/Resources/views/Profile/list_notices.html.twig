@@ -1,0 +1,50 @@
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
+
+{% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+    <li><span>{{ 'Profile'|trans }}</span></li>
+</ul>
+
+<div class="lk-form profile">
+    {{ profileMenu.user_profile_menu('comment-notices') }}
+
+    <table class="clearfix">
+    {% if entities|length > 0 %}
+        <tr>
+            <th>{{'Date'|trans}}</th>
+            <th>{{'Author'|trans}}</th>
+            <th>{% trans from 'ArmdMkCommentBundle' %}Comments section{% endtrans %}</th>
+            <th>{{'Comments'|trans}}</th>
+        </tr>
+        {% for entity in entities %}
+        <tr>
+            <td>{{entity.createdAt|date('d.m.Y  H:i')}}</td>
+            <td>{{entity.comment.authorName}}</td>
+            {% if entity.comment.threadCrumbs %}
+            <td>
+                <a href="{{ path(entity.comment.threadCrumbs.threadPath) }}">{{ entity.comment.threadCrumbs.threadTitle|trans }}</a>
+                » 
+                <a href="{{ path(entity.comment.threadCrumbs.entityPath, {'id': entity.comment.threadCrumbs.id}) }}">{{ entity.comment.threadCrumbs.entityTitle }}</a>
+            </td>
+            <td><a href="{{ path(entity.comment.threadCrumbs.entityPath, {'id': entity.comment.threadCrumbs.id}) }}#comments">{{entity.comment.body}}</a></td>
+            {% else %}
+            <td colspan="2">
+                » <a href="{{ entity.comment.thread.permalink}}">{{ entity.comment.body }}</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td>{% trans from 'ArmdMkCommentBundle' %}No comments{% endtrans %}</td></tr>
+    {% endif %}
+    </table>
+    <div class="form-actions">
+        <a class="button" href="{{ path('armd_comment_delete_notices') }}">{% trans from 'ArmdMkCommentBundle' %}Delete notices{% endtrans %}</a>
+    </div>
+</div>
+{% endblock %}

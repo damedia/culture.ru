@@ -1,0 +1,33 @@
+{% macro user_profile_menu(activeMenuId) %}
+    {% set profileMenu = [
+        { 'id': 'profile-edit', 'url': path('sonata_user_profile_edit'), 'title': 'Profile'|trans, },
+        { 'id': 'profile-edit-authentication', 'url': path('sonata_user_profile_edit_authentication'), 'title': 'Сredentials'|trans},
+        { 'id': 'change-password', 'url': path('fos_user_change_password'), 'title': 'Change password'|trans},
+        { 'id': 'subscriptions-edit', 'url': path('armd_user_subscriptions_edit'), 'title': 'My subscriptions'|trans},
+        { 'id': 'viewed-content', 'url': path('armd_user_viewed_content'), 'title': 'Viewed content'|trans},
+        { 'id': 'atlas-user-objects', 'url': path('armd_atlas_user_objects'), 'title': 'profile.atlas_user_objects'|trans},
+        { 'id': 'favorites', 'url': path('armd_user_favorites'), 'title': 'Favorites'|trans},
+        { 'id': 'comment-list', 'url': path('armd_user_comments_list'), 'title': 'My comments'|trans },
+        { 'id': 'comment-notices', 'url': path('armd_user_comments_notice'), 'title': 'My notices'|trans },
+    ]
+    %}
+
+    <ul class="lk-menu">
+        {% for menuItem in profileMenu %}
+            <li {% if menuItem.id is sameas(activeMenuId) %}class="active"{% endif %}>
+                <a href="{{ menuItem.url }}">{{ menuItem.title }}</a>
+            </li>
+        {% endfor %}
+    {#
+        <li>
+            <a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a>
+        </li>
+        <li class="active">
+            <a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Сredentials'|trans }}</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_change_password') }}">{{ 'Change password'|trans }}</a>
+        </li>
+    #}
+    </ul>
+{% endmacro %}

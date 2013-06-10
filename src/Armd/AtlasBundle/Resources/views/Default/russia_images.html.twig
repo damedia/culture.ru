@@ -57,13 +57,13 @@
 {% endblock %}
 
 {% block body %}
-    <ul class="breadcrumbs">
+    <ul class="breadcrumbs" style="margin-bottom:20px;">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         <li><span>{{ 'menu.russia_images'|trans }}</span></li>
     </ul>
 
     <div  class="russia-top-found">
-        <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span> <span id="found-objects-total"><i>{{ "search_of"|trans }}</i> <span>{{ totalCount }}</span></span></p>
+        <p class="search-found">{{ "search_found"|trans }}: <span id="found-objects-count"></span> <span id="found-objects-total">{{ "search_of"|trans }} <span>{{ totalCount }}</span></span></p>
         <a href="#" id="show-all" class="button show-all-btn">Показать все</a>
     </div>
     <div id="plitka" class="tab plitka-list">

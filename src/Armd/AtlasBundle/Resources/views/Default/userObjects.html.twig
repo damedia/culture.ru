@@ -1,0 +1,29 @@
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'profile.atlas_user_objects'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="lk-form profile">
+        {{ profileMenu.user_profile_menu('atlas-user-objects') }}
+
+        {% if userObjects|length %}
+            <ul {#class="lk-list-links green"#}>
+                {% for object in userObjects %}
+                    <li><a href="{{ path('armd_atlas_index', {'object_id': object.id} ) }}">{{ object.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <dl class="clearfix">
+                <dt></dt>
+                <dd>
+                    <em class="hint"> Вы еще не добавили объекты на атлас </em>
+                </dd>
+            </dl>
+        {% endif %}
+        <div class="form-actions">
+            <a href="{{ path('armd_atlas_index', {'filterType': 'filter_user_objects'})  }}" class="button">Добавить</a>
+        </div>
+
+    </div>
+{% endblock %}

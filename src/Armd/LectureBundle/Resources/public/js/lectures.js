@@ -1,5 +1,5 @@
 var armdMkLectures = {
-    loadByCount: 32,
+    loadByCount: 24,
     isSearch: false,
     lectureSuperTypeCode: null,
 

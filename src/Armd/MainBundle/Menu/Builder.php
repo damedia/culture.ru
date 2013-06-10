@@ -247,12 +247,12 @@ class Builder extends ContainerAware
                 )
             );
             
-//            $mediaMenu->addChild(
-//                'menu.lectures_news',
-//                array(
-//                    'route' => 'armd_lecture_news_index',
-//                )
-//            );
+            $mediaMenu->addChild(
+                'menu.lectures_news',
+                array(
+                    'route' => 'armd_lecture_news_index',
+                )
+            );
 
             //--- /Media
 
@@ -320,7 +320,7 @@ class Builder extends ContainerAware
             $theatreMenu = $menu->addChild(
                 'menu.theatre',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_main_underconstruction',
                 )
             );
             
@@ -331,7 +331,7 @@ class Builder extends ContainerAware
             $musicMenu = $menu->addChild(
                 'menu.music',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_main_underconstruction',
                 )
             );
             

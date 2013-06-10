@@ -1,11 +1,31 @@
 {% extends ":Frontend:base.html.twig" %}
 
+{% block page_header_title %}{{ 'Registration'|trans }}{% endblock %}
+
 {% block body %}
-<div class="lk-block-wrapper">
-    <p class="va-name">{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle') }}</p>
-</div>
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><span>{{ 'Registration'|trans }}</span></li>
+</ul>
+
+<div class="lk-form profile">
+    <dl class="clearfix">
+        <dt>
+            <strong>{{ user.username }}</strong><br/>
+            <em class="hint">{{ user.lastname }} {{ user.firstname }} {{ user.middlename }}</em>
+        </dt>
+        <dd>
+            <p>{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle')|raw }}</p>
+        </dd>
+    </dl>
+    
     {% if app.session is not empty %}
         {% set targetUrl = app.session.get('_security.target_path') %}
-        {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a></p>{% endif %}
+        {% if targetUrl is not empty %}
+        <div class="form-actions">
+            <a class="button" href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a>
+        </div>
+        {% endif %}
     {% endif %}
+</div>
 {% endblock %}

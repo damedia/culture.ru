@@ -1,0 +1,18 @@
+<div class="user-favorites-block">
+    {% for f in favorites %}
+        <h2>{{ f.title }}</h2>
+        <div class="user-favorites-ctegory-block">
+            <ul>
+                {% for l in f.list %}
+                    <li>
+                        <div class="user-favorites-img-block">{% if l.image %}<img src="{{ l.image }}" alt="">{% endif %}&nbsp;</div>
+                        <div class="user-favorites-text-block">
+                            <a href="{{ l.url }}">{{ l.title }}</a> 
+                            <a href="{{ path('armd_user_favorites_del', { 'type': l.type, 'id': l.id }) }}" title="Удалить из «Моих интересов»"><img src="{{ asset('img/delete.png') }}" alt=""></a> 
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>

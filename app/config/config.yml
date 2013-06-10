@@ -234,7 +234,7 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 banner: { width: 922 }
                 realSmall: { width: 285 }
-                bannerW1232: { width:1232 }
+                bannerW1232: { width: 1232 }
 
         museum_guide:
             download:
@@ -420,8 +420,13 @@ fos_user:
         group_class: Armd\UserBundle\Entity\Group
         
     registration:
+        confirmation:
+            enabled: true
         form:
-            type:   armd_user_registration        
+            type:   armd_user_registration
+
+    service:
+        mailer: armd_user_mailer
 
 fos_comment:
     db_driver: orm
@@ -537,12 +542,16 @@ stfalcon_tinymce:
     tinymce_jquery: true
     textarea_class: "tinymce"
     language: %locale%
+    external_plugins:
+        sonatamedia:
+            url: "asset[bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js]"
     theme:
         simple:
             mode: "textareas"
             theme: "advanced"
-            plugins: "paste,fullscreen,inlinepopups"
-            theme_advanced_buttons1_add: "fullscreen,|,pastetext,pasteword"
+            plugins: "advimage,paste,fullscreen,inlinepopups"
+            theme_advanced_buttons1_add: "image,|,pastetext,pasteword"
+            file_browser_callback: SonataMedia.browse
 
 fpn_tag:
     model:

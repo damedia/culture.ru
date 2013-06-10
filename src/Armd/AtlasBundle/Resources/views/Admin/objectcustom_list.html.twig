@@ -81,7 +81,7 @@
                         </a>
                     </td>
                     <td>{{ obj.primaryCategory.title }}</td>
-                    <td>{{ obj.status.title }}</td>
+                    <td>{{ obj.status is empty ? 'unknown' : obj.status.title }}</td>
                     <td>
                         {% if obj.updatedBy %}
                             <a href="{{ path('admin_armd_user_user_show', {'id':obj.createdBy.id}) }}">

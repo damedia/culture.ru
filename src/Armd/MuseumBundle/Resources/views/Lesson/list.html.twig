@@ -59,7 +59,7 @@
         <form id="museums-filter-form" method="post">
         	<span class="search-dates-label">{{ 'search.select'|trans }}</span>
         	
-            <div class="search-category-selects">
+            <div class="search-category-selects search-category-selects-5">
                 <select id="lesson_museum" name="lesson_museum" class="uni">
                     <option value="0">
                         {{ "Museum"|trans }}
@@ -133,6 +133,8 @@
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+    </div>
+    <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
     </div>
 

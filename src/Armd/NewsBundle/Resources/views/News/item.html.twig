@@ -62,6 +62,12 @@
         {% endif %}
 
         {{ entity.title|raw }}
+            
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a class="user-favorites-button" title="Добавить в «Мои интересы»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
+                <img alt="*" src="{{ asset('img/favorites.png') }}" />
+            </a>
+        {% endif %}
     </h2>
 
     {% if entity.image %}
@@ -90,7 +96,9 @@
             {{ entity.announce|raw }}
         </p>
     </div>
+
     {{ entity.body|raw }}
+    {{ add_viewed_content(entity, path('armd_news_item_by_category', {category: entity.category.slug, id: entity.id})) }}
 
     {% if entity.mediaVideo %}
     <div class="block news-gallery-block">
@@ -162,6 +170,8 @@
 {% endif %}
 
 
+
+
 {#<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>#}
 <div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
 <div class="event-one_footer clearfix">
@@ -173,9 +183,27 @@
     {% render url("armd_news_read_also_news", { "id":entity.id, "limit":2 }) %}
 </section>
 
+{# Комментарий #}
+<div class="content-tab" id="c-tab4">
+    <div class="more-comments-show">
+        <div id="comments" class="comments comments-gray clearfix">
+            {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_NEWS')~'_' ~ entity.id %}
+            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+            {% if not is_granted('ROLE_USER') %}
+                <div class="comments-auth-block">
+                    <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                    {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block right_column %}
+    <div style="height:63px; font-size:0; line-height:0"></div>
     {% render url('armd_news_memorial_events') %}
 
     {% render url('armd_atlas_related_objects', {'tags': entity.tags|extract_array_values('getName'), 'limit': 1}) %}
@@ -183,7 +211,8 @@
     {% if app.request.locale == 'ru' %}
         <div class="right-video-block">
             {% render url('armd_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
-
+        </div>
+        <div class="right-video-block">
             {% render url('armd_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
         </div>
     {% endif %}
@@ -244,162 +273,4 @@
 
 {% endblock %}
 
-{#----- this is from old design ------#}
-{% block nonexistant %}
-<div class="news-one text">
-    {#<span class="news-one-type">{{ 'News'|trans }}</span> #}
-	<span class="news-one-date">
-        {{ armd_news.news_date(entity.newsDate) }}
-    </span>
-    <h1>
-        {% if entity.date %}
-            {{ entity.date|date('d.m.Y') }}
-            {% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
-        {% endif %}
-        {{ entity.title|raw }}
-    </h1>
 
-	{% if entity.image %}
-		<div class="news-one-image">
-			{% thumbnail entity.image, 'billboard' with {'alt': entity.image.description } %}
-			{% if entity.image.copyright or entity.image.authorName %}
-				<p class="image-source">
-					{% if entity.image.copyright %}
-						{{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
-					{% endif %}
-					{% if entity.image.authorName %}
-						{{ entity.image.authorName }}
-					{% endif %}
-				</p>
-            {% endif %}
-		</div>
-    {% endif %}
-
-	{% if entity.mediaVideo %}
-        <div class="news-one-image">
-            {% media entity.mediaVideo, 'noformat' with {'width': 366, 'height': 261} %}
-        </div>
-    {% endif %}
-
-	<p class="highlight-text">
-		{{ entity.announce|raw }}
-	</p>
-    {{ entity.body|raw }}
-	{% if entity.source %}
-    	<div class="source">{{ entity.source|replace({"РИА «Новости»": '<a target="_blank" href="http://ria.ru/">РИА «Новости»</a>'})|raw }}</div>
-	{% endif %}
-
-
-	{% if entity.gallery|length > 0 %}
-
-		<div class="photo-gallery">
-            <h3>{{entity.gallery.name}}</h3>
-            <div class="orange-slider-block">
-            <div id="slider" class="flexslider">
-				<ul class="slides">
-					{% for gal_img in entity.gallery.galleryHasMedias %}
-						<li>
-							<a class="in-fancybox flexslider-image" rel="gallery" name="leaf" title="{{gal_img.media.name}}" href="{% path gal_img.media, 'reference' %}" data-fancy-image="{% path gal_img.media, 'reference' %}">
-                                <img src="{% path gal_img.media, 'big' %}" />
-								<span>{{gal_img.media.name}}</span>
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
-            </div>
-			<div class="nav-wrap">
-				<div class="nav">
-                    <div class="orange-slider-block">
-					<div id="carousel" class="flexslider ">
-					  <ul class="slides">
-						{% for gal_img in entity.gallery.galleryHasMedias %}
-							<li>
-								<img src="{% path gal_img.media, 'thumbnail' %}" />
-							</li>
-						{% endfor %}
-					  </ul>
-					</div>
-				</div>
-			</div>
-        </div>
-        </div>
-
-
-		{% endif %}
-
-    <div class="clear"></div>
-
-
-    {#<div class="yashare-auto-init" data-yashareType="icon" data-yashareQuickServices="vkontakte,lj,twitter,|,facebook,odnoklassniki"></div>#}
-
-	<div class="news-one-footer clearfix">
-		
-	
-	
-		<div class="share" >
-			<span id="yandex_share"></span>
-			{#<form target="_blank" method="post" action="http://www.livejournal.com/update.bml" id="socialnetwork">#}
-
-
-				{#{% set share_url = url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) %}#}
-
-				{#&#123;&#35; vkontakte &#35;&#125;#}
-				{#<a style="background-position:0 0;" href="http://vkontakte.ru/share.php?url={{ share_url }}&amp;title={{ entity.title }}&amp;description={{ entity.announce }}&image=http://roskult.ru/img/logo.png" target="_blank"></a>#}
-
-				{#&#123;&#35; livejournal &#35;&#125;#}
-				{#<a onclick="$(this).parent().submit(); return false;" style="background-position:-32px 0;" href="http://www.livejournal.com/update.bml?event={{ share_url }}&subject={{ entity.title }}%3C%2Fa%3E" target="_blank"></a>#}
-
-				{#&#123;&#35; twitter &#35;&#125;#}
-				{#<a style="background-position:-48px 0;" href="http://twitter.com/intent/tweet?text={{ entity.title }}&url={{ share_url }}" target="_blank"></a>#}
-
-				{#<input type="hidden" name="subject" value="{{ entity.title }}">#}
-				{#<textarea name="event" style="display:none">#}
-					{#<div style="padding:20px; margin:10px;">#}
-						{#<span style="font-size:12px; color:#8e8e8e; display:block;">{{ f.date|date('d') }} {{ ('calendar.full.'~f.date|date('M'))|trans }} / {{ f.date|date('Y') }}</span><h1 style="font-size:27px; line-height:29px; font-weight:normal; margin:10px 0 15px;">{{ entity.title }}</h3>{{ entity.announce|raw }}#}
-						{#<a href="{{ share_url }}">Подробнее</a>#}
-					{#</div>#}
-				{#</textarea>#}
-
-				{#<a style="background-position:-64px 0;" href="http://www.facebook.com/sharer.php?u={{ share_url }}&t={{ entity.title }}&src=sp" target="_blank"></a>#}
-
-				{#&#123;&#35; odnoklassniki &#35;&#125;#}
-				{#<a style="background-position:-16px 0;" href='http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st._surl={{ share_url }}' target='_blank'></a>#}
-
-			{#</form>#}
-			{#<!-- AddThis Button BEGIN #}
-			{#<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="float:right;">#}
-			{#<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ffaefe0133401dc"></script>#}
-			{#<a id="blog-post-{{ entity.id }}" class="addthis_button_preferred_1"></a>#}
-			{#<script type="text/javascript">#}
-			{#addthis.button('#blog-post-{{ entity.id }}', {}, {url: '{{ url('cp_show', { 'id': entity.id }) }}', title: '{{ entity.title }}'});#}
-			{#</script>#}
-			{#</div>#}
-			{#AddThis Button END -->#}
-
-		</div>
-
-
-		{% if thread is not empty %}
-		   <div class="comments">
-			   {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': thread.id} %}
-			</div>
-		{% endif %}
-		<!-- /commetns-list-->
-		
-
-	
-	<div class="print-link">
-		<a href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}" target="_blank">{{ 'Printversion'|trans }}</a>
-		<p style="font-size:15px; color:#f90;">&larr; <a style="color:#f90;" href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ 'Back'|trans }}</a><p>
-	</div>
-</div>
-</div>
-
-    <!-- Read also -->
-    {% render url("armd_news_read_also_news", { "id":entity.id, "limit":4 }) %}
-    <!-- /Read also -->
-
-{% endblock %}
-
-{#----- /this is from old design ------#}

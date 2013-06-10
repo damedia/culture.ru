@@ -46,6 +46,10 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
+        
+        <field name="noticeOnComment" column="notice_on_comment" type="integer" nullable="true"/>
+
+        <field name="storeViewedContent" column="store_viewed_content" type="boolean" nullable="true" />
 
     </entity>
 

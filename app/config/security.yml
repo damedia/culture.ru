@@ -69,6 +69,11 @@ security:
             fos_oauth:  true
             stateless:  true
 
+        oauth_atlas_api:
+            pattern:    ^/atlas/api
+            fos_oauth:  true
+            stateless:  true
+
         # defaut login area for standard users
         main:
             switch_user:        true
