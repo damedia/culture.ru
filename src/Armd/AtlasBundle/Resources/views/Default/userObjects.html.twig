@@ -7,10 +7,23 @@
     <div class="lk-form profile">
         {{ profileMenu.user_profile_menu('atlas-user-objects') }}
 
-        <ul {#class="lk-list-links green"#}>
-            {% for object in userObjects %}
-                <li><a href="{{ path('armd_atlas_index', {'object_id': object.id} ) }}">{{ object.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% if userObjects|length %}
+            <ul {#class="lk-list-links green"#}>
+                {% for object in userObjects %}
+                    <li><a href="{{ path('armd_atlas_index', {'object_id': object.id} ) }}">{{ object.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <dl class="clearfix">
+                <dt></dt>
+                <dd>
+                    <em class="hint"> Вы еще не добавили объекты на атлас </em>
+                </dd>
+            </dl>
+        {% endif %}
+        <div class="form-actions">
+            <a href="{{ path('armd_atlas_index', {'filterType': 'filter_user_objects'})  }}" class="button">Добавить</a>
+        </div>
+
     </div>
 {% endblock %}

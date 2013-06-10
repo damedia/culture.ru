@@ -659,6 +659,8 @@ class DefaultController extends Controller
                     'statusTitle' => $entity->getStatus()->getActionTitle(),
                 ),
             );
+
+            $this->sendMail($entity);
         }
         catch (\Exception $e) {
             $res = array(
@@ -1054,6 +1056,21 @@ class DefaultController extends Controller
         }
 
         return $items;
+    }
+
+    public function sendMail($object) {
+        $mailer = $this->get('mailer');
+
+        $mail = new \Swift_Message();
+
+        $mail->setFrom($this->container->getParameter('mail_from'));
+        $mail->setSubject('culture.ru: Создан новый объект атласа');
+        $mail->setBody($this->renderView('ArmdAtlasBundle:Mail:user_object.html.twig', array('object' => $object)), 'text/html');
+        $mail->setTo($object->getCreatedBy()->getEmail());
+
+        $mailer->send($mail);
+
+
     }
 
 }
