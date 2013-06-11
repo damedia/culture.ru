@@ -34,15 +34,15 @@ $(function () {
             }
         }
     };
-
-    $("a[href='#login-popup']")
-        .qtip($.extend(true, qtipDefaults, {
-            content: $("#login-popup")
-        }))
-        .click(function() {
-            return false;
-        });
-
+    if ($("a[href='#login-popup']").length > 0) {
+        $("a[href='#login-popup']")
+            .qtip($.extend(true, qtipDefaults, {
+                content: $("#login-popup")
+            }))
+            .click(function() {
+                return false;
+            });
+    }
     $('.flexslider').flexslider({
         animation: "slide",
         controlNav: false,
@@ -452,7 +452,7 @@ $(function () {
             $(this).find('figcaption').width($(this).find('img').width());
         })
     })
-    
+    if ($("a[href='#appstore-popup']").length > 0) {
     $("a[href='#appstore-popup']")
         .qtip($.extend(true, qtipDefaults, {
             content: $("#appstore-popup").html(),
@@ -469,6 +469,7 @@ $(function () {
         .click(function() {
             return false;
         });
+    }    
     
     $('body').on('click', $(this), function(e){
         if ($('#datapicker').is(':visible')) {

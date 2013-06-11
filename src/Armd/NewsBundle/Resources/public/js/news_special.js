@@ -36,7 +36,7 @@ var armdMkNews = {
         armdMk.startLoading();
         var category = $('#tabs-selector').length ? $('#tabs-selector li.active a').attr('slug') : 'news',
         	offset = $('#' + category + 'tab article.event-anons').length;
-                
+        
         $.ajax({
             url: Routing.generate('armd_main_special_news_more_load'),
             data : {
@@ -48,7 +48,7 @@ var armdMkNews = {
             dataType: 'html',
 
             success: function(data) {
-            	if (data != '') {
+            	if (data != '') {  
 	                $('#' + category + 'tab article.event-anons:last').after(data);
 	                offset = $('#' + category + 'tab article.event-anons').length;
             	}
