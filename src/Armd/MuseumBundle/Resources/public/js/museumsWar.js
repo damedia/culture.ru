@@ -1,32 +1,37 @@
 var WarArchive = {
-    imagesArray: [],
+    imagesArray: null,
     zoomIcon:'',
+
     init: function(icon){
         $(".archive-table tr").click(function(e){
             WarArchive.zoomIcon = icon;
-            var index = $(".archive-table tr").index($(this));
-            WarArchive.loadImages(index);
+            var index = $(".archive-table tr").index($(this)).toString();
+            WarArchive.fancyZoom(WarArchive.imagesArray[index]);
         });
+
+        $.ajax({
+            url: '/bundles/armdmuseum/js/war-archive.json',
+            dataType: 'json',
+            success: function (data) {
+                for (var i in data) {
+                    if (data.hasOwnProperty(i)) {
+                        for (var j in data[i]) {
+                            if (data[i].hasOwnProperty(j)) {
+                                data[i][j] = {'href' : 'http://culture.ru/ru/uploads/media/war-archive/' + i + '/' + data[i][j]};
+                            }
+                        }
+                    }
+                }
+                WarArchive.imagesArray = data;
+            },
+            error: function () {
+                alert('Error while loading war-archive.json');
+            }
+        })
     },
-    /**
-     * Получить список изображений для папки под номером @num
-     */
-    loadImages: function(num){
-        WarArchive.imagesArray[num] = [];
-        
-        var imagesNames = ['00006.jpg', '00007.jpg', '00008.jpg', '00009.jpg'];
-        
-        for (var j = 0; j < imagesNames.length; j++) {
-            WarArchive.imagesArray[num].push({href:'/img/war_archive/'+num+'/'+imagesNames[j]});
-        }
-        console.log(num);
-        WarArchive.fancyZoom(num);
-    },
-    /**
-     * Инициализация FancyBox c зумом
-     */
-    fancyZoom: function(num) {
-        $.fancybox.open(WarArchive.imagesArray[num], {
+
+    fancyZoom: function(images) {
+        $.fancybox.open(images, {
             autoSize:   false,
             scrolling:  "no",
             openEffect: 'none',
