@@ -1,0 +1,136 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('js/function.js') }}"></script>
+
+<script type="text/javascript">
+    $(function () {
+      initFancybox();
+  });
+
+    function initFancybox() {
+        $(".fancybox").fancybox({
+            openEffect	: 'none',
+            closeEffect	: 'none'
+        });
+    }
+</script>
+
+{% endblock %}
+
+{% block title %}{{ parent() }} — {{ 'menu.galley_of_war'|trans }}{% endblock %}
+
+{% block page_header_title %}{{ 'menu.galley_of_war'|trans }}{% endblock %}
+
+{% block left_column %}
+<ul class="breadcrumbs" style="margin-bottom:20px;">
+    <li><a href="/">Главная</a></li>
+    <li><span>{{ 'menu.galley_of_war'|trans }}</span></li>
+</ul>
+
+<div class="plitka gallery-of-war">
+    <ul class="slides gallery-of-war-list">
+        <li class="plitka-one-wrap gow-one">
+            <a href="#">
+                <div class="gow-block">
+                    <span class="gow-image-link"><img alt="Алексеев (1-й) Илья Иванович" class="gow-image" src="/img/gallery_of_war/small/1_wgallery_pre.jpg"></span>
+                    <h3 class="gow-header">Алексеев (1-й) Илья Иванович</h3>
+                    <p class="gow-info">18.07.1772 – 03.10.1830гг.</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+        <li class="plitka-one-wrap gow-one">
+            <a href="#">
+                <div class="gow-block">
+                    <span class="gow-image-link"><img alt="Алексеев (1-й) Илья Иванович" class="gow-image" src="/img/gallery_of_war/small/1_wgallery_pre.jpg"></span>
+                    <h3 class="gow-header">Алексеев (1-й) Илья Ивановичs gvs fgsf gsdf gsd bsdf sd fg</h3>
+                    <p class="gow-info">18.07.1772 – 03.10.1830гг.</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+        <li class="plitka-one-wrap gow-one">
+            <a href="#">
+                <div class="gow-block">
+                    <span class="gow-image-link"><img alt="Алексеев (1-й) Илья Иванович" class="gow-image" src="/img/gallery_of_war/small/1_wgallery_pre.jpg"></span>
+                    <h3 class="gow-header">Алексеев (1-й) Илья Иванович</h3>
+                    <p class="gow-info">18.07.1772 – 03.10.1830гг.</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+        <li class="plitka-one-wrap gow-one">
+            <a href="#">
+                <div class="gow-block">
+                    <span class="gow-image-link"><img alt="Алексеев (1-й) Илья Иванович" class="gow-image" src="/img/gallery_of_war/small/1_wgallery_pre.jpg"></span>
+                    <h3 class="gow-header">Алексеев (1-й) Илья Иванович s das as dfas as vas f</h3>
+                    <p class="gow-info">18.07.1772 – 03.10.1830гг.</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+        <li class="plitka-one-wrap gow-one">
+            <a href="#">
+                <div class="gow-block">
+                    <span class="gow-image-link"><img alt="Алексеев (1-й) Илья Иванович" class="gow-image" src="/img/gallery_of_war/small/1_wgallery_pre.jpg"></span>
+                    <h3 class="gow-header">Алексеев (1-й) Илья Иванович</h3>
+                    <p class="gow-info">18.07.1772 – 03.10.1830гг.</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+        <li class="plitka-one-wrap gow-one">
+            <a href="#">
+                <div class="gow-block">
+                    <span class="gow-image-link"><img alt="Алексеев (1-й) Илья Иванович" class="gow-image" src="/img/gallery_of_war/small/1_wgallery_pre.jpg"></span>
+                    <h3 class="gow-header">Алексеев (1-й) Илья Иванович</h3>
+                    <p class="gow-info">18.07.1772 – 03.10.1830гг.</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+    </ul>
+</div><!-- /gallery-of-war -->
+
+<hr style="height:10px; background:red">
+
+<div class="gallery-of-war-one">
+    <div class="clearfix">
+        <div class="gowo-img"><a class="fancybox" href="/img/gallery_of_war/big/1_wgallery.jpg"><img src="/img/gallery_of_war/small/1_wgallery_pre.jpg" alt="Алексеев (1-й) Илья Иванович"></a></div><!-- /gowo-img -->
+        <div class="gowo-summary">
+            <h2>Алексеев (1-й) Илья Иванович</h2>
+            <p>18.07.1772 – 03.10.1830гг.<br>
+            Генерал-лейтенант (1815г.)</p>
+        </div><!-- /gowo-summary -->
+    </div><!-- /clearfix -->
+     <div class="gowo-text">
+        <h3>Награды</h3>
+        <h4>Ордена Российской империи:</h4>
+        <p>Св.Георгия 3-го кл. (02.08.1809г.), Св.Владимира 2-й ст. (1812г.; 3-й ст. – 01.12.1807г.), Св.Анны 1-й ст. (14.02.1809г.) с алмазами, Св.Иоанна Иерусалимского почетный командор (26.09.1799г.).</p>
+        <h4>Иностранные ордена:</h4>
+        <p>Прусский орден Красного Орла 2-й ст. (1813г.), сицилийский орден Св.Януария.
+        <h4>Прочие награды:</h4>
+        <p>Золотая шпага «за храбрость» с алмазами (20.05.1808г.).
+
+        <h3>Происхождение</h3>
+        <p>Сын бедного помещика Рузского уезда Московской губернии. В 9 лет был записан капралом в Лейб-гвардии Преображенский полк.</p>
+        <h3>Карьера на русской службе</h3>
+        <p>В 17-летнем возрасте в октябре 1789 года сержантом принял участие в Русско-шведской войне 1788–1790гг., был дважды ранен. По окончании войны переведен вахмистром в Лейб-гвардии Конный полк, принимал участие в штурме Измаила.</p>
+        <p>В 1794 года в звании ротмистра направлен в Сумский легкоконный полк, в составе которого принимал участие в польской кампании 1794 года.</p> 
+        <p>В 1796 году произведён в майоры, назначен адъютантом инспектора кавалерии, затем адъютантом московского военного губернатора.</p> 
+        <p>9 августа 1799 года произведен в полковники, а вскоре был назначен московским полицмейстером. </p>
+        <p>23 июня 1806 года назначен шефом Митавского драгунского полка, со-зданного из драгунских эскадронов московской полиции, вместе с полком воевал в 1807 году в Пруссии.</p> 
+        <p>За отличия в сражениях при Прейсиш-Эйлау, Гутштадте, Гейльсберге и Фридланде отмечен тремя наградами: орденом Святого Георгия 4-го класса, орденом Святой Анны 2-й степени с алмазами, а также золотой шпагой «За храбрость» с алмазами) и 24 мая 1807 года произведен в ге-нерал-майоры.</p> 
+        <p>Во время Русско-шведской войны 1808–1809гг. командовал отдельным отрядом и авангардом, был ранен в ногу. За подвиги был удостоен орденов Святого Георгия 3-го класса и Святой Анны 1-й степени.</p>
+        <p>В 1812 году генерал-майор Алексеев шеф Митавского драгунского полка и командир кавалерийской бригады, состоящей из Митавского и Финляндского драгунских полков. Бригада входила в состав в 1-го отдельного пехотного корпуса генерал-лейтенанта П.Х. Витгенштейна, задача которого состояла в прикрытии петербургского направления.</p>
+        <p>В кампании 1812 года генерал-майор Алексеев участвовал в сражениях при Полоцке, Чашниках, Смолянах и при р.Березине (у деревни Студенка).</p> 
+        <p>Во время кампании 1813 года в бою при Лютцене получил тяжелое ранение в ногу и был отправлен в тыл на излечение. </p>
+        <p>29 августа 1814 года после выздоровления назначен начальником 3-й драгунской дивизии. </p>
+        <p>30 августа 1815 за отличие при осаде Меца был произведен в генерал-лейтенанты.</p>
+        <p>16 января 1819 года назначен состоять по кавалерии. </p>
+        <p>Умер 3 октября 1830 года в Москве. </p>
+        <p>21 октября 1830 года исключен из списков умершим. </p>
+        <p>Похоронен на кладбище московского Симонова монастыря. </p>
+     </div><!-- /gowo-text -->
+</div><!-- /gallery-of-war-one -->
+{% endblock %}
+{% block right_column %}
+
+{% endblock %}

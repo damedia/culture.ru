@@ -9110,7 +9110,59 @@ a.appstore-link {
 /* /Ekaterina Moiseeva. routes */
 
 
+/* akoshelev. gallery of war */
+.gallery-of-war{}
+.gallery-of-war .gow-one{
+    display:inline-block;
+    float:none;
+    padding:12px;
+    width:158px;
+    vertical-align: top;
+}
+.lt-ie8 .gallery-of-war .gow-one{
+    display:inline;
+}
+.gallery-of-war a{
+    text-decoration:none;
+    outline:0;
+    color:#000;
+}
+.gallery-of-war .gow-image-link img{
+    width:158px;
+    height:auto;
+}
+.gallery-of-war .gow-header{
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 9px 0 7px;
+    font-weight: bold;
+    letter-spacing: -0.1em;
+}
+.gallery-of-war .gow-info{
+    color: #7e7e7e;
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
+.gallery-of-war-one{
+    margin-top: 20px;
+}
+.gallery-of-war-one .gowo-img{
+    float:left;
+    margin-right:15px;
+    width:352px;
+}
+.gallery-of-war-one .gowo-img img{
+    width:352px;
+    height:auto;
+}
+.gallery-of-war-one .gowo-summary{
+    float:left;
+}
 
 /**
  * Profile Forms
@@ -9388,3 +9440,33 @@ a.appstore-link {
     width: 14px;
     margin-left: 10px;
 }
+
+/* akoshelev. gallery of war */
+.gallery-of-war-one .gowo-summary h2{
+    font-weight: normal;
+    color: #000;
+    margin: 0 0 5px;
+    padding: 3px 0 0;
+    line-height: 30px;
+    font-size:28px;
+}
+.gallery-of-war-one .gowo-summary p{
+    color: #6f6f6f;
+    font-size: 15px;
+}
+.gallery-of-war-one .gowo-text h3{
+    margin:20px 0 10px 0;
+    color: #f79016;
+    font-size: 19px;
+}
+.gallery-of-war-one .gowo-text h4{
+    margin: 0 0 3px 0;
+    font-size:14px;
+    color:#000;
+}
+.gallery-of-war-one .gowo-text p{
+    margin:0 0 10px 0;
+    font-size:13px;
+}
+/* /akoshelev. gallery of war */
+
