@@ -111,39 +111,21 @@ security:
                             oauth_consumer_key: oHZwTxIjcC8A6ScPhcUaMA
                             consumer_secret: YtWVcqQ4kU1yZ0FfyrG6V28w0XvWyIZDI9YQP4M
                         vkontakte:
-                            app_id: 3276497
-                            secret: 2L2fi5wkrYoVfJCKWQOn
+                            app_id: 3702231
+                            secret: fVGv4e7DWCBqAizsWlR4
                         facebook:
                             app_id: 549475125075147
                             secret: 89ac4602917e536d69d8fabdca55413e
 
-                    roskult.ru:
+                    mkmark.dev.armd.ru:
                         vkontakte:
-                            app_id: 3118810
-                            secret: yTocvcEwl4cv4NHNJJEl
+                            app_id: 3702233
+                            secret: LjQKUs7w8yuv9eyRSso2
                         facebook:
-                            app_id: 182778148514104
-                            secret: 19c7d10f46b7e753c81143c27d48357c
-                        twitter:
-                            oauth_consumer_key: IVysXnVjx31A9b72xQwg
-                            consumer_secret: j3XNNBdbk8YMBhHd9AHLCErTzlzobZmSV5wv1o922w
+                            app_id: 213094462173030
+                            secret: b676b6de6f0055fc63986335a1d83560
 
 
-                    mk.dev.armd.ru:
-                        twitter:
-                            oauth_consumer_key: edBbssXZxodI6DNxd555w
-                            consumer_secret: qtCdtWxiANPtyiTxpdnQ2PbNdMjtfq3aiKBx1hLHY
-
-                    mk.armd.shams.su:
-                        vkontakte:
-                            app_id: 3119047
-                            secret: d0H7euAEzj12bcxvcmMu
-                        facebook:
-                            app_id: 482442168446063
-                            secret: 4dc17cf63e24d79b6b4a54360bc3db66
-                        twitter:
-                            oauth_consumer_key: F0lzOE5KpZQoR6lgF92g
-                            consumer_secret: x426C9iJJvYOQhX7tK5VKEHfGxFyFFsX7bXkCbI53Tg
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users
