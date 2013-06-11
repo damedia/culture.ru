@@ -2,8 +2,8 @@
 
 {% block pre_content %}
     <ul class="breadcrumbs">
-        <li><a href="/">Главная</a></li>
-        <li><a href="{{ path('armd_perfomance_list') }}">{{ 'menu.performance'|trans }}</a></li>
+        <li><a href="/">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_perfomance_list') }}">{{ 'menu.perfomance'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
 {% endblock %}
@@ -325,6 +325,7 @@
         function initSocialShare() {
             new Ya.share({
                 element: 'yandex-share',
+                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                 elementStyle: {
                     'type': 'none',
                     'border': false,

@@ -112,8 +112,13 @@ types_icons:
 
 save_original_photo: Сохранить
 read_more: Читать дальше
+read_more_2: Читать дальше
 recommended: Рекомендуем
 back: Назад
 social_share: Опубликовать в социальных сетях
 images_russia: Образы России
 Search_current_section: Искать в текущем разделе
+
+atlas.culture_objects: Объекты культуры
+atlas.tourist_clusters: Туристические кластеры
+atlas.my_objects: Мои объекты

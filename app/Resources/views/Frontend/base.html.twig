@@ -107,6 +107,7 @@
 
              new Ya.share({
                  element: 'yandex-share-global',
+                 l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                  elementStyle: {
                      'type': 'none',
                      'border': false,
