@@ -20,7 +20,6 @@ var exhibitItem = {
     dragY1: null,
     dragX2: null,
     dragY2: null,
-    resizing:true,
     init: function(data) {
         exhibitItem.objects = {};
         exhibitItem.offset = 0;
@@ -32,14 +31,11 @@ var exhibitItem = {
         exhibitItem.fullCount = data.count;
         exhibitItem.setExhibits(data.objects, data.offset);            
         $('#carousel li img:first').addClass('active');
-        
+
         exhibitItem.activeExhibit($('#carousel img.active'));
-        
-        
-        //exhibitItem.resizeExhibits();
-        
-       
-/*
+        exhibitItem.resizeExhibits();
+
+
         $('#details-btn').off('click').on('click', function() {
             if (!$(this).data('opened')) {
                 $('#exponats-details').show();
@@ -53,30 +49,11 @@ var exhibitItem = {
                 $(this).text('Детали');
             }
             return false;
-        });*/
+        });
         $(window).bind('resize', function() {
-            if (!exhibit.resizing) {
-                exhibit.delay(function(){
-                  exhibitItem.activeExhibit($('#carousel img.active'));
-                  exhibit.resizing = true;
-                }, 1000);
-            }
+          // exhibitItem.resizeExhibits();
+          exhibitItem.activeExhibit($('#carousel img.active'));
         });
-        
-                
-        $('#details-btn').fancybox({
-            fitToView	: false,
-            width		: '70%',
-            height		: '70%',
-            autoSize	: false,
-            closeClick	: false,
-            openEffect	: 'none',
-            closeEffect	: 'none'
-        });
-        
-        
-        
-        
     },
     setObjectListeners: function() {
         $(".jcarousel-container").mousewheel(function(event, delta) {
@@ -93,7 +70,7 @@ var exhibitItem = {
         });
 
         var image, imageWidth, imagePos, popupImage, imgPosLeft, imgPosTop, popupTimeout;
-        /*
+
         $('#carousel').on('mouseenter', 'li', function() {
             image = $(this).find('img');
             imagePos = image.offset();
@@ -103,14 +80,14 @@ var exhibitItem = {
             popupImage = $('<img src="' + image.attr('src') + '" alt="" class="popup-image" style="opacity:0;top:' + imgPosTop + 'px; left:' + imgPosLeft + 'px" id="image_' + image.index() + '" />');
             $('.popup-image').remove();
             $('body').append(popupImage);
-            imgPosLeft = imgPosLeft + 40 - popupImage.width() / 2;
+            imgPosLeft = imgPosLeft + 20 - popupImage.width() / 2;
             popupImage.css({'left': imgPosLeft, 'opacity': '1', 'z-index': '10'});
 
         });
 
         $('#carousel').on('mouseout', 'li', function() {
             $('.popup-image').remove();
-        });*/
+        });
     },
     getObjectsCount: function() {
         var count = 0;
@@ -122,28 +99,17 @@ var exhibitItem = {
         return count;
     },
     resizeExhibits: function() {
-        
-        if($(window).height() > 500){
-            var headerHeight = $('.exponats-header').height();
-            var footerHeight = $('.images-carousel').height();
-            var sideHeight  = $('.main-zoomed-side').height();
-            var viewportH = $(window).height()-headerHeight - footerHeight - 144;
-            if (viewportH < sideHeight) {
-                viewportH = sideHeight;
-            }    
-            $('.main-zoomed-image').height(viewportH);    
-           }
-          else {
-              $('.main-zoomed-image').height(400);
-          }
-        
- 
-       
-      
+      if($(window).height() > 500){
+        var viewportH = $(window).height()-100;
+        $('.main-zoomed-image').height(viewportH);
+      }
+      else{
+          $('.main-zoomed-image').height(400);
+      }
     },
     setExhibits: function(objects, offset) {
-        
-        var li, imgBorder = $('<i style="width:' + 66 + 'px; height:' + 86 + 'px; "></i>');
+
+        var li, imgBorder = $('<i style="width:' + 36 + 'px; height:' + 48 + 'px; "></i>');
 
         if ($.isEmptyObject(objects)) {
             exhibitItem.stopLoad = true;
@@ -151,10 +117,7 @@ var exhibitItem = {
             return false;
         }
 
-        
-        
         $.extend(exhibitItem.objects, objects);
-        
         exhibitItem.offset = offset;
 
         $('.images-carousel').empty();
@@ -162,21 +125,17 @@ var exhibitItem = {
 
         for (var id in exhibitItem.objects) {
             li = $('<li><img data-id="' + id + '" src="' + exhibitItem.objects[id]['img_thumb'] + '" alt="" /></li>');
-                
+
             if (id == exhibitItem.activeId) {
                 li.append(imgBorder);
                 li.find('img').addClass('active');
             }
 
             $('#carousel').append(li);
-            
-            
-            
         }
- 
+
         $('#carousel').jcarousel({
             start: exhibitItem.start,
-            itemFallbackDimension: 68,
             buttonNextCallback: function(carousel, control, flag) {
                 if (!flag && exhibitItem.getObjectsCount() < exhibitItem.fullCount) {
                     exhibitItem.start = carousel.last;
@@ -184,48 +143,34 @@ var exhibitItem = {
                 }
             }
         });
-        setTimeout(function(){
-            imgBorder.width(parseInt($('#carousel').find('img.active').width(), 10)-4); 
-        }, 500);
-       
-        
+
         exhibitItem.setObjectListeners();
     },
     resetActiveExhibit: function() {
         exhibitItem.dragX1 = exhibitItem.dragY1 = exhibitItem.dragX2 = exhibitItem.dragY2 = null;
     },
     activeExhibit: function(img) {
-        var imgBorder = $('<i style="width:' + (parseInt(img.width(), 10) - 4) + 'px; height:' + 86 + 'px; "></i>'),
+        var imgBorder = $('<i style="width:' + 36 + 'px; height:' + 48 + 'px; "></i>'),
                 id = img.attr('data-id');
         
         exhibitItem.resetActiveExhibit();
         
         $('.exponats-top-line').css('visibility', 'hidden');
         exhibitItem.activeId = id;
-        
         img.parent().append(imgBorder).siblings().find('i').remove();
         img.addClass('active').parent().siblings().find('img').removeClass('active');       
-       
-        
+
         exhibitItem.setPrimaryImage(id);
-        
-        
-       
         exhibitItem.setPageData(id);
         $('.exponats-top-line').css('visibility', 'visible');
-        
-        setTimeout(function(){
-            exhibit.resizing = false;
-        }, 2000);
-        
     },
     setPrimaryImage: function(id) {
         armdMk.startLoadingBlock($('#exponat-main-container'));
-        
+        exhibitItem.resizeExhibits();
         var img, nativeImg, imgRealWidth, imgRealHeight,
                 imgStartWidth, imgStartHeight,
-                containerWidth,
-                containerHeight;
+                containerWidth = $('.main-zoomed-image').width(),
+                containerHeight = $('.main-zoomed-image').height();
 
         $('.zoom-thumb').hide();
         $('.main-zoomed-image').empty();
@@ -238,148 +183,129 @@ var exhibitItem = {
         $('.main-zoomed-image').append(img);
         exhibitItem.primaryImg = img;
         img.load(function() {
-            
-            $('.zoom-thumb img').width(200);
-            $('.zoom-thumb img').attr('src', exhibitItem.objects[id]['img_small']);
-            $('.zoom-thumb').show();
-            
-            setTimeout(function(){
-                
-                exhibitItem.resizeExhibits();
-            
-                containerWidth = $('.main-zoomed-image').width(),
-                containerHeight = $('.main-zoomed-image').height();
-                
-                
-                exhibitItem.imgRealWidth = imgRealWidth = nativeImg.width;
-                exhibitItem.imgRealHeight = imgRealHeight = nativeImg.height;
+            exhibitItem.imgRealWidth = imgRealWidth = nativeImg.width;
+            exhibitItem.imgRealHeight = imgRealHeight = nativeImg.height;
 
-                if (imgRealWidth > containerWidth || imgRealHeight > containerHeight) {
-                    imgStartHeight = Math.floor(containerWidth * imgRealHeight / imgRealWidth);
+            if (imgRealWidth > containerWidth || imgRealHeight > containerHeight) {
+                imgStartHeight = Math.floor(containerWidth * imgRealHeight / imgRealWidth);
 
-                    if (imgStartHeight <= containerHeight) {
-                        imgStartWidth = containerWidth;
-                    } else {
-                        imgStartHeight = containerHeight;
-                        imgStartWidth = Math.floor(containerHeight * imgRealWidth / imgRealHeight);
-                    }
-                    
-                    
-                    img.css({cursor: 'move'});
-
-                    
-                    
-                    $('.zoom-handle').offset({ left: $('.zoom-line').offset().left });
-                    $('.zoom-handle').draggable({
-                        containment: "parent",
-                        drag: function( event, ui ) {
-                            exhibitItem.zoomHandleAction();
-                        }
-                    });
-                    
-                    $('.zoom-out').click(function() {
-                        exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());
-                        exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
-                        
-                        return false;
-                    });
-                    
-                    $('.zoom-in').click(function() {
-                        exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());
-                        exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
-                        
-                        return false;
-                    });
-                    
-                    
+                if (imgStartHeight <= containerHeight) {
+                    imgStartWidth = containerWidth;
                 } else {
-                    imgStartWidth = imgRealWidth;
-                    imgStartHeight = imgRealHeight;
+                    imgStartHeight = containerHeight;
+                    imgStartWidth = Math.floor(containerHeight * imgRealWidth / imgRealHeight);
                 }
 
-                img.width(imgStartWidth);
-                img.height(imgStartHeight);
-                exhibitItem.imgStartWidth = imgStartWidth;
-                exhibitItem.imgStartHeight = imgStartHeight;
+                img.css({cursor: 'move'});
 
-                if (img.width() < containerWidth) {
-                    img.offset({left: Math.floor((containerWidth - img.width()) / 2)});
-                }
-
-                if (img.height() < containerHeight) {
-                    img.offset({top: Math.floor((containerHeight - img.height()) / 2)});
-                }
-
-                img.show();
-                $('.zoom-thumb-border').draggable('destroy');
-                $('.zoom-thumb-border').hide();
-
-                $('.main-zoomed-image, .zoom-thumb').mousewheel(function(event, delta) {
-                    if (delta < 0) {
-                        exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());               
-                    } else if (delta > 0) {
-                        exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());                            
-                    } 
-                    
+                $('.zoom-thumb img').width(200);
+                $('.zoom-thumb img').attr('src', exhibitItem.objects[id]['img_small']);
+                $('.zoom-thumb').show();
+                
+                $('.zoom-handle').offset({ left: $('.zoom-line').offset().left });
+                $('.zoom-handle').draggable({
+                    containment: "parent",
+                    drag: function( event, ui ) {
+                        exhibitItem.zoomHandleAction();
+                    }
+                });
+                
+                $('.zoom-out').click(function() {
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());
                     exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
-
+                    
                     return false;
                 });
                 
-                $('.main-zoomed-image img')
-                    .on("touchmove", function (event) {
-                        event.preventDefault();
-                        
-                        var x0 = event.originalEvent.touches[0].pageX,
-                            y0 = event.originalEvent.touches[0].pageY,
-                            x0old = exhibitItem.touches[0].pageX,
-                            y0old = exhibitItem.touches[0].pageY;                       
-
-                        if (event.originalEvent.touches.length === 2) {
-                            // zoom
-                            var x1 = event.originalEvent.touches[1].pageX,
-                                y1 = event.originalEvent.touches[1].pageY,
-                                x1old = exhibitItem.touches[1].pageX,
-                                y1old = exhibitItem.touches[1].pageY,
-                                delta = Math.sqrt(Math.abs(x0 - x1) * Math.abs(x0 - x1) + Math.abs(y0 - y1) * Math.abs(y0 - y1)),
-                                deltaOld = Math.sqrt(Math.abs(x0old - x1old) * Math.abs(x0old - x1old) + Math.abs(y0old - y1old) * Math.abs(y0old - y1old));
-                            
-                            if (Math.abs(delta - deltaOld) > 10) {
-                                if (delta > deltaOld) {
-                                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth() / 2);
-                                    exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
-                                } else if (delta < deltaOld) {
-                                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth() / 2);
-                                    exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
-                                }
-                                
-                                exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);
-                            }                                             
-                        } else if (event.originalEvent.touches.length === 1) {
-                            // drag
-                            
-                            if (Math.abs(x0 - x0old) > 10 || Math.abs(y0 - y0old) > 10) {
-                                exhibitItem.touchDragPrimaryImage(x0, y0, x0old, y0old);
-                                exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);                           
-                            }
-                        }                                   
-                        
-                        return false;
-                    })
-                    .on("touchstart", function (event) {
-                        event.preventDefault();
-                        
-                        exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);
-                        
-                        return false;
-                    });
+                $('.zoom-in').click(function() {
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());
+                    exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
                     
-                armdMk.stopLoadingBlock($('#exponat-main-container'));
+                    return false;
+                });
+            } else {
+                imgStartWidth = imgRealWidth;
+                imgStartHeight = imgRealHeight;
+            }
+
+            img.width(imgStartWidth);
+            img.height(imgStartHeight);
+            exhibitItem.imgStartWidth = imgStartWidth;
+            exhibitItem.imgStartHeight = imgStartHeight;
+
+            if (img.width() < containerWidth) {
+                img.offset({left: Math.floor((containerWidth - img.width()) / 2)});
+            }
+
+            if (img.height() < containerHeight) {
+                img.offset({top: Math.floor((containerHeight - img.height()) / 2)});
+            }
+
+            img.show();
+            $('.zoom-thumb-border').draggable('destroy');
+            $('.zoom-thumb-border').hide();
+
+            $('.main-zoomed-image, .zoom-thumb').mousewheel(function(event, delta) {
+                if (delta < 0) {
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth());                   
+                } else if (delta > 0) {
+                    exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth());                   
+                } 
                 
+                exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+
+                return false;
+            });
+            
+            $('.main-zoomed-image img')
+                .on("touchmove", function (event) {
+                    event.preventDefault();
+                    
+                    var x0 = event.originalEvent.touches[0].pageX,
+                        y0 = event.originalEvent.touches[0].pageY,
+                        x0old = exhibitItem.touches[0].pageX,
+                        y0old = exhibitItem.touches[0].pageY;                       
+
+                    if (event.originalEvent.touches.length === 2) {
+                        // zoom
+                        var x1 = event.originalEvent.touches[1].pageX,
+                            y1 = event.originalEvent.touches[1].pageY,
+                            x1old = exhibitItem.touches[1].pageX,
+                            y1old = exhibitItem.touches[1].pageY,
+                            delta = Math.sqrt(Math.abs(x0 - x1) * Math.abs(x0 - x1) + Math.abs(y0 - y1) * Math.abs(y0 - y1)),
+                            deltaOld = Math.sqrt(Math.abs(x0old - x1old) * Math.abs(x0old - x1old) + Math.abs(y0old - y1old) * Math.abs(y0old - y1old));
+                        
+                        if (Math.abs(delta - deltaOld) > 10) {
+                            if (delta > deltaOld) {
+                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() + exhibitItem.getDeltaWidth() / 2);
+                                exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+                            } else if (delta < deltaOld) {
+                                exhibitItem.resizePrimaryImage(exhibitItem.primaryImg.width() - exhibitItem.getDeltaWidth() / 2);
+                                exhibitItem.setZoomHandle(exhibitItem.primaryImg.width());
+                            }
+                            
+                            exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);
+                        }                                             
+                    } else if (event.originalEvent.touches.length === 1) {
+                        // drag
+                        
+                        if (Math.abs(x0 - x0old) > 10 || Math.abs(y0 - y0old) > 10) {
+                            exhibitItem.touchDragPrimaryImage(x0, y0, x0old, y0old);
+                            exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);                           
+                        }
+                    }                                   
+                    
+                    return false;
+                })
+                .on("touchstart", function (event) {
+                    event.preventDefault();
+                    
+                    exhibitItem.touches = $.extend(true, {}, event.originalEvent.touches);
+                    
+                    return false;
+                });
                 
-            }, 500);
-            
-            
+            armdMk.stopLoadingBlock($('#exponat-main-container'));
         });
     },
     getDeltaWidth: function() {
@@ -573,13 +499,12 @@ var exhibitItem = {
             $('#exp-one-category').hide();
         }
         
-        
         $('#exp-one-name').text(exhibitItem.objects[id]['title']);        
         $('.exhibit-title').text(exhibitItem.objects[id]['title']);
         
         if (exhibitItem.objects[id]['date']) {
             $('#exp-one-date').text(exhibitItem.objects[id]['date']);
-            $('.exhibit-one-date').text(exhibitItem.objects[id]['date']);
+            $('.exhibit-date').text(exhibitItem.objects[id]['date']);
         }
         
         $('.exhibit-authors').empty();
@@ -643,17 +568,11 @@ var exhibitItem = {
             }
             
             if (exhibitItem.objects[id]['virtual_tour']) {
-                var virtBlock = $('#exp-one-virt');
-            
-                virtBlock.find('a').attr('href', exhibitItem.objects[id]['virtual_tour']['url']).end().show();
-                
-            
                 $('#exhibit-virtual-tour').find('a').attr('href', exhibitItem.objects[id]['virtual_tour']['url']);
                 $('#exhibit-virtual-tour').find('img').attr('src', exhibitItem.objects[id]['virtual_tour']['img']);
                 $('#exhibit-virtual-tour').show();
             } else {
                 $('#exhibit-virtual-tour').hide();
-                virtBlock.hide();
             }
             
             $('#details-btn').show();
@@ -670,7 +589,7 @@ var exhibitItem = {
         armdMk.startLoadingBlock($('#exponat-main-container'));
 
         var jqxhr = $.ajax({
-            url: Routing.generate('armd_exhibit_load_item_objects', {'id': exhibitItem.currentId, 'offset': exhibitItem.offset}),
+            url: Routing.generate('armd_load_item_objects', {'id': exhibitItem.currentId, 'offset': exhibitItem.offset}),
             type: 'post',
             data: {
             },
@@ -678,7 +597,7 @@ var exhibitItem = {
         })
         .done(function(data) {
             exhibitItem.setExhibits(data.objects, data.offset)
-            $('#carousel').jcarousel('reload');
+            //$('#carousel').jcarousel('reload');
         })
         .always(function() {
             exhibitItem.loading = false;
