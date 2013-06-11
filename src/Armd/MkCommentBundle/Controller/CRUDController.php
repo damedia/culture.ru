@@ -8,7 +8,7 @@ use FOS\CommentBundle\Event\CommentPersistEvent;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Controller\CRUDController as BaseController;
 use Armd\MkCommentBundle\Entity\Comment;
-use Armd\MkCommentbundle\Entity\Notice;
+use Armd\MkCommentBundle\Entity\Notice;
 
 class CRUDController extends BaseController
 {

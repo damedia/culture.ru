@@ -71,7 +71,7 @@ class CommentListener implements EventSubscriberInterface
             if ($comment->getAuthor()->hasRole('ROLE_ADMIN')) {
                 $comment->setState(CommentInterface::STATE_VISIBLE);
             } else {
-                $comment->setState(CommentInterface::STATE_PENDING);
+                $comment->setState(CommentInterface::STATE_VISIBLE);
             }
         }
     }
@@ -110,6 +110,7 @@ class CommentListener implements EventSubscriberInterface
         // Получить список модераторов
         $userManager = $this->container->get('fos_user.user_manager.default');
         $moderators = $userManager->getModerators();
+        
         if ($moderators) {
             // Посылаем email модераторам
             foreach ($moderators as $moderator) {
