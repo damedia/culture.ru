@@ -157,6 +157,7 @@ class News extends Admin
             ->addIdentifier('title')
             ->add('showOnMain')
             ->add('showOnMainOrd')
+            ->add('newsDate')
             ->add('date')            
             ->add('category')
             ->add('subject')            
@@ -171,8 +172,9 @@ class News extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('title')
             ->add('category')
-            ->add('subject')            
+            ->add('subject')
             ->add('published')
             ->add('important')
             ->add('isOnMap')
