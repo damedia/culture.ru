@@ -56,9 +56,9 @@
 	<section class="clearfix">
     <div class="sort-filter" id="perfomance-sort-filter">
 		<ul>
-            <li  class="active"><a href="#" data-sort-by="date">по дате</a></li>
+            <li class="active"><a href="#" data-sort-by="abc">по алфавиту</a></li>
+            <li><a href="#" data-sort-by="date">по дате</a></li>
             <li><a href="#" data-sort-by="popular">по популярности</a></li>
-            <li><a href="#" data-sort-by="abc">по алфавиту</a></li>
         </ul>
 	</div>
 	<div id="alphabet-filter">
@@ -77,7 +77,8 @@
                 'limit': load_count,
                 'search_query': searchQuery,
                 'ganre_id' : ganreId,
-                'theater_id' : theaterId
+                'theater_id' : theaterId,
+                'sort_by': 'abc'
             })
         %}		
 		
