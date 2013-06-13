@@ -252,7 +252,10 @@
 {% block after_body %}
 <div class="right-column" style="padding-top:38px;">
     {% if app.request.locale == 'ru' %}
+        <section class="newspaper img-banner"><a target="_blank" href="http://100.histrf.ru/about/" alt=""><img src="{{ asset('img/banner_cultura_100_histrf.png') }}"></a></section>
+
         <section class="newspaper newspaper-culture"><a target="_blank" href="http://portal-kultura.ru/" title='{{ "menu.culture_magazine"|trans }}'></a></section>
+
         <section class="newspaper newspaper-literature"><a target="_blank" href="http://lgz.ru/" title='{{ "menu.literature_magazine"|trans }}'></a></section>
     {% endif %}
 {#
