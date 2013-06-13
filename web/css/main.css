@@ -868,6 +868,11 @@ body {
             background-position:0 0;
             background-repeat:no-repeat;
         }
+
+        .newspaper.img-banner a {
+            text-align: center;
+        }
+
         .newspaper-literature a{
             width:190px;
             height:55px;
