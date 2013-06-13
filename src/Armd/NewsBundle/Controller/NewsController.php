@@ -286,7 +286,7 @@ class NewsController extends Controller
             }
         }
 
-        if (in_array('articles', $category)) {
+        if (in_array('articles', $category) || in_array('news', $category)) {
             $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
         } else {
             $template = 'ArmdNewsBundle:News:two-column-list.html.twig';

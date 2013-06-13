@@ -41,8 +41,6 @@
 {% block left_column %}
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-        <li><a href="{{ path('armd_news_list_index') }}">{{ 'menu.news_index'|trans }}</a></li>
-
         {% if entity.category %}
             <li><a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}">{{ entity.category.title }}</a></li>
         {% endif %}
