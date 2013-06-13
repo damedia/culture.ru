@@ -75,7 +75,7 @@ class DefaultController extends Controller
         $order = $request->get('order');
         
         if (empty($order) || !isset($orders[$order])) {
-            $order = 'date';          
+            $order = 'abc';
         }
         
         $criteria[TheaterManager::CRITERIA_ORDER_BY] = $orders[$order]['order'];

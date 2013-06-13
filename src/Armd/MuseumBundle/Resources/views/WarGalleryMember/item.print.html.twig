@@ -1,0 +1,86 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('/css/print.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.onload = function() {
+           window.print();
+        }
+    </script>
+{% endblock %}
+
+{% block page_header %}
+    <div class="print-header">
+        <table>
+            <tr>
+                <td class="print-header-logo">
+                    <img src="{{ asset('/img/print-logo-new.png') }}" alt="" class="logo" />
+                </td>
+                <td class="print-header-no-menu">
+                    <div class="print-header-title">
+                        <h2>{{ 'menu.galley_of_war'|trans }}</h2>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block body%}
+    <div class="news-press clearfix">
+        <div class="news-press-center">
+            <div class="news-one text" style="overflow: hidden;">
+                <h1>{{ entity.name|raw }}</h1>
+
+                {% if entity.image %}
+                    <div class="news-one-image">
+                        {% thumbnail entity.image, 'big' %}
+                        {% if entity.image.copyright or entity.image.authorName %}
+                            <p class="image-source">
+                                {% if entity.image.copyright %}
+                                    {{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
+                                {% endif %}
+                                {% if entity.image.authorName %}
+                                    {{ entity.image.authorName }}
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if entity.years or entity.ranks %}
+                <p class="highlight-text">
+                    {% if entity.years %}{{ entity.years }}<br>{% endif %}
+                    {% if entity.ranks %}{{ entity.ranks }}{% endif %}
+                </p>
+                {% endif %}
+                
+                {{ entity.description|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom_blocks%}
+    &nbsp;
+{% endblock %}
+
+{% block main_footer%}
+    <div class="w" id="footer">
+        <table class="print-footer-table">
+            <tr>
+                <td class="footer-logo">
+                    <a href="http://mkrf.ru/" target="_blank"><img src="{{ asset('/img/print-footer-logo.png') }}" alt="logo" />
+                    {{ 'Ministry of Culture'|trans }}<br />{{ 'Russian Federation'|trans }}</a>
+                </td>
+                <td class="footer-copy">
+                    <p>&copy; Портал культурного наследия России</p>
+                </td>
+            </tr>
+        </table>
+        <div></div>
+    </div>
+{% endblock %}

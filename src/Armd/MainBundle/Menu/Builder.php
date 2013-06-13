@@ -300,6 +300,13 @@ class Builder extends ContainerAware
                     'route' => 'armd_main_museum_reserve'
                 )
             );
+
+            $museumMenu->addChild(
+                'menu.galley_of_war',
+                array(
+                    'route' => 'armd_war_gallery'
+                )
+            );
             //--- /Museums
 
 

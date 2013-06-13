@@ -42,7 +42,7 @@
         {% endif %}
     </ul>
 
-    {% if not category and searchQuery is empty %}
+    {% if category is sameas('news') or category is empty and searchQuery is empty %}
         {% render url('armd_news_billboard_slider') %}
     {% endif %}
 
