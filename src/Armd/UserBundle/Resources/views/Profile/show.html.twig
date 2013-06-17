@@ -9,78 +9,81 @@
     <li><span>{{ 'Account'|trans }}</span></li>
 </ul>
 
-<div class="lk-form profile">
-    {{ profileMenu.user_profile_menu('profile-edit') }}
+<div class="profile-wrap clearfix">
+    <div class="profile-left">
+		{{ profileMenu.user_profile_menu('profile-edit') }}
+	</div>
+	<div class="profile-right">
+		<dl class="clearfix">
+			{% set no_data = true %}
 
-    <dl class="clearfix">
-        {% set no_data = true %}
+			{% if app.user.lastname %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Lastname'|trans }}</label></dt>
+			<dd>{{ app.user.lastname }}</dd>
+			{% endif %}
 
-        {% if app.user.lastname %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Lastname'|trans }}</label></dt>
-        <dd>{{ app.user.lastname }}</dd>
-        {% endif %}
+			{% if app.user.firstname %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Firstname'|trans }}</label></dt>
+			<dd>{{ app.user.firstname }}</dd>
+			{% endif %}
 
-        {% if app.user.firstname %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Firstname'|trans }}</label></dt>
-        <dd>{{ app.user.firstname }}</dd>
-        {% endif %}
+			{% if app.user.middlename %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Middlename'|trans }}</label></dt>
+			<dd>{{ app.user.middlename }}</dd>
+			{% endif %}
 
-        {% if app.user.middlename %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Middlename'|trans }}</label></dt>
-        <dd>{{ app.user.middlename }}</dd>
-        {% endif %}
+			{% if app.user.dateOfBirth %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Birth date'|trans }}</label></dt>
+			<dd>{{ app.user.dateOfBirth|date('d.m.Y') }}</dd>
+			{% endif %}
+			
+			{% if app.user.region %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Region'|trans }}</label></dt>
+			<dd>{{ app.user.region.title }}</dd>
+			{% endif %}
 
-        {% if app.user.dateOfBirth %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Birth date'|trans }}</label></dt>
-        <dd>{{ app.user.dateOfBirth|date('d.m.Y') }}</dd>
-        {% endif %}
-        
-        {% if app.user.region %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Region'|trans }}</label></dt>
-        <dd>{{ app.user.region.title }}</dd>
-        {% endif %}
+			{% if app.user.phone %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Phone'|trans }}</label></dt>
+			<dd>{{ app.user.phone }}</dd>
+			{% endif %}
 
-        {% if app.user.phone %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Phone'|trans }}</label></dt>
-        <dd>{{ app.user.phone }}</dd>
-        {% endif %}
+			{% if app.user.website %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Website'|trans }}</label></dt>
+			<dd>{{ app.user.website }}</dd>
+			{% endif %}
 
-        {% if app.user.website %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Website'|trans }}</label></dt>
-        <dd>{{ app.user.website }}</dd>
-        {% endif %}
+			{% if app.user.biography %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Biography'|trans }}</label></dt>
+			<dd>{{ app.user.biography }}</dd>
+			{% endif %}
 
-        {% if app.user.biography %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Biography'|trans }}</label></dt>
-        <dd>{{ app.user.biography }}</dd>
-        {% endif %}
+			{% if app.user.subscriptions|length %}
+			{% set no_data = false %}
+			<dt><label>{{ 'Subscriptions'|trans }}</label></dt>
+			<dd>
+				{{ app.user.subscriptions|join(', ') }}
+			</dd>
+			{% endif %}
 
-        {% if app.user.subscriptions|length %}
-        {% set no_data = false %}
-        <dt><label>{{ 'Subscriptions'|trans }}</label></dt>
-        <dd>
-            {{ app.user.subscriptions|join(', ') }}
-        </dd>
-        {% endif %}
-
-        {% if no_data %}
-        <dt></dt>
-        <dd>
-            <em class="hint">{{ 'No profile data'|trans }}</em>
-        </dd>
-        {% endif %}
-    </dl>
+			{% if no_data %}
+			<dt></dt>
+			<dd>
+				<em class="hint">{{ 'No profile data'|trans }}</em>
+			</dd>
+			{% endif %}
+		</dl>
     
-    <div class="form-actions">
-        <a class="button" href="{{ path('sonata_user_profile_edit') }}">{{ 'Edit'|trans }}</a>
-    </div>
+		<div class="form-actions">
+			<a class="button" href="{{ path('sonata_user_profile_edit') }}">{{ 'Edit'|trans }}</a>
+		</div>
+	</div>	
 </div>
 {% endblock %}

@@ -1,18 +1,23 @@
-<div class="user-favorites-block">
+
     {% for f in favorites %}
-        <h2>{{ f.title }}</h2>
-        <div class="user-favorites-ctegory-block">
-            <ul>
-                {% for l in f.list %}
-                    <li>
-                        <div class="user-favorites-img-block">{% if l.image %}<img src="{{ l.image }}" alt="">{% endif %}&nbsp;</div>
-                        <div class="user-favorites-text-block">
-                            <a href="{{ l.url }}">{{ l.title }}</a> 
-                            <a href="{{ path('armd_user_favorites_del', { 'type': l.type, 'id': l.id }) }}" title="Удалить из «Моих интересов»"><img src="{{ asset('img/delete.png') }}" alt=""></a> 
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+        <h2 class="fav-header">{{ f.title }}</h2>
+        
+        <div class="profile-right-block profile-right-block-fav clearfix {% if loop.index > 1  %} not-first {% endif %}">
+            
+            <div class="person-favorites">
+                <ul class="person-fav-list"><!--
+                    {% for l in f.list %}
+                        --><li class="person-fav-item {% if loop.index%3 == 0 %}third{% endif %}">
+                            <div class="person-fav-item-block">
+                                <div class="person-fav-item-image">{% if l.image %}<a href="{{ l.url }}"><img src="{{ l.image }}" alt=""></a>{% endif %}</div>
+                                <div class="person-fav-item-text">
+                                    <a href="{{ l.url }}" class="person-fav-item-link">{{ l.title }}</a> 
+                                    <a href="{{ path('armd_user_favorites_del', { 'type': l.type, 'id': l.id }) }}" class="person-fav-item-del" title="Удалить из «Моих интересов»"></a> 
+                                </div>
+                            </div>
+                        </li><!--
+                    {% endfor %}
+                --></ul>
+            </div>
         </div>
     {% endfor %}
-</div>

@@ -10,8 +10,14 @@
     <li><span>{{ 'Сredentials'|trans }}</span></li>
 </ul>
 
-<div class="lk-form profile">
-    {{ profileMenu.user_profile_menu('profile-edit-authentication') }}
-    {% include 'ArmdUserBundle:Profile:edit_authentication_form.html.twig' %}
-</div>
+<div class="profile-wrap clearfix">
+		<div class="profile-left">
+			{{ profileMenu.user_profile_menu('profile-edit-authentication') }}
+		</div>
+		<div class="profile-right">
+			<div class="profile-right-block">
+				{% include 'ArmdUserBundle:Profile:edit_authentication_form.html.twig' %}
+			</div>
+		</div>
+    </div>
 {% endblock %}
