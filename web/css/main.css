@@ -9553,7 +9553,7 @@ a.appstore-link {
 					font-weight:bold;
 					text-decoration:none;
 					padding:24px 15px 24px 25px;
-					
+					outline: none;
 				}
 				.profile-menu  .active span{
 					border-bottom:3px solid #f79016;
@@ -9575,6 +9575,7 @@ a.appstore-link {
 			padding:20px 40px 25px 20px;
 			position:relative;
 			z-index:2;
+            min-height: 520px;
 		}
         .profile-right-block:after {
             background-color: #fff;
@@ -9597,12 +9598,12 @@ a.appstore-link {
             min-height:500px;
         }
 			
-        .prb-1, .prb-2 {
-            min-height:0 !important;
-        } 
-        .prb-3 {
-             min-height:300px !important;
-        }    
+        /*.prb-1, .prb-2 {*/
+            /*min-height:0 !important;*/
+        /*} */
+        /*.prb-3 {*/
+             /*min-height:300px !important;*/
+        /*}    */
 
         
         .prb-1:after {
@@ -9615,7 +9616,7 @@ a.appstore-link {
             top: 235px;
         }
         .prb-4:after {
-            top: 244px;
+            top: 289px;
         }
         .prb-5:after {
             top: 377px;
@@ -9812,6 +9813,9 @@ a.appstore-link {
             }
             .profile-comments-table  td {
                 font-size:12px;
+            }
+            .profile-comments-table em.hint {
+                font-size: 16px;
             }
 
         .profile-object-list {

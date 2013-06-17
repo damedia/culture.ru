@@ -6,6 +6,7 @@ use Sonata\UserBundle\Form\Type\ProfileType as BaseType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Armd\MkCommentBundle\Entity\Notice;
+use Symfony\Component\Security\Core\Validator\Constraint\UserPassword;
 
 class ProfileType extends BaseType
 {
@@ -38,11 +39,27 @@ class ProfileType extends BaseType
             ))
             ->add('phone', null, array('required' => false))
             ->add('website', null, array('required' => false))
-            ->add('biographyText', null, array('label' => 'Biography'))
+//            ->add('biographyText', null, array('label' => 'Biography'))
             ->add('vkontakteUid')
             ->add('facebookName')
             ->add('twitterName')
-        ;
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('current_password', 'password', array(
+                    'label' => 'form.current_password',
+                    'translation_domain' => 'FOSUserBundle',
+                    'mapped' => false,
+                    'constraints' => new UserPassword(),
+                ))
+            ->add('plainPassword', 'repeated', array(
+                        'required' => false,
+                        'type' => 'password',
+                        'options' => array('translation_domain' => 'FOSUserBundle'),
+                        'first_options' => array('label' => 'form.new_password'),
+                        'second_options' => array('label' => 'form.new_password_confirmation'),
+                        'invalid_message' => 'fos_user.password.mismatch',
+                    ))
+            ;
     }
 
     /**
