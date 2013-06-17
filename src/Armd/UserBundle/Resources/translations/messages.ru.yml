@@ -2,11 +2,11 @@ Account: Личный кабинет
 Profile: Профиль
 Сredentials: Учетные данные
 Change password: Смена пароля
-Viewed content: Просмотрено мной
+Viewed content: Просмотреное
 Reset password: Сброс пароля
 Edit: Редактировать
 My objects: Мои объекты
-My subscriptions: Мои подписки
+My subscriptions: Рассылки
 Submit: Отправить
 Clear: Очистить
 Gender: Пол
@@ -42,7 +42,7 @@ profile.atlas_user_objects: Мои объекты
 "ArmdPerfomanceBundle:Perfomance": Cпектакли
 "ArmdTouristRouteBundle:Route": Туристические маршруты
 
-Favorites: Мои интересы
+Favorites: Избранное
 My comments: Мои комментарии
 My notices: Уведомления
 

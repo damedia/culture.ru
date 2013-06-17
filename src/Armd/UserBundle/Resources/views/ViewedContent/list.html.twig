@@ -10,49 +10,54 @@
         <li><span>{{ 'Viewed content'|trans }}</span></li>
     </ul>
 
-    <div class="lk-form profile">
+    <div class="profile-wrap clearfix">
+        <div class="profile-left">
         {{ profileMenu.user_profile_menu('viewed-content') }}
-
-        <dl class="clearfix">
-        {% if pagination.paginationData.totalCount %}
-            {% for item in pagination %}
-            <dt>
-                <em class="hint">
-                    {% if entityClass is not defined or item.entityClass != entityClass %}
-                    {% set entityClass = item.entityClass %}
-                    {{ entityClass|trans }}
-                    {% endif %}
-                </em>
-            </dt>
-            <dd>
-                <a href="{{ item.entityUrl }}">{{ item.entityTitle }}</a>
-            </dd>
-            {% endfor %}
-        {% else %}
-            <dt></dt>
-            <dd>
-                <em class="hint">
-                    {% if app.user.storeViewedContent %}
-                        {{ 'No viewed content'|trans }}
-                    {% else %}
-                        {{ 'Viewed content storing is off'|trans }}
-                    {% endif %}
-                </em>
-            </dd>
-        {% endif %}
-        </dl>
-
-        {{ knp_pagination_render(pagination, 'ArmdUserBundle:ViewedContent:pagination.html.twig') }}
-
-        <div class="form-actions">
-            {% if pagination.paginationData.totalCount %}
-            <a class="button" href="{{ path('armd_user_viewed_content_clear') }}">{{ 'Clear'|trans }}</a>
-            {% endif %}
-
-            <a href="{{ path('armd_user_viewed_content_' ~ (app.user.storeViewedContent ? 'off' : 'on')) }}">
-                    {{ (app.user.storeViewedContent ? 'off' : 'on')|capitalize|trans }}
-                </a>
-            </label>
         </div>
+        <div class="profile-right">
+            <div class="profile-right-block clearfix">
+            <dl class="clearfix">
+            {% if pagination.paginationData.totalCount %}
+                {% for item in pagination %}
+                <dt>
+                    <em class="hint">
+                        {% if entityClass is not defined or item.entityClass != entityClass %}
+                        {% set entityClass = item.entityClass %}
+                        {{ entityClass|trans }}
+                        {% endif %}
+                    </em>
+                </dt>
+                <dd>
+                    <a href="{{ item.entityUrl }}">{{ item.entityTitle }}</a>
+                </dd>
+                {% endfor %}
+            {% else %}
+                <dt></dt>
+                <dd>
+                    <em class="hint">
+                        {% if app.user.storeViewedContent %}
+                            {{ 'No viewed content'|trans }}
+                        {% else %}
+                            {{ 'Viewed content storing is off'|trans }}
+                        {% endif %}
+                    </em>
+                </dd>
+            {% endif %}
+            </dl>
+
+            {{ knp_pagination_render(pagination, 'ArmdUserBundle:ViewedContent:pagination.html.twig') }}
+
+            <div class="form-actions">
+                {% if pagination.paginationData.totalCount %}
+                <a class="button" href="{{ path('armd_user_viewed_content_clear') }}">{{ 'Clear'|trans }}</a>
+                {% endif %}
+
+                <a href="{{ path('armd_user_viewed_content_' ~ (app.user.storeViewedContent ? 'off' : 'on')) }}">
+                        {{ (app.user.storeViewedContent ? 'off' : 'on')|capitalize|trans }}
+                    </a>
+                </label>
+            </div>
+        </div>    
     </div>
+</div>    
 {% endblock %}

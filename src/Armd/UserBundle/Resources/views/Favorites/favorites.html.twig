@@ -10,9 +10,14 @@
     <li><span>{{ 'Favorites'|trans }}</span></li>
 </ul>
 
-<div class="lk-form profile">
-    {{ profileMenu.user_profile_menu('favorites') }}
-
-    {% include 'ArmdUserBundle:Favorites:favorites_content.html.twig' %}
+<div class="profile-wrap clearfix">
+	<div class="profile-left">
+        {{ profileMenu.user_profile_menu('favorites') }}
+    </div>
+    <div class="profile-right profile-right-fav">
+        
+            {% include 'ArmdUserBundle:Favorites:favorites_content.html.twig' %}
+        
+    </div>    
 </div>
 {% endblock %}

@@ -531,6 +531,34 @@ $(function () {
         })
     })
     
+	
+	$('.profile-form select').each(function(){
+		$(this).css({'display':'block','visibility':'hidden'});
+		$(this).selectgroup();
+	})
+    
+    $('.subscription-form label').click(function(){
+        if($(this).prev('input').is(':checked')) {
+            $(this).removeClass('checked');
+        } else {
+            $(this).addClass('checked');
+        }
+    })
+    $('.subscription-form input[checked]').each(function(){
+        $(this).next('label').addClass('checked');
+    })
+    
+    var proActive = $('.profile-menu li').index($('.profile-menu li.active'));
+    $('.profile-right-block:first').addClass('prb-'+proActive);
+	
+	var proRightHeight = $('.profile-right').height();
+    var proLeftHeight = $('.profile-left').height();
+    console.log(proRightHeight);
+    console.log(proLeftHeight);
+    if(proRightHeight > proLeftHeight) {
+        $('.profile-left').height(proRightHeight);
+    }
+    
 })
 
 $(window).load(function(){
