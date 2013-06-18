@@ -1,26 +1,23 @@
 {% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
 
 {% block page_header_title %}{{ 'Account'|trans }}{% endblock %}
 
 {% block body %}
-    {% spaceless %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+    <li><span>{{ 'Сredentials'|trans }}</span></li>
+</ul>
 
-    <div class="sonata-user-show">
-        <ul class="lk-menu green-lk-menu">
-            <li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Profile'|trans }}</a></li>
-            <li class="active"><a href="{{ path('sonata_user_profile_edit_authentication') }}">{{ 'Edit'|trans }}</a>
-            </li>
-        </ul>
+<div class="profile-wrap clearfix">
+		<div class="profile-left">
+			{{ profileMenu.user_profile_menu('profile-edit-authentication') }}
+		</div>
+		<div class="profile-right">
+			<div class="profile-right-block">
+				{% include 'ArmdUserBundle:Profile:edit_authentication_form.html.twig' %}
+			</div>
+		</div>
     </div>
-
-    <div class="login-page lk form">
-        <div class="sonata-user-edit-authentication">
-            <form action="{{ path('sonata_user_profile_edit_authentication') }}" method="POST">
-                {{ form_rest(form) }}
-                <input type="submit" name="submit" value="{{ 'Submit'|trans }}"/>
-            </form>
-        </div>
-    </div>
-    {% endspaceless %}
 {% endblock %}
-

@@ -86,7 +86,7 @@
     <div id="lecture-container" class="plitka">
         {% render url('armd_lecture_list', {
                 'lectureSuperTypeCode': lectureSuperType.code,
-                'limit': 32,
+                'limit': 24,
                 'search_query': searchQuery,
                 'genre_ids': selectedGenreIds,
                 'tag_id': (tag is empty ? 0 : tag.id),
@@ -106,11 +106,13 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
-
+    <div style="height:88px; font-size:0; line-height:0"></div>
     {% render url('armd_news_memorial_events') %}
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+    </div>
+    <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
     </div>
 

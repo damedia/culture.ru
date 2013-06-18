@@ -7,5 +7,6 @@ form:
     label_twitter_name: Twitter имя
     label_biography_text: Биография
     label_subscriptions: Подписка на рассылки
+    label_notice_on_comment: Уведомления
 field:
     label_roles_editable: Выберите роли

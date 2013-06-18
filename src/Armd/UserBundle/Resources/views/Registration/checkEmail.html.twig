@@ -1,0 +1,22 @@
+{% extends ":Frontend:base.html.twig" %}
+
+{% block page_header_title %}{{ 'Registration'|trans }}{% endblock %}
+
+{% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><span>{{ 'Registration'|trans }}</span></li>
+</ul>
+
+<div class="lk-form profile">
+    <dl class="clearfix">
+        <dt>
+            <strong>{{ user.username }}</strong><br/>
+            <em class="hint">{{ user.lastname }} {{ user.firstname }} {{ user.middlename }}</em>
+        </dt>
+        <dd>
+            <p>{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle')|raw }}</p>
+        </dd>
+    </dl>
+</div>
+{% endblock %}

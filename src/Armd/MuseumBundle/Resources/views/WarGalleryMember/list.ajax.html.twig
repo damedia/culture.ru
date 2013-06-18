@@ -1,0 +1,27 @@
+{% if pagination.paginationData.totalCount %}
+    <ul class="slides gallery-of-war-list">
+        {% for entity in pagination %}
+        <li class="plitka-one-wrap gow-one">
+            <a href="{{ path('armd_war_gallery_member', {id: entity.id}) }}">
+                <div class="gow-block">
+                    <span class="gow-image-link">
+                        {% media entity.preview, 'small' %}
+                    </span>
+                    <h3 class="gow-header">{{ entity.name }}</h3>
+                    <p class="gow-info">{{ entity.years }}</p>
+                </div>
+            </a>
+        </li><!-- /plitka-one-wrap -->
+        {% endfor %}
+    </ul>
+
+    {% if pagination.paginationData.current < pagination.paginationData.pageCount %}
+        <div class="more more2">
+            <p>
+                <a href="{{ path('armd_war_gallery', {page: pagination.paginationData.next}) }}">
+                    {{ "show_more"|trans }}
+                </a>
+            </p>
+        </div>
+    {% endif %}
+{% endif %}

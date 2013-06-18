@@ -1,42 +1,60 @@
 {% extends ':Frontend:base.html.twig' %}
 
-{% block page_header_title %}Авторизация{% endblock %}
+{% block page_header_title %}{{ 'Auth'|trans }}{% endblock %}
 
 {% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><span>{{ 'Auth'|trans }}</span></li>
+</ul>
 
-    <div class="login-page lk form">
+<div class="lk-form login">
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
-        {% if error %}
-            <p class="error">{{ error|trans({}, 'FOSUserBundle') }}</p>
-        {% endif %}
+        <dl class="clearfix">
+            {% if error %}
+            <dt></dt>
+            <dd>
+                <ul class="error">
+                    <li>{{ error|trans({}, 'FOSUserBundle') }}</li>
+                </ul>
+            </dd>
+            {% endif %}
+            <dt>
+                <label for="username">
+                    {{ 'security.login.username'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </dt>
+            <dd>
+                <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+            </dd>
 
-        <form action="{{ path("fos_user_security_check") }}" method="post">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
-
-            <div>
-                <label
-                        for="fos_user_registration_form_username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-                    <input type="text" id="fos_user_registration_form_username" name="_username"
-                           value="{{ last_username }}"/>
-            </div>
-            <div>
-                <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <dt>
+                <label for="password">
+                    {{ 'security.login.password'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </dt>
+            <dd>
                 <input type="password" id="password" name="_password"/>
-            </div>
+            </dd>
 
-            <p>
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-                <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
-            </p>
+            <dt></dt>
+            <dd>
+                <label for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                    {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </dd>
+        </dl>
 
-            <p>
-                <input type="submit" id="_submit" name="_submit"
-                      value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
-            </p>
+        <div class="form-actions">
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
+            <a href="{{ path('fos_user_registration_register') }}">{{ 'auth_register'|trans }}</a>
+            <a href="{{ path('fos_user_resetting_request') }}">{{ 'Forgot your password'|trans }}?</a>
 
-            {% render url('armd_social_auth_auth_links', {'redirectUrl': path('sonata_user_profile_edit') }) %}
-        </form>
-
-    </div>
-
+            {% render url('armd_social_auth_auth_links', {'redirectUrl': path('sonata_user_profile_show') }) %}
+        </div>
+    </form>
+</div>
 {% endblock %}

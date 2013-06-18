@@ -300,6 +300,13 @@ class Builder extends ContainerAware
                     'route' => 'armd_main_museum_reserve'
                 )
             );
+
+            $museumMenu->addChild(
+                'menu.galley_of_war',
+                array(
+                    'route' => 'armd_war_gallery'
+                )
+            );
             //--- /Museums
 
 
@@ -320,7 +327,7 @@ class Builder extends ContainerAware
             $theatreMenu = $menu->addChild(
                 'menu.theatre',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_main_underconstruction',
                 )
             );
             
@@ -331,7 +338,7 @@ class Builder extends ContainerAware
             $musicMenu = $menu->addChild(
                 'menu.music',
                 array(
-                    'route' => 'armd_main_underconstraction',
+                    'route' => 'armd_main_underconstruction',
                 )
             );
             

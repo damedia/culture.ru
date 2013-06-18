@@ -67,4 +67,8 @@ services:
         class: Armd\MuseumBundle\Entity\LessonManager
         arguments:  [@doctrine.orm.entity_manager, @fpn_tag.tag_manager, @search.sphinxsearch.search]               
         
-        
+    armd_museum.admin.war_gallery_member:
+        class: Armd\MuseumBundle\Admin\WarGalleryMemberAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Museums, label: War gallery member }
+        arguments: [null, Armd\MuseumBundle\Entity\WarGalleryMember, SonataAdminBundle:CRUD, @service_container]

@@ -1,0 +1,50 @@
+<div class="lk-form login-popup">
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+        <dl class="clearfix">
+            {% if error %}
+            <dt></dt>
+            <dd>
+                <ul class="error">
+                    <li>{{ error|trans({}, 'FOSUserBundle') }}</li>
+                </ul>
+            </dd>
+            {% endif %}
+            <dt>
+                <label for="fos_user_registration_form_username-popup">
+                    {{ 'security.login.username'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </dt>
+            <dd>
+                <input type="text" id="username-popup" name="_username" value="{{ last_username }}"/>
+            </dd>
+
+            <dt>
+                <label for="password-popup">
+                    {{ 'security.login.password'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </dt>
+            <dd>
+                <input type="password" id="password-popup" name="_password"/>
+            </dd>
+
+            <dt></dt>
+            <dd>
+                <label for="remember_me-popup">
+                    <input type="checkbox" id="remember_me-popup" name="_remember_me" value="on"/>
+                    {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+            </dd>
+        </dl>
+
+        <div class="form-actions">
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
+            <ul>
+                <li><a href="{{ path('fos_user_registration_register') }}">{{ "auth_register"|trans }}</a></li>
+                <li><a href="{{ path('fos_user_resetting_request') }}">{{ 'Forgot your password'|trans }}?</a></li>
+            </ul>
+        </div>
+        {% render url('armd_social_auth_auth_links', {'redirectUrl': path('sonata_user_profile_show') }) %}
+    </form>
+</div>

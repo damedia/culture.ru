@@ -1,5 +1,6 @@
 Account: Account
 Profile: Profile
+Viewed content: Content
 Edit: Edit
 My objects: My objects
 Submit: Submit
@@ -15,3 +16,13 @@ Vkontakte: Vkontakte ID
 Facebook login: Facebook login or email
 Twitter login: Twitter login
 
+profile.atlas_user_objects: My Objects
+
+# Viewed content types
+"ArmdAtlasBundle:Object": Atlas
+"ArmdNewsBundle:News": News
+"ArmdMuseumBundle:Lesson": Museum
+"ArmdLectureBundle:Lecture": Lecture
+"ArmdTheaterBundle:Theater": Theater
+"ArmdPerfomanceBundle:Perfomance": Perfomance
+"ArmdTouristRouteBundle:Route": Tourist routes

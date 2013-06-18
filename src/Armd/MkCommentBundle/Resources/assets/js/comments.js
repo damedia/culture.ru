@@ -134,14 +134,16 @@
                 '.fos_comment_comment_reply_show_form',
                 function(e) {
                     var form_data = $(this).data();
-                    var that = this;
-
+                    var that = $('#comment'+form_data.parentId).children('.fos_comment_comment_reply');
+                    if(that.children('.fos_comment_comment_form_holder').length > 0) {
+                        return false;
+                    }
                     FOS_COMMENT.get(
                         form_data.url,
                         {parentId: form_data.parentId},
                         function(data) {
-                            $(that).parent().addClass('fos_comment_replying');
-                            $(that).after(data);
+                            $(that).addClass('fos_comment_replying');
+                            $(that).html(data);
                         }
                     );
                 }
@@ -166,7 +168,7 @@
                         form_data.url,
                         {},
                         function(data) {
-                            var commentBody = $(that).parent().next();
+                            var commentBody = $(that).parent().prev();
 
                             // save the old comment for the cancel function
                             commentBody.data('original', commentBody.html());
@@ -305,27 +307,27 @@
                 var reply_button_holder = form_parent.parent();
                 reply_button_holder.removeClass('fos_comment_replying');
 
-                reply_button_holder.after(commentHtml);
-
+                $('#comments_list_' + form_data.parent).append('<li>' + commentHtml + '</li>');
                 // Remove the form
                 form_parent.remove();
             } else {
-                // Insert the comment
-                form.after(commentHtml);
-
+                $('#comments_list_0').append('<li>' + commentHtml + '</li>');
+                $('#comments_list_0').parent().addClass('comments-block');
+                $('#comments_header').addClass('comments-header');
                 // "reset" the form
                 form = $(form[0]);
                 form.find('textarea').val('');
                 form.children('.fos_comment_form_errors').remove();
+                $('#add_new_comment').hide();
             }
             FOS_COMMENT.thread_container.trigger('comment_appended');
         },
 
         editComment: function(commentHtml) {
             var commentHtml = $(commentHtml);
-            var originalCommentBody = $('#' + commentHtml.attr('id')).children('.fos_comment_comment_body');
+            var originalCommentBody = $('#' + commentHtml.attr('id')).children('.comment-list_text').children('.fos_comment_comment_body');
 
-            originalCommentBody.html(commentHtml.children('.fos_comment_comment_body').html());
+            originalCommentBody.html(commentHtml.children('.comment-list_text').children('.fos_comment_comment_body').html());
         },
 
         cancelEditComment: function(commentBody) {

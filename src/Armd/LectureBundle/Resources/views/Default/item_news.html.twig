@@ -79,15 +79,23 @@
 {% block left_column %}
     <ul class="breadcrumbs">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-        <li><span>{{ 'menu.media'|trans }}</span></li>
-        <li><span>{{ 'menu.lectures_news'|trans }}</span></li>
+        <li><a href="{{ path('armd_news_list_index_by_category', {'category': 'reportages'}) }}">{{ 'menu.media'|trans }}</a></li>
+        <li><a href="{{ path('armd_lecture_news_index') }}">{{ 'menu.lectures_news'|trans }}</a></li>
         <li><span>{{ lecture.title }}</span></li>
     </ul>
 
     <div class="left-column-content">
         
         <article class="video-one-block">
-            <h1>{{ lecture.title|truncate(45) }}</h1>
+            <h1>
+                {{ lecture.title|truncate(45) }}
+                    
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a class="user-favorites-button" title="Добавить в «Избранное»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_LECTURE') }}" data-id="{{ lecture.id }}">
+                        <img alt="*" src="{{ asset('img/favorites.png') }}" />
+                    </a>
+                {% endif %}
+            </h1>
             <div class="video-one-image video-time-image">
                {# <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="video-one-image-link">
                     {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'width': '100%', 'height' : 'auto'}) }}
@@ -128,7 +136,8 @@
 
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA', 'id': lecture.id }) %}
-
+    </div>
+    <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': lecture.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE', 'id': lecture.id }) %}
     </div>
 {% endblock %}
@@ -169,6 +178,7 @@
         function initSocialShare() {
             new Ya.share({
                 element: 'yandex-share',
+                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                 elementStyle: {
                     'type': 'none',
                     'border': false,

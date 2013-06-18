@@ -23,6 +23,7 @@ use Armd\ListBundle\Entity\ListManager;
 class ObjectManager extends ListManager
 {
     private $search;
+    private $container;
 
     /** example: true */
     const CRITERIA_RUSSIA_IMAGES = 'CRITERIA_RUSSIA_IMAGES';
@@ -45,12 +46,32 @@ class ObjectManager extends ListManager
     /** example: 'the rolling stones' */
     const CRITERIA_SEARCH_STRING = 'CRITERIA_SEARCH_STRING';
 
+        // mapping field name to field getter
+    public static $allowedFields = array(
+        'id'       => 'getId',
+        'title'    => 'getTitle',
+        'announce' => 'getAnnounce',
+        'lat'      => 'getLat',
+        'lon'      => 'getLon',
+        'icon'     => 'extractIconUrl', // this method
+        'image'    => 'extractImageUrl', // this method
+        'images'   => 'extractImagesUrls', // this method
+    );
 
-    public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
-    {
+    public function __construct(Container $container) {
+        $em = $container->get('doctrine.orm.entity_manager');
+        $tagManager = $container->get('fpn_tag.tag_manager');
         parent::__construct($em, $tagManager);
-        $this->search = $search;
+
+        $this->container = $container;
+        $this->search = $container->get('search.sphinxsearch.search');
     }
+
+//    public function __construct(EntityManager $em, TagManager $tagManager, SphinxSearch $search)
+//    {
+//        parent::__construct($em, $tagManager);
+//        $this->search = $search;
+//    }
 
     public function findObjects(array $criteria) {
         if (!empty($criteria[self::CRITERIA_SEARCH_STRING])) {
@@ -370,6 +391,87 @@ class ObjectManager extends ListManager
             return false;
         }
     }
+
+
+
+    public function filterForApi($params=array())
+    {
+        $repo = $this->em->getRepository('ArmdAtlasBundle:Object');
+
+        $qb = $repo->createQueryBuilder('o');
+        $qb->where('o.published = TRUE');
+
+        if (isset($params['id']) && is_array($params['id'])) {
+            $ids = array_map('intval', $params['id']);
+            $qb->andWhere('o.id IN (:ids)')
+               ->setParameter('ids', $ids);
+        }
+
+        $rows = $qb->getQuery()->getResult();
+        if (! $rows)
+            throw new \Exception('Objects not found');
+
+        if (isset($params['fields']) && is_array($params['fields'])) {
+            $fields = $params['fields'];
+        } else {
+            $fields = array_keys(self::$allowedFields);
+        }
+
+        $res = array();
+        foreach ($rows as $row) {
+            $obj = array();
+            foreach ($fields as $field) {
+                if (in_array($field, $fields) && !empty($field)) {
+                    $getterMethod = self::$allowedFields[$field];
+                    $value = false;
+                    if (method_exists($row, $getterMethod)) {
+                        $value = $row->$getterMethod();
+                    } elseif (method_exists($this, $getterMethod)) {
+                        $value = $this->$getterMethod($row);
+                    }
+                    $obj[$field] = $value;
+                }
+            }
+            $res[] = $obj;
+        }
+
+        return $res;
+    }
+
+    protected function extractIconUrl($entity)
+    {
+        $imageUrl = '';
+        if ($entity->getPrimaryCategory()) {
+            $image = $entity->getPrimaryCategory()->getIconMedia();
+            $imageUrl = $this->container->get('sonata.media.twig.extension')->path($image, 'reference');
+        }
+        return $imageUrl;
+    }
+
+    protected function extractImageUrl($entity)
+    {
+        $imageUrl = array(
+            'small' => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail'),
+            'big'   => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'big'),
+        );
+        return $imageUrl;
+    }
+
+    protected function extractImagesUrls($entity)
+    {
+        $imagesUrls = array();
+        $images = $entity->getImages();
+        if ($images) {
+            foreach ($images as $image) {
+                $imagesUrls[] = array(
+                    'small' => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail'),
+                    'big'   => $this->container->get('sonata.media.twig.extension')->path($entity->getPrimaryImage(), 'thumbnail'),
+                );
+            }
+        }
+        return $imagesUrls;
+    }
+
 
     public function getClassName()
     {

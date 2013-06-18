@@ -1,0 +1,51 @@
+{% extends ':Frontend:layout_one_column.html.twig' %}
+
+{% block title %}{{ parent() }} — {{ 'menu.galley_of_war'|trans }}{% endblock %}
+
+{% block page_header_title %}{{ 'menu.galley_of_war'|trans }}{% endblock %}
+
+{% block pre_content %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><span>{{ 'menu.galley_of_war'|trans }}</span></li>
+    </ul>
+{% endblock %}
+
+{% block one_column %}
+    <div id="war-gallery-member-list" class="plitka gallery-of-war">
+        {% include 'ArmdMuseumBundle:WarGalleryMember:list.ajax.html.twig' %}
+    </div><!-- /gallery-of-war -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function() {
+            $(".more a").click(function() {
+                armdMk.startLoading();
+
+                var $this = $(this);
+
+                $.get($(this).attr("href")).done(function(html) {
+                    var $items    = $(html).find("li"),
+                        $moreLink = $(html).filter(".more").find("a");
+                    
+                    $("#war-gallery-member-list ul").append($items);
+
+                    if ($moreLink.length) {
+                        $this.attr("href", $moreLink.attr("href"));
+
+                    } else {
+                        $this.parents(".more").remove();
+                    }
+
+                    armdMk.stopLoading();
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

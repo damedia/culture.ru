@@ -1,12 +1,12 @@
 <?php
 namespace Armd\MkCommentBundle\Entity;
 
+use FOS\UserBundle\Model\UserInterface;
 use FOS\CommentBundle\Entity\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Event\CommentPersistEvent;
 use FOS\CommentBundle\Events;
-use Symfony\Component\Security\Core\User\UserInterface;
-use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
+use Armd\MkCommentBundle\Model\CommentInterface;
 
 class CommentManager extends BaseCommentManager
 {
@@ -85,6 +85,104 @@ class CommentManager extends BaseCommentManager
         $trimParents = current($comments)->getAncestors();
 
         return $this->organiseComments($comments, $sorter, $trimParents);
+    }
+    
+    public function findCommentsByUser(UserInterface $user)
+    {
+        $qb = $this->repository
+            ->createQueryBuilder('c')
+            ->join('c.thread', 't')
+            ->where('c.author = :userid')
+            ->andWhere('c.state = :visible_state')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('userid', $user->getId())
+            ->setParameter('visible_state', CommentInterface::STATE_VISIBLE)
+        ;
+        $comments = $qb->getQuery()->execute();
+        foreach($comments as $comment){
+            $comment->setThreadCrumbs($this->getThreadCrumbsByComment($comment));
+        }
+        return $comments;
+    }
+    
+    public function findNoticesForUser(UserInterface $user)
+    {
+        $qb = $this->em->getRepository('\Armd\MkCommentBundle\Entity\Notice')
+            ->createQueryBuilder('n')
+            ->join('n.comment', 'c')
+            ->join('c.thread', 't')
+            ->where('n.user = :userid')
+            ->andWhere('c.state = :visible_state')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('userid', $user->getId())
+            ->setParameter('visible_state', CommentInterface::STATE_VISIBLE)
+        ;
+        $notices = $qb->getQuery()->execute();
+        foreach($notices as $notice){
+            $notice->getComment()->setThreadCrumbs($this->getThreadCrumbsByComment($notice->getComment()));
+        }
+        return $notices;
+    }
+    
+    public function deleteUserNotices(UserInterface $user)
+    {
+        return $this->em->createQueryBuilder()->delete('\Armd\MkCommentBundle\Entity\Notice', 'n')
+            ->where('n.user = :uid')
+            ->setParameter('uid', $user->getId())
+            ->getQuery()
+            ->execute();
+    }
+    
+    public function getThreadCrumbsByComment(Comment $comment)
+    {
+        $tmp = explode('_', $comment->getThread()->getId(), 3);
+        $section = array(
+            'locale' => $tmp[0],
+            'section' => $tmp[1],
+            'id' => $tmp[2],
+        );
+        switch($section['section']){
+            case CommentInterface::SECTION_LECTURE:
+                $entityName = '\Armd\LectureBundle\Entity\Lecture';
+                $section['threadTitle'] = 'menu.cinema';
+                $section['threadPath']  = 'armd_lecture_cinema_index';
+                $section['entityPath']  = 'armd_lecture_view';
+                break;
+            case CommentInterface::SECTION_LESSON:
+                $entityName = '\Armd\MuseumBundle\Entity\Lesson';
+                $section['threadTitle'] = 'menu.museum_lesson';
+                $section['threadPath'] = 'armd_lesson_list';
+                $section['entityPath'] = 'armd_lesson_item';
+                break;
+            case CommentInterface::SECTION_ROUTE:
+                $entityName = '\Armd\TouristRouteBundle\Entity\Route';
+                $section['threadTitle'] = 'menu.tourist_routes';
+                $section['threadPath'] = 'armd_tourist_route_list';
+                $section['entityPath'] = 'armd_tourist_route_item';
+                break;
+            case CommentInterface::SECTION_THEATER:
+                $entityName = '\Armd\TheaterBundle\Entity\Theater';
+                $section['threadTitle'] = 'menu.theaters';
+                $section['threadPath'] = 'armd_theater_list';
+                $section['entityPath'] = 'armd_theater_item';
+                break;
+            case CommentInterface::SECTION_PERFORMANCE:
+                $entityName = '\Armd\PerfomanceBundle\Entity\Perfomance';
+                $section['threadTitle'] = 'menu.performance';
+                $section['threadPath'] = 'armd_performance_list';
+                $section['entityPath'] = 'armd_performance_item';
+                break;
+            default: return false;
+        }
+        if(!($entity = $this->em->getRepository($entityName)->find($section['id'])))
+            return false;
+        
+        if($section['section'] == CommentInterface::SECTION_LECTURE && $entity->getLectureSuperType()->getCode() === 'LECTURE_SUPER_TYPE_LECTURE'){
+            $section['threadTitle'] =  'menu.lectures';
+            $section['threadPath'] =  'armd_lecture_lecture_index';
+        }
+        $section['entityTitle'] = $entity->getTitle();
+        return $section;
     }
 
 

@@ -7,10 +7,11 @@
 {% block menu %}
     <ul class="main-navigation clearfix" title="{{ 'Main menu'|trans }}">
         {% if app.request.locale == 'ru' %}
+            <li><a href="{{ path('armd_main_special_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
             <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
             <li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
             <li class="active"><a href="{{ path('armd_main_special_press') }}">{{ 'menu.news_index'|trans }}</a></li>
-            <li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>
+            {#<li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>#}
         {% else %}
             <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
             <li class="active"><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
@@ -21,7 +22,7 @@
 
 {% block body%}
     <h1>{{ 'menu.news_index'|trans }}</h1>
-	{% include "ArmdMainBundle:Special:news-blind.html.twig" with {"categories": categories, "news": news} %}
+	{% include "ArmdMainBundle:Special:news-blind.html.twig" with {"categories": categories, "news": news, "showMenu": true} %}
 {% endblock %}
 
 {% block page_header_search_scope %}

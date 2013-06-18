@@ -30,7 +30,7 @@ class ShowOnMain extends Admin
     {
         return array(
             'virtualTours' => 'Armd\MuseumBundle\Entity\Museum',
-            'lectures' => 'Armd\LectureBundle\Entity\Lecture',
+            //'lectures' => 'Armd\LectureBundle\Entity\Lecture',
             //'news' => 'Armd\NewsBundle\Entity\News',
             'objects' => 'Armd\AtlasBundle\Entity\Object',
         );
@@ -46,6 +46,9 @@ class ShowOnMain extends Admin
         $builder = $formMapper->getFormBuilder();
         $builder->addEventSubscriber(new AdminShowOnMainFormSubscriber($builder->getFormFactory(), $this->container));        
         $newsCategories = $this->container->get('armd_news.manager.news')->getCategories();
+        $lectureSuperTypes = $this->container->get('doctrine')
+            ->getRepository('ArmdLectureBundle:LectureSuperType')
+            ->findBy(array(), array('name' => 'ASC'));
         
         $formMapper->with('General');
         
@@ -59,6 +62,22 @@ class ShowOnMain extends Admin
                 ),
             ));
         } 
+        
+        $formMapper->end();
+        $formMapper->with('Lectures');
+        
+        foreach ($lectureSuperTypes as $category) {
+            $name = 'lectures-' . $category->getId();
+            $formMapper->add($name, 'text', array(
+                'required' => false,
+                'label' => $category->getName(),
+                'virtual' => true,
+                'attr' => array(
+                    'class' => 'select2-show-on-main span5', 
+                    'data-field' => $name                      
+                ),
+            ));
+        }
         
         $formMapper->end();
         $formMapper->with('Media');
@@ -76,7 +95,7 @@ class ShowOnMain extends Admin
             ));
         }
         
-        $formMapper->end();
+        $formMapper->end();        
                     
         parent::configureFormFields($formMapper);
     }   

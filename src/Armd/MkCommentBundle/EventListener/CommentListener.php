@@ -63,17 +63,17 @@ class CommentListener implements EventSubscriberInterface
         $commentBlamerListener = new CommentBlamerListener($securityContext, $logger);
         $event = new CommentEvent($comment);
         $commentBlamerListener->blame($event);
-
     }
 
     protected function autoModerate(Comment $comment)
     {
         if(!$comment->getSkipAutoModerate()) {
-            if ($comment->getAuthor()->hasRole('ROLE_ADMIN')) {
-                $comment->setState(CommentInterface::STATE_VISIBLE);
-            } else {
-                $comment->setState(CommentInterface::STATE_PENDING);
-            }
+            $comment->setState(CommentInterface::STATE_VISIBLE);
+//            if ($comment->getAuthor()->hasRole('ROLE_ADMIN')) {
+//                $comment->setState(CommentInterface::STATE_VISIBLE);
+//            } else {
+//                $comment->setState(CommentInterface::STATE_PENDING);
+//            }
         }
     }
 
@@ -111,10 +111,11 @@ class CommentListener implements EventSubscriberInterface
         // Получить список модераторов
         $userManager = $this->container->get('fos_user.user_manager.default');
         $moderators = $userManager->getModerators();
+        
         if ($moderators) {
             // Посылаем email модераторам
             foreach ($moderators as $moderator) {
-                $emailFrom = 'noreply@culture.ru';
+                $emailFrom = $this->container->getParameter('mail_from');
                 $emailTo   = $moderator->getEmail();
                 $subject   = 'Новый комментарий';
                 $template  = 'ArmdMkCommentBundle:Email:notifyModeratorMessage.html.twig';
