@@ -160,16 +160,18 @@
     {% if app.request.locale == 'ru' and videos|length %}
         {% set video = videos[0] %}
 
-        <div class="tabs events-tabs video-tabs" style="background: #fff url(../img/more-dots.gif) repeat-x 0 100%; margin-bottom:15px;">
+        <div class="tabs events-tabs video-tabs" style="background: #fff url(../img/more-dots.gif) repeat-x 0 100%;">
             <h3>Актуальное видео</h3>
-            {#<h4>Сегодня - 100 лет со дня рождения композитора Тихона Хренникова</h4>#}
+            <h4>{{ video.title }}</h4>
             <div class="video-tabs-item">
                 <a href="{{ path('armd_lecture_view', {'id': video.id}) }}" class="period-block_image">
                     {% thumbnail video.mediaLectureVideo, 'big' with {'alt': video.title, 'width': '100%', 'height': 'auto' } %}
                     <span class="play"></span>
                 </a>
             </div>
-            <p class="video-tabs-title">{{ video.title }}</p>
+            {% if video.announce is not empty %}
+                <p class="video-tabs-title">{{ video.announce }}</p>
+            {% endif %}
 
             {#
             <p class="all">

@@ -105,8 +105,9 @@ class MainController extends Controller
             array(
                 \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 1,
                 \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_NEWS'),
+                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SHOW_ON_MAIN => true,
                 \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
-                    'showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
+                    'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
                 )
             )
         );
