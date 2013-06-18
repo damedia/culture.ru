@@ -40,7 +40,7 @@ class LectureManager extends ListManager
     const CRITERIA_RECOMMENDED = 'CRITERIA_RECOMMENDED';
 
     /** example: true */
-    const CRITERIA_RECOMMENDED1 = 'CRITERIA_RECOMMENDED1';
+    const CRITERIA_SHOW_ON_MAIN = 'CRITERIA_SHOW_ON_MAIN';
 
     /** example: true */
     const CRITERIA_SHOW_AT_SLIDER = 'CRITERIA_SHOW_AT_SLIDER';
@@ -122,6 +122,10 @@ class LectureManager extends ListManager
 
         if (!empty($criteria[self::CRITERIA_RECOMMENDED])) {
             $qb->andWhere('_lecture.recommended = TRUE');
+        }
+
+        if (!empty($criteria[self::CRITERIA_SHOW_ON_MAIN])) {
+            $qb->andWhere('_lecture.showOnMain = TRUE');
         }
 
         if (!empty($criteria[self::CRITERIA_SHOW_AT_SLIDER])) {

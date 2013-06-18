@@ -72,6 +72,7 @@ class LectureNewsAdmin extends Admin
         $formMapper
             ->add('published')
             ->add('title')
+            ->add('announce')
             ->add('description', null, array(
                 'attr' => array('class' => 'tinymce'),
             ))
