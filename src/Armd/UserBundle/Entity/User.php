@@ -73,6 +73,16 @@ class User extends BaseUser
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $subscriptions;
+    
+    /**
+     * @var integer
+     */
+    protected $noticeOnComment = 0;
+
+    /**
+     * @var boolean
+     */
+    protected $storeViewedContent;
 
     /**
      * @param \Doctrine\Common\Collections\Collection $subscriptions
@@ -215,6 +225,7 @@ class User extends BaseUser
         parent:: __construct();
         
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->storeViewedContent = true;
     }
     
     /**
@@ -329,5 +340,41 @@ class User extends BaseUser
     {
         $this->loginTokenExpires = $loginTokenExpires;
     }
+    
+    /**
+     * @return integer
+     */
+    public function getNoticeOnComment()
+    {
+        return (int)$this->noticeOnComment;
+    }
+    
+    /**
+     * @param integer $noticeOnComment
+     */
+    public function setNoticeOnComment($noticeOnComment)
+    {
+        $this->noticeOnComment = (int)$noticeOnComment;
+    }
 
+    /**
+     * Get storeViewedContent
+     * @return boolean
+     */
+    public function getStoreViewedContent()
+    {
+        return $this->storeViewedContent;
+    }
+
+    /**
+     * Set storeViewedContent
+     * @param boolean $storeViewedContent
+     * @return Armd\UserBundle\Entity\User
+     */
+    public function setStoreViewedContent($storeViewedContent)
+    {
+        $this->storeViewedContent = $storeViewedContent;
+
+        return $this;
+    }
 }

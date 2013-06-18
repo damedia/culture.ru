@@ -3,18 +3,17 @@ namespace Armd\MkCommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use FOS\CommentBundle\Model\SignedCommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
+use FOS\CommentBundle\Model\SignedCommentInterface;
 use Armd\UserBundle\Entity\User;
-
+use Armd\MkCommentBundle\Model\CommentInterface;
 /**
  * @ORM\Entity
  * @ORM\Table(name="comment")
  */
-class Comment extends BaseComment implements SignedCommentInterface
+class Comment extends BaseComment implements CommentInterface, SignedCommentInterface
 {
-    const STATE_PROCESSING = 4;
 
     /**
      * @ORM\Id
@@ -52,6 +51,11 @@ class Comment extends BaseComment implements SignedCommentInterface
 
     // used to load moderated fixtures
     protected $skipAutoModerate = false;
+    
+    /**
+     * used in profile comments
+     */
+    protected $threadCrumbs;
 
 
     public function getId()
@@ -151,4 +155,19 @@ class Comment extends BaseComment implements SignedCommentInterface
         $this->skipAutoModerate = $skipAutoModerate;
     }
 
+    /**
+     * @return array
+     */
+    public function getThreadCrumbs()
+    {
+        return $this->threadCrumbs;
+    }
+    
+    /**
+     * @param array $threadCrumbs
+     */
+    public function setThreadCrumbs($threadCrumbs)
+    {
+        $this->threadCrumbs = $threadCrumbs;
+    }
 }

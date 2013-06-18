@@ -158,7 +158,15 @@
                 </div>
                 #}
 
-                <h2 class="video-one-name">{{ lecture.title }}</h2>
+                <h2 class="video-one-name">
+                    {{ lecture.title }}
+                        
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a class="user-favorites-button" title="Добавить в «Избранное»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_LECTURE') }}" data-id="{{ lecture.id }}">
+                            <img alt="*" src="{{ asset('img/favorites.png') }}" />
+                        </a>
+                    {% endif %}
+                </h2>
 
                 <span class="video-one-stats">
                     <span>Категории:</span>
@@ -191,7 +199,10 @@
                 </span>
 
                 <div class="video-one-anons">
-                    <div>{{ lecture.description|raw }}</div>
+                    <div>
+                        {{ lecture.description|raw }}
+                        {{ add_viewed_content(lecture, path('armd_lecture_view', {id: lecture.id})) }}
+                    </div>
                 </div>
             </div>
             {% if lectureRolesPersons|length > 0 %}
@@ -282,79 +293,9 @@
             <div href="#" class="publish-links"> <a href="#"></a> Опубликовать в социальных сетях: <span id="yandex-share"></span></div>
         </div>
 
-        {#
-        <section class="comments ">
-            <div class="comments-header clearfix">
-                <p class="add-comment">
-                    <a href="#">Добавить комментарий</a>
-                </p>
-                <p class="comments-total">
-                    <span>Комментарии:</span> <a href="#">15</a>
-                </p>
-            </div>
-            <div class="comments-block">
-                <ul class="comments-list">
-                    <li>
-                        <img src="/new_design/images/comment.jpg" alt="" class="comment-list_photo" />
-                        <div class="comment-list_text">
-                            <span class="comment-list_date">14 Ноября / 2012 г. / 12:06</span>
-                            <a href="#" class="comment-list_name">Михаил Брашинский</a>
-                            <div class="comment-list_comment">
-                                <p>Из заграничного круиза старший экономист "Гипрорыбы" Семен Семеныч Горбунков (Никулин) возвращается в гипсе с ошибочно замурованными в нем драгоценностями.</p>
-                            </div>
-                            <div class="comment-list_footer">
-                                <a href="#" class="comment-answer">Ответить</a>
-                                <a href="#" class="comment-link">Ссылка</a>
-                                <a href="#" class="comment-complain">Пожаловаться</a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/new_design/images/comment.jpg" alt="" class="comment-list_photo" />
-                        <div class="comment-list_text">
-                            <span class="comment-list_date">14 Ноября / 2012 г. / 12:06</span>
-                            <a href="#" class="comment-list_name">Михаил Брашинский</a>
-                            <div class="comment-list_comment">
-                                <p>Из заграничного круиза старший экономист "Гипрорыбы"<br /> Семен Семеныч Горбунков (Никулин) возвращается в гипсе с ошибочно</p>
-                            </div>
-                            <div class="comment-list_footer">
-                                <a href="#" class="comment-answer">Ответить</a>
-                                <a href="#" class="comment-link">Ссылка</a>
-                                <a href="#" class="comment-complain">Пожаловаться</a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/new_design/images/comment.jpg" alt="" class="comment-list_photo" />
-                        <div class="comment-list_text">
-                            <span class="comment-list_date">14 Ноября / 2012 г. / 12:06</span>
-                            <a href="#" class="comment-list_name">Михаил Брашинский</a>
-                            <div class="comment-list_comment">
-                                <p>Из заграничного круиза старший экономист "Гипрорыбы" Семен Семеныч Горбунков (Никулин) возвращается в гипсе с ошибочно замурованными в нем драгоценностями.</p>
-                            </div>
-                            <div class="comment-list_footer">
-                                <a href="#" class="comment-answer">Ответить</a>
-                                <a href="#" class="comment-link">Ссылка</a>
-                                <a href="#" class="comment-complain">Пожаловаться</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="all-link">
-                <a href="#">Все комментарии</a>
-            </div>
-        </section>
-        #}
-
-
-{#
-        This is comments
         <div class="more-comments-show">
-            <div class="comments comments-gray clearfix">
-                {% set comment_thread_id = app.request.locale ~ '_lecture_' ~ lecture.id %}
+            <div id="comments" class="comments comments-gray clearfix">
+                {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_LECTURE')~'_' ~ lecture.id %}
                 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
                 {% if not is_granted('ROLE_USER') %}
@@ -366,7 +307,6 @@
             </div>
         </div>
 
-#}
     </div>
 {% endblock %}
 
@@ -421,6 +361,7 @@
         function initSocialShare() {
             new Ya.share({
                 element: 'yandex-share',
+                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                 elementStyle: {
                     'type': 'none',
                     'border': false,

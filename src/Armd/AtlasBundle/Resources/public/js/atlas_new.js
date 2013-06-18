@@ -17,11 +17,12 @@ AT.init = function(params) {
     AT.initMap(params);
     AT.initGeocoder();
     AT.initUI();
-    AT.initTabFilters();
     AT.initFilters();
+    AT.initTabs();
     AT.initHacks();
+    AT.initMyObjects();
 
-    AT.selectFirstFilterObject();
+    //AT.selectFirstFilterObject();
 };
 
 AT.initMap = function(params) {
@@ -111,23 +112,23 @@ AT.initGeocoder = function() {
 
 AT.initUI = function() {
 
-    // Вкладки. Перехват смены вкладок
-    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
-        var href = $(this).attr('href');
-        if (href == "#maps") {
-            // Переключение на Мои карты. Очистим карту. Отбить AJAX
-            AT.clearMap();
-            if ($('#map-section').hasClass('logged-in')) {
-                AT.initMyObjects();
-            }
-        }
-        else if (href == "#obj") {
-            // Отображаем объекты с примененным фильтром
-            $('#atlas-filter-form').submit();
-        }
-        $(this).blur();
-        return false;
-    });
+//    // Вкладки. Перехват смены вкладок
+//    $('.filter-tabs-titles li a, .filter-sub-tabs-titles li a').click(function(){
+//        var href = $(this).attr('href');
+//        if (href == "#maps") {
+//            // Переключение на Мои карты. Очистим карту. Отбить AJAX
+//            AT.clearMap();
+//            if ($('#map-section').hasClass('logged-in')) {
+//                AT.initMyObjects();
+//            }
+//        }
+//        else if (href == "#obj") {
+//            // Отображаем объекты с примененным фильтром
+//            $('#atlas-filter-form').submit();
+//        }
+//        $(this).blur();
+//        return false;
+//    });
 
     // Объекты. Фильтр
     $('#atlas-filter-form').ajaxForm({
@@ -241,6 +242,8 @@ AT.initUI = function() {
                     AT.clusterPoints.setClusters();
                 }
             }
+
+            AT.fitMap(objects);
         }
     });
 
@@ -267,42 +270,80 @@ AT.initUI = function() {
     });
 
 };
+
+
 AT.selectFirstFilterObject = function() {
-    var elems = $('#ajax-filter-tabs').find('.gray-checked');
-    $('span', $(elems[0])).click();    
+    var elems = $('.ajax-filter-tabs').filter(':visible').find('.gray-checked');
+    if (elems.filter('.checked').length == 0) {
+        $('span', $(elems[0])).click();
+    } else {
+        AT.submitFiltersForm();
+    }
 }
+
+
 // Init filters
-AT.initTabFilters = function(){
-    $('#filter-type').val('filter_culture_objects');
-    $('.atlas-tab-filters').on( 'click', function(){
-        AT.clearMap();
-        if( $(this).hasClass('active') ) {
-            return false;
-        }
-        $('#ajax-loading').show();
-        $('.atlas-tab-filters').removeClass('active');
-        $(this).addClass('active');
-        current_sel_tab = $(this).attr('id');
-        
-        $.ajax({
-            url: Routing.generate('armd_atlas_ajax_filters', {
-                'typeTab': current_sel_tab
-            }),
-            cache: false,
-            dataType: 'html',
-            type: 'post',
-            success: function(res){
-                $('#ajax-loading').hide();
-                $('#ajax-filter-tabs').html(res);
-                $('#filter-type').val(current_sel_tab);
-                AT.selectFirstFilterObject();
-            }
-        });
-        return false;
+AT.initTabs = function() {
+
+//    if (window.location.hash) {
+//        var filterType = "filter_culture_objects";
+//        var hash = window.location.hash.substr(1).replace("-", "_");
+//
+//        if ($.inArray(hash, ["culture_objects", "tourist_clusters", "user_objects"]) > -1) {
+//            filterType = "filter_" + hash;
+//        }
+//        AT.showTab(filterType);
+//    }
+
+    AT.showTab(AT.params.initialFilterType, true);
+
+    $('.atlas-tab-filters').on( 'click', function(event){
+        event.preventDefault();
+        var filterType = $(this).attr('id');
+        AT.showTab(filterType);
     });
 }
+
+AT.showTab = function(filterType, force) {
+    if (typeof(force) === 'undefined') {
+        force = false;
+    }
+    if ($('#' + filterType).hasClass('active') && !force) {
+        return;
+    }
+
+    var filterTabId = AT.getFilterTabIdByFilterType(filterType);
+
+    $('.atlas-tab-filters').removeClass('active');
+    $('#' + filterType).addClass('active');
+    $('.atlas-side-tab').hide();
+    $('#' + filterTabId).show();
+
+    $('#ajax-loading').show();
+    $('#filter-type').val(filterType);
+
+    AT.clearMap();
+
+    if (filterType === 'filter_culture_objects' || filterType === 'filter_tourist_clusters') {
+        AT.selectFirstFilterObject();
+    } else if (filterType === 'filter_user_objects') {
+        AT.initMyObjectsTab();
+    }
+
+    if (typeof(history.pushState) !== 'undefined') {
+        history.pushState(null, document.title, Routing.generate('armd_atlas_index', {'filterType': filterType}));
+    }
+}
+
+AT.getFilterTabIdByFilterType = function (filterType) {
+    var filterTabId = filterType.replace('filter_', '').replace('_', '-') + '-tab';
+    return filterTabId;
+}
+
+
 // Init filters
 AT.initFilters = function(){
+
     $('.atlas-filter-form .check_all').click(function(){
         var parentDiv = $(this).closest('.simple-filter-block');
         if (!$(this).data('checked')) {
@@ -321,10 +362,9 @@ AT.initFilters = function(){
         // перехват обработчика из function.js
         e.preventDefault();
         e.stopPropagation();
-        switch($('#filter-type').val()) {
-            case 'filter_tourist_clusters':
-                $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
-                break;
+
+        if ($('.content-tabs .active').attr('id') === 'filter_tourist_clusters') {
+            $('label', $(this).closest('.simple-filter-options')).removeClass('checked');
         }
         $(this).closest('label').toggleClass('checked');
         // сбор отмеченных тегов
@@ -375,6 +415,7 @@ AT.placePoint = function(object) {
                     width: 17
                 }
             });
+        $(point.container).data('uid',object.id).css({'margin-left':'-4px','margin-top':'-12px'});
     } else {
         var point = new PGmap.Point({
                 coord: new PGmap.Coord(object.lon, object.lat, true),
@@ -383,14 +424,9 @@ AT.placePoint = function(object) {
                 backpos: '0 0',
                 url: object.icon
             });
+        $(point.container).data('uid',object.id).css({'margin-left':'-12px','margin-top':'-40px'});
     }
-    $(point.container)
-        .data('uid', object.id)
-        .css({
-            'margin-left': '-4px',
-            'margin-top': '-12px'
-        })
-        .attr('title', object.title);
+    $(point.container).data('uid', object.id).attr('title', object.title);
 
     AT.map.geometry.add(point);
 
@@ -398,12 +434,18 @@ AT.placePoint = function(object) {
     PGmap.EventFactory.eventsType.mouseout = 'mouseout';
     // наведение на точку
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseover, function(e) {
-        $('img', point.container).css({width:50});
-        $(point.container).css({marginLeft:-18, marginTop:-24});
+        var img = $('img', point.container);
+        if(img.length){
+            img.css({width:50});
+            $(point.container).css({marginLeft:-18, marginTop:-24});
+        }
     });
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.mouseout, function(e) {
-        $('img', point.container).css({width:17});
-        $(point.container).css({marginLeft:-4, marginTop:-12});
+        var img = $('img', point.container);
+        if(img.length){
+            img.css({width:17});
+            $(point.container).css({marginLeft:-4, marginTop:-12});
+        }
     });
     // клик по точке
     PGmap.Events.addHandler(point.container, PGmap.EventFactory.eventsType.click, function(){
@@ -440,11 +482,15 @@ AT.initHacks = function() {
         $(this).closest('.b-balloon').data('point').hideBalloon();
         return false;
     });
+    
+    $('div#'+this.params.map+' div.PGmap').css({zIndex:0});
 };
 
 AT.collectTagsValue = function() {
     var filterTags = [];
-    $('.atlas-filter-form').find('.simple-filter-options > label.checked > span').each(function(i,el){
+    var filterTabId = AT.getFilterTabIdByFilterType($('#filter-type').val());
+
+    $('.atlas-filter-form #' + filterTabId).find('.simple-filter-options > label.checked > span').each(function(i,el){
         filterTags.push( $(this).data('tag') );
     });
     $('#category-id').val(filterTags);
@@ -459,10 +505,25 @@ AT.submitFiltersForm = function() {
     $('#atlas-filter-form').submit();
 };
 
+AT.initMyObjects = function() {
+
+    $('#add-object-form .added-images').on('click', '.del', function(){
+        if (confirm('Удалить?')) {
+            var jImage = $(this).closest('.added-image');
+            var imageId = jImage.data('id');
+            jImage.remove();
+            $.ajax({
+                url: Routing.generate('armd_atlas_default_objects_my_delete_image', {'mediaId': imageId})
+            });
+        }
+    });
+
+}
+
 /**
  * Работа с пользовательскими объектами
  */
-AT.initMyObjects = function() {
+AT.initMyObjectsTab = function() {
 
     // Построение списка моих объектов
     $('#ajax-loading').show();
@@ -470,19 +531,32 @@ AT.initMyObjects = function() {
         url: AT.params.fetchMyObjectsUri, // /atlas/objects/my
         dataType: 'json',
         success: function(res) {
+            AT.clearMap();
             $('#ajax-loading').hide();
             if (res.success) {
                 $('#myobj_list').empty();
                 for (var i in res.result) {
-                    var object = res.result[i],
-                        jLi = $('#myobj_list_template').tmpl(object);
+                    var object = res.result[i];
+                    var jLi = $('#myobj_list_template').tmpl(object);
                     var point = AT.placePoint(object);
+
                     jLi.data('point', point);
                     $('#myobj_list').append(jLi);
                 }
+                if (AT.params.objectId) {
+                    AT.showObjectFormById(AT.params.objectId);
+                    AT.params.objectId = null;
+                    $('html, body').animate({
+                        scrollTop: $("#filter_culture_objects").offset().top
+                    }, 500);
+                }
+
             } else {
                 alert(res.message);
             }
+        },
+        complete: function() {
+            $('#ajax-loading').hide();
         }
     });
 
@@ -511,7 +585,6 @@ AT.initMyObjects = function() {
             success: function(res){
                 $('#ajax-loading').hide();
                 if (res.success) {
-                    // И показываем попап с формой
                     AT.showObjectForm({
                         entity: res.result,
                         coord: coord,
@@ -624,7 +697,6 @@ AT.initMyObjects = function() {
 
     // Добавить объект на карту
     $('#atlas-objects-add').click(function(e){
-        //console.log('Click on #atlas-objects-add');
 
         $('#atlas-objects-add-hint').show();
 
@@ -816,6 +888,20 @@ AT.showObjectForm = function(params) {
         $('#primary-category').select2('val', params.entity.primaryCategory);
         $('#category').select2('val', params.entity.secondaryCategory);
 
+
+        if (params.entity.images.length > 0) {
+            for (var i in params.entity.images) {
+                var image = params.entity.images[i];
+                $('#added-image-template')
+                    .tmpl({
+                        'id': image.id,
+                        'imageUrl': image.thumbUrl
+                    })
+                    .appendTo('#add-object-form .added-images');
+            }
+
+        }
+
         // Включим перетаскивание точки
         var point = myPoint;
         point.draggable = new PGmap.Events.Draggable(point, {
@@ -997,20 +1083,24 @@ AT.showObjectForm = function(params) {
         element: document.getElementById('file-uploader'),
         action: AT.params.imageUploadUri, // /objects/my/upload
         template: '<div class="qq-uploader">'
-                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Drop files here</span></div>'
-                + '  <div class="qq-upload-button">Upload photos&hellip;</div>'
-                + '  <ul class="qq-upload-list">Upload photos&hellip;</ul>'
+                + '  <div class="qq-upload-drop-area" style="display:none;"><span>Перетащите файлы сюда</span></div>'
+                + '  <div class="qq-upload-button">Загрузить фото&hellip;</div>'
+                + '  <ul class="qq-upload-list">Загрузить фото&hellip;</ul>'
                 + '</div>',
+        onSubmit: function(id, name) {
+            armdMk.startLoading();
+        },
         onComplete: function(id, filename, response) {
+            armdMk.stopLoading();
             if (response.success) {
                 var jImageTemplate = $('#added-image-template').tmpl(response.result);
                 jAddedImages.append(jImageTemplate);
-                jImageTemplate.find('.del').on('click', function(){
-                    if (confirm('Удалить?')) {
-                        $(this).closest('.added-image').remove();
-                        // @TODO: И с сервака удалить тоже
-                    }
-                });
+//                jImageTemplate.find('.del').on('click', function(){
+//                    if (confirm('Удалить?')) {
+//                        $(this).closest('.added-image').remove();
+//                        // @TODO: И с сервака удалить тоже
+//                    }
+//                });
             } else {
                 alert(response.message);
             }
@@ -1019,3 +1109,33 @@ AT.showObjectForm = function(params) {
 
 };
 
+AT.showObjectFormById = function(objectId) {
+    $('#myobj_list li[data-id=' + objectId + '] > span').trigger('click');
+};
+
+/**
+ * Fit map.
+ */
+AT.fitMap = function(objects) {
+    if (typeof(objects) !== 'undefined' && objects.length) {
+        var latArr = [],
+            lonArr = [];
+
+        for (var x in objects) {
+            var object = objects[x];
+
+            lonArr.push(object.lon);
+            latArr.push(object.lat);
+        }
+
+        AT.map.setCenterByBbox({
+            lon1: PGmap.Utils.mercX(Math.min.apply(null, lonArr)),
+            lon2: PGmap.Utils.mercX(Math.max.apply(null, lonArr)),
+            lat1: PGmap.Utils.mercY(Math.min.apply(null, latArr)),
+            lat2: PGmap.Utils.mercY(Math.max.apply(null, latArr))
+        });
+
+    } else {
+        AT.map.setCenter(new PGmap.Coord(AT.params.center[0], AT.params.center[1], true), AT.params.zoom);
+    }
+};

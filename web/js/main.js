@@ -4,6 +4,45 @@ jQuery(document).ready(function(){
     }
 }); //ready
 $(function () {
+    var qtipDefaults = {
+        position: {
+            my: "top center",
+            at: "bottom center"
+        },
+        show: {
+            event: "click",
+            effect: function() {
+                $(this).slideDown(100);
+            },
+            solo: true,
+            modal: {
+                on: true
+            }
+        },
+        hide: {
+            event: "unfocus",
+            effect: function() {
+                $(this).slideUp(100);
+            }
+        },
+        style: {
+            classes: "qtip-light qtip-shadow",
+            tip: {
+                corner: true,
+                width:  24,
+                height: 12
+            }
+        }
+    };
+    if ($("a[href='#login-popup']").length > 0) {
+        $("a[href='#login-popup']")
+            .qtip($.extend(true, qtipDefaults, {
+                content: $("#login-popup")
+            }))
+            .click(function() {
+                return false;
+            });
+    }
     $('.flexslider').flexslider({
         animation: "slide",
         controlNav: false,
@@ -413,14 +452,24 @@ $(function () {
             $(this).find('figcaption').width($(this).find('img').width());
         })
     })
-    
-    $('#appstore-link').click(function(){
-        $(this).next('ul').slideToggle();
-        return false;
-    })
-    $('.app_store-block ul a').click(function(){
-        $(this).closest('ul').slideUp();
-    })
+    if ($("a[href='#appstore-popup']").length > 0) {
+    $("a[href='#appstore-popup']")
+        .qtip($.extend(true, qtipDefaults, {
+            content: $("#appstore-popup").html(),
+            position: {
+                my: "top right"
+            },
+            style: {
+                tip: {
+                    mimic: "top center",
+                    offset: 30
+                }
+            }
+        }))
+        .click(function() {
+            return false;
+        });
+    }    
     
     $('body').on('click', $(this), function(e){
         if ($('#datapicker').is(':visible')) {
@@ -481,6 +530,34 @@ $(function () {
                 
         })
     })
+    
+	
+	$('.profile-form select').each(function(){
+		$(this).css({'display':'block','visibility':'hidden'});
+		$(this).selectgroup();
+	})
+    
+    $('.subscription-form label').click(function(){
+        if($(this).prev('input').is(':checked')) {
+            $(this).removeClass('checked');
+        } else {
+            $(this).addClass('checked');
+        }
+    })
+    $('.subscription-form input[checked]').each(function(){
+        $(this).next('label').addClass('checked');
+    })
+    
+    var proActive = $('.profile-menu li').index($('.profile-menu li.active'));
+    $('.profile-right-block:first').addClass('prb-'+proActive);
+	
+	var proRightHeight = $('.profile-right').height();
+    var proLeftHeight = $('.profile-left').height();
+    console.log(proRightHeight);
+    console.log(proLeftHeight);
+    if(proRightHeight > proLeftHeight) {
+        $('.profile-left').height(proRightHeight);
+    }
     
 })
 

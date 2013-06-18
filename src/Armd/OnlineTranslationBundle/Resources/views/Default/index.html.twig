@@ -293,7 +293,8 @@
     {% if app.request.locale == 'ru' %}
         <div class="right-video-block">
             {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
-
+        </div>
+        <div class="right-video-block">
             {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
         </div>
     {% endif %}
@@ -307,6 +308,7 @@
         $(function () {
             new Ya.share({
                 element:'yandex-share',
+                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
                 elementStyle:{
                     'type':'none',
                     'border':false,

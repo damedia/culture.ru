@@ -124,7 +124,6 @@ class CultureTvProvider extends BaseVideoProvider
             throw new \RuntimeException('Unable to retrieve picture url');
         }
 
-        \gFuncs::dbgWriteLogVar($metadata, false, ''); // DBG:
         return $metadata;
     }
 

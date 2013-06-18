@@ -109,20 +109,21 @@
 					</form>
 					{% block page_header_search_scope %}{% endblock %}
 				</div>
-				<ul class="quick-links">
-                    {% if app.request.locale == 'ru' %}
-					    <li><a href="http://people.roskult.ru/special/opengov/new/">{{ 'Open Government'|trans }}</a></li>
+				{#<ul class="quick-links">#}
+                    {#{% if app.request.locale == 'ru' %}#}
+					    {#<li><a href="http://people.roskult.ru/special/opengov/new/">{{ 'Open Government'|trans }}</a></li>#}
                         {#<li><a href="{{ path('sonata_user_profile_edit') }}">{{ 'Account settings'|trans }}</a></li>#}
-                    {% endif %}
-				</ul>
+                    {#{% endif %}#}
+				{#</ul>#}
 				<nav class="clear">
 					{% block menu %}
                         <ul class="main-navigation clearfix" title="{{ 'Main menu'|trans }}">
                             {% if app.request.locale == 'ru' %}
+                                <li><a href="{{ path('armd_main_special_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_chronicles') }}">{{ 'Navigation.Timeline'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_press') }}">{{ 'menu.news_index'|trans }}</a></li>
-                                <li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>
+                                {#<li><a href="{{ path('armd_main_special_services') }}">{{ 'menu.communication'|trans }}</a></li>#}
                             {% else %}
                                 <li><a href="{{ path('armd_main_special_russian_images') }}">{{ 'Navigation.Images of Russia.Title'|trans }}</a></li>
                                 <li><a href="{{ path('armd_main_special_press') }}">{{ 'Navigation.Events'|trans }}</a></li>
@@ -132,7 +133,7 @@
 					{% endblock %}
 				</nav>
 			</header>
-			<div class="content clearfix">
+			<div class="content clearfix" style="padding-bottom:20px;">
 				{% block body %}
 				&nbsp;
 				{% endblock %}

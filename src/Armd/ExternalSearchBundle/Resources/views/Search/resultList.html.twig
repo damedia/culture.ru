@@ -24,29 +24,35 @@
 {# ------------------------------------------------------------------------ #}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        
+        $(document).ready( function() {
+            if(window.location.search && window.location.hash != '#c-tab2') {
+                $('#tab-container').easytabs({
+                    defaultTab: "li:last-child"
+                });
+                location.replace(location.protocol+"//"+location.host+location.pathname+location.search+"#c-tab2");
+            }
+            else{
+                $('#tab-container').easytabs({
+                    defaultTab: "li:first-child"
+                });
+            }
+        });
+        
+        $('body').addClass('external-page');
+      
+    </script>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
 {% block left_column %}
-
-    
-    <script type="text/javascript">
-        $('body').addClass('external-page');
-      $(function() {
-        $('.content-tabs').on('click', 'a', function(){
-          var tabId = $(this).attr('href');
-          $(this).addClass('active')
-                  .siblings().removeClass('active');
-          $(tabId).show().siblings('.content-tab').hide();        
-          return false;
-        })
-      });
-    </script>
-    <div class="content-tabs">
-        <a href="#c-tab1" class="active">Каталог сайтов о культуре</a>
-        <a href="#c-tab2">Поиск по сайтам учреждений культуры</a>
-    </div>
-    <div class="content-tab content-tabs-norm-pad" id="c-tab1">
+<div id="tab-container" class="tab-container">    
+    <ul class="content-tabs">
+        <li class="tab"><a href="#c-tab1">Каталог сайтов о культуре</a></li>
+        <li class="tab"><a href="#c-tab2">Поиск по сайтам учреждений культуры</a></li>
+    </ul>
+     <div id="c-tab1" class="content-tab content-tabs-norm-pad">
         <table class="thetable">
           <col class="thetable-external-col1"><col class="thetable-external-col2">
           <tr>
@@ -475,7 +481,7 @@
           </tr>
         </table>     
     </div><!--/content-tab -->
-    <div class="content-tab content-tabs-norm-pad" id="c-tab2" style="display:none;">      
+    <div id="c-tab2" class="content-tab content-tabs-norm-pad">      
         {# Search form code from Yandex. #}
       <div
           class="ya-site-form ya-site-form_inited_no"
@@ -516,12 +522,12 @@
       {# Search result list code from Yandex. #}
       <div
           id="ya-site-results"
-          onclick="return {'tld': 'ru', 'language': 'ru', 'encoding': 'utf-8', 'htmlcss': '1.x', 'updatehash': true}"></div>
+          onclick="return {'tld': 'ru', 'language': 'ru', 'encoding': 'utf-8', 'htmlcss': '1.x', 'updatehash': false};"></div>
       <script type="text/javascript">
           (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src='http://site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init()})})(window,document,'yandex_site_callbacks');
       </script>
     </div><!--/content-tab -->
-
+</div><!-- /#tab-container -->
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}

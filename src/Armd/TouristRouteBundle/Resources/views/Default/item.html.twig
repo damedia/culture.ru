@@ -363,7 +363,15 @@
         <li><a href="{{ path('armd_tourist_route_list') }}">{{ 'menu.tourist_routes'|trans }}</a></li>
         <li><span>{{ entity.title }}</span></li>
     </ul>
-    <h1>{{ entity.title }}</h1>
+    <h1>
+        {{ entity.title }}
+            
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a class="user-favorites-button" title="Р”РѕР±Р°РІРёС‚СЊ РІ В«РР·Р±СЂР°РЅРЅРѕРµВ»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_TOURIST_ROUTE') }}" data-id="{{ entity.id }}">
+                <img alt="*" src="{{ asset('img/favorites.png') }}" />
+            </a>
+        {% endif %}
+    </h1>
 
     <div class="tourist-one">
         <div class="tourist-one_map clearfix">
@@ -395,6 +403,7 @@
         <div class="tourist-one_text">
             <div id="content-collapsed" class="content{% if entity.content is not empty %} collapsed{% endif %}" >
                 {{ entity.content|raw }}
+                {{ add_viewed_content(entity, path('armd_tourist_route_item', {id: entity.id})) }}
             </div>
             {% if entity.content is not empty %}
             <div class="more more3">
@@ -424,6 +433,19 @@
     </div>
     <!-- /Page service -->
 
+    <div class="more-comments-show">
+        <div id="comments" class="comments comments-gray clearfix">
+            {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_ROUTE')~'_' ~ entity.id %}
+            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+            {% if not is_granted('ROLE_USER') %}
+                <div class="comments-auth-block">
+                    <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                    {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
 {# ------------------------------------------------------------------------ #}
@@ -447,8 +469,8 @@
                                 <div class="period-block_text">
                                     <h4>{{ video.name }}</h4>
                                     {#<p>#}
-                                        {#Режиссер: Леонид Гайдай <br />#}
-                                        {#Жанр: Комедия / Режиссер: Леонид Гайдай#}
+                                        {#Р РµР¶РёСЃСЃРµСЂ: Р›РµРѕРЅРёРґ Р“Р°Р№РґР°Р№ <br />#}
+                                        {#Р–Р°РЅСЂ: РљРѕРјРµРґРёСЏ / Р РµР¶РёСЃСЃРµСЂ: Р›РµРѕРЅРёРґ Р“Р°Р№РґР°Р№#}
                                     {#</p>#}
                                 </div>
                                 
@@ -479,9 +501,11 @@
                                 <a href="{% path h, 'reference' %}" title="{{ h.title }}" rel="photos" class="route-fancybox period-block_image">
                                     <img src="{% path h, 'photo_thumb' %}" alt="" class="period-block_image" />
                                 </a>
+                                {#
                                 <div class="period-block_text">
                                     <h4>{{ h.title }}</h4>
                                 </div>
+                                #}
                             </article>
                         </li>
                     {% endfor %}

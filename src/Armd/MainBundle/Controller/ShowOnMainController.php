@@ -32,6 +32,11 @@ class ShowOnMainController extends Controller
             if (preg_match("~^news-(\d+)$~", $field, $matches)) {
                 $class = 'Armd\NewsBundle\Entity\News';
                 $category = $matches[1];
+                $cName = 'category';
+            } elseif (preg_match("~^lectures-(\d+)$~", $field, $matches)) {
+                $class = 'Armd\LectureBundle\Entity\Lecture';
+                $category = $matches[1];
+                $cName = 'lectureSuperType';
             } else {
                 return new JsonResponse(array());
             }
@@ -44,7 +49,7 @@ class ShowOnMainController extends Controller
             ->orderBy('t.title', 'ASC');
         
         if (isset($category)) {
-            $qb->andWhere('t.category = :category')->setParameter('category', $category);
+            $qb->andWhere('t.' . $cName . ' = :category')->setParameter('category', $category);
         }
         
         return new JsonResponse($qb->getQuery()->getScalarResult());
@@ -66,6 +71,11 @@ class ShowOnMainController extends Controller
             if (preg_match("~^news-(\d+)$~", $field, $matches)) {
                 $class = 'Armd\NewsBundle\Entity\News';
                 $category = $matches[1];
+                $cName = 'category';
+            } elseif (preg_match("~^lectures-(\d+)$~", $field, $matches)) {
+                $class = 'Armd\LectureBundle\Entity\Lecture';
+                $category = $matches[1];
+                $cName = 'lectureSuperType';
             } else {
                 return new JsonResponse(array('result' => array(), 'total' => 0));
             }           
@@ -77,11 +87,11 @@ class ShowOnMainController extends Controller
             ->where('t.published = TRUE');
         
         if ($search) {
-            $qb->andWhere("t.title LIKE :search")->setParameter('search', "%" . $search . "%");
+            $qb->andWhere("LOWER(t.title) LIKE :search")->setParameter('search', "%" . mb_strtolower($search, 'UTF-8') . "%");
         }
         
         if (isset($category)) {
-            $qb->andWhere('t.category = :category')->setParameter('category', $category);
+            $qb->andWhere('t.' . $cName . ' = :category')->setParameter('category', $category);
         }
         
         $qbCount = clone $qb;

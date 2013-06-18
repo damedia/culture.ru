@@ -14,7 +14,6 @@ menu.news_index: Медиа
 menu.news: Новости
 menu.media: Медиа
 menu.events: Анонсы
-menu.media: Медиа
 menu.communication: Общение
 
 menu.reportage: Репортажи
@@ -59,8 +58,9 @@ menu.may9_films: Классика военного кино
 menu.may9_day: Короткометражный фильм «День победы»
 menu.music: Музыка
 menu.theatre: Театры
-menu.underconstraction: Страница в разработке
+menu.underconstruction: Страница в разработке
 menu.contacts: Контакты
+menu.galley_of_war: Военная галерея
 #---------------- /menu -------------------------
 
 virtual_museum_tour: Виртуальный тур по музеям
@@ -73,7 +73,7 @@ Ministry of Culture: Министерство культуры
 Russian Federation: Российской Федерации
 Copyright: © Портал культурного наследия России
 Talk: Рассказать о портале
-Main menu: Основоное меню
+Main menu: Основное меню
 No objects: По Вашему запросу объектов не найдено
 
 Navigation:

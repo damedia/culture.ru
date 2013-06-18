@@ -60,14 +60,14 @@
 
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block one_column %}
-    <ul class="breadcrumbs">
+    <ul class="breadcrumbs" style="margin-bottom:20px;">
         <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
         <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
         <li><span>{{ 'menu.virtual_museum'|trans }}</span></li>
     </ul>
     <div  class="russia-top-found museum-top-found">
         <p class="search-found">{{ "search_museum_found"|trans }}: <span id="found-objects-count"></span> <span id="found-objects-total"><i>{{ "search_of"|trans }}</i> <span></span></span></p>
-        <a href="#" id="show-all" class="button show-all-btn">Показать все</a>
+        <a href="#" id="show-all" class="button show-all-btn">{{ "show_more"|trans }}</a>
     </div>
     <div class="tab active" id="plitka">
         <div class="virt-museum-new-list">

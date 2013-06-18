@@ -19,7 +19,7 @@
                     
                         <div id="data-{{ lecture.id }}" style="display: none;">
                             <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                                {% if lecture.lectureType.code == 'LECTURE_TYPE_VIDEO' %}
+                                {% if lecture.lectureSuperType.code == 'LECTURE_TYPE_VIDEO' %}
                 
                                     {% if lecture.mediaLectureVideo is not empty and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
                                         {% media lecture.mediaLectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
@@ -32,7 +32,7 @@
                                     {% endif %}
                 
                
-                                {% elseif lecture.lectureType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureType.code == 'LECTURE_TYPE_FILE' %}
+                                {% elseif lecture.lectureSuperType.code == 'LECTURE_TYPE_AUDIO' or lecture.lectureSuperType.code == 'LECTURE_TYPE_FILE' %}
                                     {% if lecture.lectureFile is not empty %}
                                         <a href="{{ armd_media_original_url(lecture.lectureFile) }}">{{ 'Download file'|trans }}</a>
                                     {% endif %}

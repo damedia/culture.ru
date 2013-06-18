@@ -1,3 +1,6 @@
+parameters:
+  fos_comment.manager.comment.acl.class: Armd\MkCommentBundle\Acl\AclCommentManager
+  
 services:
     armd_mk_comment.sonata_admin.comment:
         class: Armd\MkCommentBundle\Admin\CommentAdmin

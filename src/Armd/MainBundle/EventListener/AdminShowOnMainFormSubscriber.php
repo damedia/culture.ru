@@ -43,6 +43,11 @@ class AdminShowOnMainFormSubscriber implements EventSubscriberInterface
                 } elseif (preg_match("~^news-(\d+)$~", $name, $matches)) {
                     $class = 'Armd\NewsBundle\Entity\News';
                     $category = $matches[1];
+                    $cName = 'category';
+                } elseif (preg_match("~^lectures-(\d+)$~", $name, $matches)) {
+                    $class = 'Armd\LectureBundle\Entity\Lecture';
+                    $category = $matches[1];
+                    $cName = 'lectureSuperType';
                 } else {
                     continue;
                 }
@@ -50,7 +55,7 @@ class AdminShowOnMainFormSubscriber implements EventSubscriberInterface
                  $qb = $em->getRepository($class)->createQueryBuilder('t')->update();
                     
                 if ($category) {                      
-                    $qb->where('t.category = :category')->setParameter('category', $category);
+                    $qb->where('t.' . $cName . ' = :category')->setParameter('category', $category);
                 }
 
                 $qb1 = clone $qb;

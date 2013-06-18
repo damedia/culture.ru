@@ -2,8 +2,12 @@
 
 namespace Armd\AtlasBundle\Controller;
 
+use Armd\UserBundle\Security\AclManager;
+use Sonata\MediaBundle\Entity\MediaManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Armd\AtlasBundle\Entity\ObjectManager;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +22,10 @@ use Armd\AtlasBundle\Form\ObjectType;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class DefaultController extends Controller
 {
+    const MAX_USER_OBJECTS = 10;
     /**
      * @Route("/objects", defaults={"_format"="json"})
      */
@@ -97,6 +103,21 @@ class DefaultController extends Controller
             'entity' => $entity,
             'relatedObjects' => $relatedObjects
         ));
+    }
+
+    /**
+     * @Route("/user-objects", name="armd_atlas_user_objects")
+     * @Template()
+     */
+    public function userObjectsAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $userObjects = $this->getObjectManager()->getUserObjects($user);
+
+        return array(
+            'user' => $user,
+            'userObjects' => $userObjects
+        );
     }
 
 
@@ -305,13 +326,19 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/", name="armd_atlas_index")
+     * @Route("/{filterType}",
+     *  name="armd_atlas_index",
+     *  defaults={"filterType"="filter_culture_objects"},
+     *  options={"expose"=true}
+     * )
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($filterType)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('ArmdAtlasBundle:Category');
+        $request = $this->getRequest();
+
         $categories = $repo->getDataForFilter();
         if (!$categories)
             throw new NotFoundHttpException("Categories not found");
@@ -320,9 +347,18 @@ class DefaultController extends Controller
         if (!$regions)
             throw new NotFoundHttpException("Regions not found");
 
+        if ($request->query->has('object_id')) {
+            $filterType = 'filter_user_objects';
+            $objectId = $request->get('object_id');
+        } else {
+            $objectId = false;
+        }
+
         return array(
             'categories' => $categories,
             'regions' => $regions,
+            'filterType' => $filterType,
+            'objectId' => $objectId
         );
     }
     
@@ -455,6 +491,15 @@ class DefaultController extends Controller
             $repoObjectStatus = $em->getRepository('ArmdAtlasBundle:ObjectStatus');
             $repoCategory = $em->getRepository('ArmdAtlasBundle:Category');
             $repoObject = $em->getRepository('ArmdAtlasBundle:Object');
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+
+            // user can't create lot of objects
+            $objectCount = $em->createQuery('SELECT COUNT(o) FROM ArmdAtlasBundle:Object o WHERE o.createdBy = :createdBy')
+                ->setParameter('createdBy', $currentUser)
+                ->getSingleScalarResult();
+            if ($objectCount + 1 >= self::MAX_USER_OBJECTS) {
+                throw new \RuntimeException('Слишком много объектов');
+            }
 
             // Название объекта
             $title = trim($request->get('title'));
@@ -467,7 +512,6 @@ class DefaultController extends Controller
                 throw new \Exception('Заполните анонс');
 
             // Автор
-            $currentUser = $this->get('security.context')->getToken()->getUser();
             if (!$currentUser)
                 throw new \Exception('Пользователь не найден');
 
@@ -615,6 +659,8 @@ class DefaultController extends Controller
                     'statusTitle' => $entity->getStatus()->getActionTitle(),
                 ),
             );
+
+            $this->sendMail($entity);
         }
         catch (\Exception $e) {
             $res = array(
@@ -623,14 +669,14 @@ class DefaultController extends Controller
             );
         }
 
-        return new $res;
+        return $res;
     }
 
     /**
      * Мои объекты. Список моих объектов
      * Если указан id, возвращаем одну запись
      *
-     * @Route("/objects/my", defaults={"_format"="json"})
+     * @Route("/objects/my", defaults={"_format"="json"}, name="armd_atlas_default_objectsmy")
      */
     public function objectsMyAction()
     {
@@ -639,11 +685,11 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $currentUser = $this->get('security.context')->getToken()->getUser();
             $repo = $em->getRepository('ArmdAtlasBundle:Object');
+
             $objectId = (int) $request->get('id');
             if ($objectId) {
                 $obj = $repo->findOneBy(
-                    array('createdBy' => $currentUser, 'id' => $objectId),
-                    array('createdBy' => 'ASC')
+                    array('createdBy' => $currentUser, 'id' => $objectId)
                 );
                 $primaryCategory = $obj->getPrimaryCategory();
                 $primaryCategoryId = $primaryCategory ? $primaryCategory->getId() : 0;
@@ -664,6 +710,25 @@ class DefaultController extends Controller
                     'lat' => $obj->getLat(),
                     'icon' => 'http://api-maps.yandex.ru/2.0.14/release/../images/a19ee1e1e845c583b3dce0038f66be2b',
                 );
+                if ($obj->getPrimaryImage()) {
+                    $result['primaryImage'] = array(
+                        'id' => $obj->getPrimaryImage()->getId(),
+                        'thumbUrl' => $this->get('sonata.media.twig.extension')->path($obj->getPrimaryImage(), 'thumbnail')
+                    );
+                } else {
+                    $result['primaryImage'] = false;
+                }
+
+                $result['images'] = array();
+                if ($obj->getImages()->count()) {
+                    foreach ($obj->getImages() as $image) {
+                        $result['images'][] = array(
+                            'id' => $image->getId(),
+                            'thumbUrl' => $this->get('sonata.media.twig.extension')->path($image, 'thumbnail')
+                        );
+                    }
+                }
+
             } else {
                 $result = array();
                 $entities = $repo->findBy(array('createdBy' => $currentUser), array('updatedAt' => 'DESC'));
@@ -711,7 +776,7 @@ class DefaultController extends Controller
             );
         }
 
-        return new $res;
+        return $res;
     }
 
     /**
@@ -737,6 +802,7 @@ class DefaultController extends Controller
             );
             if (!$entity)
                 throw new \Exception('Объект не найден');
+
             $em->remove($entity);
             $em->flush();
             $result = $entityId;
@@ -763,6 +829,11 @@ class DefaultController extends Controller
     public function objectsMyUploadAction()
     {
         try {
+            $currentUser = $this->get('security.context')->getToken()->getUser();
+            if (!$currentUser) {
+                throw new \Exception('Пользователь не найден');
+            }
+
             // Читаем бинарник картинки, пишем во временный файл
             $input = fopen('php://input', 'r');
             $tempPath = tempnam(sys_get_temp_dir(), 'media');
@@ -778,6 +849,8 @@ class DefaultController extends Controller
             $media->setContext('atlas');
             $media->setProviderName('sonata.media.provider.image');
             $mediaManager->save($media);
+
+            $this->get('armd_user.manager.acl')->grant($currentUser, $media, MaskBuilder::MASK_OWNER);
 
             // Возвращаем инфу добавленной картинки
             $res = array(
@@ -796,6 +869,48 @@ class DefaultController extends Controller
             );
         }
         fclose($tempHandler);
+
+        return $res;
+    }
+
+    /**
+     * Мои объекты. Удаление изображений для объекта
+     *
+     * @Route(
+     *  "/objects/my/delete-image/{mediaId}",
+     *  name="armd_atlas_default_objects_my_delete_image",
+     *  defaults={"_format"="json"},
+     *  options={"expose"=true}
+     * )
+     */
+    public function objectsMyDeleteImageAction($mediaId) {
+        try {
+            /** @var MediaManager $mediaManager */
+            $mediaManager = $this->get('sonata.media.manager.media');
+            $em = $this->getDoctrine()->getManager();
+            $media = $em->getRepository('Application\Sonata\MediaBundle\Entity\Media')->find($mediaId);
+
+            if (!$media) {
+                throw new \InvalidArgumentException('Изображение не найдено');
+            }
+
+            if (!$this->get('security.context')->isGranted('DELETE', $media)) {
+                throw new AccessDeniedException();
+            }
+
+            $mediaManager->delete($media);
+
+            $res = array(
+                'success' => true,
+                'message' => 'Изображение удалено'
+            );
+
+        } catch (Exception $ex) {
+            $res = array(
+                'success' => false,
+                'message' => $ex->getMessage()
+            );
+        }
 
         return $res;
     }
@@ -941,6 +1056,21 @@ class DefaultController extends Controller
         }
 
         return $items;
+    }
+
+    public function sendMail($object) {
+        $mailer = $this->get('mailer');
+
+        $mail = new \Swift_Message();
+
+        $mail->setFrom($this->container->getParameter('mail_from'));
+        $mail->setSubject('culture.ru: Создан новый объект атласа');
+        $mail->setBody($this->renderView('ArmdAtlasBundle:Mail:user_object.html.twig', array('object' => $object)), 'text/html');
+        $mail->setTo($object->getCreatedBy()->getEmail());
+
+        $mailer->send($mail);
+
+
     }
 
 }

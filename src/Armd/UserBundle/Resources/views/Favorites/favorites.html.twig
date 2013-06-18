@@ -1,0 +1,23 @@
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'Favorites'|trans }}{% endblock %}
+
+{% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+    <li><span>{{ 'Favorites'|trans }}</span></li>
+</ul>
+
+<div class="profile-wrap clearfix">
+	<div class="profile-left">
+        {{ profileMenu.user_profile_menu('favorites') }}
+    </div>
+    <div class="profile-right profile-right-fav">
+        <div class="profile-right-block clearfix">
+            {% include 'ArmdUserBundle:Favorites:favorites_content.html.twig' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% use 'form_div_layout.html.twig' with widget_container_attributes as base_widget_container_attributes %}
+
+{% block form_widget_compound %}
+<dl {{ block('widget_container_attributes') }}>
+    {% if form.parent is empty %}
+        <dt></dt>
+        <dd>{{ form_errors(form) }}</dd>
+    {% endif %}
+    {{ block('form_rows') }}
+    {{ form_rest(form) }}
+</dl>
+{% endblock %}
+
+{% block widget_container_attributes %}
+{% set attr = attr|merge({'class': (attr.class|default('') ~ ' clearfix')|trim}) %}
+{{ block('base_widget_container_attributes') }}
+{% endblock %}
+
+{% block choice_widget_expanded %}
+    <ul {{ block('widget_container_attributes') }}>
+        {% for child in form %}
+        <li class="input-with-label">
+            {{ form_widget(child) }}
+            {{ form_label(child) }}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block date_widget %}
+{% spaceless %}
+    {% if widget == 'single_text' %}
+        {{ block('form_widget_simple') }}
+    {% else %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ date_pattern|replace({
+                '{{ year }}':  form_widget(form.year),
+                '{{ month }}': form_widget(form.month),
+                '{{ day }}':   form_widget(form.day),
+            })|raw }}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock %}
+
+{% block form_row %}
+<dt>{{ form_label(form) }}</dt>
+<dd>
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+</dd>
+{% endblock %}
+
+{% block form_label %}
+    {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id}) %}
+    {% endif %}
+    {% if required %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{ label|trans({}, translation_domain) }}
+        {% if required %}<span class="req">*</span>{% endif %}
+    </label>
+{% endblock %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+    <ul class="error">
+        {% for error in errors %}
+        <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

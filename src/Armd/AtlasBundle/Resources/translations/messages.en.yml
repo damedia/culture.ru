@@ -116,8 +116,13 @@ types_icons:
 
 save_original_photo: Save original photo
 read_more: Read more
+read_more_2: Read more
 recommended: Recommended
 back: Back
 social_share: Share with friends
 images_russia: Images of Russia
 Search_current_section: Search in current section
+
+atlas.culture_objects: Culture objects
+atlas.tourist_clusters: Tourist clusters
+atlas.my_objects: My objects

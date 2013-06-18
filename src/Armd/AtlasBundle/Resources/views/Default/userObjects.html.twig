@@ -1,0 +1,38 @@
+{% extends ":Frontend:base.html.twig" %}
+{% import 'ArmdUserBundle:Profile:profile_menu.html.twig' as profileMenu %}
+
+{% block page_header_title %}{{ 'profile.atlas_user_objects'|trans }}{% endblock %}
+
+{% block body %}
+<ul class="breadcrumbs">
+    <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+    <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
+    <li><span>{{ 'Profile'|trans }}</span></li>
+</ul>
+<div class="profile-wrap clearfix">
+	<div class="profile-left">
+        {{ profileMenu.user_profile_menu('atlas-user-objects') }}
+    </div>
+    <div class="profile-right">
+        <div class="profile-right-block clearfix">
+            {% if userObjects|length %}
+                <ul class="profile-object-list"><!--
+                    {% for object in userObjects %}
+                        --><li {% if loop.index%3 == 0 %}class="third"{% endif %}><a href="{{ path('armd_atlas_index', {'object_id': object.id} ) }}">{{ object.title }}</a></li><!--
+                    {% endfor %}
+                --></ul>
+            {% else %}
+                <dl class="clearfix">
+                    <dt></dt>
+                    <dd>
+                        <em class="hint"> Вы еще не добавили объекты на атлас </em>
+                    </dd>
+                </dl>
+            {% endif %}
+            <div class="form-actions">
+                <a href="{{ path('armd_atlas_index', {'filterType': 'filter_user_objects'})  }}">Добавить</a>
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}

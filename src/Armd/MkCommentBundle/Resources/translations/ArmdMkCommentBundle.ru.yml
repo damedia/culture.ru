@@ -19,3 +19,12 @@ STATE_PENDING: Ожидает модерации
 STATE_PROCESSING: На модерации
 STATE_SPAM: Спам
 STATE_VISIBLE: Показан
+
+Comments section: Раздел
+No comments: Список записей пуст
+Delete notices: Очистить уведомления
+
+NOTICE_T_NONE: Не уведомлять о коментариях
+NOTICE_T_REPLY: Уведомлять об ответах на мои комментарии
+NOTICE_T_THREAD: Уведомлять о комментариях в темах, в которых я участвую
+NOTICE_T_ALL: Уведомлять о всех новых комментариях
