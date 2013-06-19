@@ -1,14 +1,34 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_date %}
 
-{% if entities is defined %}
+{% if entities is defined and entities|length %}
     <h2 class="long-border"><span>{{ "More on this topic"|trans }}</span></h2>
     <div class="theme-news-block clearfix">
-    {% for entity in entities %}
-        <ul class="theme-news-list">
-            <li>
-                <span class="date">{{ armd_date.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }}</span>
-                <a href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">{{ entity.title|raw }}</a>
-            </li>
-        </ul>
-    {% endfor %}
+
+        {% set open = false %}
+        {% for entity in entities %}
+
+            {% if (loop.index - 1) % 2 == 0 %}
+                {% set open = true %}
+                <div class="theme-news-row">
+            {% endif %}
+
+            <ul class="theme-news-list">
+                <li>
+                    <span class="date"><span class="news-category">{{ entity.category.title }}</span>{{ armd_date.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }}</span>
+                    <a href="{{ path('armd_news_item_by_category', {'id':entity.id, 'category':entity.category.slug}) }}">{{ entity.title|raw }}</a>
+                </li>
+            </ul>
+
+            {% if (loop.index - 1) % 2 == 1 %}
+                {% set open = false %}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if open %}
+            </div>
+        {% endif %}
+
+    </div>
 {% endif %}
