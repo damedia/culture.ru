@@ -4393,8 +4393,11 @@ body {
             }
 
             .twitter-widget-block {
-                width: 48%;
+                width: 100%;
                 float: right;
+            }
+            .twitter-widget-block iframe {
+                width: 100%;
             }
 
                 .twitter-widget-block .timeline {
