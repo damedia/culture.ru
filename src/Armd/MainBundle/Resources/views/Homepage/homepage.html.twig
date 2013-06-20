@@ -165,7 +165,7 @@
             <h4>{{ video.title }}</h4>
             <div class="video-tabs-item">
                 <a href="{{ path('armd_lecture_view', {'id': video.id}) }}" class="period-block_image">
-                    {% thumbnail video.mediaLectureVideo, 'big' with {'alt': video.title, 'width': '100%', 'height': 'auto' } %}
+                    {% thumbnail video.mediaLectureVideo, 'big' with {'alt': video.title, 'width': '100%', 'height': 'auto', 'style': 'height: auto' } %}
                     <span class="play"></span>
                 </a>
             </div>
@@ -247,9 +247,9 @@
     <div class="left-column-content">
         <section class="block new-on-site">
             {% if app.request.locale == 'ru' %}
-                <section class="block social-widget-block">
-                    {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
-                </section>
+                {#<section class="block social-widget-block">#}
+                    {#{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}#}
+                {#</section>#}
                 <section class="block twitter-widget-block">
                     {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
                 </section>
