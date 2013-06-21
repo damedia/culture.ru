@@ -286,14 +286,14 @@ class NewsController extends Controller
             }
         }
 
-        if (in_array('articles', $category) || in_array('news', $category)) {
-            $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
-        } else {
-            $template = 'ArmdNewsBundle:News:two-column-list.html.twig';
-        }
+//        if (in_array('articles', $category) || in_array('news', $category)) {
+//            $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
+//        } else {
+//            $template = 'ArmdNewsBundle:News:two-column-list.html.twig';
+//        }
 
         return $this->render(
-            $template,
+            'ArmdNewsBundle:News:one-column-list.html.twig',
             array(
                 'newsByDate' => $newsByDate,
                 'category' => $category
