@@ -35,6 +35,12 @@
 {% endblock %}    
 
 {% block one_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li><a href="{{ path('armd_museum_virtual') }}">{{ 'menu.museum'|trans }}</a></li>
+        <li><a href="{{ path('armd_war_gallery') }}">{{ 'menu.galley_of_war'|trans }}</a></li>
+        <li><span>{{ 'War Archive'|trans }}</span></li>
+    </ul>
 
     {#{% if images|length > 0 %}#}
         {#1111111111#}

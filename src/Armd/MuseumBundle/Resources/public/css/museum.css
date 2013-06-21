@@ -2,7 +2,7 @@
     font: 32px 'Trebuchet MS', sans-serif;
     border: 0;
     color: black;
-    margin: 1px 0 16px;
+    /*margin: 10px 0 16px;*/
 }
     .archive-header span {
         font-size:20px;
