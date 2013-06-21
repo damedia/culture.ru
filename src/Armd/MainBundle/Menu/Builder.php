@@ -327,7 +327,14 @@ class Builder extends ContainerAware
             $theatreMenu = $menu->addChild(
                 'menu.theatre',
                 array(
-                    'route' => 'armd_main_underconstruction',
+                    'route' => 'armd_theater_list',
+                )
+            );
+
+            $theatreMenu->addChild(
+                'menu.perfomance',
+                array(
+                    'route' => 'armd_perfomance_list'
                 )
             );
             
