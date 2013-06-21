@@ -2288,6 +2288,11 @@ body {
         .breadcrumbs li.last-child span{
             background-image:url(../img/breadcrumbs-r-a.png);
         }
+
+        .after-breadcrumbs-link {
+            margin: 20px 0 15px;
+        }
+
     /*Select Filter*/        
 	
     #perfomance_ganre {
