@@ -53,7 +53,7 @@
             <a href="{{ path('fos_user_registration_register') }}">{{ 'auth_register'|trans }}</a>
             <a href="{{ path('fos_user_resetting_request') }}">{{ 'Forgot your password'|trans }}?</a>
 
-            {% render url('armd_social_auth_auth_links', {'redirectUrl': path('sonata_user_profile_show') }) %}
+            {% render url('armd_social_auth_auth_links', {'redirectUrl': path('armd_main_homepage') }) %}
         </div>
     </form>
 </div>
