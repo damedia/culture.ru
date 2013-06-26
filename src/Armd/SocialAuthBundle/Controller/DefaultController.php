@@ -38,6 +38,7 @@ class DefaultController extends Controller
         } else {
             $url = $this->get('router')->generate('armd_main_homepage');
         }
+        $url .= '?c=' . rand(0, 10000);
         return new RedirectResponse($url);
     }
 
