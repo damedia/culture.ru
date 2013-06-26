@@ -33,13 +33,13 @@ use FOS\UserBundle\FOSUserEvents;
 class ProfileController extends Controller
 {
 
-//    /**
-//     * @return Response
-//     *
-//     * @throws AccessDeniedException
-//     */
-//    public function showAction()
-//    {
+    /**
+     * @return Response
+     *
+     * @throws AccessDeniedException
+     */
+    public function showAction()
+    {
 //        $user = $this->container->get('security.context')->getToken()->getUser();
 //        if (!is_object($user) || !$user instanceof UserInterface) {
 //            throw new AccessDeniedException('This user does not have access to this section.');
@@ -48,7 +48,8 @@ class ProfileController extends Controller
 //        return $this->render('ArmdUserBundle:Profile:show.html.twig', array(
 //            'user' => $user
 //        ));
-//    }
+        return $this->redirect($this->get('router')->generate('fos_user_profile_edit'));
+    }
 
 //
 //    /**
