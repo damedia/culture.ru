@@ -33,12 +33,12 @@ class DefaultController extends Controller
     {
         $session = $this->getRequest()->getSession();
         if($session->has('armd_social_auth.post_auth_redirect')) {
-            $response = new RedirectResponse($session->get('armd_social_auth.post_auth_redirect'));
+            $url = $session->get('armd_social_auth.post_auth_redirect');
             $session->remove('armd_social_auth.post_auth_redirect');
         } else {
-            $response = new RedirectResponse($this->get('router')->generate('armd_main_homepage'));
+            $url = $this->get('router')->generate('armd_main_homepage');
         }
-        return $response;
+        return new RedirectResponse($url);
     }
 
 }
