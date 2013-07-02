@@ -2485,7 +2485,7 @@ body {
             margin-bottom:20px;
         }
             .sort-element-filter a {
-                margin-right:15px;
+                /*margin-right:15px;*/
             }
             .sort-element-filter a.active {
                 border-width:3px;
