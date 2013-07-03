@@ -1,4 +1,4 @@
-/app/bootstrap.php.cache
+app/bootstrap*
 /app/cache/*
 /app/logs/*
 /app/config/parameters.yml
