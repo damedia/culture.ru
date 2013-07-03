@@ -219,6 +219,8 @@
 {% block after_body %}
 <div class="right-column" style="padding-top:38px;">
     {% if app.request.locale == 'ru' %}
+        <section class="newspaper img-banner"><a target="_blank" href="http://www.moviestart.ru" alt="МОЛОДЕЖНЫЙ ЦЕНТР СОЮЗА КИНЕМАТОГРАФИСТОВ РФ"><img src="{{ asset('img/banners/banner_cinema_unity_c.jpg') }}" style="width: 210px; margin-left: -16px"></a></section>
+
         <section class="newspaper img-banner"><a target="_blank" href="http://100.histrf.ru/about/" alt=""><img src="{{ asset('img/banner_cultura_100_histrf.png') }}"></a></section>
 
         <section class="newspaper newspaper-culture"><a target="_blank" href="http://portal-kultura.ru/" title='{{ "menu.culture_magazine"|trans }}'></a></section>
