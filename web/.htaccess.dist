@@ -1,14 +1,26 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    #<IfModule mod_vhost_alias.c>
-    #    RewriteBase /
-    #</IfModule>
+#    <IfModule mod_vhost_alias.c>
+#        RewriteBase /
+#    </IfModule>
 
 #    RewriteRule ^main$ http://%{HTTP_HOST}/main/ [R,L]
 #    RewriteRule ^main/$ static/index.html [L]
     RewriteRule ^main/(.*)$ static/$1 [L]
 
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteCond %{REQUEST_URI}% /en/
+#    RewriteRule ^.*$ app_ms_en.php [QSA,L]
+#
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteCond %{REQUEST_URI}% !/en/
+#    RewriteRule ^.*$ app_ms.php [QSA,L]
+
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ app.php [QSA,L]
+    RewriteRule ^.*$ app.php [QSA,L]
+
+    php_value date.timezone 'Europe/Moscow'
 </IfModule>
+AddDefaultCharset UTF-8
+
