@@ -1,3 +1,7 @@
+damedia_special_project:
+    pattern:  /project/{page}
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:index, page: last }
+
 armd_markup:
     resource: "@ArmdMarkupBundle/Controller/"
     type:     annotation
