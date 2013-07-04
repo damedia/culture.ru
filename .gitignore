@@ -2,7 +2,6 @@ app/bootstrap*
 /app/cache/*
 /app/logs/*
 /app/config/parameters.yml
-/app/config/sphinx/sphinx.conf
 /build
 /vendor
 /composer.phar
@@ -18,6 +17,7 @@ app/bootstrap*
 /web/uploads
 /web/bundles
 /web/sitemap
+
 
 #OSX
 .DS_Store
@@ -83,3 +83,4 @@ app/logs.idea/
 
 app/cache/
 *.log
+
