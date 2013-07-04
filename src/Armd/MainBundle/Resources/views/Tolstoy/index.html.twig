@@ -60,12 +60,14 @@ margin: 3px 0 10px;
   });
 
   function initUi() {
+      /*
       $('#read-more').parent().parent().click(function(){
           $('.may9 .content').removeClass('collapsed');
           $('.may9 .content').addClass('bordered');
           $(this).hide();
           return false;
       });
+*/
   }
 
     function initFancybox() {
@@ -135,7 +137,7 @@ margin: 3px 0 10px;
 <div class="tolstoy">
     <h1 class="obraz-header" style="margin-bottom:20px;"><span>Толстой и цифра</span></h1>
     <div class="block">
-        <div class="content collapsed">
+        <div class="content">
 
             
     <div class="event-one_anons">
@@ -193,6 +195,7 @@ margin: 3px 0 10px;
 <p><strong><br>Юлия Галямина, сотрудник МГУ, кандидат филологических наук</strong></p>
 <p>&nbsp;</p>
     </div><!-- /content -->
+        <!--
         <div class="more more3">
           <p>
             <a href="#" id="read-more">Читать дальше</a>
@@ -253,7 +256,7 @@ margin: 3px 0 10px;
     <div class="block">
         <article class="static-block video-block">
             <h2>Музей-усадьба <br>«Ясная Поляна»</h2>
-            <a href="http://culture.ru/atlas/object/219" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
+            <a class="block-image" href="http://culture.ru/atlas/object/219" class="borodino-panorama-image vob">
 				<img  style="max-width: 100%;"  src="http://culture.ru/ru/uploads/media/atlas/0001/05/thumb_4596_atlas_atlasW613.jpeg" alt="" />
 			</a>
         </article>
@@ -263,12 +266,95 @@ margin: 3px 0 10px;
     <div class="block">
         <article class="static-block video-block">
             <h2>Музей-усадьба<br>Льва Толстого в Хамовниках</h2>
-            <a href="http://culture.ru/atlas/object/982" data-fancybox-type="iframe" class="borodino-panorama-image vob iframe">
+            <a class="block-image" href="http://culture.ru/atlas/object/982" class="borodino-panorama-image vob">
 				<img  style="max-width: 100%;"  src="http://culture.ru/ru/uploads/media/atlas/0001/14/thumb_13604_atlas_atlasW613.jpeg" alt="" />
 			</a>
         </article>
     </div>
 </div>
+
+<section class="block">
+        <section class="right-news-list-block">
+            <h2>Архивные фотографии</h2>
+        
+            <ul class="right-news-list">
+   
+        <li class="clearfix">
+        <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24260_news_big.jpeg"><img width="85" height="65" src="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24260_news_thumbnail.jpeg"></a>
+        <div class="right-news-list-text">
+            <a href="/press-centre/events/4201/" class="right-news-name">Вид московской усадьбы Л. Н. Толстого со стороны переулка.</a>
+            <p>Фотография П. П. Павлова.<br>1912-1913 гг. Хамовники.</p>
+        </div>
+    </li>
+      
+        <li class="clearfix">
+        <a href="/press-centre/events/1390/"><img width="85" height="65" src="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24261_news_thumbnail.jpeg"></a>
+        <div class="right-news-list-text">
+            <a href="/press-centre/events/1390/" class="right-news-name">Вид на дом Л. Н. Толстого в Москве со стороны Долгохамовнического переулка.</a>
+            <p>
+                Любительская фотография.<br>
+                Нач. 1890-х гг.
+            </p>
+        </div>
+    </li>
+   
+        <li class="clearfix">
+        <a href="/press-centre/events/1249/"><img width="85" height="65" src="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24262_news_thumbnail.jpeg"></a>
+        <div class="right-news-list-text">
+            <a href="/press-centre/events/1249/" class="right-news-name"> С. А. Толстая с младшими детьми Андреем, Мишей, Александрой и Ванечкой.</a>
+            <p>
+                Фотография М. А. Шиндлера и А. И. Мея под фирмою «Шерер, Набгольц и КО».<br>
+                1892 г. Москва.
+            </p>
+        </div>
+    </li>
+   
+        <li class="clearfix">
+        <a href="/press-centre/events/1186/"><img width="85" height="65" src="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24263_news_thumbnail.jpeg"></a>
+        <div class="right-news-list-text">
+            <a href="/press-centre/events/1186/" class="right-news-name">Александра и Ванечка Толстые среди друзей в саду дома в Хамовниках.</a>
+            <p>
+                Любительская фотография.<br>
+                Александра третья слева, Ванечка крайний справа.<br>
+                1893 г. Москва.
+            </p>
+        </div>
+    </li>
+   
+        <li class="clearfix">
+        <a href="/press-centre/events/1219/"><img width="85" height="65" src="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24264_news_thumbnail.jpeg"></a>
+        <div class="right-news-list-text">
+            <a href="/press-centre/events/1219/" class="right-news-name">С. А. Толстая (справа), С. Н. Толстая (рожд. Философова) и Александра Толстая</a>
+            <p>
+                Фотография С. А. Толстой. Переснимок.<br>
+                1895 г. Москва (Хамовники).
+            </p>
+        </div>
+    </li>
+   
+        <li class="clearfix">
+        <a href="/press-centre/events/1182/"><img width="85" height="65" src="http://culture.ru/ru/uploads/media/news/0001/25/thumb_24266_news_thumbnail.jpeg"></a>
+        <div class="right-news-list-text">
+            <a href="/press-centre/events/1182/" class="right-news-name">Л. Н. Толстой рядом со своим скульптурным изображением работы И. Е. Репина.</a>
+            <p>
+                Фотография Е. С. Томашевича.<br>
+                1891 г. Ясная Поляна.
+            </p>
+        </div>
+    </li>
+</ul>
+        </section>
+    </section>
+<div class="block object-videos">
+    <div class="block">
+        <article class="static-block video-block">
+            <h2>Хроника, 1909 год</h2>
+            <a href="http://culture.ru/cinema/view/1168" class="borodino-panorama-image vob"><img  style="max-width: 100%;"  src="http://culture.ru/ru/uploads/media/lecture/0001/25/thumb_24132_lecture_big.jpg" alt="" />
+            </a>
+        </article>
+    </div>
+</div>
+
 
 <div class="block object-videos">
     <div class="block">
