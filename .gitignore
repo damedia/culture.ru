@@ -1,7 +1,7 @@
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*
-/app/config/parameters.yml
+#/app/config/parameters.yml
 /app/config/sphinx/sphinx.conf
 /build
 /vendor
@@ -18,3 +18,52 @@
 /web/uploads
 /web/bundles
 /web/sitemap
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+
+#IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Eclipse
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
