@@ -1,4 +1,4 @@
-/app/bootstrap.php.cache
+app/bootstrap*
 /app/cache/*
 /app/logs/*
 /app/config/parameters.yml
@@ -18,7 +18,8 @@
 /web/bundles
 /web/sitemap
 
-# OSX
+
+#OSX
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -32,6 +33,15 @@ Icon
 .Spotlight-V100
 .Trashes
 
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
 #IDEA
 *.iml
@@ -66,3 +76,11 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+# Symphony cache
+app/cache
+app/logs.idea/
+
+app/cache/
+*.log
+
