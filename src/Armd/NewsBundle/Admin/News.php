@@ -45,6 +45,7 @@ class News extends Admin
             ->add('title')
             ->add('announce')
             ->add('body')
+            ->add('newsDate')   
             ->add('date')                            
             ->add('showOnMain')
             ->add('showOnMainOrd')
