@@ -106,7 +106,7 @@ class ObjectAdmin extends Admin
                 ->add('reason')
             ->end()
             ->with('SEO')
-                ->add('seoTitle')
+                ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()

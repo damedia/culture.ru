@@ -103,7 +103,7 @@ class News extends Admin
                 ->add('endDate', $dateFormType, array('required' => false)) // , null, array('date_widget' => 'single_text', 'time_widget' => 'single_text')
             ->end()
             ->with('SEO')
-                ->add('seoTitle')
+                ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
