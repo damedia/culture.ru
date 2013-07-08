@@ -82,6 +82,7 @@ class AppKernel extends Kernel
             new Armd\ExtendedBannerBundle\ArmdExtendedBannerBundle(),
             new Armd\TouristRouteBundle\ArmdTouristRouteBundle(),
             new Armd\SubscriptionBundle\ArmdSubscriptionBundle(),
+
             new Damedia\SpecialProjectBundle\DamediaSpecialProjectBundle(),
         );
 

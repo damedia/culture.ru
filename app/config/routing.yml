@@ -2,6 +2,10 @@ damedia_special_project:
     pattern:  /project/{page}
     defaults: { _controller: DamediaSpecialProjectBundle:Render:index, page: last }
 
+armd_main_project_tolstoy:
+    pattern:  /tolstoy/
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:index, page: tolstoy }
+
 armd_markup:
     resource: "@ArmdMarkupBundle/Controller/"
     type:     annotation
@@ -31,10 +35,6 @@ armd_mk_comment:
 armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
     prefix:   /
-
-armd_main_project_tolstoy:
-    pattern:  /tolstoy/
-    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Tolstoy:index.html.twig }
 
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"

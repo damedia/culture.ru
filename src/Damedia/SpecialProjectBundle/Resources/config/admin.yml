@@ -1,0 +1,9 @@
+services:
+    sonata.admin.tag:
+        class: Damedia\SpecialProjectBundle\Admin\PageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Спецпроекты, label: "OMG I am so done with this thing..." }
+        arguments:
+            - null
+            - Damedia\SpecialProjectBundle\Entity\Page
+            - 'SonataAdminBundle:CRUD'
