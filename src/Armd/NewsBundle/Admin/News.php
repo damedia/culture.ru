@@ -24,7 +24,7 @@ class News extends Admin
     protected $container;
 
     protected $datagridValues = array(
-        '_sort_by'      => 'date',    
+        '_sort_by'      => 'newsDate',    
         '_sort_order'   => 'DESC',
     );
 
@@ -45,6 +45,7 @@ class News extends Admin
             ->add('title')
             ->add('announce')
             ->add('body')
+            ->add('newsDate')   
             ->add('date')                            
             ->add('showOnMain')
             ->add('showOnMainOrd')
