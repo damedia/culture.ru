@@ -190,7 +190,6 @@ sonata_media:
                 imagesOfRussiaUnderMap: { width: 127, height: 107 }
                 searchAllResult: { width: 160, height: 107 }
                 sideBanner: { width: 308 }
-                atlasW613: { width: 613 }
                 atlasW613H408: { width: 613, height: 408 }
                 atlasW63H56: { width: 63, height: 56 }
                 atlasW63H42: { width: 63, height: 42 }
