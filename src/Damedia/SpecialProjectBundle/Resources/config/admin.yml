@@ -1,9 +1,18 @@
 services:
-    sonata.admin.tag:
+    damedia_special_project.sonata_admin.page:
         class: Damedia\SpecialProjectBundle\Admin\PageAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Спецпроекты, label: "OMG I am so done with this thing..." }
+            - { name: sonata.admin, manager_type: orm, group: Спецпроекты, label: "Страницы" }
         arguments:
             - null
             - Damedia\SpecialProjectBundle\Entity\Page
             - 'SonataAdminBundle:CRUD'
+
+    damedia_special_project.sonata_admin.template:
+            class: Damedia\SpecialProjectBundle\Admin\TemplateAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Спецпроекты, label: "Шаблоны" }
+            arguments:
+                - null
+                - Damedia\SpecialProjectBundle\Entity\Template
+                - 'SonataAdminBundle:CRUD'
