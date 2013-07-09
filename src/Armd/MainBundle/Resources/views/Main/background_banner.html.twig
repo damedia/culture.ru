@@ -1,5 +1,5 @@
 {% if banner %}
-    <a href="{{ banner.href }}" style="background:url({% path banner.image, 'reference' %}) no-repeat 50% 0;"></a>
+    <a href="{{ banner.href }}" style="background:url({% path banner.image, 'reference' %}) no-repeat 50% 0;" {% if banner.openInNewWindow %}target="_blank"{% endif %}></a>
 {% else %}
     <a href="/borodino/" style="background:url({{ asset('img/bg.jpg') }}) no-repeat 50% 0;"></a>
 {% endif %}

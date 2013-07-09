@@ -3973,6 +3973,9 @@ body {
                 #image-slider .flex-direction-nav {
                     display:none;
                 }
+                #image-slider li.flex-active-slide {
+                    text-align: center;
+                }
             
             .small-block {
             
@@ -6756,7 +6759,8 @@ body {
                         }
                     */
                     .orange-slider-block .flexslider .slides .period-block_image {
-                        width:306px;
+                        /*width:306px;*/
+                        width:278px; 
                         /* height:179px; */
                         overflow:hidden;
                     }
@@ -10252,4 +10256,3 @@ a.appstore-link {
     font-size:13px;
 }
 /* /akoshelev. gallery of war */
-
