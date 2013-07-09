@@ -3973,6 +3973,9 @@ body {
                 #image-slider .flex-direction-nav {
                     display:none;
                 }
+                #image-slider li.flex-active-slide {
+                    text-align: center;
+                }
             
             .small-block {
             
