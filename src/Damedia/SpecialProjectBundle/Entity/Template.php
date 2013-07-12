@@ -31,6 +31,14 @@ class Template {
         return $this->getTitle();
     }
 
+    public function getTemplateSettings() {
+        $result = array();
+
+        //create template settings array/object???
+
+        return $result;
+    }
+
 
 
     public function getId() {

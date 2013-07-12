@@ -6,6 +6,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
+use Sonata\AdminBundle\Route\RouteCollection;
+
 class PageAdmin extends Admin {
     const LABEL_ID = 'ID';
     const LABEL_TITLE = 'Название страницы';
@@ -15,7 +17,7 @@ class PageAdmin extends Admin {
     const LABEL_IS_PUBLISHED = 'Опубликован';
     const LABEL_TEMPLATE_ID = 'Шаблон';
 
-    const LABEL_MANAGEMENT = 'Управление';
+    const LABEL_ACTIONS = 'Управление';
 
 
 
@@ -27,7 +29,7 @@ class PageAdmin extends Admin {
             array('label' => $this::LABEL_SLUG,
                   'required' => false));
 
-        $formMapper->add('templateId', 'entity',
+        $formMapper->add('template', 'entity',
             array('label' => $this::LABEL_TEMPLATE_ID,
                   'class' => 'DamediaSpecialProjectBundle:Template',
                   'property' => 'title'));
@@ -44,9 +46,11 @@ class PageAdmin extends Admin {
         $listMapper->addIdentifier('title', null,
             array('label' => $this::LABEL_TITLE));
 
-        $listMapper->add('management', 'text',
-            array('label' => $this::LABEL_MANAGEMENT,
-                  'template' => 'DamediaSpecialProjectBundle:Admin:management.html.twig'));
+        $listMapper->add('_action', 'actions',
+            array('label' => $this::LABEL_ACTIONS,
+                  'actions' => array('previewPage' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_previewPage.html.twig'),
+                                     'editPage' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_editPage.html.twig'),
+                                     'delete' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_deletePage.html.twig'))));
 
         $listMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG));
@@ -60,8 +64,13 @@ class PageAdmin extends Admin {
         $listMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED));
 
-        $listMapper->add('templateId', null,
+        $listMapper->add('template', null,
             array('label' => $this::LABEL_TEMPLATE_ID));
+    }
+
+    protected function configureRoutes(RouteCollection $collection) {
+        $collection->add('previewPage', $this->getRouterIdParameter().'/previewpage');
+        $collection->add('editPage', $this->getRouterIdParameter().'/editpage');
     }
 }
 ?>
