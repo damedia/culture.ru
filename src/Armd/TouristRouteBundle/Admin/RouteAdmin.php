@@ -41,7 +41,9 @@ class RouteAdmin extends Admin
             ->add('images')
             ->add('videos')
             ->add('routes')
-            ->add('banner');
+            ->add('banner')
+            ->add('corrected')            
+            ;
     }
 
 
@@ -55,6 +57,7 @@ class RouteAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                      
                 ->add('title')
                 ->add('content', null, array(
                     'attr' => array('class' => 'tinymce'),
@@ -177,6 +180,7 @@ class RouteAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('corrected')            
             ->add('categories')
         ;
     }
@@ -186,6 +190,7 @@ class RouteAdmin extends Admin
         $datagridMapper
             ->add('title')
             ->add('published')
+            ->add('corrected')            
             ->add('categories');
     }
 

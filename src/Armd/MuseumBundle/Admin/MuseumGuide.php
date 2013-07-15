@@ -26,6 +26,13 @@ class MuseumGuide extends Admin
     );
 
     protected $translationDomain = 'ArmdMuseumBundle';
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -39,6 +46,7 @@ class MuseumGuide extends Admin
             ->add('city')
             ->add('museum')
             ->add('announce')
+            ->add('corrected')
         ;
         
         parent::configureShowFields($showMapper);
@@ -53,6 +61,7 @@ class MuseumGuide extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                   
                 ->add('title')
                 ->add('announce')
                 ->add('body', null, array(
@@ -78,6 +87,7 @@ class MuseumGuide extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
+            ->add('corrected')
             ->add('city')
             ->add('museum')
             ->add('announce')
@@ -90,6 +100,7 @@ class MuseumGuide extends Admin
     {
         $datagridMapper
             ->add('title')
+            ->add('corrected')
             ->add('city')
             ->add('museum')
         ;

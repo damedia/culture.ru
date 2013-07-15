@@ -5,12 +5,13 @@ namespace Armd\TheaterBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="armd_theater") 
  */
-class Theater
+class Theater implements ChangeHistorySavableInterface
 {
     /**
      * @ORM\Id
@@ -133,6 +134,11 @@ class Theater
      * @ORM\OrderBy({"title" = "ASC"})
      */
     private $performances;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     public function __toString()
     {
@@ -692,4 +698,32 @@ class Theater
     {
         return $this->mediaInterviews;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Theater
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }
