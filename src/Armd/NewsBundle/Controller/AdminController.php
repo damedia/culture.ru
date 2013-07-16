@@ -7,6 +7,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
+use Armd\NewsBundle\Entity\NewsManager;
+use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+
 class AdminController extends Controller
 {
     /**
@@ -67,4 +75,82 @@ class AdminController extends Controller
         );
 
     }
+
+    /**
+     * @return \Armd\NewsBundle\Entity\NewsManager
+     */
+    protected function getNewsManager()
+    {
+        return $this->get('armd_news.manager.news');
+    }
+     
+
+    /**
+     * @Route(
+     *  "/jsonlist/{search_query}", 
+     *  name="armd_news_admin_jsonlist",
+     *  options={"expose"=true}
+     * )
+     * @Template("ArmdNewsBundle:News:text_search_result.html.twig")
+     */
+    public function jsonlistAction($search_query)
+    {
+    	$request = $this->getRequest();
+    	$limit = $request->get('limit', 20);
+    	if ($limit > 100) {
+    		$limit = 100;
+    	}
+
+    	$em = $this->getDoctrine()->getManager();
+    	/*
+    	 * FULL TEXT SEARCH sphynx need
+    	$news = $this->getNewsManager()->findObjects(
+    			array(
+    					NewsManager::CRITERIA_SEARCH_STRING => $search_query, // $request->get('search_query'),
+    					//	NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
+    					NewsManager::CRITERIA_LIMIT => $limit
+    					// , NewsManager::CRITERIA_OFFSET => $request->get('offset'),
+    			)
+    	);
+    	
+    	$result=array();
+    	 for($i=0;$i<count($news);$i++) {
+    	 	$result[] = array('value'=>$news[$i]->getId(), 'text'=>$news[$i]->getTitle()); 
+    	 };
+    	 
+    	*/
+    	//--- previous week stats
+    	$qb = $em->createQueryBuilder();
+    	
+    	$class = $em->getMetadataFactory()->getMetadataFor('ArmdNewsBundle:News');
+    	$idField = $class->getColumnName('id');
+    	$textField= $class->getColumnName('title');
+    	
+    	$qb->select('n.'.$idField.', n.'.$textField)
+	    	->from('ArmdNewsBundle:News', 'n')
+	    	->where($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%') )
+	    	//':srch') ) // .'=:srch') // %:srch%
+	    	);// ->setParameters(array('srch' => $search_query,));
+	    $query = $qb->getQuery();
+	   
+/*	   print_r(array(
+    		'sql'        => $query->getSQL(),
+    		'parameters' => $query->getParameters(),
+		));
+	*/
+    	$news=$query->getArrayResult();
+    	
+    	// print_r($news);
+    	 
+    	
+    	 $result=array();
+    	 for($i=0;$i<count($news);$i++) {
+    	 	$result[] = array('value'=>$news[$i]['id'], 'text'=>$news[$i]['title']); 
+    	 };
+    	 $response = new Response(json_encode($result));
+   	$response->headers->set('Content-Type', 'application/json');
+    	return $response;
+    }
+    
+    
 }

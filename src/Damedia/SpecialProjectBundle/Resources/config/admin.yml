@@ -6,13 +6,13 @@ services:
         arguments:
             - null
             - Damedia\SpecialProjectBundle\Entity\Page
-            - 'SonataAdminBundle:CRUD'
+            - 'DamediaSpecialProjectBundle:PageAdmin'
 
     damedia_special_project.sonata_admin.template:
-            class: Damedia\SpecialProjectBundle\Admin\TemplateAdmin
-            tags:
-                - { name: sonata.admin, manager_type: orm, group: Спецпроекты, label: "Шаблоны" }
-            arguments:
-                - null
-                - Damedia\SpecialProjectBundle\Entity\Template
-                - 'SonataAdminBundle:CRUD'
+        class: Damedia\SpecialProjectBundle\Admin\TemplateAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Спецпроекты, label: "Шаблоны" }
+        arguments:
+            - null
+            - Damedia\SpecialProjectBundle\Entity\Template
+            - 'SonataAdminBundle:CRUD'

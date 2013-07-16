@@ -1,5 +1,4 @@
 <?php
-
 namespace Damedia\SpecialProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +24,12 @@ class Template {
      * @ORM\Column(name="twig_file_name", type="string", length=255)
      */
     private $twigFileName;
+
+
+
+    public function __toString() {
+        return $this->getTitle();
+    }
 
 
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace Damedia\SpecialProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
