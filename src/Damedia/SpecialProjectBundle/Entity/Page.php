@@ -65,33 +65,6 @@ class Page {
         return $this->getTitle();
     }
 
-    public function renderBlocks($templateSettings) { //renderBlocks(TemplateSettings $templateSettings)
-        $result = array();
-
-
-        /*
-         * IT IS SAID THAT USING ENTITIES TO STORE LOGIC IS A WRONG WAY! SO I HAVE TO FIND OUT WHERE TO PUT IT...
-         *
-         */
-
-        $blocks = $this->getBlocks();
-        //render blocks depending on template settings
-
-        $result['LeftBlock'] = 'content goes here';
-        $result['RightBlock'] = 'images, videos, news etc...';
-        //
-
-        return $result;
-    }
-
-    private function getBlocks() {
-        $result = array();
-
-        //
-
-        return $result;
-    }
-
 
 
     public function getId() {

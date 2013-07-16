@@ -1,17 +1,27 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
 
-{% block javascripts %}
+{% block stylesheets %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/damediaspecialproject/css/specialProject.css') }}">
 {% endblock %}
 
-{% block title %}{{ parent() }} — {{ PageTitle }}{% endblock %}
+{% block title %}
+    {{ parent() }} — {{ PageTitle }}
+{% endblock %}
 
-{% block page_header_title %}{{ PageTitle }}{% endblock %}
+{% block page_header_title %}
+    {{ PageTitle }}
+{% endblock %}
 
 {% block left_column %}
-    {{ Blocks.LeftBlock }}
+    {{ Blocks.LeftBlock|raw }}
 {% endblock %}
 
 {% block right_column %}
-    {{ Blocks.RightBlock }}
+    {{ Blocks.RightBlock|raw }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/editPage.js') }}"></script>
 {% endblock %}

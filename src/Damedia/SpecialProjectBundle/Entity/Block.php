@@ -4,7 +4,7 @@ namespace Damedia\SpecialProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table()
+ * @ORM\Table(name="damedia_project_block")
  * @ORM\Entity
  */
 class Block {

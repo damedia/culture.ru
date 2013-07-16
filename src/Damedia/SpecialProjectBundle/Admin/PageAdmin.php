@@ -3,10 +3,10 @@ namespace Damedia\SpecialProjectBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 use Sonata\AdminBundle\Route\RouteCollection;
+use Damedia\SpecialProjectBundle\Form\Type\SelectTemplateType;
 
 class PageAdmin extends Admin {
     const LABEL_ID = 'ID';
@@ -29,10 +29,8 @@ class PageAdmin extends Admin {
             array('label' => $this::LABEL_SLUG,
                   'required' => false));
 
-        $formMapper->add('template', 'entity',
-            array('label' => $this::LABEL_TEMPLATE_ID,
-                  'class' => 'DamediaSpecialProjectBundle:Template',
-                  'property' => 'title'));
+        $formMapper->add('template', 'damedia_special_project_select_template',
+            array('label' => $this::LABEL_TEMPLATE_ID));
 
         $formMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED,

@@ -6,7 +6,7 @@ services:
         arguments:
             - null
             - Damedia\SpecialProjectBundle\Entity\Page
-            - 'DamediaSpecialProjectBundle:PageCRUD'
+            - 'DamediaSpecialProjectBundle:PageManagement'
 
     damedia_special_project.sonata_admin.template:
         class: Damedia\SpecialProjectBundle\Admin\TemplateAdmin
