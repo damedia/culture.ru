@@ -22,17 +22,17 @@ class Page {
     private $title;
 
     /**
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */
     private $slug;
 
     /**
-     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @ORM\Column(name="created", type="datetime")
      */
     private $created;
 
     /**
-     * @ORM\Column(name="updated", type="datetime", nullable=false)
+     * @ORM\Column(name="updated", type="datetime")
      */
     private $updated;
 
@@ -42,10 +42,10 @@ class Page {
     private $isPublished = false;
 
     /**
-     * @ORM\OneToOne(targetEntity="Template")
-     * @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Template")
+     * @ORM\JoinColumn(name="template", referencedColumnName="id")
      */
-    private $templateId;
+    private $template;
 
 
 
@@ -59,6 +59,37 @@ class Page {
         if (!$this->getCreated()) {
             $this->created = new \DateTime();
         }
+    }
+
+    public function __toString() {
+        return $this->getTitle();
+    }
+
+    public function renderBlocks($templateSettings) { //renderBlocks(TemplateSettings $templateSettings)
+        $result = array();
+
+
+        /*
+         * IT IS SAID THAT USING ENTITIES TO STORE LOGIC IS A WRONG WAY! SO I HAVE TO FIND OUT WHERE TO PUT IT...
+         *
+         */
+
+        $blocks = $this->getBlocks();
+        //render blocks depending on template settings
+
+        $result['LeftBlock'] = 'content goes here';
+        $result['RightBlock'] = 'images, videos, news etc...';
+        //
+
+        return $result;
+    }
+
+    private function getBlocks() {
+        $result = array();
+
+        //
+
+        return $result;
     }
 
 
@@ -102,11 +133,11 @@ class Page {
         return $this;
     }
 
-    public function getTemplateId() {
-        return $this->templateId;
+    public function getTemplate() {
+        return $this->template;
     }
-    public function setTemplateId($templateId) {
-        $this->templateId = $templateId;
+    public function setTemplate($template) {
+        $this->template = $template;
 
         return $this;
     }
