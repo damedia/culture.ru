@@ -31,12 +31,18 @@ class ChangeHistoryListener
             if ($entity instanceof ChangeHistorySavableInterface)
             {
                 $changes = $uow->getEntityChangeSet($entity);
-                if (count($changes))            
+                $real_changes = array();
+                foreach ($changes as $f=>$change)
+                {
+                    if ($change[0] != $change[1])
+                        $real_changes[$f]= $change;
+                }
+                if (count($real_changes))            
                 {
                     $changeHistory = new ChangeHistory();
                     $changeHistory->setEntityClass(get_class($entity));
                     $changeHistory->setEntityId($entity->getId());
-                    $changeHistory->setChanges($changes);
+                    $changeHistory->setChanges($real_changes);
                     $changeHistory->setUpdatedAt(new \DateTime());
                     if ($securityToken = $this->container->get('security.context')->getToken())
                         $changeHistory->setUpdatedBy($securityToken->getUser());

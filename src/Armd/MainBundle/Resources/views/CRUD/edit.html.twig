@@ -76,7 +76,7 @@ file that was distributed with this source code.
                 
                 $.post($(this).attr('href'), function(data, textStatus, jqXHR){
                     $('#history-view').html(data);
-                    $('#history-view').dialog({width: 600});
+                    $('#history-view').dialog({width: 800, closeOnEscape: true});
                 });
                 return false;
             });

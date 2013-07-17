@@ -84,25 +84,34 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
-                    <th>{{ "Status"|trans({}, "ArmdAtlasBundle") }}</th>
-                    <td>
-                        {% for status in statusList %}
-                            <span style="margin-right:20px; white-space:nowrap;">
-                                <input class="status-radio" id="status-id-{{ status.id }}" type="radio" name="status" value="{{ status.id }}" {% if status.id==object.status.id %}checked{% endif %}>
-                                <label style="display:inline;" for="status-id-{{ status.id }}">{{ status.title }}</label>
-                            </span>
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr id="reason-text" {% if object.status.id==0 or object.status.id==1 %}class="hidden"{% endif %}>
-                    <th>Причина</th>
-                    <td><textarea name="reason" class="span5">{{ object.reason }}</textarea></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td><button class="btn btn-primary">Сохранить</button></td>
-                </tr>
+                {% if is_granted('ROLE_MODERATOR') %}
+                    <tr>
+                        <th>{{ "Status"|trans({}, "ArmdAtlasBundle") }}</th>
+                        <td>
+                            {% for status in statusList %}
+                                <span style="margin-right:20px; white-space:nowrap;">
+                                    <input class="status-radio" id="status-id-{{ status.id }}" type="radio" name="status" value="{{ status.id }}" {% if status.id==object.status.id %}checked{% endif %}>
+                                    <label style="display:inline;" for="status-id-{{ status.id }}">{{ status.title }}</label>
+                                </span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr id="reason-text" {% if object.status.id==0 or object.status.id==1 %}class="hidden"{% endif %}>
+                        <th>Причина</th>
+                        <td><textarea name="reason" class="span5">{{ object.reason }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><button class="btn btn-primary">Сохранить</button></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th>{{ "Status"|trans({}, "ArmdAtlasBundle") }}</th>
+                        <td>
+                            {{ object.status.title }}
+                        </td>
+                    </tr>                
+                {% endif %}
             </table>
         </form>
 
