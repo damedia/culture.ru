@@ -10,6 +10,7 @@ use Armd\MkCommentBundle\Model\CommentableInterface;
 use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  *
@@ -17,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="content_news")
  * @ORM\HasLifecycleCallbacks
  */
-class News extends BaseNews implements CommentableInterface, Taggable
+class News extends BaseNews implements CommentableInterface, Taggable, ChangeHistorySavableInterface
 {
     /**
      * @ORM\Id
@@ -210,6 +211,11 @@ class News extends BaseNews implements CommentableInterface, Taggable
      * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\CountryDistrict")
      */
     protected $countryDistrict;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     public function __construct()
     {
@@ -1001,4 +1007,32 @@ class News extends BaseNews implements CommentableInterface, Taggable
     {
         return $this->countryDistrict;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return News
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

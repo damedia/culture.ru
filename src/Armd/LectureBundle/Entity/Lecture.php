@@ -7,13 +7,14 @@ use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Table(name="lecture")
  * @ORM\Entity(repositoryClass="\Armd\LectureBundle\Repository\LectureRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Lecture implements Taggable
+class Lecture implements Taggable, ChangeHistorySavableInterface
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -216,6 +217,11 @@ class Lecture implements Taggable
      * @ORM\JoinTable(name="lecture_limit_featured_genre")
      */
     private $limitFeaturedForGenres;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     public function __construct()
     {
@@ -987,5 +993,31 @@ class Lecture implements Taggable
         $this->limitFeaturedForGenres = $limitFeaturedForGenres;
     }
 
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Lecture
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
 
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }
 }

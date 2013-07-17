@@ -3,6 +3,7 @@
 namespace Armd\ChronicleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * Armd\ChronicleBundle\Entity\Event
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="content_chronicle_event")
  * @ORM\HasLifecycleCallbacks 
  */
-class Event
+class Event implements ChangeHistorySavableInterface
 {
     /**
      * @var integer $id
@@ -99,6 +100,11 @@ class Event
      * @ORM\Column(type="integer", nullable=true)
      */
     private $priority;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     public function __toString()
     {
@@ -413,4 +419,32 @@ class Event
     {
         return $this->gallery;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Event
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

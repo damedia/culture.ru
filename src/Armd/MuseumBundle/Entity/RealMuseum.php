@@ -6,12 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="armd_real_museum") 
  */
-class RealMuseum implements Taggable
+class RealMuseum implements Taggable, ChangeHistorySavableInterface
 {
     /**
      * @ORM\Id
@@ -86,6 +87,11 @@ class RealMuseum implements Taggable
     protected $schedule;      
     
     private $tags;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     public function __toString()
     {
@@ -427,4 +433,32 @@ class RealMuseum implements Taggable
     {
         return $this->schedule;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return RealMuseum
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }
