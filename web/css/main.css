@@ -1260,9 +1260,15 @@ body {
 					border:1px solid #e1e1e1;
 					border-top:0;
 					padding:19px 0 16px;
-				}
+                    display: table;
+                    width: 100%;
+    				}
+                    .theme-news-row {
+                        display: table-row;
+                    }
 					.theme-news-list {
-						float:left;
+						/*float:left;*/
+                        display: table-cell;
 						width:39%;
 						padding:0 5%;
 						list-style:none;
@@ -1270,7 +1276,7 @@ body {
 					}	
 						.theme-news-list:first-child {
 							
-							border-right: 1px solid #E3E3E3;
+							/*border-right: 1px solid #E3E3E3;*/
 							
 						}
 
@@ -1284,6 +1290,12 @@ body {
 								font-size:11px;
 								display:block;
 							}
+
+                            .theme-news-block .news-category {
+                                /*color: #666666;*/
+                                margin-right: 5px;
+                            }
+
 							.theme-news-list a {
 								color:#000;
 								font-size:13px;
@@ -2276,6 +2288,11 @@ body {
         .breadcrumbs li.last-child span{
             background-image:url(../img/breadcrumbs-r-a.png);
         }
+
+        .after-breadcrumbs-link {
+            margin: 20px 0 15px;
+        }
+
     /*Select Filter*/        
 	
     #perfomance_ganre {
@@ -2468,7 +2485,7 @@ body {
             margin-bottom:20px;
         }
             .sort-element-filter a {
-                margin-right:15px;
+                /*margin-right:15px;*/
             }
             .sort-element-filter a.active {
                 border-width:3px;
@@ -3956,6 +3973,9 @@ body {
                 #image-slider .flex-direction-nav {
                     display:none;
                 }
+                #image-slider li.flex-active-slide {
+                    text-align: center;
+                }
             
             .small-block {
             
@@ -4381,8 +4401,11 @@ body {
             }
 
             .twitter-widget-block {
-                width: 48%;
+                width: 100%;
                 float: right;
+            }
+            .twitter-widget-block iframe {
+                width: 100%;
             }
 
                 .twitter-widget-block .timeline {
@@ -6736,7 +6759,8 @@ body {
                         }
                     */
                     .orange-slider-block .flexslider .slides .period-block_image {
-                        width:306px;
+                        /*width:306px;*/
+                        width:278px; 
                         /* height:179px; */
                         overflow:hidden;
                     }
@@ -9553,7 +9577,7 @@ a.appstore-link {
 					font-weight:bold;
 					text-decoration:none;
 					padding:24px 15px 24px 25px;
-					
+					outline: none;
 				}
 				.profile-menu  .active span{
 					border-bottom:3px solid #f79016;
@@ -9575,6 +9599,7 @@ a.appstore-link {
 			padding:20px 40px 25px 20px;
 			position:relative;
 			z-index:2;
+            min-height: 520px;
 		}
         .profile-right-block:after {
             background-color: #fff;
@@ -9597,12 +9622,12 @@ a.appstore-link {
             min-height:500px;
         }
 			
-        .prb-1, .prb-2 {
-            min-height:0 !important;
-        } 
-        .prb-3 {
-             min-height:300px !important;
-        }    
+        /*.prb-1, .prb-2 {*/
+            /*min-height:0 !important;*/
+        /*} */
+        /*.prb-3 {*/
+             /*min-height:300px !important;*/
+        /*}    */
 
         
         .prb-1:after {
@@ -9615,7 +9640,7 @@ a.appstore-link {
             top: 235px;
         }
         .prb-4:after {
-            top: 244px;
+            top: 289px;
         }
         .prb-5:after {
             top: 377px;
@@ -9812,6 +9837,9 @@ a.appstore-link {
             }
             .profile-comments-table  td {
                 font-size:12px;
+            }
+            .profile-comments-table em.hint {
+                font-size: 16px;
             }
 
         .profile-object-list {
@@ -10228,4 +10256,3 @@ a.appstore-link {
     font-size:13px;
 }
 /* /akoshelev. gallery of war */
-

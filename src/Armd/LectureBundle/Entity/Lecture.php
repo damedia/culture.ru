@@ -28,6 +28,11 @@ class Lecture implements Taggable
     private $title;
 
     /**
+     * @ORM\Column(name="announce", type="text", nullable=true)
+     */
+    private $announce;
+
+    /**
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -165,7 +170,7 @@ class Lecture implements Taggable
     private $showOnMainOrd = 0;
     
     /**
-     * @ORM\Column(name="is_headline", type="boolean", nullable=false)
+     * @ORM\Column(name="is_headline", type="boolean", nullable=true)
      */
     private $isHeadline = false;
 
@@ -261,6 +266,22 @@ class Lecture implements Taggable
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnnounce()
+    {
+        return $this->announce;
+    }
+
+    /**
+     * @param mixed $announce
+     */
+    public function setAnnounce($announce)
+    {
+        $this->announce = $announce;
     }
 
     public function getDescription()
@@ -965,5 +986,6 @@ class Lecture implements Taggable
     {
         $this->limitFeaturedForGenres = $limitFeaturedForGenres;
     }
+
 
 }

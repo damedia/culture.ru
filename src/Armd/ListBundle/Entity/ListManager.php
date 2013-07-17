@@ -28,6 +28,9 @@ abstract class ListManager
     /** example: array('museum', 'world war') or array(new Tag(), new Tag())*/
     const CRITERIA_TAGS = 'CRITERIA_TAGS';
 
+    /** example: true */
+    const CRITERIA_TAGS_DONT_PAD_RESULT = 'CRITERIA_TAGS_DONT_PAD_RESULT';
+
     const CRITERIA_TAG_ID = 'CRITERIA_TAG_ID';
     
     /** example: array(1, 2, 3) */
@@ -55,7 +58,7 @@ abstract class ListManager
             $objects = $this->getTaggedObjectsFromQueryBuilder($qb, $criteria[self::CRITERIA_TAGS], $criteria[self::CRITERIA_LIMIT]);
 
             // pad them
-            if (count($objects) < $criteria[self::CRITERIA_LIMIT]) {
+            if (count($objects) < $criteria[self::CRITERIA_LIMIT] && empty($criteria[self::CRITERIA_TAGS_DONT_PAD_RESULT])) {
                 $criteriaMod = $criteria;
                 $criteriaMod[self::CRITERIA_LIMIT] = $criteriaMod[self::CRITERIA_LIMIT] - count($objects);
                 unset($criteriaMod[self::CRITERIA_TAGS]);
@@ -177,7 +180,7 @@ abstract class ListManager
             ->addSelect("COUNT(tag) tagCount")
             ->addSelect("MAX(TOINT(tag.isTechnical)) tagIsTechnical")
             ->groupBy($o)
-            ->orderBy('tagIsTechnical', 'DESC')
+            ->addOrderBy('tagIsTechnical', 'DESC')
             ->addOrderBy('tagCount', 'DESC')
             ->setMaxResults($limit)
             ;

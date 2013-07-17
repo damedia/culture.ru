@@ -16,7 +16,7 @@
                     {{ entity.title }}
                         
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <a class="user-favorites-button" title="Добавить в «Мои интересы»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MUSEUM_LESSON') }}" data-id="{{ entity.id }}">
+                        <a class="user-favorites-button" title="Добавить в «Избранное»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MUSEUM_LESSON') }}" data-id="{{ entity.id }}">
                             <img alt="*" src="{{ asset('img/favorites.png') }}" />
                         </a>
                     {% endif %}

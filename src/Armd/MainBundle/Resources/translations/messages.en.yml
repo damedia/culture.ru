@@ -31,6 +31,7 @@ menu.banners: Banners
 menu.communication: Communication
 menu.special_projects: Projects
 menu.borodino: Borodino
+menu.tolstoy: Tolstoy.Digital
 menu.intermuseum: Intermuseum
 menu.special_projects_romanov450: The Romanovs
 menu.special_projects_stanislavski: Stanislavski
@@ -52,6 +53,8 @@ menu.museum_guide: Museum guide
 menu.museum_lesson: Study
 menu.underconstraction: Page is under constraction
 menu.contacts: Contacts
+menu.war_gallery: Russian Generals gallery
+menu.galley_of_war: Russian Generals gallery
 #---------------- /menu -------------------------
 
 virtual_museum_tour: Virtual museums tour

@@ -43,7 +43,9 @@
                 </tr>
                 {% endfor %}
             {% else %}
-                <tr><td>{% trans from 'ArmdMkCommentBundle' %}No comments{% endtrans %}</td></tr>
+                <tr><td>
+                    <em class="hint">{% trans from 'ArmdMkCommentBundle' %}No comments{% endtrans %}</em>
+                </td></tr>
             {% endif %}
             </table>
             <div class="form-actions">

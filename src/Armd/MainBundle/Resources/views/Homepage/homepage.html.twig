@@ -15,7 +15,7 @@
             <div class="plitka-one clearfix">
                 <div class="museum-image-container">
                     {# <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> #}
-                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url({% path museum.bannerImage, 'banner' %});"></div></a>
+                    <a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div></a>
                     <div class="museum-image-over">
                         <div class="museum-image-title clearfix">
                           <span>
@@ -157,27 +157,30 @@
         {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
     </section>
 
-{% if app.request.locale == 'ru' and videos|length %}
-    {% set video = videos[0] %}
+    {% if app.request.locale == 'ru' and videos|length %}
+        {% set video = videos[0] %}
 
-    <div class="tabs events-tabs video-tabs" style="background: #fff url(../img/more-dots.gif) repeat-x 0 100%; margin-bottom:15px;">
-        <h3>Актуальное видео</h3>
-        {#<h4>Сегодня - 100 лет со дня рождения композитора Тихона Хренникова</h4>#}
-        <div class="video-tabs-item">
-            <a href="{{ path('armd_lecture_view', {'id': video.id}) }}" class="period-block_image">
-                {% thumbnail video.mediaLectureVideo, 'big' with {'alt': video.title, 'width': '100%', 'height': 'auto' } %}
-                <span class="play"></span>
-            </a>
+        <div class="tabs events-tabs video-tabs" style="background: #fff url(../img/more-dots.gif) repeat-x 0 100%;">
+            <h3>Актуальное видео</h3>
+            <h4>{{ video.title }}</h4>
+            <div class="video-tabs-item">
+                <a href="{{ path('armd_lecture_view', {'id': video.id}) }}" class="period-block_image">
+                    {% thumbnail video.mediaLectureVideo, 'big' with {'alt': video.title, 'width': '100%', 'height': 'auto', 'style': 'height: auto' } %}
+                    <span class="play"></span>
+                </a>
+            </div>
+            {% if video.announce is not empty %}
+                <p class="video-tabs-title">{{ video.announce }}</p>
+            {% endif %}
+
+            {#
+            <p class="all">
+                <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ "menu.video_all"|trans }}</a>
+            </p>
+            #}
+
         </div>
-        <p class="video-tabs-title">{{ video.title }}</p>
-
-        {#
-        <p class="all">
-            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">{{ "menu.video_all"|trans }}</a>
-        </p>
-        #}
-    </div>
-{% endif %}
+    {% endif %}
     
     
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
@@ -221,6 +224,8 @@
         <section class="newspaper newspaper-culture"><a target="_blank" href="http://portal-kultura.ru/" title='{{ "menu.culture_magazine"|trans }}'></a></section>
 
         <section class="newspaper newspaper-literature"><a target="_blank" href="http://lgz.ru/" title='{{ "menu.literature_magazine"|trans }}'></a></section>
+
+        <section class="newspaper img-banner"><a target="_blank" href="http://www.moviestart.ru" alt="МОЛОДЕЖНЫЙ ЦЕНТР СОЮЗА КИНЕМАТОГРАФИСТОВ РФ"><img src="{{ asset('img/banners/banner_cinema_unity_c.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
     {% endif %}
 {#
 {% if app.request.locale == 'ru' %}
@@ -244,9 +249,9 @@
     <div class="left-column-content">
         <section class="block new-on-site">
             {% if app.request.locale == 'ru' %}
-                <section class="block social-widget-block">
-                    {% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}
-                </section>
+                {#<section class="block social-widget-block">#}
+                    {#{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}#}
+                {#</section>#}
                 <section class="block twitter-widget-block">
                     {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
                 </section>

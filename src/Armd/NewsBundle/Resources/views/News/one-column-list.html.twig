@@ -9,7 +9,7 @@
                    <div class="tn-list-image-wrap">{% if entity.image %}<img class="tn-list-image" src="{% path entity.image, 'list' %}" alt="{{ entity.title|escape }}">{% else %}<img class="tn-list-image" src="/img/temp_125_125.png" alt="">{% endif %}</div>
                     <div class="tn-list-text">
                         <h3><a href="{{ path('armd_news_item_by_category', {'id': entity.id, 'category': entity.category.slug }) }}" class="tn-list-title">{{ entity.title}}</a></h3>
-                        <span class="tn-list-dates">{{ news_date.news_date_short(news[0].newsDate) }}{#, {{ entity.newsDate|date('H:i') }}#}</span>
+                        <span class="tn-list-dates">{{ news_date.news_date_short(entity.newsDate) }}{#, {{ entity.newsDate|date('H:i') }}#}</span>
                         <p>{{ entity.announce|raw }}</p>
                     </div>
                 </li>

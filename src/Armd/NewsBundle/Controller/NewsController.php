@@ -286,14 +286,14 @@ class NewsController extends Controller
             }
         }
 
-        if (in_array('articles', $category) || in_array('news', $category)) {
-            $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
-        } else {
-            $template = 'ArmdNewsBundle:News:two-column-list.html.twig';
-        }
+//        if (in_array('articles', $category) || in_array('news', $category)) {
+//            $template = 'ArmdNewsBundle:News:one-column-list.html.twig';
+//        } else {
+//            $template = 'ArmdNewsBundle:News:two-column-list.html.twig';
+//        }
 
         return $this->render(
-            $template,
+            'ArmdNewsBundle:News:one-column-list.html.twig',
             array(
                 'newsByDate' => $newsByDate,
                 'category' => $category
@@ -415,12 +415,30 @@ class NewsController extends Controller
 
         $this->get('fpn_tag.tag_manager')->loadTagging($entity);
 
+        $categories = array('news', 'articles', 'reportages', 'interviews');
+
+//        $entities = array();
+//        foreach ($categories as $category) {
+//            $entitiesPart = $this->getNewsManager()->findObjects(
+//                array(
+//                    NewsManager::CRITERIA_LIMIT => $limit,
+//                    NewsManager::CRITERIA_NOT_IDS => array($entity->getId()),
+//                    NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($category),
+//                    NewsManager::CRITERIA_TAGS => $entity->getTags(),
+//                    NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC')
+//                )
+//            );
+//            $entities = array_merge($entities, $entitiesPart);
+//        }
+
         $entities = $this->getNewsManager()->findObjects(
             array(
                 NewsManager::CRITERIA_LIMIT => $limit,
                 NewsManager::CRITERIA_NOT_IDS => array($entity->getId()),
-                NewsManager::CRITERIA_CATEGORY_IDS_OR => array($entity->getCategory()->getId()),
+                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => $categories,
                 NewsManager::CRITERIA_TAGS => $entity->getTags(),
+                NewsManager::CRITERIA_ORDER_BY => array('newsDate' => 'DESC'),
+                NewsManager::CRITERIA_TAGS_DONT_PAD_RESULT => true
             )
         );
 

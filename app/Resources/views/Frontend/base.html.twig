@@ -97,7 +97,7 @@
                 })
                 .done(function(data) {
                     if (data == '1') {
-                        armdMessager.showMessage('Объект добавлен в «Мои интересы»');
+                        armdMessager.showMessage('Объект добавлен в «Избранное»');
                     }
                 })
                 .always(function() {                   
@@ -227,7 +227,8 @@
                 {% if app.request.locale == 'ru' %}
                 <li><a href="{{ path('armd_news_map') }}">{{ "menu.events_on_map"|trans }}</a></li>
                 <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
-                <li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>
+                <li><a href="http://people.culture.ru/forum_private/authorization/">Госнадзор</a></li>
+                {#<li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>#}
                 <li><a href="{{ path('armd_chronicle_index') }}">Спецпроекты</a>
                     <ul>
                         <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
@@ -236,6 +237,7 @@
                         {# <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li> #}
                         <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
                         <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li>
+                        <li><a href="{{ path('armd_main_project_tolstoy') }}">{{ "menu.tolstoy"|trans }}</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ path('armd_main_contacts') }}">{{ "menu.contacts"|trans }}</a></li>

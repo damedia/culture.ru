@@ -1,5 +1,4 @@
 <?php
-
 namespace Armd\UserBundle\Admin\Entity;
 
 use Sonata\UserBundle\Admin\Entity\UserAdmin as BaseAdmin;
@@ -7,6 +6,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Armd\MkCommentBundle\Entity\Notice;
+
+
 
 class UserAdmin extends BaseAdmin {
 
