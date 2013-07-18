@@ -145,7 +145,7 @@ class AdminController extends Controller
     	
     	 $result=array();
     	 for($i=0;$i<count($news);$i++) {
-    	 	$result[] = array('value'=>$news[$i]['id'], 'text'=>$news[$i]['title']); 
+    	 	$result[] = array('value'=>$news[$i]['id'], 'label'=>$news[$i]['title']); 
     	 };
     	 $response = new Response(json_encode($result));
    	$response->headers->set('Content-Type', 'application/json');

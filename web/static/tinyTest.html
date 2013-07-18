@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="../js/tinymce/tinymce.js"></script>
+<script src="../js/tinymce/plugins/snippet/plugin.js"></script>
+<script src="../js/jquery/jquery.min.js"></script>
+<link rel="stylesheet" href="../js/jquery-ui-1.10.3/themes/base/jquery-ui.css" />
+<script src="../js/jquery-ui-1.10.3/ui/jquery-ui.js"></script>
+
+
+</head>
+<body>
+<textarea rows="20" cols="40"></textarea>
+<script>
+tinymce.init({
+    selector: 'textarea',
+    snippet:{selectFormUrl: "tinySelectForm.html"},
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table  paste", // contextmenu
+        "snippet"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit",
+    content_css : "../css/tinySnippet.css"
+});
+</script>
+</body>
+</html>
