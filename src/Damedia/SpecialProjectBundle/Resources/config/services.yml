@@ -1,13 +1,6 @@
 parameters:
-#    damedia_special_project.example.class: Damedia\SpecialProjectBundle\Example
+    special_project_helper.class:      Damedia\SpecialProjectBundle\Service\SpecialProjectHelper
 
 services:
-    damedia_special_project.form.select_template:
-        class: Damedia\SpecialProjectBundle\Form\Type\SelectTemplateType
-        arguments: [@damedia_special_project.form.select_template_listener]
-        tags:
-           - { name: form.type, alias: damedia_special_project_select_template }
-
-    damedia_special_project.form.select_template_listener:
-        class: Damedia\SpecialProjectBundle\Form\EventListener\SelectTemplateFieldSubscriber
-    #    arguments: [@form.factory, @doctrine.orm.entity_manager]
+    special_project_helper:
+        class:        "%special_project_helper.class%"

@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 use Sonata\AdminBundle\Route\RouteCollection;
-use Damedia\SpecialProjectBundle\Form\Type\SelectTemplateType;
 
 class PageAdmin extends Admin {
     const LABEL_ID = 'ID';
@@ -21,6 +20,17 @@ class PageAdmin extends Admin {
 
 
 
+    public function getTemplate($name) {
+        switch ($name) {
+            case 'edit': //and also 'create'
+                return 'DamediaSpecialProjectBundle:Admin:pageAdmin_createPage.html.twig';
+                break;
+
+            default:
+                return parent::getTemplate($name);
+        }
+    }
+
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper->add('title', null,
             array('label' => $this::LABEL_TITLE));
@@ -29,8 +39,12 @@ class PageAdmin extends Admin {
             array('label' => $this::LABEL_SLUG,
                   'required' => false));
 
-        $formMapper->add('template', 'damedia_special_project_select_template',
-            array('label' => $this::LABEL_TEMPLATE_ID));
+        $formMapper->add('template', 'entity',
+            array('label' => $this::LABEL_TEMPLATE_ID,
+                  'class' => 'DamediaSpecialProjectBundle:Template',
+                  'property' => 'title',
+                  'empty_value' => '-- выберите шаблон --',
+                  'attr' => array('class' => 'DamediaSpecialProjectBundle_templateSelect')));
 
         $formMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED,
@@ -68,6 +82,7 @@ class PageAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection) {
         $collection->add('previewPage', $this->getRouterIdParameter().'/previewpage');
+        $collection->add('editPage', $this->getRouterIdParameter().'/editpage');
         $collection->add('editPage', $this->getRouterIdParameter().'/editpage');
     }
 }

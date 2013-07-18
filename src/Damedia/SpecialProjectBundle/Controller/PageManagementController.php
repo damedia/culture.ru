@@ -1,15 +1,24 @@
 <?php
 namespace Damedia\SpecialProjectBundle\Controller;
 
-use \Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class PageManagementController extends Controller {
-    public function previewPageAction($id) {
-        return new Response('This is an previewPageAction for page = '.$id);
-    }
+    //public function postPersist($object) {
+    //    print 'add blocks';
+    //}
 
+    //public function postUpdate($object) {
+    //    print 'update blocks';
+    //}
+
+    //public function previewPageAction($id) {
+    //    return new Response('This is an previewPageAction for page = '.$id);
+    //}
+
+    /*
     public function editPageAction($id) {
         $page = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page')->find($id);
 
@@ -30,24 +39,15 @@ class PageManagementController extends Controller {
                              array('PageTitle' => $page->getTitle(),
                                    'Blocks' => $renderedBlocks));
     }
+    */
 
-    /**
-     * @Route("/ajaxhandler", name="_admin_ajax_handler")
-     */
-    public function handlerAction() {
-
-        $isAjax = $this->get('Request')->isXMLHttpRequest();
-        if ($isAjax) {
-            //...
-            return new Response('This is ajax response');
-        }
-        return new Response('This is not ajax!', 400);
-    }
-
+    /*
     private function getBlocksForPageId($pageId) {
         return $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Block')->findBy(array('page' => $pageId));
     }
+    */
 
+    /*
     private function renderPageBlocksToEdit(array $blocks) { //render blocks depending on settings
         $result = array();
 
@@ -60,9 +60,9 @@ class PageManagementController extends Controller {
 
         return $result;
     }
+    */
 
-
-
+    /*
     private function getChunksForBlocksArray(array $blocks) {
         $result = array();
         $blocksIds = array();
@@ -79,7 +79,9 @@ class PageManagementController extends Controller {
 
         return $result;
     }
+    */
 
+    /*
     private function renderBlockContent($placeholder, array $blockChunks) {
         $result = '';
 
@@ -93,5 +95,6 @@ class PageManagementController extends Controller {
 
         return $result;
     }
+    */
 }
 ?>

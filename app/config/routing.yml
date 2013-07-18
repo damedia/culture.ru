@@ -1,6 +1,19 @@
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+
+
 damedia_special_project:
-    pattern:  /project/{page}
-    defaults: { _controller: DamediaSpecialProjectBundle:Render:index, page: last }
+    resource: "@DamediaSpecialProjectBundle/Resources/config/routing.yml"
+    prefix: /
+
+
 
 armd_main_project_tolstoy:
     pattern:  /tolstoy/
@@ -47,15 +60,6 @@ index:
         _controller: FrameworkBundle:Redirect:redirect
         route: armd_main_homepage
         permanent: true    
-
-admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
-
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /admin
 
 _sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
