@@ -7,7 +7,7 @@
 <ul class="breadcrumbs">
     <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
     <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'Account'|trans }}</a></li>
-    <li><span>{{ 'Profile'|trans }}</span></li>
+    <li><span>{{ 'My notices'|trans }}</span></li>
 </ul>
 
 <div class="profile-wrap clearfix">
@@ -16,6 +16,20 @@
     </div>
     <div class="profile-right">
         <div class="profile-right-block clearfix">
+            
+            <p>{{ 'Noticeoncomment'|trans }}:</p>
+            <form action="" method="post" {{ form_enctype(notice_status_form) }}>
+            
+                <div class="fos_comment_form_errors">{{ form_errors(notice_status_form) }}</div>
+                
+                {{ form_widget(notice_status_form.noticeOnComment) }}
+                {{ form_rest(notice_status_form) }}
+            
+                <div class="fos_comment_submit">
+                    <input type="submit" value="Сохранить"/>
+                </div>
+            </form>
+        
             <table class="profile-comments-table clearfix">
             {% if entities|length > 0 %}
                 <tr>

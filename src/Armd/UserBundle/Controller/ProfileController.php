@@ -23,6 +23,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\UserBundle\FOSUserEvents;
+use Armd\MkCommentBundle\Entity\Notice;
 
 /**
  * This class is inspirated from the FOS Profile Controller, except :
@@ -167,12 +168,47 @@ class ProfileController extends Controller
         }
         
         $notices = $this->container->get('fos_comment.manager.comment')->findNoticesForUser($user);
+        $form = $this->getNoticeStatusForm($user);
+        
+        $request = $this -> getRequest();
+        if ($request->isMethod('POST')) 
+        {  
+            $form->bind($request);
+
+            if ($form->isValid()) 
+            {       
+                $form_request = $request->get('form');
+                $em = $this->getEntityManager();
+                $user->setNoticeOnComment($form_request['noticeOnComment']);
+
+                $em -> persist($user);
+                $em -> flush();
+
+                $form = $this->getNoticeStatusForm($user);
+
+            }
+        }        
         
         return $this->render('ArmdUserBundle:Profile:list_notices.html.twig', array(
             'entities' => $notices,
+            'notice_status_form' => $form->createView()
         ));
     }
 
+    protected function getNoticeStatusForm($user)
+    {
+        $form = $this->createFormBuilder(array('noticeOnComment' => $user->getNoticeOnComment()))
+            ->add('noticeOnComment', 'choice', array('required' => false, 'choices' => array(
+                Notice::T_NONE => $this->container->get('translator')->trans('NOTICE_T_NONE', array(), 'ArmdMkCommentBundle'),
+                Notice::T_REPLY => $this->container->get('translator')->trans('NOTICE_T_REPLY', array(), 'ArmdMkCommentBundle'),
+                Notice::T_THREAD => $this->container->get('translator')->trans('NOTICE_T_THREAD', array(), 'ArmdMkCommentBundle'),
+                Notice::T_ALL => $this->container->get('translator')->trans('NOTICE_T_ALL', array(), 'ArmdMkCommentBundle'),
+            )))
+            ->getForm();  
+            
+        return $form;                
+    }
+    
     /**
      * @return Response
      *
@@ -295,4 +331,8 @@ class ProfileController extends Controller
             array('user' => $user)
         );
     }
+    
+    public function getEntityManager() {
+    	return $this->getDoctrine()->getManager();
+    }    
 }
