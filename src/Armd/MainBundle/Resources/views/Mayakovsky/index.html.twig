@@ -1,0 +1,655 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<!--
+<script src="{{ asset('js/function.js') }}"></script>
+-->
+<style>
+
+.mayak p {
+    margin-left: 100px;
+}
+
+.mayak blockquote{
+padding-left: 0px;
+
+padding-top: 20px;
+padding-bottom: 20px;
+position: relative;
+
+color: #ffffff;
+margin-left: 5%;
+width: 70%;
+font-family: "PT Serif", serif;
+font-size: 14px;
+line-height: 140%;
+color: #5e5e5e;
+/*
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+*/
+}
+
+.mayak blockquote p {
+font-size: 20px;
+font-style: italic;
+font-weight: normal;
+line-height: 120%;
+}
+
+.mayak blockquote p.subscribe {
+font-size: 12px;
+font-style: normal;
+font-weight: normal;
+line-height: 150%;
+text-align: left;
+}
+
+.mayak blockquote p {
+margin: 3px 0 0px;
+}
+.index-block p {
+    margin-left: 0px;
+}
+.right-news-list-text {
+    text-decoration: none;
+}
+
+.project{
+    /*background: url('http://localhost/lef.jpg');*/
+}
+.obraz-header {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:20px;
+    text-align: center;
+}
+
+.poetry {
+    padding-left: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    background: url('http://localhost/lef.jpg');
+}
+</style>
+<script type="text/javascript">
+    
+</script>
+{% endblock %}
+
+{% block title %}{{ parent() }} — {{ 'menu.mayak'|trans }}{% endblock %}
+
+{% block page_header_title %}{{ 'menu.mayak'|trans }}{% endblock %}
+
+{% block left_column %}
+<ul class="breadcrumbs" style="margin-bottom:20px;">
+    <li><a href="/">Главная</a></li>
+    <li><span>{{ 'menu.mayak'|trans }}</span></li>
+</ul>
+
+<div class="mayak project">
+    <h1 class="obraz-header"><span>«Стою, огнем обвит»</span></h1>
+    <div class="block">
+        <div class="content">
+
+
+   
+
+    <div class="event-one_anons">
+        <p>
+            По какой причине известный поэт революции остается культовой и любимой фигурой для молодежи ХХI века? В чем его секрет? Как удалось Маяковскому удержаться на пьедестале, с которого из-за своей приверженности принципам партии слетело немало писателей? Накануне 120-летия поэта <a title="Культура.рф" href="%D0%9A%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0.%D1%80%D1%84" target="_blank">«Культура.рф»</a> встретилась с известным экспертом по творчеству Маяковского, чтобы выслушать его мнение.
+        </p>
+    </div>
+
+ <figure class="event-one_image image-left">
+                <div >
+                    <img width="auto" height="300" src="http://culture.ru/ru/uploads/media/news/0001/26/thumb_25715_news_eventsBillboard.jpeg" alt="«Стою, огнем обвит»" style="margin-top:0px;">
+                </div>
+            </figure>
+
+    <p>«Жизнь и творчество Маяковского связаны с одним из самых драматических периодов существования России. Жизнь огромной страны, как бы устоявшаяся к концу XIX века и, как тогда думали многие, — прочная, оказалась совершенно иной… В многоликой России тех лет, напоминавшей нагревающийся водяной котел, готовый вот-вот взорваться, полной тревожных предчувствий, существовал и иной вектор социальных и духовных настроений. Крепла уверенность в том, что страна идет не к разрушению, а стоит на пороге своего обновления и в будущем мире ей необходимо новое мировоззрение, новое самосознание и новое искусство. Именно с таким ощущением времени вступали во взрослую жизнь многие молодые люди; у них на глазах старые порядки и устои дали трещину и обозначились контуры перемен — не вполне, правда, понятных и, самое главное, неизвестно куда ведущих. Без понимания совокупности этих исторических обстоятельств, без учета распространенных в российском обществе настроений, атмосферы, царившей в творческой среде, невозможно представить формирование духовного сознания молодого Маяковского, его первых шагов в искусстве и последующей творческой эволюции» — так в книге «Портреты поэтов» предваряет свое исследование о Владимире Маяковском ведущий научный сотрудник Института мировой литературы профессор Александр Миронович Ушаков.</p>
+<br>
+
+
+<p><strong>— Александр Миронович, я думала, придется искать какие-то аргументы, чтобы убедить вас в том, что сегодняшней молодежи нравится Маяковский, но, оказывается, вы сами участвовали в съемках программы, где на вопрос, кого из русских поэтов XX века считать наиболее выдающимся, аудитория единодушно назвала Владимира Маяковского.</strong></p>            
+<figure class="event-one_image image-right">
+                <div >
+                    <img width="auto" height="300" src="http://culture.ru/ru/uploads/media/news/0001/26/thumb_25716_news_billboard.jpeg" alt="«Стою, огнем обвит»" style="left: 10.5px;">
+                </div>
+            </figure>
+
+<p>— Да, в студии была молодежь, и я даже пытался возражать: спросил, а как быть, например, с Есениным. На что мне ответили: «Маяковский — настоящий новатор, а Есенин — просто хороший поэт!» Вообще, я думал, что Маяковского сейчас изучают в вузах мало — теперь ведь пошла новая литература, русское зарубежье, Замятин, Платонов. Нет! Все время приходят рефераты и диссертации о Маяковском. Я ездил на защиту в Тамбов, Череповец, Тверь, Вологду, Коломну. Смотрю — молодые люди, у них уже другие отношения с девушками, чем когда-то были, они в интернете сидят, думают о деньгах… Рассказываю им о Платонове — слушают, а когда Маяковского читаю — оживляются, спрашивают, какая Лиля была, какая — Татьяна Яковлева (спутницы писателя. — <i><a title="Культура.рф" href="%D0%9A%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0.%D1%80%D1%84" target="_blank">«Культура.рф»</a></i>).
+</p>
+
+<p><strong>— Тогда в чем, по-вашему, секрет его по-прежнему  действующей магии?</strong></p>
+
+<p>— Первое: вот эта дерзость Маяковского. Молодежь чувствует, когда власть кого-то пытается купить. Он был искренним. Второе — конечно, невероятная сила его строк. Так, как написаны некоторые его стихи, — никто в мировой литературе не писал. Никто. Он выходит в жизнь с желанием абсолюта. Этот абсолют опасен, он же и привел его к смерти. Маяковский начинает искать его еще до революции, и вот эта жажда проявляется в каждом описанном им конфликте, даже любовном:</p>
+
+
+<div class="poetry">
+<p>Выбегу, тело в улицу брошу я.<br>
+Дикий, обезумлюсь, отчаяньем иссечась.
+</p>
+</div>
+
+<p>Только представьте себе: мало того что он в диком состоянии, так еще и перейдет в состояние безумия! Он отчаяние превращает в хлыст, которым еще будет себя иссекать. Или такие мощные строки:</p>
+
+<div class="poetry"><p> Погибнет все.<br>
+Сойдет на нет.<br>
+И тот,<br>
+кто жизнью движет,<br>
+последний луч<br>
+над тьмой планет<br>
+из солнц последних выжжет.<br>
+И только<br>
+боль моя<br>
+острей —<br>
+стою,<br>
+огнем обвит,<br>
+на несгорающем костре<br>
+немыслимой любви.
+</p>
+</div>
+<p>Кто так напишет? Да по миллиону всем заплати — никого не найдете.</p>
+
+
+
+<p><strong>— Это же Данте!  Финал «Рая».</strong></p>
+<p>— Да, это уровень Данте. Литературоведы обычно сравнивают конкретные пересечения в текстах. Но гениальный человек несет все в себе, это у него внутри. Он может где-то с периферий сознания вытащить то, что от других он и не слышал никогда. Маяковский, конечно, знал про Данте и Шекспира. Но он всегда ведет разговор с космосом: «Послушайте! Ведь, если звезды зажигают — значит, это кому-нибудь нужно?» 
+Сегодня пробуют копировать поэтику футуризма, но в этом нет ничего нового. Вселенского масштаба Маяковского нет. Такого масштаба, как его строки, написанные в конце жизни: 
+</p>
+<div class="poetry">
+<p>Ты посмотри, какая в мире тишь,<br>
+ночь обложила небо звездной данью.<br>
+В такие вот часы встаешь и говоришь<br>
+векам, истории и мирозданию. 
+</p>
+</div>
+<p>Он и с Богом разговаривает — и заявляет: «я за всех расплачусь, за всех расплачусь». Он готов идти на Голгофу. И только осознав это, можно понять, почему он принял советскую власть. </p>
+
+<blockquote class="mayak"><div class="quote1"></div><div class="quote2"></div>
+<p>«Это была трагедия «Владимир Маяковский», тогда только что вышедшая. Я слушал, не помня себя, всем перехваченным сердцем, затая дыхание. Ничего подобного я раньше никогда не слыхал. Здесь было все. Бульвар, собаки, тополя и бабочки. Парикмахеры, булочники, портные и паровозы. &lt;…&gt;<br>
+И как просто было это всё! Искусство называлось трагедией. Так и следует ему называться. Трагедия называлась «Владимир Маяковский». Заглавие скрывало гениально простое открытие, что поэт не автор, но — предмет лирики, от первого лица обращающийся к миру. Заглавие было не именем сочинителя, а фамилией содержания». 
+</p>
+<p class="subscribe">Б. Пастернак</p> 
+</blockquote>
+
+<figure class="event-one_image image-left">
+                <div >
+                    <img width="auto" height="300" src="http://culture.ru/ru/uploads/media/news/0001/26/4b89be1131fa6618c9507cd701f604d4da04020f.jpeg" alt="«Стою, огнем обвит»">
+                </div>
+</figure>
+<p><strong>—  Это  был для него тот самый Новый Мир?</strong></p>
+<p>— Да, Новый Мир, причем надо учитывать, каким человеком был Маяковский в обиходе. Он был паталогически чистоплотен, поскольку его отец умер от заражения крови. Когда отца неожиданно не стало, безоблачная жизнь 13-летнего мальчика резко закончилась. Семья переехала в Москву из грузинского города Багдади и столкнулась с материальными трудностями. В нем остался страх.  Маяковский боялся  инфекций невероятно, и позже приобрел брезгливость по отношению к поступкам и поведению. Можно было бы его упрекнуть как раз в этой черно-белой позиции: не с нами — значит, против нас.
+</p>
+
+
+
+
+
+<blockquote class="mayak"><div class="quote1"></div><div class="quote2"></div>
+<p>«Его стихи были неотделимой частью нашей жизни. Появление каждой новой его строчки было как бы личным событием в нашей биографии».</p>
+<p class="subscribe">С. Юткевич</p> 
+</blockquote>
+
+<p><strong>— На ваш взгляд, почему партийные задачи и призывы,  изложенные в   поэзии Маяковского, нисколько не бросают на него тень даже в те времена, когда идет отрицание всего «советского»?</strong></p>
+<p>— Дело в том что, если знак советского, «знак жизни», признак времени находится внутри формы, которая нас убеждает, то мы его не замечаем. У Маяковского знак советского, безусловно, находится внутри его художественного образа. Поэтому его советские стихи все равно будут читаться:</p>
+<div class="poetry">
+<p>Грудой дел,<br>
+суматохой явлений<br>
+день отошел,<br>
+постепенно стемнев
+</p>
+</div>
+<p>— так начинается «Разговор с товарищем Лениным», а ведь это очень лиричные строки. Имеет ли значение сегодня то, что «Левый марш» посвящен матросам? Это никому уже не важно. «Левой! Левой! Левой!» — мы воспринимаем только бешеную революционную энергетику. Маяковский понял, что эта вера — и есть новая вера! Никакого богоборчества. Он объявляет мессией Ленина — и сам становится частью нового мира. Когда поворачивается эпоха — не надо бояться: если вещь сильно написана с художественной точки зрения — она будет жить. Как в ситуации с рисунками и агитплакатами Маяковского — не так важно, кого поддерживает поэт — его рисунки интересны с точки зрения формы.
+</p>
+
+<blockquote class="mayak"><div class="quote1"></div><div class="quote2"></div>
+<p>«Там же, в Сухуме, в апреле я принял океаническую весть о смерти Маяковского. Как водяная гора жгутами бьет позвоночник, стеснила дыхание и оставила соленый вкус во рту. &lt;…&gt;> Критики Маяковского имеют к нему такое же отношение, как старуха, лечившая эллинов от паховой грыжи, к Гераклу... » </p>
+<p class="subscribe">О.  Мандельштам</p> 
+</blockquote>
+
+
+<p><strong>— Как Маяковскому удалось остаться донкихотом, притом что многие писатели хорошо устраивались при советской власти? Неплохо жили даже «попутчики» (сочувствующие советской власти, но из других социальных слоев. — <a title="Культура.рф" href="%D0%9A%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0.%D1%80%D1%84" target="_blank">«Культура.рф»</a>), а тут — на сто процентов свой.</strong></p>
+<p>— Маяковский с журналом «ЛЕФ» выступал как представитель архиреволюционной литературы, тут надо было блюсти имидж. Он не ушел в обычный литературный быт. Начиная с 1930-х Сталин начал проводить специальную политику «подкормки» и приближения писателей. Появилось Переделкино, стали выдавать дачи по принципу, какой ты партии и идеологии. Своих издавали большими тиражами, и на гонорар с каждого такого тиража можно было жить долго. Так создавалась зависимость. А Маяковский выпал из всего этого гораздо раньше. И вы правы, молодые чувствуют его донкихотство. </p>
+
+<blockquote class="mayak"><div class="quote1"></div><div class="quote2"></div>
+<p>«Эта вакансия: первого в мире поэта масс — так скоро-то не заполнится. И оборачиваться на Маяковского нам, а может быть, и нашим внукам, придется не назад, а вперед. &lt;…&gt; Боюсь, что несмотря на народные похороны, на весь почет ему, весь плач по нем Москвы и России, Россия и до сих пор до конца не поняла, кто ей был дан в лице Маяковского. … Маяковский первый новый человек нового мира, первый грядущий. Кто этого не понял, не понял в нем ничего». </p>
+<p class="subscribe">М.Цветаева</p> 
+</blockquote>
+
+
+<p>Здесь надо поставить вопрос остро — а что было бы, если бы он не застрелился? Но могу ответить точно: «прихлебателем» он никогда бы не стал. Он и так был певец советского строя, не все принимал, например Присыпкиных, но он разделял мир на «наших» и «не наших». Он даже разругался с Пастернаком в 1929 году из-за идеологических разногласий. Что было бы дальше? Если бы он поверил в то, что в стране все делается правильно, — остался бы певцом. Но сомневаюсь, что он продолжал бы так расценивать события.</p>
+<p>В 1920-е годы Маяковского еще не «огосударствили». Он был «одним из». Он становится поэтом номер один после Гражданской войны. Однажды Сталин сказал точную вещь. Об этом рассказывал Иван Гронский (который отсидел 17 лет, его выпустили в 1955-м, это он придумал название «соцреализм»): обсуждали первую фигуру среди поэтов и писателей. Предложили Пастернака. Вождь подумал и сказал: «Нет. Первая фигура в литературе живой быть не может». </p>
+<div class="poetry">
+
+<p>Крикну я<br>
+                вот с этой,<br>
+                                    с нынешней страницы:<br>
+– Не листай страницы!<br>
+                                     Воскреси!<br>
+Сердце мне вложи!<br>
+                                Кровищу – <br>
+                                           до последних жил.<br>
+В череп мысль вдолби!<br>
+Я свое, земное, не дожил,<br>
+На земле<br>
+                свое не долюбил.</p>
+<p class="subscribe">В.В. Маяковский «Про это»</p> 
+</div>
+
+<blockquote class="mayak"><div class="quote1"></div><div class="quote2"></div>
+<p>«На вопрос, что же замечательного он находит в Маяковском, Блок ответил с обычным лаконизмом и меткостью — одним только словом: «Демократизм».</p>
+<p class="subscribe">В.Гиппиус</p> 
+</blockquote>
+
+<figure class="event-one_image image-right">
+                <div >
+                    <img width="auto" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/thumb_25719_news_billboard.jpeg" alt="«Стою, огнем обвит»" style="margin-top:0px;">
+                </div>
+            </figure>
+<p><strong>— У вас при Институте мировой литературы  планируется полное издание Маяковского?</strong></p>
+<p>— Мы издаем 20 томов Маяковского. Двенадцать уже утвердили. Будет 6 томов художественных произведений, письма, театр, 6 томов агитационно-производственного рисунка и один том живописи. Маяковский был хорошим графиком, у него немало графических работ, разбросанных в разных местах. Вот пишет письмо Лиле — и может нарисовать что-то в письме. </p>
+<p>Плакаты из «Окон РОСТА» будут отпечатаны в цвете и с подписями. Их часто печатали в черно-белом варианте либо издавали исключительно подписи. Собранные воедино, изобразительные работы Маяковского производят огромное впечатление. Его рисунок очень экономный и выразительный. Мы намереваемся включить в собрание сочинений афиши и обложки книг, разработанные Маяковским: эти работы можно считать истоком формирования современного дизайна. Как говорят знатоки, эта часть собрания будет пользоваться гораздо большей популярностью, потому что поэзия Маяковского уже печаталась не раз, а его изобразительные работы в заявленном нами виде ни разу не издавались. </p>
+<p><strong>— Какое из его произведений вам кажется  наиболее актуальным сегодня?</strong></p>
+<p>— Любовная лирика, безусловно, —  очень сильные вещи. Также произведения, в которых присутствует космический контекст. Почему-то сейчас режиссеры пробуют сделать выборку, компиляцию, но не решаются целиком ставить пьесы Маяковского. Например, «Мистерию-Буфф» — первый отклик на революцию. Но можно приглушить революционные мотивы и увидеть космическую идею осуществления мира.</p>
+
+
+<p><strong><br>Беседовала Дарья Хренова</strong></p>
+<p>&nbsp;</p>
+    </div><!-- /content -->
+
+   
+
+{% endblock %}
+{% block right_column %}
+<div style="height:60px;"></div>
+
+
+<div class="block">
+            <section class="static-block object-archives">
+                <h2>Обложки книг. Оформление - Владимир Маяковский </h2>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                    <ul class="slides">
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/27/5accdbd3d66eed8b55c099951965480e1a48a01b.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/27/5accdbd3d66eed8b55c099951965480e1a48a01b.jpeg" alt="" class="">
+                                    </a>
+                                                                    <div class="period-block_footer">
+                                                                        <p>«13 лет работы» – Московская ассоциация футуристов, 1922 – [1923] годы<br>Обложка А.М. Лавинского
+                                                                        </p>          
+                                                                     </div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/27/7b430840030fd1bdc14cd5f03b0e44f687f33466.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/27/7b430840030fd1bdc14cd5f03b0e44f687f33466.jpeg" alt="" class="">
+                                    </a>
+                                                                    <div class="period-block_footer">
+                                                                        <p>«Владимир Ильич Ленин»  – Гос. изд-во, 1923 год
+                                                                        </p>  
+                                                                    </div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/27/7abf501f4fbc9835fdb1fbe717bc9838e2ae7913.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/27/7abf501f4fbc9835fdb1fbe717bc9838e2ae7913.jpeg" alt="" class="">
+                                    </a>
+                                                                    <div class="period-block_footer">
+                                                                        <p>«Про это».  Гос. изд-во, 1923 год<br>
+                                                                            Иллюстрации – фотомонтажи А.М. Родченко<br>
+                                                                            На обложке портрет Л.Ю. Брик
+                                                                        </p> 
+                                                                    </div>
+                                </article>
+                            </li>
+
+
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/27/34febf35c84633c38d9e69dc26f73c0861be701b.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/27/34febf35c84633c38d9e69dc26f73c0861be701b.jpeg" alt="" class="">
+                                    </a>
+                                                                    <div class="period-block_footer">
+                                                                         <p>«Вон самогон!» –  Красная новь, 1923 год <br>
+                                                                        Обложка и рисунки В.В. Маяковского
+                                                                        </p>
+                                                                    </div>
+                                </article>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+        <div class="block">
+            <section class="static-block object-archives">
+                <h2>Владимир Маяковскии и Татьяна Яковлева</h2>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                    <ul class="slides">
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/07d5c3c424dced93f6bad82f33f2393d02da3927.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/07d5c3c424dced93f6bad82f33f2393d02da3927.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/b131fb4a3db4d9bd91f7aba5aaad3191823c69ee.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/b131fb4a3db4d9bd91f7aba5aaad3191823c69ee.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/8a17a0c748aa14a00fff67483910f49fa83ffbaf.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/8a17a0c748aa14a00fff67483910f49fa83ffbaf.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+
+
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/af1e4da1f6e5e9634a2e1ba7dcc5648f80cc5722.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/af1e4da1f6e5e9634a2e1ba7dcc5648f80cc5722.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+
+
+        <div class="block">
+            <section class="static-block object-archives">
+                <h2>Производственный плакат. Художник - В.Маяковский</h2>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                    <ul class="slides">
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/24743800e5ffb30331d088e7a942c9e1940d74c6.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/24743800e5ffb30331d088e7a942c9e1940d74c6.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/0cc2578c64f2c58fb43cbe67317e8c8c4c86c82f.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/0cc2578c64f2c58fb43cbe67317e8c8c4c86c82f.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                               </li>
+                                            </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+
+
+        <div class="block">
+            <section class="static-block object-archives">
+                <h2>Маяковский и Лиля Брик</h2>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                    <ul class="slides">
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/d767dcb86f70f932e547632ca0700d9cb5b3fe9b.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/d767dcb86f70f932e547632ca0700d9cb5b3fe9b.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/6899f0660932338988c39bd17e3b0a272a78d824.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/6899f0660932338988c39bd17e3b0a272a78d824.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/ba147fe646f25cc3b88937f41017cad70bf9e67b.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/ba147fe646f25cc3b88937f41017cad70bf9e67b.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/0c3fc39c718b99b57895777ceb6d6bfe3754ab74.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/0c3fc39c718b99b57895777ceb6d6bfe3754ab74.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/d8be36e6a2601840b0685dbf20a5bbc4900f58d2.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/d8be36e6a2601840b0685dbf20a5bbc4900f58d2.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li>
+                                                     <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/c04ceaf11c4ecf3c0195968803adbf44ac4bad5f.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/c04ceaf11c4ecf3c0195968803adbf44ac4bad5f.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li>                             
+                                                       <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/f40ab6bb656466040e7c9f17aaccb7a84dabc642.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/f40ab6bb656466040e7c9f17aaccb7a84dabc642.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li> 
+                                                       <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/da7ee7f1aab8bac2b432c4e3e2fd887b5a63262f.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/da7ee7f1aab8bac2b432c4e3e2fd887b5a63262f.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li> 
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/981a2f8059d7c7fb591854dcd0323859a6b1ff16.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/981a2f8059d7c7fb591854dcd0323859a6b1ff16.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                              </li>                               
+                                            </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+<div class="block">
+        <div class="right-news-list-block">
+            <h2>юность</h2>
+        
+            <ul class="right-news-list">
+   
+        <li class="clearfix">
+        <a class="in-fancybox" rel="arch_photo" href="http://culture.ru/ru/uploads/media/news/0001/26/19a4a57b46eca98606d7c8ab2dbd2ab5323c06ed.jpeg">
+                <img width="85" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/19a4a57b46eca98606d7c8ab2dbd2ab5323c06ed.jpeg">
+        
+        </a>
+        <div class="right-news-list-text">
+            <span class="right-news-name">В.В. и О.В. Маяковские</span>
+            <p>Кутаиси, 1896 <br>
+                Фотоателье «Б.П. Мищенко»<br>
+                Происхождение: в Государственном Музее Маяковского с 1972 по завещанию Л.В. Маяковской<br>
+                Опубликовано: журнал «30 дней». 1931 год
+</p>
+        </div>
+        
+    </li>
+      
+        <li class="clearfix">
+        <a class="in-fancybox" rel="arch_photo" href="http://culture.ru/ru/uploads/media/news/0001/26/fc0ff9e2cc5fca07c2e591f9070e74461f829061.jpeg">
+            <img width="85" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/fc0ff9e2cc5fca07c2e591f9070e74461f829061.jpeg">
+        </a>
+        <div class="right-news-list-text">
+            <span class="right-news-name">Семья Маяковских</span>
+            <p>
+                Кутаиси, 1905<br>
+                Стоят: Л.В. и В.К Маяковские, сидят: О.В., В.В. и А.А. Маяковские<br>
+                Происхождение: в Государственном Музее Маяковского с 1972 по завещанию Л.В. Маяковской<br>
+                Опубликовано: Маяковская А.А. Детство и юность Владимира Маяковского. Из воспоминаний матери.  Детгиз. 1953 год
+
+            </p>
+        </div>
+        
+    </li>
+   
+        <li class="clearfix">
+        <a class="in-fancybox" rel="arch_photo" href="http://culture.ru/ru/uploads/media/news/0001/26/f689da98e426510206b88149e8d64ca2ec75c8bb.jpeg"><img width="85" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/f689da98e426510206b88149e8d64ca2ec75c8bb.jpeg">
+        </a>
+        <div class="right-news-list-text">
+            <span class="right-news-name">В.В. Маяковский</span>
+            <p>
+                Москва, 1910<br>
+                Происхождение: в Государственном Музее Маяковского с 1972 по завещанию Л.В. Маяковской<br>
+                Опубликовано: Литературная газета. 1936 год.
+
+            </p>
+        </div>
+        
+    </li>
+   
+        <li class="clearfix">
+        <a class="in-fancybox" rel="arch_photo" href="http://culture.ru/ru/uploads/media/news/0001/26/9461e138f5bc0f855a8c9bf664548f8e1edd4878.jpeg"><img width="85" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/9461e138f5bc0f855a8c9bf664548f8e1edd4878.jpeg">
+        </a>
+        <div class="right-news-list-text">
+            <span class="right-news-name">В.В. Маяковский с А.Е. Кручёных, Д.Д. Бурлюком, Б.К. Лившицем и Н.Д. Бурлюком</span>
+            <p>
+                Москва, 1913<br>
+                Сидят: А.Е. Кручёных, Д.Д. Бурлюк, В.В. Маяковский и Б.К. Лившиц. Стоит Н.Д. Бурлюк<br>
+                Происхождение: в Государственном Музее Маяковского  от Л.И. Жевержеева<br>
+                Опубликовано: Лифшиц Б. Гилея. Нью-Йорк. 1931 год. 
+
+            </p>
+        </div>
+        
+    </li>
+   
+        <li class="clearfix">
+        <a class="in-fancybox" rel="arch_photo" href="http://culture.ru/ru/uploads/media/news/0001/26/3c7fc2ffb7374ab9b400ca3e32ce130b1a3e8d7b.jpeg"><img width="85" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/3c7fc2ffb7374ab9b400ca3e32ce130b1a3e8d7b.jpeg">
+        </a>
+        <div class="right-news-list-text">
+            <span class="right-news-name">В.В. Маяковский с К.И. Чуковским и его сыном Борисом.</span>
+            <p>
+                Куоккала, 1915<br>
+                Происхождение: в Государственном Музее Маяковского  от К.И. Чуковского<br>
+                Опубликовано: Современники. Москва. 1962 год. 
+
+            </p>
+        </div>
+        
+    </li>
+   
+        <li class="clearfix">
+        <a class="in-fancybox" rel="arch_photo" href="http://culture.ru/ru/uploads/media/news/0001/26/2ebd840db1a513a70dab712d1fc500b5dea6ab2d.jpeg"><img width="85" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/26/2ebd840db1a513a70dab712d1fc500b5dea6ab2d.jpeg">
+        </a>
+        <div class="right-news-list-text">
+            <span class="right-news-name"> </span>
+            <p>
+            
+            </p>
+        </div>
+        
+    </li>
+   
+</ul>
+        </div>
+    </div>
+
+
+
+
+ <div class="block">
+            <section class="static-block object-archives">
+                <h2>ПОЭТ ВЛАДИМИР МАЯКОВСКИИ</h2>
+                <div class="orange-slider-block">
+                    <div class="flexslider">
+                    <ul class="slides">
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/39eb889b5ff87c5458d09b9f4662683fb4c96cb3.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/39eb889b5ff87c5458d09b9f4662683fb4c96cb3.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                                    <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/2ffe9ca1c8c9f658348738da9a2a15c9f497d456.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/2ffe9ca1c8c9f658348738da9a2a15c9f497d456.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/a391fced5775607d78ae374dbe40fc5d5f9ae145.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/a391fced5775607d78ae374dbe40fc5d5f9ae145.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                             <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/7d7924ed169817a89693503339d86b9c49392c7e.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/7d7924ed169817a89693503339d86b9c49392c7e.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="period-block  archive-block ">
+                                    <a class="in-fancybox" href="http://culture.ru/ru/uploads/media/news/0001/26/20543aada84d0e6ea5469fa5d36ed64e0a8e9b6b.jpeg">
+                                        <img src="http://culture.ru/ru/uploads/media/news/0001/26/20543aada84d0e6ea5469fa5d36ed64e0a8e9b6b.jpeg" alt="" class="">
+                                    </a>
+                                                                        <div class="period-block_footer"></div>
+                                </article>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+<div class="right-news-list-text">
+        <p>Изобразительные материалы предоставлены Государственным музеем В.В.Маяковского.</p>
+        </div>
+
+{% endblock %}
