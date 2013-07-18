@@ -1,0 +1,12 @@
+.snippet {
+	border:red 3px solid;
+	margin:10px;
+}
+.news {
+	background: yellow; 
+	font-size:20px;
+}
+.article {
+	background: green;
+	font-size:20px;
+}
