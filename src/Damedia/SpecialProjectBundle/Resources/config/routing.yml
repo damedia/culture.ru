@@ -7,3 +7,11 @@ ajax_get_template_blocks_form:
 #damedia_special_project_view:
 #    pattern:  /project/{page}
 #    defaults: { DamediaSpecialProjectBundle:Render:index, page: last }
+
+
+    
+# ajax requests
+armd_admin_jsonlist:
+    pattern:  admin/damedia/specialproject/jsonlist/{search_for}
+    defaults: { _controller: DamediaSpecialProjectBundle:AdminAjax:jsonList }
+

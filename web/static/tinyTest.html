@@ -16,7 +16,16 @@
 <script>
 tinymce.init({
     selector: 'textarea',
-    snippet:{selectFormUrl: "tinySelectForm.html"},
+    snippet:{selectFormUrl: "tinySelectForm.html", 
+	    	types:[
+		     {value:"news", text:"Новость"},
+		     {value:"theater", text:"Театр"},
+			 {value:"realMuseum", text:"Музей"},
+			 {value:"museum", text:"Вирутальный тур"},
+			 {value:"artObject", text:"Артефакт"},
+			 {value:"lecture", text:"Лекция"},
+			]
+	},
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",

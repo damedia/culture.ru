@@ -118,11 +118,6 @@ armd_news_admin:
     type: annotation
     prefix: /admin/news
     
-armd_news_admin_jsonlist:
-    resource: "@ArmdNewsBundle/Controller/AdminController.php"
-    type: annotation
-    prefix: /admin/news
-
 armd_chronicle:
     resource: '@ArmdChronicleBundle/Resources/config/routing.yml'
     prefix:   /chronicle
