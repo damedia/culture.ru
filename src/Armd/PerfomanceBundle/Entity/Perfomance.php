@@ -6,13 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Table(name="content_perfomance")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Perfomance implements Taggable
+class Perfomance implements Taggable, ChangeHistorySavableInterface
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -128,6 +129,11 @@ class Perfomance implements Taggable
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id")
      */
     private $theater;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
    
     /**
      * @return int
@@ -644,4 +650,32 @@ class Perfomance implements Taggable
     {
         return $this->theater;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Perfomance
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

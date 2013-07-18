@@ -26,6 +26,13 @@ class RealMuseum extends Admin
     );
 
     protected $translationDomain = 'ArmdMuseumBundle';
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -40,6 +47,7 @@ class RealMuseum extends Admin
             ->add('url')
             ->add('description')
             ->add('image')
+            ->add('corrected')
         ;
         
         parent::configureShowField($showMapper);        
@@ -54,6 +62,7 @@ class RealMuseum extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))       
                 ->add('title')
                 ->add('address')
                 ->add('phone')
@@ -116,6 +125,7 @@ class RealMuseum extends Admin
     {        
         $listMapper
             ->addIdentifier('title')  
+            ->add('corrected')
             ->add('category')         
             ->add('region')
         ;
@@ -131,6 +141,7 @@ class RealMuseum extends Admin
         $datagridMapper
             ->add('region')
             ->add('category')
+            ->add('corrected')
         ;
     }      
 }

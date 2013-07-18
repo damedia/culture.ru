@@ -3,7 +3,7 @@ services:
         class: Armd\PersonBundle\Admin\PersonAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Persons, label: Persons, show_in_dashboard: true }
-        arguments: [null, Armd\PersonBundle\Entity\Person, SonataAdminBundle:CRUD]
+        arguments: [null, Armd\PersonBundle\Entity\Person, SonataAdminBundle:CRUD, @service_container]
         
     armd_person.sonata_admin.person_type:
         class: Armd\PersonBundle\Admin\PersonTypeAdmin

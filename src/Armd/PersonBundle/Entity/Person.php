@@ -4,6 +4,7 @@ namespace Armd\PersonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * Armd\ExhibitBundle\Entity\Person
@@ -11,7 +12,7 @@ use DoctrineExtensions\Taggable\Taggable;
  * @ORM\Entity()
  * @ORM\Table(name="armd_person")
  */
-class Person implements Taggable
+class Person implements Taggable, ChangeHistorySavableInterface
 {
     /**
      * @var integer $id
@@ -53,7 +54,13 @@ class Person implements Taggable
      * @ORM\JoinTable(name="person_person_type")
      * @ORM\OrderBy({"title" = "ASC"})
      */
-    private $personTypes;        
+    private $personTypes;  
+
+
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;       
     
     private $tags;
 
@@ -240,4 +247,32 @@ class Person implements Taggable
     {
         return $this->image;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Person
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

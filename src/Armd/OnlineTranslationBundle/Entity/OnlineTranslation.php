@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * Armd\OnlineTranslationBundle\Entity\OnlineTranslation
@@ -13,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="online_translation")
  */
-class OnlineTranslation implements Taggable
+class OnlineTranslation implements Taggable, ChangeHistorySavableInterface
 {
     const TYPE_ANNOUNCE = 0;
     const TYPE_TRANSLATION = 1;
@@ -76,6 +77,11 @@ class OnlineTranslation implements Taggable
     private $dataCode;
 
     private $tags;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     public function __toString()
     {
@@ -328,4 +334,32 @@ class OnlineTranslation implements Taggable
     {
         return $this->type;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return OnlineTranslation
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }
