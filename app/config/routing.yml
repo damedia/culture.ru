@@ -31,9 +31,6 @@ armd_main:
 armd_main_project_tolstoy:
     pattern:  /tolstoy/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Tolstoy:index.html.twig }
-armd_main_project_romanovs:
-    pattern:  /romanovs/
-    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Romanovs:index.html.twig }
 
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"
