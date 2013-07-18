@@ -10,7 +10,7 @@
 <body>
  
 <div class="ui-widget" style="width:100%">
-  <label for="tags">Поиск новости: </label>
+  <label id="caption" for="tags">Поиск: </label>
   <input id="tags" style="width:100%"/>
   <!-- input id="go"  type='button' value="Ok"/>  -->
 </div>
@@ -25,22 +25,23 @@
     var availableTags = function(request, response) { 
     var srch = request.term;
     console.log("search for: "+srch);
-    /* TODO: at server side 
-    	var url;
+		var url;
     	if (window.location.hash) {
     		var what=window.location.hash.substr(1);
-    		url="../app_dev.php/admin/"+what+"/jsonlist/"+srch
+    		url="../app_dev.php/admin/damedia/specialproject/jsonlist/"+what+"?q="+srch
     	} else 
-	    	url="../app_dev.php/admin/news/jsonlist/"+srch
-	    $.ajax(url, {    		
-    */
-	    $.ajax("../app_dev.php/admin/news/jsonlist/"+srch, {
+	    	url="../app_dev.php/admin/damedia/specialproject/jsonlist/news?q="+srch
+	    $.ajax(url, {    
 	    	success : function(data) {
+	    			if (data.length) {
+	    				$( "#tags" ).removeClass("ui-state-error");		
+	    			} else 
+	    				$( "#tags" ).addClass("ui-state-error");
 						response(data);		
 					},
 					error : function(xhr, err) {
 								console.log('xhr error', xhr, err);
-								 
+							$( "#tags" ).addClass("ui-state-error");	 
 					} 
 	    });
     };
@@ -51,6 +52,8 @@
     	console.log(item);
     	go(ui.item);
     });
+    console.log(window.location.hash.substr(1));
+    $("#caption").html('Поиск по разделу "'+window.location.hash.substr(1)+'"');
   });
  </script>
 </body>

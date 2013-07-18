@@ -15,41 +15,14 @@
  * Example plugin that adds a toolbar button and menu item.
  */
 tinymce.PluginManager.add('snippet', function(editor, url) {
-	// Add a button that opens a window
-	var CONTENT_TYPES=[
-	     {value:"news", text:"Новость"},
-	     {value:"article", text:"Статья"},
-		 {value:"realMuseum", text:"Музей"},
-		 {value:"museum", text:"Вирутальный тур"},
-		 {value:"artObject", text:"Артефакт"},
-		 {value:"lecture", text:"Лекция"},
-	];
+
+	var CONTENT_TYPES=	editor.settings.snippet.types || [{value:"news", text:"News"}];
+
 	function serializeToNode(snippet) {
 		var sn=serializeSnippet(snippet);
-/*		var aNode=document.createElement('div');
-		aNode.dataset['snippet']=sn;
-		return aNode;
-*/		
-		/*
-		var canvas = document.createElement('canvas');
-		canvas.width = 300;
-		canvas.height = 200; 
-		var ctx = canvas.getContext("2d");
-		
-	//	canvas.width = canvas.width;
-		ctx.fillStyle = "#F00";
-		ctx.strokeStyle = "#000";
-		ctx.font = "30pt Arial";
-		ctx.fillText(CONTENT_TYPES[snippet.type], 20, 50);
-		ctx.fillText("ID:"+snippet.entityId, 20, 80);
-		ctx.fillText("View:"+snippet.viewId, 20, 110); */
-		
 		var aNode=document.createElement('img');
 		renderSnippet(aNode, snippet);
-		/* aNode.dataset['snippet']=sn;
-		aNode.src=canvas.toDataURL(); */
 		return aNode.outerHTML; 
-		// return ('<div class="snippet '+snippet.type+'" data-snippet="'+sn+'"></div>');
 	}
 	function wrapText(context, text, x, y, maxWidth, lineHeight) {
         var words = text.split(' ');
@@ -165,7 +138,7 @@ tinymce.PluginManager.add('snippet', function(editor, url) {
 					width:700,
 					height: 500,
 					title: 'Insert internal content box',
-					url: editor.settings.snippet.selectFormUrl, 
+					url: editor.settings.snippet.selectFormUrl+'#'+snippet.type, 
 /*					html:'<div class="ui-widget"><form action="#"><label for="tags">Tags: </label><input id="tags" /></div><script> $("#go").on("click", function(e){console.log(window.parent, $("#tags")[0].value);});'+
  '$(function() {    var availableTags = [      "ActionScript",      "AppleScript",      "Asp",      "BASIC",      "C",      "C++",      "Clojure",      "COBOL",      "ColdFusion",      "Erlang",      "Fortran", '+
       '"Groovy",      "Haskell",      "Java",      "JavaScript",      "Lisp",      "Perl",      "PHP",      "Python",      "Ruby",      "Scala",      "Scheme"    ];'+
@@ -199,7 +172,7 @@ tinymce.PluginManager.add('snippet', function(editor, url) {
 				onsubmit: function(e) {
 					// Insert content when the window form is submitted
 					console.log("submit", e.data);
-					editSnippet({type:e.data.linkType, label:"", entityId:null, viewId:null}, function(snp) {
+					editSnippet({type:e.data.linkType || CONTENT_TYPES[0].value, label:"", entityId:null, viewId:null}, function(snp) {
 						editor.insertContent(serializeToNode(snp));
 					});
 				}
