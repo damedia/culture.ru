@@ -11,9 +11,11 @@
         <li><span>{{ 'menu.galley_of_war'|trans }}</span></li>
     </ul>
 
-    <div class="after-breadcrumbs-link">
-        <a href="{{ path('armd_museum_archive') }}" title="Перейти в 'Военный архив'">Военный архив</a>
-    </div>
+    {% if app.request.locale == 'ru' %}
+        <div class="after-breadcrumbs-link">
+            <a href="{{ path('armd_museum_archive') }}" title="Перейти в 'Военный архив'">Военный архив</a>
+        </div>
+    {% endif %}
 
 {% endblock %}
 
