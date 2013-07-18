@@ -1,6 +1,6 @@
-ajax_get_template_blocks_form:
+get_template_blocks_form:
     pattern:  admin/damedia/specialproject/page/getTemplateBlocksForm
-    defaults: { _controller: DamediaSpecialProjectBundle:AdminAjax:getTemplateBlocksForm }
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTemplateBlocksForm }
     requirements:
       _method:  POST
 

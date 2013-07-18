@@ -19,18 +19,5 @@ class SpecialProjectHelper {
 
         return $result;
     }
-
-    /*
-    public function createBlockTextareaHtml($blockName, $content = '') {
-        $blockName = (string)$blockName;
-
-        if ($blockName == '') {
-            return '';
-        }
-
-        return '<div class="createPage_blockTitle">'.$blockName.'</div>
-                <textarea class="createPage_blockTextarea" name="'.$blockName.'">'.$content.'</textarea>';
-    }
-    */
 }
 ?>

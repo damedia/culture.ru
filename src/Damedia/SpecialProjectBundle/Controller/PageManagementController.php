@@ -2,21 +2,105 @@
 namespace Damedia\SpecialProjectBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class PageManagementController extends Controller {
-    //public function postPersist($object) {
-    //    print 'add blocks';
-    //}
+    public function getTemplateBlocksFormAction() {
+        $response = array('content' => '');
 
-    //public function postUpdate($object) {
-    //    print 'update blocks';
-    //}
+        $request = $this->get('request');
+        $templateId = (integer)$request->request->get('templateId');
+        $pageId = (integer)$request->request->get('pageId');
 
-    //public function previewPageAction($id) {
-    //    return new Response('This is an previewPageAction for page = '.$id);
-    //}
+        if ($templateId >= 0) {
+            $template = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Template')->find($templateId);
+            $twigFileName = $template->getTwigFileName();
+
+            $helper = $this->container->get('special_project_helper');
+            $twigTemplatesPath = $helper->getTwigTemplatesPath($this->container->get('kernel'));
+            $fileContent = file_get_contents($twigTemplatesPath.DIRECTORY_SEPARATOR.$twigFileName);
+
+            $blocksPlaceholders = $helper->getBlockNamesFromString($fileContent);
+            $blocks = $this->getBlocksForPageId($pageId);
+            $chunks_mappedByPlaceholder = $this->getChunksForBlocks_mappedByPlaceholder($blocks);
+
+            $formBuilder = $this->createFormBuilder();
+            foreach ($blocksPlaceholders as $placeholder) {
+                $blockContent = $this->getBlockContentByPlaceholder($placeholder, $chunks_mappedByPlaceholder);
+
+                $formBuilder->add($placeholder, 'textarea',
+                                  array('required' => false,
+                                        'attr' => array('class' => 'createPage_blockTextarea'),
+                                        'data' => $blockContent));
+            }
+            $form = $formBuilder->getForm();
+
+            $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_templateBlocksForm.html.twig',
+                                                     array('twigFileName' => $twigFileName,
+                                                           'form' => $form->createView()));
+        }
+        else {
+            $response['content'] = 'Template ID has not been sent!';
+        }
+
+        return $this->renderJson($response);
+    }
+
+
+
+    private function getBlocksForPageId($pageId = null) {
+        $result = array();
+
+        if (!$pageId) {
+            return $result;
+        }
+
+        return $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Block')->findByPage($pageId);
+    }
+
+    private function getChunksForBlocks_mappedByPlaceholder(array $blocks) {
+        $result = array();
+        $blocksMap = array();
+
+        if (count($blocks) === 0) {
+            return $result;
+        }
+
+        foreach ($blocks as $object) {
+            $blocksMap[$object->getId()] = $object->getPlaceholder();
+            $result[$object->getPlaceholder()] = array();
+        }
+
+        $chunks = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Chunk')->findBy(array('block' => array_keys($blocksMap)));
+
+        foreach ($chunks as $object) {
+            $placeholder = $blocksMap[$object->getBlock()->getId()];
+            $result[$placeholder][] = $object;
+        }
+
+        return $result;
+    }
+
+    private function getBlockContentByPlaceholder($placeholder, array $chunks) {
+        $result = '';
+
+        if (!isset($chunks[$placeholder])) {
+            return $result;
+        }
+
+        foreach ($chunks[$placeholder] as $object) {
+            $result .= $object->getContent();
+        }
+
+        return $result;
+    }
+
+
+
+
+
+
+
+
 
     /*
     public function editPageAction($id) {
@@ -42,9 +126,7 @@ class PageManagementController extends Controller {
     */
 
     /*
-    private function getBlocksForPageId($pageId) {
-        return $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Block')->findBy(array('page' => $pageId));
-    }
+
     */
 
     /*
@@ -63,22 +145,7 @@ class PageManagementController extends Controller {
     */
 
     /*
-    private function getChunksForBlocksArray(array $blocks) {
-        $result = array();
-        $blocksIds = array();
 
-        foreach ($blocks as $block) {
-            $blocksIds[] = $block->getId();
-        }
-
-        $chunks = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Chunk')->findBy(array('block' => $blocksIds));
-
-        foreach ($chunks as $chunk) {
-            $result[$chunk->getBlock()][] = $chunk->getContent();
-        }
-
-        return $result;
-    }
     */
 
     /*

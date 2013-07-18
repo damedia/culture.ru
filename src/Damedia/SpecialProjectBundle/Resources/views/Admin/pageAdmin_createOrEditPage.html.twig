@@ -1,0 +1,53 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/damediaspecialproject/css/admin_createPage.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var sonataFormFieldset = $("div.sonata-ba-form fieldset"),
+                sonataFormTemplateSelect = $("#{{ admin.uniqId }}_template"),
+                modalLayerDivId = "modal-layer",
+                ajaxResponseDiv = $("<div class='createPage_ajaxResponse'></div>"),
+                createModalLayer = function(){
+                    var div = $("<div id='"+modalLayerDivId+"'><img src='{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}' /></div>"),
+                        width = $(document).width(),
+                        height = $(document).height();
+
+                        div.css({'width': width, 'height': height}).appendTo("body", document);
+                    },
+                    removeModalLayer = function(){
+                        $("#"+modalLayerDivId).remove();
+                    },
+                    loadBlocks = function(value){
+                        var sendData = { "_sonata_admin": "{{ admin.code }}",  "templateId": value, "pageId": "{{ admin.id(object) }}" };
+
+                        if (value === "") {
+                            ajaxResponseDiv.html("");
+                            return;
+                        }
+
+                        createModalLayer();
+
+                        $.post("{{ path('get_template_blocks_form') }}", sendData, function(data){
+                            ajaxResponseDiv.html(data.content);
+                            removeModalLayer();
+                        });
+                    };
+
+            ajaxResponseDiv.appendTo(sonataFormFieldset);
+
+            loadBlocks(sonataFormTemplateSelect.val());
+            sonataFormTemplateSelect.on("change", function(){
+                loadBlocks($(this).val());
+            });
+        });
+    </script>
+{% endblock %}
