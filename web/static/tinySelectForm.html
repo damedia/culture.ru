@@ -10,7 +10,7 @@
 <body>
  
 <div class="ui-widget" style="width:100%">
-  <label for="tags">Поиск новости: </label>
+  <label id="caption" for="tags">Поиск: </label>
   <input id="tags" style="width:100%"/>
   <!-- input id="go"  type='button' value="Ok"/>  -->
 </div>
@@ -51,6 +51,8 @@
     	console.log(item);
     	go(ui.item);
     });
+    console.log(window.location.hash.substr(1));
+    $("#caption").html("Поиск по "+window.location.hash.substr(1));
   });
  </script>
 </body>

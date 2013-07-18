@@ -165,7 +165,7 @@ tinymce.PluginManager.add('snippet', function(editor, url) {
 					width:700,
 					height: 500,
 					title: 'Insert internal content box',
-					url: editor.settings.snippet.selectFormUrl, 
+					url: editor.settings.snippet.selectFormUrl+'#'+snippet.type, 
 /*					html:'<div class="ui-widget"><form action="#"><label for="tags">Tags: </label><input id="tags" /></div><script> $("#go").on("click", function(e){console.log(window.parent, $("#tags")[0].value);});'+
  '$(function() {    var availableTags = [      "ActionScript",      "AppleScript",      "Asp",      "BASIC",      "C",      "C++",      "Clojure",      "COBOL",      "ColdFusion",      "Erlang",      "Fortran", '+
       '"Groovy",      "Haskell",      "Java",      "JavaScript",      "Lisp",      "Perl",      "PHP",      "Python",      "Ruby",      "Scala",      "Scheme"    ];'+
