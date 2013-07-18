@@ -120,7 +120,7 @@
 {#--------------------------------------------------------------------------------------------------------------------#}
 {% block right_column %}
 
-    {% render url('armd_news_memorial_events') %}
+    {#{% render url('armd_news_memorial_events') %}#}
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
     <div class="right-video-block">
         {% render url('armd_lecture_related_lectures', {'tags': {}, 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
