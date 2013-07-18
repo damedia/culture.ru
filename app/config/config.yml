@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: "@DamediaSpecialProjectBundle/Resources/config/services.yml" }
 
 framework:
     esi:
@@ -578,4 +579,3 @@ armd_sitemap:
     locales: [ru, en]
     directory: sitemap # relative to server document_root (web)
     urls_per_file: 10000
-

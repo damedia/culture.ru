@@ -3,7 +3,6 @@ namespace Damedia\SpecialProjectBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class TemplateAdmin extends Admin {
@@ -41,8 +40,8 @@ class TemplateAdmin extends Admin {
         $result = array('' => '');
 
         $container = $this->getConfigurationPool()->getContainer();
-        $kernel = $container->get('kernel');
-        $templatesDirectory = $kernel->locateResource('@DamediaSpecialProjectBundle/Resources/views/Templates');
+        $helper = $container->get('special_project_helper');
+        $templatesDirectory = $helper->getTwigTemplatesPath($container->get('kernel'));
 
         foreach (scandir($templatesDirectory) as $fileName) {
             if ($fileName !== '.' AND $fileName !== '..') {

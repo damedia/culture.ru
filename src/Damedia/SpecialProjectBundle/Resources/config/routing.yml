@@ -1,8 +1,9 @@
-damedia_special_project_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: DamediaSpecialProjectBundle:Default:index }
+ajax_get_template_blocks_form:
+    pattern:  admin/damedia/specialproject/page/getTemplateBlocksForm
+    defaults: { _controller: DamediaSpecialProjectBundle:AdminAjax:getTemplateBlocksForm }
+    requirements:
+      _method:  POST
 
-_admin_ajax:
-    resource: "@SomethingAdminBundle/Controller/AjaxController.php"
-    type:     annotation
-    prefix:   /admin/ajax
+#damedia_special_project_view:
+#    pattern:  /project/{page}
+#    defaults: { DamediaSpecialProjectBundle:Render:index, page: last }
