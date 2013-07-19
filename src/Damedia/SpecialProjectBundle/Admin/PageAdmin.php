@@ -85,7 +85,6 @@ class PageAdmin extends Admin {
         foreach ($pageBlocks as $block) {
             $entityManager->remove($block);
         }
-
         $entityManager->flush();
     }
 

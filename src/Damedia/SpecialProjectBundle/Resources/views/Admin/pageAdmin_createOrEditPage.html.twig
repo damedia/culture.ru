@@ -6,9 +6,29 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
+    {# BEGIN: We are using this section instead of just calling twig function parents() because we need our own tinymce.js for this page #}
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-1.8.0.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-ui-1.8.23.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/qtip/jquery.qtip-1.0.0-rc3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/base.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('vendor/jquery-1.8.3.min.js') }}"></script>
+        {# BEGIN: This little block is required for FOSJsRoutingBundle to work #}
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        {# END #}
+
+    <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2_locale_ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
+    {# END #}
+
+    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/tinyInitOptions.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -22,25 +42,26 @@
                         height = $(document).height();
 
                         div.css({'width': width, 'height': height}).appendTo("body", document);
-                    },
-                    removeModalLayer = function(){
-                        $("#"+modalLayerDivId).remove();
-                    },
-                    loadBlocks = function(value){
-                        var sendData = { "_sonata_admin": "{{ admin.code }}",  "templateId": value, "pageId": "{{ admin.id(object) }}" };
+                },
+                removeModalLayer = function(){
+                    $("#"+modalLayerDivId).remove();
+                },
+                loadBlocks = function(value){
+                    var sendData = { "_sonata_admin": "{{ admin.code }}",  "templateId": value, "pageId": "{{ admin.id(object) }}" };
 
-                        if (value === "") {
-                            ajaxResponseDiv.html("");
-                            return;
-                        }
+                    if (value === "") {
+                        ajaxResponseDiv.html("");
+                        return;
+                    }
 
-                        createModalLayer();
+                    createModalLayer();
 
-                        $.post("{{ path('get_template_blocks_form') }}", sendData, function(data){
-                            ajaxResponseDiv.html(data.content);
-                            removeModalLayer();
-                        });
-                    };
+                    $.post("{{ path('get_template_blocks_form') }}", sendData, function(data){
+                        ajaxResponseDiv.html(data.content);
+                        tinymce.init(tinyInitOptions);
+                        removeModalLayer();
+                    });
+                };
 
             ajaxResponseDiv.appendTo(sonataFormFieldset);
 
