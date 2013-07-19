@@ -2,7 +2,7 @@ var armdMkTheaterList = {
     city: null,
     category: null,
     searchText: null,
-    order: 'date',
+    order: 'abc',
 
     visibleCount: 0,
     loadByCount: 0,

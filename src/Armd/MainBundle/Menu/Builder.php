@@ -32,10 +32,12 @@ class Builder extends ContainerAware
 
             $menu->addChild('menu.atlas',            array('route' => 'armd_atlas_index'));
             $menu->addChild('menu.russia_images',    array('route' => 'armd_atlas_russia_images'));
-            $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
 
-            //--- Events
-            $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
+            $museumMenu = $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
+            $museumMenu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
+            $museumMenu->addChild('menu.war_gallery',  array('route' => 'armd_war_gallery'));
+
+         //   $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
             //--- /Events
 
             //--- Information (About)

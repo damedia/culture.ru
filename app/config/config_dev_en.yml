@@ -5,3 +5,8 @@ doctrine:
     dbal:
         dbname:   %database_name_en%
 
+sonata_media:
+    cdn:
+        server:
+            path: %sonata_media_cdn_en%
+
