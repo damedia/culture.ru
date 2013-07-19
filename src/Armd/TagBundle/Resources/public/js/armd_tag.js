@@ -60,4 +60,46 @@ $(function () {
 //        }
 
     });
+    
+    /*MENU FIX*/
+    
+    var menuFix = {
+        navHeight: $('.navbar-fixed-top').height(),
+        delay: (function(){
+          var timer = 0;
+          return function(callback, ms){
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+          };
+        })(),
+        
+        init: function(){
+            this.resizeMenu();
+            this.updateMenu();
+        },
+        resizeMenu: function(){
+            if ($('body').width() >= 979) {
+                $('body').css('paddingTop', this.navHeight+34);
+            } else {
+                $('body').css('paddingTop', 0);
+            }
+        },
+        updateMenu: function(){
+            var self = this;
+            $(window).resize(function() {
+                self.delay(function(){
+                    var h = $('.navbar-fixed-top').height();
+                    if (h != self.navHeight) {
+                        self.navHeight = h;
+                        self.resizeMenu();
+                    }
+                }, 100);
+            });
+        }
+        
+    }
+    
+    if ($('.navbar-fixed-top').length > 0) {
+       menuFix.init();
+    }
 });
