@@ -76,6 +76,7 @@ class LectureAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
                 ->add('description', null, array(
                     'attr' => array('class' => 'tinymce'),
@@ -172,6 +173,7 @@ class LectureAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('corrected')            
             ->add('title')
             ->add('genres')
             ->add('lecturer')
@@ -192,6 +194,7 @@ class LectureAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('corrected')
             ->add('createdAt')
             ->add('lectureType')
             ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))

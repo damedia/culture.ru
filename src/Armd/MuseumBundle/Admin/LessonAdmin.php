@@ -26,6 +26,13 @@ class LessonAdmin extends Admin
     );
 
     protected $translationDomain = 'ArmdMuseumBundle';
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -38,6 +45,7 @@ class LessonAdmin extends Admin
             ->add('title')
             ->add('createdAt')
             ->add('published')
+            ->add('corrected')            
             ->add('image')
             ->add('city')
             ->add('museum')
@@ -68,6 +76,7 @@ class LessonAdmin extends Admin
         $formMapper
             ->with('General')
             	->add('published')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                   	
                 ->add('title')
 	            ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'lesson')))
 	            ->add('city')
@@ -103,6 +112,7 @@ class LessonAdmin extends Admin
             ->addIdentifier('title') 
             ->add('createdAt')
             ->add('published')  
+            ->add('corrected')
 	        ->add('city')
 	        ->add('museum')
 	        ->add('dates')                    
@@ -118,6 +128,7 @@ class LessonAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('city')
             ->add('museum')

@@ -1,0 +1,30 @@
+{% set _title        = block('title') %}
+
+            {% if _title is not empty or action is defined %}
+                {% if action == 'list' %}
+                    <h3>
+                        {% if _title is not empty %}
+                            {{ _title|raw }}
+                        {% elseif action is defined %}
+                            {% for label, uri in admin.breadcrumbs(action) %}
+                                {% if loop.last  %}
+                                    {{ label }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif%}
+                        / <a href="" class="hide-history"><small>{{ 'history-list-hide'|trans({}, 'SonataAdminBundle') }}</small></a>
+                    </h3>
+                {% endif %}
+            {% endif%}
+            
+{% block content %}
+    {% block preview %}{% endblock %}
+    {% block form %}{% endblock %}
+    {% block list %}{% endblock %}
+    {% block show %}{% endblock %}
+
+
+    <div class="sonata-ba-list">
+        {% block list_table %}{% endblock %}
+    </div>
+{% endblock %}

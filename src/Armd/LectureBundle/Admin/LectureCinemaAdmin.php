@@ -40,6 +40,7 @@ class LectureCinemaAdmin extends Admin
     {
         $showMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('description')
             ->add('createdAt')
@@ -76,6 +77,7 @@ class LectureCinemaAdmin extends Admin
         
         $formMapper
             ->add('published')
+            ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
             ->add('title')
             ->add('description', null, array(
                 'attr' => array('class' => 'tinymce'),
@@ -196,6 +198,7 @@ class LectureCinemaAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('genres')
             ->add('isTop100Film')
@@ -218,6 +221,7 @@ class LectureCinemaAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('corrected')
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('createdAt')

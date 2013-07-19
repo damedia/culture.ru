@@ -24,6 +24,14 @@ class TheaterAdmin extends Admin
         '_sort_by'      => 'title',    
         '_sort_order'   => 'ASC',
     );
+    
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -34,6 +42,7 @@ class TheaterAdmin extends Admin
     {
         $showMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('description')
             ->add('director')
@@ -59,6 +68,7 @@ class TheaterAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                       
                 ->add('title')
                 ->add('city', null, array(
                     'required' => true,
@@ -142,7 +152,8 @@ class TheaterAdmin extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('published')                       
+            ->add('published')   
+            ->add('corrected')                                
         ;
         
         parent::configureListFields($listMapper);        
@@ -152,6 +163,7 @@ class TheaterAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('city')
         ;

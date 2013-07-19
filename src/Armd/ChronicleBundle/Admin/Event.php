@@ -20,10 +20,19 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class Event extends Admin
 {
+    
+    protected $container;
+        
     protected $datagridValues = array(
         '_sort_by'      => 'date',    
         '_sort_order'   => 'DESC',
     );
+    
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -33,6 +42,7 @@ class Event extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('corrected')
             ->add('title')
 //            ->add('announce')
             ->add('body')
@@ -52,6 +62,7 @@ class Event extends Admin
 
         $formMapper
             ->with('General')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))            
                 ->add('title')
                 ->add('body')
                 ->add('date', 'armd_simple_date')
@@ -79,7 +90,8 @@ class Event extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('date')
-            ->add('published')                            
+            ->add('published')    
+            ->add('corrected')                        
         ;
         
         parent::configureListFields($listMapper);        
@@ -89,6 +101,7 @@ class Event extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('corrected')
             ->add('century')            
         ;
     }
