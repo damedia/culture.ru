@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
+use Armd\MkCommentBundle\Entity\Notice;
 
 class CommentListener implements EventSubscriberInterface
 {
@@ -52,6 +53,7 @@ class CommentListener implements EventSubscriberInterface
             $this->blame($comment, $securityContext, $logger);
             $this->autoModerate($comment);
             $this->notifyModerators($comment);
+            $this->makeNoticies($comment);
         }
         $this->calcThreadComments($comment, $commentManager, $entityManager);
     }
@@ -75,6 +77,52 @@ class CommentListener implements EventSubscriberInterface
 //                $comment->setState(CommentInterface::STATE_PENDING);
 //            }
         }
+    }
+    
+    protected function makeNoticies($comment)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+        
+        // check `notice_replies_to_comment`
+        if(sizeof($ancestors = $comment->getAncestors()) && ($parentId = array_pop($ancestors))){
+            $parent = $em->getRepository('\Armd\MkCommentBundle\Entity\Comment')->find($parentId);
+            if($parent->getAuthor() !== $comment->getAuthor() && $parent->getAuthor()->getNoticeOnComment() === Notice::T_REPLY){
+                $em->persist($this->createNotice(Notice::T_REPLY, $comment, $parent->getAuthor()));
+            }
+        }
+        
+        // check `notice_replies_to_threads`
+        $qb2 = $em->getRepository('\Armd\MkCommentBundle\Entity\Comment')->createQueryBuilder('c');
+        $qb2->select('IDENTITY(c.author)')->distinct()
+            ->where('c.thread = :tid')
+            ->andWhere('c.state = :state')
+            ->andWhere('c.author <> :uid');
+        $qb = $em->getRepository('\Armd\UserBundle\Entity\User')->createQueryBuilder('u');
+        $qb->select('u')
+            ->where($qb->expr()->in('u.id', $qb2->getDQL()))
+            ->andWhere('u.enabled = true')
+            ->andWhere('u.noticeOnComment = :ctype')
+            ->setParameter('tid', $comment->getThread()->getId())
+            ->setParameter('state', Comment::STATE_VISIBLE)
+            ->setParameter('ctype', Notice::T_THREAD)
+            ->setParameter('uid', $comment->getAuthor()->getId());
+        $users = $qb->getQuery()->getResult();
+        foreach($users as $user){
+            if($user->getId() !== $comment->getAuthor()->getId()){
+                $em->persist($this->createNotice(Notice::T_THREAD, $comment, $user));
+            }
+        }
+        
+        // check `notice_all_new_comments`
+        /* Should be much faster if rewrite in native 'INSERT INTO comment_notice SELECT ... FROM fos_user_user WHERE ... ' */
+        $users = $em->getRepository('\Armd\UserBundle\Entity\User')->findBy(array('noticeOnComment' => Notice::T_ALL));
+        foreach($users as $user){
+            if($user->getId() !== $comment->getAuthor()->getId()){
+                $em->persist($this->createNotice(Notice::T_ALL, $comment, $user));
+            }
+        }
+        
+        $em->flush();        
     }
 
     protected function calcThreadComments(
@@ -135,4 +183,13 @@ class CommentListener implements EventSubscriberInterface
         return true;
     }
 
+    protected function createNotice($type, $comment, $owner)
+    {
+        $notice = new Notice();
+        $notice->setUser($owner);
+        $notice->setType($type);
+        $notice->setCreatedAt(new \DateTime());
+        $notice->setComment($comment);
+        return $notice;
+    }    
 }
