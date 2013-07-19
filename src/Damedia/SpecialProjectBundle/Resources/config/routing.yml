@@ -1,3 +1,7 @@
+get_tiny_ac_form:
+    pattern:  admin/damedia/specialproject/page/getTinyAcForm
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyAcForm }
+
 get_template_blocks_form:
     pattern:  admin/damedia/specialproject/page/getTemplateBlocksForm
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTemplateBlocksForm }
@@ -8,10 +12,7 @@ get_template_blocks_form:
 #    pattern:  /project/{page}
 #    defaults: { DamediaSpecialProjectBundle:Render:index, page: last }
 
-
-    
 # ajax requests
 armd_admin_jsonlist:
     pattern:  admin/damedia/specialproject/jsonlist/{search_for}
     defaults: { _controller: DamediaSpecialProjectBundle:AdminAjax:jsonList }
-

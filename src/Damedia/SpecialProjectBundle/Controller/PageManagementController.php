@@ -4,6 +4,10 @@ namespace Damedia\SpecialProjectBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class PageManagementController extends Controller {
+    public function getTinyAcFormAction() {
+        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_tinyAcForm.html.twig');
+    }
+
     public function getTemplateBlocksFormAction() {
         $response = array('content' => '');
 

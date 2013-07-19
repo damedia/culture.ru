@@ -26,12 +26,11 @@
     <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
     {# END #}
 
-    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/tinyInitOptions.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function(){
             var sonataFormFieldset = $("div.sonata-ba-form fieldset"),
                 sonataFormTemplateSelect = $("#{{ admin.uniqId }}_template"),
                 modalLayerDivId = "modal-layer",
@@ -57,6 +56,28 @@
                     createModalLayer();
 
                     $.post("{{ path('get_template_blocks_form') }}", sendData, function(data){
+                        var tinyInitOptions = {
+                                selector: "textarea.createPage_blockTextarea",
+                                snippet: { selectFormUrl: "{{ path('get_tiny_ac_form') }}",
+                                           sonataAdmin: "{{ admin.code }}",
+                                           types: [
+                                               { value: "news",       text: "Новость" },
+                                               { value: "theater",    text: "Театр" },
+                                               { value: "realMuseum", text: "Музей" },
+                                               { value: "museum",     text: "Вирутальный тур" },
+                                               { value: "artObject",  text: "Артефакт" },
+                                               { value: "lecture",    text: "Лекция" }
+                                            ]
+                                },
+                                plugins: [
+                                    "advlist autolink lists link image charmap print preview anchor",
+                                    "searchreplace visualblocks code fullscreen",
+                                    "insertdatetime media table  paste", // contextmenu
+                                    "snippet"
+                                ],
+                                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit"
+                            };
+
                         ajaxResponseDiv.html(data.content);
                         tinymce.init(tinyInitOptions);
                         removeModalLayer();
