@@ -37,7 +37,7 @@ class Builder extends ContainerAware
             $museumMenu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
             $museumMenu->addChild('menu.war_gallery',  array('route' => 'armd_war_gallery'));
 
-            $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
+         //   $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
             //--- /Events
 
             //--- Information (About)
