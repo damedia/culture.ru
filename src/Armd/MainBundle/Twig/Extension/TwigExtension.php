@@ -13,7 +13,8 @@ class TwigExtension extends Twig_Extension
     public function getFunctions() {
         return array(
 
-            'has_change_history' => new Twig_Function_Method($this, 'isChangeHistorySavable')
+            'has_change_history' => new Twig_Function_Method($this, 'isChangeHistorySavable'),
+            'get_type' => new Twig_Function_Method($this, 'getType'),
 
         );
     }
@@ -26,6 +27,13 @@ class TwigExtension extends Twig_Extension
             
         return false;
     } 
+    
+    public function getType($var)
+    {
+        if (is_object($var))
+            return get_class($var);
+        return gettype($var);
+    }
     
    /**
      * @return string
