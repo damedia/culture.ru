@@ -4,48 +4,116 @@ namespace Damedia\SpecialProjectBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class PageManagementController extends Controller {
+	public function getSnippetJsonlistAction() {
+		$request = $this->get('request');
+		$search_for = $request->get('entity');
+    	$limit = $request->get('limit', 20);
+    	if ($limit > 100) {
+    		$limit = 20;
+    	}
+    	$search_query = $request->get('q', false);
+    	$entityDesc = $this->getKnownEntity($search_for);
+    	if (!$search_query || !$entityDesc) {
+    		 throw new NotFoundHttpException("Query not found");
+    	};
+    	
+    	$em = $this->getDoctrine()->getManager();
+    	/*
+    	 * FULL TEXT SEARCH sphynx need
+    	$news = $this->getNewsManager()->findObjects(
+    			array(
+    					NewsManager::CRITERIA_SEARCH_STRING => $search_query, // $request->get('search_query'),
+    					//	NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
+    					NewsManager::CRITERIA_LIMIT => $limit
+    					// , NewsManager::CRITERIA_OFFSET => $request->get('offset'),
+    			)
+    	);
+    	 
+    	$result=array();
+    	for($i=0;$i<count($news);$i++) {
+    	$result[] = array('value'=>$news[$i]->getId(), 'text'=>$news[$i]->getTitle());
+    	};
+    
+    	*/
+    	//--- previous week stats
+    	$qb = $em->createQueryBuilder();
+    	 
+    	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
+    	
+    	$idField = $class->getColumnName($entityDesc[1]);
+    	$textField= $class->getColumnName($entityDesc[2]);
+    	 
+    	$qb->select('n.'.$idField.', n.'.$textField)
+    	   ->from($entityDesc[0], 'n')
+    	   ->where($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%'))
+    			//':srch') ) // .'=:srch') // %:srch%
+    	)->setMaxResults( $limit );// ->setParameters(array('srch' => $search_query,));
+    	$query = $qb->getQuery();
+    
+    	/*	   print_r(array(
+    	 'sql'        => $query->getSQL(),
+    			'parameters' => $query->getParameters(),
+    	));
+    	*/
+    	$news = $query->getArrayResult();
+    	 
+    	// print_r($news);
+    
+    	 
+    	$result=array();
+    	for($i=0;$i<count($news);$i++) {
+    		$result[] = array('value'=>$news[$i]['id'], 'label'=>$news[$i]['title']);
+    	};
+    	
+    	return $this->renderJson($result); //$response
+	}
+	
     public function getTinyAcFormAction() {
         return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_tinyAcForm.html.twig');
     }
 
     public function getTemplateBlocksFormAction() {
-        $response = array('content' => '');
+        $response = array('content' => '', 'errors' => '');
 
         $request = $this->get('request');
         $templateId = (integer)$request->request->get('templateId');
         $pageId = (integer)$request->request->get('pageId');
 
-        if ($templateId >= 0) {
-            $template = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Template')->find($templateId);
-            $twigFileName = $template->getTwigFileName();
-
-            $helper = $this->container->get('special_project_helper');
-            $twigTemplatesPath = $helper->getTwigTemplatesPath($this->container->get('kernel'));
-            $fileContent = file_get_contents($twigTemplatesPath.DIRECTORY_SEPARATOR.$twigFileName);
-
-            $blocksPlaceholders = $helper->getBlockNamesFromString($fileContent);
-            $blocks = $this->getBlocksForPageId($pageId);
-            $chunks_mappedByPlaceholder = $this->getChunksForBlocks_mappedByPlaceholder($blocks);
-
-            $formBuilder = $this->createFormBuilder();
-            foreach ($blocksPlaceholders as $placeholder) {
-                $blockContent = $this->getBlockContentByPlaceholder($placeholder, $chunks_mappedByPlaceholder);
-
-                $formBuilder->add($placeholder, 'textarea',
-                                  array('required' => false,
-                                        'attr' => array('class' => 'createPage_blockTextarea'),
-                                        'data' => $blockContent));
-            }
-            $form = $formBuilder->getForm();
-
-            $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_templateBlocksForm.html.twig',
-                                                     array('twigFileName' => $twigFileName,
-                                                           'form' => $form->createView()));
+        if ($templateId == 0) {
+        	$response['errors'] = 'Variable \'templateId\' is 0 or has not been sent!';
+        	return $this->renderJson($response);
         }
-        else {
-            $response['content'] = 'Template ID has not been sent!';
+        
+        $template = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Template')->find($templateId);
+        $twigFileName = $template->getTwigFileName();
+
+        $helper = $this->container->get('special_project_helper');
+        $twigTemplatesPath = $helper->getTwigTemplatesPath($this->container->get('kernel'));
+        $fileContent = @file_get_contents($twigTemplatesPath.DIRECTORY_SEPARATOR.$twigFileName);
+            
+        if ($fileContent === false) {
+            $response['errors'] = 'Template file \''.$twigFileName.'\' is missing!';
+            return $this->renderJson($response);
         }
 
+        $blocksPlaceholders = $helper->getBlockNamesFromString($fileContent);
+        $blocks = $this->getBlocksForPageId($pageId);
+        $chunks_mappedByPlaceholder = $this->getChunksForBlocks_mappedByPlaceholder($blocks);
+
+        $formBuilder = $this->createFormBuilder();
+        foreach ($blocksPlaceholders as $placeholder) {
+            $blockContent = $this->getBlockContentByPlaceholder($placeholder, $chunks_mappedByPlaceholder);
+
+            $formBuilder->add($placeholder, 'textarea',
+                              array('required' => false,
+                                    'attr' => array('class' => 'createPage_blockTextarea'),
+                                    'data' => $blockContent));
+        }
+        $form = $formBuilder->getForm();
+
+        $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_templateBlocksForm.html.twig',
+                                                 array('twigFileName' => $twigFileName,
+                                                       'form' => $form->createView()));
         return $this->renderJson($response);
     }
 
@@ -96,6 +164,19 @@ class PageManagementController extends Controller {
         }
 
         return $result;
+    }
+    
+    
+    
+    private function getKnownEntity($name) {
+    	$known = array('news' 		=> array('ArmdNewsBundle:News', 'id', 'title'),
+    				   'museum' 	=> array('ArmdMuseumBundle:Museum', 'id', 'title'),
+    				   'realMuseum' => array('ArmdMuseumBundle:RealMuseum', 'id', 'title'),
+    				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
+    				   'artObject'	=> array('ArmdExhibitBundle:ArtObject', 'id', 'title'),
+    				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'));
+    	
+    	return (isset($known[$name])) ? $known[$name] : false;
     }
 
 

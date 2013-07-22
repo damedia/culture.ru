@@ -14,116 +14,46 @@
 
 <div class="ui-widget" style="width:100%">
   <label id="caption" for="tags">Поиск: </label>
-  <input id="tags" style="width:100%"/>
+  <input id="tags" style="width:100%" />
 </div>
 
 <script>
 $(document).ready(function(){
-	var availableTags = function(request, response){
-    		var srch = request.term,
-    			url;
-    		
-    		console.log("search for: "+srch);
+	var inputCaption = $("#caption"),
+        autocompleteInput = $("#tags"),
+        availableTags = function(request, response){
+    	    var searchTerm = request.term,
+    		    entity = window.location.hash.substr(1);
+            
+	   	    $.ajax("{{ path('get_snippet_jsonlist') }}?_sonata_admin={{ admin.code }}&entity="+entity+"&q="+searchTerm, {
+	   		    success: function(data){
+	   			    if (data.length) {
+	   				    autocompleteInput.removeClass("ui-state-error");
+	   			    }
+	   			    else {
+	   				    autocompleteInput.addClass("ui-state-error");
+	   			    }
+	   			    
+				    response(data);
+			    },
+			    error: function(xhr, err){
+				    autocompleteInput.addClass("ui-state-error");
+			    }
+	   	    });
+        },
+        go = function(item){
+            if (window.parent.modalEditor) {
+                window.parent.modalEditor.callback({value: item.value, label:item.label});
+            }
+        };
 
-    		if (window.location.hash) {
-    			var what=window.location.hash.substr(1);
-    			url="../app_dev.php/admin/damedia/specialproject/jsonlist/"+what+"?q="+srch;
-    		}
-    		else {
-    			url="../app_dev.php/admin/damedia/specialproject/jsonlist/news?q="+srch;
-    		} 
-	    	
-	    	$.ajax(url, {    
-	    		success : function(data){
-	    			if (data.length) {
-	    				$( "#tags" ).removeClass("ui-state-error");		
-	    			}
-	    			else {
-	    				$( "#tags" ).addClass("ui-state-error");
-	    			}
-	    			
-					response(data);
-				},
-				error : function(xhr, err) {
-								console.log('xhr error', xhr, err);
-							$( "#tags" ).addClass("ui-state-error");	 
-				} 
-	    	});
-    };
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    }).on( "autocompleteselect", function( event, ui ) {
-    	var item = ui.item;// .data( "ui-autocomplete-item" );
-    	console.log(item);
+    autocompleteInput.autocomplete({ "source": availableTags }).on("autocompleteselect", function(event, ui){
     	go(ui.item);
     });
-    console.log(window.location.hash.substr(1));
-    $("#caption").html('Поиск по разделу "'+window.location.hash.substr(1)+'"');
+
+    inputCaption.html("Поиск по разделу '"+window.location.hash.substr(1)+"'");
 });
 </script>
 
 </body>
 </html>
-
-{#
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="../js/jquery/jquery.min.js"></script>
-<link rel="stylesheet" href="../js/jquery-ui-1.10.3/themes/base/jquery-ui.css" />
-<script src="../js/jquery-ui-1.10.3/jquery-ui.min.js"></script>  
-</head>
-<body>
- 
-<div class="ui-widget" style="width:100%">
-  <label id="caption" for="tags">Поиск: </label>
-  <input id="tags" style="width:100%"/>
-  <!-- input id="go"  type='button' value="Ok"/>  -->
-</div>
- <script>
- function go(item) {
-	if (window.parent.modalEditor) {
-		window.parent.modalEditor.callback({value: item.value, label:item.label});	
-	}
- };
- // $("#go").on('click', go);
- $(function() {
-    var availableTags = function(request, response) { 
-    var srch = request.term;
-    console.log("search for: "+srch);
-		var url;
-    	if (window.location.hash) {
-    		var what=window.location.hash.substr(1);
-    		url="../app_dev.php/admin/damedia/specialproject/jsonlist/"+what+"?q="+srch
-    	} else 
-	    	url="../app_dev.php/admin/damedia/specialproject/jsonlist/news?q="+srch
-	    $.ajax(url, {    
-	    	success : function(data) {
-	    			if (data.length) {
-	    				$( "#tags" ).removeClass("ui-state-error");		
-	    			} else 
-	    				$( "#tags" ).addClass("ui-state-error");
-						response(data);		
-					},
-					error : function(xhr, err) {
-								console.log('xhr error', xhr, err);
-							$( "#tags" ).addClass("ui-state-error");	 
-					} 
-	    });
-    };
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    }).on( "autocompleteselect", function( event, ui ) {
-    	var item = ui.item;// .data( "ui-autocomplete-item" );
-    	console.log(item);
-    	go(ui.item);
-    });
-    console.log(window.location.hash.substr(1));
-    $("#caption").html('Поиск по разделу "'+window.location.hash.substr(1)+'"');
-  });
- </script>
-</body>
-</html>
-#}

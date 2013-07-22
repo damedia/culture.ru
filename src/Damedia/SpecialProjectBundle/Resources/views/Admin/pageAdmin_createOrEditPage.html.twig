@@ -34,6 +34,7 @@
             var sonataFormFieldset = $("div.sonata-ba-form fieldset"),
                 sonataFormTemplateSelect = $("#{{ admin.uniqId }}_template"),
                 modalLayerDivId = "modal-layer",
+                ajaxErrorsDiv = $("<div class='createPage_ajaxErrors'></div>"),
                 ajaxResponseDiv = $("<div class='createPage_ajaxResponse'></div>"),
                 createModalLayer = function(){
                     var div = $("<div id='"+modalLayerDivId+"'><img src='{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}' /></div>"),
@@ -72,11 +73,16 @@
                                 plugins: [
                                     "advlist autolink lists link image charmap print preview anchor",
                                     "searchreplace visualblocks code fullscreen",
-                                    "insertdatetime media table  paste", // contextmenu
+                                    "insertdatetime media table paste", // contextmenu
                                     "snippet"
                                 ],
                                 toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit"
                             };
+
+                        if (data.errors !== '') {
+                            ajaxErrorsDiv.html(data.errors);
+                            ajaxErrorsDiv.appendTo(sonataFormFieldset);
+                        }
 
                         ajaxResponseDiv.html(data.content);
                         tinymce.init(tinyInitOptions);
