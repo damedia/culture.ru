@@ -32,7 +32,8 @@ menu.communication: Сервисы
 menu.special_projects: Спецпроекты
 menu.borodino: Отечественная война 1812
 menu.tolstoy: Толстой и Цифра
-menu.mayak: Я, 120-ЛЕТНИЙ
+menu.mayak: Владимир Маяковский
+menu.romanovs: Романовы. Портрет династии
 menu.intermuseum: Интермузей-2013
 menu.special_projects_romanov450: 400-летие дома Романовых
 menu.special_projects_stanislavski: 150 со дня рождения К.С. Станиславского
@@ -232,3 +233,13 @@ Today: Сегодня
 Show on main: Показывать на главной
 Virtual Tours: Виртуальные туры
 Objects: Атлас
+
+Change History List: История изменений
+Updated At: Дата изменения
+Updated By: Автор изменения
+Updated I P: IP адрес
+Changes: Изменения
+Change History Show: Просмотр изменений
+Change History: Просмотр изменений
+Entity Class: Класс сущности
+Entity Id: Идентификатор сущности

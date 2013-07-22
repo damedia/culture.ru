@@ -28,6 +28,7 @@ class ArtObjectAdmin extends Admin
     {
         $showMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('textDate')
             ->add('date')
@@ -52,6 +53,7 @@ class ArtObjectAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                       
                 ->add('title')
                 ->add('textDate')
                 ->add('date', 'armd_simple_date', array('required' => false))
@@ -140,6 +142,7 @@ class ArtObjectAdmin extends Admin
             ->addIdentifier('title')
             ->add('date')
             ->add('published')
+            ->add('corrected')
         ;
     }
     

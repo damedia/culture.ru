@@ -16,16 +16,14 @@
         </div>
         <div class="profile-right">
             <div class="profile-right-block clearfix">
-            <dl class="clearfix">
+            <dl class="clearfix viewed-content">
             {% if pagination.paginationData.totalCount %}
                 {% for item in pagination %}
                 <dt>
-                    <em class="hint">
                         {% if entityClass is not defined or item.entityClass != entityClass %}
                         {% set entityClass = item.entityClass %}
-                        {{ entityClass|trans }}
+                        <em class="hint">{{ entityClass|trans }}</em>
                         {% endif %}
-                    </em>
                 </dt>
                 <dd>
                     <a href="{{ item.entityUrl }}">{{ item.entityTitle }}</a>
@@ -33,7 +31,7 @@
                 {% endfor %}
             {% else %}
                 <dt></dt>
-                <dd>
+                <dd  style="padding-top:20px;">
                     <em class="hint">
                         {% if app.user.storeViewedContent %}
                             {{ 'No viewed content'|trans }}

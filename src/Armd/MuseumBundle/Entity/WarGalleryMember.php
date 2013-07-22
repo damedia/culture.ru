@@ -5,13 +5,14 @@ namespace Armd\MuseumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="armd_war_gallery_member") 
  * @ORM\HasLifecycleCallbacks()
  */
-class WarGalleryMember
+class WarGalleryMember implements ChangeHistorySavableInterface
 {
     /**
      * @ORM\Id
@@ -56,6 +57,11 @@ class WarGalleryMember
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      */
     private $image;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
     /**
      * Get id
@@ -227,4 +233,32 @@ class WarGalleryMember
     
         return $this;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return WarGalleryMember
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

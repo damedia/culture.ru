@@ -9,6 +9,15 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class PersonAdmin extends Admin
 {
+    
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }
+        
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
@@ -20,6 +29,7 @@ class PersonAdmin extends Admin
             ->add('name')         
             ->add('description')
             ->add('lifeDates') 
+            ->add('corrected')
         ;
         
         parent::configureShowField($showMapper);        
@@ -34,6 +44,7 @@ class PersonAdmin extends Admin
     {
         $formMapper
             ->with('General')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                   
                 ->add('name')           
                 ->add('description')
                 ->add('lifeDates')
@@ -64,7 +75,8 @@ class PersonAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {        
         $listMapper
-            ->addIdentifier('name')          
+            ->addIdentifier('name')   
+            ->add('corrected')       
         ;
         
         parent::configureListFields($listMapper);        

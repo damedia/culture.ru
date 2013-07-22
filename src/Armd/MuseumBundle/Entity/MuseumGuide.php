@@ -4,12 +4,13 @@ namespace Armd\MuseumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="armd_museum_guide") 
  */
-class MuseumGuide
+class MuseumGuide implements ChangeHistorySavableInterface
 {
     /**
      * @ORM\Id
@@ -56,6 +57,11 @@ class MuseumGuide
      * @ORM\JoinColumn(name="file_id", referencedColumnName="id")
      */
     private $file;
+
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
 
 
     public function __toString()
@@ -231,4 +237,32 @@ class MuseumGuide
     {
         return $this->file;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return MuseumGuide
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

@@ -12,6 +12,13 @@ use Sonata\AdminBundle\Admin\Admin;
 class WarGalleryMemberAdmin extends Admin
 {
     protected $translationDomain = 'ArmdMuseumBundle';
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -22,6 +29,7 @@ class WarGalleryMemberAdmin extends Admin
     {
         $showMapper
             ->add('published')
+            ->add('corrected')            
             ->add('name')
             ->add('years')
             ->add('ranks')
@@ -41,6 +49,7 @@ class WarGalleryMemberAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                       
                 ->add('name')
                 ->add('years')
                 ->add('ranks')
@@ -68,6 +77,7 @@ class WarGalleryMemberAdmin extends Admin
             ->add('years')
             ->add('ranks')
             ->add('published')
+            ->add('corrected')            
         ;
         
         parent::configureListFields($listMapper);        
@@ -80,6 +90,7 @@ class WarGalleryMemberAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('corrected')            
             ->add('name')
         ;
     }    
