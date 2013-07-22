@@ -24,7 +24,7 @@ class News extends Admin
     protected $container;
 
     protected $datagridValues = array(
-        '_sort_by'      => 'date',    
+        '_sort_by'      => 'newsDate',    
         '_sort_order'   => 'DESC',
     );
 
@@ -42,9 +42,11 @@ class News extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('corrected')
             ->add('title')
             ->add('announce')
             ->add('body')
+            ->add('newsDate')   
             ->add('date')                            
             ->add('showOnMain')
             ->add('showOnMainOrd')
@@ -69,6 +71,7 @@ class News extends Admin
 
         $formMapper
             ->with('General')
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('newsDate', $dateFormType)
                 ->add('title')
                 ->add('announce')
@@ -103,7 +106,7 @@ class News extends Admin
                 ->add('endDate', $dateFormType, array('required' => false)) // , null, array('date_widget' => 'single_text', 'time_widget' => 'single_text')
             ->end()
             ->with('SEO')
-                ->add('seoTitle')
+                ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
@@ -155,6 +158,7 @@ class News extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
+            ->add('corrected')
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('newsDate')
@@ -172,6 +176,7 @@ class News extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('corrected')
             ->add('title')
             ->add('category')
             ->add('subject')

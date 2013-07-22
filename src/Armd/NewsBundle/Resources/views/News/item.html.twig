@@ -202,7 +202,7 @@
 
 {% block right_column %}
     <div style="height:63px; font-size:0; line-height:0"></div>
-    {% render url('armd_news_memorial_events') %}
+    {#{% render url('armd_news_memorial_events') %}#}
 
     {% render url('armd_atlas_related_objects', {'tags': entity.tags|extract_array_values('getName'), 'limit': 1}) %}
 

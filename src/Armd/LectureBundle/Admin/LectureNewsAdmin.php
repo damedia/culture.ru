@@ -40,6 +40,7 @@ class LectureNewsAdmin extends Admin
     {
         $showMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('description')
             ->add('categories')
@@ -71,6 +72,7 @@ class LectureNewsAdmin extends Admin
 
         $formMapper
             ->add('published')
+            ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))            
             ->add('title')
             ->add('announce')
             ->add('description', null, array(
@@ -138,6 +140,7 @@ class LectureNewsAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('categories')
             ->add('showOnMain')
@@ -156,6 +159,7 @@ class LectureNewsAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('corrected')
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('createdAt')

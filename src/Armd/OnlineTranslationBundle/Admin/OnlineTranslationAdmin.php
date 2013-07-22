@@ -27,6 +27,7 @@ class OnlineTranslationAdmin extends Admin
     {
         $showMapper
             ->add('published')
+            ->add('corrected')
             ->add('type')
             ->add('title')
             ->add('date')
@@ -48,6 +49,7 @@ class OnlineTranslationAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                       
                 ->add('type', 'choice', array(
                     'choices'   => array(0 => 'Анонс', 1 => 'Трансляция'),
                     'required'  => true
@@ -89,7 +91,8 @@ class OnlineTranslationAdmin extends Admin
             ->addIdentifier('title')
             ->add('date')
             ->add('type', null, array('template' => 'ArmdOnlineTranslationBundle:Admin:list_online_translation_types.html.twig'))
-            ->add('published');
+            ->add('published')
+            ->add('corrected');
     }
     
     protected function updatePublished($object)

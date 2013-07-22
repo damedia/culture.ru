@@ -1,6 +1,6 @@
 
 body.sonata-bc {
-    padding-top: 140px;
+    padding-top: 194px;
 }
 
 .custom_admin_page {
@@ -146,4 +146,17 @@ body.sonata-bc {
 .sonata-bc textarea.tinymce {
     width: 700px;
     height: 350px;
+}
+
+
+.sonata-bc .navbar-fixed-top {
+    z-index:1000;
+}
+
+
+@media all and (max-width:979px){
+    body.sonata-bc {
+        padding-top:0;
+    }
+    
 }

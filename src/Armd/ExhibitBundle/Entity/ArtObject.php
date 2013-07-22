@@ -5,6 +5,7 @@ namespace Armd\ExhibitBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * Armd\ExhibitBundle\Entity\ArtObject
@@ -12,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="art_object")
  * @ORM\Entity(repositoryClass="Armd\ExhibitBundle\Repository\ArtObjectRepository")
  */
-class ArtObject implements Taggable
+class ArtObject implements Taggable, ChangeHistorySavableInterface
 {
     /**
      * @var integer $id
@@ -105,6 +106,11 @@ class ArtObject implements Taggable
      * @ORM\Column(type="string", nullable=true)
      */    
     protected $virtualTourUrl;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
     
     private $tags;
 
@@ -515,4 +521,32 @@ class ArtObject implements Taggable
     {
         return $this->virtualTour;
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return ArtObject
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

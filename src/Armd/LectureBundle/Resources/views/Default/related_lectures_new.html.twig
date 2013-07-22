@@ -6,20 +6,24 @@
         {% for lecture in lectures %}
             <li>
                 <article class="period-block">
-                    <a href="#data-{{ lecture.id }}" class="period-block_image in-fancybox">
+                    {#<a href="#data-{{ lecture.id }}" class="period-block_image in-fancybox">
                         {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': '179', 'width': '306'}) }}
                         <span class="play"></span>
-                    </a>
+                    </a>#}
+                    <a href="{{ path('armd_lecture_view', {'id': lecture.id}) }}" class="period-block_image">
+                        {{ lectureMacro.lectureThumbnail(lecture, 'big', {'alt': lecture.title, 'height': '179', 'width': '306'}) }}
+                        <span class="play"></span>
+                    </a>                    
                     <div class="period-block_text">
                         <h4>{{ lecture.title }}</h4>
                         {% if lecture.lecturer %}<p>{{'Lecturer'|trans}}: {{ lecture.lecturer }}</p>{% endif %}
                         {#<p>Режиссер: Леонид Гайдай<br />
                          Жанр: Комедия / Режиссер: Леонид Гайдай</p>#}
                     </div>
-                    
+                    {#
                         <div id="data-{{ lecture.id }}" style="display: none;">
                             <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                                {% if lecture.lectureSuperType.code == 'LECTURE_TYPE_VIDEO' %}
+                                {% if lecture.lectureSuperType.code == 'LECTURE_TYPE_VIDEO' or lecture.lectureSuperType.code == 'LECTURE_TYPE_CINEMA' or lecture.lectureSuperType.code == 'LECTURE_TYPE_LECTURE'%}
                 
                                     {% if lecture.mediaLectureVideo is not empty and lecture.mediaLectureVideo.providerName != 'sonata.media.provider.image' %}
                                         {% media lecture.mediaLectureVideo, 'reference' with { 'width': 640, 'height': 360 } %}
@@ -41,7 +45,7 @@
                                 
                             </div>
                         </div>
-                    
+                    #}
                 </article>
             </li>
         {% endfor %}

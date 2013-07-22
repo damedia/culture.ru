@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Application\Sonata\MediaBundle\Entity\Media;
-
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 /**
  * Armd\AtlasBundle\Entity\Object
  *
@@ -18,7 +18,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
  * @ORM\Entity(repositoryClass="Armd\AtlasBundle\Repository\ObjectRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Object implements Taggable
+class Object implements Taggable, ChangeHistorySavableInterface
 {
 
     /**
@@ -273,6 +273,12 @@ class Object implements Taggable
      * @ORM\JoinTable(name="atlas_object_tourist_cluster")
      */
     private $touristCluster;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;
+    
     
     public function __toString()
     {
@@ -1394,4 +1400,33 @@ class Object implements Taggable
 
         return $this;
     }
+
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Object
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }
+    
 }

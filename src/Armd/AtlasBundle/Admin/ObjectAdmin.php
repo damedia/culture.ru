@@ -65,6 +65,7 @@ class ObjectAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published', null, array('required' => false))
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
                 ->add('announce')
                 ->add('content', null, array(
@@ -106,7 +107,7 @@ class ObjectAdmin extends Admin
                 ->add('reason')
             ->end()
             ->with('SEO')
-                ->add('seoTitle')
+                ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
                 ->add('seoKeywords')
                 ->add('seoDescription')
             ->end()
@@ -291,6 +292,7 @@ class ObjectAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('published')
+            ->add('corrected')
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
@@ -321,7 +323,8 @@ class ObjectAdmin extends Admin
             ))
             ->add('showAtRussianImage')
             ->add('showOnMain')
-            ->add('showOnMainOrd');                        
+            ->add('showOnMainOrd')
+            ->add('corrected');                        
     }
 
     public function getEmptyCoordinatesFilter($qb, $alias, $field, $value)

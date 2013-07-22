@@ -1,0 +1,39 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field%}
+    <table>
+    {% for key, val in value %}
+        <tr>
+            <th colspan="3">{{ key }}</th>
+        </tr>
+        <tr>
+            <td>
+                {% if get_type(val.0) == 'DateTime' %}
+                    {{ val.0|date("d/m/Y H:i") }}
+                {% else %}                    
+                    {{ val.0|raw }}
+                {% endif %}
+            </td>
+            <td> -> </td>
+            <td>
+                {% if get_type(val.1) == 'DateTime' %}
+                    {{ val.1|date("d/m/Y H:i") }}
+                {% else %}                    
+                    {{ val.1|raw }}
+                {% endif %}            
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

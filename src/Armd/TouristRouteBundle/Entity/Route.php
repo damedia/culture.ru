@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * Armd\TouristRouteBundle\Entity\Route
@@ -17,7 +18,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class Route implements Taggable
+class Route implements Taggable, ChangeHistorySavableInterface
 {
     /**
      * @ORM\Id
@@ -141,6 +142,11 @@ class Route implements Taggable
      * @var Doctrine\Common\Collections\Collection
      */
     private $tags;
+    
+    /**
+     * @ORM\Column(name="corrected", type="boolean", nullable=true)
+     */
+    protected $corrected;    
     
     public function __construct()
     {
@@ -859,4 +865,32 @@ class Route implements Taggable
     {
         return $this->getId();
     }
+    
+    /**
+     * Set corrected
+     *
+     * @param boolean $corrected
+     * @return Route
+     */
+    public function setCorrected($corrected)
+    {
+        $this->corrected = $corrected;
+    
+        return $this;
+    }
+
+    /**
+     * Get corrected
+     *
+     * @return boolean 
+     */
+    public function getCorrected()
+    {
+        return $this->corrected;
+    }
+
+    public function getClassName()    
+    {
+        return get_class($this);
+    }    
 }

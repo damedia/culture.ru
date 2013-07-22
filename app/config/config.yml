@@ -96,6 +96,7 @@ sonata_admin:
             - { position: left, type: sonata.admin.block.admin_list }
     templates:
         layout:  :Backend:base.html.twig
+        edit:    ArmdMainBundle:CRUD:edit.html.twig
 
 sonata_block:
     default_contexts: [cms]
@@ -191,8 +192,8 @@ sonata_media:
                 imagesOfRussiaUnderMap: { width: 127, height: 107 }
                 searchAllResult: { width: 160, height: 107 }
                 sideBanner: { width: 308 }
-                atlasW613: { width: 613 }
-                atlasW63H56: { width: 63, height: 56 }
+                atlasW613H408: { width: 613, height: 408 }
+                atlasW63H42: { width: 63, height: 42 }
 
         atlas_icon:
             download:
@@ -412,7 +413,7 @@ sonata_media:
             allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain', 'application/excel', 'application/msword', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/vnd.ms-powerpoint', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.presentation', 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.oasis.opendocument.chart', 'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.database', 'application/vnd.oasis.opendocument.image', 'text/comma-separated-values', 'text/xml', 'application/xml', 'application/zip', 'audio/mpeg']
 
         image:
-            resizer:    sonata.media.resizer.simple #sonata.media.resizer.square
+            resizer:    sonata.media.resizer.simple  #sonata.media.resizer.square 
             filesystem: sonata.media.filesystem.local
             generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format

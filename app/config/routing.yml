@@ -1,24 +1,3 @@
-admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
-
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /admin
-
-
-
-damedia_special_project:
-    resource: "@DamediaSpecialProjectBundle/Resources/config/routing.yml"
-    prefix: /
-
-
-
-armd_main_project_tolstoy:
-    pattern:  /tolstoy/
-    defaults: { _controller: DamediaSpecialProjectBundle:Render:index, page: tolstoy }
-
 armd_markup:
     resource: "@ArmdMarkupBundle/Controller/"
     type:     annotation
@@ -49,6 +28,15 @@ armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing.yml"
     prefix:   /
 
+armd_main_project_tolstoy:
+    pattern:  /tolstoy/
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Tolstoy:index.html.twig }
+armd_main_project_romanovs:
+    pattern:  /romanovs/
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Romanovs:index.html.twig }
+armd_main_project_mayakovsky:
+    pattern:  /mayakovsky/
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Mayakovsky:index.html.twig }
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"
     type:     annotation
@@ -60,6 +48,15 @@ index:
         _controller: FrameworkBundle:Redirect:redirect
         route: armd_main_homepage
         permanent: true    
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
 
 _sonata_user:
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
@@ -117,7 +114,7 @@ armd_news_admin:
     resource: "@ArmdNewsBundle/Controller/AdminController.php"
     type: annotation
     prefix: /admin/news
-    
+
 armd_chronicle:
     resource: '@ArmdChronicleBundle/Resources/config/routing.yml'
     prefix:   /chronicle
