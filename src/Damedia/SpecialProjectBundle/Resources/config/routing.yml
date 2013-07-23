@@ -12,6 +12,6 @@ get_template_blocks_form:
     requirements:
       _method:  POST
 
-#damedia_special_project_view:
-#    pattern:  /project/{page}
-#    defaults: { DamediaSpecialProjectBundle:Render:index, page: last }
+damedia_special_project_view:
+    pattern:  /project/{slug}
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:index }

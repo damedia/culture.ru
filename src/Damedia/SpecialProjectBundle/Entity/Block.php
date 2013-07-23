@@ -1,6 +1,7 @@
 <?php
 namespace Damedia\SpecialProjectBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,7 +17,7 @@ class Block {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Page")
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="blocks")
      * @ORM\JoinColumn(name="page", referencedColumnName="id")
      */
     private $page;
@@ -25,7 +26,18 @@ class Block {
      * @ORM\Column(name="placeholder", type="string", length=255)
      */
     private $placeholder;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Chunk", mappedBy="block")
+     */
+    protected $chunks;
 
+    
+    
+    public function __construct() {
+    	$this->chunks = new ArrayCollection();
+    }
+    
 
 
     public function __toString() {
@@ -54,5 +66,9 @@ class Block {
         $this->placeholder = $placeholder;
 
         return $this;
+    }
+    
+    public function getChunks() {
+    	return $this->chunks;
     }
 }

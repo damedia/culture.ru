@@ -16,7 +16,7 @@ class Chunk {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Block")
+     * @ORM\ManyToOne(targetEntity="Block", inversedBy="chunks")
      * @ORM\JoinColumn(name="block", referencedColumnName="id")
      */
     private $block;

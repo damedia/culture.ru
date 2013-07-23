@@ -101,7 +101,7 @@ class PageManagementController extends Controller {
         $chunks_mappedByPlaceholder = $this->getChunksForBlocks_mappedByPlaceholder($blocks);
 
         $formBuilder = $this->createFormBuilder();
-        foreach ($blocksPlaceholders as $placeholder) {
+        foreach ($blocksPlaceholders as $placeholder => $value) {
             $blockContent = $this->getBlockContentByPlaceholder($placeholder, $chunks_mappedByPlaceholder);
 
             $formBuilder->add($placeholder, 'textarea',

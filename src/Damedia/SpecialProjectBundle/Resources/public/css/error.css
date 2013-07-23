@@ -1,0 +1,10 @@
+.reportTitle {
+	color: #575757;
+    font: 25px Tahoma,Arial,sans-serif;
+    margin-bottom: 20px;
+}
+
+span.variable {
+	color: #FF0000;
+	font-weight: bolder;
+}

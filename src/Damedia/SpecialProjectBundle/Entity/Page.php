@@ -1,6 +1,7 @@
 <?php
 namespace Damedia\SpecialProjectBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +47,17 @@ class Page {
      * @ORM\JoinColumn(name="template", referencedColumnName="id")
      */
     private $template;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
+     */
+    protected $blocks;
+    
+    
+    
+    public function __construct() {
+    	$this->blocks = new ArrayCollection();
+    }
 
 
 
@@ -113,5 +125,9 @@ class Page {
         $this->template = $template;
 
         return $this;
+    }
+    
+    public function getBlocks() {
+    	return $this->blocks;
     }
 }

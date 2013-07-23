@@ -54,7 +54,7 @@ class PageAdmin extends Admin {
         $userData = $this->getBlocksContentFromRequest();
         $entityManager = $this->getEntityManager();
 
-        $pageBlocks = $this->getBlocksForPageId($object->getId(), 'mappedByBlockPlaceholder');
+        $pageBlocks = $this->getBlocksForPageId($object->getId(), 'mappedByBlockPlaceholder'); // use $page->getBlocks() and do mapping!!!
 
         foreach ($userData as $placeholder => $content) {
             if (!isset($pageBlocks[$placeholder])) {
@@ -72,7 +72,7 @@ class PageAdmin extends Admin {
     }
 
     public function preRemove($object) {
-        $pageBlocks = $this->getBlocksForPageId($object->getId(), 'mappedByBlockId');
+        $pageBlocks = $this->getBlocksForPageId($object->getId(), 'mappedByBlockId'); // use $page->getBlocks() and do mapping!!!
         $blocksChunks = $this->getChunksForBlocks($pageBlocks);
 
         $entityManager = $this->getEntityManager();
@@ -179,7 +179,7 @@ class PageAdmin extends Admin {
 
         return $result;
     }
-    private function getBlocksForPageId($pageId, $mappedBy) {
+    private function getBlocksForPageId($pageId, $mappedBy) { // remove this method!!!
         $result = array();
 
         $blockRepository = $this->getBlockRepository();
