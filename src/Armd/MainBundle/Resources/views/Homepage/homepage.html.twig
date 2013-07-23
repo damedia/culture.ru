@@ -257,8 +257,11 @@
                 {#<section class="block social-widget-block">#}
                     {#{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}#}
                 {#</section>#}
-                <section class="block twitter-widget-block">
+                <section class="block social-widget-block">
                     {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
+                </section>
+                <section class="block social-widget-block">
+                    {% include 'ArmdMainBundle:Homepage:vkontakte_widget.html.twig' %}
                 </section>
             {% endif %}
         </section>
