@@ -165,8 +165,8 @@
                 </div><!-- /htr-top -->
                 <div class="htr-bottom">
                     <ul class="social-external-links clearfix">
-                        <li class="ex-fb"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>
                         <li class="ex-vk"><a target="_blank" href="http://vk.com/kulturarf"></a></li>
+                        <li class="ex-fb"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>
                         <li class="ex-twitter"><a target="_blank" href="https://twitter.com/cultureru"></a></li>
                         <li class="ex-youtube"><a target="_blank" href="http://www.youtube.com/results?search_query=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&oq=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&gs_l=youtube.3..0l8j0i5l2.1530.3406.0.4081.8.8.0.0.0.0.129.626.4j3.7.0...0.0...1ac.1.11.youtube.AtdpPkVFP3A"></a></li> 
                     </ul>
@@ -188,6 +188,7 @@
 
                 <div class="search-panel">
                     {% block page_header_search %}
+
                         <div class="search-category"></div>
                     {% endblock %}
                     <div class="search-top clearfix">
@@ -239,6 +240,7 @@
                         <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li>
                         <li><a href="{{ path('armd_main_project_tolstoy') }}">{{ "menu.tolstoy"|trans }}</a></li>
                         <li><a href="{{ path('armd_main_project_mayakovsky') }}">{{ "menu.mayak"|trans }}</a></li>
+                        {#<li><a href="{{ path('armd_main_project_romanovs') }}">{{ "menu.romanovs"|trans }}</a></li>#}
                     </ul>
                 </li>
                 <li><a href="{{ path('armd_main_contacts') }}">{{ "menu.contacts"|trans }}</a></li>

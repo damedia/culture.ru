@@ -221,11 +221,16 @@
     {% if app.request.locale == 'ru' %}
         <section class="newspaper img-banner"><a target="_blank" href="http://100.histrf.ru/about/" alt=""><img src="{{ asset('img/banner_cultura_100_histrf.png') }}"></a></section>
 
+        <section class="newspaper img-banner"><a target="_blank" href="http://www.pravmir.ru" alt="ПРАВОСЛАВИЕ И МИР"><img src="{{ asset('img/banners/banner_cultura_pim.jpg') }}" style="width: 210px; margin-left: 50px"></a></section>
+
         <section class="newspaper newspaper-culture"><a target="_blank" href="http://portal-kultura.ru/" title='{{ "menu.culture_magazine"|trans }}'></a></section>
 
         <section class="newspaper newspaper-literature"><a target="_blank" href="http://lgz.ru/" title='{{ "menu.literature_magazine"|trans }}'></a></section>
 
         <section class="newspaper img-banner"><a target="_blank" href="http://www.moviestart.ru" alt="МОЛОДЕЖНЫЙ ЦЕНТР СОЮЗА КИНЕМАТОГРАФИСТОВ РФ"><img src="{{ asset('img/banners/banner_cinema_unity_c.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
+
+        <section class="newspaper img-banner"><a target="_blank" href="http://tvoyaistoria.ru" alt="ТВОЯ ИСТОРИЯ"><img src="{{ asset('img/banners/banner_tvoya_istoriya.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
+        
     {% endif %}
 {#
 {% if app.request.locale == 'ru' %}
@@ -252,8 +257,11 @@
                 {#<section class="block social-widget-block">#}
                     {#{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}#}
                 {#</section>#}
-                <section class="block twitter-widget-block">
+                <section class="block social-widget-block">
                     {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
+                </section>
+                <section class="block social-widget-block">
+                    {% include 'ArmdMainBundle:Homepage:vkontakte_widget.html.twig' %}
                 </section>
             {% endif %}
         </section>
