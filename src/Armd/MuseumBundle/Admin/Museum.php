@@ -26,6 +26,13 @@ class Museum extends Admin
     );
 
     protected $translationDomain = 'ArmdMuseumBundle';
+    protected $container;
+
+    public function __construct($code, $class, $baseControllerName, $serviceContainer)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->container = $serviceContainer;
+    }    
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -69,6 +76,7 @@ class Museum extends Admin
                     }
                 ))
                 ->add('published', null, array('required' => false))
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))       
                 ->add('sort', null, array('required' => false))
             ->end()
             ->with('Главная')
@@ -113,7 +121,8 @@ class Museum extends Admin
     {        
         $listMapper
             ->addIdentifier('title')
-            ->add('published')            
+            ->add('published')   
+            ->add('corrected')         
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('sort')
@@ -126,6 +135,7 @@ class Museum extends Admin
     {
         $datagridMapper
             ->add('published')
+            ->add('corrected')
             ->add('title')
             ->add('showOnMain')
             ->add('showOnMainOrd')

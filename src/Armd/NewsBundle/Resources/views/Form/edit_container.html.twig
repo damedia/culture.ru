@@ -1,7 +1,9 @@
-{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% extends 'ArmdMainBundle:CRUD:edit.html.twig' %}
 
 {% block form %}
+
     {{ parent() }}
+    
     <div id="dialog">
         <div class="map-outer">
             <style type="text/css">
@@ -163,5 +165,6 @@
             }
 
         });
+        
     </script>
 {% endblock %}
