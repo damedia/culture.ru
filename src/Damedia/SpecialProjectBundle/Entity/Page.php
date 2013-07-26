@@ -3,6 +3,9 @@ namespace Damedia\SpecialProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Damedia\SpecialProjectBundle\Entity\Template;
+use Damedia\SpecialProjectBundle\Entity\Block;
+use Damedia\SpecialProjectBundle\Entity\Page;
 
 /**
  * @ORM\Table(name="damedia_project_page")
@@ -53,10 +56,22 @@ class Page {
      */
     protected $blocks;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+     * @ORM\JoinColumn(name="parent", referencedColumnName="id")
+     */
+    private $parent;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     */
+    private $children;
+    
     
     
     public function __construct() {
     	$this->blocks = new ArrayCollection();
+    	$this->children = new ArrayCollection();
     }
 
 
@@ -121,7 +136,7 @@ class Page {
     public function getTemplate() {
         return $this->template;
     }
-    public function setTemplate($template) {
+    public function setTemplate(Template $template) {
         $this->template = $template;
 
         return $this;
@@ -129,5 +144,34 @@ class Page {
     
     public function getBlocks() {
     	return $this->blocks;
+    }
+    public function addBlock(Block $blocks) {
+        $this->blocks[] = $blocks;
+    
+        return $this;
+    }
+    public function removeBlock(Block $blocks) {
+        $this->blocks->removeElement($blocks);
+    }
+
+    public function getParent() {
+    	return $this->parent;
+    }
+    public function setParent(Page $parent = null) {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    public function getChildren() {
+    	return $this->children;
+    }
+    public function addChildren(Page $children) {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+    public function removeChildren(Page $children) {
+        $this->children->removeElement($children);
     }
 }

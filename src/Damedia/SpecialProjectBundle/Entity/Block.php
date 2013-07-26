@@ -71,4 +71,15 @@ class Block {
     public function getChunks() {
     	return $this->chunks;
     }
+
+    
+    
+    public function addChunk(\Damedia\SpecialProjectBundle\Entity\Chunk $chunks) {
+        $this->chunks[] = $chunks;
+    
+        return $this;
+    }
+    public function removeChunk(\Damedia\SpecialProjectBundle\Entity\Chunk $chunks) {
+        $this->chunks->removeElement($chunks);
+    }
 }

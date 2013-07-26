@@ -16,6 +16,7 @@ class PageAdmin extends Admin {
     const LABEL_ID = 'ID';
     const LABEL_TITLE = 'Название страницы';
     const LABEL_SLUG = 'Суффикс URL';
+    const LABEL_PARENT = 'Вложена в';
     const LABEL_CREATED = 'Дата создания';
     const LABEL_UPDATED = 'Дата изменения';
     const LABEL_IS_PUBLISHED = 'Опубликован';
@@ -97,6 +98,10 @@ class PageAdmin extends Admin {
         $formMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG,
                   'required' => false));
+        
+        $formMapper->add('parent', null,
+        		array('label' => $this::LABEL_PARENT,
+        				'required' => false));
 
         $formMapper->add('template', 'entity',
             array('label' => $this::LABEL_TEMPLATE_ID,
@@ -125,6 +130,9 @@ class PageAdmin extends Admin {
 
         $listMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG));
+        
+        $listMapper->add('parent', null,
+        		array('label' => $this::LABEL_PARENT));
 
         $listMapper->add('created', null,
             array('label' => $this::LABEL_CREATED));
@@ -169,7 +177,7 @@ class PageAdmin extends Admin {
         $result = array();
 
         $sentData = $this->getRequest()->request;
-        foreach ($sentData->get('form') as $placeholder => $blockContent) {
+        foreach ($sentData->get('form') as $placeholder => $blockContent) { // error if no twig template file found!!!
             if ($placeholder === '_token') {
                 continue;
             }

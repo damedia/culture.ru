@@ -1,6 +1,6 @@
-parameters:
-    special_project_helper.class:      Damedia\SpecialProjectBundle\Service\SpecialProjectHelper
-
 services:
     special_project_helper:
-        class:        "%special_project_helper.class%"
+        class:        Damedia\SpecialProjectBundle\Service\SpecialProjectHelper
+
+    string_twig_loader:
+        class:		  Damedia\SpecialProjectBundle\Service\StringTwigLoader

@@ -209,7 +209,8 @@ class PageManagementController extends Controller {
             $formBuilder->add($placeholder, 'textarea',
                               array('required' => false,
                                     'attr' => array('class' => 'createPage_blockTextarea'),
-                                    'data' => $blockContent));
+                                    'data' => $blockContent,
+            						'label' => $placeholder));
         }
         $form = $formBuilder->getForm();
 
