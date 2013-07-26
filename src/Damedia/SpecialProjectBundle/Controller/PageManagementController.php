@@ -148,7 +148,7 @@ class PageManagementController extends Controller {
     	->from($entityDesc[0], 'n')
     	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
     			'n.'.$contextField."=".$qb->expr()->literal($context) )
-    	->orderBy('n.'.$orderField, 'DESC')
+    	// ->orderBy('n.'.$orderField, 'DESC')
     	->setMaxResults( $limit );
     	
     	$query = $qb->getQuery();
