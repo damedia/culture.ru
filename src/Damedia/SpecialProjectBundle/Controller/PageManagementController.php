@@ -170,7 +170,9 @@ class PageManagementController extends Controller {
     	*/
     	$json=array();
     	for($i=0;$i<count($result);$i++) {
-    		$json[]=array('id'=>$result[$i][$idField], 'name' => $result[$i][$textField], 'url'=>$this->path($result[$i][$idField], 'thumbnail') ); // , name=>$media->getName());
+    		$json[]=array('id'=>$result[$i][$idField], 'name' => $result[$i][$textField], 
+    				'url'=>$this->path($result[$i][$idField], 'thumbnail'), 
+    				'fullsize'=>$this->path($result[$i][$idField], 'big') ); // , name=>$media->getName());
     	};
     	return $this->renderJson($json); //$response
     }
