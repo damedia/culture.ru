@@ -1,0 +1,7 @@
+<li><a href="{{ path('damedia_special_project_list') }}">Спецпроекты</a>
+	<ul>
+		{% for item in ProjectsFooterMenu %}
+			<li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+		{% endfor %}
+	</ul>
+</li>

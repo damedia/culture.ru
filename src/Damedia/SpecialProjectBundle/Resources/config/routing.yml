@@ -12,6 +12,10 @@ get_template_blocks_form:
     requirements:
       _method:  POST
 
+damedia_special_project_list:
+    pattern:  /project
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:index }
+
 damedia_special_project_view:
     pattern:  /project/{slug}
-    defaults: { _controller: DamediaSpecialProjectBundle:Render:index }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view }

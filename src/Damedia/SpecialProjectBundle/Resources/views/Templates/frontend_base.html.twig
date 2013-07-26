@@ -1,4 +1,4 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
+{% extends ':Frontend:base.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -13,7 +13,7 @@
     {{ PageTitle }}
 {% endblock %}
 
-{% block left_column %}
+{% block body %}
 	{% block breadcrumbs %}
 		<ul class="breadcrumbs marginBottom">
 	    {% for item in Breadcrumbs %}
@@ -27,14 +27,8 @@
 	{% endblock %}
 	
 	<div class="{{ PageSlug }}">
-    	{{ Blocks.LeftBlock|raw }}
-    </div>
-{% endblock %}
-
-{% block right_column %}
-	<div class="{{ PageSlug }}">
-    	{{ Blocks.RightBlock|raw }}
-    </div>
+		{{ Blocks.MainBlock|raw }}
+	</div>
 {% endblock %}
 
 {% block javascripts %}

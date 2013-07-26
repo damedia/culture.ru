@@ -2,6 +2,8 @@
 namespace Damedia\SpecialProjectBundle\Service;
 
 use Symfony\Component\HttpKernel\Kernel;
+use Damedia\SpecialProjectBundle\Entity\Page;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SpecialProjectHelper {
     public function getTwigTemplatesPath(\AppKernel $kernel) {
@@ -23,6 +25,22 @@ class SpecialProjectHelper {
         }
 
         return $result;
+    }
+    
+    public function collectPageBreadcrumbs(Controller $controller, Page $page, &$result = array()) { //duplication when adding array element
+    	if (count($result) == 0) {
+    		$result[] = array('href' => '/', 'caption' => 'Главная', 'selected' => false);
+    		$result[] = array('href' => $controller->generateUrl('damedia_special_project_list'), 'caption' => 'Спецпроекты', 'selected' => false);
+    	}
+    	
+    	$parentPage = $page->getParent();
+    	
+    	if ($parentPage) {
+    		$this->collectPageBreadcrumbs($controller, $parentPage, $result);
+    		$result[] = array('href' => $controller->generateUrl('damedia_special_project_view', array('slug' => $parentPage->getSlug())), 'caption' => $parentPage->getTitle(), 'selected' => false);
+    	}
+    	
+    	return;
     }
 }
 ?>
