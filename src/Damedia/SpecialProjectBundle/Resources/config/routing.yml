@@ -1,3 +1,7 @@
+get_images_jsonlist:
+   pattern:  damedia/specialproject/imageslist
+   defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getImagesJson }
+    
 get_snippet_jsonlist:
     pattern:  admin/damedia/specialproject/page/getSnippetJsonlist
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getSnippetJsonlist }
@@ -6,6 +10,10 @@ get_tiny_ac_form:
     pattern:  admin/damedia/specialproject/page/getTinyAcForm
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyAcForm }
 
+get_tiny_media_form:
+    pattern:  admin/damedia/specialproject/page/getTinyMediaForm
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyMediaForm }
+    
 get_template_blocks_form:
     pattern:  admin/damedia/specialproject/page/getTemplateBlocksForm
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTemplateBlocksForm }
