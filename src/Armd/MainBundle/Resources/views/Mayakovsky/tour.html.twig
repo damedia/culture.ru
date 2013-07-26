@@ -1,0 +1,451 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<!--
+<script src="{{ asset('js/function.js') }}"></script>
+-->
+<style>
+
+.mayak p {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.mayak blockquote{
+padding-left: 30px;
+padding-top: 20px;
+padding-bottom: 20px;
+padding-right: 30px;
+display: inline-block;
+margin-left: 0;
+width: 95%;
+font-family: "Arial", serif;
+font-size: 14px;
+line-height: 140%;
+color: white;
+background-color: #CE2125;
+}
+
+.mayak blockquote p {
+font-size: 20px;
+font-weight: bold;
+line-height: 120%;
+}
+
+.mayak .subscribe {
+font-size: 16px;
+font-style: normal;
+font-weight: normal;
+line-height: 150%;
+text-align: right;
+margin-left: 0;
+margin-right: 0;
+font-family: "Arial", serif;
+color: white;
+}
+
+.mayak blockquote p {
+margin: 3px 0 0px;
+}
+
+.two-column-block .index-block {
+    float: left;
+}
+
+.index-block p {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.right-news-list-text {
+    text-decoration: none;
+}
+
+.project{
+    /*background: url('http://localhost/lef.jpg');*/
+}
+.obraz-header {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:20px;
+    text-align: center;
+}
+
+.poetry {
+    padding-left: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+.image-center{
+    width: 100%;
+    display: block;
+}
+.image-center > div{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+</style>
+<script type="text/javascript">
+    
+</script>
+{% endblock %}
+
+{% block title %}{{ parent() }} — {{ 'menu.mayak'|trans }}{% endblock %}
+
+{% block page_header_title %}{{ 'menu.mayak'|trans }}{% endblock %}
+
+{% block left_column %}
+<ul class="breadcrumbs" style="margin-bottom:20px;">
+    <li><a href="/">Главная</a></li>
+    <li><span>{{ 'menu.mayak'|trans }}</span></li>
+</ul>
+
+<div class="mayak project">
+    <h1 class="obraz-header"><span>МОЙ СОСЕД ВЛАДИМИР МАЯКОВСКИЙ</span></h1>
+    <div class="block">
+        <div class="content">
+<figure class="event-one_image image-left">
+<div>
+<img src="http://culture.ru/ru/uploads/media/news/0001/27/446744128fbd0ec073da96d56dd970f1812f14e9.jpeg" width="400 px" alt="" class="">
+</div>
+</figure>
+    <div class="event-one_anons">
+        <p>
+            В день рождения поэта, 19 июля, состоялась необычная экскурсия по Таганке Маяковского. Многочисленных жаждущих пройти теми же переулками, которыми ходил создатель рифм для «150 000 000», сопровождала автор экскурсионного проекта «Иди и смотри» Наталья Леонова и старший научный сотрудник Музея Маяковского Марина Краснова — в футуристическом костюме и цилиндре. С легкой руки Леонида Краснова, художественного руководителя молодежного проекта «Театральный особнякъ» на Библиотечной улице, экскурсия завершилась чтением поэмы «Владимир Маяковский». Когда-то поэт сам выступал в подобном подвале в «Кафе поэтов» в Настасьинском переулке.
+        </p>
+    </div>
+
+
+    <p>Сюда, в Гендриков переулок, он «прикатил» для Лили «рено». Здесь же, в Гендриковом, поэт впервые читал поэму «Хорошо!». «Этого чтения ждали — давно было известно, что Маяковский готовит большую вещь к десятилетию Октября. Среди слушателей были А.В.Луначарский, литераторы из РАППа — А.А.Фадеев, Л.Л.Авербах, друзья и знакомые Маяковского, связанные с ним по работе в газете, были и какие-то незнакомые мне люди… Разговор о поэме после чтения был очень шумный» (из воспоминаний литературоведа В.О.Перцова).</p>
+<figure class="event-one_image image-right">
+                <div >
+                    <img width="400" height="auto" src="http://culture.ru/ru/uploads/media/news/0001/27/51196235c001c70d1779be4a3343ad3000385b4d.jpeg" alt="" style="left: 10.5px;">
+                </div>
+            </figure>
+           
+
+<p>Гендриков переулок назван был по фамилии одного из домовладельцев — купца Михаила Гендрикова. В этом переулке в 1891 году был построен дом для купца Петра Толкова. Здесь началась история существующего и поныне дома 15/13. В 1926 году ордер на четырехкомнатную квартиру в нем получает В.Маяковский и супруги Брик. По этому адресу поэт жил последние четыре года до рокового выстрела.
+</p>
+
+
+
+<p>В тот день, 14 апреля 1930 года, тихий переулок заполнила толпа: сюда привезли тело Владимира Маяковского, чтобы затем отвезти гроб в клуб писателей на улицу Воровского для прощания с поэтом. Газета «Правда» 15 апреля 1930 года писала: «Умер большой революционный поэт, умер мастер писательского цеха, неутомимый каменщик социалистической стройки».</p>
+
+<p>23 декабря 1937 года заместитель Наркома просвещения Надежда Крупская подписывает приказ об открытии 2 января 1938 года по адресу: Гендриков переулок, дом 15/13, Библиотеки-музея им. В.В.Маяковского.</p>
+        
+<p>Музей был закрыт в 1972 году: Таганка сразу лишилась и музея, и серьезной библиотеки с фондом, содержащим около 70 тысяч томов, в том числе уникальные прижизненные издания произведений поэта. Это делалось с целью вычеркнуть из жизни поэта его многолетние отношения с семьей Брик: Маяковский и Брики жили совместно, втроем, что вполне укладывалось в популярную после Октябрьской революции брачно-любовную концепцию, отрицающую традиционную модель семьи. С этой же целью ретушировались многие фотографии, где Маяковский запечатлен вместе с Лилей и Осипом Брик.
+</p>
+
+<p>При создании в 1974 году Государственного музея Маяковского в Лубянском проезде в него была переведена экспозиция музея на Таганке.</p>
+
+<p>Старое здание на Таганке сохранилось и сегодня — на нем установлена мемориальная доска.</p> 
+
+
+<p>&nbsp;</p>
+
+    </div><!-- /content -->
+
+<div class="gallery"> <!--  style="display: none" -->
+            <div id="image-slider">
+                
+            <div class="flex-viewport" style="overflow: hidden; position: relative; "><ul class="slides image-slider" style="width: 2800%; -webkit-transition: 0s; -webkit-transform: translate3d(-613px, 0px, 0px); "><li class="clone" style="width: 613px; float: left; display: block; ">
+                           <a class="" rel="slider" href="http://culture.ru/ru/uploads/media/news/0001/27/4626c57a929df1c1ee508feec39ff9bf87606528.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/news/0001/27/thumb_26934_news_billboard.jpeg" alt="" height="408">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>12</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/06/4704eb766d35bdfce7ee376be82e975fb757a548.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li class="flex-active-slide" style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/news/0001/27/aa371d67380b3dca9a47cf7f7165c4455f7276f3.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/news/0001/27/thumb_26936_news_billboard.jpeg" alt="" height="408">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>1</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/e85b12b4da8ccd2d4716651acdff352c6cf6e7d4.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/e839c40957f9e6f600ecd52a48c49631f9d56aa1.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3757_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>2</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/e839c40957f9e6f600ecd52a48c49631f9d56aa1.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/1221d73b12485d7334be58057ce0d46a3552609a.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3758_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>3</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/1221d73b12485d7334be58057ce0d46a3552609a.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/8f8e7ab62d2fd32524bfe2ffeb4384c9d39dd833.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3759_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>4</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/8f8e7ab62d2fd32524bfe2ffeb4384c9d39dd833.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/3c7288e119fb53a2a1317d3a81051ac96cbd2da1.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3760_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>5</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/3c7288e119fb53a2a1317d3a81051ac96cbd2da1.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/10a1ceab2b9446b5109471e9eca910de367d5855.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3761_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>6</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/10a1ceab2b9446b5109471e9eca910de367d5855.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/d88ee76f8c87c9ea89c34c3b2ed1180194920773.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3762_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>7</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/d88ee76f8c87c9ea89c34c3b2ed1180194920773.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/9570bb9170614cdc8519ff328b62c497c57fbb7d.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3763_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>8</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/9570bb9170614cdc8519ff328b62c497c57fbb7d.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/15e52bbf148f56b8a6d61335292b1ef1de798f1d.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3766_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>9</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/15e52bbf148f56b8a6d61335292b1ef1de798f1d.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/e9dbcb21323554647570dab864745e9451521af3.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3768_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>10</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/e9dbcb21323554647570dab864745e9451521af3.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/3673ba1496a7c7900709b8fa2b6894813cfa69a9.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3769_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>11</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/3673ba1496a7c7900709b8fa2b6894813cfa69a9.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                            <li style="width: 613px; float: left; display: block; ">
+                           <a class="fancybox" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/06/4704eb766d35bdfce7ee376be82e975fb757a548.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/06/thumb_5364_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>12</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/06/4704eb766d35bdfce7ee376be82e975fb757a548.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li>
+                                    <li class="clone" style="width: 613px; float: left; display: block; ">
+                           <a class="" rel="slider" href="http://culture.ru/ru/uploads/media/atlas/0001/04/e85b12b4da8ccd2d4716651acdff352c6cf6e7d4.jpeg">
+                               <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3756_atlas_atlasW613H408.jpeg" alt="Памятник М.И. Кутузову">
+                           </a>
+                           <div class="image-stats clearfix">
+                                <p class="image-title" title=""></p>
+                                <p class="image-counter">
+                                    <span><b>1</b> из 12</span>  /
+                                    <a href="http://culture.ru/ru/uploads/media/atlas/0001/04/e85b12b4da8ccd2d4716651acdff352c6cf6e7d4.jpeg" target="_blank">Сохранить </a>
+                                </p>
+                            </div>
+                        </li></ul></div><ol class="flex-control-nav flex-control-paging"><li><a class="flex-active">1</a></li><li><a>2</a></li><li><a>3</a></li><li><a>4</a></li><li><a>5</a></li><li><a>6</a></li><li><a>7</a></li><li><a>8</a></li><li><a>9</a></li><li><a>10</a></li><li><a>11</a></li><li><a>12</a></li></ol><ul class="flex-direction-nav"><li><a class="flex-prev" href="#">Previous</a></li><li><a class="flex-next" href="#">Next</a></li></ul></div>
+            <div id="thumbs-slider">
+                
+            <div class="flex-viewport" style="overflow: hidden; position: relative; "><ul class="slides thumbs-slider" style="width: 2400%; -webkit-transition: 0s; -webkit-transform: translate3d(0px, 0px, 0px); ">
+                                            <li class="flex-active-slide" style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3756_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3757_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3758_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3759_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3760_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3761_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3762_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3763_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3766_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3768_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/04/thumb_3769_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                            <li style="width: 75px; float: left; display: block; ">
+                            <div class="thumb-image-wrap">
+                                <img src="http://culture.ru/ru/uploads/media/atlas/0001/06/thumb_5364_atlas_atlasW63H42.jpeg" alt="Памятник М.И. Кутузову">
+                            </div>
+                        </li>
+                                    </ul></div><ol class="flex-control-nav flex-control-paging"><li><a class="flex-active">1</a></li><li><a>2</a></li></ol><ul class="flex-direction-nav"><li><a class="flex-prev" href="#">Previous</a></li><li><a class="flex-next" href="#">Next</a></li></ul></div>
+        </div>
+
+
+
+    <div class="index-block two-column-block clearfix index-news-block">
+        <h2><a href="/press-centre/news/">Новости</a></h2>
+
+
+        <div class="index-block">
+            <a href="http://culture.ru/press-centre/news/8754/">
+                <div class="block-left-image-wrap"><img width="160" height="107" class="block-left-image" 
+                src="http://culture.ru/ru/uploads/media/news/0001/27/thumb_26097_news_eventsBillboard.jpeg"></div>
+            </a>
+            <div class="text-overflow">
+                <a class="two-column-name" href="http://culture.ru/press-centre/news/8754/">«Маяковский — художник»</a>
+                <p>Выставка работ Владимира Маяковского проходит в выставочном зале МВО «Манеж» — «Домик Чехова» на Малой Дмитровке до 23 июля. Этот адрес станет для Музея Маяковского временно-постоянным, пока в здании будет производиться ремонт</p>
+            </div>
+        </div>
+
+        <div class="index-block">           
+            <a href="http://culture.ru/press-centre/news/8760/">
+                <div class="block-left-image-wrap">
+                <img width="160" height="107" class="block-left-image" src="http://culture.ru/ru/uploads/media/news/0001/27/thumb_26100_news_eventsBillboard.jpeg"></div>
+            </a>
+            <div class="text-overflow">
+                <a class="two-column-name" href="http://culture.ru/press-centre/news/8760/">«Светить — и никаких гвоздей!»</a>
+                <p>Государственный Музей Маяковского при поддержке Департамента культуры города Москвы 19 июля представит праздничную программу, посвященную 120-летию со дня рождения Владимира Маяковского</p>
+            </div>
+        </div>
+<div class="index-block"><br><br><br></div>
+
+        <div class="index-block">
+            <a href="http://culture.ru/press-centre/news/8769/">
+                <div class="block-left-image-wrap">
+                <img width="160" height="107" class="block-left-image" src="http://culture.ru/ru/uploads/media/news/0001/27/thumb_26123_news_eventsBillboard.jpeg"></div>
+            </a>
+            <div class="text-overflow">
+                <a class="two-column-name" href="http://culture.ru/press-centre/news/8769/">«Я слышу мой, мой собственный голос…»</a>
+                <p>Сегодня в полдень у памятника Владимиру Маяковскому в Москве начали читать его стихи</p>
+            </div>
+        </div>
+
+
+        <div class="index-block">
+            <a href="http://culture.ru/press-centre/news/8747/">
+                <div class="block-left-image-wrap">
+                <img width="160" height="107" class="block-left-image" src="http://culture.ru/ru/uploads/media/news/0001/27/thumb_26073_news_eventsBillboard.jpeg"></div>
+            </a>
+            <div class="text-overflow">
+                <a class="two-column-name" href="http://culture.ru/press-centre/news/8747/">«Южная велоночь» в Москве будет посвящена Маяковскому</a>
+                <p>В ночь с 20 на 21 июля 2013 года состоится «Московская велоночь» в Коломенском</p>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+{% endblock %}
+{% block right_column %}
+<div style="height:60px;"></div>
+
+
+{% endblock %}
