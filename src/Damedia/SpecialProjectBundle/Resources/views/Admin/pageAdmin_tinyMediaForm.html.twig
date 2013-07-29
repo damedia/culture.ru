@@ -88,7 +88,7 @@ $(document).ready(function(){
 	   			    	var res=[];
 	   			    	for(var i=0;i<data.length; i++) {
 	   			    		res.push('<div class="item" data-id="'+data[i].id+'" data-url="'+data[i].fullsize+'"><div class="label">'+data[i].name+'</div><img src="'+data[i].url+'"></div>');
-	   			    	}	
+	   			    	};	
 	   				    imageGrid.html(res.join(""));
 	   				    imageGrid.find(".item").on('click', function() {
 	   				    	console.log(this);
@@ -99,7 +99,7 @@ $(document).ready(function(){
 	   			    }
 	   			    else {
 	   				    imageGrid.html("");
-	   			    }
+	   			    };
 			    },
 			    error: function(xhr, err){
 				    autocompleteInput.addClass("ui-state-error");
