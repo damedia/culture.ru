@@ -70,7 +70,8 @@ class RenderController extends Controller {
     	
     	return $this->render('DamediaSpecialProjectBundle:Templates:'.$twigFileName,
     			array('PageTitle' => $title,
-    				  'PageSlug' => $page->getSlug(),
+                      'Stylesheet' => $page->getStylesheet(),
+                      'Javascript' => $page->getJavascript(),
     				  'Breadcrumbs' => $breadcrumbs,
     				  'Blocks' => $blocksPlaceholders));
     }

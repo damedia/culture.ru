@@ -5,7 +5,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Damedia\SpecialProjectBundle\Entity\Template;
 use Damedia\SpecialProjectBundle\Entity\Block;
-use Damedia\SpecialProjectBundle\Entity\Page;
 
 /**
  * @ORM\Table(name="damedia_project_page")
@@ -66,6 +65,16 @@ class Page {
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
      */
     private $children;
+
+    /**
+     * @ORM\Column(name="stylesheet", type="text", nullable=true)
+     */
+    private $stylesheet;
+
+    /**
+     * @ORM\Column(name="javascript", type="text", nullable=true)
+     */
+    private $javascript;
     
     
     
@@ -173,5 +182,23 @@ class Page {
     }
     public function removeChildren(Page $children) {
         $this->children->removeElement($children);
+    }
+
+    public function getStylesheet() {
+        return $this->stylesheet;
+    }
+    public function setStylesheet($stylesheet) {
+        $this->stylesheet = $stylesheet;
+
+        return $this;
+    }
+
+    public function getJavascript() {
+        return $this->javascript;
+    }
+    public function setJavascript($javascript) {
+        $this->javascript = $javascript;
+
+        return $this;
     }
 }
