@@ -69,7 +69,7 @@ class PageManagementController extends Controller {
 	}
 	
     public function getTinyAcFormAction() {
-        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_tinyAcForm.html.twig');
+        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
     }
 
     public function getTemplateBlocksFormAction() {
@@ -112,7 +112,7 @@ class PageManagementController extends Controller {
         }
         $form = $formBuilder->getForm();
 
-        $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_templateBlocksForm.html.twig',
+        $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_formPart_templateBlocksForm.html.twig',
                                                  array('twigFileName' => $twigFileName,
                                                        'form' => $form->createView()));
         return $this->renderJson($response);
