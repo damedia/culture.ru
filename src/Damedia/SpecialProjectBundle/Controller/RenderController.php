@@ -35,7 +35,8 @@ class RenderController extends Controller {
     	$title = $page->getTitle();
     	$template = $page->getTemplate();
     	$twigFileName = $template->getTwigFileName();
-    	
+
+        $breadcrumbs = array();
     	$this->get('special_project_helper')->collectPageBreadcrumbs($this, $page, $breadcrumbs);
     	//duplication when adding array element
     	$breadcrumbs[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), 'caption' => $page->getTitle(), 'selected' => true);
@@ -69,7 +70,7 @@ class RenderController extends Controller {
     	
     	return $this->render('DamediaSpecialProjectBundle:Templates:'.$twigFileName,
     			array('PageTitle' => $title,
-    				  'PageSlug' => $slug,
+    				  'PageSlug' => $page->getSlug(),
     				  'Breadcrumbs' => $breadcrumbs,
     				  'Blocks' => $blocksPlaceholders));
     }

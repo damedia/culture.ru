@@ -2,13 +2,8 @@
 namespace Damedia\SpecialProjectBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
-use Application\Sonata\MediaBundle\Entity\Media;
-use Sonata\MediaBundle\Provider\Pool;
 
 class PageManagementController extends Controller {
-	
-	
-	
 	public function getSnippetJsonlistAction() {
 		$request = $this->get('request');
 		$search_for = $request->get('entity');
@@ -76,112 +71,14 @@ class PageManagementController extends Controller {
     public function getTinyAcFormAction() {
         return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
     }
-    // admin/damedia/specialproject/page/getTinyMediaForm
-    public function getTinyMediaFormAction() {
-    	$mpool= $this->container->get('sonata.media.pool');
-    	$contexts = $mpool->getContexts();
-/* uploading form from SonataMediaBundle docs 
-    	// create the target object
-    	$post = new Post();
-    	// create the form
-    	$builder = $this->createFormBuilder($post);
-    	$builder->add('media', 'sonata_media_type', array(
-    			'provider' => 'sonata.media.provider.youtube',
-    			'context'  => 'default'
-    	));
-    	
-    	$form = $builder->getForm();
-    	
-    	// bind and transform the media's binary content into real content
-    	if ($request->getMethod() == 'POST') {
-    		$form->bindRequest($request);
-    	
-    		// do stuff ...
-    	}
-*/    	
-    	return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_tinyMediaForm.html.twig', array('contexts'=>$contexts));
-    }
-    
-    protected function path($id, $format) {
-    	return $this->getTtwigMediaExtension()->path($id, $format);
-    }
-    
-    /**
-     * @return TwigExtension
-     */
-    protected function getTtwigMediaExtension()
-    {
-    	$twigMediaExtension = $this->container->get('sonata.media.twig.extension');
-    	$twigMediaExtension->initRuntime($this->get('twig'));
-    
-    	return $twigMediaExtension;
-    }
-    
-    public function getImagesJsonAction() {
-    	$request = $this->get('request');
-    	$search_query = $request->get('q');
-    	
-    	$context=$request->get('context');
-    	$context=$context?$context:"default";
-    	
-    	$limit = $request->get('limit');
-    	$limit = $limit?$limit:50;
-    	
-    	$em = $this->getDoctrine()->getManager();
-    	$qb = $em->createQueryBuilder('n');
-    	 
-    	$entityDesc = $this->getKnownEntity('image');
-    	if (!$search_query || !$entityDesc) {
-    		throw new NotFoundHttpException("Query not found");
-    	};
-    	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
-    	if (!$class) {
-    		throw new NotFoundHttpException("Class not found");
-    	};
-    	
-    	$idField = $class->getColumnName($entityDesc[1]);
-    	$textField= $class->getColumnName($entityDesc[2]);
-    	$contextField= $class->getColumnName('context');
-    	$orderField= $class->getColumnName('updatedAt');
-    	
-    	$qb->select('n.'.$idField.', n.'.$textField)
-    	->from($entityDesc[0], 'n')
-    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
-    			'n.'.$contextField."=".$qb->expr()->literal($context) )
-    	// ->orderBy('n.'.$orderField, 'DESC')
-    	->setMaxResults( $limit );
-    	
-    	$query = $qb->getQuery();
-    	
-    	$result = $query->getArrayResult();
-    	/*
-    	$mediaManager = $this->container->get('sonata.media.manager.media');
-    	$request = $this->get('request');
-    	$result=$mediaManager->findBy(array('context'=>'news', 'providerName'=>'sonata.media.provider.image', 'name' => 'Выс'));
-    	$json=array();
-    	
-    	$i=0;
-    	foreach($result as $media) {
-    		$json[]=array('id'=>$media->getId(), 'url'=>$this->path($media->getId(), 'thumbnail'), 'name' => $media->getAdminTitle() ); // , name=>$media->getName());
-    		$i++;
-    		if ($i>50)
-    			break;
-    	};
-    	*/
-    	$json=array();
-    	for($i=0;$i<count($result);$i++) {
-    		$json[]=array('id'=>$result[$i][$idField], 'name' => $result[$i][$textField], 
-    				'url'=>$this->path($result[$i][$idField], 'thumbnail'), 
-    				'fullsize'=>$this->path($result[$i][$idField], 'big') ); // , name=>$media->getName());
-    	};
-    	return $this->renderJson($json); //$response
-    }
+
     public function getTemplateBlocksFormAction() {
-        $response = array('content' => '', 'errors' => '');
+        $response = array('content' => '', 'errors' => '', 'buttons' => '');
 
         $request = $this->get('request');
         $templateId = (integer)$request->request->get('templateId');
         $pageId = (integer)$request->request->get('pageId');
+        $page = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page')->find($pageId);
 
         if ($templateId == 0) {
         	$response['errors'] = 'Variable \'templateId\' is 0 or has not been sent!';
@@ -219,7 +116,119 @@ class PageManagementController extends Controller {
         $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_formPart_templateBlocksForm.html.twig',
                                                  array('twigFileName' => $twigFileName,
                                                        'form' => $form->createView()));
+
+        $response['buttons'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_button_preview.html.twig',
+                                                 array('admin' => $this->admin,
+                                                       'object' => $page));
+
         return $this->renderJson($response);
+    }
+
+    public function previewPageAction() {
+        $pageId = (integer)$this->getRequest()->get('id');
+        $pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
+        $page = $pageRepository->find($pageId);
+
+        if (!$page) {
+            return $this->render('DamediaSpecialProjectBundle:Default:error.html.twig',
+                array('error' => 'Страницы c ID <span class="variable">'.$pageId.'</span> не существует!'));
+        }
+
+        $title = $page->getTitle();
+        $template = $page->getTemplate();
+        $twigFileName = $template->getTwigFileName();
+
+        $breadcrumbs = array();
+        $this->get('special_project_helper')->collectPageBreadcrumbs($this, $page, $breadcrumbs);
+        //duplication when adding array element
+        $breadcrumbs[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), 'caption' => $page->getTitle(), 'selected' => true);
+
+        $helper = $this->container->get('special_project_helper');
+        $twigTemplatesPath = $helper->getTwigTemplatesPath($this->container->get('kernel'));
+        $fileContent = @file_get_contents($twigTemplatesPath.DIRECTORY_SEPARATOR.$twigFileName);
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // throw new TemplateNotFoundException;
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if ($fileContent === false) {
+            return $this->render('DamediaSpecialProjectBundle:Default:error.html.twig',
+                array('error' => 'Не найден файл шаблона <span class="variable">'.$twigFileName.'</span> для страницы <span class="variable">'.$title.'</span>!'));
+        }
+
+        $twigService = $this->get('twig');
+        $blocksPlaceholders = $helper->getBlockNamesFromString($fileContent);
+        foreach ($page->getBlocks() as $block) {
+            $placeholder = $block->getPlaceholder();
+
+            if (!isset($blocksPlaceholders[$placeholder])) {
+                continue;
+            }
+
+            foreach ($block->getChunks() as $chunk) {
+                $blocksPlaceholders[$placeholder] .= $this->get('string_twig_loader')->render($twigService, $chunk->getContent());
+            }
+        }
+
+        return $this->render('DamediaSpecialProjectBundle:Templates:'.$twigFileName,
+            array('PageTitle' => $title,
+                'PageSlug' => $page->getSlug(),
+                'Breadcrumbs' => $breadcrumbs,
+                'Blocks' => $blocksPlaceholders));
+
+        return $this->render('DamediaSpecialProjectBundle:Default:index.html.twig');
+
+        /*
+        $pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
+        $pagesFound = $pageRepository->findBy(array('slug' => $slug, 'isPublished' => true));
+
+        if (count($pagesFound) == 0) {
+            return $this->render('DamediaSpecialProjectBundle:Default:error.html.twig',
+                array('error' => 'Страница <span class="variable">'.$slug.'</span> не опубликована или не существует!'));
+        }
+
+        $page = $pagesFound[0];
+        $title = $page->getTitle();
+        $template = $page->getTemplate();
+        $twigFileName = $template->getTwigFileName();
+
+        $this->get('special_project_helper')->collectPageBreadcrumbs($this, $page, $breadcrumbs);
+        //duplication when adding array element
+        $breadcrumbs[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), 'caption' => $page->getTitle(), 'selected' => true);
+
+        $helper = $this->container->get('special_project_helper');
+        $twigTemplatesPath = $helper->getTwigTemplatesPath($this->container->get('kernel'));
+        $fileContent = @file_get_contents($twigTemplatesPath.DIRECTORY_SEPARATOR.$twigFileName);
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // throw new TemplateNotFoundException;
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if ($fileContent === false) {
+            return $this->render('DamediaSpecialProjectBundle:Default:error.html.twig',
+                array('error' => 'Не найден файл шаблона <span class="variable">'.$twigFileName.'</span> для страницы <span class="variable">'.$title.'</span>!'));
+        }
+
+        $twigService = $this->get('twig');
+        $blocksPlaceholders = $helper->getBlockNamesFromString($fileContent);
+        foreach ($page->getBlocks() as $block) {
+            $placeholder = $block->getPlaceholder();
+
+            if (!isset($blocksPlaceholders[$placeholder])) {
+                continue;
+            }
+
+            foreach ($block->getChunks() as $chunk) {
+                $blocksPlaceholders[$placeholder] .= $this->get('string_twig_loader')->render($twigService, $chunk->getContent());
+            }
+        }
+
+        return $this->render('DamediaSpecialProjectBundle:Templates:'.$twigFileName,
+            array('PageTitle' => $title,
+                'PageSlug' => $slug,
+                'Breadcrumbs' => $breadcrumbs,
+                'Blocks' => $blocksPlaceholders));
+        */
     }
 
 
@@ -275,7 +284,6 @@ class PageManagementController extends Controller {
     
     private function getKnownEntity($name) {
     	$known = array('news' 		=> array('ArmdNewsBundle:News', 'id', 'title'),
-    				 	'image'		=> array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name'),
     				   'museum' 	=> array('ArmdMuseumBundle:Museum', 'id', 'title'),
     				   'realMuseum' => array('ArmdMuseumBundle:RealMuseum', 'id', 'title'),
     				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
