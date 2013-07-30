@@ -208,7 +208,11 @@ class LessonController extends Controller
     	$qb = $this -> getEntityManager() -> createQueryBuilder();
 		$qb -> select('e')
 		   ->from('ArmdMuseumBundle:RealMuseum', 'e')
-		   ->orderBy('e.title', 'ASC');    	
+           ->from('ArmdMuseumBundle:Lesson', 'l')
+           ->where('l.museum = e.id')
+           ->andWhere('l.published = :t')
+		   ->orderBy('e.title', 'ASC')
+           ->setParameter('t', true);    	
 		   
     	return $qb -> getQuery() -> getResult();
     }
@@ -218,7 +222,11 @@ class LessonController extends Controller
     	$qb = $this -> getEntityManager() -> createQueryBuilder();
 		$qb -> select('e')
 		   ->from('ArmdAddressBundle:City', 'e')
-		   ->orderBy('e.title', 'ASC');    	
+           ->from('ArmdMuseumBundle:Lesson', 'l')
+           ->where('l.city = e.id')
+           ->andWhere('l.published = :t')
+		   ->orderBy('e.title', 'ASC')
+           ->setParameter('t', true);    	
 		   
     	return $qb -> getQuery() -> getResult();
     }    
@@ -228,7 +236,11 @@ class LessonController extends Controller
     	$qb = $this -> getEntityManager() -> createQueryBuilder();
 		$qb -> select('e')
 		   ->from('ArmdMuseumBundle:Education', 'e')
-		   ->orderBy('e.title', 'ASC');    	
+           ->from('ArmdMuseumBundle:Lesson', 'l')
+           ->where('l.education = e.id')
+           ->andWhere('l.published = :t')           
+		   ->orderBy('e.title', 'ASC')
+           ->setParameter('t', true);    	
 		   
     	return $qb -> getQuery() -> getResult();
     } 
@@ -238,6 +250,7 @@ class LessonController extends Controller
     	$qb = $this -> getEntityManager() -> createQueryBuilder();
 		$qb -> select('e')
 		   ->from('ArmdMuseumBundle:LessonSubject', 'e')
+           ->innerJoin('e.lessons', 's')
 		   ->orderBy('e.title', 'ASC');    	
 		   
     	return $qb -> getQuery() -> getResult();
@@ -248,6 +261,7 @@ class LessonController extends Controller
     	$qb = $this -> getEntityManager() -> createQueryBuilder();
 		$qb -> select('e')
 		   ->from('ArmdMuseumBundle:LessonSkill', 'e')
+            ->innerJoin('e.lessons', 's')
 		   ->orderBy('e.title', 'ASC');    	
 		   
     	return $qb -> getQuery() -> getResult();

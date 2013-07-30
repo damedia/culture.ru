@@ -23,6 +23,11 @@ class LessonSubject
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="\Armd\MuseumBundle\Entity\Lesson", mappedBy="subjects", cascade={"persist"})
+     **/
+    private $lessons;    
 
     /**
      * @return string
@@ -65,5 +70,45 @@ class LessonSubject
     public function getTitle()
     {
         return $this->title;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lessons = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add lessons
+     *
+     * @param \Armd\MuseumBundle\Entity\Lesson $lessons
+     * @return LessonSubject
+     */
+    public function addLesson(\Armd\MuseumBundle\Entity\Lesson $lessons)
+    {
+        $this->lessons[] = $lessons;
+    
+        return $this;
+    }
+
+    /**
+     * Remove lessons
+     *
+     * @param \Armd\MuseumBundle\Entity\Lesson $lessons
+     */
+    public function removeLesson(\Armd\MuseumBundle\Entity\Lesson $lessons)
+    {
+        $this->lessons->removeElement($lessons);
+    }
+
+    /**
+     * Get lessons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLessons()
+    {
+        return $this->lessons;
     }
 }
