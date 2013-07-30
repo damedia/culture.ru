@@ -1,34 +1,37 @@
 (function() {
 	
     window.SonataMedia = {
-        mediaListUrl:   Routing.getBaseUrl() + "/admin/sonata/media/media/list?context=default",
+        mediaListUrl:   Routing.getBaseUrl() + "/admin/damedia/specialproject/page/getTinyMediaForm?context=default",
         mediaCreateUrl: Routing.getBaseUrl() + "/admin/sonata/media/media/create",
         mediaInfoUrl:   Routing.getBaseUrl() + "/admin/armd/media/path/",
         
         browse: function(fieldName, url, type, win) {
-        	
-        	
             var dialog = tinyMCE.activeEditor.windowManager.open({
                     title:  "Sonata media",
                     inline: true,
                     width:  1000,
-                    height: $(window).height() - 200
-                });
-            
-            console.log(SonataMedia.mediaListUrl + "&code=sonata.media.admin.media&uniqid=" + SonataMedia.uniqid());
-            
-            $.get(SonataMedia.mediaListUrl + "&uniqid=" + SonataMedia.uniqid())
-              .done(function(html) {
+                    height: $(window).height() - 200,
+                    url:SonataMedia.mediaListUrl + "&_sonata_admin="+tinyMCE.activeEditor.settings.sonataAdmin+
+                    "&code=sonata.media.admin.media&uniqid=" + SonataMedia.uniqid()
+                }); 
+            win.modalEditor={callback:function(obj) {
+            		console.log(obj);
+            		SonataMedia.selectMedia(win, dialog, fieldName, obj.url);
+            		// .windowManager.close();
+            	}
+            };
+            console.log(win);
+            function onHTMLloaded(html) {
             	  
                 SonataMedia.setDialogContent(dialog, html);
 
-                $("#" + dialog.id + "_content")
+                $("#" + dialog._id + "-body")
                     .find("a")
                         .live("click", function(event) {
                             event.preventDefault();
                             event.stopPropagation();
 
-                            var element = $(this).parents("#" + dialog.id + " .sonata-ba-list-field");
+                            var element = $(this).parents("#" + dialog._id + " .sonata-ba-list-field");
 
                             if (element.length == 0 && $(this).attr("href")) {
                                 $.get($(this).attr("href")).done(function(html) {
@@ -46,7 +49,7 @@
                             }
                         });
 
-                $("#" + dialog.id + "_content form").live("submit", function(event) {
+                $("#" + dialog._id + "-body form").live("submit", function(event) {
                     event.preventDefault();
 
                     var form = $(this);
@@ -72,12 +75,12 @@
                         }
                     });
                 });
-            });
+            };
         },
         
         setDialogContent: function(dialog, content) {
             content = "" +
-                "<div class=\"sonata-ba-model\" style=\"padding: 0 20px; overflow-x: hidden; overflow-y: scroll; width: " + ($("#" + dialog.id + "_content").width() - 40) + "px; height: " + $("#" + dialog.id + "_content").height() + "px;\">" +
+                "<div class=\"sonata-ba-model\" style=\"padding: 0 20px; overflow-x: hidden; overflow-y: scroll; width: " + ($("#" + dialog._id + "_content").width() - 40) + "px; height: " + $("#" + dialog._id + "_content").height() + "px;\">" +
                     "<p style=\"margin-top: -3px; text-align: right;\">" +
                         "<a class=\"btn\" href=\"" + SonataMedia.mediaCreateUrl + "\">" +
                             "<i class=\"icon-plus\"></i>" +
@@ -90,7 +93,7 @@
                     "</p>" +
                     content +
                 "</div>";
-            $("#" + dialog.id + "_content")
+            $("#" + dialog._id + "-body")
                 .html(content)
                 .find(".sonata-ba-model div, .sonata-ba-model a")
                     .css({
@@ -120,7 +123,7 @@
                 }
             }
 
-            tinyMCE.activeEditor.windowManager.close(dialog.id);
+            tinyMCE.activeEditor.windowManager.close(dialog._id);
         },
         uniqid: function(prefix, more_entropy) {
             // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
