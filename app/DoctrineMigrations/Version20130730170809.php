@@ -32,12 +32,6 @@ class Version20130730170809 extends AbstractMigration
         $this->addSql("ALTER TABLE damedia_project_page ADD CONSTRAINT FK_F123815497601F83 FOREIGN KEY (template) REFERENCES damedia_project_template (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
         $this->addSql("ALTER TABLE damedia_project_page ADD CONSTRAINT FK_F12381543D8E604F FOREIGN KEY (parent) REFERENCES damedia_project_page (id) NOT DEFERRABLE INITIALLY IMMEDIATE");
 
-        //Не уверен что это надо делать... Оно как бы не наше =)
-        $this->addSql("ALTER TABLE media__media ALTER provider_metadata TYPE TEXT");
-        $this->addSql("ALTER TABLE fos_user_user ALTER facebook_data TYPE TEXT");
-        $this->addSql("ALTER TABLE fos_user_user ALTER twitter_data TYPE TEXT");
-        $this->addSql("ALTER TABLE fos_user_user ALTER gplus_data TYPE TEXT");
-        //Не уверен что это надо делать... Оно как бы не наше =)
     }
 
     public function down(Schema $schema)
@@ -62,11 +56,5 @@ class Version20130730170809 extends AbstractMigration
         $this->addSql("DROP TABLE damedia_project_page");
         $this->addSql("DROP TABLE damedia_project_template");
 
-        //Не уверен что это надо делать... Оно как бы не наше =)
-        $this->addSql("ALTER TABLE fos_user_user ALTER facebook_data TYPE TEXT");
-        $this->addSql("ALTER TABLE fos_user_user ALTER twitter_data TYPE TEXT");
-        $this->addSql("ALTER TABLE fos_user_user ALTER gplus_data TYPE TEXT");
-        $this->addSql("ALTER TABLE media__media ALTER provider_metadata TYPE TEXT");
-        //Не уверен что это надо делать... Оно как бы не наше =)
     }
 }
