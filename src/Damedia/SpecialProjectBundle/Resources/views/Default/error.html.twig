@@ -1,0 +1,23 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/damediaspecialproject/css/error.css') }}">
+{% endblock %}
+
+{% block title %}{{ parent() }} — Ошибка{% endblock %}
+
+{% block page_header_title %}Ошибка{% endblock %}
+
+{% block left_column %}
+	<div class="reportTitle">Спецпроекты сообщают:</div>
+	<div>{{ error|raw }}</div>
+{% endblock %}
+
+{% block right_column %}
+	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

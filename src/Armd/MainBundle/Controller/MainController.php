@@ -356,5 +356,8 @@ class MainController extends Controller
     {
         return $this->render('ArmdMainBundle::special_projects_stanislavski150.html.twig');
     }
-
+    public function specialProjectsMayakovskyAction()
+    {
+        return $this->render('ArmdMainBundle::special_projects_mayakovsky.html.twig');
+    }
 }

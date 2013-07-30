@@ -1,0 +1,9 @@
+<ul class="breadcrumbs" style="margin-bottom: 15px;">
+{% for item in Breadcrumbs %}
+    {% if item.selected %}
+        <li><span>{{ item.caption }}</span></li>
+    {% else %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>

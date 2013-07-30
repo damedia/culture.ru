@@ -1,3 +1,7 @@
+damedia_special_project:
+    resource: "@DamediaSpecialProjectBundle/Resources/config/routing.yml"
+    prefix:   /
+
 armd_markup:
     resource: "@ArmdMarkupBundle/Controller/"
     type:     annotation

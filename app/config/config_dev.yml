@@ -41,5 +41,6 @@ armd_sphinx_search:
         Perfomances:
             %sphinxsearch_index_perfomances%: ~
 
+  
 #swiftmailer:
 #    delivery_address: me@example.com

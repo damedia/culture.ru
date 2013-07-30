@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: "@DamediaSpecialProjectBundle/Resources/config/services.yml" }
 
 framework:
     esi:
@@ -563,7 +564,13 @@ stfalcon_tinymce:
             theme: "advanced"
             plugins: "advimage,paste,fullscreen,inlinepopups"
             theme_advanced_buttons1_add: "image,|,pastetext,pasteword"
-            file_browser_callback: SonataMedia.browse
+            file_browser_callback: SonataMedia.browse     
+
+#            mode: "textareas"
+#            theme: "modern"
+#            plugins: "image,paste,fullscreen"
+#            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+
 
 fpn_tag:
     model:
@@ -579,4 +586,3 @@ armd_sitemap:
     locales: [ru, en]
     directory: sitemap # relative to server document_root (web)
     urls_per_file: 10000
-

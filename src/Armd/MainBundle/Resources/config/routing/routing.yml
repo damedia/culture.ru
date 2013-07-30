@@ -121,3 +121,8 @@ armd_main_romanov450:
 armd_main_stanislavski:
     pattern:  /stanislavski/
     defaults: { _controller: ArmdMainBundle:Main:specialProjectsStanislavski }
+    
+armd_main_mayakovsky:
+    pattern:  /mayakovsky/
+    defaults: { _controller: ArmdMainBundle:Main:specialProjectsMayakovsky }
+

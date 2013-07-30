@@ -7,6 +7,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
+use Armd\NewsBundle\Entity\NewsManager;
+use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+
 class AdminController extends Controller
 {
     /**
@@ -67,4 +75,10 @@ class AdminController extends Controller
         );
 
     }
+
+    
+
+    
+    
+    
 }

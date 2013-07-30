@@ -1,0 +1,6 @@
+services:
+    special_project_helper:
+        class:        Damedia\SpecialProjectBundle\Service\SpecialProjectHelper
+
+    string_twig_loader:
+        class:		  Damedia\SpecialProjectBundle\Service\StringTwigLoader

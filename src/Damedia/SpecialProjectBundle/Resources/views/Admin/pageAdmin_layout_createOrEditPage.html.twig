@@ -1,0 +1,103 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/damediaspecialproject/css/admin_createPage.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {# BEGIN: We are using this section instead of just calling twig function parents() because we need our own tinymce.js for this page #}
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-1.8.0.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-ui-1.8.23.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/qtip/jquery.qtip-1.0.0-rc3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/sonataadmin/base.js') }}"></script>
+
+        {# BEGIN: This little block is required for FOSJsRoutingBundle to work #}
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        {# END #}
+
+    <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/select2/select2_locale_ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
+    {# END #}
+
+    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var sonataFormFieldset = $("div.sonata-ba-form fieldset"),
+                sonataFormTemplateSelect = $("#{{ admin.uniqId }}_template"),
+                modalLayerDivId = "modal-layer",
+                ajaxErrorsDiv = $("<div class='createPage_ajaxErrors'></div>"),
+                ajaxResponseDiv = $("<div class='createPage_ajaxResponse'></div>"),
+                formButtonsPanel = $("div.well.form-actions"),
+                createModalLayer = function(){
+                    var div = $("<div id='"+modalLayerDivId+"'><img src='{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}' /></div>"),
+                        width = $(document).width(),
+                        height = $(document).height();
+
+                        div.css({'width': width, 'height': height}).appendTo("body", document);
+                },
+                removeModalLayer = function(){
+                    $("#"+modalLayerDivId).remove();
+                },
+                loadBlocks = function(value){
+                    var sendData = { "_sonata_admin": "{{ admin.code }}",  "templateId": value, "pageId": "{{ admin.id(object) }}" };
+
+                    if (value === "") {
+                        ajaxResponseDiv.html("");
+                        return;
+                    }
+
+                    createModalLayer();
+
+                    $.post("{{ path('get_template_blocks_form') }}", sendData, function(data){
+                        var tinyInitOptions = {
+                                selector: "textarea.createPage_blockTextarea",
+                                snippet: { selectFormUrl: "{{ path('get_tiny_ac_form') }}",
+                                           sonataAdmin: "{{ admin.code }}",
+                                           types: [
+                                               { value: "news",       text: "Новость" },
+                                               { value: "theater",    text: "Театр" },
+                                               { value: "realMuseum", text: "Музей" },
+                                               { value: "museum",     text: "Вирутальный тур" },
+                                               { value: "artObject",  text: "Артефакт" },
+                                               { value: "lecture",    text: "Лекция" }
+                                            ]
+                                },
+                                plugins: [
+                                    "advlist autolink lists link image charmap print preview anchor",
+                                    "searchreplace visualblocks code fullscreen",
+                                    "insertdatetime media table paste", // contextmenu
+                                    "snippet"
+                                ],
+                                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit"
+                            };
+
+                        if (data.errors !== '') {
+                            ajaxErrorsDiv.html(data.errors);
+                            ajaxErrorsDiv.appendTo(sonataFormFieldset);
+                        }
+
+                        ajaxResponseDiv.html(data.content);
+                        formButtonsPanel.prepend(data.buttons);
+                        //tinymce.init(tinyInitOptions);
+                        removeModalLayer();
+                    });
+                };
+
+            ajaxResponseDiv.appendTo(sonataFormFieldset);
+
+            loadBlocks(sonataFormTemplateSelect.val());
+            sonataFormTemplateSelect.on("change", function(){
+                loadBlocks($(this).val());
+            });
+        });
+    </script>
+{% endblock %}
