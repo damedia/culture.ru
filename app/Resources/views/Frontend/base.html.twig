@@ -230,19 +230,7 @@
                 <li><a href="{{ path('armd_external_search_results') }}">{{ "menu.culture_sites"|trans }}</a></li>
                 <li><a href="http://people.culture.ru/forum_private/authorization/">Госнадзор</a></li>
                 {#<li><a href="{{ path('armd_chronicle_index') }}">{{ "menu.chronicle"|trans }}</a></li>#}
-                <li><a href="{{ path('armd_chronicle_index') }}">Спецпроекты</a>
-                    <ul>
-                        <li><a href="{{ path('armd_main_intermuseum') }}">{{ "menu.intermuseum"|trans }}</a></li>
-                        {#<li><a href="{{ path('armd_main_romanov450') }}">{{ "menu.special_projects_romanov450"|trans }}</a></li>#}
-                        <li><a href="{{ path('armd_main_stanislavski') }}">{{ "menu.special_projects_stanislavski"|trans }}</a></li>
-                        {# <li><a href="{{ path('armd_main_project_1150') }}">{{ "menu.special_projects_1150"|trans }}</a></li> #}
-                        <li><a href="{{ path('armd_main_project_brodino') }}">{{ "menu.borodino"|trans }}</a></li>
-                        <li><a href="{{ path('armd_main_may9') }}">{{ "menu.may9"|trans }}</a></li>
-                        <li><a href="{{ path('armd_main_project_tolstoy') }}">{{ "menu.tolstoy"|trans }}</a></li>
-                        <li><a href="{{ path('armd_main_project_mayakovsky') }}">{{ "menu.mayak"|trans }}</a></li>
-                        {#<li><a href="{{ path('armd_main_project_romanovs') }}">{{ "menu.romanovs"|trans }}</a></li>#}
-                    </ul>
-                </li>
+                {% render 'DamediaSpecialProjectBundle:Render:footerMenuElements' %}
                 <li><a href="{{ path('armd_main_contacts') }}">{{ "menu.contacts"|trans }}</a></li>
                 {% endif %}
                 {% if app.request.locale == 'en' %}

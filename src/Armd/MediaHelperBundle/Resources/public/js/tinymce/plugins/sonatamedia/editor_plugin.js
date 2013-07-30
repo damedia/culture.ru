@@ -1,18 +1,25 @@
 (function() {
+	
     window.SonataMedia = {
         mediaListUrl:   Routing.getBaseUrl() + "/admin/sonata/media/media/list?context=default",
         mediaCreateUrl: Routing.getBaseUrl() + "/admin/sonata/media/media/create",
         mediaInfoUrl:   Routing.getBaseUrl() + "/admin/armd/media/path/",
         
         browse: function(fieldName, url, type, win) {
+        	
+        	
             var dialog = tinyMCE.activeEditor.windowManager.open({
                     title:  "Sonata media",
                     inline: true,
-                    width:  800,
+                    width:  1000,
                     height: $(window).height() - 200
                 });
             
-            $.get(SonataMedia.mediaListUrl + "&code=sonata.media.admin.media&uniqid=" + SonataMedia.uniqid()).done(function(html) {
+            console.log(SonataMedia.mediaListUrl + "&code=sonata.media.admin.media&uniqid=" + SonataMedia.uniqid());
+            
+            $.get(SonataMedia.mediaListUrl + "&uniqid=" + SonataMedia.uniqid())
+              .done(function(html) {
+            	  
                 SonataMedia.setDialogContent(dialog, html);
 
                 $("#" + dialog.id + "_content")
@@ -32,7 +39,6 @@
                             }
 
                             var mediaId = $(this).parents("td.sonata-ba-list-field[objectid]").attr("objectid");
-
                             if (mediaId) {
                                 $.get(SonataMedia.mediaInfoUrl + mediaId).done(function(objectData) {
                                     SonataMedia.selectMedia(win, dialog, fieldName, objectData);
@@ -68,6 +74,7 @@
                 });
             });
         },
+        
         setDialogContent: function(dialog, content) {
             content = "" +
                 "<div class=\"sonata-ba-model\" style=\"padding: 0 20px; overflow-x: hidden; overflow-y: scroll; width: " + ($("#" + dialog.id + "_content").width() - 40) + "px; height: " + $("#" + dialog.id + "_content").height() + "px;\">" +
@@ -83,7 +90,6 @@
                     "</p>" +
                     content +
                 "</div>";
-
             $("#" + dialog.id + "_content")
                 .html(content)
                 .find(".sonata-ba-model div, .sonata-ba-model a")
@@ -99,7 +105,10 @@
                     .css("width", "100%");
         },
         selectMedia: function(win, dialog, fieldName, objectData) {
-            $(win.document).contents().find("input[name='" + fieldName + "']").val(objectData);
+        	var inp=$(win.document).contents().find("input[name='" + fieldName + "']");
+        	if (!inp.length)
+        		inp=$(win.document).contents().find("#" + fieldName);
+        	inp.val(objectData);
 
             if (win.ImageDialog) {
                 if (win.ImageDialog.getImageData) {

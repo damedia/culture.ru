@@ -1,0 +1,41 @@
+#modal-layer {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    text-align: center;
+    z-index: 10000;
+    opacity: 0.5;
+    background-color: #555555 !important;
+}
+#modal-layer img {
+    position: absolute;
+    top: 50%;
+}
+
+.createPage_ajaxErrors {
+    border: 1px solid #FF0000;
+    border-radius: 3px;
+    padding: 7px;
+    font-weight: bolder;
+}
+
+.createPage_blockTitle {
+    font-size: 21px;
+    width: 100%;
+    border-bottom: 1px solid #E5E5E5 !important;
+    margin: 20px 0 5px -2px;
+    padding-bottom: 8px;
+}
+
+.createPage_blockTitle span {
+    font-size: 60%;
+}
+
+.createPage_blockTextarea {
+    width: 99% !important;
+    min-height: 400px !important;
+}
+
+.createPage_previewButton {
+    margin-right: 30px;
+}

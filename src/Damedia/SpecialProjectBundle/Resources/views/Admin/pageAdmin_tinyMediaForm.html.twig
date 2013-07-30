@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="{{ asset('js/jquery-ui-1.10.3/themes/base/jquery-ui.css') }}" />
+	<script type="text/javascript" src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+	<style>
+		body {
+			font-family:Arial,Verdana;
+		}
+		div.imagesGrid {
+			width:100%;
+			height:100%;	
+		}
+		div.item {
+			display:iniline-block;
+			float:left;
+			margin: 3px;
+			padding-top:5px;
+			border:#99A solid 1px;
+			font-size:10px;
+			width:150px;
+			height:150px;
+			overflow:hidden;
+			text-align: center;
+			cursor:pointer;
+		}
+		.label {
+			background:#AAB;
+			margin-bottom: 3px;
+		}
+		#context {
+			display:inline-block;
+		}
+		#go {
+			background:#AAB;
+			width:50px;
+			height:15px;
+			display:inline-block;
+			border:1px #FFF solid;
+			border-radius:3px;
+			-webkit-border-radius:3px;
+			-moz-border-radius:3px;
+			text-align: center;
+			vertical-align:middle;
+			font-size:10px;
+			cursor:pointer;
+		}
+		#header {
+			width:100%;
+			padding:2px;
+			padding-left:20px;
+			height: 30px;
+			vertical-align:middle;
+			font-size:12px;
+			display:inline-block;
+			background:#DDE
+			;
+		}
+	</style>
+</head>
+<body>
+	<div id="header">
+	Категория:<select id="context">
+	{% for name, context in contexts %}
+         <option value="{{ name }}">{{ name|trans({}, 'SonataMediaBundle') }}</option>
+    {% endfor %}
+    </select><label id="caption" for="tags">Имя содержит:</label>
+  	<input id="tags"/><div id="go" type="btn">Искать</div>
+  	<form action=""></form>
+  </div>
+<div id="imageGrid" class="imagesGrid">  
+</div>
+
+<script>
+$(document).ready(function(){
+	var inputCaption = $("#caption");
+    var tags = $("#tags");
+    var imageGrid = $("#imageGrid");
+    var context=$('#context');
+    var go=$('#go');
+    go.on('click', function() {
+    		if (!tags.val()) 
+    			exit;
+    		$.ajax("{{ path('get_images_jsonlist') }}?_sonata_admin={{ admin.code }}&q="+tags.val()+"&context="+context.val(), {
+	   		    success: function(data){
+	   			    if (data.length) {
+	   			    	var res=[];
+	   			    	for(var i=0;i<data.length; i++) {
+	   			    		res.push('<div class="item" data-id="'+data[i].id+'" data-url="'+data[i].fullsize+'"><div class="label">'+data[i].name+'</div><img src="'+data[i].url+'"></div>');
+	   			    	};	
+	   				    imageGrid.html(res.join(""));
+	   				    imageGrid.find(".item").on('click', function() {
+	   				    	console.log(this);
+		   				    if (window.parent.modalEditor) {
+	            			    window.parent.modalEditor.callback({value: this.dataset["id"], url:this.dataset["url"]});
+	           				 };
+            			});
+	   			    }
+	   			    else {
+	   				    imageGrid.html("");
+	   			    };
+			    },
+			    error: function(xhr, err){
+				    autocompleteInput.addClass("ui-state-error");
+			    }
+	   	    });
+    	});
+});
+</script>
+
+</body>
+</html>

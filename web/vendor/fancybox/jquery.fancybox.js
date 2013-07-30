@@ -1332,7 +1332,7 @@
 			var width, scrollWidth, offsetWidth;
 
 			//Reset width/height so it will not mess
-			//this.overlay.width('100%').height('100%');
+			this.overlay.width('100%').height('100%');
 
 			if ($.browser.msie || isTouch) {
 				scrollWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);

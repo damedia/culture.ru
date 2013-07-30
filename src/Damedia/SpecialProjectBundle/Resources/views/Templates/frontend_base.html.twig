@@ -1,0 +1,33 @@
+{% extends ':Frontend:base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+       {{ Stylesheet }}
+    </style>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} - {{ PageTitle }}
+{% endblock %}
+
+{% block page_header_title %}
+    {{ PageTitle }}
+{% endblock %}
+
+{% block body %}
+	{% block breadcrumbs %}
+        {{ include('DamediaSpecialProjectBundle:Default:breadcrumbs.html.twig', { 'Breadcrumbs': Breadcrumbs }) }}
+	{% endblock %}
+
+	{{ Blocks.MainBlock|raw }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        {{ Javascript }}
+    </script>
+{% endblock %}
