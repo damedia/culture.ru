@@ -42,5 +42,55 @@ class SpecialProjectHelper {
     	
     	return;
     }
+
+    public function renderSpecialProjectPage(Controller $controller, Page $page, $errorMessage = 'Ошибка генерации страницы!') {
+        if (!$page) {
+            return $controller->render('DamediaSpecialProjectBundle:Default:error.html.twig',
+                array('error' => $errorMessage));
+        }
+
+        $title = $page->getTitle();
+        $template = $page->getTemplate();
+        $twigFileName = $template->getTwigFileName();
+
+        $breadcrumbs = array();
+        $this->collectPageBreadcrumbs($controller, $page, $breadcrumbs);
+        //duplication when adding array element
+        $breadcrumbs[] = array('href' => $controller->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), 'caption' => $page->getTitle(), 'selected' => true);
+
+        $appKernel = $controller->get('kernel');
+        $twigTemplatesPath = $this->getTwigTemplatesPath($appKernel);
+        $fileContent = @file_get_contents($twigTemplatesPath.DIRECTORY_SEPARATOR.$twigFileName);
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // throw new TemplateNotFoundException;
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if ($fileContent === false) {
+            return $controller->render('DamediaSpecialProjectBundle:Default:error.html.twig',
+                array('error' => 'Не найден файл шаблона <span class="variable">'.$twigFileName.'</span> для страницы <span class="variable">'.$title.'</span>!'));
+        }
+
+        $twigService = $controller->get('twig');
+        $blocksPlaceholders = $this->getBlockNamesFromString($fileContent);
+        foreach ($page->getBlocks() as $block) {
+            $placeholder = $block->getPlaceholder();
+
+            if (!isset($blocksPlaceholders[$placeholder])) {
+                continue;
+            }
+
+            foreach ($block->getChunks() as $chunk) {
+                $blocksPlaceholders[$placeholder] .= $controller->get('string_twig_loader')->render($twigService, $chunk->getContent());
+            }
+        }
+
+        return $controller->render('DamediaSpecialProjectBundle:Templates:'.$twigFileName,
+            array('PageTitle' => $title,
+                  'Stylesheet' => $page->getStylesheet(),
+                  'Javascript' => $page->getJavascript(),
+                  'Breadcrumbs' => $breadcrumbs,
+                  'Blocks' => $blocksPlaceholders));
+    }
 }
 ?>
