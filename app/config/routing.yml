@@ -37,6 +37,9 @@ armd_main_project_romanovs:
 armd_main_project_mayakovsky:
     pattern:  /mayakovsky/
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Mayakovsky:index.html.twig }
+armd_main_project_mayakovsky_tour:
+    pattern:  /mayakovsky_tour
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Mayakovsky:tour.html.twig }    
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"
     type:     annotation
