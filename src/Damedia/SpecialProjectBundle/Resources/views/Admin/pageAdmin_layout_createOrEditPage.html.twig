@@ -36,6 +36,7 @@
                 modalLayerDivId = "modal-layer",
                 ajaxErrorsDiv = $("<div class='createPage_ajaxErrors'></div>"),
                 ajaxResponseDiv = $("<div class='createPage_ajaxResponse'></div>"),
+                formButtonsPanel = $("div.well.form-actions"),
                 createModalLayer = function(){
                     var div = $("<div id='"+modalLayerDivId+"'><img src='{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}' /></div>"),
                         width = $(document).width(),
@@ -85,6 +86,7 @@
                         }
 
                         ajaxResponseDiv.html(data.content);
+                        formButtonsPanel.prepend(data.buttons);
                         //tinymce.init(tinyInitOptions);
                         removeModalLayer();
                     });

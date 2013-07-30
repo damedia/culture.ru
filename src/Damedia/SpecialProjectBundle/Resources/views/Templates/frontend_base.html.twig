@@ -2,7 +2,10 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/damediaspecialproject/css/templates.css') }}" />
+
+    <style type="text/css">
+       {{ Stylesheet }}
+    </style>
 {% endblock %}
 
 {% block title %}
@@ -25,13 +28,14 @@
         {% endfor %}
         </ul>
 	{% endblock %}
-	
-	<div class="{{ PageSlug }}">
-		{{ Blocks.MainBlock|raw }}
-	</div>
+
+	{{ Blocks.MainBlock|raw }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/templates.js') }}"></script>
+
+    <script type="text/javascript">
+        {{ Javascript }}
+    </script>
 {% endblock %}

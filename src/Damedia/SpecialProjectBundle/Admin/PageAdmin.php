@@ -19,6 +19,8 @@ class PageAdmin extends Admin {
     const LABEL_PARENT = 'Вложена в';
     const LABEL_CREATED = 'Дата создания';
     const LABEL_UPDATED = 'Дата изменения';
+    const LABEL_STYLESHEET = 'CSS-стили';
+    const LABEL_JAVASCRIPT = 'Javascript';
     const LABEL_IS_PUBLISHED = 'Опубликован';
     const LABEL_TEMPLATE_ID = 'Шаблон';
 
@@ -100,8 +102,8 @@ class PageAdmin extends Admin {
                   'required' => false));
         
         $formMapper->add('parent', null,
-        		array('label' => $this::LABEL_PARENT,
-        				'required' => false));
+        	array('label' => $this::LABEL_PARENT,
+        		  'required' => false));
 
         $formMapper->add('template', 'entity',
             array('label' => $this::LABEL_TEMPLATE_ID,
@@ -109,6 +111,14 @@ class PageAdmin extends Admin {
                   'property' => 'title',
                   'empty_value' => '-- выберите шаблон --',
                   'attr' => array('class' => 'DamediaSpecialProjectBundle_templateSelect')));
+
+        $formMapper->add('stylesheet', null,
+            array('label' => $this::LABEL_STYLESHEET,
+                  'required' => false));
+
+        $formMapper->add('javascript', null,
+            array('label' => $this::LABEL_JAVASCRIPT,
+                  'required' => false));
 
         $formMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED,
@@ -130,7 +140,7 @@ class PageAdmin extends Admin {
             array('label' => $this::LABEL_SLUG));
         
         $listMapper->add('parent', null,
-        		array('label' => $this::LABEL_PARENT));
+        	array('label' => $this::LABEL_PARENT));
 
         $listMapper->add('created', null,
             array('label' => $this::LABEL_CREATED));
