@@ -29,7 +29,7 @@ class PageAdmin extends Admin {
     public function getTemplate($name) {
         switch ($name) {
             case 'edit': //and also 'create'
-                return 'DamediaSpecialProjectBundle:Admin:pageAdmin_createOrEditPage.html.twig';
+                return 'DamediaSpecialProjectBundle:Admin:pageAdmin_layout_createOrEditPage.html.twig';
                 break;
 
             default:
@@ -124,9 +124,7 @@ class PageAdmin extends Admin {
 
         $listMapper->add('_action', 'actions',
             array('label' => $this::LABEL_ACTIONS,
-                  'actions' => array('previewPage' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_previewPage.html.twig'),
-                                     'editPage' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_editPage.html.twig'),
-                                     'delete' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_deletePage.html.twig'))));
+                  'actions' => array('previewPage' => array('template' => 'DamediaSpecialProjectBundle:Admin:pageAdmin_listCell_previewPage.html.twig'))));
 
         $listMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG));
@@ -149,8 +147,6 @@ class PageAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection) {
         $collection->add('previewPage', $this->getRouterIdParameter().'/previewpage');
-        $collection->add('editPage', $this->getRouterIdParameter().'/editpage');
-        $collection->add('delete', $this->getRouterIdParameter().'/delete');
     }
 
 
