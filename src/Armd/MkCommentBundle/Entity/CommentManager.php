@@ -166,11 +166,11 @@ class CommentManager extends BaseCommentManager
                 $section['threadPath'] = 'armd_theater_list';
                 $section['entityPath'] = 'armd_theater_item';
                 break;
-            case CommentInterface::SECTION_PERFORMANCE:
+            case CommentInterface::SECTION_PERFOMANCE:
                 $entityName = '\Armd\PerfomanceBundle\Entity\Perfomance';
-                $section['threadTitle'] = 'menu.performance';
-                $section['threadPath'] = 'armd_performance_list';
-                $section['entityPath'] = 'armd_performance_item';
+                $section['threadTitle'] = 'menu.perfomance';
+                $section['threadPath'] = 'armd_perfomance_list';
+                $section['entityPath'] = 'armd_perfomance_item';
                 break;
             default: return false;
         }

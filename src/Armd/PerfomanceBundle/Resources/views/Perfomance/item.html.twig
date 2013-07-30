@@ -98,7 +98,7 @@
         </div>
         <div class="more-comments-show">
             <div id="comments" class="comments comments-gray clearfix">
-                {% set comment_thread_id = app.request.locale~'_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_PERFORMANCE')~'_'~entity.id %}
+                {% set comment_thread_id = app.request.locale~'_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_PERFOMANCE')~'_'~entity.id %}
                 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
                 {% if not is_granted('ROLE_USER') %}

@@ -32,7 +32,7 @@ class Notice implements NoticeInterface
      * Comment for this notice
      *
      * @var Comment
-     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Comment", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Comment", cascade={"persist"}, inversedBy="notices")
      */
     protected $comment;
 
