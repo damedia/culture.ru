@@ -3,7 +3,6 @@ namespace Damedia\SpecialProjectBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Damedia\SpecialProjectBundle\Exception\TemplateNotFoundException;
 
 class RenderController extends Controller {
 	public function footerMenuElementsAction() {
@@ -19,7 +18,20 @@ class RenderController extends Controller {
 	}
 	
 	public function indexAction() {
-		return $this->render('DamediaSpecialProjectBundle:Default:index.html.twig');
+        $helper = $this->get('special_project_helper');
+        $breadcrumbs = $helper->createInitialBreadcrumbsArray($this);
+
+        $pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
+        $pages = $pageRepository->findBy(array('isPublished' => true));
+
+        $projects = array();
+        foreach ($pages as $page) {
+            $projects[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())),  'caption' => $page->getTitle());
+        }
+
+		return $this->render('DamediaSpecialProjectBundle:Default:index.html.twig', array('PageTitle' => 'Спецпроекты',
+                                                                                          'Breadcrumbs' => $breadcrumbs,
+                                                                                          'Projects' => $projects));
 	}
 	
     public function viewAction($slug) {

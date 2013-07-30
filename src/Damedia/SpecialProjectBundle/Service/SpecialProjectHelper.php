@@ -27,17 +27,16 @@ class SpecialProjectHelper {
         return $result;
     }
     
-    public function collectPageBreadcrumbs(Controller $controller, Page $page, &$result = array()) { //duplication when adding array element
+    public function collectPageBreadcrumbs(Controller $controller, Page $page, &$result = array()) {
     	if (count($result) == 0) {
-    		$result[] = array('href' => '/', 'caption' => 'Главная', 'selected' => false);
-    		$result[] = array('href' => $controller->generateUrl('damedia_special_project_list'), 'caption' => 'Спецпроекты', 'selected' => false);
+            $result = $this->createInitialBreadcrumbsArray($controller);
     	}
     	
     	$parentPage = $page->getParent();
     	
     	if ($parentPage) {
     		$this->collectPageBreadcrumbs($controller, $parentPage, $result);
-    		$result[] = array('href' => $controller->generateUrl('damedia_special_project_view', array('slug' => $parentPage->getSlug())), 'caption' => $parentPage->getTitle(), 'selected' => false);
+    		$result[] = $this->createBreadcrumbItem($controller->generateUrl('damedia_special_project_view', array('slug' => $parentPage->getSlug())), $parentPage->getTitle());
     	}
     	
     	return;
@@ -55,8 +54,7 @@ class SpecialProjectHelper {
 
         $breadcrumbs = array();
         $this->collectPageBreadcrumbs($controller, $page, $breadcrumbs);
-        //duplication when adding array element
-        $breadcrumbs[] = array('href' => $controller->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), 'caption' => $page->getTitle(), 'selected' => true);
+        $breadcrumbs[] = $this->createBreadcrumbItem($controller->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())), $page->getTitle(), true);
 
         $appKernel = $controller->get('kernel');
         $twigTemplatesPath = $this->getTwigTemplatesPath($appKernel);
@@ -91,6 +89,19 @@ class SpecialProjectHelper {
                   'Javascript' => $page->getJavascript(),
                   'Breadcrumbs' => $breadcrumbs,
                   'Blocks' => $blocksPlaceholders));
+    }
+
+
+    public function createInitialBreadcrumbsArray(Controller $controller) {
+        $result = array();
+        $result[] = $this->createBreadcrumbItem('/', 'Главная');
+        $result[] = $this->createBreadcrumbItem($controller->generateUrl('damedia_special_project_list'), 'Спецпроекты');
+
+        return $result;
+    }
+
+    public function createBreadcrumbItem($href, $caption, $selected = false) {
+        return array('href' => (string)$href, 'caption' => (string)$caption, 'selected' => (boolean)$selected);
     }
 }
 ?>
