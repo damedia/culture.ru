@@ -27,9 +27,9 @@
 			{% if entity.mediaTrailerVideo or entity.mediaPerfomanceVideo %}
 				<div class="video-one_container" id="pefomance_video_container" style="height: 506px;">
 					{% if entity.mediaTrailerVideo is not empty %}
-	                   	{% media entity.mediaTrailerVideo, 'reference' with {'width': '100%', 'height': 506} %}
+	                   	{% media entity.mediaTrailerVideo, 'reference' with {'width': video_sizes.width, 'height': video_sizes.height} %}
 	                {% else %}
-	                	{% media entity.mediaPerfomanceVideo, 'reference' with {'width': '100%', 'height': 506} %}
+	                	{% media entity.mediaPerfomanceVideo, 'reference' with {'width': video_sizes.width, 'height': video_sizes.height} %}
 	                {% endif %}                
 	            </div>
 	        {% elseif entity.image %}
@@ -134,7 +134,7 @@
                                 #}
                                 <div id="interview-{{ entity.id }}" style="display: none;">
                                     <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
-                                        {% media entity.mediaInterviewVideo, 'reference' with {'width': 640, 'height': 360} %}
+                                        {% media entity.mediaInterviewVideo, 'reference' with {'width': interview_sizes.width, 'height': interview_sizes.height} %}
                                     </div>
                                 </div>
                             </article>
