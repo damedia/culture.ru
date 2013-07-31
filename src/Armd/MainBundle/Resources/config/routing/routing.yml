@@ -34,15 +34,15 @@ armd_main_museum_reserve:
 
 armd_main_may9:
     pattern:  /may9/
-    defaults: { _controller: ArmdMainBundle:Main:may9 }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'may9' }
 
 armd_main_may9_films:
     pattern:  /may9/may9_films/
-    defaults: { _controller: ArmdMainBundle:Main:may9_films }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'may9_films' }
 
 armd_main_may9_day:
     pattern:  /may9/may9_day/
-    defaults: { _controller: ArmdMainBundle:Main:may9_day }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'may9_day' }
 
 armd_main_gallery_of_war:
     pattern:  /gallery_of_war/
@@ -62,7 +62,7 @@ armd_main_banners:
 
 armd_main_project_brodino:
     pattern:  /borodino/
-    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Borodino:index.html.twig }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'borodino' }
 
 armd_main_project_1150:
     pattern:  /1150/
@@ -112,7 +112,7 @@ armd_main_culture_polls:
 
 armd_main_intermuseum:
     pattern:  /intermuseum/
-    defaults: { _controller: ArmdMainBundle:Main:intermuseum }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'intermuseum' }
 
 armd_main_romanov450:
     pattern:  /romanov450/
@@ -120,9 +120,9 @@ armd_main_romanov450:
 
 armd_main_stanislavski:
     pattern:  /stanislavski/
-    defaults: { _controller: ArmdMainBundle:Main:specialProjectsStanislavski }
-    
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'stanislavski' }
+
 armd_main_mayakovsky:
     pattern:  /mayakovsky/
-    defaults: { _controller: ArmdMainBundle:Main:specialProjectsMayakovsky }
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:view, slug: 'mayakovsky' }
 
