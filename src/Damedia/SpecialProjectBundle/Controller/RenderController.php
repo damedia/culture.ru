@@ -22,11 +22,22 @@ class RenderController extends Controller {
         $breadcrumbs = $helper->createInitialBreadcrumbsArray($this);
 
         $pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
-        $pages = $pageRepository->findBy(array('isPublished' => true));
+        $pages = $pageRepository->findBy(array('isPublished' => true, 'parent' => null), array('id' => 'DESC'));
 
         $projects = array();
         foreach ($pages as $page) {
-            $projects[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())),  'caption' => $page->getTitle());
+            $projects[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $page->getSlug())),
+                                'caption' => $page->getTitle(),
+                                'padding' => 0);
+
+            $children = $page->getChildren();
+            if (count($children) > 0) {
+                foreach ($children as $child) {
+                    $projects[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $child->getSlug())),
+                        'caption' => $child->getTitle(),
+                        'padding' => 1);
+                }
+            }
         }
 
 		return $this->render('DamediaSpecialProjectBundle:Default:index.html.twig', array('PageTitle' => 'Спецпроекты',
