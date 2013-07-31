@@ -1,6 +1,6 @@
 get_images_jsonlist:
-   pattern:  damedia/specialproject/imageslist
-   defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getImagesJson }
+    pattern:  damedia/specialproject/imageslist
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getImagesJson }
     
 get_snippet_jsonlist:
     pattern:  admin/damedia/specialproject/page/getSnippetJsonlist
@@ -18,7 +18,7 @@ get_template_blocks_form:
     pattern:  admin/damedia/specialproject/page/getTemplateBlocksForm
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTemplateBlocksForm }
     requirements:
-      _method:  POST
+        _method:  POST
 
 damedia_special_project_list:
     pattern:  /project

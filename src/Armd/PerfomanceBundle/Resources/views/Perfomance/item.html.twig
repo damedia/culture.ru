@@ -25,7 +25,7 @@
 		<section class="video-one">
 			
 			{% if entity.mediaTrailerVideo or entity.mediaPerfomanceVideo %}
-				<div class="video-one_container" id="pefomance_video_container" style="height: 506px;">
+				<div class="video-one_container" id="pefomance_video_container" style="display:inline-block;">
 					{% if entity.mediaTrailerVideo is not empty %}
 	                   	{% media entity.mediaTrailerVideo, 'reference' with {'width': video_sizes.width, 'height': video_sizes.height} %}
 	                {% else %}
@@ -122,7 +122,7 @@
                     <ul class="slides">
                         <li>
                             <article class="period-block">
-                                <a href="#interview-{{ entity.id }}" class="period-block_image in-fancybox">
+                                <a href="#interview-{{ entity.id }}" class="period-block_image in-fancybox-noresize">
                                     <img src="{{ entity.mediaInterviewVideo.providerMetadata.thumbnail_url }}" alt="{{ entity.interviewTitle|escape }}" height="179" width="306">
                                     <span class="play"></span>
                                 </a>
@@ -133,7 +133,7 @@
                                 </div>
                                 #}
                                 <div id="interview-{{ entity.id }}" style="display: none;">
-                                    <div class="fancybox-video-wrapper" style="width:640px; height:365px;">
+                                    <div class="fancybox-video-wrapper" style="width: {{ interview_sizes.width }}px; height: {{ interview_sizes.height }}px;">
                                         {% media entity.mediaInterviewVideo, 'reference' with {'width': interview_sizes.width, 'height': interview_sizes.height} %}
                                     </div>
                                 </div>
