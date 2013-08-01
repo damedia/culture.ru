@@ -14,6 +14,8 @@ class PerfomanceController extends Controller
 {
 	static $count = 32;
 	static $abc = array('А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
+    static $video_width = 610;
+    static $video_width_fancybox = 640;
 
     /**
      * @Route("/", name="armd_perfomance_index")
@@ -178,9 +180,19 @@ class PerfomanceController extends Controller
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_perfomance_list')
         );
+        
+        if ($trailer = $entity->getMediaTrailerVideo())
+            $video_sizes = self::getViewFormat($trailer->getWidth(), $trailer->getHeight());
+        elseif ($perfomance = $entity->getMediaPerfomanceVideo())
+            $video_sizes = self::getViewFormat($perfomance->getWidth(), $perfomance->getHeight());
+            
+        if ($interview = $entity->getMediaInterviewVideo()) 
+            $interview_sizes = self::getViewFormat($interview->getWidth(), $interview->getHeight(),true);
 
         return array(
             'entity' => $entity,
+            'video_sizes' => $video_sizes,
+            'interview_sizes' => isset($interview_sizes) ? $interview_sizes : array(),
             'ganres' => $this -> getEntityManager() -> getRepository('\Armd\PerfomanceBundle\Entity\PerfomanceGanre') -> findAll(),
             'theaters' => $this->getEntityManager()->getRepository('\Armd\TheaterBundle\Entity\Theater')->findBy(array(), array('title' => 'ASC')),
         );
@@ -207,8 +219,10 @@ class PerfomanceController extends Controller
 
 		$media_twig_extension = $this->get('sonata.media.twig.extension');
 		$media_twig_extension->initRuntime($this->get('twig'));
+        
+        $video_sizes = self::getViewFormat($media->getWidth(), $media->getHeight());
 
-        echo $media_twig_extension->media($media, 'reference', array('width' => '100%', 'height' => 506));
+        echo $media_twig_extension->media($media, 'reference', array('width' => $video_sizes['width'], 'height' => $video_sizes['height']));
 		exit();
 
     }
@@ -409,4 +423,17 @@ class PerfomanceController extends Controller
         }
 
     }
+
+    /**
+     * 
+     */
+     static public function getViewFormat($width, $height, $fancybox=false)
+     {
+        $new_width = ($fancybox ? self::$video_width_fancybox : self::$video_width);
+         
+        $height = round($new_width/$width * $height);
+        $width = $new_width;
+        
+        return array('width'=>$width, 'height'=>$height);
+     }
 }

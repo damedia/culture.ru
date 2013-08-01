@@ -197,7 +197,7 @@ class ObjectManager extends ListManager
         return $objects;
     }
 
-    public function findObjectsWithSphinx($criteria) {
+    private function findObjectsWithSphinx($criteria) {
         $searchParams = array('Atlas' => array('filters' => array()));
 
         if (isset($criteria[self::CRITERIA_LIMIT])) {
@@ -232,7 +232,7 @@ class ObjectManager extends ListManager
      * @param array $criteria
      * @retirn integer
      */
-    public function findObjectsWithSphinxCount(array $criteria)
+    private function findObjectsWithSphinxCount(array $criteria)
     {
         $searchParams = array('Atlas' => array('filters' => array()));
 
@@ -242,6 +242,9 @@ class ObjectManager extends ListManager
                 'values' => array(1)
             );
         }
+
+        $searchParams['Atlas']['result_offset'] = 0;
+        $searchParams['Atlas']['result_limit'] = 10000;
 
         $searchResult = $this->search->search($criteria[self::CRITERIA_SEARCH_STRING], $searchParams);
 
@@ -391,8 +394,6 @@ class ObjectManager extends ListManager
             return false;
         }
     }
-
-
 
     public function filterForApi($params=array())
     {

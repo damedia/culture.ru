@@ -1,5 +1,5 @@
 {% for object in objects %}
-    <li class="plitka-one-wrap fix-height">
+    <li class="plitka-one-wrap fix-height" {% if loop.index == 1 %}data-count="{{ count }}" data-total-count="{{ totalCount }}"{% endif %}>
         <div class="plitka-one">
             {% if object.regions is not empty %}
                 {% set region = object.regions[0] %}

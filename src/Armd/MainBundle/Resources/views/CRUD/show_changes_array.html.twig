@@ -22,7 +22,7 @@ file that was distributed with this source code.
                 {% if get_type(val.0) == 'DateTime' %}
                     {{ val.0|date("d/m/Y H:i") }}
                 {% else %}                    
-                    {{ val.0|raw }}
+                    {{ val.0 }}
                 {% endif %}
             </td>
             <td> -> </td>
@@ -30,7 +30,7 @@ file that was distributed with this source code.
                 {% if get_type(val.1) == 'DateTime' %}
                     {{ val.1|date("d/m/Y H:i") }}
                 {% else %}                    
-                    {{ val.1|raw }}
+                    {{ val.1 }}
                 {% endif %}            
             </td>
         </tr>

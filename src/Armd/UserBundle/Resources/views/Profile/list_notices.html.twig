@@ -18,7 +18,7 @@
         <div class="profile-right-block clearfix">
             
             <p>{{ 'Noticeoncomment'|trans }}:</p>
-            <form action="" method="post" {{ form_enctype(notice_status_form) }}>
+            <form action="" method="post" {{ form_enctype(notice_status_form) }} class="profile-form c-notice clearfix">
             
                 <div class="fos_comment_form_errors">{{ form_errors(notice_status_form) }}</div>
                 
@@ -45,10 +45,10 @@
                     {% if entity.comment.threadCrumbs %}
                     <td>
                         <a href="{{ path(entity.comment.threadCrumbs.threadPath) }}">{{ entity.comment.threadCrumbs.threadTitle|trans }}</a>
-                        » 
+                        »
                         <a href="{{ path(entity.comment.threadCrumbs.entityPath, {'id': entity.comment.threadCrumbs.id}) }}">{{ entity.comment.threadCrumbs.entityTitle }}</a>
                     </td>
-                    <td><a href="{{ path(entity.comment.threadCrumbs.entityPath, {'id': entity.comment.threadCrumbs.id}) }}#comments">{{entity.comment.body}}</a></td>
+                    <td><a href="{{ path(entity.comment.threadCrumbs.entityPath, {'id': entity.comment.threadCrumbs.id}) }}#comments">{{entity.comment.body|truncate(100)}}</a></td>
                     {% else %}
                     <td colspan="2">
                         » <a href="{{ entity.comment.thread.permalink}}">{{ entity.comment.body }}</a>

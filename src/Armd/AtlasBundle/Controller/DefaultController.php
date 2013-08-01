@@ -151,11 +151,11 @@ class DefaultController extends Controller
             'regions' => $regions,
             'regionId' => $this->getRequest()->get('region_id'),
             'searchQuery' => $this->getRequest()->get('search_query'),
-            'totalCount' => $this->getRussiaImagesCount(array(
-                'region_id' => $this->getRequest()->get('region_id'),
-                'category_ids' => $this->getRequest()->get('category_ids'),
-                'search_text' => $this->getRequest()->get('search_query')
-            ))
+//            'totalCount' => $this->getRussiaImagesCount(array(
+//                'region_id' => $this->getRequest()->get('region_id'),
+//                'category_ids' => $this->getRequest()->get('category_ids'),
+//                'search_text' => $this->getRequest()->get('search_query')
+//            ))
         );
     }
 
@@ -197,69 +197,21 @@ class DefaultController extends Controller
             $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
 
-//        $searchQuery = $request->get('search_query');
-//        if ($request->query->has('search_query')) {
-//            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchQuery;
-//        }
-
         $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
         $criteria[ObjectManager::CRITERIA_LIMIT] = $limit;
         $criteria[ObjectManager::CRITERIA_OFFSET] = $offset;
 
+        $objects = $this->getObjectManager()->findObjects($criteria);
+
         return $this->render(
             $templates[$templateName],
             array(
-                'objects' => $this->getObjectManager()->findObjects($criteria),
+                'objects' => $objects,
+                'count' => count($objects),
+                'totalCount' => $this->getObjectManager()->findObjectsCount($criteria)
             )
         );
-    }
 
-    /**
-     * @Route("/russia-images-count",
-     *      name="armd_atlas_russia_images_count",
-     *      options={"expose"=true},
-     *      defaults={"_format"="json"}
-     * )
-     */
-    public function getRussiaImagesCountAction()
-    {
-        return array(
-            'count' => $this->getRussiaImagesCount(array(
-                'region_id' => $this->getRequest()->get('region_id'),
-                'category_ids' => $this->getRequest()->get('category_ids'),
-                'search_text' => $this->getRequest()->get('search_query')
-            ))
-        );
-    }
-
-    /**
-     * Get russia images objects count.
-     *
-     * @param array $params
-     * @return integer
-     */
-    public function getRussiaImagesCount($params)
-    {
-        $criteria = array();
-
-        $categoryIds = $params['category_ids'];
-        if (!empty($categoryIds)) {
-            $criteria[ObjectManager::CRITERIA_CATEGORY_IDS_AND] = $categoryIds;
-        }
-
-        $regionId = $params['region_id'];
-        if (!empty($regionId)) {
-            $criteria[ObjectManager::CRITERIA_REGION_IDS_AND] = array($regionId);
-        }
-
-        $searchText = $params['search_text'];
-        if (!empty($searchText)) {
-            $criteria[ObjectManager::CRITERIA_SEARCH_STRING] = $searchText;
-        }
-
-        $criteria[ObjectManager::CRITERIA_RUSSIA_IMAGES] = true;
-        
-        return $this->getObjectManager()->findObjectsCount($criteria);
     }
 
 

@@ -26,37 +26,44 @@ class ChangeHistoryListener
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
-        foreach ($uow->getScheduledEntityUpdates() as $entity) {
-            
-            if ($entity instanceof ChangeHistorySavableInterface)
-            {
-                $changes = $uow->getEntityChangeSet($entity);
-                $real_changes = array();
-                foreach ($changes as $f=>$change)
+        if ($user = $this->isAdmin()) {
+            foreach ($uow->getScheduledEntityUpdates() as $entity) {
+                
+                if ($entity instanceof ChangeHistorySavableInterface)
                 {
-                    if ($change[0] != $change[1])
-                        $real_changes[$f]= $change;
+                    $changes = $uow->getEntityChangeSet($entity);
+                    $real_changes = array();
+                    foreach ($changes as $f=>$change)
+                    {
+                        if ($change[0] != $change[1]) 
+                        {
+                            $change[0] = self::getValueToSerialize($change[0]);
+                            $change[1] = self::getValueToSerialize($change[1]);
+                            $real_changes[$f]= $change;
+                        }
+                    }
+                    if (count($real_changes))            
+                    {
+                        $changeHistory = new ChangeHistory();
+                        $changeHistory->setEntityClass(get_class($entity));
+                        $changeHistory->setEntityId($entity->getId());
+                        $changeHistory->setChanges($real_changes);
+                        $changeHistory->setUpdatedAt(new \DateTime());
+                        if ($user = $this->getAuthUser())
+                            $changeHistory->setUpdatedBy($user);
+                        $changeHistory->setUpdatedIP($this->container->get('request')->server->get('REMOTE_ADDR'));
+        
+                        $em->persist($changeHistory);                
+                        $uow->computeChangeSet(
+                            $em->getClassMetadata(get_class($changeHistory)),
+                            $changeHistory
+                        );                
+                       
+                    }                
                 }
-                if (count($real_changes))            
-                {
-                    $changeHistory = new ChangeHistory();
-                    $changeHistory->setEntityClass(get_class($entity));
-                    $changeHistory->setEntityId($entity->getId());
-                    $changeHistory->setChanges($real_changes);
-                    $changeHistory->setUpdatedAt(new \DateTime());
-                    if ($user = $this->getAuthUser())
-                        $changeHistory->setUpdatedBy($user);
-                    $changeHistory->setUpdatedIP($this->container->get('request')->server->get('REMOTE_ADDR'));
-    
-                    $em->persist($changeHistory);                
-                    $uow->computeChangeSet(
-                        $em->getClassMetadata(get_class($changeHistory)),
-                        $changeHistory
-                    );                
-                   
-                }                
-            }
-        }        
+            }  
+
+        }      
         
     }
     
@@ -72,6 +79,16 @@ class ChangeHistoryListener
         return null;
     }
     
+    protected function isAdmin()
+    {
+        return (
+            $this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ||
+            $this->container->get('security.context')->isGranted('ROLE_MODERATOR') ||
+            $this->container->get('security.context')->isGranted('ROLE_EXPERT') ||
+            $this->container->get('security.context')->isGranted('ROLE_ADMIN') ||
+            $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN') 
+        );
+    }
     
     public function preUpdate(PreUpdateEventArgs $args)
     {
@@ -107,5 +124,19 @@ class ChangeHistoryListener
             
     }           
 
-       
+    public static function getValueToSerialize($value)
+    {
+
+        if (is_object($value) && !($value instanceof Serializable) && !method_exists($value, '__sleep'))
+        {
+            if (method_exists($value, '__toString'))
+                $value = $value->__toString();
+            else 
+                $value = 'value cannot be show';
+        }
+        elseif (is_resource($value))    
+            $value = 'value cannot be show'; 
+ 
+        return $value;       
+    }        
 }
