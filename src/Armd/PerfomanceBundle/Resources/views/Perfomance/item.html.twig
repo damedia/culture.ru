@@ -116,6 +116,7 @@
 	{% if (entity.gallery and entity.gallery|length > 0) or entity.interviewVideo %}
 		<div class="buffer" style="height:6px;"></div>
         {% if entity.mediaInterviewVideo is not empty %}
+        <div class="right-video-block static-block-2">
             <div class="orange-slider-block">
                 <h3 class="o-slider-header">Интервью</h3>
                 <div class="flexslider">
@@ -142,8 +143,9 @@
                     </ul>
                 </div>
             </div>
+        </div>
         {% endif %}
-
+        <div class="right-video-block static-block-2">
         <div class="orange-slider-block">
 			<h3 class="o-slider-header">фотогалерея спектакля</h3>
             {% if entity.gallery and entity.gallery|length > 0 %}
@@ -169,7 +171,7 @@
 				</div>
                 </div>
 			{% endif %}
-		
+		</div>
 		</div>
 		
 	{% else %}

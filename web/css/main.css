@@ -1673,6 +1673,11 @@ body {
 			margin-bottom:20px;
 			margin-top:10px;
 		}
+
+       .search-found #found-objects-total i { 
+            font-style: normal;
+        }
+
 		.russia-top-found .button{
             position:relative;
             top:-3px;
@@ -4052,6 +4057,18 @@ body {
                         padding:14px;
                         position:relative;
                     }   
+
+                    .static-block-2 {
+                        padding: 0 14px;
+                    }
+
+                        .static-block-2 .o-slider-header {
+                            border: none;
+                            font: 15px Tahoma,Arial,Helvetica,sans-serif;
+                            margin: 0 0 0;
+                            padding: 14px 0 0 0;
+                        }
+
                         .period-block h1, .period-block h2, .static-block h2 {
                             text-transform:uppercase;
                             font:15px Tahoma, Arial, Helvetica, sans-serif;
