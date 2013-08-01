@@ -21,24 +21,6 @@ class PageManagementController extends Controller {
     	};
     	
     	$em = $this->getDoctrine()->getManager();
-    	/*
-    	 * FULL TEXT SEARCH sphynx need
-    	$news = $this->getNewsManager()->findObjects(
-    			array(
-    					NewsManager::CRITERIA_SEARCH_STRING => $search_query, // $request->get('search_query'),
-    					//	NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array($request->get('category_slug')),
-    					NewsManager::CRITERIA_LIMIT => $limit
-    					// , NewsManager::CRITERIA_OFFSET => $request->get('offset'),
-    			)
-    	);
-    	 
-    	$result=array();
-    	for($i=0;$i<count($news);$i++) {
-    	$result[] = array('value'=>$news[$i]->getId(), 'text'=>$news[$i]->getTitle());
-    	};
-    
-    	*/
-    	//--- previous week stats
     	$qb = $em->createQueryBuilder();
     	 
     	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
@@ -49,26 +31,17 @@ class PageManagementController extends Controller {
     	$qb->select('n.'.$idField.', n.'.$textField)
     	   ->from($entityDesc[0], 'n')
     	   ->where($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%'))
-    			//':srch') ) // .'=:srch') // %:srch%
-    	)->setMaxResults( $limit );// ->setParameters(array('srch' => $search_query,));
+    	)->setMaxResults( $limit );
     	$query = $qb->getQuery();
-    
-    	/*	   print_r(array(
-    	 'sql'        => $query->getSQL(),
-    			'parameters' => $query->getParameters(),
-    	));
-    	*/
+
     	$news = $query->getArrayResult();
-    	 
-    	// print_r($news);
-    
-    	 
+
     	$result=array();
     	for($i=0;$i<count($news);$i++) {
     		$result[] = array('value'=>$news[$i]['id'], 'label'=>$news[$i]['title']);
     	};
     	
-    	return $this->renderJson($result); //$response
+    	return $this->renderJson($result);
 	}
 	
     public function getTinyAcFormAction() {
@@ -289,9 +262,7 @@ class PageManagementController extends Controller {
 
         return $result;
     }
-    
-    
-    
+
     private function getKnownEntity($name) {
     	$known = array('news' 		=> array('ArmdNewsBundle:News', 'id', 'title'),
     				   'museum' 	=> array('ArmdMuseumBundle:Museum', 'id', 'title'),
@@ -304,75 +275,5 @@ class PageManagementController extends Controller {
     	
     	return (isset($known[$name])) ? $known[$name] : false;
     }
-
-
-
-
-
-
-
-
-
-    /*
-    public function editPageAction($id) {
-        $page = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page')->find($id);
-
-        if (!$page) {
-            throw $this->createNotFoundException('Page (id = "'.$id.'") not found!');
-        }
-
-        $template = $page->getTemplate();
-
-        if (!$template) {
-            throw $this->createNotFoundException('Page (id = "'.$id.'") has no Template!');
-        }
-
-        $pageBlocks = $this->getBlocksForPageId($page->getId());
-        $renderedBlocks = $this->renderPageBlocksToEdit($pageBlocks);
-
-        return $this->render('DamediaSpecialProjectBundle:Templates:'.$template->getTwigFileName(),
-                             array('PageTitle' => $page->getTitle(),
-                                   'Blocks' => $renderedBlocks));
-    }
-    */
-
-    /*
-
-    */
-
-    /*
-    private function renderPageBlocksToEdit(array $blocks) { //render blocks depending on settings
-        $result = array();
-
-        $chunks = $this->getChunksForBlocksArray($blocks);
-
-        foreach ($blocks as $block) {
-            $blockChunks = (isset($chunks[$block->getId()])) ? $chunks[$block->getId()] : array();
-            $result[$block->getPlaceholder()] = $this->renderBlockContent($block->getPlaceholder(), $blockChunks);
-        }
-
-        return $result;
-    }
-    */
-
-    /*
-
-    */
-
-    /*
-    private function renderBlockContent($placeholder, array $blockChunks) {
-        $result = '';
-
-        if (count($blockChunks) == 0) {
-            return '<textarea data-placeholder="'.$placeholder.'" class="editPage_blockContent"></textarea>';
-        }
-
-        foreach ($blockChunks as $chunk) {
-            $result .= $chunk->getContent();
-        }
-
-        return $result;
-    }
-    */
 }
 ?>

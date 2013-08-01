@@ -51,6 +51,11 @@ class Comment extends BaseComment implements CommentInterface, SignedCommentInte
 
     // used to load moderated fixtures
     protected $skipAutoModerate = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Notice", mappedBy="comment", cascade={"all"})
+     */
+    protected $notices;
     
     /**
      * used in profile comments
@@ -169,5 +174,21 @@ class Comment extends BaseComment implements CommentInterface, SignedCommentInte
     public function setThreadCrumbs($threadCrumbs)
     {
         $this->threadCrumbs = $threadCrumbs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotices()
+    {
+        return $this->notices;
+    }
+
+    /**
+     * @param mixed $notices
+     */
+    public function setNotices($notices)
+    {
+        $this->notices = $notices;
     }
 }

@@ -18,15 +18,7 @@
 
 {% block body %}
 	{% block breadcrumbs %}
-		<ul class="breadcrumbs marginBottom">
-	    {% for item in Breadcrumbs %}
-	    	{% if item.selected %}
-	    		<li><span>{{ item.caption }}</span></li>
-	    	{% else %}
-	    	    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
-	    	{% endif %}
-        {% endfor %}
-        </ul>
+        {{ include('DamediaSpecialProjectBundle:Default:breadcrumbs.html.twig', { 'Breadcrumbs': Breadcrumbs }) }}
 	{% endblock %}
 
 	{{ Blocks.MainBlock|raw }}

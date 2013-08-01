@@ -337,6 +337,21 @@ $(function () {
         nextEffect: 'fade',
         prevEffect: 'fade'
     });
+    
+    $('.in-fancybox-noresize').fancybox({
+        beforeShow: function(){
+            $('.left-column iframe').hide();
+        },
+        afterClose: function(){
+            $('.left-column iframe').show();
+        },
+        nextEffect: 'fade',
+        prevEffect: 'fade',
+        autoResize: false,
+        fitToView: false,
+        scrolling: 'no'
+        
+    });    
 	
 	if($('.virt-museum-instr').length > 0) {
 		$('.virt-museum-instr').fancybox({

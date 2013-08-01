@@ -46,7 +46,8 @@ class ShowOnMainController extends Controller
             ->select('t.id, t.title AS text')
             ->where('t.published = TRUE')
             ->andWhere('t.showOnMain = TRUE')
-            ->orderBy('t.title', 'ASC');
+            ->orderBy('t.title', 'ASC')
+            ->setMaxResults(100);
         
         if (isset($category)) {
             $qb->andWhere('t.' . $cName . ' = :category')->setParameter('category', $category);
@@ -66,7 +67,7 @@ class ShowOnMainController extends Controller
         $search = $this->getRequest()->get('search', '');       
         $pageLimit = $this->getRequest()->get('pageLimit', 20);
         $page = $this->getRequest()->get('page', 1);
-        
+
         if (!$class) {
             if (preg_match("~^news-(\d+)$~", $field, $matches)) {
                 $class = 'Armd\NewsBundle\Entity\News';
