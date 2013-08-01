@@ -526,7 +526,7 @@ class DefaultController extends Controller
                 foreach ($mediaIds as $id) {
                     $id = (int) $id;
                     $media = $mediaManager->findOneBy(array('id' => $id));
-                    if ($media) {
+                    if ($media && !$entity->getImages()->contains($media)) {
                         $entity->addImage($media);
                     }
                 }
