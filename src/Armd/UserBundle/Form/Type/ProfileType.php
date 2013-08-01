@@ -23,11 +23,13 @@ class ProfileType extends BaseType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+    	
+    	$builder
             ->add('lastname')
             ->add('firstname')
             ->add('middlename')
             ->add('dateOfBirth', 'birthday', array('required' => false))
+            
             ->add('region', null, array(
                 'empty_value' => '--- Выберите регион ---',
                 'required' => false,
@@ -37,6 +39,7 @@ class ProfileType extends BaseType
                         ->addOrderBy('r.title', 'ASC');
                 }
             ))
+            
             ->add('phone', null, array('required' => false))
             ->add('website', null, array('required' => false))
 //            ->add('biographyText', null, array('label' => 'Biography'))
@@ -45,12 +48,14 @@ class ProfileType extends BaseType
             ->add('twitterName')
             ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            
             ->add('current_password', 'password', array(
                     'label' => 'form.current_password',
                     'translation_domain' => 'FOSUserBundle',
                     'mapped' => false,
                     'constraints' => new UserPassword(),
                 ))
+                
             ->add('plainPassword', 'repeated', array(
                         'required' => false,
                         'type' => 'password',

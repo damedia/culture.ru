@@ -2,6 +2,9 @@
 namespace Damedia\SpecialProjectBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Application\Sonata\MediaBundle\Entity\Media;
+use Sonata\MediaBundle\Provider\Pool;
+
 
 class PageManagementController extends Controller {
 	public function getSnippetJsonlistAction() {
@@ -72,6 +75,111 @@ class PageManagementController extends Controller {
         return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
     }
 
+    
+    // admin/damedia/specialproject/page/getTinyMediaForm
+    public function getTinyMediaFormAction() {
+    	$mpool= $this->container->get('sonata.media.pool');
+    	$contexts = $mpool->getContexts();
+    	/* uploading form from SonataMediaBundle docs
+    	 // create the target object
+    	$post = new Post();
+    	// create the form
+    	$builder = $this->createFormBuilder($post);
+    	$builder->add('media', 'sonata_media_type', array(
+    			'provider' => 'sonata.media.provider.youtube',
+    			'context'  => 'default'
+    	));
+    	 
+    	$form = $builder->getForm();
+    	 
+    	// bind and transform the media's binary content into real content
+    	if ($request->getMethod() == 'POST') {
+    	$form->bindRequest($request);
+    	 
+    	// do stuff ...
+    	}
+    	*/
+    	return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_tinyMediaForm.html.twig', array('contexts'=>$contexts));
+    }
+    
+    protected function path($id, $format) {
+    	return $this->getTtwigMediaExtension()->path($id, $format);
+    }
+    
+    /**
+     * @return TwigExtension
+     */
+    protected function getTtwigMediaExtension()
+    {
+    	$twigMediaExtension = $this->container->get('sonata.media.twig.extension');
+    	$twigMediaExtension->initRuntime($this->get('twig'));
+    
+    	return $twigMediaExtension;
+    }
+    
+    public function getImagesJsonAction() {
+    	$request = $this->get('request');
+    	$search_query = $request->get('q');
+    	 
+    	$context=$request->get('context');
+    	$context=$context?$context:"default";
+    	 
+    	$limit = $request->get('limit');
+    	$limit = $limit?$limit:50;
+    	 
+    	$em = $this->getDoctrine()->getManager();
+    	$qb = $em->createQueryBuilder('n');
+    
+    	$entityDesc = $this->getKnownEntity('image');
+    	if (!$search_query || !$entityDesc) {
+    		throw new NotFoundHttpException("Query not found");
+    	};
+    	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
+    	if (!$class) {
+    		throw new NotFoundHttpException("Class not found");
+    	};
+    	 
+    	$idField = $class->getColumnName($entityDesc[1]);
+    	$textField= $class->getColumnName($entityDesc[2]);
+    	$contextField= $class->getColumnName('context');
+    	$orderField= $class->getColumnName('updatedAt');
+    	 
+    	$qb->select('n.'.$idField.', n.'.$textField)
+    	->from($entityDesc[0], 'n')
+    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
+    			'n.'.$contextField."=".$qb->expr()->literal($context) )
+    			// ->orderBy('n.'.$orderField, 'DESC')
+    	->setMaxResults( $limit );
+    	 
+    	$query = $qb->getQuery();
+    	 
+    	$result = $query->getArrayResult();
+    	/*
+    	 $mediaManager = $this->container->get('sonata.media.manager.media');
+    	$request = $this->get('request');
+    	$result=$mediaManager->findBy(array('context'=>'news', 'providerName'=>'sonata.media.provider.image', 'name' => 'Выс'));
+    	$json=array();
+    	 
+    	$i=0;
+    	foreach($result as $media) {
+    	$json[]=array('id'=>$media->getId(), 'url'=>$this->path($media->getId(), 'thumbnail'), 'name' => $media->getAdminTitle() ); // , name=>$media->getName());
+    	$i++;
+    	if ($i>50)
+    		break;
+    	};
+    	*/
+    	$json=array();
+    	for($i=0;$i<count($result);$i++) {
+    		$json[]=array('id'=>$result[$i][$idField], 'name' => $result[$i][$textField],
+    				'url'=>$this->path($result[$i][$idField], 'thumbnail'),
+    				'fullsize'=>$this->path($result[$i][$idField], 'big') ); // , name=>$media->getName());
+    	};
+    	return $this->renderJson($json); //$response
+    }
+    
+    
+    
+    
     public function getTemplateBlocksFormAction() {
         $response = array('content' => '', 'errors' => '', 'buttons' => '');
 
@@ -190,7 +298,9 @@ class PageManagementController extends Controller {
     				   'realMuseum' => array('ArmdMuseumBundle:RealMuseum', 'id', 'title'),
     				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
     				   'artObject'	=> array('ArmdExhibitBundle:ArtObject', 'id', 'title'),
-    				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'));
+    				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'),
+    			'image'        => array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name')
+    	);
     	
     	return (isset($known[$name])) ? $known[$name] : false;
     }

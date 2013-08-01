@@ -35,8 +35,12 @@ function initTinyMCE(options) {
                     };
                 }
                 */
-                
                 themeOptions.setup = function(ed) {
+                	
+                	ed.on('ObjectSelected', function(e) {
+                			console.log('ObjectSelected event', e);
+                	});
+                	
                     // Add custom buttons to current editor
                     $.each(options.tinymce_buttons || {}, function(id, opts) {
                         opts = $.extend({}, opts, {
