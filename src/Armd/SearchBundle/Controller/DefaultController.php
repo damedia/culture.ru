@@ -255,7 +255,7 @@ class DefaultController extends Controller
                     'target_blank' => true
                 ),
                 'section' => array(
-                    'name' => 'Виртуальные музеи',
+                    'name' => 'Виртуальные туры',
                 )
             );
 

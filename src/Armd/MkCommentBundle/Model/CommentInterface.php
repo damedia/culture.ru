@@ -12,6 +12,6 @@ interface CommentInterface extends BaseInterface
     const SECTION_LESSON      = 'lesson';
     const SECTION_ROUTE       = 'route';
     const SECTION_THEATER     = 'theater';
-    const SECTION_PERFORMANCE = 'performance';
+    const SECTION_PERFOMANCE  = 'perfomance';
     const SECTION_NEWS        = 'news';
 }
