@@ -4,6 +4,8 @@
  * @param options
  */
 function initTinyMCE(options) {
+    initTinyMCE.defaults = options;
+
     (function ($, undefined) {
         $(function () {
             var $tinymceTargets;
@@ -68,6 +70,22 @@ function initTinyMCE(options) {
                 if (typeof themeOptions.file_browser_callback=="string") {
                 	themeOptions.file_browser_callback = eval("window."+themeOptions.file_browser_callback);
                 }
+
+                if (theme === "sproject_snippets") {
+                    themeOptions.snippet = {
+                            selectFormUrl: themeOptions.acFormUrl, //{{ path('get_tiny_ac_form') }}
+                            //sonataAdmin: "{{ admin.code }}",
+                            types: [
+                                { value: "news",       text: "Новость" },
+                                { value: "theater",    text: "Театр" },
+                                { value: "realMuseum", text: "Музей" },
+                                { value: "museum",     text: "Вирутальный тур" },
+                                { value: "artObject",  text: "Артефакт" },
+                                { value: "lecture",    text: "Лекция" }
+                            ]
+                    };
+                }
+
                 $textarea.tinymce(themeOptions);
             });
         });

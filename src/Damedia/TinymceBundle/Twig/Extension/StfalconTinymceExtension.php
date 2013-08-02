@@ -2,6 +2,7 @@
 namespace Stfalcon\Bundle\TinymceBundle\Twig\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Router;
 
 /**
  * Twig Extension for TinyMce support.
@@ -71,7 +72,13 @@ class StfalconTinymceExtension extends \Twig_Extension
     public function tinymce_init()
     {
 
+        /**
+         * Get tinyMCE config data
+         *     from: config.yml
+         *     block: stfalcon_tinymce
+         */
         $config  = $this->getParameter('stfalcon_tinymce.config');
+
         $baseURL = (!isset($config['base_url']) ? null : $config['base_url']);
 
         /** @var $assets \Symfony\Component\Templating\Helper\CoreAssetsHelper */
@@ -104,6 +111,12 @@ class StfalconTinymceExtension extends \Twig_Extension
         // TinyMCE does not allow to set different languages to each instance
         foreach ($config['theme'] as $themeName => $themeOptions) {
             $config['theme'][$themeName]['language'] = $config['language'];
+
+            if ($themeName == 'sproject_snippets') {
+                //$router = new Router(); //$currentUrl = $this->get('router')
+                //->generate($currentRoute, array(), true);
+                $config['theme'][$themeName]['acFormUrl'] = 'hello';
+            }
         }
 		
         // $user = $this->container->get('security.context')->getToken()->getUser();
