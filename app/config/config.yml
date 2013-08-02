@@ -565,6 +565,12 @@ damedia_tinymce:
             plugins: "image,paste,fullscreen"
             toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
             file_browser_callback: SonataMedia.browse
+        sproject_snippets:
+            mode: "textareas"
+            theme: "modern"
+            plugins: "image,paste,fullscreen,code,snippet"
+            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit"
+            file_browser_callback: SonataMedia.browse
         news:
             mode: "textareas"
             theme: "modern"
