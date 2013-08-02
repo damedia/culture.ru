@@ -45,7 +45,7 @@ class News extends Admin
             ->add('corrected')
             ->add('title')
             ->add('announce')
-            ->add('body')
+            ->add('body','body', array('attr' => array('data-theme' => 'news')) )
             ->add('newsDate')   
             ->add('date')                            
             ->add('showOnMain')
