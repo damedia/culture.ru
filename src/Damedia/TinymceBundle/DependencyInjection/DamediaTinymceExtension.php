@@ -1,6 +1,6 @@
 <?php
 
-namespace Stfalcon\Bundle\TinymceBundle\DependencyInjection;
+namespace Damedia\TinymceBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -11,10 +11,10 @@ use Symfony\Component\Config\FileLocator;
 /**
  * StfalconTinymceExtension
  */
-class StfalconTinymceExtension extends Extension
+class DamediaTinymceExtension extends Extension
 {
     /**
-     * Loads the StfalconTinymce configuration.
+     * Loads the DamediaTinymce configuration.
      *
      * @param array            $configs   An array of configuration values
      * @param ContainerBuilder $container A ContainerBuilder instance
@@ -29,7 +29,7 @@ class StfalconTinymceExtension extends Extension
             $config['textarea_class'] = ($config['tinymce_jquery'] ? '.' : '') . trim($config['textarea_class'], '.');
         }
 
-        $container->setParameter('stfalcon_tinymce.config', $config);
+        $container->setParameter('damedia_tinymce.config', $config);
 
         // load dependency injection config
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -45,6 +45,6 @@ class StfalconTinymceExtension extends Extension
      */
     public function getAlias()
     {
-        return 'stfalcon_tinymce';
+        return 'damedia_tinymce';
     }
 }

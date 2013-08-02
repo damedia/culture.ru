@@ -1,12 +1,12 @@
 <?php
 
-namespace Stfalcon\Bundle\TinymceBundle;
+namespace Damedia\TinymceBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * TinymceBundle integration
  */
-class StfalconTinymceBundle extends Bundle
+class DamediaTinymceBundle extends Bundle
 {
 }
