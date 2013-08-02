@@ -4,7 +4,7 @@
     {{ parent() }}
 
     <style type="text/css">
-        {{ Stylesheet }}
+        {{ Stylesheet|raw }}
     </style>
 {% endblock %}
 
@@ -32,6 +32,6 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        {{ Javascript }}
+        {{ Javascript|raw }}
     </script>
 {% endblock %}
