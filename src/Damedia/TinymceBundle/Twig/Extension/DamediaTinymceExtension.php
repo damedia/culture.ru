@@ -1,5 +1,5 @@
 <?php
-namespace Stfalcon\Bundle\TinymceBundle\Twig\Extension;
+namespace Damedia\TinymceBundle\Twig\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author naydav <web@naydav.com>
  */
-class StfalconTinymceExtension extends \Twig_Extension
+class DamediaTinymceExtension extends \Twig_Extension
 {
     /**
      * Container
@@ -71,14 +71,14 @@ class StfalconTinymceExtension extends \Twig_Extension
     public function tinymce_init()
     {
 
-        $config  = $this->getParameter('stfalcon_tinymce.config');
+        $config  = $this->getParameter('damedia_tinymce.config');
         $baseURL = (!isset($config['base_url']) ? null : $config['base_url']);
 
         /** @var $assets \Symfony\Component\Templating\Helper\CoreAssetsHelper */
         $assets = $this->getService('templating.helper.assets');
 
         // Get path to tinymce script for the jQuery version of the editor
-        $config['jquery_script_url'] = $assets->getUrl($baseURL . 'bundles/stfalcontinymce/vendor/tiny_mce/tiny_mce.jquery.js');
+        $config['jquery_script_url'] = $assets->getUrl($baseURL . 'bundles/damediatinymce/vendor/tiny_mce/tiny_mce.jquery.js');
 
         // Get local button's image
         foreach ($config['tinymce_buttons'] as &$customButton) {
@@ -113,7 +113,7 @@ class StfalconTinymceExtension extends \Twig_Extension
 		//print_r($admin);
       $config["sonataAdmin"]=$pool;
         
-        return $this->getService('templating')->render('StfalconTinymceBundle:Script:init.html.twig', array(
+        return $this->getService('templating')->render('DamediaTinymceBundle:Script:init.html.twig', array(
             'tinymce_config' => json_encode($config),
             'include_jquery' => $config['include_jquery'],
             'tinymce_jquery' => $config['tinymce_jquery'],
@@ -128,7 +128,7 @@ class StfalconTinymceExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'stfalcon_tinymce';
+        return 'damedia_tinymce';
     }
 
 
