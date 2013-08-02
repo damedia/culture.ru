@@ -565,6 +565,13 @@ stfalcon_tinymce:
             plugins: "image,paste,fullscreen"
             toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
             file_browser_callback: SonataMedia.browse
+        news:
+            mode: "textareas"
+            theme: "modern"
+            plugins: "image,paste,fullscreen"
+            menubar: false
+            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+            file_browser_callback: SonataMedia.browse    
 #            mode: "textareas"
 #            theme: "advanced"
 #            plugins: "advimage,paste,fullscreen,inlinepopups"

@@ -45,7 +45,7 @@ class News extends Admin
             ->add('corrected')
             ->add('title')
             ->add('announce')
-            ->add('body','body', array('attr' => array('data-theme' => 'news')) )
+            ->add('body' )
             ->add('newsDate')   
             ->add('date')                            
             ->add('showOnMain')
@@ -76,7 +76,7 @@ class News extends Admin
                 ->add('title')
                 ->add('announce')
                 ->add('body', null, array(
-                    'attr' => array('class' => 'tinymce'),
+                    'attr' => array('class' => 'tinymce', 'data-theme' => 'news'),
                 ))
                 ->add('source')
             ->end()
