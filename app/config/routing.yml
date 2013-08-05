@@ -1,3 +1,7 @@
+blog:
+    resource: "@BlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
 damedia_special_project:
     resource: "@DamediaSpecialProjectBundle/Resources/config/routing.yml"
     prefix:   /

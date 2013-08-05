@@ -1,0 +1,275 @@
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+{% block title %}{{ entity.seoTitle|default(entity.title) }} &mdash; {{ parent() }}{% endblock %}
+{% block meta_keywords %}{{ entity.seoKeywords }}{% endblock %}
+{% block meta_description %}{{ entity.seoDescription }}{% endblock %}
+
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}" />
+    <meta property="og:description" content="{{ entity.announce }}" />
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}" />
+    <meta property="og:url" content="{{ app.request.uri }}" />
+    {% if entity.image is not empty %}
+        <meta property="og:image" content="{% path entity.image, 'reference' %}" />
+    {% endif %}
+{% endblock %}
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% block page_header_title %}{{ entity.category.title }}{% endblock %}
+
+{% block page_header_search %}
+    <div class="search-dates">
+        {#<span class="search-dates-label">Период:</span>#}
+
+        {#<div class="dates-chooser">#}
+            {#<a id="first-date" href="#">05.12.2011</a> <i class="dates-arrow">→</i> <a href="#" id="last-date">01.01.2012</a>#}
+
+            {#<div id="datapicker"></div>#}
+        {#</div>#}
+        {#<a href="#" class="button search-dates-button">Показать</a>#}
+    </div>
+{% endblock %}
+
+{% block page_header_search_scope %}
+    <div class="search-checkboxes">
+        <label><input type="checkbox" name="search-this-section" id="search-this-section"/><span>{{"Search_current_section"|trans}}</span></label>
+    </div>
+{% endblock %}
+
+{% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        {% if entity.category %}
+            <li><a href="{{ path('armd_news_list_index_by_category', {'category': entity.category.slug }) }}">{{ entity.category.title }}</a></li>
+        {% endif %}
+
+        <li><span>{{ entity.title }}</span></li>
+    </ul>
+
+<article class="event-one clearfix">
+    <div class="event-one_top">
+        <span class="date">{{ armd_news.news_date(entity.newsDate) }} / {{ entity.newsDate|date('H:i') }} </span>
+        {% if entity.source is not empty %}| {{ entity.source }}{% endif %}
+    </div>
+    <h2>
+        {% if entity.date %}
+            {{ entity.date|date('d.m.Y') }}
+            {% if entity.endDate %} - {{ entity.endDate|date('d.m.Y') }}{% endif %}
+        {% endif %}
+
+        {{ entity.title|raw }}
+
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a class="user-favorites-button" title="Добавить в «Избранное»" href="#" data-type="{{ constant('Armd\\UserBundle\\Entity\\Favorites::TYPE_MEDIA') }}" data-id="{{ entity.id }}">
+                <img alt="*" src="{{ asset('img/favorites.png') }}" />
+            </a>
+        {% endif %}
+    </h2>
+
+    {% if entity.image %}
+        <figure class="event-one_image image-left">
+            <div class="news-image-crop">
+                <img src="{% path entity.image, 'eventsBillboard' %}" alt="{{ entity.image.description }}">
+            </div>
+            {#{% thumbnail entity.image, 'eventsBillboard' with {'alt': entity.image.description } %}#}
+            {% if entity.image.copyright or entity.image.authorName %}
+                <figcaption>
+                    <p>
+                        {% if entity.image.copyright %}
+                            {{ entity.image.copyright }}{% if entity.image.authorName %},{% endif %}
+                        {% endif %}
+                        {% if entity.image.authorName %}
+                            {{ entity.image.authorName }}
+                        {% endif %}
+                    </p>
+                </figcaption>
+            {% endif %}
+        </figure>
+    {% endif %}
+
+    <div class="event-one_anons">
+        <p>
+            {{ entity.announce|raw }}
+        </p>
+    </div>
+
+    {{ entity.body|raw }}
+    {{ add_viewed_content(entity, path('armd_news_item_by_category', {category: entity.category.slug, id: entity.id})) }}
+
+    {% if entity.mediaVideo %}
+    <div class="block news-gallery-block">
+        <h2><span>Видео</span></h2>
+        {% if entity.mediaVideo %}
+            <div class="news-one-image">
+                <h3>{{ emtity.mediaVideo.title }}</h3>
+                {% media entity.mediaVideo, 'noformat' with {'width': '100%', 'height': 506} %}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</article>
+
+{% if entity.gallery is not empty and entity.gallery.galleryHasMedias|length > 0 %}
+    <div class="block news-gallery-block">
+        <h2><span>Фотогалерея</span></h2>
+        <ul class="news-gallery">
+            {% for ghm in entity.gallery.galleryHasMedias %}
+                <li>
+                    <a class="news-fancybox" rel="slider" href="{% path ghm.media, 'reference' %}">
+                        <img src="{% path ghm.media, 'list' %}" alt="{{ ghm.media.title }}" />
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if entity.stuff.count %}
+<div>
+    <div>
+        <strong>{{"Stuff"|trans}}</strong>
+    </div>
+    {% for stuff in entity.stuff %}
+        <div class="stuff">
+            <img src="/img/file_icons/32px/{{ stuff.extension }}.png" width="16" height="16" class="file-icon" />
+
+            <a href="{{ path('sonata_media_download', {'id': stuff.id}) }}">{{ stuff.name }}</a>
+
+            {% if stuff.extension == "mpga" %}
+            —
+
+            <span id="jp_container_{{ stuff.id }}" class="jp-audio">
+                <span class="jp-type-single">
+                    <span class="jp-gui jp-interface">
+                        <span class="jp-current-time"></span>/<span class="jp-duration"></span>
+                        (
+                        <ul class="jp-controls">
+                            <li><a href="#" class="jp-play" tabindex="1">{{"play"|trans}}</a></li>
+                            <li><a href="#" class="jp-pause" tabindex="1">{{"pause"|trans}}</a></li>
+                            <li>| <a href="#" class="jp-stop" tabindex="1">{{"stop"|trans}}</a></li>
+                        </ul>
+                        )
+                    </span>
+                </span>
+            </span>
+
+            <div id="jquery_jplayer_{{ stuff.id }}" class="jp-player" data-media-url="{{ armd_media_original_url(stuff) }}"></div>
+            {% endif %}
+
+            {% if stuff.description %}
+                <p>{{ stuff.description }}</p>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+
+{#<div class="back-link"><p><a href="{{ path('armd_news_list_index_by_category', { 'category': entity.category.slug }) }}">{{ "Back"|trans }}</a></p></div>#}
+<div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
+<div class="event-one_footer clearfix">
+    <div href="#" class="print-link"><a target="_blank" href="{{ path('armd_news_item_by_category_print', { 'category':entity.category.slug, 'id':entity.id }) }}"></a> {{ "Printversion"|trans }}: </div>
+    <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span></div>
+</div>
+
+<section class="block">
+    {% render url("armd_news_read_also_news", { "id":entity.id, "limit":6 }) %}
+</section>
+
+{# Комментарий #}
+<div class="content-tab" id="c-tab4">
+    <div class="more-comments-show">
+        <div id="comments" class="comments comments-gray clearfix">
+            {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_NEWS')~'_' ~ entity.id %}
+            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+            {% if not is_granted('ROLE_USER') %}
+                <div class="comments-auth-block">
+                    <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                    {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block right_column %}
+    <div style="height:63px; font-size:0; line-height:0"></div>
+    {#{% render url('armd_news_memorial_events') %}#}
+
+    {% render url('armd_atlas_related_objects', {'tags': entity.tags|extract_array_values('getName'), 'limit': 1}) %}
+
+    {% if app.request.locale == 'ru' %}
+        <div class="right-video-block">
+            {% render url('armd_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit':4, 'superTypeCode': 'LECTURE_SUPER_TYPE_CINEMA' }) %}
+        </div>
+        <div class="right-video-block">
+            {% render url('armd_lecture_related_lectures', {'tags': entity.tags|extract_array_values('getName'), 'limit': 4, 'superTypeCode': 'LECTURE_SUPER_TYPE_LECTURE' }) %}
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".jp-player").each(function() {
+                $(this).jPlayer({
+                    ready: function(event) {
+                        $(this).jPlayer("setMedia", {
+                            mp3: $(this).attr('data-media-url')
+                        });
+                    },
+                    play: function() { // To avoid both jPlayers playing together.
+                        $(this).jPlayer("pauseOthers");
+                    },
+                    {# Возможно, тут лучше пронать через PHP путь как-то, но assets по смыслу кажется не тем инструментом. #}
+                    swfPath: "/vendor/jquery.jplayer/",
+                    cssSelectorAncestor: "#jp_container_" + $(this).attr('id').replace('jquery_jplayer_', ''),
+                    supplied: "mp3"
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element:'yandex-share',
+                l10n:{% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
+                elementStyle:{
+                    'type':'none',
+                    'border':false,
+                    'quickServices':['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                {% if entity.image %}
+                    image:'{% path entity.image, 'billboard' %}',
+                {% endif %}
+                link:'{{ url('armd_news_item_by_category', { 'id': entity.id, 'category': entity.category.slug }) }}',
+                title:'{{ entity.title }}',
+                description:'{{ entity.announce|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            $('#search-form').bind('submit', function(event) {
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+                    window.location = Routing.generate('armd_news_list_index', {'search_query': $('#search-txt').val()})
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
