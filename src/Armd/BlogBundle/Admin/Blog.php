@@ -81,7 +81,9 @@ class Blog extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title');;
+            ->addIdentifier('title')
+            ->add('lead')
+            ->add('created_at');
 
         parent::configureListFields($listMapper);
     }
@@ -92,16 +94,16 @@ class Blog extends Admin
             ->add('title');
     }
 
-//    public function getTemplate($name)
-//    {
-//        switch ($name) {
-//            case 'edit':
-//                return 'ArmdNewsBundle:Form:edit_container.html.twig';
-//                break;
-//            default:
-//                return parent::getTemplate($name);
-//                break;
-//        }
-//    }
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'ArmdNewsBundle:Form:edit_container.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
 
 }
