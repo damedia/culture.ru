@@ -43,28 +43,70 @@ $(function () {
                 return false;
             });
     }
-    $('.flexslider').flexslider({
+
+    /* BEGIN flexslider initializations */
+    $('.flexslider[data-behave!="nice"]').flexslider({
         animation: "slide",
         controlNav: false,
         slideshow: false
     });
-
-
     $('#thumbs-slider').flexslider({
         animation: "slide",
-
         slideshow: false,
         itemWidth: 75,
         itemMargin: 5,
         asNavFor: '#image-slider'
     });
-
     $('#image-slider').flexslider({
         animation: "slide",
-
         slideshow: false,
         sync: "#thumbs-slider"
     });
+    $('.flexslider[data-behave="nice"]').flexslider({
+        animation: "slide",
+        controlNav: false,
+        slideshow: false,
+        start: function(slider){
+            var imagesCollection = $("ul.slides li img", slider),
+                forcedWidth = slider.attr("data-width"),
+                forcedHeight = slider.attr("data-height");
+
+            $.each(imagesCollection, function(){
+                var image = $(this);
+
+                //remove weird css padding for <article> wrapper of an image
+                image.closest("article").css("padding", "0");
+
+                if (image.width() > forcedWidth) {
+                    image.width(forcedWidth);
+                    image.height("auto");
+                }
+
+                if (image.height() > forcedHeight) {
+                    image.height(forcedHeight);
+                    image.width("auto");
+                }
+            });
+
+            //do align images vertically and horizontally after they are properly sized
+            $.each(imagesCollection, function(){
+                var image = $(this),
+                    imageLi = image.closest("li"),
+                    alignerHeight;
+
+                if (image.width() < slider.width()) {
+                    image.css("margin-left", "auto");
+                    image.css("margin-right", "auto");
+                }
+
+                if (image.height() < slider.height()) {
+                    alignerHeight = (slider.height() - image.height()) / 2;
+                    $("<div />").height(alignerHeight).prependTo(imageLi);
+                }
+            });
+        }
+    });
+    /* END flexslider initializations */
 
     $.datepicker.setDefaults($.datepicker.regional[ $('body').data('locale') ]);
     var datapickerOpts = {
