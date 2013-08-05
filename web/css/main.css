@@ -4079,6 +4079,7 @@ body {
                                 height:88px;
                                 margin:-44px 0 0 -42px;
                                 background:url(../img/play.png) no-repeat 0 0;
+                                opacity: 0.6;
                             }
                         
                         .period-block_text, .block-text {
@@ -6545,6 +6546,7 @@ body {
 		background:url('../img/borodino/play.png') no-repeat 0 0;
 		width:26px;
 		height:31px;
+        opacity: 0.6;
 	}
 	.video-three .play  {
 		position:absolute;
@@ -9382,6 +9384,7 @@ a.appstore-link {
                             margin: -44px 0 0 -42px;
                             background: url(../img/play.png) no-repeat 0 0;
                             z-index:5;
+                            opacity: 0.6;
                         }
                         
                     .video-time-descr {
