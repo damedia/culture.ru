@@ -566,7 +566,7 @@ damedia_tinymce:
             image_advtab: true
             menubar: false
             content_css: "/css/main.css"
-            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | blackquote bullist numlist outdent indent | link unlink media image | visualchars visualblocks nonbreaking"
+            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | blockquote bullist numlist outdent indent | link unlink media image | visualchars visualblocks nonbreaking"
             file_browser_callback: SonataMedia.browse   
         sproject_snippets:
             mode: "textareas"
@@ -579,11 +579,11 @@ damedia_tinymce:
         news:
             mode: "textareas"
             theme: "modern"
-            plugins: "media,image,paste,fullscreen,link,code,visualblocks,visualchars,nonbreaking,advlist"
+            plugins: "media,image,paste,fullscreen,link,code,visualblocks,visualchars,nonbreaking,advlist, charmap, searchreplace"
             image_advtab: true
             menubar: false
             content_css: "/css/main.css"
-            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | blackquote bullist numlist outdent indent | link unlink media image | visualchars visualblocks nonbreaking"
+            toolbar: "code | insertfile undo redo | searchreplace | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | charmap link unlink media image | visualchars visualblocks nonbreaking"
             file_browser_callback: SonataMedia.browse    
             style_formats: "[{title: 'Bold text', inline: 'b'},{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},{title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},]"
 
