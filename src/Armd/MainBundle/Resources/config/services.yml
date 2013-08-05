@@ -56,7 +56,7 @@ services:
         class: Armd\MainBundle\Admin\ChangeHistoryAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: ChangeHistory, label: Change History }
-        arguments: [null, Armd\MainBundle\Entity\ChangeHistory, SonataAdminBundle:CRUD, @service_container] 
+        arguments: [null, Armd\MainBundle\Entity\ChangeHistory, SonataAdminBundle:CRUD, @service_container]
         
     armd_main.twig_extension:
         class: Armd\MainBundle\Twig\Extension\TwigExtension

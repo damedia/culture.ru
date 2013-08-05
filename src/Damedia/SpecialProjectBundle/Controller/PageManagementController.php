@@ -112,16 +112,16 @@ class PageManagementController extends Controller {
     		throw new NotFoundHttpException("Class not found");
     	};
     	 
-    	$idField = $class->getColumnName($entityDesc[1]);
-    	$textField= $class->getColumnName($entityDesc[2]);
-    	$contextField= $class->getColumnName('context');
-    	$orderField= $class->getColumnName('updatedAt');
+    	$idField = $entityDesc[1]; // $class->getColumnName();
+    	$textField= $entityDesc[2]; // $class->getColumnName();
+    	$contextField= 'context'; // $class->getColumnName();
+    	$orderField= "updatedAt"; //$class->getColumnName('updatedAt');
     	 
     	$qb->select('n.'.$idField.', n.'.$textField)
     	->from($entityDesc[0], 'n')
     	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
     			'n.'.$contextField."=".$qb->expr()->literal($context) )
-    			// ->orderBy('n.'.$orderField, 'DESC')
+    	->orderBy('n.'.$orderField, 'DESC')
     	->setMaxResults( $limit );
     	 
     	$query = $qb->getQuery();
@@ -271,7 +271,7 @@ class PageManagementController extends Controller {
     				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
     				   'artObject'	=> array('ArmdExhibitBundle:ArtObject', 'id', 'title'),
     				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'),
-    			'image'        => array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name')
+    				'image'        => array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name')
     	);
     	
     	return (isset($known[$name])) ? $known[$name] : false;
