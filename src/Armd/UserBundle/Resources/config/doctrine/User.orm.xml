@@ -33,6 +33,13 @@
 
         <field name="loginTokenExpires" column="login_token_expires" type="datetime" nullable="true"/>
 
+        <many-to-one field="avatar" target-entity="\Application\Sonata\MediaBundle\Entity\Media" fetch="EAGER">
+               <cascade>
+                 <cascade-all/>
+               </cascade>
+               <join-column name="avatar_id" referenced-column-name="id" />
+        </many-to-one>
+
         <many-to-many
             field="subscriptions"
             target-entity="Armd\SubscriptionBundle\Entity\MailingList"

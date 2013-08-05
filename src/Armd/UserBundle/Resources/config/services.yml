@@ -42,7 +42,7 @@ services:
 
     armd_user.profile.form.type:
         class: Armd\UserBundle\Form\Type\ProfileType
-        arguments: [%fos_user.model.user.class%]
+        arguments: [%fos_user.model.user.class%, @security.context]
         tags:
             - { name: form.type, alias: armd_user_profile }
 

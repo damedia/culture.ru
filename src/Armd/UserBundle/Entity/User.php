@@ -10,6 +10,7 @@
 
 namespace Armd\UserBundle\Entity;
 
+use Doctrine\ORM\Mapping AS ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 
 /**
@@ -83,6 +84,9 @@ class User extends BaseUser
      * @var boolean
      */
     protected $storeViewedContent;
+
+    private $avatar;
+
 
     /**
      * @param \Doctrine\Common\Collections\Collection $subscriptions
@@ -377,4 +381,22 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+
 }
