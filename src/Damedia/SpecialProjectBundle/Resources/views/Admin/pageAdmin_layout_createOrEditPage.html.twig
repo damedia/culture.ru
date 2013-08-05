@@ -26,8 +26,10 @@
     <script type="text/javascript" src="{{ asset('bundles/armdtag/js/armd_tag.js') }}"></script>
     {# END #}
 
-    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script>
+    {{ tinymce_init() }}
+    <!-- <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script> -->
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -87,7 +89,11 @@
 
                         ajaxResponseDiv.html(data.content);
                         formButtonsPanel.prepend(data.buttons);
+
                         //tinymce.init(tinyInitOptions);
+
+                        initTinyMCE(initTinyMCE.defaults);
+
                         removeModalLayer();
                     });
                 };

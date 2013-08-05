@@ -80,8 +80,8 @@ $(document).ready(function(){
     var context=$('#context');
     var go=$('#go');
     go.on('click', function() {
-    		if (!tags.val()) 
-    			exit;
+    	//	if (!tags.val()) 
+    	//		exit;
     		$.ajax("{{ path('get_images_jsonlist') }}?_sonata_admin={{ admin.code }}&q="+tags.val()+"&context="+context.val(), {
 	   		    success: function(data){
 	   			    if (data.length) {
