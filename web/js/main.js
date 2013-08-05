@@ -67,12 +67,15 @@ $(function () {
         controlNav: false,
         slideshow: false,
         start: function(slider){
-            var imagesCollection = $("ul.slides > li > img", slider),
+            var imagesCollection = $("ul.slides li img", slider),
                 forcedWidth = slider.attr("data-width"),
                 forcedHeight = slider.attr("data-height");
 
             $.each(imagesCollection, function(){
                 var image = $(this);
+
+                //remove weird css padding for <article> wrapper of an image
+                image.closest("article").css("padding", "0");
 
                 if (image.width() > forcedWidth) {
                     image.width(forcedWidth);
