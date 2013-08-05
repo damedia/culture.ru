@@ -562,28 +562,28 @@ damedia_tinymce:
         simple:
             mode: "textareas"
             theme: "modern"
-            plugins: "image,paste,fullscreen,link,code,visualblocks,visualchars,nonbreaking,advlist"
+            plugins: "media,image,paste,fullscreen,link,code,visualblocks,visualchars,nonbreaking,advlist"
             image_advtab: true
             menubar: false
-            content_css: "/culture.ru/css/main.css"
-            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link unlink image | visualchars visualblocks nonbreaking"
+            content_css: "/css/main.css"
+            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | blackquote bullist numlist outdent indent | link unlink media image | visualchars visualblocks nonbreaking"
             file_browser_callback: SonataMedia.browse   
         sproject_snippets:
             mode: "textareas"
             theme: "modern"
             image_advtab: true
-            content_css: "/culture.ru/css/main.css"
-            plugins: "image,paste,fullscreen,code,snippet"
-            toolbar: "code | insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link unlink image | snippetAdd snippetEdit"
+            content_css: "/css/main.css"
+            plugins: "media,image,paste,fullscreen,code,snippet"
+            toolbar: "code | insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link unlink media image | snippetAdd snippetEdit"
             file_browser_callback: SonataMedia.browse
         news:
             mode: "textareas"
             theme: "modern"
-            plugins: "image,paste,fullscreen,link,code,visualblocks,visualchars,nonbreaking,advlist"
+            plugins: "media,image,paste,fullscreen,link,code,visualblocks,visualchars,nonbreaking,advlist"
             image_advtab: true
             menubar: false
-            content_css: "/culture.ru/css/main.css"
-            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link unlink image | visualchars visualblocks nonbreaking"
+            content_css: "/css/main.css"
+            toolbar: "code | insertfile undo redo | paste | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | blackquote bullist numlist outdent indent | link unlink media image | visualchars visualblocks nonbreaking"
             file_browser_callback: SonataMedia.browse    
             style_formats: "[{title: 'Bold text', inline: 'b'},{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},{title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},]"
 
