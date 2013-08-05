@@ -104,9 +104,9 @@ class PageManagementController extends Controller {
     	$qb = $em->createQueryBuilder('n');
     
     	$entityDesc = $this->getKnownEntity('image');
-    	if (!$search_query || !$entityDesc) {
+    /*	if (!$search_query || !$entityDesc) {
     		throw new NotFoundHttpException("Query not found");
-    	};
+    	}; */
     	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
     	if (!$class) {
     		throw new NotFoundHttpException("Class not found");
@@ -116,14 +116,20 @@ class PageManagementController extends Controller {
     	$textField= $entityDesc[2]; // $class->getColumnName();
     	$contextField= 'context'; // $class->getColumnName();
     	$orderField= "updatedAt"; //$class->getColumnName('updatedAt');
-    	 
-    	$qb->select('n.'.$idField.', n.'.$textField)
-    	->from($entityDesc[0], 'n')
-    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
-    			'n.'.$contextField."=".$qb->expr()->literal($context) )
-    	->orderBy('n.'.$orderField, 'DESC')
-    	->setMaxResults( $limit );
-    	 
+	    if ($search_query) {	 
+	    	$qb->select('n.'.$idField.', n.'.$textField)
+	    	->from($entityDesc[0], 'n')
+	    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
+	    			'n.'.$contextField."=".$qb->expr()->literal($context) )
+	    	->orderBy('n.'.$orderField, 'DESC')
+	    	->setMaxResults( $limit );
+	    }	 else {
+	    	$qb->select('n.'.$idField.', n.'.$textField)
+	    	->from($entityDesc[0], 'n')
+	    	->where('n.'.$contextField."=".$qb->expr()->literal($context) )
+	    			->orderBy('n.'.$orderField, 'DESC')
+	    			->setMaxResults( $limit );
+	    }
     	$query = $qb->getQuery();
     	 
     	$result = $query->getArrayResult();
