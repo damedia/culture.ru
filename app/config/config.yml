@@ -568,8 +568,8 @@ damedia_tinymce:
         sproject_snippets:
             mode: "textareas"
             theme: "modern"
-            plugins: "image,paste,fullscreen,code,snippet"
-            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit"
+            plugins: "image,paste,fullscreen,code,snippet,gallery_wrapper"
+            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image galleryWrapper | snippetAdd"
             file_browser_callback: SonataMedia.browse
         news:
             mode: "textareas"
@@ -577,7 +577,7 @@ damedia_tinymce:
             plugins: "image,paste,fullscreen,link"
             menubar: false
             toolbar: "fullscreen | insertfile undo redo | paste pastetext pasteword | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-            file_browser_callback: SonataMedia.browse    
+            file_browser_callback: SonataMedia.browse
 #            mode: "textareas"
 #            theme: "advanced"
 #            plugins: "advimage,paste,fullscreen,inlinepopups"

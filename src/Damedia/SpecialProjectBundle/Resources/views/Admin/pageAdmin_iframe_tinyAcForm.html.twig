@@ -2,25 +2,34 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
-	<title>Insert title here</title>
-	
+
+	<title>Поиск объекта</title>
+
 	<link rel="stylesheet" href="{{ asset('js/jquery-ui-1.10.3/themes/base/jquery-ui.css') }}" />
 
 	<script type="text/javascript" src="{{ asset('js/jquery/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery-ui-1.10.3/jquery-ui.min.js') }}"></script>
+
+    <style>
+        .autocompleteInput {
+            margin-top: 5px;
+            width: 50%;
+        }
+    </style>
 </head>
 <body>
 
-<div class="ui-widget" style="width:100%">
-  <label id="caption" for="tags">Поиск: </label>
-  <input id="tags" style="width:100%" />
+<div class="ui-widget">
+  <label id="caption" for="tags"></label>
+  <br />
+  <input id="tags" type="text" class="autocompleteInput" />
 </div>
 
 <script>
 $(document).ready(function(){
 	var inputCaption = $("#caption"),
         autocompleteInput = $("#tags"),
+        tinymceParameters = top.tinymce.activeEditor.windowManager.getParams(),
         availableTags = function(request, response){
     	    var searchTerm = request.term,
     		    entity = window.location.hash.substr(1);
@@ -47,11 +56,10 @@ $(document).ready(function(){
             }
         };
 
+    inputCaption.html(tinymceParameters.typeTranslation+": ");
     autocompleteInput.autocomplete({ "source": availableTags }).on("autocompleteselect", function(event, ui){
     	go(ui.item);
     });
-
-    inputCaption.html("Поиск по разделу '"+window.location.hash.substr(1)+"'");
 });
 </script>
 

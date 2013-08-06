@@ -48,6 +48,14 @@ class PageManagementController extends Controller {
         return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
     }
 
+    public function getTinyGalleryFormAction() {
+        $request = $this->get('request');
+        $param = $request->request->get('something') ? $request->request->get('something') : 'no way...';
+
+        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyGalleryForm.html.twig',
+                             array("param" => $param));
+    }
+
     
     // admin/damedia/specialproject/page/getTinyMediaForm
     public function getTinyMediaFormAction() {

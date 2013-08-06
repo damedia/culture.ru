@@ -10,6 +10,10 @@ get_tiny_ac_form:
     pattern:  admin/damedia/specialproject/page/getTinyAcForm
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyAcForm }
 
+get_tiny_gallery_form:
+    pattern: admin/damedia/specialproject/page/getTinyGalleryForm
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyGalleryForm }
+
 get_tiny_media_form:
     pattern:  admin/damedia/specialproject/page/getTinyMediaForm
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyMediaForm }
