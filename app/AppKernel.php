@@ -86,6 +86,7 @@ class AppKernel extends Kernel
             new Damedia\SpecialProjectBundle\DamediaSpecialProjectBundle(),
             new Armd\BlogBundle\BlogBundle(),
             new Armd\PressCenterBundle\PressCenterBundle(),
+            new Armd\ActualInfoBundle\ActualInfoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {
