@@ -21,7 +21,7 @@ use Sonata\AdminBundle\Admin\Admin;
 class Museum extends Admin
 {
     protected $datagridValues = array(
-        '_sort_by'      => 'title',    
+        '_sort_by'      => 'title',
         '_sort_order'   => 'ASC',
     );
 
@@ -32,7 +32,7 @@ class Museum extends Admin
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
-    }    
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -47,7 +47,7 @@ class Museum extends Admin
             ->add('showOnMainOrd')
             ->add('sort')
         ;
-        
+
         parent::configureShowFields($showMapper);
     }
 
@@ -76,7 +76,7 @@ class Museum extends Admin
                     }
                 ))
                 ->add('published', null, array('required' => false))
-                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))       
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('sort', null, array('required' => false))
             ->end()
             ->with('Главная')
@@ -85,7 +85,9 @@ class Museum extends Admin
                 ))
                 ->add('showOnMainOrd', null, array(
                     'required' => false
-                ))                
+                ))
+            ->add('showOnMainFrom')
+            ->add('showOnMainTo')
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -118,19 +120,19 @@ class Museum extends Admin
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
-    {        
+    {
         $listMapper
             ->addIdentifier('title')
-            ->add('published')   
-            ->add('corrected')         
+            ->add('published')
+            ->add('corrected')
             ->add('showOnMain')
             ->add('showOnMainOrd')
             ->add('sort')
         ;
-        
-        parent::configureListFields($listMapper);        
+
+        parent::configureListFields($listMapper);
     }
-    
+
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
@@ -141,14 +143,14 @@ class Museum extends Admin
             ->add('showOnMainOrd')
             ->add('sort')
         ;
-    }    
+    }
 
     public function getBatchActions()
     {
         // retrieve the default (currently only the delete action) actions
         $actions = parent::getBatchActions();
 
-        
+
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
             // /*
@@ -162,7 +164,7 @@ class Museum extends Admin
             );
             // */
         }
-        
+
         return $actions;
-    }    
+    }
 }

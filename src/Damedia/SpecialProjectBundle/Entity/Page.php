@@ -49,18 +49,18 @@ class Page {
      * @ORM\JoinColumn(name="template", referencedColumnName="id")
      */
     private $template;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
      */
     protected $blocks;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
      * @ORM\JoinColumn(name="parent", referencedColumnName="id")
      */
     private $parent;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
      */
@@ -75,12 +75,26 @@ class Page {
      * @ORM\Column(name="javascript", type="text", nullable=true)
      */
     private $javascript;
-    
-    
-    
+
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=true)
+     */
+    private $showOnMain = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     */
+    private $showOnMainFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     */
+    private $showOnMainTo;
+
+
     public function __construct() {
-    	$this->blocks = new ArrayCollection();
-    	$this->children = new ArrayCollection();
+        $this->blocks = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
 
@@ -150,13 +164,13 @@ class Page {
 
         return $this;
     }
-    
+
     public function getBlocks() {
     	return $this->blocks;
     }
     public function addBlock(Block $blocks) {
         $this->blocks[] = $blocks;
-    
+
         return $this;
     }
     public function removeBlock(Block $blocks) {
@@ -168,7 +182,7 @@ class Page {
     }
     public function setParent(Page $parent = null) {
         $this->parent = $parent;
-    
+
         return $this;
     }
 
@@ -177,7 +191,7 @@ class Page {
     }
     public function addChildren(Page $children) {
         $this->children[] = $children;
-    
+
         return $this;
     }
     public function removeChildren(Page $children) {
@@ -198,6 +212,63 @@ class Page {
     }
     public function setJavascript($javascript) {
         $this->javascript = $javascript;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        return $this->showOnMain;
+    }
+
+    /**
+     * @param $showOnMain boolean
+     * @return $this
+     */
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainFrom()
+    {
+        return $this->showOnMainFrom;
+    }
+
+    /**
+     * @param $showOnMainFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainFrom($showOnMainFrom)
+    {
+        $this->showOnMainFrom = $showOnMainFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainTo()
+    {
+        return $this->showOnMainTo;
+    }
+
+    /**
+     * @param $showOnMainTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainTo($showOnMainTo)
+    {
+        $this->showOnMainTo = $showOnMainTo;
 
         return $this;
     }

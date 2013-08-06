@@ -23,6 +23,9 @@ class PageAdmin extends Admin {
     const LABEL_JAVASCRIPT = 'Javascript';
     const LABEL_IS_PUBLISHED = 'Опубликован';
     const LABEL_TEMPLATE_ID = 'Шаблон';
+    const LABEL_SHOW_ON_MAIN = 'Показывать на главной';
+    const LABEL_SHOW_ON_MAIN_FROM = 'Показывать на главной с';
+    const LABEL_SHOW_ON_MAIN_TO = 'Показывать на главной до';
 
     const LABEL_ACTIONS = 'Управление';
 
@@ -100,10 +103,10 @@ class PageAdmin extends Admin {
         $formMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG,
                   'required' => false));
-        
+
         $formMapper->add('parent', null,
-        	array('label' => $this::LABEL_PARENT,
-        		  'required' => false));
+            array('label' => $this::LABEL_PARENT,
+                'required' => false));
 
         $formMapper->add('template', 'entity',
             array('label' => $this::LABEL_TEMPLATE_ID,
@@ -122,7 +125,11 @@ class PageAdmin extends Admin {
 
         $formMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED,
-                  'required' => false));
+                  'required' => false))
+
+            ->add('showOnMain', null, array('label' => $this::LABEL_SHOW_ON_MAIN, 'required' => false))
+            ->add('showOnMainFrom', null, array('label' => $this::LABEL_SHOW_ON_MAIN_FROM, 'required' => false))
+            ->add('showOnMainTo', null, array('label' => $this::LABEL_SHOW_ON_MAIN_TO, 'required' => false));
     }
 
     protected function configureListFields(ListMapper $listMapper) {
@@ -138,7 +145,7 @@ class PageAdmin extends Admin {
 
         $listMapper->add('slug', null,
             array('label' => $this::LABEL_SLUG));
-        
+
         $listMapper->add('parent', null,
         	array('label' => $this::LABEL_PARENT));
 

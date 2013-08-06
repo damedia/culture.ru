@@ -164,12 +164,22 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
     private $showOnMain = false;
-    
+
+    /**
+     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     */
+    private $showOnMainFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     */
+    private $showOnMainTo;
+
     /**
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
-    
+
     /**
      * @ORM\Column(name="is_headline", type="boolean", nullable=true)
      */
@@ -217,11 +227,11 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      * @ORM\JoinTable(name="lecture_limit_featured_genre")
      */
     private $limitFeaturedForGenres;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
-    protected $corrected;    
+    protected $corrected;
 
     public function __construct()
     {
@@ -631,7 +641,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function addCategorie(\Armd\LectureBundle\Entity\LectureCategory $categories)
     {
         $this->categories[] = $categories;
-    
+
         return $this;
     }
 
@@ -655,7 +665,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function addRolesPerson(\Armd\LectureBundle\Entity\LectureRolePerson $rolesPersons)
     {
         $this->rolesPersons[] = $rolesPersons;
-    
+
         return $this;
     }
 
@@ -705,7 +715,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     /**
      * Get rolesPersons
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRolesPersons()
     {
@@ -738,14 +748,14 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setTimeLength($timeLength)
     {
         $this->timeLength = $timeLength;
-    
+
         return $this;
     }
 
     /**
      * Get timeLength
      *
-     * @return integer 
+     * @return integer
      */
     public function getTimeLength()
     {
@@ -761,14 +771,14 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setProductionYear($productionYear)
     {
         $this->productionYear = $productionYear;
-    
+
         return $this;
     }
 
     /**
      * Get productionYear
      *
-     * @return integer 
+     * @return integer
      */
     public function getProductionYear()
     {
@@ -784,14 +794,14 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setExternalUrl($externalUrl)
     {
         $this->externalUrl = $externalUrl;
-    
+
         return $this;
     }
 
     /**
      * Get externalUrl
      *
-     * @return string 
+     * @return string
      */
     public function getExternalUrl()
     {
@@ -828,14 +838,54 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      */
     public function getShowOnMain()
     {
-        $this->showOnMain = $this->showOnMain;
-
         return $this->showOnMain;
     }
 
+    /**
+     * @param $showOnMain boolean
+     * @return $this
+     */
     public function setShowOnMain($showOnMain)
     {
         $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainFrom()
+    {
+        return $this->showOnMainFrom;
+    }
+
+    /**
+     * @param $showOnMainFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainFrom($showOnMainFrom)
+    {
+        $this->showOnMainFrom = $showOnMainFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainTo()
+    {
+        return $this->showOnMainTo;
+    }
+
+    /**
+     * @param $showOnMainTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainTo($showOnMainTo)
+    {
+        $this->showOnMainTo = $showOnMainTo;
 
         return $this;
     }
@@ -845,8 +895,6 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      */
     public function getShowOnMainOrd()
     {
-        $this->showOnMainOrd = $this->showOnMainOrd;
-
         return $this->showOnMainOrd;
     }
 
@@ -876,7 +924,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     {
         return $this->stuff;
     }
-    
+
     /**
      * @param boolean $isHeadline
      */
@@ -884,7 +932,7 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     {
         $this->isHeadline = $isHeadline;
     }
-  
+
     /**
      * @return boolean
      */
@@ -1002,21 +1050,21 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    public function getClassName()
     {
         return get_class($this);
     }

@@ -67,14 +67,14 @@ class LectureCinemaAdmin extends Admin
         $superType = $this->modelManager->getEntityManager('ArmdLectureBundle:LectureSuperType')
             ->getRepository('ArmdLectureBundle:LectureSuperType')
             ->findOneByCode('LECTURE_SUPER_TYPE_CINEMA');
-        
+
         if (!$lecture->getId()) {
             $lecture->setLectureSuperType($superType);
 
         } elseif ($lecture->getLectureSuperType()->getId() !== $superType->getId()) {
             throw new \RuntimeException('You can not edit video with type "' .$lecture->getLectureSuperType()->getName() .'" as video with type "' .$superType->getName() .'"');
         }
-        
+
         $formMapper
             ->add('published')
             ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
@@ -138,6 +138,13 @@ class LectureCinemaAdmin extends Admin
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
+            ->add('showOnMain')
+                ->add('showOnMainFrom', 'date', array(
+                        'required' => false
+                    ))
+                ->add('showOnMainTo', 'date', array(
+                        'required' => false
+                    ))
             ->add('limitSliderForGenres', 'entity',
                 array(
                     'class' => 'ArmdLectureBundle:LectureGenre',
@@ -287,7 +294,7 @@ class LectureCinemaAdmin extends Admin
 
         return $actions;
     }
-    
+
     public function postPersist($object)
     {
         parent::postPersist($object);

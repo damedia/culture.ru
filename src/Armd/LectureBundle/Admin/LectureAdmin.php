@@ -118,6 +118,13 @@ class LectureAdmin extends Admin
                 ->add('recommended')
                 ->add('showAtSlider')
                 ->add('showAtFeatured')
+                ->add('showOnMain')
+                ->add('showOnMainFrom', 'date', array(
+                        'required' => false
+                    ))
+                ->add('showOnMainTo', 'date', array(
+                        'required' => false
+                    ))
             ->end()
             ->with('SEO')
                 ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
@@ -173,7 +180,7 @@ class LectureAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
-            ->add('corrected')            
+            ->add('corrected')
             ->add('title')
             ->add('genres')
             ->add('lecturer')

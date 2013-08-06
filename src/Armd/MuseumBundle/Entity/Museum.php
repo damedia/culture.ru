@@ -8,7 +8,7 @@ use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="armd_museum") 
+ * @ORM\Table(name="armd_museum")
  */
 class Museum implements ChangeHistorySavableInterface
 {
@@ -23,7 +23,7 @@ class Museum implements ChangeHistorySavableInterface
      * @ORM\Column(type="string")
      */
     protected $title;
-    
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
@@ -31,14 +31,14 @@ class Museum implements ChangeHistorySavableInterface
 
     /**
      * @ORM\Column(type="string")
-     */    
+     */
     protected $url;
-    
+
     /**
      * @ORM\Column(type="boolean", nullable=false)
-     */        
-    protected $published;    
-    
+     */
+    protected $published;
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
@@ -73,31 +73,41 @@ class Museum implements ChangeHistorySavableInterface
      * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
     private $showOnMain = false;
-    
+
     /**
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
-    
+
+    /**
+     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     */
+    private $showOnMainFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     */
+    private $showOnMainTo;
+
     /**
      * @ORM\Column(name="sort", type="integer", nullable=false, options={"default"=0})
      */
     private $sort = 0;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
-    protected $corrected;    
+    protected $corrected;
 
     public function __toString()
     {
         return $this->getTitle();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -119,7 +129,7 @@ class Museum implements ChangeHistorySavableInterface
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -141,7 +151,7 @@ class Museum implements ChangeHistorySavableInterface
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -157,14 +167,14 @@ class Museum implements ChangeHistorySavableInterface
     public function setBody($body)
     {
         $this->body = $body;
-    
+
         return $this;
     }
 
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
     public function getBody()
     {
@@ -180,14 +190,14 @@ class Museum implements ChangeHistorySavableInterface
     public function setPublished($published)
     {
         $this->published = $published;
-    
+
         return $this;
     }
 
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
@@ -203,14 +213,14 @@ class Museum implements ChangeHistorySavableInterface
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
-    
+
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media 
+     * @return Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage()
     {
@@ -242,14 +252,14 @@ class Museum implements ChangeHistorySavableInterface
     public function setRegion(\Armd\AtlasBundle\Entity\Region $region = null)
     {
         $this->region = $region;
-    
+
         return $this;
     }
 
     /**
      * Get region
      *
-     * @return \Armd\AtlasBundle\Entity\Region 
+     * @return \Armd\AtlasBundle\Entity\Region
      */
     public function getRegion()
     {
@@ -265,14 +275,14 @@ class Museum implements ChangeHistorySavableInterface
     public function setAtlasObject(\Armd\AtlasBundle\Entity\Object $atlasObject = null)
     {
         $this->atlasObject = $atlasObject;
-    
+
         return $this;
     }
 
     /**
      * Get atlasObject
      *
-     * @return \Armd\AtlasBundle\Entity\Object 
+     * @return \Armd\AtlasBundle\Entity\Object
      */
     public function getAtlasObject()
     {
@@ -288,7 +298,7 @@ class Museum implements ChangeHistorySavableInterface
     public function setCategory(\Armd\MuseumBundle\Entity\Category $category = null)
     {
         $this->category = $category;
-    
+
         return $this;
     }
 
@@ -307,8 +317,6 @@ class Museum implements ChangeHistorySavableInterface
      */
     public function getShowOnMain()
     {
-        $this->showOnMain = $this->showOnMain;
-
         return $this->showOnMain;
     }
 
@@ -324,8 +332,6 @@ class Museum implements ChangeHistorySavableInterface
      */
     public function getShowOnMainOrd()
     {
-        $this->showOnMainOrd = $this->showOnMainOrd;
-
         return $this->showOnMainOrd;
     }
 
@@ -335,7 +341,7 @@ class Museum implements ChangeHistorySavableInterface
 
         return $this;
     }
-    
+
     /**
      * @return integer
      */
@@ -349,8 +355,8 @@ class Museum implements ChangeHistorySavableInterface
         $this->sort = $sort;
 
         return $this;
-    }  
-    
+    }
+
     /**
      * Set corrected
      *
@@ -360,22 +366,60 @@ class Museum implements ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainFrom()
+    {
+        return $this->showOnMainFrom;
+    }
+
+    /**
+     * @param $showOnMainFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainFrom($showOnMainFrom)
+    {
+        $this->showOnMainFrom = $showOnMainFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainTo()
+    {
+        return $this->showOnMainTo;
+    }
+
+    /**
+     * @param $showOnMainTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainTo($showOnMainTo)
+    {
+        $this->showOnMainTo = $showOnMainTo;
+
+        return $this;
+    }
+
+    public function getClassName()
     {
         return get_class($this);
-    }    
+    }
 }
