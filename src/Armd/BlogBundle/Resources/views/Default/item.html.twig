@@ -1,5 +1,5 @@
 {% extends ':Frontend:layout_two_column.html.twig' %}
-
+{% block title %} {{ entity.title }} {% endblock %}
 {# ------------------------------------------------------------------------ #}
 {% block opengraph %}
     <meta property="og:title" content="{{ entity.title }}"/>
@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
 
 {% block page_header_title %}{{ entity.title }}{% endblock %}
 
@@ -48,7 +49,9 @@
             </p>
             <hr>
         </div>
+        {% if entity.topImage is not null  %}
         <img src="{% path entity.topImage, 'default' %}" alt="{{ entity.topImage.description }}"> <br>
+        {% endif %}
         <br>
 
         {{ entity.content|raw }}
@@ -83,7 +86,7 @@
 {% block right_column %}
     <div style="height:63px; font-size:0; line-height:0"></div>
     <div class="popular-container">
-        {% render 'BlogBundle:Default:popular' with {'user' : entity.user } %}
+        {% render 'BlogBundle:Default:popular' %}
     </div>
     {% render 'BlogBundle:Default:lastPosts' with {'user' : entity.user } %}
 {% endblock %}

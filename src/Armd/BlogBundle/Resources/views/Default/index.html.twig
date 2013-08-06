@@ -1,1 +1,55 @@
-Hello {{ name }}!
+{% extends ':Frontend:layout_two_column.html.twig' %}
+
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% block title %} Блоги {% endblock %}
+
+{% block page_header_title %}Блоги{% endblock %}
+
+
+{% block left_column %}
+    <ul class="breadcrumbs">
+        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
+        <li>
+            <a href="{{ path('blog_list') }}">{{ 'Блоги' | trans }}</a>
+        </li>
+    </ul>
+
+
+    {% render 'BlogBundle:Default:bloggers' %}
+
+    <div id="news-container">
+
+        <div class="theme-news-newblock">
+            <ul class="theme-news-newblock-list blogs-contaniner">
+                {{ include('BlogBundle:Default:list.html.twig', {'blog': blogs, 'expandFirst' : true}) }}
+            </ul>
+        </div>
+    </div>
+
+    {% if paginationData.pageCount > 1 %}
+        <center><a href="{{ path('blog_list') }}" class="load-more-blogs" data-page="1"
+                   data-user="{% spaceless %}{% if user is not null %} {{ user.id }} {% endif %}{% endspaceless %}"><h1>+</h1></a></center>
+    {% endif %}
+
+{% endblock %}
+
+{% block right_column %}
+    <div style="height:63px; font-size:0; line-height:0"></div>
+    <div class="popular-container">
+        {% render 'BlogBundle:Default:popular' %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    "@BlogBundle/Resources/public/blogs.js" %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+

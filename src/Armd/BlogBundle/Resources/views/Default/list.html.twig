@@ -1,0 +1,9 @@
+{% for blog in blogs %}
+    {% if loop.first == true and expandFirst == true %}
+        {{ include('BlogBundle:Default:list_item.html.twig', {'blog': blog, 'expandFirst': true}) }}
+    {% else %}
+        {{ include('BlogBundle:Default:list_item.html.twig', {'blog': blog, 'expandFirst': false}) }}
+    {% endif %}
+{% else %}
+    {{ 'Пока нету ниодного блога. ' | trans }}
+{% endfor %}

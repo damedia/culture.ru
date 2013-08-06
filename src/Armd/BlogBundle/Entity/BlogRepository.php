@@ -7,6 +7,21 @@ use Doctrine\ORM\EntityRepository;
 class BlogRepository extends EntityRepository
 {
 
+
+    public function getPostsByUser($user = null)
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        if (null != $user) {
+            $qb->where('b.user = :user')
+                ->setParameter('user', $user);
+        }
+
+        $qb->orderBy('b.created_at', 'DESC');
+
+        return $qb->getQuery()->execute();
+    }
+
     public function getLastPostsByUser($user, $count = 3)
     {
 

@@ -1,0 +1,38 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+<li>
+    {% if expandFirst == true %}
+        {% if blog.topImage is not null %}
+            <div class="tn-list-image-wrap">
+
+                <img
+                     src="{% path blog.topImage, 'default' %}"
+                     alt="{{ blog.title }}"></div>
+        {% endif %}
+        <div class="tn-list-text">
+            <h3><a href="{{ path('view_blog', {'id' : blog.id}) }}"
+                   class="tn-list-title">{{ blog.title }}</a>
+            </h3>
+                       <span class="tn-list">{{ armd_news.news_date(blog.createdAt) }}
+                           / {{ blog.createdAt|date('H:i') }} </span>
+
+            <p>{{ blog.lead | raw }}</p>
+        </div>
+    {% else %}
+        {% if blog.topImage is not null %}
+            <div class="tn-list-image-wrap">
+
+                <img class="tn-list-image"
+                     src="{% path blog.topImage, 'thumbnail' %}"
+                     alt="{{ blog.title }}"></div>
+        {% endif %}
+        <div class="tn-list-text">
+            <h3><a href="{{ path('view_blog', {'id' : blog.id}) }}"
+                   class="tn-list-title">{{ blog.title }}</a>
+            </h3>
+                   <span class="tn-list">{{ armd_news.news_date(blog.createdAt) }}
+                       / {{ blog.createdAt|date('H:i') }} </span>
+
+            <p>{{ blog.lead | raw }}</p>
+        </div>
+    {% endif %}
+</li>
