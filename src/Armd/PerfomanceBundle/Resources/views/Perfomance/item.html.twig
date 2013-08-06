@@ -48,6 +48,7 @@
                                         </a>
                                     {% endif %}
                                 </h2>
+                {% if entity.year %}{{ entity.year}}{% endif %}
 				<div class="video-one-source">
                                     {% if entity.theater %}
                                         <a href="{{ path('armd_theater_item', {'id': entity.theater.id }) }}">{{ entity.theater.title }}</a>
