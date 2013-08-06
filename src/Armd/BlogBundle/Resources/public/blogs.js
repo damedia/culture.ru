@@ -2,8 +2,6 @@ $(document).ready(function () {
 
     $('body').on('click', '.popular-next', function (e) {
         e.preventDefault();
-
-        console.log('loading next');
         var caller = $(this),
             container = $('.popular-container'),
             page = caller.data('page') + 1,
@@ -22,6 +20,33 @@ $(document).ready(function () {
             }
 
 
+        }, false, true);
+    });
+
+    $('body').on('click', '.load-more-blogs', function (e) {
+        e.preventDefault();
+        var caller = $(this),
+            container = $('.blogs-contaniner'),
+            page = caller.data('page') + 1,
+            user = caller.data('user'),
+            url = caller.attr('href'),
+            request = {
+                'page': page
+            };
+
+        if (user !== '') {
+            url += '/' + user;
+        }
+
+        $.commonAJAX.processData(url, request, function (response) {
+            if (response.isSuccessful) {
+                container.append(response.html);
+                caller.data('page', page);
+            }
+
+            if (response.finish) {
+                caller.remove();
+            }
         }, false, true);
     });
 });

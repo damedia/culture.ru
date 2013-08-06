@@ -8,3 +8,5 @@
     <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
     <h2><a href="{{ path('view_blog', {'id': entity.id}) }}">{{ entity.title }}</a></h2>
 {% endfor %}
+
+<a href="{{ path('blog_list', {'user': user.id}) }}"> Все публикации</a>

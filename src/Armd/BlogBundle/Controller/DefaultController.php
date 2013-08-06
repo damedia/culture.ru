@@ -9,6 +9,63 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class DefaultController extends Controller
 {
 
+    public function indexAction(Request $request)
+    {
+        $menu = $this->get('armd_main.menu.main');
+        $menuFinder = $this->get('armd_main.menu_finder');
+        if (!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
+            $menu->setCurrentUri(
+                $this->get('router')->generate('blog_list')
+            );
+        }
+
+
+        $user = null == $request->get('user') ? null : $request->get('user');
+
+        if (null !== $user) {
+            $user = $this->getDoctrine()->getManager()->getRepository('ArmdUserBundle:User')->find($user);
+        }
+
+        $blogs = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Blog')->getPostsByUser($user);
+
+        $paginator = $this->get('knp_paginator');
+        $page = $this->get('request')->get('page', 1);
+
+        $pagination = $paginator->paginate(
+            $blogs,
+            $page,
+            1
+        );
+
+        $paginationData = $pagination->getPaginationData();
+
+        if ($request->isXmlHttpRequest()) {
+            $response = array(
+                'isSuccessful' => true,
+                'html' => $this->renderView(
+                    'BlogBundle:Default:list.html.twig',
+                    array('blogs' => $pagination, 'expandFirst' => false)
+                )
+            );
+
+            if ($page == $paginationData['last']) {
+                $response['finish'] = true;
+            }
+
+            return new JsonResponse($response);
+        } else {
+            return $this->render(
+                'BlogBundle:Default:index.html.twig',
+                array(
+                    'blogs' => $pagination,
+                    'paginationData' => $paginationData,
+                    'user' => $user
+                )
+            );
+        }
+
+    }
+
     public function viewAction(Request $request)
     {
         // menu fix

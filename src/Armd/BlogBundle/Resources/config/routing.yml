@@ -3,8 +3,8 @@ view_blog:
     defaults: { _controller: BlogBundle:Default:view }
 
 blog_list:
-    pattern:  /blogs
-    defaults: { _controller: BlogBundle:Default:index }
+    pattern:  /blogs/{user}
+    defaults: { _controller: BlogBundle:Default:index, user: null }
 
 
 popular_blog:
