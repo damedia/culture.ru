@@ -63,6 +63,14 @@ class Blog
      */
     protected $user;
 
+    /**
+     * Thread of this comment
+     *
+     * @var \Armd\MkCommentBundle\Entity\Thread
+     * @ORM\ManyToOne(targetEntity="Armd\MkCommentBundle\Entity\Thread", cascade={"all"}, fetch="EAGER")
+     */
+    protected $thread;
+
 
     /**
      * @param mixed $content
@@ -192,6 +200,30 @@ class Blog
         return $this->user;
     }
 
+    /**
+     * @param \Armd\MkCommentBundle\Entity\Thread $thread
+     */
+    public function setThread($thread)
+    {
+        $this->thread = $thread;
+    }
+
+    /**
+     * @return \Armd\MkCommentBundle\Entity\Thread
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
 
 
+    public function getClassName()
+    {
+        return get_class($this);
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

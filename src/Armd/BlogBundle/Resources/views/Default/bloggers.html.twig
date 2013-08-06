@@ -1,0 +1,5 @@
+<h1>Блоги</h1>
+{% for blogger in bloggers %}
+   <a href="">{{ blogger.firstname }} {{ blogger.lastname }}</a>
+    {% if loop.last != true %} | {% endif %}
+{% endfor %}

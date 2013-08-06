@@ -1,3 +1,7 @@
 view_blog:
     pattern:  /blog/{id}
     defaults: { _controller: BlogBundle:Default:view }
+
+blog_list:
+    pattern:  /blogs
+    defaults: { _controller: BlogBundle:Default:index }

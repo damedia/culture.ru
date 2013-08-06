@@ -1,0 +1,10 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+{% if user.avatar %}
+    <img src="{% path user.avatar, 'default' %}">
+{% endif %}
+<h1>От Автора</h1>
+{% for entity in items %}
+    <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
+    <h2><a href="{{ path('view_blog', {'id': entity.id}) }}">{{ entity.title }}</a></h2>
+{% endfor %}

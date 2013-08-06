@@ -67,7 +67,10 @@ class Blog extends Admin
                     'media_provider' => 'sonata.media.provider.image',
                 )
             )
-            ->add('user')
+            ->add('user', null,  array(
+                                'multiple' => false,
+                                'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                            ))
             ->end();
 
         parent::configureFormFields($formMapper);

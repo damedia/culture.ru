@@ -3,12 +3,137 @@
 namespace Armd\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class DefaultController extends Controller
 {
 
-    public function viewAction()
+    public function viewAction(Request $request)
     {
-        exit('view blog');
+        // menu fix
+        $menu = $this->get('armd_main.menu.main');
+        $menuFinder = $this->get('armd_main.menu_finder');
+        if (!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
+            $menu->setCurrentUri(
+                $this->get('router')->generate('armd_news_list_index')
+            );
+        }
+
+        $entity = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Blog')->find($request->get('id'));
+
+        if (null === $entity) {
+            throw $this->createNotFoundException(sprintf('Unable to find record %d', $request->get('id')));
+        }
+
+        return $this->render(
+            'BlogBundle:Default:item.html.twig',
+            array(
+                'entity' => $entity,
+                'comments' => $this->getComments($entity->getThread()),
+                'thread' => $entity->getThread(),
+            )
+        );
     }
+
+
+    public function bloggersAction()
+    {
+        $userManager = $this->container->get('fos_user.user_manager.default');
+        $bloggers = $userManager->getBloggers();
+
+
+        return $this->render(
+            'BlogBundle:Default:bloggers.html.twig',
+            array(
+                'bloggers' => $bloggers
+            )
+        );
+    }
+
+
+    public function popularAction(Request $request)
+    {
+        /** @var $repository \Doctrine\ORM\EntityRepository */
+        $repository = $this->getDoctrine()->getManager()->getRepository('ArmdUserBundle:ViewedContent');
+
+        $qb = $repository->createQueryBuilder('vc')
+            ->select('COUNT(vc.id) as viewCount, vc.entityId')
+            ->where('vc.entityClass = :ec')
+            ->groupBy('vc.entityId')
+            ->setParameter('ec', 'ArmdBlogBundle:Blog')
+            ->orderBy('viewCount', 'DESC')
+            ->getQuery()
+            ->getScalarResult();
+
+        $paginator = $this->get('knp_paginator');
+        $page = $this->get('request')->get('page', 1);
+
+        $pagination = $paginator->paginate(
+            $qb,
+            $page,
+            1
+        );
+
+        foreach ($pagination as $item) {
+            $entity = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Blog')->find($item['entityId']);
+        }
+
+
+        return $this->render(
+            'BlogBundle:Default:popular.html.twig',
+            array(
+                'entity' => $entity
+            )
+        );
+    }
+
+
+    public function lastPostsAction($user)
+    {
+        $items = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Blog')->getLastPostsByUser($user);
+
+        return $this->render(
+            'BlogBundle:Default:last_posts.html.twig',
+            array(
+                'user' => $user,
+                'items' => $items
+            )
+        );
+    }
+
+
+    public function lastPostAction()
+    {
+        $entity = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Blog')->getLast();
+
+        return $this->render(
+            'BlogBundle:Default:last.html.twig',
+            array(
+                'entity' => $entity
+            )
+        );
+    }
+
+    /**
+     * @param Thread $thread
+     * @return null
+     */
+    protected function getComments(Thread $thread = null)
+    {
+        if (empty($thread)) {
+            return null;
+        } else {
+            return $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
+        }
+    }
+
+    /**
+     * @return \Armd\TagBundle\Entity\TagManager
+     */
+    public function getTagManager()
+    {
+        return $this->get('fpn_tag.tag_manager');
+    }
+
 }
