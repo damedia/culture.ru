@@ -6,7 +6,7 @@
 
 {% block body_class %}index-main{% endblock %}
 
-{% block sub_header %} 
+{% block sub_header %}
     <section class="index-block index-museum-block clearfix">
         {# <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2> #}
 
@@ -126,7 +126,7 @@
             <div class="plitka-one-wrap">
                 <div class="plitka-one">
                     <a class="plitka-one-image-wrapper" title="{{ cinema.title }}" href="{{ path('armd_lecture_view', {'id': cinema.id}) }}">
-                        <div class="plitka-one-image">                                                      
+                        <div class="plitka-one-image">
                             {% thumbnail cinema.verticalBanner, 'lectureH228' with {'alt': cinema.title } %}
                         </div>
                     </a>
@@ -135,10 +135,10 @@
                     </div>
                     <div class="plitka-footer">
                         <p class="views">Просмотров: {{ cinema.viewCount }}</p>
-                    </div>    
+                    </div>
                 </div>
             </div>
-        {% endfor %}       
+        {% endfor %}
     </div>
 </div>
 <!-- /static sample -->
@@ -151,11 +151,14 @@
 
 
 {% block right_column %}
+
     <span class="helper-top-orange-line"></span>
 
     <section id="homepage-online-translation">
         {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
     </section>
+
+    {% render 'BlogBundle:Default:lastPost' %}
 
     {% if app.request.locale == 'ru' and videos|length %}
         {% set video = videos[0] %}
@@ -181,8 +184,8 @@
 
         </div>
     {% endif %}
-    
-    
+
+
     {% include "ArmdMainBundle:Homepage:news_tabs.html.twig" %}
 
 {% endblock %}
@@ -230,7 +233,7 @@
         <section class="newspaper img-banner"><a target="_blank" href="http://www.moviestart.ru" alt="МОЛОДЕЖНЫЙ ЦЕНТР СОЮЗА КИНЕМАТОГРАФИСТОВ РФ"><img src="{{ asset('img/banners/banner_cinema_unity_c.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
 
         <section class="newspaper img-banner"><a target="_blank" href="http://tvoyaistoria.ru" alt="ТВОЯ ИСТОРИЯ"><img src="{{ asset('img/banners/banner_tvoya_istoriya.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
-        
+
     {% endif %}
 {#
 {% if app.request.locale == 'ru' %}
@@ -241,7 +244,7 @@
         {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
         {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
     </section>
-    
+
     <section id="homepage-polls">
         <h3><span>Опрос</span></h3>
         {% render url('armd_poll_poll') %}
