@@ -78,6 +78,12 @@ class ObjectAdmin extends Admin
                 ->add('showOnMain', null, array(
                     'required' => false
                 ))
+            ->add('showOnMainFrom', 'date', array(
+                    'required' => false
+                ))
+            ->add('showOnMainTo', 'date', array(
+                    'required' => false
+                ))
                 ->add('showOnMainOrd', null, array(
                     'required' => false
                 ))
@@ -324,7 +330,7 @@ class ObjectAdmin extends Admin
             ->add('showAtRussianImage')
             ->add('showOnMain')
             ->add('showOnMainOrd')
-            ->add('corrected');                        
+            ->add('corrected');
     }
 
     public function getEmptyCoordinatesFilter($qb, $alias, $field, $value)

@@ -9,17 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Armd\PressCenterBundle\Admin;
+namespace Armd\ActualInfoBundle\Admin;
 
+use Armd\ActualInfoBundle\Entity\ActualInfo;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 use Sonata\AdminBundle\Admin\Admin;
 
-class PressCenterAdmin extends Admin
+class ActualInfoAdmin extends Admin
 {
-    protected $translationDomain = 'PressCenterBundle';
+    protected $translationDomain = 'ActualInfoBundle';
     protected $container;
 
 
@@ -36,18 +37,30 @@ class PressCenterAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $choices = array(
+            ActualInfo::TYPE_TEXT => 'Текст',
+            ActualInfo::TYPE_IMAGE => 'Картинка',
+            ActualInfo::TYPE_VIDEO => 'Видео',
+        );
 
         $formMapper
             ->with('General')
-            ->add('slug')
-            ->add('title')
+            ->add('type', 'choice', array('choices' => $choices))
             ->add(
-                'content',
+                'text',
                 null,
                 array(
                     'attr' => array('class' => 'tinymce'),
                 )
             )
+            ->add('image', 'armd_media_file_type', array(
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'actual_info',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'thumbnail'
+                ))
+            ->add('video', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'actual_info')))
             ->end()
             ->with('Главная')
             ->add('showOnMain', null, array(
@@ -73,10 +86,10 @@ class PressCenterAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('slug')
-            ->addIdentifier('title')
+            ->addIdentifier('type')
+            ->add('text')
             ->add('createdAt')
-            ->add('updatedAt');
+            ->add('udpatedAt');
 
         parent::configureListFields($listMapper);
     }
@@ -84,8 +97,8 @@ class PressCenterAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('slug')
-            ->add('title')
+            ->add('type')
+            ->add('text')
         ;
     }
 

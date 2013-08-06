@@ -77,7 +77,7 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     #spool:     { type: memory }
-    
+
 stof_doctrine_extensions:
     orm:
         default:
@@ -114,7 +114,7 @@ sonata_user:
         form:
             type: armd_user_profile
 
-    
+
 sonata_media:
     default_context: news
     db_driver: doctrine_orm # or doctrine_mongodb
@@ -165,6 +165,20 @@ sonata_media:
                 big: { width: 920 }
                 thumbnail: { width: 85, height: 85 }
                 searchAllResult: { width: 160, height: 107 }
+
+        actual_info:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+#                - sonata.media.provider.culturetv
+                - sonata.media.provider.tvigle
+#                - sonata.media.provider.youtube
+
+            formats:
+                main: { width: 85, height: 85 }
+                thumbnail: { width: 85, height: 85 }
 
         chronicle:
             download:
@@ -247,7 +261,7 @@ sonata_media:
         museum:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http        
+                mode: http
             providers:
                 - sonata.media.provider.image
             formats:
@@ -290,7 +304,7 @@ sonata_media:
             formats:
                 big: { width: 200 }
                 small: { width: 97 }
-        
+
         online_broadcast:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -300,7 +314,7 @@ sonata_media:
             formats:
                 default: { width: 278 }
                 broadcastW600: { width: 600 }
-                
+
         exhibit:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -312,17 +326,17 @@ sonata_media:
                 smallThumbnail: { width: 40 }
                 smallZoom: { width: 127 }
                 small: { width: 200 }
-                
+
         lesson:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http        
+                mode: http
             providers:
                 - sonata.media.provider.image
             formats:
                 searchAllResult: { width: 160, height: 107 }
                 big: { width: 370 }
-                small: { width: 125, height: 138 }        
+                small: { width: 125, height: 138 }
 
         theater:
             download:
@@ -333,7 +347,7 @@ sonata_media:
             formats:
                 item: { width: 600 }
                 thumbnail: { width: 306, height: 179 }
-                
+
         perfomance:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -354,7 +368,7 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 perfomanceW160H120: { width: 160, height: 120 }
                 perfomanceH228: { height: 228 }
-                
+
         person:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -401,7 +415,7 @@ sonata_media:
         war_gallery:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http        
+                mode: http
             providers:
                 - sonata.media.provider.image
             formats:
@@ -432,7 +446,7 @@ sonata_media:
             allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain', 'application/excel', 'application/msword', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/vnd.ms-powerpoint', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.presentation', 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.oasis.opendocument.chart', 'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.database', 'application/vnd.oasis.opendocument.image', 'text/comma-separated-values', 'text/xml', 'application/xml', 'application/zip', 'audio/mpeg']
 
         image:
-            resizer:    sonata.media.resizer.simple  #sonata.media.resizer.square 
+            resizer:    sonata.media.resizer.simple  #sonata.media.resizer.square
             filesystem: sonata.media.filesystem.local
             generator:  sonata.media.generator.default
             thumbnail:  sonata.media.thumbnail.format
@@ -450,7 +464,7 @@ fos_user:
 
     group:
         group_class: Armd\UserBundle\Entity\Group
-        
+
     registration:
         confirmation:
             enabled: true
@@ -511,7 +525,7 @@ sensio_framework_extra:
     router:  { annotations: true }
 
 knp_paginator:
-    template: 
+    template:
         pagination: ":Frontend:pagination.html.twig"
 
 armd_tvigle_video:
@@ -583,7 +597,7 @@ stfalcon_tinymce:
             theme: "advanced"
             plugins: "advimage,paste,fullscreen,inlinepopups"
             theme_advanced_buttons1_add: "image,|,pastetext,pasteword, blockquote"
-            file_browser_callback: SonataMedia.browse     
+            file_browser_callback: SonataMedia.browse
 
 #            mode: "textareas"
 #            theme: "modern"

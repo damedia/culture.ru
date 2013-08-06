@@ -253,12 +253,22 @@ class Object implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
     private $showOnMain = false;
-    
+
+    /**
+     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     */
+    private $showOnMainFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     */
+    private $showOnMainTo;
+
     /**
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
     private $showOnMainOrd = 0;
-    
+
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -273,13 +283,13 @@ class Object implements Taggable, ChangeHistorySavableInterface
      * @ORM\JoinTable(name="atlas_object_tourist_cluster")
      */
     private $touristCluster;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
     protected $corrected;
-    
-    
+
+
     public function __toString()
     {
         return $this->getTitle();
@@ -1387,7 +1397,7 @@ class Object implements Taggable, ChangeHistorySavableInterface
         $this->showOnMainOrd = $showOnMainOrd;
 
         return $this;
-    }    
+    }
 
     public function getTouristCluster()
     {
@@ -1410,23 +1420,61 @@ class Object implements Taggable, ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainFrom()
+    {
+        return $this->showOnMainFrom;
+    }
+
+    /**
+     * @param $showOnMainFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainFrom($showOnMainFrom)
+    {
+        $this->showOnMainFrom = $showOnMainFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainTo()
+    {
+        return $this->showOnMainTo;
+    }
+
+    /**
+     * @param $showOnMainTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainTo($showOnMainTo)
+    {
+        $this->showOnMainTo = $showOnMainTo;
+
+        return $this;
+    }
+
+    public function getClassName()
     {
         return get_class($this);
     }
-    
+
 }

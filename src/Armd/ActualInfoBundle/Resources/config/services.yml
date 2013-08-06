@@ -1,0 +1,9 @@
+parameters:
+#    blog.example.class: Armd\BlogBundle\Example
+
+services:
+    armd_actual_info.admin.actual_info:
+        class: Armd\ActualInfoBundle\Admin\ActualInfoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Актуальное за день', label: 'Актуальное за день' }
+        arguments: [null, Armd\ActualInfoBundle\Entity\ActualInfo, SonataAdminBundle:CRUD, @service_container]

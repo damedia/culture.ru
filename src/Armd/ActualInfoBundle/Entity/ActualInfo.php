@@ -1,19 +1,22 @@
 <?php
-namespace Armd\PressCenterBundle\Entity;
+namespace Armd\ActualInfoBundle\Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="PressCenterRepository")
- * @ORM\Table(name="press_center")
+ * @ORM\Entity(repositoryClass="ActualInfoRepository")
+ * @ORM\Table(name="actual_info")
  * @ORM\HasLifecycleCallbacks
- * @UniqueEntity("slug")
  */
-class PressCenter
+class ActualInfo
 {
+    const TYPE_TEXT = 'text';
+    const TYPE_IMAGE = 'image';
+    const TYPE_VIDEO = 'video';
+
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -22,27 +25,27 @@ class PressCenter
     private $id;
 
     /**
-     * @ORM\Column(name="slug", type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
-     * @Assert\Regex(
-     *     pattern="/^[a-z0-9-]+$/",
-     *     match=true,
-     *     message="Slug может содержать только латинские буквы, цифры и символ дефиса."
-     * )
-     */
-    private $slug;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
-    private $title;
+    private $type;
 
     /**
-     * @ORM\Column(type="text", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $content;
+    private $text;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
+     */
+    private $video;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     */
+    private $image;
 
     /**
      * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
@@ -90,67 +93,89 @@ class PressCenter
     }
 
     /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     * @return PressCenter
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-        return $this;
-    }
-
-    /**
-     * Set title
+     * Set type
      *
-     * @param string $title
-     * @return PressCenter
+     * @param string $type
+     * @return ActualInfo
      */
-    public function setTitle($title)
+    public function setType($type)
     {
-        $this->title = $title;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get type
      *
      * @return string
      */
-    public function getTitle()
+    public function getType()
     {
-        return $this->title;
+        return $this->type;
     }
 
     /**
-     * Set content
+     * Set text
      *
-     * @param string $content
-     * @return PressCenter
+     * @param string $text
+     * @return ActualInfo
      */
-    public function setContent($content)
+    public function setText($text)
     {
-        $this->content = $content;
+        $this->text = $text;
 
         return $this;
     }
 
     /**
-     * Get content
+     * Get text
      *
      * @return string
      */
-    public function getContent()
+    public function getText()
     {
-        return $this->content;
+        return $this->text;
+    }
+
+    /**
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param \Armd\TvigleVideoBundle\Entity\TvigleVideo $video
+     * @return ActualInfo
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     * @return ActualInfo
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+        if (is_null($image) || $image->isUploaded()) {
+            $this->image = $image;
+        }
+
+        return $this;
     }
 
     /**
@@ -231,7 +256,7 @@ class PressCenter
      */
     public function __toString()
     {
-        return '' . $this->title;
+        return '' . $this->text;
     }
 
     public function getClassName()
