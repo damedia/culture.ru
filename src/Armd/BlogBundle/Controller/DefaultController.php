@@ -4,7 +4,7 @@ namespace Armd\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -42,7 +42,6 @@ class DefaultController extends Controller
         $userManager = $this->container->get('fos_user.user_manager.default');
         $bloggers = $userManager->getBloggers();
 
-
         return $this->render(
             'BlogBundle:Default:bloggers.html.twig',
             array(
@@ -56,7 +55,7 @@ class DefaultController extends Controller
     {
         /** @var $repository \Doctrine\ORM\EntityRepository */
         $repository = $this->getDoctrine()->getManager()->getRepository('ArmdUserBundle:ViewedContent');
-
+        $entity = null;
         $qb = $repository->createQueryBuilder('vc')
             ->select('COUNT(vc.id) as viewCount, vc.entityId')
             ->where('vc.entityClass = :ec')
@@ -75,17 +74,40 @@ class DefaultController extends Controller
             1
         );
 
+        // wat
         foreach ($pagination as $item) {
             $entity = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Blog')->find($item['entityId']);
         }
 
+        $paginationData = $pagination->getPaginationData();
 
-        return $this->render(
-            'BlogBundle:Default:popular.html.twig',
-            array(
-                'entity' => $entity
-            )
-        );
+        if ($request->isXmlHttpRequest()) {
+
+            $response = array(
+                'isSuccessful' => true,
+                'html' => $this->renderView(
+                    'BlogBundle:Default:popular.html.twig',
+                    array(
+                        'page' => $page,
+                        'entity' => $entity
+                    )
+                )
+            );
+
+            if ($page == $paginationData['last']) {
+                $response['finish'] = true;
+            }
+
+            return new JsonResponse($response);
+        } else {
+            return $this->render(
+                'BlogBundle:Default:popular.html.twig',
+                array(
+                    'page' => $page,
+                    'entity' => $entity
+                )
+            );
+        }
     }
 
 

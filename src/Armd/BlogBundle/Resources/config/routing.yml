@@ -5,3 +5,8 @@ view_blog:
 blog_list:
     pattern:  /blogs
     defaults: { _controller: BlogBundle:Default:index }
+
+
+popular_blog:
+    pattern:  /popular-blog
+    defaults: { _controller: BlogBundle:Default:popular }

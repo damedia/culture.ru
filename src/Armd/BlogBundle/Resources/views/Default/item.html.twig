@@ -82,7 +82,9 @@
 
 {% block right_column %}
     <div style="height:63px; font-size:0; line-height:0"></div>
-    {% render 'BlogBundle:Default:popular' with {'user' : entity.user } %}
+    <div class="popular-container">
+        {% render 'BlogBundle:Default:popular' with {'user' : entity.user } %}
+    </div>
     {% render 'BlogBundle:Default:lastPosts' with {'user' : entity.user } %}
 {% endblock %}
 
@@ -113,7 +115,10 @@
             });
         });
     </script>
-
+    {% javascripts
+    "@BlogBundle/Resources/public/blogs.js" %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
 {% endblock %}
 
 
