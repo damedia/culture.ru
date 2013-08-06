@@ -53,10 +53,10 @@ class PressCenterAdmin extends Admin
             ->add('showOnMain', null, array(
                     'required' => false
                 ))
-            ->add('showOnMainFrom', null, array(
+            ->add('showOnMainFrom', 'date', array(
                     'required' => false
                 ))
-            ->add('showOnMainTo', null, array(
+            ->add('showOnMainTo', 'date', array(
                     'required' => false
                 ))
             ->end()
