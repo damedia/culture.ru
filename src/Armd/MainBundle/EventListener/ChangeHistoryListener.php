@@ -111,14 +111,12 @@ class ChangeHistoryListener
     {
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
-        $uow = $em->getUnitOfWork();  
-        
+
         if ($em->getClassMetadata(get_class($entity))->hasField('corrected'))
         {
             if (!$this->container->get('security.context')->isGranted('ROLE_CORRECTOR'))
             {
-                $entity->setCorrected(false);            
-                $uow ->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
+                $entity->setCorrected(false);
             }
         }
             

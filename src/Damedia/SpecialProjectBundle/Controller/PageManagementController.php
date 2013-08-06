@@ -112,26 +112,32 @@ class PageManagementController extends Controller {
     	$qb = $em->createQueryBuilder('n');
     
     	$entityDesc = $this->getKnownEntity('image');
-    	if (!$search_query || !$entityDesc) {
+    /*	if (!$search_query || !$entityDesc) {
     		throw new NotFoundHttpException("Query not found");
-    	};
+    	}; */
     	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
     	if (!$class) {
     		throw new NotFoundHttpException("Class not found");
     	};
     	 
-    	$idField = $class->getColumnName($entityDesc[1]);
-    	$textField= $class->getColumnName($entityDesc[2]);
-    	$contextField= $class->getColumnName('context');
-    	$orderField= $class->getColumnName('updatedAt');
-    	 
-    	$qb->select('n.'.$idField.', n.'.$textField)
-    	->from($entityDesc[0], 'n')
-    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
-    			'n.'.$contextField."=".$qb->expr()->literal($context) )
-    			// ->orderBy('n.'.$orderField, 'DESC')
-    	->setMaxResults( $limit );
-    	 
+    	$idField = $entityDesc[1]; // $class->getColumnName();
+    	$textField= $entityDesc[2]; // $class->getColumnName();
+    	$contextField= 'context'; // $class->getColumnName();
+    	$orderField= "updatedAt"; //$class->getColumnName('updatedAt');
+	    if ($search_query) {	 
+	    	$qb->select('n.'.$idField.', n.'.$textField)
+	    	->from($entityDesc[0], 'n')
+	    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
+	    			'n.'.$contextField."=".$qb->expr()->literal($context) )
+	    	->orderBy('n.'.$orderField, 'DESC')
+	    	->setMaxResults( $limit );
+	    }	 else {
+	    	$qb->select('n.'.$idField.', n.'.$textField)
+	    	->from($entityDesc[0], 'n')
+	    	->where('n.'.$contextField."=".$qb->expr()->literal($context) )
+	    			->orderBy('n.'.$orderField, 'DESC')
+	    			->setMaxResults( $limit );
+	    }
     	$query = $qb->getQuery();
     	 
     	$result = $query->getArrayResult();
@@ -279,7 +285,7 @@ class PageManagementController extends Controller {
     				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
     				   'artObject'	=> array('ArmdExhibitBundle:ArtObject', 'id', 'title'),
     				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'),
-    			'image'        => array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name')
+    				'image'        => array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name')
     	);
     	
     	return (isset($known[$name])) ? $known[$name] : false;

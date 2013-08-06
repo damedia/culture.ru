@@ -9768,7 +9768,7 @@ a.appstore-link {
                 .profile-wrap .form-actions {
                     text-align:center;	
                 }
-					.profile-form  .form-actions input[type="submit"], .profile-wrap .form-actions a {
+					.profile-form  .form-actions input[type="submit"], .profile-wrap .form-actions a, .profile-form.c-notice  input[type="submit"] {
 						display:inline-block;
 						padding:10px 20px;
 						background:#f79016;
@@ -10251,6 +10251,50 @@ a.appstore-link {
         .lk-form .pagination li.current span {
             color: #000;
         }
+
+/**
+ * Profile notice
+ */
+
+.profile-form.c-notice div.fos_comment_submit {
+    text-align: left;
+    padding: 15px 0 10px 0;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+    .profile-form.c-notice div.fos_comment_submit:after {
+        background: url("../img/more-dots.gif") repeat-x scroll 0 0 transparent;
+        bottom: -7px;
+        content: "";
+        display: block;
+        height: 1px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+.profile-form.c-notice .ui-selectgroup,
+.profile-form.c-notice .ui-selectgroup-list {
+    width: 500px;
+}
+
+.ui-selectgroup-group ul[aria-labelledby="ui-form_noticeOnComment"] {
+    width: 500px;
+}
+
+
+.profile-form.c-notice input[type="submit"] {
+    padding: 7px;
+    line-height: auto;
+    font-weight: bold;
+    margin-bottom: 20px;
+    min-width:180px;
+}
+
+.profile-form.c-notice {
+    margin-top: 15px;
+}
 
 /**
  * qTip² styles override
