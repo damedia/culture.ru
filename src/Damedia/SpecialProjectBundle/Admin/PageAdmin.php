@@ -57,9 +57,14 @@ class PageAdmin extends Admin {
         $userData = $this->getBlocksContentFromRequest();
         $entityManager = $this->getEntityManager();
 
+        $container = $this->getConfigurationPool()->getContainer();
+        $snippetParser = $container->get('special_project_snippet_parser');
+
         $pageBlocks = $this->getBlocksForPageId($object->getId(), 'mappedByBlockPlaceholder'); // use $page->getBlocks() and do mapping!!!
 
         foreach ($userData as $placeholder => $content) {
+            $snippetParser->html_to_entities($content);
+
             if (!isset($pageBlocks[$placeholder])) {
                 $block = $this->createBlock($entityManager, $object, $placeholder);
             }

@@ -52,4 +52,10 @@ class RenderController extends Controller {
 
         return $helper->renderSpecialProjectPage($this, $page, 'Страница <span class="variable">'.$slug.'</span> не опубликована или не существует!');
     }
+
+    public function snippetAction() {
+        //logic
+
+        return $this->render('DamediaSpecialProjectBundle:Neighbors:notExists.html.twig', array());
+    }
 }

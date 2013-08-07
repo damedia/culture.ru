@@ -1,0 +1,74 @@
+<?php
+namespace Damedia\SpecialProjectBundle\Service;
+
+use Symfony\Component\HttpKernel\Kernel;
+use Doctrine\ORM\EntityManager;
+use Damedia\SpecialProjectBundle\Service\NeighborsCommunicator;
+
+class SnippetParser {
+    private $em;
+    private $communicator;
+
+    public function __construct(EntityManager $entityManager, NeighborsCommunicator $neighborsCommunicator) {
+        $this->em = $entityManager;
+        $this->communicator = $neighborsCommunicator;
+    }
+
+    public function html_to_entities(&$html) {
+        preg_match_all('/<input.*class=\"snippet\".*data-twig=\"(\{%.*%\})\".*\/>/i', $html, $matches);
+
+        $tokensToReplace = $matches[0];
+        $replacements = $matches[1];
+
+        $html = str_replace($tokensToReplace, $replacements, $html);
+    }
+
+    public function entities_to_html(&$html) {
+        $objects = array();
+
+        preg_match_all('/\{%\srender\surl\(\'damedia_foreign_entity\',\s\{\s\'entity\':\s\'(\w+)\',\s\'itemId\':\s(\d+)\s\}\)\s%\}/i', $html, $matches);
+
+        $tokensToReplace = $matches[0];
+
+        //get metadata form recognized tokens
+        foreach ($tokensToReplace as $i => $token) {
+            $entity = $matches[1][$i];
+            $objectId = $matches[2][$i];
+
+            if (!isset($objects[$entity])) {
+                $objects[$entity] = array('identifiers' => array(), //we need this to use 'WHERE id IN(...)' SQL clause with comfort =)
+                                          'replacementsMap' => array()); //we need this 'map' just in case that the same object was inserted into a Block more than once
+            }
+
+            $objects[$entity]['identifiers'][] = $objectId;
+            $objects[$entity]['replacementsMap'][$objectId][] = $i;
+        }
+
+        $replacements = array();
+
+        //fetch objects from DB
+        foreach ($objects as $entity => $data) {
+            $qb = $this->em->createQueryBuilder(); //this MUST be inside foreach else results will be just pure BANANAS =(
+            $entityDesc = $this->communicator->getFriendlyEntity($entity);
+
+            $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
+                ->from($entityDesc['class'], 'n')
+                ->where($qb->expr()->in('n.'.$entityDesc['idField'], $objects[$entity]['identifiers']));
+            $result = $qb->getQuery()->getArrayResult();
+
+            foreach ($result as $row) {
+                $substitute  = '<p><input class="snippet" disabled="disabled" type="button" ';
+                $substitute .= 'value="Type: '.$entity.', ID: '.$row['id'].', Label: '.htmlentities($row['title']).'" ';
+                $substitute .= 'data-twig="{% render url(\'damedia_foreign_entity\', { \'entity\': \''.$entity.'\', \'itemId\': '.$row['id'].' }) %}" /></p>';
+
+                //replace every object appearance in given HTML
+                foreach ($objects[$entity]['replacementsMap'][$row['id']] as $i) {
+                    $replacements[$i] = $substitute;
+                }
+            }
+        }
+
+        $html = str_replace($tokensToReplace, $replacements, $html);
+    }
+}
+?>

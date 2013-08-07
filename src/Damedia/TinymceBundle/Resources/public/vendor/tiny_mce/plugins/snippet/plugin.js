@@ -30,6 +30,7 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
                     editor: editor,
                     callback: function(editedData){
                         var snippetValue,
+                            snippetTwig,
                             snippetHtml;
 
                         snippet.entityId = editedData.value;
@@ -41,7 +42,8 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
                         window.modalEditor = null;
 
                         snippetValue = 'Type: ' + snippet.type + ', ID: ' + snippet.entityId + ', Label: ' + snippet.label;
-                        snippetHtml = '<input type="button" class="snippet" value="' + snippetValue + '" disabled="disabled" /><br />';
+                        snippetTwig = '{% render url(\'damedia_foreign_entity\', { \'entity\': \'' + snippet.type + '\', \'itemId\': ' + snippet.entityId + ' }) %}';
+                        snippetHtml = '<input type="button" class="snippet" value="' + snippetValue + '" data-twig="' + snippetTwig + '" disabled="disabled" /><br />';
                         editor.execCommand('mceInsertContent', false, snippetHtml);
                     }
                 };
@@ -60,7 +62,7 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
 	}
 
 	editor.addButton('snippetAdd', {
-		text: 'Chunk',
+		text: 'Snippet',
 		toolbar: 'snippet',
 		icon: false,
 		onclick: createSnippet

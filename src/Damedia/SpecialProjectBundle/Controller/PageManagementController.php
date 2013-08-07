@@ -2,46 +2,37 @@
 namespace Damedia\SpecialProjectBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
-use Application\Sonata\MediaBundle\Entity\Media;
-use Sonata\MediaBundle\Provider\Pool;
-
 
 class PageManagementController extends Controller {
 	public function getSnippetJsonlistAction() {
 		$request = $this->get('request');
-		$search_for = $request->get('entity');
+
+        $givenEntity = $request->get('entity', 'news');
+        $searchPhrase = $request->get('q', false);
     	$limit = $request->get('limit', 20);
     	if ($limit > 100) {
     		$limit = 20;
     	}
-    	$search_query = $request->get('q', false);
-    	$entityDesc = $this->getKnownEntity($search_for);
-    	if (!$search_query || !$entityDesc) {
-    		 throw new NotFoundHttpException("Query not found");
-    	};
+
+        $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
+    	$entityDesc = $neighborsCommunicator->getFriendlyEntity($givenEntity);
     	
     	$em = $this->getDoctrine()->getManager();
     	$qb = $em->createQueryBuilder();
     	 
-    	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
-    	
-    	$idField = $class->getColumnName($entityDesc[1]);
-    	$textField= $class->getColumnName($entityDesc[2]);
-    	 
-    	$qb->select('n.'.$idField.', n.'.$textField)
-    	   ->from($entityDesc[0], 'n')
-    	   ->where($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%'))
-    	)->setMaxResults( $limit );
-    	$query = $qb->getQuery();
+    	$qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
+    	   ->from($entityDesc['class'], 'n')
+    	   ->where($qb->expr()->like('n.'.$entityDesc['titleField'], $qb->expr()->literal('%'.$searchPhrase.'%')))
+           ->setMaxResults($limit);
+        $result = $qb->getQuery()->getArrayResult();
 
-    	$news = $query->getArrayResult();
-
-    	$result=array();
-    	for($i=0;$i<count($news);$i++) {
-    		$result[] = array('value'=>$news[$i]['id'], 'label'=>$news[$i]['title']);
-    	};
+    	$json = array();
+        foreach ($result as $row) {
+            $json[] = array('value' => $row['id'],
+                            'label' => $row['title']);
+        }
     	
-    	return $this->renderJson($result);
+    	return $this->renderJson($json);
 	}
 	
     public function getTinyAcFormAction() {
@@ -56,8 +47,8 @@ class PageManagementController extends Controller {
                              array("param" => $param));
     }
 
-    
-    // admin/damedia/specialproject/page/getTinyMediaForm
+
+
     public function getTinyMediaFormAction() {
     	$mpool= $this->container->get('sonata.media.pool');
     	$contexts = $mpool->getContexts();
@@ -100,70 +91,45 @@ class PageManagementController extends Controller {
     
     public function getImagesJsonAction() {
     	$request = $this->get('request');
-    	$search_query = $request->get('q');
-    	 
-    	$context=$request->get('context');
-    	$context=$context?$context:"default";
-    	 
-    	$limit = $request->get('limit');
-    	$limit = $limit?$limit:50;
+
+        $givenContext = $request->get('context', 'default');
+        $searchPhrase = $request->get('q', false);
+        $limit = $request->get('limit', 50);
     	 
     	$em = $this->getDoctrine()->getManager();
-    	$qb = $em->createQueryBuilder('n');
-    
-    	$entityDesc = $this->getKnownEntity('image');
-    /*	if (!$search_query || !$entityDesc) {
-    		throw new NotFoundHttpException("Query not found");
-    	}; */
-    	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
-    	if (!$class) {
-    		throw new NotFoundHttpException("Class not found");
-    	};
-    	 
-    	$idField = $entityDesc[1]; // $class->getColumnName();
-    	$textField= $entityDesc[2]; // $class->getColumnName();
-    	$contextField= 'context'; // $class->getColumnName();
-    	$orderField= "updatedAt"; //$class->getColumnName('updatedAt');
-	    if ($search_query) {	 
-	    	$qb->select('n.'.$idField.', n.'.$textField)
-	    	->from($entityDesc[0], 'n')
-	    	->where($qb->expr()->andX($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%')) ),
-	    			'n.'.$contextField."=".$qb->expr()->literal($context) )
-	    	->orderBy('n.'.$orderField, 'DESC')
-	    	->setMaxResults( $limit );
-	    }	 else {
-	    	$qb->select('n.'.$idField.', n.'.$textField)
-	    	->from($entityDesc[0], 'n')
-	    	->where('n.'.$contextField."=".$qb->expr()->literal($context) )
-	    			->orderBy('n.'.$orderField, 'DESC')
-	    			->setMaxResults( $limit );
+    	$qb = $em->createQueryBuilder();
+
+        $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
+    	$entityDesc = $neighborsCommunicator->getFriendlyEntity('image');
+
+	    if ($searchPhrase) {
+	    	$qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['nameField'].' AS name')
+	    	   ->from($entityDesc['class'], 'n')
+	    	   ->where($qb->expr()->andX($qb->expr()->like('n.'.$entityDesc['nameField'],
+                                         $qb->expr()->literal('%'.$searchPhrase.'%'))),
+                                         'n.'.$entityDesc['contextField'].'='.$qb->expr()->literal($givenContext))
+	    	   ->orderBy('n.'.$entityDesc['updatedAtField'], 'DESC')
+	    	   ->setMaxResults($limit);
+        }
+        else {
+	    	$qb->select('n.'.$entityDesc['idField'].', n.'.$entityDesc['nameField'])
+	    	   ->from($entityDesc['class'], 'n')
+	    	   ->where('n.'.$entityDesc['contextField'].'='.$qb->expr()->literal($givenContext))
+	    	   ->orderBy('n.'.$entityDesc['updatedAtField'], 'DESC')
+	    	   ->setMaxResults($limit);
 	    }
-    	$query = $qb->getQuery();
-    	 
-    	$result = $query->getArrayResult();
-    	/*
-    	 $mediaManager = $this->container->get('sonata.media.manager.media');
-    	$request = $this->get('request');
-    	$result=$mediaManager->findBy(array('context'=>'news', 'providerName'=>'sonata.media.provider.image', 'name' => 'Выс'));
-    	$json=array();
-    	 
-    	$i=0;
-    	foreach($result as $media) {
-    	$json[]=array('id'=>$media->getId(), 'url'=>$this->path($media->getId(), 'thumbnail'), 'name' => $media->getAdminTitle() ); // , name=>$media->getName());
-    	$i++;
-    	if ($i>50)
-    		break;
-    	};
-    	*/
-    	$json=array();
-    	for($i=0;$i<count($result);$i++) {
-    		$json[]=array('id'=>$result[$i][$idField], 'name' => $result[$i][$textField],
-    				'url'=>$this->path($result[$i][$idField], 'thumbnail'),
-    				'fullsize'=>$this->path($result[$i][$idField], 'big') ); // , name=>$media->getName());
-    	};
-    	return $this->renderJson($json); //$response
+        $result = $qb->getQuery()->getArrayResult();
+
+    	$json = array();
+        foreach ($result as $row) {
+            $json[] = array('id' => $row['id'],
+                            'name' => $row['name'],
+                            'url' => $this->path($row['name'], 'thumbnail'),
+                            'fullsize' => $this->path($row['name'], 'big'));
+        }
+
+    	return $this->renderJson($json);
     }
-    
     
     
     
@@ -196,9 +162,13 @@ class PageManagementController extends Controller {
         $blocks = $this->getBlocksForPageId($pageId);
         $chunks_mappedByPlaceholder = $this->getChunksForBlocks_mappedByPlaceholder($blocks);
 
+        $snippetParser = $this->container->get('special_project_snippet_parser');
+
         $formBuilder = $this->createFormBuilder();
         foreach ($blocksPlaceholders as $placeholder => $value) {
             $blockContent = $this->getBlockContentByPlaceholder($placeholder, $chunks_mappedByPlaceholder);
+
+            $snippetParser->entities_to_html($blockContent);
 
             $formBuilder->add($placeholder, 'textarea',
                               array('required' => false,
@@ -276,19 +246,6 @@ class PageManagementController extends Controller {
         }
 
         return $result;
-    }
-
-    private function getKnownEntity($name) {
-    	$known = array('news' 		=> array('ArmdNewsBundle:News', 'id', 'title'),
-    				   'museum' 	=> array('ArmdMuseumBundle:Museum', 'id', 'title'),
-    				   'realMuseum' => array('ArmdMuseumBundle:RealMuseum', 'id', 'title'),
-    				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
-    				   'artObject'	=> array('ArmdExhibitBundle:ArtObject', 'id', 'title'),
-    				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'),
-    				'image'        => array('Application\Sonata\MediaBundle\Entity\Media', 'id', 'name')
-    	);
-    	
-    	return (isset($known[$name])) ? $known[$name] : false;
     }
 }
 ?>
