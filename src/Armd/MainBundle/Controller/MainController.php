@@ -100,7 +100,7 @@ class MainController extends Controller
             )
         );
         */
-        
+
         $videos = $this->get('armd_lecture.manager.lecture')->findObjects(
             array(
                 \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 1,
@@ -111,7 +111,7 @@ class MainController extends Controller
                 )
             )
         );
-        
+
         $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
             array(
                 \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
@@ -121,10 +121,13 @@ class MainController extends Controller
                 )
             )
         );
-        
+
+        $actualInfo = $em->getRepository('ActualInfoBundle:ActualInfo')->getCurrentForMainPage();
+
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
+                'actualInfo' => $actualInfo,
                 'news' => $news,
 //                'newRussiaImages' => $newRussiaImages,
                 'newVideos' => $lectures,
@@ -164,7 +167,7 @@ class MainController extends Controller
 
         return $this->render('ArmdMainBundle:Main:background_banner.html.twig', array('banner' => $banner));
     }
-    
+
     public function underconstructionAction()
     {
         return $this->renderTemplate('underconstruction');
@@ -251,7 +254,7 @@ class MainController extends Controller
     {
         return $this->renderTemplate('intermuseum');
     }
-   
+
     public function latestTopicsAction()
     {
         $domain = $this->container->getParameter('communication_platform_domain');
@@ -284,7 +287,7 @@ class MainController extends Controller
             $this->getRequest()
         );
     }
-    
+
 
 
     function getNews(array $categories)

@@ -1,7 +1,9 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 
 <h1>Новое в блогах</h1>
+{% if entity.topImage %}
 <img src="{% path entity.topImage, 'thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
+{% endif %}
 <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
 {% if entity.user.avatar %}
     <img src="{% path entity.user.avatar, 'default' %}">

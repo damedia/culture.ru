@@ -88,8 +88,9 @@ class ActualInfoAdmin extends Admin
         $listMapper
             ->addIdentifier('type')
             ->add('text')
+            ->add('showOnMain', null, array('editable' => true))
             ->add('createdAt')
-            ->add('udpatedAt');
+            ->add('updatedAt');
 
         parent::configureListFields($listMapper);
     }
