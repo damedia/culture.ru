@@ -2,9 +2,11 @@
 
 namespace Armd\BlogBundle\Controller;
 
+use Armd\UserBundle\Repository\ViewedContentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -18,7 +20,6 @@ class DefaultController extends Controller
                 $this->get('router')->generate('blog_list')
             );
         }
-
 
         $user = null == $request->get('user') ? null : $request->get('user');
 
@@ -38,13 +39,21 @@ class DefaultController extends Controller
         );
 
         $paginationData = $pagination->getPaginationData();
+        $blogIds = array();
+        foreach ($pagination as $row) {
+            $blogIds[] = $row->getId();
+        }
+
+        /** @var ViewedContentRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('ArmdUserBundle:ViewedContent');
+        $stats = $repo->getBlogStatsByIds($blogIds);
 
         if ($request->isXmlHttpRequest()) {
             $response = array(
                 'isSuccessful' => true,
                 'html' => $this->renderView(
                     'BlogBundle:Default:list.html.twig',
-                    array('blogs' => $pagination, 'expandFirst' => false)
+                    array('blogs' => $pagination, 'stats' => $stats, 'expandFirst' => false)
                 )
             );
 
@@ -58,6 +67,7 @@ class DefaultController extends Controller
                 'BlogBundle:Default:index.html.twig',
                 array(
                     'blogs' => $pagination,
+                    'stats' => $stats,
                     'paginationData' => $paginationData,
                     'user' => $user
                 )
@@ -140,16 +150,23 @@ class DefaultController extends Controller
 
         if ($request->isXmlHttpRequest()) {
 
-            $response = array(
-                'isSuccessful' => true,
-                'html' => $this->renderView(
-                    'BlogBundle:Default:popular.html.twig',
-                    array(
-                        'page' => $page,
-                        'entity' => $entity
+            if ($entity) {
+                $response = array(
+                    'isSuccessful' => true,
+                    'html' => $this->renderView(
+                        'BlogBundle:Default:popular.html.twig',
+                        array(
+                            'page' => $page,
+                            'entity' => $entity
+                        )
                     )
-                )
-            );
+                );
+            } else {
+                $response = array(
+                    'isSuccessful' => false,
+                    'html' => ''
+                );
+            }
 
             if ($page == $paginationData['last']) {
                 $response['finish'] = true;
@@ -157,13 +174,17 @@ class DefaultController extends Controller
 
             return new JsonResponse($response);
         } else {
-            return $this->render(
-                'BlogBundle:Default:popular.html.twig',
-                array(
-                    'page' => $page,
-                    'entity' => $entity
-                )
-            );
+            if ($entity) {
+                return $this->render(
+                    'BlogBundle:Default:popular.html.twig',
+                    array(
+                        'page' => $page,
+                        'entity' => $entity
+                    )
+                );
+            } else {
+                return new Response('');
+            }
         }
     }
 
