@@ -27,9 +27,8 @@
     {# END #}
 
     <script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script>
+
     {{ tinymce_init() }}
-    <!-- <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script> -->
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -71,7 +70,14 @@
                         /* BEGIN TinyMCE initialization */
                         initTinyMCE.defaults.theme.sproject_snippets.parameters = { selectFormUrl: "{{ path('get_tiny_ac_form') }}",
                                                                                     galleryFormUrl: "{{ path('get_tiny_gallery_form') }}",
-                                                                                    sonataAdmin: "{{ admin.code }}" };
+                                                                                    sonataAdmin: "{{ admin.code }}",
+                                                                                    entityTypes: [{ value: "news",       text: "Новость" },
+                                                                                                  { value: "theater",    text: "Театр" },
+                                                                                                  { value: "realMuseum", text: "Музей" },
+                                                                                                  { value: "museum",     text: "Вирутальный тур" },
+                                                                                                  { value: "artObject",  text: "Артефакт" },
+                                                                                                  { value: "lecture",    text: "Лекция" }]
+                                                                                   };
                         initTinyMCE(initTinyMCE.defaults);
                         /* END TinyMCE initialization */
 

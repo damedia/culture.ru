@@ -4,7 +4,7 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
      * in Damedia plugins we are using 'editor.settings.parameters'
      */
 
-	var CONTENT_TYPES =	editor.settings.snippet.types || [{value:"news", text:"News"}];
+	var CONTENT_TYPES =	editor.settings.parameters.entityTypes || [{ value: 'news', text: 'Новость' }];
 
 	function createSnippet(){
         var selectedType = CONTENT_TYPES[0].value,
@@ -43,7 +43,7 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
 
                         snippetValue = 'Type: ' + snippet.type + ', ID: ' + snippet.entityId + ', Label: ' + snippet.label;
                         snippetTwig = '{% render url(\'damedia_foreign_entity\', { \'entity\': \'' + snippet.type + '\', \'itemId\': ' + snippet.entityId + ' }) %}';
-                        snippetHtml = '<input type="button" class="snippet" value="' + snippetValue + '" data-twig="' + snippetTwig + '" disabled="disabled" /><br />';
+                        snippetHtml = '<input type="button" class="snippet" value="' + snippetValue + '" data-twig="' + snippetTwig + '" disabled="disabled" />';
                         editor.execCommand('mceInsertContent', false, snippetHtml);
                     }
                 };
