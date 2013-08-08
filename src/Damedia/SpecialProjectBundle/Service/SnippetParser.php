@@ -30,7 +30,7 @@ class SnippetParser {
 
         $tokensToReplace = $matches[0];
 
-        //get metadata form recognized tokens
+        //get metadata from recognized tokens
         foreach ($tokensToReplace as $i => $token) {
             $entity = $matches[1][$i];
             $objectId = $matches[2][$i];
@@ -48,7 +48,7 @@ class SnippetParser {
 
         //fetch objects from DB
         foreach ($objects as $entity => $data) {
-            $qb = $this->em->createQueryBuilder(); //this MUST be inside foreach else results will be just pure BANANAS =(
+            $qb = $this->em->createQueryBuilder(); //this MUST be inside foreach cycle else results will be completely random =(
             $entityDesc = $this->communicator->getFriendlyEntity($entity);
 
             $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')

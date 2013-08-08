@@ -1,5 +1,5 @@
 damedia_foreign_entity:
-    pattern:  admin/damedia/specialproject/page/snippet
+    pattern:  admin/damedia/specialproject/page/snippet/{entity}/{itemId}
     defaults: { _controller: DamediaSpecialProjectBundle:Render:snippet }
 
 get_images_jsonlist:
