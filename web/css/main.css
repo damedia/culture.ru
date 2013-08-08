@@ -10069,6 +10069,11 @@ a.appstore-link {
     margin-bottom:15px;
 }
 
+.profile-help.profile-help-open {
+    margin:20px 10px 0 10px;
+    min-height:23px;
+}
+
     .profile-help_text {
         position:relative;
         padding:20px 55px 20px 24px;
@@ -10076,6 +10081,11 @@ a.appstore-link {
         color:#333;
         font-size:13px;
         display:none;
+    }
+
+    .profile-help-open .profile-help_text {
+        display:block;
+        padding:20px 25px 20px 24px;
     }
 
     .profile-help_text_shift {
