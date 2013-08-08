@@ -19,17 +19,40 @@ class PageManagementController extends Controller {
     	
     	$em = $this->getDoctrine()->getManager();
     	$qb = $em->createQueryBuilder();
-    	 
-    	$qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
-    	   ->from($entityDesc['class'], 'n')
-    	   ->where($qb->expr()->like('n.'.$entityDesc['titleField'], $qb->expr()->literal('%'.$searchPhrase.'%')))
-           ->setMaxResults($limit);
-        $result = $qb->getQuery()->getArrayResult();
 
-    	$json = array();
-        foreach ($result as $row) {
-            $json[] = array('value' => $row['id'],
-                            'label' => $row['title']);
+        $json = array();
+
+        //This switch is an EVIL CREATURE and must be moved into 'NeighborsCommunicator' class!!!
+        switch ($givenEntity) {
+            case 'imageOfRussia':
+                $imageOfRussiaCategory = $em->getRepository($entityDesc['categoryClass'])->findOneBy(array($entityDesc['categoryTitle'] => 'Образы России'));
+                $getterName = 'get'.ucfirst($entityDesc['categoryId']);
+                $imageOfRussiaCategoryId = $imageOfRussiaCategory->$getterName();
+
+                $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
+                    ->from($entityDesc['class'], 'n')
+                    ->where($qb->expr()->andX($qb->expr()->like('n.'.$entityDesc['titleField'], $qb->expr()->literal('%'.$searchPhrase.'%')),
+                                              'n.'.$entityDesc['primaryCategoryField'].'='.$qb->expr()->literal($imageOfRussiaCategoryId)))
+                    ->setMaxResults($limit);
+                $result = $qb->getQuery()->getArrayResult();
+
+                foreach ($result as $row) {
+                    $json[] = array('value' => $row['id'],
+                                    'label' => $row['title']);
+                }
+                break;
+
+            default:
+                $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
+                    ->from($entityDesc['class'], 'n')
+                    ->where($qb->expr()->like('n.'.$entityDesc['titleField'], $qb->expr()->literal('%'.$searchPhrase.'%')))
+                    ->setMaxResults($limit);
+                $result = $qb->getQuery()->getArrayResult();
+
+                foreach ($result as $row) {
+                    $json[] = array('value' => $row['id'],
+                                    'label' => $row['title']);
+                }
         }
     	
     	return $this->renderJson($json);

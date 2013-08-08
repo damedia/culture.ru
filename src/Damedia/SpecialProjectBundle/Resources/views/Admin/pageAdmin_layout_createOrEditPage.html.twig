@@ -71,12 +71,14 @@
                         initTinyMCE.defaults.theme.sproject_snippets.parameters = { selectFormUrl: "{{ path('get_tiny_ac_form') }}",
                                                                                     galleryFormUrl: "{{ path('get_tiny_gallery_form') }}",
                                                                                     sonataAdmin: "{{ admin.code }}",
-                                                                                    entityTypes: [{ value: "news",       text: "Новость" },
-                                                                                                  { value: "theater",    text: "Театр" },
-                                                                                                  { value: "realMuseum", text: "Музей" },
-                                                                                                  { value: "museum",     text: "Вирутальный тур" },
-                                                                                                  { value: "artObject",  text: "Артефакт" },
-                                                                                                  { value: "lecture",    text: "Лекция" }]
+                                                                                    entityTypes: [{ value: "news",          text: "Новость" },
+                                                                                                  { value: "theater",       text: "Театр" },
+                                                                                                  { value: "realMuseum",    text: "Музей" },
+                                                                                                  { value: "museum",        text: "Вирутальный тур" },
+                                                                                                  { value: "artObject",     text: "Артефакт" },
+                                                                                                  { value: "lecture",       text: "Лекция" },
+                                                                                                  { value: "imageOfRussia", text: "Образ России" },
+                                                                                                  /*{ value: "gallery",       text: "==Галерея==" }*/]
                                                                                    };
                         initTinyMCE(initTinyMCE.defaults);
                         /* END TinyMCE initialization */
