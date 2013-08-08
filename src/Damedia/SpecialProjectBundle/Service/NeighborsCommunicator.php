@@ -34,7 +34,10 @@ class NeighborsCommunicator {
                                                   'primaryCategoryField' => 'primaryCategory',
                                                   'categoryClass' => 'ArmdAtlasBundle:Category',
                                                   'categoryId' => 'id',
-                                                  'categoryTitle' => 'title')
+                                                  'categoryTitle' => 'title'),
+                         'gallery'       => array('class' => 'Application\Sonata\MediaBundle\Entity\Gallery',
+                                                  'idField' => 'id',
+                                                  'titleField' => 'name')
         );
 
         if (!isset($friends[$entityName])) {
