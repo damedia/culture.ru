@@ -60,6 +60,12 @@
 {% endblock %}
 
 {% block left_column %}
+
+    {#new blocks#}
+    {% render 'ArmdAtlasBundle:Default:mainpageWidget' %}
+    {#end of new blocks#}
+
+
     <section class="block new-on-site">
         {#
         <h1><span>{{ "Mainpage block.New on portal"|trans }}</span></h1>
@@ -182,8 +188,9 @@
     {% endif %}
 {% endspaceless %}
 
-    {% render 'BlogBundle:Default:lastPost' %}
-
+    <div style="margin: 20px 0; border: 1px solid gray;">
+        {% render 'BlogBundle:Default:lastPost' %}
+    </div>
 
     {#enf od new blocks#}
 

@@ -313,7 +313,7 @@ class DefaultController extends Controller
             'objectId' => $objectId
         );
     }
-    
+
     /**
      * @Route("/objects/afilters/{typeTab}", name="armd_atlas_ajax_filters", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:ajax_filter.html.twig")
@@ -322,7 +322,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $categories = array();
-        
+
         switch ($typeTab) {
             case 'filter_culture_objects':
                 $repo = $em->getRepository('ArmdAtlasBundle:Category');
@@ -335,7 +335,7 @@ class DefaultController extends Controller
         }
         // if (array_ count_values($categories))
         //    throw new NotFoundHttpException("Categories not found");
-        
+
         return array(
             'type_tab' => $typeTab,
             'categories' => $categories
@@ -1002,7 +1002,7 @@ class DefaultController extends Controller
                         );
                     }
                 }
-                
+
                 break;
             }
         }
@@ -1023,6 +1023,16 @@ class DefaultController extends Controller
         $mailer->send($mail);
 
 
+    }
+
+    /**
+     * @Template()
+     * @return array
+     */
+    public function mainpageWidgetAction()
+    {
+        $russianImages = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRandomRussiaImages(10);
+        return array('russianImages' => $russianImages);
     }
 
 }
