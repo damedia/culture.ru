@@ -84,7 +84,9 @@
 {% endblock %}
    
 {% block right_column %}
+
     {% render url('armd_atlas_related_objects', {'tags': {}, 'limit': 1}) %}
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
