@@ -34,12 +34,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/list/{templateName}/{offset}/{limit}", 
-            name="armd_museum_list", 
+     * @Route("/list/{templateName}/{offset}/{limit}",
+            name="armd_museum_list",
             options={"expose"=true},
             defaults={"offset"="0", "limit"="10"}
         )
-     * 
+     *
      */
     public function listAction($templateName, $offset = 0, $limit = 10)
     {
@@ -48,17 +48,17 @@ class DefaultController extends Controller
             'virtual_list' => 'ArmdMuseumBundle:Default:virtual_list.html.twig',
             'virtual_list_text' => 'ArmdMuseumBundle:Default:virtual_list_text.html.twig'
         );
-        
+
         if (in_array($templateName, $templates)) {
             throw new \InvalidArgumentException('Unknow template name ' . $templateName);
         }
-        
+
         $regionId = $this->getRequest()->get('region');
         $categoryId = $this->getRequest()->get('category');
         $searchText = $this->getRequest()->get('search_query');
 
         $criteria = array();
-        
+
         if (!empty($categoryId)) {
             $criteria[MuseumManager::CRITERIA_CATEGORY_IDS_OR] = array($categoryId);
         }
@@ -66,7 +66,7 @@ class DefaultController extends Controller
         if (!empty($regionId)) {
             $criteria[MuseumManager::CRITERIA_REGION_IDS_OR] = array($regionId);
         }
-        
+
         if (!empty($searchText)) {
             $criteria[MuseumManager::CRITERIA_SEARCH_STRING] = $searchText;
         }
@@ -74,25 +74,25 @@ class DefaultController extends Controller
         $criteria[MuseumManager::CRITERIA_ORDER_BY] = array('sort' => 'DESC', 'title' => 'ASC');
         $criteria[MuseumManager::CRITERIA_LIMIT] = $limit;
         $criteria[MuseumManager::CRITERIA_OFFSET] = $offset;
-        
+
         $museums = $this->getMuseumManager()->findObjects($criteria);
-        
+
         if (count($museums)) {
             $by_region = array();
             $regions = $this->getMuseumManager()->getDistinctRegions();
-            
+
             foreach ($regions as $region) {
                 $by_region[$region['id']] = array(
                     'region' => $region,
                     'list' => array()
                 );
             }
-            
+
             foreach ($museums as $museum) {
                 if ($museum->getRegion())
                     array_push($by_region[$museum->getRegion()->getId()]['list'], $museum);
             }
-            
+
             foreach ($by_region as $key => $region) {
                 if (!count($region['list']))
                     unset($by_region[$key]);
@@ -102,14 +102,14 @@ class DefaultController extends Controller
         return $this->render(
             $templates[$templateName],
             array(
-                'museums' => $museums,  
+                'museums' => $museums,
                 'by_region' => $by_region
             )
         );
-       
+
     }
 
-    
+
     /**
      * @Route("/guide", name="armd_museum_guide_index")
      * @Template()
@@ -120,7 +120,7 @@ class DefaultController extends Controller
         $museumId = (int) $this->getRequest()->get('museumId', 0);
         $cities = $this->getGuideCities();
         $museums = $this->getGuideMuseums();
-        
+
         return array(
             'museums' => $museums,
             'cities' => $cities,
@@ -128,7 +128,7 @@ class DefaultController extends Controller
             'museumId' => $museumId,
         );
     }
-    
+
     /**
      * @Route("/guide/{id}", requirements={"id" = "\d+"}, name="armd_museum_guide_item")
      * @Template()
@@ -137,21 +137,21 @@ class DefaultController extends Controller
     {
         // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri($this->generateUrl('armd_museum_guide_index'));
-        
+
         if (null === ($entity = $this->getMuseumGuideRepository()->find($id))) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }
-        
+
         $cities = $this->getGuideCities();
         $museums = $this->getGuideMuseums();
-        
+
         return array(
             'entity' => $entity,
             'museums' => $museums,
             'cities' => $cities,
         );
     }
-    
+
     /**
      * @Route("/guide/list", name="armd_museum_guide_list", options={"expose"=true})
      * @Template("ArmdMuseumBundle:Default:guideList.html.twig")
@@ -165,13 +165,13 @@ class DefaultController extends Controller
         if(($museumId = (int)$this->getRequest()->get('museumId')) > 0) {
             $findBy['museum'] = $museumId;
         }
-        
+
         $museumGuides = $this->getMuseumGuideRepository()->findBy($findBy, array('title' => 'ASC'));
         return array(
-            'museumGuides' => $museumGuides,  
+            'museumGuides' => $museumGuides,
         );
     }
-    
+
     /**
      * @Route("/guide/see-also", name="armd_museum_guide_see_also")
      * @Template("ArmdMuseumBundle:Default:guideSeeAlso.html.twig")
@@ -188,24 +188,24 @@ class DefaultController extends Controller
             'museumGuides' => $museumGuides,
         );
     }
-    
+
     /**
      * @Route("/guide/cities", name="armd_museum_guide_cities", options={"expose": true})
      */
     public function filterCityAction()
     {
         $cities = $this->getGuideCities();
-        
+
         return new JsonResponse($cities);
     }
-    
+
     /**
      * @Route("/guide/museums", name="armd_museum_guide_museums", defaults={"cityId"=0}, options={"expose": true})
      */
     public function filterMuseumAction($cityId = 0)
     {
         $realMuseums = $this->getGuideMuseums($cityId);
-        
+
         return new JsonResponse($realMuseums);
     }
 
@@ -255,9 +255,9 @@ class DefaultController extends Controller
      */
     protected function getMuseumGuideRepository()
     {
-        return $this->getDoctrine()->getEntityManager()->getRepository('ArmdMuseumBundle:MuseumGuide');
+        return $this->getDoctrine()->getRepository('ArmdMuseumBundle:MuseumGuide');
     }
-    
+
     /**
      * @return array
      */
@@ -271,26 +271,26 @@ class DefaultController extends Controller
             ->setMaxResults($limit);
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * @return array
      */
     protected function getGuideCities()
     {
-        $qb = $this->getDoctrine()->getEntityManager()->getRepository('ArmdAddressBundle:City')->createQueryBuilder('c');
+        $qb = $this->getDoctrine()->getRepository('ArmdAddressBundle:City')->createQueryBuilder('c');
         $qb->select('c')
                 ->join('ArmdMuseumBundle:MuseumGuide', 'g', 'WITH', 'g.city = c.id')
                 ->orderBy('c.sortIndex');
         return $qb->getQuery()->getArrayResult();
     }
-    
+
     /**
      * @param integer $cityId
      * @return array
      */
     protected function getGuideMuseums($cityId = 0)
     {
-        $qb = $this->getDoctrine()->getEntityManager()->getRepository('ArmdMuseumBundle:RealMuseum')->createQueryBuilder('m');
+        $qb = $this->getDoctrine()->getRepository('ArmdMuseumBundle:RealMuseum')->createQueryBuilder('m');
         $qb->select('m')->join('ArmdMuseumBundle:MuseumGuide', 'g', 'WITH', 'g.museum = m.id');
         /*
         if((int)$cityId > 0) {
@@ -301,14 +301,25 @@ class DefaultController extends Controller
         $qb->orderBy('m.title');
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * @Route("/archive", name="armd_museum_archive")
-     * 
+     *
      */
     public function archiveAction()
     {
         return $this->render("ArmdMuseumBundle:Default:archive.html.twig");
     }
-    
+
+    /**
+     * @Template()
+     * @return array
+     */
+    public function mainpageWidgetAction()
+    {
+        /** @var \Armd\MuseumBundle\Repository\MuseumRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('ArmdMuseumBundle:Museum');
+        $museum = $repo->findForMain();
+        return array('museum' => $museum);
+    }
 }

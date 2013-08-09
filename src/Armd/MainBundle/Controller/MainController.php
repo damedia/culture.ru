@@ -89,18 +89,8 @@ class MainController extends Controller
 //            )
 //        );
 //        $museum = $museums[0];
-        // */
-        /*
-        $museum = $em->getRepository('ArmdMuseumBundle:Museum')->findBy(
-            array(
-                'showOnMain' => true,
-            ),
-            array(
-                'showOnMainOrd' => 'ASC'
-            )
-        );
-        */
-
+//         */
+//        $museum = $this->getDoctrine()->getRepository('ArmdMuseumBundle:Museum')->findForMain();
 //        $videos = $this->get('armd_lecture.manager.lecture')->findObjects(
 //            array(
 //                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 1,
@@ -112,15 +102,15 @@ class MainController extends Controller
 //            )
 //        );
 //
-//        $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
-//            array(
-//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
-//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_CINEMA'),
-//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
-//                    'showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
-//                )
-//            )
-//        );
+        $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
+            array(
+                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
+                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_CINEMA'),
+                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
+                    'showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
+                )
+            )
+        );
 
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',

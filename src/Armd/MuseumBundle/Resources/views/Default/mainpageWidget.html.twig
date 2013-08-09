@@ -1,0 +1,16 @@
+{% spaceless %}
+    {% if museum is not empty %}
+        {# todo: html #}
+        <div id="museum_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
+
+            <a href="{{ museum.url }}" class="museum-image-link vob iframe">
+                <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div></a>
+            <span>{{ museum.title }}</span>
+            <a href="#" class="museum-town">
+                {{ museum.region.title is defined ? museum.region.title : '' }}
+            </a>
+
+            <a href="{{ path('armd_museum_virtual') }}">Перейти в раздел</a>
+        </div>
+    {% endif %}
+{% endspaceless %}

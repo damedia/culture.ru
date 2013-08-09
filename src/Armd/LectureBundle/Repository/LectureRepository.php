@@ -165,4 +165,20 @@ class LectureRepository extends EntityRepository
             ->leftJoin($rootAlias . '.mediaLectureVideo', '_lecture_media_lecture_video')
             ->leftJoin($rootAlias . '.mediaTrailerVideo', '_lecture_media_trailer_video');
     }
+
+    public function findForMain($limit = 5)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.lectureSuperType', 'c', 'WITH', 'c.code = :category')
+            ->setParameter('category', 'LECTURE_SUPER_TYPE_CINEMA')
+            ->where('a.showOnMain = :show')
+            ->setParameter('show', true)
+            ->andWhere('a.showOnMainFrom <= :dt1')
+            ->andWhere('a.showOnMainTo > :dt1')
+            ->setParameter('dt1', new \DateTime())
+            ->orderBy('a.showOnMainOrd')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

@@ -7,7 +7,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Armd\MuseumBundle\Repository\MuseumRepository")
  * @ORM\Table(name="armd_museum")
  */
 class Museum implements ChangeHistorySavableInterface

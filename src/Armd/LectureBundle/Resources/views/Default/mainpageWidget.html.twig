@@ -1,0 +1,27 @@
+{% spaceless %}
+    {% if lectures is not empty %}
+        {# todo: html #}
+        <div id="cinema_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
+            <div style="font-size:20px;">
+                КИНО
+                <span style="margin-left:30px;">
+                    <a class="order active" href="{{ path('armd_lecture_cinema_index', {type: 'popular'}) }}">популярные</a>&nbsp;
+                    <a class="order" href="{{ path('armd_lecture_cinema_index', {type: 'recommend'}) }}">топ 100 лучших</a>&nbsp;
+                    <a class="order" href="{{ path('armd_lecture_cinema_index', {type: 'new'}) }}">для детей</a>
+                    <a class="order" href="{{ path('armd_lecture_cinema_index', {type: 'new'}) }}">новые</a>
+                </span>
+            </div>
+            <div id="cinema_widget" class="carousel" style="margin-top:20px;">
+                {% for item in lectures %}
+                    <div>
+                        <a href="{{ path('armd_lecture_view', {id: item.id }) }}">{{ item.title }}</a>
+                        {% thumbnail item.verticalBanner, 'lectureH228' with {'alt': item.title } %}
+                    </div>
+                {% endfor %}
+                {#{% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}#}
+            </div>
+
+            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">Перейти в раздел Кино</a>
+        </div>
+    {% endif %}
+{% endspaceless %}
