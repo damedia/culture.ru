@@ -28,6 +28,11 @@ class SnippetParser {
 
         preg_match_all('/\{%\srender\surl\(\'damedia_foreign_entity\',\s\{\s\'entity\':\s\'(\w+)\',\s\'itemId\':\s(\d+)\s\}\)\s%\}/i', $html, $matches);
 
+
+        //$html .= '<hr />'.print_r($matches, true);
+        return;
+
+
         $tokensToReplace = $matches[0];
 
         //get metadata from recognized tokens

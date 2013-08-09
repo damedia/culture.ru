@@ -1,0 +1,25 @@
+<div style="border: 1px solid #EDEDED; width: 178px;">
+    <div class="plitka-one">
+        <a href="{{ path('armd_theater_list', {'city': object.city.id}) }}" class="plitka-type object-region" data-city-id="{{ object.city.id }}">
+            {{ object.city.title }}
+        </a>
+        <a href="{{ path('armd_theater_item', {'id': object.id}) }}" class="image-link">
+            <img width="160" height="107" alt="" class="plitka-image" src="{% path object.image, 'thumbnail' %}">
+        </a>
+        <div class="plitka-text">
+            <span class="plitka-name">
+                {{ object.title }}
+            </span>
+        </div>
+        <div class="plitka-footer">
+            <div class="tags">
+                {% for category in object.categories %}
+                    <span style="white-space: nowrap;">
+                        <a href="{{ path('armd_theater_list', {'category': category.id}) }}" data-category-id="{{ category.id }}">{{ category.title }}</a>
+                        {{ not loop.last ? ', ' : '' }}
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
