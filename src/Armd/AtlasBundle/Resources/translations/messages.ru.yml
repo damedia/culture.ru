@@ -3,7 +3,7 @@ atlas:
     object:
         add: Добавить объект
         edit: Редактировать объект
-        title: Заголовок
+        title: Название
         address: Адрес
         latitude: Широта
         longitude: Долгота
