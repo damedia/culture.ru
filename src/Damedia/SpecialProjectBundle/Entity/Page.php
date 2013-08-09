@@ -8,7 +8,7 @@ use Damedia\SpecialProjectBundle\Entity\Block;
 
 /**
  * @ORM\Table(name="damedia_project_page")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Damedia\SpecialProjectBundle\Repository\PageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Page {

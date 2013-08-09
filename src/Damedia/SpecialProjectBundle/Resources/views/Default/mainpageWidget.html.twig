@@ -1,0 +1,10 @@
+{% spaceless %}
+    {% if projects is not empty %}
+        {# todo: html #}
+        <div style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
+        {% for item in projects %}
+            <div><a href="{{ path('damedia_special_project_view', {slug: item.slug}) }}">{{ item.title }}</a></div>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endspaceless %}

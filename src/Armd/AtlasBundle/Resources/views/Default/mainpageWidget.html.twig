@@ -1,23 +1,17 @@
 {% spaceless %}
     {% if russianImages is not empty %}
         {# todo: html #}
-        <div style="margin: 20px 0; border: 1px solid gray;">
+        <div id="russia_image_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
             <div style="font-size:20px;">
                 ОБРАЗЫ РОССИИ
                 <span style="margin-left:30px;">
-                    <a href="#" class="active">популярные</a>&nbsp;
-                    <a href="#">неизведанные</a>&nbsp;
-                    <a href="#">новые</a>
+                    <a class="order active" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend'}) }}">рекомендуемые</a>&nbsp;
+                    <a class="order" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'popular'}) }}">популярные</a>&nbsp;
+                    <a class="order" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'new'}) }}">новые</a>
                 </span>
             </div>
-            <div class="carousel" style="margin-top:20px;">
-                {% for item in russianImages %}
-                    <div class="carousel-item"{% if loop.index > 1 %} style="display:none;"{% endif %}>
-                        {#{% thumbnail item.primaryImage, 'searchAllResult' with {'alt': item.primaryImage.description, 'class': ''} %}#}
-                        {% thumbnail item.primaryImage, 'atlasW613H408' with {'alt': item.primaryImage.description, 'class': ''} %}
-                        {{ item.title }}
-                    </div>
-                {% endfor %}
+            <div id="russia_image_widget" class="carousel" style="margin-top:20px;">
+                {% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}
             </div>
 
             <a href="{{ path('armd_atlas_russia_images') }}">Перейти в Образы России</a>

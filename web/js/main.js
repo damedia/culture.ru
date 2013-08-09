@@ -608,13 +608,22 @@ $(function () {
     var proActive = $('.profile-menu li').index($('.profile-menu li.active'));
     $('.profile-right-block:first').addClass('prb-'+proActive);
 
-	var proRightHeight = $('.profile-right').height();
+    var proRightHeight = $('.profile-right').height();
     var proLeftHeight = $('.profile-left').height();
     console.log(proRightHeight);
     console.log(proLeftHeight);
     if(proRightHeight > proLeftHeight) {
         $('.profile-left').height(proRightHeight);
     }
+
+    $('#russia_image_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#russia_image_block').find('.order').removeClass('active');
+        $(this).addClass('active');
+        $('#russia_image_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
 
 })
 

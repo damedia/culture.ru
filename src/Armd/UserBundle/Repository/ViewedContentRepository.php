@@ -29,4 +29,25 @@ class ViewedContentRepository extends EntityRepository
         }
         return $stats;
     }
+
+    /**
+     * @param int $limit
+     * @return array
+     */
+    public function getTopRussianImages($limit = 10)
+    {
+        $ids = array();
+        foreach($this->createQueryBuilder('a')
+            ->select(array('a.entityId', 'COUNT(a) as cnt'))
+            ->where('a.entityClass = :class')
+            ->setParameter('class', 'ArmdAtlasBundle:Object')
+            ->groupBy('a.entityId')
+            ->orderBy('cnt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult() as $row) {
+            $ids[] = $row['entityId'];
+        }
+        return $ids;
+    }
 }

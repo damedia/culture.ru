@@ -1,0 +1,22 @@
+{% spaceless %}
+    {% if actualInfo is not empty %}
+        {# todo: html #}
+        <div style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
+            {% if actualInfo.type == constant('\\Armd\\ActualInfoBundle\\Entity\\ActualInfo::TYPE_TEXT') %}
+                <h3>Цитата дня</h3>
+                <div>{{ actualInfo.text|raw }}</div>
+            {% elseif actualInfo.type == constant('\\Armd\\ActualInfoBundle\\Entity\\ActualInfo::TYPE_IMAGE') %}
+                <h3>Фото дня</h3>
+                <div><img src="{% path actualInfo.image, 'main' %}" alt=""></div>
+            {% elseif actualInfo.type == constant('\\Armd\\ActualInfoBundle\\Entity\\ActualInfo::TYPE_VIDEO') %}
+                <h3>Видео дня</h3>
+                <div>
+                    <a href="{{ path('armd_lecture_view', {'id': actualInfo.video.id}) }}" class="period-block_image">
+                        {% thumbnail actualInfo.video, 'big' with {'alt': actualInfo.video.title, 'width': '100%', 'height': 'auto', 'style': 'height: auto' } %}
+                        <span class="play"></span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endspaceless %}

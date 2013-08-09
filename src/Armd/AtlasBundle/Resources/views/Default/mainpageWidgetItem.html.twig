@@ -1,0 +1,7 @@
+{% for item in russianImages %}
+    <div class="carousel-item"{% if loop.index > 1 %} style="display:none;"{% endif %}>
+        {#{% thumbnail item.primaryImage, 'searchAllResult' with {'alt': item.primaryImage.description, 'class': ''} %}#}
+        {% thumbnail item.primaryImage, 'atlasW613H408' with {'alt': item.primaryImage.description, 'class': ''} %}
+        {{ item.title }}
+    </div>
+{% endfor %}

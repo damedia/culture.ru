@@ -3,12 +3,17 @@
 namespace Armd\ActualInfoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
-
-    public function viewAction()
+    /**
+     * @Template()
+     * @return array
+     */
+    public function mainpageWidgetAction()
     {
-        exit('view blog');
+        $actualInfo = $this->getDoctrine()->getRepository('ActualInfoBundle:ActualInfo')->findForMainPage();
+        return array('actualInfo' => $actualInfo);
     }
 }

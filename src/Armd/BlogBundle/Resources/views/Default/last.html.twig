@@ -1,17 +1,18 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+<div style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
+    <h1>Новое в блогах</h1>
+    {% if entity.topImage %}
+    <img src="{% path entity.topImage, 'thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
+    {% endif %}
+    <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
+    {% if entity.user.avatar %}
+        <img src="{% path entity.user.avatar, 'default' %}">
+    {% endif %}
+    {{ entity.user.firstname }} {{ entity.user.lastname }} <br>
+    <hr>
+    <h3>{{ entity.title }}</h3>
 
-<h1>Новое в блогах</h1>
-{% if entity.topImage %}
-<img src="{% path entity.topImage, 'thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
-{% endif %}
-<span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
-{% if entity.user.avatar %}
-    <img src="{% path entity.user.avatar, 'default' %}">
-{% endif %}
-{{ entity.user.firstname }} {{ entity.user.lastname }} <br>
-<hr>
-<h3>{{ entity.title }}</h3>
-
-{{ entity.lead | raw }}
-<br>
-<a href="{{ path('blog_list') }}">Перейти в блоги</a>
+    {{ entity.lead | raw }}
+    <br>
+    <a href="{{ path('blog_list') }}">Перейти в блоги</a>
+</div>

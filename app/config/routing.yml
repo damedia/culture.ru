@@ -47,7 +47,7 @@ armd_main_project_mayakovsky:
     defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Mayakovsky:index.html.twig }
 armd_main_project_mayakovsky_tour:
     pattern:  /mayakovsky_tour
-    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Mayakovsky:tour.html.twig }    
+    defaults: { _controller: ArmdMainBundle:Project:index, template: ArmdMainBundle:Mayakovsky:tour.html.twig }
 armd_util:
     resource: "@ArmdUtilBundle/Controller/"
     type:     annotation
@@ -58,7 +58,7 @@ index:
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
         route: armd_main_homepage
-        permanent: true    
+        permanent: true
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
@@ -79,7 +79,7 @@ gallery:
 
 media:
     resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
-    prefix: /media    
+    prefix: /media
 
 
 armd_user_admin:
@@ -107,15 +107,15 @@ fos_oauth_server_token:
 
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
-   
+
 armd_main:
     resource: "@ArmdMainBundle/Resources/config/routing/routing.yml"
     prefix:   /
-    
+
 armd_main_special:
     resource: "@ArmdMainBundle/Resources/config/routing/special.yml"
-    prefix:   /special   
-   
+    prefix:   /special
+
 armd_news:
     resource: "@ArmdNewsBundle/Controller/NewsController.php"
     type: annotation
@@ -164,17 +164,17 @@ armd_lecture:
     resource: "@ArmdLectureBundle/Controller/"
     type:     annotation
     prefix:   /
-    
+
 armd_perfomance:
     resource: "@ArmdPerfomanceBundle/Controller/"
     type:     annotation
-    prefix:   /perfomance    
-    
+    prefix:   /perfomance
+
 armd_user_bundle:
     resource: "@ArmdUserBundle/Controller/AuthenticationController.php"
     type: annotation
     prefix: /user
-    
+
 armd_social_auth:
     resource: "@ArmdSocialAuthBundle/Controller/"
     type:     annotation
@@ -208,7 +208,7 @@ armd_poll_archive:
     resource: "@ArmdMainBundle/Controller/PollArchiveController.php"
     type: annotation
     prefix: /
-    
+
 armd_show_on_main:
     resource: "@ArmdMainBundle/Controller/ShowOnMainController.php"
     type: annotation
@@ -228,3 +228,7 @@ armd_tourist_route_bundle:
     resource: "@ArmdTouristRouteBundle/Controller/"
     type:     annotation
     prefix:   /routes
+
+press_center_bundle:
+    resource: "@PressCenterBundle/Resources/config/routing.yml"
+    prefix:   /press-center

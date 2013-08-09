@@ -1021,18 +1021,40 @@ class DefaultController extends Controller
         $mail->setTo($object->getCreatedBy()->getEmail());
 
         $mailer->send($mail);
-
-
     }
 
     /**
-     * @Template()
-     * @return array
+     * @param string $type
+     * @Route("russia-images-main/{type}",
+     *  name="armd_atlas_russia_images_mainpage",
+     *  options={"expose"=true}
+     * )
+     * @return Response
      */
-    public function mainpageWidgetAction()
+    public function mainpageWidgetAction($type = 'recommend')
     {
-        $russianImages = $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object')->findRandomRussiaImages(10);
-        return array('russianImages' => $russianImages);
+        $repo = $this->getObjectRepository();
+        $russianImages = $repo->findRussiaImagesForMainPage(10, $type);
+
+        if($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig',
+                array('russianImages' => $russianImages)
+            );
+        } else {
+            return $this->render(
+                'ArmdAtlasBundle:Default:mainpageWidget.html.twig',
+                array('russianImages' => $russianImages)
+            );
+        }
+    }
+
+    /**
+     * @return \Armd\AtlasBundle\Repository\ObjectRepository
+     */
+    private function getObjectRepository()
+    {
+        return $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
     }
 
 }

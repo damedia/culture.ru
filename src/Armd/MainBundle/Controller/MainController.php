@@ -22,8 +22,8 @@ class MainController extends Controller
             $this->get('router')->generate('armd_main_homepage')
         );
 
-        $em = $this->getDoctrine()->getManager();
-
+//        $em = $this->getDoctrine()->getManager();
+//
 //        $newRussiaImages = $this->get('armd_atlas.manager.object')->findObjects(
 //            array(
 //                ObjectManager::CRITERIA_RUSSIA_IMAGES => true,
@@ -32,31 +32,31 @@ class MainController extends Controller
 //            )
 //        );
 
-        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findBy(
-            array(
-                'showOnMain' => true,
-            ),
-            array(
-                'showOnMainOrd' => 'ASC'
-            )
-        );
-
-        if ($this->getRequest()->getLocale() === 'en') {
-            $newsCount = 3;
-        } else {
-            $newsCount = 16;
-            $activeTranslation = $this->get('armd_online_translation.manager.online_translation')
-                                 ->getActiveTranslation();
-            if (!empty($activeTranslation)) {
-                $newsCount -= 9;
-            }
-        }
-        $news = $this->getNewsManager()->findObjects(
-            array(
-                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
-                NewsManager::CRITERIA_LIMIT => $newsCount,
-            )
-        );
+//        $lectures = $em->getRepository('ArmdLectureBundle:Lecture')->findBy(
+//            array(
+//                'showOnMain' => true,
+//            ),
+//            array(
+//                'showOnMainOrd' => 'ASC'
+//            )
+//        );
+//
+//        if ($this->getRequest()->getLocale() === 'en') {
+//            $newsCount = 3;
+//        } else {
+//            $newsCount = 16;
+//            $activeTranslation = $this->get('armd_online_translation.manager.online_translation')
+//                                 ->getActiveTranslation();
+//            if (!empty($activeTranslation)) {
+//                $newsCount -= 9;
+//            }
+//        }
+//        $news = $this->getNewsManager()->findObjects(
+//            array(
+//                NewsManager::CRITERIA_CATEGORY_SLUGS_OR => array('news', 'events'),
+//                NewsManager::CRITERIA_LIMIT => $newsCount,
+//            )
+//        );
 
 //        $lastReportage = $this->getNewsManager()->findObjects(
 //            array(
@@ -82,13 +82,13 @@ class MainController extends Controller
 //            $lastInterview = $lastInterview[0];
 //        }
 
-        $museums =  $this->getMuseumManager()->findObjects(
-            array(
-                MuseumManager::CRITERIA_LIMIT => 1,
-                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC')
-            )
-        );
-        $museum = $museums[0];
+//        $museums =  $this->getMuseumManager()->findObjects(
+//            array(
+//                MuseumManager::CRITERIA_LIMIT => 1,
+//                NewsManager::CRITERIA_ORDER_BY => array('showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC')
+//            )
+//        );
+//        $museum = $museums[0];
         // */
         /*
         $museum = $em->getRepository('ArmdMuseumBundle:Museum')->findBy(
@@ -101,41 +101,38 @@ class MainController extends Controller
         );
         */
 
-        $videos = $this->get('armd_lecture.manager.lecture')->findObjects(
-            array(
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 1,
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_NEWS'),
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SHOW_ON_MAIN => true,
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
-                    'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
-                )
-            )
-        );
-
-        $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
-            array(
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_CINEMA'),
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
-                    'showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
-                )
-            )
-        );
-
-        $actualInfo = $em->getRepository('ActualInfoBundle:ActualInfo')->getCurrentForMainPage();
+//        $videos = $this->get('armd_lecture.manager.lecture')->findObjects(
+//            array(
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 1,
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_NEWS'),
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SHOW_ON_MAIN => true,
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
+//                    'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
+//                )
+//            )
+//        );
+//
+//        $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
+//            array(
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_CINEMA'),
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
+//                    'showOnMain' => 'DESC', 'showOnMainOrd' => 'ASC', 'createdAt' => 'DESC'
+//                )
+//            )
+//        );
 
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
-                'actualInfo' => $actualInfo,
-                'news' => $news,
+//                'news' => $news,
 //                'newRussiaImages' => $newRussiaImages,
-                'newVideos' => $lectures,
+//                'newVideos' => $lectures,
 //                'lastReportage' => $lastReportage,
 //                'lastInterview' => $lastInterview,
-                'museum' => $museum,
-                'videos' => $videos,
-                'cinemas' => $cinemas
+//                'museum' => $museum,
+//                'videos' => $videos,
+//                'cinemas' => $cinemas
             )
         );
 //        $response->setPublic();

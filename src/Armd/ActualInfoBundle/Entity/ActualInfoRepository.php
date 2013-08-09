@@ -7,7 +7,7 @@ use Doctrine\ORM\NoResultException;
 
 class ActualInfoRepository extends EntityRepository
 {
-    public function getCurrentForMainPage()
+    public function findForMainPage()
     {
         try{
             return $this->createQueryBuilder('a')
