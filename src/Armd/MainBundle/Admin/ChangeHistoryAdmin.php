@@ -17,9 +17,7 @@ class ChangeHistoryAdmin extends Admin
         '_sort_order'   => 'DESC',
     );
     
-    protected $maxPerPage = 2500;
-    protected $maxPageLinks = 0;    
-        
+       
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
