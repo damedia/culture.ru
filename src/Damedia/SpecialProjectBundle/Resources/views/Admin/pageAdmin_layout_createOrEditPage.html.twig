@@ -27,9 +27,8 @@
     {# END #}
 
     <script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script>
-    {{ tinymce_init() }}
-    <!-- <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/tinymce/plugins/snippet/plugin.js') }}"></script> -->
+
+
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -60,28 +59,6 @@
                     createModalLayer();
 
                     $.post("{{ path('get_template_blocks_form') }}", sendData, function(data){
-                        var tinyInitOptions = {
-                                selector: "textarea.createPage_blockTextarea",
-                                snippet: { selectFormUrl: "{{ path('get_tiny_ac_form') }}",
-                                           sonataAdmin: "{{ admin.code }}",
-                                           types: [
-                                               { value: "news",       text: "Новость" },
-                                               { value: "theater",    text: "Театр" },
-                                               { value: "realMuseum", text: "Музей" },
-                                               { value: "museum",     text: "Вирутальный тур" },
-                                               { value: "artObject",  text: "Артефакт" },
-                                               { value: "lecture",    text: "Лекция" }
-                                            ]
-                                },
-                                plugins: [
-                                    "advlist autolink lists link image charmap print preview anchor",
-                                    "searchreplace visualblocks code fullscreen",
-                                    "insertdatetime media table paste", // contextmenu
-                                    "snippet"
-                                ],
-                                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | snippetAdd snippetEdit"
-                            };
-
                         if (data.errors !== '') {
                             ajaxErrorsDiv.html(data.errors);
                             ajaxErrorsDiv.appendTo(sonataFormFieldset);
@@ -89,10 +66,6 @@
 
                         ajaxResponseDiv.html(data.content);
                         formButtonsPanel.prepend(data.buttons);
-
-                        //tinymce.init(tinyInitOptions);
-
-                        initTinyMCE(initTinyMCE.defaults);
 
                         removeModalLayer();
                     });
