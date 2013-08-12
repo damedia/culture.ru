@@ -8,7 +8,7 @@ class PageManagementController extends Controller {
 		$request = $this->get('request');
 
         $givenEntity = $request->get('entity', 'news');
-        $searchPhrase = $request->get('q', false);
+        $searchPhrase = strtolower($request->get('q', false));
     	$limit = $request->get('limit', 20);
     	if ($limit > 100) {
     		$limit = 20;
@@ -31,7 +31,7 @@ class PageManagementController extends Controller {
 
                 $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
                     ->from($entityDesc['class'], 'n')
-                    ->where($qb->expr()->andX($qb->expr()->like('n.'.$entityDesc['titleField'], $qb->expr()->literal('%'.$searchPhrase.'%')),
+                    ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDesc['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
                                               'n.'.$entityDesc['primaryCategoryField'].'='.$qb->expr()->literal($imageOfRussiaCategoryId)))
                     ->setMaxResults($limit);
                 $result = $qb->getQuery()->getArrayResult();
@@ -45,7 +45,7 @@ class PageManagementController extends Controller {
             default:
                 $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
                     ->from($entityDesc['class'], 'n')
-                    ->where($qb->expr()->like('n.'.$entityDesc['titleField'], $qb->expr()->literal('%'.$searchPhrase.'%')))
+                    ->where($qb->expr()->like('LOWER(n.'.$entityDesc['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')))
                     ->setMaxResults($limit);
                 $result = $qb->getQuery()->getArrayResult();
 

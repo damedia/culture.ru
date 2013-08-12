@@ -28,7 +28,7 @@ class SnippetParser {
 
         preg_match_all('/\{%\srender\surl\(\'damedia_foreign_entity\',\s\{\s\'entity\':\s\'(\w+)\',\s\'itemId\':\s(\d+)\s\}\)\s%\}/i', $html, $matches);
 
-        $tokensToReplace = $matches[0];
+        $tokensToReplace = array_unique($matches[0]);
         $entities = $matches[1];
         $identifiers = $matches[2];
 
@@ -39,7 +39,7 @@ class SnippetParser {
 
             if (!isset($objects[$entity])) {
                 $objects[$entity] = array('identifiers' => array(), //we need this to use 'WHERE id IN(...)' SQL clause with comfort =)
-                                          'replacementsMap' => array()); //we need this 'map' just in case that the same object was inserted into a Block more than once
+                                          'replacementsMap' => array()); //!!!we don't need this 'map'; even if an object was inserted into a Block more than once!!!
             }
 
             $objects[$entity]['identifiers'][] = $objectId;
@@ -70,7 +70,6 @@ class SnippetParser {
             }
         }
 
-        $tokensToReplace = array_unique($tokensToReplace);
         ksort($replacements);
 
         $html = str_replace($tokensToReplace, $replacements, $html);
