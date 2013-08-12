@@ -61,6 +61,10 @@ class RenderController extends Controller {
 
         $object = $this->getDoctrine()->getRepository($entityDescr['class'])->find($itemId);
 
+        if (!$object) {
+            return $this->render('DamediaSpecialProjectBundle:Neighbors:notExists.html.twig', array('entity' => $entity, 'itemId' => $itemId));
+        }
+
         //This switch is an EVIL CREATURE and must be moved into 'NeighborsCommunicator' class!!!
         switch ($entity) {
             case 'news': //Новость
