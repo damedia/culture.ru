@@ -70,6 +70,7 @@ class SnippetParser {
             }
         }
 
+        $tokensToReplace = array_unique($tokensToReplace);
         ksort($replacements);
 
         $html = str_replace($tokensToReplace, $replacements, $html);
