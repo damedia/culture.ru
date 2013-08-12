@@ -107,12 +107,13 @@ class RenderController extends Controller {
                 return $this->render('DamediaSpecialProjectBundle:Neighbors:vtour_preview.html.twig', array('object' => $object));
                 break;
 
-            case 'artObject': //Артефакт
-                //
-                break;
-
             case 'lecture': //Лекция
-                //
+                /**
+                 * Copy templates from: Armd/LectureBundle/Resources/views/Default/...
+                 *      list_banners.html.twig                  <- DONE
+                 */
+
+                return $this->render('DamediaSpecialProjectBundle:Neighbors:lecture_preview.html.twig', array('object' => $object));
                 break;
 
             case 'imageOfRussia': //Образ России
@@ -128,7 +129,12 @@ class RenderController extends Controller {
                 break;
 
             case 'gallery': //Галерея
-                //
+                /**
+                 * Copy templates from: vendor/sonata-project/media-bundle/Sonata/MediaBundle/Resources/views/Gallery/...
+                 *      view.html.twig                          <- DONE
+                 */
+
+                return $this->render('DamediaSpecialProjectBundle:Neighbors:gallery.html.twig', array('object' => $object));
                 break;
 
             default:

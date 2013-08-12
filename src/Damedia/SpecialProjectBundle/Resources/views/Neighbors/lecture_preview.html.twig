@@ -1,0 +1,12 @@
+<div style="border: 1px solid #EDEDED; width: 178px; display: inline-block;">
+    <a  href="{{ path('armd_lecture_view', {'id': object.id}) }}" class="autoscrollingHorParent">
+        <div class="kfl-block">
+                            <span title="{{ object.title }}" class="kfl-image-link">
+                                {% if object.isTop100Film %}<div class="top100-corner"></div>{% endif %}
+                                {% thumbnail object.verticalBanner, 'tile' with {'alt': object.title, 'width':'auto', 'height':202, 'class':'kfl-image'} %}
+                            </span>
+            <h3 class="kfl-header"><span class="autoscrolling-wrap"><span class="autoscrollingHorChild">{{ object.title }}</span></span></h3>
+            <p class="kfl-stats">Просмотров: {{ object.viewCount }}</p>
+        </div>
+    </a>
+</div>

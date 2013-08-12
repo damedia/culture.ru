@@ -28,17 +28,14 @@ class SnippetParser {
 
         preg_match_all('/\{%\srender\surl\(\'damedia_foreign_entity\',\s\{\s\'entity\':\s\'(\w+)\',\s\'itemId\':\s(\d+)\s\}\)\s%\}/i', $html, $matches);
 
-
-        //$html .= '<hr />'.print_r($matches, true);
-        return;
-
-
         $tokensToReplace = $matches[0];
+        $entities = $matches[1];
+        $identifiers = $matches[2];
 
         //get metadata from recognized tokens
         foreach ($tokensToReplace as $i => $token) {
-            $entity = $matches[1][$i];
-            $objectId = $matches[2][$i];
+            $entity = $entities[$i];
+            $objectId = $identifiers[$i];
 
             if (!isset($objects[$entity])) {
                 $objects[$entity] = array('identifiers' => array(), //we need this to use 'WHERE id IN(...)' SQL clause with comfort =)
@@ -62,9 +59,9 @@ class SnippetParser {
             $result = $qb->getQuery()->getArrayResult();
 
             foreach ($result as $row) {
-                $substitute  = '<p><input class="snippet" disabled="disabled" type="button" ';
+                $substitute  = '<input class="snippet" disabled="disabled" type="button" ';
                 $substitute .= 'value="Type: '.$entity.', ID: '.$row['id'].', Label: '.htmlentities($row['title']).'" ';
-                $substitute .= 'data-twig="{% render url(\'damedia_foreign_entity\', { \'entity\': \''.$entity.'\', \'itemId\': '.$row['id'].' }) %}" /></p>';
+                $substitute .= 'data-twig="{% render url(\'damedia_foreign_entity\', { \'entity\': \''.$entity.'\', \'itemId\': '.$row['id'].' }) %}" />';
 
                 //replace every object appearance in given HTML
                 foreach ($objects[$entity]['replacementsMap'][$row['id']] as $i) {
@@ -72,6 +69,8 @@ class SnippetParser {
                 }
             }
         }
+
+        ksort($replacements);
 
         $html = str_replace($tokensToReplace, $replacements, $html);
     }
