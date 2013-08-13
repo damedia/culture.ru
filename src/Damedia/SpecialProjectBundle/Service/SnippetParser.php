@@ -51,11 +51,11 @@ class SnippetParser {
         //fetch objects from DB
         foreach ($objects as $entity => $data) {
             $qb = $this->em->createQueryBuilder(); //this MUST be inside foreach cycle else results will be completely random =(
-            $entityDesc = $this->communicator->getFriendlyEntity($entity);
+            $entityDescription = $this->communicator->getFriendlyEntityDescription($entity);
 
-            $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
-                ->from($entityDesc['class'], 'n')
-                ->where($qb->expr()->in('n.'.$entityDesc['idField'], $objects[$entity]['identifiers']));
+            $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
+                ->from($entityDescription['class'], 'n')
+                ->where($qb->expr()->in('n.'.$entityDescription['idField'], $objects[$entity]['identifiers']));
             $result = $qb->getQuery()->getArrayResult();
 
             foreach ($result as $row) {

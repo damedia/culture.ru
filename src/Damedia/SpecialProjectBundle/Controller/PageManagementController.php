@@ -6,58 +6,21 @@ use Sonata\AdminBundle\Controller\CRUDController as Controller;
 class PageManagementController extends Controller {
 	public function getSnippetJsonlistAction() {
 		$request = $this->get('request');
+        $em = $this->getDoctrine()->getManager();
 
         $givenEntity = $request->get('entity', 'news');
-        $searchPhrase = strtolower($request->get('q', false));
+        $searchPhrase = $request->get('q', false);
     	$limit = $request->get('limit', 20);
     	if ($limit > 100) {
     		$limit = 20;
     	}
 
         $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
-    	$entityDesc = $neighborsCommunicator->getFriendlyEntity($givenEntity);
-    	
-    	$em = $this->getDoctrine()->getManager();
-    	$qb = $em->createQueryBuilder();
+        $json = $neighborsCommunicator->createFriendlyEntityAutocompleteList($em, $givenEntity, $searchPhrase, $limit);
 
-        $json = array();
-
-        //This switch is an EVIL CREATURE and must be moved into 'NeighborsCommunicator' class!!!
-        switch ($givenEntity) {
-            case 'imageOfRussia':
-                $imageOfRussiaCategory = $em->getRepository($entityDesc['categoryClass'])->findOneBy(array($entityDesc['categoryTitle'] => 'Образы России'));
-                $getterName = 'get'.ucfirst($entityDesc['categoryId']);
-                $imageOfRussiaCategoryId = $imageOfRussiaCategory->$getterName();
-
-                $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
-                    ->from($entityDesc['class'], 'n')
-                    ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDesc['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
-                                              'n.'.$entityDesc['primaryCategoryField'].'='.$qb->expr()->literal($imageOfRussiaCategoryId)))
-                    ->setMaxResults($limit);
-                $result = $qb->getQuery()->getArrayResult();
-
-                foreach ($result as $row) {
-                    $json[] = array('value' => $row['id'],
-                                    'label' => $row['title']);
-                }
-                break;
-
-            default:
-                $qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['titleField'].' AS title')
-                    ->from($entityDesc['class'], 'n')
-                    ->where($qb->expr()->like('LOWER(n.'.$entityDesc['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')))
-                    ->setMaxResults($limit);
-                $result = $qb->getQuery()->getArrayResult();
-
-                foreach ($result as $row) {
-                    $json[] = array('value' => $row['id'],
-                                    'label' => $row['title']);
-                }
-        }
-    	
     	return $this->renderJson($json);
 	}
-	
+
     public function getTinyAcFormAction() {
         return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
     }
@@ -123,22 +86,22 @@ class PageManagementController extends Controller {
     	$qb = $em->createQueryBuilder();
 
         $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
-    	$entityDesc = $neighborsCommunicator->getFriendlyEntity('image');
+    	$entityDescription = $neighborsCommunicator->getFriendlyEntityDescription('image');
 
 	    if ($searchPhrase) {
-	    	$qb->select('n.'.$entityDesc['idField'].' AS id, n.'.$entityDesc['nameField'].' AS name')
-	    	   ->from($entityDesc['class'], 'n')
-	    	   ->where($qb->expr()->andX($qb->expr()->like('n.'.$entityDesc['nameField'],
+	    	$qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['nameField'].' AS name')
+	    	   ->from($entityDescription['class'], 'n')
+	    	   ->where($qb->expr()->andX($qb->expr()->like('n.'.$entityDescription['nameField'],
                                          $qb->expr()->literal('%'.$searchPhrase.'%'))),
-                                         'n.'.$entityDesc['contextField'].'='.$qb->expr()->literal($givenContext))
-	    	   ->orderBy('n.'.$entityDesc['updatedAtField'], 'DESC')
+                                         'n.'.$entityDescription['contextField'].'='.$qb->expr()->literal($givenContext))
+	    	   ->orderBy('n.'.$entityDescription['updatedAtField'], 'DESC')
 	    	   ->setMaxResults($limit);
         }
         else {
-	    	$qb->select('n.'.$entityDesc['idField'].', n.'.$entityDesc['nameField'])
-	    	   ->from($entityDesc['class'], 'n')
-	    	   ->where('n.'.$entityDesc['contextField'].'='.$qb->expr()->literal($givenContext))
-	    	   ->orderBy('n.'.$entityDesc['updatedAtField'], 'DESC')
+	    	$qb->select('n.'.$entityDescription['idField'].', n.'.$entityDescription['nameField'])
+	    	   ->from($entityDescription['class'], 'n')
+	    	   ->where('n.'.$entityDescription['contextField'].'='.$qb->expr()->literal($givenContext))
+	    	   ->orderBy('n.'.$entityDescription['updatedAtField'], 'DESC')
 	    	   ->setMaxResults($limit);
 	    }
         $result = $qb->getQuery()->getArrayResult();
@@ -157,7 +120,10 @@ class PageManagementController extends Controller {
     
     
     public function getTemplateBlocksFormAction() {
-        $response = array('content' => '', 'errors' => '', 'buttons' => '');
+        $response = array('content' => '', 'errors' => '', 'buttons' => '', 'options' => array());
+
+        $neighborsCommunicator = $this->get('special_project_neighbors_communicator');
+        $response['options'] = $neighborsCommunicator->getFriendlyEntitiesJsonList();
 
         $request = $this->get('request');
         $templateId = (integer)$request->request->get('templateId');
