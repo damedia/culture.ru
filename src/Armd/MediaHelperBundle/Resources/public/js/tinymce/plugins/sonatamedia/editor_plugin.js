@@ -1,15 +1,16 @@
 (function() {
 	
     window.SonataMedia = {
-        mediaListUrl:   Routing.getBaseUrl() + "/admin/damedia/specialproject/page/getTinyMediaForm?context=default",
+    		
+        mediaListUrl:   Routing.getBaseUrl() + "/admin/sonata/media/media/list?context=default",
         mediaCreateUrl: Routing.getBaseUrl() + "/admin/sonata/media/media/create",
         mediaInfoUrl:   Routing.getBaseUrl() + "/admin/armd/media/path/",
         
-        browse: function(fieldName, url, type, win) {
+       browse: function(fieldName, url, type, win) {
             var dialog = tinyMCE.activeEditor.windowManager.open({
                     title:  "Sonata media",
                     inline: true,
-                    width:  1000,
+/*                    width:  1000,
                     height: $(window).height() - 200,
                     url:SonataMedia.mediaListUrl + "&_sonata_admin="+tinyMCE.activeEditor.settings.sonataAdmin+
                     "&code=sonata.media.admin.media&uniqid=" + SonataMedia.uniqid()
@@ -20,8 +21,17 @@
             		// .windowManager.close();
             	}
             };
-            console.log(win);
-            function onHTMLloaded(html) {
+            */
+                    width:  800,
+                    height: $(window).height() - 200
+                });
+            
+            $.get(SonataMedia.mediaListUrl + "&code=sonata.media.admin.media&uniqid=" + SonataMedia.uniqid()).done(function(html) {
+                    
+                    
+            /*console.log(win);
+            function onHTMLloaded(html)  
+            {*/
             	  
                 SonataMedia.setDialogContent(dialog, html);
 
@@ -75,7 +85,8 @@
                         }
                     });
                 });
-            };
+            // };
+            });
         },
         
         setDialogContent: function(dialog, content) {
@@ -94,6 +105,7 @@
                     content +
                 "</div>";
             $("#" + dialog._id + "-body")
+            	.css({ overflow:	"auto"})
                 .html(content)
                 .find(".sonata-ba-model div, .sonata-ba-model a")
                     .css({
@@ -173,3 +185,4 @@
         }
     };
 })();
+
