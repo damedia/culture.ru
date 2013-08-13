@@ -2,6 +2,12 @@ armd_main_homepage:
     pattern:  /
     defaults: { _controller: ArmdMainBundle:Main:homepage }
 
+armd_main_homepage_preview:
+    pattern:  /preview/{date}
+    defaults: { _controller: ArmdMainBundle:Main:homepagePreview }
+    requirements:
+        date:  ^20\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$
+
 armd_main_underconstruction:
     pattern:  /underconstruction/
     defaults: { _controller: ArmdMainBundle:Main:underconstruction }

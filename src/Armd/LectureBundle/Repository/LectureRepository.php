@@ -166,8 +166,15 @@ class LectureRepository extends EntityRepository
             ->leftJoin($rootAlias . '.mediaTrailerVideo', '_lecture_media_trailer_video');
     }
 
-    public function findCinemaForMainPage($limit = 5, $type = 'recommend')
+    public function findCinemaForMainPage($date = '', $limit = 5, $type = 'recommend')
     {
+        $dt = new \DateTime();
+        $dt->setTime(0, 0, 0);
+        if ($date != '') {
+            $tmp = explode('-', $date);
+            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+        }
+
         $qb = $this->createQueryBuilder('a')
             ->innerJoin('a.lectureSuperType', 'c', 'WITH', 'c.code = :category')
             ->setParameter('category', 'LECTURE_SUPER_TYPE_CINEMA')
@@ -179,7 +186,7 @@ class LectureRepository extends EntityRepository
                     ->setParameter('show', true)
                     ->andWhere('a.showOnMainAsForChildrenFrom <= :dt1')
                     ->andWhere($qb->expr()->orX('a.showOnMainAsForChildrenTo > :dt1', 'a.showOnMainAsForChildrenTo IS NULL'))
-                    ->setParameter('dt1', new \DateTime())
+                    ->setParameter('dt1', $dt)
                     ->orderBy('a.showOnMainAsForChildrenOrd');
                 break;
             case 'recommend':
@@ -188,15 +195,22 @@ class LectureRepository extends EntityRepository
                     ->setParameter('show', true)
                     ->andWhere('a.showOnMainAsRecommendedFrom <= :dt1')
                     ->andWhere($qb->expr()->orX('a.showOnMainAsRecommendedTo > :dt1', 'a.showOnMainAsRecommendedTo IS NULL'))
-                    ->setParameter('dt1', new \DateTime())
+                    ->setParameter('dt1', $dt)
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findForMainPage($limit = 5, $type = 'recommend')
+    public function findForMainPage($date = '', $limit = 5, $type = 'recommend')
     {
+        $dt = new \DateTime();
+        $dt->setTime(0, 0, 0);
+        if ($date != '') {
+            $tmp = explode('-', $date);
+            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+        }
+
         $qb = $this->createQueryBuilder('a')
             ->innerJoin('a.lectureSuperType', 'c', 'WITH', 'c.code = :category')
             ->setParameter('category', 'LECTURE_SUPER_TYPE_LECTURE')
@@ -227,7 +241,7 @@ class LectureRepository extends EntityRepository
                     ->setParameter('show', true)
                     ->andWhere('a.showOnMainAsRecommendedFrom <= :dt1')
                     ->andWhere($qb->expr()->orX('a.showOnMainAsRecommendedTo > :dt1', 'a.showOnMainAsRecommendedTo IS NULL'))
-                    ->setParameter('dt1', new \DateTime())
+                    ->setParameter('dt1', $dt)
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }

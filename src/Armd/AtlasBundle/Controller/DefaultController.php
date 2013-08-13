@@ -1025,26 +1025,28 @@ class DefaultController extends Controller
 
     /**
      * @param string $type
-     * @Route("russia-images-main/{type}",
+     * @param string $date
+     * @Route("russia-images-main/{type}/{date}",
      *  name="armd_atlas_russia_images_mainpage",
+     *  defaults={"date"=""},
      *  options={"expose"=true}
      * )
      * @return Response
      */
-    public function mainpageWidgetAction($type = 'recommend')
+    public function mainpageWidgetAction($type = 'recommend', $date = '')
     {
         $repo = $this->getObjectRepository();
-        $russianImages = $repo->findRussiaImagesForMainPage(10, $type);
+        $russianImages = $repo->findRussiaImagesForMainPage($date, 10, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(
                 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig',
-                array('russianImages' => $russianImages)
+                array('russianImages' => $russianImages, 'date' => $date)
             );
         } else {
             return $this->render(
                 'ArmdAtlasBundle:Default:mainpageWidget.html.twig',
-                array('russianImages' => $russianImages)
+                array('russianImages' => $russianImages, 'date' => $date)
             );
         }
     }

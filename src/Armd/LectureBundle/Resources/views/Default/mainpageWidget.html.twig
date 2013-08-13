@@ -5,8 +5,8 @@
             <div style="font-size:20px;">
                 ЛЕКЦИИ
                 <span style="margin-left:30px;">
-                    <a class="order active" href="{{ path('armd_lecture_mainpage', {type: 'recommend'}) }}">рекоммендованные</a>&nbsp;
-                    <a class="order" href="{{ path('armd_lecture_mainpage', {type: 'popular'}) }}">популярные</a>&nbsp;
+                    <a class="order active" href="{{ path('armd_lecture_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
+                    <a class="order" href="{{ path('armd_lecture_mainpage', {type: 'popular', date: date}) }}">популярные</a>&nbsp;
                 </span>
             </div>
             <div id="lecture_widget" class="carousel" style="margin-top:20px;">

@@ -3,6 +3,7 @@
 namespace Armd\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Armd\NewsBundle\Entity\NewsManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Armd\ListBundle\Controller\ListController;
 use Armd\ListBundle\Repository\BaseRepository;
 use Armd\AtlasBundle\Entity\ObjectManager;
 use Armd\MuseumBundle\Entity\MuseumManager;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class MainController extends Controller
@@ -102,16 +104,16 @@ class MainController extends Controller
 //            )
 //        );
 //
-        $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
-            array(
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_CINEMA'),
-                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
-                    'showOnMainAsRecommended' => 'DESC', 'showOnMainAsRecommendedOrd' => 'ASC', 'createdAt' => 'DESC'
-                )
-            )
-        );
-
+//        $cinemas = $this->get('armd_lecture.manager.lecture')->findObjects(
+//            array(
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_LIMIT => 4,
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_SUPER_TYPE_CODES_OR => array('LECTURE_SUPER_TYPE_CINEMA'),
+//                \Armd\LectureBundle\Entity\LectureManager::CRITERIA_ORDER_BY => array(
+//                    'showOnMainAsRecommended' => 'DESC', 'showOnMainAsRecommendedOrd' => 'ASC', 'createdAt' => 'DESC'
+//                )
+//            )
+//        );
+//
         $response = $this->render(
             'ArmdMainBundle:Homepage:homepage.html.twig',
             array(
@@ -129,6 +131,22 @@ class MainController extends Controller
 //        $response->setSharedMaxAge(120);
 
         return $response;
+    }
+
+    /**
+     * @param $date
+     * @Template("ArmdMainBundle:Homepage:homepagePreview.html.twig")
+     * @throws NotFoundHttpException
+     */
+    public function homepagePreviewAction($date)
+    {
+        /** @var \Armd\UserBundle\Entity\User $user */
+        $user = $this->getUser();
+        if(!is_object($user) || !$user->hasRole('ROLE_SUPER_ADMIN')) {
+            throw new NotFoundHttpException();
+        }
+
+        return array('date' => $date);
     }
 
     public function loginLinksAction()

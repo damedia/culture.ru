@@ -8,12 +8,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
+     * @param $date
      * @Template()
      * @return array
      */
-    public function mainpageWidgetAction()
+    public function mainpageWidgetAction($date = '')
     {
-        $actualInfo = $this->getDoctrine()->getRepository('ActualInfoBundle:ActualInfo')->findForMainPage();
+        /** @var \Armd\ActualInfoBundle\Entity\ActualInfoRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('ActualInfoBundle:ActualInfo');
+        $actualInfo = $repo->findForMainPage($date);
+
         return array('actualInfo' => $actualInfo);
     }
 }

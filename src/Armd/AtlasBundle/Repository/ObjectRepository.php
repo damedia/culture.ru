@@ -124,11 +124,19 @@ class ObjectRepository extends EntityRepository
 
     /**
      * @param int $limit
+     * @param $date
      * @param string $type (recommend => showOnMainAsRecommended = true, novel => showOnMainAsNovel => true)
      * @return array
      */
-    public function findRussiaImagesForMainPage($limit = 10, $type = 'recommend')
+    public function findRussiaImagesForMainPage($date = '', $limit = 10, $type = 'recommend')
     {
+        $dt = new \DateTime();
+        $dt->setTime(0, 0, 0);
+        if ($date != '') {
+            $tmp = explode('-', $date);
+            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+        }
+
         $qb = $this->findRussiaImagesQuery();
         $qb->setMaxResults($limit);
         switch($type)
@@ -137,7 +145,7 @@ class ObjectRepository extends EntityRepository
                 $qb->andWhere('o.showOnMainAsNovel = TRUE')
                     ->andWhere('o.showOnMainAsNovelFrom <= :dt')
                     ->andWhere($qb->expr()->orX('o.showOnMainAsNovelTo >= :dt', 'o.showOnMainAsNovelTo IS NULL'))
-                    ->setParameter('dt', new \DateTime());
+                    ->setParameter('dt', $dt);
                 $objects = $qb->getQuery()->getResult();
                 break;
 
@@ -146,7 +154,7 @@ class ObjectRepository extends EntityRepository
                 $qb->andWhere('o.showOnMainAsRecommended = TRUE')
                     ->andWhere('o.showOnMainAsRecommendedFrom <= :dt')
                     ->andWhere($qb->expr()->orX('o.showOnMainAsRecommendedTo >= :dt', 'o.showOnMainAsNovelTo IS NULL'))
-                    ->setParameter('dt', new \DateTime());
+                    ->setParameter('dt', $dt);
                 $objects = $qb->getQuery()->getResult();
         }
 

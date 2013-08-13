@@ -6,8 +6,15 @@ use Doctrine\ORM\EntityRepository;
 
 class PerfomanceRepository extends EntityRepository
 {
-    public function findForMainPage($limit = 5, $type = 'recommend')
+    public function findForMainPage($date = '', $limit = 5, $type = 'recommend')
     {
+        $dt = new \DateTime();
+        $dt->setTime(0, 0, 0);
+        if ($date != '') {
+            $tmp = explode('-', $date);
+            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+        }
+
         $qb = $this->createQueryBuilder('a')
             ->setMaxResults($limit);
 
@@ -36,7 +43,7 @@ class PerfomanceRepository extends EntityRepository
                     ->setParameter('show', true)
                     ->andWhere('a.showOnMainFrom <= :dt1')
                     ->andWhere($qb->expr()->orX('a.showOnMainTo > :dt1', 'a.showOnMainTo IS NULL'))
-                    ->setParameter('dt1', new \DateTime());
+                    ->setParameter('dt1', $dt);
 //                    ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }

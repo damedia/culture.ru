@@ -5,8 +5,8 @@
             <div style="font-size:20px;">
                 КИНО
                 <span style="margin-left:30px;">
-                    <a class="order active" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend'}) }}">рекоммендованные</a>&nbsp;
-                    <a class="order" href="{{ path('armd_lecture_cinema_mainpage', {type: 'children'}) }}">для детей</a>&nbsp;
+                    <a class="order active" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
+                    <a class="order" href="{{ path('armd_lecture_cinema_mainpage', {type: 'children', date: date}) }}">для детей</a>&nbsp;
                 </span>
             </div>
             <div id="cinema_widget" class="carousel" style="margin-top:20px;">

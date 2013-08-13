@@ -1,0 +1,23 @@
+{% extends base_template %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# put links to javascript libraries here if you need any #}
+{% endblock %}
+
+{% block content %}
+    <h3>{{ 'Планировщик'|trans }}</h3>
+    <div>
+        <form action="" method="post" target="_blank">
+            <div>
+                <select name="day">{% for i in 1 .. 31 %}<option{% if i == day %} selected{% endif %}>{% if i < 10 %}0{% endif %}{{ i }}</option>{% endfor %}</select>&nbsp;.&nbsp;
+                <select name="month">{% for i in 1 .. 12 %}<option{% if i == month %} selected{% endif %}>{% if i < 10 %}0{% endif %}{{ i }}</option>{% endfor %}</select>&nbsp;.&nbsp;
+                <select name="year">{% for i in 2013 .. 2029 %}<option{% if i == year %} selected{% endif %}>{{ i }}</option>{% endfor %}</select>
+            </div>
+            <div>
+                <input type="submit" value="{{ 'Preview'|trans }}" />
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -54,13 +54,14 @@ class RenderController extends Controller {
     }
 
     /**
+     * @param string $date
      * @return Response
      */
-    public function mainpageWidgetAction()
+    public function mainpageWidgetAction($date = '')
     {
         /** @var \Damedia\SpecialProjectBundle\Repository\PageRepository $pageRepository */
         $pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
-        $projects = $pageRepository->findForMainPage(5);
+        $projects = $pageRepository->findForMainPage($date, 5);
 
         return $this->render('DamediaSpecialProjectBundle:Default:mainpageWidget.html.twig', array('projects' => $projects));
     }

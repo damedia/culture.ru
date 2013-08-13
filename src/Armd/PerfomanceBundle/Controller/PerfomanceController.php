@@ -438,26 +438,28 @@ class PerfomanceController extends Controller
 
     /**
      * @param string $type
-     * @Route("perfomance-main/{type}",
+     * @param string $date
+     * @Route("perfomance-main/{type}/{date}",
      *  name="armd_perfomance_mainpage",
+     *  defaults={"date"=""},
      *  options={"expose"=true}
      * )
      * @return Response
      */
-    public function mainpageWidgetAction($type = 'recommend')
+    public function mainpageWidgetAction($type = 'recommend', $date = '')
     {
         $repo = $this->getPerfomanceRepository();
-        $objects = $repo->findForMainPage(5, $type);
+        $objects = $repo->findForMainPage($date, 5, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(
                 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig',
-                array('objects' => $objects)
+                array('objects' => $objects, 'date' => $date)
             );
         } else {
             return $this->render(
                 'ArmdPerfomanceBundle:Perfomance:mainpageWidget.html.twig',
-                array('objects' => $objects)
+                array('objects' => $objects, 'date' => $date)
             );
         }
     }

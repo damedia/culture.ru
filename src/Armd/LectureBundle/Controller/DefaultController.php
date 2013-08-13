@@ -632,48 +632,50 @@ class DefaultController extends Controller
 
     /**
      * @param string $type
-     * @Route("cinema-main/{type}", name="armd_lecture_cinema_mainpage")
+     * @param string $date
+     * @Route("cinema-main/{type}/{date}", defaults={"date"=""}, name="armd_lecture_cinema_mainpage")
      * @return Response
      */
-    public function mainpageWidgetAction($type = 'recommend')
+    public function mainpageWidgetAction($type = 'recommend', $date = '')
     {
         /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
-        $lectures = $repo->findCinemaForMainPage(5, $type);
+        $lectures = $repo->findCinemaForMainPage($date, 5, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(
                 'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig',
-                array('lectures' => $lectures)
+                array('lectures' => $lectures, 'date' => $date)
             );
         } else {
             return $this->render(
                 'ArmdLectureBundle:Default:mainpageCinemaWidget.html.twig',
-                array('lectures' => $lectures)
+                array('lectures' => $lectures, 'date' => $date)
             );
         }
     }
 
     /**
      * @param string $type
-     * @Route("lecture-main/{type}", name="armd_lecture_mainpage")
+     * @param string $date
+     * @Route("lecture-main/{type}/{date}", name="armd_lecture_mainpage", defaults={"date"=""})
      * @return Response
      */
-    public function mainpageLectureWidgetAction($type = 'recommend')
+    public function mainpageLectureWidgetAction($type = 'recommend', $date = '')
     {
         /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
-        $lectures = $repo->findForMainPage(5, $type);
+        $lectures = $repo->findForMainPage($date, 5, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(
                 'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig',
-                array('lectures' => $lectures)
+                array('lectures' => $lectures, 'date' => $date)
             );
         } else {
             return $this->render(
                 'ArmdLectureBundle:Default:mainpageWidget.html.twig',
-                array('lectures' => $lectures)
+                array('lectures' => $lectures, 'date' => $date)
             );
         }
     }

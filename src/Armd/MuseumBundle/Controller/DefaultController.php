@@ -312,14 +312,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param string $date
      * @Template()
      * @return array
      */
-    public function mainpageWidgetAction()
+    public function mainpageWidgetAction($date = '')
     {
         /** @var \Armd\MuseumBundle\Repository\MuseumRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdMuseumBundle:Museum');
-        $museum = $repo->findForMain();
+        $museum = $repo->findForMain($date);
         return array('museum' => $museum);
     }
 }

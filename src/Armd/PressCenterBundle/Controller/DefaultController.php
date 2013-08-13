@@ -36,13 +36,14 @@ class DefaultController extends Controller
 
 
     /**
+     * @param $date
      * @Template()
      * @return array
      */
-    public function mainpageWidgetAction()
+    public function mainpageWidgetAction($date = '')
     {
         $repo = $this->getPressCenterRepository();
-        $items = $repo->findForMainPage(5);
+        $items = $repo->findForMainPage($date, 5);
 
         return array('items' => $items);
     }

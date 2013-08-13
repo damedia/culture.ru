@@ -1,0 +1,34 @@
+{% extends 'ArmdMainBundle:Homepage:homepage.html.twig' %}
+
+
+{% block left_column %}
+
+    {#new blocks#}
+    {% render 'PressCenterBundle:Default:mainpageWidget'  with { 'date': date } %}
+    {% render 'ArmdAtlasBundle:Default:mainpageWidget'  with { 'date': date } %}
+    {% render 'DamediaSpecialProjectBundle:Render:mainpageWidget' with { 'date': date } %}
+    {% render 'ArmdLectureBundle:Default:mainpageWidget' with { 'date': date } %}
+    {% render 'ArmdMuseumBundle:Default:mainpageWidget' with { 'date': date } %}
+    {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' with { 'date': date } %}
+    {% render 'ArmdLectureBundle:Default:mainpageLectureWidget' with { 'date': date } %}
+    {#end of new blocks#}
+
+{% endblock %}
+
+
+{% block right_column %}
+
+    <span class="helper-top-orange-line"></span>
+
+    <section id="homepage-online-translation">
+        {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
+    </section>
+
+    {#new blocks#}
+    {% render 'ActualInfoBundle:Default:mainpageWidget' with { 'date': date } %}
+    {% render 'BlogBundle:Default:lastPost' %}
+    {#end of new blocks#}
+
+
+{% endblock %}
+
