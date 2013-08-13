@@ -28,6 +28,8 @@
 
     <script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script>
 
+    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/bootstrap-modal.js') }}"></script>
+
     {{ tinymce_init() }}
 
     <script type="text/javascript">
@@ -68,11 +70,9 @@
                         formButtonsPanel.prepend(data.buttons);
 
                         /* BEGIN TinyMCE initialization */
-                        initTinyMCE.defaults.theme.sproject_snippets.parameters = { selectFormUrl: "{{ path('get_tiny_ac_form') }}",
-                                                                                    galleryFormUrl: "{{ path('get_tiny_gallery_form') }}",
-                                                                                    sonataAdmin: "{{ admin.code }}",
-                                                                                    entityTypes: data.options
-                                                                                   };
+                        initTinyMCE.defaults.theme.sproject_snippets.parameters = { sonataAdmin: "{{ admin.code }}",
+                                                                                    acAjaxUrl: "{{ path('get_snippet_jsonlist') }}"
+                                                                                  };
                         initTinyMCE(initTinyMCE.defaults);
                         /* END TinyMCE initialization */
 

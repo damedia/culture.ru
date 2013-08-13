@@ -44,7 +44,7 @@ class RenderController extends Controller {
                                                                                           'Projects' => $projects));
 	}
 	
-    public function viewAction($slug) {
+    public function viewAction($slug) { //rename to: previewPageAction()
     	$pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
         $page = $pageRepository->findOneBy(array('slug' => $slug, 'isPublished' => true));
         $helper = $this->get('special_project_helper');
@@ -52,7 +52,7 @@ class RenderController extends Controller {
         return $helper->renderSpecialProjectPage($this, $page, 'Страница <span class="variable">'.$slug.'</span> не опубликована или не существует!');
     }
 
-    public function snippetAction($entity, $itemId) {
+    public function snippetAction($entity, $itemId) { //rename to: renderSnippetAction()
         $communicator = $this->get('special_project_neighbors_communicator');
         $entityDescription = $communicator->getFriendlyEntityDescription($entity);
         $twigFile = $communicator->getFriendlyEntityDefaultTwig($entity);

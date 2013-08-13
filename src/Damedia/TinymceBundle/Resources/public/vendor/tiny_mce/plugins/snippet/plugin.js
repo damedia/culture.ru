@@ -4,62 +4,74 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
      * in Damedia plugins we are using 'editor.settings.parameters'
      */
 
-	var CONTENT_TYPES =	editor.settings.parameters.entityTypes || [{ value: 'news', text: 'Новость' }];
+    function createSnippet(){
+        var modalWindowDiv = $('#snippetBootstrapModal'),
+            entitySelect = $('select[name="entity"]', modalWindowDiv),
+            autocompleteInput = $('input[name="object"]', modalWindowDiv),
+            entity,
+            setEntity = function(){
+                var entityTitle,
+                    entityTitleSpan = $('span[name="entityTitle"]', modalWindowDiv);
 
-	function createSnippet(){
-        var selectedType = CONTENT_TYPES[0].value,
-            selectedTypeLabel = CONTENT_TYPES[0].text;
+                entityTitle = entitySelect.find('option:selected').text();
+                entityTitleSpan.text(entityTitle);
+                entity = entitySelect.val();
+                autocompleteInput.val('');
+            },
+            constructAjaxUrl = function(entity, searchTerm){
+                return editor.settings.parameters.acAjaxUrl + '?_sonata_admin=' + editor.settings.parameters.sonataAdmin + '&entity=' + entity + '&q=' + searchTerm;
+            },
+            getSearchResults = function(request, response){
+                $.ajax(constructAjaxUrl(entity, request.term), {
+                    success: function(data){
+                        if (data.length) {
+                            autocompleteInput.removeClass("ui-state-error");
+                        }
+                        else {
+                            autocompleteInput.addClass("ui-state-error");
+                        }
 
-		editor.windowManager.open({
-            width: 300,
-            height: 60,
-			title: 'Выбор типа',
-			body: [{ type: 'listbox',
-                     name: 'linkType',
-                     label: 'Тип',
-                     multiple: false,
-                     values: CONTENT_TYPES,
-                     onselect: function(v){
-                        selectedType = v.control.value();
-                        selectedTypeLabel = v.control.text();
-                     }}],
-			onsubmit: function(){
-                var snippet = {};
-
-                window.modalEditor = { //what is this???
-                    editor: editor,
-                    callback: function(editedData){
-                        var snippetValue,
-                            snippetTwig,
-                            snippetHtml;
-
-                        snippet.entityId = editedData.value;
-                        snippet.label = editedData.label;
-                        snippet.type = selectedType;
-                        snippet.viewId = null;
-
-                        editor.windowManager.close();
-                        window.modalEditor = null;
-
-                        snippetValue = 'Type: ' + snippet.type + ', ID: ' + snippet.entityId + ', Label: ' + snippet.label;
-                        snippetTwig = '{% render url(\'damedia_foreign_entity\', { \'entity\': \'' + snippet.type + '\', \'itemId\': ' + snippet.entityId + ' }) %}';
-                        snippetHtml = '<input type="button" class="snippet" value="' + snippetValue + '" data-twig="' + snippetTwig + '" disabled="disabled" />';
-                        editor.execCommand('mceInsertContent', false, snippetHtml);
+                        response(data);
+                    },
+                    error: function(xhr, err){
+                        autocompleteInput.addClass("ui-state-error");
                     }
-                };
-
-                editor.windowManager.open({
-                    type: 'window',
-                    width: 700,
-                    height: 500,
-                    title: 'Поиск объекта',
-                    url: editor.settings.parameters.selectFormUrl + '?_sonata_admin=' + editor.settings.parameters.sonataAdmin + '#'+selectedType
-                }, {
-                    typeTranslation : selectedTypeLabel
                 });
-			}
-		});
-	}
+            },
+            insertSnippet = function(label, value){
+                var snippet = { entityId: value,
+                                label: label,
+                                type: entity,
+                                viewId: null
+                              },
+                    snippetValue,
+                    snippetTwig,
+                    snippetHtml;
+
+                snippetValue = 'Type: ' + snippet.type + ', ID: ' + snippet.entityId + ', Label: ' + snippet.label;
+                snippetTwig = '{% render url(\'damedia_foreign_entity\', { \'entity\': \'' + snippet.type + '\', \'itemId\': ' + snippet.entityId + ' }) %}';
+                snippetHtml = '<input type="button" class="snippet" value="' + snippetValue + '" data-twig="' + snippetTwig + '" disabled="disabled" /> ';
+
+                editor.execCommand('mceInsertContent', false, snippetHtml);
+
+                modalWindowDiv.modal('hide');
+            };
+
+        modalWindowDiv.on('show', function(){
+            setEntity();
+        });
+
+        entitySelect.on('change', function(){
+            setEntity();
+        });
+
+        //using 'unbind()' is inevitable here else 'autocompleteselect' callback will be binded many times!
+        autocompleteInput.autocomplete({ source: getSearchResults }).unbind('autocompleteselect').on('autocompleteselect', function(event, ui){
+            insertSnippet(ui.item.label, ui.item.value);
+        });
+
+        modalWindowDiv.modal();
+    }
 
 	editor.addButton('snippetAdd', {
 		text: 'Snippet',

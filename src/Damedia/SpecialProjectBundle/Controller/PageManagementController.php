@@ -21,18 +21,6 @@ class PageManagementController extends Controller {
     	return $this->renderJson($json);
 	}
 
-    public function getTinyAcFormAction() {
-        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
-    }
-
-    public function getTinyGalleryFormAction() {
-        $request = $this->get('request');
-        $param = $request->request->get('something') ? $request->request->get('something') : 'no way...';
-
-        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyGalleryForm.html.twig',
-                             array("param" => $param));
-    }
-
 
 
     public function getTinyMediaFormAction() {
@@ -120,10 +108,7 @@ class PageManagementController extends Controller {
     
     
     public function getTemplateBlocksFormAction() {
-        $response = array('content' => '', 'errors' => '', 'buttons' => '', 'options' => array());
-
-        $neighborsCommunicator = $this->get('special_project_neighbors_communicator');
-        $response['options'] = $neighborsCommunicator->getFriendlyEntitiesJsonList();
+        $response = array('content' => '', 'errors' => '', 'buttons' => '');
 
         $request = $this->get('request');
         $templateId = (integer)$request->request->get('templateId');
@@ -168,9 +153,13 @@ class PageManagementController extends Controller {
         }
         $form = $formBuilder->getForm();
 
+        $neighborsCommunicator = $this->get('special_project_neighbors_communicator');
+        $entitySelectOptions = $neighborsCommunicator->getFriendlyEntitiesSelectOptions();
+
         $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_formPart_templateBlocksForm.html.twig',
                                                  array('twigFileName' => $twigFileName,
-                                                       'form' => $form->createView()));
+                                                       'form' => $form->createView(),
+                                                       'entitySelectOptions' => $entitySelectOptions));
 
         $response['buttons'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_button_preview.html.twig',
                                                  array('admin' => $this->admin,
