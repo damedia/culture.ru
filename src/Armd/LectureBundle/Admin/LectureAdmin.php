@@ -118,13 +118,14 @@ class LectureAdmin extends Admin
                 ->add('recommended')
                 ->add('showAtSlider')
                 ->add('showAtFeatured')
-                ->add('showOnMain')
-                ->add('showOnMainFrom', 'date', array(
+                ->add('showOnMainAsRecommended')
+                ->add('showOnMainAsRecommendedFrom', 'date', array(
                         'required' => false
                     ))
-                ->add('showOnMainTo', 'date', array(
+                ->add('showOnMainAsRecommendedTo', 'date', array(
                         'required' => false
                     ))
+            ->add('showOnMainAsRecommendedOrd')
             ->end()
             ->with('SEO')
                 ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
@@ -187,6 +188,7 @@ class LectureAdmin extends Admin
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
+            ->add('showOnMainAsRecommended')
         ;
     }
 
@@ -209,6 +211,7 @@ class LectureAdmin extends Admin
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
+            ->add('showOnMainAsRecommended', null, array('editable' => true))
         ;
     }
 

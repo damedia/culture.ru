@@ -48,8 +48,8 @@ class LectureNewsAdmin extends Admin
             ->add('lecturer')
             ->add('lectureVideo')
             ->add('lectureFile')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended')
+            ->add('showOnMainAsRecommendedOrd')
             ->add('isHeadline')
             ;
     }
@@ -72,7 +72,7 @@ class LectureNewsAdmin extends Admin
 
         $formMapper
             ->add('published')
-            ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))            
+            ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
             ->add('title')
             ->add('announce')
             ->add('description', null, array(
@@ -112,10 +112,10 @@ class LectureNewsAdmin extends Admin
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('isHeadline', null, array('required' => false))
             ->with('Главная')
-                ->add('showOnMain', null, array(
+                ->add('showOnMainAsRecommended', null, array(
                     'required' => false
                 ))
-                ->add('showOnMainOrd', null, array(
+                ->add('showOnMainAsRecommendedOrd', null, array(
                     'required' => false
                 ))
             ->end()
@@ -180,7 +180,7 @@ class LectureNewsAdmin extends Admin
         // retrieve the default (currently only the delete action) actions
         $actions = parent::getBatchActions();
 
-        
+
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
             // /*
@@ -194,10 +194,10 @@ class LectureNewsAdmin extends Admin
             );
             // */
         }
-        
+
         return $actions;
     }
-    
+
     public function postPersist($object)
     {
         parent::postPersist($object);
@@ -221,7 +221,7 @@ class LectureNewsAdmin extends Admin
     {
         $this->container->get('fpn_tag.tag_manager')->saveTagging($object);
     }
-    
+
     /**
      * Updates all LECTURE_SUPER_TYPE_NEWS to set $object the only headline
      */
@@ -229,8 +229,8 @@ class LectureNewsAdmin extends Admin
     {
         $this->modelManager
                 ->getEntityManager('ArmdLectureBundle:Lecture')
-                ->createQuery('UPDATE ArmdLectureBundle:Lecture l 
-                                SET l.isHeadline = false 
+                ->createQuery('UPDATE ArmdLectureBundle:Lecture l
+                                SET l.isHeadline = false
                                 WHERE l.lectureSuperType = :lst AND l.id <> :oid AND l.isHeadline = true')
                 ->execute(array(
                     ':lst' => $object->getLectureSuperType()->getId(),
