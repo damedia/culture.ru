@@ -1,0 +1,19 @@
+{% spaceless %}
+    {% if objects is not empty %}
+        {# todo: html #}
+        <div id="theater_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
+            <div style="font-size:20px;">
+                СПЕКТАКЛИ
+                <span style="margin-left:30px;">
+                    <a class="order active" href="{{ path('armd_perfomance_mainpage', {type: 'recommend'}) }}">рекоммендованные</a>&nbsp;
+                    <a class="order" href="{{ path('armd_perfomance_mainpage', {type: 'popular'}) }}">популярные</a>&nbsp;
+                </span>
+            </div>
+            <div id="theater_widget" class="carousel" style="margin-top:20px;">
+                {% include 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig' with objects %}
+            </div>
+
+            <a href="{{ path('armd_perfomance_list') }}">Перейти в раздел Театр</a>
+        </div>
+    {% endif %}
+{% endspaceless %}

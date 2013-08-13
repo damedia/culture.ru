@@ -34,13 +34,35 @@ class ViewedContentRepository extends EntityRepository
      * @param int $limit
      * @return array
      */
-    public function getTopRussianImages($limit = 10)
+    public function getTopPerfomances($limit = 10)
     {
         $ids = array();
         foreach($this->createQueryBuilder('a')
             ->select(array('a.entityId', 'COUNT(a) as cnt'))
             ->where('a.entityClass = :class')
-            ->setParameter('class', 'ArmdAtlasBundle:Object')
+            ->setParameter('class', 'ArmdPerfomanceBundle:Perfomance')
+            ->groupBy('a.entityId')
+            ->orderBy('cnt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult() as $row) {
+            $ids[] = $row['entityId'];
+        }
+        return $ids;
+    }
+
+    /**
+     * @todo: 1 function ?
+     * @param int $limit
+     * @return array
+     */
+    public function getTopLectures($limit = 10)
+    {
+        $ids = array();
+        foreach($this->createQueryBuilder('a')
+            ->select(array('a.entityId', 'COUNT(a) as cnt'))
+            ->where('a.entityClass = :class')
+            ->setParameter('class', 'ArmdLectureBundle:Lecture')
             ->groupBy('a.entityId')
             ->orderBy('cnt', 'DESC')
             ->setMaxResults($limit)

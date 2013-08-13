@@ -161,24 +161,44 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     private $isTop100Film = false;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended", type="boolean", nullable=true)
      */
-    private $showOnMain = false;
+    private $showOnMainAsRecommended = false;
 
     /**
-     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     * @ORM\Column(name="show_on_main_as_recommended_from", type="datetime", nullable=true)
      */
-    private $showOnMainFrom;
+    private $showOnMainAsRecommendedFrom;
 
     /**
-     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     * @ORM\Column(name="show_on_main_as_recommended_to", type="datetime", nullable=true)
      */
-    private $showOnMainTo;
+    private $showOnMainAsRecommendedTo;
 
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended_ord", type="integer", nullable=true)
      */
-    private $showOnMainOrd = 0;
+    private $showOnMainAsRecommendedOrd = 0;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children", type="boolean", nullable=false)
+     */
+    private $showOnMainAsForChildren = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children_from", type="datetime", nullable=true)
+     */
+    private $showOnMainAsForChildrenFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children_to", type="datetime", nullable=true)
+     */
+    private $showOnMainAsForChildrenTo;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_for_children_ord", type="integer", nullable=false)
+     */
+    private $showOnMainAsForChildrenOrd = 0;
 
     /**
      * @ORM\Column(name="is_headline", type="boolean", nullable=true)
@@ -836,56 +856,18 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     /**
      * @return boolean
      */
-    public function getShowOnMain()
+    public function getShowOnMainAsRecommended()
     {
-        return $this->showOnMain;
+        return $this->showOnMainAsRecommended;
     }
 
     /**
-     * @param $showOnMain boolean
+     * @param $showOnMainAsRecommended
      * @return $this
      */
-    public function setShowOnMain($showOnMain)
+    public function setShowOnMainAsRecommended($showOnMainAsRecommended)
     {
-        $this->showOnMain = $showOnMain;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getShowOnMainFrom()
-    {
-        return $this->showOnMainFrom;
-    }
-
-    /**
-     * @param $showOnMainFrom \DateTime
-     * @return $this
-     */
-    public function setShowOnMainFrom($showOnMainFrom)
-    {
-        $this->showOnMainFrom = $showOnMainFrom;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getShowOnMainTo()
-    {
-        return $this->showOnMainTo;
-    }
-
-    /**
-     * @param $showOnMainTo \DateTime
-     * @return $this
-     */
-    public function setShowOnMainTo($showOnMainTo)
-    {
-        $this->showOnMainTo = $showOnMainTo;
+        $this->showOnMainAsRecommended = $showOnMainAsRecommended;
 
         return $this;
     }
@@ -893,14 +875,124 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     /**
      * @return integer
      */
-    public function getShowOnMainOrd()
+    public function getShowOnMainAsRecommendedOrd()
     {
-        return $this->showOnMainOrd;
+        return $this->showOnMainAsRecommendedOrd;
     }
 
-    public function setShowOnMainOrd($showOnMainOrd)
+    public function setShowOnMainAsRecommendedOrd($showOnMainAsRecommendedOrd)
     {
-        $this->showOnMainOrd = $showOnMainOrd;
+        $this->showOnMainAsRecommendedOrd = $showOnMainAsRecommendedOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedFrom()
+    {
+        return $this->showOnMainAsRecommendedFrom;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedFrom($showOnMainAsRecommendedFrom)
+    {
+        $this->showOnMainAsRecommendedFrom = $showOnMainAsRecommendedFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedTo()
+    {
+        return $this->showOnMainAsRecommendedTo;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedTo($showOnMainAsRecommendedTo)
+    {
+        $this->showOnMainAsRecommendedTo = $showOnMainAsRecommendedTo;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMainAsForChildren()
+    {
+        return $this->showOnMainAsForChildren;
+    }
+
+    /**
+     * @param $showOnMainAsForChildren
+     * @return $this
+     */
+    public function setShowOnMainAsForChildren($showOnMainAsForChildren)
+    {
+        $this->showOnMainAsForChildren = $showOnMainAsForChildren;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainAsForChildrenOrd()
+    {
+        return $this->showOnMainAsForChildrenOrd;
+    }
+
+    public function setShowOnMainAsForChildrenOrd($showOnMainAsForChildrenOrd)
+    {
+        $this->showOnMainAsForChildrenOrd = $showOnMainAsForChildrenOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsForChildrenFrom()
+    {
+        return $this->showOnMainAsForChildrenFrom;
+    }
+
+    /**
+     * @param $showOnMainAsForChildrenFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsForChildrenFrom($showOnMainAsForChildrenFrom)
+    {
+        $this->showOnMainAsForChildrenFrom = $showOnMainAsForChildrenFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsForChildrenTo()
+    {
+        return $this->showOnMainAsForChildrenTo;
+    }
+
+    /**
+     * @param $showOnMainAsForChildrenTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsForChildrenTo($showOnMainAsForChildrenTo)
+    {
+        $this->showOnMainAsForChildrenTo = $showOnMainAsForChildrenTo;
 
         return $this;
     }

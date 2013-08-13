@@ -80,14 +80,10 @@ class Museum extends Admin
                 ->add('sort', null, array('required' => false))
             ->end()
             ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
-                ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
-                ))
-            ->add('showOnMainFrom')
-            ->add('showOnMainTo')
+                ->add('showOnMain', null, array('required' => false))
+                ->add('showOnMainFrom', 'date', array('required' => false))
+                ->add('showOnMainTo', 'date', array('required' => false))
+                ->add('showOnMainOrd', null, array('required' => false))
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -125,7 +121,7 @@ class Museum extends Admin
             ->addIdentifier('title')
             ->add('published')
             ->add('corrected')
-            ->add('showOnMain')
+            ->add('showOnMain', null, array('editable' => true))
             ->add('showOnMainOrd')
             ->add('sort')
         ;

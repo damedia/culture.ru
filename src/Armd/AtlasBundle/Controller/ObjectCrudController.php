@@ -25,15 +25,28 @@ class ObjectCrudController extends BaseCrudController
     public function batchActionShowOnMain(ProxyQueryInterface $selectedModelQuery)
     {
         return $this->doBatchAction($selectedModelQuery, function($object) {
-                $object->setShowOnMain(true);
+                $object->setShowOnMainAsRecommended(true);
             });
     }
-
 
     public function batchActionNotShowOnMain(ProxyQueryInterface $selectedModelQuery)
     {
         return $this->doBatchAction($selectedModelQuery, function($object) {
-                $object->setShowOnMain(false);
+                $object->setShowOnMainAsRecommended(false);
+            });
+    }
+
+    public function batchActionShowOnMainAsNovel(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function($object) {
+                $object->setShowOnMainAsNovel(true);
+            });
+    }
+
+    public function batchActionNotShowOnMainAsNovel(ProxyQueryInterface $selectedModelQuery)
+    {
+        return $this->doBatchAction($selectedModelQuery, function($object) {
+                $object->setShowOnMainAsNovel(false);
             });
     }
 

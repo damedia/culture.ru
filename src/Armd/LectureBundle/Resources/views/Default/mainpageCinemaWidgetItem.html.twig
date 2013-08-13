@@ -1,0 +1,6 @@
+{% for item in lectures %}
+    <div class="carousel-item"{% if loop.index > 1 %} style="display:none;"{% endif %}>
+        <a href="{{ path('armd_lecture_view', {id: item.id }) }}">{{ item.title }}</a>
+        {#{% thumbnail item.verticalBanner, 'lectureH228' with {'alt': item.title } %}#}
+    </div>
+{% endfor %}

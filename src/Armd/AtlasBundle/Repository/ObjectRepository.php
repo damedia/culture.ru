@@ -124,45 +124,28 @@ class ObjectRepository extends EntityRepository
 
     /**
      * @param int $limit
-     * @param string $order (recommend => showOnMain = true, popular => user_viewed_content views, new => last added)
+     * @param string $type (recommend => showOnMainAsRecommended = true, novel => showOnMainAsNovel => true)
      * @return array
      */
-    public function findRussiaImagesForMainPage($limit = 10, $order = 'recommend')
+    public function findRussiaImagesForMainPage($limit = 10, $type = 'recommend')
     {
         $qb = $this->findRussiaImagesQuery();
         $qb->setMaxResults($limit);
-        switch($order)
+        switch($type)
         {
-            case 'popular':
-                /** @var \Armd\UserBundle\Repository\ViewedContentRepository $repo */
-                $repo = $this->_em->getRepository('\Armd\UserBundle\Entity\ViewedContent');
-                $ids = $repo->getTopRussianImages($limit);
-                $qb->select('o')
-                    ->andWhere($qb->expr()->in('o.id', $ids));
-                // @todo: order by in postgres
-                $objectsTmp = $qb->getQuery()->getResult();
-                $objects = array();
-                foreach ($ids as $id) {
-                    foreach ($objectsTmp as $obj) {
-                        if($obj->getId() == $id) {
-                            $objects[] = $obj;
-                            break;
-                        }
-                    }
-                }
-                unset($objectsTmp);
-                break;
-
-            case 'new':
-                $qb->orderBy('o.createdBy', 'DESC');
+            case 'novel':
+                $qb->andWhere('o.showOnMainAsNovel = TRUE')
+                    ->andWhere('o.showOnMainAsNovelFrom <= :dt')
+                    ->andWhere($qb->expr()->orX('o.showOnMainAsNovelTo >= :dt', 'o.showOnMainAsNovelTo IS NULL'))
+                    ->setParameter('dt', new \DateTime());
                 $objects = $qb->getQuery()->getResult();
                 break;
 
             case 'recommend':
             default:
-                $qb->andWhere('o.showOnMain = TRUE')
-                    ->andWhere('o.showOnMainFrom <= :dt')
-                    ->andWhere('o.showOnMainTo >= :dt')
+                $qb->andWhere('o.showOnMainAsRecommended = TRUE')
+                    ->andWhere('o.showOnMainAsRecommendedFrom <= :dt')
+                    ->andWhere($qb->expr()->orX('o.showOnMainAsRecommendedTo >= :dt', 'o.showOnMainAsNovelTo IS NULL'))
                     ->setParameter('dt', new \DateTime());
                 $objects = $qb->getQuery()->getResult();
         }

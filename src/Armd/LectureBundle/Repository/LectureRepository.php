@@ -166,19 +166,71 @@ class LectureRepository extends EntityRepository
             ->leftJoin($rootAlias . '.mediaTrailerVideo', '_lecture_media_trailer_video');
     }
 
-    public function findForMain($limit = 5)
+    public function findCinemaForMainPage($limit = 5, $type = 'recommend')
     {
-        return $this->createQueryBuilder('a')
+        $qb = $this->createQueryBuilder('a')
             ->innerJoin('a.lectureSuperType', 'c', 'WITH', 'c.code = :category')
             ->setParameter('category', 'LECTURE_SUPER_TYPE_CINEMA')
-            ->where('a.showOnMain = :show')
-            ->setParameter('show', true)
-            ->andWhere('a.showOnMainFrom <= :dt1')
-            ->andWhere('a.showOnMainTo > :dt1')
-            ->setParameter('dt1', new \DateTime())
-            ->orderBy('a.showOnMainOrd')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getArrayResult();
+            ->setMaxResults($limit);
+
+        switch($type){
+            case 'children':
+                $qb->where('a.showOnMainAsForChildren = :show')
+                    ->setParameter('show', true)
+                    ->andWhere('a.showOnMainAsForChildrenFrom <= :dt1')
+                    ->andWhere($qb->expr()->orX('a.showOnMainAsForChildrenTo > :dt1', 'a.showOnMainAsForChildrenTo IS NULL'))
+                    ->setParameter('dt1', new \DateTime())
+                    ->orderBy('a.showOnMainAsForChildrenOrd');
+                break;
+            case 'recommend':
+            default:
+                $qb->where('a.showOnMainAsRecommended = :show')
+                    ->setParameter('show', true)
+                    ->andWhere('a.showOnMainAsRecommendedFrom <= :dt1')
+                    ->andWhere($qb->expr()->orX('a.showOnMainAsRecommendedTo > :dt1', 'a.showOnMainAsRecommendedTo IS NULL'))
+                    ->setParameter('dt1', new \DateTime())
+                    ->orderBy('a.showOnMainAsRecommendedOrd');
+
+        }
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findForMainPage($limit = 5, $type = 'recommend')
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->innerJoin('a.lectureSuperType', 'c', 'WITH', 'c.code = :category')
+            ->setParameter('category', 'LECTURE_SUPER_TYPE_LECTURE')
+            ->setMaxResults($limit);
+
+        switch($type){
+            case 'popular':
+                /** @var \Armd\UserBundle\Repository\ViewedContentRepository $repo */
+                $repo = $this->_em->getRepository('\Armd\UserBundle\Entity\ViewedContent');
+                $ids = $repo->getTopLectures($limit);
+                $qb->andWhere($qb->expr()->in('a.id', $ids));
+                // @todo: order by in postgres
+                $objectsTmp = $qb->getQuery()->getResult();
+                $objects = array();
+                foreach ($ids as $id) {
+                    foreach ($objectsTmp as $obj) {
+                        if($obj->getId() == $id) {
+                            $objects[] = $obj;
+                            break;
+                        }
+                    }
+                }
+                unset($objectsTmp);
+                break;
+            case 'recommend':
+            default:
+                $qb->where('a.showOnMainAsRecommended = :show')
+                    ->setParameter('show', true)
+                    ->andWhere('a.showOnMainAsRecommendedFrom <= :dt1')
+                    ->andWhere($qb->expr()->orX('a.showOnMainAsRecommendedTo > :dt1', 'a.showOnMainAsRecommendedTo IS NULL'))
+                    ->setParameter('dt1', new \DateTime())
+                    ->orderBy('a.showOnMainAsRecommendedOrd');
+
+        }
+        return $qb->getQuery()->getArrayResult();
     }
 }

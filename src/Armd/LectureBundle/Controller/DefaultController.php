@@ -631,14 +631,50 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Template()
-     * @return array
+     * @param string $type
+     * @Route("cinema-main/{type}", name="armd_lecture_cinema_mainpage")
+     * @return Response
      */
-    public function mainpageWidgetAction()
+    public function mainpageWidgetAction($type = 'recommend')
     {
         /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
-        $lectures = $repo->findForMain(5);
-        return array('lectures' => $lectures);
+        $lectures = $repo->findCinemaForMainPage(5, $type);
+
+        if($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig',
+                array('lectures' => $lectures)
+            );
+        } else {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageCinemaWidget.html.twig',
+                array('lectures' => $lectures)
+            );
+        }
+    }
+
+    /**
+     * @param string $type
+     * @Route("lecture-main/{type}", name="armd_lecture_mainpage")
+     * @return Response
+     */
+    public function mainpageLectureWidgetAction($type = 'recommend')
+    {
+        /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
+        $lectures = $repo->findForMainPage(5, $type);
+
+        if($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig',
+                array('lectures' => $lectures)
+            );
+        } else {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageWidget.html.twig',
+                array('lectures' => $lectures)
+            );
+        }
     }
 }

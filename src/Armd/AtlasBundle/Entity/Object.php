@@ -250,25 +250,44 @@ class Object implements Taggable, ChangeHistorySavableInterface
     private $tags;
 
     /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended", type="boolean", nullable=false)
      */
-    private $showOnMain = false;
+    private $showOnMainAsRecommended = false;
 
     /**
-     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     * @ORM\Column(name="show_on_main_as_recommended_from", type="datetime", nullable=true)
      */
-    private $showOnMainFrom;
+    private $showOnMainAsRecommendedFrom;
 
     /**
-     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     * @ORM\Column(name="show_on_main_as_recommended_to", type="datetime", nullable=true)
      */
-    private $showOnMainTo;
+    private $showOnMainAsRecommendedTo;
 
     /**
-     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
+     * @ORM\Column(name="show_on_main_as_recommended_ord", type="integer", nullable=false)
      */
-    private $showOnMainOrd = 0;
+    private $showOnMainAsRecommendedOrd = 0;
 
+    /**
+     * @ORM\Column(name="show_on_main_as_novel", type="boolean", nullable=true)
+     */
+    private $showOnMainAsNovel = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel_from", type="datetime", nullable=true)
+     */
+    private $showOnMainAsNovelFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel_to", type="datetime", nullable=true)
+     */
+    private $showOnMainAsNovelTo;
+
+    /**
+     * @ORM\Column(name="show_on_main_as_novel_ord", type="integer", nullable=true)
+     */
+    private $showOnMainAsNovelOrd = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
@@ -1365,40 +1384,6 @@ class Object implements Taggable, ChangeHistorySavableInterface
         return $this->getId();
     }
 
-    /**
-     * @return boolean
-     */
-    public function getShowOnMain()
-    {
-        $this->showOnMain = $this->showOnMain;
-
-        return $this->showOnMain;
-    }
-
-    public function setShowOnMain($showOnMain)
-    {
-        $this->showOnMain = $showOnMain;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getShowOnMainOrd()
-    {
-        $this->showOnMainOrd = $this->showOnMainOrd;
-
-        return $this->showOnMainOrd;
-    }
-
-    public function setShowOnMainOrd($showOnMainOrd)
-    {
-        $this->showOnMainOrd = $showOnMainOrd;
-
-        return $this;
-    }
-
     public function getTouristCluster()
     {
         return $this->touristCluster;
@@ -1434,21 +1419,37 @@ class Object implements Taggable, ChangeHistorySavableInterface
         return $this->corrected;
     }
 
+
     /**
-     * @return \DateTime
+     * @return boolean
      */
-    public function getShowOnMainFrom()
+    public function getShowOnMainAsRecommended()
     {
-        return $this->showOnMainFrom;
+        return $this->showOnMainAsRecommended;
     }
 
     /**
-     * @param $showOnMainFrom \DateTime
+     * @param $showOnMainAsRecommended
      * @return $this
      */
-    public function setShowOnMainFrom($showOnMainFrom)
+    public function setShowOnMainAsRecommended($showOnMainAsRecommended)
     {
-        $this->showOnMainFrom = $showOnMainFrom;
+        $this->showOnMainAsRecommended = $showOnMainAsRecommended;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainAsRecommendedOrd()
+    {
+        return $this->showOnMainAsRecommendedOrd;
+    }
+
+    public function setShowOnMainAsRecommendedOrd($showOnMainAsRecommendedOrd)
+    {
+        $this->showOnMainAsRecommendedOrd = $showOnMainAsRecommendedOrd;
 
         return $this;
     }
@@ -1456,18 +1457,109 @@ class Object implements Taggable, ChangeHistorySavableInterface
     /**
      * @return \DateTime
      */
-    public function getShowOnMainTo()
+    public function getShowOnMainAsRecommendedFrom()
     {
-        return $this->showOnMainTo;
+        return $this->showOnMainAsRecommendedFrom;
     }
 
     /**
-     * @param $showOnMainTo \DateTime
+     * @param $showOnMainAsRecommendedFrom \DateTime
      * @return $this
      */
-    public function setShowOnMainTo($showOnMainTo)
+    public function setShowOnMainAsRecommendedFrom($showOnMainAsRecommendedFrom)
     {
-        $this->showOnMainTo = $showOnMainTo;
+        $this->showOnMainAsRecommendedFrom = $showOnMainAsRecommendedFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsRecommendedTo()
+    {
+        return $this->showOnMainAsRecommendedTo;
+    }
+
+    /**
+     * @param $showOnMainAsRecommendedTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsRecommendedTo($showOnMainAsRecommendedTo)
+    {
+        $this->showOnMainAsRecommendedTo = $showOnMainAsRecommendedTo;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getShowOnMainAsNovel()
+    {
+        return $this->showOnMainAsNovel;
+    }
+
+    /**
+     * @param $showOnMainAsNovel
+     * @return $this
+     */
+    public function setShowOnMainAsNovel($showOnMainAsNovel)
+    {
+        $this->showOnMainAsNovel = $showOnMainAsNovel;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainAsNovelOrd()
+    {
+        return $this->showOnMainAsNovelOrd;
+    }
+
+    public function setShowOnMainAsNovelOrd($showOnMainAsNovelOrd)
+    {
+        $this->showOnMainAsNovelOrd = $showOnMainAsNovelOrd;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsNovelFrom()
+    {
+        return $this->showOnMainAsNovelFrom;
+    }
+
+    /**
+     * @param $showOnMainAsNovelFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsNovelFrom($showOnMainAsNovelFrom)
+    {
+        $this->showOnMainAsNovelFrom = $showOnMainAsNovelFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainAsNovelTo()
+    {
+        return $this->showOnMainAsNovelTo;
+    }
+
+    /**
+     * @param $showOnMainAsNovelTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainAsNovelTo($showOnMainAsNovelTo)
+    {
+        $this->showOnMainAsNovelTo = $showOnMainAsNovelTo;
 
         return $this;
     }

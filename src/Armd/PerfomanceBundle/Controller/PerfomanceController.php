@@ -23,8 +23,7 @@ class PerfomanceController extends Controller
      */
     public function indexAction()
     {
-
-		return array();
+        return array();
     }
 
     /**
@@ -180,13 +179,13 @@ class PerfomanceController extends Controller
         $this->get('armd_main.menu.main')->setCurrentUri(
             $this->get('router')->generate('armd_perfomance_list')
         );
-        
+
         if ($trailer = $entity->getMediaTrailerVideo())
             $video_sizes = self::getViewFormat($trailer->getWidth(), $trailer->getHeight());
         elseif ($perfomance = $entity->getMediaPerfomanceVideo())
             $video_sizes = self::getViewFormat($perfomance->getWidth(), $perfomance->getHeight());
-            
-        if ($interview = $entity->getMediaInterviewVideo()) 
+
+        if ($interview = $entity->getMediaInterviewVideo())
             $interview_sizes = self::getViewFormat($interview->getWidth(), $interview->getHeight(),true);
 
         return array(
@@ -219,7 +218,7 @@ class PerfomanceController extends Controller
 
 		$media_twig_extension = $this->get('sonata.media.twig.extension');
 		$media_twig_extension->initRuntime($this->get('twig'));
-        
+
         $video_sizes = self::getViewFormat($media->getWidth(), $media->getHeight());
 
         echo $media_twig_extension->media($media, 'reference', array('width' => $video_sizes['width'], 'height' => $video_sizes['height']));
@@ -425,15 +424,49 @@ class PerfomanceController extends Controller
     }
 
     /**
-     * 
+     *
      */
      static public function getViewFormat($width, $height, $fancybox=false)
      {
         $new_width = ($fancybox ? self::$video_width_fancybox : self::$video_width);
-         
+
         $height = round($new_width/$width * $height);
         $width = $new_width;
-        
+
         return array('width'=>$width, 'height'=>$height);
      }
+
+    /**
+     * @param string $type
+     * @Route("perfomance-main/{type}",
+     *  name="armd_perfomance_mainpage",
+     *  options={"expose"=true}
+     * )
+     * @return Response
+     */
+    public function mainpageWidgetAction($type = 'recommend')
+    {
+        $repo = $this->getPerfomanceRepository();
+        $objects = $repo->findForMainPage(5, $type);
+
+        if($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig',
+                array('objects' => $objects)
+            );
+        } else {
+            return $this->render(
+                'ArmdPerfomanceBundle:Perfomance:mainpageWidget.html.twig',
+                array('objects' => $objects)
+            );
+        }
+    }
+
+    /**
+     * @return \Armd\PerfomanceBundle\Repository\PerfomanceRepository
+     */
+    private function getPerfomanceRepository()
+    {
+        return $this->getDoctrine()->getRepository('ArmdPerfomanceBundle:Perfomance');
+    }
 }

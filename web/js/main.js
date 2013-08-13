@@ -625,6 +625,33 @@ $(function () {
         });
     });
 
+    $('#cinema_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#cinema_block').find('.order').removeClass('active');
+        $(this).addClass('active');
+        $('#cinema_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
+    $('#theater_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#theater_block').find('.order').removeClass('active');
+        $(this).addClass('active');
+        $('#theater_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
+    $('#lecture_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#lecture_block').find('.order').removeClass('active');
+        $(this).addClass('active');
+        $('#lecture_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
 })
 
 $(window).load(function(){

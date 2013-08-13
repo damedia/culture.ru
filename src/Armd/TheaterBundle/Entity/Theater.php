@@ -140,21 +140,6 @@ class Theater implements ChangeHistorySavableInterface
      */
     protected $corrected;
 
-    /**
-     * @ORM\Column(name="show_on_main", type="boolean", nullable=true)
-     */
-    private $showOnMain = false;
-
-    /**
-     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
-     */
-    private $showOnMainFrom;
-
-    /**
-     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
-     */
-    private $showOnMainTo;
-
     public function __toString()
     {
         return $this->getTitle();
@@ -735,63 +720,6 @@ class Theater implements ChangeHistorySavableInterface
     public function getCorrected()
     {
         return $this->corrected;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getShowOnMain()
-    {
-        return $this->showOnMain;
-    }
-
-    /**
-     * @param $showOnMain boolean
-     * @return $this
-     */
-    public function setShowOnMain($showOnMain)
-    {
-        $this->showOnMain = $showOnMain;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getShowOnMainFrom()
-    {
-        return $this->showOnMainFrom;
-    }
-
-    /**
-     * @param $showOnMainFrom \DateTime
-     * @return $this
-     */
-    public function setShowOnMainFrom($showOnMainFrom)
-    {
-        $this->showOnMainFrom = $showOnMainFrom;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getShowOnMainTo()
-    {
-        return $this->showOnMainTo;
-    }
-
-    /**
-     * @param $showOnMainTo \DateTime
-     * @return $this
-     */
-    public function setShowOnMainTo($showOnMainTo)
-    {
-        $this->showOnMainTo = $showOnMainTo;
-
-        return $this;
     }
 
     public function getClassName()

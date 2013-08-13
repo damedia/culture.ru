@@ -10,7 +10,7 @@ use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Table(name="content_perfomance")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Armd\PerfomanceBundle\Repository\PerfomanceRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Perfomance implements Taggable, ChangeHistorySavableInterface
@@ -21,7 +21,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
@@ -65,25 +65,25 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="\Armd\PerfomanceBundle\Entity\PerfomanceGanre", inversedBy="perfomances")
      * @ORM\JoinTable(name="content_perfomance_perfomance_ganre")
-     */    
-    private $ganres;   
-    
+     */
+    private $ganres;
+
     /**
      * @ORM\Column(name="view_count", type="integer", nullable=true)
      */
-    private $viewCount = 0;     
-    
-	private $tags;   
+    private $viewCount = 0;
+
+    private $tags;
 
     /**
      * @ORM\Column(name="year", type="integer", nullable=true)
      */
-    private $year;	
-    
+    private $year;
+
     /**
      * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
      * @ORM\JoinColumn(name="interview_video_id", referencedColumnName="id", nullable=true)
@@ -95,53 +95,68 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
      * @ORM\JoinColumn(name="interview_media_video_id", referencedColumnName="id", nullable=true)
      */
     private $mediaInterviewVideo;
-    
+
     /**
      * @ORM\Column(name="interview_title", type="string", length=255, nullable=true)
      */
-    private $interviewTitle;  
-    
+    private $interviewTitle;
+
     /**
      * @ORM\Column(name="interview_description", type="text", nullable=true)
      */
-    private $interviewDescription;    
-    
+    private $interviewDescription;
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
-    private $gallery;     
+    private $gallery;
 
     /**
      *
      * @ORM\Column(name="external_url", type="string", nullable=true)
      */
-    private $externalUrl;   
+    private $externalUrl;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     private $image;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Armd\TheaterBundle\Entity\Theater")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id")
      */
     private $theater;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
-    protected $corrected;    
-   
+    protected $corrected;
+
+    /**
+     * @ORM\Column(name="show_on_main", type="boolean", nullable=true)
+     */
+    private $showOnMain = false;
+
+    /**
+     * @ORM\Column(name="show_on_main_from", type="datetime", nullable=true)
+     */
+    private $showOnMainFrom;
+
+    /**
+     * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
+     */
+    private $showOnMainTo;
+
     /**
      * @return int
      */
     public function getTaggableId()
     {
         return $this->getId();
-    }     
+    }
 
     /**
      * @return \Doctrine\Common\Collections\ArrayCollection
@@ -156,20 +171,20 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setTags($tags)
     {
         $this->tags = $tags;
-    }    
-    
+    }
+
     /**
      * @return string
      */
     public function getTaggableType()
     {
         return 'armd_perfomance';
-    }    
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -185,14 +200,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -208,14 +223,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -231,14 +246,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setPublished($published)
     {
         $this->published = $published;
-    
+
         return $this;
     }
 
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
@@ -254,14 +269,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -277,14 +292,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setPerfomanceVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $perfomanceVideo = null)
     {
         $this->perfomanceVideo = $perfomanceVideo;
-    
+
         return $this;
     }
 
     /**
      * Get perfomanceVideo
      *
-     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo 
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo
      */
     public function getPerfomanceVideo()
     {
@@ -300,14 +315,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setTrailerVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $trailerVideo = null)
     {
         $this->trailerVideo = $trailerVideo;
-    
+
         return $this;
     }
 
     /**
      * Get trailerVideo
      *
-     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo 
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo
      */
     public function getTrailerVideo()
     {
@@ -323,7 +338,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setMediaPerfomanceVideo(Media $mediaPerfomanceVideo = null)
     {
         $this->mediaPerfomanceVideo = $mediaPerfomanceVideo;
-    
+
         return $this;
     }
 
@@ -346,7 +361,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setMediaTrailerVideo(Media $mediaTrailerVideo = null)
     {
         $this->mediaTrailerVideo = $mediaTrailerVideo;
-    
+
         return $this;
     }
 
@@ -360,7 +375,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
         return $this->mediaTrailerVideo;
     }
 
-    
+
     public function __toString()
     {
         return $this->getTitle();
@@ -374,7 +389,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
         if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime();
         }
-    }    
+    }
     /**
      * Constructor
      */
@@ -382,7 +397,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     {
         $this->ganres = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set viewCount
      *
@@ -392,14 +407,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setViewCount($viewCount)
     {
         $this->viewCount = $viewCount;
-    
+
         return $this;
     }
 
     /**
      * Get viewCount
      *
-     * @return integer 
+     * @return integer
      */
     public function getViewCount()
     {
@@ -415,7 +430,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function addGanre(\Armd\PerfomanceBundle\Entity\PerfomanceGanre $ganres)
     {
         $this->ganres[] = $ganres;
-    
+
         return $this;
     }
 
@@ -432,17 +447,17 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     /**
      * Get ganres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGanres()
     {
         return $this->ganres;
     }
-    
+
     public function addViewCount()
     {
         $this->viewCount++;
-    }    
+    }
 
     /**
      * Set year
@@ -453,14 +468,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setYear($year)
     {
         $this->year = $year;
-    
+
         return $this;
     }
 
     /**
      * Get year
      *
-     * @return integer 
+     * @return integer
      */
     public function getYear()
     {
@@ -476,14 +491,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setInterviewTitle($interviewTitle)
     {
         $this->interviewTitle = $interviewTitle;
-    
+
         return $this;
     }
 
     /**
      * Get interviewTitle
      *
-     * @return string 
+     * @return string
      */
     public function getInterviewTitle()
     {
@@ -499,14 +514,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setInterviewVideo(\Armd\TvigleVideoBundle\Entity\TvigleVideo $interviewVideo = null)
     {
         $this->interviewVideo = $interviewVideo;
-    
+
         return $this;
     }
 
     /**
      * Get interviewVideo
      *
-     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo 
+     * @return \Armd\TvigleVideoBundle\Entity\TvigleVideo
      */
     public function getInterviewVideo()
     {
@@ -522,7 +537,7 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setMediaInterviewVideo(Media $mediaInterviewVideo = null)
     {
         $this->mediaInterviewVideo = $mediaInterviewVideo;
-    
+
         return $this;
     }
 
@@ -545,14 +560,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
     {
         $this->gallery = $gallery;
-    
+
         return $this;
     }
 
     /**
      * Get gallery
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return \Application\Sonata\MediaBundle\Entity\Gallery
      */
     public function getGallery()
     {
@@ -568,14 +583,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setExternalUrl($externalUrl)
     {
         $this->externalUrl = $externalUrl;
-    
+
         return $this;
     }
 
     /**
      * Get externalUrl
      *
-     * @return string 
+     * @return string
      */
     public function getExternalUrl()
     {
@@ -591,14 +606,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
-    
+
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Media 
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage()
     {
@@ -614,14 +629,14 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setInterviewDescription($interviewDescription)
     {
         $this->interviewDescription = $interviewDescription;
-    
+
         return $this;
     }
 
     /**
      * Get interviewDescription
      *
-     * @return string 
+     * @return string
      */
     public function getInterviewDescription()
     {
@@ -637,20 +652,20 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setTheater(\Armd\TheaterBundle\Entity\Theater $theater = null)
     {
         $this->theater = $theater;
-    
+
         return $this;
     }
 
     /**
      * Get theater
      *
-     * @return \Armd\TheaterBundle\Entity\Theater 
+     * @return \Armd\TheaterBundle\Entity\Theater
      */
     public function getTheater()
     {
         return $this->theater;
     }
-    
+
     /**
      * Set corrected
      *
@@ -660,22 +675,79 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    /**
+     * @return boolean
+     */
+    public function getShowOnMain()
+    {
+        return $this->showOnMain;
+    }
+
+    /**
+     * @param $showOnMain boolean
+     * @return $this
+     */
+    public function setShowOnMain($showOnMain)
+    {
+        $this->showOnMain = $showOnMain;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainFrom()
+    {
+        return $this->showOnMainFrom;
+    }
+
+    /**
+     * @param $showOnMainFrom \DateTime
+     * @return $this
+     */
+    public function setShowOnMainFrom($showOnMainFrom)
+    {
+        $this->showOnMainFrom = $showOnMainFrom;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getShowOnMainTo()
+    {
+        return $this->showOnMainTo;
+    }
+
+    /**
+     * @param $showOnMainTo \DateTime
+     * @return $this
+     */
+    public function setShowOnMainTo($showOnMainTo)
+    {
+        $this->showOnMainTo = $showOnMainTo;
+
+        return $this;
+    }
+
+    public function getClassName()
     {
         return get_class($this);
-    }    
+    }
 }

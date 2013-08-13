@@ -49,8 +49,8 @@ class ObjectAdmin extends Admin
             ->add('archiveImages')
             ->add('image3d')
             ->add('virtualTour')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной'))
+            ->add('showOnMainAsNovel', null, array('label' => 'Неизведанное на главной'))
             ->add('touristCluster');
     }
 
@@ -74,18 +74,40 @@ class ObjectAdmin extends Admin
 //                ->add('categories', 'sonata_type_model',
 //                    array('multiple' => true, 'expanded' => true)
 //                )
-            ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
+            ->with('Рекомендуемое на главной')
+                ->add('showOnMainAsRecommended', null, array(
+                    'required' => false,
+                    'label' => 'Рекомендуемое на главной'
                 ))
-            ->add('showOnMainFrom', 'date', array(
-                    'required' => false
+                ->add('showOnMainAsRecommendedFrom', 'date', array(
+                        'required' => false,
+                    'label' => 'С'
+
+                    ))
+                ->add('showOnMainAsRecommendedTo', 'date', array(
+                        'required' => false,
+                    'label' => 'По'
                 ))
-            ->add('showOnMainTo', 'date', array(
-                    'required' => false
+                ->add('showOnMainAsRecommendedOrd', null, array(
+                    'required' => false,
+                    'label' => 'Приоритет'
                 ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
+            ->with('Неизведанное на главной')
+                ->add('showOnMainAsNovel', null, array(
+                    'required' => false,
+                    'label' => 'Неизведанное на главной'
+                ))
+                ->add('showOnMainAsNovelFrom', 'date', array(
+                        'required' => false,
+                    'label' => 'С'
+                    ))
+                ->add('showOnMainAsNovelTo', 'date', array(
+                        'required' => false,
+                    'label' => 'По'
+                ))
+                ->add('showOnMainAsNovelOrd', null, array(
+                    'required' => false,
+                    'label' => 'Приоритет'
                 ))
             ->with('Classification')
                 ->add('primaryCategory', 'armd_atlas_object_categories',
@@ -299,8 +321,8 @@ class ObjectAdmin extends Admin
             ->addIdentifier('title')
             ->add('published')
             ->add('corrected')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной', 'editable' => true))
+            ->add('showOnMainAsNovel', null, array('label' => 'Неизведанное на главной', 'editable' => true))
             ->add('primaryCategory', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('secondaryCategories', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'))
             ->add('touristCluster', null, array('template' => 'ArmdAtlasBundle:Admin:list_object_categories.html.twig'));
@@ -328,8 +350,8 @@ class ObjectAdmin extends Admin
                 'callback' => array($this, 'getEmptyCoordinatesFilter')
             ))
             ->add('showAtRussianImage')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+            ->add('showOnMainAsRecommended', null, array('label' => 'Рекомендуемое на главной'))
+            ->add('showOnMainAsNovel', null, array('label' => 'Неизведанное на главной'))
             ->add('corrected');
     }
 
@@ -367,12 +389,21 @@ class ObjectAdmin extends Admin
             'label' => 'Снять публикацию'
         );
 
-        $actions['ShowOnMain']=array(
+        $actions['ShowOnMainAsRecommended'] = array(
             'label'            => $this->trans('aShowOnMain', array(), 'SonataAdminBundle'),
             'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
         );
-        $actions['NotShowOnMain']=array(
+        $actions['NotShowOnMainAsRecommended'] = array(
             'label'            => $this->trans('aNotShowOnMain', array(), 'SonataAdminBundle'),
+            'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+        );
+
+        $actions['ShowOnMainAsNovel'] = array(
+            'label'            => $this->trans('aShowOnMainAsNovel', array(), 'SonataAdminBundle'),
+            'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
+        );
+        $actions['NotShowOnMainAsNovel'] = array(
+            'label'            => $this->trans('aNotShowOnMainAsNovel', array(), 'SonataAdminBundle'),
             'ask_confirmation' => false // If true, a confirmation will be asked before performing the action
         );
 
