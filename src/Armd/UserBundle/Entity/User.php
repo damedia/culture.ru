@@ -382,12 +382,14 @@ class User extends BaseUser
         return $this;
     }
 
-    /**
-     * @param mixed $avatar
-     */
-    public function setAvatar($avatar)
+    public function setAvatar(\Application\Sonata\MediaBundle\Entity\Media $avatar = null)
     {
-        $this->avatar = $avatar;
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if (is_null($avatar) || $avatar->isUploaded()) {
+            $this->avatar = $avatar;
+        }
+
+        return $this;
     }
 
     /**

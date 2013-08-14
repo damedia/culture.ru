@@ -32,9 +32,10 @@ class UserAdmin extends BaseAdmin
                 'armd_media_file_type',
                 array(
                     'required' => false,
-                    'with_remove' => false,
+                    'with_remove' => true,
                     'media_context' => 'user_avatar',
                     'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'thumbnail'
                 )
             )
             ->add('region')
