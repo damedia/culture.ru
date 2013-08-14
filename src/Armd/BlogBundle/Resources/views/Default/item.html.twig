@@ -16,6 +16,7 @@
 
 {% block body %}
     <div class="b-main-wrap b-post b-post-taxonomy">
+        <h1 class="b-left-title">Блоги</h1>
 
         {% render 'BlogBundle:Default:bloggers' with {'user' : entity.user} %}
 
@@ -76,7 +77,7 @@
         {% if not is_granted('ROLE_USER') %}
         <div class="b-user-not-login">
             {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
-            {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+            {#{% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}#}
         </div>
         {% endif %}
     </div>
@@ -84,7 +85,9 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% render 'BlogBundle:Default:popular' %}
+    <div class="popular-container">
+        {% render 'BlogBundle:Default:popular' %}
+    </div>
     {% render 'BlogBundle:Default:lastPosts' with {'user' : entity.user } %}
 {% endblock %}
 
