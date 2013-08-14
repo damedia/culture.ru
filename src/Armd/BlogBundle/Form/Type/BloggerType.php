@@ -23,9 +23,10 @@ class BloggerType extends AbstractType
             array(
                 'class' => 'Armd\UserBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
-                    $qb = $er->createQueryBuilder('u');
-                    $qb->innerJoin('u.groups', 'g', Join::WITH, 'g.name= :groupName');
-                    $qb->setParameter('groupName', 'Блоггеры');
+                    $qb = $er->createQueryBuilder('u')
+                        ->leftJoin('u.groups', 'g');
+                    $qb->where("g.roles LIKE :role")
+                        ->setParameter('role', '%ROLE_BLOGGER%');
 
                     return $qb;
                 }
