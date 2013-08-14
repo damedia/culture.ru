@@ -44,6 +44,15 @@ services:
         tags:
             - { name: knp_menu.menu, alias: new_main } # The alias is what is used to retrieve the menu
 
+    armd_main.menu.footer:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: armd_main.menu_builder
+        factory_method: createFooterMenu
+        arguments: [@request]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: footer } # The alias is what is used to retrieve the menu
+
     armd_main.menu_finder:
         class: Armd\MainBundle\Menu\MenuFinder
 

@@ -160,4 +160,63 @@ $(window).load(function() {
         });
     });
 
+    // From old js
+    var qtipDefaults = {
+        position: {
+            my: "top center",
+            at: "bottom center"
+        },
+        show: {
+            event: "click",
+            effect: function() {
+                $(this).slideDown(100);
+            },
+            solo: true,
+            modal: {
+                on: true
+            }
+        },
+        hide: {
+            event: "unfocus",
+            effect: function() {
+                $(this).slideUp(100);
+            }
+        },
+        style: {
+            classes: "qtip-light qtip-shadow",
+            tip: {
+                corner: true,
+                width:  24,
+                height: 12
+            }
+        }
+    };
+    if ($("a[href='#login-popup']").length > 0) {
+        $("a[href='#login-popup']")
+            .qtip($.extend(true, qtipDefaults, {
+                content: $("#login-popup")
+            }))
+            .click(function() {
+                return false;
+            });
+    }
+    if ($("a[href='#appstore-popup']").length > 0) {
+        $("a[href='#appstore-popup']")
+            .qtip($.extend(true, qtipDefaults, {
+                content: $("#appstore-popup").html(),
+                position: {
+                    my: "top right"
+                },
+                style: {
+                    tip: {
+                        mimic: "top center",
+                        offset: 30
+                    }
+                }
+            }))
+            .click(function() {
+                return false;
+            });
+    }
+
 });

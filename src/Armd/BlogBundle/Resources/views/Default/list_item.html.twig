@@ -10,7 +10,7 @@
                 <div class="b-post-descr">
                     <div class="b-post-info">
                         <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
-                        <span class="views-count">{{ count }}</span> /
+                        <span class="views-count">{{ count }}</span>{# /#}
                         {#<span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>#}
                     </div>
                     <a href="#" class="author-link">{{ blog.user.username }}</a>
@@ -30,8 +30,8 @@
         <header>
             <div class="b-post-info">
                 <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
-                <span class="views-count">{{ count }}</span>{# /#}
-                {#<span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>#}
+                <span class="views-count">{{ count }}</span> /
+                <span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>
             </div>
             <a href="#" class="author-link">{{ blog.user.firstname }} {{ blog.user.lastname }}</a>
         </header>

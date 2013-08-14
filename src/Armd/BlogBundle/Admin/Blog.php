@@ -61,13 +61,14 @@ class Blog extends Admin
                 'topImage',
                 'armd_media_file_type',
                 array(
-                    'required' => false,
+                    'required' => true,
                     'with_remove' => false,
                     'media_context' => 'blog_image',
                     'media_provider' => 'sonata.media.provider.image',
                 )
             )
             ->add('user', null,  array(
+                                'required' => true,
                                 'multiple' => false,
                                 'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
                             ))

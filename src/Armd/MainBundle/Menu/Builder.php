@@ -510,6 +510,7 @@ class Builder extends ContainerAware
     public function createNewMainMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttributes(array('class' => 'b-menu'));
 
         if ($request->getLocale() == 'en') {
 
@@ -709,6 +710,140 @@ class Builder extends ContainerAware
                 )
             );
             $atlasMenu->setAttribute('class', 'm-color-9');
+
+            //--- /atlas
+
+        }
+
+        $menu->setCurrentUri($request->getRequestUri());
+
+        return $menu;
+    }
+
+    public function createFooterMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttributes(array('class' => 'footer-menu'));
+
+        if ($request->getLocale() == 'en') {
+
+            $mainMenu = $menu->addChild('menu.homepage', array('route' => 'armd_main_homepage'));
+
+            $menu->addChild('menu.atlas',            array('route' => 'armd_atlas_index'));
+            $menu->addChild('menu.russia_images',    array('route' => 'armd_atlas_russia_images'));
+
+            $museumMenu = $menu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
+            $museumMenu->addChild('menu.virtual_museums',  array('route' => 'armd_museum_virtual'));
+            $museumMenu->addChild('menu.war_gallery',  array('route' => 'armd_war_gallery'));
+
+            //   $eventsMenu = $menu->addChild('menu.news_index', array('route' => 'armd_news_list_index'));
+            //--- /Events
+
+            //--- Information (About)
+            $infoMenu = $menu->addChild(
+                'menu.about',
+                array(
+                    'route' => 'armd_main_about'
+                )
+            );
+
+        } else {
+
+            //--- News
+            $newsMenu = $menu->addChild(
+                'menu.news',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'news')
+                )
+            );
+            //--- /News
+
+            //--- Media
+
+            $mediaMenu = $menu->addChild(
+                'menu.media',
+                array(
+                    'route' => 'armd_news_list_index_by_category',
+                    'routeParameters' => array('category' => 'reportages')
+                )
+            );
+
+
+            //--- /Media
+
+            //--- russiaimages
+            $russiaimagesMenu = $menu->addChild(
+                'menu.russia_images',
+                array(
+                    'route' => 'armd_atlas_russia_images'
+                )
+            );
+            //--- /russiaimages
+
+            //--- Museums
+            $museumMenu = $menu->addChild(
+                'menu.museum',
+                array(
+                    'route' => 'armd_museum_virtual'
+                )
+            );
+
+            //--- /Museums
+
+
+            //--- Cinema
+            $cinemaMenu = $menu->addChild(
+                'menu.cinema',
+                array(
+                    'route' => 'armd_lecture_cinema_index',
+                    'routeParameters' => array('genreSlug' => 'feature-film')
+                )
+            );
+
+//            $this->addCinemaMenuItems($cinemaMenu);
+            //--- /Cinema
+
+            //--- Theatre
+
+            $theatreMenu = $menu->addChild(
+                'menu.theatre',
+                array(
+                    'route' => 'armd_theater_list',
+                )
+            );
+
+
+            //--- /Theatre
+
+            //--- Music
+
+            $musicMenu = $menu->addChild(
+                'menu.music',
+                array(
+                    'route' => 'armd_main_underconstruction',
+                )
+            );
+
+            //--- /Music
+
+            //--- Lectures
+            $lectureMenu = $menu->addChild(
+                'menu.lectures',
+                array(
+                    'route' => 'armd_lecture_lecture_index'
+                )
+            );
+            //--- /Lectures
+
+            //--- atlas
+            $atlasMenu = $menu->addChild(
+                'menu.atlas',
+                array(
+                    'route' => 'armd_atlas_index'
+                )
+            );
+            $atlasMenu->setAttribute('class', 'm-bold');
 
             //--- /atlas
 

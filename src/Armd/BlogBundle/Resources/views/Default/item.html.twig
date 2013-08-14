@@ -1,4 +1,4 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
+{% extends ':Frontend:new_base.html.twig' %}
 {% block title %} {{ entity.title }} {% endblock %}
 {# ------------------------------------------------------------------------ #}
 {% block opengraph %}
@@ -14,80 +14,82 @@
 {% block page_header_title %}{{ entity.title }}{% endblock %}
 
 
-{% block left_column %}
-    <ul class="breadcrumbs">
-        <li><a href="{{ path('armd_main_homepage') }}">{{ 'menu.mainpage'|trans }}</a></li>
-        <li>
-            <a href="{{ path('blog_list') }}">{{ 'Блоги' | trans }}</a>
-        </li>
-
-        <li><span>{{ entity.title }}</span></li>
-    </ul>
-
-    <article class="event-one clearfix">
+{% block body %}
+    <div class="b-main-wrap b-post b-post-taxonomy">
 
         {% render 'BlogBundle:Default:bloggers' %}
 
 
-        <div class="event-one_top">
-            <span class="date">{{ armd_news.news_date(entity.createdAt) }} / {{ entity.createdAt|date('H:i') }} </span>
-        </div>
-        <h2>
-            {{ entity.title|raw }}
-        </h2>
+        <section class="b-author-info">
+            <div class="b-link-right">
+                <a href="#">о блогере</a>
+            </div>
+            <div class="circle-img-thumb">
+                <img {#width="105" height="105" #}alt="{{ entity.user.firstname }} {{ entity.user.lastname }}" src="{% path entity.user.avatar, 'default' %}">
+            </div>
+            <header>
+                <h2>{{ entity.user.firstname }} {{ entity.user.lastname }}</h2>
+                <h3>{{ entity.user.biography }}</h3>
+            </header>
+        </section>
 
-        <div class="event-one_anons">
-            <p>
-
-            <h3>О блогере</h3>
-            <hr>
-            {% if entity.user.avatar %}
-                <img src="{% path entity.user.avatar, 'default' %}">
-            {% endif %}
-            {{ entity.user.firstname }} {{ entity.user.lastname }} <br>
-            {{ entity.user.biography }}
-            </p>
-            <hr>
+        <div class="b-post-image">
+            <div class="b-post-image_wrapper">
+                <img width="698" height="476" alt="{{ entity.topImage.description }}" src="{% path entity.topImage, 'default' %}">
+                <div class="image-description">
+                    <strong>{{ entity.title|raw }}</strong>
+                    <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
+                </div>
+            </div>
+            <i class="image-caption">{{ entity.topImage.description }}</i>
         </div>
-        {% if entity.topImage is not null  %}
-        <img src="{% path entity.topImage, 'default' %}" alt="{{ entity.topImage.description }}"> <br>
-        {% endif %}
-        <br>
 
         {{ entity.content|raw }}
         {{ add_viewed_content(entity, path('view_blog', {id: entity.id})) }}
-    </article>
 
-    <div class="back-link"><p><a href="javascript:history.back()">{{ "Back"|trans }}</a></p></div>
-    <div class="event-one_footer clearfix">
-        <div href="#" class="publish-links">{{ "Publish to Social networks"|trans }}: <span id="yandex-share"></span>
+
+        <div class="b-share-buttons">
+            <span class="small-title m-first">{{ "Publish to Social networks"|trans }}: </span><span id="yandex-share"></span>
         </div>
-    </div>
 
-    {# Комментарий #}
-    <div class="content-tab" id="c-tab4">
-        <div class="more-comments-show">
-            <div id="comments" class="comments comments-gray clearfix">
-                {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS')~'_' ~ entity.id %}
-                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+        {#<div class="b-share-buttons">#}
+            {#<span class="small-title m-first">Поделиться</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/vk-temp-btn.jpg">#}
+                {#</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/fb-temp-btn.jpg">#}
+                {#</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/gplus-temp-btn.jpg">#}
+                {#</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/tweeter-temp-btn.jpg">#}
+                {#</span>#}
+        {#</div>#}
 
-                {% if not is_granted('ROLE_USER') %}
-                    <div class="comments-auth-block">
-                        <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
-                        {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
-                    </div>
-                {% endif %}
+        {# Комментарий #}
+        <div class="content-tab" id="c-tab4">
+            <div class="more-comments-show">
+                <div id="comments" class="comments comments-gray clearfix">
+                    {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS')~'_' ~ entity.id %}
+                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+                    {% if not is_granted('ROLE_USER') %}
+                        <div class="comments-auth-block">
+                            <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
+                            {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 
 {% endblock %}
 
-{% block right_column %}
-    <div style="height:63px; font-size:0; line-height:0"></div>
-    <div class="popular-container">
-        {% render 'BlogBundle:Default:popular' %}
-    </div>
+{% block sidebar %}
+    {% render 'BlogBundle:Default:popular' %}
     {% render 'BlogBundle:Default:lastPosts' with {'user' : entity.user } %}
 {% endblock %}
 
