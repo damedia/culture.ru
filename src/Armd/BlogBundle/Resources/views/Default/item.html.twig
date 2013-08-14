@@ -17,8 +17,7 @@
 {% block body %}
     <div class="b-main-wrap b-post b-post-taxonomy">
 
-        {% render 'BlogBundle:Default:bloggers' %}
-
+        {% render 'BlogBundle:Default:bloggers' with {'user' : entity.user} %}
 
         <section class="b-author-info">
             <div class="b-link-right">
@@ -68,22 +67,18 @@
                 {#</span>#}
         {#</div>#}
 
-        {# Комментарий #}
-        <div class="content-tab" id="c-tab4">
-            <div class="more-comments-show">
-                <div id="comments" class="comments comments-gray clearfix">
-                    {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS')~'_' ~ entity.id %}
-                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+    </div>
 
-                    {% if not is_granted('ROLE_USER') %}
-                        <div class="comments-auth-block">
-                            <p>{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</p>
-                            {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
+    <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
+        {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS')~'_' ~ entity.id %}
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+        {% if not is_granted('ROLE_USER') %}
+        <div class="b-user-not-login">
+            {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
+            {% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}
         </div>
+        {% endif %}
     </div>
 
 {% endblock %}

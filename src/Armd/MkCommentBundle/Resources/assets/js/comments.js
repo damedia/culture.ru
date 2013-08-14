@@ -311,9 +311,13 @@
                 // Remove the form
                 form_parent.remove();
             } else {
-                $('#comments_list_0').append('<li>' + commentHtml + '</li>');
-                $('#comments_list_0').parent().addClass('comments-block');
-                $('#comments_header').addClass('comments-header');
+                if($('#fos_comment_thread').data('thread').indexOf('blog') > -1){
+                    $('#post-comments').find('.comment-item:first').before(commentHtml);
+                } else {
+                    $('#comments_list_0').append('<li>' + commentHtml + '</li>');
+                    $('#comments_list_0').parent().addClass('comments-block');
+                    $('#comments_header').addClass('comments-header');
+                }
                 // "reset" the form
                 form = $(form[0]);
                 form.find('textarea').val('');
