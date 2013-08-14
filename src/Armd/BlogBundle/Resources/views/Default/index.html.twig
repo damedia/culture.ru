@@ -6,15 +6,17 @@
 
 {% block body %}
 
-    {% render 'BlogBundle:Default:bloggers' %}
+    <div class="b-main-wrap b-post">
+        {% render 'BlogBundle:Default:bloggers' %}
 
-    {{ include('BlogBundle:Default:list.html.twig', {'blog': blogs, 'stats': stats, 'expandFirst' : true}) }}
+        {{ include('BlogBundle:Default:list.html.twig', {'blog': blogs, 'stats': stats, 'expandFirst' : true}) }}
 
-    {% if paginationData.pageCount > 1 %}
-        <div class="b-load-more">
-            <a data-page="1" data-user="{% spaceless %}{% if user is not null %} {{ user.id }} {% endif %}{% endspaceless %}" href="{{ path('blog_list') }}" class="load-more-links">+</a>
-        </div>
-    {% endif %}
+        {% if paginationData.pageCount > 1 %}
+            <div class="b-load-more">
+                <a data-page="1" data-user="{% spaceless %}{% if user is not null %} {{ user.id }} {% endif %}{% endspaceless %}" href="{{ path('blog_list') }}" class="load-more-links">+</a>
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}
 
