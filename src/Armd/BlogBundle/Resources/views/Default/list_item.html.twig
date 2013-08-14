@@ -5,13 +5,13 @@
             <img width="698" height="476" alt="{{ blog.title }}" src="{% path blog.topImage, 'default' %}">
             <div class="image-description m-details">
                 <div class="circle-img-thumb">
-                    <img width="105" height="104" alt="{{ blog.user.username }}" src="/img/new/temp-src/author-thumb-img.jpg">
+                    <img {#width="105" height="104" #}alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
                 </div>
                 <div class="b-post-descr">
                     <div class="b-post-info">
                         <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
                         <span class="views-count">{{ count }}</span> /
-                        <span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>
+                        {#<span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>#}
                     </div>
                     <a href="#" class="author-link">{{ blog.user.username }}</a>
                     <a class="desc-post-link" href="{{ path('view_blog', {'id' : blog.id}) }}">{{ blog.title }}</a>
@@ -25,15 +25,15 @@
             <img alt="{{ blog.title }}" src="{% path blog.topImage, 'thumbnail' %}">
         </div>
         <div class="circle-img-thumb">
-            <img width="65" height="65" alt="{{ blog.user.username }}" src="img/temp-src/author-thumb-small.jpg">
+            <img {#width="65" height="65" #} style="max-width:65px;max-height:65px;" alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
         </div>
         <header>
             <div class="b-post-info">
                 <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
-                <span class="views-count">{{ count }}</span> /
-                <span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>
+                <span class="views-count">{{ count }}</span>{# /#}
+                {#<span class="commetn-count"><a href="blog-post.html#post-comments">5</a></span>#}
             </div>
-            <a href="#" class="author-link">Владимир Мединский</a>
+            <a href="#" class="author-link">{{ blog.user.firstname }} {{ blog.user.lastname }}</a>
         </header>
         <div class="teaser-content">
             <a class="desc-post-link" href="{{ path('view_blog', {'id' : blog.id}) }}">{{ blog.title }}</a>

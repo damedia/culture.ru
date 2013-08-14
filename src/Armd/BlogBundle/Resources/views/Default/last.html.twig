@@ -1,7 +1,7 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 <div class="b-colored-articles-block b-sidebar-wrap m-sidebar-wrap-last">
     <h3 class="e-block-title">Новое в блогах</h3>
-
+{% if entity is not empty %}
     <article class="b-colored-article">
         {% if entity.topImage %}
         <a href="{{ path('view_blog', {id: entity.id}) }}" class="e-article-image">
@@ -22,6 +22,6 @@
             {{ entity.lead | raw }}
         </section>
     </article>
-
+{% endif %}
     <a href="{{ path('blog_list') }}" class="e-block-link">Перейти в Блоги</a>
 </div>
