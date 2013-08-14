@@ -184,18 +184,48 @@ class LectureRepository extends EntityRepository
             case 'children':
                 $qb->where('a.showOnMainAsForChildren = :show')
                     ->setParameter('show', true)
-                    ->andWhere('a.showOnMainAsForChildrenFrom <= :dt1')
-                    ->andWhere($qb->expr()->orX('a.showOnMainAsForChildrenTo > :dt1', 'a.showOnMainAsForChildrenTo IS NULL'))
-                    ->setParameter('dt1', $dt)
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenTo IS NULL',
+                                'a.showOnMainAsForChildrenFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenFrom <= :dt',
+                                'a.showOnMainAsForChildrenTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenFrom IS NULL',
+                                'a.showOnMainAsForChildrenTo >= :dt'
+                            ),
+                            $qb->expr()->andX('a.showOnMainAsForChildrenFrom <= :dt', 'a.showOnMainAsForChildrenTo >= :dt')
+                        )
+                    )
+                    ->setParameter('dt', $dt)
                     ->orderBy('a.showOnMainAsForChildrenOrd');
                 break;
             case 'recommend':
             default:
                 $qb->where('a.showOnMainAsRecommended = :show')
                     ->setParameter('show', true)
-                    ->andWhere('a.showOnMainAsRecommendedFrom <= :dt1')
-                    ->andWhere($qb->expr()->orX('a.showOnMainAsRecommendedTo > :dt1', 'a.showOnMainAsRecommendedTo IS NULL'))
-                    ->setParameter('dt1', $dt)
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedTo IS NULL',
+                                'a.showOnMainAsRecommendedFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom <= :dt',
+                                'a.showOnMainAsRecommendedTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom IS NULL',
+                                'a.showOnMainAsRecommendedTo >= :dt'
+                            ),
+                            $qb->expr()->andX('a.showOnMainAsRecommendedFrom <= :dt', 'a.showOnMainAsRecommendedTo >= :dt')
+                        )
+                    )
+                    ->setParameter('dt', $dt)
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
@@ -239,9 +269,24 @@ class LectureRepository extends EntityRepository
             default:
                 $qb->where('a.showOnMainAsRecommended = :show')
                     ->setParameter('show', true)
-                    ->andWhere('a.showOnMainAsRecommendedFrom <= :dt1')
-                    ->andWhere($qb->expr()->orX('a.showOnMainAsRecommendedTo > :dt1', 'a.showOnMainAsRecommendedTo IS NULL'))
-                    ->setParameter('dt1', $dt)
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedTo IS NULL',
+                                'a.showOnMainAsRecommendedFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom <= :dt',
+                                'a.showOnMainAsRecommendedTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom IS NULL',
+                                'a.showOnMainAsRecommendedTo >= :dt'
+                            ),
+                            $qb->expr()->andX('a.showOnMainAsRecommendedFrom <= :dt', 'a.showOnMainAsRecommendedTo >= :dt')
+                        )
+                    )
+                    ->setParameter('dt', $dt)
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
