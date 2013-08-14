@@ -48,8 +48,8 @@ class LectureNewsAdmin extends Admin
             ->add('lecturer')
             ->add('lectureVideo')
             ->add('lectureFile')
-            ->add('showOnMainAsRecommended')
-            ->add('showOnMainAsRecommendedOrd')
+//            ->add('showOnMainAsRecommended')
+//            ->add('showOnMainAsRecommendedOrd')
             ->add('isHeadline')
             ;
     }
@@ -111,14 +111,14 @@ class LectureNewsAdmin extends Admin
             )*/
             ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
             ->add('isHeadline', null, array('required' => false))
-            ->with('Главная')
-                ->add('showOnMainAsRecommended', null, array(
-                    'required' => false
-                ))
-                ->add('showOnMainAsRecommendedOrd', null, array(
-                    'required' => false
-                ))
-            ->end()
+//            ->with('Главная')
+//                ->add('showOnMainAsRecommended', null, array(
+//                    'required' => false
+//                ))
+//                ->add('showOnMainAsRecommendedOrd', null, array(
+//                    'required' => false
+//                ))
+//            ->end()
             /*->with('Tvigle Video')
                 ->add('lectureVideo', 'armd_tvigle_video_selector', array( 'required' => false))
             ->end()*/
@@ -143,8 +143,8 @@ class LectureNewsAdmin extends Admin
             ->add('corrected')
             ->add('title')
             ->add('categories')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+//            ->add('showOnMain')
+//            ->add('showOnMainOrd')
             ->add('isHeadline');
     }
 
@@ -160,8 +160,8 @@ class LectureNewsAdmin extends Admin
             ->addIdentifier('title')
             ->add('published')
             ->add('corrected')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+//            ->add('showOnMain')
+//            ->add('showOnMainOrd')
             ->add('createdAt')
 //            ->add('genres', null, array('template' => 'ArmdLectureBundle:Admin:list_lecture_categories.html.twig'))
         ;
