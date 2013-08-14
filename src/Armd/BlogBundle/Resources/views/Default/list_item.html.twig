@@ -11,7 +11,7 @@
                     <div class="b-post-info">
                         <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
                         <span class="views-count">{{ count }}</span> /
-                        <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#c-tab4">{{ blog.thread|length }}</a></span>
+                        <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#post-comments">{{ blog.thread|length }}</a></span>
                     </div>
                     <a href="{{ path('blog_list', {'user': blog.user.id}) }}" class="author-link">{{ blog.user.firstname }} {{ blog.user.lastname }}</a>
                     <a class="desc-post-link" href="{{ path('view_blog', {'id' : blog.id}) }}">{{ blog.title }}</a>
@@ -31,7 +31,7 @@
             <div class="b-post-info">
                 <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
                 <span class="views-count">{{ count }}</span> /
-                <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#c-tab4">{{ blog.thread|length }}</a></span>
+                <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#post-comments">{{ blog.thread|length }}</a></span>
             </div>
             <a href="{{ path('blog_list', {'user': blog.user.id}) }}" class="author-link">{{ blog.user.firstname }} {{ blog.user.lastname }}</a>
         </header>
