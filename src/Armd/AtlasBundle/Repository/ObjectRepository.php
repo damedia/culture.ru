@@ -143,8 +143,23 @@ class ObjectRepository extends EntityRepository
         {
             case 'novel':
                 $qb->andWhere('o.showOnMainAsNovel = TRUE')
-                    ->andWhere('o.showOnMainAsNovelFrom <= :dt')
-                    ->andWhere($qb->expr()->orX('o.showOnMainAsNovelTo >= :dt', 'o.showOnMainAsNovelTo IS NULL'))
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'o.showOnMainAsNovelTo IS NULL',
+                                'o.showOnMainAsNovelFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsNovelFrom <= :dt',
+                                'o.showOnMainAsNovelTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsNovelFrom IS NULL',
+                                'o.showOnMainAsNovelTo >= :dt'
+                            ),
+                            $qb->expr()->andX('o.showOnMainAsNovelFrom <= :dt', 'o.showOnMainAsNovelTo >= :dt')
+                        )
+                    )
                     ->setParameter('dt', $dt);
                 $objects = $qb->getQuery()->getResult();
                 break;
@@ -152,8 +167,23 @@ class ObjectRepository extends EntityRepository
             case 'recommend':
             default:
                 $qb->andWhere('o.showOnMainAsRecommended = TRUE')
-                    ->andWhere('o.showOnMainAsRecommendedFrom <= :dt')
-                    ->andWhere($qb->expr()->orX('o.showOnMainAsRecommendedTo >= :dt', 'o.showOnMainAsNovelTo IS NULL'))
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'o.showOnMainAsRecommendedTo IS NULL',
+                                'o.showOnMainAsRecommendedFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsRecommendedFrom <= :dt',
+                                'o.showOnMainAsRecommendedTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsRecommendedFrom IS NULL',
+                                'o.showOnMainAsRecommendedTo >= :dt'
+                            ),
+                            $qb->expr()->andX('o.showOnMainAsRecommendedFrom <= :dt', 'o.showOnMainAsRecommendedTo >= :dt')
+                        )
+                    )
                     ->setParameter('dt', $dt);
                 $objects = $qb->getQuery()->getResult();
         }

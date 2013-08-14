@@ -27,13 +27,28 @@ class PageRepository extends EntityRepository
             $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
         }
 
-        return $this->createQueryBuilder('p')
-            ->setMaxResults($limit)
+        $qb = $this->createQueryBuilder('p');
+        return $qb->setMaxResults($limit)
             ->where('p.isPublished = TRUE')
             ->andWhere('p.parent IS NULL')
             ->andWhere('p.showOnMain = TRUE')
-            ->andWhere('p.showOnMainFrom <= :dt')
-            ->andWhere('p.showOnMainTo >= :dt')
+            ->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->andX(
+                        'p.showOnMainTo IS NULL',
+                        'p.showOnMainFrom IS NULL'
+                    ),
+                    $qb->expr()->andX(
+                        'p.showOnMainFrom <= :dt',
+                        'p.showOnMainTo IS NULL'
+                    ),
+                    $qb->expr()->andX(
+                        'p.showOnMainFrom IS NULL',
+                        'p.showOnMainTo >= :dt'
+                    ),
+                    $qb->expr()->andX('p.showOnMainFrom <= :dt', 'p.showOnMainTo >= :dt')
+                )
+            )
             ->setParameter('dt', $dt)
             ->orderBy('p.showOnMainTo')
             ->getQuery()

@@ -22,16 +22,33 @@ class MuseumRepository extends EntityRepository
         }
 
         try{
-            return $this->createQueryBuilder('a')
-                ->where('a.showOnMain = :show')
+            $qb = $this->createQueryBuilder('a');
+
+            return $qb->where('a.showOnMain = :show')
                 ->setParameter('show', true)
-                ->andWhere('a.showOnMainFrom <= :dt1')
-                ->andWhere('a.showOnMainTo > :dt1')
-                ->setParameter('dt1', $dt)
+                ->andWhere(
+                    $qb->expr()->orX(
+                        $qb->expr()->andX(
+                            'a.showOnMainTo IS NULL',
+                            'a.showOnMainFrom IS NULL'
+                        ),
+                        $qb->expr()->andX(
+                            'a.showOnMainFrom <= :dt',
+                            'a.showOnMainTo IS NULL'
+                        ),
+                        $qb->expr()->andX(
+                            'a.showOnMainFrom IS NULL',
+                            'a.showOnMainTo >= :dt'
+                        ),
+                        $qb->expr()->andX('a.showOnMainFrom <= :dt', 'a.showOnMainTo >= :dt')
+                    )
+                )
+                ->setParameter('dt', $dt)
                 ->setMaxResults(1)
                 ->orderBy('a.showOnMainOrd')
                 ->getQuery()
                 ->getSingleResult();
+
         } catch(NoResultException $e){
             return null;
         }

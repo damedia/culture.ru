@@ -41,10 +41,25 @@ class PerfomanceRepository extends EntityRepository
             default:
                 $qb->where('a.showOnMain = :show')
                     ->setParameter('show', true)
-                    ->andWhere('a.showOnMainFrom <= :dt1')
-                    ->andWhere($qb->expr()->orX('a.showOnMainTo > :dt1', 'a.showOnMainTo IS NULL'))
-                    ->setParameter('dt1', $dt);
-//                    ->orderBy('a.showOnMainAsRecommendedOrd');
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'a.showOnMainTo IS NULL',
+                                'a.showOnMainFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainFrom <= :dt',
+                                'a.showOnMainTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainFrom IS NULL',
+                                'a.showOnMainTo >= :dt'
+                            ),
+                            $qb->expr()->andX('a.showOnMainFrom <= :dt', 'a.showOnMainTo >= :dt')
+                        )
+                    )
+                    ->setParameter('dt', $dt)
+                ;
 
         }
         return $qb->getQuery()->getResult();

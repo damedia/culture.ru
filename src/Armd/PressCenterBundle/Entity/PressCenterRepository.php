@@ -19,9 +19,24 @@ class PressCenterRepository extends EntityRepository
         return $qb->select('p')
             ->setMaxResults($limit)
             ->where('p.showOnMain = TRUE')
-            ->andWhere('p.showOnMainFrom <= :dt1')
-            ->andWhere($qb->expr()->orX('p.showOnMainTo > :dt1', 'p.showOnMainTo IS NULL'))
-            ->setParameter('dt1', $dt)
+            ->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->andX(
+                        'p.showOnMainTo IS NULL',
+                        'p.showOnMainFrom IS NULL'
+                    ),
+                    $qb->expr()->andX(
+                        'p.showOnMainFrom <= :dt',
+                        'p.showOnMainTo IS NULL'
+                    ),
+                    $qb->expr()->andX(
+                        'p.showOnMainFrom IS NULL',
+                        'p.showOnMainTo >= :dt'
+                    ),
+                    $qb->expr()->andX('p.showOnMainFrom <= :dt', 'p.showOnMainTo >= :dt')
+                )
+            )
+            ->setParameter('dt', $dt)
             ->orderBy('p.showOnMainTo')
             ->getQuery()
             ->getResult();
