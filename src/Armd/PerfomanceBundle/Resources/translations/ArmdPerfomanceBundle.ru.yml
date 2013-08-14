@@ -9,7 +9,7 @@ Perfomance Review List: Рецензии
 
 General: Общие
 Title: Название
-Published: Опубликовано 
+Published: Опубликовано
 Description: Описание
 Ganre: Жанр
 Ganres: Жанры
@@ -36,3 +36,7 @@ Body: Текст
 state_publish: Опубликовать
 state_unpublish: Снять с публикации
 Corrected: Откорректировано
+
+Show On Main: Показывать на главной
+Show On Main From: Показывать на главной с
+Show On Main To: Показывать на главной до
