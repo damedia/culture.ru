@@ -71,7 +71,8 @@
 
                         /* BEGIN TinyMCE initialization */
                         initTinyMCE.defaults.theme.sproject_snippets.parameters = { sonataAdmin: "{{ admin.code }}",
-                                                                                    acAjaxUrl: "{{ path('get_snippet_jsonlist') }}"
+                                                                                    acAjaxUrl: "{{ path('get_snippet_jsonlist') }}",
+                                                                                    modalLayerImgSrc: "{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}"
                                                                                   };
                         initTinyMCE(initTinyMCE.defaults);
                         /* END TinyMCE initialization */
