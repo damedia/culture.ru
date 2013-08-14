@@ -25,7 +25,7 @@ class BloggerType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     $qb = $er->createQueryBuilder('u');
                     $qb->innerJoin('u.groups', 'g', Join::WITH, 'g.name= :groupName');
-                    $qb->setParameter('groupName', 'Блогеры');
+                    $qb->setParameter('groupName', 'Блоггеры');
 
                     return $qb;
                 }

@@ -168,12 +168,14 @@ class Blog
         return $this->title;
     }
 
-    /**
-     * @param mixed $topImage
-     */
-    public function setTopImage($topImage)
+    public function setTopImage(\Application\Sonata\MediaBundle\Entity\Media $topImage = null)
     {
-        $this->topImage = $topImage;
+        // SonataAdmin adds empty Media if image3d embedded form is not filled, so check it
+        if (is_null($topImage) || $topImage->isUploaded()) {
+            $this->topImage = $topImage;
+        }
+
+        return $this;
     }
 
     /**
