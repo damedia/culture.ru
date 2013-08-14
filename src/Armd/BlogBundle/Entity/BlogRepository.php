@@ -3,6 +3,7 @@
 namespace Armd\BlogBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 class BlogRepository extends EntityRepository
 {
@@ -37,9 +38,14 @@ class BlogRepository extends EntityRepository
 
     public function getLast()
     {
-        return $this->createQueryBuilder('b')
-            ->orderBy('b.created_at', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()->getSingleResult();
+        try{
+            return $this->createQueryBuilder('b')
+                ->orderBy('b.created_at', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleResult();
+        } catch(NoResultException $e){
+            return null;
+        }
     }
 }
