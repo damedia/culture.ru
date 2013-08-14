@@ -104,7 +104,7 @@ class DefaultController extends Controller
     }
 
 
-    public function bloggersAction()
+    public function bloggersAction($user)
     {
         $userManager = $this->container->get('fos_user.user_manager.default');
         $bloggers = $userManager->getBloggers();
@@ -112,7 +112,8 @@ class DefaultController extends Controller
         return $this->render(
             'BlogBundle:Default:bloggers.html.twig',
             array(
-                'bloggers' => $bloggers
+                'bloggers' => $bloggers,
+                'user' => $user
             )
         );
     }

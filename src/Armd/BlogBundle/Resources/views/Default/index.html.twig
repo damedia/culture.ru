@@ -6,8 +6,9 @@
 
 {% block body %}
 
+
     <div class="b-main-wrap b-post">
-        {% render 'BlogBundle:Default:bloggers' %}
+        {% render 'BlogBundle:Default:bloggers' with {'user' : user} %}
 
         {{ include('BlogBundle:Default:list.html.twig', {'blog': blogs, 'stats': stats, 'expandFirst' : true}) }}
 
