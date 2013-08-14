@@ -46,6 +46,7 @@ class Blog
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="top_image_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $topImage;
 

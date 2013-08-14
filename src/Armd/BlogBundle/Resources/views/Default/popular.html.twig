@@ -5,7 +5,7 @@
 {% if entity is not empty %}
     <article class="b-colored-article">
         <a class="e-article-image" href="{{ path('view_blog', {'id' : entity.id}) }}">
-            <img alt="{{ entity.topImage.description }}" src="{% path entity.topImage, 'big_thumbnail' %}">
+            <img src="{% path entity.topImage, 'big_thumbnail' %}">
         </a>
         <section class="b-article-author">
             <img width="" alt="" class="e-autrhor-image" src="{% path entity.user.avatar, 'default' %}">

@@ -36,10 +36,11 @@ class ActualInfo
     private $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
      * @ORM\JoinColumn(name="video_id", referencedColumnName="id", nullable=true)
      */
     private $video;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")

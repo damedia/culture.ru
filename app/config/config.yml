@@ -202,9 +202,9 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
-#                - sonata.media.provider.culturetv
+                - sonata.media.provider.culturetv
                 - sonata.media.provider.tvigle
-#                - sonata.media.provider.youtube
+                - sonata.media.provider.youtube
 
             formats:
                 main: { width: 150, height: 150 }
