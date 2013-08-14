@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Damedia\SpecialProjectBundle\Entity\Template;
 use Damedia\SpecialProjectBundle\Entity\Block;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * @ORM\Table(name="damedia_project_page")
@@ -90,6 +91,12 @@ class Page {
      * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
      */
     private $showOnMainTo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="banner_image_id", referencedColumnName="id")
+     */
+    private $bannerImage;
 
 
     public function __construct() {
@@ -216,59 +223,40 @@ class Page {
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getShowOnMain()
-    {
+    public function getShowOnMain() {
         return $this->showOnMain;
     }
-
-    /**
-     * @param $showOnMain boolean
-     * @return $this
-     */
-    public function setShowOnMain($showOnMain)
-    {
+    public function setShowOnMain($showOnMain) {
         $this->showOnMain = $showOnMain;
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getShowOnMainFrom()
-    {
+    public function getShowOnMainFrom() {
         return $this->showOnMainFrom;
     }
-
-    /**
-     * @param $showOnMainFrom \DateTime
-     * @return $this
-     */
-    public function setShowOnMainFrom($showOnMainFrom)
-    {
+    public function setShowOnMainFrom($showOnMainFrom) {
         $this->showOnMainFrom = $showOnMainFrom;
 
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getShowOnMainTo()
-    {
+    public function getShowOnMainTo() {
         return $this->showOnMainTo;
     }
-
-    /**
-     * @param $showOnMainTo \DateTime
-     * @return $this
-     */
-    public function setShowOnMainTo($showOnMainTo)
-    {
+    public function setShowOnMainTo($showOnMainTo) {
         $this->showOnMainTo = $showOnMainTo;
+
+        return $this;
+    }
+
+    public function getBannerImage() {
+        return $this->bannerImage;
+    }
+    public function setBannerImage(Media $bannerImage) {
+        if (is_null($bannerImage) || $bannerImage->isUploaded()) {
+            $this->bannerImage = $bannerImage;
+        }
 
         return $this;
     }

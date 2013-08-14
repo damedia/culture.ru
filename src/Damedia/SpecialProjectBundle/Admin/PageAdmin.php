@@ -26,6 +26,7 @@ class PageAdmin extends Admin {
     const LABEL_SHOW_ON_MAIN = 'Показывать на главной';
     const LABEL_SHOW_ON_MAIN_FROM = 'Показывать на главной с';
     const LABEL_SHOW_ON_MAIN_TO = 'Показывать на главной до';
+    const LABEL_BANNER_IMAGE = 'Баннер';
 
     const LABEL_ACTIONS = 'Управление';
 
@@ -97,6 +98,8 @@ class PageAdmin extends Admin {
 
 
     protected function configureFormFields(FormMapper $formMapper) {
+        $isNew = ($this->getSubject() && !$this->getSubject()->getId());
+
         $formMapper->add('title', null,
             array('label' => $this::LABEL_TITLE));
 
@@ -129,7 +132,12 @@ class PageAdmin extends Admin {
 
             ->add('showOnMain', null, array('label' => $this::LABEL_SHOW_ON_MAIN, 'required' => false))
             ->add('showOnMainFrom', null, array('label' => $this::LABEL_SHOW_ON_MAIN_FROM, 'required' => false))
-            ->add('showOnMainTo', null, array('label' => $this::LABEL_SHOW_ON_MAIN_TO, 'required' => false));
+            ->add('showOnMainTo', null, array('label' => $this::LABEL_SHOW_ON_MAIN_TO, 'required' => false))
+            ->add('bannerImage', 'armd_media_file_type', array('label' => $this::LABEL_BANNER_IMAGE,
+                                                               'required' => $isNew,
+                                                               'with_remove' => false,
+                                                               'media_context' => 'sproject_banner',
+                                                               'media_provider' => 'sonata.media.provider.image'));
     }
 
     protected function configureListFields(ListMapper $listMapper) {
