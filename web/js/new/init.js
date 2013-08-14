@@ -67,6 +67,7 @@ $(window).load(function() {
                     displayPageNumber($(this), slider.triggerHandler( 'currentPosition' )+1);
                 },
                 scroll: {
+                    fx: 'fade',
                     onBefore: function( data ) {
                         displayPageNumber($(this), slider.triggerHandler( 'currentPosition' )+1);
                     }
