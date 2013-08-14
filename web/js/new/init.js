@@ -12,36 +12,36 @@ jQuery.fn.cleardefault = function() {
 /* End input clear functionality */
 $(function() {
     $("input[type=text]").cleardefault();
-    /* Load more functionality */
-
-    var loadMore = function () {
-        if(!$('.b-post-list').size()){
-            return false;
-        }
-        $.ajax({
-            url: 'blog-list.html',
-            success: function (data) {
-                var $data = $(data).find('.b-post-list article').css({'opacity': 0}).addClass('new-item');
-                // Replace div#the-posts with the name of your post container
-                $('.b-post-list').append($data);
-                $('.b-post-list').find('.new-item').each(function(){
-                    var $self = $(this);
-                    $self.animate({
-                        opacity: 1
-                    },{
-                        queue: false,
-                        complete: function(){
-                            $(this).removeAttr('style').removeAttr('class');
-                        }
-                    }, 500);
-                });
-            }
-        }); // End Ajax
-        return false;
-    }; // End loadMore
-
-    $('.load-more-link').on('click', loadMore);
-    /* Load more functionality */
+//    /* Load more functionality */
+//
+//    var loadMore = function () {
+//        if(!$('.b-post-list').size()){
+//            return false;
+//        }
+//        $.ajax({
+//            url: 'blog-list.html',
+//            success: function (data) {
+//                var $data = $(data).find('.b-post-list article').css({'opacity': 0}).addClass('new-item');
+//                // Replace div#the-posts with the name of your post container
+//                $('.b-post-list').append($data);
+//                $('.b-post-list').find('.new-item').each(function(){
+//                    var $self = $(this);
+//                    $self.animate({
+//                        opacity: 1
+//                    },{
+//                        queue: false,
+//                        complete: function(){
+//                            $(this).removeAttr('style').removeAttr('class');
+//                        }
+//                    }, 500);
+//                });
+//            }
+//        }); // End Ajax
+//        return false;
+//    }; // End loadMore
+//
+//    $('.load-more-link').on('click', loadMore);
+//    /* Load more functionality */
 });
 $(window).load(function() {
     if($('.slides').size()){

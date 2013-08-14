@@ -12,7 +12,7 @@
 
     {% if paginationData.pageCount > 1 %}
         <div class="b-load-more">
-            <a data-page="1" data-user="{% spaceless %}{% if user is not null %} {{ user.id }} {% endif %}{% endspaceless %}" href="{{ path('blog_list') }}" class="load-more-link">+</a>
+            <a data-page="1" data-user="{% spaceless %}{% if user is not null %} {{ user.id }} {% endif %}{% endspaceless %}" href="{{ path('blog_list') }}" class="load-more-links">+</a>
         </div>
     {% endif %}
 

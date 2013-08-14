@@ -35,7 +35,7 @@ class DefaultController extends Controller
         $pagination = $paginator->paginate(
             $blogs,
             $page,
-            5
+            2
         );
 
         $paginationData = $pagination->getPaginationData();
@@ -52,7 +52,7 @@ class DefaultController extends Controller
             $response = array(
                 'isSuccessful' => true,
                 'html' => $this->renderView(
-                    'BlogBundle:Default:list.html.twig',
+                    'BlogBundle:Default:list.ajax.html.twig',
                     array('blogs' => $pagination, 'stats' => $stats, 'expandFirst' => false)
                 )
             );
