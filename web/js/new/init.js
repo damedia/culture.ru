@@ -208,34 +208,34 @@ $(window).load(function() {
         $('#lecture_block').find('.order').removeClass('current');
         $(this).addClass('current');
         $('#lecture_widget').load($(this).attr('href'), function(){
-            $('#lecture_widget').caroufredsel({
-                items: 1,
-                visible: 1,
-                width: 'auto',
-                align: 'center',
-                auto: false,
-                pagination: {
-                    container: $('#lecture_block').find('.b-pagination-nav ul'),
-                    anchorBuilder: function(nr){
-                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
-                    }
-                },
-                onCreate : function( data ) {
-                    data.items.each(function(){
-                        $(this).addClass('visible');
-                    });
-                },
-                scroll  : {
-                    onBefore : function( data ) {
-                        $('#lecture_widget').children().removeClass('visible');
-                    },
-                    onAfter : function( data ) {
-                        data.items.visible.each(function(){
-                            $(this).addClass('visible');
-                        });
-                    }
-                }
-            });
+//            $('#lecture_widget').caroufredsel({
+//                items: 1,
+//                visible: 1,
+//                width: 'auto',
+//                align: 'center',
+//                auto: false,
+//                pagination: {
+//                    container: $('#lecture_block').find('.b-pagination-nav ul'),
+//                    anchorBuilder: function(nr){
+//                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
+//                    }
+//                },
+//                onCreate : function( data ) {
+//                    data.items.each(function(){
+//                        $(this).addClass('visible');
+//                    });
+//                },
+//                scroll  : {
+//                    onBefore : function( data ) {
+//                        $('#lecture_widget').children().removeClass('visible');
+//                    },
+//                    onAfter : function( data ) {
+//                        data.items.visible.each(function(){
+//                            $(this).addClass('visible');
+//                        });
+//                    }
+//                }
+//            });
         });
     });
 
