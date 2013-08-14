@@ -134,6 +134,25 @@ sonata_media:
             formats:
                 adminPreview: { width: 314, height: 187, quality: 90}
 
+        blog_image:
+                download:
+                    strategy: sonata.media.security.public_strategy
+                    mode: http
+                providers:
+                    - sonata.media.provider.image
+                formats:
+                    default: {width: 698, height: 476}
+                    big_thumbnail: { width: 240, height: 174 }
+                    thumbnail: { width: 85, height: 85 }
+        user_avatar:
+                download:
+                    strategy: sonata.media.security.public_strategy
+                    mode: http
+                providers:
+                    - sonata.media.provider.image
+                formats:
+                    default: {width: 105, height: 105}
+                    thumbnail: { width: 40, height: 40 }
         stuff:
             download:
                 strategy: sonata.media.security.public_strategy
