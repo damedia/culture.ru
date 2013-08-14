@@ -38,7 +38,7 @@ class Blog extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-
+        $isNew = ($this->getSubject() && !$this->getSubject()->getId());
         $formMapper
             ->with('General')
             ->add('title')
@@ -61,7 +61,7 @@ class Blog extends Admin
                 'topImage',
                 'armd_media_file_type',
                 array(
-                    'required' => true,
+                    'required' => $isNew,
                     'with_remove' => false,
                     'media_context' => 'blog_image',
                     'media_provider' => 'sonata.media.provider.image',
@@ -86,8 +86,10 @@ class Blog extends Admin
     {
         $listMapper
             ->addIdentifier('title')
-            ->add('lead')
-            ->add('created_at');
+            ->add('user')
+            ->add('created_at')
+            ->add('updated_at')
+        ;
 
         parent::configureListFields($listMapper);
     }

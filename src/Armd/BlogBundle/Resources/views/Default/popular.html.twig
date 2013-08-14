@@ -4,13 +4,13 @@
     <h3 class="e-block-title">Популярное</h3>
 {% if entity is not empty %}
     <article class="b-colored-article">
-        <a class="e-article-image" href="">
-            <img alt="{{ entity.topImage.description }}" src="{% path entity.topImage, 'thumbnail' %}">
+        <a class="e-article-image" href="{{ path('view_blog', {'id' : entity.id}) }}">
+            <img alt="{{ entity.topImage.description }}" src="{% path entity.topImage, 'big_thumbnail' %}">
         </a>
         <section class="b-article-author">
             <img width="" alt="" class="e-autrhor-image" src="{% path entity.user.avatar, 'default' %}">
             <span class="e-pub-date">{{ armd_news.news_date(entity.createdAt) }}</span>
-            <a class="e-author-name" href="">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
+            <a class="e-author-name" href="{{ path('blog_list', {'user': entity.user.id}) }}">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
         </section>
         <h1 class="e-article-title">
             <a href="{{ path('view_blog', {'id' : entity.id}) }}">{{ entity.title }}</a>

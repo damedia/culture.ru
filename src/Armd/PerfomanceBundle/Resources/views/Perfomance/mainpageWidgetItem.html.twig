@@ -1,6 +1,19 @@
+{% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
 {% for item in objects %}
-    <div class="carousel-item"{% if loop.index > 1 %} style="display:none;"{% endif %}>
-        <a href="{{ path('armd_perfomance_item', {id: item.id }) }}">{{ item.title }}</a>
-        {#<div><a href="{{ path('armd_perfomance_list', {'theaterId': item.theater.id }) }}">{{ item.theater.title }}</a></div>#}
+    <div class="b-virtual-video">
+        <a href="{{ path('armd_perfomance_item', {id: item.id }) }}">
+            {% thumbnail item.image, 'perfomanceW160H120' with {'alt' : item.title|escape} %}
+        </a>
+    </div>
+    <div class="b-virtual-theatre-item-content">
+        <header>
+            <h1>{{ item.title }}</h1>
+        </header>
+        <div>
+            <a href="{{ path('armd_perfomance_list', {'theaterId': item.theater.id }) }}">{{ item.theater.title }}</a>
+        </div>
+        <div class="b-virtual-theatre-wrap">
+            <div>&nbsp;{#В ролях: Чулпан Хаматова и Евгений Миронов#}</div><div class="e-virtual-time">{#2:15#}</div>
+        </div>
     </div>
 {% endfor %}

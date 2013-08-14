@@ -129,7 +129,34 @@ $(window).load(function() {
         $('#russia_image_block').find('.order').removeClass('current');
         $(this).addClass('current');
         $('#russia_image_widget').load($(this).attr('href'), function(){
-            // todo: reinitialize carousel
+            $('#russia_image_widget').caroufredsel({
+                items: 1,
+                visible: 1,
+                width: 'auto',
+                align: 'center',
+                auto: false,
+                pagination: {
+                    container: $('#russia_image_block').find('.b-pagination-nav ul'),
+                    anchorBuilder: function(nr){
+                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
+                    }
+                },
+                onCreate : function( data ) {
+                    data.items.each(function(){
+                        $(this).addClass('visible');
+                    });
+                },
+                scroll  : {
+                    onBefore : function( data ) {
+                        $('#russia_image_widget').children().removeClass('visible');
+                    },
+                    onAfter : function( data ) {
+                        data.items.visible.each(function(){
+                            $(this).addClass('visible');
+                        });
+                    }
+                }
+            });
         });
     });
 
@@ -138,7 +165,34 @@ $(window).load(function() {
         $('#cinema_block').find('.order').removeClass('current');
         $(this).addClass('current');
         $('#cinema_widget').load($(this).attr('href'), function(){
-            // todo: reinitialize carousel
+            $('#cinema_widget').caroufredsel({
+                items: 1,
+                visible: 1,
+                width: 'auto',
+                align: 'center',
+                auto: false,
+                pagination: {
+                    container: $('#cinema_block').find('.b-pagination-nav ul'),
+                    anchorBuilder: function(nr){
+                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
+                    }
+                },
+                onCreate : function( data ) {
+                    data.items.each(function(){
+                        $(this).addClass('visible');
+                    });
+                },
+                scroll  : {
+                    onBefore : function( data ) {
+                        $('#cinema_widget').children().removeClass('visible');
+                    },
+                    onAfter : function( data ) {
+                        data.items.visible.each(function(){
+                            $(this).addClass('visible');
+                        });
+                    }
+                }
+            });
         });
     });
 
@@ -146,9 +200,7 @@ $(window).load(function() {
         e.preventDefault();
         $('#theater_block').find('.order').removeClass('current');
         $(this).addClass('current');
-        $('#theater_widget').load($(this).attr('href'), function(){
-            // todo: reinitialize carousel
-        });
+        $('#theater_widget').load($(this).attr('href'));
     });
 
     $('#lecture_block').find('.order').click(function(e){
@@ -156,7 +208,34 @@ $(window).load(function() {
         $('#lecture_block').find('.order').removeClass('current');
         $(this).addClass('current');
         $('#lecture_widget').load($(this).attr('href'), function(){
-            // todo: reinitialize carousel
+            $('#lecture_widget').caroufredsel({
+                items: 1,
+                visible: 1,
+                width: 'auto',
+                align: 'center',
+                auto: false,
+                pagination: {
+                    container: $('#lecture_block').find('.b-pagination-nav ul'),
+                    anchorBuilder: function(nr){
+                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
+                    }
+                },
+                onCreate : function( data ) {
+                    data.items.each(function(){
+                        $(this).addClass('visible');
+                    });
+                },
+                scroll  : {
+                    onBefore : function( data ) {
+                        $('#lecture_widget').children().removeClass('visible');
+                    },
+                    onAfter : function( data ) {
+                        data.items.visible.each(function(){
+                            $(this).addClass('visible');
+                        });
+                    }
+                }
+            });
         });
     });
 

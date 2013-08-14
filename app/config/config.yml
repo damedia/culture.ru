@@ -247,6 +247,7 @@ sonata_media:
                 - sonata.media.provider.image
             formats:
                 default: {width: 698, height: 476}
+                big_thumbnail: { width: 240, height: 174 }
                 thumbnail: { width: 85, height: 85 }
 
         lecture:

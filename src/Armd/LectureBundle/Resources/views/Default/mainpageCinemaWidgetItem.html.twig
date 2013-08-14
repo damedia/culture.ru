@@ -1,6 +1,29 @@
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 {% for item in lectures %}
-    <div class="carousel-item"{% if loop.index > 1 %} style="display:none;"{% endif %}>
-        <a href="{{ path('armd_lecture_view', {id: item.id }) }}">{{ item.title }}</a>
-        {#{% thumbnail item.verticalBanner, 'lectureH228' with {'alt': item.title } %}#}
-    </div>
+    <section class="b-block-body">
+        <a href="{{ path('armd_lecture_view', {id: item.id }) }}" class="e-film-image">
+            {#<img src="/img/new/temp-src/girls.jpg" alt="">#}
+            {{ lectureMacro.lectureThumbnail(item, 'lectureW160H120', {'alt': item.title, 'height': 'auto'}) }}
+        </a>
+        <div class="e-film-info">
+            <h4 class="e-film-title">{{ item.title }} / {{ item.productionYear }}</h4>
+            <ul class="e-film-attributes">
+                <li>
+                    <span class="e-attr-title">Жанр: </span>
+                    {% for genre in item.filtrableGenres %}
+                    <a href="#" data-genre-id="{{ genre.id }}">{{ genre.title }}</a>{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </li>
+                {% if item.description %}
+                    {{ item.description|replace({'<p>': '<li>', '</p>': '</li>'})|raw }}
+                {% endif %}
+                {#<li>#}
+                    {#<span class="e-attr-title">В ролях: </span>#}
+                    {#Надежда Румянцева, Николай Рыбников#}
+                {#</li>#}
+            </ul>
+            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}" class="e-inline-link">перейти в Кино</a>
+        </div>
+    </section>
+{#{% thumbnail item.verticalBanner, 'lectureH228' with {'alt': item.title } %}#}
 {% endfor %}

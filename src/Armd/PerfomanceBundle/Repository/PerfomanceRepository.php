@@ -47,6 +47,6 @@ class PerfomanceRepository extends EntityRepository
 //                    ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
     }
 }

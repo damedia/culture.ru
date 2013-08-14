@@ -640,7 +640,7 @@ class DefaultController extends Controller
     {
         /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
-        $lectures = $repo->findCinemaForMainPage($date, 5, $type);
+        $lectures = $repo->findCinemaForMainPage($date, 1, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(

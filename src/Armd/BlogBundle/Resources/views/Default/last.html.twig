@@ -3,17 +3,13 @@
     <h3 class="e-block-title">Новое в блогах</h3>
 {% if entity is not empty %}
     <article class="b-colored-article">
-        {% if entity.topImage %}
         <a href="{{ path('view_blog', {id: entity.id}) }}" class="e-article-image">
-            <img src="{% path entity.topImage, 'thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
+            <img src="{% path entity.topImage, 'big_thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
         </a>
-        {% endif %}
         <section class="b-article-author">
-            {% if entity.user.avatar %}
-            <img src="{% path entity.user.avatar, 'default' %}" width="" class="e-autrhor-image" alt="">
-            {% endif %}
+            <img src="{% path entity.user.avatar, 'default' %}" class="e-autrhor-image" alt="{{ entity.user.firstname }} {{ entity.user.lastname }}">
             <span class="e-pub-date">{{ armd_news.news_date(entity.createdAt) }}</span>
-            <a href="{{ path('view_blog', {id: entity.id}) }}" class="e-author-name">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
+            <a href="{{ path('blog_list', {user: entity.user.id}) }}" class="e-author-name">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
         </section>
         <h1 class="e-article-title">
             <a href="{{ path('view_blog', {id: entity.id}) }}">{{ entity.title }}</a>

@@ -199,7 +199,7 @@ class LectureRepository extends EntityRepository
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
     }
 
     public function findForMainPage($date = '', $limit = 5, $type = 'recommend')
@@ -245,6 +245,6 @@ class LectureRepository extends EntityRepository
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
     }
 }

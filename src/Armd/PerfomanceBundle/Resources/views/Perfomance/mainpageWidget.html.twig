@@ -5,27 +5,12 @@
                 <div class="b-virtual-head m-float-left">
                     <div class="b-service-heading"><div>Виртуальный</div> <span>театр</span></div>
                     <ul>
-                        <li><a class="order" href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a></li>
+                        <li><a class="order current" href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a></li>
                         <li><a class="order" href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}">популярные</a></li>
                     </ul>
                 </div>
                 <article id="theater_widget" class="b-virtual-theatre-item">
-                    {#{% include 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig' with objects %}#}
-                    <div class="b-virtual-video">
-                        <a href="blog-post.html"><img src="/img/new/temp-src/virt1.png" alt=""/></a>
-                    </div>
-                    <div class="b-virtual-theatre-item-content">
-                        <header>
-                            <h1>«Фрекен Жюли»</h1>
-                        </header>
-                        <div>
-                            <a href="">Тульский камерный драматический театр.</a>
-                        </div>
-                        <div class="b-virtual-theatre-wrap">
-                            <div>В ролях: Чулпан Хаматова и Евгений Миронов</div><div class="e-virtual-time">2:15</div>
-                        </div>
-                    </div>
-
+                    {% include 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig' with objects %}
                 </article>
                 <div class="b-button-wrapper m-right-btn">
                     <a href="{{ path('armd_perfomance_list') }}" class="e-inline-link">перейти в Театр</a>
