@@ -67,11 +67,15 @@ class Blog extends Admin
                     'media_provider' => 'sonata.media.provider.image',
                 )
             )
-            ->add('user', null,  array(
-                                'required' => true,
-                                'multiple' => false,
-                                'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
-                            ))
+            ->add(
+                'user',
+                'blogger_type',
+                array(
+                    'required' => true,
+                    'multiple' => false,
+                    'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
+                )
+            )
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -88,8 +92,7 @@ class Blog extends Admin
             ->addIdentifier('title')
             ->add('user')
             ->add('created_at')
-            ->add('updated_at')
-        ;
+            ->add('updated_at');
 
         parent::configureListFields($listMapper);
     }
