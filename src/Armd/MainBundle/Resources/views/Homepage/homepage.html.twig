@@ -1,205 +1,59 @@
-{% extends ':Frontend:layout_two_column.html.twig' %}
+{% extends ':Frontend:new_base.html.twig' %}
 
 {% block title %}{{ 'Portal title'|trans }}{% endblock %}
 
-{% block page_header_title %}{{ 'virtual_museum_tour'|trans }}{% endblock %}
+{% block body %}
 
-{% block body_class %}index-main{% endblock %}
-
-{% block sub_header %}
-    {#<section class="index-block index-museum-block clearfix">#}
-        {#&#123;&#35; <h2><a href="{{ path('armd_museum_virtual') }}">{{ "Museums"|trans }}</a></h2> &#35;&#125;#}
-
-
-        {#<div class="plitka-one-wrap plitka-one-wrap-opened">#}
-            {#<div class="plitka-one clearfix">#}
-                {#<div class="museum-image-container">#}
-                    {#&#123;&#35; <div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div> &#35;&#125;#}
-                    {#<a href="{{ museum.url }}" class="museum-image-link vob iframe"><div class="museum-image" style="background-image:url({% path museum.bannerImage, 'bannerW1232' %});"></div></a>#}
-                    {#<div class="museum-image-over">#}
-                        {#<div class="museum-image-title clearfix">#}
-                          {#<span>#}
-                          {#{% if app.request.locale == 'ru' %}#}
-                             {#{{ museum.title }}#}
-                          {#{% else %}#}
-                             {#{{ museum.title }}#}
-                          {#{% endif %}#}
-                          {#</span></div>#}
-                        {#<div class="museum-image-text-wrap">#}
-                            {#<a href="#" class="museum-town">#}
-                              {#{% if app.request.locale == 'ru' %}#}
-                                {#{{ museum.region.title is defined ? museum.region.title : '' }}#}
-                              {#{% else %}#}
-                                {#{{ museum.region.title is defined ? museum.region.title : '' }}#}
-                              {#{% endif %}#}
-                            {#</a>#}
-                            {#<a class="museum-image-link vob iframe" href="http://culture.ru/vtour/tsarskoe_selo/tsarskoe_selo_museum.html" data-fancybox-type="iframe">#}
-                                {#<span class="museum-image-text">#}
-                                    {#{{ "visit_museum"|trans|raw }}#}
-                                {#</span>#}
-                            {#</a>#}
-                            {#<a href="#instruction" class="museum-instr-link">#}
-                                {#{{ "manual_instruction"|trans|raw }}#}
-                            {#</a>#}
-                        {#</div>#}
-                        {#<div class="museum-image-image"></div>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-
-            {#<div id="instruction" style="display:none;">#}
-                {#<div class="window">#}
-                    {#<div class="block window-content">#}
-                        {#{% include 'ArmdMuseumBundle:Default:instruction.'~app.request.locale~'.html.twig' %}#}
-                    {#</div>#}
-               {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</section>#}
-
-{% endblock %}
-
-{% block left_column %}
-
-    {#new blocks#}
     {% render 'PressCenterBundle:Default:mainpageWidget' %}
+
     {% render 'ArmdAtlasBundle:Default:mainpageWidget' %}
+
     {% render 'DamediaSpecialProjectBundle:Render:mainpageWidget' %}
-    {% render 'ArmdLectureBundle:Default:mainpageWidget' %}
-    {% render 'ArmdMuseumBundle:Default:mainpageWidget' %}
-    {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' %}
-    {% render 'ArmdLectureBundle:Default:mainpageLectureWidget' %}
-    {#end of new blocks#}
 
-{% endblock %}
+    <div class="b-main-wrap b-block-main clearfix">
 
+        {% render 'ArmdLectureBundle:Default:mainpageWidget' %}
 
-{% block right_column %}
+        {% render 'ArmdMuseumBundle:Default:mainpageWidget' %}
 
-    <span class="helper-top-orange-line"></span>
-
-    <section id="homepage-online-translation">
-        {% render 'ArmdOnlineTranslationBundle:Default:homepageWidget' %}
-    </section>
-
-    {#new blocks#}
-    {% render 'ActualInfoBundle:Default:mainpageWidget' %}
-    {% render 'BlogBundle:Default:lastPost' %}
-    {#end of new blocks#}
-
-
-{% endblock %}
-
-{% block wide_body %}
-    {#<section class="block atlas-block">#}
-        {#<h1><span>{{ "Navigation.Atlas"|trans}}</span></h1>#}
-        {#<div class="index-map">#}
-            {#<div class="bar bar-top"></div>#}
-            {#<div class="bar bar-right"></div>#}
-            {#<div class="bar bar-bottom"></div>#}
-            {#<div class="bar bar-left"></div>#}
-            {#<div id="map"></div>#}
-            {#<div class="map-lister scrollblock">#}
-                {#<div id="map-scrollblock" class="scrollblock-content"></div>#}
-                {#<div class="scrollblock-buttons clearfix"><a class="scrollblock-a scrollblock-left" onclick="return AT.prevPoint();"></a><a class="scrollblock-a scrollblock-right" onclick="return AT.nextPoint();"></a></div>#}
-            {#</div><!-- /map-lister -->#}
-        {#</div>#}
-    {#</section>#}
-
-    {#<!-- Асинхронная загрузка jsapi -->#}
-    {#<div id="script_block" class="script_block"></div>#}
-    {#<div id="script_ad" class="script_ad" style="display:none;">#}
-        {#<script type="text/javascript" charset="utf-8" src="http://js.tmcrussia.com/map.js?{{ progorod_api_key }}&version=0.1.10"></script>#}
-        {#&#123;&#35; <script type="text/javascript" charset="utf-8" src="http://jsapi.murzina.jsdev.tmcrussia.com/?{{ progorod_api_key }}&version=0.1.10"></script> &#35;&#125;#}
-    {#</div>#}
-    {#<script type="text/javascript">#}
-        {#document.getElementById('script_block').appendChild(document.getElementById('script_ad'));#}
-        {#document.getElementById('script_ad').style.display = 'block';#}
-    {#</script>#}
-    <!-- /Асинхронная загрузка jsapi -->
-{% endblock %}
-
-{% block after_body %}
-<div class="right-column" style="padding-top:38px;">
-    {% if app.request.locale == 'ru' %}
-        <section class="newspaper img-banner"><a target="_blank" href="http://100.histrf.ru/about/" alt=""><img src="{{ asset('img/banner_cultura_100_histrf.png') }}"></a></section>
-
-        <section class="newspaper img-banner"><a target="_blank" href="http://www.pravmir.ru" alt="ПРАВОСЛАВИЕ И МИР"><img src="{{ asset('img/banners/banner_cultura_pim.jpg') }}" style="width: 210px; margin-left: 50px"></a></section>
-
-        <section class="newspaper newspaper-culture"><a target="_blank" href="http://portal-kultura.ru/" title='{{ "menu.culture_magazine"|trans }}'></a></section>
-
-        <section class="newspaper newspaper-literature"><a target="_blank" href="http://lgz.ru/" title='{{ "menu.literature_magazine"|trans }}'></a></section>
-
-        <section class="newspaper img-banner"><a target="_blank" href="http://www.moviestart.ru" alt="МОЛОДЕЖНЫЙ ЦЕНТР СОЮЗА КИНЕМАТОГРАФИСТОВ РФ"><img src="{{ asset('img/banners/banner_cinema_unity_c.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
-
-        <section class="newspaper img-banner"><a target="_blank" href="http://tvoyaistoria.ru" alt="ТВОЯ ИСТОРИЯ"><img src="{{ asset('img/banners/banner_tvoya_istoriya.jpg') }}" style="width: 210px; margin-left: -5px"></a></section>
-
-    {% endif %}
-{#
-{% if app.request.locale == 'ru' %}
-    <a href="http://www.yandex.ru/?add=126758&from=promocode" target="_blank" class="read-yandex">
-        <img src="{{ asset('img/read_yandex.jpg') }}">
-    </a>
-    <section id="homepage-social-widgets">
-        {% include 'ArmdMainBundle:Homepage:facebook_likebox.html.twig' %}
-        {% include 'ArmdMainBundle:Homepage:vkontakte_likebox.html.twig' %}
-    </section>
-
-    <section id="homepage-polls">
-        <h3><span>Опрос</span></h3>
-        {% render url('armd_poll_poll') %}
-    </section>
-
-{% endif %}
-#}
-</div><!-- /right-column -->
-<div class="left-column">
-    <div class="left-column-content">
-        <section class="block new-on-site">
-            {% if app.request.locale == 'ru' %}
-                {#<section class="block social-widget-block">#}
-                    {#{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}#}
-                {#</section>#}
-                <section class="block social-widget-block">
-                    {% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}
-                </section>
-                <section class="block social-widget-block">
-                    {% include 'ArmdMainBundle:Homepage:vkontakte_widget.html.twig' %}
-                </section>
-            {% endif %}
-        </section>
     </div>
-</div><!-- /left-column -->
+
+    {% render 'ArmdPerfomanceBundle:Perfomance:mainpageWidget' %}
+
+    {% render 'ArmdLectureBundle:Default:mainpageLectureWidget' %}
+
+
+    <div class="b-main-wrap clear-both m-bordered-3 m-block-partners">
+        <h3 class="indented-header">Партнеры и спецпроекты</h3>
+        <ul class="b-partner-list">
+            <li><a href="http://100.histrf.ru/about/" target="_blank"><img src="/img/new/partners/100-greetest-generals.jpg" width="148" height="44" alt="100 Великих полководцев. Герой дня"/></a></li>
+            <li><a href="http://portal-kultura.ru" target="_blank"><img src="/img/new/partners/culture-newspaper.jpg" width="151" height="44" alt="Газета культура"/></a></li>
+            <li><a href="http://lgz.ru" target="_blank"><img src="/img/new/partners/literature-newspaper.jpg" width="150" height="44" alt=""/></a></li>
+            <li><a href="http://www.pravmir.ru" target="_blank"><img src="/img/new/partners/pravoslavie-and-mir.jpg"  width="167" height="40" alt=""/></a></li>
+            <li><a href="http://www.moviestart.ru" target="_blank"><img src="/img/new/partners/moldejniy-center.jpg" width="179" height="70" alt=""/></a></li>
+            <li><a href="http://tvoyaistoria.ru" target="_blank"><img src="/img/new/partners/your-history-magazine.jpg" width="132" height="59"></a></li>
+        </ul>
+    </div>
+
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/armdatlas/css/atlas_new.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/armdmain/css/atlas_obrazy.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/armdnews/css/slider.css') }}" media="all" />
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/armdmain/js/atlas_obrazy.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/armdmain/js/main_page.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/jquery.carouFredSel-6.2.1-packed.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/armdnews/js/news_slider.js') }}"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            armdMainPage.init();
-        });
-        $(window).resize(function() {
-          var videoWidth = $('.left-column-content').width();
-          if(videoWidth <= 800){
-            $('#video-list').css( "width", "590px" );
-          }
-          else{
-            $('#video-list').css( "width", "auto" );
-          }
-        });
-    </script>
-{% endblock %}
-
+{#</div><!-- /right-column -->#}
+{#<div class="left-column">#}
+    {#<div class="left-column-content">#}
+        {#<section class="block new-on-site">#}
+            {#{% if app.request.locale == 'ru' %}#}
+                {#&#123;&#35;<section class="block social-widget-block">&#35;&#125;#}
+                    {#&#123;&#35;{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}&#35;&#125;#}
+                {#&#123;&#35;</section>&#35;&#125;#}
+                {#<section class="block social-widget-block">#}
+                    {#{% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}#}
+                {#</section>#}
+                {#<section class="block social-widget-block">#}
+                    {#{% include 'ArmdMainBundle:Homepage:vkontakte_widget.html.twig' %}#}
+                {#</section>#}
+            {#{% endif %}#}
+        {#</section>#}
+    {#</div>#}
+{#</div><!-- /left-column -->#}
+{#{% endblock %}#}
 

@@ -1,19 +1,21 @@
 {% spaceless %}
     {% if lectures is not empty %}
-        {# todo: html #}
-        <div id="lecture_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
-            <div style="font-size:20px;">
-                ЛЕКЦИИ
-                <span style="margin-left:30px;">
-                    <a class="order active" href="{{ path('armd_lecture_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
+        <div id="lecture_block" class="b-main-wrap b-block-main m-clear-both b-lecture">
+            <header class="b-heading">
+                <h2>Лекции</h2>
+            </header>
+            <div class="b-block-heading m-align">
+                <nav class="b-heading-nav js-tabs-nav">
+                    <a class="order current" href="{{ path('armd_lecture_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
                     <a class="order" href="{{ path('armd_lecture_mainpage', {type: 'popular', date: date}) }}">популярные</a>&nbsp;
-                </span>
+                </nav>
             </div>
-            <div id="lecture_widget" class="carousel" style="margin-top:20px;">
+            <div id="lecture_widget" class="b-grid">
                 {% include 'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig' with lectures %}
             </div>
-
-            <a href="{{ path('armd_lecture_lecture_index') }}">Перейти в раздел Лекции</a>
+            <div class="b-button-wrapper m-right-btn">
+                <a href="{{ path('armd_lecture_lecture_index') }}" class="e-inline-link">перейти в Лекции</a>
+            </div>
         </div>
     {% endif %}
 {% endspaceless %}

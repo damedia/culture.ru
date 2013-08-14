@@ -45,6 +45,12 @@ class PressCenter
     private $content;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     */
+    private $image;
+
+    /**
      * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
     private $showOnMain = false;
@@ -151,6 +157,27 @@ class PressCenter
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     * @return PressCenter
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+        if (is_null($image) || $image->isUploaded()) {
+            $this->image = $image;
+        }
+
+        return $this;
     }
 
     /**

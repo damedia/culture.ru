@@ -665,7 +665,7 @@ class DefaultController extends Controller
     {
         /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
-        $lectures = $repo->findForMainPage($date, 5, $type);
+        $lectures = $repo->findForMainPage($date, 4, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(

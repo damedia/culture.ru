@@ -41,6 +41,13 @@ class PressCenterAdmin extends Admin
             ->with('General')
             ->add('slug')
             ->add('title')
+            ->add('image', 'armd_media_file_type', array(
+                    'required' => false,
+                    'with_remove' => true,
+                    'media_context' => 'press_center',
+                    'media_provider' => 'sonata.media.provider.image',
+                    'media_format' => 'thumbnail'
+                ))
             ->add(
                 'content',
                 null,

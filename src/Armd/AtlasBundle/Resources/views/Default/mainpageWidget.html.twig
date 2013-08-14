@@ -1,19 +1,22 @@
 {% spaceless %}
     {% if russianImages is not empty %}
-        {# todo: html #}
-        <div id="russia_image_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
-            <div style="font-size:20px;">
-                ОБРАЗЫ РОССИИ
-                <span style="margin-left:30px;">
-                    <a class="order active" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend', date: date}) }}">рекомендуемое</a>&nbsp;
-                    <a class="order" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'novel', date: date}) }}">неизведанное</a>&nbsp;
-                </span>
+        <div id="russia_image_block" class="b-main-wrap b-block-main m-main-russia-imagery">
+            <div class="b-post">
+                <header class="b-block-heading">
+                    <h3 class="e-block-title">Образы России</h3>
+                    <nav class="b-heading-nav">
+                        <a class="order current" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend', date: date}) }}">рекомендуемое</a>&nbsp;
+                        <a class="order" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'novel', date: date}) }}">неизведанное</a>
+                    </nav>
+                </header>
+                <section class="b-block-body m-sights-carousel b-simple-slider">
+                    <ul id="russia_image_widget" class="b-main-slides clearfix">
+                        {% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}
+                    </ul>
+                    <a href="{{ path('armd_atlas_russia_images') }}" class="e-inline-link">перейти в Образы России</a>
+                </section>
             </div>
-            <div id="russia_image_widget" class="carousel" style="margin-top:20px;">
-                {% include 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig' with russianImages %}
-            </div>
-
-            <a href="{{ path('armd_atlas_russia_images') }}">Перейти в Образы России</a>
+            <span class="russia-map"></span>
         </div>
     {% endif %}
 {% endspaceless %}

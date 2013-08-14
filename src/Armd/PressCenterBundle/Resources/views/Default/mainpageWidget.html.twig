@@ -1,18 +1,25 @@
 {% spaceless %}
     {% if items is not empty %}
-        {# todo: html #}
-        <div id="press_center_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
-            <div style="font-size:20px;">
-                ПРЕСС ЦЕНТР
-                <span style="margin-left:30px;">сегодня, {{ 'now'|date('d F') }}</span>
-            </div>
-            <div id="press_center_widget" class="carousel" style="margin-top:20px;">
-            {% for item in items %}
-                <div><a href="{{ path('armd_press_center_item', {slug: item.slug}) }}">{{ item.title }}</a></div>
-            {% endfor %}
-            </div>
-
-            <a href="{{ path('armd_press_center_home') }}">Перейти в раздел</a>
+        <div class="b-main-wrap b-post b-block-main m-main-press-center">
+            <header class="b-block-heading">
+                <h3 class="e-block-title">Пресс-центр</h3>
+                <span class="e-current-date">сегодня {{ 'now'|date('d F') }}</span>
+                <a href="{{ path('armd_press_center_home') }}" class="e-section-link">перейти в раздел</a>
+            </header>
+            <section class="b-block-body m-simple-tabs js-simple-tabs">
+                <div class="b-simple-tabs-content js-tabs-list">
+                    {% for item in items %}
+                    <div id="stp{{ loop.index }}" class="b-simple-tabs-tab">
+                        <img src="{% path item.image, 'main' %}" alt="">
+                    </div>
+                    {% endfor %}
+                </div>
+                <nav class="b-simple-tabs-nav js-tabs-nav">
+                    {% for item in items %}
+                    <a href="#stp{{ loop.index }}" class="e-simple-tabs-link{% if loop.index == 1 %} current{% endif %}"><span>{{ item.title }}</span></a>
+                    {% endfor %}
+                </nav>
+            </section>
         </div>
     {% endif %}
 {% endspaceless %}

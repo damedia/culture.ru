@@ -1,6 +1,7 @@
-<h1>Блоги</h1>
+<h1 class="b-left-title">Блоги</h1>
+<ul class="b-link-list m-left-bordered">
 {% for blogger in bloggers %}
-    <a href="{{ path('blog_list', {'user': blogger.id}) }}">{{ blogger.firstname }} {{ blogger.lastname }}</a>
-    {% if loop.last != true %} | {% endif %}
+    <li><a href="{{ path('blog_list', {'user': blogger.id}) }}">{{ blogger.firstname }} {{ blogger.lastname }}</a></li>
 {% endfor %}
-<a href="{{ path('blog_list') }}">Все авторы</a>
+    <li class="all-authors-link last"><a href="{{ path('blog_list') }}">Все авторы</a></li>
+</ul>

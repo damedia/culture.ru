@@ -15,14 +15,15 @@ class PressCenterRepository extends EntityRepository
             $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
         }
 
-        return $this->createQueryBuilder('p')
+        $qb = $this->createQueryBuilder('p');
+        return $qb->select('p')
             ->setMaxResults($limit)
             ->where('p.showOnMain = TRUE')
-            ->andWhere('p.showOnMainFrom <= :dt')
-            ->andWhere('p.showOnMainTo >= :dt')
-            ->setParameter('dt', $dt)
+            ->andWhere('p.showOnMainFrom <= :dt1')
+            ->andWhere($qb->expr()->orX('p.showOnMainTo > :dt1', 'p.showOnMainTo IS NULL'))
+            ->setParameter('dt1', $dt)
             ->orderBy('p.showOnMainTo')
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
 }

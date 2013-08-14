@@ -23,10 +23,10 @@ $(document).ready(function () {
         }, false, true);
     });
 
-    $('body').on('click', '.load-more-blogs', function (e) {
+    $('body').on('click', '.load-more-links', function (e) {
         e.preventDefault();
         var caller = $(this),
-            container = $('.blogs-contaniner'),
+            container = $('.b-post-list'),
             page = caller.data('page') + 1,
             user = caller.data('user'),
             url = caller.attr('href'),

@@ -166,6 +166,17 @@ sonata_media:
                 thumbnail: { width: 85, height: 85 }
                 searchAllResult: { width: 160, height: 107 }
 
+        press_center:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+
+            formats:
+                main: { width: 400, height: 280 }
+                thumbnail: { width: 100, height: 70 }
+
         actual_info:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -235,7 +246,7 @@ sonata_media:
             providers:
                 - sonata.media.provider.image
             formats:
-                default: {width: 300, height: 250}
+                default: {width: 698, height: 476}
                 thumbnail: { width: 85, height: 85 }
 
         lecture:

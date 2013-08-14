@@ -1,0 +1,163 @@
+jQuery.fn.cleardefault = function() {
+    return this.focus(function() {
+        if( this.value == this.defaultValue ) {
+            this.value = "";
+        }
+    }).blur(function() {
+            if( !this.value.length ) {
+                this.value = this.defaultValue;
+            }
+        });
+};
+/* End input clear functionality */
+$(function() {
+    $("input[type=text]").cleardefault();
+    /* Load more functionality */
+
+    var loadMore = function () {
+        if(!$('.b-post-list').size()){
+            return false;
+        }
+        $.ajax({
+            url: 'blog-list.html',
+            success: function (data) {
+                var $data = $(data).find('.b-post-list article').css({'opacity': 0}).addClass('new-item');
+                // Replace div#the-posts with the name of your post container
+                $('.b-post-list').append($data);
+                $('.b-post-list').find('.new-item').each(function(){
+                    var $self = $(this);
+                    $self.animate({
+                        opacity: 1
+                    },{
+                        queue: false,
+                        complete: function(){
+                            $(this).removeAttr('style').removeAttr('class');
+                        }
+                    }, 500);
+                });
+            }
+        }); // End Ajax
+        return false;
+    }; // End loadMore
+
+    $('.load-more-link').on('click', loadMore);
+    /* Load more functionality */
+});
+$(window).load(function() {
+    if($('.slides').size()){
+        $('.slides').each(function(){
+            var slider = $(this);
+            var displayPageNumber = function(slider, current){
+                var navContainer = slider.closest('.b-slider-wrapper"').find('.slider-nav-panel'),
+                    totalCol = slider.find('> div').size();
+
+                navContainer.find('.current-number').text(current);
+                navContainer.find('.total-number').text(totalCol);
+
+            };
+            slider.caroufredsel({
+                items: 1,
+                visible: 1,
+                width: 'auto',
+                align: 'center',
+                auto: false,
+                next: slider.siblings('.slider-nav-panel').find('.next-slider-arrow'),
+                prev: slider.siblings('.slider-nav-panel').find('.prev-slider-arrow'),
+                onCreate: function(data){
+                    displayPageNumber($(this), slider.triggerHandler( 'currentPosition' )+1);
+                },
+                scroll: {
+                    onBefore: function( data ) {
+                        displayPageNumber($(this), slider.triggerHandler( 'currentPosition' )+1);
+                    }
+                }
+            });
+        });
+    }
+
+    // ikoptelov 08.08.2013 Small and Simple tabs snippet
+    $('.js-simple-tabs').each(function(){
+        var nav = $(this).find('.js-tabs-nav a'),
+            tabs = $(this).find('.js-tabs-list').children();
+        tabs.hide();
+        tabs.filter(nav.filter('.current').attr('href')).show();
+        nav.on('click', function(){
+            tabs.hide();
+            nav.removeClass('current');
+            $(this).addClass('current');
+            tabs.filter($(this).attr('href')).show();
+            return false;
+        });
+    });
+    // ikoptelov 08.08.2013 Small and Simple tabs snippet
+    // var oneImageCarousel = $(".js-oneimage-carousel");
+
+    /*if (oneImageCarousel.size() != 0) {
+        oneImageCarousel.find('.js-carousel-container').carouFredSel({
+            circular: false,
+            infinite: false,
+            auto    : false,
+            prev    : {
+                button  : null
+            },
+            next    : {
+                button  : null
+            },
+            onCreate : function( data ) {
+                data.items.each(function(){
+                    $(this).addClass('visible');
+                });
+            },
+            scroll  : {
+                onBefore : function( data ) {
+                    oneImageCarousel.find('.js-carousel-item').removeClass('visible');
+                },
+                onAfter : function( data ) {
+                    data.items.visible.each(function(){
+                        $(this).addClass('visible');
+                    });
+                }
+            },
+            pagination  : oneImageCarousel.find('.js-oneimage-carousel-nav')
+        });
+    }*/
+    // end ikoptelov 08.08.2013
+
+
+    $('#russia_image_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#russia_image_block').find('.order').removeClass('current');
+        $(this).addClass('current');
+        $('#russia_image_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
+    $('#cinema_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#cinema_block').find('.order').removeClass('current');
+        $(this).addClass('current');
+        $('#cinema_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
+    $('#theater_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#theater_block').find('.order').removeClass('current');
+        $(this).addClass('current');
+        $('#theater_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
+    $('#lecture_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#lecture_block').find('.order').removeClass('current');
+        $(this).addClass('current');
+        $('#lecture_widget').load($(this).attr('href'), function(){
+            // todo: reinitialize carousel
+        });
+    });
+
+});

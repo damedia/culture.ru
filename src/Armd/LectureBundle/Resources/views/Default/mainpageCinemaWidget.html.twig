@@ -1,19 +1,37 @@
 {% spaceless %}
     {% if lectures is not empty %}
-        {# todo: html #}
-        <div id="cinema_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
-            <div style="font-size:20px;">
-                КИНО
-                <span style="margin-left:30px;">
-                    <a class="order active" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
+        <div id="cinema_block" class="b-block-main b-movies-block">
+            <header class="b-block-heading">
+                <h3 class="e-block-title">Кино</h3>
+                <nav class="b-heading-nav">
+                    <a class="order current" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
                     <a class="order" href="{{ path('armd_lecture_cinema_mainpage', {type: 'children', date: date}) }}">для детей</a>&nbsp;
-                </span>
-            </div>
-            <div id="cinema_widget" class="carousel" style="margin-top:20px;">
-                {% include 'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig' with lectures %}
-            </div>
-
-            <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}">Перейти в раздел Кино</a>
+                </nav>
+            </header>
+            {#{% include 'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig' with lectures %}#}
+            <section class="b-block-body">
+                <a href="" class="e-film-image">
+                    <img src="/img/new/temp-src/girls.jpg" alt="">
+                </a>
+                <div class="e-film-info">
+                    <h4 class="e-film-title">Девчата /1964</h4>
+                    <ul class="e-film-attributes">
+                        <li>
+                            <span class="e-attr-title">Жанр: </span>
+                            <a href="">комедия</a>
+                        </li>
+                        <li>
+                            <span class="e-attr-title">Режиссер: </span>
+                            Юрий Чулюкин
+                        </li>
+                        <li>
+                            <span class="e-attr-title">В ролях: </span>
+                            Надежда Румянцева, Николай Рыбников
+                        </li>
+                    </ul>
+                    <a href="{{ path('armd_lecture_cinema_index', {'genreSlug': 'feature-film'}) }}" class="e-inline-link">перейти в Кино</a>
+                </div>
+            </section>
         </div>
     {% endif %}
 {% endspaceless %}

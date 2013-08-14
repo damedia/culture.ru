@@ -1,18 +1,27 @@
 {% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
-<div style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
-    <h1>Новое в блогах</h1>
-    {% if entity.topImage %}
-    <img src="{% path entity.topImage, 'thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
-    {% endif %}
-    <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
-    {% if entity.user.avatar %}
-        <img src="{% path entity.user.avatar, 'default' %}">
-    {% endif %}
-    {{ entity.user.firstname }} {{ entity.user.lastname }} <br>
-    <hr>
-    <h3>{{ entity.title }}</h3>
+<div class="b-colored-articles-block b-sidebar-wrap m-sidebar-wrap-last">
+    <h3 class="e-block-title">Новое в блогах</h3>
 
-    {{ entity.lead | raw }}
-    <br>
-    <a href="{{ path('blog_list') }}">Перейти в блоги</a>
+    <article class="b-colored-article">
+        {% if entity.topImage %}
+        <a href="{{ path('view_blog', {id: entity.id}) }}" class="e-article-image">
+            <img src="{% path entity.topImage, 'thumbnail' %}" alt="{{ entity.topImage.description }}"> <br>
+        </a>
+        {% endif %}
+        <section class="b-article-author">
+            {% if entity.user.avatar %}
+            <img src="{% path entity.user.avatar, 'default' %}" width="" class="e-autrhor-image" alt="">
+            {% endif %}
+            <span class="e-pub-date">{{ armd_news.news_date(entity.createdAt) }}</span>
+            <a href="{{ path('view_blog', {id: entity.id}) }}" class="e-author-name">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
+        </section>
+        <h1 class="e-article-title">
+            <a href="{{ path('view_blog', {id: entity.id}) }}">{{ entity.title }}</a>
+        </h1>
+        <section class="e-article-description">
+            {{ entity.lead | raw }}
+        </section>
+    </article>
+
+    <a href="{{ path('blog_list') }}" class="e-block-link">Перейти в Блоги</a>
 </div>

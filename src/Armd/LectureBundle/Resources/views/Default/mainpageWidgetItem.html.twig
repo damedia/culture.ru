@@ -1,6 +1,15 @@
 {% for item in lectures %}
-    <div class="carousel-item"{% if loop.index > 1 %} style="display:none;"{% endif %}>
-        <a href="{{ path('armd_lecture_view', {id: item.id }) }}">{{ item.title }}</a>
-        {#{% thumbnail item.verticalBanner, 'lectureH228' with {'alt': item.title } %}#}
-    </div>
+    <section{% if loop.index == loop.length %} class="last"{% endif %}>
+        <header>
+            <i class="e-time left-direction">0:22</i>
+            <span class="m-type e-audio-item"></span>
+        </header>
+        <div class="grid-content">
+            <div class="grid-thumb">
+                <a href="{{ path('armd_lecture_view', {id: item.id }) }}"><img src="/img/new/temp-src/lecture-thumb4.jpg" alt=""/></a>
+            </div>
+            <b>Леонид Мацих:</b>
+            <a href="{{ path('armd_lecture_view', {id: item.id }) }}" class="desc-post-link">{{ item.title }}</a>
+        </div>
+    </section>
 {% endfor %}

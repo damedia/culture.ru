@@ -1,19 +1,36 @@
 {% spaceless %}
     {% if objects is not empty %}
-        {# todo: html #}
-        <div id="theater_block" style="margin: 20px 0; padding-left:20px; border: 1px solid gray;">
-            <div style="font-size:20px;">
-                СПЕКТАКЛИ
-                <span style="margin-left:30px;">
-                    <a class="order active" href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a>&nbsp;
-                    <a class="order" href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}">популярные</a>&nbsp;
-                </span>
-            </div>
-            <div id="theater_widget" class="carousel" style="margin-top:20px;">
-                {% include 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig' with objects %}
-            </div>
+        <div id="theater_block" class="b-main-wrap b-virtual-theatre">
+            <div class="b-virtual-theatre-inner">
+                <div class="b-virtual-head m-float-left">
+                    <div class="b-service-heading"><div>Виртуальный</div> <span>театр</span></div>
+                    <ul>
+                        <li><a class="order" href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}">рекоммендованные</a></li>
+                        <li><a class="order" href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}">популярные</a></li>
+                    </ul>
+                </div>
+                <article id="theater_widget" class="b-virtual-theatre-item">
+                    {#{% include 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig' with objects %}#}
+                    <div class="b-virtual-video">
+                        <a href="blog-post.html"><img src="/img/new/temp-src/virt1.png" alt=""/></a>
+                    </div>
+                    <div class="b-virtual-theatre-item-content">
+                        <header>
+                            <h1>«Фрекен Жюли»</h1>
+                        </header>
+                        <div>
+                            <a href="">Тульский камерный драматический театр.</a>
+                        </div>
+                        <div class="b-virtual-theatre-wrap">
+                            <div>В ролях: Чулпан Хаматова и Евгений Миронов</div><div class="e-virtual-time">2:15</div>
+                        </div>
+                    </div>
 
-            <a href="{{ path('armd_perfomance_list') }}">Перейти в раздел Театр</a>
+                </article>
+                <div class="b-button-wrapper m-right-btn">
+                    <a href="{{ path('armd_perfomance_list') }}" class="e-inline-link">перейти в Театр</a>
+                </div>
+            </div>
         </div>
     {% endif %}
 {% endspaceless %}
