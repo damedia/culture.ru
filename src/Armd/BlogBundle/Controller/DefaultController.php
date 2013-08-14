@@ -158,7 +158,8 @@ class DefaultController extends Controller
                         'BlogBundle:Default:popular.html.twig',
                         array(
                             'page' => $page,
-                            'entity' => $entity
+                            'entity' => $entity,
+                            'paginationData' => $paginationData
                         )
                     )
                 );
@@ -180,7 +181,8 @@ class DefaultController extends Controller
                     'BlogBundle:Default:popular.html.twig',
                     array(
                         'page' => $page,
-                        'entity' => $entity
+                        'entity' => $entity,
+                        'paginationData' => $paginationData
                     )
                 );
             } else {
