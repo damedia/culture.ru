@@ -11,8 +11,8 @@
     <section class="b-block-body m-sights-carousel b-simple-slider">
         <ul class="b-main-slides clearfix">
             <li class="b-museum-slide">
-                <a href="" class="e-museum-image">
-                    <img src="{% path museum.bannerImage, 'bannerW1232' %}" alt="">
+                <a href="{{ museum.url }}" class="e-museum-image">
+                    <img src="{% path museum.bannerImage, 'main_page' %}" alt="">
                     <img src="/img/new/has-panorama.png" class="e-panorama" />
                 </a>
                 <h4 class="e-museum-title">{{ museum.title }}</h4>

@@ -92,6 +92,22 @@ $(window).load(function() {
 //        iframe.hide();
 //    });
     // end ikoptelov 14.0.2013
+
+    /* Comments form check */
+    $('#post-comments').on('click', '#commentSubmit', function(){
+        var commentTextArea = $('#fos_comment_comment_body'),
+            textContainer = $(this).closest('form').find('.validation-info');
+        if(!commentTextArea.size()){return false;}
+        if(commentTextArea.val()){
+            $('#post-comments').find('.validation-info').hide();
+            $('#post-comments').find('.fos_comment_comment_new_form').submit();
+            return true;
+        }else{
+            return false;
+        }
+    });
+    /* End comments form check */
+
     // ikoptelov 08.08.2013 Small and Simple tabs snippet
     $('.js-simple-tabs').each(function(){
         var nav = $(this).find('.js-tabs-nav a'),

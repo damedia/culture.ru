@@ -17,6 +17,31 @@
 {% endif %}
 
 {% block fos_comment_comment_form_holder %}
+{% if 'blog' in app.request.attributes.get('id') %}
+    <div class="b-comment-form-wrapper m-comment-indent">
+        <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="post">
+            {{ form_widget(form._token) }}
+            <div class="b-right-col">
+                <button id="commentSubmit" class="btn" type="button">прокомментировать</button>
+                <div class="validation-info" style="display:none;"><p>Cообщение <b>отправлено <br> на модерацию.</b></p><p>В ближайшее время оно появится на сайте</p></div>
+            </div>
+            <div class="b-form-field m-right-corner">
+                <textarea name="fos_comment_comment[body]" id="fos_comment_comment_body" cols="58" rows="10"></textarea>
+            </div>
+            <div class="b-form-info">
+                Дорогие друзья! Помните, что администрация сайта будет удалять:
+                <ol>
+                    <li>
+                        Комментарии с грубой и ненормативной лексикой
+                    </li>
+                    <li>Прямые или косвенные оскорбления героя поста или читателей</li>
+                    <li>Короткие оценочные комментарии ("ужасно", "класс", "фууу")</li>
+                    <li>Комментарии, разжигающие национальную и социальную рознь</li>
+                </ol>
+            </div>
+        </form>
+    </div>
+{% else %}
     <div class="fos_comment_comment_form_holder">
         {% block fos_comment_form_title %}
         {#
@@ -57,6 +82,6 @@
 
             </form>
         {% endblock fos_comment_comment_new_form %}
-
     </div>
+{% endif %}
 {% endblock fos_comment_comment_form_holder %}

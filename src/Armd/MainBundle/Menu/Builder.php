@@ -509,6 +509,7 @@ class Builder extends ContainerAware
 
     public function createNewMainMenu(Request $request)
     {
+        //m-active
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array('class' => 'b-menu'));
 
@@ -712,6 +713,16 @@ class Builder extends ContainerAware
             $atlasMenu->setAttribute('class', 'm-color-9');
 
             //--- /atlas
+
+            // ---blog
+            $blogMenu = $menu->addChild(
+                'menu.blog',
+                array(
+                    'route' => 'blog_list',
+                )
+            );
+            $blogMenu->setAttribute('class', 'm-color-10');
+            // ---blog
 
         }
 

@@ -238,6 +238,7 @@ sonata_media:
                 sideBanner: { width: 308 }
                 atlasW613H408: { width: 613, height: 408 }
                 atlasW63H42: { width: 63, height: 42 }
+                main_page: { width: 700, height: 466 }
 
         atlas_icon:
             download:
@@ -302,6 +303,7 @@ sonata_media:
                 banner: { width: 922 }
                 realSmall: { width: 285 }
                 bannerW1232: { width: 1232 }
+                main_page: { width: 480, height: 320 }
 
         museum_guide:
             download:
@@ -400,7 +402,7 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 perfomanceW160H120: { width: 160, height: 120 }
                 perfomanceH228: { height: 228 }
-#                main_page: { width: 480, height: 352 }
+                main_page: { width: 480, height: 352 }
 
         person:
             download:

@@ -74,6 +74,13 @@
     </div>
 
     <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
+        <div class="commtents-header">
+            Комментарии
+            {% if not is_granted('ROLE_USER') %}
+            <div class="header-tooltip">{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</div>
+            {% endif %}
+        </div>
+
         {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS')~'_' ~ entity.id %}
         {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
 
