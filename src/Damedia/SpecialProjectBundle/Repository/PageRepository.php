@@ -52,6 +52,6 @@ class PageRepository extends EntityRepository
             ->setParameter('dt', $dt)
             ->orderBy('p.showOnMainTo')
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
 }

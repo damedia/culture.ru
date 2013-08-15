@@ -10,7 +10,7 @@
                 <div class="b-main-slides">
                 {% for item in projects %}
                     <div>
-                        <img src="/img/new/temp-src/slide-main-1.png" alt=""/>
+                        <img src="{% path item.bannerImage, 'default' %}" alt="">
                         <a href="{{ path('damedia_special_project_view', {slug: item.slug}) }}" class="e-project-link">{{ item.title }}</a>
                     </div>
                 {% endfor %}
