@@ -7,7 +7,11 @@
             <img src="{% path entity.topImage, 'big_thumbnail' %}"> <br>
         </a>
         <section class="b-article-author">
+            {% if entity.user.avatar is empty %}
+            <img class="e-autrhor-image" alt="" width="40" height="40" src="/img/new/avatar.png">
+            {% else %}
             <img src="{% path entity.user.avatar, 'default' %}" class="e-autrhor-image" alt="{{ entity.user.firstname }} {{ entity.user.lastname }}">
+            {% endif %}
             <span class="e-pub-date">{{ armd_news.news_date(entity.createdAt) }}</span>
             <a href="{{ path('blog_list', {user: entity.user.id}) }}" class="e-author-name">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
         </section>

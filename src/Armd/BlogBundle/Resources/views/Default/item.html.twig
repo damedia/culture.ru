@@ -24,7 +24,11 @@
                 <a href="#">о блогере</a>
             </div>
             <div class="circle-img-thumb">
-                <img {#width="105" height="105" #}alt="{{ entity.user.firstname }} {{ entity.user.lastname }}" src="{% path entity.user.avatar, 'default' %}">
+                {% if entity.user.avatar is empty %}
+                    <img alt="" src="/img/new/avatar.png">
+                {% else %}
+                    <img alt="{{ entity.user.firstname }} {{ entity.user.lastname }}" src="{% path entity.user.avatar, 'default' %}">
+                {% endif %}
             </div>
             <header>
                 <h2>{{ entity.user.firstname }} {{ entity.user.lastname }}</h2>

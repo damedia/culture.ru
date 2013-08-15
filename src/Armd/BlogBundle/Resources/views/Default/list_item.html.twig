@@ -5,7 +5,11 @@
             <img width="698" height="476" alt="{{ blog.title }}" src="{% path blog.topImage, 'default' %}">
             <div class="image-description m-details">
                 <div class="circle-img-thumb">
-                    <img {#width="105" height="104" #}alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
+                    {% if blog.user.avatar is empty %}
+                    <img alt="" src="/img/new/avatar.png">
+                    {% else %}
+                    <img alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
+                    {% endif %}
                 </div>
                 <div class="b-post-descr">
                     <div class="b-post-info">
@@ -25,7 +29,11 @@
             <img alt="{{ blog.title }}" src="{% path blog.topImage, 'big_thumbnail' %}">
         </div>
         <div class="circle-img-thumb">
-            <img {#width="65" height="65" #} style="max-width:65px;max-height:65px;" alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
+            {% if blog.user.avatar is empty %}
+            <img alt="" width="65" height="65" src="/img/new/avatar.png">
+            {% else %}
+            <img alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
+            {% endif %}
         </div>
         <header>
             <div class="b-post-info">

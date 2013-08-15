@@ -2,7 +2,11 @@
 
 <div class="b-transparent-articles-block b-sidebar-wrap">
     <h3 class="e-block-title">
+        {% if user.avatar is empty %}
+        <img class="e-title-icon" alt="" src="/img/new/avatar.png">
+        {% else %}
         <img class="e-title-icon" alt="{{ user.firstname }} {{ user.lastname }}" src="{% path user.avatar, 'default' %}">
+        {% endif %}
         От автора
     </h3>
 {% for entity in items %}
