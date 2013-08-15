@@ -18,7 +18,7 @@
 
 {% block fos_comment_comment_form_holder %}
 {% if 'blog' in app.request.attributes.get('id') %}
-    <div class="b-comment-form-wrapper m-comment-indent">
+    <div class="b-comment-form-wrapper m-comment-indent comment-item">
         <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="post">
             {{ form_widget(form._token) }}
             <div class="b-right-col">
