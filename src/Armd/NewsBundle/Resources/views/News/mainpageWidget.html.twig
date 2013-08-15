@@ -1,16 +1,18 @@
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
 {% spaceless %}
     {% if items is not empty %}
         <div class="b-main-wrap b-post b-block-main m-main-press-center">
             <header class="b-block-heading">
                 <h3 class="e-block-title">Пресс-центр</h3>
-                <span class="e-current-date">сегодня {{ 'now'|date('d F') }}</span>
-                <a href="{{ path('armd_press_center_home') }}" class="e-section-link">перейти в раздел</a>
+                {#<span class="e-current-date">сегодня {{ 'now'|date('d F') }}</span>#}
+                <span class="e-current-date">сегодня {{ armd_news.news_date('now'|date()) }}</span>
+                <a href="{{ path('armd_news_list_index') }}" class="e-section-link">перейти в раздел</a>
             </header>
             <section class="b-block-body m-simple-tabs js-simple-tabs">
                 <div class="b-simple-tabs-content js-tabs-list">
                     {% for item in items %}
                     <div id="stp{{ loop.index }}" class="b-simple-tabs-tab">
-                        <img src="{% path item.image, 'main' %}" alt="">
+                        <a href="{{ path('armd_news_item_by_category', {category: item.category.slug, id: item.id}) }}"><img src="{% path item.image, 'main' %}" alt=""></a>
                     </div>
                     {% endfor %}
                 </div>

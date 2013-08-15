@@ -1,7 +1,0 @@
-armd_press_center_home:
-    pattern:  /
-    defaults: { _controller: PressCenterBundle:Default:index }
-
-armd_press_center_item:
-    pattern:  /{slug}
-    defaults: { _controller: PressCenterBundle:Default:item }

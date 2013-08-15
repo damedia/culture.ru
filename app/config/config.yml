@@ -194,17 +194,7 @@ sonata_media:
                 big: { width: 920 }
                 thumbnail: { width: 85, height: 85 }
                 searchAllResult: { width: 160, height: 107 }
-
-        press_center:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.image
-
-            formats:
                 main: { width: 400, height: 280 }
-                thumbnail: { width: 100, height: 70 }
 
         actual_info:
             download:
@@ -298,6 +288,7 @@ sonata_media:
                 searchAllResult: { width: 160, height: 107 }
                 lectureW160H120: { width: 160, height: 120 }
                 lectureH228: { height: 228 }
+                lecture_for_main: { width: 418, height: 262 }
 
         museum:
             download:

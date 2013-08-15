@@ -228,7 +228,3 @@ armd_tourist_route_bundle:
     resource: "@ArmdTouristRouteBundle/Controller/"
     type:     annotation
     prefix:   /routes
-
-press_center_bundle:
-    resource: "@PressCenterBundle/Resources/config/routing.yml"
-    prefix:   /press-center

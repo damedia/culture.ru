@@ -548,4 +548,25 @@ class NewsController extends Controller
 
         return $items;
     }
+
+    /**
+     * @param $date
+     * @Template()
+     * @return array
+     */
+    public function mainpageWidgetAction($date = '')
+    {
+        $repo = $this->getNewsRepository();
+        $items = $repo->findForMainPage($date, 5);
+
+        return array('items' => $items);
+    }
+
+    /**
+     * @return \Armd\NewsBundle\Repository\NewsRepository
+     */
+    private function getNewsRepository()
+    {
+        return $this->getDoctrine()->getRepository('ArmdNewsBundle:News');
+    }
 }
