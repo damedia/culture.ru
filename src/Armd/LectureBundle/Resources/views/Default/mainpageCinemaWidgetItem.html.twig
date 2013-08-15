@@ -1,7 +1,7 @@
 {% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
 {% for item in lectures %}
     <section class="b-block-body">
-        <div class="e-film-image js-process-video">
+        <div class="e-film-image js-process-video" style="min-height:270px;background-color:#eeeff0;">
             <a href="{{ path('armd_lecture_view', {id: item.id }) }}">
                 {{ lectureMacro.lectureThumbnail(item, 'lecture_for_main', {'alt': item.title, 'height': 'auto'}) }}
             </a>

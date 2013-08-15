@@ -9,7 +9,7 @@
                 <div class="b-brand-icon"></div>
                 <div class="b-main-slides">
                 {% for item in projects %}
-                    <div>
+                    <div style="width:900px;min-height:246px;background-color:#e1e3e4;">
                         <img src="{% path item.bannerImage, 'default' %}" alt="">
                         <a href="{{ path('damedia_special_project_view', {slug: item.slug}) }}" class="e-project-link">{{ item.title }}</a>
                     </div>

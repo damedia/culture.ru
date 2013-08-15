@@ -1,7 +1,7 @@
 {% for item in russianImages %}
     <li class="js-carousel-item">
         <a href="{{ path('armd_atlas_default_object_view', {id: item.id}) }}" class="e-carousel-image">
-            {% thumbnail item.primaryImage, 'atlasW613H408' with {'alt': item.primaryImage.description, 'class': ''} %}
+            {% thumbnail item.primaryImage, 'atlasW613H408' with {'alt': item.primaryImage.description, 'style': 'background-color:#e1e3e4;'} %}
             <span class="e-carousel-title">{{ item.title }}</span>
         </a>
     </li>

@@ -3,7 +3,8 @@
     <li class="b-theatre-item">
         <div class="b-virtual-video js-process-video">
             <a href="{{ path('armd_perfomance_item', {id: item.id }) }}">
-                {% thumbnail item.image, 'perfomanceW160H120' with {'alt' : item.title|escape} %}
+                {#{% thumbnail item.image, 'main_page' with {'alt' : item.title|escape} %}#}
+                {% thumbnail item.image, 'xbig' with {'alt' : item.title|escape} %}
             </a>
         </div>
         <div class="b-virtual-theatre-item-content clearfix">
