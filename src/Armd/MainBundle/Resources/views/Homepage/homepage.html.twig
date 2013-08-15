@@ -10,7 +10,7 @@
 
     {% render 'DamediaSpecialProjectBundle:Render:mainpageWidget' %}
 
-    <div class="b-main-wrap b-block-main clearfix">
+    <div class="b-main-wrap b-block-main clearfix b-block-double">
 
         {% render 'ArmdLectureBundle:Default:mainpageWidget' %}
 
@@ -24,24 +24,3 @@
 
 
 {% endblock %}
-
-{#</div><!-- /right-column -->#}
-{#<div class="left-column">#}
-    {#<div class="left-column-content">#}
-        {#<section class="block new-on-site">#}
-            {#{% if app.request.locale == 'ru' %}#}
-                {#&#123;&#35;<section class="block social-widget-block">&#35;&#125;#}
-                    {#&#123;&#35;{% render url("armd_main_latest_topics", {"domain": "people.culture.ru"}) %}&#35;&#125;#}
-                {#&#123;&#35;</section>&#35;&#125;#}
-                {#<section class="block social-widget-block">#}
-                    {#{% include 'ArmdMainBundle:Homepage:twitter_widget.html.twig' %}#}
-                {#</section>#}
-                {#<section class="block social-widget-block">#}
-                    {#{% include 'ArmdMainBundle:Homepage:vkontakte_widget.html.twig' %}#}
-                {#</section>#}
-            {#{% endif %}#}
-        {#</section>#}
-    {#</div>#}
-{#</div><!-- /left-column -->#}
-{#{% endblock %}#}
-

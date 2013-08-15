@@ -1,25 +1,29 @@
 {% spaceless %}
     {% if museum is not empty %}
-        <div class="b-block-main b-museums-block">
-            <header class="b-block-heading">
-                <h3 class="e-block-title">Виртуальные музеи</h3>
-                {#<nav class="b-heading-nav">#}
-                    {#<a href="" class="current">популярные</a>#}
-                    {#<a href="">новые</a>#}
-                {#</nav>#}
-            </header>
-            <section class="b-block-body">
+<div class="b-block-main b-museums-block">
+    <header class="b-block-heading">
+        <h3 class="e-block-title">Виртуальные музеи</h3>
+        <!--<nav class="b-heading-nav">
+            <a href="" class="current">популярные</a>
+            <a href="">новые</a>
+        </nav>-->
+    </header>
+    <section class="b-block-body m-sights-carousel b-simple-slider">
+        <ul class="b-main-slides clearfix">
+            <li class="b-museum-slide">
                 <a href="" class="e-museum-image">
                     <img src="{% path museum.bannerImage, 'bannerW1232' %}" alt="">
                     <img src="/img/new/has-panorama.png" class="e-panorama" />
                 </a>
                 <h4 class="e-museum-title">{{ museum.title }}</h4>
-                <a href="{{ museum.url }}" class="e-inline-link">перейти в Музей</a>
                 <div class="e-other-links">
                     <a href="{{ museum.url }}">виртуальный тур</a>
                     <a href="{{ museum.url }}">о музее</a>
                 </div>
-            </section>
-        </div>
+            </li>
+        </ul>
+        <a href="{{ museum.url }}" class="e-inline-link">перейти в Музей</a>
+    </section>
+</div>
     {% endif %}
 {% endspaceless %}

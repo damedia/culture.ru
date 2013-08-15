@@ -135,6 +135,8 @@ class PerfomanceAdmin extends Admin
                 ->add('showOnMainTo', 'date', array(
                         'required' => false
                     ))
+                ->add('timeLength')
+                ->add('stars')
             ->end()
         ;
     }

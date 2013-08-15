@@ -35,7 +35,7 @@ class DefaultController extends Controller
         $pagination = $paginator->paginate(
             $blogs,
             $page,
-            5
+            2
         );
 
         $paginationData = $pagination->getPaginationData();

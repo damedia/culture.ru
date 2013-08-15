@@ -8,6 +8,7 @@
 
 
     <div class="b-main-wrap b-post">
+        <h1 class="b-left-title">Блоги</h1>
         {% render 'BlogBundle:Default:bloggers' with {'user' : user} %}
 
         {{ include('BlogBundle:Default:list.html.twig', {'blog': blogs, 'stats': stats, 'expandFirst' : true}) }}

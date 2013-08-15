@@ -76,6 +76,22 @@ $(window).load(function() {
         });
     }
 
+    // ikotelov 14.08.2013 iframe video-processing function
+//    $('.js-process-video').each(function(){
+//        var iframe = $(this).find('iframe'),
+//            youid = iframe.attr('src').split('/embed/')[1],
+//            thumb = $('<img/>', {
+//                'src' : 'http://img.youtube.com/vi/'+youid.split('?')[0]+'/hqdefault.jpg',
+//                'width' : iframe.attr('width'),
+//                'height' : iframe.attr('height')
+//            }).add($('<span class="e-play"></span>)')).on('click', function(){
+//                    thumb.remove();
+//                    iframe.show();
+//                });
+//        $(this).prepend(thumb);
+//        iframe.hide();
+//    });
+    // end ikoptelov 14.0.2013
     // ikoptelov 08.08.2013 Small and Simple tabs snippet
     $('.js-simple-tabs').each(function(){
         var nav = $(this).find('.js-tabs-nav a'),
@@ -146,6 +162,7 @@ $(window).load(function() {
                     data.items.each(function(){
                         $(this).addClass('visible');
                     });
+                    $('#russia_image_widget').trigger('slideTo', 0);
                 },
                 scroll  : {
                     onBefore : function( data ) {
@@ -166,57 +183,14 @@ $(window).load(function() {
         $('#cinema_block').find('.order').removeClass('current');
         $(this).addClass('current');
         $('#cinema_widget').load($(this).attr('href'), function(){
-            $('#cinema_widget').caroufredsel({
-                items: 1,
-                visible: 1,
-                width: 'auto',
-                align: 'center',
-                auto: false,
-                pagination: {
-                    container: $('#cinema_block').find('.b-pagination-nav ul'),
-                    anchorBuilder: function(nr){
-                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
-                    }
-                },
-                onCreate : function( data ) {
-                    data.items.each(function(){
-                        $(this).addClass('visible');
-                    });
-                },
-                scroll  : {
-                    onBefore : function( data ) {
-                        $('#cinema_widget').children().removeClass('visible');
-                    },
-                    onAfter : function( data ) {
-                        data.items.visible.each(function(){
-                            $(this).addClass('visible');
-                        });
-                    }
-                }
-            });
-        });
-    });
-
-    $('#theater_block').find('.order').click(function(e){
-        e.preventDefault();
-        $('#theater_block').find('.order').removeClass('current');
-        $(this).addClass('current');
-        $('#theater_widget').load($(this).attr('href'));
-    });
-
-    $('#lecture_block').find('.order').click(function(e){
-        e.preventDefault();
-        $('#lecture_block').find('.order').removeClass('current');
-        $(this).addClass('current');
-        $('#lecture_widget').load($(this).attr('href'), function(){
-//            $('#lecture_widget').caroufredsel({
+//            $('#cinema_widget').caroufredsel({
 //                items: 1,
 //                visible: 1,
 //                width: 'auto',
 //                align: 'center',
 //                auto: false,
 //                pagination: {
-//                    container: $('#lecture_block').find('.b-pagination-nav ul'),
+//                    container: $('#cinema_block').find('.b-pagination-nav ul'),
 //                    anchorBuilder: function(nr){
 //                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
 //                    }
@@ -228,7 +202,7 @@ $(window).load(function() {
 //                },
 //                scroll  : {
 //                    onBefore : function( data ) {
-//                        $('#lecture_widget').children().removeClass('visible');
+//                        $('#cinema_widget').children().removeClass('visible');
 //                    },
 //                    onAfter : function( data ) {
 //                        data.items.visible.each(function(){
@@ -238,6 +212,55 @@ $(window).load(function() {
 //                }
 //            });
         });
+    });
+
+    $('#theater_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#theater_block').find('.order').removeClass('current');
+        $(this).addClass('current');
+        $('#theater_widget').load($(this).attr('href'), function(){
+            $('#theater_widget').parent().css({
+                'height' : $(this).children(':first').height(),
+                'overflow' : 'hidden'
+            });
+            $('#theater_widget').caroufredsel({
+                items: 1,
+                visible: 1,
+                width: 'auto',
+                align: 'center',
+                auto: false,
+                pagination: {
+                    container: $('#theater_block').find('.b-pagination-nav ul'),
+                    anchorBuilder: function(nr){
+                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
+                    }
+                },
+                onCreate : function( data ) {
+                    $('#theater_block').addClass('js-fred-active');
+                    data.items.each(function(){
+                        $(this).addClass('visible');
+                    });
+                    $('#theater_widget').trigger('slideTo', 0);
+                },
+                scroll  : {
+                    onBefore : function( data ) {
+                        $('#theater_widget').children().removeClass('visible');
+                    },
+                    onAfter : function( data ) {
+                        data.items.visible.each(function(){
+                            $(this).addClass('visible');
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+    $('#lecture_block').find('.order').click(function(e){
+        e.preventDefault();
+        $('#lecture_block').find('.order').removeClass('current');
+        $(this).addClass('current');
+        $('#lecture_widget').load($(this).attr('href'));
     });
 
     // From old js

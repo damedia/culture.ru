@@ -7,6 +7,7 @@ use DoctrineExtensions\Taggable\Taggable;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="content_perfomance")
@@ -149,6 +150,22 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(name="show_on_main_to", type="datetime", nullable=true)
      */
     private $showOnMainTo;
+
+    /** Additional fields form carousel on main page */
+
+    /**
+     * Длительность спектакля в минутах, например 120
+     *@Assert\Type(type="integer", message="Длительность спектакля в минутах, например 120.")
+     * @ORM\Column(name="time_length", type="integer", nullable=true)
+     */
+    private $timeLength;
+
+    /**
+     * @Assert\Length(max = "255")
+     * @ORM\Column(name="stars", type="string", length=255, nullable=true)
+     */
+    protected $stars;
+
 
     /**
      * @return int
@@ -745,6 +762,56 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
 
         return $this;
     }
+
+    /**
+     * @param $timeLength
+     * @return Perfomance
+     */
+    public function setTimeLength($timeLength)
+    {
+        $this->timeLength = $timeLength;
+
+        return $this;
+    }
+
+    /**
+     * @return integer|null
+     */
+    public function getTimeLength()
+    {
+        return $this->timeLength;
+    }
+
+    /**
+     * @param $stars
+     * @return Perfomance
+     */
+    public function setStars($stars)
+    {
+        $this->stars = $stars;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStars()
+    {
+        return $this->stars;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimeLengthInHours()
+    {
+        if ($this->timeLength > 0) {
+            return str_pad(floor($this->timeLength / 60), 2, '0', STR_PAD_LEFT) . ':' . str_pad(($this->timeLength % 60), 2, '0', STR_PAD_LEFT);
+        }
+        return '';
+    }
+
 
     public function getClassName()
     {

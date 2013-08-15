@@ -449,7 +449,7 @@ class PerfomanceController extends Controller
     public function mainpageWidgetAction($type = 'recommend', $date = '')
     {
         $repo = $this->getPerfomanceRepository();
-        $objects = $repo->findForMainPage($date, 1, $type);
+        $objects = $repo->findForMainPage($date, 5, $type);
 
         if($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(

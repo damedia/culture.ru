@@ -8,6 +8,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\Common\Collections\ArrayCollection;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="lecture")
@@ -126,14 +127,15 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
 
     /**
      * Длительность фильма в минутах, например 120
-     *
+     *@Assert\Type(type="integer", message="Длительность фильма в минутах, например 120.")
      * @ORM\Column(name="time_length", type="integer", nullable=true)
      */
     private $timeLength;
 
     /**
      * Год выхода фильма, например 1969
-     *
+     * @Assert\Type(type="integer", message="Год выхода фильма, например 1969.")
+     * @Assert\Range(min="1900", max="2100")
      * @ORM\Column(name="production_year", type="integer", nullable=true)
      */
     private $productionYear;
@@ -252,6 +254,21 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
     protected $corrected;
+
+    /** Additional fields form carousel on main page */
+
+    /**
+     * @Assert\Length(max = "255")
+     * @ORM\Column(name="director", type="string", length=255, nullable=true)
+     */
+    protected $director;
+
+    /**
+     * @Assert\Length(max = "255")
+     * @ORM\Column(name="stars", type="string", length=255, nullable=true)
+     */
+    protected $stars;
+
 
     public function __construct()
     {
@@ -1154,6 +1171,44 @@ class Lecture implements Taggable, ChangeHistorySavableInterface
     public function getCorrected()
     {
         return $this->corrected;
+    }
+
+    /**
+     * @param $director
+     * @return Lecture
+     */
+    public function setDirector($director)
+    {
+        $this->director = $director;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDirector()
+    {
+        return $this->director;
+    }
+
+    /**
+     * @param $stars
+     * @return Lecture
+     */
+    public function setStars($stars)
+    {
+        $this->stars = $stars;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStars()
+    {
+        return $this->stars;
     }
 
     public function getClassName()

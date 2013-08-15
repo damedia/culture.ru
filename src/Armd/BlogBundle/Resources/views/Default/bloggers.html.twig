@@ -1,4 +1,3 @@
-<h1 class="b-left-title">Блоги</h1>
 <ul class="b-link-list m-left-bordered">
 {% for blogger in bloggers %}
     <li {% if user is not null and blogger.id == user.id %} class="all-authors-link" {% endif %}><a href="{{ path('blog_list', {'user': blogger.id}) }}">{{ blogger.firstname }} {{ blogger.lastname }}</a></li>
