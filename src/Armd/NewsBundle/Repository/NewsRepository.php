@@ -129,8 +129,8 @@ class NewsRepository extends BaseRepository
         $qb = $this->createQueryBuilder('p');
         return $qb->select('p')
             ->setMaxResults($limit)
-            ->where('p.showOnMain = TRUE')
-            ->andWhere('p.published = TRUE')
+            ->Where('p.published = TRUE')
+//            ->andWhere('p.showOnMain = TRUE')
 //            ->andWhere(
 //                $qb->expr()->orX(
 //                    $qb->expr()->andX(
@@ -149,7 +149,8 @@ class NewsRepository extends BaseRepository
 //                )
 //            )
 //            ->setParameter('dt', $dt)
-            ->orderBy('p.showOnMainOrd')
+//            ->orderBy('p.showOnMainOrd')
+            ->orderBy('p.newsDate', 'DESC')
             ->getQuery()
             ->getResult();
     }
