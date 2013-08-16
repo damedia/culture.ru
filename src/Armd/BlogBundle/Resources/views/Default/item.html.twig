@@ -20,9 +20,9 @@
         {% render 'BlogBundle:Default:bloggers' with {'user' : entity.user} %}
 
         <section class="b-author-info">
-            <div class="b-link-right">
+            {#<div class="b-link-right">#}
                 {#<a href="#">о блогере</a>#}
-            </div>
+            {#</div>#}
             <div class="circle-img-thumb">
                 {% if entity.user.avatar is empty %}
                     <img alt="" src="/img/new/avatar.png">
