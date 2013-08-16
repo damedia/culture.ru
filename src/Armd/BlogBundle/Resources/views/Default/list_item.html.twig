@@ -2,7 +2,9 @@
 {% if expandFirst == true %}
     <div class="b-list-image">
         <div class="b-post-image_wrapper">
+            {% if blog.topImage is not empty %}
             <img width="698" height="476" alt="{{ blog.title }}" src="{% path blog.topImage, 'default' %}">
+            {% endif %}
             <div class="image-description m-details">
                 <div class="circle-img-thumb">
                     {% if blog.user.avatar is empty %}

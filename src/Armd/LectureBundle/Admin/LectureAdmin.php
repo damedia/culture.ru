@@ -115,6 +115,7 @@ class LectureAdmin extends Admin
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
                 ->add('lecturer')
+                ->add('timeLength')
                 ->add('recommended')
                 ->add('showAtSlider')
                 ->add('showAtFeatured')
