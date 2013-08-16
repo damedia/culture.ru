@@ -166,6 +166,9 @@ class PageAdmin extends Admin {
         $listMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED));
 
+        $listMapper->add('showOnMain', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN, 'editable' => true));
+
         $listMapper->add('template', null,
             array('label' => $this::LABEL_TEMPLATE_ID));
     }

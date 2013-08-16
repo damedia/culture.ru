@@ -114,12 +114,12 @@
 
         <div class="b-vertical">
             <ul class="b-lang-box">
-            {% if app.request.locale == 'ru' %}
-                <li class="m-lang-rus"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}">En</a></li>
-                <li class="m-lang-eng m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}">Ru</a></li>
+            {% if app.request.locale == 'en' %}
+                <li class="m-lang-rus m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}">Ru</a></li>
+                <li class="m-lang-eng"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}">En</a></li>
             {% else %}
-                <li class="m-lang-rus m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}">En</a></li>
-                <li class="m-lang-eng"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}">Ru</a></li>
+                <li class="m-lang-rus"><a href="{{ path('armd_main_homepage', {'_locale': 'ru'}) }}">Ru</a></li>
+                <li class="m-lang-eng m-lang-active"><a href="{{ path('armd_main_homepage', {'_locale': 'en'}) }}">En</a></li>
             {% endif %}
             </ul>
         </div>
