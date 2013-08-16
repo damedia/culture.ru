@@ -836,7 +836,8 @@ textarea {
     display: block;
     line-height: 0;
     text-decoration: none;
-    margin-bottom: 18px
+    margin-bottom: 18px;
+    text-align: center;
 }
 
 .b-colored-article .b-article-author {
