@@ -303,7 +303,15 @@ sonata_media:
                 banner: { width: 922 }
                 realSmall: { width: 285 }
                 bannerW1232: { width: 1232 }
-                main_page: { width: 480, height: 320 }
+
+        museum_main:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                default: { width: 480, height: 320 }
 
         museum_guide:
             download:

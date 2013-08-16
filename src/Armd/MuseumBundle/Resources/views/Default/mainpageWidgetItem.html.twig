@@ -1,0 +1,17 @@
+{% for museum in museums %}
+<li class="b-museum-slide">
+    <a href="{{ museum.url }}" class="e-museum-image">
+        {% if museum.mainPageImage is not empty %}
+            <img src="{% path museum.mainPageImage, 'default' %}" alt="">
+        {% else %}
+            <img src="/img/new/noimage_480_320.png" alt="" width="480" height="320"/>
+        {% endif %}
+        <img src="/img/new/has-panorama.png" class="e-panorama" />
+    </a>
+    <h4 class="e-museum-title">{{ museum.title }}</h4>
+    <div class="e-other-links">
+        <a href="{{ museum.url }}">виртуальный тур</a>
+        <a href="{{ museum.url }}">о музее</a>
+    </div>
+</li>
+{% endfor %}

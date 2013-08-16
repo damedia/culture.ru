@@ -320,7 +320,18 @@ class DefaultController extends Controller
     {
         /** @var \Armd\MuseumBundle\Repository\MuseumRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdMuseumBundle:Museum');
-        $museum = $repo->findForMain($date);
-        return array('museum' => $museum);
+        $museums = $repo->findForMain($date, 3);
+
+        if($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdMuseumBundle:Default:mainpageWidgetItem.html.twig',
+                array('museums' => $museums)
+            );
+        } else {
+            return $this->render(
+                'ArmdMuseumBundle:Default:mainpageWidget.html.twig',
+                array('museums' => $museums)
+            );
+        }
     }
 }

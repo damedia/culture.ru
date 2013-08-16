@@ -1,6 +1,6 @@
 {% spaceless %}
-    {% if museum is not empty %}
-<div class="b-block-main b-museums-block">
+    {% if museums is not empty %}
+<div id="museum_block" class="b-block-main b-museums-block">
     <header class="b-block-heading">
         <h3 class="e-block-title">Виртуальные музеи</h3>
         <!--<nav class="b-heading-nav">
@@ -9,20 +9,10 @@
         </nav>-->
     </header>
     <section class="b-block-body m-sights-carousel b-simple-slider">
-        <ul class="b-main-slides clearfix">
-            <li class="b-museum-slide">
-                <a href="{{ museum.url }}" class="e-museum-image">
-                    <img src="{% path museum.bannerImage, 'main_page' %}" alt="">
-                    <img src="/img/new/has-panorama.png" class="e-panorama" />
-                </a>
-                <h4 class="e-museum-title">{{ museum.title }}</h4>
-                <div class="e-other-links">
-                    <a href="{{ museum.url }}">виртуальный тур</a>
-                    <a href="{{ museum.url }}">о музее</a>
-                </div>
-            </li>
+        <ul id="museum_widget" class="b-main-slides clearfix">
+            {% include 'ArmdMuseumBundle:Default:mainpageWidgetItem.html.twig' with museums %}
         </ul>
-        <a href="{{ museum.url }}" class="e-inline-link">перейти в Музей</a>
+        <a href="{{ path('armd_museum_virtual') }}" class="e-inline-link">перейти в Музеи</a>
     </section>
 </div>
     {% endif %}

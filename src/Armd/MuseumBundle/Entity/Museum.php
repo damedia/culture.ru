@@ -52,6 +52,12 @@ class Museum implements ChangeHistorySavableInterface
     private $bannerImage;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="main_page_image_id", referencedColumnName="id")
+     */
+    private $mainPageImage;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Armd\AtlasBundle\Entity\Region", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
      */
@@ -207,7 +213,7 @@ class Museum implements ChangeHistorySavableInterface
     /**
      * Set image
      *
-     * @param Application\Sonata\MediaBundle\Entity\Media $image
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
      * @return Museum
      */
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
@@ -220,7 +226,7 @@ class Museum implements ChangeHistorySavableInterface
     /**
      * Get image
      *
-     * @return Application\Sonata\MediaBundle\Entity\Media
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage()
     {
@@ -241,6 +247,29 @@ class Museum implements ChangeHistorySavableInterface
     public function setBannerImage(Media $bannerImage = null)
     {
         $this->bannerImage = $bannerImage;
+    }
+
+    /**
+     * Set mainPageImage
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $mainPageImage
+     * @return Museum
+     */
+    public function setMainPageImage(\Application\Sonata\MediaBundle\Entity\Media $mainPageImage = null)
+    {
+        $this->mainPageImage = $mainPageImage;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getMainPageImage()
+    {
+        return $this->mainPageImage;
     }
 
     /**
