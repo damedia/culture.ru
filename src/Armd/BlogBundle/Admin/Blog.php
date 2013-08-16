@@ -20,7 +20,7 @@ use Sonata\AdminBundle\Admin\Admin;
 
 class Blog extends Admin
 {
-    protected $translationDomain = 'ArmdBlogBundle';
+    protected $translationDomain = 'BlogBundle';
     protected $container;
 
 
@@ -41,12 +41,13 @@ class Blog extends Admin
         $isNew = ($this->getSubject() && !$this->getSubject()->getId());
         $formMapper
             ->with('General')
-            ->add('title')
+            ->add('title', null, array('label' => 'Заголовок'))
             ->add(
                 'lead',
                 null,
                 array(
                     'attr' => array('class' => 'tinymce'),
+                    'label' => 'Лид'
                 )
             )
             ->add(
@@ -54,29 +55,38 @@ class Blog extends Admin
                 null,
                 array(
                     'attr' => array('class' => 'tinymce'),
+                    'label' => 'Содержание'
                 )
             )
-            ->add('description')
             ->add(
                 'topImage',
                 'armd_media_file_type',
                 array(
+                    'label' => 'Картинка',
                     'required' => $isNew,
                     'with_remove' => false,
                     'media_context' => 'blog_image',
                     'media_provider' => 'sonata.media.provider.image',
                 )
             )
+            ->add('description', null, array('label' => 'Описание для картинки'))
             ->add(
                 'user',
                 'blogger_type',
                 array(
+                    'label' => 'Автор',
                     'required' => true,
                     'multiple' => false,
                     'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
                 )
             )
             ->end();
+
+        $formMapper->setHelps(array(
+                'lead' => 'Короткое описание, которое будет выводиться под заголовком на странице блогов или в блоках Популярные, Последние',
+                'topImage' => 'Картинка, которая отображается на странице блогов у первого блога, а также сверху страницы блога',
+                'description' => 'Короткое описание, которое отображается под заглавной картинкой на странице записи блога'
+            ));
 
         parent::configureFormFields($formMapper);
     }
@@ -89,10 +99,10 @@ class Blog extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title')
-            ->add('user')
-            ->add('created_at')
-            ->add('updated_at');
+            ->addIdentifier('title', null, array('label' => 'Заголовок'))
+            ->add('user', null, array('label' => 'Автор'))
+            ->add('created_at', null, array('label' => 'Дата создания'))
+            ->add('updated_at', null, array('label' => 'Дата обновления'));
 
         parent::configureListFields($listMapper);
     }
@@ -100,7 +110,7 @@ class Blog extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title');
+            ->add('title', null, array('label' => 'Заголовок'));
     }
 
     public function getTemplate($name)
