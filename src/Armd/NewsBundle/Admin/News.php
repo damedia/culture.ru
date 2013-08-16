@@ -48,8 +48,8 @@ class News extends Admin
             ->add('body')
             ->add('newsDate')
             ->add('date')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+//            ->add('showOnMain')
+//            ->add('showOnMainOrd')
         ;
 
         parent::configureShowFields($showMapper);
@@ -80,14 +80,14 @@ class News extends Admin
                 ))
                 ->add('source')
             ->end()
-            ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
-                ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
-                ))
-            ->end()
+//            ->with('Главная')
+//                ->add('showOnMain', null, array(
+//                    'required' => false
+//                ))
+//                ->add('showOnMainOrd', null, array(
+//                    'required' => false
+//                ))
+//            ->end()
             ->with('Classification')
                 ->add('category')
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
@@ -159,14 +159,14 @@ class News extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('corrected')
-            ->add('showOnMain', null, array('editable' => true))
-            ->add('showOnMainOrd')
+//            ->add('showOnMain', null, array('editable' => true))
+//            ->add('showOnMainOrd')
             ->add('newsDate')
             ->add('date')
             ->add('category')
             ->add('subject')
             ->add('important')
-            ->add('published')
+            ->add('published', null, array('editable' => true))
             ->add('isOnMap')
         ;
 
@@ -183,8 +183,8 @@ class News extends Admin
             ->add('published')
             ->add('important')
             ->add('isOnMap')
-            ->add('showOnMain')
-            ->add('showOnMainOrd')
+//            ->add('showOnMain')
+//            ->add('showOnMainOrd')
         ;
     }
 
