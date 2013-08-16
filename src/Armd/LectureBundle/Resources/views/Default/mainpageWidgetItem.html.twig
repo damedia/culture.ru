@@ -3,12 +3,12 @@
     <section{% if loop.index == loop.length %} class="last"{% endif %}>
         <header>
             <i class="e-time left-direction">{% if item.timeLength > 0 %}{{ item.timeLengthInHours }}{% endif %}&nbsp;</i>
-            <span class="m-type e-audio-item"></span>
+            <span class="m-type e-video-item"></span>
         </header>
         <div class="grid-content">
-            <div class="grid-thumb" style="background-color:#e1e3e4;min-height:130px;width:213px;">
+            <div class="grid-thumb" style="width:213px;">
                 <a href="{{ path('armd_lecture_view', {id: item.id }) }}">
-                    {{ lectureMacro.lectureThumbnail(item, 'lectureH228', {'alt': item.title, 'height': 'auto'}) }}
+                    {{ lectureMacro.lectureThumbnail(item, 'lectureH228', {'alt': item.title, width: 213, height: 131}) }}
                 </a>
             </div>
             <b>{{ item.lecturer }}:</b>
