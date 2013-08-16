@@ -6,7 +6,7 @@
                 {#{% media item.image, 'xbig' with {'alt' : item.title|escape, 'width' : 480, 'height' : 352} %}#}
                 {% if item.gallery and item.gallery|length > 0 %}
                     {% for img in item.gallery.galleryHasMedias|slice(0,1) %}
-                        {% media img.media, 'big' with {'alt' : item.interviewTitle|escape, 'width':480, 'height': 352} %}
+                        {% media img.media, 'xbig' with {'alt' : item.interviewTitle|escape, 'width':480, 'height': 352} %}
                     {% endfor %}
                 {% endif %}
                 {#<img alt="" src="{% path item.image, 'main_page' %}" />#}
