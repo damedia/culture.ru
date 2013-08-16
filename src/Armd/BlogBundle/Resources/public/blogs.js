@@ -16,7 +16,8 @@ $(document).ready(function () {
             }
 
             if (response.finish) {
-                container.find('.popular-next').remove();
+//                container.find('.popular-next').remove();
+                container.find('.popular-next').text('');
             }
 
 

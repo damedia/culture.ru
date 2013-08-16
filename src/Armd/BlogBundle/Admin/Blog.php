@@ -69,7 +69,7 @@ class Blog extends Admin
                     'media_provider' => 'sonata.media.provider.image',
                 )
             )
-            ->add('description', null, array('label' => 'Описание для картинки'))
+            ->add('description', null, array('label' => 'Описание для картинки (минимальная ширина картинки 698px)'))
             ->add(
                 'user',
                 'blogger_type',

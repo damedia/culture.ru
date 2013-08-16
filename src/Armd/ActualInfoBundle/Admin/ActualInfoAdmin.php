@@ -53,13 +53,7 @@ class ActualInfoAdmin extends Admin
                     'attr' => array('class' => 'tinymce'),
                 )
             )
-            ->add('image', 'armd_media_file_type', array(
-                    'required' => false,
-                    'with_remove' => true,
-                    'media_context' => 'actual_info',
-                    'media_provider' => 'sonata.media.provider.image',
-                    'media_format' => 'thumbnail'
-                ))
+            ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'actual_info')))
             ->add('video', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'actual_info')))
             ->end()
             ->with('Главная')
