@@ -12,7 +12,8 @@
                     {% for item in items %}
                     <div id="stp{{ loop.index }}" class="b-simple-tabs-tab">
                         <a style="width:400px;height:280px;display:block;" href="{{ path('armd_news_item_by_category', {category: item.category.slug, id: item.id}) }}">
-                            <img src="{% path item.image, 'main' %}" alt="">
+                            {% thumbnail item.image, 'billboard' with {'width': 400, 'height': 280} %}
+                            {#<img src="{% path item.image, 'main' %}" alt="">#}
                         </a>
                     </div>
                     {% endfor %}
