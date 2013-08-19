@@ -37,6 +37,14 @@ class NeighborsCommunicator {
                                                                'autocompleteListCreateFunction' => 'default',
                                                                'defaultSnippetTwig' => 'vtour_preview.html.twig'), //from: Armd/MainBundle/Resources/views/Default/virtual_list.html.twig
 
+                                      'museumLesson'  => array('title' => 'Музейное образование',
+                                                               'optgroup' => 'museums',
+                                                               'entityDescription' => array('class' => 'ArmdMuseumBundle:Lesson',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'defaultSnippetTwig' => 'lesson_list.html.twig'), //from: Armd/MainBundle/Resources/views/Lesson/list-content.html.twig
+
                                       'lecture'       => array('title' => 'Лекция',
                                                                'optgroup' => 'others',
                                                                'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
