@@ -57,6 +57,14 @@ class NeighborsCommunicator {
                                                                'autocompleteListCreateFunction' => 'imageOfRussia',
                                                                'defaultSnippetTwig' => 'imageOfRussia_list_tile.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/russia_images_list_tile.html.twig
 
+                                      'atlasObject'   => array('title' => 'Объект атласа',
+                                                               'optgroup' => 'objects',
+                                                               'entityDescription' => array('class' => 'ArmdAtlasBundle:Object',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'defaultSnippetTwig' => 'atlasObject_side.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/object_side.html.twig
+
                                       'gallery'       => array('title' => 'Галерея',
                                                                'optgroup' => 'media',
                                                                'entityDescription' => array('class' => 'Application\Sonata\MediaBundle\Entity\Gallery',
