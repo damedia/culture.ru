@@ -1024,7 +1024,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param string $type
+     * @param string $type values: [recommend, novel]
      * @param string $date
      * @Route("russia-images-main/{type}/{date}",
      *  name="armd_atlas_russia_images_mainpage",
@@ -1036,17 +1036,38 @@ class DefaultController extends Controller
     public function mainpageWidgetAction($type = 'recommend', $date = '')
     {
         $repo = $this->getObjectRepository();
-        $russianImages = $repo->findRussiaImagesForMainPage($date, 10, $type);
 
-        if($this->getRequest()->isXmlHttpRequest()) {
+        $russianImages = array();
+        $showRecommended = $repo->countRussiaImagesForMainPage($date, 'recommend');
+        $showNovel = $repo->countRussiaImagesForMainPage($date, 'novel');
+
+        if (!$this->getRequest()->isXmlHttpRequest() && $type == 'recommend' && !$showRecommended && $showNovel) {
+            $type = 'novel';
+        }
+
+        if ($showRecommended || $showNovel) {
+            $russianImages = $repo->findRussiaImagesForMainPage($date, 10, $type);
+        }
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(
                 'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig',
-                array('russianImages' => $russianImages, 'date' => $date)
+                array(
+                    'russianImages' => $russianImages,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showNovel' => $showNovel,
+                )
             );
         } else {
             return $this->render(
                 'ArmdAtlasBundle:Default:mainpageWidget.html.twig',
-                array('russianImages' => $russianImages, 'date' => $date)
+                array(
+                    'russianImages' => $russianImages,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showNovel' => $showNovel,
+                )
             );
         }
     }

@@ -192,6 +192,72 @@ class ObjectRepository extends EntityRepository
     }
 
     /**
+     * @param $date
+     * @param string $type (recommend => showOnMainAsRecommended = true, novel => showOnMainAsNovel => true)
+     * @return int
+     */
+    public function countRussiaImagesForMainPage($date = '', $type = 'recommend')
+    {
+        $dt = new \DateTime();
+        $dt->setTime(0, 0, 0);
+        if ($date != '') {
+            $tmp = explode('-', $date);
+            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+        }
+
+        $qb = $this->findRussiaImagesQuery();
+        $qb->select('COUNT(o)');
+        switch($type)
+        {
+            case 'novel':
+                $qb->andWhere('o.showOnMainAsNovel = TRUE')
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'o.showOnMainAsNovelTo IS NULL',
+                                'o.showOnMainAsNovelFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsNovelFrom <= :dt',
+                                'o.showOnMainAsNovelTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsNovelFrom IS NULL',
+                                'o.showOnMainAsNovelTo >= :dt'
+                            ),
+                            $qb->expr()->andX('o.showOnMainAsNovelFrom <= :dt', 'o.showOnMainAsNovelTo >= :dt')
+                        )
+                    )
+                    ->setParameter('dt', $dt);
+                break;
+
+            case 'recommend':
+            default:
+                $qb->andWhere('o.showOnMainAsRecommended = TRUE')
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'o.showOnMainAsRecommendedTo IS NULL',
+                                'o.showOnMainAsRecommendedFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsRecommendedFrom <= :dt',
+                                'o.showOnMainAsRecommendedTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'o.showOnMainAsRecommendedFrom IS NULL',
+                                'o.showOnMainAsRecommendedTo >= :dt'
+                            ),
+                            $qb->expr()->andX('o.showOnMainAsRecommendedFrom <= :dt', 'o.showOnMainAsRecommendedTo >= :dt')
+                        )
+                    )
+                    ->setParameter('dt', $dt);
+        }
+
+         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * Get russia images in the very specific way:
      * - first 3 are last added
      * - all others in random order
