@@ -10,13 +10,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdNewsBundle:News',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'categoryField' => 'category',
 
-                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
-                                                                                            'categoryIdField' => 'id',
-                                                                                            'categoryKeyField' => 'title',
-                                                                                            'categoryKey' => 'Новости'),
-                                                               'autocompleteListCreateFunction' => 'news',
+                                                                                            'partedByField' => 'category',
+                                                                                            'attributeValue' => 'Новости',
+
+                                                                                            'partitionClass' => 'ArmdNewsBundle:Category',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'reportage'     => array('title' => 'Репортаж',
@@ -24,13 +25,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdNewsBundle:News',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'categoryField' => 'category',
 
-                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
-                                                                                            'categoryIdField' => 'id',
-                                                                                            'categoryKeyField' => 'title',
-                                                                                            'categoryKey' => 'Репортажи'),
-                                                               'autocompleteListCreateFunction' => 'news',
+                                                                                            'partedByField' => 'category',
+                                                                                            'attributeValue' => 'Репортажи',
+
+                                                                                            'partitionClass' => 'ArmdNewsBundle:Category',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'announcement'  => array('title' => 'Анонс',
@@ -38,13 +40,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdNewsBundle:News',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'categoryField' => 'category',
 
-                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
-                                                                                            'categoryIdField' => 'id',
-                                                                                            'categoryKeyField' => 'title',
-                                                                                            'categoryKey' => 'Анонсы'),
-                                                               'autocompleteListCreateFunction' => 'news',
+                                                                                            'partedByField' => 'category',
+                                                                                            'attributeValue' => 'Анонсы',
+
+                                                                                            'partitionClass' => 'ArmdNewsBundle:Category',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'article'       => array('title' => 'Сеатья',
@@ -52,13 +55,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdNewsBundle:News',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'categoryField' => 'category',
 
-                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
-                                                                                            'categoryIdField' => 'id',
-                                                                                            'categoryKeyField' => 'title',
-                                                                                            'categoryKey' => 'Статьи'),
-                                                               'autocompleteListCreateFunction' => 'news',
+                                                                                            'partedByField' => 'category',
+                                                                                            'attributeValue' => 'Статьи',
+
+                                                                                            'partitionClass' => 'ArmdNewsBundle:Category',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'theater'       => array('title' => 'Театр',
@@ -66,7 +70,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdTheaterBundle:Theater',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'theater_list_tile.html.twig'), //from: Armd/TheaterBundle/Resources/views/Default/theater_list_data.html.twig
 
                                       'performance'   => array('title' => 'Спектакль',
@@ -74,7 +78,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdPerfomanceBundle:Perfomance',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'performance_list.html.twig'), //from: Armd/PerfomanceBundle/Resources/views/Perfomance/list-content.html.twig
 
                                       'realMuseum'    => array('title' => 'Музей',
@@ -82,7 +86,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdMuseumBundle:RealMuseum',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'museum_list_tile.html.twig'), //from: Armd/MainBundle/Resources/views/museum_reserve.html.twig [static list!]
 
                                       'museum'        => array('title' => 'Вирутальный тур',
@@ -90,7 +94,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdMuseumBundle:Museum',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'vtour_preview.html.twig'), //from: Armd/MainBundle/Resources/views/Default/virtual_list.html.twig
 
                                       'museumLesson'  => array('title' => 'Музейное образование',
@@ -98,7 +102,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdMuseumBundle:Lesson',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'lesson_list.html.twig'), //from: Armd/MainBundle/Resources/views/Lesson/list-content.html.twig
 
                                       'movie'         => array('title' => 'Кино',
@@ -106,13 +110,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'lectureSuperTypeField' => 'lectureSuperType',
 
-                                                                                            'lectureSuperTypeClass' => 'ArmdLectureBundle:LectureSuperType',
-                                                                                            'superTypeIdField' => 'id',
-                                                                                            'superTypeKeyField' => 'code',
-                                                                                            'superTypeKey' => 'LECTURE_SUPER_TYPE_CINEMA'),
-                                                               'autocompleteListCreateFunction' => 'video',
+                                                                                            'partedByField' => 'lectureSuperType',
+                                                                                            'attributeValue' => 'LECTURE_SUPER_TYPE_CINEMA',
+
+                                                                                            'partitionClass' => 'ArmdLectureBundle:LectureSuperType',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'code'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'movie_list.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'lecture'       => array('title' => 'Лекция',
@@ -120,13 +125,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'lectureSuperTypeField' => 'lectureSuperType',
 
-                                                                                            'lectureSuperTypeClass' => 'ArmdLectureBundle:LectureSuperType',
-                                                                                            'superTypeIdField' => 'id',
-                                                                                            'superTypeKeyField' => 'code',
-                                                                                            'superTypeKey' => 'LECTURE_SUPER_TYPE_LECTURE'),
-                                                               'autocompleteListCreateFunction' => 'video',
+                                                                                            'partedByField' => 'lectureSuperType',
+                                                                                            'attributeValue' => 'LECTURE_SUPER_TYPE_LECTURE',
+
+                                                                                            'partitionClass' => 'ArmdLectureBundle:LectureSuperType',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'code'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'newsVideo'      => array('title' => 'Новостное видео',
@@ -134,13 +140,14 @@ class NeighborsCommunicator {
                                                                 'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
                                                                                              'idField' => 'id',
                                                                                              'titleField' => 'title',
-                                                                                             'lectureSuperTypeField' => 'lectureSuperType',
 
-                                                                                             'lectureSuperTypeClass' => 'ArmdLectureBundle:LectureSuperType',
-                                                                                             'superTypeIdField' => 'id',
-                                                                                             'superTypeKeyField' => 'code',
-                                                                                             'superTypeKey' => 'LECTURE_SUPER_TYPE_NEWS'),
-                                                                'autocompleteListCreateFunction' => 'video',
+                                                                                             'partedByField' => 'lectureSuperType',
+                                                                                             'attributeValue' => 'LECTURE_SUPER_TYPE_NEWS',
+
+                                                                                             'partitionClass' => 'ArmdLectureBundle:LectureSuperType',
+                                                                                             'partitionIdField' => 'id',
+                                                                                             'partitionKeyField' => 'code'),
+                                                                'autocompleteListCreateFunction' => 'partedBy',
                                                                 'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'imageOfRussia' => array('title' => 'Образ России',
@@ -148,12 +155,14 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdAtlasBundle:Object',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
-                                                                                            'primaryCategoryField' => 'primaryCategory',
 
-                                                                                            'categoryClass' => 'ArmdAtlasBundle:Category',
-                                                                                            'categoryId' => 'id',
-                                                                                            'categoryTitle' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'imageOfRussia',
+                                                                                            'partedByField' => 'primaryCategory',
+                                                                                            'attributeValue' => 'Образы России',
+
+                                                                                            'partitionClass' => 'ArmdAtlasBundle:Category',
+                                                                                            'partitionIdField' => 'id',
+                                                                                            'partitionKeyField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'partedBy',
                                                                'defaultSnippetTwig' => 'imageOfRussia_list_tile.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/russia_images_list_tile.html.twig
 
                                       'atlasObject'   => array('title' => 'Объект атласа',
@@ -161,7 +170,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'ArmdAtlasBundle:Object',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'atlasObject_side.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/object_side.html.twig
 
                                       'gallery'       => array('title' => 'Галерея',
@@ -169,7 +178,7 @@ class NeighborsCommunicator {
                                                                'entityDescription' => array('class' => 'Application\Sonata\MediaBundle\Entity\Gallery',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'name'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'autocompleteListCreateFunction' => 'simple',
                                                                'defaultSnippetTwig' => 'gallery.html.twig') //from: vendor/sonata-project/media-bundle/Sonata/MediaBundle/Resources/views/Gallery/view.html.twig
                                 );
 
@@ -185,7 +194,7 @@ class NeighborsCommunicator {
 
     public function __construct() {
         $this->autocompleteListCreate_registeredFunctions = array(
-            'default' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){
+            'simple' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
@@ -202,68 +211,24 @@ class NeighborsCommunicator {
 
                 return $json;
             },
-            'news' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication!!!!!!!!!!!
+            'partedBy' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
-                $category = $em->getRepository($entityDescription['categoryClass'])->findOneBy(array($entityDescription['categoryKeyField'] => $entityDescription['categoryKey']));
-                $getterName = 'get'.ucfirst($entityDescription['categoryIdField']);
-                $categoryId = $category->$getterName();
+                $partition = $em->getRepository($entityDescription['partitionClass'])->findOneBy(array($entityDescription['partitionKeyField'] => $entityDescription['attributeValue']));
+                $getterName = 'get'.ucfirst($entityDescription['partitionIdField']);
+                $partitionId = $partition->$getterName();
 
                 $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
                     ->from($entityDescription['class'], 'n')
                     ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
-                        $qb->expr()->eq('n.'.$entityDescription['categoryField'], $qb->expr()->literal($categoryId))))
-                    ->setMaxResults($limit);
-                $result = $qb->getQuery()->getArrayResult();
-
-                foreach ($result as $row) {
-                    $json[] = array('value' => $row['id'],
-                        'label' => $row['title']);
-                }
-
-                return $json;
-            },
-            'video' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication!!!!!!!!!!!
-                $json = array();
-                $qb = $em->createQueryBuilder();
-
-                $videoSuperType = $em->getRepository($entityDescription['lectureSuperTypeClass'])->findOneBy(array($entityDescription['superTypeKeyField'] => $entityDescription['superTypeKey']));
-                $getterName = 'get'.ucfirst($entityDescription['superTypeIdField']);
-                $videoSuperTypeId = $videoSuperType->$getterName();
-
-                $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
-                    ->from($entityDescription['class'], 'n')
-                    ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
-                        $qb->expr()->eq('n.'.$entityDescription['lectureSuperTypeField'], $qb->expr()->literal($videoSuperTypeId))))
+                        $qb->expr()->eq('n.'.$entityDescription['partedByField'], $qb->expr()->literal($partitionId))))
                     ->setMaxResults($limit);
                 $result = $qb->getQuery()->getArrayResult();
 
                 foreach ($result as $row) {
                     $json[] = array('value' => $row['id'],
                                     'label' => $row['title']);
-                }
-
-                return $json;
-            },
-            'imageOfRussia' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication!!!!!!!!!!!
-                $json = array();
-                $qb = $em->createQueryBuilder();
-
-                $imageOfRussiaCategory = $em->getRepository($entityDescription['categoryClass'])->findOneBy(array($entityDescription['categoryTitle'] => 'Образы России'));
-                $getterName = 'get'.ucfirst($entityDescription['categoryId']);
-                $imageOfRussiaCategoryId = $imageOfRussiaCategory->$getterName();
-
-                $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
-                    ->from($entityDescription['class'], 'n')
-                    ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
-                                              $qb->expr()->eq('n.'.$entityDescription['primaryCategoryField'], $qb->expr()->literal($imageOfRussiaCategoryId))))
-                    ->setMaxResults($limit);
-                $result = $qb->getQuery()->getArrayResult();
-
-                foreach ($result as $row) {
-                    $json[] = array('value' => $row['id'],
-                        'label' => $row['title']);
                 }
 
                 return $json;
