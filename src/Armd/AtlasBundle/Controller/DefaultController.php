@@ -1046,7 +1046,7 @@ class DefaultController extends Controller
         }
 
         if ($showRecommended || $showNovel) {
-            $russianImages = $repo->findRussiaImagesForMainPage($date, 10, $type);
+            $russianImages = $repo->findRussiaImagesForMainPage($date, 5, $type);
         }
 
         if ($this->getRequest()->isXmlHttpRequest()) {

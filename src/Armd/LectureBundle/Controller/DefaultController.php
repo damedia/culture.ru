@@ -640,17 +640,38 @@ class DefaultController extends Controller
     {
         /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
         $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
-        $lectures = $repo->findCinemaForMainPage($date, 1, $type);
 
-        if($this->getRequest()->isXmlHttpRequest()) {
+        $lectures = array();
+        $showRecommended = $repo->countCinemaForMainPage($date, 'recommend');
+        $showForChildren = $repo->countCinemaForMainPage($date, 'children');
+
+        if (!$this->getRequest()->isXmlHttpRequest() && $type == 'recommend' && !$showRecommended && $showForChildren) {
+            $type = 'children';
+        }
+
+        if ($showRecommended || $showForChildren) {
+            $lectures = $repo->findCinemaForMainPage($date, 1, $type);
+        }
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
             return $this->render(
                 'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig',
-                array('lectures' => $lectures, 'date' => $date)
+                array(
+                    'lectures' => $lectures,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showForChildren' => $showForChildren,
+                )
             );
         } else {
             return $this->render(
                 'ArmdLectureBundle:Default:mainpageCinemaWidget.html.twig',
-                array('lectures' => $lectures, 'date' => $date)
+                array(
+                    'lectures' => $lectures,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showForChildren' => $showForChildren,
+                )
             );
         }
     }

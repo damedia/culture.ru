@@ -166,6 +166,12 @@ class LectureRepository extends EntityRepository
             ->leftJoin($rootAlias . '.mediaTrailerVideo', '_lecture_media_trailer_video');
     }
 
+    /**
+     * @param string $date
+     * @param int $limit
+     * @param string $type
+     * @return array
+     */
     public function findCinemaForMainPage($date = '', $limit = 5, $type = 'recommend')
     {
         $dt = new \DateTime();
@@ -180,7 +186,7 @@ class LectureRepository extends EntityRepository
             ->setParameter('category', 'LECTURE_SUPER_TYPE_CINEMA')
             ->setMaxResults($limit);
 
-        switch($type){
+        switch ($type) {
             case 'children':
                 $qb->where('a.showOnMainAsForChildren = :show')
                     ->setParameter('show', true)
@@ -198,7 +204,10 @@ class LectureRepository extends EntityRepository
                                 'a.showOnMainAsForChildrenFrom IS NULL',
                                 'a.showOnMainAsForChildrenTo >= :dt'
                             ),
-                            $qb->expr()->andX('a.showOnMainAsForChildrenFrom <= :dt', 'a.showOnMainAsForChildrenTo >= :dt')
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenFrom <= :dt',
+                                'a.showOnMainAsForChildrenTo >= :dt'
+                            )
                         )
                     )
                     ->setParameter('dt', $dt)
@@ -222,14 +231,94 @@ class LectureRepository extends EntityRepository
                                 'a.showOnMainAsRecommendedFrom IS NULL',
                                 'a.showOnMainAsRecommendedTo >= :dt'
                             ),
-                            $qb->expr()->andX('a.showOnMainAsRecommendedFrom <= :dt', 'a.showOnMainAsRecommendedTo >= :dt')
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom <= :dt',
+                                'a.showOnMainAsRecommendedTo >= :dt'
+                            )
                         )
                     )
                     ->setParameter('dt', $dt)
                     ->orderBy('a.showOnMainAsRecommendedOrd');
 
         }
+
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param string $date
+     * @param string $type
+     * @return int
+     */
+    public function countCinemaForMainPage($date = '', $type = 'recommend')
+    {
+        $dt = new \DateTime();
+        $dt->setTime(0, 0, 0);
+        if ($date != '') {
+            $tmp = explode('-', $date);
+            $dt->setDate($tmp[0], $tmp[1], $tmp[2]);
+        }
+
+        $qb = $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->innerJoin('a.lectureSuperType', 'c', 'WITH', 'c.code = :category')
+            ->setParameter('category', 'LECTURE_SUPER_TYPE_CINEMA');
+
+        switch ($type) {
+            case 'children':
+                $qb->where('a.showOnMainAsForChildren = :show')
+                    ->setParameter('show', true)
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenTo IS NULL',
+                                'a.showOnMainAsForChildrenFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenFrom <= :dt',
+                                'a.showOnMainAsForChildrenTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenFrom IS NULL',
+                                'a.showOnMainAsForChildrenTo >= :dt'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsForChildrenFrom <= :dt',
+                                'a.showOnMainAsForChildrenTo >= :dt'
+                            )
+                        )
+                    )
+                    ->setParameter('dt', $dt);
+                break;
+            case 'recommend':
+            default:
+                $qb->where('a.showOnMainAsRecommended = :show')
+                    ->setParameter('show', true)
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedTo IS NULL',
+                                'a.showOnMainAsRecommendedFrom IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom <= :dt',
+                                'a.showOnMainAsRecommendedTo IS NULL'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom IS NULL',
+                                'a.showOnMainAsRecommendedTo >= :dt'
+                            ),
+                            $qb->expr()->andX(
+                                'a.showOnMainAsRecommendedFrom <= :dt',
+                                'a.showOnMainAsRecommendedTo >= :dt'
+                            )
+                        )
+                    )
+                    ->setParameter('dt', $dt);
+
+        }
+
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 
     public function findForMainPage($date = '', $limit = 5, $type = 'recommend')
