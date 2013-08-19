@@ -99,8 +99,7 @@ $(window).load(function() {
             textContainer = $(this).closest('form').find('.validation-info');
         if(!commentTextArea.size()){return false;}
         if(commentTextArea.val()){
-            $('#post-comments').find('.validation-info').hide();
-            $('#post-comments').find('.fos_comment_comment_new_form').submit();
+            $('#post-comments').find('.validation-info').hide().end().find('.fos_comment_comment_new_form').submit();
             return true;
         }else{
             return false;
@@ -198,36 +197,7 @@ $(window).load(function() {
         e.preventDefault();
         $('#cinema_block').find('.order').removeClass('current');
         $(this).addClass('current');
-        $('#cinema_widget').load($(this).attr('href'), function(){
-//            $('#cinema_widget').caroufredsel({
-//                items: 1,
-//                visible: 1,
-//                width: 'auto',
-//                align: 'center',
-//                auto: false,
-//                pagination: {
-//                    container: $('#cinema_block').find('.b-pagination-nav ul'),
-//                    anchorBuilder: function(nr){
-//                        return '<li><a href="#'+nr+'">'+nr+'</a></li>';
-//                    }
-//                },
-//                onCreate : function( data ) {
-//                    data.items.each(function(){
-//                        $(this).addClass('visible');
-//                    });
-//                },
-//                scroll  : {
-//                    onBefore : function( data ) {
-//                        $('#cinema_widget').children().removeClass('visible');
-//                    },
-//                    onAfter : function( data ) {
-//                        data.items.visible.each(function(){
-//                            $(this).addClass('visible');
-//                        });
-//                    }
-//                }
-//            });
-        });
+        $('#cinema_widget').load($(this).attr('href'));
     });
 
     $('#theater_block').find('.order').click(function(e){
@@ -259,14 +229,7 @@ $(window).load(function() {
                     $('#theater_widget').trigger('slideTo', 0);
                 },
                 scroll  : {
-                    onBefore : function( data ) {
-                        $('#theater_widget').children().removeClass('visible');
-                    },
-                    onAfter : function( data ) {
-                        data.items.visible.each(function(){
-                            $(this).addClass('visible');
-                        });
-                    }
+                    fx : "fade"
                 }
             });
         });

@@ -67,7 +67,7 @@ $(window).load(function() {
     });
     /* End sign carousel */
     /* Special projects carousel */
-    $('.m-specialproject .b-main-slides').each(function(){
+    $('.theater-carousel .b-main-slides, .m-specialproject .b-main-slides').each(function(){
         var slider = $(this),
             paginationContainer = $('<div />', {'class': 'b-pagination-nav'}),
             paginationUl = $('<ul />'),
