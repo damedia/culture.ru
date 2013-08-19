@@ -92,12 +92,12 @@ class DefaultController extends Controller
             )
         );
     }
-    
+
     /**
      * @Route("/press-centre/news-video/", name="armd_lecture_news_index")
      */
     public function newsIndexAction()
-    {   
+    {
         $lectureSuperTypeCode = 'LECTURE_SUPER_TYPE_NEWS';
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
@@ -120,7 +120,7 @@ class DefaultController extends Controller
 
         // fix menu
         $this->get('armd_main.menu.main')->setCurrentUri($this->getMenuUri($lectureSuperTypeCode, $request));
-        
+
         $genreIds = array();
         $genreId = $this->getRequest()->get('genre_id');
         if ($genreId) {
@@ -246,7 +246,7 @@ class DefaultController extends Controller
             }
             $lecturesByMonth[$date][] = $n;
         }
-        
+
         // for breadcrumbs
         if ($request->query->has('genre1_id')) {
             $genre1 = $this->getDoctrine()->getRepository('ArmdLectureBundle:LectureGenre')
@@ -313,9 +313,9 @@ class DefaultController extends Controller
         } else {
             $genre1 = $lecture->getGenreByLevel(1);
         }
-        
+
         $template = $lectureSuperType->getCode() === 'LECTURE_SUPER_TYPE_NEWS' ? 'item_news' : 'lecture_details';
-        
+
         return $this->render('ArmdLectureBundle:Default:'.$template.'.html.twig', array(
             'referer' => $request->headers->get('referer'),
             'lecture' => $lecture,
@@ -367,7 +367,7 @@ class DefaultController extends Controller
 
         return array('lectures' => $lectures);
     }
-    
+
     /**
      * @Route("/lecture/related_new", name="armd_lecture_related_lectures_new")
      * @Template("ArmdLectureBundle:Default:related_lectures_new.html.twig")
@@ -560,7 +560,7 @@ class DefaultController extends Controller
 
         return $filter;
     }
-    
+
     protected function getListCriteria($lectureSuperTypeCode)
     {
         $request = $this->getRequest();
@@ -628,5 +628,76 @@ class DefaultController extends Controller
         }
 
         return $criteria;
+    }
+
+    /**
+     * @param string $type
+     * @param string $date
+     * @Route("cinema-main/{type}/{date}", defaults={"date"=""}, name="armd_lecture_cinema_mainpage")
+     * @return Response
+     */
+    public function mainpageWidgetAction($type = 'recommend', $date = '')
+    {
+        /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
+
+        $lectures = array();
+        $showRecommended = $repo->countCinemaForMainPage($date, 'recommend');
+        $showForChildren = $repo->countCinemaForMainPage($date, 'children');
+
+        if (!$this->getRequest()->isXmlHttpRequest() && $type == 'recommend' && !$showRecommended && $showForChildren) {
+            $type = 'children';
+        }
+
+        if ($showRecommended || $showForChildren) {
+            $lectures = $repo->findCinemaForMainPage($date, 1, $type);
+        }
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageCinemaWidgetItem.html.twig',
+                array(
+                    'lectures' => $lectures,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showForChildren' => $showForChildren,
+                )
+            );
+        } else {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageCinemaWidget.html.twig',
+                array(
+                    'lectures' => $lectures,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showForChildren' => $showForChildren,
+                )
+            );
+        }
+    }
+
+    /**
+     * @param string $type
+     * @param string $date
+     * @Route("lecture-main/{type}/{date}", name="armd_lecture_mainpage", defaults={"date"=""})
+     * @return Response
+     */
+    public function mainpageLectureWidgetAction($type = 'recommend', $date = '')
+    {
+        /** @var \Armd\LectureBundle\Repository\LectureRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('ArmdLectureBundle:Lecture');
+        $lectures = $repo->findForMainPage($date, 4, $type);
+
+        if($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig',
+                array('lectures' => $lectures, 'date' => $date)
+            );
+        } else {
+            return $this->render(
+                'ArmdLectureBundle:Default:mainpageWidget.html.twig',
+                array('lectures' => $lectures, 'date' => $date)
+            );
+        }
     }
 }

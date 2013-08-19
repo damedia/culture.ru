@@ -1,0 +1,20 @@
+{% import 'ArmdLectureBundle::lecture_macro.html.twig' as lectureMacro %}
+{% for item in lectures %}
+    <section{% if loop.index == loop.length %} class="last"{% endif %}>
+        <header>
+            <i class="e-time left-direction">{% if item.timeLength > 0 %}{{ item.timeLengthInHours }}{% endif %}&nbsp;</i>
+            <span class="m-type e-video-item"></span>
+        </header>
+        <div class="grid-content">
+            <div class="grid-thumb">
+                <div style="width:213px;height:131px;background-color:#e1e3e4;">
+                    <a href="{{ path('armd_lecture_view', {id: item.id }) }}">
+                        {{ lectureMacro.lectureThumbnail(item, 'lectureH228', {'alt': item.title, width: 213, height: 131}) }}
+                    </a>
+                </div>
+            </div>
+            <b>{{ item.lecturer }}:</b>
+            <a href="{{ path('armd_lecture_view', {id: item.id }) }}" class="desc-post-link">{{ item.title }}</a>
+        </div>
+    </section>
+{% endfor %}

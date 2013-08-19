@@ -313,7 +313,7 @@ class DefaultController extends Controller
             'objectId' => $objectId
         );
     }
-    
+
     /**
      * @Route("/objects/afilters/{typeTab}", name="armd_atlas_ajax_filters", options={"expose"=true})
      * @Template("ArmdAtlasBundle:Default:ajax_filter.html.twig")
@@ -322,7 +322,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $categories = array();
-        
+
         switch ($typeTab) {
             case 'filter_culture_objects':
                 $repo = $em->getRepository('ArmdAtlasBundle:Category');
@@ -335,7 +335,7 @@ class DefaultController extends Controller
         }
         // if (array_ count_values($categories))
         //    throw new NotFoundHttpException("Categories not found");
-        
+
         return array(
             'type_tab' => $typeTab,
             'categories' => $categories
@@ -1002,7 +1002,7 @@ class DefaultController extends Controller
                         );
                     }
                 }
-                
+
                 break;
             }
         }
@@ -1021,8 +1021,63 @@ class DefaultController extends Controller
         $mail->setTo($object->getCreatedBy()->getEmail());
 
         $mailer->send($mail);
+    }
 
+    /**
+     * @param string $type values: [recommend, novel]
+     * @param string $date
+     * @Route("russia-images-main/{type}/{date}",
+     *  name="armd_atlas_russia_images_mainpage",
+     *  defaults={"date"=""},
+     *  options={"expose"=true}
+     * )
+     * @return Response
+     */
+    public function mainpageWidgetAction($type = 'recommend', $date = '')
+    {
+        $repo = $this->getObjectRepository();
 
+        $russianImages = array();
+        $showRecommended = $repo->countRussiaImagesForMainPage($date, 'recommend');
+        $showNovel = $repo->countRussiaImagesForMainPage($date, 'novel');
+
+        if (!$this->getRequest()->isXmlHttpRequest() && $type == 'recommend' && !$showRecommended && $showNovel) {
+            $type = 'novel';
+        }
+
+        if ($showRecommended || $showNovel) {
+            $russianImages = $repo->findRussiaImagesForMainPage($date, 5, $type);
+        }
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            return $this->render(
+                'ArmdAtlasBundle:Default:mainpageWidgetItem.html.twig',
+                array(
+                    'russianImages' => $russianImages,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showNovel' => $showNovel,
+                )
+            );
+        } else {
+            return $this->render(
+                'ArmdAtlasBundle:Default:mainpageWidget.html.twig',
+                array(
+                    'russianImages' => $russianImages,
+                    'date' => $date,
+                    'showRecommended' => $showRecommended,
+                    'showNovel' => $showNovel,
+                )
+            );
+        }
+    }
+
+    /**
+     * @return \Armd\AtlasBundle\Repository\ObjectRepository
+     */
+    private function getObjectRepository()
+    {
+        return $this->getDoctrine()->getRepository('ArmdAtlasBundle:Object');
     }
 
 }

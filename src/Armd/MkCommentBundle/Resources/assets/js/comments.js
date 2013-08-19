@@ -311,14 +311,19 @@
                 // Remove the form
                 form_parent.remove();
             } else {
-                $('#comments_list_0').append('<li>' + commentHtml + '</li>');
-                $('#comments_list_0').parent().addClass('comments-block');
-                $('#comments_header').addClass('comments-header');
+                if($('#fos_comment_thread').data('thread').indexOf('blog') > -1){
+                    $('#post-comments').find('.validation-info').show();
+                    $('#post-comments').find('.comment-item:first').before(commentHtml);
+                } else {
+                    $('#comments_list_0').append('<li>' + commentHtml + '</li>');
+                    $('#comments_list_0').parent().addClass('comments-block');
+                    $('#comments_header').addClass('comments-header');
+                    $('#add_new_comment').hide();
+                }
                 // "reset" the form
                 form = $(form[0]);
                 form.find('textarea').val('');
                 form.children('.fos_comment_form_errors').remove();
-                $('#add_new_comment').hide();
             }
             FOS_COMMENT.thread_container.trigger('comment_appended');
         },
@@ -439,9 +444,9 @@
 
             // todo: is there a better way to do this?
             FOS_COMMENT.xhr.request({
-                    url: url,
-                    method: method,
-                    data: data
+                url: url,
+                method: method,
+                data: data
             }, wrappedSuccessCallback, wrappedErrorCallback);
         };
 
@@ -459,7 +464,7 @@
 
         /* Initialize xhr object to do cross-domain requests. */
         FOS_COMMENT.xhr = new FOS_COMMENT.easyXDM.Rpc({
-                remote: window.fos_comment_remote_cors_url
+            remote: window.fos_comment_remote_cors_url
         }, {
             remote: {
                 request: {} // request is exposed by /cors/

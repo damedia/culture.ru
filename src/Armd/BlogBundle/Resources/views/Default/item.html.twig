@@ -1,0 +1,137 @@
+{% extends ':Frontend:new_base.html.twig' %}
+{% block title %} {{ entity.title }} {% endblock %}
+{# ------------------------------------------------------------------------ #}
+{% block opengraph %}
+    <meta property="og:title" content="{{ entity.title }}"/>
+    <meta property="og:description" content="{{ entity.lead }}"/>
+    <meta property="og:site_name" content="{{ 'Portal title'|trans }}"/>
+    <meta property="og:url" content="{{ app.request.uri }}"/>
+{% endblock %}
+
+{% import 'ArmdNewsBundle::date_macro.html.twig' as armd_news %}
+
+
+{% block page_header_title %}{{ entity.title }}{% endblock %}
+
+
+{% block body %}
+    <div class="b-main-wrap b-post b-post-taxonomy">
+        <h1 class="b-left-title">Блоги</h1>
+        {% render 'BlogBundle:Default:bloggers' with {'user' : entity.user} %}
+
+        <section class="b-author-info">
+            {#<div class="b-link-right">#}
+                {#<a href="#">о блогере</a>#}
+            {#</div>#}
+            <div class="circle-img-thumb">
+                {% if entity.user.avatar is empty %}
+                    <img alt="" src="/img/new/avatar.png">
+                {% else %}
+                    <img alt="{{ entity.user.firstname }} {{ entity.user.lastname }}" src="{% path entity.user.avatar, 'default' %}">
+                {% endif %}
+            </div>
+            <header>
+                <h2>{{ entity.user.firstname }} {{ entity.user.lastname }}</h2>
+                <h3>{{ entity.user.biography }}</h3>
+            </header>
+        </section>
+
+        <div class="b-post-image">
+            <div class="b-post-image_wrapper">
+                <img width="698" height="476" alt="{{ entity.topImage.description }}" src="{% path entity.topImage, 'default' %}">
+                <div class="image-description">
+                    <strong>{{ entity.title|raw }}</strong>
+                    <span class="date">{{ armd_news.news_date_short(entity.createdAt) }}</span>
+                </div>
+            </div>
+            <i class="image-caption">{{ entity.topImage.description }}</i>
+        </div>
+
+        {{ entity.content|raw }}
+        {{ add_viewed_content(entity, path('view_blog', {id: entity.id})) }}
+
+
+        <div class="b-share-buttons">
+            <span class="small-title m-first">{{ "Publish to Social networks"|trans }}: </span><span id="yandex-share"></span>
+        </div>
+
+        {#<div class="b-share-buttons">#}
+            {#<span class="small-title m-first">Поделиться</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/vk-temp-btn.jpg">#}
+                {#</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/fb-temp-btn.jpg">#}
+                {#</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/gplus-temp-btn.jpg">#}
+                {#</span>#}
+                {#<span>#}
+                    {#<img alt="" src="/img/new/temp-src/tweeter-temp-btn.jpg">#}
+                {#</span>#}
+        {#</div>#}
+
+    </div>
+
+    <div class="b-comments{% if not is_granted('ROLE_USER') %} not-login{% endif %}" id="post-comments">
+        <div class="commtents-header">
+            Комментарии
+            {% if not is_granted('ROLE_USER') %}
+            <div class="header-tooltip">{{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}</div>
+            {% endif %}
+        </div>
+
+        {% set comment_thread_id = app.request.locale ~ '_'~constant('Armd\\MkCommentBundle\\Model\\CommentInterface::SECTION_BLOGS')~'_' ~ entity.id %}
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': comment_thread_id } %}
+
+        {% if not is_granted('ROLE_USER') %}
+        <div class="b-user-not-login">
+            {{ "comments_auth_require"|trans({ '%loginUrl%': path('fos_user_security_login', {'post_auth_redirect': app.request.uri }) })|raw }}
+            {#{% render url('armd_social_auth_auth_links', { 'redirectUrl': app.request.uri }) %}#}
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block sidebar %}
+    <div class="popular-container">
+        {% render 'BlogBundle:Default:popular' %}
+    </div>
+    {% render 'BlogBundle:Default:lastPosts' with {'user' : entity.user } %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function () {
+            new Ya.share({
+                element: 'yandex-share',
+                l10n: {% if app.request.locale == 'ru' %}'ru'{% else %}'en'{% endif %},
+                elementStyle: {
+                    'type': 'none',
+                    'border': false,
+                    'quickServices': ['vkontakte', 'lj', 'twitter', 'facebook', 'odnoklassniki']
+                },
+                link: '{{ url('view_blog', { 'id': entity.id }) }}',
+                title: '{{ entity.title }}',
+                description: '{{ entity.lead|replace({"\n":'',"\r":''})|striptags }}'
+            });
+
+            $('#search-form').bind('submit', function (event) {
+                if ($('#search-this-section').prop('checked')) {
+                    event.preventDefault();
+                    window.location = Routing.generate('armd_news_list_index', {'search_query': $('#search-txt').val()})
+                }
+            });
+        });
+    </script>
+    {% javascripts
+    "@BlogBundle/Resources/public/blogs.js" %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+

@@ -1,0 +1,12 @@
+view_blog:
+    pattern:  /blog/{id}
+    defaults: { _controller: BlogBundle:Default:view }
+
+blog_list:
+    pattern:  /blogs/{user}
+    defaults: { _controller: BlogBundle:Default:index, user: null }
+
+
+popular_blog:
+    pattern:  /popular-blog
+    defaults: { _controller: BlogBundle:Default:popular }

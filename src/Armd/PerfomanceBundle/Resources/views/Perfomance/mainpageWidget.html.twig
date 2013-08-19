@@ -1,0 +1,25 @@
+{% spaceless %}
+    {% if objects is not empty %}
+        <div id="theater_block" class="b-main-wrap b-virtual-theatre">
+            <div class="b-virtual-theatre-inner clearfix b-simple-slider">
+                <div class="b-virtual-head m-float-left">
+                    <div class="b-service-heading"><div>Виртуальный</div> <span>театр</span></div>
+                    <nav class="b-theatre-nav">
+                        <a href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}" class="order current">{{ "рекомендуем"|trans }}</a>
+                        <a href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}" class="order">{{ "популярные"|trans }}</a>
+                    </nav>
+                </div>
+                <article class="b-virtual-theatre-item theater-carousel">
+                    <div class="b-carousel-placement">
+                        <ul id="theater_widget" class="b-main-slides clearfix">
+                            {% include 'ArmdPerfomanceBundle:Perfomance:mainpageWidgetItem.html.twig' with objects %}
+                        </ul>
+                    </div>
+                </article>
+                <div class="b-button-wrapper m-right-btn">
+                    <a href="{{ path('armd_perfomance_list') }}" class="e-inline-link">{{ "перейти в Театр"|trans }}</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endspaceless %}

@@ -35,31 +35,54 @@ services:
         tags:
             - { name: knp_menu.menu, alias: main } # The alias {{ knp_menu_render('main') }}
 
+    armd_main.menu.main.new:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: armd_main.menu_builder
+        factory_method: createNewMainMenu
+        arguments: [@request]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: new_main } # The alias is what is used to retrieve the menu
+
+    armd_main.menu.footer:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: armd_main.menu_builder
+        factory_method: createFooterMenu
+        arguments: [@request]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: footer } # The alias is what is used to retrieve the menu
+
     armd_main.menu_finder:
         class: Armd\MainBundle\Menu\MenuFinder
-        
+
     armd_news.admin.show_on_main:
         class: %armd_news.admin.show_on_main.class%
         tags:
             - { name: sonata.admin, manager_type: orm, group: Main, label: Show on main }
         arguments: [null, %armd_news.admin.show_on_main.entity%, SonataAdminBundle:CRUD, @service_container]
-        
+
+    armd_news.admin.mainpage:
+        class: Armd\MainBundle\Admin\MainAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Main, label: "Планировщик" }
+        arguments: [null, null, ArmdMainBundle:MainAdmin]
+
     armd_main.listener.change_history:
         class: Armd\MainBundle\EventListener\ChangeHistoryListener
         tags:
             - { name: doctrine.event_listener, event: onFlush }
-            - { name: doctrine.event_listener, event: preUpdate }            
-            - { name: doctrine.event_listener, event: prePersist }            
-        arguments: [@service_container]        
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+        arguments: [@service_container]
 
     armd_main.admin.change_history:
         class: Armd\MainBundle\Admin\ChangeHistoryAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: ChangeHistory, label: Change History }
         arguments: [null, Armd\MainBundle\Entity\ChangeHistory, SonataAdminBundle:CRUD, @service_container]
-        
+
     armd_main.twig_extension:
         class: Armd\MainBundle\Twig\Extension\TwigExtension
         tags:
             -  { name: twig.extension }
-            

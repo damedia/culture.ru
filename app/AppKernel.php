@@ -42,12 +42,12 @@ class AppKernel extends Kernel
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Sonata\MediaBundle\SonataMediaBundle(),            
+            new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new FPN\TagBundle\FPNTagBundle(),
-            new Armd\MainBundle\ArmdMainBundle(),            
+            new Armd\MainBundle\ArmdMainBundle(),
             new Armd\UserBundle\ArmdUserBundle(),
             new Armd\AtlasBundle\ArmdAtlasBundle(),
             new Armd\TvigleVideoBundle\ArmdTvigleVideoBundle(),
@@ -72,9 +72,9 @@ class AppKernel extends Kernel
             new Armd\OnlineTranslationBundle\ArmdOnlineTranslationBundle(),
             new Armd\AdminHelperBundle\ArmdAdminHelperBundle(),
             new Armd\PollBundle\ArmdPollBundle(),
-            new Armd\AddressBundle\ArmdAddressBundle(),           
+            new Armd\AddressBundle\ArmdAddressBundle(),
             new Armd\ExhibitBundle\ArmdExhibitBundle(),
-            new Armd\PersonBundle\ArmdPersonBundle(),            
+            new Armd\PersonBundle\ArmdPersonBundle(),
             new Armd\TheaterBundle\ArmdTheaterBundle(),
             new Armd\PerfomanceBundle\ArmdPerfomanceBundle(),
 
@@ -86,6 +86,8 @@ class AppKernel extends Kernel
             new Armd\SubscriptionBundle\ArmdSubscriptionBundle(),
 
             new Damedia\SpecialProjectBundle\DamediaSpecialProjectBundle(),
+            new Armd\BlogBundle\BlogBundle(),
+            new Armd\ActualInfoBundle\ActualInfoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'dev_en'))) {
@@ -93,7 +95,7 @@ class AppKernel extends Kernel
                 new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
                 new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
                 new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
-	    ));
+            ));
         }
 
         return $bundles;

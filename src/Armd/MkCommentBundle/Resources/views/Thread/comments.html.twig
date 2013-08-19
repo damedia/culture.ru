@@ -11,12 +11,24 @@
 
 {% set depth = depth|default(0) %}
 {% set view = view|default('tree') %}
-<section class="comments ">  
-    {% if depth == 0 %}
-        <div id="comments_header" class="{% if comments|length > 0 %}comments-header{%endif%} clearfix">
-            {% set count = thread.numComments %}
-            <p class="comments-total" style="float:left;">
-                <span>{{ 'Comments'|trans({}, 'ArmdMkCommentBundle')}}:</span> {{ count }}{#{% if comments|length > 0 %}<a href="#">{{ count }}</a>{% else %}{{ count }}{% endif%}#}
+
+{% if 'blog' in app.request.attributes.get('id') %}
+
+    {% for commentinfo in comments %}
+        {% include "FOSCommentBundle:Thread:comment.html.twig" with { "children": commentinfo.children, "comment": commentinfo.comment, "depth": depth, "view": view } %}
+    {% endfor %}
+
+    {% if fos_comment_can_comment_thread(thread) %}
+        {% render url("fos_comment_new_thread_comments", {"id": thread.id}) %}
+    {% endif %}
+
+{% else %}
+    <section class="comments">
+        {% if depth == 0 %}
+            <div id="comments_header" class="{% if comments|length > 0 %}comments-header{%endif%} clearfix">
+                {% set count = thread.numComments %}
+                <p class="comments-total" style="float:left;">
+                    <span>{{ 'Comments'|trans({}, 'ArmdMkCommentBundle')}}:</span> {{ count }}{#{% if comments|length > 0 %}<a href="#">{{ count }}</a>{% else %}{{ count }}{% endif%}#}
             </p>
             {% if fos_comment_can_edit_thread(thread) %}
             <div class="add-comment fos_comment_thread_commentable" style="float:right;">
@@ -34,7 +46,7 @@
                 </div>
             {% endif %}
         </div>
-        
+
     {% endif %}
 
     <div{% if depth == 0 and comments|length > 0 %} class="comments-block"{% endif %}>
@@ -52,3 +64,4 @@
     </div>
     {% endif %} #}
 </section>
+{% endif %}

@@ -11,13 +11,13 @@ use FOS\UserBundle\Model\UserInterface;
 class DefaultController extends Controller
 {
     /**
-     * 
+     *
      */
     public function indexAction($name)
     {
         return array('name' => $name);
     }
-    
+
     /**
      * @Route("profile/notices/clear/", name="armd_comment_delete_notices")
      * @throws AccessDeniedException
@@ -28,9 +28,9 @@ class DefaultController extends Controller
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        
+
         $this->container->get('fos_comment.manager.comment')->deleteUserNotices($user);
-        
+
         return new RedirectResponse($this->generateUrl('armd_user_comments_notice'));
     }
 }

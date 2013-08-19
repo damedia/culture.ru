@@ -1,0 +1,25 @@
+{% for museum in museums %}
+<li class="b-museum-slide">
+    <a href="{{ museum.url }}" class="e-museum-image">
+        {% if museum.mainPageImage is not empty %}
+            <img src="{% path museum.mainPageImage, 'default' %}" alt="">
+        {% else %}
+            <img src="/img/new/noimage_480_320.png" alt="" width="480" height="320"/>
+        {% endif %}
+        <img src="/img/new/has-panorama.png" class="e-panorama" />
+    </a>
+    <h4 class="e-museum-title">
+{% if museum.atlasObject is not empty %}
+        <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}">{{ museum.title }}</a>
+    {% else %}
+        {{ museum.title }}
+{% endif %}
+    </h4>
+    <div class="e-other-links">
+        <a href="{{ museum.url }}">виртуальный тур</a>
+{% if museum.atlasObject is not empty %}
+        <a href="{{ path('armd_atlas_default_object_view', {id: museum.atlasObject.id}) }}">о музее</a>
+{% endif %}
+    </div>
+</li>
+{% endfor %}

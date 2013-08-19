@@ -21,7 +21,7 @@ use Sonata\AdminBundle\Admin\Admin;
 class Museum extends Admin
 {
     protected $datagridValues = array(
-        '_sort_by'      => 'title',    
+        '_sort_by'      => 'title',
         '_sort_order'   => 'ASC',
     );
 
@@ -32,7 +32,7 @@ class Museum extends Admin
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->container = $serviceContainer;
-    }    
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -47,7 +47,7 @@ class Museum extends Admin
             ->add('showOnMainOrd')
             ->add('sort')
         ;
-        
+
         parent::configureShowFields($showMapper);
     }
 
@@ -76,16 +76,14 @@ class Museum extends Admin
                     }
                 ))
                 ->add('published', null, array('required' => false))
-                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))       
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('sort', null, array('required' => false))
             ->end()
             ->with('Главная')
-                ->add('showOnMain', null, array(
-                    'required' => false
-                ))
-                ->add('showOnMainOrd', null, array(
-                    'required' => false
-                ))                
+                ->add('showOnMain', null, array('required' => false))
+                ->add('showOnMainFrom', 'date', array('required' => false))
+                ->add('showOnMainTo', 'date', array('required' => false))
+                ->add('showOnMainOrd', null, array('required' => false))
             ->end()
             ->with('Images of Russia')
                 ->add('atlasObject', null, array(
@@ -106,7 +104,8 @@ class Museum extends Admin
             ->end()
             ->with('Media')
                 ->add('image', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
-                ->add('bannerImage', 'sonata_type_model_list', array(), array('link_parameters'=>array('context'=>'museum')))
+                ->add('bannerImage', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'museum')))
+                ->add('mainPageImage', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'museum_main')))
             ->end();
 
         parent::configureFormFields($formMapper);
@@ -118,19 +117,19 @@ class Museum extends Admin
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
-    {        
+    {
         $listMapper
             ->addIdentifier('title')
-            ->add('published')   
-            ->add('corrected')         
-            ->add('showOnMain')
+            ->add('published')
+            ->add('corrected')
+            ->add('showOnMain', null, array('editable' => true))
             ->add('showOnMainOrd')
             ->add('sort')
         ;
-        
-        parent::configureListFields($listMapper);        
+
+        parent::configureListFields($listMapper);
     }
-    
+
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
@@ -141,14 +140,14 @@ class Museum extends Admin
             ->add('showOnMainOrd')
             ->add('sort')
         ;
-    }    
+    }
 
     public function getBatchActions()
     {
         // retrieve the default (currently only the delete action) actions
         $actions = parent::getBatchActions();
 
-        
+
         // check user permissions
         if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE')){
             // /*
@@ -162,7 +161,7 @@ class Museum extends Admin
             );
             // */
         }
-        
+
         return $actions;
-    }    
+    }
 }

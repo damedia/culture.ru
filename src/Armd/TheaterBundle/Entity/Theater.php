@@ -9,7 +9,7 @@ use Armd\MainBundle\Model\ChangeHistorySavableInterface;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="armd_theater") 
+ * @ORM\Table(name="armd_theater")
  */
 class Theater implements ChangeHistorySavableInterface
 {
@@ -19,12 +19,12 @@ class Theater implements ChangeHistorySavableInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="boolean", nullable=false)
-     */        
+     */
     protected $published;
-    
+
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
@@ -34,71 +34,71 @@ class Theater implements ChangeHistorySavableInterface
      * @ORM\Column(type="string")
      */
     protected $title;
-    
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $description;  
-    
+    protected $description;
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $director;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $address;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Url
      */
     protected $url;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Email
      */
     protected $email;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $phone;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $metro;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $ticketOfficeMode;
-    
+
     /**
      * @ORM\Column(type="decimal", precision=15, scale=10, nullable=true)
      */
     protected $latitude;
-    
+
     /**
      * @ORM\Column(type="decimal", precision=15, scale=10, nullable=true)
      */
     protected $longitude;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Media", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\Application\Sonata\MediaBundle\Entity\Gallery")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     private $gallery;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Armd\TvigleVideoBundle\Entity\TvigleVideo", cascade={"all"})
      * @ORM\JoinTable(name="armd_theater_interviews")
@@ -122,28 +122,28 @@ class Theater implements ChangeHistorySavableInterface
      * @ORM\JoinTable(name="armd_theater_theater_category")
      */
     private $categories;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Billboard", mappedBy="theater", cascade={"all"}, orphanRemoval=true)
      * @ORM\OrderBy({"date" = "ASC"})
      */
     private $billboards;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Armd\PerfomanceBundle\Entity\Perfomance", mappedBy="theater")
      * @ORM\OrderBy({"title" = "ASC"})
      */
     private $performances;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
-    protected $corrected;    
+    protected $corrected;
 
     public function __toString()
     {
         return $this->getTitle();
-    }    
+    }
     /**
      * Constructor
      */
@@ -155,11 +155,11 @@ class Theater implements ChangeHistorySavableInterface
         $this->performances = new \Doctrine\Common\Collections\ArrayCollection();
         $this->mediaInterviews = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -175,14 +175,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -198,14 +198,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -221,14 +221,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setPublished($published)
     {
         $this->published = $published;
-    
+
         return $this;
     }
 
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
@@ -244,14 +244,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -267,14 +267,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -290,14 +290,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -313,14 +313,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
     {
         $this->image = $image;
-    
+
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Media 
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function getImage()
     {
@@ -336,14 +336,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setCity(\Armd\AddressBundle\Entity\City $city = null)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return \Armd\AddressBundle\Entity\City 
+     * @return \Armd\AddressBundle\Entity\City
      */
     public function getCity()
     {
@@ -359,14 +359,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setDirector($director)
     {
         $this->director = $director;
-    
+
         return $this;
     }
 
     /**
      * Get director
      *
-     * @return string 
+     * @return string
      */
     public function getDirector()
     {
@@ -382,14 +382,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -405,14 +405,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -428,7 +428,7 @@ class Theater implements ChangeHistorySavableInterface
     public function addCategorie(\Armd\TheaterBundle\Entity\TheaterCategory $categories)
     {
         $this->categories[] = $categories;
-    
+
         return $this;
     }
 
@@ -445,7 +445,7 @@ class Theater implements ChangeHistorySavableInterface
     /**
      * Get categories
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
@@ -461,7 +461,7 @@ class Theater implements ChangeHistorySavableInterface
     public function addBillboard(\Armd\TheaterBundle\Entity\Billboard $billboards)
     {
         $this->billboards[] = $billboards;
-    
+
         return $this;
     }
 
@@ -478,7 +478,7 @@ class Theater implements ChangeHistorySavableInterface
     /**
      * Get billboards
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBillboards()
     {
@@ -494,14 +494,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setMetro($metro)
     {
         $this->metro = $metro;
-    
+
         return $this;
     }
 
     /**
      * Get metro
      *
-     * @return string 
+     * @return string
      */
     public function getMetro()
     {
@@ -517,14 +517,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setTicketOfficeMode($ticketOfficeMode)
     {
         $this->ticketOfficeMode = $ticketOfficeMode;
-    
+
         return $this;
     }
 
     /**
      * Get ticketOfficeMode
      *
-     * @return string 
+     * @return string
      */
     public function getTicketOfficeMode()
     {
@@ -540,14 +540,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setLatitude($latitude)
     {
         $this->latitude = $latitude;
-    
+
         return $this;
     }
 
     /**
      * Get latitude
      *
-     * @return decimal 
+     * @return decimal
      */
     public function getLatitude()
     {
@@ -563,14 +563,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
-    
+
         return $this;
     }
 
     /**
      * Get longitude
      *
-     * @return decimal 
+     * @return decimal
      */
     public function getLongitude()
     {
@@ -586,7 +586,7 @@ class Theater implements ChangeHistorySavableInterface
     public function addPerformance(\Armd\PerfomanceBundle\Entity\Perfomance $performances)
     {
         $this->performances[] = $performances;
-    
+
         return $this;
     }
 
@@ -603,7 +603,7 @@ class Theater implements ChangeHistorySavableInterface
     /**
      * Get performances
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPerformances()
     {
@@ -619,14 +619,14 @@ class Theater implements ChangeHistorySavableInterface
     public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
     {
         $this->gallery = $gallery;
-    
+
         return $this;
     }
 
     /**
      * Get gallery
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Gallery 
+     * @return \Application\Sonata\MediaBundle\Entity\Gallery
      */
     public function getGallery()
     {
@@ -642,7 +642,7 @@ class Theater implements ChangeHistorySavableInterface
     public function addInterview(\Armd\TvigleVideoBundle\Entity\TvigleVideo $interviews)
     {
         $this->interviews[] = $interviews;
-    
+
         return $this;
     }
 
@@ -659,7 +659,7 @@ class Theater implements ChangeHistorySavableInterface
     /**
      * Get interviews
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getInterviews()
     {
@@ -675,7 +675,7 @@ class Theater implements ChangeHistorySavableInterface
     public function addMediaInterview(Media $mediaInterview)
     {
         $this->mediaInterviews[] = $mediaInterview;
-    
+
         return $this;
     }
 
@@ -698,7 +698,7 @@ class Theater implements ChangeHistorySavableInterface
     {
         return $this->mediaInterviews;
     }
-    
+
     /**
      * Set corrected
      *
@@ -708,22 +708,22 @@ class Theater implements ChangeHistorySavableInterface
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    public function getClassName()
     {
         return get_class($this);
-    }    
+    }
 }

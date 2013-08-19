@@ -1,0 +1,28 @@
+{% import 'ArmdPerfomanceBundle::perfomance_macro.html.twig' as perfomanceMacro %}
+{% for item in objects %}
+    <li class="b-theatre-item">
+        <div class="b-virtual-video js-process-video">
+            <a href="{{ path('armd_perfomance_item', {id: item.id }) }}">
+                {#{% media item.image, 'xbig' with {'alt' : item.title|escape, 'width' : 480, 'height' : 352} %}#}
+                {% if item.gallery and item.gallery|length > 0 %}
+                    {% for img in item.gallery.galleryHasMedias|slice(0,1) %}
+                        {% media img.media, 'xbig' with {'alt' : item.interviewTitle|escape, 'width':480, 'height': 352} %}
+                    {% endfor %}
+                {% endif %}
+                {#<img alt="" src="{% path item.image, 'main_page' %}" />#}
+            </a>
+        </div>
+        <div class="b-virtual-theatre-item-content clearfix">
+            <header>
+                <h1>{{ item.title }}</h1>
+            </header>
+            <div class="e-theatre-name">
+                <a href="{{ path('armd_perfomance_list', {'theaterId': item.theater.id }) }}">{{ item.theater.title }}</a>
+            </div>
+            <div class="b-virtual-theatre-wrap">
+                <div class="e-virtual-time">{% if item.timeLength > 0 %}{{ item.timeLengthInHours }}{% endif %}&nbsp;</div>
+                <div class="e-theatre-cnt">{% if item.stars is not empty %}В ролях: {{ item.stars }}{% endif %}&nbsp;</div>
+            </div>
+        </div>
+    </li>
+{% endfor %}

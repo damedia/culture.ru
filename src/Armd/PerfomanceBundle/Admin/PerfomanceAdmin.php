@@ -30,7 +30,7 @@ class PerfomanceAdmin extends Admin
     {
         $showMapper
             ->add('published')
-            ->add('corrected')            
+            ->add('corrected')
             ->add('title')
             ->add('year')
             ->add('ganres')
@@ -49,7 +49,7 @@ class PerfomanceAdmin extends Admin
         $formMapper
             ->with('General')
                 ->add('published')
-                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))                       
+                ->add('corrected', null, array('required' => false, 'disabled' => ($this->container->get('security.context')->isGranted('ROLE_CORRECTOR') ? false : true )))
                 ->add('title')
                 ->add('year')
                 ->add('description', null, array(
@@ -58,9 +58,9 @@ class PerfomanceAdmin extends Admin
                 ->add('ganres', 'entity',
                     array(
                         'required' => true,
-						'class' => 'Armd\PerfomanceBundle\Entity\PerfomanceGanre',
-						'property' => 'title',
-						'multiple' => true
+                        'class' => 'Armd\PerfomanceBundle\Entity\PerfomanceGanre',
+                        'property' => 'title',
+                        'multiple' => true
                     )
                 )
                 ->add('theater', null, array(
@@ -104,8 +104,8 @@ class PerfomanceAdmin extends Admin
             ->end()
             ->with('External')
                 ->add('externalUrl', 'url',  array('required' => false))
-				->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
-            ->end()             
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
+            ->end()
             ->with('Interview')
                 /*->add('interviewVideo', 'armd_tvigle_video_selector',
                     array(
@@ -119,14 +119,28 @@ class PerfomanceAdmin extends Admin
                         'provider' => 'sonata.media.provider.tvigle'
                     ))
                 )
-				->add('interviewTitle')
+                ->add('interviewTitle')
                 ->add('interviewDescription', null, array(
                     'attr' => array('class' => 'tinymce'),
-                ))				
-            ->end()   
-            ->with('Media')                
-                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))                                
-            ->end();                     
+                ))
+            ->end()
+            ->with('Media')
+                ->add('gallery', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
+            ->end()
+            ->with('Главная')
+                ->add('showOnMain')
+                ->add('showOnMainFrom', 'date', array(
+                        'required' => false
+                    ))
+                ->add('showOnMainTo', 'date', array(
+                        'required' => false
+                    ))
+                ->add('showOnMainOrd', null, array(
+                        'required' => false
+                    ))
+                ->add('timeLength')
+                ->add('stars')
+            ->end()
         ;
     }
 
@@ -138,10 +152,12 @@ class PerfomanceAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
-            ->add('corrected')            
+            ->add('corrected')
             ->add('title')
             ->add('year')
-            ->add('ganres');
+            ->add('ganres')
+            ->add('showOnMain')
+        ;
     }
 
 
@@ -156,9 +172,11 @@ class PerfomanceAdmin extends Admin
             ->addIdentifier('title')
             ->add('year')
             ->add('published')
-            ->add('corrected')            
+            ->add('corrected')
             ->add('createdAt')
-            ->add('ganres');
+            ->add('ganres')
+            ->add('showOnMain', null, array('editable' => true))
+        ;
     }
 
     public function postPersist($object)

@@ -66,6 +66,7 @@
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/mk.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/armdmain/js/messager.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/qtip/jquery.qtip.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/core.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery.cookie.js') }}"></script>
@@ -79,13 +80,13 @@
              armdMk.init();
 
              armdMessager.init('#armd_messages');
-             
+
              $('.user-favorites-button').click(function(event) {
-                 event.preventDefault();  
-                 
+                 event.preventDefault();
+
                  var type = $(this).data('type'),
                     id = $(this).data('id');
-                    
+
                  armdMk.startLoadingBlock();
                  $.ajax({
                     url: Routing.generate('armd_user_favorites_add'),
@@ -101,7 +102,7 @@
                         armdMessager.showMessage('Объект добавлен в «Избранное»');
                     }
                 })
-                .always(function() {                   
+                .always(function() {
                     armdMk.stopLoadingBlock();
                 });
              });
@@ -149,7 +150,7 @@
 
                     <a href="{{ path('armd_main_special_homepage') }}" class="aa"></a>
 
-                    
+
                     <div class="app_store-block">
                         <a href="#appstore-popup" class="appstore-link" id="appstore-link">AppStore</a>
 
@@ -169,7 +170,7 @@
                         <li class="ex-vk"><a target="_blank" href="http://vk.com/kulturarf"></a></li>
                         <li class="ex-fb"><a target="_blank" href="http://www.facebook.com/culture.ru"></a></li>
                         <li class="ex-twitter"><a target="_blank" href="https://twitter.com/cultureru"></a></li>
-                        <li class="ex-youtube"><a target="_blank" href="http://www.youtube.com/results?search_query=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&oq=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&gs_l=youtube.3..0l8j0i5l2.1530.3406.0.4081.8.8.0.0.0.0.129.626.4j3.7.0...0.0...1ac.1.11.youtube.AtdpPkVFP3A"></a></li> 
+                        <li class="ex-youtube"><a target="_blank" href="http://www.youtube.com/results?search_query=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&oq=%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0&gs_l=youtube.3..0l8j0i5l2.1530.3406.0.4081.8.8.0.0.0.0.129.626.4j3.7.0...0.0...1ac.1.11.youtube.AtdpPkVFP3A"></a></li>
                     </ul>
                 </div><!-- /htr-bottom -->
             </div><!-- /header-top-right -->
@@ -185,7 +186,7 @@
         <!-- Navigation header -->
         <div class="nav-header">
             {% block page_header %}
-                <h1>{% block page_header_title %}{% endblock %}</h1>
+                {#<h1>{% block page_header_title %}{% endblock %}</h1>#}
 
                 <div class="search-panel">
                     {% block page_header_search %}

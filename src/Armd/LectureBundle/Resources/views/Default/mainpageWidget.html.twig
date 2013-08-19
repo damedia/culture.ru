@@ -1,0 +1,21 @@
+{% spaceless %}
+    {% if lectures is not empty %}
+        <div id="lecture_block" class="b-main-wrap b-block-main m-clear-both b-lecture">
+            <header class="b-heading">
+                <h2>Лекции</h2>
+            </header>
+            <div class="b-block-heading m-align">
+                <nav class="b-heading-nav js-tabs-nav">
+                    <a class="order current" href="{{ path('armd_lecture_mainpage', {type: 'recommend', date: date}) }}">{{ "рекомендуем"|trans }}</a>&nbsp;
+                    <a class="order" href="{{ path('armd_lecture_mainpage', {type: 'popular', date: date}) }}">популярные</a>&nbsp;
+                </nav>
+            </div>
+            <div id="lecture_widget" class="b-grid">
+                {% include 'ArmdLectureBundle:Default:mainpageWidgetItem.html.twig' with lectures %}
+            </div>
+            <div class="b-button-wrapper m-right-btn">
+                <a href="{{ path('armd_lecture_lecture_index') }}" class="e-inline-link">перейти в Лекции</a>
+            </div>
+        </div>
+    {% endif %}
+{% endspaceless %}

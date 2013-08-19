@@ -115,9 +115,18 @@ class LectureAdmin extends Admin
                 )
                 ->add('tags', 'armd_tag', array('required' => false, 'attr' => array('class' => 'select2-tags')))
                 ->add('lecturer')
+                ->add('timeLength')
                 ->add('recommended')
                 ->add('showAtSlider')
                 ->add('showAtFeatured')
+                ->add('showOnMainAsRecommended')
+                ->add('showOnMainAsRecommendedFrom', 'date', array(
+                        'required' => false
+                    ))
+                ->add('showOnMainAsRecommendedTo', 'date', array(
+                        'required' => false
+                    ))
+            ->add('showOnMainAsRecommendedOrd')
             ->end()
             ->with('SEO')
                 ->add('seoTitle', null, array('attr' => array('class' => 'span8')))
@@ -173,13 +182,14 @@ class LectureAdmin extends Admin
     {
         $datagridMapper
             ->add('published')
-            ->add('corrected')            
+            ->add('corrected')
             ->add('title')
             ->add('genres')
             ->add('lecturer')
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
+            ->add('showOnMainAsRecommended')
         ;
     }
 
@@ -202,6 +212,7 @@ class LectureAdmin extends Admin
             ->add('recommended')
             ->add('showAtSlider')
             ->add('showAtFeatured')
+            ->add('showOnMainAsRecommended', null, array('editable' => true))
         ;
     }
 

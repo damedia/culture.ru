@@ -122,14 +122,14 @@ $(function () {
         }
 
     };
-    
+
     // Show the date picker
     $(".dates-chooser > a").click(function () {
         $("#datapicker").datepicker(datapickerOpts).show();
         $('.search-checkboxes').hide();
         $('.dates-chooser a.clicked').removeClass('clicked');
         $(this).addClass('clicked');
-        
+
         return false;
     });
 
@@ -249,7 +249,7 @@ $(function () {
 
                                     });
                             }
-                            
+
 
                             $(this).data("lastOpenedPanel", $(ui.panel));
                         }
@@ -335,21 +335,21 @@ $(function () {
             $(this).selectgroup();
         })
     })();
-    
-    
+
+
 	$('#category-chooser').on('click', 'a', function(){
 		var id = $(this).attr('href');
 		$(this).addClass('active').siblings().removeClass('active');
 		$(id).show().siblings('.tab').hide();
-		
+
 		return false;
 	})
-	
+
 	/*
 	$('.museum-image, .plitka-name').on('click', $(this), function(){
 		$(this).closest('.plitka-one-wrap').toggleClass('plitka-one-wrap-opened');
 	})*/
-	
+
 	if($(".iframe").length > 0) {
 		$(".iframe").fancybox({
 			'width': '100%',
@@ -379,7 +379,7 @@ $(function () {
         nextEffect: 'fade',
         prevEffect: 'fade'
     });
-    
+
     $('.in-fancybox-noresize').fancybox({
         beforeShow: function(){
             $('.left-column iframe').hide();
@@ -392,9 +392,9 @@ $(function () {
         autoResize: false,
         fitToView: false,
         scrolling: 'no'
-        
-    });    
-	
+
+    });
+
 	if($('.virt-museum-instr').length > 0) {
 		$('.virt-museum-instr').fancybox({
 			'width':900,
@@ -404,15 +404,15 @@ $(function () {
 			'transitionOut': 'none'
 		})
 	}
-	
+
 	$('.trad-line-nav > li > a').click(function(){
 		var tradLink = $(this).attr('href');
 		$(tradLink).show().siblings('.trad-line-content').hide();
 		$(this).parent().addClass('active').siblings().removeClass('active');
-		
+
 	});
-	
-/*	
+
+/*
 		$('#video-list').flexslider({
 			animation: "slide",
 			slideshow: false,
@@ -421,7 +421,7 @@ $(function () {
 		  });
 */
 
-		  
+
 	$('.tabs-headers').on('click', 'a', function(){
 		var tabId = $(this).attr('href');
 		$(this).addClass('active')
@@ -429,10 +429,10 @@ $(function () {
 		$(tabId).show().siblings('.tab').hide();
 		return false;
 	})
-	
-	
+
+
 	/*TIMELINE*/
-	
+
     //waypoints scroll
 
     // The same for all waypoints
@@ -449,7 +449,7 @@ $(function () {
 
         $('.section-active').removeClass('section-active');
         $active.addClass('section-active');
-       
+
         $('a[href=#' + $active.attr('id') + ']').parent().addClass('active');
 
         // console.log($('a[href=#' + $active.attr('id') + ']'));
@@ -526,22 +526,22 @@ $(function () {
         .click(function() {
             return false;
         });
-    }    
-    
+    }
+
     $('body').on('click', $(this), function(e){
         if ($('#datapicker').is(':visible')) {
             var t = $(e.target);
-            
+
             if ( !checkClassPos(t, ['hasDatepicker', 'ui-datepicker-header' ]) ) {
                  $('#datapicker').hide();
                 $('.dates-chooser a').removeClass('clicked');
-            } 
-            
+            }
+
             if ( !checkClassPos(t, ['search-checkboxes' ]) ) {
                  $('.search-checkboxes').hide();
             }
         }
-    }); 
+    });
 
     function checkClassPos(element, findClassArr){
         var found = false;
@@ -551,19 +551,19 @@ $(function () {
                 if ($(this).hasClass(findClassArr[i])) {
                     found = true;
                     return;
-                } 
-            }            
+                }
+            }
         })
         if (element.hasClass(findClassArr[0]))
             found = true;
-            
-        console.log(found);    
-        return found;    
-    }   
-    
+
+        console.log(found);
+        return found;
+    }
+
     $(window).load(function(){
-    
-    
+
+
         /*News Image 2:3 Crop*/
         $('.news-image-crop img').each(function(){
             var image  = $(this),
@@ -573,7 +573,7 @@ $(function () {
                 type = 'vertical',
                 topMargin = 0,
                 leftMargin = 0;
-                
+
                 if (defaultWidth / 1.5 < defaultHeight) {
                     topMargin = (defaultHeight - defaultWidth / 1.5)/2;
                     $('.news-image-crop').css({'width':defaultWidth,'height':defaultWidth/1.5});
@@ -583,17 +583,17 @@ $(function () {
                     $('.news-image-crop').css({'width':defaultHeight*1.5,'height':defaultHeight});
                     image.css({'left':-leftMargin});
                 }
-                
-                
+
+
         })
     })
-    
-	
+
+
 	$('.profile-form select').each(function(){
 		$(this).css({'display':'block','visibility':'hidden'});
 		$(this).selectgroup();
 	})
-    
+
     $('.subscription-form label').click(function(){
         if($(this).prev('input').is(':checked')) {
             $(this).removeClass('checked');
@@ -604,18 +604,18 @@ $(function () {
     $('.subscription-form input[checked]').each(function(){
         $(this).next('label').addClass('checked');
     })
-    
+
     var proActive = $('.profile-menu li').index($('.profile-menu li.active'));
     $('.profile-right-block:first').addClass('prb-'+proActive);
-	
-	var proRightHeight = $('.profile-right').height();
+
+    var proRightHeight = $('.profile-right').height();
     var proLeftHeight = $('.profile-left').height();
     console.log(proRightHeight);
     console.log(proLeftHeight);
     if(proRightHeight > proLeftHeight) {
         $('.profile-left').height(proRightHeight);
     }
-    
+
 })
 
 $(window).load(function(){

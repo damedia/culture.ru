@@ -193,7 +193,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
      * @ORM\Column(name="show_on_main", type="boolean", nullable=false)
      */
     private $showOnMain = false;
-    
+
     /**
      * @ORM\Column(name="show_on_main_ord", type="integer", nullable=false)
      */
@@ -211,11 +211,11 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
      * @ORM\ManyToOne(targetEntity="Armd\AddressBundle\Entity\CountryDistrict")
      */
     protected $countryDistrict;
-    
+
     /**
      * @ORM\Column(name="corrected", type="boolean", nullable=true)
      */
-    protected $corrected;    
+    protected $corrected;
 
     public function __construct()
     {
@@ -1007,7 +1007,7 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
     {
         return $this->countryDistrict;
     }
-    
+
     /**
      * Set corrected
      *
@@ -1017,22 +1017,22 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
     public function setCorrected($corrected)
     {
         $this->corrected = $corrected;
-    
+
         return $this;
     }
 
     /**
      * Get corrected
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCorrected()
     {
         return $this->corrected;
     }
 
-    public function getClassName()    
+    public function getClassName()
     {
         return get_class($this);
-    }    
+    }
 }
