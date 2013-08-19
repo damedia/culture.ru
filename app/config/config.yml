@@ -207,7 +207,7 @@ sonata_media:
                 - sonata.media.provider.youtube
 
             formats:
-                main: { width: 150, height: 150 }
+                main: { width: 232 }
                 thumbnail: { width: 85, height: 85 }
 
         chronicle:

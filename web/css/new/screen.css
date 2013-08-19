@@ -687,7 +687,7 @@ textarea {
 }
 
 .b-colored-articles-block .e-block-title img, .b-transparent-articles-block .e-block-title img, .b-citate-of-day .e-block-title img {
-    margin: -2px 3px 0 0px
+    margin: -2px 3px 0 0
 }
 
 .b-colored-articles-block .e-block-link, .b-transparent-articles-block .e-block-link {
@@ -921,6 +921,10 @@ textarea {
     padding: 25px 15px 45px;
     background-color: #fff
 }
+.b-citate-of-day.video-of-day{
+    padding-left: 0;
+    padding-right: 0;
+}
 
 .b-citate-of-day .e-block-title {
     width: 100%;
@@ -930,6 +934,9 @@ textarea {
 .b-citate-of-day .e-citate-content {
     color: #313336;
     font: 14px/18px "PT Serif", serif
+}
+.b-citate-of-day.video-of-day .e-citate-content {
+    text-align: center;
 }
 
 .m-bold {

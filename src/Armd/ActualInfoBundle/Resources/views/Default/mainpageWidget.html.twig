@@ -1,6 +1,6 @@
 {% spaceless %}
     {% if actualInfo is not empty %}
-        <div class="b-citate-of-day">
+        <div class="b-citate-of-day{% if actualInfo.type != constant('\\Armd\\ActualInfoBundle\\Entity\\ActualInfo::TYPE_TEXT') %} video-of-day{% endif %}">
         {% if actualInfo.type == constant('\\Armd\\ActualInfoBundle\\Entity\\ActualInfo::TYPE_TEXT') %}
             <h3 class="e-block-title">«Цитата дня»</h3>
             <div class="e-citate-content">
@@ -14,11 +14,7 @@
         {% elseif actualInfo.type == constant('\\Armd\\ActualInfoBundle\\Entity\\ActualInfo::TYPE_VIDEO') %}
             <h3 class="e-block-title">«Видео дня»</h3>
             <div class="e-citate-content">
-                {% media actualInfo.video, 'main' with { 'width': 200, 'height': 150} %}
-                {#<a href="{{ path('armd_lecture_view', {'id': actualInfo.video.id}) }}" class="period-block_image">#}
-                    {#{% thumbnail actualInfo.video, 'main' with {'alt': actualInfo.video.title, 'width': '100%', 'height': 'auto', 'style': 'height: auto' } %}#}
-                    {#<span class="play"></span>#}
-                {#</a>#}
+                {% media actualInfo.video, 'main' with { 'width': 232, 'height': 174} %}
             </div>
         {% endif %}
         </div>
