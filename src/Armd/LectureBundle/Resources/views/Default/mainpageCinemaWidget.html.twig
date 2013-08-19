@@ -5,7 +5,7 @@
                 <h3 class="e-block-title">Кино</h3>
                 <nav class="b-heading-nav">
                 {% if showRecommended  %}
-                    <a class="order current" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend', date: date}) }}">рекоммендованный</a>&nbsp;
+                    <a class="order current" href="{{ path('armd_lecture_cinema_mainpage', {type: 'recommend', date: date}) }}">{{ "рекомендуем"|trans }}</a>&nbsp;
                 {% endif %}
                 {% if showForChildren %}
                     <a class="order{% if not showRecommended %} current{% endif %}" href="{{ path('armd_lecture_cinema_mainpage', {type: 'children', date: date}) }}">для детей</a>&nbsp;

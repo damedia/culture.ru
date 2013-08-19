@@ -6,7 +6,7 @@
                     <h3 class="e-block-title">Образы России</h3>
                     <nav class="b-heading-nav">
                     {% if showRecommended  %}
-                        <a class="order current" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend', date: date}) }}">рекомендуемое</a>&nbsp;
+                        <a class="order current" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'recommend', date: date}) }}">{{ "рекомендуем"|trans }}</a>&nbsp;
                     {% endif %}
                     {% if showNovel %}
                         <a class="order{% if not showRecommended %} current{% endif %}" href="{{ path('armd_atlas_russia_images_mainpage', {type: 'novel', date: date}) }}">неизведанное</a>

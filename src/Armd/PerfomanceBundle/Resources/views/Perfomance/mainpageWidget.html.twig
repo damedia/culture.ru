@@ -5,7 +5,7 @@
                 <div class="b-virtual-head m-float-left">
                     <div class="b-service-heading"><div>Виртуальный</div> <span>театр</span></div>
                     <nav class="b-theatre-nav">
-                        <a href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}" class="order current">рекоммендованные</a>
+                        <a href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}" class="order current">{{ "рекомендуем"|trans }}</a>
                         <a href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}" class="order">популярные</a>
                     </nav>
                 </div>
