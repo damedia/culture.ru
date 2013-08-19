@@ -9,8 +9,56 @@ class NeighborsCommunicator {
                                                                'optgroup' => 'news',
                                                                'entityDescription' => array('class' => 'ArmdNewsBundle:News',
                                                                                             'idField' => 'id',
-                                                                                            'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                                                            'titleField' => 'title',
+                                                                                            'categoryField' => 'category',
+
+                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
+                                                                                            'categoryIdField' => 'id',
+                                                                                            'categoryKeyField' => 'title',
+                                                                                            'categoryKey' => 'Новости'),
+                                                               'autocompleteListCreateFunction' => 'news',
+                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+
+                                      'reportage'     => array('title' => 'Репортаж',
+                                                               'optgroup' => 'news',
+                                                               'entityDescription' => array('class' => 'ArmdNewsBundle:News',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title',
+                                                                                            'categoryField' => 'category',
+
+                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
+                                                                                            'categoryIdField' => 'id',
+                                                                                            'categoryKeyField' => 'title',
+                                                                                            'categoryKey' => 'Репортажи'),
+                                                               'autocompleteListCreateFunction' => 'news',
+                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+
+                                      'announcement'  => array('title' => 'Анонс',
+                                                               'optgroup' => 'news',
+                                                               'entityDescription' => array('class' => 'ArmdNewsBundle:News',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title',
+                                                                                            'categoryField' => 'category',
+
+                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
+                                                                                            'categoryIdField' => 'id',
+                                                                                            'categoryKeyField' => 'title',
+                                                                                            'categoryKey' => 'Анонсы'),
+                                                               'autocompleteListCreateFunction' => 'news',
+                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+
+                                      'article'       => array('title' => 'Сеатья',
+                                                               'optgroup' => 'news',
+                                                               'entityDescription' => array('class' => 'ArmdNewsBundle:News',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title',
+                                                                                            'categoryField' => 'category',
+
+                                                                                            'categoryClass' => 'ArmdNewsBundle:Category',
+                                                                                            'categoryIdField' => 'id',
+                                                                                            'categoryKeyField' => 'title',
+                                                                                            'categoryKey' => 'Статьи'),
+                                                               'autocompleteListCreateFunction' => 'news',
                                                                'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'theater'       => array('title' => 'Театр',
@@ -81,6 +129,20 @@ class NeighborsCommunicator {
                                                                'autocompleteListCreateFunction' => 'video',
                                                                'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
+                                      'newsVideo'      => array('title' => 'Новостное видео',
+                                                                'optgroup' => 'video',
+                                                                'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
+                                                                                             'idField' => 'id',
+                                                                                             'titleField' => 'title',
+                                                                                             'lectureSuperTypeField' => 'lectureSuperType',
+
+                                                                                             'lectureSuperTypeClass' => 'ArmdLectureBundle:LectureSuperType',
+                                                                                             'superTypeIdField' => 'id',
+                                                                                             'superTypeKeyField' => 'code',
+                                                                                             'superTypeKey' => 'LECTURE_SUPER_TYPE_NEWS'),
+                                                                'autocompleteListCreateFunction' => 'video',
+                                                                'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
+
                                       'imageOfRussia' => array('title' => 'Образ России',
                                                                'optgroup' => 'objects',
                                                                'entityDescription' => array('class' => 'ArmdAtlasBundle:Object',
@@ -103,7 +165,7 @@ class NeighborsCommunicator {
                                                                'defaultSnippetTwig' => 'atlasObject_side.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/object_side.html.twig
 
                                       'gallery'       => array('title' => 'Галерея',
-                                                               'optgroup' => 'media',
+                                                               'optgroup' => 'others',
                                                                'entityDescription' => array('class' => 'Application\Sonata\MediaBundle\Entity\Gallery',
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'name'),
@@ -118,7 +180,7 @@ class NeighborsCommunicator {
                                'news' => 'Новости',
                                'sprojects' => 'Спецпроекты',
                                'blogs' => 'Блоги',
-                               'media' => 'Медиа',
+                               'others' => 'Другое',
                                'video' => 'Видео');
 
     public function __construct() {
@@ -140,7 +202,29 @@ class NeighborsCommunicator {
 
                 return $json;
             },
-            'video' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication: imageOfRussia!!!!!!!!!!!
+            'news' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication!!!!!!!!!!!
+                $json = array();
+                $qb = $em->createQueryBuilder();
+
+                $category = $em->getRepository($entityDescription['categoryClass'])->findOneBy(array($entityDescription['categoryKeyField'] => $entityDescription['categoryKey']));
+                $getterName = 'get'.ucfirst($entityDescription['categoryIdField']);
+                $categoryId = $category->$getterName();
+
+                $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
+                    ->from($entityDescription['class'], 'n')
+                    ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
+                        $qb->expr()->eq('n.'.$entityDescription['categoryField'], $qb->expr()->literal($categoryId))))
+                    ->setMaxResults($limit);
+                $result = $qb->getQuery()->getArrayResult();
+
+                foreach ($result as $row) {
+                    $json[] = array('value' => $row['id'],
+                        'label' => $row['title']);
+                }
+
+                return $json;
+            },
+            'video' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication!!!!!!!!!!!
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
@@ -162,7 +246,7 @@ class NeighborsCommunicator {
 
                 return $json;
             },
-            'imageOfRussia' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication: video!!!!!!!!
+            'imageOfRussia' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication!!!!!!!!!!!
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
