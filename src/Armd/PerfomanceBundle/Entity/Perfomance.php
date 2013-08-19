@@ -151,11 +151,18 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
      */
     private $showOnMainTo;
 
+    /**
+     * @Assert\Type(type="integer", message="Целое число - порядковый номер, чем больше, тем хуже приоритет")
+     * @ORM\Column(name="show_on_main_ord", type="integer", nullable=true)
+     */
+    private $showOnMainOrd;
+
+
     /** Additional fields form carousel on main page */
 
     /**
      * Длительность спектакля в минутах, например 120
-     *@Assert\Type(type="integer", message="Длительность спектакля в минутах, например 120.")
+     * @Assert\Type(type="integer", message="Длительность спектакля в минутах, например 120.")
      * @ORM\Column(name="time_length", type="integer", nullable=true)
      */
     private $timeLength;
@@ -799,6 +806,25 @@ class Perfomance implements Taggable, ChangeHistorySavableInterface
     public function getStars()
     {
         return $this->stars;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getShowOnMainOrd()
+    {
+        return $this->showOnMainOrd;
+    }
+
+    /**
+     * @param $showOnMainOrd
+     * @return Perfomance
+     */
+    public function setShowOnMainOrd($showOnMainOrd)
+    {
+        $this->showOnMainOrd = $showOnMainOrd;
+
+        return $this;
     }
 
     /**

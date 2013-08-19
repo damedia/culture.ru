@@ -58,9 +58,9 @@ class PerfomanceAdmin extends Admin
                 ->add('ganres', 'entity',
                     array(
                         'required' => true,
-						'class' => 'Armd\PerfomanceBundle\Entity\PerfomanceGanre',
-						'property' => 'title',
-						'multiple' => true
+                        'class' => 'Armd\PerfomanceBundle\Entity\PerfomanceGanre',
+                        'property' => 'title',
+                        'multiple' => true
                     )
                 )
                 ->add('theater', null, array(
@@ -104,7 +104,7 @@ class PerfomanceAdmin extends Admin
             ->end()
             ->with('External')
                 ->add('externalUrl', 'url',  array('required' => false))
-				->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
+                ->add('image', 'sonata_type_model_list', array('required' => false), array('link_parameters'=>array('context'=>'perfomance')))
             ->end()
             ->with('Interview')
                 /*->add('interviewVideo', 'armd_tvigle_video_selector',
@@ -119,7 +119,7 @@ class PerfomanceAdmin extends Admin
                         'provider' => 'sonata.media.provider.tvigle'
                     ))
                 )
-				->add('interviewTitle')
+                ->add('interviewTitle')
                 ->add('interviewDescription', null, array(
                     'attr' => array('class' => 'tinymce'),
                 ))
@@ -133,6 +133,9 @@ class PerfomanceAdmin extends Admin
                         'required' => false
                     ))
                 ->add('showOnMainTo', 'date', array(
+                        'required' => false
+                    ))
+                ->add('showOnMainOrd', null, array(
                         'required' => false
                     ))
                 ->add('timeLength')

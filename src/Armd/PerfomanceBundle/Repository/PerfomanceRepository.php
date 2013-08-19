@@ -59,6 +59,7 @@ class PerfomanceRepository extends EntityRepository
                         )
                     )
                     ->setParameter('dt', $dt)
+                    ->orderBy('a.showOnMainOrd')
                 ;
 
         }
