@@ -52,10 +52,10 @@ class RenderController extends Controller {
         return $helper->renderSpecialProjectPage($this, $page, 'Страница <span class="variable">'.$slug.'</span> не опубликована или не существует!');
     }
 
-    public function snippetAction($entity, $itemId) { //rename to: renderSnippetAction()
+    public function snippetAction($entity, $itemId, $view) { //rename to: renderSnippetAction()
         $communicator = $this->get('special_project_neighbors_communicator');
         $entityDescription = $communicator->getFriendlyEntityDescription($entity);
-        $twigFile = $communicator->getFriendlyEntityDefaultTwig($entity);
+        $twigFile = $communicator->getFriendlyEntityTwig($entity, $view);
 
         $object = $this->getDoctrine()->getRepository($entityDescription['class'])->find($itemId);
 
@@ -63,6 +63,6 @@ class RenderController extends Controller {
             return $this->render('DamediaSpecialProjectBundle:Neighbors:notExists.html.twig', array('entity' => $entity, 'itemId' => $itemId));
         }
 
-        return $this->render('DamediaSpecialProjectBundle:Neighbors:'.$twigFile, array('object' => $object));
+        return $this->render($twigFile, array('object' => $object));
     }
 }

@@ -25,28 +25,26 @@ class SnippetParser {
 
     public function entities_to_html(&$html) {
         $objects = array();
+        $replacements = array();
 
-        preg_match_all('/\{%\srender\surl\(\'damedia_foreign_entity\',\s\{\s\'entity\':\s\'(\w+)\',\s\'itemId\':\s(\d+)\s\}\)\s%\}/i', $html, $matches);
+        preg_match_all('/\{%\srender\surl\(\'damedia_foreign_entity\',\s\{\s\'entity\':\s\'(\w+)\',\s\'itemId\':\s(\d+),\s\'view\':\s\'(\w+)\'\s\}\)\s%\}/i', $html, $matches);
 
         $tokensToReplace = array_unique($matches[0]);
-        $entities = $matches[1];
-        $identifiers = $matches[2];
 
         //get metadata from recognized tokens
         foreach ($tokensToReplace as $i => $token) {
-            $entity = $entities[$i];
-            $objectId = $identifiers[$i];
+            $entity = $matches[1][$i];
+            $objectId = $matches[2][$i];
+            $view = $matches[3][$i];
+
+            $replacements[$i] = array('entity' => $entity, 'objectId' => $objectId, 'view' => $view);
 
             if (!isset($objects[$entity])) {
-                $objects[$entity] = array('identifiers' => array(), //we need this to use 'WHERE id IN(...)' SQL clause with comfort =)
-                                          'replacementsMap' => array()); //!!!we don't need this 'map'; even if an object was inserted into a Block more than once!!!
+                $objects[$entity] = array(); //we need this to use 'WHERE id IN(...)' SQL clause with comfort :)
             }
 
-            $objects[$entity]['identifiers'][] = $objectId;
-            $objects[$entity]['replacementsMap'][$objectId][] = $i;
+            $objects[$entity][$objectId] = '';
         }
-
-        $replacements = array();
 
         //fetch objects from DB
         foreach ($objects as $entity => $data) {
@@ -55,22 +53,24 @@ class SnippetParser {
 
             $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
                 ->from($entityDescription['class'], 'n')
-                ->where($qb->expr()->in('n.'.$entityDescription['idField'], $objects[$entity]['identifiers']));
+                ->where($qb->expr()->in('n.'.$entityDescription['idField'], array_keys($objects[$entity])));
             $result = $qb->getQuery()->getArrayResult();
 
             foreach ($result as $row) {
-                $substitute  = '<input class="snippet" disabled="disabled" type="button" ';
-                $substitute .= 'value="Type: '.$entity.', ID: '.$row['id'].', Label: '.htmlentities($row['title']).'" ';
-                $substitute .= 'data-twig="{% render url(\'damedia_foreign_entity\', { \'entity\': \''.$entity.'\', \'itemId\': '.$row['id'].' }) %}" />';
-
-                //replace every object appearance in given HTML
-                foreach ($objects[$entity]['replacementsMap'][$row['id']] as $i) {
-                    $replacements[$i] = $substitute;
-                }
+                $objects[$entity][$row['id']] = $row['title'];
             }
         }
 
-        ksort($replacements);
+        //create replacements
+        foreach ($replacements as $i => $data) {
+            $label = htmlentities($objects[$data['entity']][$data['objectId']]);
+
+            $substitute  = '<input class="snippet" disabled="disabled" type="button" ';
+            $substitute .= 'value="Type: '.$data['entity'].', ID: '.$data['objectId'].', Label: '.$label.', View: '.$data['view'].'"';
+            $substitute .= 'data-twig="{% render url(\'damedia_foreign_entity\', { \'entity\': \''.$data['entity'].'\', \'itemId\': '.$data['objectId'].', \'view\': \''.$data['view'].'\' }) %}" />';
+
+            $replacements[$i] = $substitute;
+        }
 
         $html = str_replace($tokensToReplace, $replacements, $html);
     }

@@ -11,19 +11,30 @@
         <h3>Добавить snippet</h3>
     </div>
     <div class="modal-body form-horizontal">
-        Выбор сущности:<br />
-        <select name="entity">
-            {% for groupLabel, optgroup in entitySelectOptions %}
-                <optgroup label="{{ groupLabel }}">
-                    {% for option in optgroup %}
-                        <option value="{{ option.name }}">{{ option.title }}</option>
-                    {% endfor %}
-                </optgroup>
-            {% endfor %}
-        </select>
+        <div style="display: inline-block;">
+            Сущность:<br />
+            <select name="entity">
+                {% for groupLabel, optgroup in entitySelectOptions %}
+                    <optgroup label="{{ groupLabel }}">
+                        {% for option in optgroup %}
+                            <option value="{{ option.name }}">{{ option.title }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="display: inline-block;">
+            Отображение:<br />
+            <select name="view"></select>
+        </div>
+
         <hr />
-        <span name="entityTitle"></span>:<br />
-        <input name="object" type="text" />
+
+        <div style="display: inline-block;">
+            <span name="entityTitle"></span>:<br />
+            <input name="object" type="text" />
+        </div>
     </div>
     <!--
     <div class="modal-footer">

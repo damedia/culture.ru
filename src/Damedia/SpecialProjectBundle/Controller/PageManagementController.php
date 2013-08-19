@@ -4,6 +4,16 @@ namespace Damedia\SpecialProjectBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class PageManagementController extends Controller {
+    public function getEntityViewslistAction() {
+        $request = $this->get('request');
+        $givenEntity = $request->get('entity', 'news');
+
+        $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
+        $json = $neighborsCommunicator->createFriendlyEntityViewsList($givenEntity);
+
+        return $this->renderJson($json);
+    }
+
 	public function getSnippetJsonlistAction() {
 		$request = $this->get('request');
         $em = $this->getDoctrine()->getManager();

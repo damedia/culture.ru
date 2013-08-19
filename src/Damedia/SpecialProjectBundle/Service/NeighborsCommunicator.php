@@ -18,7 +18,7 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:news_one_column_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'reportage'     => array('title' => 'Репортаж',
                                                                'optgroup' => 'news',
@@ -33,7 +33,7 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:news_one_column_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'announcement'  => array('title' => 'Анонс',
                                                                'optgroup' => 'news',
@@ -48,7 +48,7 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:news_one_column_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'article'       => array('title' => 'Сеатья',
                                                                'optgroup' => 'news',
@@ -63,7 +63,7 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'news_one_column_list.html.twig'), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:news_one_column_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/NewsBundle/Resources/views/News/one-column-list.html.twig
 
                                       'theater'       => array('title' => 'Театр',
                                                                'optgroup' => 'theaters',
@@ -71,7 +71,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'theater_list_tile.html.twig'), //from: Armd/TheaterBundle/Resources/views/Default/theater_list_data.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:theater_list_tile.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/TheaterBundle/Resources/views/Default/theater_list_data.html.twig
 
                                       'performance'   => array('title' => 'Спектакль',
                                                                'optgroup' => 'theaters',
@@ -79,7 +79,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'performance_list.html.twig'), //from: Armd/PerfomanceBundle/Resources/views/Perfomance/list-content.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:performance_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/PerfomanceBundle/Resources/views/Perfomance/list-content.html.twig
 
                                       'realMuseum'    => array('title' => 'Музей',
                                                                'optgroup' => 'museums',
@@ -87,7 +87,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'museum_list_tile.html.twig'), //from: Armd/MainBundle/Resources/views/museum_reserve.html.twig [static list!]
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:museum_list_tile.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/MainBundle/Resources/views/museum_reserve.html.twig [static list!]
 
                                       'museum'        => array('title' => 'Вирутальный тур',
                                                                'optgroup' => 'museums',
@@ -95,7 +95,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'vtour_preview.html.twig'), //from: Armd/MainBundle/Resources/views/Default/virtual_list.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:vtour_preview.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/MainBundle/Resources/views/Default/virtual_list.html.twig
 
                                       'museumLesson'  => array('title' => 'Музейное образование',
                                                                'optgroup' => 'museums',
@@ -103,7 +103,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'lesson_list.html.twig'), //from: Armd/MainBundle/Resources/views/Lesson/list-content.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:lesson_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/MainBundle/Resources/views/Lesson/list-content.html.twig
 
                                       'movie'         => array('title' => 'Кино',
                                                                'optgroup' => 'video',
@@ -118,7 +118,7 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'code'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'movie_list.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:movie_list.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'lecture'       => array('title' => 'Лекция',
                                                                'optgroup' => 'video',
@@ -133,7 +133,7 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'code'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:lecture_preview.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'newsVideo'      => array('title' => 'Новостное видео',
                                                                 'optgroup' => 'video',
@@ -148,7 +148,7 @@ class NeighborsCommunicator {
                                                                                              'partitionIdField' => 'id',
                                                                                              'partitionKeyField' => 'code'),
                                                                 'autocompleteListCreateFunction' => 'partedBy',
-                                                                'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
+                                                                'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:lecture_preview.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'imageOfRussia' => array('title' => 'Образ России',
                                                                'optgroup' => 'objects',
@@ -163,7 +163,9 @@ class NeighborsCommunicator {
                                                                                             'partitionIdField' => 'id',
                                                                                             'partitionKeyField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'partedBy',
-                                                               'defaultSnippetTwig' => 'imageOfRussia_list_tile.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/russia_images_list_tile.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:imageOfRussia_list_tile.html.twig', 'title' => 'вид по умолчанию'), //from: Armd/AtlasBundle/Resources/views/Default/russia_images_list_tile.html.twig
+                                                                                'roundedImage' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:imageOfRussia_roundedImage.html.twig', 'title' => 'круглая картинка'),
+                                                                                'tealBackground' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:imageOfRussia_tealBackground.html.twig', 'title' => 'бирюзовый фон'))),
 
                                       'atlasObject'   => array('title' => 'Объект атласа',
                                                                'optgroup' => 'objects',
@@ -171,7 +173,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'atlasObject_side.html.twig'), //from: Armd/AtlasBundle/Resources/views/Default/object_side.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:atlasObject_side.html.twig', 'title' => 'вид по умолчанию'))), //from: Armd/AtlasBundle/Resources/views/Default/object_side.html.twig
 
                                       'gallery'       => array('title' => 'Галерея',
                                                                'optgroup' => 'others',
@@ -179,7 +181,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'name'),
                                                                'autocompleteListCreateFunction' => 'simple',
-                                                               'defaultSnippetTwig' => 'gallery.html.twig') //from: vendor/sonata-project/media-bundle/Sonata/MediaBundle/Resources/views/Gallery/view.html.twig
+                                                               'views' => array('default' => array('twig' => 'DamediaSpecialProjectBundle:Neighbors:gallery.html.twig', 'title' => 'вид по умолчанию'))) //from: vendor/sonata-project/media-bundle/Sonata/MediaBundle/Resources/views/Gallery/view.html.twig
                                 );
 
     private $autocompleteListCreate_registeredFunctions;
@@ -259,10 +261,10 @@ class NeighborsCommunicator {
         return $friendlyEntity['entityDescription'];
     }
 
-    public function getFriendlyEntityDefaultTwig($entityName) {
+    public function getFriendlyEntityTwig($entityName, $view) {
         $friendlyEntity = $this->getFriendlyEntity($entityName);
 
-        return $friendlyEntity['defaultSnippetTwig'];
+        return $friendlyEntity['views'][$view]['twig'];
     }
 
     public function createFriendlyEntityAutocompleteList(EntityManager $em, $entityName, $searchPhrase, $limit) {
@@ -273,6 +275,12 @@ class NeighborsCommunicator {
         $createFunction = $this->autocompleteListCreate_registeredFunctions[$createFunctionName];
 
         return $createFunction($em, $friendlyEntity['entityDescription'], $searchPhrase, $limit);
+    }
+
+    public function createFriendlyEntityViewsList($entityName) {
+        $friendlyEntity = $this->getFriendlyEntity($entityName);
+
+        return $friendlyEntity['views'];
     }
 
 

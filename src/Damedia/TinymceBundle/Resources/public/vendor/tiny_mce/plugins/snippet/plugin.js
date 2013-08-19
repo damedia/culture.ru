@@ -7,8 +7,10 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
     function createSnippet(){
         var modalWindowDiv = $('#snippetBootstrapModal'),
             entitySelect = $('select[name="entity"]', modalWindowDiv),
+            viewSelect = $('select[name="view"]', modalWindowDiv),
             autocompleteInput = $('input[name="object"]', modalWindowDiv),
             selectedEntity,
+            selectedView,
             modalLayerDivId = 'modal-layer',
             modalLayerImgSrc = editor.settings.parameters.modalLayerImgSrc,
             setEntity = function(){
@@ -18,45 +20,67 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
                 entityTitle = entitySelect.find('option:selected').text();
                 entityTitleSpan.text(entityTitle);
                 selectedEntity = entitySelect.val();
+                selectedView = viewSelect.val();
                 autocompleteInput.val('');
+                appendSelectedEntityViewsOptions();
+                setView();
             },
-            constructAjaxUrl = function(entity, searchTerm){
-                return editor.settings.parameters.acAjaxUrl + '?_sonata_admin=' + editor.settings.parameters.sonataAdmin + '&entity=' + entity + '&q=' + searchTerm;
+            setView = function(){
+                selectedView = viewSelect.val();
+            },
+            appendSelectedEntityViewsOptions = function(){
+                $.ajax(constructAjaxUrl(editor.settings.parameters.entityViewsListUrl, selectedEntity), {
+                    async: false,
+                    beforeSend: function(){
+                        createModalLayer();
+                    },
+                    complete: function(){
+                        removeModalLayer();
+                    },
+                    success: function(data){
+                        $('option', viewSelect).remove();
+
+                        $.each(data, function(key, val){
+                            $('<option value="' + key + '" data-twig="' + val.twig + '">' + val.title + '</option>').appendTo(viewSelect);
+                        });
+                    }
+                });
+            },
+            constructAjaxUrl = function(resource, entity, searchTerm){
+                var url = resource + '?_sonata_admin=' + editor.settings.parameters.sonataAdmin;
+
+                if (entity) {
+                    url += '&entity=' + entity;
+                }
+                if (searchTerm) {
+                    url += '&q=' + searchTerm;
+                }
+
+                return url;
             },
             createModalLayer = function(){
                 var div = $('<div id="' + modalLayerDivId + '"><img src="' + modalLayerImgSrc + '" /></div>'),
                     width = $(document).width(),
                     height = $(document).height();
 
-                div.css({'width': width, 'height': height}).appendTo("body", document);
+                if ($('#'+modalLayerDivId).length === 0) {
+                    div.css({'width': width, 'height': height}).appendTo("body", document);
+                }
             },
             removeModalLayer = function(){
                 $("#"+modalLayerDivId).remove();
             },
             getSearchResults = function(request, response){
-                $.ajax(constructAjaxUrl(selectedEntity, request.term), {
+                $.ajax(constructAjaxUrl(editor.settings.parameters.acAjaxUrl, selectedEntity, request.term), {
                     beforeSend: function(){
                         createModalLayer();
                     },
                     complete: function(){
                         removeModalLayer();
-                        //create report?
                     },
                     success: function(data){
-                        //if (data.length) {
-                        //    autocompleteInput.removeClass("ui-state-error");
-                        //}
-                        //else {
-                        //    autocompleteInput.addClass("ui-state-error");
-                        //}
-
                         response(data);
                     }
-                    /*
-                    error: function(xhr, err){
-                        autocompleteInput.addClass("ui-state-error");
-                    }
-                    */
                 });
             },
             insertSnippet = function(label, value){
@@ -64,8 +88,8 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
                     snippetTwig,
                     snippetHtml;
 
-                snippetLabel = 'Type: ' + selectedEntity + ', ID: ' + value + ', Label: ' + label;
-                snippetTwig = '{% render url(\'damedia_foreign_entity\', { \'entity\': \'' + selectedEntity + '\', \'itemId\': ' + value + ' }) %}';
+                snippetLabel = 'Type: ' + selectedEntity + ', ID: ' + value + ', Label: ' + label + ', View: ' + selectedView;
+                snippetTwig = '{% render url(\'damedia_foreign_entity\', { \'entity\': \'' + selectedEntity + '\', \'itemId\': ' + value + ', \'view\': \'' + selectedView + '\' }) %}';
                 snippetHtml = '<input type="button" class="snippet" value="' + snippetLabel + '" data-twig="' + snippetTwig + '" disabled="disabled" /> ';
 
                 editor.execCommand('mceInsertContent', false, snippetHtml);
@@ -79,6 +103,10 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
 
         entitySelect.on('change', function(){
             setEntity();
+        });
+
+        viewSelect.on('change', function(){
+            setView();
         });
 
         //using 'unbind()' here is inevitable else 'autocompleteselect' callback will be binded many times!

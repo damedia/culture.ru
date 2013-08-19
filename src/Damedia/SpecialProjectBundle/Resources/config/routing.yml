@@ -1,5 +1,5 @@
 damedia_foreign_entity:
-    pattern:  admin/damedia/specialproject/page/snippet/{entity}/{itemId}
+    pattern:  admin/damedia/specialproject/page/snippet/{entity}/{itemId}/{view}
     defaults: { _controller: DamediaSpecialProjectBundle:Render:snippet }
 
 get_images_jsonlist:
@@ -9,6 +9,10 @@ get_images_jsonlist:
 get_snippet_jsonlist:
     pattern:  admin/damedia/specialproject/page/getSnippetJsonlist
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getSnippetJsonlist }
+
+get_entity_viewslist:
+    pattern:  admin/damedia/specialproject/page/getEntityViewslist
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getEntityViewslist }
 
 get_tiny_media_form:
     pattern:  admin/damedia/specialproject/page/getTinyMediaForm
