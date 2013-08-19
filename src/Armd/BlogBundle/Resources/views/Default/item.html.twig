@@ -41,7 +41,7 @@
                 <img width="698" height="476" alt="{{ entity.topImage.description }}" src="{% path entity.topImage, 'default' %}">
                 <div class="image-description">
                     <strong>{{ entity.title|raw }}</strong>
-                    <span class="date">{{ armd_news.news_date(entity.createdAt) }}</span>
+                    <span class="date">{{ armd_news.news_date_short(entity.createdAt) }}</span>
                 </div>
             </div>
             <i class="image-caption">{{ entity.topImage.description }}</i>

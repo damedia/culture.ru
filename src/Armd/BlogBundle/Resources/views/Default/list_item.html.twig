@@ -15,7 +15,7 @@
                 </div>
                 <div class="b-post-descr">
                     <div class="b-post-info">
-                        <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
+                        <span class="date">{{ armd_news.news_date_short(blog.createdAt) }}</span> /
                         <span class="views-count">{{ count }}</span> /
                         <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#post-comments">{{ blog.thread|length }}</a></span>
                     </div>
@@ -39,7 +39,7 @@
         </div>
         <header>
             <div class="b-post-info">
-                <span class="date">{{ armd_news.news_date(blog.createdAt) }}</span> /
+                <span class="date">{{ armd_news.news_date_short(blog.createdAt) }}</span> /
                 <span class="views-count">{{ count }}</span> /
                 <span class="commetn-count"><a href="{{ path('view_blog', {'id' : blog.id}) }}#post-comments">{{ blog.thread|length }}</a></span>
             </div>

@@ -11,7 +11,7 @@
     </h3>
 {% for entity in items %}
     <article class="b-bordered-article">
-        <span class="e-pub-date">{{ armd_news.news_date(entity.createdAt) }}</span>
+        <span class="e-pub-date">{{ armd_news.news_date_short(entity.createdAt) }}</span>
         <a class="e-article-link" href="{{ path('view_blog', {'id': entity.id}) }}">{{ entity.title }}</a>
     </article>
 {% endfor %}

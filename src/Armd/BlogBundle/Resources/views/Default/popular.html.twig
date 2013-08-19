@@ -12,7 +12,7 @@
             {% else %}
             <img width="" alt="" class="e-autrhor-image" src="{% path entity.user.avatar, 'default' %}">
             {% endif %}
-            <span class="e-pub-date">{{ armd_news.news_date(entity.createdAt) }}</span>
+            <span class="e-pub-date">{{ armd_news.news_date_short(entity.createdAt) }}</span>
             <a class="e-author-name" href="{{ path('blog_list', {'user': entity.user.id}) }}">{{ entity.user.firstname }} {{ entity.user.lastname }}</a>
         </section>
         <h1 class="e-article-title">
