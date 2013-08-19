@@ -27,7 +27,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title'),
                                                                'autocompleteListCreateFunction' => 'default',
-                                                               'defaultSnippetTwig' => 'performance_list.html.twig'), //from: ....
+                                                               'defaultSnippetTwig' => 'performance_list.html.twig'), //from: Armd/PerfomanceBundle/Resources/views/Perfomance/list-content.html.twig
 
                                       'realMuseum'    => array('title' => 'Музей',
                                                                'optgroup' => 'museums',
@@ -53,12 +53,32 @@ class NeighborsCommunicator {
                                                                'autocompleteListCreateFunction' => 'default',
                                                                'defaultSnippetTwig' => 'lesson_list.html.twig'), //from: Armd/MainBundle/Resources/views/Lesson/list-content.html.twig
 
-                                      'lecture'       => array('title' => 'Лекция',
-                                                               'optgroup' => 'others',
+                                      'movie'         => array('title' => 'Кино',
+                                                               'optgroup' => 'video',
                                                                'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
                                                                                             'idField' => 'id',
-                                                                                            'titleField' => 'title'),
-                                                               'autocompleteListCreateFunction' => 'default',
+                                                                                            'titleField' => 'title',
+                                                                                            'lectureSuperTypeField' => 'lectureSuperType',
+
+                                                                                            'lectureSuperTypeClass' => 'ArmdLectureBundle:LectureSuperType',
+                                                                                            'superTypeIdField' => 'id',
+                                                                                            'superTypeKeyField' => 'code',
+                                                                                            'superTypeKey' => 'LECTURE_SUPER_TYPE_CINEMA'),
+                                                               'autocompleteListCreateFunction' => 'video',
+                                                               'defaultSnippetTwig' => 'movie_list.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
+
+                                      'lecture'       => array('title' => 'Лекция',
+                                                               'optgroup' => 'video',
+                                                               'entityDescription' => array('class' => 'ArmdLectureBundle:Lecture',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title',
+                                                                                            'lectureSuperTypeField' => 'lectureSuperType',
+
+                                                                                            'lectureSuperTypeClass' => 'ArmdLectureBundle:LectureSuperType',
+                                                                                            'superTypeIdField' => 'id',
+                                                                                            'superTypeKeyField' => 'code',
+                                                                                            'superTypeKey' => 'LECTURE_SUPER_TYPE_LECTURE'),
+                                                               'autocompleteListCreateFunction' => 'video',
                                                                'defaultSnippetTwig' => 'lecture_preview.html.twig'), //from: Armd/LectureBundle/Resources/views/Default/list_banners.html.twig
 
                                       'imageOfRussia' => array('title' => 'Образ России',
@@ -67,6 +87,7 @@ class NeighborsCommunicator {
                                                                                             'idField' => 'id',
                                                                                             'titleField' => 'title',
                                                                                             'primaryCategoryField' => 'primaryCategory',
+
                                                                                             'categoryClass' => 'ArmdAtlasBundle:Category',
                                                                                             'categoryId' => 'id',
                                                                                             'categoryTitle' => 'title'),
@@ -94,12 +115,11 @@ class NeighborsCommunicator {
     private $optgroups = array('objects' => 'Объекты',
                                'museums' => 'Музеи',
                                'theaters' => 'Театры',
-                               'movies' => 'Кино',
                                'news' => 'Новости',
                                'sprojects' => 'Спецпроекты',
                                'blogs' => 'Блоги',
                                'media' => 'Медиа',
-                               'others' => 'Другое');
+                               'video' => 'Видео');
 
     public function __construct() {
         $this->autocompleteListCreate_registeredFunctions = array(
@@ -115,12 +135,34 @@ class NeighborsCommunicator {
 
                 foreach ($result as $row) {
                     $json[] = array('value' => $row['id'],
-                        'label' => $row['title']);
+                                    'label' => $row['title']);
                 }
 
                 return $json;
             },
-            'imageOfRussia' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){
+            'video' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication: imageOfRussia!!!!!!!!!!!
+                $json = array();
+                $qb = $em->createQueryBuilder();
+
+                $videoSuperType = $em->getRepository($entityDescription['lectureSuperTypeClass'])->findOneBy(array($entityDescription['superTypeKeyField'] => $entityDescription['superTypeKey']));
+                $getterName = 'get'.ucfirst($entityDescription['superTypeIdField']);
+                $videoSuperTypeId = $videoSuperType->$getterName();
+
+                $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
+                    ->from($entityDescription['class'], 'n')
+                    ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
+                        $qb->expr()->eq('n.'.$entityDescription['lectureSuperTypeField'], $qb->expr()->literal($videoSuperTypeId))))
+                    ->setMaxResults($limit);
+                $result = $qb->getQuery()->getArrayResult();
+
+                foreach ($result as $row) {
+                    $json[] = array('value' => $row['id'],
+                                    'label' => $row['title']);
+                }
+
+                return $json;
+            },
+            'imageOfRussia' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){ //duplication: video!!!!!!!!
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
