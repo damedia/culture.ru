@@ -21,6 +21,14 @@ class NeighborsCommunicator {
                                                                'autocompleteListCreateFunction' => 'default',
                                                                'defaultSnippetTwig' => 'theater_list_tile.html.twig'), //from: Armd/TheaterBundle/Resources/views/Default/theater_list_data.html.twig
 
+                                      'performance'   => array('title' => 'Спектакль',
+                                                               'optgroup' => 'theaters',
+                                                               'entityDescription' => array('class' => 'ArmdPerfomanceBundle:Perfomance',
+                                                                                            'idField' => 'id',
+                                                                                            'titleField' => 'title'),
+                                                               'autocompleteListCreateFunction' => 'default',
+                                                               'defaultSnippetTwig' => 'performance_list.html.twig'), //from: ....
+
                                       'realMuseum'    => array('title' => 'Музей',
                                                                'optgroup' => 'museums',
                                                                'entityDescription' => array('class' => 'ArmdMuseumBundle:RealMuseum',
