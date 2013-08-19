@@ -6,7 +6,7 @@
                     <div class="b-service-heading"><div>Виртуальный</div> <span>театр</span></div>
                     <nav class="b-theatre-nav">
                         <a href="{{ path('armd_perfomance_mainpage', {type: 'recommend', date: date}) }}" class="order current">{{ "рекомендуем"|trans }}</a>
-                        <a href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}" class="order">популярные</a>
+                        <a href="{{ path('armd_perfomance_mainpage', {type: 'popular', date: date}) }}" class="order">{{ "популярные"|trans }}</a>
                     </nav>
                 </div>
                 <article class="b-virtual-theatre-item theater-carousel">
@@ -17,7 +17,7 @@
                     </div>
                 </article>
                 <div class="b-button-wrapper m-right-btn">
-                    <a href="{{ path('armd_perfomance_list') }}" class="e-inline-link">перейти в Театр</a>
+                    <a href="{{ path('armd_perfomance_list') }}" class="e-inline-link">{{ "перейти в Театр"|trans }}</a>
                 </div>
             </div>
         </div>

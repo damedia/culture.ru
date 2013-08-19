@@ -15,6 +15,7 @@ class Builder extends ContainerAware
 
     /**
      * @param FactoryInterface $factory
+     * @param EntityManager $em
      */
     public function __construct(FactoryInterface $factory, EntityManager $em)
     {
@@ -509,7 +510,6 @@ class Builder extends ContainerAware
 
     public function createNewMainMenu(Request $request)
     {
-        //m-active
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array('class' => 'b-menu'));
 
@@ -600,6 +600,17 @@ class Builder extends ContainerAware
 
             //--- /Media
 
+            // ---blog
+            $blogMenu = $menu->addChild(
+                'menu.blog',
+                array(
+                    'route' => 'blog_list',
+                )
+            );
+            $blogMenu->setAttribute('class', 'm-color-3');
+            // ---blog
+
+
             //--- russiaimages
             $russiaimagesMenu = $menu->addChild(
                 'menu.russia_images',
@@ -607,8 +618,27 @@ class Builder extends ContainerAware
                     'route' => 'armd_atlas_russia_images'
                 )
             );
-            $russiaimagesMenu->setAttribute('class', 'm-color-3');
+            $russiaimagesMenu->setAttribute('class', 'm-color-4');
             //--- /russiaimages
+
+            //--- Theatre
+
+            $theatreMenu = $menu->addChild(
+                'menu.theatre',
+                array(
+                    'route' => 'armd_theater_list',
+                )
+            );
+            $theatreMenu->setAttribute('class', 'm-color-5');
+
+//            $theatreMenu->addChild(
+//                'menu.perfomance',
+//                array(
+//                    'route' => 'armd_perfomance_list'
+//                )
+//            );
+
+            //--- /Theatre
 
             //--- Museums
             $museumMenu = $menu->addChild(
@@ -617,7 +647,7 @@ class Builder extends ContainerAware
                     'route' => 'armd_museum_virtual'
                 )
             );
-            $museumMenu->setAttribute('class', 'm-color-4');
+            $museumMenu->setAttribute('class', 'm-color-6');
 
 //            $museumMenu->addChild(
 //                'menu.virtual_museum',
@@ -657,29 +687,10 @@ class Builder extends ContainerAware
                     'routeParameters' => array('genreSlug' => 'feature-film')
                 )
             );
-            $cinemaMenu->setAttribute('class', 'm-color-5');
+            $cinemaMenu->setAttribute('class', 'm-color-7');
 
 //            $this->addCinemaMenuItems($cinemaMenu);
             //--- /Cinema
-
-            //--- Theatre
-
-            $theatreMenu = $menu->addChild(
-                'menu.theatre',
-                array(
-                    'route' => 'armd_theater_list',
-                )
-            );
-            $theatreMenu->setAttribute('class', 'm-color-6');
-
-//            $theatreMenu->addChild(
-//                'menu.perfomance',
-//                array(
-//                    'route' => 'armd_perfomance_list'
-//                )
-//            );
-
-            //--- /Theatre
 
             //--- Music
 
@@ -689,7 +700,7 @@ class Builder extends ContainerAware
                     'route' => 'armd_main_underconstruction',
                 )
             );
-            $musicMenu->setAttribute('class', 'm-color-7');
+            $musicMenu->setAttribute('class', 'm-color-8');
 
             //--- /Music
 
@@ -700,7 +711,7 @@ class Builder extends ContainerAware
                     'route' => 'armd_lecture_lecture_index'
                 )
             );
-            $lectureMenu->setAttribute('class', 'm-color-8');
+            $lectureMenu->setAttribute('class', 'm-color-9');
             //--- /Lectures
 
             //--- atlas
@@ -710,19 +721,19 @@ class Builder extends ContainerAware
                     'route' => 'armd_atlas_index'
                 )
             );
-            $atlasMenu->setAttribute('class', 'm-color-9');
-
+            $atlasMenu->setAttribute('class', 'm-color-10');
             //--- /atlas
 
-            // ---blog
-            $blogMenu = $menu->addChild(
-                'menu.blog',
+            //--- special projects
+            $projectMenu = $menu->addChild(
+                'menu.special.projects',
                 array(
-                    'route' => 'blog_list',
+                    'route' => 'damedia_special_project_list'
                 )
             );
-            $blogMenu->setAttribute('class', 'm-color-10');
-            // ---blog
+            $projectMenu->setAttribute('class', 'm-color-11');
+            //--- /special projects
+
 
         }
 
