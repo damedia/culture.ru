@@ -78,7 +78,7 @@
     text-decoration: none
 }
 
-.e-project-link:hover, .author-link:hover, .desc-post-link:hover, .commetn-count a:hover {
+.e-project-link:hover, .author-link:hover, .commetn-count a:hover {
     text-decoration: underline
 }
 
@@ -643,12 +643,17 @@ textarea {
     margin: 0
 }
 
-.e-inline-link, .b-colored-article .e-article-title a, .b-bordered-article .e-article-link a, .b-colored-articles-block .e-block-link, .b-transparent-articles-block .e-block-link, .b-sidebar .b-login-links a, .b-article-author .e-author-name, .m-main-russia-imagery .m-sights-carousel .e-carousel-image {
+.e-film-title a, .e-museum-title a, .e-inline-link, .b-colored-article .e-article-title a, .b-bordered-article .e-article-link a, .b-colored-articles-block .e-block-link, .b-transparent-articles-block .e-block-link, .b-sidebar .b-login-links a, .b-article-author .e-author-name, .m-main-russia-imagery .m-sights-carousel .e-carousel-image {
     text-decoration: none
 }
 
-.e-inline-link:hover, .b-colored-article .e-article-title a:hover, .b-bordered-article .e-article-link a:hover, .b-colored-articles-block .e-block-link:hover, .b-transparent-articles-block .e-block-link:hover, .b-sidebar .b-login-links a:hover, .b-article-author .e-author-name:hover, .m-main-russia-imagery .m-sights-carousel .e-carousel-image:hover, .e-inline-link:focus, .b-colored-article .e-article-title a:focus, .b-bordered-article .e-article-link a:focus, .b-colored-articles-block .e-block-link:focus, .b-transparent-articles-block .e-block-link:focus, .b-sidebar .b-login-links a:focus, .b-article-author .e-author-name:focus, .m-main-russia-imagery .m-sights-carousel .e-carousel-image:focus {
+.e-inline-link:hover, .b-colored-article .e-article-title a:hover, .b-bordered-article .e-article-link a:hover, .b-colored-articles-block .e-block-link:hover, .b-transparent-articles-block .e-block-link:hover, .b-sidebar .b-login-links a:hover, .b-article-author .e-author-name:hover, .e-inline-link:focus, .b-colored-article .e-article-title a:focus, .b-bordered-article .e-article-link a:focus, .b-colored-articles-block .e-block-link:focus, .b-transparent-articles-block .e-block-link:focus, .b-sidebar .b-login-links a:focus, .b-article-author .e-author-name:focus {
     text-decoration: underline
+}
+
+.e-film-title a:hover, .e-museum-title a:hover, .m-main-russia-imagery .m-sights-carousel .e-carousel-image:hover, .desc-post-link:hover {
+    text-decoration: none;
+    color: #7d8687;
 }
 
 .b-colored-articles-block .e-block-title img, .b-transparent-articles-block .e-block-title img, .b-citate-of-day .e-block-title img, .b-quick-search .text-field, .b-quick-search .search-button {
@@ -1985,14 +1990,6 @@ textarea {
 .b-icons-nav img {
     display: block;
     margin: 0
-}
-
-.e-inline-link, .b-colored-article .e-article-title a, .b-bordered-article .e-article-link a, .b-colored-articles-block .e-block-link, .b-transparent-articles-block .e-block-link, .b-sidebar .b-login-links a, .b-article-author .e-author-name, .m-main-russia-imagery .m-sights-carousel .e-carousel-image {
-    text-decoration: none
-}
-
-.e-inline-link:hover, .b-colored-article .e-article-title a:hover, .b-bordered-article .e-article-link a:hover, .b-colored-articles-block .e-block-link:hover, .b-transparent-articles-block .e-block-link:hover, .b-sidebar .b-login-links a:hover, .b-article-author .e-author-name:hover, .m-main-russia-imagery .m-sights-carousel .e-carousel-image:hover, .e-inline-link:focus, .b-colored-article .e-article-title a:focus, .b-bordered-article .e-article-link a:focus, .b-colored-articles-block .e-block-link:focus, .b-transparent-articles-block .e-block-link:focus, .b-sidebar .b-login-links a:focus, .b-article-author .e-author-name:focus, .m-main-russia-imagery .m-sights-carousel .e-carousel-image:focus {
-    text-decoration: underline
 }
 
 .b-block-main .b-block-heading {

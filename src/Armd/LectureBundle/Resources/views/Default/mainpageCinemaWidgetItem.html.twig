@@ -24,7 +24,11 @@
             {#</a>#}
         </div>
         <div class="e-film-info">
-            <h4 class="e-film-title">{{ item.title }}{% if item.productionYear is not empty %} / {{ item.productionYear }}{% endif %}</h4>
+            <h4 class="e-film-title">
+                <a href="{{ path('armd_lecture_view', {id: item.id }) }}">
+                    {{ item.title }}{% if item.productionYear is not empty %} / {{ item.productionYear }}{% endif %}
+                </a>
+            </h4>
             <ul class="e-film-attributes">
                 <li>
                     <span class="e-attr-title">Жанр: </span>
