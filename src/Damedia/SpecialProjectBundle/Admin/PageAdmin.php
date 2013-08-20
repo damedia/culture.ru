@@ -49,7 +49,12 @@ class PageAdmin extends Admin {
         $userData = $this->getBlocksContentFromRequest();
         $entityManager = $this->getEntityManager();
 
+        $container = $this->getConfigurationPool()->getContainer();
+        $snippetParser = $container->get('special_project_snippet_parser');
+
         foreach ($userData as $placeholder => $content) {
+            $snippetParser->html_to_entities($content);
+
             $block = $this->createBlock($entityManager, $object, $placeholder);
             $this->createChunksForBlock($entityManager, $block, $content);
         }
@@ -92,7 +97,6 @@ class PageAdmin extends Admin {
         foreach ($blocksChunks as $chunk) {
             $entityManager->remove($chunk);
         }
-        //$entityManager->flush();
 
         foreach ($pageBlocks as $block) {
             $entityManager->remove($block);
