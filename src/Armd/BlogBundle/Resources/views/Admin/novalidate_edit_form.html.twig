@@ -1,5 +1,19 @@
 {% extends base_template %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    /* BEGIN TinyMCE initialization */
+    initTinyMCE.defaults.theme.sproject_snippets.parameters = { sonataAdmin: "{{ admin.code }}",
+    acAjaxUrl: "{{ path('get_snippet_jsonlist') }}",
+    entityViewsListUrl: "{{ path('get_entity_viewslist') }}",
+    modalLayerImgSrc: "{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}"
+    };
+    initTinyMCE(initTinyMCE.defaults);
+    /* END TinyMCE initialization */
+    </script>
+{% endblock %}
+
 {% block form %}
     {% set url = admin.id(object) ? 'edit' : 'create' %}
 
