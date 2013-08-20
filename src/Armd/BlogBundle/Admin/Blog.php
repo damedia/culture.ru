@@ -126,4 +126,20 @@ class Blog extends Admin
         }
     }
 
+    public function prePersist($object)
+    {
+        $container = $this->getConfigurationPool()->getContainer();
+        $snippetParser = $container->get('special_project_snippet_parser');
+        $snippetParser->html_to_entities($object->getLead());
+        $snippetParser->html_to_entities($object->getContent());
+    }
+
+    public function preUpdate($object)
+    {
+        $container = $this->getConfigurationPool()->getContainer();
+        $snippetParser = $container->get('special_project_snippet_parser');
+        $snippetParser->html_to_entities($object->getLead());
+        $snippetParser->html_to_entities($object->getContent());
+    }
+
 }
