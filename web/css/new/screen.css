@@ -643,11 +643,11 @@ textarea {
     margin: 0
 }
 
-.e-film-title a, .e-museum-title a, .e-inline-link, .b-colored-article .e-article-title a, .b-bordered-article .e-article-link a, .b-colored-articles-block .e-block-link, .b-transparent-articles-block .e-block-link, .b-sidebar .b-login-links a, .b-article-author .e-author-name, .m-main-russia-imagery .m-sights-carousel .e-carousel-image {
+.e-film-title a, .e-museum-title a, .e-inline-link, .b-colored-article .e-article-title a, .b-bordered-article .e-article-link a, .b-colored-articles-block .e-block-link a, .b-transparent-articles-block .e-block-link, .b-sidebar .b-login-links a, .b-article-author .e-author-name, .m-main-russia-imagery .m-sights-carousel .e-carousel-image {
     text-decoration: none
 }
 
-.e-inline-link:hover, .b-colored-article .e-article-title a:hover, .b-bordered-article .e-article-link a:hover, .b-colored-articles-block .e-block-link:hover, .b-transparent-articles-block .e-block-link:hover, .b-sidebar .b-login-links a:hover, .b-article-author .e-author-name:hover, .e-inline-link:focus, .b-colored-article .e-article-title a:focus, .b-bordered-article .e-article-link a:focus, .b-colored-articles-block .e-block-link:focus, .b-transparent-articles-block .e-block-link:focus, .b-sidebar .b-login-links a:focus, .b-article-author .e-author-name:focus {
+.e-inline-link:hover, .b-colored-article .e-article-title a:hover, .b-bordered-article .e-article-link a:hover, .b-colored-articles-block .e-block-link a:hover, .b-transparent-articles-block .e-block-link:hover, .b-sidebar .b-login-links a:hover, .b-article-author .e-author-name:hover, .e-inline-link:focus, .b-colored-article .e-article-title a:focus, .b-bordered-article .e-article-link a:focus, .b-colored-articles-block .e-block-link a:focus, .b-transparent-articles-block .e-block-link:focus, .b-sidebar .b-login-links a:focus, .b-article-author .e-author-name:focus {
     text-decoration: underline
 }
 
@@ -695,7 +695,12 @@ textarea {
     margin: -2px 3px 0 0
 }
 
-.b-colored-articles-block .e-block-link, .b-transparent-articles-block .e-block-link {
+.b-colored-articles-block .e-block-link {
+    height: 38px;
+    background-color: #b3bebf;
+}
+
+.b-colored-articles-block .e-block-link a, .b-transparent-articles-block .e-block-link {
     display: block;
     color: #fff;
     height: 38px;
@@ -708,7 +713,7 @@ textarea {
     transition: background-color 0.3s
 }
 
-.b-colored-articles-block .e-block-link:hover, .b-transparent-articles-block .e-block-link:hover, .b-colored-articles-block .e-block-link:focus, .b-transparent-articles-block .e-block-link:focus {
+.b-colored-articles-block .e-block-link a:hover, .b-transparent-articles-block .e-block-link:hover, .b-colored-articles-block .e-block-link a:focus, .b-transparent-articles-block .e-block-link:focus {
     background-color: #17693d
 }
 

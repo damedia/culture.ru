@@ -5,7 +5,7 @@
         {% if user.avatar is empty %}
         <img class="e-title-icon" alt="" src="/img/new/avatar.png">
         {% else %}
-        <img class="e-title-icon" alt="{{ user.firstname }} {{ user.lastname }}" src="{% path user.avatar, 'default' %}">
+        <img class="e-title-icon" alt="" src="{% path user.avatar, 'default' %}">
         {% endif %}
         От автора
     </h3>

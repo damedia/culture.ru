@@ -23,7 +23,9 @@
         </section>
     </article>
 {% endif %}
+    <div class="e-block-link">
 {% if paginationData.pageCount > 1 %}
-    <a class="e-block-link popular-next" data-page="{{ page }}" href="{{ path('popular_blog') }}">следующее</a>
+        <a class="popular-next" data-page="{{ page }}" href="{{ path('popular_blog') }}">следующее</a>
 {% endif %}
+    </div>
 </div>

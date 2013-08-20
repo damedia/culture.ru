@@ -83,7 +83,7 @@ class DefaultController extends Controller
         $menuFinder = $this->get('armd_main.menu_finder');
         if (!$menuFinder->findByUri($menu, $this->getRequest()->getRequestUri())) {
             $menu->setCurrentUri(
-                $this->get('router')->generate('armd_news_list_index')
+                $this->get('router')->generate('blog_list')
             );
         }
 
@@ -93,7 +93,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $request->get('id')));
         }
 
-        return $this->render(
+        $response = $this->render(
             'BlogBundle:Default:item.html.twig',
             array(
                 'entity' => $entity,
@@ -101,6 +101,11 @@ class DefaultController extends Controller
                 'thread' => $entity->getThread(),
             )
         );
+
+        $twigService = $this->container->get('twig');
+        $response->setContent($this->container->get('string_twig_loader')->render($twigService, $response->getContent()));
+
+        return $response;
     }
 
 

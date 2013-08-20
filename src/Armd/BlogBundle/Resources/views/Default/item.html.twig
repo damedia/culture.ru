@@ -27,7 +27,7 @@
                 {% if entity.user.avatar is empty %}
                     <img alt="" src="/img/new/avatar.png">
                 {% else %}
-                    <img alt="{{ entity.user.firstname }} {{ entity.user.lastname }}" src="{% path entity.user.avatar, 'default' %}">
+                    <img alt="" src="{% path entity.user.avatar, 'default' %}">
                 {% endif %}
             </div>
             <header>
@@ -54,22 +54,6 @@
         <div class="b-share-buttons">
             <span class="small-title m-first">{{ "Publish to Social networks"|trans }}: </span><span id="yandex-share"></span>
         </div>
-
-        {#<div class="b-share-buttons">#}
-            {#<span class="small-title m-first">Поделиться</span>#}
-                {#<span>#}
-                    {#<img alt="" src="/img/new/temp-src/vk-temp-btn.jpg">#}
-                {#</span>#}
-                {#<span>#}
-                    {#<img alt="" src="/img/new/temp-src/fb-temp-btn.jpg">#}
-                {#</span>#}
-                {#<span>#}
-                    {#<img alt="" src="/img/new/temp-src/gplus-temp-btn.jpg">#}
-                {#</span>#}
-                {#<span>#}
-                    {#<img alt="" src="/img/new/temp-src/tweeter-temp-btn.jpg">#}
-                {#</span>#}
-        {#</div>#}
 
     </div>
 

@@ -10,7 +10,7 @@
                     {% if blog.user.avatar is empty %}
                     <img alt="" src="/img/new/avatar.png">
                     {% else %}
-                    <img alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
+                    <img alt="" src="{% path blog.user.avatar, 'default' %}">
                     {% endif %}
                 </div>
                 <div class="b-post-descr">
@@ -34,7 +34,7 @@
             {% if blog.user.avatar is empty %}
             <img alt="" width="65" height="65" src="/img/new/avatar.png">
             {% else %}
-            <img alt="{{ blog.user.firstname }} {{ blog.user.lastname }}" src="{% path blog.user.avatar, 'default' %}">
+            <img alt="" src="{% path blog.user.avatar, 'default' %}">
             {% endif %}
         </div>
         <header>
