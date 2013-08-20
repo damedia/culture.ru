@@ -73,6 +73,7 @@
                         initTinyMCE.defaults.theme.sproject_snippets.parameters = { sonataAdmin: "{{ admin.code }}",
                                                                                     acAjaxUrl: "{{ path('get_snippet_jsonlist') }}",
                                                                                     entityViewsListUrl: "{{ path('get_entity_viewslist') }}",
+                                                                                    mainFormUrl: "{{ path('damedia_snippet_form') }}",
                                                                                     modalLayerImgSrc: "{{ asset('bundles/damediaspecialproject/images/ajax-loader.gif') }}"
                                                                                   };
                         initTinyMCE(initTinyMCE.defaults);

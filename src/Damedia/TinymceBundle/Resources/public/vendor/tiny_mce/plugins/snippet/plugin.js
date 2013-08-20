@@ -5,10 +5,10 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
      */
 
     function createSnippet(){
-        var modalWindowDiv = $('#snippetBootstrapModal'),
-            entitySelect = $('select[name="entity"]', modalWindowDiv),
-            viewSelect = $('select[name="view"]', modalWindowDiv),
-            autocompleteInput = $('input[name="object"]', modalWindowDiv),
+        var modalWindowDiv,
+            entitySelect,
+            viewSelect,
+            autocompleteInput,
             selectedEntity,
             selectedView,
             modalLayerDivId = 'modal-layer',
@@ -95,7 +95,22 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
                 editor.execCommand('mceInsertContent', false, snippetHtml);
 
                 modalWindowDiv.modal('hide');
+            },
+            appendMainForm = function(){
+                $.ajax(constructAjaxUrl(editor.settings.parameters.mainFormUrl), {
+                    async: false,
+                    success: function(data){
+                        $(data).appendTo('body');
+                    }
+                });
             };
+
+        appendMainForm();
+
+        modalWindowDiv = $('#snippetBootstrapModal');
+        entitySelect = $('select[name="entity"]', modalWindowDiv);
+        viewSelect = $('select[name="view"]', modalWindowDiv);
+        autocompleteInput = $('input[name="object"]', modalWindowDiv);
 
         modalWindowDiv.on('show', function(){
             setEntity();
@@ -113,7 +128,7 @@ tinymce.PluginManager.add("snippet", function(editor, url) {
         autocompleteInput.autocomplete({ source: getSearchResults }).unbind('autocompleteselect').on('autocompleteselect', function(event, ui){
             insertSnippet(ui.item.label, ui.item.value);
         });
-
+console.log(modalWindowDiv.prop("tagName"));
         modalWindowDiv.modal();
     }
 

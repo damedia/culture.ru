@@ -1,3 +1,7 @@
+damedia_tinymce:
+    resource: "@DamediaTinymceBundle/Resources/config/routing.yml"
+    prefix:   /
+
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"
     prefix:   /

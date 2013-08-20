@@ -163,13 +163,9 @@ class PageManagementController extends Controller {
         }
         $form = $formBuilder->getForm();
 
-        $neighborsCommunicator = $this->get('special_project_neighbors_communicator');
-        $entitySelectOptions = $neighborsCommunicator->getFriendlyEntitiesSelectOptions();
-
         $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_formPart_templateBlocksForm.html.twig',
                                                  array('twigFileName' => $twigFileName,
-                                                       'form' => $form->createView(),
-                                                       'entitySelectOptions' => $entitySelectOptions));
+                                                       'form' => $form->createView()));
 
         $response['buttons'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_button_preview.html.twig',
                                                  array('admin' => $this->admin,
