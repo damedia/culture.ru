@@ -117,7 +117,7 @@ class Blog extends Admin
     {
         switch ($name) {
             case 'edit':
-                return 'ArmdNewsBundle:Form:edit_container.html.twig';
+                return 'BlogBundle:Admin:novalidate_edit_form.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
