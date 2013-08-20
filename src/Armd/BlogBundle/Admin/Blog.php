@@ -130,16 +130,24 @@ class Blog extends Admin
     {
         $container = $this->getConfigurationPool()->getContainer();
         $snippetParser = $container->get('special_project_snippet_parser');
-        $snippetParser->html_to_entities($object->getLead());
-        $snippetParser->html_to_entities($object->getContent());
+        $tmp = $object->getLead();
+        $snippetParser->html_to_entities($tmp);
+        $object->setLead($tmp);
+        $tmp = $object->getContent();
+        $snippetParser->html_to_entities($tmp);
+        $object->setContent($tmp);
     }
 
     public function preUpdate($object)
     {
         $container = $this->getConfigurationPool()->getContainer();
         $snippetParser = $container->get('special_project_snippet_parser');
-        $snippetParser->html_to_entities($object->getLead());
-        $snippetParser->html_to_entities($object->getContent());
+        $tmp = $object->getLead();
+        $snippetParser->html_to_entities($tmp);
+        $object->setLead($tmp);
+        $tmp = $object->getContent();
+        $snippetParser->html_to_entities($tmp);
+        $object->setContent($tmp);
     }
 
 }
