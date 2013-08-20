@@ -54,7 +54,8 @@ class Blog extends Admin
                 'content',
                 null,
                 array(
-                    'attr' => array('class' => 'tinymce'),
+                    'attr' => array('class' => 'createPage_blockTextarea tinymce',
+                                    'data-theme' => 'sproject_snippets'),
                     'label' => 'Содержание'
                 )
             )
