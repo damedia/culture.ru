@@ -2,6 +2,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/damediaspecialproject/js/bootstrap-modal.js') }}"></script>
     <script type="text/javascript">
     /* BEGIN TinyMCE initialization */
     initTinyMCE.defaults.theme.sproject_snippets.parameters = { sonataAdmin: "{{ admin.code }}",
