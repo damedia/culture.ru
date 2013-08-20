@@ -4,47 +4,119 @@ namespace Damedia\SpecialProjectBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class PageManagementController extends Controller {
+    public function getEntityViewslistAction() {
+        $request = $this->get('request');
+        $givenEntity = $request->get('entity', 'news');
+
+        $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
+        $json = $neighborsCommunicator->createFriendlyEntityViewsList($givenEntity);
+
+        return $this->renderJson($json);
+    }
+
 	public function getSnippetJsonlistAction() {
 		$request = $this->get('request');
-		$search_for = $request->get('entity');
+        $em = $this->getDoctrine()->getManager();
+
+        $givenEntity = $request->get('entity', 'news');
+        $searchPhrase = $request->get('q', false);
     	$limit = $request->get('limit', 20);
     	if ($limit > 100) {
     		$limit = 20;
     	}
-    	$search_query = $request->get('q', false);
-    	$entityDesc = $this->getKnownEntity($search_for);
-    	if (!$search_query || !$entityDesc) {
-    		 throw new NotFoundHttpException("Query not found");
-    	};
-    	
+
+        $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
+        $json = $neighborsCommunicator->createFriendlyEntityAutocompleteList($em, $givenEntity, $searchPhrase, $limit);
+
+    	return $this->renderJson($json);
+	}
+
+
+
+    public function getTinyMediaFormAction() {
+    	$mpool= $this->container->get('sonata.media.pool');
+    	$contexts = $mpool->getContexts();
+    	/* uploading form from SonataMediaBundle docs
+    	 // create the target object
+    	$post = new Post();
+    	// create the form
+    	$builder = $this->createFormBuilder($post);
+    	$builder->add('media', 'sonata_media_type', array(
+    			'provider' => 'sonata.media.provider.youtube',
+    			'context'  => 'default'
+    	));
+    	 
+    	$form = $builder->getForm();
+    	 
+    	// bind and transform the media's binary content into real content
+    	if ($request->getMethod() == 'POST') {
+    	$form->bindRequest($request);
+    	 
+    	// do stuff ...
+    	}
+    	*/
+    	return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_tinyMediaForm.html.twig', array('contexts'=>$contexts));
+    }
+    
+    protected function path($id, $format) {
+    	return $this->getTtwigMediaExtension()->path($id, $format);
+    }
+    
+    /**
+     * @return TwigExtension
+     */
+    protected function getTtwigMediaExtension()
+    {
+    	$twigMediaExtension = $this->container->get('sonata.media.twig.extension');
+    	$twigMediaExtension->initRuntime($this->get('twig'));
+    
+    	return $twigMediaExtension;
+    }
+    
+    public function getImagesJsonAction() {
+    	$request = $this->get('request');
+
+        $givenContext = $request->get('context', 'default');
+        $searchPhrase = $request->get('q', false);
+        $limit = $request->get('limit', 50);
+    	 
     	$em = $this->getDoctrine()->getManager();
     	$qb = $em->createQueryBuilder();
-    	 
-    	$class = $em->getMetadataFactory()->getMetadataFor($entityDesc[0]);
-    	
-    	$idField = $class->getColumnName($entityDesc[1]);
-    	$textField= $class->getColumnName($entityDesc[2]);
-    	 
-    	$qb->select('n.'.$idField.', n.'.$textField)
-    	   ->from($entityDesc[0], 'n')
-    	   ->where($qb->expr()->like('n.'.$textField, $qb->expr()->literal('%'.$search_query.'%'))
-    	)->setMaxResults( $limit );
-    	$query = $qb->getQuery();
 
-    	$news = $query->getArrayResult();
+        $neighborsCommunicator = $this->container->get('special_project_neighbors_communicator');
+    	$entityDescription = $neighborsCommunicator->getFriendlyEntityDescription('image');
 
-    	$result=array();
-    	for($i=0;$i<count($news);$i++) {
-    		$result[] = array('value'=>$news[$i]['id'], 'label'=>$news[$i]['title']);
-    	};
-    	
-    	return $this->renderJson($result);
-	}
-	
-    public function getTinyAcFormAction() {
-        return $this->render('DamediaSpecialProjectBundle:Admin:pageAdmin_iFrame_tinyAcForm.html.twig');
+	    if ($searchPhrase) {
+	    	$qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['nameField'].' AS name')
+	    	   ->from($entityDescription['class'], 'n')
+	    	   ->where($qb->expr()->andX($qb->expr()->like('n.'.$entityDescription['nameField'],
+                                         $qb->expr()->literal('%'.$searchPhrase.'%'))),
+                                         'n.'.$entityDescription['contextField'].'='.$qb->expr()->literal($givenContext))
+	    	   ->orderBy('n.'.$entityDescription['updatedAtField'], 'DESC')
+	    	   ->setMaxResults($limit);
+        }
+        else {
+	    	$qb->select('n.'.$entityDescription['idField'].', n.'.$entityDescription['nameField'])
+	    	   ->from($entityDescription['class'], 'n')
+	    	   ->where('n.'.$entityDescription['contextField'].'='.$qb->expr()->literal($givenContext))
+	    	   ->orderBy('n.'.$entityDescription['updatedAtField'], 'DESC')
+	    	   ->setMaxResults($limit);
+	    }
+        $result = $qb->getQuery()->getArrayResult();
+
+    	$json = array();
+        foreach ($result as $row) {
+            $json[] = array('id' => $row['id'],
+                            'name' => $row['name'],
+                            'url' => $this->path($row['name'], 'thumbnail'),
+                            'fullsize' => $this->path($row['name'], 'big'));
+        }
+
+    	return $this->renderJson($json);
     }
-
+    
+    
+    
     public function getTemplateBlocksFormAction() {
         $response = array('content' => '', 'errors' => '', 'buttons' => '');
 
@@ -74,21 +146,30 @@ class PageManagementController extends Controller {
         $blocks = $this->getBlocksForPageId($pageId);
         $chunks_mappedByPlaceholder = $this->getChunksForBlocks_mappedByPlaceholder($blocks);
 
+        $snippetParser = $this->container->get('special_project_snippet_parser');
+
         $formBuilder = $this->createFormBuilder();
         foreach ($blocksPlaceholders as $placeholder => $value) {
             $blockContent = $this->getBlockContentByPlaceholder($placeholder, $chunks_mappedByPlaceholder);
 
+            $snippetParser->entities_to_html($blockContent);
+
             $formBuilder->add($placeholder, 'textarea',
                               array('required' => false,
-                                    'attr' => array('class' => 'createPage_blockTextarea'),
+                                    'attr' => array('class' => 'createPage_blockTextarea tinymce',
+                                                    'data-theme' => 'sproject_snippets'),
                                     'data' => $blockContent,
             						'label' => $placeholder));
         }
         $form = $formBuilder->getForm();
 
+        $neighborsCommunicator = $this->get('special_project_neighbors_communicator');
+        $entitySelectOptions = $neighborsCommunicator->getFriendlyEntitiesSelectOptions();
+
         $response['content'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_formPart_templateBlocksForm.html.twig',
                                                  array('twigFileName' => $twigFileName,
-                                                       'form' => $form->createView()));
+                                                       'form' => $form->createView(),
+                                                       'entitySelectOptions' => $entitySelectOptions));
 
         $response['buttons'] = $this->renderView('DamediaSpecialProjectBundle:Admin:pageAdmin_button_preview.html.twig',
                                                  array('admin' => $this->admin,
@@ -153,17 +234,6 @@ class PageManagementController extends Controller {
         }
 
         return $result;
-    }
-
-    private function getKnownEntity($name) {
-    	$known = array('news' 		=> array('ArmdNewsBundle:News', 'id', 'title'),
-    				   'museum' 	=> array('ArmdMuseumBundle:Museum', 'id', 'title'),
-    				   'realMuseum' => array('ArmdMuseumBundle:RealMuseum', 'id', 'title'),
-    				   'lecture'	=> array('ArmdLectureBundle:Lecture', 'id', 'title'),
-    				   'artObject'	=> array('ArmdExhibitBundle:ArtObject', 'id', 'title'),
-    				   'theater'	=> array('ArmdTheaterBundle:Theater', 'id', 'title'));
-    	
-    	return (isset($known[$name])) ? $known[$name] : false;
     }
 }
 ?>

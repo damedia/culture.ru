@@ -1,0 +1,31 @@
+<div style="border: 1px solid #EDEDED; width: 178px;">
+    <div class="plitka-one" style="padding-left: 9px; padding-right: 9px;">
+        <a href="{{ path('armd_perfomance_item', {'id': object.id }) }}" class="plitka-one-image-wrapper" title="{{ object.title|escape }}">
+            <div class="plitka-one-image">
+                {% set prefomanceMedia = object.mediaTrailerVideo ? object.mediaTrailerVideo : (object.mediaPerfomanceVideo ? object.mediaPerfomanceVideo : object.image) %}
+                {% thumbnail prefomanceMedia, 'perfomanceW160H120' with {'alt' : object.title|escape} %}
+            </div>
+        </a>
+        <div class="plitka-text">
+			<span class="plitka-name">
+				<a href="{{ path('armd_perfomance_item', {'id': object.id }) }}" title="{$entity.title|escape}">{{ object.title|raw }}</a>
+			</span>
+			<span class="three-row-link">
+                {% if object.theater %}
+                    <a href="{{ path('armd_perfomance_list', {'theaterId': object.theater.id }) }}">{{ object.theater.title }}</a>
+                {% endif %}
+			</span>
+        </div>
+        <div class="plitka-footer">
+            <div class="tags">
+                {% if object.ganres|length > 0 %}
+                    {% for ganre in object.ganres %}
+                        <a href="{{ path('armd_perfomance_list', {'ganreId': ganre.id }) }}">{{ ganre.title }}</a>
+                        {% if object.ganres|length > 1 and not(loop.last) %}, {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <p class="views">Просмотров: {{ object.viewCount }}</p>
+        </div>
+    </div>
+</div>

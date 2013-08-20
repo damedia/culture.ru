@@ -1,0 +1,24 @@
+<div style="border: 1px solid #EDEDED; width: 178px; display: inline-block;">
+    <div class="plitka-one">
+        <a href="#" class="plitka-type object-region">{{ object.region }}</a>
+        <a href="http://culture.ru/atlas/object/508" class="image-link">
+            {% if object.image is not empty %}
+                {% thumbnail object.image, 'searchAllResult' with {'alt': object.image.description, 'class': 'plitka-image'} %}
+            {% else %}
+                <div style="width: 148px; height: 107px; margin-top: 15px; margin-bottom: 10px; background-color: #cccccc; text-align: center;">
+                    <p style="line-height:110px;">no image</p>
+                </div>
+            {% endif %}
+            <div class="plitka-text">
+                <span class="plitka-name">{{ object.title }}</span>
+            </div>
+            <div class="plitka-footer">
+                <div class="tags">
+                    <span style="white-space: nowrap;">
+                        <a href="#">{{ object.category }}</a>
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

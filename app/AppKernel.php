@@ -31,7 +31,9 @@ class AppKernel extends Kernel
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+        	
+        	new Damedia\TinymceBundle\DamediaTinymceBundle(),
+            // new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
 

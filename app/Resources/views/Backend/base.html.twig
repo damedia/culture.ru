@@ -22,14 +22,13 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ tinymce_init() }}
+    
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 	
-	<!-- for tiny4 only 
-	script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script -->
+	<script type="text/javascript" src="{{ asset('bundles/armdmediahelper/js/tinymce/plugins/sonatamedia/editor_plugin.js') }}"></script>
 	
-    
+    {{ tinymce_init() }}
     
     
     <script type="text/javascript" src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>

@@ -1,14 +1,18 @@
+damedia_foreign_entity:
+    pattern:  admin/damedia/specialproject/page/snippet/{entity}/{itemId}/{view}
+    defaults: { _controller: DamediaSpecialProjectBundle:Render:snippet }
+
 get_images_jsonlist:
-    pattern:  damedia/specialproject/imageslist
+    pattern:  admin/damedia/specialproject/imageslist
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getImagesJson }
     
 get_snippet_jsonlist:
     pattern:  admin/damedia/specialproject/page/getSnippetJsonlist
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getSnippetJsonlist }
 
-get_tiny_ac_form:
-    pattern:  admin/damedia/specialproject/page/getTinyAcForm
-    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getTinyAcForm }
+get_entity_viewslist:
+    pattern:  admin/damedia/specialproject/page/getEntityViewslist
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getEntityViewslist }
 
 get_tiny_media_form:
     pattern:  admin/damedia/specialproject/page/getTinyMediaForm
@@ -21,9 +25,9 @@ get_template_blocks_form:
         _method:  POST
 
 damedia_special_project_list:
-    pattern:  /project
+    pattern:  project
     defaults: { _controller: DamediaSpecialProjectBundle:Render:index }
 
 damedia_special_project_view:
-    pattern:  /project/{slug}
+    pattern:  project/{slug}
     defaults: { _controller: DamediaSpecialProjectBundle:Render:view }

@@ -5,7 +5,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class RenderController extends Controller {
-	public function footerMenuElementsAction() {
+    public function snippetAction($entity, $itemId, $view) { //rename to: renderSnippetAction()
+        $communicator = $this->get('special_project_neighbors_communicator');
+        $entityDescription = $communicator->getFriendlyEntityDescription($entity);
+        $twigFile = $communicator->getFriendlyEntityTwig($entity, $view);
+
+        $object = $this->getDoctrine()->getRepository($entityDescription['class'])->find($itemId);
+
+        if (!$object) {
+            return $this->render('DamediaSpecialProjectBundle:Neighbors:notExists.html.twig', array('entity' => $entity, 'itemId' => $itemId));
+        }
+
+        return $this->render($twigFile, array('object' => $object));
+    }
+
+    public function footerMenuElementsAction() {
 		$pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
     	$pages = $pageRepository->findBy(array('parent' => null, 'isPublished' => true), array('id' => 'ASC'));
 
@@ -45,7 +59,7 @@ class RenderController extends Controller {
                                                                                           'Projects' => $projects));
 	}
 
-    public function viewAction($slug) {
+    public function viewAction($slug) { //rename to: previewPageAction()
     	$pageRepository = $this->getDoctrine()->getRepository('DamediaSpecialProjectBundle:Page');
         $page = $pageRepository->findOneBy(array('slug' => $slug, 'isPublished' => true));
         $helper = $this->get('special_project_helper');
