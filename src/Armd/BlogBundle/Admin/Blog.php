@@ -130,9 +130,7 @@ class Blog extends Admin
     {
         $container = $this->getConfigurationPool()->getContainer();
         $snippetParser = $container->get('special_project_snippet_parser');
-        $tmp = $object->getLead();
-        $snippetParser->html_to_entities($tmp);
-        $object->setLead($tmp);
+
         $tmp = $object->getContent();
         $snippetParser->html_to_entities($tmp);
         $object->setContent($tmp);
@@ -142,12 +140,25 @@ class Blog extends Admin
     {
         $container = $this->getConfigurationPool()->getContainer();
         $snippetParser = $container->get('special_project_snippet_parser');
-        $tmp = $object->getLead();
-        $snippetParser->html_to_entities($tmp);
-        $object->setLead($tmp);
+
         $tmp = $object->getContent();
         $snippetParser->html_to_entities($tmp);
         $object->setContent($tmp);
     }
 
+    public function preRemove($object)
+    {
+        $doctrine = $this->getConfigurationPool()->getContainer()->get('doctrine');
+        $repository = $doctrine->getManager()->getRepository('ArmdUserBundle:ViewedContent');
+
+        $qb = $repository->createQueryBuilder('vc');
+        $qb->delete()
+           ->where($qb->expr()->eq('vc.entityClass', ':ec'))
+           ->andWhere($qb->expr()->eq('vc.entityId', ':eid'))
+           ->setParameter(':ec', 'ArmdBlogBundle:Blog')
+           ->setParameter(':eid', $object->getId());
+
+        $query = $qb->getQuery();
+        $query->execute();
+    }
 }

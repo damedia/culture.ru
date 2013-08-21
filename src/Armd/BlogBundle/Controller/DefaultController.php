@@ -131,7 +131,9 @@ class DefaultController extends Controller
         $entity = null;
         $qb = $repository->createQueryBuilder('vc')
             ->select('COUNT(vc.id) as viewCount, vc.entityId')
+            ->from('BlogBundle:Blog','bl')
             ->where('vc.entityClass = :ec')
+            ->andWhere('bl.id = vc.entityId')
             ->groupBy('vc.entityId')
             ->setParameter('ec', 'ArmdBlogBundle:Blog')
             ->orderBy('viewCount', 'DESC')
