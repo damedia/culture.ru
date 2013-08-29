@@ -95,6 +95,7 @@ class News extends Admin
                 ->add('important', null, array('required' => false))
                 ->add('priority')
                 ->add('countryDistrict')
+                ->add('projects', null, array('required' => false, 'attr' => array('class' => 'chzn-select atlas-object-categories-select')))
             ->end()
             ->with('Publish')
                 ->add('published', null, array('required' => false))

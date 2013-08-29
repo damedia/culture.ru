@@ -10,6 +10,10 @@ get_snippet_jsonlist:
     pattern:  admin/damedia/specialproject/page/getSnippetJsonlist
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getSnippetJsonlist }
 
+get_news_jsonlist:
+    pattern:  admin/damedia/specialproject/page/getNewsJsonlist
+    defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getNewsJsonlist }
+
 get_entity_viewslist:
     pattern:  admin/damedia/specialproject/page/getEntityViewslist
     defaults: { _controller: DamediaSpecialProjectBundle:PageManagement:getEntityViewslist }

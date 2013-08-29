@@ -9,8 +9,13 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Damedia\SpecialProjectBundle\Entity\Page;
 use Damedia\SpecialProjectBundle\Entity\Block;
 use Damedia\SpecialProjectBundle\Entity\Chunk;
+use Damedia\SpecialProjectBundle\Form\Type\NewsSelectType;
 
 use Sonata\AdminBundle\Route\RouteCollection;
+
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Doctrine\ORM\EntityRepository;
 
 class PageAdmin extends Admin {
     const LABEL_ID = 'ID';
@@ -27,6 +32,7 @@ class PageAdmin extends Admin {
     const LABEL_SHOW_ON_MAIN_FROM = 'Показывать на главной с';
     const LABEL_SHOW_ON_MAIN_TO = 'Показывать на главной до';
     const LABEL_BANNER_IMAGE = 'Баннер';
+    const LABEL_NEWS = 'Связанные новости';
 
     const LABEL_ACTIONS = 'Управление';
 
@@ -108,6 +114,7 @@ class PageAdmin extends Admin {
 
     protected function configureFormFields(FormMapper $formMapper) {
         $isNew = ($this->getSubject() && !$this->getSubject()->getId());
+        $pageId = $isNew ? null : $this->getSubject()->getId();
 
         $formMapper->add('title', null,
             array('label' => $this::LABEL_TITLE));
@@ -118,7 +125,7 @@ class PageAdmin extends Admin {
 
         $formMapper->add('parent', null,
             array('label' => $this::LABEL_PARENT,
-                'required' => false));
+                  'required' => false));
 
         $formMapper->add('template', 'entity',
             array('label' => $this::LABEL_TEMPLATE_ID,
@@ -137,16 +144,46 @@ class PageAdmin extends Admin {
 
         $formMapper->add('isPublished', null,
             array('label' => $this::LABEL_IS_PUBLISHED,
-                  'required' => false))
+                  'required' => false));
 
-            ->add('showOnMain', null, array('label' => $this::LABEL_SHOW_ON_MAIN, 'required' => false))
-            ->add('showOnMainFrom', null, array('label' => $this::LABEL_SHOW_ON_MAIN_FROM, 'required' => false))
-            ->add('showOnMainTo', null, array('label' => $this::LABEL_SHOW_ON_MAIN_TO, 'required' => false))
-            ->add('bannerImage', 'armd_media_file_type', array('label' => $this::LABEL_BANNER_IMAGE,
-                                                               'required' => $isNew,
-                                                               'with_remove' => false,
-                                                               'media_context' => 'sproject_banner',
-                                                               'media_provider' => 'sonata.media.provider.image'));
+        $formMapper->add('showOnMain', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN,
+                  'required' => false));
+
+        $formMapper->add('showOnMainFrom', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN_FROM,
+                  'required' => false));
+
+        $formMapper->add('showOnMainTo', null,
+            array('label' => $this::LABEL_SHOW_ON_MAIN_TO,
+                  'required' => false));
+
+        $formMapper->add('bannerImage', 'armd_media_file_type',
+            array('label' => $this::LABEL_BANNER_IMAGE,
+                  'required' => $isNew,
+                  'with_remove' => false,
+                  'media_context' => 'sproject_banner',
+                  'media_provider' => 'sonata.media.provider.image'));
+
+        $formMapper->add('news', new NewsSelectType($pageId),
+            array('label' => $this::LABEL_NEWS,
+                  'required' => false));
+
+        $formBuilder = $formMapper->getFormBuilder();
+        $formFactory = $formBuilder->getFormFactory();
+        $formBuilder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($formFactory, $pageId){
+            $form = $event->getForm();
+
+            if ($form->has('news')) {
+                $form->remove('news');
+            }
+
+            $form->add($formFactory->createNamed('news', new NewsSelectType($pageId), null,
+                array('required' => false,
+                      'query_builder' => function(EntityRepository $er) {
+                          return $er->createQueryBuilder('g');
+                      })));
+        });
     }
 
     protected function configureListFields(ListMapper $listMapper) {
@@ -166,9 +203,6 @@ class PageAdmin extends Admin {
         $listMapper->add('parent', null,
         	array('label' => $this::LABEL_PARENT));
 
-        $listMapper->add('created', null,
-            array('label' => $this::LABEL_CREATED));
-
         $listMapper->add('updated', null,
             array('label' => $this::LABEL_UPDATED));
 
@@ -180,6 +214,9 @@ class PageAdmin extends Admin {
 
         $listMapper->add('template', null,
             array('label' => $this::LABEL_TEMPLATE_ID));
+
+        $listMapper->add('news', null,
+            array('label' => $this::LABEL_NEWS));
     }
 
     protected function configureRoutes(RouteCollection $collection) {

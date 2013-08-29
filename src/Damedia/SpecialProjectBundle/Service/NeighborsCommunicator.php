@@ -196,24 +196,28 @@ class NeighborsCommunicator {
 
     public function __construct() {
         $this->autocompleteListCreate_registeredFunctions = array(
-            'simple' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){
+            'simple' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit = null, $keyValueNames = array('key' => 'value', 'value' => 'label')){
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
                 $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
                     ->from($entityDescription['class'], 'n')
-                    ->where($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')))
-                    ->setMaxResults($limit);
+                    ->where($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')));
+
+                if ($limit) {
+                    $qb->setMaxResults($limit);
+                }
+
                 $result = $qb->getQuery()->getArrayResult();
 
                 foreach ($result as $row) {
-                    $json[] = array('value' => $row['id'],
-                                    'label' => $row['title']);
+                    $json[] = array($keyValueNames['key'] => $row['id'],
+                                    $keyValueNames['value'] => $row['title']);
                 }
 
                 return $json;
             },
-            'partedBy' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit){
+            'partedBy' => function(EntityManager $em, $entityDescription, $searchPhrase, $limit = null, $keyValueNames = array('key' => 'value', 'value' => 'label')){
                 $json = array();
                 $qb = $em->createQueryBuilder();
 
@@ -224,18 +228,37 @@ class NeighborsCommunicator {
                 $qb->select('n.'.$entityDescription['idField'].' AS id, n.'.$entityDescription['titleField'].' AS title')
                     ->from($entityDescription['class'], 'n')
                     ->where($qb->expr()->andX($qb->expr()->like('LOWER(n.'.$entityDescription['titleField'].')', $qb->expr()->literal('%'.$searchPhrase.'%')),
-                        $qb->expr()->eq('n.'.$entityDescription['partedByField'], $qb->expr()->literal($partitionId))))
-                    ->setMaxResults($limit);
+                        $qb->expr()->eq('n.'.$entityDescription['partedByField'], $qb->expr()->literal($partitionId))));
+
+                if ($limit) {
+                    $qb->setMaxResults($limit);
+                }
+
                 $result = $qb->getQuery()->getArrayResult();
 
                 foreach ($result as $row) {
-                    $json[] = array('value' => $row['id'],
-                                    'label' => $row['title']);
+                    $json[] = array($keyValueNames['key'] => $row['id'],
+                                    $keyValueNames['value'] => $row['title']);
                 }
 
                 return $json;
             }
         );
+    }
+
+    public function customSimpleSearch(EntityManager $em, $entityName, $searchPhrase) { // Refactoring and generalization needed!!!
+        $entityDescription = $this->getFriendlyEntityDescription($entityName);
+        $createFunction = $this->autocompleteListCreate_registeredFunctions['simple'];
+        $json = $createFunction($em,
+                                array('idField' => $entityDescription['idField'],
+                                      'titleField' => $entityDescription['titleField'],
+                                      'class' => $entityDescription['class']),
+                                $searchPhrase,
+                                null,
+                                array('key' => 'value',
+                                      'value' => 'text'));
+
+        return $json;
     }
 
     public function getFriendlyEntitiesSelectOptions() {
