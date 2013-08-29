@@ -24,7 +24,7 @@ class NewsSelectType extends AbstractType {
         $resolver->setDefaults(array(
             'attr' => array('class' => 'chzn-select atlas-object-categories-select'),
             'multiple' => true,
-            'class'    => 'Armd\NewsBundle\Entity\News',
+            'class' => 'Armd\NewsBundle\Entity\News',
             'query_builder' => function(EntityRepository $er) {
                 return $er->createQueryBuilder('g')
                           ->innerJoin('g.projects', 'p')

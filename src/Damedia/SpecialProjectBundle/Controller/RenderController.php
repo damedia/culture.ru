@@ -48,8 +48,8 @@ class RenderController extends Controller {
             if (count($children) > 0) {
                 foreach ($children as $child) {
                     $projects[] = array('href' => $this->generateUrl('damedia_special_project_view', array('slug' => $child->getSlug())),
-                        'caption' => $child->getTitle(),
-                        'padding' => 1);
+                                        'caption' => $child->getTitle(),
+                                        'padding' => 1);
                 }
             }
         }

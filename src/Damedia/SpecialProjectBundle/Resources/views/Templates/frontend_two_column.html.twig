@@ -22,6 +22,29 @@
 	{% endblock %}
 
     {{ Blocks.LeftBlock|raw }}
+
+    {% if News|length > 0 %}
+        <div class="index-block two-column-block clearfix index-news-block">
+            <h2><a href="../press-centre/news/">Новости</a></h2>
+            {% for object in News %}
+                <div class="index-block" style="height: 175px;">
+                    <div class="block-left-image-wrap">
+                        {% if object.image %}
+                            <img class="tn-list-image" src="{% path object.image, 'list' %}" alt="{{ object.title|escape }}">
+                        {% else %}
+                            <img class="tn-list-image" src="/img/temp_125_125.png" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="text-overflow">
+                        <a class="two-column-name" href="{{ path('armd_news_item_by_category', {'id': object.id, 'category': object.category.slug }) }}">
+                            {{ object.title }}
+                        </a>
+                        <p>{{ object.announce|raw }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block right_column %}
