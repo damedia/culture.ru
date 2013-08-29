@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Damedia\SpecialProjectBundle\Entity\Template;
 use Damedia\SpecialProjectBundle\Entity\Block;
 use Application\Sonata\MediaBundle\Entity\Media;
+use Armd\NewsBundle\Entity\News;
 
 /**
  * @ORM\Table(name="damedia_project_page")
@@ -98,10 +99,18 @@ class Page {
      */
     private $bannerImage;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Armd\NewsBundle\Entity\News", inversedBy="projects")
+     * @ORM\JoinTable(name="sprojects_news")
+     */
+    private $news;
+
+
 
     public function __construct() {
         $this->blocks = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
 
 
@@ -259,5 +268,22 @@ class Page {
         }
 
         return $this;
+    }
+
+    public function getNews() {
+        return $this->news;
+    }
+    public function setNews(News $news) {
+        $this->news[] = $news;
+
+        return $this;
+    }
+    public function addNews(News $news) {
+        $this->news[] = $news;
+
+        return $this;
+    }
+    public function removeNews(News $news) {
+        $this->news->removeElement($news);
     }
 }

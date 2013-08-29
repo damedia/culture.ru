@@ -4,13 +4,13 @@ namespace Armd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Taggable\Taggable;
-use FOS\CommentBundle\Model\ThreadInterface;
 use Armd\NewsBundle\Model\News as BaseNews;
 use Armd\MkCommentBundle\Model\CommentableInterface;
 use Armd\MkCommentBundle\Entity\Thread;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Armd\MainBundle\Model\ChangeHistorySavableInterface;
+use Damedia\SpecialProjectBundle\Entity\Page;
 
 /**
  *
@@ -217,11 +217,17 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
      */
     protected $corrected;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Damedia\SpecialProjectBundle\Entity\Page", mappedBy="news")
+     */
+    private $projects;
+
     public function __construct()
     {
         $this->newsDate = new \DateTime();
         $this->tags = new ArrayCollection();
         $this->stuff = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function setStuff($stuff)
@@ -1034,5 +1040,24 @@ class News extends BaseNews implements CommentableInterface, Taggable, ChangeHis
     public function getClassName()
     {
         return get_class($this);
+    }
+
+
+
+    public function getProjects() {
+        return $this->projects;
+    }
+    public function setProjects(Page $page) {
+        $this->projects[] = $page;
+
+        return $this;
+    }
+    public function addProjects(Page $page) {
+        $this->projects[] = $page;
+
+        return $this;
+    }
+    public function removeProjects(Page $page) {
+        $this->projects->removeElement($page);
     }
 }
