@@ -1,0 +1,5 @@
+.sonata-bc .navbar-text .goto-button {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 20px;
+}

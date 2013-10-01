@@ -95,7 +95,7 @@ sonata_admin:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
     templates:
-        layout:  :Backend:base.html.twig
+        layout:  DamediaSonataAdminWrapperBundle:Default:base_layout_extend.html.twig
         edit:    ArmdMainBundle:CRUD:edit.html.twig
 
 sonata_block:
