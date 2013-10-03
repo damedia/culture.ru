@@ -1,6 +1,6 @@
 {#
-    This twig extends ':Backend:base.html.twig' template which extends 'SonataAdminBundle::standard_layout.html.twig'...
-    This is 'kinda' bad... We should move stuff out of the middle template (which is the legacy from Armada), remove
+    This twig extends ':Backend:base.html.twig' template which extends 'SonataAdminBundle::standard_layout.html.twig' and
+    it is kind of bad... We should move stuff out of the middle template (which is the legacy from Armada), remove
     unnecessary crap, refactor and make this world a better place overall.
 #}
 
@@ -16,4 +16,57 @@
     {{ parent() }}
 
     <script src="{{ asset('bundles/damediasonataadminwrapper/js/main.js') }}" type="text/javascript"></script>
+    <script>
+        var AdminEntitiesUrlMapper = (function(){
+            var mapper = {},
+                knownEntities = {
+                    'armd/news/news': { prefix: '/press-centre/news/', suffix: '/' },
+                    'lecture_cinema': { prefix: '/cinema/view/', suffix: ''}
+                };
+
+            /* Sonata Admin url template example:
+                    http://127.0.0.1/app_dev.php/admin/damedia/specialproject/page/1/edit
+               Which stands for:
+                    {host}/{environment}/{admin}/{bundle vendor}/{bundle name}/{entity}/{object ID}/{admin action}
+             */
+            function parseAdminUrl() {
+                var currentUrl = location.href,
+                    regexp = /(.*)\/admin\/([a-z0-9_\//-]+)\/([0-9]+)\/([a-z0-9_-]+)$/i,
+                    parsedUrl = currentUrl.match(regexp);
+
+                if (parsedUrl) {
+                    return {
+                        host: parsedUrl[1],
+                        signature: parsedUrl[2],
+                        objectId: parsedUrl[3],
+                        adminAction: parsedUrl[4]
+                    };
+                }
+                else {
+                    return false;
+                }
+            }
+
+            function generateUrl(parsedObject, signature) {
+                return parsedObject.host + signature.prefix + parsedObject.objectId + signature.suffix;
+            }
+
+
+            /*================
+            ==== PUBLIC === */
+            mapper.resolveCurrentUrl = function(){
+                var parsedObject = parseAdminUrl(),
+                    signature = knownEntities[parsedObject.signature];
+
+                if (signature) {
+                    return generateUrl(parsedObject, signature);
+                }
+                else {
+                    return false;
+                }
+            };
+
+            return mapper;
+        }());
+    </script>
 {% endblock %}
