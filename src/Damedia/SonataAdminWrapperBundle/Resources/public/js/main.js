@@ -1,10 +1,13 @@
 $(document).ready(function(){
-    var gotoButton = $('<div class="goto-button"><a target="_blank" href="#">Перейти на страницу</a></div>'),
-        gotoButtonPlaceholder = $('.sonata-bc .navbar-text', document),
+    var sonataBottomButtons = $('.sonata-bc .form-actions', document),
+        previewBottomSidebar = $('<div class="buttons-sidebar" style=""></div>'),
+        button_sitePreview,
         gotoButtonUrl = AdminEntitiesUrlMapper.resolveCurrentUrl();
 
+    sonataBottomButtons.prepend(previewBottomSidebar);
+
     if (gotoButtonUrl) {
-        gotoButton.find('a').attr('href', gotoButtonUrl);
-        gotoButtonPlaceholder.prepend(gotoButton);
+        button_sitePreview = $('<div class="goto-button"><a target="_blank" href="' + gotoButtonUrl + '">Показать на сайте</a></div>');
+        previewBottomSidebar.append(button_sitePreview);
     }
 });

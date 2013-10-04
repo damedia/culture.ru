@@ -336,8 +336,7 @@ class NewsController extends Controller
      * @Route("/{category}/{id}/", requirements={"category" = "[a-z]+", "id" = "\d+"}, name="armd_news_item_by_category", options={"expose"=true})
      * @Route("/{category}/{id}/print", requirements={"category" = "[a-z]+", "id" = "\d+"}, defaults={"isPrint"=true}, name="armd_news_item_by_category_print")
      */
-    function newsItemAction($id, $category, $template = null, $isPrint = false)
-    {
+    function newsItemAction($id, $category, $template = null, $isPrint = false) { //show single News item
         // menu fix
         $menu = $this->get('armd_main.menu.main');
         $menuFinder = $this->get('armd_main.menu_finder');
@@ -347,7 +346,7 @@ class NewsController extends Controller
             );
         }
 
-        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->find($id);
+        $entity = $this->getDoctrine()->getManager()->getRepository('ArmdNewsBundle:News')->findOneBy(array('id' => $id, 'published' => true));
         if (null === $entity) {
             throw $this->createNotFoundException(sprintf('Unable to find record %d', $id));
         }

@@ -1,5 +1,9 @@
-.sonata-bc .navbar-text .goto-button {
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 20px;
+.sonata-bc .form-actions .buttons-sidebar {
+    border-right: 1px solid #E3E3E3;
+    margin: -19px 0 -19px -150px;
+    padding-top: 5px;
+    width: 127px;
+    height: 63px;
+    float: left;
+    clear: left;
 }
